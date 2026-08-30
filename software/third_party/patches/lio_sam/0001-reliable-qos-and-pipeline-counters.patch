@@ -1,0 +1,205 @@
+diff --git a/include/lio_sam/utility.hpp b/include/lio_sam/utility.hpp
+index 60e7b88..a1b0a97 100644
+--- a/include/lio_sam/utility.hpp
++++ b/include/lio_sam/utility.hpp
+@@ -8,6 +8,7 @@
+ #include <std_msgs/msg/header.hpp>
+ #include <std_msgs/msg/string.hpp>
+ #include <std_msgs/msg/float64_multi_array.hpp>
++#include <std_msgs/msg/u_int64.hpp>
+ #include <sensor_msgs/msg/imu.hpp>
+ #include <sensor_msgs/msg/point_cloud2.hpp>
+ #include <sensor_msgs/msg/nav_sat_fix.hpp>
+@@ -312,6 +313,19 @@ public:
+         usleep(100);
+     }
+ 
++    bool imuOrientationValid(const sensor_msgs::msg::Imu& imu)
++    {
++        const auto& q = imu.orientation;
++        const double norm = sqrt(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
++        if (norm >= 0.1)
++            return true;
++
++        RCLCPP_WARN_THROTTLE(
++            get_logger(), *get_clock(), 5000,
++            "Skipping IMU sample with an invalid orientation quaternion.");
++        return false;
++    }
++
+     sensor_msgs::msg::Imu imuConverter(const sensor_msgs::msg::Imu& imu_in)
+     {
+         sensor_msgs::msg::Imu imu_out = imu_in;
+@@ -408,8 +409,8 @@ float pointDistance(PointType p1, PointType p2)
+ 
+ rmw_qos_profile_t qos_profile{
+     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+-    1,
+-    RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
++    100,
++    RMW_QOS_POLICY_RELIABILITY_RELIABLE,
+     RMW_QOS_POLICY_DURABILITY_VOLATILE,
+     RMW_QOS_DEADLINE_DEFAULT,
+     RMW_QOS_LIFESPAN_DEFAULT,
+@@ -427,8 +428,8 @@ auto qos = rclcpp::QoS(
+ 
+ rmw_qos_profile_t qos_profile_imu{
+     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+-    2000,
+-    RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
++    4000,
++    RMW_QOS_POLICY_RELIABILITY_RELIABLE,
+     RMW_QOS_POLICY_DURABILITY_VOLATILE,
+     RMW_QOS_DEADLINE_DEFAULT,
+     RMW_QOS_LIFESPAN_DEFAULT,
+@@ -446,8 +447,8 @@ auto qos_imu = rclcpp::QoS(
+ 
+ rmw_qos_profile_t qos_profile_lidar{
+     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+-    5,
+-    RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
++    100,
++    RMW_QOS_POLICY_RELIABILITY_RELIABLE,
+     RMW_QOS_POLICY_DURABILITY_VOLATILE,
+     RMW_QOS_DEADLINE_DEFAULT,
+     RMW_QOS_LIFESPAN_DEFAULT,
+diff --git a/src/featureExtraction.cpp b/src/featureExtraction.cpp
+index 0a6af03..dfa3cdd 100644
+--- a/src/featureExtraction.cpp
++++ b/src/featureExtraction.cpp
+@@ -22,6 +22,9 @@ public:
+     rclcpp::Publisher<lio_sam::msg::CloudInfo>::SharedPtr pubLaserCloudInfo;
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubCornerPoints;
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubSurfacePoints;
++    rclcpp::Publisher<std_msgs::msg::UInt64>::SharedPtr pubScansSynchronized;
++
++    uint64_t scansSynchronized = 0;
+ 
+     pcl::PointCloud<PointType>::Ptr extractedCloud;
+     pcl::PointCloud<PointType>::Ptr cornerCloud;
+@@ -50,6 +53,8 @@ public:
+             "lio_sam/feature/cloud_corner", 1);
+         pubSurfacePoints = create_publisher<sensor_msgs::msg::PointCloud2>(
+             "lio_sam/feature/cloud_surface", 1);
++        pubScansSynchronized = create_publisher<std_msgs::msg::UInt64>(
++            "/lio_sam/pipeline/scans_synchronized", 10);
+ 
+         initializationValue();
+     }
+@@ -257,6 +262,8 @@ public:
+         cloudInfo.cloud_surface = publishCloud(pubSurfacePoints, surfaceCloud, cloudHeader.stamp, lidarFrame);
+         // publish to mapOptimization
+         pubLaserCloudInfo->publish(cloudInfo);
++        pubScansSynchronized->publish(
++            std_msgs::msg::UInt64().set__data(++scansSynchronized));
+     }
+ };
+ 
+diff --git a/src/imageProjection.cpp b/src/imageProjection.cpp
+index eee1efb..c4ad97c 100644
+--- a/src/imageProjection.cpp
++++ b/src/imageProjection.cpp
+@@ -48,6 +48,11 @@ private:
+ 
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubExtractedCloud;
+     rclcpp::Publisher<lio_sam::msg::CloudInfo>::SharedPtr pubLaserCloudInfo;
++    rclcpp::Publisher<std_msgs::msg::UInt64>::SharedPtr pubScansReceived;
++    rclcpp::Publisher<std_msgs::msg::UInt64>::SharedPtr pubScansPreprocessed;
++
++    uint64_t scansReceived = 0;
++    uint64_t scansPreprocessed = 0;
+ 
+     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr subImu;
+     rclcpp::CallbackGroup::SharedPtr callbackGroupImu;
+@@ -126,6 +131,10 @@ public:
+             "lio_sam/deskew/cloud_deskewed", 1);
+         pubLaserCloudInfo = create_publisher<lio_sam::msg::CloudInfo>(
+             "lio_sam/deskew/cloud_info", qos);
++        pubScansReceived = create_publisher<std_msgs::msg::UInt64>(
++            "/lio_sam/pipeline/scans_received", 10);
++        pubScansPreprocessed = create_publisher<std_msgs::msg::UInt64>(
++            "/lio_sam/pipeline/scans_preprocessed", 10);
+ 
+         allocateMemory();
+         resetParameters();
+@@ -186,6 +195,9 @@ public:
+ 
+     void imuHandler(const sensor_msgs::msg::Imu::SharedPtr imuMsg)
+     {
++        if (!imuOrientationValid(*imuMsg))
++            return;
++
+         sensor_msgs::msg::Imu thisImu = imuConverter(*imuMsg);
+ 
+         std::lock_guard<std::mutex> lock1(imuLock);
+@@ -207,6 +216,8 @@ public:
+ 
+     void cloudHandler(const sensor_msgs::msg::PointCloud2::SharedPtr laserCloudMsg)
+     {
++        pubScansReceived->publish(std_msgs::msg::UInt64().set__data(++scansReceived));
++
+         if (!cachePointCloud(laserCloudMsg))
+             return;
+ 
+@@ -648,6 +659,7 @@ public:
+         cloudInfo.header = cloudHeader;
+         cloudInfo.cloud_deskewed  = publishCloud(pubExtractedCloud, extractedCloud, cloudHeader.stamp, lidarFrame);
+         pubLaserCloudInfo->publish(cloudInfo);
++        pubScansPreprocessed->publish(std_msgs::msg::UInt64().set__data(++scansPreprocessed));
+     }
+ };
+ 
+diff --git a/src/imuPreintegration.cpp b/src/imuPreintegration.cpp
+index 8420c04..52df8ac 100644
+--- a/src/imuPreintegration.cpp
++++ b/src/imuPreintegration.cpp
+@@ -141,6 +141,7 @@ public:
+         }
+         geometry_msgs::msg::TransformStamped ts;
+         tf2::convert(tCur, ts);
++        ts.header.frame_id = odometryFrame;
+         ts.child_frame_id = baselinkFrame;
+         tfBroadcaster->sendTransform(ts);
+ 
+@@ -493,6 +494,9 @@ public:
+ 
+     void imuHandler(const sensor_msgs::msg::Imu::SharedPtr imu_raw)
+     {
++        if (!imuOrientationValid(*imu_raw))
++            return;
++
+         std::lock_guard<std::mutex> lock(mtx);
+ 
+         sensor_msgs::msg::Imu thisImu = imuConverter(*imu_raw);
+diff --git a/src/mapOptmization.cpp b/src/mapOptmization.cpp
+index 1fa4451..38e4e80 100644
+--- a/src/mapOptmization.cpp
++++ b/src/mapOptmization.cpp
+@@ -71,6 +71,9 @@ public:
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubRecentKeyFrame;
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubCloudRegisteredRaw;
+     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pubLoopConstraintEdge;
++    rclcpp::Publisher<std_msgs::msg::UInt64>::SharedPtr pubOdometryCount;
++
++    uint64_t odometryPublished = 0;
+ 
+     rclcpp::Service<lio_sam::srv::SaveMap>::SharedPtr srvSaveMap;
+     rclcpp::Subscription<lio_sam::msg::CloudInfo>::SharedPtr subCloud;
+@@ -164,6 +167,8 @@ public:
+         pubLaserOdometryIncremental = create_publisher<nav_msgs::msg::Odometry>(
+             "lio_sam/mapping/odometry_incremental", qos);
+         pubPath = create_publisher<nav_msgs::msg::Path>("lio_sam/mapping/path", 1);
++        pubOdometryCount = create_publisher<std_msgs::msg::UInt64>(
++            "/lio_sam/pipeline/odometry_published", 10);
+         br = std::make_unique<tf2_ros::TransformBroadcaster>(this);
+ 
+         subCloud = create_subscription<lio_sam::msg::CloudInfo>(
+@@ -1649,6 +1654,8 @@ public:
+         tf2::convert(quat_tf, quat_msg);
+         laserOdometryROS.pose.pose.orientation = quat_msg;
+         pubLaserOdometryGlobal->publish(laserOdometryROS);
++        pubOdometryCount->publish(
++            std_msgs::msg::UInt64().set__data(++odometryPublished));
+ 
+         // Publish TF
+         quat_tf.setRPY(transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]);

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/run_request.v1.json",
+  "title": "RunRequest v1",
+  "type": "object",
+  "required": ["schema", "request_id", "simulation_id", "variant_id", "requested_at_utc", "inputs", "parameters"],
+  "properties": {
+    "schema": {"const": "drone_agricole.run_request.v1"},
+    "request_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "simulation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "variant_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "requested_at_utc": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "profile_id": {"type": ["string", "null"], "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+    "inputs": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/inputReference"}
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {"$ref": "common.schema.json#/$defs/jsonValue"}
+    },
+    "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "note": {"type": "string"}
+  },
+  "additionalProperties": false
+}

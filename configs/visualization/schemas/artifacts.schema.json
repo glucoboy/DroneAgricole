@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/artifacts.v1.json",
+  "title": "Artifacts v1",
+  "type": "object",
+  "required": ["schema", "run_id", "items"],
+  "properties": {
+    "schema": {"const": "drone_agricole.artifacts.v1"},
+    "run_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "kind", "label", "path", "media_type", "role", "replayable"],
+        "properties": {
+          "artifact_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "kind": {"enum": ["manifest", "metrics", "configuration", "rosbag", "point_cloud", "trajectory", "image", "map", "model", "log", "report", "events", "other"]},
+          "label": {"type": "string", "minLength": 1},
+          "path": {"$ref": "common.schema.json#/$defs/relativePath"},
+          "media_type": {"type": "string", "minLength": 1},
+          "role": {"enum": ["input", "output", "diagnostic", "visualization", "source"]},
+          "replayable": {"type": "boolean"},
+          "checksum_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "metadata": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

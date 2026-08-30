@@ -1,0 +1,78 @@
+/**:
+  ros__parameters:
+    pointCloudTopic: "/velodyne_points"
+    imuTopic: "/imu/data"
+    odomTopic: "/lio_sam/odometry/imu"
+    gpsTopic: "/lio_sam/odometry/gps_unused"
+
+    lidarFrame: "velodyne"
+    baselinkFrame: "velodyne"
+    odometryFrame: "odom"
+    mapFrame: "map"
+
+    useImuHeadingInitialization: false
+    useGpsElevation: false
+    gpsCovThreshold: 2.0
+    poseCovThreshold: 25.0
+
+    savePCD: false
+    savePCDDirectory: "/tmp/lio_sam/"
+
+    sensor: "velodyne"
+    N_SCAN: 16
+    Horizon_SCAN: 1800
+    downsampleRate: 1
+    lidarMinRange: 1.0
+    lidarMaxRange: 100.0
+
+    # Valeurs officielles BotanicGarden pour le couple VLP-16 / Xsens.
+    imuAccNoise: 0.01
+    imuGyrNoise: 0.002
+    imuAccBiasN: 0.00008
+    imuGyrBiasN: 0.00003
+    imuGravity: 9.81007
+    imuRPYWeight: 0.01
+
+    # T_xsens_vlp16 : p_xsens = R * p_vlp16 + t.
+    # Les mesures vectorielles IMU sont converties vers le repère LiDAR avec R^T.
+    extrinsicTrans: [0.0584867781527745, 0.00840419966766332, 0.168915521980526]
+    extrinsicRot: [0.999678872580465, -0.0252723438960774, -0.00170103929405540,
+                   0.0252865664429322, 0.999649431893338, 0.00776298237926191,
+                   0.00150422292234868, -0.0078025434141585, 0.99996789371916]
+    # L'orientation Xsens est world<-IMU ; la multiplication par R donne world<-LiDAR.
+    extrinsicRPY: [0.999678872580465, 0.0252865664429322, 0.00150422292234868,
+                   -0.0252723438960774, 0.999649431893338, -0.0078025434141585,
+                   -0.00170103929405540, 0.00776298237926191, 0.99996789371916]
+
+    edgeThreshold: 1.0
+    surfThreshold: 0.1
+    edgeFeatureMinValidNum: 10
+    surfFeatureMinValidNum: 100
+
+    odometrySurfLeafSize: 0.4
+    mappingCornerLeafSize: 0.2
+    mappingSurfLeafSize: 0.4
+
+    z_tollerance: 1000.0
+    rotation_tollerance: 1000.0
+    numberOfCores: 4
+    # Une optimisation par scan pour comparer les ratios de sortie sans décimation cachée.
+    mappingProcessInterval: 0.0
+
+    surroundingkeyframeAddingDistThreshold: 1.0
+    surroundingkeyframeAddingAngleThreshold: 0.2
+    surroundingKeyframeDensity: 2.0
+    surroundingKeyframeSearchRadius: 50.0
+
+    # Baseline odométrique sans correction de boucle, comparable aux deux autres LIO.
+    loopClosureEnableFlag: false
+    loopClosureFrequency: 1.0
+    surroundingKeyframeSize: 25
+    historyKeyframeSearchRadius: 15.0
+    historyKeyframeSearchTimeDiff: 30.0
+    historyKeyframeSearchNum: 25
+    historyKeyframeFitnessScore: 0.3
+
+    globalMapVisualizationSearchRadius: 1000.0
+    globalMapVisualizationPoseDensity: 10.0
+    globalMapVisualizationLeafSize: 1.0

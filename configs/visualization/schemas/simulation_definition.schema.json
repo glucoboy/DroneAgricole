@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/simulation_definition.v1.json",
+  "title": "SimulationDefinition v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "simulation_id",
+    "version",
+    "label",
+    "description",
+    "domain",
+    "runner_id",
+    "safety_class",
+    "selectors",
+    "variants",
+    "parameters",
+    "outputs",
+    "visualization",
+    "comparison_group"
+  ],
+  "properties": {
+    "schema": {"const": "drone_agricole.simulation_definition.v1"},
+    "simulation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "label": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "domain": {"$ref": "common.schema.json#/$defs/identifier"},
+    "runner_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "safety_class": {"enum": ["analysis", "simulation", "sitl_confirmed", "hardware_restricted"]},
+    "selectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["selector_id", "kind", "required", "multiple", "required_capabilities"],
+        "properties": {
+          "selector_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "kind": {"enum": ["dataset_sequence", "map", "mission", "model", "calibration", "scenario", "other"]},
+          "required": {"type": "boolean"},
+          "multiple": {"type": "boolean"},
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"$ref": "common.schema.json#/$defs/capability"}
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["variant_id", "label", "runner_id", "available", "required_capabilities", "parameters"],
+        "properties": {
+          "variant_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "label": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "runner_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "available": {"type": "boolean"},
+          "base_config_uri": {"$ref": "common.schema.json#/$defs/relativePath"},
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"$ref": "common.schema.json#/$defs/capability"}
+          },
+          "parameters": {
+            "type": "array",
+            "items": {"$ref": "common.schema.json#/$defs/parameterDefinition"}
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/parameterDefinition"}
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["profile_id", "label", "selectors", "variant_settings"],
+        "properties": {
+          "profile_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "label": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "default": {"type": "boolean"},
+          "selectors": {
+            "type": "object",
+            "properties": {
+              "dataset_id": {"$ref": "common.schema.json#/$defs/identifier"},
+              "sequence_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {"$ref": "common.schema.json#/$defs/identifier"}
+              }
+            },
+            "additionalProperties": false
+          },
+          "variant_settings": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": ["base_config_uri"],
+              "properties": {
+                "base_config_uri": {"$ref": "common.schema.json#/$defs/relativePath"},
+                "pipeline_topic": {"type": "string", "pattern": "^/"},
+                "default_parameters": {"type": "object"}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["output_id", "kind", "required"],
+        "properties": {
+          "output_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "kind": {"$ref": "common.schema.json#/$defs/identifier"},
+          "required": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "visualization": {
+      "type": "object",
+      "required": ["live", "replay", "layers", "charts"],
+      "properties": {
+        "live": {"type": "boolean"},
+        "replay": {"type": "boolean"},
+        "layers": {"type": "array", "items": {"type": "object"}},
+        "charts": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "comparison_group": {"$ref": "common.schema.json#/$defs/identifier"},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

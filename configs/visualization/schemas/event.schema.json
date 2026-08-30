@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/event.v1.json",
+  "title": "Event v1",
+  "type": "object",
+  "required": ["schema", "run_id", "sequence", "event_type", "severity", "message", "data"],
+  "properties": {
+    "schema": {"const": "drone_agricole.event.v1"},
+    "run_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "sequence": {"type": "integer", "minimum": 0},
+    "timestamp_utc": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "elapsed_s": {"type": "number", "minimum": 0},
+    "event_type": {"$ref": "common.schema.json#/$defs/identifier"},
+    "severity": {"enum": ["debug", "info", "warning", "error", "critical"]},
+    "state": {"type": ["string", "null"]},
+    "message": {"type": "string"},
+    "data": {"type": "object"}
+  },
+  "anyOf": [
+    {"required": ["timestamp_utc"]},
+    {"required": ["elapsed_s"]}
+  ],
+  "additionalProperties": false
+}

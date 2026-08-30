@@ -1,0 +1,102 @@
+schema_version: 1
+status: preliminary_to_validate_during_first_algorithm_run
+
+dataset: botanicgarden
+sequence: "1006-03"
+
+source:
+  repository: https://github.com/robot-pesg/BotanicGarden
+  commit: 84c4806428ca16c154238e263a7f8bf828bf58e1
+  archived_root: datasets/public/botanicgarden/1006-03/calibration/official_84c4806428ca
+  calibration_report: docs/07_Inspection_calibrations_BotanicGarden_V0.1.md
+
+topics:
+  velodyne: /velodyne_points
+  xsens_imu: /imu/data
+  livox: /livox/lidar
+  livox_imu: /livox/imu
+  ground_truth: /gt_poses
+
+time_synchronization:
+  acquisition: hardware_synchronized_according_to_dataset_authors
+  lidar_to_imu_offset_s: 0.0
+  validation: pending_first_lio_run
+
+pipelines:
+  velodyne_xsens:
+    lidar_frame: velodyne
+    imu_frame: imu_link
+    lidar_model: Velodyne_VLP16
+    imu_model: Xsens
+    lidar_rate_hz_observed: 9.9147
+    imu_rate_hz_nominal: 400.0
+    imu_intrinsics:
+      accelerometer_noise_density: 0.0005
+      accelerometer_random_walk: 0.00002
+      gyroscope_noise_density: 0.0002
+      gyroscope_random_walk: 0.000004
+    T_imu_lidar:
+      source_name: T_xsens_vlp16
+      convention: p_xsens_equals_R_times_p_vlp16_plus_t
+      translation_m: [0.0584867781527745, 0.00840419966766332, 0.168915521980526]
+      rotation_row_major:
+        - [0.999678872580465, 0.0252865664429322, 0.00150422292234868]
+        - [-0.0252723438960774, 0.999649431893338, -0.0078025434141585]
+        - [-0.00170103929405540, 0.00776298237926191, 0.99996789371916]
+    official_algorithm_config: config/LVI-SAM/BGarden_lidar.yaml
+
+  livox_bmi088:
+    lidar_frame: livox_frame
+    imu_frame: livox_frame
+    lidar_model: Livox_AVIA
+    imu_model: BMI088
+    lidar_rate_hz_nominal: 10.0
+    imu_rate_hz_nominal: 200.0
+    imu_intrinsics:
+      accelerometer_noise_density: 0.002
+      accelerometer_random_walk: 0.00005
+      gyroscope_noise_density: 0.0003
+      gyroscope_random_walk: 0.000005
+    acceleration:
+      raw_unit: g
+      observed_stationary_norm: 0.99575
+      raw_to_m_s2_factor: 9.8
+      application: algorithm_dependent_to_validate
+      note: official_readme_says_FAST_LIO2_and_R3LIVE_may_not_require_prescaling
+    T_imu_lidar:
+      source_name: T_bmi088_livox
+      convention: p_bmi088_equals_R_times_p_livox_plus_t
+      translation_m: [0.04165, 0.02326, -0.0284]
+      rotation_row_major:
+        - [1.0, 0.0, 0.0]
+        - [0.0, 1.0, 0.0]
+        - [0.0, 0.0, 1.0]
+    official_algorithm_config: config/Fast-LIO2/avia.yaml
+
+cross_sensor:
+  T_velodyne_livox:
+    source_name: T_vlp16_livox
+    convention: p_vlp16_equals_R_times_p_livox_plus_t
+    translation_m: [0.078892984525472, -0.006616171231626, -0.176409152221505]
+    rotation_row_major:
+      - [0.999720933555628, -0.021115535897662, -0.010640937263403]
+      - [0.021249959531846, 0.999693558510151, 0.012715737127740]
+      - [0.010369166083027, -0.012938412074152, 0.999862897778174]
+
+ground_truth:
+  message_frame_id: /velodyne
+  pose_convention: pending_validation
+  sequence_alignment:
+    source_name: T_1008_01_1006_03
+    purpose: multi_sequence_global_alignment_not_required_for_single_sequence_ATE_RPE
+    direction_from_name: 1006_03_to_1008_01_to_validate
+    matrix_row_major:
+      - [0.999859769928092, 0.0150177299215506, -0.00741001129186597, 4.29615975985462]
+      - [-0.0150927283722237, 0.999834363337365, -0.0101713047368109, -0.165179075146373]
+      - [0.00725603401483828, 0.0102817157016795, 0.999920815011171, 0.000352657987592098]
+      - [0.0, 0.0, 0.0, 1.0]
+
+warnings:
+  - The_direct_T_bmi088_livox_transform_is_used_for_Livox_LIO.
+  - The_camera_to_BMI088_chain_in_the_upstream_calib_chain_file_is_not_internally_consistent_and_must_not_be_mixed_with_the_direct_LIO_transform.
+  - Disable_unbounded_PCD_export_in_the_upstream_FAST_LIO2_config_before_running_the_full_bag.

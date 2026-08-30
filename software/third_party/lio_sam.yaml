@@ -1,0 +1,12 @@
+name: LIO-SAM
+repository: https://github.com/TixiaoShan/LIO-SAM.git
+branch: ros2
+commit: 08af3f32f01725372d4269838dc44c19c6d9e76b
+license: BSD-3-Clause
+integration: built_from_source_in_ros-humble-liosam_image
+local_changes:
+  - software/third_party/patches/lio_sam/0001-reliable-qos-and-pipeline-counters.patch
+notes:
+  - The ROS 2 branch is pinned for reproducibility.
+  - Reliable benchmark QoS is used for LiDAR, IMU and internal pipeline topics.
+  - Hardware QoS compatibility remains to be validated with the selected sensor drivers.

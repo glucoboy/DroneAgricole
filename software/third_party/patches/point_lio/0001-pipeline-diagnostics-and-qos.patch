@@ -1,0 +1,245 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 75e0b30..7ea51c4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -42,6 +42,7 @@ find_package(rclpy REQUIRED)
+ find_package(geometry_msgs REQUIRED)
+ find_package(nav_msgs REQUIRED)
+ find_package(sensor_msgs REQUIRED)
++find_package(std_msgs REQUIRED)
+ find_package(pcl_ros REQUIRED)
+ find_package(pcl_conversions REQUIRED)
+ find_package(tf2_ros REQUIRED)
+@@ -75,6 +76,7 @@ ament_target_dependencies(pointlio_mapping
+         geometry_msgs
+         nav_msgs
+         sensor_msgs
++        std_msgs
+         pcl_ros
+         pcl_conversions
+         tf2_ros
+@@ -101,6 +103,7 @@ ament_export_dependencies(rclcpp
+   geometry_msgs
+   nav_msgs
+   sensor_msgs
++  std_msgs
+   pcl_ros
+   pcl_conversions
+   tf2_ros
+diff --git a/package.xml b/package.xml
+index 01ba0ff..a1e9ea4 100644
+--- a/package.xml
++++ b/package.xml
+@@ -22,6 +22,7 @@
+   <depend>rclcpp</depend> <!-- roscpp in ROS1 is replaced by rclcpp in ROS2 -->
+   <depend>rclpy</depend>  <!-- rospy is replaced by rclpy in ROS2 -->
+   <depend>sensor_msgs</depend>
++  <depend>std_msgs</depend>
+   <depend>geometry_msgs</depend>
+   <depend>nav_msgs</depend>
+   <depend>tf2_ros</depend> <!-- tf in ROS1 is replaced by tf2 in ROS2 -->
+diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
+index b6d5f4a..a16e668 100644
+--- a/src/laserMapping.cpp
++++ b/src/laserMapping.cpp
+@@ -3,6 +3,7 @@
+ #include <cmath>
+ #include <thread>
+ #include <fstream>
++#include <sstream>
+ #include <csignal>
+ #include <Python.h>
+ #include <so3_math.h>
+@@ -19,6 +20,7 @@
+ #include <pcl/filters/voxel_grid.h>
+ #include <pcl/io/pcd_io.h>
+ #include <sensor_msgs/msg/point_cloud2.hpp>
++#include <std_msgs/msg/string.hpp>
+ #include <tf2_ros/transform_broadcaster.h>
+ #include <geometry_msgs/msg/vector3.hpp>
+ // #include <livox_ros_driver2/msg/custom_msg.hpp>
+@@ -78,6 +80,40 @@ geometry_msgs::msg::PoseStamped msg_body_pose;
+ 
+ auto logger = rclcpp::get_logger("laserMapping");
+ 
++struct PipelineCounters {
++    uint64_t scans_received = 0;
++    uint64_t scans_preprocessed = 0;
++    uint64_t scans_synchronized = 0;
++    uint64_t scans_initialization = 0;
++    uint64_t scans_rejected_undistort_empty = 0;
++    uint64_t scans_map_initialization = 0;
++    uint64_t state_updates = 0;
++    uint64_t odometry_published = 0;
++};
++
++PipelineCounters pipeline_counters;
++rclcpp::Publisher<std_msgs::msg::String>::WeakPtr pipeline_counters_publisher;
++
++void publish_pipeline_counters() {
++    auto publisher = pipeline_counters_publisher.lock();
++    if (!publisher) return;
++    std_msgs::msg::String message;
++    std::ostringstream payload;
++    payload << "{\"schema_version\":1"
++            << ",\"scans_received\":" << pipeline_counters.scans_received
++            << ",\"scans_preprocessed\":" << pipeline_counters.scans_preprocessed
++            << ",\"scans_synchronized\":" << pipeline_counters.scans_synchronized
++            << ",\"scans_initialization\":" << pipeline_counters.scans_initialization
++            << ",\"scans_rejected_undistort_empty\":" << pipeline_counters.scans_rejected_undistort_empty
++            << ",\"scans_map_initialization\":" << pipeline_counters.scans_map_initialization
++            << ",\"scans_rejected_downsample\":0"
++            << ",\"state_updates\":" << pipeline_counters.state_updates
++            << ",\"odometry_published\":" << pipeline_counters.odometry_published
++            << "}";
++    message.data = payload.str();
++    publisher->publish(message);
++}
++
+ void SigHandle(int sig) {
+     flg_exit = true;
+     RCLCPP_WARN(logger, "catch sig %d", sig);
+@@ -200,6 +236,7 @@ void lasermap_fov_segment() {
+ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+     mtx_buffer.lock();
+     scan_count++;
++    pipeline_counters.scans_received++;
+     double preprocess_start_time = omp_get_wtime();
+     if (get_time_sec(msg->header.stamp) < last_timestamp_lidar) {
+         RCLCPP_ERROR(logger, "lidar loop back, clear buffer");
+@@ -216,6 +253,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+     PointCloudXYZI::Ptr ptr_div(new PointCloudXYZI());
+     double time_div = get_time_sec(msg->header.stamp);
+     p_pre->process(msg, ptr);
++    pipeline_counters.scans_preprocessed++;
+     if (cut_frame) {
+         sort(ptr->points.begin(), ptr->points.end(), time_list);
+ 
+@@ -263,6 +301,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+     }
+     s_plot11[scan_count] = omp_get_wtime() - preprocess_start_time;
+     mtx_buffer.unlock();
++    publish_pipeline_counters();
+     sig_buffer.notify_all();
+ }
+ 
+@@ -672,6 +711,8 @@ void publish_odometry(const rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPt
+     }
+ 
+     pubOdomAftMapped->publish(odomAftMapped);
++    pipeline_counters.odometry_published++;
++    publish_pipeline_counters();
+ 
+     //static tf2_ros::TransformBroadcaster br = std::make_shared<tf2_ros::TransformBroadcaster>(*this);
+     geometry_msgs::msg::TransformStamped transform;
+@@ -778,7 +819,14 @@ int main(int argc, char **argv) {
+     // if (p_pre->lidar_type == AVIA) {
+     //     sub_pcl_livox_ = nh->create_subscription<livox_ros_driver2::msg::CustomMsg>(lid_topic, 20, livox_pcl_cbk);
+     // } else {
+-    sub_pcl = nh->create_subscription<sensor_msgs::msg::PointCloud2>(lid_topic, rclcpp::SensorDataQoS(), standard_pcl_cbk);
++    auto lidar_qos = rclcpp::QoS(rclcpp::KeepLast(static_cast<size_t>(lidar_qos_depth)))
++            .durability_volatile();
++    if (lidar_qos_reliable) {
++        lidar_qos.reliable();
++    } else {
++        lidar_qos.best_effort();
++    }
++    sub_pcl = nh->create_subscription<sensor_msgs::msg::PointCloud2>(lid_topic, lidar_qos, standard_pcl_cbk);
+     // }
+     auto sub_imu = nh->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 200000, imu_cbk);
+ 
+@@ -810,6 +858,9 @@ int main(int argc, char **argv) {
+         pubOdomAftMapped = nh->create_publisher<nav_msgs::msg::Odometry>
+                 ("/aft_mapped_to_init", 100000);
+     }
++    auto pipeline_counters_publisher_handle = nh->create_publisher<std_msgs::msg::String>
++            ("/point_lio/pipeline_counters", 10);
++    pipeline_counters_publisher = pipeline_counters_publisher_handle;
+ 
+     //auto plane_pub = nh->create_publisher<visualization_msgs::msg::Marker>
+     //        ("/planner_normal", 1000);
+@@ -825,6 +876,7 @@ int main(int argc, char **argv) {
+         executor.spin_some(); // 处理当前可用的回调
+ 
+         if (sync_packages(Measures)) {
++            pipeline_counters.scans_synchronized++;
+             if (flg_first_scan) {
+                 first_lidar_time = Measures.lidar_beg_time;
+                 flg_first_scan = false;
+@@ -847,6 +899,8 @@ int main(int argc, char **argv) {
+             p_imu->Process(Measures, feats_undistort);
+ 
+             if (feats_undistort->empty() || feats_undistort == nullptr) {
++                pipeline_counters.scans_rejected_undistort_empty++;
++                publish_pipeline_counters();
+                 continue;
+             }
+             if (imu_en) {
+@@ -905,6 +959,8 @@ int main(int argc, char **argv) {
+ 
+             /*** initialize the map kdtree ***/
+             if (!init_map) {
++                pipeline_counters.scans_map_initialization++;
++                publish_pipeline_counters();
+                 if (ikdtree.Root_Node == nullptr) //
+                     // if(feats_down_size > 5)
+                 {
+@@ -1248,6 +1304,7 @@ int main(int argc, char **argv) {
+             }
+ 
+             /******* Publish odometry downsample *******/
++            pipeline_counters.state_updates++;
+             if (!publish_odometry_without_downsample) {
+                 publish_odometry(pubOdomAftMapped, tf_broadcaster);
+             }
+diff --git a/src/parameters.cpp b/src/parameters.cpp
+index 6ab2795..de5e110 100644
+--- a/src/parameters.cpp
++++ b/src/parameters.cpp
+@@ -9,9 +9,9 @@ double last_timestamp_lidar = -1.0, last_timestamp_imu = -1.0;
+ int pcd_index = 0;
+ 
+ std::string lid_topic, imu_topic;
+-bool prop_at_freq_of_imu, check_satu, con_frame, cut_frame;
++bool prop_at_freq_of_imu, check_satu, con_frame, cut_frame, lidar_qos_reliable;
+ bool use_imu_as_input, space_down_sample, publish_odometry_without_downsample;
+-int init_map_size, con_frame_num;
++int init_map_size, con_frame_num, lidar_qos_depth;
+ double match_s, satu_acc, satu_gyro, cut_frame_time_interval;
+ float plane_thr;
+ double filter_size_surf_min, filter_size_map_min, fov_deg;
+@@ -56,6 +56,8 @@ void readParameters(shared_ptr<rclcpp::Node> &nh) {
+     nh->declare_parameter<bool>("common.cut_frame", false);
+     nh->declare_parameter<double>("common.cut_frame_time_interval", 0.1);
+     nh->declare_parameter<double>("common.time_lag_imu_to_lidar", 0.0);
++    nh->declare_parameter<int>("common.lidar_qos_depth", 100);
++    nh->declare_parameter<bool>("common.lidar_qos_reliable", false);
+     nh->declare_parameter<double>("filter_size_surf", 0.5);
+     nh->declare_parameter<double>("filter_size_map", 0.5);
+     nh->declare_parameter<double>("cube_side_length", 200);
+@@ -116,6 +118,8 @@ void readParameters(shared_ptr<rclcpp::Node> &nh) {
+     nh->get_parameter("common.cut_frame", cut_frame);
+     nh->get_parameter("common.cut_frame_time_interval", cut_frame_time_interval);
+     nh->get_parameter("common.time_lag_imu_to_lidar", time_lag_imu_to_lidar);
++    nh->get_parameter("common.lidar_qos_depth", lidar_qos_depth);
++    nh->get_parameter("common.lidar_qos_reliable", lidar_qos_reliable);
+     nh->get_parameter("filter_size_surf", filter_size_surf_min);
+     nh->get_parameter("filter_size_map", filter_size_map_min);
+     nh->get_parameter("cube_side_length", cube_len);
+diff --git a/src/parameters.h b/src/parameters.h
+index 03e0c96..af79bff 100644
+--- a/src/parameters.h
++++ b/src/parameters.h
+@@ -19,10 +19,10 @@ extern double last_timestamp_lidar, last_timestamp_imu;
+ extern int pcd_index;
+ 
+ extern std::string lid_topic, imu_topic;
+-extern bool prop_at_freq_of_imu, check_satu, con_frame, cut_frame;
++extern bool prop_at_freq_of_imu, check_satu, con_frame, cut_frame, lidar_qos_reliable;
+ extern bool use_imu_as_input, space_down_sample;
+ extern bool extrinsic_est_en, publish_odometry_without_downsample;
+-extern int init_map_size, con_frame_num;
++extern int init_map_size, con_frame_num, lidar_qos_depth;
+ extern double match_s, satu_acc, satu_gyro, cut_frame_time_interval;
+ extern float plane_thr;
+ extern double filter_size_surf_min, filter_size_map_min, fov_deg;

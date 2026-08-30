@@ -1,0 +1,61 @@
+{
+  "schema": "drone_agricole.simulation_definition.v1",
+  "simulation_id": "px4_offboard",
+  "version": "1.0.0",
+  "label": "PX4 SITL · mission Offboard",
+  "description": "Exécute dans Gazebo un carré nominal ou une perte volontaire du flux Offboard, avec atterrissage sous responsabilité PX4.",
+  "domain": "flight_simulation",
+  "runner_id": "px4_offboard",
+  "safety_class": "sitl_confirmed",
+  "selectors": [],
+  "variants": [
+    {
+      "variant_id": "square",
+      "label": "Carré nominal",
+      "description": "Décollage, carré, vol stationnaire puis atterrissage commandé.",
+      "runner_id": "px4_square",
+      "available": true,
+      "required_capabilities": [],
+      "parameters": []
+    },
+    {
+      "variant_id": "failsafe",
+      "label": "Perte Offboard",
+      "description": "Coupe volontairement les consignes et vérifie que PX4 déclenche AUTO_LAND.",
+      "runner_id": "px4_failsafe",
+      "available": true,
+      "required_capabilities": [],
+      "parameters": []
+    }
+  ],
+  "parameters": [
+    {"id": "takeoff_altitude_m", "label": "Altitude de décollage", "description": "Altitude relative du scénario SITL.", "type": "number", "unit": "m", "group": "principal", "safety_class": "sitl_confirmed", "default": 2.0, "minimum": 0.5, "maximum": 10.0, "step": 0.5},
+    {"id": "leg_m", "label": "Côté du carré", "description": "Longueur de chaque branche horizontale.", "type": "number", "unit": "m", "group": "principal", "safety_class": "sitl_confirmed", "default": 2.0, "minimum": 0.5, "maximum": 20.0, "step": 0.5},
+    {"id": "warmup_s", "label": "Préparation Offboard", "description": "Durée d'émission des consignes avant l'armement.", "type": "number", "unit": "s", "group": "advanced", "safety_class": "sitl_confirmed", "default": 2.0, "minimum": 1.0, "maximum": 10.0, "step": 0.5},
+    {"id": "hover_s", "label": "Stationnaire final", "description": "Durée du stationnaire avant atterrissage ou injection de perte.", "type": "number", "unit": "s", "group": "advanced", "safety_class": "sitl_confirmed", "default": 3.0, "minimum": 1.0, "maximum": 15.0, "step": 0.5},
+    {"id": "stage_timeout_s", "label": "Délai maximal par étape", "description": "Déclenche un abandon sûr si une cible n'est pas atteinte.", "type": "number", "unit": "s", "group": "safety", "safety_class": "sitl_confirmed", "default": 12.0, "minimum": 5.0, "maximum": 30.0, "step": 1.0}
+  ],
+  "outputs": [
+    {"output_id": "flight_result", "kind": "report", "required": true},
+    {"output_id": "events", "kind": "events", "required": true},
+    {"output_id": "metrics", "kind": "metrics", "required": true}
+  ],
+  "visualization": {
+    "live": true,
+    "replay": true,
+    "layers": [
+      {"layer_id": "px4_vehicle", "kind": "vehicle"},
+      {"layer_id": "px4_trajectory", "kind": "trajectory"}
+    ],
+    "charts": [
+      {"chart_id": "altitude", "metric_id": "max_altitude_m"},
+      {"chart_id": "duration", "metric_id": "duration_s"}
+    ]
+  },
+  "comparison_group": "px4_offboard_v1",
+  "metadata": {
+    "environment": "sitl_only",
+    "critical_controller": "px4",
+    "note": "Le tableau de bord ne publie pas de commandes moteur et ne peut activer ce runner que via le service SITL verrouillé."
+  }
+}

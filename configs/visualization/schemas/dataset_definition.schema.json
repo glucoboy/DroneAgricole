@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/dataset_definition.v1.json",
+  "title": "DatasetDefinition v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "dataset_id",
+    "label",
+    "description",
+    "status",
+    "platform",
+    "environment",
+    "license",
+    "capabilities",
+    "sequences"
+  ],
+  "properties": {
+    "schema": {"const": "drone_agricole.dataset_definition.v1"},
+    "dataset_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "label": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "status": {"enum": ["installed", "partial", "remote", "candidate", "disabled"]},
+    "platform": {"enum": ["ground_robot", "aerial_robot", "simulator", "handheld", "mixed", "unknown"]},
+    "environment": {"type": "string", "minLength": 1},
+    "license": {
+      "type": "object",
+      "required": ["status", "redistribution"],
+      "properties": {
+        "status": {"enum": ["verified", "to_validate", "restricted", "unknown"]},
+        "name": {"type": ["string", "null"]},
+        "url": {"type": ["string", "null"]},
+        "redistribution": {"enum": ["allowed", "forbidden", "to_validate"]}
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "url": {"type": "string"},
+        "revision": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "common.schema.json#/$defs/capability"}
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "sequences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["sequence_id", "source_sequence_id", "label", "status", "duration_s", "capabilities", "resources"],
+        "properties": {
+          "sequence_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "source_sequence_id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "status": {"enum": ["installed", "partial", "remote", "disabled"]},
+          "duration_s": {"type": "number", "exclusiveMinimum": 0},
+          "recommended": {"type": "boolean"},
+          "result_group": {"$ref": "common.schema.json#/$defs/identifier"},
+          "capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"$ref": "common.schema.json#/$defs/capability"}
+          },
+          "resources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["resource_id", "kind", "uri", "required"],
+              "properties": {
+                "resource_id": {"$ref": "common.schema.json#/$defs/identifier"},
+                "kind": {"enum": ["rosbag1", "rosbag2", "mcap", "images", "annotations", "calibration", "ground_truth", "map", "other"]},
+                "uri": {"$ref": "common.schema.json#/$defs/relativePath"},
+                "required": {"type": "boolean"},
+                "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "metadata": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

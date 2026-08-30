@@ -1,0 +1,122 @@
+{
+  "schema": "drone_agricole.simulation_definition.v1",
+  "simulation_id": "lio_benchmark",
+  "version": "1.0.0",
+  "label": "Benchmark d'odométrie LiDAR–IMU",
+  "description": "Rejoue une séquence LiDAR–IMU avec vérité terrain, mesure la trajectoire et les ressources, puis conserve les résultats.",
+  "domain": "localization",
+  "runner_id": "lio_benchmark",
+  "safety_class": "analysis",
+  "selectors": [
+    {
+      "selector_id": "dataset",
+      "kind": "dataset_sequence",
+      "required": true,
+      "multiple": false,
+      "required_capabilities": ["lidar.pointcloud2", "imu.si", "ground_truth.pose"]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "fast_lio2",
+      "label": "FAST-LIO2",
+      "description": "Baseline LIO principale du projet.",
+      "runner_id": "fast_lio2",
+      "available": true,
+      "required_capabilities": [],
+      "parameters": [
+        {"id": "filter_size_surf", "label": "Voxel du nuage", "description": "Résolution du filtrage avant estimation.", "type": "number", "unit": "m", "group": "principal", "safety_class": "analysis", "default": 0.5, "minimum": 0.1, "maximum": 2.0, "step": 0.05},
+        {"id": "filter_size_map", "label": "Voxel de la carte", "description": "Résolution de la carte incrémentale.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 0.5, "minimum": 0.1, "maximum": 2.0, "step": 0.05},
+        {"id": "point_filter_num", "label": "Sous-échantillonnage", "description": "Un point conservé sur N.", "type": "integer", "unit": "N", "group": "advanced", "safety_class": "analysis", "default": 4, "minimum": 1, "maximum": 10, "step": 1},
+        {"id": "max_iteration", "label": "Itérations maximales", "description": "Nombre maximal d'itérations par scan.", "type": "integer", "unit": "", "group": "advanced", "safety_class": "analysis", "default": 3, "minimum": 1, "maximum": 10, "step": 1},
+        {"id": "blind", "label": "Zone aveugle", "description": "Points proches ignorés.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 1.0, "minimum": 0.1, "maximum": 5.0, "step": 0.1},
+        {"id": "det_range", "label": "Portée de détection", "description": "Portée maximale de la carte locale.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 100.0, "minimum": 20.0, "maximum": 200.0, "step": 5.0}
+      ]
+    },
+    {
+      "variant_id": "point_lio",
+      "label": "Point-LIO",
+      "description": "Référence de sobriété calcul.",
+      "runner_id": "point_lio",
+      "available": true,
+      "required_capabilities": [],
+      "parameters": [
+        {"id": "filter_size_surf", "label": "Voxel du nuage", "description": "Résolution du filtrage avant estimation.", "type": "number", "unit": "m", "group": "principal", "safety_class": "analysis", "default": 0.5, "minimum": 0.1, "maximum": 2.0, "step": 0.05},
+        {"id": "filter_size_map", "label": "Voxel de la carte", "description": "Résolution de l'ikd-Tree.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 0.5, "minimum": 0.1, "maximum": 2.0, "step": 0.05},
+        {"id": "point_filter_num", "label": "Sous-échantillonnage", "description": "Un point conservé sur N.", "type": "integer", "unit": "N", "group": "advanced", "safety_class": "analysis", "default": 4, "minimum": 1, "maximum": 10, "step": 1},
+        {"id": "blind", "label": "Zone aveugle", "description": "Points proches ignorés.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 1.0, "minimum": 0.1, "maximum": 5.0, "step": 0.1},
+        {"id": "det_range", "label": "Portée de détection", "description": "Portée maximale de la carte locale.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 100.0, "minimum": 20.0, "maximum": 200.0, "step": 5.0},
+        {"id": "plane_thr", "label": "Seuil de planéité", "description": "Tolérance de sélection des plans.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 0.1, "minimum": 0.01, "maximum": 0.5, "step": 0.01}
+      ]
+    },
+    {
+      "variant_id": "lio_sam",
+      "label": "LIO-SAM",
+      "description": "Candidat précision par graphe de facteurs.",
+      "runner_id": "lio_sam",
+      "available": true,
+      "required_capabilities": [],
+      "parameters": [
+        {"id": "odometry_surf_leaf_size", "runner_key": "odometrySurfLeafSize", "label": "Voxel odométrie", "description": "Résolution des surfaces d'odométrie.", "type": "number", "unit": "m", "group": "principal", "safety_class": "analysis", "default": 0.4, "minimum": 0.1, "maximum": 1.0, "step": 0.05},
+        {"id": "mapping_corner_leaf_size", "runner_key": "mappingCornerLeafSize", "label": "Voxel arêtes", "description": "Résolution des arêtes de carte.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 0.2, "minimum": 0.05, "maximum": 1.0, "step": 0.05},
+        {"id": "mapping_surf_leaf_size", "runner_key": "mappingSurfLeafSize", "label": "Voxel surfaces", "description": "Résolution des surfaces de carte.", "type": "number", "unit": "m", "group": "advanced", "safety_class": "analysis", "default": 0.4, "minimum": 0.1, "maximum": 1.0, "step": 0.05},
+        {"id": "edge_threshold", "runner_key": "edgeThreshold", "label": "Seuil d'arête", "description": "Courbure minimale d'une arête.", "type": "number", "unit": "", "group": "advanced", "safety_class": "analysis", "default": 1.0, "minimum": 0.1, "maximum": 5.0, "step": 0.1},
+        {"id": "surf_threshold", "runner_key": "surfThreshold", "label": "Seuil de surface", "description": "Courbure maximale d'une surface.", "type": "number", "unit": "", "group": "advanced", "safety_class": "analysis", "default": 0.1, "minimum": 0.01, "maximum": 0.5, "step": 0.01},
+        {"id": "mapping_process_interval", "runner_key": "mappingProcessInterval", "label": "Intervalle mapping", "description": "Intervalle minimal entre mises à jour de carte.", "type": "number", "unit": "s", "group": "advanced", "safety_class": "analysis", "default": 0.0, "minimum": 0.0, "maximum": 0.5, "step": 0.05}
+      ]
+    }
+  ],
+  "parameters": [
+    {"id": "playback_rate", "label": "Vitesse de rejeu", "description": "1,0× reproduit le rythme nominal du dataset.", "type": "number", "unit": "×", "group": "principal", "safety_class": "analysis", "default": 1.0, "minimum": 0.2, "maximum": 2.0, "step": 0.1}
+  ],
+  "profiles": [
+    {
+      "profile_id": "botanicgarden_velodyne_xsens",
+      "label": "BotanicGarden · Velodyne VLP-16 + Xsens",
+      "description": "Profil validé pour les trois séquences 1006-03 actuellement installées.",
+      "default": true,
+      "selectors": {
+        "dataset_id": "botanicgarden",
+        "sequence_ids": ["1006-03-smoke", "1006-03-dynamic", "1006-03-full"]
+      },
+      "variant_settings": {
+        "fast_lio2": {
+          "base_config_uri": "configs/lio/fast_lio2/botanicgarden_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/fast_lio2/pipeline_counters"
+        },
+        "point_lio": {
+          "base_config_uri": "configs/lio/point_lio/botanicgarden_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/point_lio/pipeline_counters"
+        },
+        "lio_sam": {
+          "base_config_uri": "configs/lio/lio_sam/botanicgarden_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/lio_sam/pipeline_counters"
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {"output_id": "trajectory", "kind": "trajectory", "required": true},
+    {"output_id": "metrics", "kind": "metrics", "required": true},
+    {"output_id": "resource_profile", "kind": "resource_profile", "required": true}
+  ],
+  "visualization": {
+    "live": true,
+    "replay": true,
+    "layers": [
+      {"layer_id": "registered_cloud", "kind": "point_cloud"},
+      {"layer_id": "estimated_trajectory", "kind": "trajectory"},
+      {"layer_id": "ground_truth", "kind": "trajectory"}
+    ],
+    "charts": [
+      {"chart_id": "ate", "metric_id": "ate_translation_rmse_m"},
+      {"chart_id": "cpu", "metric_id": "cpu_average_cores"},
+      {"chart_id": "memory", "metric_id": "peak_rss_mib"}
+    ]
+  },
+  "comparison_group": "lio_trajectory_v1",
+  "metadata": {
+    "legacy_catalog": "configs/visualization/dashboard_catalog.json",
+    "note": "Les configurations propres au pipeline sont sélectionnées par un profil dataset–variante versionné."
+  }
+}

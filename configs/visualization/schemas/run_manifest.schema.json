@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/run_manifest.v1.json",
+  "title": "RunManifest v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "run_id",
+    "simulation_id",
+    "variant_id",
+    "runner_id",
+    "domain",
+    "state",
+    "created_at_utc",
+    "inputs",
+    "parameters",
+    "software",
+    "files",
+    "compatibility"
+  ],
+  "properties": {
+    "schema": {"const": "drone_agricole.run_manifest.v1"},
+    "run_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "request_id": {"type": ["string", "null"]},
+    "simulation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "variant_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "runner_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "domain": {"$ref": "common.schema.json#/$defs/identifier"},
+    "state": {"enum": ["queued", "preparing", "running", "stopping", "analyzing", "completed", "cancelled", "failed", "abandoned"]},
+    "created_at_utc": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "started_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "finished_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "inputs": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/inputReference"}},
+    "parameters": {"type": "object"},
+    "software": {"type": "object"},
+    "files": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {"$ref": "common.schema.json#/$defs/relativePath"},
+          {"type": "null"}
+        ]
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "required": ["comparison_group"],
+      "properties": {
+        "comparison_group": {"$ref": "common.schema.json#/$defs/identifier"},
+        "result_contract_version": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "legacy": {
+      "type": "object",
+      "properties": {
+        "adapter": {"$ref": "common.schema.json#/$defs/identifier"},
+        "source_schema": {"type": ["string", "integer", "null"]},
+        "source_files": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/relativePath"}}
+      },
+      "additionalProperties": false
+    },
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

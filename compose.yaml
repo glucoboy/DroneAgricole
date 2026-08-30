@@ -1,0 +1,251 @@
+name: drone-agricole
+
+x-ros-common: &ros-common
+  init: true
+  working_dir: /workspace
+  volumes:
+    - type: bind
+      source: .
+      target: /workspace
+  environment:
+    ROS_DOMAIN_ID: "42"
+    ROS_LOCALHOST_ONLY: "0"
+    RCUTILS_COLORIZED_OUTPUT: "1"
+
+services:
+  ros-humble:
+    <<: *ros-common
+    image: drone-agricole/ros-humble:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble
+    profiles: ["dev", "lio"]
+    command: ["sleep", "infinity"]
+
+  botanicgarden-adapter:
+    <<: *ros-common
+    image: drone-agricole/ros-humble:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble
+    profiles: ["lio"]
+    entrypoint: ["/ros_entrypoint.sh", "botanicgarden-adapter"]
+    command: ["--help"]
+
+  fast-lio2:
+    <<: *ros-common
+    image: drone-agricole/fast-lio2:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble-fastlio2
+    profiles: ["lio"]
+    command: ["sleep", "infinity"]
+
+  point-lio:
+    <<: *ros-common
+    image: drone-agricole/point-lio:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble-pointlio
+    profiles: ["lio"]
+    command: ["sleep", "infinity"]
+
+  lio-sam:
+    <<: *ros-common
+    image: drone-agricole/lio-sam:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble-liosam
+    profiles: ["lio"]
+    command: ["sleep", "infinity"]
+
+  fast-lio-dashboard:
+    <<: *ros-common
+    image: drone-agricole/lio-dashboard:0.5.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble-lio-dashboard
+    profiles: ["viz"]
+    environment:
+      ROS_DOMAIN_ID: "42"
+      ROS_LOCALHOST_ONLY: "0"
+      RCUTILS_COLORIZED_OUTPUT: "1"
+      DRONE_AGRICOLE_PX4_RUNNER_URL: "http://px4-runner-api:8091"
+    ports:
+      # Deux accès explicites ; aucune publication sur les interfaces virtuelles.
+      - "127.0.0.1:8080:8080"
+      - "192.168.1.25:8080:8080"
+    command:
+      - python3
+      - -m
+      - software.visualization.dashboard_server
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --max-cloud-points
+      - "6000"
+      - --rate-hz
+      - "5"
+
+  ros-jazzy-sim:
+    <<: *ros-common
+    image: drone-agricole/ros-jazzy-sim:0.1.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-jazzy-sim
+    profiles: ["sim"]
+    command: ["sleep", "infinity"]
+
+  micro-xrce-dds-agent:
+    <<: *ros-common
+    image: drone-agricole/px4-ros:0.2.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-jazzy-px4
+    profiles: ["sim", "flight-test"]
+    ports:
+      # PX4 SITL cible host.docker.internal:8888 depuis sa VM Docker Desktop.
+      - "8888:8888/udp"
+    command: ["MicroXRCEAgent", "udp4", "-p", "8888", "-v", "4"]
+
+  px4-state-bridge:
+    <<: *ros-common
+    image: drone-agricole/px4-ros:0.2.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-jazzy-px4
+    profiles: ["sim", "flight-test"]
+    depends_on:
+      micro-xrce-dds-agent:
+        condition: service_started
+    command:
+      - ros2
+      - run
+      - drone_agricole_px4_bridge
+      - state_bridge
+      - --ros-args
+      - -p
+      - publish_tf:=true
+      - -p
+      - path_max_points:=2500
+
+  px4-offboard-test:
+    init: true
+    working_dir: /workspace
+    image: drone-agricole/px4-ros:0.2.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-jazzy-px4
+    profiles: ["flight-test"]
+    volumes:
+      - type: bind
+        source: .
+        target: /workspace
+    environment:
+      ROS_DOMAIN_ID: "42"
+      ROS_LOCALHOST_ONLY: "0"
+      RCUTILS_COLORIZED_OUTPUT: "1"
+      # Deuxième verrou, en plus du paramètre execute du nœud.
+      DRONE_AGRICOLE_SITL: "1"
+    depends_on:
+      micro-xrce-dds-agent:
+        condition: service_started
+      px4-state-bridge:
+        condition: service_started
+      px4-sitl:
+        condition: service_started
+    command:
+      - ros2
+      - run
+      - drone_agricole_px4_bridge
+      - offboard_test
+      - --ros-args
+      - -p
+      - execute:=${PX4_OFFBOARD_EXECUTE:-false}
+      - -p
+      - mission_mode:=${PX4_OFFBOARD_MODE:-square}
+      - -p
+      - takeoff_altitude_m:=${PX4_OFFBOARD_ALTITUDE_M:-2.0}
+      - -p
+      - leg_m:=${PX4_OFFBOARD_LEG_M:-2.0}
+
+  px4-runner-api:
+    init: true
+    working_dir: /workspace
+    image: drone-agricole/px4-ros:0.2.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-jazzy-px4
+    profiles: ["viz", "flight-test"]
+    volumes:
+      - type: bind
+        source: .
+        target: /workspace
+    environment:
+      ROS_DOMAIN_ID: "42"
+      ROS_LOCALHOST_ONLY: "0"
+      RCUTILS_COLORIZED_OUTPUT: "1"
+      DRONE_AGRICOLE_SITL: "1"
+    depends_on:
+      micro-xrce-dds-agent:
+        condition: service_started
+      px4-state-bridge:
+        condition: service_started
+      px4-sitl:
+        condition: service_started
+    command:
+      - python3
+      - -m
+      - software.visualization.px4_runner_server
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8091"
+
+  px4-sitl:
+    image: px4io/px4-sitl-gazebo:v1.18.0-beta2@sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8
+    profiles: ["sim", "flight-test"]
+    init: true
+    tty: true
+    stdin_open: true
+    environment:
+      PX4_SIM_MODEL: "${PX4_SIM_MODEL:-gz_x500}"
+      PX4_GZ_WORLD: "${PX4_GZ_WORLD:-default}"
+      HEADLESS: "${PX4_HEADLESS:-1}"
+      # Le script officiel PX4 recopie cette variable dans UXRCE_DDS_DOM_ID
+      # juste avant de démarrer le client DDS.
+      ROS_DOMAIN_ID: "42"
+      PX4_UXRCE_DDS_PORT: "8888"
+      # Le journal n'est ouvert qu'à l'armement et sa taille reste bornée.
+      PX4_PARAM_SDLOG_MODE: "0"
+      PX4_PARAM_SDLOG_MAX_SIZE: "128"
+      # Profil SITL headless du lot A : on neutralise les pertes RC/GCS pour
+      # isoler la perte offboard, dont l'action reste explicitement LAND.
+      # Ces valeurs ne doivent pas être transférées sur le drone réel.
+      PX4_PARAM_COM_RC_IN_MODE: "4"
+      PX4_PARAM_NAV_RCL_ACT: "0"
+      PX4_PARAM_NAV_DLL_ACT: "0"
+      PX4_PARAM_COM_RCL_EXCEPT: "4"
+      PX4_PARAM_COM_OF_LOSS_T: "1.0"
+      PX4_PARAM_COM_OBL_RC_ACT: "4"
+      XDG_DATA_HOME: "/runtime"
+    # L'image officielle detecte Docker Desktop et envoie MAVLink/DDS vers
+    # host.docker.internal. Ne pas publier ces ports ici : QGroundControl
+    # écoute directement sur Windows. Le port DDS 8888 est
+    # publié par le service Agent ci-dessus afin de rester reproductible.
+    volumes:
+      - type: bind
+        source: ./.runtime/px4
+        target: /runtime

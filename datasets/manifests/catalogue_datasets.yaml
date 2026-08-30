@@ -1,0 +1,140 @@
+schema_version: 1
+reviewed_on: "2026-08-18"
+status: preliminary
+
+selection_policy:
+  required_for_ready:
+    - official_source
+    - usage_terms_or_license
+    - lidar_and_imu
+    - calibration
+    - usable_ground_truth
+    - archive_size
+    - archive_checksum
+    - reproducible_preparation
+
+datasets:
+  - id: botanicgarden
+    priority: 1
+    state: downloaded_initial_inspection_complete
+    initial_sequence: "1006-03"
+    initial_variant: lio_rosbag
+    downloaded_on: "2026-08-18"
+    size_bytes: 6326630582
+    domain: natural_unstructured
+    sensors: [velodyne_vlp16, livox_avia, xsens_imu, livox_imu, cameras]
+    ground_truth: survey_map_localization_cm_level
+    format: rosbag1
+    license: academic_use_only_to_validate
+    official_url: https://github.com/robot-pesg/BotanicGarden
+    official_source_commit: 84c4806428ca16c154238e263a7f8bf828bf58e1
+    purpose: validate_dataset_adapter_metrics_and_lio_pipeline
+    local_files:
+      lio_bag:
+        path: datasets/public/botanicgarden/1006-03/raw/1006_03_LIO.bag
+        size_bytes: 6325796540
+        sha256: 482d4b3081264a6e5eaf3c05ea57d45f25cf572e01c1f887d5b598372ab79c68
+      ground_truth_bag:
+        path: datasets/public/botanicgarden/1006-03/ground_truth/gt_1006_03_qnew.bag
+        size_bytes: 834042
+        sha256: 2d507e1344da2dbb8763f96971f9d9ea902e95f7084acc903768a3f8737cf3dd
+      inspection_metadata: datasets/public/botanicgarden/1006-03/inspection/bag_metadata.json
+      official_calibration_archive: datasets/public/botanicgarden/1006-03/calibration/official_84c4806428ca
+    calibration:
+      state: inspected_with_warning
+      normalized_config: configs/datasets/botanicgarden/1006-03.yaml
+      report: docs/07_Inspection_calibrations_BotanicGarden_V0.1.md
+      warning: bmi088_camera_chain_is_not_internally_consistent_use_direct_livox_bmi088_extrinsic_for_lio
+    observed:
+      lio_duration_s: 610.003130001
+      ground_truth_duration_s: 599.715385001
+      lio_messages: 478023
+      ground_truth_messages: 5947
+      topics:
+        - /velodyne_points
+        - /odom
+        - /imu/data
+        - /livox/lidar
+        - /livox/imu
+        - /gt_poses
+    readiness_notes:
+      local_checksums_recorded: true
+      official_checksums_available: false
+      calibration_inspection: complete_with_warning
+      usage_terms_validation: pending
+
+  - id: newer_college
+    priority: 2
+    state: selected_access_form_required
+    initial_sequence: "01_short_experiment"
+    domain: mixed_built_open_vegetated
+    sensors: [ouster_os1_64, ouster_imu, realsense_d435i]
+    ground_truth: six_dof_cm_level_from_survey_map
+    format: rosbag1_and_raw
+    license: CC-BY-NC-SA-4.0
+    official_url: https://ori-drs.github.io/newer-college-dataset/
+    download_url: https://ori-drs.github.io/newer-college-dataset/download/
+    purpose: reference_lio_slam_benchmark
+
+  - id: ard_vo
+    priority: 3
+    state: selected_metadata_and_license_check_required
+    initial_sequence: null
+    sequence_filter: vineyard_with_lidar_imu_rtk_and_calibration
+    domain: vineyard_and_olive_grove
+    sensors: [velodyne_lidar, imu, gps_rtk, stereo_rgb, multispectral]
+    ground_truth: rtk_to_validate_per_sequence
+    format: to_validate
+    license: unknown_to_validate
+    official_url: https://isar.unipg.it/datasets/
+    paper_url: https://onlinelibrary.wiley.com/doi/10.1002/rob.22179
+    purpose: vineyard_lio_and_rtk_evaluation
+
+  - id: blt
+    priority: 4
+    state: selected_access_form_required
+    initial_sequences:
+      - early_season_march_or_april
+      - dense_foliage_june
+    domain: vineyard_trellis_long_term
+    sensors: [ouster_os1, imu, rgbd, lidar_2d, rtk_gnss]
+    ground_truth: rtk_gnss
+    format: rosbag1
+    license: unknown_to_validate
+    official_url: https://lcas.lincoln.ac.uk/wp/research/data-sets-software/blt/
+    purpose: seasonal_change_loop_closure_and_dense_vegetation
+
+  - id: tempo_vine
+    priority: future_primary
+    state: pending_release
+    domain: vineyard_trellis_and_pergola_multiseason
+    sensors: [velodyne_vlp16, livox_mid360, rgbd, ahrs_imu, rtk_gps, wheel_odometry]
+    ground_truth: rtk_based_trajectory
+    format: mcap_zstd
+    license: unknown_to_validate
+    paper_url: https://arxiv.org/abs/2512.04772
+    purpose: target_domain_primary_benchmark
+    blocker: no_official_download_page_identified_on_2026_08_18
+
+  - id: m2dgr
+    priority: deferred
+    state: catalogue_only
+    domain: indoor_outdoor_urban
+    sensors: [velodyne_vlp32c, imu, gnss, rtk_ins, cameras, event, thermal]
+    ground_truth: motion_capture_laser_tracker_or_rtk
+    total_size_approx_tb: 1.0
+    format: rosbag1
+    license: repository_mit_and_academic_wording_to_validate
+    official_url: https://github.com/SJTU-ViSYS/M2DGR
+    purpose: later_gnss_lio_fusion_stress_test
+
+  - id: hilti_slam
+    priority: deferred
+    state: catalogue_only
+    domain: construction_sites
+    sensors: [lidar, imu, cameras]
+    ground_truth: millimeter_level_sparse
+    format: rosbag
+    license: to_validate
+    paper_url: https://arxiv.org/abs/2109.11316
+    purpose: later_lio_robustness_stress_test

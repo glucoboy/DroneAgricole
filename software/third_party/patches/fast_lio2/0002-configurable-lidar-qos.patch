@@ -1,0 +1,62 @@
+diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
+index 3aa01ba..f15eaf0 100644
+--- a/src/laserMapping.cpp
++++ b/src/laserMapping.cpp
+@@ -797,6 +797,8 @@ class LaserMappingNode : public rclcpp::Node
+ public:
+     LaserMappingNode(const rclcpp::NodeOptions& options = rclcpp::NodeOptions()) : Node("laser_mapping", options)
+     {
++        int lidar_qos_depth = 100;
++        bool lidar_qos_reliable = false;
+         this->declare_parameter<bool>("publish.path_en", true);
+         this->declare_parameter<bool>("publish.effect_map_en", false);
+         this->declare_parameter<bool>("publish.map_en", false);
+@@ -810,6 +812,8 @@ public:
+         this->declare_parameter<string>("common.imu_topic", "/livox/imu");
+         this->declare_parameter<bool>("common.time_sync_en", false);
+         this->declare_parameter<double>("common.time_offset_lidar_to_imu", 0.0);
++        this->declare_parameter<int>("common.lidar_qos_depth", 100);
++        this->declare_parameter<bool>("common.lidar_qos_reliable", false);
+         this->declare_parameter<double>("filter_size_corner", 0.5);
+         this->declare_parameter<double>("filter_size_surf", 0.5);
+         this->declare_parameter<double>("filter_size_map", 0.5);
+@@ -846,6 +850,8 @@ public:
+         this->get_parameter_or<string>("common.imu_topic", imu_topic,"/livox/imu");
+         this->get_parameter_or<bool>("common.time_sync_en", time_sync_en, false);
+         this->get_parameter_or<double>("common.time_offset_lidar_to_imu", time_diff_lidar_to_imu, 0.0);
++        this->get_parameter_or<int>("common.lidar_qos_depth", lidar_qos_depth, 100);
++        this->get_parameter_or<bool>("common.lidar_qos_reliable", lidar_qos_reliable, false);
+         this->get_parameter_or<double>("filter_size_corner",filter_size_corner_min,0.5);
+         this->get_parameter_or<double>("filter_size_surf",filter_size_surf_min,0.5);
+         this->get_parameter_or<double>("filter_size_map",filter_size_map_min,0.5);
+@@ -917,14 +923,28 @@ public:
+         else
+             cout << "~~~~"<<ROOT_DIR<<" doesn't exist" << endl;
+ 
++        if (lidar_qos_depth < 1)
++        {
++            RCLCPP_WARN(this->get_logger(), "common.lidar_qos_depth must be positive; using 1");
++            lidar_qos_depth = 1;
++        }
++        rclcpp::QoS lidar_qos(rclcpp::KeepLast(static_cast<size_t>(lidar_qos_depth)));
++        lidar_qos.durability_volatile();
++        if (lidar_qos_reliable)
++            lidar_qos.reliable();
++        else
++            lidar_qos.best_effort();
++        RCLCPP_INFO(this->get_logger(), "LiDAR QoS: depth=%d reliability=%s",
++                    lidar_qos_depth, lidar_qos_reliable ? "reliable" : "best_effort");
++
+         /*** ROS subscribe initialization ***/
+         if (p_pre->lidar_type == AVIA)
+         {
+-            sub_pcl_livox_ = this->create_subscription<livox_ros_driver2::msg::CustomMsg>(lid_topic, 20, livox_pcl_cbk);
++            sub_pcl_livox_ = this->create_subscription<livox_ros_driver2::msg::CustomMsg>(lid_topic, lidar_qos, livox_pcl_cbk);
+         }
+         else
+         {
+-            sub_pcl_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(lid_topic, rclcpp::SensorDataQoS(), standard_pcl_cbk);
++            sub_pcl_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(lid_topic, lidar_qos, standard_pcl_cbk);
+         }
+         sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 10, imu_cbk);
+         pubLaserCloudFull_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/cloud_registered", 20);

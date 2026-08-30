@@ -1,0 +1,112 @@
+{
+  "schema": "drone_agricole.dataset_definition.v1",
+  "dataset_id": "botanicgarden",
+  "label": "BotanicGarden",
+  "description": "Parcours de robot terrestre en environnement naturel, avec deux chaînes LiDAR–IMU et vérité terrain de trajectoire.",
+  "status": "partial",
+  "platform": "ground_robot",
+  "environment": "natural_outdoor",
+  "license": {
+    "status": "restricted",
+    "name": "Academic use",
+    "url": "https://github.com/robot-pesg/BotanicGarden",
+    "redistribution": "forbidden"
+  },
+  "source": {
+    "url": "https://github.com/robot-pesg/BotanicGarden",
+    "revision": "84c4806428ca16c154238e263a7f8bf828bf58e1"
+  },
+  "capabilities": [
+    "lidar.velodyne_vlp16",
+    "lidar.livox_avia",
+    "imu.xsens",
+    "imu.bmi088",
+    "ground_truth.pose",
+    "calibration.lidar_imu"
+  ],
+  "tags": ["natural", "ground_robot", "gnss_denied", "vegetation"],
+  "sequences": [
+    {
+      "sequence_id": "1006-03-smoke",
+      "source_sequence_id": "1006-03",
+      "label": "1006-03 · test rapide (5 s)",
+      "description": "Extrait court destiné aux tests d'intégration.",
+      "status": "installed",
+      "duration_s": 5.0,
+      "recommended": true,
+      "result_group": "botanicgarden_1006-03",
+      "capabilities": ["lidar.pointcloud2", "imu.si", "ground_truth.pose"],
+      "resources": [
+        {
+          "resource_id": "velodyne_xsens_ros2",
+          "kind": "rosbag2",
+          "uri": "datasets/derived/botanicgarden/1006-03/smoke/velodyne_xsens_fastlio2_5s_ros2",
+          "required": true
+        },
+        {
+          "resource_id": "official_calibration",
+          "kind": "calibration",
+          "uri": "datasets/public/botanicgarden/1006-03/calibration/official_84c4806428ca",
+          "required": true
+        }
+      ],
+      "metadata": {"pipeline": "velodyne_xsens"}
+    },
+    {
+      "sequence_id": "1006-03-dynamic",
+      "source_sequence_id": "1006-03",
+      "label": "1006-03 · extrait dynamique (30 s)",
+      "description": "Fenêtre dynamique utilisée pour les tests rapides de sensibilité.",
+      "status": "installed",
+      "duration_s": 30.0,
+      "recommended": false,
+      "result_group": "botanicgarden_1006-03",
+      "capabilities": ["lidar.pointcloud2", "imu.si", "ground_truth.pose"],
+      "resources": [
+        {
+          "resource_id": "velodyne_xsens_ros2",
+          "kind": "rosbag2",
+          "uri": "datasets/derived/botanicgarden/1006-03/dynamic/velodyne_xsens_fastlio2_30s_offset60_ros2",
+          "required": true
+        },
+        {
+          "resource_id": "official_calibration",
+          "kind": "calibration",
+          "uri": "datasets/public/botanicgarden/1006-03/calibration/official_84c4806428ca",
+          "required": true
+        }
+      ],
+      "metadata": {"pipeline": "velodyne_xsens", "offset_s": 60.0}
+    },
+    {
+      "sequence_id": "1006-03-full",
+      "source_sequence_id": "1006-03",
+      "label": "1006-03 · séquence complète (581 s)",
+      "description": "Intersection complète Velodyne, Xsens et vérité terrain.",
+      "status": "installed",
+      "duration_s": 581.120665073,
+      "recommended": false,
+      "result_group": "botanicgarden_1006-03",
+      "capabilities": ["lidar.pointcloud2", "imu.si", "ground_truth.pose"],
+      "resources": [
+        {
+          "resource_id": "velodyne_xsens_ros2",
+          "kind": "rosbag2",
+          "uri": "datasets/derived/botanicgarden/1006-03/full/velodyne_xsens_fastlio2_full_ros2",
+          "required": true
+        },
+        {
+          "resource_id": "official_calibration",
+          "kind": "calibration",
+          "uri": "datasets/public/botanicgarden/1006-03/calibration/official_84c4806428ca",
+          "required": true
+        }
+      ],
+      "metadata": {"pipeline": "velodyne_xsens"}
+    }
+  ],
+  "metadata": {
+    "locally_missing_modalities": ["camera.rgb_stereo", "camera.gray_stereo", "semantic.image_labels", "ground_truth.map"],
+    "gnss_available": false
+  }
+}

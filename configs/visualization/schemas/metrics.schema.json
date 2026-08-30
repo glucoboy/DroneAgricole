@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/metrics.v1.json",
+  "title": "Metrics v1",
+  "type": "object",
+  "required": ["schema", "run_id", "simulation_id", "status", "summary", "groups"],
+  "properties": {
+    "schema": {"const": "drone_agricole.metrics.v1"},
+    "run_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "simulation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "status": {"enum": ["complete", "partial", "unavailable", "invalid"]},
+    "summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric_id", "label", "value", "unit", "direction", "status"],
+        "properties": {
+          "metric_id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "label": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "string", "boolean", "null"]},
+          "unit": {"type": "string"},
+          "direction": {"enum": ["lower", "higher", "target", "neutral"]},
+          "status": {"enum": ["good", "warning", "error", "unknown"]},
+          "metadata": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "groups": {"type": "object"},
+    "source": {"type": "object"}
+  },
+  "additionalProperties": false
+}

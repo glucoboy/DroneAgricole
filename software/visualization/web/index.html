@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drone Agricole — Supervision</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="dashboard-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">DRONE AGRICOLE · ROS 2</p>
+        <h1>Simulation — supervision temps réel</h1>
+      </div>
+      <div class="connection" id="connection" data-state="waiting">
+        <span class="connection-dot" aria-hidden="true"></span>
+        <span id="connection-text">Connexion au tableau de bord…</span>
+      </div>
+    </header>
+
+    <section class="control-panel" aria-labelledby="control-title">
+      <div class="control-heading">
+        <div>
+          <p class="eyebrow">CONSOLE D'ESSAI</p>
+          <h2 id="control-title">Préparer et piloter une simulation</h2>
+        </div>
+        <div class="run-state" id="run-state" data-state="idle">
+          <span class="run-state-dot" aria-hidden="true"></span>
+          <strong id="run-state-label">Prêt</strong>
+        </div>
+      </div>
+
+      <form id="run-form">
+        <div class="control-grid">
+          <label>
+            <span>Simulation</span>
+            <select id="control-simulation" required disabled></select>
+          </label>
+          <label id="dataset-selector">
+            <span>Dataset</span>
+            <select id="control-dataset" required disabled></select>
+          </label>
+          <label id="sequence-selector">
+            <span>Séquence</span>
+            <select id="control-sequence" required disabled></select>
+          </label>
+          <label>
+            <span id="variant-label">Algorithme</span>
+            <select id="control-algorithm" required disabled></select>
+          </label>
+          <label id="profile-selector" hidden>
+            <span>Profil capteurs / configuration</span>
+            <select id="control-profile" disabled></select>
+          </label>
+          <div id="primary-parameters" class="parameter-grid"></div>
+        </div>
+
+        <details class="advanced-panel">
+          <summary>Paramètres avancés</summary>
+          <div id="advanced-parameters" class="parameter-grid advanced-grid"></div>
+        </details>
+
+        <div class="control-footer">
+          <div class="control-actions">
+            <button type="submit" class="primary-action" id="start-run" disabled>Lancer la simulation</button>
+            <button type="button" class="stop-action" id="stop-run" disabled>Arrêter</button>
+            <button type="button" id="toggle-final-metrics" aria-expanded="false" disabled>Afficher les métriques finales</button>
+          </div>
+          <div class="run-description" aria-live="polite">
+            <strong id="run-message">Chargement du catalogue…</strong>
+            <span id="run-detail">Les résultats seront enregistrés automatiquement.</span>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="history-panel" aria-labelledby="history-title">
+      <div class="history-heading">
+        <div>
+          <p class="eyebrow">HISTORIQUE · T0.3</p>
+          <h2 id="history-title">Résultats enregistrés</h2>
+          <p>Rechercher, inspecter et recharger un essai sans relancer la simulation.</p>
+        </div>
+        <div class="history-heading-actions">
+          <strong id="history-count">Index en attente</strong>
+          <button type="button" id="history-refresh">Reconstruire l’index</button>
+        </div>
+      </div>
+
+      <form id="history-filters" class="history-filters">
+        <label>
+          <span>Recherche</span>
+          <input type="search" id="history-query" placeholder="Run, dossier, variante…">
+        </label>
+        <label>
+          <span>Domaine</span>
+          <select id="history-domain"><option value="">Tous</option></select>
+        </label>
+        <label>
+          <span>Dataset</span>
+          <select id="history-dataset"><option value="">Tous</option></select>
+        </label>
+        <label>
+          <span>Algorithme</span>
+          <select id="history-algorithm"><option value="">Tous</option></select>
+        </label>
+        <label>
+          <span>Scénario</span>
+          <select id="history-scenario"><option value="">Tous</option></select>
+        </label>
+        <label>
+          <span>Statut</span>
+          <select id="history-state"><option value="">Tous</option></select>
+        </label>
+        <label>
+          <span>Du</span>
+          <input type="date" id="history-date-from">
+        </label>
+        <label>
+          <span>Au</span>
+          <input type="date" id="history-date-to">
+        </label>
+        <label>
+          <span>Tag</span>
+          <select id="history-tag"><option value="">Tous</option></select>
+        </label>
+        <div class="history-filter-actions">
+          <button type="submit" class="primary-action">Appliquer</button>
+          <button type="button" id="history-reset">Réinitialiser</button>
+        </div>
+      </form>
+
+      <div class="history-layout">
+        <div class="history-results" id="history-results" aria-live="polite">
+          <p class="history-empty">Chargement des résultats…</p>
+        </div>
+        <article class="history-detail" id="history-detail" hidden>
+          <div class="history-detail-heading">
+            <div>
+              <p class="eyebrow" id="history-detail-domain">RÉSULTAT</p>
+              <h3 id="history-detail-title">Fiche d’exécution</h3>
+              <p id="history-detail-path"></p>
+            </div>
+            <strong class="history-state" id="history-detail-state">—</strong>
+          </div>
+          <div class="history-detail-actions">
+            <button type="button" class="primary-action" id="history-replay">Recharger scène et courbes</button>
+            <button type="button" id="history-duplicate">Dupliquer cette configuration</button>
+          </div>
+          <div class="history-facts" id="history-facts"></div>
+          <h4>Métriques</h4>
+          <div class="history-metrics" id="history-metrics"></div>
+          <div class="history-detail-columns">
+            <div>
+              <h4>Événements</h4>
+              <div class="history-events" id="history-events"></div>
+            </div>
+            <div>
+              <h4>Artefacts</h4>
+              <div class="history-artifacts" id="history-artifacts"></div>
+            </div>
+          </div>
+          <p class="history-note" id="history-note"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="comparison-panel" aria-labelledby="comparison-title">
+      <div class="comparison-heading">
+        <div>
+          <p class="eyebrow">COMPARAISON · T0.4</p>
+          <h2 id="comparison-title">Comparer les essais archivés</h2>
+          <p>Sélectionnez de 2 à 4 résultats dans l’historique. La compatibilité est vérifiée avant toute superposition.</p>
+        </div>
+        <div class="comparison-actions">
+          <button type="button" class="primary-action" id="comparison-run" disabled>Comparer la sélection</button>
+          <button type="button" id="comparison-clear" disabled>Effacer</button>
+        </div>
+      </div>
+      <div class="comparison-selection" id="comparison-selection" aria-live="polite">
+        <p>Sélection vide · utilisez le bouton « Ajouter » sur un résultat.</p>
+      </div>
+      <div class="comparison-status" id="comparison-status" data-state="waiting">
+        Sélectionnez au moins deux résultats.
+      </div>
+      <div class="comparison-results" id="comparison-results" hidden>
+        <div class="comparison-result-actions">
+          <button type="button" class="primary-action" id="comparison-overlay" disabled>Superposer les trajectoires</button>
+          <button type="button" id="comparison-report-open">Afficher le rapport</button>
+          <button type="button" id="comparison-report-export">Exporter le rapport (.md)</button>
+        </div>
+        <h3>Métriques</h3>
+        <div class="comparison-table-wrap" id="comparison-metrics"></div>
+        <h3>Paramètres</h3>
+        <div class="comparison-table-wrap" id="comparison-parameters"></div>
+        <h3>Versions et sources</h3>
+        <div class="comparison-table-wrap" id="comparison-versions"></div>
+        <details class="comparison-report" id="comparison-report" hidden>
+          <summary>Aperçu du rapport Markdown</summary>
+          <pre id="comparison-report-content"></pre>
+        </details>
+      </div>
+    </section>
+
+    <section class="px4-status" aria-labelledby="px4-title">
+      <div class="px4-heading">
+        <div>
+          <p class="eyebrow">AUTOPILOTE · PX4 SITL</p>
+          <h2 id="px4-title">État de vol et liaison ROS 2</h2>
+        </div>
+        <strong class="px4-link" id="px4-link" data-state="waiting">En attente du pont ROS 2</strong>
+      </div>
+      <div class="px4-grid">
+        <article><span>Mode</span><strong id="px4-mode">—</strong><small id="px4-gcs">QGroundControl absent</small></article>
+        <article><span>Armement</span><strong id="px4-arming">Désarmé</strong><small>PX4 reste maître de la sécurité</small></article>
+        <article><span>Batterie simulée</span><strong id="px4-battery">—</strong><small id="px4-battery-detail">Tension indisponible</small></article>
+        <article class="px4-position"><span>Position ENU X · Y · Z</span><strong id="px4-position">—</strong><small>repère ROS, en mètres</small></article>
+        <article><span>Sécurité</span><strong id="px4-safety" data-state="waiting">État indisponible</strong><small>prévol et failsafe PX4</small></article>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Métriques principales">
+      <article class="metric">
+        <span>Progression</span>
+        <strong id="metric-progress">0,0 %</strong>
+        <small id="metric-elapsed">0,0 s de données</small>
+      </article>
+      <article class="metric">
+        <span>Temps réel</span>
+        <strong id="metric-realtime">0,000×</strong>
+        <small>secondes de données / seconde réelle</small>
+      </article>
+      <article class="metric">
+        <span>CPU de l’algorithme</span>
+        <strong id="metric-cpu">0,0 %</strong>
+        <small id="metric-cpu-total">0,0 s cumulées</small>
+      </article>
+      <article class="metric">
+        <span>Mémoire de l’algorithme</span>
+        <strong id="metric-memory">0,0 Mio</strong>
+        <small>mémoire résidente du processus</small>
+      </article>
+      <article class="metric">
+        <span>ATE en ligne</span>
+        <strong id="metric-ate">—</strong>
+        <small>alignement SE(3), valeur provisoire</small>
+      </article>
+      <article class="metric">
+        <span>Sorties / référence</span>
+        <strong id="metric-ratio">0,0 %</strong>
+        <small id="metric-counts">0 / 0 poses</small>
+        <small id="metric-pipeline">Instrumentation en attente</small>
+      </article>
+    </section>
+
+    <section class="final-results" id="final-results" aria-labelledby="final-results-title" hidden>
+      <div class="final-results-heading">
+        <div>
+          <p class="eyebrow">BILAN ENREGISTRÉ</p>
+          <h2 id="final-results-title">Métriques finales de la simulation</h2>
+        </div>
+        <p id="final-results-source">Le fichier metrics.json sera créé à la fin du rejeu.</p>
+      </div>
+      <div class="final-metrics-grid" id="generic-final-metrics" hidden></div>
+      <div class="final-metrics-grid" id="lio-final-metrics">
+        <article><span>ATE position</span><strong id="final-ate-translation">—</strong><small>RMSE après alignement SE(3)</small></article>
+        <article><span>ATE orientation</span><strong id="final-ate-orientation">—</strong><small>RMSE angulaire</small></article>
+        <article><span>RPE translation</span><strong id="final-rpe-translation">—</strong><small>erreur relative à 1 seconde</small></article>
+        <article><span>RPE rotation</span><strong id="final-rpe-rotation">—</strong><small>erreur relative à 1 seconde</small></article>
+        <article><span>Sorties / scans</span><strong id="final-output-ratio">—</strong><small id="final-output-counts">—</small></article>
+        <article><span>Longueur estimée</span><strong id="final-path-ratio">—</strong><small>par rapport à la vérité terrain</small></article>
+      </div>
+      <div class="pipeline-results" id="lio-pipeline-results">
+        <h3>Diagnostic du pipeline LIO</h3>
+        <div class="pipeline-flow" aria-label="Compteurs du pipeline LIO">
+          <div><span>Reçus</span><strong id="pipeline-received">—</strong></div>
+          <div><span>Prétraités</span><strong id="pipeline-preprocessed">—</strong></div>
+          <div><span>Synchronisés IMU</span><strong id="pipeline-synchronized">—</strong></div>
+          <div><span>Initialisation / rejets</span><strong id="pipeline-rejected">—</strong></div>
+          <div><span>Mises à jour</span><strong id="pipeline-updates">—</strong></div>
+          <div><span>Odométries</span><strong id="pipeline-odometry">—</strong></div>
+        </div>
+        <p id="pipeline-detail">L’instrumentation apparaîtra pendant le rejeu.</p>
+      </div>
+    </section>
+
+    <main class="workspace">
+      <section class="scene-section" aria-label="Visualisation 3D">
+        <div class="scene-toolbar">
+          <div>
+            <h2>Carte et trajectoires 3D</h2>
+            <p id="scene-detail">En attente des topics ROS 2…</p>
+          </div>
+          <div class="scene-actions">
+            <button type="button" id="resume-live" hidden>Revenir au direct</button>
+            <button type="button" id="fit-view">Centrer la vue</button>
+            <button type="button" id="toggle-cloud" aria-pressed="true">Nuage visible</button>
+          </div>
+        </div>
+        <div class="scene-wrap">
+          <canvas id="scene" aria-label="Nuage de points et trajectoires en trois dimensions"></canvas>
+          <div class="scene-hint">Glisser pour tourner · molette pour zoomer</div>
+          <div class="legend" id="scene-legend" aria-label="Légende 3D">
+            <span class="base-legend base-legend-cloud"><i class="legend-cloud"></i>Nuage enregistré</span>
+            <span class="base-legend base-legend-estimate"><i class="legend-estimate"></i>Estimation LIO</span>
+            <span class="base-legend base-legend-truth"><i class="legend-truth"></i>Vérité terrain alignée</span>
+            <span class="base-legend base-legend-px4"><i class="legend-px4"></i>PX4 SITL</span>
+            <div class="comparison-scene-legend" id="comparison-legend"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="charts-section" aria-label="Graphiques du benchmark">
+        <figure>
+          <figcaption><span id="chart-cpu-label">CPU instantané</span><strong id="chart-cpu-value">0,0 %</strong></figcaption>
+          <canvas class="chart" id="chart-cpu" aria-label="Historique du CPU LIO"></canvas>
+        </figure>
+        <figure>
+          <figcaption><span id="chart-memory-label">Mémoire résidente</span><strong id="chart-memory-value">0,0 Mio</strong></figcaption>
+          <canvas class="chart" id="chart-memory" aria-label="Historique mémoire LIO"></canvas>
+        </figure>
+        <figure>
+          <figcaption><span id="chart-realtime-label">Facteur temps réel</span><strong id="chart-realtime-value">0,000×</strong></figcaption>
+          <canvas class="chart" id="chart-realtime" aria-label="Historique du facteur temps réel"></canvas>
+        </figure>
+        <figure>
+          <figcaption><span id="chart-ate-label">ATE en ligne</span><strong id="chart-ate-value">—</strong></figcaption>
+          <canvas class="chart" id="chart-ate" aria-label="Historique de l'erreur ATE en ligne"></canvas>
+        </figure>
+      </aside>
+    </main>
+
+    <footer>
+      <span id="footer-status">Serveur local · aucune donnée envoyée sur Internet</span>
+      <span>Vue graphique non utilisée pour les mesures de référence headless</span>
+    </footer>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

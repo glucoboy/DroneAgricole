@@ -1,0 +1,215 @@
+diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
+index e5d9950..3aa01ba 100644
+--- a/src/laserMapping.cpp
++++ b/src/laserMapping.cpp
+@@ -39,6 +39,8 @@
+ #include <fstream>
+ #include <csignal>
+ #include <chrono>
++#include <cstdint>
++#include <sstream>
+ #include <unistd.h>
+ #include <Python.h>
+ #include <so3_math.h>
+@@ -59,6 +61,7 @@
+ #include <tf2_ros/transform_broadcaster.h>
+ #include <geometry_msgs/msg/transform_stamped.hpp>
+ #include <geometry_msgs/msg/vector3.hpp>
++#include <std_msgs/msg/string.hpp>
+ #include <livox_ros_driver2/msg/custom_msg.hpp>
+ #include "preprocess.h"
+ #include <ikd-Tree/ikd_Tree.h>
+@@ -99,6 +102,42 @@ bool   lidar_pushed, flg_first_scan = true, flg_exit = false, flg_EKF_inited;
+ bool   scan_pub_en = false, dense_pub_en = false, scan_body_pub_en = false;
+ bool    is_first_lidar = true;
+ 
++struct PipelineCounters
++{
++    uint64_t scans_received = 0;
++    uint64_t scans_preprocessed = 0;
++    uint64_t scans_preprocess_empty = 0;
++    uint64_t scans_synchronized = 0;
++    uint64_t scans_initialization = 0;
++    uint64_t scans_imu_processed = 0;
++    uint64_t scans_rejected_undistort_empty = 0;
++    uint64_t scans_map_initialization = 0;
++    uint64_t scans_rejected_downsample = 0;
++    uint64_t state_updates = 0;
++    uint64_t odometry_published = 0;
++};
++
++PipelineCounters pipeline_counters;
++
++std::string pipeline_counters_json()
++{
++    std::ostringstream output;
++    output << "{\"schema_version\":1"
++           << ",\"scans_received\":" << pipeline_counters.scans_received
++           << ",\"scans_preprocessed\":" << pipeline_counters.scans_preprocessed
++           << ",\"scans_preprocess_empty\":" << pipeline_counters.scans_preprocess_empty
++           << ",\"scans_synchronized\":" << pipeline_counters.scans_synchronized
++           << ",\"scans_initialization\":" << pipeline_counters.scans_initialization
++           << ",\"scans_imu_processed\":" << pipeline_counters.scans_imu_processed
++           << ",\"scans_rejected_undistort_empty\":" << pipeline_counters.scans_rejected_undistort_empty
++           << ",\"scans_map_initialization\":" << pipeline_counters.scans_map_initialization
++           << ",\"scans_rejected_downsample\":" << pipeline_counters.scans_rejected_downsample
++           << ",\"state_updates\":" << pipeline_counters.state_updates
++           << ",\"odometry_published\":" << pipeline_counters.odometry_published
++           << "}";
++    return output.str();
++}
++
+ vector<vector<int>>  pointSearchInd_surf; 
+ vector<BoxPointType> cub_needrm;
+ vector<PointVector>  Nearest_Points; 
+@@ -284,6 +323,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg)
+ {
+     mtx_buffer.lock();
+     scan_count ++;
++    pipeline_counters.scans_received ++;
+     double cur_time = get_time_sec(msg->header.stamp);
+     double preprocess_start_time = omp_get_wtime();
+     if (!is_first_lidar && cur_time < last_timestamp_lidar)
+@@ -298,6 +338,8 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg)
+ 
+     PointCloudXYZI::Ptr  ptr(new PointCloudXYZI());
+     p_pre->process(msg, ptr);
++    pipeline_counters.scans_preprocessed ++;
++    if (ptr->points.size() <= 1) pipeline_counters.scans_preprocess_empty ++;
+     lidar_buffer.push_back(ptr);
+     time_buffer.push_back(cur_time);
+     last_timestamp_lidar = cur_time;
+@@ -314,6 +356,7 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
+     double cur_time = get_time_sec(msg->header.stamp);
+     double preprocess_start_time = omp_get_wtime();
+     scan_count ++;
++    pipeline_counters.scans_received ++;
+     if (!is_first_lidar && cur_time < last_timestamp_lidar)
+     {
+         std::cerr << "lidar loop back, clear buffer" << std::endl;
+@@ -339,6 +382,8 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
+ 
+     PointCloudXYZI::Ptr  ptr(new PointCloudXYZI());
+     p_pre->process(msg, ptr);
++    pipeline_counters.scans_preprocessed ++;
++    if (ptr->points.size() <= 1) pipeline_counters.scans_preprocess_empty ++;
+     lidar_buffer.push_back(ptr);
+     time_buffer.push_back(last_timestamp_lidar);
+     
+@@ -431,6 +476,7 @@ bool sync_packages(MeasureGroup &meas)
+     lidar_buffer.pop_front();
+     time_buffer.pop_front();
+     lidar_pushed = false;
++    pipeline_counters.scans_synchronized ++;
+     return true;
+ }
+ 
+@@ -933,6 +979,7 @@ public:
+         pubLaserCloudMap_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/Laser_map", 20);
+         pubOdomAftMapped_ = this->create_publisher<nav_msgs::msg::Odometry>("/Odometry", 20);
+         pubPath_ = this->create_publisher<nav_msgs::msg::Path>("/path", 20);
++        pubPipelineCounters_ = this->create_publisher<std_msgs::msg::String>("/fast_lio2/pipeline_counters", 10);
+         tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
+ 
+         //------------------------------------------------------------------------------------------------------
+@@ -942,6 +989,10 @@ public:
+         auto map_period_ms = std::chrono::milliseconds(static_cast<int64_t>(1000.0));
+         map_pub_timer_ = rclcpp::create_timer(this, this->get_clock(), map_period_ms, std::bind(&LaserMappingNode::map_publish_callback, this));
+ 
++        diagnostics_timer_ = this->create_wall_timer(
++            std::chrono::milliseconds(250),
++            std::bind(&LaserMappingNode::publish_pipeline_counters, this));
++
+         map_save_srv_ = this->create_service<std_srvs::srv::Trigger>("map_save", std::bind(&LaserMappingNode::map_save_callback, this, std::placeholders::_1, std::placeholders::_2));
+ 
+         RCLCPP_INFO(this->get_logger(), "Node init finished.");
+@@ -949,18 +1000,27 @@ public:
+ 
+     ~LaserMappingNode()
+     {
++        std::cout << "FASTLIO_PIPELINE_FINAL " << pipeline_counters_json() << std::endl;
+         fout_out.close();
+         fout_pre.close();
+         fclose(fp);
+     }
+ 
+ private:
++    void publish_pipeline_counters()
++    {
++        std_msgs::msg::String message;
++        message.data = pipeline_counters_json();
++        pubPipelineCounters_->publish(message);
++    }
++
+     void timer_callback()
+     {
+         if(sync_packages(Measures))
+         {
+             if (flg_first_scan)
+             {
++                pipeline_counters.scans_initialization ++;
+                 first_lidar_time = Measures.lidar_beg_time;
+                 p_imu->first_lidar_time = first_lidar_time;
+                 flg_first_scan = false;
+@@ -977,11 +1037,13 @@ private:
+             t0 = omp_get_wtime();
+ 
+             p_imu->Process(Measures, kf, feats_undistort);
++            pipeline_counters.scans_imu_processed ++;
+             state_point = kf.get_x();
+             pos_lid = state_point.pos + state_point.rot * state_point.offset_T_L_I;
+ 
+             if (feats_undistort->empty() || (feats_undistort == NULL))
+             {
++                pipeline_counters.scans_rejected_undistort_empty ++;
+                 RCLCPP_WARN(this->get_logger(), "No point, skip this scan!\n");
+                 return;
+             }
+@@ -999,6 +1061,7 @@ private:
+             /*** initialize the map kdtree ***/
+             if(ikdtree.Root_Node == nullptr)
+             {
++                pipeline_counters.scans_map_initialization ++;
+                 RCLCPP_INFO(this->get_logger(), "Initialize the map kdtree");
+                 if(feats_down_size > 5)
+                 {
+@@ -1020,6 +1083,7 @@ private:
+             /*** ICP and iterated Kalman filter update ***/
+             if (feats_down_size < 5)
+             {
++                pipeline_counters.scans_rejected_downsample ++;
+                 RCLCPP_WARN(this->get_logger(), "No point, skip this scan!\n");
+                 return;
+             }
+@@ -1050,6 +1114,7 @@ private:
+             double t_update_start = omp_get_wtime();
+             double solve_H_time = 0;
+             kf.update_iterated_dyn_share_modified(LASER_POINT_COV, solve_H_time);
++            pipeline_counters.state_updates ++;
+             state_point = kf.get_x();
+             euler_cur = SO3ToEuler(state_point.rot);
+             pos_lid = state_point.pos + state_point.rot * state_point.offset_T_L_I;
+@@ -1062,6 +1127,7 @@ private:
+ 
+             /******* Publish odometry *******/
+             publish_odometry(pubOdomAftMapped_, tf_broadcaster_);
++            pipeline_counters.odometry_published ++;
+ 
+             /*** add the feature points to map kdtree ***/
+             t3 = omp_get_wtime();
+@@ -1135,6 +1201,7 @@ private:
+     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubLaserCloudMap_;
+     rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr pubOdomAftMapped_;
+     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath_;
++    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pubPipelineCounters_;
+     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr sub_imu_;
+     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_pcl_pc_;
+     rclcpp::Subscription<livox_ros_driver2::msg::CustomMsg>::SharedPtr sub_pcl_livox_;
+@@ -1142,6 +1209,7 @@ private:
+     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+     rclcpp::TimerBase::SharedPtr timer_;
+     rclcpp::TimerBase::SharedPtr map_pub_timer_;
++    rclcpp::TimerBase::SharedPtr diagnostics_timer_;
+     rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr map_save_srv_;
+ 
+     bool effect_pub_en = false, map_pub_en = false;

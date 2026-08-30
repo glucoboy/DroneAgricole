@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "contract_registry": {
+    "schema_version": 1,
+    "datasets_directory": "configs/visualization/datasets",
+    "simulations_directory": "configs/visualization/simulations"
+  },
+  "datasets": [
+    {
+      "id": "botanicgarden",
+      "label": "BotanicGarden",
+      "description": "Parcours extérieur arboré avec LiDAR, IMU et vérité terrain.",
+      "sequences": [
+        {
+          "id": "1006-03-smoke",
+          "label": "1006-03 · test rapide (5 s)",
+          "bag_path": "datasets/derived/botanicgarden/1006-03/smoke/velodyne_xsens_fastlio2_5s_ros2",
+          "duration_s": 5,
+          "recommended": true,
+          "result_group": "botanicgarden_1006-03"
+        },
+        {
+          "id": "1006-03-dynamic",
+          "label": "1006-03 · extrait dynamique (30 s)",
+          "bag_path": "datasets/derived/botanicgarden/1006-03/dynamic/velodyne_xsens_fastlio2_30s_offset60_ros2",
+          "duration_s": 30,
+          "result_group": "botanicgarden_1006-03"
+        },
+        {
+          "id": "1006-03-full",
+          "label": "1006-03 · séquence complète (581 s)",
+          "bag_path": "datasets/derived/botanicgarden/1006-03/full/velodyne_xsens_fastlio2_full_ros2",
+          "duration_s": 581.12,
+          "result_group": "botanicgarden_1006-03"
+        }
+      ]
+    }
+  ],
+  "run_parameters": [
+    {
+      "id": "playback_rate",
+      "label": "Vitesse de rejeu",
+      "description": "1,0× reproduit le rythme nominal du dataset.",
+      "type": "number",
+      "unit": "×",
+      "default": 1.0,
+      "minimum": 0.2,
+      "maximum": 2.0,
+      "step": 0.1,
+      "group": "principal"
+    }
+  ],
+  "algorithms": [
+    {
+      "id": "fast_lio2",
+      "label": "FAST-LIO2",
+      "description": "LIO actuellement intégré et validé sur BotanicGarden.",
+      "available": true,
+      "runner": "fast_lio2",
+      "pipeline_topic": "/fast_lio2/pipeline_counters",
+      "base_config": "configs/lio/fast_lio2/botanicgarden_velodyne_xsens_visual.yaml",
+      "parameters": [
+        {
+          "id": "filter_size_surf",
+          "label": "Voxel du nuage",
+          "description": "Résolution du filtrage LiDAR avant estimation.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.5,
+          "minimum": 0.1,
+          "maximum": 2.0,
+          "step": 0.05,
+          "group": "principal"
+        },
+        {
+          "id": "filter_size_map",
+          "label": "Voxel de la carte",
+          "description": "Résolution de la carte interne incrémentale.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.5,
+          "minimum": 0.1,
+          "maximum": 2.0,
+          "step": 0.05,
+          "group": "advanced"
+        },
+        {
+          "id": "point_filter_num",
+          "label": "Sous-échantillonnage",
+          "description": "Un point conservé sur N dans chaque scan.",
+          "type": "integer",
+          "unit": "N",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 10,
+          "step": 1,
+          "group": "advanced"
+        },
+        {
+          "id": "max_iteration",
+          "label": "Itérations maximales",
+          "description": "Nombre maximal d'itérations d'optimisation par scan.",
+          "type": "integer",
+          "unit": "",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 10,
+          "step": 1,
+          "group": "advanced"
+        },
+        {
+          "id": "blind",
+          "label": "Zone aveugle LiDAR",
+          "description": "Points plus proches que cette distance ignorés.",
+          "type": "number",
+          "unit": "m",
+          "default": 1.0,
+          "minimum": 0.1,
+          "maximum": 5.0,
+          "step": 0.1,
+          "group": "advanced"
+        },
+        {
+          "id": "det_range",
+          "label": "Portée de détection",
+          "description": "Distance maximale utilisée par le mapping.",
+          "type": "number",
+          "unit": "m",
+          "default": 100.0,
+          "minimum": 20.0,
+          "maximum": 200.0,
+          "step": 5.0,
+          "group": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "point_lio",
+      "label": "Point-LIO",
+      "description": "LIO point par point intégré à ROS 2 Humble pour BotanicGarden.",
+      "available": true,
+      "runner": "point_lio",
+      "pipeline_topic": "/point_lio/pipeline_counters",
+      "base_config": "configs/lio/point_lio/botanicgarden_velodyne_xsens_visual.yaml",
+      "parameters": [
+        {
+          "id": "filter_size_surf",
+          "label": "Voxel du nuage",
+          "description": "Résolution du filtrage LiDAR avant estimation.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.5,
+          "minimum": 0.1,
+          "maximum": 2.0,
+          "step": 0.05,
+          "group": "principal"
+        },
+        {
+          "id": "filter_size_map",
+          "label": "Voxel de la carte",
+          "description": "Résolution de l'ikd-Tree interne.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.5,
+          "minimum": 0.1,
+          "maximum": 2.0,
+          "step": 0.05,
+          "group": "advanced"
+        },
+        {
+          "id": "point_filter_num",
+          "label": "Sous-échantillonnage",
+          "description": "Un point conservé sur N dans chaque scan.",
+          "type": "integer",
+          "unit": "N",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 10,
+          "step": 1,
+          "group": "advanced"
+        },
+        {
+          "id": "blind",
+          "label": "Zone aveugle LiDAR",
+          "description": "Points plus proches que cette distance ignorés.",
+          "type": "number",
+          "unit": "m",
+          "default": 1.0,
+          "minimum": 0.1,
+          "maximum": 5.0,
+          "step": 0.1,
+          "group": "advanced"
+        },
+        {
+          "id": "det_range",
+          "label": "Portée de détection",
+          "description": "Distance maximale utilisée par le mapping.",
+          "type": "number",
+          "unit": "m",
+          "default": 100.0,
+          "minimum": 20.0,
+          "maximum": 200.0,
+          "step": 5.0,
+          "group": "advanced"
+        },
+        {
+          "id": "plane_thr",
+          "label": "Seuil de planéité",
+          "description": "Tolérance géométrique de sélection des plans.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.1,
+          "minimum": 0.01,
+          "maximum": 0.5,
+          "step": 0.01,
+          "group": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "lio_sam",
+      "label": "LIO-SAM",
+      "description": "LIO par graphe de facteurs avec extraction d'arêtes et de surfaces.",
+      "available": true,
+      "runner": "lio_sam",
+      "pipeline_topic": "/lio_sam/pipeline_counters",
+      "base_config": "configs/lio/lio_sam/botanicgarden_velodyne_xsens_visual.yaml",
+      "parameters": [
+        {
+          "id": "odometrySurfLeafSize",
+          "label": "Voxel odométrie",
+          "description": "Résolution des surfaces utilisées par l'odométrie.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.4,
+          "minimum": 0.1,
+          "maximum": 1.0,
+          "step": 0.05,
+          "group": "principal"
+        },
+        {
+          "id": "mappingCornerLeafSize",
+          "label": "Voxel arêtes carte",
+          "description": "Résolution des arêtes conservées dans la carte locale.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.2,
+          "minimum": 0.05,
+          "maximum": 1.0,
+          "step": 0.05,
+          "group": "advanced"
+        },
+        {
+          "id": "mappingSurfLeafSize",
+          "label": "Voxel surfaces carte",
+          "description": "Résolution des surfaces conservées dans la carte locale.",
+          "type": "number",
+          "unit": "m",
+          "default": 0.4,
+          "minimum": 0.1,
+          "maximum": 1.0,
+          "step": 0.05,
+          "group": "advanced"
+        },
+        {
+          "id": "edgeThreshold",
+          "label": "Seuil d'arête",
+          "description": "Courbure minimale d'un point classé comme arête.",
+          "type": "number",
+          "unit": "",
+          "default": 1.0,
+          "minimum": 0.1,
+          "maximum": 5.0,
+          "step": 0.1,
+          "group": "advanced"
+        },
+        {
+          "id": "surfThreshold",
+          "label": "Seuil de surface",
+          "description": "Courbure maximale d'un point classé comme surface.",
+          "type": "number",
+          "unit": "",
+          "default": 0.1,
+          "minimum": 0.01,
+          "maximum": 0.5,
+          "step": 0.01,
+          "group": "advanced"
+        },
+        {
+          "id": "mappingProcessInterval",
+          "label": "Intervalle mapping",
+          "description": "0 traite chaque scan ; une valeur supérieure réduit la fréquence de mapping.",
+          "type": "number",
+          "unit": "s",
+          "default": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.5,
+          "step": 0.05,
+          "group": "advanced"
+        }
+      ]
+    }
+  ]
+}
