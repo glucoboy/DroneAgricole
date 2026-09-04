@@ -1,0 +1,90 @@
+name: SW0 - C++17 Qt 6
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_arm64:
+        description: Construire manuellement le runtime Qt/LIO linux/arm64
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  source-policy:
+    name: Politique source et Compose
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier les écarts Git
+        run: git diff --check
+      - name: Valider Compose
+        run: docker compose config --quiet
+
+  linux-amd64:
+    name: Linux amd64
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installer Qt 6 et les dépendances
+        run: sudo apt-get update && sudo apt-get install --yes ninja-build qt6-base-dev libyaml-cpp-dev libgl1-mesa-dev
+      - name: Configurer
+        run: cmake --preset ci-linux
+      - name: Construire
+        run: cmake --build --preset ci-linux --parallel
+      - name: Tester
+        run: ctest --preset ci-linux
+
+  windows-ucrt64:
+    name: Windows UCRT64
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-qt6-base
+            mingw-w64-ucrt-x86_64-yaml-cpp
+      - name: Configurer
+        shell: pwsh
+        run: C:\msys64\ucrt64\bin\cmake.exe --preset ci-windows
+      - name: Construire
+        shell: pwsh
+        run: C:\msys64\ucrt64\bin\cmake.exe --build --preset ci-windows --parallel
+      - name: Tester
+        shell: pwsh
+        run: C:\msys64\ucrt64\bin\ctest.exe --preset ci-windows
+
+  linux-arm64-manual:
+    name: Linux arm64 - runtime Qt et LIO
+    if: github.event_name == 'workflow_dispatch' && inputs.build_arm64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+        with:
+          buildkitd-config-inline: |
+            [worker.oci]
+              max-parallelism = 1
+      - name: Construire sans publier
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: software/docker/Dockerfile
+          target: ros-humble-qt-dashboard
+          platforms: linux/arm64
+          build-args: CMAKE_BUILD_PARALLEL_LEVEL=1
+          push: false
+          cache-from: type=gha,scope=qt-lio-arm64
+          cache-to: type=gha,mode=max,scope=qt-lio-arm64

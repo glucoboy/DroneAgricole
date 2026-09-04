@@ -1,3 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,5 +9,6 @@ endif()
+ # find dependencies
+ find_package(ament_cmake REQUIRED)
++find_package(rcutils REQUIRED)
+ find_package(rosidl_default_generators REQUIRED)
+ find_package(rclcpp REQUIRED)
+ find_package(rclpy REQUIRED)
+diff --git a/package.xml b/package.xml
+--- a/package.xml
++++ b/package.xml
+@@ -17,3 +17,4 @@
+   <build_depend>rclcpp</build_depend>
+   <build_depend>rclpy</build_depend>
++  <build_depend>rcutils</build_depend>
+   <build_depend>std_msgs</build_depend>
 diff --git a/include/lio_sam/utility.hpp b/include/lio_sam/utility.hpp
 index 60e7b88..a1b0a97 100644
 --- a/include/lio_sam/utility.hpp

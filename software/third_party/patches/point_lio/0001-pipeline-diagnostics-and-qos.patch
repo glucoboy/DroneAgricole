@@ -42,10 +42,11 @@ diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
 index b6d5f4a..a16e668 100644
 --- a/src/laserMapping.cpp
 +++ b/src/laserMapping.cpp
-@@ -3,6 +3,7 @@
+@@ -3,6 +3,8 @@
  #include <cmath>
  #include <thread>
  #include <fstream>
++#include <chrono>
 +#include <sstream>
  #include <csignal>
  #include <Python.h>
@@ -148,13 +149,15 @@ index b6d5f4a..a16e668 100644
      // }
      auto sub_imu = nh->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 200000, imu_cbk);
  
-@@ -810,6 +858,9 @@ int main(int argc, char **argv) {
+@@ -810,6 +859,11 @@ int main(int argc, char **argv) {
          pubOdomAftMapped = nh->create_publisher<nav_msgs::msg::Odometry>
                  ("/aft_mapped_to_init", 100000);
      }
 +    auto pipeline_counters_publisher_handle = nh->create_publisher<std_msgs::msg::String>
 +            ("/point_lio/pipeline_counters", 10);
 +    pipeline_counters_publisher = pipeline_counters_publisher_handle;
++    auto pipeline_counters_timer = nh->create_wall_timer(
++            std::chrono::milliseconds(250), publish_pipeline_counters);
  
      //auto plane_pub = nh->create_publisher<visualization_msgs::msg::Marker>
      //        ("/planner_normal", 1000);

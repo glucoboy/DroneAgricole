@@ -1,42 +1,79 @@
 # syntax=docker/dockerfile:1.7
 
-FROM ros:humble-ros-base-jammy AS ros-humble-core
+FROM ros:humble-ros-base-jammy AS ros-humble-dependencies
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       python3-pip \
-       python3-venv \
+       build-essential \
+       cmake \
+       libeigen3-dev \
+       libgl1-mesa-dev \
+       libqt6opengl6-dev \
+       libyaml-cpp-dev \
+       ninja-build \
+       python3-colcon-common-extensions \
+       qt6-base-dev \
+       qt6-base-dev-tools \
        ros-humble-demo-nodes-cpp \
+       ros-humble-geometry-msgs \
+       ros-humble-nav-msgs \
        ros-humble-rosbag2 \
+       ros-humble-rosbag2-cpp \
        ros-humble-rosbag2-storage-mcap \
+       ros-humble-rosidl-default-generators \
+       ros-humble-sensor-msgs \
+       ros-humble-std-msgs \
     && rm -rf /var/lib/apt/lists/*
+
+COPY software/src/livox_ros_driver2_msgs_compat /opt/drone_tools_ws/src/livox_ros_driver2
+RUN source /opt/ros/humble/setup.bash \
+    && cd /opt/drone_tools_ws \
+    && colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    && rm -rf build log
+
+ENV AMENT_PREFIX_PATH=/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/drone_tools_ws/install/lib:/usr/local/lib
+
+WORKDIR /workspace
+
+
+FROM ros-humble-dependencies AS ros-humble-core
+
+COPY CMakeLists.txt /opt/drone_agricole_src/CMakeLists.txt
+COPY software/cpp /opt/drone_agricole_src/software/cpp
+RUN source /opt/ros/humble/setup.bash \
+    && source /opt/drone_tools_ws/install/setup.bash \
+    && cmake -S /opt/drone_agricole_src -B /opt/drone_agricole_build -G Ninja \
+       -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_PREFIX=/usr/local \
+       -DDRONE_AGRICOLE_BUILD_DASHBOARD=OFF \
+       -DDRONE_AGRICOLE_BUILD_TESTS=OFF \
+       -DDRONE_AGRICOLE_WITH_ROS2=ON \
+    && cmake --build /opt/drone_agricole_build --parallel \
+    && cmake --install /opt/drone_agricole_build \
+    && rm -rf /opt/drone_agricole_build /opt/drone_agricole_src
+
+ENV AMENT_PREFIX_PATH=/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/drone_tools_ws/install/lib:/usr/local/lib
 
 WORKDIR /workspace
 
 
 FROM ros-humble-core AS ros-humble
 
-COPY software/src/drone_agricole_dataset_adapter /opt/drone_agricole_dataset_adapter
-RUN python3 -m pip install --no-cache-dir \
-       pip==25.2 \
-       packaging==25.0 \
-       setuptools==79.0.1 \
-       wheel==0.45.1 \
-    && python3 -m pip install --no-cache-dir --no-build-isolation \
-       /opt/drone_agricole_dataset_adapter
-
 LABEL org.opencontainers.image.title="Drone Agricole - ROS 2 Humble LIO base" \
-      org.opencontainers.image.version="0.1.0"
+      org.opencontainers.image.version="1.0.0"
 
 WORKDIR /workspace
 CMD ["bash"]
 
 
-FROM ros-humble-core AS ros-humble-fastlio2
+FROM ros-humble-dependencies AS ros-humble-fastlio2
 
+ARG CMAKE_BUILD_PARALLEL_LEVEL=4
 ARG FAST_LIO_REPOSITORY=https://github.com/hku-mars/FAST_LIO.git
 ARG FAST_LIO_COMMIT=a4743b095409588842a5b30ddfa27e29d2f99164
 
@@ -58,15 +95,11 @@ RUN apt-get update \
        ros-humble-visualization-msgs \
     && rm -rf /var/lib/apt/lists/*
 
-# L'analyse ATE/RPE est exécutée dans la même image après chaque rejeu afin
-# qu'une campagne longue soit autonome et reprenable.
-RUN python3 -m pip install --no-cache-dir rosbags==0.11.3
-
 WORKDIR /opt/fast_lio_ws/src
-RUN git clone --branch ROS2 --single-branch "${FAST_LIO_REPOSITORY}" FAST_LIO \
+RUN git -c http.version=HTTP/1.1 clone --branch ROS2 --single-branch "${FAST_LIO_REPOSITORY}" FAST_LIO \
     && cd FAST_LIO \
     && git checkout --detach "${FAST_LIO_COMMIT}" \
-    && git submodule update --init --recursive \
+    && git -c http.version=HTTP/1.1 submodule update --init --recursive \
     && test "$(git rev-parse HEAD)" = "${FAST_LIO_COMMIT}" \
     && test "$(git -C include/ikd-Tree rev-parse HEAD)" = "e2e3f4e9d3b95a9e66b1ba83dc98d4a05ed8a3c4"
 
@@ -86,23 +119,23 @@ RUN cd /opt/fast_lio_ws/src/FAST_LIO \
     && git apply /tmp/fast_lio2_qos.patch \
     && rm /tmp/fast_lio2_qos.patch
 
-# FAST-LIO2 exige les interfaces livox_ros_driver2 même pour un LiDAR
-# PointCloud2. Le paquet local fournit uniquement les messages officiels ;
-# le pilote matériel complet sera ajouté séparément quand un Livox sera branché.
-COPY software/src/livox_ros_driver2_msgs_compat /opt/fast_lio_ws/src/livox_ros_driver2
-
 WORKDIR /opt/fast_lio_ws
 RUN source /opt/ros/humble/setup.bash \
-    && colcon build \
+    && source /opt/drone_tools_ws/install/setup.bash \
+    && CMAKE_BUILD_PARALLEL_LEVEL="${CMAKE_BUILD_PARALLEL_LEVEL}" colcon build \
        --merge-install \
        --cmake-args -DCMAKE_BUILD_TYPE=Release \
     && rm -rf build log
 
-COPY --chmod=0755 software/docker/fast_lio_entrypoint.sh /fast_lio_entrypoint.sh
-ENTRYPOINT ["/fast_lio_entrypoint.sh"]
+ENV AMENT_PREFIX_PATH=/opt/fast_lio_ws/install:/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/fast_lio_ws/install/lib:/opt/drone_tools_ws/install/lib:/usr/local/lib
+
+# Le binaire propriétaire est injecté après les dépendances lourdes afin qu'une
+# modification C++ ne reconstruise pas FAST-LIO2, PCL et leurs dépendances.
+COPY --from=ros-humble-core /usr/local/bin/drone-agricole-tools /usr/local/bin/drone-agricole-tools
 
 LABEL org.opencontainers.image.title="Drone Agricole - FAST-LIO2 ROS 2 Humble" \
-      org.opencontainers.image.version="0.1.0" \
+      org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.source="https://github.com/hku-mars/FAST_LIO" \
       org.opencontainers.image.revision="a4743b095409588842a5b30ddfa27e29d2f99164"
 
@@ -110,23 +143,9 @@ WORKDIR /workspace
 CMD ["bash"]
 
 
-FROM ros-humble-fastlio2 AS ros-humble-fastlio2-visual
+FROM ros-humble-dependencies AS ros-humble-pointlio
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-       python3-aiohttp \
-    && rm -rf /var/lib/apt/lists/*
-
-LABEL org.opencontainers.image.title="Drone Agricole - FAST-LIO2 live dashboard" \
-      org.opencontainers.image.version="0.1.0"
-
-EXPOSE 8080
-WORKDIR /workspace
-CMD ["python3", "software/visualization/dashboard_server.py", "--host", "0.0.0.0", "--port", "8080"]
-
-
-FROM ros-humble-core AS ros-humble-pointlio
-
+ARG CMAKE_BUILD_PARALLEL_LEVEL=4
 ARG POINT_LIO_REPOSITORY=https://github.com/dfloreaa/point_lio_ros2.git
 ARG POINT_LIO_COMMIT=a8e2d0d5090af97ead8dd4fac3d37cf3dbb33ff7
 
@@ -146,10 +165,8 @@ RUN apt-get update \
        ros-humble-visualization-msgs \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir rosbags==0.11.3
-
 WORKDIR /opt/point_lio_ws/src
-RUN git clone "${POINT_LIO_REPOSITORY}" point_lio \
+RUN git -c http.version=HTTP/1.1 clone "${POINT_LIO_REPOSITORY}" point_lio \
     && cd point_lio \
     && git checkout --detach "${POINT_LIO_COMMIT}" \
     && test "$(git rev-parse HEAD)" = "${POINT_LIO_COMMIT}"
@@ -162,16 +179,19 @@ RUN cd /opt/point_lio_ws/src/point_lio \
 
 WORKDIR /opt/point_lio_ws
 RUN source /opt/ros/humble/setup.bash \
-    && colcon build \
+    && source /opt/drone_tools_ws/install/setup.bash \
+    && CMAKE_BUILD_PARALLEL_LEVEL="${CMAKE_BUILD_PARALLEL_LEVEL}" colcon build \
        --merge-install \
        --cmake-args -DCMAKE_BUILD_TYPE=Release \
     && rm -rf build log
 
-COPY --chmod=0755 software/docker/lio_entrypoint.sh /lio_entrypoint.sh
-ENTRYPOINT ["/lio_entrypoint.sh"]
+ENV AMENT_PREFIX_PATH=/opt/point_lio_ws/install:/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/point_lio_ws/install/lib:/opt/drone_tools_ws/install/lib:/usr/local/lib
+
+COPY --from=ros-humble-core /usr/local/bin/drone-agricole-tools /usr/local/bin/drone-agricole-tools
 
 LABEL org.opencontainers.image.title="Drone Agricole - Point-LIO ROS 2 Humble" \
-      org.opencontainers.image.version="0.1.0" \
+      org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.source="https://github.com/dfloreaa/point_lio_ros2" \
       org.opencontainers.image.revision="a8e2d0d5090af97ead8dd4fac3d37cf3dbb33ff7"
 
@@ -179,10 +199,7 @@ WORKDIR /workspace
 CMD ["bash"]
 
 
-FROM ros-humble-core AS ros-humble-liosam
-
-ARG LIO_SAM_REPOSITORY=https://github.com/TixiaoShan/LIO-SAM.git
-ARG LIO_SAM_COMMIT=08af3f32f01725372d4269838dc44c19c6d9e76b
+FROM ros-humble-dependencies AS ros-humble-liosam-dependencies
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -209,10 +226,15 @@ RUN apt-get update \
        libgtsam-unstable-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir rosbags==0.11.3
+
+FROM ros-humble-liosam-dependencies AS ros-humble-liosam
+
+ARG CMAKE_BUILD_PARALLEL_LEVEL=4
+ARG LIO_SAM_REPOSITORY=https://github.com/TixiaoShan/LIO-SAM.git
+ARG LIO_SAM_COMMIT=08af3f32f01725372d4269838dc44c19c6d9e76b
 
 WORKDIR /opt/lio_sam_ws/src
-RUN git clone --branch ros2 --single-branch "${LIO_SAM_REPOSITORY}" lio_sam \
+RUN git -c http.version=HTTP/1.1 clone --branch ros2 --single-branch "${LIO_SAM_REPOSITORY}" lio_sam \
     && cd lio_sam \
     && git checkout --detach "${LIO_SAM_COMMIT}" \
     && test "$(git rev-parse HEAD)" = "${LIO_SAM_COMMIT}"
@@ -225,16 +247,19 @@ RUN cd /opt/lio_sam_ws/src/lio_sam \
 
 WORKDIR /opt/lio_sam_ws
 RUN source /opt/ros/humble/setup.bash \
-    && colcon build \
+    && source /opt/drone_tools_ws/install/setup.bash \
+    && CMAKE_BUILD_PARALLEL_LEVEL="${CMAKE_BUILD_PARALLEL_LEVEL}" colcon build \
        --merge-install \
        --cmake-args -DCMAKE_BUILD_TYPE=Release \
     && rm -rf build log
 
-COPY --chmod=0755 software/docker/lio_entrypoint.sh /lio_entrypoint.sh
-ENTRYPOINT ["/lio_entrypoint.sh"]
+ENV AMENT_PREFIX_PATH=/opt/lio_sam_ws/install:/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/lio_sam_ws/install/lib:/opt/drone_tools_ws/install/lib:/usr/local/lib
+
+COPY --from=ros-humble-core /usr/local/bin/drone-agricole-tools /usr/local/bin/drone-agricole-tools
 
 LABEL org.opencontainers.image.title="Drone Agricole - LIO-SAM ROS 2 Humble" \
-      org.opencontainers.image.version="0.1.0" \
+      org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.source="https://github.com/TixiaoShan/LIO-SAM" \
       org.opencontainers.image.revision="08af3f32f01725372d4269838dc44c19c6d9e76b"
 
@@ -242,27 +267,35 @@ WORKDIR /workspace
 CMD ["bash"]
 
 
-FROM ros-humble-liosam AS ros-humble-lio-dashboard
+FROM ros-humble-liosam AS ros-humble-qt-dashboard
 
 COPY --from=ros-humble-fastlio2 /opt/fast_lio_ws/install /opt/fast_lio_ws/install
 COPY --from=ros-humble-pointlio /opt/point_lio_ws/install /opt/point_lio_ws/install
-COPY software/src/drone_agricole_dataset_adapter /opt/drone_agricole_dataset_adapter
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3-aiohttp \
-    && rm -rf /var/lib/apt/lists/* \
-    && python3 -m pip install --no-cache-dir \
-       pip==25.2 packaging==25.0 setuptools==79.0.1 wheel==0.45.1 \
-    && python3 -m pip install --no-cache-dir --no-build-isolation \
-       /opt/drone_agricole_dataset_adapter
-COPY --chmod=0755 software/docker/lio_entrypoint.sh /lio_entrypoint.sh
-ENTRYPOINT ["/lio_entrypoint.sh"]
 
-LABEL org.opencontainers.image.title="Drone Agricole - LIO live dashboard" \
-      org.opencontainers.image.version="0.5.0"
+COPY CMakeLists.txt /opt/drone_agricole_src/CMakeLists.txt
+COPY software/cpp /opt/drone_agricole_src/software/cpp
+RUN source /opt/ros/humble/setup.bash \
+    && source /opt/drone_tools_ws/install/setup.bash \
+    && source /opt/fast_lio_ws/install/setup.bash \
+    && source /opt/point_lio_ws/install/setup.bash \
+    && source /opt/lio_sam_ws/install/setup.bash \
+    && cmake -S /opt/drone_agricole_src -B /opt/drone_agricole_build -G Ninja \
+       -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_PREFIX=/usr/local \
+       -DDRONE_AGRICOLE_BUILD_TESTS=OFF \
+       -DDRONE_AGRICOLE_WITH_ROS2=ON \
+    && cmake --build /opt/drone_agricole_build --parallel \
+    && cmake --install /opt/drone_agricole_build \
+    && rm -rf /opt/drone_agricole_build /opt/drone_agricole_src
 
-EXPOSE 8080
+ENV AMENT_PREFIX_PATH=/opt/lio_sam_ws/install:/opt/point_lio_ws/install:/opt/fast_lio_ws/install:/opt/drone_tools_ws/install
+ENV LD_LIBRARY_PATH=/opt/lio_sam_ws/install/lib:/opt/point_lio_ws/install/lib:/opt/fast_lio_ws/install/lib:/opt/drone_tools_ws/install/lib:/usr/local/lib
+
+LABEL org.opencontainers.image.title="Drone Agricole - Qt 6 desktop dashboard and LIO runtime" \
+      org.opencontainers.image.version="1.0.0"
+
 WORKDIR /workspace
-CMD ["python3", "-m", "software.visualization.dashboard_server", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["bash"]
 
 
 FROM ros:jazzy-ros-base-noble AS ros-jazzy-sim
@@ -298,7 +331,9 @@ RUN apt-get update \
        build-essential \
        cmake \
        git \
-       python3-aiohttp \
+       qt6-base-dev \
+       qt6-base-dev-tools \
+       ros-jazzy-ament-cmake-gtest \
        ros-jazzy-diagnostic-msgs \
        ros-jazzy-geometry-msgs \
        ros-jazzy-nav-msgs \
@@ -309,7 +344,7 @@ RUN apt-get update \
 # PX4 1.18 utilise le protocole uXRCE-DDS v2 et requiert l'Agent 2.4.3.
 # Le dépôt et ses sous-modules sont tous figés par commit.
 WORKDIR /opt
-RUN git clone --recursive "${MICRO_XRCE_DDS_AGENT_REPOSITORY}" Micro-XRCE-DDS-Agent \
+RUN git -c http.version=HTTP/1.1 clone --recursive "${MICRO_XRCE_DDS_AGENT_REPOSITORY}" Micro-XRCE-DDS-Agent \
     && cd Micro-XRCE-DDS-Agent \
     && git checkout --detach "${MICRO_XRCE_DDS_AGENT_COMMIT}" \
     && git submodule update --init --recursive \
@@ -321,7 +356,7 @@ RUN git clone --recursive "${MICRO_XRCE_DDS_AGENT_REPOSITORY}" Micro-XRCE-DDS-Ag
     && rm -rf build .git
 
 WORKDIR /opt/px4_ros_ws/src
-RUN git clone --branch release/1.18 --single-branch "${PX4_MSGS_REPOSITORY}" px4_msgs \
+RUN git -c http.version=HTTP/1.1 clone --branch release/1.18 --single-branch "${PX4_MSGS_REPOSITORY}" px4_msgs \
     && cd px4_msgs \
     && git checkout --detach "${PX4_MSGS_COMMIT}" \
     && test "$(git rev-parse HEAD)" = "${PX4_MSGS_COMMIT}" \
@@ -343,13 +378,17 @@ RUN source /opt/ros/jazzy/setup.bash \
     && colcon build \
        --merge-install \
        --packages-select drone_agricole_px4_bridge \
+       --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    && colcon test --merge-install --packages-select drone_agricole_px4_bridge \
+       --event-handlers console_direct+ \
+    && colcon test-result --all --verbose \
     && rm -rf build log
 
-COPY --chmod=0755 software/docker/px4_ros_entrypoint.sh /px4_ros_entrypoint.sh
-ENTRYPOINT ["/px4_ros_entrypoint.sh"]
+ENV AMENT_PREFIX_PATH=/opt/px4_ros_ws/install
+ENV LD_LIBRARY_PATH=/opt/px4_ros_ws/install/lib:/usr/local/lib
 
 LABEL org.opencontainers.image.title="Drone Agricole - PX4 ROS 2 bridge" \
-      org.opencontainers.image.version="0.2.0" \
+      org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.revision.px4_msgs="598c7aad7b2386f9406ebd2a2f841619fddc3c78" \
       org.opencontainers.image.revision.micro_xrce_agent="73622810d984349b80bbac0ef55fc0b694d62222"
 

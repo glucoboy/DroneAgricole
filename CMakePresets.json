@@ -1,0 +1,134 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "desktop-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "environment": {
+        "PATH": "C:\\msys64\\ucrt64\\bin;$penv{PATH}",
+        "CMAKE_PREFIX_PATH": "C:/msys64/ucrt64"
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "DRONE_AGRICOLE_BUILD_DASHBOARD": "ON",
+        "DRONE_AGRICOLE_BUILD_TESTS": "ON",
+        "DRONE_AGRICOLE_WITH_ROS2": "ON"
+      }
+    },
+    {
+      "name": "desktop-debug",
+      "displayName": "Desktop Qt 6 — Debug",
+      "inherits": "desktop-base",
+      "binaryDir": "${sourceDir}/build/desktop-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "desktop-release",
+      "displayName": "Desktop Qt 6 — Release",
+      "inherits": "desktop-base",
+      "binaryDir": "${sourceDir}/build/desktop-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "ci-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "DRONE_AGRICOLE_BUILD_DASHBOARD": "ON",
+        "DRONE_AGRICOLE_BUILD_TESTS": "ON",
+        "DRONE_AGRICOLE_WITH_ROS2": "OFF"
+      }
+    },
+    {
+      "name": "ci-linux",
+      "displayName": "CI Linux amd64 — Debug",
+      "inherits": "ci-base",
+      "binaryDir": "${sourceDir}/build/ci-linux",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "ci-windows",
+      "displayName": "CI Windows UCRT64 — Debug",
+      "inherits": "ci-base",
+      "binaryDir": "${sourceDir}/build/ci-windows",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "environment": {
+        "PATH": "C:\\msys64\\ucrt64\\bin;$penv{PATH}",
+        "CMAKE_PREFIX_PATH": "C:/msys64/ucrt64"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "desktop-debug",
+      "configurePreset": "desktop-debug"
+    },
+    {
+      "name": "desktop-release",
+      "configurePreset": "desktop-release"
+    },
+    {
+      "name": "ci-linux",
+      "configurePreset": "ci-linux"
+    },
+    {
+      "name": "ci-windows",
+      "configurePreset": "ci-windows"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "desktop-debug",
+      "configurePreset": "desktop-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "desktop-release",
+      "configurePreset": "desktop-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-linux",
+      "configurePreset": "ci-linux",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-windows",
+      "configurePreset": "ci-windows",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

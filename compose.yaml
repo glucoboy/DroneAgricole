@@ -15,7 +15,7 @@ x-ros-common: &ros-common
 services:
   ros-humble:
     <<: *ros-common
-    image: drone-agricole/ros-humble:0.1.0
+    image: drone-agricole/ros-humble:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
@@ -23,76 +23,88 @@ services:
     profiles: ["dev", "lio"]
     command: ["sleep", "infinity"]
 
+  telemetry-bridge:
+    <<: *ros-common
+    image: drone-agricole/ros-humble:1.0.0
+    build:
+      context: .
+      dockerfile: software/docker/Dockerfile
+      target: ros-humble
+    profiles: ["lio", "viz", "sim", "flight-test"]
+    ports:
+      # Contrat local C++ entre ROS 2 dans Docker et l'application Qt Windows.
+      - "127.0.0.1:8092:8092"
+    command:
+      - drone-agricole-tools
+      - telemetry-server
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8092"
+
   botanicgarden-adapter:
     <<: *ros-common
-    image: drone-agricole/ros-humble:0.1.0
+    image: drone-agricole/ros-humble:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
       target: ros-humble
     profiles: ["lio"]
-    entrypoint: ["/ros_entrypoint.sh", "botanicgarden-adapter"]
-    command: ["--help"]
+    command: ["drone-agricole-tools", "help"]
 
   fast-lio2:
     <<: *ros-common
-    image: drone-agricole/fast-lio2:0.1.0
+    image: drone-agricole/fast-lio2:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
       target: ros-humble-fastlio2
     profiles: ["lio"]
+    depends_on:
+      telemetry-bridge:
+        condition: service_started
     command: ["sleep", "infinity"]
 
   point-lio:
     <<: *ros-common
-    image: drone-agricole/point-lio:0.1.0
+    image: drone-agricole/point-lio:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
       target: ros-humble-pointlio
     profiles: ["lio"]
+    depends_on:
+      telemetry-bridge:
+        condition: service_started
     command: ["sleep", "infinity"]
 
   lio-sam:
     <<: *ros-common
-    image: drone-agricole/lio-sam:0.1.0
+    image: drone-agricole/lio-sam:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
       target: ros-humble-liosam
     profiles: ["lio"]
+    depends_on:
+      telemetry-bridge:
+        condition: service_started
     command: ["sleep", "infinity"]
 
-  fast-lio-dashboard:
+  qt-dashboard-toolchain:
     <<: *ros-common
-    image: drone-agricole/lio-dashboard:0.5.0
+    image: drone-agricole/qt-dashboard:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
-      target: ros-humble-lio-dashboard
+      target: ros-humble-qt-dashboard
     profiles: ["viz"]
     environment:
       ROS_DOMAIN_ID: "42"
       ROS_LOCALHOST_ONLY: "0"
       RCUTILS_COLORIZED_OUTPUT: "1"
       DRONE_AGRICOLE_PX4_RUNNER_URL: "http://px4-runner-api:8091"
-    ports:
-      # Deux accès explicites ; aucune publication sur les interfaces virtuelles.
-      - "127.0.0.1:8080:8080"
-      - "192.168.1.25:8080:8080"
-    command:
-      - python3
-      - -m
-      - software.visualization.dashboard_server
-      - --host
-      - 0.0.0.0
-      - --port
-      - "8080"
-      - --max-cloud-points
-      - "6000"
-      - --rate-hz
-      - "5"
+    command: ["sleep", "infinity"]
 
   ros-jazzy-sim:
     <<: *ros-common
@@ -106,7 +118,7 @@ services:
 
   micro-xrce-dds-agent:
     <<: *ros-common
-    image: drone-agricole/px4-ros:0.2.0
+    image: drone-agricole/px4-ros:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
@@ -119,7 +131,7 @@ services:
 
   px4-state-bridge:
     <<: *ros-common
-    image: drone-agricole/px4-ros:0.2.0
+    image: drone-agricole/px4-ros:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
@@ -142,7 +154,7 @@ services:
   px4-offboard-test:
     init: true
     working_dir: /workspace
-    image: drone-agricole/px4-ros:0.2.0
+    image: drone-agricole/px4-ros:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
@@ -183,7 +195,7 @@ services:
   px4-runner-api:
     init: true
     working_dir: /workspace
-    image: drone-agricole/px4-ros:0.2.0
+    image: drone-agricole/px4-ros:1.0.0
     build:
       context: .
       dockerfile: software/docker/Dockerfile
@@ -198,7 +210,12 @@ services:
       ROS_LOCALHOST_ONLY: "0"
       RCUTILS_COLORIZED_OUTPUT: "1"
       DRONE_AGRICOLE_SITL: "1"
+    ports:
+      # L'application Qt native dialogue uniquement via la boucle locale.
+      - "127.0.0.1:8091:8091"
     depends_on:
+      telemetry-bridge:
+        condition: service_started
       micro-xrce-dds-agent:
         condition: service_started
       px4-state-bridge:
@@ -206,9 +223,10 @@ services:
       px4-sitl:
         condition: service_started
     command:
-      - python3
-      - -m
-      - software.visualization.px4_runner_server
+      - ros2
+      - run
+      - drone_agricole_px4_bridge
+      - runner_server
       - --host
       - 0.0.0.0
       - --port
