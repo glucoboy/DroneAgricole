@@ -22,6 +22,8 @@ La répartition retenue est la suivante :
 
 La carte finale ne dépend donc pas de la puissance disponible en vol. Inversement, la sécurité du drone agricole ne dépend jamais d'une connexion permanente à la station.
 
+L'application desktop Qt définie par l'ADR-0007 matérialise la station de traitement et son workflow métier. Elle orchestre les modules headless de réception, compilation, cartographie, édition, approbation, transfert et rapport, sans déplacer leurs algorithmes dans le processus graphique.
+
 ## 2. Workflow opérationnel complet
 
 ```text

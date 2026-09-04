@@ -5,8 +5,8 @@
 | Référence | DOC-20 |
 | Version | V0.1 |
 | Date | 28 août 2026 |
-| Statut | Candidat à valider |
-| Références | DOC-19, ADR-0004 et ADR-0005 |
+| Statut | Approuvé — exécution portée par ADR-0005 et ADR-0007 |
+| Références | DOC-19, ADR-0004, ADR-0005 et ADR-0007 |
 
 ## 1. Objectif
 
@@ -20,7 +20,7 @@ Ce plan transforme le workflow validé en lots de développement ordonnés. Chaq
 6. des métriques et critères d'acceptation ;
 7. le rechargement et la comparaison des résultats historiques.
 
-Le tableau de bord devient ainsi le plan de contrôle principal des simulations, mais pas l'endroit où vivent les algorithmes. Les lanceurs restent autonomes et testables en ligne de commande ; l'interface les orchestre au moyen de contrats versionnés.
+L'application desktop devient la station de mission et le plan de contrôle du workflow complet. La simulation en est un module. Les algorithmes n'habitent pas dans les widgets : les composants headless restent autonomes et testables en ligne de commande, puis l'interface les orchestre au moyen de contrats versionnés.
 
 ## 2. Règle transversale du tableau de bord
 
@@ -56,7 +56,7 @@ Les outils de diagnostic en ligne de commande restent disponibles pour le dével
 ## 4. Architecture cible du tableau de bord
 
 ```text
-Interface Web
+Interface desktop Qt 6
 ├── Lancer
 ├── Direct
 ├── Historique
@@ -68,7 +68,7 @@ Interface Web
 API locale versionnée
 ├── SimulationCatalog     # capacités et paramètres autorisés
 ├── RunManager            # lancement, arrêt, files et états
-├── TelemetryGateway      # ROS 2/WebSocket et adaptateurs de couches
+├── TelemetryGateway      # ROS 2/pont local C++ et adaptateurs de couches
 ├── ResultRepository      # manifestes et artefacts immuables
 ├── ResultIndex           # cache reconstruisible pour recherche
 ├── ReplayService         # rechargement sans recalcul

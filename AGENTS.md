@@ -11,3 +11,5 @@ Ce fichier s'applique à l'ensemble du workspace.
 - Avant de modifier une décision structurante, ajouter ou mettre à jour un ADR dans `docs/decisions/`.
 - Favoriser des environnements Docker reproductibles pour `amd64` et `arm64`.
 - Les essais de pulvérisation suivent l'ordre : simulation, banc, eau/traceur, puis seulement produits autorisés et protocole validé.
+- Écrire toute logique exécutable propriétaire en C++17. Les fichiers déclaratifs et d'infrastructure restent autorisés hors C++ lorsqu'ils ne contiennent pas de logique métier.
+- Développer les interfaces graphiques desktop avec Qt 6 Widgets et placer le maximum de leur structure dans des fichiers `.ui` éditables avec Qt Designer, Qt Creator ou une extension Qt pour Visual Studio Code.

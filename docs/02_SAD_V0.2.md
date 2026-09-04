@@ -12,6 +12,8 @@
 
 Ce SAD décrit l'organisation logicielle cible, les responsabilités des composants, leurs interfaces, le déploiement et les mécanismes de sûreté. Les noms de topics, fréquences et budgets sont des propositions de travail tant qu'ils ne sont pas validés par un ADR et des essais.
 
+L'ADR-0007 précise que l'application Qt constitue la station de mission métier unifiée. Le shell graphique compose les modules du workflow, tandis que leurs algorithmes restent headless et indépendants de Qt Widgets.
+
 ## 2. Attributs de qualité prioritaires
 
 | Priorité | Attribut | Conséquence architecturale |
@@ -86,6 +88,12 @@ ROS 2 publie des consignes haut niveau ; PX4 conserve le droit de les refuser ou
 ```
 
 Les dépendances métier doivent aller vers les interfaces de couche inférieure, jamais vers l'implémentation concrète d'un algorithme tiers.
+
+### 5.1 Architecture interne de la station desktop
+
+La station utilise une architecture ports/adaptateurs : shell Qt `.ui`, couche application de workflow, domaine des paquets et adaptateurs de calcul, stockage ou communication. La bibliothèque `drone_agricole_station` ne dépend que de Qt Core. `MainWindow` ne contient ni construction de carte, ni signature, ni transfert, ni génération de rapport.
+
+Le catalogue initial comprend réception cartographe, compilation, construction/édition/approbation de carte, préparation/simulation/transfert de mission, réception du retour et compilation du rapport. Seul le module de simulation possède actuellement un niveau opérationnel préliminaire ; les autres restent planifiés ou prototypes.
 
 ## 6. Composants et responsabilités
 

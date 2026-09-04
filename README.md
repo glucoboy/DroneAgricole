@@ -28,48 +28,67 @@ Workspace maître du projet de système autonome de cartographie et de traitemen
 11. [`docs/15_Integration_Point_LIO_BotanicGarden_V0.1.md`](docs/15_Integration_Point_LIO_BotanicGarden_V0.1.md) — intégration Point-LIO, protocole complet à 1× et comparaison directe avec FAST-LIO2.
 12. [`docs/16_Integration_LIO_SAM_BotanicGarden_V0.1.md`](docs/16_Integration_LIO_SAM_BotanicGarden_V0.1.md) — intégration LIO-SAM, instrumentation, test court et fenêtre dynamique à 1×.
 13. [`docs/17_Comparaison_finale_LIO_BotanicGarden_V0.1.md`](docs/17_Comparaison_finale_LIO_BotanicGarden_V0.1.md) — comparaison des trois passages complets à QoS harmonisée et sélection de travail.
+14. [`docs/25_Migration_CPP17_Qt6_dashboard_desktop_V0.1.md`](docs/25_Migration_CPP17_Qt6_dashboard_desktop_V0.1.md) — application desktop C++17/Qt 6, interface `.ui` et état de la migration globale.
+15. [`docs/26_Cloture_migration_CPP17_Qt6_V0.1.md`](docs/26_Cloture_migration_CPP17_Qt6_V0.1.md) — arborescence active, commandes C++, traçabilité et validations de clôture.
+16. [`docs/27_Refonte_UI_et_fiabilisation_simulation_V0.1.md`](docs/27_Refonte_UI_et_fiabilisation_simulation_V0.1.md) — nouvelle interface à contraste renforcé et lancement PX4 depuis l'application native.
+17. [`docs/28_Architecture_station_mission_unifiee_V0.1.md`](docs/28_Architecture_station_mission_unifiee_V0.1.md) — rôle complet de la station, modules C++ et règles d'extension.
+18. [`docs/29_Etat_des_lieux_et_consolidation_SW0_V0.1.md`](docs/29_Etat_des_lieux_et_consolidation_SW0_V0.1.md) — état vérifié du projet, risques de baseline et portes de consolidation avant B1.
 
 Le fichier [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) résume les décisions actives pour reprendre rapidement le projet dans une future session.
 
 ## Démarrage rapide
 
-Depuis PowerShell, à la racine du projet :
+Le point d'entrée opérateur est une application desktop native, pas un site Web. Cette application constitue la station de mission : acquisitions du cartographe, cartes, missions, transferts, rapports et simulations seront intégrés par modules. Les fonctions autres que la simulation sont encore planifiées. Dans Visual Studio Code, ouvrir **Exécuter et déboguer**, puis choisir `Dashboard Qt 6 — Debug`. La configuration versionnée utilise directement CMake, Ninja et GDB de MSYS2 UCRT64 ; le programme n'est pas lancé par un script PowerShell.
+
+Construction équivalente depuis un terminal MSYS2 UCRT64 ou PowerShell :
 
 ```powershell
-docker compose build ros-humble ros-jazzy-sim
-docker compose run --rm ros-humble bash tools/verify/verify_ros2.sh
-docker compose run --rm ros-jazzy-sim bash tools/verify/verify_ros2.sh
-docker compose --profile sim up -d px4-sitl
-docker compose build fast-lio2
-docker compose run --rm fast-lio2 bash tools/benchmarks/run_fastlio2_botanicgarden_smoke.sh
-docker compose --profile lio build point-lio
-docker compose --profile lio run --rm point-lio bash tools/benchmarks/run_pointlio_botanicgarden_benchmark.sh
-docker compose --profile lio build lio-sam
-docker compose --profile lio run --rm lio-sam bash tools/benchmarks/run_liosam_botanicgarden_benchmark.sh
-.\tools\visualization\start_fastlio_dashboard.ps1
+C:\msys64\ucrt64\bin\cmake.exe --preset desktop-debug
+C:\msys64\ucrt64\bin\cmake.exe --build --preset desktop-debug --parallel
+& .\build\desktop-debug\software\cpp\drone-agricole-dashboard.exe --workspace .
 ```
 
-La dernière commande ouvre le tableau de bord local sur `http://127.0.0.1:8080`. Le dataset, la séquence, l'algorithme, les voxels et les commandes de lancement/arrêt sont ensuite accessibles dans la page. À la fin d'un rejeu réussi, `metrics.json` est calculé automatiquement et le bouton `Afficher les métriques finales` présente ATE, RPE et compteurs instrumentés. Ce mode est destiné à l'observation ; les benchmarks de référence restent exécutés sans rendu.
-
-L'état et les journaux de PX4/Gazebo sont accessibles avec :
+Les outils headless sont regroupés dans `drone-agricole-tools`. Les environnements ROS 2 et les algorithmes LIO restent reproductibles dans Docker :
 
 ```powershell
-docker compose ps px4-sitl
-docker compose logs -f px4-sitl
+docker compose build telemetry-bridge fast-lio2 point-lio lio-sam qt-dashboard-toolchain
+docker compose --profile lio run --rm botanicgarden-adapter drone-agricole-tools help
 ```
+
+Lors d'un lancement LIO depuis l'application, Compose démarre automatiquement
+le pont de télémétrie C++ `telemetry-bridge`. Il écoute uniquement sur
+`127.0.0.1:8092` et transmet à Qt les trajectoires, le nuage, les compteurs et
+les ressources pendant le rejeu. Son diagnostic manuel est :
+
+```powershell
+docker compose --profile lio up -d telemetry-bridge
+Invoke-RestMethod http://127.0.0.1:8092/api/health
+```
+
+Depuis le dashboard natif, le premier lancement PX4 vérifie l'API locale et démarre automatiquement le banc Docker SITL si nécessaire. Pour contrôler ou démarrer manuellement ce banc :
+
+```powershell
+docker compose --profile sim --profile viz up -d px4-runner-api
+docker compose --profile sim --profile viz ps
+Invoke-RestMethod http://127.0.0.1:8091/api/health
+```
+
+L'essai Offboard reste doublement verrouillé et réservé à SITL. PX4 conserve le vol critique et les failsafes ; ROS 2 ne fournit que les consignes avancées.
 
 ## Organisation
 
 ```text
 DroneAgricole/
 ├── docs/           documentation et décisions d'architecture
-├── software/       code ROS 2, images Docker et logiciels métier
+├── software/cpp/   application Qt 6, bibliothèque et outils C++17
+├── software/src/   paquets ROS 2 C++ et messages
+├── software/docker images reproductibles amd64/arm64
 ├── simulation/     mondes, scénarios, PX4 SITL et Gazebo
 ├── datasets/       manifestes et données locales non versionnées
 ├── configs/        paramètres partagés
 ├── hardware/       mécanique, électronique et interfaces
 ├── research/       études, articles, brevets et essais
-├── tools/          scripts de développement et de validation
+├── tools/          documentation des commandes et ressources de données
 └── results/        sorties de benchmark non versionnées
 ```
 
@@ -83,4 +102,10 @@ DroneAgricole/
 
 ## Prochaine étape recommandée
 
-Répéter FAST-LIO2 et LIO-SAM pour qualifier la variabilité des deux candidats retenus, puis les mesurer à `1×` sur Jetson. En parallèle, ajouter le pont uXRCE-DDS vers ROS 2 Jazzy afin d'afficher la pose PX4/Gazebo dans la scène 3D et reprendre la construction de `VINEYARD_BENCH_V01`.
+Terminer SW0 selon DOC-29 : consolider les changements Git, raccorder et exécuter
+la CI distante, qualifier Qt/LIO `linux/arm64` sur un hôte ARM natif et exécuter
+les campagnes LIO longues. Les tests Windows, les images Linux `amd64`, les
+répétitions LIO courtes et les deux scénarios PX4 du port C++ sont disponibles
+localement. Le lot B1 peut
+préparer ses contrats en parallèle, mais sa baseline reste **À valider** tant
+que la porte SW0 n'est pas fermée.

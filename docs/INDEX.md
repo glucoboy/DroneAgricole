@@ -27,6 +27,14 @@
 | DOC-22 | T0.2 — Catalogue et runners du tableau de bord | V0.2 | Opérationnel préliminaire |
 | DOC-23 | T0.3 — Historique et rechargement du tableau de bord | V0.1 | Opérationnel préliminaire |
 | DOC-24 | T0.4 — Comparaison des résultats et fermeture de la porte T0 | V0.1 | Opérationnel préliminaire |
+| DOC-25 | Migration C++17 / Qt 6 du tableau de bord desktop | V0.1 | Migration source terminée |
+| DOC-26 | Clôture de la migration C++17 / Qt 6 | V0.1 | Opérationnel préliminaire — qualifications complémentaires à valider |
+| DOC-27 | Refonte de l'interface et fiabilisation du lancement des simulations | V0.1 | Opérationnel préliminaire |
+| DOC-28 | Architecture de la station de mission unifiée | V0.1 | Architecture approuvée, socle C++ implémenté |
+| DOC-29 | État des lieux et consolidation SW0 | V0.1 | En cours — baseline Windows et amd64 courante vérifiée ; consolidation Git et qualifications complémentaires à valider |
+| DOC-30 | Étude LaMole/Grospoli et chaîne rangs–carte–trajectoires | V0.1 | Étude candidate — accès et paramètres à valider |
+
+Les documents DOC-09 à DOC-24 conservent les résultats et protocoles historiques. Leurs anciennes commandes Python, shell ou PowerShell ne sont plus actives ; DOC-26 fournit les exécutables et commandes de remplacement, DOC-27 décrit l'interface actuelle, DOC-28 fixe l'architecture de la station de mission complète, DOC-29 suit la consolidation SW0 avant B1 et DOC-30 prépare la chaîne de cartographie viticole.
 
 ## Convention de maturité
 
