@@ -1,9 +1,9 @@
-schema_version: 1
-reviewed_on: "2026-08-18"
+schema_version: 2
+reviewed_on: "2026-09-03"
 status: preliminary
 
 selection_policy:
-  required_for_ready:
+  required_for_lio_ready:
     - official_source
     - usage_terms_or_license
     - lidar_and_imu
@@ -12,6 +12,16 @@ selection_policy:
     - archive_size
     - archive_checksum
     - reproducible_preparation
+  required_for_mapping_ready:
+    - official_source
+    - usage_terms_or_license
+    - georeferenced_point_cloud_or_surface_model
+    - horizontal_crs
+    - vertical_datum_or_explicit_unknown
+    - archive_size
+    - archive_checksum
+    - reproducible_preparation
+    - independent_reference_annotations_or_annotation_plan
 
 datasets:
   - id: botanicgarden
@@ -62,6 +72,68 @@ datasets:
       official_checksums_available: false
       calibration_inspection: complete_with_warning
       usage_terms_validation: pending
+
+  - id: lamole_grospoli
+    priority: mapping_hard_case
+    state: access_request_required
+    domain: terraced_vineyard_steep_irregular
+    locations: [lamole_valley, grospoli_i, grospoli_ii, castello]
+    acquisition_years: [2017, 2020]
+    products:
+      - airborne_classified_lidar_point_cloud
+      - dtm
+      - dsm
+      - rgb_orthophoto
+      - uav_rgb_photogrammetric_point_cloud
+      - uav_tir_photogrammetric_point_cloud
+    raw_lidar_imu_streams: not_available_in_publications
+    ground_truth: manually_traced_rows_and_walls_availability_to_validate
+    format: to_validate_after_access
+    license: restricted_permission_required
+    official_url: https://lamolab.net/lamole-research/
+    paper_url: https://doi.org/10.3390/rs13173483
+    purpose: hard_case_for_terraces_walls_curved_rows_and_mapping
+    blocker: exact_research_bundle_not_publicly_downloadable_permission_from_authors_and_providers_required
+    assessment: docs/30_Etude_LaMole_Grospoli_cartographie_rangs_trajectoires_V0.1.md
+
+  - id: escayard
+    priority: mapping_quantitative_baseline
+    state: public_download_ready_not_downloaded
+    domain: vineyard_trellis_multimodal
+    acquisition_years: [2022]
+    products:
+      - multispectral_orthomosaic
+      - sfm_point_cloud
+      - rtk_trunk_locations
+      - geotagged_ground_images
+      - phytosanitary_labels
+    raw_lidar_imu_streams: false
+    ground_truth: rtk_gnss_trunk_locations
+    format: geotiff_las_shapefile_csv_images
+    license: CC-BY-4.0
+    official_url: https://zenodo.org/records/10362567
+    paper_url: https://doi.org/10.1016/j.dib.2024.110497
+    purpose: quantitative_row_extraction_and_geospatial_import_baseline
+    initial_subset:
+      - trunk_locations_VineyardB7.zip
+      - one_B7_LAS_point_cloud_to_select
+      - one_B7_orthomosaic_window_to_derive
+
+  - id: vinelidar
+    priority: mapping_geometry_baseline
+    state: public_download_ready_not_downloaded
+    domain: vineyard_uav_lidar_multidate
+    acquisition_years: [2021, 2022]
+    products:
+      - high_density_rgb_lidar_point_cloud
+    raw_lidar_imu_streams: false
+    ground_truth: postprocessed_rtk_georeferenced_point_cloud_no_semantic_labels
+    format: laz
+    license: CC-BY-4.0
+    official_url: https://zenodo.org/records/8113105
+    paper_url: https://doi.org/10.1016/j.dib.2023.109686
+    purpose: multi_date_vineyard_geometry_and_path_planning_baseline
+    initial_subset: one_B7_30m_LAZ_file_to_select
 
   - id: newer_college
     priority: 2
