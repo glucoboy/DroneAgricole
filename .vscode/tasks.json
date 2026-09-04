@@ -1,0 +1,65 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configurer le dashboard — Debug",
+      "type": "process",
+      "command": "C:/msys64/ucrt64/bin/cmake.exe",
+      "args": ["--preset", "desktop-debug"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        }
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "Compiler le dashboard — Debug",
+      "type": "process",
+      "command": "C:/msys64/ucrt64/bin/cmake.exe",
+      "args": ["--build", "--preset", "desktop-debug", "--parallel"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        }
+      },
+      "problemMatcher": ["$gcc"],
+      "dependsOn": "Configurer le dashboard — Debug",
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Configurer le dashboard — Release",
+      "type": "process",
+      "command": "C:/msys64/ucrt64/bin/cmake.exe",
+      "args": ["--preset", "desktop-release"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        }
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "Compiler le dashboard — Release",
+      "type": "process",
+      "command": "C:/msys64/ucrt64/bin/cmake.exe",
+      "args": ["--build", "--preset", "desktop-release", "--parallel"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        }
+      },
+      "problemMatcher": ["$gcc"],
+      "dependsOn": "Configurer le dashboard — Release",
+      "dependsOrder": "sequence"
+    }
+  ]
+}

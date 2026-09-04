@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>drone_agricole_px4_bridge</name>
-  <version>0.1.0</version>
-  <description>Pont d'état et essais offboard sécurisés entre PX4 SITL et ROS 2.</description>
+  <version>1.0.0</version>
+  <description>Pont d'état PX4 en lecture seule et essais offboard SITL verrouillés, en C++17.</description>
   <maintainer email="devnull@example.invalid">Projet Drone Agricole</maintainer>
   <license>Proprietary</license>
 
-  <buildtool_depend>ament_python</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <exec_depend>diagnostic_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>px4_msgs</exec_depend>
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
+  <depend>rclcpp</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>px4_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>tf2_ros</depend>
 
-  <test_depend>ament_pytest</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
 
   <export>
-    <build_type>ament_python</build_type>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
