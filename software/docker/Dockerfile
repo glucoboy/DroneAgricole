@@ -42,6 +42,8 @@ WORKDIR /workspace
 
 FROM ros-humble-dependencies AS ros-humble-core
 
+ARG CMAKE_BUILD_PARALLEL_LEVEL=2
+
 COPY CMakeLists.txt /opt/drone_agricole_src/CMakeLists.txt
 COPY software/cpp /opt/drone_agricole_src/software/cpp
 RUN source /opt/ros/humble/setup.bash \
@@ -52,7 +54,7 @@ RUN source /opt/ros/humble/setup.bash \
        -DDRONE_AGRICOLE_BUILD_DASHBOARD=OFF \
        -DDRONE_AGRICOLE_BUILD_TESTS=OFF \
        -DDRONE_AGRICOLE_WITH_ROS2=ON \
-    && cmake --build /opt/drone_agricole_build --parallel \
+    && cmake --build /opt/drone_agricole_build --parallel "${CMAKE_BUILD_PARALLEL_LEVEL}" \
     && cmake --install /opt/drone_agricole_build \
     && rm -rf /opt/drone_agricole_build /opt/drone_agricole_src
 
@@ -269,6 +271,8 @@ CMD ["bash"]
 
 FROM ros-humble-liosam AS ros-humble-qt-dashboard
 
+ARG CMAKE_BUILD_PARALLEL_LEVEL=2
+
 COPY --from=ros-humble-fastlio2 /opt/fast_lio_ws/install /opt/fast_lio_ws/install
 COPY --from=ros-humble-pointlio /opt/point_lio_ws/install /opt/point_lio_ws/install
 
@@ -284,7 +288,7 @@ RUN source /opt/ros/humble/setup.bash \
        -DCMAKE_INSTALL_PREFIX=/usr/local \
        -DDRONE_AGRICOLE_BUILD_TESTS=OFF \
        -DDRONE_AGRICOLE_WITH_ROS2=ON \
-    && cmake --build /opt/drone_agricole_build --parallel \
+    && cmake --build /opt/drone_agricole_build --parallel "${CMAKE_BUILD_PARALLEL_LEVEL}" \
     && cmake --install /opt/drone_agricole_build \
     && rm -rf /opt/drone_agricole_build /opt/drone_agricole_src
 
