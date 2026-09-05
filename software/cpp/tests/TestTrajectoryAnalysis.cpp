@@ -32,6 +32,14 @@ class TestTrajectoryAnalysis final : public QObject {
     QVERIFY(std::abs(rotationErrorDegrees(QQuaternion(), yaw) - 90.0) < 1e-5);
   }
 
+  void resolvesSmallQuaternionAngles() {
+    const auto reference = QQuaternion::fromAxisAndAngle(QVector3D(0, 0, 1), 90.0f);
+    QVERIFY(rotationErrorDegrees(reference, reference) < 1e-9);
+    QVERIFY(rotationErrorDegrees(reference, -reference) < 1e-9);
+    const auto small = QQuaternion::fromAxisAndAngle(QVector3D(0, 0, 1), 0.001f);
+    QVERIFY(std::abs(rotationErrorDegrees(QQuaternion(), small) - 0.001) < 1e-7);
+  }
+
   void detectsRpeScaleError() {
     QList<TimedPose> estimate;
     QList<TimedPose> truth;

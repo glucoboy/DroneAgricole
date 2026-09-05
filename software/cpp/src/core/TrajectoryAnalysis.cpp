@@ -55,8 +55,16 @@ QJsonObject errorStatistics(const QList<double>& values) {
 double rotationErrorDegrees(const QQuaternion& reference, const QQuaternion& estimate) {
   const auto left = normalized(reference);
   const auto right = normalized(estimate);
-  const auto dot = std::clamp(std::abs(QQuaternion::dotProduct(left, right)), 0.0f, 1.0f);
-  return 2.0 * std::acos(static_cast<double>(dot)) * 180.0 / std::acos(-1.0);
+  // atan2 reste précis près de zéro, contrairement à acos d'un produit
+  // scalaire arrondi en float (Qt stocke les quaternions en simple précision).
+  const double aw = left.scalar(), ax = left.x(), ay = left.y(), az = left.z();
+  const double bw = right.scalar(), bx = right.x(), by = right.y(), bz = right.z();
+  const double w = aw * bw + ax * bx + ay * by + az * bz;
+  const double x = aw * bx - ax * bw - ay * bz + az * by;
+  const double y = aw * by + ax * bz - ay * bw - az * bx;
+  const double z = aw * bz - ax * by + ay * bx - az * bw;
+  return 2.0 * std::atan2(std::sqrt(x * x + y * y + z * z), std::abs(w)) *
+         180.0 / std::acos(-1.0);
 }
 
 RigidAlignment alignPositions(const QList<QVector3D>& source, const QList<QVector3D>& target) {
