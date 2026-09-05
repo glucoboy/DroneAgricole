@@ -86,33 +86,67 @@ RigidAlignment alignPositions(const QList<QVector3D>& source, const QList<QVecto
   }
   const auto& m = covariance;
   const auto trace = m[0][0] + m[1][1] + m[2][2];
-  const std::array<std::array<double, 4>, 4> horn{{
+  std::array<std::array<double, 4>, 4> horn{{
       {{trace, m[1][2] - m[2][1], m[2][0] - m[0][2], m[0][1] - m[1][0]}},
       {{m[1][2] - m[2][1], m[0][0] - m[1][1] - m[2][2], m[0][1] + m[1][0], m[2][0] + m[0][2]}},
       {{m[2][0] - m[0][2], m[0][1] + m[1][0], -m[0][0] + m[1][1] - m[2][2], m[1][2] + m[2][1]}},
       {{m[0][1] - m[1][0], m[2][0] + m[0][2], m[1][2] + m[2][1], -m[0][0] - m[1][1] + m[2][2]}},
   }};
-  std::array<double, 4> eigenvector{1.0, 0.0, 0.0, 0.0};
+  // Jacobi diagonalise la matrice symétrique de Horn. Une itération de
+  // puissance non décalée peut osciller sur les trajectoires planes : les
+  // valeurs propres extrêmes y ont le même module et des signes opposés.
+  std::array<std::array<double, 4>, 4> eigenvectors{};
+  for (int i = 0; i < 4; ++i) {
+    eigenvectors[i][i] = 1.0;
+  }
   for (int iteration = 0; iteration < 80; ++iteration) {
-    std::array<double, 4> next{};
+    int p = 0;
+    int q = 1;
+    double scale = 0.0;
     for (int row = 0; row < 4; ++row) {
-      for (int column = 0; column < 4; ++column) {
-        next[row] += horn[row][column] * eigenvector[column];
+      scale = std::max(scale, std::abs(horn[row][row]));
+      for (int column = row + 1; column < 4; ++column) {
+        if (std::abs(horn[row][column]) > std::abs(horn[p][q])) {
+          p = row;
+          q = column;
+        }
       }
     }
-    const auto norm = std::sqrt(std::inner_product(next.cbegin(), next.cend(), next.cbegin(), 0.0));
-    if (norm < 1e-15) {
+    if (std::abs(horn[p][q]) <= 1e-14 * std::max(scale, 1e-30)) {
       break;
     }
-    for (auto& value : next) {
-      value /= norm;
+    const double angle = 0.5 * std::atan2(2.0 * horn[p][q], horn[q][q] - horn[p][p]);
+    const double c = std::cos(angle);
+    const double s = std::sin(angle);
+    const double pp = horn[p][p];
+    const double qq = horn[q][q];
+    const double pq = horn[p][q];
+    for (int k = 0; k < 4; ++k) {
+      if (k != p && k != q) {
+        const double kp = horn[k][p];
+        const double kq = horn[k][q];
+        horn[k][p] = horn[p][k] = c * kp - s * kq;
+        horn[k][q] = horn[q][k] = s * kp + c * kq;
+      }
+      const double vp = eigenvectors[k][p];
+      const double vq = eigenvectors[k][q];
+      eigenvectors[k][p] = c * vp - s * vq;
+      eigenvectors[k][q] = s * vp + c * vq;
     }
-    eigenvector = next;
+    horn[p][p] = c * c * pp - 2.0 * s * c * pq + s * s * qq;
+    horn[q][q] = s * s * pp + 2.0 * s * c * pq + c * c * qq;
+    horn[p][q] = horn[q][p] = 0.0;
   }
-  const auto rotation = normalized(QQuaternion(static_cast<float>(eigenvector[0]),
-                                                static_cast<float>(eigenvector[1]),
-                                                static_cast<float>(eigenvector[2]),
-                                                static_cast<float>(eigenvector[3])));
+  int largest = 0;
+  for (int i = 1; i < 4; ++i) {
+    if (horn[i][i] > horn[largest][largest]) {
+      largest = i;
+    }
+  }
+  const auto rotation = normalized(QQuaternion(static_cast<float>(eigenvectors[0][largest]),
+                                                static_cast<float>(eigenvectors[1][largest]),
+                                                static_cast<float>(eigenvectors[2][largest]),
+                                                static_cast<float>(eigenvectors[3][largest])));
   return RigidAlignment{rotation, targetCenter - rotation.rotatedVector(sourceCenter)};
 }
 

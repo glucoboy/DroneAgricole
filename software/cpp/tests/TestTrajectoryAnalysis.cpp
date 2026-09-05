@@ -10,6 +10,23 @@ class TestTrajectoryAnalysis final : public QObject {
   Q_OBJECT
 
  private slots:
+  void alignsPlanarPositions() {
+    const QList<QVector3D> source{QVector3D(0, 0, 0), QVector3D(100, 0, 0),
+                                  QVector3D(100, 30, 0), QVector3D(0, 30, 0)};
+    for (const float angle : {2.0f, 90.0f, 180.0f}) {
+      const auto rotation = QQuaternion::fromAxisAndAngle(QVector3D(0, 0, 1), angle);
+      const QVector3D translation(2, -1, 0.5f);
+      QList<QVector3D> target;
+      for (const auto& point : source) {
+        target.append(rotation.rotatedVector(point) + translation);
+      }
+      const auto alignment = alignPositions(source, target);
+      for (qsizetype i = 0; i < source.size(); ++i) {
+        QVERIFY((alignment.rotation.rotatedVector(source[i]) + alignment.translation - target[i]).length() < 1e-3f);
+      }
+    }
+  }
+
   void reportsQuaternionAngle() {
     const auto yaw = QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 0.0f, 1.0f), 90.0f);
     QVERIFY(std::abs(rotationErrorDegrees(QQuaternion(), yaw) - 90.0) < 1e-5);
