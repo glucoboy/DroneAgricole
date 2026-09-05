@@ -22,3 +22,4 @@ Le document précise le contexte, la décision, les alternatives, les conséquen
 | ADR-0008 | Pont de télémétrie C++ entre ROS 2 Docker et Qt Windows | accepté |
 | ADR-0009 | Carte 3D interactive et accumulation LiDAR bornée | accepté |
 | ADR-0010 | Portefeuille de datasets pour la cartographie viticole | proposé |
+| ADR-0011 | Fermeture de SW0 et qualification ARM native | accepté |

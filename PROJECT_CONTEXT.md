@@ -57,12 +57,14 @@ L'application desktop Qt est la **station de mission métier unifiée**. Elle do
 - Le lot T0.4 est opérationnel préliminaire. Le tableau de bord sélectionne deux à quatre archives, vérifie domaine, simulation, groupe, dataset/séquence ou scénario, puis compare métriques, paramètres, runners et versions disponibles. Il superpose les trajectoires et courbes compatibles et affiche ou exporte un rapport Markdown sans relancer les algorithmes.
 - La comparaison historique des passages complets `2a31bc7f`, `6feb6ccc` et `7f42a0fa` retrouve les dix métriques communes et reproduit le classement du DOC-17. Les trois trajectoires et courbes sont lues séquentiellement pour borner la mémoire, puis conservées dans un cache mémoire.
 - La porte T0 du DOC-20 est fermée au niveau opérationnel préliminaire : trois LIO et deux scénarios PX4 pilotables, historique rechargeable, comparaison compatible et rapport reproductible depuis le tableau de bord.
-- La migration du code propriétaire actif est terminée au niveau source : application desktop Qt 6, contrats T0, historique, comparaison, adaptateur BotanicGarden, analyses et orchestration LIO, pont PX4 et runner SITL sont en C++17. Les sources Web/Python et les lanceurs shell/PowerShell remplacés ont été supprimés. La qualification `linux/arm64`, le vol SITL complet du nouveau pont et les campagnes LIO complètes restent **À valider** ; la traçabilité de clôture est dans DOC-26.
-- SW0 est lancé et suivi dans DOC-29. Les presets CI Windows/Linux et le workflow de consolidation sont versionnés ; la suite Windows réussit 12/12 tests. Les images courantes FAST-LIO2, Point-LIO, LIO-SAM et Qt/ROS 2 ont été reconstruites et contrôlées en `linux/amd64`. L'exécution sur une forge reste **À valider**, car aucun dépôt distant n'est configuré.
+- La migration du code propriétaire actif est terminée : application Qt 6, contrats T0, historique, comparaison, adaptateur BotanicGarden, analyses et orchestration LIO, pont PX4 et runner SITL sont en C++17. La campagne SW0 complète et les deux scénarios SITL sont réussis ; DOC-26 et DOC-29 portent la traçabilité. La qualification embarquée `linux/arm64` reste **À valider**.
+- SW0 est fermé le 5 septembre 2026 sur la baseline locale `sw0-v0.1`, branche `codex/sw0-consolidation`. Les 12 suites CTest passent sous Windows (2,46 s) et Linux Qt 6.2.4 (35,54 s). Les cinq images Humble/LIO/Qt sont reconstruites en `amd64`. L'ADR-0011 maintient ARM native/Jetson, CI distante, rendu OpenGL conteneurisé, seuils multi-scènes et stabilité des redémarrages Docker comme actions explicites **À valider**, aux échéances de déploiement décrites dans DOC-29.
 - Les rejeux SW0 du carré et de la perte Offboard avec le port C++ sont réussis en SITL. Le second observe l'action PX4 environ 1,050 s après l'arrêt des consignes, puis l'atterrissage. Les archives T0 natives relient désormais explicitement la requête, ses paramètres exacts et le résultat. Ces résultats ne qualifient pas le vol réel.
 - SW0 possède désormais une preuve exécutable `linux/arm64` du noyau propriétaire C++/ROS 2 : image `sha256:1901e9e1095eae4290e596b1f63a7af9b9769366763f8d42c4a32e54dbfc769a`, architecture inspectée et CLI exécutée. Le patch reproductible LIO-SAM déclare `rcutils` directement et franchit la configuration qui échouait auparavant.
 - La compilation LIO-SAM arm64 isolée avec un seul travail CMake porte encore WSL à environ 7,2 Go et coupe Docker sous QEMU. Après redémarrage, l'environnement a été récupéré sans perte de données par renommage réversible des répertoires de sockets, désactivation de Docker AI et conservation d'une sauvegarde de configuration. L'image Qt/LIO arm64 et JetPack doivent être qualifiées sur un hôte arm64 natif. Le recontrôle Windows reste conforme à 12/12 tests.
-- Trois rejeux courts post-migration de FAST-LIO2 et trois de LIO-SAM ont été exécutés à `1×` dans les images `linux/amd64` courantes. Tous terminent et produisent des métriques ; la variabilité d'initialisation et de comptage observée sur cinq secondes interdit toutefois de considérer la répétabilité quantitative comme acquise. La campagne longue et ses seuils restent **À valider**.
+- Les six smokes LIO ont été complétés par trois passages longs à `1×` par moteur. Les smokes restent des preuves de démarrage ; les mesures comparables de clôture sont celles des campagnes longues de DOC-29. Les seuils formels de qualification restent **À valider**.
+- La consolidation Git est sur `codex/sw0-consolidation` : migration `8ecf352`, infrastructure `8361698`, guides `77bb878`, étude viticole séparée `c841ceb`. Le correctif `ad4b102` répare l'alignement ATE C++ sur les trajectoires planes ; son test reproduit l'échec avant correction et les 12 suites Windows passent après correction. Les ATE produites par l'ancien alignement C++ doivent être recalculées avant comparaison quantitative. Les anciens scores historiques calculés avec l'outil Python ne sont pas concernés par ce défaut.
+- Les trois rejeux FAST-LIO2 complets SW0 reçoivent et synchronisent chacun 5 762 scans, sans perte, et produisent 5 758 poses. Après réanalyse corrigée, leurs ATE translation sont 0,36442 / 0,37651 / 0,32524 m. L'écart apparent à environ 1,6 m venait du calcul d'alignement ; aucune correction de calibration n'a été nécessaire. Les trois LIO-SAM complets reçoivent également 5 762 scans et produisent 5 758 poses ; ATE translation 0,39505 / 0,36649 / 0,36768 m. Tous les bilans ont été actualisés après le correctif angulaire `0f3b25b`, validé sur les deux plateformes. Le commit `32b90ef` borne aussi les constructions Docker du noyau et de Qt.
 
 ## Workflow système accepté
 
@@ -105,16 +107,13 @@ Cette répartition et l'ADR-0004 ont été validées le 28 août 2026. L'ADR-000
 
 ## Prochaines actions
 
-1. Terminer la consolidation SW0 suivie dans DOC-29 : état Git récupérable, CI Windows/Linux et documentation active alignée.
-2. Terminer la matrice Qt/LIO `linux/arm64`, puis qualifier séparément JetPack sur Jetson.
-3. Répéter FAST-LIO2 et LIO-SAM après migration avec des résultats comparables.
-4. Organiser la migration existante en commits Git revus et raccorder le dépôt à une forge afin d'exécuter la CI distante.
-5. Définir les schémas `SurveyMissionPackage`, `SurveyRunPackage` et `VineyardMapPackage` du lot B1 derrière les interfaces de la station.
-6. Ajouter à l'interface Qt la navigation de la station : acquisitions, cartes, missions, transferts, opérations/rapports et simulations.
-7. Auditer les flux caméra, timestamps et extrinsèques de BotanicGarden `1006-03` depuis la station.
-8. Construire le premier `SurveyRunPackage` reproductible à partir du dataset.
-9. Conserver en tâche de qualification les essais Jetson avant sélection matérielle définitive.
-10. Valider manuellement l'apparition du `x500` dans QGroundControl.
+1. Démarrer B1 depuis `sw0-v0.1` : schémas `SurveyMissionPackage`, `SurveyRunPackage` et `VineyardMapPackage` derrière les interfaces de la station.
+2. Auditer les flux caméra, timestamps et extrinsèques de BotanicGarden `1006-03`, puis produire le premier `SurveyRunPackage` et son rapport qualité.
+3. Ajouter à Qt la navigation de la station : acquisitions, cartes, missions, transferts, opérations/rapports et simulations.
+4. Qualifier la matrice Qt/LIO ARM64 sur hôte natif puis JetPack sur Jetson avant la baseline embarquée candidate et le choix matériel définitif.
+5. Raccorder le dépôt à une forge et exécuter la CI distante avant livraison collaborative.
+6. Valider les seuils LIO multi-scènes, le rendu OpenGL conteneurisé et les redémarrages Docker selon le registre DOC-29.
+7. Valider manuellement l'apparition du `x500` dans QGroundControl.
 
 ## Questions ouvertes principales
 

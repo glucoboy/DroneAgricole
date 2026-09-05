@@ -2,7 +2,7 @@
 
 - Version : V0.1
 - Date : 31 août 2026
-- Statut : migration source terminée ; qualification `arm64` et essais longs **À valider**
+- Statut : migration consolidée par SW0 ; qualification embarquée `arm64` **À valider**
 - Décision associée : ADR-0006
 
 ## 1. Résultat
@@ -77,7 +77,7 @@ C:\msys64\ucrt64\bin\cmake.exe --build --preset desktop-debug --parallel
 | `T0-HISTORY-001` — archives rechargeables | `ResultRepository`, `ResultAdapter` | `test_result_repository` | réussi sur Windows natif |
 | `T0-COMPARE-001` — résultats comparables | `ComparisonService` | `test_comparison_service` | réussi sur Windows natif |
 | `DATA-BG-001` — conversion BotanicGarden | `Ros1Bag`, `DatasetAdapter` | `test_ros1_bag`, conversion réelle de 0,5 s | test réussi et 210 messages MCAP produits |
-| `LIO-TOOLS-001` — analyses et campagnes C++ | `TrajectoryAnalysis`, `BenchmarkSupport`, `LioOrchestrator` | tests trajectoire/benchmark, constructions ROS 2 et six smokes post-migration | tests Windows réussis et trois rejeux courts par moteur FAST-LIO2/LIO-SAM terminés ; campagne longue **À valider** |
+| `LIO-TOOLS-001` — analyses et campagnes C++ | `TrajectoryAnalysis`, `BenchmarkSupport`, `LioOrchestrator` | tests Windows/Linux, régression ATE historique et six passages complets à 1× | Conforme SW0 : trois répétitions par moteur, aucun scan manquant, métriques corrigées ; seuils de qualification **À valider** |
 | `OBS-TELEM-001` — télémétrie LIO visible pendant le rejeu | `LiveTelemetry`, `TelemetryBridge`, client Qt Network | `test_telemetry_bridge`, rejeu FAST-LIO2 de 5 s à 0,5× | conforme le 2 septembre 2026 : nuage, poses, compteurs, CPU et RSS reçus en direct |
 | `OBS-MAP-001` — carte LiDAR cumulative, adaptative et navigable | `AdaptivePointMap`, `LiveTelemetry`, `TelemetryBridge`, `TrajectoryView`, `main_window.ui` | tests de carte, capture native, rejeux FAST-LIO2 de 5 et 30 s | conforme le 2 septembre 2026 : deux compactions sur 294 trames et couverture du début comme de la fin |
 | `PX4-SAFE-001` — frontière PX4/ROS 2 préservée | `StateBridge`, `OffboardPlan`, `OffboardTest` | gtests PX4, carré et perte Offboard | tests Docker et deux scénarios SITL du port C++ réussis ; transposition hors SITL **À valider** |
@@ -112,5 +112,9 @@ télémétrie répond de nouveau `status=ok` sur le port 8092. Trois rejeux cour
 `1×` de FAST-LIO2 et trois de LIO-SAM terminent avec des métriques analysables ;
 leur variabilité est détaillée dans DOC-29.
 
-Restent **À valider** : l'image Qt/LIO `linux/arm64` sur hôte natif, les campagnes
-LIO longues et leurs seuils, les performances Jetson, HITL et tout vol réel.
+Clôture SW0 : les six campagnes longues sont terminées, les corrections
+d'alignement et d'angle sont testées, les 12 suites passent sous Windows et
+Linux. DOC-29 détaille les résultats et les empreintes finales.
+
+Restent **À valider** : Qt/LIO ARM64 natif, JetPack, les seuils multi-scènes,
+le rendu OpenGL conteneurisé, la CI distante, HITL et tout vol réel, selon ADR-0011.

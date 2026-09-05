@@ -102,10 +102,11 @@ DroneAgricole/
 
 ## Prochaine étape recommandée
 
-Terminer SW0 selon DOC-29 : consolider les changements Git, raccorder et exécuter
-la CI distante, qualifier Qt/LIO `linux/arm64` sur un hôte ARM natif et exécuter
-les campagnes LIO longues. Les tests Windows, les images Linux `amd64`, les
-répétitions LIO courtes et les deux scénarios PX4 du port C++ sont disponibles
-localement. Le lot B1 peut
-préparer ses contrats en parallèle, mais sa baseline reste **À valider** tant
-que la porte SW0 n'est pas fermée.
+SW0 est fermé sur la baseline locale `sw0-v0.1` : 12/12 suites de tests sous
+Windows et Linux, six rejeux LIO complets à 1×, scénarios PX4 SITL et images
+`amd64` consolidés. DOC-29 conserve les résultats et les corrections numériques.
+
+Démarrer B1 : contrats `SurveyMissionPackage` et `SurveyRunPackage`, réception
+des acquisitions et rapport qualité reproductible. L'ADR-0011 maintient les
+qualifications ARM native/Jetson, CI distante, rendu OpenGL conteneurisé et
+seuils de navigation **À valider** avant les échéances de déploiement associées.

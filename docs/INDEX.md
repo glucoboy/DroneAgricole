@@ -31,10 +31,10 @@
 | DOC-26 | Clôture de la migration C++17 / Qt 6 | V0.1 | Opérationnel préliminaire — qualifications complémentaires à valider |
 | DOC-27 | Refonte de l'interface et fiabilisation du lancement des simulations | V0.1 | Opérationnel préliminaire |
 | DOC-28 | Architecture de la station de mission unifiée | V0.1 | Architecture approuvée, socle C++ implémenté |
-| DOC-29 | État des lieux et consolidation SW0 | V0.1 | En cours — baseline Windows et amd64 courante vérifiée ; consolidation Git et qualifications complémentaires à valider |
+| DOC-29 | État des lieux et consolidation SW0 | V0.1 | Fermé — baseline locale sw0-v0.1 ; réserves tracées par ADR-0011 |
 | DOC-30 | Étude LaMole/Grospoli et chaîne rangs–carte–trajectoires | V0.1 | Étude candidate — accès et paramètres à valider |
 
-Les documents DOC-09 à DOC-24 conservent les résultats et protocoles historiques. Leurs anciennes commandes Python, shell ou PowerShell ne sont plus actives ; DOC-26 fournit les exécutables et commandes de remplacement, DOC-27 décrit l'interface actuelle, DOC-28 fixe l'architecture de la station de mission complète, DOC-29 suit la consolidation SW0 avant B1 et DOC-30 prépare la chaîne de cartographie viticole.
+Les documents DOC-09 à DOC-24 conservent les résultats et protocoles historiques. Leurs anciennes commandes Python, shell ou PowerShell ne sont plus actives ; DOC-26 fournit les exécutables et commandes de remplacement, DOC-27 décrit l'interface actuelle, DOC-28 fixe l'architecture de la station de mission complète, DOC-29 ferme la consolidation SW0 et DOC-30 prépare la chaîne de cartographie viticole. L'ADR-0011 sépare explicitement la clôture de cette baseline locale des qualifications ARM native, JetPack, CI distante et rendu OpenGL encore **À valider**.
 
 ## Convention de maturité
 
