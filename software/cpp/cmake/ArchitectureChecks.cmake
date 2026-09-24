@@ -1,0 +1,17 @@
+# Frontières contrôlées à chaque configuration, y compris en CI.
+function(station_check_dependencies target)
+  get_target_property(dependencies ${target} LINK_LIBRARIES)
+  foreach(dependency IN LISTS dependencies)
+    if(NOT dependency IN_LIST ARGN)
+      message(FATAL_ERROR "Frontière d'architecture violée : ${target} -> ${dependency}")
+    endif()
+  endforeach()
+endfunction()
+station_check_dependencies(drone_agricole_application Qt6::Core)
+station_check_dependencies(drone_agricole_process drone_agricole_application)
+station_check_dependencies(drone_agricole_algorithms drone_agricole_support)
+station_check_dependencies(drone_agricole_support Qt6::Core Qt6::Gui)
+if(TARGET drone_agricole_presentation)
+  station_check_dependencies(drone_agricole_presentation
+    drone_agricole_application drone_agricole_support Qt6::Widgets)
+endif()

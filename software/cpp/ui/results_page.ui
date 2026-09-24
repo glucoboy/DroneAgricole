@@ -1,0 +1,342 @@
+<ui version="4.0">
+  <class>ResultsPage</class>
+  <widget class="QWidget" name="ResultsPage">
+    <layout class="QVBoxLayout" name="historyLayout" stretch="0,0,1">
+      <property name="leftMargin">
+        <number>16</number>
+      </property>
+      <property name="topMargin">
+        <number>16</number>
+      </property>
+      <property name="rightMargin">
+        <number>16</number>
+      </property>
+      <property name="bottomMargin">
+        <number>16</number>
+      </property>
+      <property name="spacing">
+        <number>12</number>
+      </property>
+      <item>
+        <widget class="QFrame" name="historyIntroFrame">
+          <layout class="QVBoxLayout" name="historyIntroLayout">
+            <property name="leftMargin">
+              <number>16</number>
+            </property>
+            <property name="topMargin">
+              <number>12</number>
+            </property>
+            <property name="rightMargin">
+              <number>16</number>
+            </property>
+            <property name="bottomMargin">
+              <number>12</number>
+            </property>
+            <item>
+              <widget class="QLabel" name="historyTitleLabel">
+                <property name="text">
+                  <string>Historique des essais</string>
+                </property>
+              </widget>
+            </item>
+            <item>
+              <widget class="QLabel" name="historyDescriptionLabel">
+                <property name="text">
+                  <string>Retrouvez les résultats archivés, rechargez une scène ou préparez une comparaison.</string>
+                </property>
+              </widget>
+            </item>
+          </layout>
+        </widget>
+      </item>
+      <item>
+        <widget class="QGroupBox" name="filtersGroup">
+          <property name="title">
+            <string>Filtrer les résultats</string>
+          </property>
+          <layout class="QGridLayout" name="filtersLayout">
+            <item row="0" column="0">
+              <widget class="QComboBox" name="domainFilterCombo" />
+            </item>
+            <item row="0" column="1">
+              <widget class="QComboBox" name="algorithmFilterCombo" />
+            </item>
+            <item row="0" column="2">
+              <widget class="QComboBox" name="stateFilterCombo" />
+            </item>
+            <item row="0" column="3">
+              <widget class="QLineEdit" name="tagFilterEdit">
+                <property name="placeholderText">
+                  <string>Tag</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="4">
+              <widget class="QDateEdit" name="dateFromEdit">
+                <property name="calendarPopup">
+                  <bool>true</bool>
+                </property>
+                <property name="specialValueText">
+                  <string>Depuis</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="5">
+              <widget class="QDateEdit" name="dateToEdit">
+                <property name="calendarPopup">
+                  <bool>true</bool>
+                </property>
+                <property name="specialValueText">
+                  <string>Jusqu'au</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="6">
+              <widget class="QPushButton" name="applyFiltersButton">
+                <property name="text">
+                  <string>Appliquer</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="7">
+              <widget class="QPushButton" name="resetFiltersButton">
+                <property name="text">
+                  <string>Réinitialiser</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="8">
+              <widget class="QPushButton" name="refreshHistoryButton">
+                <property name="text">
+                  <string>Reconstruire l'index</string>
+                </property>
+              </widget>
+            </item>
+          </layout>
+        </widget>
+      </item>
+      <item>
+        <widget class="QSplitter" name="historySplitter">
+          <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QTableWidget" name="historyTable">
+            <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="sortingEnabled">
+              <bool>true</bool>
+            </property>
+            <property name="columnCount">
+              <number>9</number>
+            </property>
+            <column>
+              <property name="text">
+                <string>Comparer</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Date UTC</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Domaine</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Variante</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Run</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Dataset / scénario</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Séquence</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>État</string>
+              </property>
+            </column>
+            <column>
+              <property name="text">
+                <string>Métriques</string>
+              </property>
+            </column>
+          </widget>
+          <widget class="QWidget" name="detailPanel" native="true">
+            <layout class="QVBoxLayout" name="detailLayout">
+              <item>
+                <widget class="QLabel" name="detailTitleLabel">
+                  <property name="text">
+                    <string>Sélectionnez un résultat</string>
+                  </property>
+                  <property name="styleSheet">
+                    <string notr="true">font-size: 17px; font-weight: 700;</string>
+                  </property>
+                </widget>
+              </item>
+              <item>
+                <widget class="QLabel" name="detailSummaryLabel">
+                  <property name="text">
+                    <string>La fiche complète apparaîtra ici.</string>
+                  </property>
+                  <property name="wordWrap">
+                    <bool>true</bool>
+                  </property>
+                </widget>
+              </item>
+              <item>
+                <widget class="QTabWidget" name="detailTabs">
+                  <widget class="QWidget" name="detailMetricsTab">
+                    <attribute name="title">
+                      <string>Métriques</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="detailMetricsLayout">
+                      <item>
+                        <widget class="QTableWidget" name="detailMetricsTable">
+                          <property name="columnCount">
+                            <number>4</number>
+                          </property>
+                          <column>
+                            <property name="text">
+                              <string>Métrique</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>Valeur</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>Unité</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>Statut</string>
+                            </property>
+                          </column>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                  <widget class="QWidget" name="detailEventsTab">
+                    <attribute name="title">
+                      <string>Événements</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="detailEventsLayout">
+                      <item>
+                        <widget class="QTableWidget" name="detailEventsTable">
+                          <property name="columnCount">
+                            <number>4</number>
+                          </property>
+                          <column>
+                            <property name="text">
+                              <string>Temps</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>Type</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>État</string>
+                            </property>
+                          </column>
+                          <column>
+                            <property name="text">
+                              <string>Message</string>
+                            </property>
+                          </column>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                  <widget class="QWidget" name="detailJsonTab">
+                    <attribute name="title">
+                      <string>Manifeste</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="detailJsonLayout">
+                      <item>
+                        <widget class="QPlainTextEdit" name="detailJsonEdit">
+                          <property name="readOnly">
+                            <bool>true</bool>
+                          </property>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+              <item>
+                <layout class="QHBoxLayout" name="detailButtonsLayout">
+                  <item>
+                    <widget class="QPushButton" name="replayButton">
+                      <property name="text">
+                        <string>Recharger la scène</string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="duplicateButton">
+                      <property name="text">
+                        <string>Dupliquer la configuration</string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="openResultFolderButton">
+                      <property name="text">
+                        <string>Ouvrir le dossier</string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="compareButton">
+                      <property name="text">
+                        <string>Comparer la sélection</string>
+                      </property>
+                    </widget>
+                  </item>
+                </layout>
+              </item>
+            </layout>
+          </widget>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <customwidgets>
+    <customwidget>
+      <class>drone_agricole::ui::TrajectoryView</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/TrajectoryView.hpp</header>
+      <container>1</container>
+    </customwidget>
+    <customwidget>
+      <class>drone_agricole::ui::MetricsPlotWidget</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/MetricsPlotWidget.hpp</header>
+      <container>1</container>
+    </customwidget>
+  </customwidgets>
+</ui>

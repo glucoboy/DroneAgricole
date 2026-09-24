@@ -1,0 +1,88 @@
+{
+  "schema": "drone_agricole.dataset_definition.v1",
+  "dataset_id": "escayard",
+  "label": "EscaYard",
+  "description": "Produits géospatiaux de vignobles avec nuages SfM multispectraux et positions RTK de troncs.",
+  "status": "installed",
+  "platform": "aerial_robot",
+  "environment": "vineyard_trellis",
+  "license": {
+    "status": "verified",
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "redistribution": "allowed"
+  },
+  "source": {
+    "url": "https://zenodo.org/records/10362568",
+    "revision": "10.5281/zenodo.10362568"
+  },
+  "capabilities": [
+    "map.static_point_cloud",
+    "camera.multispectral_orthomosaic",
+    "georeference.horizontal_crs",
+    "ground_truth.trunk_points"
+  ],
+  "tags": ["vineyard", "uav", "sfm", "rtk", "multispectral"],
+  "sequences": [
+    {
+      "sequence_id": "b7-green",
+      "source_sequence_id": "B7-20220714-Green",
+      "label": "B7 · nuage vert + référence RTK",
+      "description": "Sous-ensemble initial : le nuage est l'entrée de perception ; les troncs RTK sont réservés à l'évaluation indépendante.",
+      "status": "installed",
+      "duration_s": 0.0,
+      "recommended": true,
+      "result_group": "escayard_b7",
+      "capabilities": ["map.las_1_2", "camera.multispectral_orthomosaic", "ground_truth.shapefile_points"],
+      "resources": [
+        {
+          "resource_id": "point_cloud_green",
+          "kind": "point_cloud",
+          "role": "perception_input",
+          "uri": "datasets/public/escayard/B7/raw/20220714_FLEXIGROBOTS_B7_30M0G_MS_PRO_Green_densified_point_cloud.las",
+          "required": true,
+          "sha256": "47a0ffe977becb203ecdb9253d17b639c45d9a511773d213c83361e08ebe9918"
+        },
+        {
+          "resource_id": "orthomosaic_multispectral",
+          "kind": "map",
+          "role": "perception_input",
+          "uri": "datasets/public/escayard/B7/raw/20220714_FLEXIGROBOTS_B7_30M0G_MS_PRO.tif",
+          "required": false
+        },
+        {
+          "resource_id": "trunk_points",
+          "kind": "vector",
+          "role": "evaluation_reference",
+          "uri": "datasets/public/escayard/B7/raw/trunk_locations_VineyardB7/trunk_locations_VineyardB7.shp",
+          "required": true
+        },
+        {
+          "resource_id": "field_datasheet",
+          "kind": "table",
+          "role": "metadata",
+          "uri": "datasets/public/escayard/B7/raw/datasheet.csv",
+          "required": false,
+          "sha256": "7c754ecaeb8d78b37923faebf0544a8b49310a9ab4066431489edf304391a271"
+        }
+      ],
+      "metadata": {
+        "static_products": true,
+        "camera_sensor": "MicaSense Altum",
+        "orthomosaic_bands": ["blue", "green", "red", "red_edge", "nir"],
+        "raw_uav_images_published": false,
+        "fusion_scope": "geospatial_product_level_only",
+        "point_cloud_crs": "EPSG:32629",
+        "trunk_points_crs": "EPSG:25829",
+        "vertical_datum": "unknown",
+        "quality_warning": "horizontal_crs_mismatch"
+      }
+    }
+  ],
+  "metadata": {
+    "raw_lidar_imu_available": false,
+    "orthomosaic_installed": false,
+    "raw_camera_frames_installed": false,
+    "profile": "configs/datasets/escayard/B7.yaml"
+  }
+}

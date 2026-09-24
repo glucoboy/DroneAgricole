@@ -2,6 +2,10 @@
 
 Workspace maître du projet de système autonome de cartographie et de traitement de vignobles à forte pente.
 
+La documentation active est consolidée dans quatre architectures vivantes et un
+registre transversal de validation. Les anciens comptes rendus ont été
+consolidés puis supprimés. Voir [`docs/INDEX.md`](docs/INDEX.md).
+
 ## Référence du projet
 
 - Emplacement Windows : `D:\ProjetGuillaume\DroneAgricole`
@@ -15,32 +19,44 @@ Workspace maître du projet de système autonome de cartographie et de traitemen
 
 ## Documents de référence
 
-1. [`docs/00_Cahier_des_charges_systeme_V0.2.md`](docs/00_Cahier_des_charges_systeme_V0.2.md) — besoins et exigences système.
-2. [`docs/01_Architecture_logicielle_algorithmes_V0.2.md`](docs/01_Architecture_logicielle_algorithmes_V0.2.md) — chaînes fonctionnelles et algorithmes.
-3. [`docs/02_SAD_V0.2.md`](docs/02_SAD_V0.2.md) — architecture logicielle détaillée.
-4. [`docs/03_Plan_validation_simulation_V0.1.md`](docs/03_Plan_validation_simulation_V0.1.md) — jeux de simulation, datasets et critères de validation.
-5. [`docs/09_Socle_Docker_ROS_PX4_BotanicGarden_V0.1.md`](docs/09_Socle_Docker_ROS_PX4_BotanicGarden_V0.1.md) — socle exécutable et commandes de validation.
-6. [`docs/10_Integration_FAST_LIO2_BotanicGarden_V0.1.md`](docs/10_Integration_FAST_LIO2_BotanicGarden_V0.1.md) — intégration FAST-LIO2 et premier benchmark sur `1006-03`.
-7. [`docs/11_Campagne_FAST_LIO2_complete_sensibilite_Livox_V0.1.md`](docs/11_Campagne_FAST_LIO2_complete_sensibilite_Livox_V0.1.md) — séquence complète, ressources, RPE, sensibilité et migration Livox.
-8. [`docs/12_Tableau_de_bord_3D_temps_reel_V0.2.md`](docs/12_Tableau_de_bord_3D_temps_reel_V0.2.md) — console d'essai, rendu 3D temps réel et graphiques de benchmark.
-9. [`docs/13_Qualification_FAST_LIO2_08x_repetabilite_V0.1.md`](docs/13_Qualification_FAST_LIO2_08x_repetabilite_V0.1.md) — ratio sorties/scans à 0,8× et sensibilité répétée.
-10. [`docs/14_Instrumentation_FAST_LIO2_metriques_dashboard_V0.1.md`](docs/14_Instrumentation_FAST_LIO2_metriques_dashboard_V0.1.md) — compteurs internes, `metrics.json` automatique et interprétation des vitesses de rejeu.
-11. [`docs/15_Integration_Point_LIO_BotanicGarden_V0.1.md`](docs/15_Integration_Point_LIO_BotanicGarden_V0.1.md) — intégration Point-LIO, protocole complet à 1× et comparaison directe avec FAST-LIO2.
-12. [`docs/16_Integration_LIO_SAM_BotanicGarden_V0.1.md`](docs/16_Integration_LIO_SAM_BotanicGarden_V0.1.md) — intégration LIO-SAM, instrumentation, test court et fenêtre dynamique à 1×.
-13. [`docs/17_Comparaison_finale_LIO_BotanicGarden_V0.1.md`](docs/17_Comparaison_finale_LIO_BotanicGarden_V0.1.md) — comparaison des trois passages complets à QoS harmonisée et sélection de travail.
-14. [`docs/25_Migration_CPP17_Qt6_dashboard_desktop_V0.1.md`](docs/25_Migration_CPP17_Qt6_dashboard_desktop_V0.1.md) — application desktop C++17/Qt 6, interface `.ui` et état de la migration globale.
-15. [`docs/26_Cloture_migration_CPP17_Qt6_V0.1.md`](docs/26_Cloture_migration_CPP17_Qt6_V0.1.md) — arborescence active, commandes C++, traçabilité et validations de clôture.
-16. [`docs/27_Refonte_UI_et_fiabilisation_simulation_V0.1.md`](docs/27_Refonte_UI_et_fiabilisation_simulation_V0.1.md) — nouvelle interface à contraste renforcé et lancement PX4 depuis l'application native.
-17. [`docs/28_Architecture_station_mission_unifiee_V0.1.md`](docs/28_Architecture_station_mission_unifiee_V0.1.md) — rôle complet de la station, modules C++ et règles d'extension.
-18. [`docs/29_Etat_des_lieux_et_consolidation_SW0_V0.1.md`](docs/29_Etat_des_lieux_et_consolidation_SW0_V0.1.md) — état vérifié du projet, risques de baseline et portes de consolidation avant B1.
+1. [High Level Design](docs/architecture/HLD.md) — fonctionnement du système complet.
+2. [Architecture logicielle](docs/architecture/ARCHITECTURE_LOGICIELLE.md) — modules, contrats, déploiement et tests.
+3. [Architecture mécanique](docs/architecture/ARCHITECTURE_MECANIQUE.md) — choix, pièces, sous-assemblages, BOM et vérifications.
+4. [Architecture électrique et réseaux](docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md) — énergie, électronique, liaisons et synchronisation.
+5. [Validation et qualification](docs/VALIDATION_QUALIFICATION.md) — stratégie, campagnes, résultats, preuves et reste à qualifier.
 
-Le fichier [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) résume les décisions actives pour reprendre rapidement le projet dans une future session.
+## Préparer le poste de développement
+
+Le poste de référence utilise Windows 11, WSL 2 et Docker Desktop avec son
+moteur Linux WSL 2. Installer ou contrôler WSL avec `wsl --install` puis
+`wsl --update`, installer Docker Desktop et activer l'intégration de la
+distribution Ubuntu. Ne pas installer un second Docker Engine ni un pilote
+NVIDIA Linux dans WSL : le pilote Windows expose le GPU aux conteneurs.
+
+QGroundControl Windows est requis pour les travaux PX4/SITL et les futurs
+essais matériels. ROS 2, PX4, Gazebo, CUDA et les LIO restent fournis par les
+images du projet ; aucune installation globale n'est nécessaire.
+
+Contrôle minimal :
+
+```powershell
+wsl --version
+wsl -l -v
+docker version
+docker compose version
+```
+
+Références : [WSL](https://learn.microsoft.com/fr-fr/windows/wsl/install),
+[Docker Desktop WSL 2](https://docs.docker.com/desktop/features/wsl/) et
+[CUDA sur WSL](https://docs.nvidia.com/cuda/wsl-user-guide/index.html).
 
 ## Démarrage rapide
 
 Le point d'entrée opérateur est une application desktop native, pas un site Web. Cette application constitue la station de mission : acquisitions du cartographe, cartes, missions, transferts, rapports et simulations seront intégrés par modules. Les fonctions autres que la simulation sont encore planifiées. Dans Visual Studio Code, ouvrir **Exécuter et déboguer**, puis choisir `Dashboard Qt 6 — Debug`. La configuration versionnée utilise directement CMake, Ninja et GDB de MSYS2 UCRT64 ; le programme n'est pas lancé par un script PowerShell.
 
 Construction équivalente depuis un terminal MSYS2 UCRT64 ou PowerShell :
+
+La chaîne native requiert notamment Qt 6, `yaml-cpp` et `mingw-w64-ucrt-x86_64-libtiff` ; libtiff assure la lecture sans perte des TIFF multispectraux 16 bits.
 
 ```powershell
 C:\msys64\ucrt64\bin\cmake.exe --preset desktop-debug
@@ -95,18 +111,19 @@ DroneAgricole/
 ## Règles de travail
 
 - Ce dossier est la source de vérité du projet.
-- Les changements d'architecture importants sont consignés dans `docs/decisions/`.
+- Les décisions d'architecture et leur justification utile sont intégrées au document vivant concerné.
 - Les données brutes et résultats volumineux restent dans `datasets/` et `results/`, mais ne sont pas ajoutés à Git.
 - Les exigences utilisent des identifiants stables afin de relier besoin, algorithme, test et résultat.
 - Les valeurs encore incertaines portent la mention **À valider** et ne doivent pas être interprétées comme des spécifications figées.
 
 ## Prochaine étape recommandée
 
-SW0 est fermé sur la baseline locale `sw0-v0.1` : 12/12 suites de tests sous
-Windows et Linux, six rejeux LIO complets à 1×, scénarios PX4 SITL et images
-`amd64` consolidés. DOC-29 conserve les résultats et les corrections numériques.
+SW0 est fermé sur la baseline locale `sw0-v0.1`. Les preuves historiques,
+résultats synthétiques et limites sont tenus dans `DOC-VAL` ; la liste et
+l'état des tests courants doivent toujours être recalculés sur la révision
+active. L'état architectural courant est tenu dans `DOC-SW`.
 
 Démarrer B1 : contrats `SurveyMissionPackage` et `SurveyRunPackage`, réception
-des acquisitions et rapport qualité reproductible. L'ADR-0011 maintient les
-qualifications ARM native/Jetson, CI distante, rendu OpenGL conteneurisé et
-seuils de navigation **À valider** avant les échéances de déploiement associées.
+des acquisitions et rapport qualité reproductible. Les qualifications ARM
+native/Jetson, la CI distante, le rendu OpenGL conteneurisé et les seuils de
+navigation restent **À valider** avant les échéances de déploiement associées.

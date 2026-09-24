@@ -36,6 +36,8 @@ class TestTrajectoryView final : public QObject {
     }
 
     view.setPointCloud(cloud);
+    view.setCameraProjectedPoints({QVector3D(-1.0F, 18.0F, 0.8F), QVector3D(1.0F, 18.0F, 0.9F)}, {QColor(255,0,0), QColor(0,255,0)});
+    view.setReferencePoints({QVector3D(-2.4F, 12.0F, 0.2F), QVector3D(2.4F, 28.0F, 0.2F)});
     view.setSeries({
         {QStringLiteral("Estimation"), QColor(QStringLiteral("#55e2d2")), estimate, false},
         {QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#ffd166")), truth, true},
@@ -43,6 +45,9 @@ class TestTrajectoryView final : public QObject {
     view.fitToData();
 
     QCOMPARE(view.pointCloudSize(), cloud.size());
+    QCOMPARE(view.cameraProjectedPointCount(), 2);
+    QCOMPARE(view.cameraColorCount(), 2);
+    QCOMPARE(view.referencePointCount(), 2);
     QVERIFY(std::abs(view.cameraTarget().y() - 25.2F) < 1.0F);
     QVERIFY(std::isfinite(view.cameraDistance()));
     QVERIFY(view.cameraDistance() > 10.0F);
@@ -52,10 +57,7 @@ class TestTrajectoryView final : public QObject {
     const auto initialDistance = view.cameraDistance();
     QTest::keyClick(&view, Qt::Key_Plus);
     QVERIFY(view.cameraDistance() < initialDistance);
-    if (QGuiApplication::platformName() == QStringLiteral("offscreen")) {
-      return;
-    }
-    const auto image = view.grabFramebuffer();
+    const auto image = view.grab().toImage();
     QVERIFY(!image.isNull());
     QVERIFY(image.width() >= 900);
     const auto screenshot = qEnvironmentVariable("DRONE_AGRICOLE_MAP_SCREENSHOT");
@@ -70,6 +72,8 @@ class TestTrajectoryView final : public QObject {
     QCOMPARE(view.pointCloudSize(), 1);
     view.clear();
     QCOMPARE(view.pointCloudSize(), 0);
+    QCOMPARE(view.cameraProjectedPointCount(), 0);
+    QCOMPARE(view.referencePointCount(), 0);
   }
 };
 

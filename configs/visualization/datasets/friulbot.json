@@ -1,0 +1,111 @@
+{
+  "schema": "drone_agricole.dataset_definition.v1",
+  "dataset_id": "friulbot",
+  "label": "FriûlBot",
+  "description": "Acquisitions brutes en vignoble avec Velodyne VLP-16, IMU, RTK et caméra multispectrale MicaSense déclenchée avec un scan LiDAR.",
+  "status": "installed",
+  "platform": "ground_robot",
+  "environment": "vineyard_trellis",
+  "license": {
+    "status": "verified",
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "redistribution": "allowed"
+  },
+  "source": {
+    "url": "https://zenodo.org/records/13983719",
+    "revision": "10.5281/zenodo.13983719"
+  },
+  "capabilities": [
+    "lidar.velodyne_vlp16",
+    "lidar.pointcloud2",
+    "imu.si",
+    "camera.multispectral_raw",
+    "camera.lidar_hardware_trigger",
+    "calibration.lidar_camera",
+    "ground_truth.rtk_path"
+  ],
+  "tags": ["vineyard", "ground_robot", "lidar", "imu", "rtk", "multispectral", "synchronized"],
+  "sequences": [
+    {
+      "sequence_id": "test2-2024-07-22-raw",
+      "source_sequence_id": "Test 2 — 22-07-2024",
+      "label": "Test 2 · 22 juillet 2024 · brut",
+      "description": "Séquence complète. Le runner local ne lit que le scan LiDAR associé au déclenchement caméra ; RTK, roues et SLAM restent des références exclues.",
+      "status": "installed",
+      "duration_s": 1283.858499272,
+      "recommended": true,
+      "result_group": "friulbot_test2_2024-07-22",
+      "capabilities": ["sensor.triggered_lidar_multispectral", "map.local_sensor_frame"],
+      "resources": [
+        {
+          "resource_id": "raw_bag",
+          "kind": "rosbag1",
+          "role": "mixed_container",
+          "uri": "datasets/public/friulbot/test2/2024-07-22/raw/2024-07-22-11-03-15.bag",
+          "required": true
+        },
+        {
+          "resource_id": "multispectral_images",
+          "kind": "images",
+          "role": "perception_input",
+          "uri": "datasets/public/friulbot/test2/2024-07-22/multispectral/0029SET",
+          "required": true
+        },
+        {
+          "resource_id": "sensor_calibration",
+          "kind": "calibration",
+          "role": "metadata",
+          "uri": "configs/datasets/friulbot/test2-2024-07-22.yaml",
+          "required": true
+        }
+      ],
+      "metadata": {
+        "raw_topic_allowlist": ["velodyne_points", "imu/data", "micasense_capture_lidar_points"],
+        "evaluation_only_topics": ["ublox_position_receiver/fix", "odom", "map_base_link/odometry", "lio_sam/mapping/odometry"],
+        "published_index_bags_used": false,
+        "mapping_scope": "single_trigger_local_frame",
+        "global_mapping_status": "to_validate",
+        "camera_projection_status": "diagnostic_red_nir_projection_available_convention_to_validate"
+      }
+    },
+    {
+      "sequence_id": "test2-2024-07-22-smoke-lio",
+      "source_sequence_id": "Test 2 — 22-07-2024",
+      "label": "Test 2 · extrait LIO 30 s",
+      "description": "MCAP filtré : LiDAR et IMU comme perception, positions RTK ENU sous /gt_poses uniquement pour l'évaluation.",
+      "status": "partial",
+      "duration_s": 30.0,
+      "recommended": false,
+      "result_group": "friulbot_test2_2024-07-22",
+      "capabilities": ["lidar.pointcloud2", "imu.si", "ground_truth.pose"],
+      "resources": [
+        {
+          "resource_id": "friulbot_lio_ros2",
+          "kind": "rosbag2",
+          "role": "mixed_container",
+          "uri": "datasets/derived/friulbot/test2/2024-07-22/smoke/lidar_imu_rtk_30s_offset60_mcap",
+          "required": true
+        },
+        {
+          "resource_id": "sensor_calibration",
+          "kind": "calibration",
+          "role": "metadata",
+          "uri": "configs/datasets/friulbot/test2-2024-07-22.yaml",
+          "required": true
+        }
+      ],
+      "metadata": {
+        "pipeline": "velodyne_xsens",
+        "offset_s": 60.0,
+        "reference": "rtk_enu_position_only",
+        "reference_orientation_available": false,
+        "reference_loaded_by_lio": false
+      }
+    }
+  ],
+  "metadata": {
+    "profile": "configs/datasets/friulbot/test2-2024-07-22.yaml",
+    "uav_representativeness": "perception_only_not_flight_dynamics"
+  }
+}

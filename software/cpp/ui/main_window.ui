@@ -2,313 +2,62 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect><x>0</x><y>0</y><width>1480</width><height>920</height></rect>
-  </property>
-  <property name="minimumSize"><size><width>1180</width><height>720</height></size></property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>1540</width><height>980</height></rect></property>
+  <property name="minimumSize"><size><width>1200</width><height>760</height></size></property>
   <property name="windowTitle"><string>Drone Agricole · Station de mission</string></property>
-  <property name="styleSheet">
-   <string notr="true">QMainWindow, QWidget#centralWidget { background: #0b1017; color: #f2f7fc; }
-QWidget { font-size: 10pt; }
-QFrame#headerFrame { background: #111a25; border-bottom: 1px solid #263649; }
-QLabel#eyebrowLabel { color: #55e2d2; font-size: 9pt; font-weight: 700; letter-spacing: 1px; }
-QLabel#titleLabel { font-size: 23px; font-weight: 700; color: #ffffff; }
-QLabel#subtitleLabel { color: #b5c2d1; }
-QLabel#workspaceLabel { color: #b5c2d1; font-size: 9pt; }
-QLabel#globalStatusLabel { background: #123d3b; color: #8ff5e8; border: 1px solid #2b817a; border-radius: 12px; padding: 7px 14px; font-weight: 700; }
-QFrame#configurationIntro, QFrame#visualizationCard, QFrame#historyIntroFrame, QFrame#comparisonHeaderFrame, QWidget#detailPanel { background: #121b27; border: 1px solid #263649; border-radius: 10px; }
-QLabel#configurationTitleLabel, QLabel#visualizationTitleLabel, QLabel#historyTitleLabel, QLabel#comparisonTitleLabel, QLabel#detailTitleLabel { color: #ffffff; font-size: 16px; font-weight: 700; }
-QLabel#configurationDescriptionLabel, QLabel#visualizationHelpLabel, QLabel#historyDescriptionLabel, QLabel#comparisonStatusLabel, QLabel#detailSummaryLabel, QLabel#parameterHelpLabel { color: #b5c2d1; }
-QLabel#liveBadgeLabel { background: #322a1b; color: #f5d690; border: 1px solid #766238; border-radius: 9px; padding: 4px 9px; font-size: 9pt; font-weight: 700; }
-QLabel#liveBadgeLabel[connected="true"] { background: #123d3b; color: #8ff5e8; border-color: #2b817a; }
-QPushButton#fitMapButton, QPushButton#topMapButton { min-height: 21px; padding: 4px 10px; background: #182737; border-color: #37506a; font-size: 9pt; }
-QLabel#runStatusLabel { color: #e7eef7; font-weight: 600; padding: 4px 0; }
-QProgressBar#runProgressBar { min-height: 18px; background: #0c141e; color: #ffffff; border: 1px solid #3b5069; border-radius: 6px; text-align: center; font-weight: 600; }
-QProgressBar#runProgressBar::chunk { background: #159487; border-radius: 5px; }
-QLabel#safetyLabel { background: #172334; color: #c9d6e5; border-left: 3px solid #5ca9ff; border-radius: 4px; padding: 9px; }
-QTabWidget::pane { border: 1px solid #263649; background: #0f1722; border-radius: 8px; top: -1px; }
-QTabBar::tab { background: #111a25; color: #b5c2d1; min-height: 24px; padding: 9px 19px; margin-right: 3px; border: 1px solid #263649; border-bottom: 2px solid transparent; border-top-left-radius: 7px; border-top-right-radius: 7px; }
-QTabBar::tab:hover { background: #192638; color: #ffffff; }
-QTabBar::tab:selected { background: #1b2a3b; color: #ffffff; border-bottom-color: #3dd6c6; }
-QTabBar::tab:disabled { color: #8896a8; background: #101720; }
-QGroupBox { background: #121b27; border: 1px solid #2b3c50; border-radius: 10px; margin-top: 16px; padding: 16px 12px 12px 12px; font-weight: 600; }
-QGroupBox::title { subcontrol-origin: margin; left: 13px; padding: 0 7px; color: #eaf1f8; background: #121b27; }
-QGroupBox:disabled { color: #9ba8b8; border-color: #243245; }
-QLabel:disabled, QGroupBox:disabled QLabel { color: #9ba8b8; }
-QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox, QDateEdit { min-height: 25px; background: #0c141e; color: #f2f7fc; border: 1px solid #3b5069; border-radius: 7px; padding: 5px 9px; selection-background-color: #176d70; selection-color: #ffffff; }
-QComboBox:hover, QLineEdit:hover, QSpinBox:hover, QDoubleSpinBox:hover, QDateEdit:hover { border-color: #607a99; }
-QComboBox:focus, QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QDateEdit:focus, QPlainTextEdit:focus, QTableWidget:focus { border: 1px solid #4be1d2; }
-QComboBox:disabled, QLineEdit:disabled, QSpinBox:disabled, QDoubleSpinBox:disabled, QDateEdit:disabled { color: #a4b0bf; background: #17202c; border-color: #304054; }
-QComboBox QAbstractItemView { background: #111a25; color: #f2f7fc; border: 1px solid #425974; selection-background-color: #176d70; selection-color: #ffffff; outline: 0; }
-QPlainTextEdit, QTextBrowser, QTableWidget { background: #0c141e; color: #eaf1f8; border: 1px solid #304258; border-radius: 7px; padding: 5px; selection-background-color: #176d70; selection-color: #ffffff; gridline-color: #263649; alternate-background-color: #111c29; }
-QTableWidget::item { color: #eaf1f8; padding: 5px; border: 0; }
-QTableWidget::item:selected { background: #176d70; color: #ffffff; }
-QPushButton { min-height: 25px; background: #24364b; color: #f7fbff; border: 1px solid #415a75; border-radius: 7px; padding: 6px 14px; font-weight: 600; }
-QPushButton:hover { background: #304760; border-color: #6483a5; }
-QPushButton:pressed { background: #1b2b3d; }
-QPushButton:focus { border: 1px solid #63eadc; }
-QPushButton#startButton, QPushButton#compareButton { background: #0e716b; color: #ffffff; border-color: #3dd6c6; }
-QPushButton#startButton:hover, QPushButton#compareButton:hover { background: #13867e; }
-QPushButton#stopButton { background: #752f3e; color: #ffffff; border-color: #e1687b; }
-QPushButton#stopButton:hover { background: #8a3849; }
-QPushButton:disabled { color: #9ba8b8; background: #18222f; border-color: #304054; }
-QCheckBox { color: #eaf1f8; spacing: 8px; }
-QCheckBox::indicator { width: 17px; height: 17px; border: 1px solid #607a99; border-radius: 4px; background: #0c141e; }
-QCheckBox::indicator:checked { background: #20a99d; border-color: #55e2d2; }
-QHeaderView::section { background: #1a2736; color: #e4edf7; padding: 8px; border: 0; border-right: 1px solid #34475d; border-bottom: 1px solid #34475d; font-weight: 600; }
-QSplitter::handle { background: #243449; }
-QSplitter::handle:hover { background: #3dd6c6; }
-QMenuBar { background: #111a25; color: #dce6f1; border-bottom: 1px solid #263649; }
-QMenuBar::item:selected, QMenu::item:selected { background: #176d70; color: #ffffff; }
-QMenu { background: #111a25; color: #eaf1f8; border: 1px solid #34475d; }
-QStatusBar { background: #111a25; color: #bdcad8; border-top: 1px solid #263649; }
-QToolTip { background: #1b2a3b; color: #ffffff; border: 1px solid #607a99; padding: 6px; }
-QScrollArea { background: transparent; border: 0; }
-QScrollBar:vertical { background: #0f1722; width: 12px; margin: 2px; }
-QScrollBar::handle:vertical { background: #435a74; min-height: 28px; border-radius: 5px; }
-QScrollBar:horizontal { background: #0f1722; height: 12px; margin: 2px; }
-QScrollBar::handle:horizontal { background: #435a74; min-width: 28px; border-radius: 5px; }
-QScrollBar::handle:hover { background: #607a99; }
-QScrollBar::add-line, QScrollBar::sub-line { width: 0; height: 0; }
-QCalendarWidget QWidget { alternate-background-color: #172334; }
-QCalendarWidget QAbstractItemView { background: #0c141e; color: #eaf1f8; selection-background-color: #176d70; selection-color: #ffffff; }
-QScrollArea#configurationScrollArea, QScrollArea#configurationScrollArea QWidget#qt_scrollarea_viewport, QWidget#configurationPanel { background: #0b1017; }</string>
-  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="centralLayout">
+   <layout class="QVBoxLayout" name="shellLayout">
     <property name="spacing"><number>0</number></property>
-     <property name="leftMargin"><number>0</number></property>
-     <property name="topMargin"><number>0</number></property>
-     <property name="rightMargin"><number>0</number></property>
-     <property name="bottomMargin"><number>0</number></property>
-    <item>
-     <widget class="QFrame" name="headerFrame">
-      <property name="minimumSize"><size><width>0</width><height>94</height></size></property>
-      <layout class="QHBoxLayout" name="headerLayout">
-       <property name="leftMargin"><number>26</number></property><property name="rightMargin"><number>26</number></property>
-       <item>
-        <layout class="QVBoxLayout" name="titleLayout">
-         <property name="spacing"><number>2</number></property>
-         <item><widget class="QLabel" name="eyebrowLabel"><property name="text"><string>STATION DE MISSION</string></property></widget></item>
-         <item><widget class="QLabel" name="titleLabel"><property name="text"><string>Drone Agricole</string></property></widget></item>
-         <item><widget class="QLabel" name="subtitleLabel"><property name="text"><string>Cartographie, missions, traitement et validation depuis une seule application</string></property></widget></item>
-        </layout>
-       </item>
-       <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
-       <item><widget class="QLabel" name="workspaceLabel"><property name="text"><string>PROJET LOCAL</string></property><property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property></widget></item>
-       <item><widget class="QLabel" name="globalStatusLabel"><property name="text"><string>INITIALISATION</string></property></widget></item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QTabWidget" name="mainTabs">
-      <property name="currentIndex"><number>0</number></property>
-      <property name="documentMode"><bool>true</bool></property>
-      <widget class="QWidget" name="executionTab">
-       <attribute name="title"><string>Exécution</string></attribute>
-       <layout class="QHBoxLayout" name="executionLayout">
-        <property name="leftMargin"><number>16</number></property>
-        <property name="topMargin"><number>16</number></property>
-        <property name="rightMargin"><number>16</number></property>
-        <property name="bottomMargin"><number>16</number></property>
-        <item>
-         <widget class="QSplitter" name="executionSplitter">
-          <property name="orientation"><enum>Qt::Horizontal</enum></property>
-          <widget class="QScrollArea" name="configurationScrollArea">
-           <property name="minimumSize"><size><width>380</width><height>0</height></size></property>
-           <property name="maximumSize"><size><width>520</width><height>16777215</height></size></property>
-           <property name="widgetResizable"><bool>true</bool></property>
-           <widget class="QWidget" name="configurationPanel">
-            <property name="autoFillBackground"><bool>true</bool></property>
-            <property name="styleSheet"><string notr="true">QWidget#configurationPanel { background-color: #0b1017; }</string></property>
-            <layout class="QVBoxLayout" name="configurationPanelLayout">
-             <property name="spacing"><number>10</number></property>
-             <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>10</number></property><property name="bottomMargin"><number>0</number></property>
-             <item>
-              <widget class="QFrame" name="configurationIntro">
-               <layout class="QVBoxLayout" name="configurationIntroLayout">
-                <property name="leftMargin"><number>16</number></property><property name="topMargin"><number>14</number></property><property name="rightMargin"><number>16</number></property><property name="bottomMargin"><number>14</number></property>
-                <item><widget class="QLabel" name="configurationTitleLabel"><property name="text"><string>Nouvelle exécution</string></property></widget></item>
-                <item><widget class="QLabel" name="configurationDescriptionLabel"><property name="text"><string>Choisissez un module, vérifiez ses paramètres puis lancez un essai traçable.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="selectionGroup"><property name="title"><string>1 · Scénario de simulation</string></property>
-               <layout class="QFormLayout" name="selectionForm">
-                <item row="0" column="0"><widget class="QLabel" name="simulationLabel"><property name="text"><string>Module</string></property></widget></item>
-                <item row="0" column="1"><widget class="QComboBox" name="simulationCombo"/></item>
-                <item row="1" column="0"><widget class="QLabel" name="variantLabel"><property name="text"><string>Variante</string></property></widget></item>
-                <item row="1" column="1"><widget class="QComboBox" name="variantCombo"/></item>
-                <item row="2" column="0"><widget class="QLabel" name="datasetLabel"><property name="text"><string>Dataset</string></property></widget></item>
-                <item row="2" column="1"><widget class="QComboBox" name="datasetCombo"/></item>
-                <item row="3" column="0"><widget class="QLabel" name="sequenceLabel"><property name="text"><string>Séquence</string></property></widget></item>
-                <item row="3" column="1"><widget class="QComboBox" name="sequenceCombo"/></item>
-                <item row="4" column="0"><widget class="QLabel" name="profileLabel"><property name="text"><string>Profil</string></property></widget></item>
-                <item row="4" column="1"><widget class="QComboBox" name="profileCombo"/></item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="parametersGroup"><property name="title"><string>2 · Paramètres du contrat</string></property>
-               <layout class="QVBoxLayout" name="parametersGroupLayout">
-                <item><widget class="QLabel" name="parameterHelpLabel"><property name="text"><string>Les bornes proviennent du contrat versionné.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-                <item><widget class="QWidget" name="parametersContainer" native="true"><layout class="QFormLayout" name="parametersFormLayout"><property name="fieldGrowthPolicy"><enum>QFormLayout::AllNonFixedFieldsGrow</enum></property></layout></widget></item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="runGroup"><property name="title"><string>3 · Contrôle de l’exécution</string></property>
-               <layout class="QVBoxLayout" name="runLayout">
-                <item><widget class="QLabel" name="runStatusLabel"><property name="text"><string>Prêt</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-                <item><widget class="QProgressBar" name="runProgressBar"><property name="visible"><bool>false</bool></property><property name="value"><number>0</number></property><property name="format"><string>Initialisation…</string></property></widget></item>
-                <item><layout class="QHBoxLayout" name="runButtonsLayout">
-                 <item><widget class="QPushButton" name="startButton"><property name="text"><string>Lancer l’essai</string></property></widget></item>
-                 <item><widget class="QPushButton" name="stopButton"><property name="text"><string>Arrêter</string></property><property name="enabled"><bool>false</bool></property></widget></item>
-                </layout></item>
-                <item><widget class="QLabel" name="safetyLabel"><property name="text"><string>PX4 conserve le vol critique et les failsafes. L'application orchestre uniquement les scénarios autorisés.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-               </layout>
-              </widget>
-             </item>
-             <item><spacer name="configurationSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>40</height></size></property></spacer></item>
-            </layout>
-           </widget>
-          </widget>
-          <widget class="QSplitter" name="visualizationSplitter">
-           <property name="orientation"><enum>Qt::Vertical</enum></property>
-           <widget class="QFrame" name="visualizationCard">
-            <layout class="QVBoxLayout" name="visualizationCardLayout">
-             <property name="leftMargin"><number>12</number></property><property name="topMargin"><number>12</number></property><property name="rightMargin"><number>12</number></property><property name="bottomMargin"><number>12</number></property>
-             <item><layout class="QHBoxLayout" name="visualizationHeaderLayout">
-              <item><layout class="QVBoxLayout" name="visualizationTitlesLayout">
-               <item><widget class="QLabel" name="visualizationTitleLabel"><property name="text"><string>Vue opérationnelle</string></property></widget></item>
-                <item><widget class="QLabel" name="visualizationHelpLabel"><property name="text"><string>Gauche : rotation · droit/central : déplacement · molette : zoom</string></property></widget></item>
-              </layout></item>
-               <item><spacer name="visualizationHeaderSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
-               <item><widget class="QPushButton" name="fitMapButton"><property name="text"><string>Cadrer</string></property><property name="toolTip"><string>Afficher toute la carte et reprendre le cadrage automatique</string></property></widget></item>
-               <item><widget class="QPushButton" name="topMapButton"><property name="text"><string>Vue dessus</string></property><property name="toolTip"><string>Observer la carte verticalement</string></property></widget></item>
-               <item><widget class="QLabel" name="liveBadgeLabel"><property name="connected" stdset="0"><bool>false</bool></property><property name="text"><string>EN ATTENTE</string></property></widget></item>
-             </layout></item>
-             <item><widget class="drone_agricole::ui::TrajectoryView" name="trajectoryView"/></item>
-            </layout>
-           </widget>
-           <widget class="QTabWidget" name="executionBottomTabs">
-            <property name="minimumSize"><size><width>0</width><height>260</height></size></property>
-            <widget class="QWidget" name="liveMetricsTab"><attribute name="title"><string>Métriques</string></attribute>
-             <layout class="QHBoxLayout" name="liveMetricsLayout">
-                   <item><widget class="drone_agricole::ui::MetricsPlotWidget" name="liveMetricsPlot"/></item>
-              <item><widget class="QTableWidget" name="liveMetricsTable"><property name="columnCount"><number>3</number></property><property name="rowCount"><number>0</number></property>
-               <column><property name="text"><string>Métrique</string></property></column><column><property name="text"><string>Valeur</string></property></column><column><property name="text"><string>Unité</string></property></column>
-              </widget></item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="logsTab"><attribute name="title"><string>Journal</string></attribute><layout class="QVBoxLayout" name="logsLayout"><item><widget class="QPlainTextEdit" name="logsEdit"><property name="readOnly"><bool>true</bool></property><property name="maximumBlockCount"><number>5000</number></property></widget></item></layout></widget>
-           </widget>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="historyTab">
-       <attribute name="title"><string>Historique</string></attribute>
-       <layout class="QVBoxLayout" name="historyLayout">
-        <property name="leftMargin"><number>16</number></property><property name="topMargin"><number>16</number></property><property name="rightMargin"><number>16</number></property><property name="bottomMargin"><number>16</number></property><property name="spacing"><number>12</number></property>
-        <item><widget class="QFrame" name="historyIntroFrame"><layout class="QVBoxLayout" name="historyIntroLayout">
-         <property name="leftMargin"><number>16</number></property><property name="topMargin"><number>12</number></property><property name="rightMargin"><number>16</number></property><property name="bottomMargin"><number>12</number></property>
-         <item><widget class="QLabel" name="historyTitleLabel"><property name="text"><string>Historique des essais</string></property></widget></item>
-         <item><widget class="QLabel" name="historyDescriptionLabel"><property name="text"><string>Retrouvez les résultats archivés, rechargez une scène ou préparez une comparaison.</string></property></widget></item>
-        </layout></widget></item>
-        <item>
-         <widget class="QGroupBox" name="filtersGroup"><property name="title"><string>Filtres reconstruits depuis les archives</string></property>
-          <layout class="QGridLayout" name="filtersLayout">
-           <item row="0" column="0"><widget class="QComboBox" name="domainFilterCombo"/></item>
-           <item row="0" column="1"><widget class="QComboBox" name="algorithmFilterCombo"/></item>
-           <item row="0" column="2"><widget class="QComboBox" name="stateFilterCombo"/></item>
-           <item row="0" column="3"><widget class="QLineEdit" name="tagFilterEdit"><property name="placeholderText"><string>Tag</string></property></widget></item>
-           <item row="0" column="4"><widget class="QDateEdit" name="dateFromEdit"><property name="calendarPopup"><bool>true</bool></property><property name="specialValueText"><string>Depuis</string></property></widget></item>
-           <item row="0" column="5"><widget class="QDateEdit" name="dateToEdit"><property name="calendarPopup"><bool>true</bool></property><property name="specialValueText"><string>Jusqu'au</string></property></widget></item>
-           <item row="0" column="6"><widget class="QPushButton" name="applyFiltersButton"><property name="text"><string>Appliquer</string></property></widget></item>
-           <item row="0" column="7"><widget class="QPushButton" name="resetFiltersButton"><property name="text"><string>Réinitialiser</string></property></widget></item>
-           <item row="0" column="8"><widget class="QPushButton" name="refreshHistoryButton"><property name="text"><string>Reconstruire l'index</string></property></widget></item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSplitter" name="historySplitter">
-          <property name="orientation"><enum>Qt::Horizontal</enum></property>
-          <widget class="QTableWidget" name="historyTable"><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property><property name="sortingEnabled"><bool>true</bool></property><property name="columnCount"><number>9</number></property>
-           <column><property name="text"><string>Comparer</string></property></column><column><property name="text"><string>Date UTC</string></property></column><column><property name="text"><string>Domaine</string></property></column><column><property name="text"><string>Variante</string></property></column><column><property name="text"><string>Run</string></property></column><column><property name="text"><string>Dataset / scénario</string></property></column><column><property name="text"><string>Séquence</string></property></column><column><property name="text"><string>État</string></property></column><column><property name="text"><string>Métriques</string></property></column>
-          </widget>
-          <widget class="QWidget" name="detailPanel" native="true">
-           <layout class="QVBoxLayout" name="detailLayout">
-            <item><widget class="QLabel" name="detailTitleLabel"><property name="text"><string>Sélectionnez un résultat</string></property><property name="styleSheet"><string notr="true">font-size: 17px; font-weight: 700;</string></property></widget></item>
-            <item><widget class="QLabel" name="detailSummaryLabel"><property name="text"><string>La fiche complète apparaîtra ici.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-            <item><widget class="QTabWidget" name="detailTabs">
-             <widget class="QWidget" name="detailMetricsTab"><attribute name="title"><string>Métriques</string></attribute><layout class="QVBoxLayout" name="detailMetricsLayout"><item><widget class="QTableWidget" name="detailMetricsTable"><property name="columnCount"><number>4</number></property><column><property name="text"><string>Métrique</string></property></column><column><property name="text"><string>Valeur</string></property></column><column><property name="text"><string>Unité</string></property></column><column><property name="text"><string>Statut</string></property></column></widget></item></layout></widget>
-             <widget class="QWidget" name="detailEventsTab"><attribute name="title"><string>Événements</string></attribute><layout class="QVBoxLayout" name="detailEventsLayout"><item><widget class="QTableWidget" name="detailEventsTable"><property name="columnCount"><number>4</number></property><column><property name="text"><string>Temps</string></property></column><column><property name="text"><string>Type</string></property></column><column><property name="text"><string>État</string></property></column><column><property name="text"><string>Message</string></property></column></widget></item></layout></widget>
-             <widget class="QWidget" name="detailJsonTab"><attribute name="title"><string>Manifeste</string></attribute><layout class="QVBoxLayout" name="detailJsonLayout"><item><widget class="QPlainTextEdit" name="detailJsonEdit"><property name="readOnly"><bool>true</bool></property></widget></item></layout></widget>
-            </widget></item>
-            <item><layout class="QHBoxLayout" name="detailButtonsLayout">
-             <item><widget class="QPushButton" name="replayButton"><property name="text"><string>Recharger la scène</string></property></widget></item>
-             <item><widget class="QPushButton" name="duplicateButton"><property name="text"><string>Dupliquer la configuration</string></property></widget></item>
-             <item><widget class="QPushButton" name="openResultFolderButton"><property name="text"><string>Ouvrir le dossier</string></property></widget></item>
-             <item><widget class="QPushButton" name="compareButton"><property name="text"><string>Comparer la sélection</string></property></widget></item>
-            </layout></item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="comparisonTab">
-       <attribute name="title"><string>Comparaison</string></attribute>
-       <layout class="QVBoxLayout" name="comparisonLayout">
-        <property name="leftMargin"><number>16</number></property><property name="topMargin"><number>16</number></property><property name="rightMargin"><number>16</number></property><property name="bottomMargin"><number>16</number></property><property name="spacing"><number>12</number></property>
-        <item><widget class="QFrame" name="comparisonHeaderFrame"><layout class="QHBoxLayout" name="comparisonHeaderLayout">
-         <property name="leftMargin"><number>16</number></property><property name="topMargin"><number>12</number></property><property name="rightMargin"><number>16</number></property><property name="bottomMargin"><number>12</number></property>
-         <item><layout class="QVBoxLayout" name="comparisonTitleLayout">
-          <item><widget class="QLabel" name="comparisonTitleLabel"><property name="text"><string>Comparer les exécutions</string></property></widget></item>
-          <item><widget class="QLabel" name="comparisonStatusLabel"><property name="text"><string>Sélectionnez de deux à quatre archives compatibles dans l’historique.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-         </layout></item>
-         <item><spacer name="comparisonHeaderSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
-         <item><widget class="QPushButton" name="exportReportButton"><property name="text"><string>Exporter le rapport</string></property><property name="enabled"><bool>false</bool></property></widget></item>
-        </layout></widget></item>
-        <item>
-         <widget class="QSplitter" name="comparisonSplitter"><property name="orientation"><enum>Qt::Vertical</enum></property>
-          <widget class="QSplitter" name="comparisonVisualSplitter"><property name="orientation"><enum>Qt::Horizontal</enum></property>
-           <widget class="drone_agricole::ui::TrajectoryView" name="comparisonTrajectoryView"/>
-           <widget class="drone_agricole::ui::MetricsPlotWidget" name="comparisonMetricsPlot"/>
-          </widget>
-          <widget class="QTabWidget" name="comparisonDataTabs"><property name="minimumSize"><size><width>0</width><height>290</height></size></property>
-           <widget class="QWidget" name="comparisonMetricsTab"><attribute name="title"><string>Matrice des métriques</string></attribute><layout class="QVBoxLayout" name="comparisonMetricsLayout"><item><widget class="QTableWidget" name="comparisonMetricsTable"/></item></layout></widget>
-           <widget class="QWidget" name="comparisonParametersTab"><attribute name="title"><string>Paramètres</string></attribute><layout class="QVBoxLayout" name="comparisonParametersLayout"><item><widget class="QTableWidget" name="comparisonParametersTable"/></item></layout></widget>
-           <widget class="QWidget" name="comparisonVersionsTab"><attribute name="title"><string>Versions et sources</string></attribute><layout class="QVBoxLayout" name="comparisonVersionsLayout"><item><widget class="QTableWidget" name="comparisonVersionsTable"/></item></layout></widget>
-           <widget class="QWidget" name="comparisonReportTab"><attribute name="title"><string>Rapport</string></attribute><layout class="QVBoxLayout" name="comparisonReportLayout"><item><widget class="QPlainTextEdit" name="comparisonReportEdit"><property name="readOnly"><bool>true</bool></property></widget></item></layout></widget>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
+    <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+    <item><widget class="QFrame" name="headerFrame"><layout class="QHBoxLayout" name="headerLayout">
+     <item><widget class="QLabel" name="titleLabel"><property name="text"><string>Drone Agricole</string></property></widget></item>
+     <item><widget class="QLabel" name="subtitleLabel"><property name="text"><string>STATION DE MISSION</string></property></widget></item>
+     <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
+     <item><widget class="QLabel" name="workspaceLabel"><property name="text"><string>Projet local</string></property></widget></item>
+    </layout></widget></item>
+    <item><layout class="QHBoxLayout" name="bodyLayout">
+     <item><widget class="QFrame" name="navigationFrame"><property name="minimumSize"><size><width>180</width><height>0</height></size></property><property name="maximumSize"><size><width>210</width><height>16777215</height></size></property><layout class="QVBoxLayout" name="navigationLayout">
+      <item><widget class="QLabel" name="navigationCaption"><property name="text"><string>ESPACE DE TRAVAIL</string></property></widget></item>
+      <item><widget class="QListWidget" name="navigationList"><property name="accessibleName"><string>Navigation principale</string></property></widget></item>
+      <item><widget class="QLabel" name="safetyLabel"><property name="text"><string>PX4 assure le vol critique. La station prépare et analyse les données et les essais.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+     </layout></widget></item>
+     <item><layout class="QVBoxLayout" name="workspaceLayout">
+      <item><layout class="QHBoxLayout" name="breadcrumbLayout">
+       <item><widget class="QPushButton" name="backButton"><property name="text"><string>← Retour</string></property><property name="shortcut"><string>Alt+Left</string></property></widget></item>
+       <item><widget class="QLabel" name="breadcrumbLabel"><property name="text"><string>Vue d'ensemble</string></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
+       <item><spacer name="breadcrumbSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
+      </layout></item>
+      <item><widget class="QStackedWidget" name="pageStack">
+       <widget class="QWidget" name="overviewPage"><layout class="QVBoxLayout" name="overviewLayout">
+        <item><widget class="QLabel" name="overviewTitle"><property name="text"><string>Votre espace de travail</string></property></widget></item>
+        <item><widget class="QLabel" name="overviewDescription"><property name="text"><string>Retrouvez vos données, préparez un essai et consultez ses résultats. Les traitements restent accessibles pendant votre navigation.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+        <item><widget class="QLabel" name="overviewCounts"><property name="text"><string>Chargement du catalogue…</string></property></widget></item>
+        <item><layout class="QHBoxLayout" name="quickActions">
+         <item><widget class="QPushButton" name="openAcquisitionsButton"><property name="text"><string>Explorer les acquisitions</string></property></widget></item>
+         <item><widget class="QPushButton" name="openTestsButton"><property name="text"><string>Préparer un essai</string></property></widget></item>
+         <item><widget class="QPushButton" name="openResultsButton"><property name="text"><string>Consulter les résultats</string></property></widget></item>
+        </layout></item>
+        <item><widget class="QLabel" name="recentLabel"><property name="text"><string>Résultats récents · double-cliquez pour ouvrir la fiche</string></property></widget></item>
+        <item><widget class="QTableWidget" name="recentResultsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><column><property name="text"><string>Date</string></property></column><column><property name="text"><string>Traitement</string></property></column><column><property name="text"><string>État</string></property></column></widget></item>
+        <item><widget class="QLabel" name="roadmapLabel"><property name="text"><string>À venir : édition et approbation des cartes, préparation de missions, transferts et rapports opérationnels. Ces fonctions ne sont pas encore disponibles.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+       </layout></widget>
+       <widget class="QWidget" name="acquisitionsPage"><layout class="QVBoxLayout" name="acquisitionsLayout">
+        <item><widget class="QLabel" name="acquisitionsTitle"><property name="text"><string>Acquisitions · catalogue des données</string></property></widget></item>
+        <item><widget class="QLabel" name="acquisitionsDescription"><property name="text"><string>Séquences et capacités déclarées pour les essais. Le statut du catalogue ne constitue pas un contrôle d'intégrité ; l'import de paquets d'acquisition reste à implémenter.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+        <item><widget class="QTableWidget" name="acquisitionsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><column><property name="text"><string>Dataset</string></property></column><column><property name="text"><string>Séquence</string></property></column><column><property name="text"><string>Statut déclaré</string></property></column><column><property name="text"><string>Capacités</string></property></column></widget></item>
+       </layout></widget>
+      </widget></item>
+     </layout></item>
+    </layout></item>
+    <item><widget class="QFrame" name="treatmentFrame"><layout class="QHBoxLayout" name="treatmentLayout">
+     <item><widget class="QLabel" name="treatmentLabel"><property name="text"><string>Aucun traitement</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+     <item><widget class="QProgressBar" name="treatmentProgress"><property name="maximumSize"><size><width>220</width><height>24</height></size></property><property name="value"><number>0</number></property></widget></item>
+     <item><widget class="QPushButton" name="showTreatmentButton"><property name="text"><string>Voir le traitement</string></property></widget></item>
+     <item><widget class="QPushButton" name="openTreatmentResultButton"><property name="text"><string>Ouvrir le résultat</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+     <item><widget class="QPushButton" name="cancelTreatmentButton"><property name="text"><string>Annuler</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+    </layout></widget></item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <widget class="QMenu" name="fileMenu"><property name="title"><string>Fichier</string></property><addaction name="rebuildIndexAction"/><addaction name="separator"/><addaction name="quitAction"/></widget>
-   <widget class="QMenu" name="viewMenu"><property name="title"><string>Vue</string></property><addaction name="resetViewAction"/></widget>
-   <widget class="QMenu" name="helpMenu"><property name="title"><string>Aide</string></property><addaction name="aboutAction"/></widget>
-   <addaction name="fileMenu"/><addaction name="viewMenu"/><addaction name="helpMenu"/>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="rebuildIndexAction"><property name="text"><string>Reconstruire l'index</string></property></action>
-  <action name="resetViewAction"><property name="text"><string>Réinitialiser les vues 3D</string></property></action>
-  <action name="quitAction"><property name="text"><string>Quitter</string></property></action>
-  <action name="aboutAction"><property name="text"><string>À propos</string></property></action>
  </widget>
- <customwidgets>
-  <customwidget><class>drone_agricole::ui::TrajectoryView</class><extends>QOpenGLWidget</extends><header>drone_agricole/ui/TrajectoryView.hpp</header><container>1</container></customwidget>
-  <customwidget><class>drone_agricole::ui::MetricsPlotWidget</class><extends>QWidget</extends><header>drone_agricole/ui/MetricsPlotWidget.hpp</header><container>1</container></customwidget>
- </customwidgets>
- <resources><include location="../resources/dashboard.qrc"/></resources>
- <connections/>
 </ui>

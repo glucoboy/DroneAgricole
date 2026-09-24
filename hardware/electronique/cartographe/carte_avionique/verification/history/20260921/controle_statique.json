@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-21T17:28:18.1733645Z",
+  "scope": "Revue statique CA01 V0.2, pas de qualification materielle",
+  "platform": "Windows amd64",
+  "kicad_version": "10.0.6",
+  "component_count": 45,
+  "net_count": 44,
+  "connectivity_checks": [
+    {
+      "id": "basler_return",
+      "passed": true,
+      "detail": "Retour opto uniquement au collecteur, sans pont GND"
+    },
+    {
+      "id": "basler_supply",
+      "passed": true,
+      "detail": "Entree Line1 sur rail trigger protege ; pas alimentation camera"
+    },
+    {
+      "id": "airy_open",
+      "passed": true,
+      "detail": "Deux nets distincts de part et autre du cavalier ouvert"
+    },
+    {
+      "id": "buffer_input_pulldown",
+      "passed": true,
+      "detail": "Rappel entree buffer present"
+    },
+    {
+      "id": "trigger_chain",
+      "passed": true,
+      "detail": "Buffer, resistance de base et transistor sans bypass"
+    },
+    {
+      "id": "radio_flight_input",
+      "passed": true,
+      "detail": "Entree domaine vol reservee a la radio"
+    },
+    {
+      "id": "pm_transit_absent",
+      "passed": true,
+      "detail": "PM vers Pixhawk direct hors CA01 : aucun transit I2C ni J102"
+    },
+    {
+      "id": "flight_aux_distinct",
+      "passed": true,
+      "detail": "Nets positifs vol/aux distincts ; masse commune conservee"
+    },
+    {
+      "id": "buck_2_bootstrap",
+      "passed": true,
+      "detail": "Bootstrap entre BOOT et SW"
+    },
+    {
+      "id": "buck_2_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose sur GND"
+    },
+    {
+      "id": "buck_3_bootstrap",
+      "passed": true,
+      "detail": "Bootstrap entre BOOT et SW"
+    },
+    {
+      "id": "buck_3_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose sur GND"
+    },
+    {
+      "id": "R401_dnp",
+      "passed": true,
+      "detail": "Pont UART non monte avant validation niveaux"
+    },
+    {
+      "id": "R402_dnp",
+      "passed": true,
+      "detail": "Pont UART non monte avant validation niveaux"
+    }
+  ],
+  "connectivity_passed": true,
+  "erc": {
+    "exit_code": 5,
+    "errors": 3,
+    "warnings": 0,
+    "passed": false,
+    "report": "erc.json"
+  },
+  "manufacturing_ready": false,
+  "hardware_tests_executed": false,
+  "qualification": "A valider",
+  "files": [
+    {
+      "file": "01_energie_pm.kicad_sch",
+      "sha256": "8654e6808a8f5342756125665cae94de4c8abebc275200b755d05a6781338cd0"
+    },
+    {
+      "file": "02_buck_12v_capteurs.kicad_sch",
+      "sha256": "b88eb8cb2da358bda4109b16b005059ff628138556afa2daceed70587ceb65ce"
+    },
+    {
+      "file": "03_buck_5v_aux.kicad_sch",
+      "sha256": "69f82bd37fc7a804583762cc8c9ae25eedf3e52125a39552051ebc02492a8737"
+    },
+    {
+      "file": "04_radio.kicad_sch",
+      "sha256": "b4fc57528c8b86d90adb99aa881f50942da8829774fd7b8a113fef6edb603d59"
+    },
+    {
+      "file": "05_synchronisation.kicad_sch",
+      "sha256": "6e61e49ee551b7e755bcbaf75a3500a2e96e67d5254dd5c963f4875476b7ca2f"
+    },
+    {
+      "file": "CA01_Avionique.kicad_pcb",
+      "sha256": "35d21e9c97583bd81f3254e0aa214613f2a6bd5d95f5c3108fd89032dc27408d"
+    },
+    {
+      "file": "CA01_Avionique.kicad_pro",
+      "sha256": "3a8af6728b354476a2a4b1f58890143685f29c1388023486c44519fa9e61ec8f"
+    },
+    {
+      "file": "CA01_Avionique.kicad_sch",
+      "sha256": "db6faf43829bf9fba7cfaf642838b67d08c52b9c00672f820ed83fe4a9813619"
+    },
+    {
+      "file": "CA01_Fonctions.kicad_sym",
+      "sha256": "0b287f488ec90557e9f18c114ee1afeb31871de88f53188985f7c5d811d3bd2c"
+    },
+    {
+      "file": "sym-lib-table",
+      "sha256": "9860d63deeb6485b2c73aa6986aa6141e366a1af7720cb13f0b6df99594de368"
+    }
+  ]
+}

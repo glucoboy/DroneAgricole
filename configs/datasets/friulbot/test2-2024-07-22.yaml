@@ -1,0 +1,78 @@
+schema_version: 1
+dataset: friulbot
+sequence: test2-2024-07-22
+source:
+  record: https://zenodo.org/records/13983719
+  doi: 10.5281/zenodo.13983719
+  license: CC-BY-4.0
+  raw_bag: 2024-07-22-11-03-15.bag
+  raw_multispectral_archive: 0029SET.zip
+
+# Le bag est un conteneur mixte. L'adaptateur applique cette allowlist avant
+# toute détection et n'expose jamais les références au détecteur de rangs.
+topic_policy:
+  perception_inputs:
+    lidar: velodyne_points
+    imu: imu/data
+    camera_trigger_lidar: micasense_capture_lidar_points
+  evaluation_only:
+    rtk: ublox_position_receiver/fix
+    wheel_odometry: odom
+    published_lio_odometry: map_base_link/odometry
+    published_lio_internal: lio_sam/mapping/odometry
+  metadata_only:
+    platform_status: scout_status
+    transforms: tf
+  forbidden_derived_inputs: [gndvi.bag, ndre.bag, ndvi.bag]
+
+sensors:
+  lidar:
+    model: Velodyne_VLP16
+    nominal_frequency_hz: 10.0
+  imu:
+    nominal_frequency_hz: 200.0
+    units: SI
+  camera:
+    model: MicaSense_RedEdge_MX
+    bands: [blue, green, red, nir, red_edge]
+    image_size_px: [1280, 960]
+    bit_depth: 12
+    pixel_size_um: 3.75
+    nominal_capture_frequency_hz: 0.5
+    synchronization: hardware_trigger_with_micasense_capture_lidar_points
+    intrinsics_status: "présents par bande dans les métadonnées XMP des TIFF"
+    radiometric_calibration_status: "présente par bande dans les métadonnées XMP des TIFF"
+
+# Convention du fichier auteur : « LiDAR sensor - cible ». Elle est reprise
+# sans inversion pour la projection diagnostique ; la convention exacte reste À valider.
+extrinsics_from_lidar:
+  blue:
+    translation_m: [-0.27944808, -0.22952439, -0.05884228]
+    quaternion_xyzw: [0.32257857, -0.49723673, 0.69051897, -0.41458686]
+  green:
+    translation_m: [-0.25093157, -0.22967355, -0.06260862]
+    quaternion_xyzw: [0.32079949, -0.49968005, 0.68859603, -0.41622475]
+  red:
+    translation_m: [-0.25130746, -0.24772733, -0.06031395]
+    quaternion_xyzw: [0.32043473, -0.49937635, 0.68990553, -0.41469893]
+  nir:
+    translation_m: [-0.27864063, -0.25023250, -0.05686009]
+    quaternion_xyzw: [0.32093382, -0.49794303, 0.69010187, -0.41570859]
+  red_edge:
+    translation_m: [-0.26964760, -0.23359806, -0.05697074]
+    quaternion_xyzw: [0.31956981, -0.51076842, 0.68672890, -0.40668683]
+  imu:
+    translation_m: [-0.0396, 0.0077, 0.04906]
+    quaternion_xyzw: [0.0, 0.0, 0.0, 1.0]
+  gnss:
+    translation_m: [0.0, 0.0, 0.0833]
+    quaternion_xyzw: [0.0, 0.0, 0.0, 1.0]
+
+quality_gates:
+  prediction_inputs: [velodyne_points, imu/data, micasense_capture_lidar_points, raw_multispectral_tiff]
+  reference_isolation_required: true
+  temporal_pairing: "validé structurellement : 638 triggers et 638 jeux TIFF de cinq bandes"
+  camera_projection: "implémentée à titre diagnostique avec un pas de pixel de 3,75 µm ; convention extrinsèque À valider"
+  radiometric_projection: "À valider ; aucun NDVI n'est revendiqué sans correction radiométrique"
+  global_row_mapping: "À valider après accumulation LIO LiDAR-IMU"
+  flight_authorized: false

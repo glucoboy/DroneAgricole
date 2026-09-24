@@ -51,10 +51,9 @@ docker compose --profile sim --profile viz stop px4-runner-api px4-sitl px4-stat
 
 Les réglages `COM_RC_IN_MODE`, `NAV_RCL_ACT`, `NAV_DLL_ACT` et `COM_RCL_EXCEPT` du fichier Compose isolent volontairement la perte Offboard des pertes RC/GCS pendant ce test headless. Ils sont strictement réservés au banc SITL et ne constituent pas une configuration du drone réel.
 
-Le protocole historique, les versions, les résultats et les limites sont
-consignés dans `docs/18_Integration_PX4_ROS2_Lot_A_V0.1.md`. La reprise des
-deux scénarios avec le port C++ actif appartient à SW0 et est suivie dans
-DOC-29.
+Le protocole, les versions, les résultats et les limites sont consolidés dans
+`docs/VALIDATION_QUALIFICATION.md`, y compris la reprise des deux scénarios avec
+le port C++ actif de SW0.
 
 Structure cible :
 
@@ -70,4 +69,4 @@ simulation/
 └── tests/
 ```
 
-La définition officielle des dix scénarios se trouve dans `docs/03_Plan_validation_simulation_V0.1.md`. Les mondes doivent fournir une vérité terrain, des paramètres versionnés, des fautes injectables et des critères d'acceptation automatiques, au-delà du seul réalisme visuel.
+La définition officielle des dix scénarios se trouve dans `docs/VALIDATION_QUALIFICATION.md`. Les mondes doivent fournir une vérité terrain, des paramètres versionnés, des fautes injectables et des critères d'acceptation automatiques, au-delà du seul réalisme visuel.

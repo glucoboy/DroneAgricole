@@ -12,6 +12,7 @@ RUN apt-get update \
        libeigen3-dev \
        libgl1-mesa-dev \
        libqt6opengl6-dev \
+       libtiff-dev \
        libyaml-cpp-dev \
        ninja-build \
        python3-colcon-common-extensions \

@@ -1,6 +1,8 @@
 #pragma once
+#include "drone_agricole/domain/RunTypes.hpp"
 
 #include <QDateTime>
+#include <QColor>
 #include <QHash>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -8,6 +10,7 @@
 #include <QMetaType>
 #include <QPointF>
 #include <QVector3D>
+#include <array>
 
 namespace drone_agricole::core {
 
@@ -129,6 +132,20 @@ struct ReplayData {
   QList<QVector3D> truth;
   QList<QVector3D> px4Path;
   QList<QPointF> curve;
+  QList<QVector3D> mapPoints;
+  QList<QVector3D> cameraProjectedPoints;
+  QList<QColor> cameraPointColors;
+  QList<QVector3D> surfaceVertices;
+  QList<std::array<int,3>> surfaceTriangles;
+  QList<QColor> surfaceColors;
+  bool reconstructionPartial{false};
+  QList<QVector3D> referencePoints;
+  struct Polyline {
+    QString label;
+    QString role;
+    QList<QVector3D> points;
+  };
+  QList<Polyline> mapPolylines;
   QString curveId;
   QString curveLabel;
   QString curveUnit;
@@ -140,19 +157,7 @@ struct ComparisonResult {
   QString markdownReport;
 };
 
-struct PreparedRun {
-  QString runId;
-  QString simulationId;
-  QString variantId;
-  QString runnerId;
-  QString program;
-  QStringList arguments;
-  QString workingDirectory;
-  QString resultDirectory;
-  QJsonObject request;
-  QString stopProgram;
-  QStringList stopArguments;
-};
+using PreparedRun = domain::PreparedRun;
 
 }  // namespace drone_agricole::core
 

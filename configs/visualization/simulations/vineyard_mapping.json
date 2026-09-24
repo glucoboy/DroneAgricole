@@ -1,0 +1,148 @@
+{
+  "schema": "drone_agricole.simulation_definition.v1",
+  "simulation_id": "vineyard_mapping",
+  "active": false,
+  "version": "0.2.0",
+  "label": "Cartographie des rangs de vigne",
+  "description": "Analyse un produit géospatial statique, détecte les axes de rangs et construit des trajectoires candidates visualisables. Aucun ordre de vol n'est envoyé.",
+  "domain": "mapping",
+  "runner_id": "vineyard_mapping",
+  "safety_class": "analysis",
+  "selectors": [
+    {
+      "selector_id": "dataset",
+      "kind": "dataset_sequence",
+      "required": true,
+      "multiple": false,
+      "required_capabilities": ["map.static_point_cloud"]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "height_density_v1",
+      "label": "Hauteur + densité V1",
+      "description": "Baseline déterministe : sol local, densité de végétation, orientation dominante et pics transversaux.",
+      "runner_id": "vineyard_height_density",
+      "available": true,
+      "required_capabilities": ["map.las_1_2"],
+      "parameters": []
+    },
+    {
+      "variant_id": "height_density_multispectral_v1",
+      "label": "Géométrie + multispectral — À valider",
+      "description": "Future fusion géospatiale entre la prédiction 3D et l'orthomosaïque à cinq bandes ; ce n'est pas une fusion temporelle LiDAR-caméra.",
+      "runner_id": "vineyard_height_density_multispectral",
+      "available": false,
+      "required_capabilities": ["map.las_1_2", "camera.multispectral_orthomosaic"],
+      "parameters": []
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ground_cell_m",
+      "label": "Cellule terrain",
+      "description": "Résolution du minimum local utilisé comme première approximation du sol.",
+      "type": "number",
+      "unit": "m",
+      "group": "principal",
+      "safety_class": "analysis",
+      "default": 1.0,
+      "minimum": 0.5,
+      "maximum": 3.0,
+      "step": 0.25
+    },
+    {
+      "id": "grid_resolution_m",
+      "label": "Grille de végétation",
+      "description": "Résolution de la grille de densité analysée par la détection des rangs.",
+      "type": "number",
+      "unit": "m",
+      "group": "principal",
+      "safety_class": "analysis",
+      "default": 0.30,
+      "minimum": 0.15,
+      "maximum": 0.75,
+      "step": 0.05
+    },
+    {
+      "id": "min_canopy_height_m",
+      "label": "Hauteur minimale",
+      "description": "Hauteur minimale au-dessus du sol local pour contribuer au masque de vigne.",
+      "type": "number",
+      "unit": "m",
+      "group": "principal",
+      "safety_class": "analysis",
+      "default": 0.55,
+      "minimum": 0.20,
+      "maximum": 1.50,
+      "step": 0.05
+    },
+    {
+      "id": "min_cell_points",
+      "label": "Densité minimale",
+      "description": "Nombre minimal de points de végétation dans une cellule active.",
+      "type": "integer",
+      "unit": "point",
+      "group": "advanced",
+      "safety_class": "analysis",
+      "default": 6,
+      "minimum": 1,
+      "maximum": 100,
+      "step": 1
+    },
+    {
+      "id": "row_spacing_min_m",
+      "label": "Espacement minimal des rangs",
+      "description": "Distance minimale entre deux pics transversaux retenus.",
+      "type": "number",
+      "unit": "m",
+      "group": "advanced",
+      "safety_class": "analysis",
+      "default": 1.50,
+      "minimum": 0.75,
+      "maximum": 4.00,
+      "step": 0.10
+    },
+    {
+      "id": "row_peak_ratio",
+      "label": "Sélectivité des rangs",
+      "description": "Rapport minimal entre un pic de rang et le pic transversal principal.",
+      "type": "number",
+      "unit": "ratio",
+      "group": "advanced",
+      "safety_class": "analysis",
+      "default": 0.30,
+      "minimum": 0.05,
+      "maximum": 0.90,
+      "step": 0.05
+    },
+    {
+      "id": "trajectory_clearance_m",
+      "label": "Hauteur candidate",
+      "description": "Hauteur de visualisation de la trajectoire au-dessus du terrain local ; valeur non qualifiée pour le vol.",
+      "type": "number",
+      "unit": "m",
+      "group": "safety",
+      "safety_class": "analysis",
+      "default": 2.50,
+      "minimum": 1.00,
+      "maximum": 6.00,
+      "step": 0.10
+    },
+    {
+      "id": "display_point_budget",
+      "label": "Points affichés",
+      "description": "Nombre maximal de points du nuage conservés dans l'artefact de visualisation.",
+      "type": "integer",
+      "unit": "point",
+      "group": "advanced",
+      "safety_class": "analysis",
+      "default": 30000,
+      "minimum": 2000,
+      "maximum": 100000,
+      "step": 1000
+    }
+  ],
+  "profiles": [],
+  "comparison_group": "vineyard_rows_b7_v1"
+}

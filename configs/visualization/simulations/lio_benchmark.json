@@ -93,6 +93,30 @@
           "pipeline_topic": "/lio_sam/pipeline_counters"
         }
       }
+    },
+    {
+      "profile_id": "friulbot_velodyne_xsens",
+      "label": "FriûlBot · Velodyne VLP-16 + Xsens",
+      "description": "Profil initial pour le sous-ensemble ROS 2 filtré du Test 2 du 22 juillet 2024 ; extrinsèque et métriques RTK à valider.",
+      "default": true,
+      "selectors": {
+        "dataset_id": "friulbot",
+        "sequence_ids": ["test2-2024-07-22-smoke-lio"]
+      },
+      "variant_settings": {
+        "fast_lio2": {
+          "base_config_uri": "configs/lio/fast_lio2/friulbot_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/fast_lio2/pipeline_counters"
+        },
+        "point_lio": {
+          "base_config_uri": "configs/lio/point_lio/friulbot_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/point_lio/pipeline_counters"
+        },
+        "lio_sam": {
+          "base_config_uri": "configs/lio/lio_sam/friulbot_velodyne_xsens_visual.yaml",
+          "pipeline_topic": "/lio_sam/pipeline_counters"
+        }
+      }
     }
   ],
   "outputs": [

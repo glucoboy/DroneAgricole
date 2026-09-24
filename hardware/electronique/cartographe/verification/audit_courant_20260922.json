@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-22",
+  "environment": {
+    "platform": "win32",
+    "architecture": "x64",
+    "node": "v24.19.0"
+  },
+  "scope": "CAB-CARTO-001 / dimensionnement amont ELEC-PWR-001 ; audit documentaire sans matériel",
+  "input": {
+    "path": "hardware/mecanique/cartographe/verification/bilan_electrique.json",
+    "sha256": "462187f338b12d832d1d80b302b09b2e8f3904d9f5181f7421806df6ccd9e902"
+  },
+  "assumptions": {
+    "motor_count": 4,
+    "low_voltage_v": 19.8,
+    "high_voltage_v": 25.2,
+    "margin_factor": 1.25,
+    "high_current_model": "I_prop = I_ref * (V/V_ref)^2 ; approximation non bornante à plein régime",
+    "low_current_model": "Puissance propulsion et avionique constantes ; scénario distinct",
+    "propeller_reference": "T-Motor 15x5 CF ; kit réel Gemfan 1555",
+    "nominal_aux_a": 4.222972972972973,
+    "historical_rounding_a": 85
+  },
+  "tolerance": 1e-9,
+  "checks": [
+    {
+      "field": "battery_aux_w",
+      "computed": 93.75,
+      "historical": 93.75,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "prop_ref_w",
+      "computed": 1056.72,
+      "historical": 1056.72,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "current_ref_a",
+      "computed": 51.82297297297298,
+      "historical": 51.82297297297298,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "current_low_a",
+      "computed": 58.10454545454545,
+      "historical": 58.10454545454545,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "current_high_estimate_a",
+      "computed": 65.05435058610735,
+      "historical": 65.05435058610735,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "current_with_margin_a",
+      "computed": 81.31793823263419,
+      "historical": 81.31793823263419,
+      "delta": 0,
+      "pass": true
+    },
+    {
+      "field": "aux_low_a",
+      "computed": 4.734848484848484,
+      "historical": 4.734848484848484,
+      "delta": 0,
+      "pass": true
+    }
+  ],
+  "arithmetic_result": "conforme",
+  "sizing_conclusion": "préliminaire",
+  "continuous_requirement": "À valider ; 85 A ne représente pas un besoin continu démontré",
+  "sources": [
+    "https://holybro.com/products/x650-development-kit",
+    "https://holybro.com/products/pm02d-power-module",
+    "https://docs.holybro.com/drone-development-kit/x650-development-kit/motor-specifications"
+  ],
+  "limits": [
+    "Masse réelle non fermée",
+    "Hélice réelle non caractérisée",
+    "Puissance avionique et rendement provisoires",
+    "Courant continu, pointes, durées et température non mesurés",
+    "Aucune qualification PM02D ni modification du schéma"
+  ],
+  "protocol": {
+    "method": "Recalcul des formules déclaratives et comparaison avec le bilan historique ; validation documentaire ponctuelle",
+    "formulas": {
+      "battery_aux_w": "power_load_w / dc_efficiency",
+      "prop_ref_w": "4 * motor_reference.current_full_a * motor_reference.voltage_v",
+      "current_ref_a": "4 * motor_reference.current_full_a + battery_aux_w / motor_reference.voltage_v",
+      "current_low_a": "(prop_ref_w + battery_aux_w) / 19.8",
+      "current_high_estimate_a": "4 * motor_reference.current_full_a * (25.2 / motor_reference.voltage_v)^2 + battery_aux_w / 25.2",
+      "current_with_margin_a": "current_high_estimate_a * 1.25",
+      "aux_low_a": "battery_aux_w / 19.8"
+    },
+    "criterion": "écart absolu < 1e-9 avec chaque valeur historique"
+  },
+  "independent_review": {
+    "date": "2026-09-22",
+    "result": "conforme",
+    "scope": "arithmétique, distinction courant mission/marge, PM externe et branche vol candidate"
+  },
+  "motor_source_visual_check": {
+    "path": "hardware/mecanique/cartographe/sources_fabricants/holybro_motor_specs.png",
+    "result": "MN4014 KV330, 22.2 V, T-Motor 15x5 CF : 11.9 A à 100 % ; tableau inspecté"
+  }
+}

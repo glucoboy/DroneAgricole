@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Installer Qt 6 et les dépendances
-        run: sudo apt-get update && sudo apt-get install --yes ninja-build qt6-base-dev libyaml-cpp-dev libgl1-mesa-dev
+        run: sudo apt-get update && sudo apt-get install --yes ninja-build qt6-base-dev libyaml-cpp-dev libtiff-dev libgl1-mesa-dev
       - name: Configurer
         run: cmake --preset ci-linux
       - name: Construire
@@ -54,6 +54,7 @@ jobs:
             mingw-w64-ucrt-x86_64-ninja
             mingw-w64-ucrt-x86_64-qt6-base
             mingw-w64-ucrt-x86_64-yaml-cpp
+            mingw-w64-ucrt-x86_64-libtiff
       - name: Configurer
         shell: pwsh
         run: C:\msys64\ucrt64\bin\cmake.exe --preset ci-windows

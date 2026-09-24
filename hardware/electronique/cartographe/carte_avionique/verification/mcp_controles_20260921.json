@@ -1,0 +1,100 @@
+[
+  {
+    "call": {
+      "name": "validate_schematic",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"success\": true,\n  \"valid\": true,\n  \"path\": \"D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\hardware\\\\electronique\\\\cartographe\\\\carte_avionique\\\\CA01_Avionique.kicad_sch\",\n  \"message\": \"CA01_Avionique.kicad_sch is valid\",\n  \"errorCount\": 0,\n  \"warningCount\": 0,\n  \"issues\": [],\n  \"kicadCli\": {\n    \"ran\": true,\n    \"ok\": true,\n    \"exitCode\": 0,\n    \"output\": \"Le fichier schématique n'a pas été mis à jour\"\n  },\n  \"componentCount\": 0,\n  \"semanticChecksRan\": true,\n  \"_backend\": \"swig\",\n  \"_realtime\": false\n}"
+        }
+      ]
+    }
+  },
+  {
+    "call": {
+      "name": "export_schematic_svg",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+        "outputPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/verification/svg/CA01_Avionique.svg"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Exported schematic SVG to D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/verification/svg/CA01_Avionique.svg"
+        }
+      ]
+    }
+  },
+  {
+    "call": {
+      "name": "validate_schematic",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"success\": true,\n  \"valid\": true,\n  \"path\": \"D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\hardware\\\\electronique\\\\cartographe\\\\carte_avionique\\\\01_energie_pm.kicad_sch\",\n  \"message\": \"01_energie_pm.kicad_sch is valid\",\n  \"errorCount\": 0,\n  \"warningCount\": 0,\n  \"issues\": [],\n  \"kicadCli\": {\n    \"ran\": true,\n    \"ok\": true,\n    \"exitCode\": 0,\n    \"output\": \"Le fichier schématique n'a pas été mis à jour\"\n  },\n  \"componentCount\": 7,\n  \"semanticChecksRan\": true,\n  \"_backend\": \"swig\",\n  \"_realtime\": false\n}"
+        }
+      ]
+    }
+  },
+  {
+    "call": {
+      "name": "export_schematic_svg",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch",
+        "outputPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/verification/svg/01_energie_pm.svg"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Exported schematic SVG to D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/verification/svg/01_energie_pm.svg"
+        }
+      ]
+    }
+  },
+  {
+    "call": {
+      "name": "run_erc",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "ERC result: 3 violation(s)\n  Errors: 3  Warnings: 0  Info: 0\n\n1. [error] Input Power pin not driven by any Output Power pins @ (1.0795, 0.6858)\n2. [error] Input Power pin not driven by any Output Power pins @ (1.3335, 0.6858)\n3. [error] Input Power pin not driven by any Output Power pins @ (1.4224, 1.016)"
+        }
+      ]
+    }
+  },
+  {
+    "call": {
+      "name": "generate_netlist",
+      "arguments": {
+        "schematicPath": "D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "=== Netlist for D:/ProjetGuillaume/DroneAgricole/hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch ===\n\nComponents (45):\n  F101: A_CALCULER (No footprint)\n  F102: A_CALCULER (No footprint)\n  J101: ENTREE RADIO / DOMAINE VOL (No footprint)\n  J103: ENTREE 6S CHARGE UTILE (No footprint)\n  J104: SORTIE CALCUL 12V (No footprint)\n  U101: PROTECTION A DEFINIR (No footprint)\n  U102: BLOC LM5146-Q1 CANDIDAT (No footprint)\n  C401: 100n / 16V CAND. (No footprint)\n  C402: 10u / 16V CAND. (No footprint)\n  J401: VERS MODULE RP4TD (No footprint)\n  J402: ADAPTATEUR UART PIXHAWK (No footprint)\n  R401: 0R CAND. / DNP (No footprint)\n  R402: 0R CAND. / DNP (No footprint)\n  C201: A_CALCULER / 63V CAND. (No footprint)\n  C202: 470n / 16V CAND. (No footprint)\n  C203: A_CALCULER / 25V CAND. (No footprint)\n  C204: 2u2 / 10V CAND. (No footprint)\n  J201: SORTIE 12V_LIDAR (No footprint)\n  L201: A_CALCULER (No footprint)\n  R201: A_CALCULER (No footprint)\n  R202: A_CALCULER (No footprint)\n  TP201: PGOOD 12V (No footprint)\n  U201: LM76003 / 12V_LIDAR (Package_DFN_QFN:Texas_RNP0030B_WQFN-30-1EP_4x6mm_P0.5mm_EP1.8x4.5mm_ThermalVias)\n  C501: 100n / 10V CAND. (No footprint)\n  F501: A_CALCULER (No footprint)\n  J501: ADAPTATEUR AIRY SYNC (No footprint)\n  J502: BASLER M8-6 LOGIQUE (No footprint)\n  JP501: OUVERT / NE PAS PONTER (No footprint)\n  Q501: MMBT3904 CAND. (Package_TO_SOT_SMD:SOT-23)\n  R501: 1k CAND. (No footprint)\n  R502: 47k CAND. (No footprint)\n  R503: 100k CAND. (No footprint)\n  U501: NIVEAU AIRY INCONNU (No footprint)\n  U502: SN74LVC1G17 CAND. (No footprint)\n  U503: REGULATEUR A DEFINIR (No footprint)\n  C301: A_CALCULER / 63V CAND. (No footprint)\n  C302: 470n / 16V CAND. (No footprint)\n  C303: A_CALCULER / 25V CAND. (No footprint)\n  C304: 2u2 / 10V CAND. (No footprint)\n  J301: SORTIE 5V_AUX (No footprint)\n  L301: A_CALCULER (No footprint)\n  R301: A_CALCULER (No footprint)\n  R302: A_CALCULER (No footprint)\n  TP301: PGOOD 5V (No footprint)\n  U301: LM76003 / 5V_AUX (Package_DFN_QFN:Texas_RNP0030B_WQFN-30-1EP_4x6mm_P0.5mm_EP1.8x4.5mm_ThermalVias)\n\nNets (44):\n  3V3_SYNC: C501/1, U502/5, U503/2\n  5V2_FLIGHT: F102/1, J101/1\n  5V_AUX: C303/1, F501/1, J301/1, L301/2, R301/1, U503/1\n  5V_RADIO: C401/1, C402/1, F102/2, J401/1\n  5V_SYNC: F501/2, J502/2\n  12V_COMPUTE: J104/1, U102/2\n  12V_LIDAR: C203/1, J201/1, L201/2, R201/1\n  AIRY_SYNC_IN: JP501/2, U501/1\n  AIRY_SYNC_RAW: J501/1, JP501/1\n  BASE_TRIG: Q501/1, R501/2, R502/1\n  BASLER_OPTO_RETURN: J502/3, Q501/3\n  BOOT_2: C202/1, U201/6\n  BOOT_3: C302/1, U301/6\n  FB_2: R201/2, R202/1, U201/12\n  FB_3: R301/2, R302/1, U301/12\n  FC_RX_RF: J402/2, R401/2\n  FC_TX_RF: J402/3, R402/1\n  GND: C201/2, C203/2, C204/2, C301/2, C303/2, C304/2, C401/2, C402/2, C501/2, J101/2, J103/2, J104/2, J201/2, J301/2, J401/2, J402/1, J501/2, Q501/2, R202/2, R302/2, R502/2, R503/2, U101/3, U102/3, U201/13, U201/14, U201/15, U201/17, U201/19, U201/24, U201/25, U201/26, U201/27, U201/28, U201/29, U201/30, U201/31, U201/9, U301/13, U301/14, U301/15, U301/17, U301/19, U301/24, U301/25, U301/26, U301/27, U301/28, U301/29, U301/30, U301/31, U301/9, U501/3, U502/3, U503/3\n  PGOOD_2: TP201/1, U201/16\n  PGOOD_3: TP301/1, U301/16\n  RP_RX: J401/4, R402/2\n  RP_TX: J401/3, R401/1\n  SW_2: C202/2, L201/1, U201/1, U201/2, U201/3, U201/4, U201/5\n  SW_3: C302/2, L301/1, U301/1, U301/2, U301/3, U301/4, U301/5\n  SYNC_LOGIC_3V3: R503/1, U501/2, U502/2\n  TRIG_BUFFER: R501/1, U502/4\n  VBAT_FUSED: F101/2, U101/1\n  VBAT_PAYLOAD: F101/1, J103/1\n  VCC_2: C204/1, U201/8\n  VCC_3: C304/1, U301/8\n  VIN_PAYLOAD_PROT: C201/1, C301/1, U101/2, U102/1, U201/18, U201/20, U201/21, U201/22, U301/18, U301/20, U301/21, U301/22\n  unconnected-(J502-Pin_1-Pad1): J502/1\n  unconnected-(J502-Pin_4-Pad4): J502/4\n  unconnected-(J502-Pin_5-Pad5): J502/5\n  unconnected-(J502-Pin_6-Pad6): J502/6\n  unconnected-(U201-NC-Pad7): U201/7\n  unconnected-(U201-NC-Pad23): U201/23\n  unconnected-(U201-RT-Pad10): U201/10\n  unconnected-(U201-SS/TRK-Pad11): U201/11\n  unconnected-(U301-NC-Pad7): U301/7\n  unconnected-(U301-NC-Pad23): U301/23\n  unconnected-(U301-RT-Pad10): U301/10\n  unconnected-(U301-SS/TRK-Pad11): U301/11\n  unconnected-(U502-NC-Pad1): U502/1"
+        }
+      ]
+    }
+  }
+]

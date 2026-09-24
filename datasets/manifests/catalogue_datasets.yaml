@@ -1,5 +1,5 @@
 schema_version: 2
-reviewed_on: "2026-09-03"
+reviewed_on: "2026-09-07"
 status: preliminary
 
 selection_policy:
@@ -53,7 +53,7 @@ datasets:
     calibration:
       state: inspected_with_warning
       normalized_config: configs/datasets/botanicgarden/1006-03.yaml
-      report: docs/07_Inspection_calibrations_BotanicGarden_V0.1.md
+      report: docs/VALIDATION_QUALIFICATION.md
       warning: bmi088_camera_chain_is_not_internally_consistent_use_direct_livox_bmi088_extrinsic_for_lio
     observed:
       lio_duration_s: 610.003130001
@@ -94,11 +94,11 @@ datasets:
     paper_url: https://doi.org/10.3390/rs13173483
     purpose: hard_case_for_terraces_walls_curved_rows_and_mapping
     blocker: exact_research_bundle_not_publicly_downloadable_permission_from_authors_and_providers_required
-    assessment: docs/30_Etude_LaMole_Grospoli_cartographie_rangs_trajectoires_V0.1.md
+    assessment: docs/architecture/ARCHITECTURE_LOGICIELLE.md
 
   - id: escayard
     priority: mapping_quantitative_baseline
-    state: public_download_ready_not_downloaded
+    state: b7_baseline_downloaded_initial_inspection_complete
     domain: vineyard_trellis_multimodal
     acquisition_years: [2022]
     products:
@@ -108,16 +108,36 @@ datasets:
       - geotagged_ground_images
       - phytosanitary_labels
     raw_lidar_imu_streams: false
+    aerial_sensor: MicaSense_Altum_multispectral_and_thermal
+    published_aerial_camera_products: five_band_orthomosaics_and_per_band_sfm_point_clouds
+    raw_aerial_frames_and_calibrated_poses: not_listed_in_published_archive
+    supported_fusion_scope: geospatial_product_level_not_temporal_lidar_camera
     ground_truth: rtk_gnss_trunk_locations
     format: geotiff_las_shapefile_csv_images
     license: CC-BY-4.0
-    official_url: https://zenodo.org/records/10362567
+    official_url: https://zenodo.org/records/10362568
+    concept_doi: https://doi.org/10.5281/zenodo.10362567
+    version_doi: https://doi.org/10.5281/zenodo.10362568
     paper_url: https://doi.org/10.1016/j.dib.2024.110497
     purpose: quantitative_row_extraction_and_geospatial_import_baseline
     initial_subset:
-      - trunk_locations_VineyardB7.zip
-      - one_B7_LAS_point_cloud_to_select
-      - one_B7_orthomosaic_window_to_derive
+      - file: trunk_locations_VineyardB7.zip
+        size_bytes: 8452
+        md5: ada3209607dd8e01a1e6bfa9fa6143c4
+        sha256: ca93f228a148069e90bcb99b4c80c497217bc327ad18292dcabdb49c29139db8
+      - file: datasheet.csv
+        size_bytes: 27615
+        md5: f3f33215b99e9c56411d4bd43e34e310
+        sha256: 7c754ecaeb8d78b37923faebf0544a8b49310a9ab4066431489edf304391a271
+      - file: 20220714_FLEXIGROBOTS_B7_30M0G_MS_PRO_Green_densified_point_cloud.las
+        size_bytes: 223849329
+        md5: e9d08ac4c4c857a811faabcd51350bce
+        sha256: 47a0ffe977becb203ecdb9253d17b639c45d9a511773d213c83361e08ebe9918
+      - derived: one_B7_orthomosaic_window_later_if_required
+    evaluation_policy: trunk_locations_are_evaluation_only_and_must_not_define_detection_roi
+    download_recipe: tools/download_escayard.cmake
+    inspection_profile: configs/datasets/escayard/B7.yaml
+    inspection_report: docs/VALIDATION_QUALIFICATION.md
 
   - id: vinelidar
     priority: mapping_geometry_baseline
@@ -134,6 +154,45 @@ datasets:
     paper_url: https://doi.org/10.1016/j.dib.2023.109686
     purpose: multi_date_vineyard_geometry_and_path_planning_baseline
     initial_subset: one_B7_30m_LAZ_file_to_select
+
+  - id: friulbot
+    priority: temporal_lidar_multispectral_baseline
+    state: test2_2024_07_22_downloaded_and_local_mapping_integrated
+    domain: vineyard_trellis_multimodal
+    platform: agilex_scout_2_ground_robot
+    acquisition_date: "2024-07-22"
+    sensors: [velodyne_vlp16, xsens_imu, ublox_f9p_rtk, micasense_rededge_mx, wheel_encoders]
+    format: rosbag1_and_raw_multispectral_tiff
+    license: CC-BY-4.0
+    official_url: https://zenodo.org/records/13983719
+    repository: https://github.com/diegotiozzo21/FRIULBOT_DATASET
+    purpose: temporal_lidar_camera_fusion_row_mapping_and_rtk_evaluation
+    initial_subset:
+      - file: 2024-07-22-11-03-15.bag
+        size_bytes: 6557409210
+        md5: f79aac2893a0b910863962fbd9a9a2bf
+      - file: 0029SET.zip
+        size_bytes: 5518848615
+        md5: 14ded790d1771006218fc02980ee3eb8
+    observed:
+      duration_s: 1283.858499272
+      messages: 977318
+      velodyne_scans: 12728
+      imu_messages: 256812
+      camera_trigger_scans: 638
+      multispectral_capture_sets: 638
+      tiff_files: 3190
+      bands_per_capture: 5
+      rosbag_chunk_compression: none
+      tiff_xmp_intrinsics: present_per_band
+      tiff_xmp_radiometric_calibration: present_per_band
+      tiff_xmp_dls_irradiance: present_per_band
+    evaluation_policy: rtk_wheel_and_published_slam_are_excluded_from_prediction_and_reserved_for_evaluation
+    derived_index_bags_used_as_input: false
+    download_recipe: tools/download_friulbot.cmake
+    inspection_profile: configs/datasets/friulbot/test2-2024-07-22.yaml
+    local_mapping_variant: vineyard_capture_mapping/trigger_rows_v1
+    limitation: ground_robot_dataset_validates_perception_not_uav_flight_dynamics_or_final_sensor_geometry
 
   - id: newer_college
     priority: 2

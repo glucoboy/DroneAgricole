@@ -1,49 +1,66 @@
 # Index documentaire
 
-| Référence | Document | Version | Statut |
-|---|---|---:|---|
-| DOC-00 | Cahier des charges système | V0.2 | Préliminaire |
-| DOC-01 | Architecture logicielle et algorithmes | V0.2 | Préliminaire |
-| DOC-02 | Software Architecture Document | V0.2 | Préliminaire |
-| DOC-03 | Plan de validation et simulation | V0.1 | Préliminaire |
-| DOC-04 | Sélection initiale des datasets | V0.1 | Préliminaire |
-| DOC-05 | Inspection BotanicGarden `1006-03` | V0.1 | Préliminaire |
-| DOC-06 | Installation du poste de développement | V0.1 | Préliminaire |
-| DOC-07 | Inspection des calibrations BotanicGarden | V0.1 | Préliminaire |
-| DOC-08 | Validation du poste de développement | V0.1 | Préliminaire |
-| DOC-09 | Socle Docker, ROS 2, PX4/Gazebo et BotanicGarden | V0.1 | Opérationnel préliminaire |
-| DOC-10 | Intégration FAST-LIO2 et premier benchmark BotanicGarden | V0.1 | Opérationnel préliminaire |
-| DOC-11 | Campagne FAST-LIO2 complète, sensibilité et conversion Livox | V0.1 | Opérationnel préliminaire |
-| DOC-12 | Tableau de bord 3D temps réel et supervision des benchmarks | V0.2 | Opérationnel préliminaire |
-| DOC-13 | Qualification FAST-LIO2 à 0,8× et répétabilité | V0.1 | Opérationnel préliminaire |
-| DOC-14 | Instrumentation FAST-LIO2 et métriques finales du tableau de bord | V0.1 | Opérationnel préliminaire |
-| DOC-15 | Intégration Point-LIO et comparaison FAST-LIO2 sur BotanicGarden | V0.1 | Opérationnel préliminaire |
-| DOC-16 | Intégration LIO-SAM sur BotanicGarden | V0.1 | Opérationnel préliminaire |
-| DOC-17 | Comparaison finale FAST-LIO2 / Point-LIO / LIO-SAM | V0.1 | Candidat |
-| DOC-18 | Intégration PX4–ROS 2 et validation SITL — Lot A | V0.1 | Opérationnel préliminaire |
-| DOC-19 | Workflow système et allocation des algorithmes | V0.1 | Approuvé |
-| DOC-20 | Plan de développement du workflow et du tableau de bord | V0.1 | Approuvé |
-| DOC-21 | T0.1 — Contrats et compatibilité du tableau de bord | V0.1 | Opérationnel préliminaire |
-| DOC-22 | T0.2 — Catalogue et runners du tableau de bord | V0.2 | Opérationnel préliminaire |
-| DOC-23 | T0.3 — Historique et rechargement du tableau de bord | V0.1 | Opérationnel préliminaire |
-| DOC-24 | T0.4 — Comparaison des résultats et fermeture de la porte T0 | V0.1 | Opérationnel préliminaire |
-| DOC-25 | Migration C++17 / Qt 6 du tableau de bord desktop | V0.1 | Migration source terminée |
-| DOC-26 | Clôture de la migration C++17 / Qt 6 | V0.1 | Opérationnel préliminaire — qualifications complémentaires à valider |
-| DOC-27 | Refonte de l'interface et fiabilisation du lancement des simulations | V0.1 | Opérationnel préliminaire |
-| DOC-28 | Architecture de la station de mission unifiée | V0.1 | Architecture approuvée, socle C++ implémenté |
-| DOC-29 | État des lieux et consolidation SW0 | V0.1 | Fermé — baseline locale sw0-v0.1 ; réserves tracées par ADR-0011 |
-| DOC-30 | Étude LaMole/Grospoli et chaîne rangs–carte–trajectoires | V0.1 | Étude candidate — accès et paramètres à valider |
+Dernière mise à jour : 13 septembre 2026.
 
-Les documents DOC-09 à DOC-24 conservent les résultats et protocoles historiques. Leurs anciennes commandes Python, shell ou PowerShell ne sont plus actives ; DOC-26 fournit les exécutables et commandes de remplacement, DOC-27 décrit l'interface actuelle, DOC-28 fixe l'architecture de la station de mission complète, DOC-29 ferme la consolidation SW0 et DOC-30 prépare la chaîne de cartographie viticole. L'ADR-0011 sépare explicitement la clôture de cette baseline locale des qualifications ARM native, JetPack, CI distante et rendu OpenGL encore **À valider**.
+## Références actives
+
+Le projet maintient quatre documents d'architecture et un document transversal
+de validation. Ils sont modifiés en place : leur nom ne contient volontairement
+aucun numéro de version.
+
+| Référence | Document | Contenu |
+|---|---|---|
+| `DOC-HLD` | [High Level Design](architecture/HLD.md) | fonctionnement du système complet, scénarios, frontières, exigences et validation système |
+| `DOC-SW` | [Architecture logicielle](architecture/ARCHITECTURE_LOGICIELLE.md) | modules, contrats, déploiement, état d'implémentation et tests logiciels |
+| `DOC-MEC` | [Architecture mécanique](architecture/ARCHITECTURE_MECANIQUE.md) | choix mécaniques, pièces, sous-assemblages, BOM et vérifications |
+| `DOC-ELEC` | [Architecture électrique et réseaux](architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md) | alimentation, électronique, liaisons de données, synchronisation et tests |
+| `DOC-VAL` | [Validation et qualification](VALIDATION_QUALIFICATION.md) | stratégie, campagnes, résultats synthétiques, preuves et qualification restante |
+
+Le présent index définit la politique documentaire. Les décisions et leur
+justification encore utile sont intégrées directement au document vivant
+concerné ; les procédures de travail spécialisées sont portées par les skills
+du projet sous `.agents/skills/`.
+
+## Règle d'évolution
+
+1. Chercher d'abord la section correspondante dans l'un des cinq documents.
+2. Mettre à jour cette section, sa date et son journal de modifications.
+3. Intégrer toute décision structurante, ses alternatives utiles et ses
+   conséquences dans le document vivant concerné ; ne pas créer de registre de
+   décisions séparé.
+4. Placer les mesures, journaux et sorties volumineuses dans les répertoires de
+   vérification ou de résultats prévus, puis les référencer depuis le document.
+5. Ne pas créer de compte rendu documentaire pour une discussion, une livraison
+   ou un essai isolé.
+
+Les `README.md` locaux expliquent uniquement comment utiliser le répertoire ou
+l'artefact voisin. Les manifestes, configurations, schémas et résultats de test
+sont des preuves techniques, pas des documents d'architecture supplémentaires.
+
+## Documents hérités
+
+Les anciens documents narratifs numérotés et les anciens fichiers de décision
+ont été audités, consolidés puis supprimés. Les éléments qui avaient été
+versionnés restent accessibles dans l'historique Git ; les informations utiles
+des fichiers non versionnés ont été intégrées aux documents vivants avant leur
+suppression. Leurs identifiants peuvent encore apparaître dans une preuve
+historique immuable ; ils ne désignent plus une source active.
+
+En cas de contradiction, les cinq documents actifs prévalent.
+
+## Décisions et règles de travail
+
+Les décisions actives sont décrites dans la section du document vivant qui
+porte le domaine concerné. Les invariants transversaux nécessaires à toutes les
+tâches sont résumés dans `AGENTS.md` ; les procédures conditionnelles sont
+décrites dans les skills du projet. Une proposition non qualifiée est toujours
+marquée **À valider** et ne devient pas acquise sans validation explicite.
 
 ## Convention de maturité
 
-- **Préliminaire** : structure et objectifs admis, valeurs encore ouvertes.
-- **Candidat** : contenu suffisamment précis pour une revue technique.
-- **Approuvé** : contenu relu, décisions structurantes acceptées.
-- **Opérationnel préliminaire** : implémenté et testé sur le poste de développement, pas encore qualifié pour une campagne formelle.
-- **Obsolète** : conservé pour la traçabilité mais remplacé.
-
-## Décisions d'architecture
-
-Les décisions structurantes sont enregistrées dans `docs/decisions/` au format ADR. Une décision pressentie ne devient définitive qu'après validation ou création d'un ADR accepté.
+- **Planifié** : capacité ou composant décrit, non implémenté.
+- **Implémenté** : présent dans le logiciel ou la CAO, sans qualification
+  complète.
+- **Qualifié** : critères définis et preuves de validation disponibles.
+- **À valider** : hypothèse, valeur ou sélection qui ne doit pas être interprétée
+  comme une exigence figée.

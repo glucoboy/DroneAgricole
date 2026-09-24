@@ -64,7 +64,7 @@
           "label": {"type": "string", "minLength": 1},
           "description": {"type": "string"},
           "status": {"enum": ["installed", "partial", "remote", "disabled"]},
-          "duration_s": {"type": "number", "exclusiveMinimum": 0},
+          "duration_s": {"type": "number", "minimum": 0},
           "recommended": {"type": "boolean"},
           "result_group": {"$ref": "common.schema.json#/$defs/identifier"},
           "capabilities": {
@@ -80,9 +80,10 @@
               "required": ["resource_id", "kind", "uri", "required"],
               "properties": {
                 "resource_id": {"$ref": "common.schema.json#/$defs/identifier"},
-                "kind": {"enum": ["rosbag1", "rosbag2", "mcap", "images", "annotations", "calibration", "ground_truth", "map", "other"]},
+                "kind": {"enum": ["rosbag1", "rosbag2", "mcap", "images", "annotations", "calibration", "ground_truth", "point_cloud", "vector", "table", "map", "other"]},
                 "uri": {"$ref": "common.schema.json#/$defs/relativePath"},
                 "required": {"type": "boolean"},
+                "role": {"enum": ["perception_input", "evaluation_reference", "mixed_container", "metadata"]},
                 "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
               },
               "additionalProperties": false

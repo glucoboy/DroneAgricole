@@ -1,3 +1,4 @@
+#include "drone_agricole/composition/StationComposition.hpp"
 #include "drone_agricole/ui/MainWindow.hpp"
 
 #include <QApplication>
@@ -62,7 +63,14 @@ int main(int argc, char* argv[]) {
                           QStringLiteral("Lancez l'application depuis le projet ou utilisez --workspace."));
     return 2;
   }
-  drone_agricole::ui::MainWindow window(workspace);
+  std::unique_ptr<drone_agricole::composition::StationComposition> services;
+  try {
+    services = std::make_unique<drone_agricole::composition::StationComposition>(workspace);
+  } catch (const std::exception& error) {
+    QMessageBox::critical(nullptr, QStringLiteral("Initialisation impossible"), QString::fromUtf8(error.what()));
+    return 2;
+  }
+  drone_agricole::ui::MainWindow window(*services);
   window.show();
   if (parser.isSet(screenshotOption)) {
     const auto screenshotPath = QFileInfo(parser.value(screenshotOption)).absoluteFilePath();

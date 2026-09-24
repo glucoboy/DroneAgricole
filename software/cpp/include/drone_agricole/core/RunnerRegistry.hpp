@@ -1,37 +1,28 @@
 #pragma once
-
 #include "drone_agricole/core/ContractRegistry.hpp"
-
+#include <functional>
+#include <optional>
 namespace drone_agricole::core {
-
+struct RunnerContext {
+  const SimulationDefinition& simulation;
+  const VariantDefinition& variant;
+  const QJsonObject& request;
+  std::optional<DatasetSequence> sequence;
+  QString profileId;
+  QString runId;
+  QString stamp;
+};
 class RunnerRegistry {
  public:
+  using Factory = std::function<PreparedRun(const RunnerContext&)>;
   explicit RunnerRegistry(const ContractRegistry& contracts);
-
-  [[nodiscard]] PreparedRun prepare(const QJsonObject& request,
-                                    QString runId = {},
-                                    QDateTime timestamp = QDateTime::currentDateTimeUtc()) const;
+  void registerRunner(const QString& id, Factory factory);
+  [[nodiscard]] PreparedRun prepare(const QJsonObject& request, QString runId = {},
+      QDateTime timestamp = QDateTime::currentDateTimeUtc()) const;
   [[nodiscard]] QStringList approvedRunnerIds() const;
-
  private:
   const ContractRegistry& contracts_;
-
-  [[nodiscard]] PreparedRun prepareLio(const SimulationDefinition& simulation,
-                                       const VariantDefinition& variant,
-                                       const QJsonObject& request,
-                                       const DatasetSequence& sequence,
-                                       const QString& profileId,
-                                       const QString& runId,
-                                       const QString& stamp) const;
-  [[nodiscard]] PreparedRun preparePx4(const SimulationDefinition& simulation,
-                                       const VariantDefinition& variant,
-                                       const QJsonObject& request,
-                                       const QString& runId,
-                                       const QString& stamp) const;
-  static void writeLioConfig(const QString& runnerId,
-                             const QString& basePath,
-                             const QString& outputPath,
-                             const QJsonObject& parameters);
+  QHash<QString, Factory> factories_;
+  QStringList orderedIds_;
 };
-
-}  // namespace drone_agricole::core
+}

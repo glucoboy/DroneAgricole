@@ -1,0 +1,520 @@
+{
+  "schema_version": 1,
+  "reference": "CAB-CARTO-01",
+  "date": "2026-09-22",
+  "scope": "Cartographe uniquement ; traitement/pompe/vannes hors périmètre",
+  "status": "Planifié / À valider",
+  "harness_ready": false,
+  "conventions": [
+    "Broches CA01 = numérotation logique du schéma, empreintes non figées",
+    "Flèches énergie représentent conducteurs alimentation et retour",
+    "Masse commune ; blindages/liaisons carbone à concevoir",
+    "Choix alternatifs non raccordés simultanément",
+    "Les connecteurs OEM non vérifiés restent à confirmer"
+  ],
+  "modules": [
+    {
+      "id": "BAT",
+      "name": "Batterie 6S candidate",
+      "inputs": "charge externe hors vol",
+      "outputs": "puissance batterie",
+      "open": "pack/révision, décharge et connecteur définitifs",
+      "status": "À valider"
+    },
+    {
+      "id": "DIST",
+      "name": "Distribution X650 et protections de départ",
+      "inputs": "PM02D OUT +/−",
+      "outputs": "départs ESC et CA01",
+      "open": "distribution, fusibles et sections ; interface SBS/coupure à situer selon support PM",
+      "status": "À valider"
+    },
+    {
+      "id": "ESC1..4",
+      "name": "Quatre ESC",
+      "inputs": "6S ; consigne Pixhawk",
+      "outputs": "trois phases vers chaque moteur",
+      "open": "références, protocole et brochages",
+      "status": "À valider"
+    },
+    {
+      "id": "M1..4",
+      "name": "Quatre moteurs",
+      "inputs": "trois phases ESC",
+      "outputs": "couple mécanique",
+      "open": "références, ordre et sens",
+      "status": "À valider"
+    },
+    {
+      "id": "PM",
+      "name": "PM02D complet externe en tête",
+      "inputs": "batterie 6S via faisceau adapté, IN",
+      "outputs": "OUT vers distribution ; 5,2 V/I²C POWER1 ; dérivation radio",
+      "open": "révision, faisceau adapté, support fixe ou cassette ; calibration globale et thermique",
+      "status": "À valider"
+    },
+    {
+      "id": "FCU",
+      "name": "Pixhawk 6X",
+      "inputs": "POWER1 ; RC ; navigation ; consignes compagnon",
+      "outputs": "ESC ; états ; télémétrie",
+      "open": "ports physiques, firmware et accessoires",
+      "status": "À valider"
+    },
+    {
+      "id": "CA01",
+      "name": "Carte alimentation/radio/synchronisation",
+      "inputs": "6S charge utile ; 5,2 V radio ; SYNC Airy",
+      "outputs": "12V calcul ; 12V LiDAR ; 5V aux ; trigger ; UART",
+      "open": "convertisseurs, protections, brochages et dimensions",
+      "status": "À valider"
+    },
+    {
+      "id": "RF",
+      "name": "RP4TD rapporté sur CA01",
+      "inputs": "alimentation vol ; UART ; RF",
+      "outputs": "UART ; RF",
+      "open": "UART, consommation et antennes exactes",
+      "status": "À valider"
+    },
+    {
+      "id": "RFANT1..2",
+      "name": "Deux antennes RP4TD",
+      "inputs": "coaxiaux RF",
+      "outputs": "liaison radio",
+      "open": "références, emplacement et dégagement carbone",
+      "status": "À valider"
+    },
+    {
+      "id": "CPU",
+      "name": "Jetson et porteuse",
+      "inputs": "12V calcul ; données capteurs/Pixhawk",
+      "outputs": "USB caméra ; Ethernet ; consignes haut niveau",
+      "open": "porteuse exacte et bilan USB/SSD/refroidissement",
+      "status": "À valider"
+    },
+    {
+      "id": "SSD",
+      "name": "SSD NVMe",
+      "inputs": "alimentation et PCIe porteuse",
+      "outputs": "données stockées",
+      "open": "modèle, endurance et courant",
+      "status": "À valider"
+    },
+    {
+      "id": "FAN",
+      "name": "Refroidissement Jetson",
+      "inputs": "alimentation et éventuelle commande",
+      "outputs": "retour vitesse éventuel",
+      "open": "solution/refroidissement, connecteur et budget",
+      "status": "À valider"
+    },
+    {
+      "id": "LID",
+      "name": "RoboSense Airy",
+      "inputs": "12V ; Ethernet ; temps GNSS candidat",
+      "outputs": "Ethernet ; SYNC_OUT1",
+      "open": "variante/faisceau et niveaux de synchronisation",
+      "status": "À valider"
+    },
+    {
+      "id": "CAM",
+      "name": "Basler a2A4096-30ucBAS",
+      "inputs": "USB3 alimenté ; trigger optocouplé",
+      "outputs": "images USB3",
+      "open": "câble USB/M8 et configuration trigger",
+      "status": "À valider"
+    },
+    {
+      "id": "GNSS",
+      "name": "GNSS RTK embarqué à choisir",
+      "inputs": "alimentation ; antenne ; RTCM",
+      "outputs": "navigation PX4 ; temps/données candidat",
+      "open": "Holybro DroneCAN ou ArduSimple : un seul choix à figer",
+      "status": "À valider"
+    },
+    {
+      "id": "GNSSANT",
+      "name": "Antenne GNSS",
+      "inputs": "interface RF du rover",
+      "outputs": "signaux GNSS",
+      "open": "référence, câble et alimentation antenne éventuelle",
+      "status": "À valider"
+    },
+    {
+      "id": "SAFE",
+      "name": "Accessoires Pixhawk à identifier",
+      "inputs": "alimentation/commande FCU",
+      "outputs": "bouton sécurité / buzzer / signalisation éventuels",
+      "open": "inventaire livré et références ; aucune fonction supposée présente",
+      "status": "À valider"
+    },
+    {
+      "id": "POCKET",
+      "name": "Pocket ELRS / Backpack au sol",
+      "inputs": "manches ; supervision QGC ; énergie propre",
+      "outputs": "liaison RF commune",
+      "open": "configuration et batteries",
+      "status": "À valider"
+    },
+    {
+      "id": "GCS",
+      "name": "Station QGroundControl",
+      "inputs": "supervision RF ; RTCM éventuel",
+      "outputs": "missions et commandes autorisées",
+      "open": "poste/réseau et acheminement RTCM",
+      "status": "À valider"
+    },
+    {
+      "id": "BASE",
+      "name": "Base RTK et antenne au sol",
+      "inputs": "GNSS ; énergie propre",
+      "outputs": "RTCM",
+      "open": "référence, alimentation et transport jusqu’au rover",
+      "status": "À valider"
+    },
+    {
+      "id": "AUX_RESERVE",
+      "name": "Réserve auxiliaire sans charge affectée",
+      "inputs": "5V_AUX sur J301",
+      "outputs": "aucune fonction affectée",
+      "open": "charge, budget et protection avant usage",
+      "status": "À valider"
+    }
+  ],
+  "connections": [
+    {
+      "id": "W01",
+      "from": "BAT",
+      "to": "PM",
+      "type": "Énergie",
+      "route": "Batterie → PM02D IN",
+      "pins": "+/− ; 6S ; 25,2 V pleine charge candidate",
+      "open": "faisceau remplacé ; sections, connecteurs, protection/coupure/précharge à définir ; aucun départ contournant PM",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W02",
+      "from": "DIST",
+      "to": "ESC1..4",
+      "type": "Énergie",
+      "route": "Quatre départs propulsion",
+      "pins": "+/− vers chaque ESC",
+      "open": "courant moteur via PM02D IN/OUT, jamais via CA01 ; sections et protections à dimensionner",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W03",
+      "from": "ESC1..4",
+      "to": "M1..4",
+      "type": "Puissance",
+      "route": "Trois phases par moteur",
+      "pins": "U/V/W logiques, ordre à vérifier",
+      "open": "référence ESC/moteur et sens à figer",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W04",
+      "from": "FCU",
+      "to": "ESC1..4",
+      "type": "Commande",
+      "route": "Sorties moteur PX4 exclusivement",
+      "pins": "signal/retour ; PWM/DShot/autre à choisir",
+      "open": "numéro sortie, ordre moteur et télémétrie ESC non figés",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W05",
+      "from": "PM",
+      "to": "DIST",
+      "type": "Énergie",
+      "route": "PM02D OUT → distribution de toutes les charges aval",
+      "pins": "6S +/− ; faisceau de puissance remplacé",
+      "open": "courant total, pointes/durée, température et terminaisons à qualifier",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W06",
+      "from": "PM",
+      "to": "FCU",
+      "type": "Énergie + mesure",
+      "route": "POWER1 direct : alimentation vol et monitoring global",
+      "pins": "1/2 +5,2 V ; 3 SCL ; 4 SDA ; 5/6 GND",
+      "open": "CLIK-Mate 6 contacts : révision/orientation ; comparer mesure PM à référence batterie, BEC seul puis charges aval",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W07",
+      "from": "PM",
+      "to": "CA01",
+      "type": "Énergie radio",
+      "route": "Dérivation externe domaine vol → J101",
+      "pins": "CA01 J101:1 = 5V2_FLIGHT ; :2 = GND",
+      "open": "dérivation et protection près de la source à concevoir ; contacts POWER1 doublés conservés",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W08",
+      "from": "DIST",
+      "to": "CA01",
+      "type": "Énergie charge utile",
+      "route": "Départ charge utile → J103",
+      "pins": "CA01 J103:1 = VBAT_PAYLOAD ; :2 = GND",
+      "open": "calibre, connecteur et protection amont à figer",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W09",
+      "from": "CA01",
+      "to": "CPU",
+      "type": "Énergie",
+      "route": "J104 → entrée porteuse Jetson",
+      "pins": "J104:1 = 12V_COMPUTE ; :2 = GND",
+      "open": "porteuse/jack à confirmer ; objectif buck 6 A distinct de limite porteuse",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W10",
+      "from": "CA01",
+      "to": "LID",
+      "type": "Énergie",
+      "route": "J201 → alimentation Airy",
+      "pins": "J201:1 = 12V_LIDAR ; :2 = GND",
+      "open": "connecteur réel Airy et faisceau à confirmer",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W11",
+      "from": "CA01",
+      "to": "RF",
+      "type": "Énergie + UART",
+      "route": "J401 → pads RP4TD",
+      "pins": "J401:1 = 5V_RADIO ; :2 = GND ; :3 = RP_TX ; :4 = RP_RX",
+      "open": "numérotation logique CA01, pas numéros OEM ; R401/R402 DNP",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W12",
+      "from": "CA01",
+      "to": "FCU",
+      "type": "UART bidirectionnel",
+      "route": "J402 → UART Pixhawk réservé RF",
+      "pins": "J402:1 = GND ; :2 = FC_RX_RF ; :3 = FC_TX_RF",
+      "open": "choisir port ; TX/RX croisés ; pas injection 5 V TELEM supposée",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W13",
+      "from": "RF",
+      "to": "RFANT1..2",
+      "type": "RF",
+      "route": "Deux liaisons coaxiales",
+      "pins": "ports antenne du module, deux antennes",
+      "open": "références et cheminements ; pas deux systèmes radio indépendants",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W14",
+      "from": "FCU",
+      "to": "CPU",
+      "type": "Données bidirectionnelles",
+      "route": "Liaison compagnon locale",
+      "pins": "UART ou Ethernet ; uXRCE-DDS/MAVLink selon choix",
+      "open": "réserver port distinct RF ; retour/masse/niveaux et ports exacts à arrêter",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W15",
+      "from": "LID",
+      "to": "CPU",
+      "type": "Données bidirectionnelles",
+      "route": "Ethernet direct Airy ↔ Jetson",
+      "pins": "interface/câble Ethernet du faisceau Airy",
+      "open": "port Jetson, IP, blindage ; partage Ethernet FCU éventuel à résoudre",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W16",
+      "from": "CPU",
+      "to": "CAM",
+      "type": "Énergie + données",
+      "route": "USB3 direct Jetson ↔ caméra",
+      "pins": "alimentation par USB et USB3 Vision",
+      "open": "câble verrouillable, budget port et débits ; pas alimentation via M8",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W17",
+      "from": "LID",
+      "to": "CA01",
+      "type": "Synchronisation",
+      "route": "SYNC_OUT1 → J501",
+      "pins": "Airy pin10 / D2 candidat → J501:1 ; retour D4 → :2",
+      "open": "faisceau/version à confirmer ; niveaux inconnus ; JP501 ouvert",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W18",
+      "from": "CA01",
+      "to": "CAM",
+      "type": "Trigger",
+      "route": "J502 → E/S Basler M8 six contacts",
+      "pins": "1 NC ; 2 Line1 / 5V_SYNC ; 3 retour opto commuté ; 4/5/6 NC en V0",
+      "open": "ne pas relier broche3 à GND ; brochage fabricant à vérifier côté accouplement",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W19",
+      "from": "CPU",
+      "to": "SSD",
+      "type": "Énergie + données",
+      "route": "Port M.2 NVMe de la porteuse",
+      "pins": "PCIe / alimentation interne porteuse",
+      "open": "référence SSD et courant ; pas de rail externe ajouté par supposition",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W20",
+      "from": "CPU",
+      "to": "FAN",
+      "type": "Refroidissement",
+      "route": "Commande/alimentation refroidissement candidat",
+      "pins": "connecteur porteuse ou autre solution à définir",
+      "open": "aucune tension ou numérotation de ventilateur présumée",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W21",
+      "from": "FCU",
+      "to": "GNSS",
+      "type": "Énergie + navigation",
+      "route": "GNSS vol : interface à choisir",
+      "pins": "CAN/UART selon candidat ; alimentation du domaine vol à définir",
+      "open": "pas alimentation GNSS critique via charge utile par défaut ; budget PM à fermer",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W22",
+      "from": "GNSS",
+      "to": "GNSSANT",
+      "type": "RF GNSS",
+      "route": "Rover ↔ antenne GNSS",
+      "pins": "connecteur, coaxial et alimentation active éventuelle",
+      "open": "référence et implantation à choisir",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W23",
+      "from": "GNSS",
+      "to": "LID",
+      "type": "Temps candidat",
+      "route": "PPS + GPRMC vers Airy, si retenu",
+      "pins": "pins exactes et adaptation PPS/série à confirmer",
+      "open": "non raccordé en V0 ; ne pas déduire niveaux de SYNC_OUT1",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W24",
+      "from": "GNSS",
+      "to": "CPU",
+      "type": "Données candidates",
+      "route": "Navigation/temps vers compagnon",
+      "pins": "routage via FCU ou autre interface à choisir",
+      "open": "pas de Y passif UART ; allocation simultanée des ports obligatoire",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W25",
+      "from": "FCU",
+      "to": "SAFE",
+      "type": "Sécurité / indication",
+      "route": "Accessoires de vol à inventorier",
+      "pins": "bouton/buzzer/LED : ports et niveaux inconnus",
+      "open": "réalisation après identification du matériel livré",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W26",
+      "from": "CA01",
+      "to": "AUX_RESERVE",
+      "type": "Énergie réservée",
+      "route": "J301, aucune charge externe affectée",
+      "pins": "J301:1 = 5V_AUX ; :2 = GND",
+      "open": "ne pas alimenter une charge avant fermeture budget/protection",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W27",
+      "from": "POCKET",
+      "to": "RF",
+      "type": "RF bidirectionnel",
+      "route": "ELRS commun commande + MAVLink",
+      "pins": "liaison sans fil ; Pocket alimentée séparément",
+      "open": "profil/firmware/débit/portée à qualifier",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W28",
+      "from": "GCS",
+      "to": "POCKET",
+      "type": "Supervision bidirectionnelle",
+      "route": "Wi-Fi local QGC ↔ Backpack",
+      "pins": "MAVLink/UDP candidat",
+      "open": "radio manuelle fonctionne sans PC ; versions à figer",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W29",
+      "from": "BASE",
+      "to": "GNSS",
+      "type": "Corrections RTCM",
+      "route": "Chemin sol → rover à sélectionner",
+      "pins": "radio dédiée ou via QGC/RF commun sous budget",
+      "open": "trait représenté fonctionnellement, aucun câble/transport retenu",
+      "status": "Planifié / À valider",
+      "assembled": false
+    }
+  ],
+  "current_sizing_review": {
+    "date": "2026-09-22",
+    "status": "À valider",
+    "note": "Base de conception retenue : PM02D complet en série, faisceau adapté, BEC conservé. 85 A = réserve historique non exigence continue. Limites PCB 60 A continus / 100 A <60 s à confronter au profil réel et à la thermique.",
+    "reference": "DOC-ELEC §4.2.2 et §5.1"
+  },
+  "revision": "0.3",
+  "retired_connections": [
+    {
+      "id": "W30",
+      "date": "2026-09-22",
+      "reason": "Capteur MEAS supprimé ; monitoring global confié au PM02D et transporté par W06, aucun câble supplémentaire"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "drone_agricole.simulation_definition.v1",
+  "simulation_id": "vineyard_capture_mapping",
+  "version": "0.3.0",
+  "label": "Cartographie 3D LiDAR–caméra",
+  "description": "Carte 3D LiDAR–caméra : capture locale ou assemblage des scans, trajectoire estimée et surface observée. Précision et usage pour le vol À valider.",
+  "domain": "mapping",
+  "runner_id": "friulbot_capture_rows",
+  "safety_class": "analysis",
+  "selectors": [
+    {
+      "selector_id": "dataset",
+      "kind": "dataset_sequence",
+      "required": true,
+      "multiple": false,
+      "required_capabilities": [
+        "sensor.triggered_lidar_multispectral"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "trigger_rows_v1",
+      "label": "Capture 3D colorée et trajectoires",
+      "description": "Géométrie LiDAR avec sol et projection RGB diagnostique des bandes visibles. Rangs et trajectoires calculés dans le même repère local. Calibration et couleurs À valider.",
+      "runner_id": "friulbot_capture_rows",
+      "available": true,
+      "required_capabilities": [
+        "map.local_sensor_frame"
+      ],
+      "parameters": [
+        {
+          "id": "crop_min_z_m",
+          "label": "Z végétation minimal",
+          "description": "Borne verticale locale utilisée pour écarter une partie du sol.",
+          "type": "number",
+          "unit": "m",
+          "group": "principal",
+          "safety_class": "analysis",
+          "default": -0.5,
+          "minimum": -2.5,
+          "maximum": 1.0,
+          "step": 0.1
+        },
+        {
+          "id": "crop_max_z_m",
+          "label": "Z végétation maximal",
+          "description": "Borne verticale locale du masque géométrique.",
+          "type": "number",
+          "unit": "m",
+          "group": "principal",
+          "safety_class": "analysis",
+          "default": 1.8,
+          "minimum": 0.0,
+          "maximum": 4.0,
+          "step": 0.1
+        },
+        {
+          "id": "row_bin_m",
+          "label": "Pas transversal",
+          "description": "Résolution de l'accumulateur transversal des rangs.",
+          "type": "number",
+          "unit": "m",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 0.25,
+          "minimum": 0.1,
+          "maximum": 1.0,
+          "step": 0.05
+        },
+        {
+          "id": "row_spacing_min_m",
+          "label": "Espacement minimal",
+          "description": "Distance minimale entre deux axes locaux retenus.",
+          "type": "number",
+          "unit": "m",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 1.5,
+          "minimum": 0.75,
+          "maximum": 4.0,
+          "step": 0.1
+        },
+        {
+          "id": "row_peak_ratio",
+          "label": "Sélectivité des rangs",
+          "description": "Rapport minimal entre un pic transversal et le pic principal.",
+          "type": "number",
+          "unit": "ratio",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 0.25,
+          "minimum": 0.05,
+          "maximum": 0.9,
+          "step": 0.05
+        },
+        {
+          "id": "trajectory_z_m",
+          "label": "Hauteur candidate",
+          "description": "Hauteur de rendu dans le repère LiDAR ; valeur non qualifiée pour le vol.",
+          "type": "number",
+          "unit": "m",
+          "group": "safety",
+          "safety_class": "analysis",
+          "default": 2.5,
+          "minimum": 1.0,
+          "maximum": 6.0,
+          "step": 0.1
+        },
+        {
+          "id": "display_point_budget",
+          "label": "Points affichés",
+          "description": "Budget maximal du nuage dans l'artefact de rejeu.",
+          "type": "integer",
+          "unit": "point",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 30000,
+          "minimum": 2000,
+          "maximum": 100000,
+          "step": 1000
+        }
+      ]
+    },
+    {
+      "variant_id": "scan_surface_v1",
+      "label": "Assemblage des scans et surface 3D",
+      "description": "Odométrie LiDAR ICP, fusion des scans, surface triangulée et trajectoire estimée. Fenêtre bornée, trous conservés et arrêt explicite si le recalage est insuffisant. À valider.",
+      "runner_id": "friulbot_capture_rows",
+      "available": true,
+      "required_capabilities": [
+        "map.local_sensor_frame"
+      ],
+      "parameters": [
+        {
+          "id": "assembly_duration_s",
+          "label": "Durée à reconstruire",
+          "description": "Fenêtre de scans à assembler depuis l’instant sélectionné.",
+          "type": "number",
+          "unit": "s",
+          "group": "principal",
+          "safety_class": "analysis",
+          "default": 10.0,
+          "minimum": 1.0,
+          "maximum": 60.0,
+          "step": 1.0
+        },
+        {
+          "id": "scan_interval_s",
+          "label": "Intervalle entre scans",
+          "description": "Les captures caméra synchronisées sont ajoutées entre ces scans. Déplacement entre deux scans À valider.",
+          "type": "number",
+          "unit": "s",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 0.5,
+          "minimum": 0.1,
+          "maximum": 1.0,
+          "step": 0.1
+        },
+        {
+          "id": "surface_voxel_m",
+          "label": "Fusion des sommets",
+          "description": "Taille des cellules de fusion ; résolution préliminaire À valider.",
+          "type": "number",
+          "unit": "m",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 0.15,
+          "minimum": 0.05,
+          "maximum": 0.5,
+          "step": 0.05
+        },
+        {
+          "id": "surface_max_edge_m",
+          "label": "Arête maximale de surface",
+          "description": "Les triangles au-delà de cette longueur sont exclus pour conserver les discontinuités. À valider.",
+          "type": "number",
+          "unit": "m",
+          "group": "advanced",
+          "safety_class": "analysis",
+          "default": 0.8,
+          "minimum": 0.2,
+          "maximum": 2.0,
+          "step": 0.1
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "id": "capture_offset_s",
+      "label": "Instant de capture",
+      "description": "Temps depuis le début du bag autour duquel choisir le déclenchement MicaSense le plus proche.",
+      "type": "number",
+      "unit": "s",
+      "group": "principal",
+      "safety_class": "analysis",
+      "default": 120.0,
+      "minimum": 0.0,
+      "maximum": 1250.0,
+      "step": 5.0
+    },
+    {
+      "id": "maximum_range_m",
+      "label": "Portée locale",
+      "description": "Distance horizontale maximale conservée dans le scan.",
+      "type": "number",
+      "unit": "m",
+      "group": "advanced",
+      "safety_class": "analysis",
+      "default": 20.0,
+      "minimum": 5.0,
+      "maximum": 100.0,
+      "step": 1.0
+    }
+  ],
+  "profiles": [],
+  "comparison_group": "vineyard_local_rows_v1"
+}

@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "reference": "CA01",
+  "revision": "0.3",
+  "date": "2026-09-22",
+  "artifact_status": "Implémenté",
+  "hardware_status": "Planifié",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "project": "CA01_Avionique.kicad_pro",
+  "schematic": "CA01_Avionique.kicad_sch",
+  "pcb": "CA01_Avionique.kicad_pcb",
+  "pcb_state": "Canevas vide ; aucun placement, contour ou routage",
+  "specification": "../../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01",
+  "sheets": [
+    "CA01_Avionique.kicad_sch",
+    "01_energie_pm.kicad_sch",
+    "02_buck_12v_capteurs.kicad_sch",
+    "03_buck_5v_aux.kicad_sch",
+    "04_radio.kicad_sch",
+    "05_synchronisation.kicad_sch"
+  ],
+  "toolchain": {
+    "kicad": "10.0.6",
+    "platform": "Windows amd64",
+    "bridge": "https://github.com/mixelpixx/KiCAD-MCP-Server",
+    "bridge_commit": "ac716d1a8bfad325b4aa93a398222645b3f78fd7",
+    "backend": "fichier / swig",
+    "method": "Composants, feuilles, labels et contrôles via MCP ; normalisation bibliothèque CLI et corrections ciblées des métadonnées"
+  },
+  "external_modules": [
+    {
+      "part": "RadioMaster RP4TD LBT",
+      "integration": "Module rapporté ; J401 adaptateur logique, connecteur/maintien à définir",
+      "supply": "5V_RADIO depuis DC/DC local CA01 cible V0.5 ; schéma V0.3 historique"
+    },
+    {
+      "part": "Holybro PM02D",
+      "integration": "Module complet hors CA01, en série batterie IN→OUT distribution, faisceau adapté ; BEC conservé ; POWER1 direct et dérivation radio J101",
+      "limits": "60 A continus / 100 A <60 s PCB ; faisceau adapté à dimensionner et qualifier. Sortie 5,2 V/3 A partagée. CA01 hors propulsion. Couverture monitoring global à vérifier au banc.",
+      "implementation_note": "Historique du schéma interne V0.3 ; cible V0.5 PM08-CAN BEC1/2 vers POWER1/2, CAN1 séparé ; migration non exécutée"
+    }
+  ],
+  "functional_blocks": [
+    {
+      "ref": "U101",
+      "function": "Protection amont charge utile non conçue"
+    },
+    {
+      "ref": "U102",
+      "function": "Buck calcul LM5146-Q1 candidat, étage puissance absent"
+    },
+    {
+      "ref": "U501",
+      "function": "Adaptation niveau Airy inconnue"
+    },
+    {
+      "ref": "U503",
+      "function": "Régulateur local3V3 non choisi"
+    }
+  ],
+  "functional_blocks_excluded_from": [
+    "BOM",
+    "PCB",
+    "simulation"
+  ],
+  "assembly_gates": [
+    {
+      "refs": [
+        "R401",
+        "R402"
+      ],
+      "state": "DNP",
+      "close_after": "Validation niveaux UART et absence de réalimentation hors tension"
+    },
+    {
+      "refs": [
+        "JP501"
+      ],
+      "state": "Cavalier ouvert",
+      "close_after": "Caractérisation SYNC_OUT1 et conception/validation U501"
+    }
+  ],
+  "open_design_items": [
+    "Passifs de puissance, feedback et thermique LM76003",
+    "Conception complète LM5146-Q1",
+    "Protections et sélectivité amont/aval",
+    "Budget charge des rails5V/3V3 et vol/radio",
+    "Brochages physiques, références et empreintes des connecteurs",
+    "Calibration et couverture mesure globale PM02D ; faisceau adapté et thermique",
+    "Caractérisation UART et SYNC_OUT1",
+    "Contour, placement, routage, isolement carbone et intégrationSA03"
+  ],
+  "verification": {
+    "static": "verification/controle_statique.json",
+    "erc": "verification/erc.json",
+    "netlist": "verification/netlist.xml",
+    "mcp": "verification/mcp_controles_20260922.json",
+    "recipe": "verification/verify_ca01.ps1",
+    "connectivity_check_count": 14,
+    "erc_errors_open": 3,
+    "erc_warning_count": 0,
+    "erc_affected_nets": [
+      "VIN_PAYLOAD_PROT",
+      "GND",
+      "3V3_SYNC"
+    ],
+    "independent_review": "Revue V0.3 : PM en tete, BEC conserve, POWER1 direct, CA01 hors propulsion, registre et limites simulation/banc coherents. Deux annotations corrigees (BEC/shunt non presume et ancienne mention85A). Calculs DC/DC, protections, thermique et implantation non qualifies.",
+    "hardware_tests": "Non exécutés : circuit incomplet, matériel non assemblé"
+  },
+  "source_references": [
+    "https://holybro.com/products/pm02d-power-module",
+    "https://holybro.com/products/pm03d-power-module",
+    "https://www.ti.com/product/LM76003",
+    "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
+    "https://www.ti.com/product/LM5146-Q1",
+    "https://www.ti.com/product/SN74LVC1G17",
+    "https://docs.baslerweb.com/a2a4096-30ucbas",
+    "https://robosense-robotics.github.io/product-manual/en/Airy/"
+  ],
+  "global_wiring": "../cablage_global.json",
+  "current_sizing_review": {
+    "date": "2026-09-22",
+    "status": "À valider",
+    "note": "PM08-CAN retenu pour conception : 200A continus annoncés, pointe400A1s25C ; 2BEC5,3V3A. Ces valeurs ne qualifient ni connecteurs ni faisceau. Budget réel, température et couverture mesure à valider.",
+    "reference": "DOC-ELEC §4.2.2/5.1"
+  },
+  "global_wiring_verification": "../verification/cablage_global_v05_20260924.json",
+  "target_wiring_revision": "0.5",
+  "target_power_module": {
+    "part": "Holybro PM08-CAN",
+    "mount": "châssis",
+    "allocation": {
+      "BEC1": {
+        "nominal_v": 5.3,
+        "max_a": 3,
+        "loads": [
+          "Pixhawk POWER1"
+        ],
+        "routes": [
+          "W06"
+        ]
+      },
+      "BEC2": {
+        "nominal_v": 5.3,
+        "max_a": 3,
+        "loads": [
+          "Pixhawk POWER2"
+        ],
+        "routes": [
+          "W32"
+        ]
+      },
+      "power2_connected": true,
+      "outputs_paralleled": false,
+      "budgets_closed": false,
+      "common_points": [
+        "batterie 6S",
+        "PM08-CAN"
+      ],
+      "ca01_aux_source": "DC/DC 5V local depuis départ 6S protégé W08",
+      "jetson_source": "12V_COMPUTE candidat vers XT30 par W09"
+    }
+  },
+  "pending_migration": {
+    "implemented_revision": "0.3",
+    "target_wiring_revision": "0.5",
+    "status": "Planifié",
+    "ready_for_connection": false,
+    "changes": [
+      "Conserver et redimensionner U301 ou sélectionner un DC/DC 5V local protégé depuis VBAT_PAYLOAD",
+      "Retirer les anciens nets PM02D/BEC1 radio et toute entrée BEC2 AUX_IN de la cible",
+      "Adapter 5V_RADIO, 5V_SYNC, 3V3_SYNC et vérifier absence de retour vers POWER1/POWER2",
+      "Conserver et dimensionner 12V_COMPUTE vers XT30 et 12V_LIDAR",
+      "Rendre compatibles les connecteurs et la netlist avec la porteuse Holybro, puis ERC/DRC"
+    ]
+  }
+}

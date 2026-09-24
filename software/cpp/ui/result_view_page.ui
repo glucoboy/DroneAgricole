@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ResultViewPage</class>
+ <widget class="QWidget" name="ResultViewPage">
+  <layout class="QVBoxLayout" name="resultLayout" stretch="0,0,1,0,0">
+   <item><widget class="QLabel" name="resultTitle"><property name="text"><string>Résultat archivé</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+   <item><layout class="QHBoxLayout" name="layersLayout">
+    <item><widget class="QCheckBox" name="surfaceCheckBox"><property name="text"><string>Surface (décocher pour le nuage)</string></property><property name="checked"><bool>true</bool></property></widget></item>
+    <item><widget class="QCheckBox" name="pathCheckBox"><property name="text"><string>Trajectoire superposée</string></property><property name="checked"><bool>true</bool></property></widget></item>
+   </layout></item>
+   <item><widget class="drone_agricole::ui::TrajectoryView" name="archiveTrajectoryView"><property name="minimumSize"><size><width>400</width><height>300</height></size></property></widget></item>
+   <item><widget class="drone_agricole::ui::MetricsPlotWidget" name="archiveMetricsPlot"><property name="maximumSize"><size><width>16777215</width><height>150</height></size></property></widget></item>
+   <item><widget class="QPlainTextEdit" name="archiveNotes"><property name="readOnly"><bool>true</bool></property><property name="maximumSize"><size><width>16777215</width><height>100</height></size></property></widget></item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget><class>drone_agricole::ui::TrajectoryView</class><extends>QWidget</extends><header>drone_agricole/ui/TrajectoryView.hpp</header></customwidget>
+  <customwidget><class>drone_agricole::ui::MetricsPlotWidget</class><extends>QWidget</extends><header>drone_agricole/ui/MetricsPlotWidget.hpp</header></customwidget>
+ </customwidgets>
+</ui>

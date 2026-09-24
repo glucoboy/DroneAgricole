@@ -1,0 +1,87 @@
+schema_version: 1
+dataset: escayard
+sequence: B7
+status: downloaded_initial_inspection_complete
+downloaded_on: "2026-09-06"
+
+provenance:
+  repository: zenodo
+  concept_doi: 10.5281/zenodo.10362567
+  version_doi: 10.5281/zenodo.10362568
+  record_url: https://zenodo.org/records/10362568
+  license: CC-BY-4.0
+  download_recipe: tools/download_escayard.cmake
+
+files:
+  point_cloud_green:
+    path: datasets/public/escayard/B7/raw/20220714_FLEXIGROBOTS_B7_30M0G_MS_PRO_Green_densified_point_cloud.las
+    size_bytes: 223849329
+    md5: e9d08ac4c4c857a811faabcd51350bce
+    sha256: 47a0ffe977becb203ecdb9253d17b639c45d9a511773d213c83361e08ebe9918
+  trunk_archive:
+    path: datasets/public/escayard/B7/raw/trunk_locations_VineyardB7.zip
+    size_bytes: 8452
+    md5: ada3209607dd8e01a1e6bfa9fa6143c4
+    sha256: ca93f228a148069e90bcb99b4c80c497217bc327ad18292dcabdb49c29139db8
+  trunk_points:
+    path: datasets/public/escayard/B7/raw/trunk_locations_VineyardB7/trunk_locations_VineyardB7.shp
+    feature_count: 138
+  field_datasheet:
+    path: datasets/public/escayard/B7/raw/datasheet.csv
+    size_bytes: 27615
+    md5: f3f33215b99e9c56411d4bd43e34e310
+    sha256: 7c754ecaeb8d78b37923faebf0544a8b49310a9ab4066431489edf304391a271
+    plant_records: 253
+    b7_records: 133
+    b9_records: 120
+    non_plant_footer_records: 1
+
+point_cloud_header:
+  las_version: "1.2"
+  point_format: 3
+  compressed: false
+  point_record_length_bytes: 34
+  point_count: 6583772
+  scale_m: [0.001, 0.001, 0.001]
+  crs_from_wkt_vlr: EPSG:32629
+  horizontal_crs_name: WGS_84_UTM_zone_29N
+  vertical_datum: unknown
+  bounds:
+    min_xyz: [517084.830718994, 4645003.45588684, 60.4120998382568]
+    max_xyz: [517243.623603821, 4645195.62246704, 78.6327438354492]
+
+trunk_layer:
+  geometry: point
+  crs_from_prj: EPSG:25829
+  horizontal_crs_name: ETRS89_UTM_zone_29N
+  vertical_datum: unknown
+  bounds_xy:
+    min: [517163.609, 4645013.136]
+    max: [517238.38, 4645102.957]
+
+camera_products:
+  aerial_sensor: MicaSense_Altum
+  published_orthomosaic_bands: [blue, green, red, red_edge, nir]
+  b7_orthomosaic_md5: 13cec97cf9c19bbaa2436d290a3c3c1c
+  b7_orthomosaic_size_published: 3.4_GB
+  b7_orthomosaic_installed: false
+  raw_uav_frames_published_in_archive: false
+  temporal_lidar_camera_fusion_supported: false
+  geospatial_point_cloud_orthomosaic_fusion: candidate_to_validate
+
+evaluation_policy:
+  perception_input: point_cloud_green
+  trunk_points_role: evaluation_only
+  prediction_frozen_before_reference_load: true
+  detection_roi_source: point_cloud_header_bounds
+
+quality_gates:
+  official_md5_matches: pass
+  source_files_immutable: pass
+  point_cloud_contains_trunk_layer_xy: pass
+  horizontal_crs_consistency: warn_epsg_32629_vs_epsg_25829
+  coordinate_epoch: unknown
+  vertical_datum: unknown
+  trunk_to_datasheet_cardinality: warn_138_geometry_vs_133_b7_records
+  safe_for_metric_row_scoring: false_until_crs_and_correspondence_policy_validated
+  ground_truth_leakage: pass_reference_isolated_from_detection

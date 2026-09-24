@@ -1,0 +1,442 @@
+<ui version="4.0">
+  <class>ExecutionPage</class>
+  <widget class="QWidget" name="ExecutionPage">
+    <layout class="QHBoxLayout" name="executionLayout">
+      <property name="leftMargin">
+        <number>16</number>
+      </property>
+      <property name="topMargin">
+        <number>16</number>
+      </property>
+      <property name="rightMargin">
+        <number>16</number>
+      </property>
+      <property name="bottomMargin">
+        <number>16</number>
+      </property>
+      <item>
+        <widget class="QSplitter" name="executionSplitter">
+          <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QScrollArea" name="configurationScrollArea">
+            <property name="minimumSize">
+              <size>
+                <width>380</width>
+                <height>0</height>
+              </size>
+            </property>
+            <property name="maximumSize">
+              <size>
+                <width>520</width>
+                <height>16777215</height>
+              </size>
+            </property>
+            <property name="widgetResizable">
+              <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="configurationPanel">
+              <property name="autoFillBackground">
+                <bool>true</bool>
+              </property>
+              <property name="styleSheet">
+                <string notr="true">QWidget#configurationPanel { background-color: #0b1017; }</string>
+              </property>
+              <layout class="QVBoxLayout" name="configurationPanelLayout">
+                <property name="spacing">
+                  <number>10</number>
+                </property>
+                <property name="leftMargin">
+                  <number>0</number>
+                </property>
+                <property name="topMargin">
+                  <number>0</number>
+                </property>
+                <property name="rightMargin">
+                  <number>10</number>
+                </property>
+                <property name="bottomMargin">
+                  <number>0</number>
+                </property>
+                <item>
+                  <widget class="QFrame" name="configurationIntro">
+                    <layout class="QVBoxLayout" name="configurationIntroLayout">
+                      <property name="leftMargin">
+                        <number>16</number>
+                      </property>
+                      <property name="topMargin">
+                        <number>14</number>
+                      </property>
+                      <property name="rightMargin">
+                        <number>16</number>
+                      </property>
+                      <property name="bottomMargin">
+                        <number>14</number>
+                      </property>
+                      <item>
+                        <widget class="QLabel" name="configurationTitleLabel">
+                          <property name="text">
+                            <string>Nouvelle exécution</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item>
+                        <widget class="QLabel" name="configurationDescriptionLabel">
+                          <property name="text">
+                            <string>Choisissez un module, vérifiez ses paramètres puis lancez un essai traçable.</string>
+                          </property>
+                          <property name="wordWrap">
+                            <bool>true</bool>
+                          </property>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QGroupBox" name="selectionGroup">
+                    <property name="title">
+                      <string>1 · Scénario de simulation</string>
+                    </property>
+                    <layout class="QFormLayout" name="selectionForm">
+                      <item row="0" column="0">
+                        <widget class="QLabel" name="simulationLabel">
+                          <property name="text">
+                            <string>Module</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item row="0" column="1">
+                        <widget class="QComboBox" name="simulationCombo" />
+                      </item>
+                      <item row="1" column="0">
+                        <widget class="QLabel" name="variantLabel">
+                          <property name="text">
+                            <string>Variante</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item row="1" column="1">
+                        <widget class="QComboBox" name="variantCombo" />
+                      </item>
+                      <item row="2" column="0">
+                        <widget class="QLabel" name="datasetLabel">
+                          <property name="text">
+                            <string>Dataset</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item row="2" column="1">
+                        <widget class="QComboBox" name="datasetCombo" />
+                      </item>
+                      <item row="3" column="0">
+                        <widget class="QLabel" name="sequenceLabel">
+                          <property name="text">
+                            <string>Séquence</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item row="3" column="1">
+                        <widget class="QComboBox" name="sequenceCombo" />
+                      </item>
+                      <item row="4" column="0">
+                        <widget class="QLabel" name="profileLabel">
+                          <property name="text">
+                            <string>Profil</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item row="4" column="1">
+                        <widget class="QComboBox" name="profileCombo" />
+                      </item>
+                    </layout>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QGroupBox" name="parametersGroup">
+                    <property name="title">
+                      <string>2 · Paramètres de l'essai</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="parametersGroupLayout">
+                      <item>
+                        <widget class="QLabel" name="parameterHelpLabel">
+                          <property name="text">
+                            <string>Ajustez les paramètres avant de lancer le traitement.</string>
+                          </property>
+                          <property name="wordWrap">
+                            <bool>true</bool>
+                          </property>
+                        </widget>
+                      </item>
+                      <item>
+                        <widget class="QWidget" name="parametersContainer" native="true">
+                          <layout class="QFormLayout" name="parametersFormLayout">
+                            <property name="fieldGrowthPolicy">
+                              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                            </property>
+                          </layout>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QGroupBox" name="runGroup">
+                    <property name="title">
+                      <string>3 · Contrôle de l’exécution</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="runLayout">
+                      <item>
+                        <widget class="QLabel" name="runStatusLabel">
+                          <property name="text">
+                            <string>Prêt</string>
+                          </property>
+                          <property name="wordWrap">
+                            <bool>true</bool>
+                          </property>
+                        </widget>
+                      </item>
+                      <item>
+                        <widget class="QProgressBar" name="runProgressBar">
+                          <property name="visible">
+                            <bool>false</bool>
+                          </property>
+                          <property name="value">
+                            <number>0</number>
+                          </property>
+                          <property name="format">
+                            <string>Initialisation…</string>
+                          </property>
+                        </widget>
+                      </item>
+                      <item>
+                        <layout class="QHBoxLayout" name="runButtonsLayout">
+                          <item>
+                            <widget class="QPushButton" name="startButton">
+                              <property name="text">
+                                <string>Lancer l’essai</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item>
+                            <widget class="QPushButton" name="stopButton">
+                              <property name="text">
+                                <string>Arrêter</string>
+                              </property>
+                              <property name="enabled">
+                                <bool>false</bool>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <widget class="QLabel" name="safetyLabel">
+                          <property name="text">
+                            <string>PX4 conserve le vol critique et les failsafes. L'application orchestre uniquement les scénarios autorisés.</string>
+                          </property>
+                          <property name="wordWrap">
+                            <bool>true</bool>
+                          </property>
+                        </widget>
+                      </item>
+                    </layout>
+                  </widget>
+                </item>
+                <item>
+                  <spacer name="configurationSpacer">
+                    <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint">
+                      <size>
+                        <width>20</width>
+                        <height>40</height>
+                      </size>
+                    </property>
+                  </spacer>
+                </item>
+              </layout>
+            </widget>
+          </widget>
+          <widget class="QSplitter" name="visualizationSplitter">
+            <property name="orientation">
+              <enum>Qt::Vertical</enum>
+            </property>
+            <widget class="QFrame" name="visualizationCard">
+              <layout class="QVBoxLayout" name="visualizationCardLayout">
+                <property name="leftMargin">
+                  <number>12</number>
+                </property>
+                <property name="topMargin">
+                  <number>12</number>
+                </property>
+                <property name="rightMargin">
+                  <number>12</number>
+                </property>
+                <property name="bottomMargin">
+                  <number>12</number>
+                </property>
+                <item>
+                  <layout class="QHBoxLayout" name="visualizationHeaderLayout">
+                    <item>
+                      <layout class="QVBoxLayout" name="visualizationTitlesLayout">
+                        <item>
+                          <widget class="QLabel" name="visualizationTitleLabel">
+                            <property name="text">
+                              <string>Vue opérationnelle</string>
+                            </property>
+                          </widget>
+                        </item>
+                        <item>
+                          <widget class="QLabel" name="visualizationHelpLabel">
+                            <property name="text">
+                              <string>Gauche : rotation · droit/central : déplacement · molette : zoom</string>
+                            </property>
+                          </widget>
+                        </item>
+                      </layout>
+                    </item>
+                    <item>
+                      <spacer name="visualizationHeaderSpacer">
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                      </spacer>
+                    </item>
+                    <item>
+                        <widget class="QCheckBox" name="surfaceCheckBox">
+                          <property name="text"><string>Surface</string></property>
+                          <property name="checked"><bool>true</bool></property>
+                          <property name="toolTip"><string>Décocher pour afficher le nuage de points</string></property>
+                        </widget>
+                      </item>
+                      <item>
+                        <widget class="QCheckBox" name="pathCheckBox">
+                          <property name="text"><string>Trajectoire</string></property>
+                          <property name="checked"><bool>true</bool></property>
+                        </widget>
+                      </item>
+                      <item>
+                        <widget class="QPushButton" name="fitMapButton">
+                        <property name="text">
+                          <string>Cadrer</string>
+                        </property>
+                        <property name="toolTip">
+                          <string>Afficher toute la carte et reprendre le cadrage automatique</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="topMapButton">
+                        <property name="text">
+                          <string>Vue dessus</string>
+                        </property>
+                        <property name="toolTip">
+                          <string>Observer la carte verticalement</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <widget class="QLabel" name="liveBadgeLabel">
+                        <property name="connected" stdset="0">
+                          <bool>false</bool>
+                        </property>
+                        <property name="text">
+                          <string>EN ATTENTE</string>
+                        </property>
+                      </widget>
+                    </item>
+                  </layout>
+                </item>
+                <item>
+                  <widget class="drone_agricole::ui::TrajectoryView" name="trajectoryView" />
+                </item>
+              </layout>
+            </widget>
+            <widget class="QTabWidget" name="executionBottomTabs">
+              <property name="minimumSize">
+                <size>
+                  <width>0</width>
+                  <height>260</height>
+                </size>
+              </property>
+              <widget class="QWidget" name="liveMetricsTab">
+                <attribute name="title">
+                  <string>Métriques</string>
+                </attribute>
+                <layout class="QHBoxLayout" name="liveMetricsLayout">
+                  <item>
+                    <widget class="drone_agricole::ui::MetricsPlotWidget" name="liveMetricsPlot" />
+                  </item>
+                  <item>
+                    <widget class="QTableWidget" name="liveMetricsTable">
+                      <property name="columnCount">
+                        <number>3</number>
+                      </property>
+                      <property name="rowCount">
+                        <number>0</number>
+                      </property>
+                      <column>
+                        <property name="text">
+                          <string>Métrique</string>
+                        </property>
+                      </column>
+                      <column>
+                        <property name="text">
+                          <string>Valeur</string>
+                        </property>
+                      </column>
+                      <column>
+                        <property name="text">
+                          <string>Unité</string>
+                        </property>
+                      </column>
+                    </widget>
+                  </item>
+                </layout>
+              </widget>
+              <widget class="QWidget" name="logsTab">
+                <attribute name="title">
+                  <string>Journal</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="logsLayout">
+                  <item>
+                    <widget class="QPlainTextEdit" name="logsEdit">
+                      <property name="readOnly">
+                        <bool>true</bool>
+                      </property>
+                      <property name="maximumBlockCount">
+                        <number>5000</number>
+                      </property>
+                    </widget>
+                  </item>
+                </layout>
+              </widget>
+            </widget>
+          </widget>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <customwidgets>
+    <customwidget>
+      <class>drone_agricole::ui::TrajectoryView</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/TrajectoryView.hpp</header>
+      <container>1</container>
+    </customwidget>
+    <customwidget>
+      <class>drone_agricole::ui::MetricsPlotWidget</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/MetricsPlotWidget.hpp</header>
+      <container>1</container>
+    </customwidget>
+  </customwidgets>
+</ui>

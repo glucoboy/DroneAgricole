@@ -1,0 +1,29 @@
+flowchart TB
+ BAT["Batterie 6S"] -->|"W01 : connexion / protection / coupure à définir"| PM["PM08-CAN fixe sur châssis"]
+ PM -->|"W05 : sortie puissance"| DIST["Distribution X650 / protections de départ"]
+ DIST --> ESC["4 ESC"] --> MOT["4 moteurs"]
+ FCU["Pixhawk 6X sur porteuse Holybro"] -->|"consignes moteur"| ESC
+ PM -->|"W06 BEC1 : 5,3V + GND vers POWER1"| FCU
+ PM -.->|"W31 : DroneCAN / CAN1, sans +5V"| FCU
+ PM -->|"W32 BEC2 : 5,3 V + GND vers POWER2"| FCU
+ DIST -->|"départ charge utile"| CARD["CA01 cible : 12 V + 5 V local + synchronisation"]
+ CARD -->|"W09 : 12 V vers XT30"| CPU["Orin NX 16 Go sur porteuse"]
+ CARD -->|"12V LiDAR"| LID["Airy"]
+ CARD -->|"W26 : 5 V local, J301 à adapter"| AUX["Réserve auxiliaire"]
+ RF --- RFANT["Deux antennes RP4TD"]
+ CPU <-->|"USB3 + énergie caméra"| CAM["Basler"]
+ CPU <-->|"Ethernet"| LID
+ CPU <-->|"port local à choisir"| FCU
+ CPU <-->|"M.2"| SSD["SSD"]
+ CPU -.->|"solution à définir"| FAN["Refroidissement"]
+ LID -.->|"SYNC_OUT1 : JP501 ouvert"| CARD
+ CARD -.->|"trigger opto"| CAM
+ CARD -->|"W11 : 5 V local + UART"| RF["RP4TD sur CA01"]
+ RF <-.->|"UART via J402 ; DNP en V0"| FCU
+ RF <-->|"RF commun RC + MAVLink"| POCKET["Pocket / Backpack"]
+ QGC["QGroundControl"] <-->|"Wi-Fi local"| POCKET
+ FCU <-.->|"CAN/UART + alimentation à choisir"| GNSS["GNSS RTK et antenne"]
+ GNSS -.->|"PPS / GPRMC à définir"| LID
+ BASE["Base RTK au sol"] -.->|"RTCM : transport à choisir"| GNSS
+ FCU -.->|"inventaire / ports à définir"| SAFE["Bouton / buzzer / indications éventuels"]
+ NOTE["Cible V0.5 ; CA01 KiCad V0.3 et CAO non migrées. POWER1/POWER2 séparés ; Jetson via XT30."]

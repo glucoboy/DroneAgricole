@@ -1,0 +1,164 @@
+<ui version="4.0">
+  <class>ComparisonPage</class>
+  <widget class="QWidget" name="ComparisonPage">
+    <layout class="QVBoxLayout" name="comparisonLayout" stretch="0,1">
+      <property name="leftMargin">
+        <number>16</number>
+      </property>
+      <property name="topMargin">
+        <number>16</number>
+      </property>
+      <property name="rightMargin">
+        <number>16</number>
+      </property>
+      <property name="bottomMargin">
+        <number>16</number>
+      </property>
+      <property name="spacing">
+        <number>12</number>
+      </property>
+      <item>
+        <widget class="QFrame" name="comparisonHeaderFrame">
+          <layout class="QHBoxLayout" name="comparisonHeaderLayout">
+            <property name="leftMargin">
+              <number>16</number>
+            </property>
+            <property name="topMargin">
+              <number>12</number>
+            </property>
+            <property name="rightMargin">
+              <number>16</number>
+            </property>
+            <property name="bottomMargin">
+              <number>12</number>
+            </property>
+            <item>
+              <layout class="QVBoxLayout" name="comparisonTitleLayout">
+                <item>
+                  <widget class="QLabel" name="comparisonTitleLabel">
+                    <property name="text">
+                      <string>Comparer les exécutions</string>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLabel" name="comparisonStatusLabel">
+                    <property name="text">
+                      <string>Sélectionnez de deux à quatre archives compatibles dans l’historique.</string>
+                    </property>
+                    <property name="wordWrap">
+                      <bool>true</bool>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </item>
+            <item>
+              <spacer name="comparisonHeaderSpacer">
+                <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint">
+                  <size>
+                    <width>40</width>
+                    <height>20</height>
+                  </size>
+                </property>
+              </spacer>
+            </item>
+            <item>
+              <widget class="QPushButton" name="exportReportButton">
+                <property name="text">
+                  <string>Exporter le rapport</string>
+                </property>
+                <property name="enabled">
+                  <bool>false</bool>
+                </property>
+              </widget>
+            </item>
+          </layout>
+        </widget>
+      </item>
+      <item>
+        <widget class="QSplitter" name="comparisonSplitter">
+          <property name="orientation">
+            <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QSplitter" name="comparisonVisualSplitter">
+            <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+            </property>
+            <widget class="drone_agricole::ui::TrajectoryView" name="comparisonTrajectoryView" />
+            <widget class="drone_agricole::ui::MetricsPlotWidget" name="comparisonMetricsPlot" />
+          </widget>
+          <widget class="QTabWidget" name="comparisonDataTabs">
+            <property name="minimumSize">
+              <size>
+                <width>0</width>
+                <height>290</height>
+              </size>
+            </property>
+            <widget class="QWidget" name="comparisonMetricsTab">
+              <attribute name="title">
+                <string>Matrice des métriques</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="comparisonMetricsLayout">
+                <item>
+                  <widget class="QTableWidget" name="comparisonMetricsTable" />
+                </item>
+              </layout>
+            </widget>
+            <widget class="QWidget" name="comparisonParametersTab">
+              <attribute name="title">
+                <string>Paramètres</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="comparisonParametersLayout">
+                <item>
+                  <widget class="QTableWidget" name="comparisonParametersTable" />
+                </item>
+              </layout>
+            </widget>
+            <widget class="QWidget" name="comparisonVersionsTab">
+              <attribute name="title">
+                <string>Versions et sources</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="comparisonVersionsLayout">
+                <item>
+                  <widget class="QTableWidget" name="comparisonVersionsTable" />
+                </item>
+              </layout>
+            </widget>
+            <widget class="QWidget" name="comparisonReportTab">
+              <attribute name="title">
+                <string>Rapport</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="comparisonReportLayout">
+                <item>
+                  <widget class="QPlainTextEdit" name="comparisonReportEdit">
+                    <property name="readOnly">
+                      <bool>true</bool>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </widget>
+          </widget>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <customwidgets>
+    <customwidget>
+      <class>drone_agricole::ui::TrajectoryView</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/TrajectoryView.hpp</header>
+      <container>1</container>
+    </customwidget>
+    <customwidget>
+      <class>drone_agricole::ui::MetricsPlotWidget</class>
+      <extends>QWidget</extends>
+      <header>drone_agricole/ui/MetricsPlotWidget.hpp</header>
+      <container>1</container>
+    </customwidget>
+  </customwidgets>
+</ui>

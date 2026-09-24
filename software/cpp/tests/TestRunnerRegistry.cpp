@@ -4,6 +4,8 @@
 
 #include <QDir>
 #include <QFile>
+#include <QTemporaryDir>
+#include "drone_agricole/core/JsonUtils.hpp"
 
 #include <yaml-cpp/yaml.h>
 
@@ -13,13 +15,48 @@ class TestRunnerRegistry final : public QObject {
   Q_OBJECT
 
  private slots:
+  void registersAnExtensionWithoutChangingDispatcher() {
+    QTemporaryDir workspace;
+    QVERIFY(workspace.isValid());
+    const QDir source(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE));
+    const QDir target(workspace.path());
+    QVERIFY(target.mkpath(QStringLiteral("configs/visualization/schemas")));
+    QVERIFY(target.mkpath(QStringLiteral("configs/visualization/simulations")));
+    const QDir schemas(source.filePath(QStringLiteral("configs/visualization/schemas")));
+    for (const auto& file : schemas.entryList({QStringLiteral("*.json")}, QDir::Files))
+      QVERIFY(QFile::copy(schemas.filePath(file), target.filePath(QStringLiteral("configs/visualization/schemas/") + file)));
+    auto definition = readJsonObject(source.filePath(QStringLiteral("configs/visualization/simulations/px4_offboard.json")));
+    definition.insert(QStringLiteral("simulation_id"), QStringLiteral("extension"));
+    definition.insert(QStringLiteral("domain"), QStringLiteral("new_domain"));
+    auto variant = definition.value(QStringLiteral("variants")).toArray().first().toObject();
+    variant.insert(QStringLiteral("runner_id"), QStringLiteral("extension_runner"));
+    definition.insert(QStringLiteral("variants"), QJsonArray{variant});
+    writeJsonObjectAtomically(target.filePath(QStringLiteral("configs/visualization/simulations/extension.json")), definition);
+    ContractRegistry contracts(workspace.path());
+    contracts.load();
+    RunnerRegistry runners(contracts);
+    bool invoked = false;
+    runners.registerRunner(QStringLiteral("extension_runner"), [&invoked](const RunnerContext& context) {
+      invoked = true;
+      PreparedRun run;
+      run.runId = context.runId;
+      run.runnerId = context.variant.runnerId;
+      return run;
+    });
+    const auto request = contracts.resolveRequest(QStringLiteral("extension"), variant.value(QStringLiteral("variant_id")).toString(), {}, {}, {}, {});
+    const auto run = runners.prepare(request, QStringLiteral("extension-test"));
+    QVERIFY(invoked);
+    QCOMPARE(run.runId, QStringLiteral("extension-test"));
+    QVERIFY_EXCEPTION_THROWN(runners.registerRunner(QStringLiteral("extension_runner"), {}), ContractError);
+  }
   void exposesOnlyApprovedRunners() {
     ContractRegistry contracts(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE));
     contracts.load();
     RunnerRegistry runners(contracts);
     QCOMPARE(runners.approvedRunnerIds(),
              QStringList({QStringLiteral("fast_lio2"), QStringLiteral("point_lio"), QStringLiteral("lio_sam"),
-                          QStringLiteral("px4_square"), QStringLiteral("px4_failsafe")}));
+                          QStringLiteral("px4_square"), QStringLiteral("px4_failsafe"),
+                          QStringLiteral("vineyard_height_density"), QStringLiteral("friulbot_capture_rows")}));
   }
 
   void preparesLockedPx4Client() {
@@ -94,6 +131,59 @@ class TestRunnerRegistry final : public QObject {
       }
       QVERIFY(QFile::remove(absoluteConfig));
     }
+  }
+
+  void preparesVineyardMappingRunner() {
+    ContractRegistry contracts(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE));
+    contracts.load();
+    RunnerRegistry runners(contracts);
+    const auto request = contracts.resolveRequest(
+        QStringLiteral("vineyard_mapping"), QStringLiteral("height_density_v1"), QString{},
+        QStringLiteral("escayard"), QStringLiteral("b7-green"), QJsonObject{});
+    const auto prepared = runners.prepare(
+        request, QStringLiteral("maptest1"),
+        QDateTime::fromString(QStringLiteral("2026-09-06T08:00:00Z"), Qt::ISODate));
+    QCOMPARE(prepared.runnerId, QStringLiteral("vineyard_height_density"));
+    QVERIFY(prepared.program.endsWith(QStringLiteral("drone-agricole-tools")
+#ifdef Q_OS_WIN
+                                          + QStringLiteral(".exe")
+#endif
+                                      ));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("vineyard-map-run")));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("--point-cloud")));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("--reference-trunks")));
+    QVERIFY(!prepared.arguments.contains(QStringLiteral("--trunks")));
+    QVERIFY(!prepared.arguments.contains(QStringLiteral("docker")));
+    QVERIFY(!QFileInfo::exists(prepared.resultDirectory));
+    const auto requestArgument = prepared.arguments.indexOf(QStringLiteral("--request"));
+    QVERIFY(requestArgument >= 0 && requestArgument + 1 < prepared.arguments.size());
+    const auto requestPath = QDir(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE))
+                                 .filePath(prepared.arguments.at(requestArgument + 1));
+    QVERIFY(QFile::remove(requestPath));
+  }
+
+  void preparesFriulBotCaptureRunnerWithStrictTopicAdapter() {
+    ContractRegistry contracts(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE));
+    contracts.load();
+    RunnerRegistry runners(contracts);
+    const auto request = contracts.resolveRequest(
+        QStringLiteral("vineyard_capture_mapping"), QStringLiteral("trigger_rows_v1"), QString{},
+        QStringLiteral("friulbot"), QStringLiteral("test2-2024-07-22-raw"), QJsonObject{});
+    const auto prepared = runners.prepare(
+        request, QStringLiteral("friulmap1"),
+        QDateTime::fromString(QStringLiteral("2026-09-07T08:00:00Z"), Qt::ISODate));
+    QCOMPARE(prepared.runnerId, QStringLiteral("friulbot_capture_rows"));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("friulbot-map-run")));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("--bag")));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("--images")));
+    QVERIFY(prepared.arguments.contains(QStringLiteral("--calibration")));
+    QVERIFY(!prepared.arguments.contains(QStringLiteral("--reference")));
+    QVERIFY(!prepared.arguments.contains(QStringLiteral("--rtk")));
+    const auto requestArgument = prepared.arguments.indexOf(QStringLiteral("--request"));
+    QVERIFY(requestArgument >= 0 && requestArgument + 1 < prepared.arguments.size());
+    const auto requestPath = QDir(QStringLiteral(DRONE_AGRICOLE_TEST_WORKSPACE))
+                                 .filePath(prepared.arguments.at(requestArgument + 1));
+    QVERIFY(QFile::remove(requestPath));
   }
 };
 

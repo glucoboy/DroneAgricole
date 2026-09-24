@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QPolygonF>
+#include <QSet>
 #include <QWheelEvent>
 
 #include <algorithm>
@@ -37,7 +38,7 @@ QColor mix(const QColor& first, const QColor& second, const float ratio, const i
 
 }  // namespace
 
-TrajectoryView::TrajectoryView(QWidget* parent) : QOpenGLWidget(parent) {
+TrajectoryView::TrajectoryView(QWidget* parent) : QWidget(parent) {
   setMinimumSize(460, 340);
   setMouseTracking(true);
   setFocusPolicy(Qt::StrongFocus);
@@ -62,9 +63,40 @@ void TrajectoryView::setPointCloud(QList<QVector3D> points) {
   update();
 }
 
+void TrajectoryView::setCameraProjectedPoints(QList<QVector3D> points, QList<QColor> colors) {
+  cameraPointColors_ = colors.size() == points.size() ? std::move(colors) : QList<QColor>{};
+  cameraProjectedPoints_ = std::move(points);
+  if (automaticFit_ || !cameraInitialized_) {
+    updateAutomaticFit();
+  }
+  update();
+}
+
+void TrajectoryView::setReferencePoints(QList<QVector3D> points) {
+  referencePoints_ = std::move(points);
+  if (automaticFit_ || !cameraInitialized_) {
+    updateAutomaticFit();
+  }
+  update();
+}
+
+void TrajectoryView::setSurface(QList<QVector3D> vertices,QList<std::array<int,3>> triangles,QList<QColor> colors) {
+  for(const auto& t:triangles)for(const auto i:t)if(i<0||i>=vertices.size())return;
+  surfaceVertices_=std::move(vertices);surfaceTriangles_=std::move(triangles);
+  surfaceColors_=colors.size()==surfaceVertices_.size()?std::move(colors):QList<QColor>{};
+  if(automaticFit_) updateAutomaticFit();
+  update();
+}
+void TrajectoryView::setSurfaceVisible(bool visible) {surfaceVisible_=visible;update();}
+void TrajectoryView::setTrajectoriesVisible(bool visible) {trajectoriesVisible_=visible;update();}
+
 void TrajectoryView::clear() {
+  surfaceVertices_.clear();surfaceTriangles_.clear();surfaceColors_.clear();
   series_.clear();
   cloud_.clear();
+  cameraProjectedPoints_.clear();
+  cameraPointColors_.clear();
+  referencePoints_.clear();
   cameraTarget_ = {};
   yawDegrees_ = -45.0F;
   pitchDegrees_ = 48.0F;
@@ -75,6 +107,11 @@ void TrajectoryView::clear() {
 }
 
 qsizetype TrajectoryView::pointCloudSize() const noexcept { return cloud_.size(); }
+
+qsizetype TrajectoryView::cameraProjectedPointCount() const noexcept { return cameraProjectedPoints_.size(); }
+qsizetype TrajectoryView::cameraColorCount() const noexcept { return cameraPointColors_.size(); }
+
+qsizetype TrajectoryView::referencePointCount() const noexcept { return referencePoints_.size(); }
 
 QVector3D TrajectoryView::cameraTarget() const noexcept { return cameraTarget_; }
 
@@ -102,9 +139,19 @@ void TrajectoryView::setTopView() {
   update();
 }
 
-void TrajectoryView::initializeGL() {}
 
-void TrajectoryView::paintGL() {
+
+void TrajectoryView::resizeEvent(QResizeEvent* event) {
+  QWidget::resizeEvent(event);
+  if (automaticFit_) updateAutomaticFit();
+}
+
+void TrajectoryView::showEvent(QShowEvent* event) {
+  QWidget::showEvent(event);
+  if (automaticFit_) updateAutomaticFit();
+}
+
+void TrajectoryView::paintEvent(QPaintEvent*) {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing, true);
   QLinearGradient background(0.0, 0.0, 0.0, height());
@@ -133,8 +180,13 @@ void TrajectoryView::paintGL() {
 
   painter.save();
   painter.setClipRect(plotRect());
-  drawPointCloud(painter, camera, bounds);
-  drawTrajectories(painter, camera);
+  if(surfaceVisible_ && !surfaceTriangles_.isEmpty()) drawSurface(painter,camera);
+  else {
+    drawPointCloud(painter, camera, bounds);
+    drawCameraProjectedPoints(painter, camera);
+  }
+  drawReferencePoints(painter, camera);
+  if(trajectoriesVisible_)drawTrajectories(painter, camera);
   painter.restore();
 
   drawLegend(painter);
@@ -185,7 +237,7 @@ void TrajectoryView::mouseMoveEvent(QMouseEvent* event) {
     event->accept();
     return;
   }
-  QOpenGLWidget::mouseMoveEvent(event);
+  QWidget::mouseMoveEvent(event);
 }
 
 void TrajectoryView::mouseReleaseEvent(QMouseEvent* event) {
@@ -199,7 +251,7 @@ void TrajectoryView::mouseDoubleClickEvent(QMouseEvent* event) {
     event->accept();
     return;
   }
-  QOpenGLWidget::mouseDoubleClickEvent(event);
+  QWidget::mouseDoubleClickEvent(event);
 }
 
 void TrajectoryView::wheelEvent(QWheelEvent* event) {
@@ -259,14 +311,14 @@ void TrajectoryView::keyPressEvent(QKeyEvent* event) {
       update();
       break;
     default:
-      QOpenGLWidget::keyPressEvent(event);
+      QWidget::keyPressEvent(event);
       return;
   }
   event->accept();
 }
 
 bool TrajectoryView::hasContent() const {
-  if (!cloud_.isEmpty()) {
+  if (!cloud_.isEmpty() || !cameraProjectedPoints_.isEmpty() || !referencePoints_.isEmpty() || !surfaceTriangles_.isEmpty()) {
     return true;
   }
   return std::any_of(series_.cbegin(), series_.cend(), [](const auto& value) { return !value.points.isEmpty(); });
@@ -290,7 +342,13 @@ TrajectoryView::Bounds TrajectoryView::dataBounds() const {
     bounds.maximum.setZ(std::max(bounds.maximum.z(), point.z()));
     bounds.valid = true;
   };
-  for (const auto& point : cloud_) {
+  if(surfaceVisible_ && !surfaceTriangles_.isEmpty()) {
+    for(const auto& face:surfaceTriangles_)for(const auto index:face)include(surfaceVertices_[index]);
+  } else {
+    for (const auto& point : cloud_) include(point);
+    for (const auto& point : cameraProjectedPoints_) include(point);
+  }
+  for (const auto& point : referencePoints_) {
     include(point);
   }
   for (const auto& series : series_) {
@@ -462,6 +520,81 @@ void TrajectoryView::drawPointCloud(QPainter& painter, const CameraFrame& camera
   painter.setRenderHint(QPainter::Antialiasing, true);
 }
 
+void TrajectoryView::drawSurface(QPainter& painter,const CameraFrame& camera) const {
+  struct Face {QPolygonF polygon;float depth;QColor color;};
+  QList<ProjectedPoint> projected;projected.reserve(surfaceVertices_.size());
+  for(const auto& p:surfaceVertices_)projected.append(project(p,camera));
+  QList<Face> faces;faces.reserve(surfaceTriangles_.size());
+  const auto light=QVector3D(0.3F,-0.4F,1.0F).normalized();
+  for(const auto& t:surfaceTriangles_) {
+    if(!projected[t[0]].valid||!projected[t[1]].valid||!projected[t[2]].valid)continue;
+    QPolygonF polygon;float depth=0;
+    int r=0,g=0,b=0;
+    for(const auto i:t){polygon.append(projected[i].position);depth+=projected[i].depth;
+      const auto c=surfaceColors_.isEmpty()?QColor(140,165,170):surfaceColors_[i];r+=c.red();g+=c.green();b+=c.blue();}
+    if(!plotRect().intersects(polygon.boundingRect()))continue;
+    const auto normal=QVector3D::crossProduct(surfaceVertices_[t[1]]-surfaceVertices_[t[0]],surfaceVertices_[t[2]]-surfaceVertices_[t[0]]).normalized();
+    const float shade=0.35F+0.65F*std::abs(QVector3D::dotProduct(normal,light));
+    faces.append({polygon,depth/3,QColor(static_cast<int>(r*shade/3),static_cast<int>(g*shade/3),static_cast<int>(b*shade/3))});
+  }
+  std::sort(faces.begin(),faces.end(),[](const auto& a,const auto& b){return a.depth>b.depth;});
+  painter.setRenderHint(QPainter::Antialiasing,false);painter.setPen(Qt::NoPen);
+  for(const auto& face:faces){painter.setBrush(face.color);painter.drawPolygon(face.polygon);}
+  painter.setBrush(Qt::NoBrush);painter.setRenderHint(QPainter::Antialiasing,true);
+}
+
+void TrajectoryView::drawCameraProjectedPoints(QPainter& painter, const CameraFrame& camera) const {
+  if (cameraProjectedPoints_.isEmpty()) {
+    return;
+  }
+  if (!cameraPointColors_.isEmpty()) {
+    QList<std::pair<ProjectedPoint, QColor>> visible;
+    for (qsizetype i = 0; i < cameraProjectedPoints_.size(); ++i) {
+      const auto p = project(cameraProjectedPoints_[i], camera);
+      if (p.valid && plotRect().contains(p.position)) visible.append({p, cameraPointColors_[i]});
+    }
+    std::sort(visible.begin(), visible.end(), [](const auto& a, const auto& b) { return a.first.depth > b.first.depth; });
+    painter.setRenderHint(QPainter::Antialiasing, false);
+    for (const auto& p : visible) {
+      painter.setPen(QPen(p.second, 2.5, Qt::SolidLine, Qt::RoundCap));
+      painter.drawPoint(p.first.position);
+    }
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    return;
+  }
+  QPolygonF projectedPoints;
+  for (const auto& point : cameraProjectedPoints_) {
+    const auto projected = project(point, camera);
+    if (projected.valid && plotRect().adjusted(-4.0, -4.0, 4.0, 4.0).contains(projected.position)) {
+      projectedPoints.append(projected.position);
+    }
+  }
+  painter.setRenderHint(QPainter::Antialiasing, false);
+  painter.setPen(QPen(QColor(5, 12, 7, 190), 4.2, Qt::SolidLine, Qt::RoundCap));
+  painter.drawPoints(projectedPoints);
+  painter.setPen(QPen(QColor(QStringLiteral("#b7ff62")), 2.4, Qt::SolidLine, Qt::RoundCap));
+  painter.drawPoints(projectedPoints);
+  painter.setRenderHint(QPainter::Antialiasing, true);
+}
+
+void TrajectoryView::drawReferencePoints(QPainter& painter, const CameraFrame& camera) const {
+  if (referencePoints_.isEmpty()) {
+    return;
+  }
+  painter.setRenderHint(QPainter::Antialiasing, true);
+  painter.setPen(QPen(QColor(QStringLiteral("#241b05")), 3.8, Qt::SolidLine, Qt::RoundCap));
+  QPolygonF projectedPoints;
+  for (const auto& point : referencePoints_) {
+    const auto projected = project(point, camera);
+    if (projected.valid && plotRect().adjusted(-4.0, -4.0, 4.0, 4.0).contains(projected.position)) {
+      projectedPoints.append(projected.position);
+    }
+  }
+  painter.drawPoints(projectedPoints);
+  painter.setPen(QPen(QColor(QStringLiteral("#ffd166")), 2.2, Qt::SolidLine, Qt::RoundCap));
+  painter.drawPoints(projectedPoints);
+}
+
 void TrajectoryView::drawTrajectories(QPainter& painter, const CameraFrame& camera) const {
   for (const auto& series : series_) {
     if (series.points.isEmpty()) {
@@ -521,13 +654,34 @@ void TrajectoryView::drawTrajectories(QPainter& painter, const CameraFrame& came
 void TrajectoryView::drawLegend(QPainter& painter) const {
   QStringList labels;
   QList<QColor> colors;
-  if (!cloud_.isEmpty()) {
-    labels.append(QStringLiteral("Carte LiDAR · %1 points").arg(cloud_.size()));
+  if (surfaceVisible_ && !surfaceTriangles_.isEmpty()) {
+    labels.append(QStringLiteral("Surface observée · %1 triangles · trous conservés").arg(surfaceTriangles_.size()));
+    colors.append(QColor(150,175,180));
+  } else if (!cloud_.isEmpty()) {
+    labels.append(QStringLiteral("Nuage 3D · %1 points").arg(cloud_.size()));
     colors.append(QColor(QStringLiteral("#72e8dc")));
   }
+  if (!cameraProjectedPoints_.isEmpty()) {
+    labels.append((cameraPointColors_.isEmpty() ? QStringLiteral("Champ caméra · %1 points")
+                                               : QStringLiteral("Couleurs caméra RGB · %1 points (à valider)"))
+                      .arg(cameraProjectedPoints_.size()));
+    colors.append(QColor(QStringLiteral("#b7ff62")));
+  }
+  if (!referencePoints_.isEmpty()) {
+    labels.append(QStringLiteral("Troncs RTK · %1 points").arg(referencePoints_.size()));
+    colors.append(QColor(QStringLiteral("#ffd166")));
+  }
+  QSet<QString> seriesLabels;
   for (const auto& series : series_) {
-    if (!series.points.isEmpty()) {
-      labels.append(QStringLiteral("%1 · %2 poses").arg(series.label).arg(series.points.size()));
+    if (trajectoriesVisible_ && !series.points.isEmpty()) {
+      const auto label = series.legendLabel.isEmpty()
+                             ? QStringLiteral("%1 · %2 poses").arg(series.label).arg(series.points.size())
+                             : series.legendLabel;
+      if (seriesLabels.contains(label)) {
+        continue;
+      }
+      seriesLabels.insert(label);
+      labels.append(label);
       colors.append(series.color);
     }
   }

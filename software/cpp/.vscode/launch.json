@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dashboard Qt 6 — Debug",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/../../build/desktop-debug/software/cpp/drone-agricole-dashboard.exe",
+      "args": ["--workspace", "${workspaceFolder}/../.."],
+      "cwd": "${workspaceFolder}/../..",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        },
+        {
+          "name": "DRONE_AGRICOLE_PX4_RUNNER_URL",
+          "value": "http://127.0.0.1:8091"
+        },
+        {
+          "name": "DRONE_AGRICOLE_TELEMETRY_URL",
+          "value": "http://127.0.0.1:8092"
+        }
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+      "preLaunchTask": "Compiler le dashboard — Debug"
+    },
+    {
+      "name": "Dashboard Qt 6 — Release",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/../../build/desktop-release/software/cpp/drone-agricole-dashboard.exe",
+      "args": ["--workspace", "${workspaceFolder}/../.."],
+      "cwd": "${workspaceFolder}/../..",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+        },
+        {
+          "name": "DRONE_AGRICOLE_PX4_RUNNER_URL",
+          "value": "http://127.0.0.1:8091"
+        },
+        {
+          "name": "DRONE_AGRICOLE_TELEMETRY_URL",
+          "value": "http://127.0.0.1:8092"
+        }
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+      "preLaunchTask": "Compiler le dashboard — Release"
+    }
+  ]
+}

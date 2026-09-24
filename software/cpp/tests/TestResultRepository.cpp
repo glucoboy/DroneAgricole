@@ -21,9 +21,10 @@ class TestResultRepository final : public QObject {
     QCOMPARE(repository.invalidResultCount(), 0);
     const auto localization = repository.search(SearchFilters{QStringLiteral("localization")});
     const auto flight = repository.search(SearchFilters{QStringLiteral("flight_simulation")});
+    const auto mapping = repository.search(SearchFilters{QStringLiteral("mapping")});
     QVERIFY(localization.size() >= 52);
     QVERIFY(flight.size() >= 7);
-    QCOMPARE(repository.totalCount(), localization.size() + flight.size());
+    QCOMPARE(repository.totalCount(), localization.size() + flight.size() + mapping.size());
   }
 
   void opensReferenceResults() {

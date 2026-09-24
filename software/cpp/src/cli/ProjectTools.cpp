@@ -1,4 +1,5 @@
 #include "drone_agricole/core/BenchmarkSupport.hpp"
+#include "drone_agricole/composition/StationCommand.hpp"
 #include "drone_agricole/core/DatasetAdapter.hpp"
 #include "drone_agricole/core/JsonUtils.hpp"
 #include "drone_agricole/core/LioOrchestrator.hpp"
@@ -7,6 +8,8 @@
 #include "drone_agricole/core/RosbagTrajectoryReader.hpp"
 #include "drone_agricole/core/RosRuntimeTools.hpp"
 #include "drone_agricole/core/TelemetryBridge.hpp"
+#include "drone_agricole/core/VineyardMap.hpp"
+#include "drone_agricole/core/FriulBotMap.hpp"
 
 #include <QCoreApplication>
 #include <QDir>
@@ -80,6 +83,7 @@ void printHelp() {
   QTextStream stream(stdout);
   stream << "drone-agricole-tools — outils C++17 du projet\n\n"
             "Commandes disponibles :\n"
+            "  station-run         Exécute une requête T0 avec les mêmes services que la station\n"
             "  summarize-run       Génère run_manifest.json\n"
             "  summarize-sensitivity Agrège une étude de sensibilité\n"
             "  summarize-campaign  Agrège les répétitions d'une campagne\n"
@@ -92,7 +96,11 @@ void printHelp() {
             "  telemetry-server    Expose la télémétrie ROS 2 au dashboard Qt\n"
             "  inspect             Inspecte un ou plusieurs rosbags ROS 1\n"
             "  export-tum          Exporte /gt_poses au format TUM\n"
-            "  prepare             Prépare un sous-ensemble BotanicGarden (construction ROS 2)\n";
+            "  prepare             Prépare un sous-ensemble BotanicGarden (construction ROS 2)\n"
+            "  friulbot-prepare    Isole LiDAR/IMU/captures et RTK d'évaluation dans un MCAP ROS 2\n";
+  stream << "  vineyard-map-run    Détecte les rangs et produit une carte EscaYard rechargeable\n";
+  stream << "  friulbot-inspect    Contrôle les topics, scans et images brutes FriûlBot\n"
+            "  friulbot-map-run    Détecte les rangs locaux d'un déclenchement LiDAR–caméra\n";
 }
 
 }  // namespace
@@ -110,7 +118,9 @@ int main(int argc, char* argv[]) {
   const auto positional = options.value(QStringLiteral("positional")).toArray();
   try {
     using namespace drone_agricole::core;
-    if (command == QStringLiteral("summarize-run")) {
+    if (command == QStringLiteral("station-run")) {
+      return drone_agricole::composition::runStationCommand(options);
+    } else if (command == QStringLiteral("summarize-run")) {
       summarizeRun(options);
       printFile(options.value(QStringLiteral("output")).toString());
     } else if (command == QStringLiteral("summarize-sensitivity")) {
@@ -223,6 +233,22 @@ int main(int argc, char* argv[]) {
       QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
     } else if (command == QStringLiteral("prepare")) {
       const auto result = prepareBotanicGarden(options);
+      QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
+    } else if (command == QStringLiteral("friulbot-prepare")) {
+      const auto result = prepareFriulBot(options);
+      QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
+    } else if (command == QStringLiteral("vineyard-map-run")) {
+      const auto result = runVineyardMapping(options);
+      QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
+    } else if (command == QStringLiteral("friulbot-inspect")) {
+      const auto result = inspectFriulBot(options);
+      const auto output = options.value(QStringLiteral("output")).toString();
+      if (!output.isEmpty()) {
+        writeJsonObjectAtomically(output, result);
+      }
+      QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
+    } else if (command == QStringLiteral("friulbot-map-run")) {
+      const auto result = runFriulBotCaptureMapping(options);
       QTextStream(stdout) << QJsonDocument(result).toJson(QJsonDocument::Indented);
     } else {
       throw ContractError(QStringLiteral("Commande inconnue ou indisponible dans cette construction : %1").arg(command));

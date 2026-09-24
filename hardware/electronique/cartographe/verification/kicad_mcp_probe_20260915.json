@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "id": "KICAD-MCP-PROBE-20260915",
+  "created_utc": "2026-09-15T20:04:11.8016310Z",
+  "statut": "Implémenté",
+  "conclusion": "préliminaire",
+  "scope": "Disponibilité locale des outils KiCad pour une éventuelle carte auxiliaire du cartographe ; aucune carte du drone créée ni qualifiée",
+  "environment": {
+    "backend": "swig",
+    "os": "Windows",
+    "node": "v24.20.0",
+    "kicad": "10.0.6",
+    "realtime": false,
+    "architecture": "amd64",
+    "python": "3.11.5"
+  },
+  "source": {
+    "local_adaptations": [
+      "KICAD_MCP_HOME pour conserver journaux et caches dans le workspace",
+      "Ajout explicite de python-deps dans sys.path, car Python KiCad ne reprend pas PYTHONPATH dans le chemin effectif observé"
+    ],
+    "commit": "ac716d1a8bfad325b4aa93a398222645b3f78fd7",
+    "version": "2.7.0",
+    "url": "https://github.com/mixelpixx/KiCAD-MCP-Server",
+    "clone": ".runtime/kicad-mcp",
+    "license": "MIT"
+  },
+  "tests": [
+    {
+      "name": "Import pcbnew",
+      "result": "conforme",
+      "value": "10.0.6"
+    },
+    {
+      "name": "Compilation TypeScript",
+      "result": "conforme",
+      "exit_code": 0
+    },
+    {
+      "name": "MCP tools/list",
+      "result": "conforme",
+      "tool_count": 233
+    },
+    {
+      "name": "MCP create_project",
+      "result": "conforme",
+      "success": true
+    },
+    {
+      "name": "MCP get_board_info",
+      "result": "conforme",
+      "success": true
+    },
+    {
+      "name": "CLI sch export netlist du schéma factice",
+      "result": "conforme",
+      "exit_code": 0
+    }
+  ],
+  "prior_failure": {
+    "symptom": "ModuleNotFoundError: sexpdata",
+    "resolution": "Chargement explicite des dépendances Python locales ; nouveau test réussi"
+  },
+  "limits": [
+    "Test de fumée sur un projet vide, sans ERC/DRC de circuit fonctionnel",
+    "Aucune carte avionique du drone ni Gerber de fabrication produit",
+    "Pas de qualification électrique, thermique, CEM, vibration ou vol",
+    "Configuration globale Codex et installation KiCad non modifiées",
+    "Reproductibilité dépend du cache local et des adaptations mentionnées",
+    "Avertissements npm conservés ; audit sécurité complet et usage serveur réseau non réalisés"
+  ],
+  "dependency_audit": {
+    "raw": ".runtime/kicad-mcp/local-npm-audit.json",
+    "scope": "production",
+    "transport_tested": "STDIO local",
+    "counts": {
+      "info": 0,
+      "low": 1,
+      "moderate": 2,
+      "high": 3,
+      "critical": 0,
+      "total": 6
+    }
+  },
+  "reproduction": {
+    "mcp_probe": "node local-probe.mjs",
+    "cwd": ".runtime/kicad-mcp",
+    "netlist": "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe sch export netlist --output probe/probe.net probe/probe.kicad_sch"
+  },
+  "artifacts": [
+    {
+      "sha256": "fa288171d3f5e793e80860ffa099b75937cde6d54089bbfc422cc5196c70d82a",
+      "path": ".runtime/kicad-mcp/local-probe.mjs"
+    },
+    {
+      "sha256": "90d6af2433942faec7c4e3eb4543fc67f42c16185930f4cfb644093707e702e3",
+      "path": ".runtime/kicad-mcp/local-probe-result.json"
+    },
+    {
+      "sha256": "13db526f4057332e69751131a36f4f185768a5cdd8440eb50141c26f0a04e4dc",
+      "path": ".runtime/kicad-mcp/local-tool-schemas.json"
+    },
+    {
+      "sha256": "41474a61ed21a469fd4120f695dccc817243e2771220c6cb51a2cc984cc020b2",
+      "path": ".runtime/kicad-mcp/package-lock.json"
+    },
+    {
+      "sha256": "9ecd4c5e47994121003690bcb5ab9e1c0a7e42d43af9426b705d0348753ff0cb",
+      "path": ".runtime/kicad-mcp/python/kicad_interface.py"
+    },
+    {
+      "sha256": "fe63102276cae333188b75d6904be10895015302e0235c75b852ada800e2ba0e",
+      "path": ".runtime/kicad-mcp/python/utils/platform_helper.py"
+    },
+    {
+      "sha256": "e5ec3903cc7940c6b2a325483a677aba91620ecb4a3f2e01d93595f97cf92c52",
+      "path": ".runtime/kicad-mcp/src/logger.ts"
+    },
+    {
+      "sha256": "f2783f79ec041cce76e42fc28f012f559785a8bb83a0c24c4e78c4931a0e8845",
+      "path": ".runtime/kicad-mcp/probe/probe.kicad_pro"
+    },
+    {
+      "sha256": "186d5f74929b5dfb56ab98dfe9df4d0bfd31d83fd5e902285f47492bf57a76c6",
+      "path": ".runtime/kicad-mcp/probe/probe.kicad_pcb"
+    },
+    {
+      "sha256": "d693cf779ae05b63a0e656ec3d71fb49d8e201fa19a38d250f88cd62d766aa52",
+      "path": ".runtime/kicad-mcp/probe/probe.kicad_sch"
+    },
+    {
+      "sha256": "68f7bbe18734b58392ab3d1d361c8804eb9a8f1cf96cfb506a54680b6627cf71",
+      "path": ".runtime/kicad-mcp/probe/probe.net"
+    }
+  ]
+}
