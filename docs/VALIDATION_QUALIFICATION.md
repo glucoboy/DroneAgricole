@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 24 septembre 2026 |
+| Dernière mise à jour | 1 octobre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -266,10 +266,16 @@ réseau, les sauts d'horloge et le redémarrage d'un nœud restent **À valider*
 ### 9.1 AUTO/MANU, couverture et RF commun — campagne planifiée
 
 Les clarifications du 16 septembre 2026 dans DOC-HLD §4.2/4.6/4.7 et la
-présélection DOC-ELEC §7.4 sont **Planifiées / À valider**. La recherche
-documentaire établit des capacités annoncées et une architecture candidate ;
-aucun essai de cette liaison n'a été exécuté. Les résultats Offboard du §9
-ne qualifient ni la poursuite AUTO après perte RC/GCS, ni la commande MAVLink.
+liaison DOC-ELEC §7.4 ont le statut **Planifié / À valider**. La base
+Holybro H-RTK F9P (SKU 12022) reste retenue au sol. Le Rover DroneCAN
+à antenne patch sélectionné le 24 septembre est réévalué pour la
+synchronisation : la variante Helical DroneCAN STM32G4, avec sortie PPS
+candidate, est **À valider** avant de figer le module embarqué. Le transport
+des corrections par la RF commune Pocket/Backpack/RP4TD est candidat :
+la base USB/QGroundControl fournit les messages MAVLink 2 GPS_RTCM_DATA,
+qui doivent parvenir au rover via PX4. Aucun essai de cette chaîne n'a été
+exécuté. Les résultats Offboard du §9 ne qualifient ni la poursuite AUTO
+après perte RC/GCS, ni la commande MAVLink, ni le transit RTCM.
 
 | Test | Exigences / composants | Protocole et résultat attendu |
 |---|---|---|
@@ -277,8 +283,9 @@ ne qualifient ni la poursuite AUTO après perte RC/GCS, ni la commande MAVLink.
 | `T-RF-01` | `SYS-FUN-008/009`, `ELEC-LNK-002` ; Pocket, RP4TD, PX4, QGC | banc sans hélices : voies/modes correctement reçus, aller-retour MAVLink et accusés mission/paramètres ; fermer QGC puis couper le Wi-Fi local : commande physique maintenue et état sol signalé indisponible |
 | `T-RF-02` | `SYS-FUN-007`, `SAFE-REQ-010`, `ELEC-LNK-001` ; mission embarquée et PX4 | SITL puis banc : couper séparément RC, QGC et RF commun en AUTO ; mission continue sous gardes valides ; injecter ensuite navigation/énergie invalide ou perte Offboard et constater la réaction spécifique, prioritaire |
 | `T-RF-03` | `SYS-FUN-008`, `SAFE-REQ-010` ; sélection d'autorité | SITL puis banc : perte RC en MANU, commandes périmées, reconnexion avec interrupteurs déplacés ; repli attendu, aucun réarmement/changement d'autorité par reconnexion seule, retour AUTO explicite ; traitement inhibé à la reprise MANU |
-| `T-RF-04` | `SYS-FUN-009`, `ELEC-LNK-001/002` ; transport et arbitrage | saturer les échanges mission/paramètres pendant la commande et les alarmes ; mesurer latence, fraîcheur, pertes, files et équité ; tester doublons, identifiants, heartbeats du RX/QGC, absence du vrai GCS et commandes contradictoires ; RTCM seulement s'il est alloué à ce lien |
+| `T-RF-04` | `SYS-FUN-009`, `ELEC-LNK-001/002` ; transport et arbitrage | saturer les échanges mission/paramètres pendant la commande et les alarmes ; mesurer latence, fraîcheur, pertes, files et équité ; tester doublons, identifiants, heartbeats du RX/QGC, absence du vrai GCS et commandes contradictoires ; RTCM actif selon T-RF-06 |
 | `T-RF-05` | `ELEC-LNK-001/002`, `ELEC-EMC-001` ; matériel et implantation | banc alimentation/CEM puis progression terrain : courant moyen/pointe, chute de rail, température, orientations, masques du châssis, perturbations propulsion ; relever la couverture aux positions opérateur/drone représentatives de Cornas, sans déduire la portée de 5 ha |
+| `T-RF-06` | `SW-RTK-001`, `SYS-FUN-009`, `ELEC-LNK-001/002/003` ; H-RTK F9P Base et rover DroneCAN à figer après étude temporelle, QGroundControl, Pocket/Backpack, RP4TD et PX4 | banc sans hélices puis terrain : mesurer le débit réel RTCM/MAVLink 2 de la base avec constellations et messages configurés ; faire transiter simultanément RTCM continu, commandes ponctuelles avec acquittement, voies RC et télémétrie PX4 essentielle ; comparer 333 Hz Full et 250 Hz EU-LBT, puis dégrader la RF et charger missions/paramètres hors phase critique. Relever occupation montée/descente, perte/retard et âge des corrections, état RTK float/fix, latence/erreurs de commandes, fraîcheur de télémétrie, files/overflow Backpack et réaction PX4 à la perte des corrections. Aucun succès si la commande RC ou les alarmes critiques deviennent indisponibles ; seuils chiffrés de marge, âge, latence et disponibilité à approuver avant exécution |
 
 Avant exécution, figer versions PX4/ELRS/Backpack/QGC/EdgeTX, matériel,
 paramètres, domaine RF et antennes, fichiers mission, modes utilisés et
@@ -292,6 +299,20 @@ Les preuves attendues sont les paramètres exportés, journaux PX4/compagnon,
 traces MAVLink et transitions d'autorité, statistiques radio/Backpack,
 mesures électriques et positions/conditions terrain. Les simulations
 utilisent les artefacts T0 ; le banc ajoute ses références instrumentales.
+
+La capacité annoncée par ExpressLRS à 333 Hz Full est d'environ 735 octets/s
+montants avec RC et 1470 descendants ; à 250 Hz, la montée n'est que d'environ
+300 octets/s. La référence PX4 d'environ 300 octets/s pour RTCM/MAVLink 2
+est indicative et ne mesure pas la base F9P multi-constellation retenue. Ces
+valeurs ne suffisent pas à déclarer la RF commune apte : les retransmissions,
+le profil EU-LBT, les défauts et l'âge des corrections doivent être mesurés.
+Les commandes de déplacement testées ici sont ponctuelles ; les consignes
+Offboard dynamiques sont produites localement par le Jetson et sa perte est
+testée séparément. Sources :
+[ExpressLRS MAVLink](https://www.expresslrs.org/software/mavlink/),
+[PX4 RTK](https://docs.px4.io/main/en/advanced/rtk_gps) et
+[PX4 Offboard](https://docs.px4.io/main/en/flight_modes/offboard).
+
 Les délais de réaction et marges radio ne sont pas encore approuvés :
 aucune qualification possible avant leur fixation. Aucun paramètre réel
 n'est modifié par cette mise à jour documentaire.
@@ -490,15 +511,15 @@ surcourant, échauffement hors limites ou reset du domaine vol.
 | `T-CA01-01 / CARTE-001` | revue schéma/netlist puis inspection du faisceau : aucun chemin propulsion ; mesure globale identifiée | netlist partielle vérifiée ; faisceau et mesure globale **À valider** |
 | `T-CA01-02 / CARTE-002` | défauts limités sur chaque départ charge utile : aucun reset Pixhawk ; si le 5 V radio CA01 est perdu, perte RC détectée et repli PX4 sûr | non exécuté ; critère cible V0.5 |
 | `T-CA01-03 / CARTE-003` | rampes 6S, inversion contrôlée, appel et transitoires selon enveloppe approuvée : protections et seuils respectés | protections et protocole détaillé **À valider** |
-| `T-CA01-04 / CARTE-004` | charges statiques/dynamiques 12 V calcul vers XT30 Holybro, puis Orin NX/USB/SSD : stabilité, polarité, limite porteuse et thermique respectées | non exécuté ; buck au stade bloc |
+| `T-CA01-04 / CARTE-004` | charges statiques/dynamiques 12 V calcul vers XT30 Holybro, puis Orin NX/USB/SSD : stabilité, polarité, limite porteuse et thermique respectées | non exécuté ; LM5146 réel candidat depuis30/09, boucle/Ceff/charges à valider |
 | `T-CA01-05 / CARTE-005` | source 12 V capable d'au moins 2 A, démarrages et acquisition Airy à chaud : aucun reset | non exécuté |
-| `T-CA01-06 / CARTE-006` | 5 V local CA01, charges radio/auxiliaires, défauts et séquences : budgets fermés, plages respectées, aucun retour vers POWER1/2 | netlist V0.3 historique ; banc V0.5 non exécuté |
+| `T-CA01-06 / CARTE-006` | 5 V local CA01, charges radio/auxiliaires, défauts et séquences : budgets fermés, plages respectées, aucun retour vers POWER1/2 | V0.5-pre : F102 entre 5V_AUX et 5V_RADIO vérifié en netlist ; budgets et banc **À valider** |
 | `T-CA01-07 / CARTE-007` | révisions PM/porteuse et faisceau identifiés ; BEC1→POWER1, BEC2→POWER2, CAN1 distinct ; budgets ≤3 A chacun, bascule et calibration PX4 conformes | schéma V0.3 historique ; matériel V0.5 non exécuté |
-| `T-CA01-08 / CARTE-008` | mesurer UART et état hors tension avant de monter R401/R402 ; essais RC/QGC avec Jetson arrêté, puis `T-RF-01..05` | DNP vérifié ; banc et RF non exécutés |
-| `T-CA01-09 / CARTE-009` | oscilloscope Airy à vide/chargé, adaptation puis courant opto Basler et association impulsion/image : niveaux, polarité et temps conformes | chaîne schématique vérifiée ; JP501 ouvert ; banc non exécuté |
+| `T-CA01-08 / CARTE-008` | mesurer UART et état hors tension avant de monter R401/R402 ; essais RC/QGC avec Jetson arrêté, puis `T-RF-01..06` | DNP vérifié ; banc et RF non exécutés |
+| `T-CA01-09 / CARTE-009`, `ELEC-TIM-001` | qualifier CA01 : W36 GNSS→CA01 sans retour +5 V, W23/W24 PPS/GPRMC tamponnés vers Airy/Orin, référenceIO J509, adaptation AUX Pixhawk vers opto Basler Line1, retour réel ExposureActive Line2 vers FMU_CAP1, niveaux et isolement ; suivre `T-AIRY-SYNC-01` (§12.8) | schéma physique temps/trigger/capture candidat Implémenté ; sortiesR530–R533DNP, niveauxOEM/référenceIO et banc À valider ; recette§12.7.2 |
 | `T-CA01-10 / CARTE-010` | CAO avec porteuse Holybro/Orin NX/PM08/CA01 et vrais connecteurs puis montage SA03/SA04 : accès, fixations, isolation et thermique conformes | non exécuté ; ancienne CAO conservée |
 | `T-CA01-11 / CARTE-011` | charges simultanées, thermique, bruit et CEM puis progression moteurs autorisée : marges et capteurs conformes | non exécuté |
-| `T-CA01-12 / CARTE-012` | sources, BOM, empreintes, netlist, ERC puis DRC : aucune valeur ouverte et revue complète avant fabrication | structure relue ; 3 erreurs ERC, valeurs et PCB ouverts ; **non conforme pour fabrication** |
+| `T-CA01-12 / CARTE-012` | sources, BOM, empreintes, netlist, ERC puis DRC : aucune valeur ouverte et revue complète avant fabrication | V0.5-pre depuis30/09 : 221 invariants selon preuve régénérée ; GNSS en composants physiques candidats, interfacesOEM/empreintes/BOM/PCB incomplets ; **non conforme pour fabrication** |
 
 Aucun essai de charge, thermique, RF, synchronisation sur capteurs, simulation
 électrique, DRC de carte routée ou vol réalisé : composants et protections
@@ -671,23 +692,346 @@ chiffrés, marges et limites d'injection de défaut restent **À valider**.
 Chaque essai conservera configuration, empreintes, mesures, traces PX4/CAN,
 oscillogrammes, températures et anomalies dans une preuve technique liée à la
 révision réellement essayée. Le [contrôle documentaire V0.5](../hardware/electronique/cartographe/verification/cablage_global_v05_20260924.json)
-vérifie le registre, le diagramme et la netlist historique, sans valider le
+vérifie le registre, le diagramme et la netlist CA01 V0.5-pre, sans valider le
 faisceau ni le matériel. Aucune preuve V0.4 ne vaut résultat V0.5.
 
 | Exigence / essai V0.5 | Protocole et critère de sortie à approuver | État |
 |---|---|---|
 | CAB-CARTO-001, CARTE-007 / T-PM-V05-01 | Continuité et isolement hors tension, contact par contact : BEC1 +5,3 V/GND vers POWER1, BEC2 +5,3 V/GND vers POWER2, CAN-H/L et masse vers CAN1 ; aucun CAN sur SCL/SDA des POWER, aucune injection sur le +5 V sortie de CAN1, aucun pont externe entre BEC. Vérifier orientation, détrompage, sertissages et terminaisons sur les révisions réelles. | **Planifié / À valider** ; faisceau non vérifié |
 | CARTE-002/007 / T-PM-V05-02 | Source limitée, BEC1 seul, BEC2 seul puis simultanés ; couper chaque BEC à tour de rôle et mesurer tensions, transitoires, états PX4 et resets. Critère : Pixhawk maintenu dans l'enveloppe approuvée après perte d'un seul BEC, sans réalimentation de la sortie perdue. Mesurer aussi disponibilité du GNSS et des capteurs de vol essentiels ; toute perte doit être détectée et conduire au repli PX4 défini. La radio doit rester alimentée depuis CA01 lors d'une coupure isolée de BEC1 ou BEC2 ; les défauts communs sont traités séparément. | **Planifié / À valider** ; bascule et radio non essayées |
-| CARTE-006, ELEC-PWR-001 / T-PM-V05-03 | CA01 avec 5 V local protégé : charges auxiliaires et synchronisation, séquences de marche/arrêt, court-circuit et défaut du convertisseur sous limites approuvées. Critère : rails 5 V/3,3 V et température conformes en régime sain, aucun retour vers les BEC ni reset Pixhawk sous défaut ; perte radio détectée et repli PX4 sûr si le 5 V CA01 disparaît ; schéma, netlist, ERC et DRC revus avant fabrication. | **Planifié / À valider** ; source CA01 et migration KiCad ouvertes |
+| CARTE-006, ELEC-PWR-001 / T-PM-V05-03 | CA01 avec 5 V local protégé : charges auxiliaires et synchronisation, séquences de marche/arrêt, court-circuit et défaut du convertisseur sous limites approuvées. Critère : rails 5 V/3,3 V et température conformes en régime sain, aucun retour vers les BEC ni reset Pixhawk sous défaut ; perte radio détectée et repli PX4 sûr si le 5 V CA01 disparaît ; schéma, netlist, ERC et DRC revus avant fabrication. | **Planifié / À valider** ; schéma V0.5-pre, circuits candidats dimensionnés ; protections, PCB et banc à fermer |
 | CARTE-004, ELEC-PWR-001 / T-PM-V05-04 | Rail 12 V candidat vers XT30 : vérifier polarité et plage d'entrée de la baseboard réelle, appel et charges Jetson Orin NX 16 Go, SSD, ventilation et USB/caméra ; arrêter puis mettre en défaut le rail calcul sous limites approuvées. Critère : tensions et températures conformes et aucun reset Pixhawk. | **Planifié / À valider** ; spécification du kit développeur Orin Nano non transférable |
 | CARTE-007 / T-PM-V05-05 | Vérifier topologie, terminaisons, configuration DroneCAN/PX4 et mesure tension/courant contre référence ; étudier d'abord en SITL la réaction à la perte CAN, puis reproduire celle-ci au banc. Critère : mesure dans la tolérance approuvée, perte signalée et comportement PX4 sûr. | **Planifié / À valider** ; aucun paramètre réel ni essai V0.5 |
 | ELEC-PWR-002, CARTE-011 / T-PM-V05-06 | Fermer budgets de chaque BEC (3 A annoncés par port), du 5 V CA01, du 12 V Jetson et du chemin batterie ; mesurer charges permanentes, pointes, chutes et températures des modules, câbles, connecteurs et support, séparément puis simultanément. Critère : profil mission et marges approuvées respectés sans dépasser les limites fabricant. | **Planifié / À valider** ; profils et marges non fixés |
+| CAB-CARTO-001, ELEC-PWR-002, CARTE-003/010/011 / T-PDB-V05-01 | Sur la PDB Holybro 300 A top-entry candidate, relever référence/révision et schéma des ports, puis vérifier hors tension la chaîne batterie → PM08-CAN → PDB → XT30 W08 → protection de branche au plus près du port → J103 CA01, continuité, isolement, polarité et détrompage du connecteur XT30 candidat de W08, section/sertissage et absence de contournement du PM. Minimiser et justifier le segment PDB/XT30 en amont de la protection, exposé au courant de défaut batterie. Sous alimentation limitée et charge représentative, mesurer courant permanent/appel, chute de tension, transitoires et températures au port, au câble et à la protection ; injecter les défauts admissibles selon procédure approuvée. Vérifier fixation, isolation, accès, rayon de courbure et retenue du faisceau. Critère : profil et limites fabricant approuvés respectés, sans reset du domaine vol ni réalimentation indésirable ; le marquage « 300 A » de la PDB ne qualifie ni W08 ni XT30. | **Planifié / À valider** ; ports, calibre/protection, implantation et charges non figés ; aucun banc |
 
 Continuité et isolement précèdent toute mise sous tension. Les réactions
 logicielles aux défauts sont d'abord étudiées en simulation/PX4 SITL, puis
 les défauts sont injectés sur banc sans hélices avec limitation de courant,
 coupure manuelle accessible et procédure approuvée. Ces étapes ne qualifient
 pas le vol. **Aucun essai V0.5 n'a été exécuté.** Conclusion : **À valider**.
+
+La reprise **historique avant dimensionnement** du schéma KiCad CA01 **V0.5-pre** (Windows amd64, KiCad
+10.0.6) est une preuve statique supplémentaire :
+[22 invariants et ERC avant dimensionnement](../hardware/electronique/cartographe/carte_avionique/verification/controle_statique_avant_dimensionnement_20260929.json),
+53 composants, 51 réseaux, 4 erreurs ERC et aucun avertissement.
+J101/5V2_FLIGHT est retiré ; le 5 V radio local passe par F102 ; J503
+laisse le +5 V UART2 GNSS non raccordé ; PPS/GPRMC, AUX1 et retour CAP1
+ont des nets distincts ; J501/JP501 restent DNP. Le BIAS des deux
+LM76003 est repris vers VOUT par R/C candidats suivant TI. Les erreurs
+ERC sur U201 PVIN/AGND/BIAS et U301 BIAS ne sont pas masquées.
+U101/U102/U503–U509 et les empreintes/protections restent incomplets.
+La reprise du 29 septembre conserve la topologie des retouches utilisateur :
+les fils remplacent les labels locaux répétés dans les circuits 12 V et
+de synchronisation, sans pont entre PPS, GPRMC, trigger et exposition.
+Les contrôles acceptent les noms de réseaux internes automatiques et les
+résistances retournées ; les deux diviseurs FB sont désormais contrôlés.
+Bootstrap, découplages VCC/BIAS et résistances de feedback reçoivent des
+valeurs candidates documentées dans DOC-ELEC §4.2.6. Ces calculs nominaux
+ne constituent ni une simulation de stabilité ni une mesure de régulation.
+La [preuve de reprise compacte](../hardware/electronique/cartographe/carte_avionique/verification/reprise_compacte_20260929.json)
+conserve les empreintes des netlists de référence et finale, les différences
+de valeurs et le résultat de comparaison : 53 composants et 51 réseaux
+inchangés, aucune différence de connexion, DNP et propriétés protégées conservés.
+La skill HW Design schématique est validée avec le validateur de skill
+et ses métadonnées YAML sont vérifiées.
+Le contrôle du câblage global passe également : 21 modules, 34 liaisons,
+26 broches CA01 concordantes, aucun endpoint inconnu et diagramme conforme
+à DOC-ELEC.
+La revue indépendante n'a trouvé aucun défaut de connectivité critique ;
+elle ne qualifie pas les valeurs ni le comportement. Le PCB est vide,
+aucun essai sous tension ni de synchronisation n'a été réalisé. L'état
+demeure **À valider** et **non fabricable**.
+
+### 12.7.1 Dimensionnement CA01, 29–30 septembre 2026
+
+Périmètre : CARTE-003/004/005/006/009/012 ; circuits énergie, régulation et
+trigger/capture du schéma. Résultat **Implémenté / matériel À valider**.
+Hypothèses, calculs, références et limites : DOC-ELEC §4.2.6–4.2.7 ;
+[dimensionnement](../hardware/electronique/cartographe/carte_avionique/dimensionnement.json),
+[BOM candidate](../hardware/electronique/cartographe/carte_avionique/bom_candidate.json),
+[sources et SHA256](../hardware/electronique/cartographe/sources_fabricants/manifest_sources.json).
+
+| Validation exécutée | Critère / résultat | Limite |
+|---|---|---|
+| Netlist KiCad10.0.6 Windowsamd64 | 151 composants, 111 réseaux, 221 contrôles de broches/DNP conformes ; [recette et preuve](../hardware/electronique/cartographe/carte_avionique/verification/controle_statique.json) | pas simulation des composants |
+| ERC neuf | 0erreur/0avertissement suivant configuration consignée ; sources physiques déclarées à travers passifs | contrôles ignorés listés dans rapport ; aucune qualification empreinte/protection |
+| Reproduction analytique | 44 contrôles : eq.TI23/24/Cff, Icrête/limiteHS, Cmin/ESR, feedback, budget d'entrée, LDO/trigger et interfaces temps ; [preuve](../hardware/electronique/cartographe/carte_avionique/verification/calculs_reproduits.json) | hypothèses Ceff/L, niveauxOEM, seuilsSchmitt, température et régime PWM ; pas Bode ou simulation transitoire |
+| [Revue indépendante du dimensionnement initial](../hardware/electronique/cartographe/carte_avionique/verification/dimensionnement_revue_20260930.json) | pinmaps TI/Nexperia, polarités, masses, NC/DNP et rendus relus ; bootstrapC111 corrigé, shunt2512/0,5%1W, C103Ceff≥100nF, OV ajustée au réarmement25,2V, F501 réinclus enBOM | revue initiale : ne vaut pas revue finale du lottemps§12.7.2 ; TVS/SOA, empreinteTIQ5A et charge réelle ouvertes |
+| Documentation de sources | 29 PDF selon le [contrôle des sources](../hardware/electronique/cartographe/carte_avionique/verification/sources_controle_20260930.json) ; provenance URL/miroir/fichier fourni et empreintes consignées dans le manifeste | variantes réelles OEM et courbesDCbias à vérifier |
+
+Recettes : lancer verify_ca01.ps1 puis verify_dimensionnement.py dans
+carte_avionique/verification, et verify_cablage.ps1 pour le registre global.
+La preuve de reprise compacte précédente conserve les netlists historiques,
+elle n'est pas la preuve du schéma dimensionné actuel.
+
+**Non exécutés :** simulation/Bode, PCB/DRC, mesure des consommations et
+transitoires, SOA/sélectivité, thermique/CEM, essais hors tension de toutes
+les cibles, banc rails/défauts, synchronisation etRF. Raisons : niveaux
+GNSS/Airy et enveloppes réelles ouverts, protectionTVS absente, PCB vide
+et carte non assemblée. Pas de compilation logicielle : lot schématique,
+documentaire et vérification d'infrastructure uniquement. Aucun niveau
+supérieur d'essai n'est validé par ces résultats. **Non fabricable.**
+
+### 12.7.2 Réalisation physique candidate des interfaces temps, 30 septembre 2026
+
+Chaîne : `ELEC-TIM-001 / CARTE-009` → feuille
+`05_synchronisation.kicad_sch` → `T-CA01-09 / T-AIRY-SYNC-01` → preuves
+statiques ci-dessous, puis banc §12.8. Les circuits temps sont **Implémentés**
+dans le schéma ; leurs valeurs, interfaces OEM et matériel restent **À valider**.
+R530–R533 sont DNP et `manufacturing_ready=false` : aucun raccordement
+au drone ni qualification matérielle n'est acquis.
+
+La méthode de contrôle est de régénérer la
+[netlist](../hardware/electronique/cartographe/carte_avionique/verification/netlist.xml),
+l'[ERC](../hardware/electronique/cartographe/carte_avionique/verification/erc.json)
+et le [contrôle de broches/DNP](../hardware/electronique/cartographe/carte_avionique/verification/controle_statique.json)
+avec `verify_ca01.ps1`, puis de reproduire les 44 contrôles arithmétiques
+avec `verify_dimensionnement.py` et leur
+[preuve](../hardware/electronique/cartographe/carte_avionique/verification/calculs_reproduits.json).
+La recette exécutée sous KiCad10.0.6 Windowsamd64 confirme 151 composants,
+111 réseaux et 221 invariants dans les preuves
+régénérées, avec ERC0/0. Le rendu du
+[PDF schématique](../hardware/electronique/cartographe/carte_avionique/verification/CA01_schema_preliminaire.pdf)
+a été inspecté ; les empreintes fabricant restent à valider. `verify_sync_preservation.py` passe :
+les trois contrôles de conservation de netlist sont consignés dans
+[conservation_sync_20260930.json](../hardware/electronique/cartographe/carte_avionique/verification/conservation_sync_20260930.json).
+Ces vérifications ne simulent pas les circuits.
+
+La [revue indépendante du lot](../hardware/electronique/cartographe/carte_avionique/verification/synchronisation_revue_20260930.json)
+ne relève aucun blocage de topologie. Les valeurs C515/C520, la référence
+Orin, les exclusions des connecteurs et le rendu ont été harmonisés ;
+les marges électriques demeurent conditionnelles aux mesures prévues.
+
+Points à vérifier dans cette recette : U512/U513 G17 avec TVS TPD1E05U06
+avant330 Ω et22 kΩ GND ; U504/U505/U507/U511 LVC1T45 avec DIR A→B et
+rails distincts ; U506 TRS3232EIDR sur5V_AIRY_IO, quatre capacités de pompe,
+DIN inutilisé défini et sorties inutilisées NC ; U510 TPS70950DBVR depuis
+12V_LIDAR avec EN flottant autorisé et C514/C51510 µF/25 V X7R1206 ; référenceOrin J509 issue deCamera0
+ou1 pin22VDD3,3 V/pin1GND, rappel10 kΩ, sans +5 V GPIO/Debug.
+Conserver les sorties Airy47 Ω et Orin100 Ω DNP avant banc.
+
+Les marges calculées reposent sur GNSS3,3 V/VOH2,9 V supposés ; la borne
+Schmitt2,74 V à3,3 V est une hypothèse de monotonie issue de seuils TI
+discrets, pas une garantie. Le railAiry4,89–5,11 V/budget25 mA et
+jonction≈101 °C àVIN12,6 V/ambiante60 °C sont des estimations JEDEC.
+Les quatre capacités de pompe1 µF/25 V doivent conserver respectivement
+au moins100 nF/470 nF/470 nF/470 nF effectifs ; le bypass U506 exige
+≥1 µF effectif surC5202,2 µF/25 V X7R, plus100 nF.
+ChargePPSAiry≤12 mA candidate avant câble.
+
+**Non exécutés :** mesures OEM, Ceff aux coins, PCB/DRC, stabilité et
+thermique réelle, ESD système, délais/fronts, arrêt/redémarrage des rails
+et courants vers GNSS/Airy/Orin éteints. Le railCSI doit suivre les
+domainesGPIO/UART réels ; un railAiry dérivé du12 V ne prouve pas la
+séquence d'arrêt de ses IO. PCB vide et carte non assemblée : ces essais
+restent planifiés au§12.8. La TVS d'entrée puissance demeure ouverte.
+
+### 12.7.3 Lisibilité de la feuille radio, 30 septembre 2026
+
+Chaîne : `CARTE-008 / CARTE-012` → `04_radio.kicad_sch` →
+contrôle graphique et conservation statique de `T-CA01-12`.
+La reprise est **Implémentée** : Pixhawk à gauche, radio à droite,
+symboles de connecteurs agrandis, liaisons UART directes et sens explicites.
+Le [PDF](../hardware/electronique/cartographe/carte_avionique/verification/CA01_schema_preliminaire.pdf)
+exporté par KiCad 10.0.6 a été inspecté sur sa page 3 après correction
+des champs et espacements.
+
+`verify_ca01.ps1` confirme 151 composants, 111 réseaux, 221 invariants
+et ERC 0 erreur / 0 avertissement, avec les exclusions du projet conservées.
+`verify_radio_layout.py` compare la netlist avant reprise à la netlist
+régénérée : trois contrôles réussis, aucune modification des groupes
+de broches ni des champs électriques, identités, valeurs et exclusions
+des composants. La [preuve](../hardware/electronique/cartographe/carte_avionique/verification/reprise_radio_20260930.json)
+et sa netlist de référence permettent de reproduire ce contrôle sur les
+six feuilles. Aucun essai matériel n'est exécuté pour cette reprise
+graphique ; la qualification électrique reste **À valider**.
+
+### 12.7.4 Lisibilité énergie et symboles d'alimentation, 1 octobre 2026
+
+Chaîne : `CARTE-003 / CARTE-004 / CARTE-012` → feuille `01_energie_pm`
+et convention graphique des cinq sous-feuilles → contrôle statique et
+revue de `T-CA01-12`. Reprise **Implémentée** : symbole U102 agrandi,
+passifs FB/COMP dégagés, entrée à gauche et sortie à droite ; alimentations
+à barre supérieure orientée vers le haut et masses GND standard.
+
+Recette : `verify_ca01.ps1`, puis `verify_power_layout.py`,
+`verify_sync_preservation.py`, `verify_radio_layout.py` et
+`verify_cablage.ps1`. La [comparaison de conservation](../hardware/electronique/cartographe/carte_avionique/verification/reprise_energie_power_20261001.json)
+utilise une netlist avant reprise : 151 composants et leurs champs électriques
+conservés, 111 groupes de broches identiques ; cinq contrôles réussis,
+221 invariants et ERC 0 erreur / 0 avertissement. Les trois flags ajoutés
+représentent des sources après inductance ou fusible ; les exclusions ERC
+existantes sont conservées. Le [PDF](../hardware/electronique/cartographe/carte_avionique/verification/CA01_schema_preliminaire.pdf)
+est inspecté sur la page 2 et les autres feuilles affectées ; la
+[revue indépendante](../hardware/electronique/cartographe/carte_avionique/verification/revue_energie_power_20261001.json)
+consigne le contrôle de topologie et de rendu.
+
+Aucun essai matériel ou nouvelle simulation électrique : changement de
+présentation uniquement. La qualification matérielle reste **À valider**.
+
+### 12.8 Synchronisation GNSS, Airy, Basler et Pixhawk
+
+`T-AIRY-SYNC-01` couvre `MAP-FUN-001`, `ELEC-TIM-001`, `CARTE-009` et
+`SW-TIM-001`. La cible
+**Planifié / À valider** conserve le GNSS RTK sur CAN2 du Pixhawk,
+alimente l'Airy en temps GNSS physique et confie la décision de capture à
+la Jetson/ROS 2 ; PX4 génère l'impulsion Basler à sa demande.
+`SYNC_OUT1` Airy reste une variante : son impulsion d'angle est
+documentée, mais ses caractéristiques électriques et sa latence ne le
+sont pas. Sources : *Airy User Guide* v1.3 (pages PDF 15–17, 22–24
+et annexe A.2.3), documentation fabricant du H-RTK, de la baseboard
+Holybro et de la Basler `a2A4096-30ucBAS`. Consigner références,
+révisions et firmwares réels avant le banc.
+
+0. **Préparation de la commande et de l'autorité de capture.** Inspecter
+   les interfaces et vérifier en simulation le chemin
+   `mission_manager -> sensor_manager -> adaptateur PX4 -> camera_trigger`,
+   son transport local et les commandes supportées par le firmware.
+   Préparer les scénarios demande ponctuelle, refus, réponse perdue, demande périmée,
+   doublon, reprise et commande concurrente QGroundControl/mission PX4.
+   Leur exécution matérielle est réservée à l'étape 3, après les contrôles
+   hors tension, électriques et temporels des étapes 1–2 et la validation
+   du niveau de simulation précédent ; aucun déclenchement matériel à cette étape.
+   Vérifier une seule autorité active et l'absence de répétition aveugle
+   lorsque l'issue précédente est indéterminée ; caractériser les ordres
+   déjà en transit lors d'un arrêt. Rapprocher session/demande, acceptation,
+   impulsion, exposition et image : aucun ACK ne vaut preuve de capture,
+   aucun échec ou doublon ne reste silencieux. Vérifier que GNSS/IMU/LiDAR
+   restent continus sans commande de nouvelle mesure par photo.
+
+1. **Allocation hors tension.** Vérifier la variante H-RTK F9P Helical
+   DroneCAN reçue : UART2 pin 5 PPS sur STM32G4, mais NC sur S32K1
+   selon Holybro. Identifier SKU/révision et, si accessible, relever le
+   chemin TIMEPULSE jusqu'au connecteur et un éventuel tampon ; contrôler
+   la continuité des conducteurs hors tension. Les niveaux, impulsions,
+   GPRMC et la coexistence CAN2 se mesurent sous alimentation à l'étape 2.
+   Confirmer la sortie AUX Pixhawk dédiée au trigger,
+   distincte des sorties de propulsion, et l'entrée AD&IO `FMU_CAP1`
+   réservée au retour d'exposition. Relever les broches sur la
+   baseboard réelle. Helical et allocation des ports restent
+   **À valider**.
+2. **Temps GNSS distribué par CA01.**
+   Après les contrôles hors tension, alimenter normalement le GNSS avec
+   Airy/CA01/Orin déconnectés de sa sortie PPS. Mesurer UART2 pin5 par
+   rapport à pin6 GND à l'oscilloscope, sonde haute impédance ×10, sur
+   plusieurs périodes : niveaux haut/bas, dépassements, polarité, largeur
+   et fronts. Relever alimentation, charge, référence/révision du module,
+   configuration TIMEPULSE et validité du temps GNSS. L'hypothèse 3,3 V de
+   DOC-ELEC §8.1 reste **À valider** ; le +5 V pin1 n'est pas une preuve
+   du niveau PPS et une moyenne au multimètre ne suffit pas.
+   Avant raccordement, caractériser la charge de l'entrée CA01 candidate,
+   puis répéter les mesures avec cette charge admissible et sur ses
+   sorties : la tension nominale seule ne prouve pas la marge électrique
+   vers l'Airy. Archiver traces, conditions et comparaison aux seuils.
+   Avant d'admettre GPRMC comme source, relever les deux firmwares F9P/nœud
+   DroneCAN, la configuration UART2/NMEA/RMC, le préfixe accepté par l'Airy,
+   le débit et la persistance après redémarrage et autoconfiguration.
+   Mesurer aussi TX UART2 pin3 par rapport à pin6, source sans charge
+   externe puis sous charge CA01 admissible : niveaux haut/bas, repos,
+   polarité, fronts et débit. L'hypothèse UART logique 3,3 V de DOC-ELEC
+   §8.1 n'est pas une mesure ; GPRMC ne définit pas un niveau électrique.
+   Choisir l'interface de décodage après cette mesure : USB-UART logique
+   3,3 V et USB-RS232 ne sont pas interchangeables. Capturer les octets
+   RMC, vérifier `$GPRMC` / talker GP, checksum, date UTC et statut A,
+   9600 bauds 8N1, cadence et fenêtre par rapport au PPS. Ne pas supposer
+   `$GNRMC` accepté sans preuve. Tester la persistance avec CAN/PX4 et
+   RTCM actifs, sans écrasement par la configuration du nœud.
+   Avant connexion à l'Airy, identifier son interface réelle et contrôler
+   la sortie du convertisseur CA01 candidat : niveaux RS232, repos et
+   polarité, puis égalité des octets avant/après conversion et absence
+   de perte/framing error. Le tableau3 du guide Airy spécifie RS232 ; la
+   mention TTL 3,3 V du dépannage ne qualifie pas une connexion directe.
+   Contrôler ensuite `GPRMC Status`, `PPS Status` et `Time Sync Status`
+   ainsi que les timestamps décodés. Une réception série seule ne prouve
+   pas une association correcte GPRMC/PPS ; ne pas reporter le niveau
+   RS232 sur la branche RX logique de l'Orin.
+   Appliquer aussi la recette physique du§12.7.2 : relever les rails
+   3V3_SYNC/5V_AIRY_IO et la référenceCamera22/GND1 surJ509, confirmer
+   qu'elle suit les domainesGPIO/UART de l'Orin, puis mesurer les
+   scénarios GNSS, CA01, Airy et Orin successivement éteints/redémarrés.
+   Archiver tensions résiduelles et courants de retour ; ne pas assimiler
+   Ioff du traducteur à une preuve de non-réalimentation de l'appareil.
+   Commencer avec R530–R533 DNP ; n'autoriser leur montage sur banc
+   qu'après caractérisation des niveaux, charges et interfaces.
+   Pour une alternative Serial Forwarding : vérifier le nœud, le port
+   interne et le chemin CAN réellement utilisé (proxy PX4 ou accès direct
+   Jetson), puis les octets NMEA effectivement émis, le verrouillage du
+   port, les délais/pertes sous charge et la coexistence GNSS/RTCM.
+   Un accès GUI/u-center seul ne vaut pas preuve d'un flux nominal ; tester
+   la continuité sans GUI et la passerelle vers l'Airy. Un tunnel d'octets
+   ne remplace pas le PPS physique. Pour une reconstruction RMC depuis
+   `Fix2`, conserver la provenance et valider époque, validité, préfixe,
+   checksum et association PPS ; ne pas la présenter comme NMEA extrait.
+   Dans la voie directe, mesurer PPS source et sorties
+   tamponnées/protégées vers Airy pin 9 et une entrée GPIO/PPS
+   compatible de l'Orin. Pour l'Airy : PPS positif de 3–15 V,
+   largeur 20–200 ms, période 1 s ± 200 µs. Acheminer GPRMC
+   UART2 vers Airy pin 11 par adaptation RS232 et, si le port
+   UART debug Orin est libre et approprié, vers lui par une
+   voie tamponnée distincte. Vérifier l'interface réelle selon les preuves
+   ci-dessus, 9600 8N1, statut A, émission
+   après front descendant PPS et fin 300–500 ms avant le front
+   montant suivant. Interdire Y passif, retours de courant
+   vers le vol et branchement direct non vérifié.
+3. **Déclenchement et exposition.** Configurer Pixhawk AUX puis
+   adaptation CA01 vers l'entrée optocouplée Basler `Line1`
+   M8 pin 2, retour opto pin 3. Mesurer largeur, polarité et
+   courant (>5 mA requis pour l'opto). Configurer Basler `Line2`
+   en `ExposureActive` ; sortir par M8 pin 4 avec masse GPIO
+   pin 6, entrer sur CA01 avec rappel/protection adaptés à sa
+   sortie collecteur ouvert, puis rejoindre AD&IO `FMU_CAP1`
+   pin 2 et GND pin 8 après contrôle du brochage de la
+   baseboard réelle. Mesurer ensemble commande AUX, front
+   Line1, début/fin d'exposition et événement `camera_capture`
+   PX4. L'ordre de déclenchement ne remplace pas la mesure
+   de l'exposition effective.
+4. **Association et incertitude.** Acheminer les événements PX4
+   vers Jetson par la liaison compagnon interne TELEM2 ; mesurer
+   délai et pertes. Associer chaque capture, impulsion
+   `ExposureActive` et image USB3 par séquence, `Frame ID`,
+   chunks `Timestamp Value` et `Exposure Time`. Relever
+   `FrameTriggerMissed`, overflow, doublons et images sans
+   événement. Contrôler `Time Sync Lock` Airy et ses temps UTC
+   dans les paquets/points décodés. Comparer références
+   GNSS/CAN2, PX4, Jetson/PPS et Airy, puis estimer offset,
+   dérive, jitter, latence caméra et incertitude de pose
+   interpolée au milieu de l'exposition. Une résolution
+    d'horodatage ne prouve pas la précision absolue.
+   Inclure la demande Jetson dans la table de correspondance ; démontrer
+   l'association à la séquence PX4 sans supposer son identifiant transmis
+   sur AUX. Mesurer le délai entre demande et exposition et corriger la
+   latence du retour ExposureActive. Injecter retard/réordonnancement des
+   paquets et vérifier que le temps d'acquisition et les mesures sources
+   restent identiques ; refuser les associations ambiguës ou les fenêtres
+   sans historique suffisant. Vérifier la convention des temps GNSS et
+   l'association GPRMC/PPS, indépendamment du statut RTK fixe.
+5. **Défauts et reprise.** Répéter démarrage, reset des
+   capteurs/Jetson, perte et retour PPS, GPRMC, RTK, CAN2,
+   liaison compagnon et capture. Vérifier Lock/Unlock, rejet
+   des données sans temps fiable, alertes, absence de
+   déclenchement fantôme ou manqué et réaction PX4.
+   Une défaillance CA01 ou de synchronisation ne doit pas
+   altérer les boucles critiques du vol ; les défauts de
+   puissance ont leurs essais dédiés.
+
+`FMU_CAP1` ne mesure pas simultanément `ExposureActive` et un PPS
+distinct. Un PPS vers Pixhawk demande une autre entrée de capture
+disponible et un pilote PX4 compatible : cette prise en charge de
+la Holybro 6X n'est pas établie dans le build standard. Ne pas déclarer
+son horloge disciplinée par PPS. Si la précision UTC commune exigée
+dépasse celle mesurée, qualifier une deuxième capture ou revoir la
+stratégie de temps. PTP/gPTP Airy et `SYNC_OUT1` seront comparés
+ultérieurement après caractérisation du maître, du réseau et du signal.
+
+Approuver avant banc les seuils chiffrés d'erreur temporelle
+LiDAR–image–pose, jitter, dérive, taux d'appariement, pertes et durée
+de reprise, avec répétitions et critères de refus. Conserver schéma
+annoté, configurations, captures d'oscilloscope, journaux PX4/Jetson/Airy,
+paquets, images et table `Frame ID → exposition → capture PX4 → UTC Airy`
+dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
+échauffement, reset du domaine vol ou datation inexpliquée.
+**Aucun essai matériel n'a été exécuté ; conclusion : Planifié / À valider.**
 
 ## 13. Matrice de traçabilité synthétique
 
@@ -697,7 +1041,8 @@ pas le vol. **Aucun essai V0.5 n'a été exécuté.** Conclusion : **À valider*
 | `SYS-FUN-004` | runner Offboard + PX4 | carré 2 m | quatre segments et posé | conforme au banc SITL |
 | `SAFE-REQ-001` | frontière PX4/ROS 2 | revue des interfaces et runners | aucun topic actionneur direct | conforme au lot A |
 | `SAFE-REQ-002` | failsafe PX4 | coupure réelle des consignes en SITL | `AUTO_LAND` en 1,099 s puis posé | conforme au banc SITL |
-| `SYS-FUN-007/008/009`, `SAFE-REQ-010`, `ELEC-LNK-001/002` | PX4, mission, RF commun et QGC | `T-RF-01..05`, §9.1 | présélection documentaire ; aucune exécution RF | **Planifié / À valider** |
+| `SYS-FUN-007/008/009`, `SAFE-REQ-010`, `ELEC-LNK-001/002` | PX4, mission, RF commun et QGC | `T-RF-01..06`, §9.1 | présélection documentaire ; aucune exécution RF | **Planifié / À valider** |
+| `SW-RTK-001`, `SYS-FUN-009`, `ELEC-LNK-001/002/003` | H-RTK F9P Base retenue, rover patch réévalué au profit du candidat Helical DroneCAN STM32G4, QGC, Backpack, ELRS/RP4TD, PX4 | `T-RF-06`, §9.1 : RTCM + commandes ponctuelles + RC + télémétrie | choix rover temporel et débit, marge, reprise RF non mesurés | **Planifié / À valider** |
 | `MAP-FUN-009` | planification et suivi de couverture | `T-MAP-COV-01`, §9.1 | aucun résultat de couverture de parcelle qualifié | **Planifié / À valider** |
 | `QUAL-REQ-001` | Docker, contrats et runners | builds, CTest, smokes | PC/`amd64` conforme ; cible **À valider** | partiel |
 | `LOC-001` | FAST-LIO2 | BotanicGarden complet à `1×` | 5 762 scans, ATE 0,35916 m | baseline PC préliminaire |
@@ -709,8 +1054,9 @@ pas le vol. **Aucun essai V0.5 n'a été exécuté.** Conclusion : **À valider*
 | `SW-MAP-002` / `MAP-GLOBAL-001` | ICP, triangulation angulaire et fusion voxelisée | tests algorithmes, contrats et parcours surface réel | 23 scans, 61 903 faces ; `.runtime/scan-surface/` | implémenté, précision et collision **À valider** |
 | `EVO-001` | cibles CMake et services | contrôles de dépendances et CTest | conforme sous Windows | Linux/ARM **À valider** |
 | `UX-002` | navigation et pages Qt | routes, retour et contexte | réussi sous Windows | cible **À valider** |
-| `CARTE-001..012` | carte avionique CA01 | `T-CA01-01..12`, §12.2 | 14 invariants conformes ; 3 erreurs ERC ; banc non exécuté | préliminaire, fabrication non conforme |
-| CAB-CARTO-001, CARTE-002/004/006/007/011, ELEC-PWR-001/002 | baseboard Holybro, Pixhawk 6X, PM08-CAN, CA01 et Jetson Orin NX 16 Go ; cible V0.5 | T-PM-V05-01..06, §12.7 | protocole planifié ; aucun faisceau ni essai V0.5 exécuté | **Planifié / À valider** |
+| `CARTE-001..012` | carte avionique CA01 | `T-CA01-01..12`, §12.2 et §12.7.1–12.7.2 | 221 invariants et 44 contrôles analytiques ; ERC selon preuve régénérée ; banc non exécuté | **Implémenté** en schéma préliminaire ; matériel **À valider**, fabrication non conforme |
+| CAB-CARTO-001, CARTE-002/004/006/007/010/011, ELEC-PWR-001/002 | baseboard Holybro, Pixhawk 6X, PM08-CAN, PDB Holybro 300 A top-entry candidate, W08/CA01 et Jetson Orin NX 16 Go ; cible V0.5 | T-PM-V05-01..06 et T-PDB-V05-01, §12.7 | protocole planifié ; aucun faisceau ni essai V0.5 exécuté | **Planifié / À valider** |
+| MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette batterie | inspection, efforts, cycles et défauts | protocole défini dans DOC-MEC | non exécuté |
 
 ## 14. Actions de qualification ouvertes
@@ -720,7 +1066,9 @@ pas le vol. **Aucun essai V0.5 n'a été exécuté.** Conclusion : **À valider*
 2. Définir et approuver les seuils multi-scènes de localisation, rangs,
    corridors, latence et ressources.
 3. Qualifier les extrinsèques et la synchronisation Airy/Basler et FriûlBot sur
-   correspondances indépendantes.
+   correspondances indépendantes ; exécuter d'abord T-AIRY-SYNC-01 au banc
+   pour caractériser PPS/GPRMC, le trigger Pixhawk et le retour réel
+   `ExposureActive` ; garder `SYNC_OUT1` comme variante de banc.
 4. Étendre l'assemblage borné à une parcelle, mesurer dérive/couverture,
    intégrer IMU/deskew et fermeture de boucle selon les besoins, puis qualifier
    la surface et les zones inconnues.
@@ -733,11 +1081,28 @@ pas le vol. **Aucun essai V0.5 n'a été exécuté.** Conclusion : **À valider*
 
 8. Exécuter la campagne AUTO/MANU, couverture et RF commun du §9.1 après
    fixation des versions et critères ; qualifier distinctement les deux drones.
+9. Mesurer au banc puis en terrain le tri-flux T-RF-06 avec la base H-RTK
+   F9P et le rover DroneCAN retenu après l'étude temporelle ; arrêter la
+   politique de priorisation et, si la marge
+   échoue, dimensionner une liaison de données distincte pour RTCM/MAVLink.
 
 ## 15. Journal de modifications
 
 | Date | Évolution |
 |---|---|
+| 1 octobre 2026 | Reprise graphique page 2 et symboles alimentation/GND ; conservation électrique, ERC et revue des rendus ; aucun essai matériel |
+| 30 septembre 2026 | Page 3 radio inspectée après reprise graphique ; trois contrôles de conservation sur 151 composants et 111 réseaux, 221 invariants et ERC 0/0 ; aucune modification électrique ni essai matériel |
+| 30 septembre 2026 | Recette§12.7.2 pour tempsGNSS physique candidat : Schmitt/TVS, translations, RS232/railAiry et référenceOrinCSI ; 44 contrôles arithmétiques, sortiesDNP, niveaux et séquencements à valider ; aucun essai matériel |
+| 30 septembre 2026 | T-AIRY-SYNC-01 précise configuration/persistance RMC UART2 et alternatives tunnel/reconstruction ; support nœud/proxy, continuité sans GUI, coexistence GNSS/RTCM et lien PPS à vérifier ; aucun essai matériel |
+| 30 septembre 2026 | T-AIRY-SYNC-01 complété : décision Jetson/ROS 2, autorité unique, demandes/ACK/fronts/images, réponses perdues, doublons, ordres périmés et association aux flux continus ; protocole Planifié / À valider, aucun essai matériel |
+| 30 septembre 2026 | T-AIRY-SYNC-01 précise la mesure PPS UART2 pin5/6 à haute impédance puis sous charge connue ; hypothèse 3,3 V distincte de l'alimentation 5 V, contrôles hors tension séparés des mesures actives ; aucun essai exécuté |
+| 30 septembre 2026 | T-AIRY-SYNC-01 complète TX UART2/GPRMC : mesure électrique, décodage RMC/GP, conversion RS232 candidate vers Airy, branche Orin logique et persistance CAN/PX4 ; aucun essai matériel exécuté |
+| 30 septembre 2026 | Dimensionnement candidat CA01 et sources archivées ; 112 invariants, ERC 0/0, 27 contrôles analytiques ; corrections bootstrap/shunt/OV et revue indépendante ; PCB/banc non exécutés, non fabricable |
+| 29 septembre 2026 | Reprise compacte de CA01 et contrôle de topologie adapté : 22 invariants ; diviseurs et petits passifs LM76003 candidats documentés ; aucun essai matériel ni qualification de fabrication |
+| 25 septembre 2026 | Schéma CA01 V0.5-pre repris : 20 invariants netlist conformes, 53 composants/51 réseaux, 4 erreurs ERC ouvertes, BIAS LM76003 corrigés et blocs de temps/caméra abstraits ; aucun banc ni PCB |
+| 25 septembre 2026 | T-AIRY-SYNC-01 révisé : Helical DroneCAN candidat, PPS/GPRMC Airy/Orin, trigger Pixhawk, retour ExposureActive/CAP1 et limites du PPS Pixhawk ; Base conservée et rover patch réévalué sans changer le trajet RF/RTCM ; aucun essai matériel |
+| 25 septembre 2026 | PDB Holybro 300 A top-entry candidate et départ W08/XT30 ajoutés au protocole de banc ; synchronisation Airy GNSS ou PTP/gPTP et SYNC_OUT1 cadrés d'après le guide v1.3 ; aucun essai matériel exécuté |
+| 24 septembre 2026 | H-RTK F9P Base/Rover sélectionnés ; protocole tri-flux RTCM, RC, commandes ponctuelles et télémétrie sur ELRS ajouté, Offboard local et seuils à valider ; aucun essai RF exécuté |
 | 24 septembre 2026 | protocole V0.5 planifié : baseboard Holybro/6X/Orin NX 16 Go, deux entrées POWER, CAN1 séparé, 5 V CA01 et XT30 12 V candidat ; V0.4 et ses preuves conservées comme historiques, aucun essai V0.5 exécuté |
 | 22 septembre 2026 | câblage cible V0.4 PM08-CAN, 31 liaisons ; puissance/CAN séparés, BEC1/BEC2 affectés ; KiCad interne V0.3 non migré |
 | 22 septembre 2026 | PM02D en tête V0.3, faisceau adapté, mesure globale via W06 ; T-PM-01..04 planifiés ; thermique non qualifiée |

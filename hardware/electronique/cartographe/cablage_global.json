@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "reference": "CAB-CARTO-01",
-  "date": "2026-09-24",
+  "date": "2026-09-30",
   "scope": "Cartographe uniquement ; traitement/pompe/vannes hors périmètre",
   "status": "Planifié / À valider",
   "harness_ready": false,
   "conventions": [
-    "Broches CA01 = numérotation logique du schéma V0.3, empreintes non figées",
+    "Broches CA01 = numérotation logique du schéma V0.5-pre, empreintes non figées",
     "Flèches énergie = alimentation et retour ; masses, blindages et carbone à concevoir",
-    "Cible V0.5 documentaire ; schéma CA01 V0.3 et CAO non migrés, aucun faisceau assemblé",
+    "Cible V0.5 documentaire ; schéma CA01 V0.5 préliminaire, PCB/CAO non migrés, aucun faisceau assemblé",
     "BEC1 vers POWER1 et BEC2 vers POWER2, sans parallèle ni retour ; Jetson sur XT30 séparé",
     "Les ports combinés PM08-CAN exigent séparation énergie/CAN ; aucun câble six fils droit vers POWER1/2",
-    "Numéros de contacts côté PM et composition du faisceau livré à relever sur les révisions réelles"
+    "Numéros de contacts côté PM et composition du faisceau livré à relever sur les révisions réelles",
+    "Architecture temporelle étudiée : H-RTK DroneCAN Helical STM32G4 à PPS exposé, CA01 distribue PPS/GPRMC et adapte le trigger/retour exposition ; référence et brochage à confirmer",
+    "FMU_CAP1 réservé au retour ExposureActive Basler dans la cible ; PPS Pixhawk simultané non prévu sans seconde capture et firmware qualifiés"
   ],
   "modules": [
     {
@@ -24,11 +26,11 @@
     },
     {
       "id": "DIST",
-      "name": "Distribution X650 et protections de départ",
-      "inputs": "PM08-CAN OUT +/−",
-      "outputs": "départs ESC et CA01",
-      "open": "distribution, fusibles, sections ; connexion/coupure batterie en amont du PM fixé au châssis",
-      "status": "À valider"
+      "name": "Holybro PDB 300A Top Entry candidate",
+      "inputs": "PM08-CAN OUT 6S +/−",
+      "outputs": "4 départs ESC candidats XT90 ; départ CA01 candidat XT30",
+      "open": "liaison PM, polarité, protection branche CA01, courant par connecteur, montage et thermique à valider",
+      "status": "Planifié / À valider"
     },
     {
       "id": "ESC1..4",
@@ -57,17 +59,17 @@
     {
       "id": "FCU",
       "name": "Pixhawk 6X module seul sur Holybro Pixhawk Jetson Baseboard",
-      "inputs": "POWER1 depuis BEC1 ; POWER2 depuis BEC2 ; CAN1 mesures PM ; RC/navigation/compagnon",
-      "outputs": "ESC ; états ; télémétrie",
+      "inputs": "POWER1 depuis BEC1 ; POWER2 depuis BEC2 ; CAN1 mesures PM ; RC/navigation/compagnon ; retour ExposureActive sur AD&IO FMU_CAP1 candidat",
+      "outputs": "ESC ; états ; télémétrie ; AUX1 trigger caméra candidat",
       "open": "CAN1 PM ; bus GNSS, bascule des deux POWER et terminaisons à finaliser",
       "status": "À valider"
     },
     {
       "id": "CA01",
       "name": "Carte alimentation/radio/synchronisation",
-      "inputs": "6S charge utile protégé ; SYNC Airy",
-      "outputs": "12V calcul/LiDAR ; 5V local radio/aux ; 3,3V sync ; trigger ; UART",
-      "open": "convertisseur 5V local et protections à migrer ; schéma interne V0.3 non raccordable",
+      "inputs": "6S charge utile protégé ; GNSS UART2 PPS/GPRMC ; AUX1 Pixhawk ; ExposureActive Basler ; SYNC_OUT1 Airy option non montée",
+      "outputs": "12V calcul/LiDAR ; 5V local radio/aux ; PPS/GPRMC adaptés Airy et Jetson ; trigger Basler ; retour exposition 3,3V vers FMU_CAP1 ; UART RF",
+      "open": "Circuits d’énergie et caméra candidats dimensionnés ; U504-U507 GNSS non réalisés/DNP ; TVS, sélectivité, Ceff, niveaux, empreintes/PCB et banc ouverts ; non fabricable/non raccordable",
       "status": "À valider"
     },
     {
@@ -89,7 +91,7 @@
     {
       "id": "CPU",
       "name": "Jetson Orin NX 16 Go sur Holybro Pixhawk Jetson Baseboard",
-      "inputs": "12V candidat via XT30 ; données capteurs/Pixhawk",
+      "inputs": "12V candidat via XT30 ; données capteurs/Pixhawk ; PPS sur Orin GPIO et GPRMC sur UART candidat",
       "outputs": "USB caméra ; Ethernet ; consignes haut niveau",
       "open": "révision porteuse, polarité XT30 et budget USB/SSD/refroidissement",
       "status": "À valider"
@@ -113,8 +115,8 @@
     {
       "id": "LID",
       "name": "RoboSense Airy",
-      "inputs": "12V ; Ethernet ; temps GNSS candidat",
-      "outputs": "Ethernet ; SYNC_OUT1",
+      "inputs": "12V ; Ethernet ; PPS pin9 et GPRMC pin11 adaptés depuis CA01 candidats",
+      "outputs": "Ethernet/UDP horodaté ; SYNC_OUT1 optionnel non monté",
       "open": "variante/faisceau et niveaux de synchronisation",
       "status": "À valider"
     },
@@ -122,25 +124,25 @@
       "id": "CAM",
       "name": "Basler a2A4096-30ucBAS",
       "inputs": "USB3 alimenté ; trigger optocouplé",
-      "outputs": "images USB3",
-      "open": "câble USB/M8 et configuration trigger",
+      "outputs": "images USB3 avec Frame ID/chunk ; ExposureActive Line2 pin4 et GND pin6 candidats",
+      "open": "câble USB/M8 et configuration trigger ; niveau et délai ExposureActive à mesurer",
       "status": "À valider"
     },
     {
       "id": "GNSS",
-      "name": "GNSS RTK embarqué à choisir",
-      "inputs": "alimentation ; antenne ; RTCM",
-      "outputs": "navigation PX4 ; temps/données candidat",
-      "open": "Holybro DroneCAN ou ArduSimple : un seul choix à figer",
-      "status": "À valider"
+      "name": "Holybro DroneCAN H-RTK F9P Helical STM32G4 candidat temps",
+      "inputs": "5 V domaine vol ; antenne hélicoïdale ; RTCM via Pixhawk/CAN2",
+      "outputs": "navigation PX4 DroneCAN ; UART2 TX/GPRMC et PPS pin5 candidats vers CA01",
+      "open": "référence/révision STM32G4 à garantir (S32K1 pin5 NC) ; niveaux UART2/PPS, émission GPRMC, CAN2, terminaison, alimentation et PX4 à valider",
+      "status": "Planifié / À valider"
     },
     {
       "id": "GNSSANT",
-      "name": "Antenne GNSS",
-      "inputs": "interface RF du rover",
+      "name": "Antenne hélicoïdale du H-RTK candidat",
+      "inputs": "connexion mécanique ou SMA de la variante confirmée",
       "outputs": "signaux GNSS",
-      "open": "référence, câble et alimentation antenne éventuelle",
-      "status": "À valider"
+      "open": "fixation, coaxial éventuel, ciel dégagé, masque et multipath à valider",
+      "status": "Planifié / À valider"
     },
     {
       "id": "SAFE",
@@ -161,25 +163,25 @@
     {
       "id": "GCS",
       "name": "Station QGroundControl",
-      "inputs": "supervision RF ; RTCM éventuel",
-      "outputs": "missions et commandes autorisées",
-      "open": "poste/réseau et acheminement RTCM",
+      "inputs": "base H-RTK F9P par USB ; supervision RF",
+      "outputs": "RTCM MAVLink 2 ; missions et commandes ponctuelles",
+      "open": "continuité PC/Backpack et charge RF",
       "status": "À valider"
     },
     {
       "id": "BASE",
-      "name": "Base RTK et antenne au sol",
-      "inputs": "GNSS ; énergie propre",
-      "outputs": "RTCM",
-      "open": "référence, alimentation et transport jusqu’au rover",
-      "status": "À valider"
+      "name": "Holybro H-RTK F9P Base + HANT-X627A",
+      "inputs": "GNSS ; alimentation USB/sol",
+      "outputs": "RTCM via USB vers QGC",
+      "open": "repère, implantation, alimentation et acheminement RTCM",
+      "status": "Planifié / À valider"
     },
     {
       "id": "AUX_RESERVE",
       "name": "Réserve auxiliaire sans charge affectée",
       "inputs": "5V local CA01, sortie J301 à adapter",
       "outputs": "aucune fonction affectée",
-      "open": "charge, protection et budget avant usage ; schéma V0.3 non validé",
+      "open": "charge, protection et budget avant usage ; schéma V0.5-pre non fabricable",
       "status": "À valider"
     }
   ],
@@ -222,9 +224,9 @@
       "from": "FCU",
       "to": "ESC1..4",
       "type": "Commande",
-      "route": "Sorties moteur PX4 exclusivement",
+      "route": "PX4 MAIN1..4 candidats → 4 ESC ; AUX1 réservé à la caméra",
       "pins": "signal/retour ; PWM/DShot/autre à choisir",
-      "open": "numéro sortie, ordre moteur et télémétrie ESC non figés",
+      "open": "allocation MAIN, ordre, protocole et télémétrie ESC à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -233,9 +235,9 @@
       "from": "PM",
       "to": "DIST",
       "type": "Énergie",
-      "route": "PM08-CAN OUT → distribution de toutes les charges aval",
+      "route": "PM08-CAN OUT → PDB Holybro 300A Top Entry candidate",
       "pins": "6S +/− ; sortie puissance PM, variante de terminaisons à choisir",
-      "open": "courant total, pointes/durée, température et terminaisons à qualifier",
+      "open": "liaison PM/PDB, polarité, courant, pointes, température et terminaisons à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -255,9 +257,9 @@
       "from": "DIST",
       "to": "CA01",
       "type": "Énergie charge utile",
-      "route": "Départ charge utile → J103",
-      "pins": "CA01 J103:1 = VBAT_PAYLOAD ; :2 = GND",
-      "open": "calibre, connecteur et protection amont à figer",
+      "route": "PDB XT30 candidat → protection de branche au plus près du port → CA01 J103",
+      "pins": "6S +/− vers J103:1 VBAT_PAYLOAD et :2 GND ; aucun signal sur XT30",
+      "open": "polarité, accouplement, calibre XT30/câble, protection, segment PDB/XT30 en amont exposé au défaut et appels CA01 à valider ; distinct de W09",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -278,8 +280,8 @@
       "to": "LID",
       "type": "Énergie",
       "route": "J201 → alimentation Airy",
-      "pins": "J201:1 = 12V_LIDAR ; :2 = GND",
-      "open": "connecteur réel Airy et faisceau à confirmer",
+      "pins": "J201:1 12V_LIDAR ; :2 GND ; Airy faisceau optionnel B1/B2 ou aviation 6/7 VIN, 5/8 GND",
+      "open": "faisceau livré, polarité, section et source 12V capable de 2A au démarrage à vérifier",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -321,9 +323,9 @@
       "from": "FCU",
       "to": "CPU",
       "type": "Données bidirectionnelles",
-      "route": "Liaison compagnon locale",
-      "pins": "UART ou Ethernet ; uXRCE-DDS/MAVLink selon choix",
-      "open": "porteuse offre plusieurs interfaces internes ; sélectionner chemin réel et port distinct RF, niveaux et débit",
+      "route": "TELEM2 Pixhawk ↔ UART1 Jetson internes à la porteuse, lien local candidat",
+      "pins": "MAVLink 2 événements CAMERA_TRIGGER/CAMERA_IMAGE_CAPTURED, état GNSS et synchronisation d'horloges ; uXRCE-DDS via autre port si requis",
+      "open": "configurer flux, débit, TIMESYNC, conversion UTC/monotone et incertitude ; ne pas partager le port RF",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -354,9 +356,9 @@
       "from": "LID",
       "to": "CA01",
       "type": "Synchronisation",
-      "route": "SYNC_OUT1 → J501",
-      "pins": "Airy pin10 / D2 candidat → J501:1 ; retour D4 → :2",
-      "open": "faisceau/version à confirmer ; niveaux inconnus ; JP501 ouvert",
+      "route": "SYNC_OUT1 Airy → J501, option diagnostique non montée",
+      "pins": "Airy aviation 10 / D2 bleu → J501:1 ; D4 noir retour → :2",
+      "open": "sortie angulaire et caractéristiques électriques/latence non documentées ; JP501 ouvert ; pas maître du trigger V1",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -365,9 +367,9 @@
       "from": "CA01",
       "to": "CAM",
       "type": "Trigger",
-      "route": "J502 → E/S Basler M8 six contacts",
-      "pins": "1 NC ; 2 Line1 / 5V_SYNC ; 3 retour opto commuté ; 4/5/6 NC en V0",
-      "open": "broche3 non reliée directement à GND ; trigger issu du 5V local CA01 à qualifier",
+      "route": "CA01 → Basler Line1 opto via J502 candidat",
+      "pins": "M8 pin1 NC ; pin2 Line1/5V_SYNC ; pin3 retour opto commuté ; pin4 Line2 ExposureActive retour W34 ; pin5 NC ; pin6 GND GPIO retour W34",
+      "open": "5V local CA01, courant opto, niveaux/polarité, durée et protection à dimensionner ; pin3 distinct de pin6",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -398,9 +400,9 @@
       "from": "FCU",
       "to": "GNSS",
       "type": "Énergie + navigation",
-      "route": "GNSS vol : interface à choisir",
-      "pins": "CAN/UART selon candidat ; alimentation du domaine vol à définir",
-      "open": "CAN1 réservé PM ; CAN2 candidat GNSS ou partage conçu ; alimentation GNSS et défaut de chaque BEC à étudier",
+      "route": "H-RTK F9P DroneCAN Helical STM32G4 candidat sur CAN2",
+      "pins": "CAN H/L, GND, 5 V 4,75–5,25 V selon brochage exact",
+      "open": "CAN1 PM ; CAN2/Jetson, terminaison, protection, alimentation ; variante G4 avec PPS à confirmer avant achat",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -409,31 +411,31 @@
       "from": "GNSS",
       "to": "GNSSANT",
       "type": "RF GNSS",
-      "route": "Rover ↔ antenne GNSS",
-      "pins": "connecteur, coaxial et alimentation active éventuelle",
-      "open": "référence et implantation à choisir",
+      "route": "Réception GNSS par antenne hélicoïdale candidate",
+      "pins": "antenne directement fixée ou par SMA selon version confirmée",
+      "open": "position, masque, multipath et orientation à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
     {
       "id": "W23",
-      "from": "GNSS",
+      "from": "CA01",
       "to": "LID",
       "type": "Temps candidat",
-      "route": "PPS + GPRMC vers Airy, si retenu",
-      "pins": "pins exactes et adaptation PPS/série à confirmer",
-      "open": "non raccordé en V0 ; ne pas déduire niveaux de SYNC_OUT1",
+      "route": "CA01 → Airy : PPS tamponné + GPRMC adapté, alimentation GNSS sur CAN2 distincte",
+      "pins": "Airy aviation pin9 PPS/D3, pin11 GPRMC/D1, pin5/8 GND/D4 ; GPRMC 9600 8N1",
+      "open": "Interface RS232 retenue ; mesurer niveaux et chargePPS, largeur/timing, séquencement et masse commune",
       "status": "Planifié / À valider",
       "assembled": false
     },
     {
       "id": "W24",
-      "from": "GNSS",
+      "from": "CA01",
       "to": "CPU",
       "type": "Données candidates",
-      "route": "Navigation/temps vers compagnon",
-      "pins": "routage via FCU ou autre interface à choisir",
-      "open": "pas de Y passif UART ; allocation simultanée des ports obligatoire",
+      "route": "CA01 → Jetson : PPS/GPRMC adaptés ; retour référence3.3V Orin vers J509",
+      "pins": "Orin GPIO pin2 GPIO_07/PPS et pin6 GND candidats ; Orin Debug pin3 UART2_RXD/GPRMC et pin6 GND candidats ; Camera0 ou Camera1 pin22 VDD3.3→CA01J509/1, pin1GND→J509/2 ; Camera0 ou Camera1 pin22 VDD3.3→CA01J509/1, pin1GND→J509/2",
+      "open": "DomaineCSI3.3 identique aux IO et extinction à mesurer ; fan-out actif sans Y passif ; pinmuxPPS, consoleUART, chrony/UTC et incertitude à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -454,8 +456,8 @@
       "to": "AUX_RESERVE",
       "type": "Énergie réservée",
       "route": "Distribution du 5V local → réserve J301 à adapter",
-      "pins": "cible J301:1 = 5V_AUX ; :2 = GND, nets à confirmer après migration",
-      "open": "budget/protection à fermer ; ne pas déduire le schéma V0.3 qualifié",
+      "pins": "J301:1 = 5V_AUX ; :2 = GND, confirmés par netlist V0.5-pre",
+      "open": "Réserve sans charge affectée ; budget de 3 A partagé radio/sync/J301, protection et charge à fermer",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -464,9 +466,9 @@
       "from": "POCKET",
       "to": "RF",
       "type": "RF bidirectionnel",
-      "route": "ELRS commun commande + MAVLink",
+      "route": "ELRS commun RC + MAVLink 2 : RTCM montant, commandes ponctuelles et télémétrie",
       "pins": "liaison sans fil ; Pocket alimentée séparément",
-      "open": "profil/firmware/débit/portée à qualifier",
+      "open": "profil 333 Hz Full EU-LBT, marge et portée à qualifier",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -475,9 +477,9 @@
       "from": "GCS",
       "to": "POCKET",
       "type": "Supervision bidirectionnelle",
-      "route": "Wi-Fi local QGC ↔ Backpack",
-      "pins": "MAVLink/UDP candidat",
-      "open": "radio manuelle fonctionne sans PC ; versions à figer",
+      "route": "Wi-Fi local QGC ↔ Backpack, RTCM compris",
+      "pins": "MAVLink/UDP candidat avec GPS_RTCM_DATA",
+      "open": "radio manuelle sans PC ; continuité RTCM et versions à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -486,9 +488,9 @@
       "from": "BASE",
       "to": "GNSS",
       "type": "Corrections RTCM",
-      "route": "Chemin sol → rover à sélectionner",
-      "pins": "radio dédiée ou via QGC/RF commun sous budget",
-      "open": "trait représenté fonctionnellement, aucun câble/transport retenu",
+      "route": "Base USB → QGC → Backpack/ELRS → Pixhawk → DroneCAN Helical G4 candidat",
+      "pins": "GPS_RTCM_DATA en MAVLink 2 ; RTCMStream DroneCAN",
+      "open": "transport fonctionnel sélectionné ; débit, CAN2, configuration PX4 et perte à valider",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -511,6 +513,50 @@
       "route": "BEC2 → POWER2 de la porteuse",
       "pins": "côté porteuse : +5V contacts 1/2, GND 5/6 ; SCL/SDA 3/4 non raccordés au PM",
       "open": "contacts côté PM, orientation et faisceau à contrôler ; 3A annoncés ; aucun pont vers POWER1",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W33",
+      "from": "FCU",
+      "to": "CA01",
+      "type": "Commande caméra",
+      "route": "FMU PWM OUT AUX1 candidat → adaptation CA01",
+      "pins": "baseboard FMU PWM OUT pin2 = FMU_CH1 (3,3V), pin10 = GND ; sortie moteur MAIN1..4 à réserver propulsion",
+      "open": "affectation PX4, groupe timer, polarité/largeur, protection et aucun retour 5V vers FCU à valider",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W34",
+      "from": "CAM",
+      "to": "CA01",
+      "type": "Retour exposition",
+      "route": "Basler ExposureActive → adaptation CA01",
+      "pins": "M8 pin4 = Line2 GPIO sortie ExposureActive ; pin6 = GND GPIO ; pin3 GND opto distinct",
+      "open": "mode sortie Basler, pull-up et courant, niveaux/fronts, latence et association Frame ID à valider ; pins4/6 NC en V0.3",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W35",
+      "from": "CA01",
+      "to": "FCU",
+      "type": "Capture exposition",
+      "route": "CA01 retour 3,3V → AD&IO FMU_CAP1 Pixhawk",
+      "pins": "baseboard AD&IO pin2 = FMU_CAP1, pin8 = GND ; CAP1 dédié exposition",
+      "open": "driver camera_capture PX4, polarité/timer, timestamp/UTC et essais ; CAP1 ne reçoit pas aussi le PPS",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W36",
+      "from": "GNSS",
+      "to": "CA01",
+      "type": "Entrée temps candidate",
+      "route": "H-RTK Helical STM32G4 UART2 → CA01 : PPS, GPRMC et GND ; VCC UART2 non raccordé (alimentation par CAN2)",
+      "pins": "G4 UART2 pin3 TX/GPRMC, pin5 PPS, pin6 GND ; pin1 +5 V non raccordé à CA01",
+      "open": "SKU G4, pin5 PPS (S32K1 NC), niveaux, émission GPRMC, protection et absence de retour alimentation à valider",
       "status": "Planifié / À valider",
       "assembled": false
     }
@@ -566,16 +612,19 @@
     "jetson_source": "12V_COMPUTE candidat vers XT30 par W09"
   },
   "ca01_migration": {
-    "implemented_revision": "0.3",
+    "implemented_revision": "0.5-pre",
     "target_wiring_revision": "0.5",
-    "status": "Planifié",
+    "status": "À valider",
     "ready_for_connection": false,
     "changes": [
-      "Conserver et redimensionner U301 ou sélectionner un DC/DC 5V local protégé depuis VBAT_PAYLOAD",
-      "Retirer les anciens nets PM02D/BEC1 radio et toute entrée BEC2 AUX_IN de la cible",
-      "Adapter 5V_RADIO, 5V_SYNC, 3V3_SYNC et vérifier absence de retour vers POWER1/POWER2",
-      "Conserver et dimensionner 12V_COMPUTE vers XT30 et 12V_LIDAR",
-      "Rendre compatibles les connecteurs et la netlist avec la porteuse Holybro, puis ERC/DRC"
+      "Mesurer charges permanentes/appels Orin NX, USB, SSD, Airy, RP4TD et J301 ; confirmer enveloppe VIN et ambiante ; capacités de rails ne sont pas consommations mission",
+      "Sélectionner TVS selon transitoires positifs/négatifs et énergie ; qualifier SOA LM74800/FET sous charge et appel total ; seuils UVLO/OV aux tolérances",
+      "Fermer F101 10 A candidat, pouvoir de coupure DC/Icc batterie, courbes et sélectivité F102 1 A/F501 400 mA ; protéger W08 près PDB",
+      "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
+      "Valider hypothèse3.3V GNSS G4, seuils Schmitt, chargePPSAiry et RS232 ; circuits physiques présents, fermerR530-R533 seulement après banc ; valider référenceCSI3.3 et séquencement",
+      "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
+      "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
+      "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
     ]
   },
   "source_references": [
@@ -583,7 +632,19 @@
     "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
     "https://holybro.com/products/pixhawk-jetson-baseboard?variant=44636223602877",
     "https://www.arrow.com/en/products/900-13767-0000-001/nvidia.html",
-    "https://docs.holybro.com/power-module-and-pdb/power-module/dronecan-power-module-setup"
+    "https://docs.holybro.com/power-module-and-pdb/power-module/dronecan-power-module-setup",
+    "https://holybro.com/products/dronecan-h-rtk-f9p-rover",
+    "https://holybro.com/products/h-rtk-f9p-base",
+    "https://docs.px4.io/main/en/advanced/rtk_gps",
+    "https://www.expresslrs.org/software/mavlink/",
+    "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry",
+    "hardware/electronique/cartographe/sources_fabricants/RoboSense_Airy_User_Guide_v1.3_20251105.pdf",
+    "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/pinout",
+    "https://docs.px4.io/main/en/camera/fc_connected_camera",
+    "https://docs.px4.io/main/en/advanced/pps_time_sync",
+    "https://docs.baslerweb.com/a2a4096-30ucbas",
+    "https://docs.baslerweb.com/line-source",
+    "https://docs.baslerweb.com/data-chunks"
   ],
   "pm_connector_mapping": {
     "pm_side_status": "contacts et faisceau de séparation à vérifier sur les révisions livrées",

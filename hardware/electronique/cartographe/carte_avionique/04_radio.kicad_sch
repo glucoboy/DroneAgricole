@@ -1,10 +1,10 @@
 (kicad_sch
-	(version 20260306)
-	(generator "eeschema")
-	(generator_version "10.0")
-	(uuid "309315cf-9189-47f9-b068-3ed558b29259")
-	(paper "A4")
-	(lib_symbols
+(version 20260306)
+(generator "eeschema")
+(generator_version "10.0")
+(uuid "309315cf-9189-47f9-b068-3ed558b29259")
+(paper "A4")
+(lib_symbols
 		(symbol "Connector_Generic:Conn_01x03"
 			(pin_names
 				(offset 1.016)
@@ -703,409 +703,61 @@
 			)
 			(embedded_fonts no)
 		)
-	)
-	(text "Connecteurs J401/J402 : brochages logiques CA01, pas des connecteurs OEM figes.\nTX du RP vers RX Pixhawk ; TX Pixhawk vers RX du RP.\nNiveaux UART, ESD et comportement hors tension A VALIDER avant raccordement.\nAlimentation sur branche vol : fonctionnement independant Jetson et PC.\nRF partage entre commande RC et MAVLink : perte simultanee possible."
-		(exclude_from_sim no)
-		(at 25.4 180.34 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "407d5205-92a7-4cff-bc21-5ad05d89bba4")
-	)
-	(text "R401/R402 NON MONTEES : fermer apres validation niveaux UART et absence de realimentation."
-		(exclude_from_sim no)
-		(at 25.4 190.5 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ba0b016d-84ce-4707-bcd9-337c85721cca")
-	)
-	(text "04_radio - ETUDE / NON FABRICABLE"
-		(exclude_from_sim no)
-		(at 15 15 0)
-		(effects
-			(font
-				(size 2 2)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-		(uuid "bb94ec56-5842-4390-94cf-f1780a132ae2")
-	)
-	(global_label "RP_TX"
-		(shape bidirectional)
-		(at 76.2 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0b08f061-bc5c-4ecc-b148-7b15ec65294f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 66.04 0)
+
+(symbol "CA01_Fonctions:Radio_UART_Pixhawk_L" (pin_names (offset 1.27)) (in_bom yes) (on_board yes) (property "Reference" "J" (at 0 21 0) (effects (font (size 1.27 1.27)))) (property "Value" "Radio_UART_Pixhawk_L" (at 0 -17 0) (effects (font (size 1.27 1.27))))(property "ki_keywords" "connector" (at 0 0 0) (effects (font (size 1.27 1.27)) hide)) (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))(symbol "Radio_UART_Pixhawk_L_0_1" (rectangle (start -2.54 12.7) (end 5.08 -12.7) (stroke (width 0.254) (type default)) (fill (type background))))(symbol "Radio_UART_Pixhawk_L_1_1" (pin passive line (at 10.16 7.62 180) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))(pin passive line (at 10.16 0.0 180) (length 5.08) (name "RX" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))(pin passive line (at 10.16 -7.62 180) (length 5.08) (name "TX" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))))
+(symbol "CA01_Fonctions:Radio_RP4TD_R" (pin_names (offset 1.27)) (in_bom yes) (on_board yes) (property "Reference" "J" (at 0 21 0) (effects (font (size 1.27 1.27)))) (property "Value" "Radio_RP4TD_R" (at 0 -17 0) (effects (font (size 1.27 1.27))))(property "ki_keywords" "connector" (at 0 0 0) (effects (font (size 1.27 1.27)) hide)) (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))(symbol "Radio_RP4TD_R_0_1" (rectangle (start -5.08 17.78) (end 2.54 -12.7) (stroke (width 0.254) (type default)) (fill (type background))))(symbol "Radio_RP4TD_R_1_1" (pin passive line (at -10.16 15.24 0) (length 5.08) (name "5V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 7.62 0) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 0.0 0) (length 5.08) (name "TX" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 -7.62 0) (length 5.08) (name "RX" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))))
+
+(symbol "CA01_Fonctions:Alimentation_Barre" (power global)
+ (pin_numbers hide) (pin_names (offset 0) hide) (in_bom no) (on_board no)
+ (property "Reference" "#PWR" (at 0 0 0) (effects (font (size 0.9 0.9)) hide))
+ (property "Value" "VDD" (at 0 4.445 0) (effects (font (size 0.9 0.9))))
+ (symbol "Alimentation_Barre_0_1"
+  (polyline (pts (xy 0 0) (xy 0 2.54)) (stroke (width 0) (type default)) (fill (type none)))
+  (polyline (pts (xy -1.27 2.54) (xy 1.27 2.54)) (stroke (width 0) (type default)) (fill (type none))))
+ (symbol "Alimentation_Barre_1_1"
+  (pin power_in line (at 0 0 90) (length 0)
+   (name "" (effects (font (size 0.9 0.9))))
+   (number "1" (effects (font (size 0.9 0.9)))))))
+(symbol "power:GND"
+		(power global)
+		(pin_numbers
 			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
 		)
-	)
-	(global_label "FC_RX_RF"
-		(shape bidirectional)
-		(at 139.7 110.49 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0c67cb49-4d4b-456b-898d-09c282b808c2")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 139.7 110.49 0)
+		(pin_names
+			(offset 0)
 			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
 		)
-	)
-	(global_label "FC_TX_RF"
-		(shape bidirectional)
-		(at 220.98 102.87 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0fc7428b-18e0-461d-a7fb-017f4d3731ec")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 220.98 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "FC_TX_RF"
-		(shape bidirectional)
-		(at 233.68 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2fab40f0-7f83-4fe3-84ea-a5ce4a3b385e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 233.68 66.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 233.68 60.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "49df1758-ee98-479f-91a7-ebe03565d44e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 233.68 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "5V_RADIO"
-		(shape bidirectional)
-		(at 66.04 138.43 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4e47fb21-2853-4a1b-ba66-a0d372b16bec")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 138.43 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RP_RX"
-		(shape bidirectional)
-		(at 76.2 68.58 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9aac2d3d-6005-4cb1-bf97-39a29ee7206f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "5V_RADIO"
-		(shape bidirectional)
-		(at 76.2 60.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9d34daeb-eb30-4b1e-a9fa-71aa1ceaa620")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RP_TX"
-		(shape bidirectional)
-		(at 139.7 102.87 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b0863c38-dba0-4ea3-b514-2ea54aa653bb")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 139.7 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "FC_RX_RF"
-		(shape bidirectional)
-		(at 233.68 63.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b2e6166c-bec4-4147-9380-467dcb76cc07")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 233.68 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 132.08 146.05 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b49d8140-1bdc-421c-aa01-7c059bd7b375")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 132.08 146.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RP_RX"
-		(shape bidirectional)
-		(at 220.98 110.49 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e9e38a48-fb02-47f5-97a2-f80ab92a772e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 220.98 110.49 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 76.2 63.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "eb15c6c4-5d7a-4e72-ae86-40605734deec")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 66.04 146.05 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f25207d5-212d-475a-a1ac-8d8b5a5c6b2d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 146.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "5V_RADIO"
-		(shape bidirectional)
-		(at 132.08 138.43 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "fced4195-ce16-448a-ac14-f95e653afc59")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 132.08 138.43 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 66.04 142.24 0)
-		(unit 1)
-		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
-		(uuid "12c70348-0a40-4049-a7be-32d7e916e7f8")
-		(property "Reference" "C401"
-			(at 66.675 144.78 0)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#PWR"
+			(at 0 -6.35 0)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "100n / 16V CAND."
-			(at 66.675 139.7 0)
+		(property "Value" "GND"
+			(at 0 -3.81 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 67.005 138.43 0)
-			(hide yes)
+			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1113,207 +765,83 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 66.04 142.24 0)
-			(hide yes)
+			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 66.04 142.24 0)
-			(hide yes)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(pin "1"
-			(uuid "e90eb417-faaa-4368-97f3-9d876ad47c0d")
-		)
-		(pin "2"
-			(uuid "e4effe7c-96f5-4a0e-b883-d20795ea829a")
-		)
-		(instances
-			(project "CA01_Avionique"
-				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
-					(reference "C401")
-					(unit 1)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
 			)
+		)
+		(symbol "GND_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "GND_1_1"
+			(pin power_in line
+				(at 0 0 270)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+)
+(sheet_instances
+		(path "/"
+			(page "1")
 		)
 	)
-	(symbol
-		(lib_id "Device:R")
-		(at 220.98 106.68 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp yes)
-		(uuid "1f71f196-18b2-4e08-8643-c5e99dd5f2e9")
-		(property "Reference" "R402"
-			(at 226.06 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0R CAND. / DNP"
-			(at 226.06 105.41 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 219.202 106.68 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 220.98 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 220.98 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7bdd8bae-c724-4770-86b8-47e6d00dc869")
-		)
-		(pin "2"
-			(uuid "59178218-0684-438f-aa46-c3f5424395fd")
-		)
-		(instances
-			(project "CA01_Avionique"
-				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
-					(reference "R402")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 139.7 106.68 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp yes)
-		(uuid "2af63e5a-776e-4681-b796-1f0194acef1c")
-		(property "Reference" "R401"
-			(at 144.78 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0R CAND. / DNP"
-			(at 144.78 105.41 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.922 106.68 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 139.7 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 139.7 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b5e8a1d4-e98a-4a82-9f41-be11813ea77e")
-		)
-		(pin "2"
-			(uuid "262e851e-858b-44dc-9438-78841413b403")
-		)
-		(instances
-			(project "CA01_Avionique"
-				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
-					(reference "R401")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x03")
-		(at 238.76 63.5 0)
+(symbol
+		(lib_id "CA01_Fonctions:Radio_UART_Pixhawk_L")
+		(at 43.18 99.06 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1323,7 +851,7 @@
 		(dnp no)
 		(uuid "92ac8bd0-0e50-403f-93b2-927919de92fe")
 		(property "Reference" "J402"
-			(at 243.84 59.69 0)
+			(at 43.18 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1334,7 +862,7 @@
 			)
 		)
 		(property "Value" "ADAPTATEUR UART PIXHAWK"
-			(at 238.76 53.34 0)
+			(at 43.18 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1345,7 +873,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 63.5 0)
+			(at 43.18 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1356,7 +884,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 63.5 0)
+			(at 43.18 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1367,7 +895,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 238.76 63.5 0)
+			(at 43.18 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1395,90 +923,9 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Device:C")
-		(at 132.08 142.24 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "aa3dd113-3f7c-4d46-83d3-82c1af8d5827")
-		(property "Reference" "C402"
-			(at 132.715 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u / 16V CAND."
-			(at 132.715 139.7 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 133.045 138.43 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 132.08 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 132.08 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "95181228-0f86-41eb-9626-7537da6dc668")
-		)
-		(pin "2"
-			(uuid "46d2829e-6109-4e55-954a-026ec2e491bb")
-		)
-		(instances
-			(project "CA01_Avionique"
-				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
-					(reference "C402")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x04")
-		(at 81.28 63.5 0)
+(symbol
+		(lib_id "CA01_Fonctions:Radio_RP4TD_R")
+		(at 238.76 99.06 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1488,7 +935,7 @@
 		(dnp no)
 		(uuid "e15b9d98-0b61-4c30-ae34-e020de506b49")
 		(property "Reference" "J401"
-			(at 86.36 59.69 0)
+			(at 238.76 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1499,7 +946,7 @@
 			)
 		)
 		(property "Value" "VERS MODULE RP4TD"
-			(at 81.28 45.72 0)
+			(at 238.76 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1510,7 +957,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 81.28 63.5 0)
+			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1521,7 +968,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 81.28 63.5 0)
+			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1532,7 +979,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 81.28 63.5 0)
+			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1563,9 +1010,374 @@
 			)
 		)
 	)
-	(sheet_instances
-		(path "/"
-			(page "1")
+(symbol
+		(lib_id "Device:R")
+		(at 139.7 99.06 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp yes)
+		(uuid "2af63e5a-776e-4681-b796-1f0194acef1c")
+		(property "Reference" "R401"
+			(at 139.7 95.25 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "0R CAND. / DNP"
+			(at 139.7 102.87 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 139.7 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 139.7 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 139.7 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b5e8a1d4-e98a-4a82-9f41-be11813ea77e")
+		)
+		(pin "2"
+			(uuid "262e851e-858b-44dc-9438-78841413b403")
+		)
+		(instances
+			(project "CA01_Avionique"
+				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
+					(reference "R401")
+					(unit 1)
+				)
+			)
 		)
 	)
+(symbol
+		(lib_id "Device:R")
+		(at 139.7 114.3 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp yes)
+		(uuid "1f71f196-18b2-4e08-8643-c5e99dd5f2e9")
+		(property "Reference" "R402"
+			(at 139.7 110.49 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "0R CAND. / DNP"
+			(at 139.7 118.11 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 139.7 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 139.7 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 139.7 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7bdd8bae-c724-4770-86b8-47e6d00dc869")
+		)
+		(pin "2"
+			(uuid "59178218-0684-438f-aa46-c3f5424395fd")
+		)
+		(instances
+			(project "CA01_Avionique"
+				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
+					(reference "R402")
+					(unit 1)
+				)
+			)
+		)
+	)
+(symbol
+		(lib_id "Device:C")
+		(at 165.1 71.12 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "12c70348-0a40-4049-a7be-32d7e916e7f8")
+		(property "Reference" "C401"
+			(at 170.18 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n / 16V CAND."
+			(at 170.18 73.66000000000001 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.1 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 165.1 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e90eb417-faaa-4368-97f3-9d876ad47c0d")
+		)
+		(pin "2"
+			(uuid "e4effe7c-96f5-4a0e-b883-d20795ea829a")
+		)
+		(instances
+			(project "CA01_Avionique"
+				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
+					(reference "C401")
+					(unit 1)
+				)
+			)
+		)
+	)
+(symbol
+		(lib_id "Device:C")
+		(at 203.2 71.12 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "aa3dd113-3f7c-4d46-83d3-82c1af8d5827")
+		(property "Reference" "C402"
+			(at 208.28 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u / 16V CAND."
+			(at 208.28 73.66000000000001 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 203.2 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 203.2 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 203.2 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "95181228-0f86-41eb-9626-7537da6dc668")
+		)
+		(pin "2"
+			(uuid "46d2829e-6109-4e55-954a-026ec2e491bb")
+		)
+		(instances
+			(project "CA01_Avionique"
+				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
+					(reference "C402")
+					(unit 1)
+				)
+			)
+		)
+	)
+(wire (pts (xy 53.34 91.44) (xy 116.84 91.44)) (stroke (width 0) (type default)) (uuid "d14629e4-b54d-440d-994e-63a78ef93214"))
+(wire (pts (xy 116.84 91.44) (xy 228.6 91.44)) (stroke (width 0) (type default)) (uuid "d8cf1567-8f5c-438a-8fbf-47003d018295"))
+
+(symbol (lib_id "power:GND") (at 116.84 91.44 0) (unit 1)
+         (exclude_from_sim no) (in_bom no) (on_board no) (in_pos_files no) (dnp no) (uuid "69254d56-7ebb-40d6-af65-d73bee92e80f")
+         (property "Reference" "#PWR4001" (at 116.84 91.44 0) (effects (font (size 0.9 0.9)) hide))
+         (property "Value" "GND" (at 116.84 95.885 0) (effects (font (size 0.9 0.9)) hide))
+         (pin "1" (uuid "bbf30719-6f28-42ae-a02c-3265560a356f"))
+         (instances (project "CA01_Avionique" (path "/2c5e7995-042d-414f-9412-7fd29c3ee184/309315cf-9189-47f9-b068-3ed558b29259" (reference "#PWR4001") (unit 1)))))
+(wire (pts (xy 35.56 60.96) (xy 228.6 60.96)) (stroke (width 0) (type default)) (uuid "aa4ada1a-74b2-4ede-af36-85eb0b85415f"))
+(symbol (lib_id "CA01_Fonctions:Alimentation_Barre") (at 35.56 60.96 0) (unit 1)
+         (exclude_from_sim no) (in_bom no) (on_board no) (in_pos_files no) (dnp no) (uuid "533e8101-4fb4-476e-b51c-6e4ad5b425ff")
+         (property "Reference" "#PWR4002" (at 35.56 60.96 0) (effects (font (size 0.9 0.9)) hide))
+         (property "Value" "5V_RADIO" (at 35.56 56.515 0) (effects (font (size 0.9 0.9))))
+         (pin "1" (uuid "ddfe488f-18ab-4600-8448-051b5840ff92"))
+         (instances (project "CA01_Avionique" (path "/2c5e7995-042d-414f-9412-7fd29c3ee184/309315cf-9189-47f9-b068-3ed558b29259" (reference "#PWR4002") (unit 1)))))
+(wire (pts (xy 228.6 60.96) (xy 228.6 83.82)) (stroke (width 0) (type default)) (uuid "1196237a-603f-4a00-bfb1-dc681ce9463a"))
+(wire (pts (xy 165.1 60.96) (xy 165.1 67.31)) (stroke (width 0) (type default)) (uuid "1ed50c9c-08ff-43fd-a53e-fbfb23f03d9b"))
+(wire (pts (xy 165.1 74.93) (xy 165.1 91.44)) (stroke (width 0) (type default)) (uuid "b0ccee58-4b8c-4bcb-8a1e-6d0976d07eac"))
+(junction (at 165.1 60.96) (diameter 0) (color 0 0 0 0) (uuid "a0eeea07-552d-459d-b3c2-1fa576ff6ae2"))
+(junction (at 165.1 91.44) (diameter 0) (color 0 0 0 0) (uuid "270779cb-d471-40b9-b440-e2fd532f427b"))
+(wire (pts (xy 203.2 60.96) (xy 203.2 67.31)) (stroke (width 0) (type default)) (uuid "17f25e7a-f5f8-4925-ac0b-a9ae0a932bfd"))
+(wire (pts (xy 203.2 74.93) (xy 203.2 91.44)) (stroke (width 0) (type default)) (uuid "1da7827b-25ff-4294-8c62-8109ab3f5ff5"))
+(junction (at 203.2 60.96) (diameter 0) (color 0 0 0 0) (uuid "b0e15b3a-11aa-421a-a878-cbadbf9b825c"))
+(junction (at 203.2 91.44) (diameter 0) (color 0 0 0 0) (uuid "d4db64b1-6e07-4cae-863d-f3f6e99e02fa"))
+(wire (pts (xy 53.34 99.06) (xy 135.89 99.06)) (stroke (width 0) (type default)) (uuid "94d461f6-3247-4e91-b0e7-0e8d045e7462"))
+(wire (pts (xy 143.51 99.06) (xy 228.6 99.06)) (stroke (width 0) (type default)) (uuid "e2fc71de-61ce-4e79-9bf3-9f37746d8b02"))
+(global_label "FC_RX_RF" (shape bidirectional) (at 63.5 99.06 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "9d2f4927-5a61-4a91-868b-ac753fbcb23b"))
+(global_label "RP_TX" (shape bidirectional) (at 195.58 99.06 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "6aab0bac-4c34-4176-bb30-d80ce17c24ce"))
+(wire (pts (xy 53.34 106.68) (xy 78.74 106.68)) (stroke (width 0) (type default)) (uuid "9b82567b-9e1b-4381-be19-5f8fc1f1dbeb"))
+(wire (pts (xy 78.74 106.68) (xy 78.74 114.3)) (stroke (width 0) (type default)) (uuid "d3dfda85-bd29-499c-89b0-0c1c09058e66"))
+(wire (pts (xy 78.74 114.3) (xy 135.89 114.3)) (stroke (width 0) (type default)) (uuid "ebe142e0-cf18-4e3b-bb56-0e726bd6b15d"))
+(wire (pts (xy 143.51 114.3) (xy 215.9 114.3)) (stroke (width 0) (type default)) (uuid "cd3d1a59-da12-424e-8d97-c2441c0342e6"))
+(wire (pts (xy 215.9 114.3) (xy 215.9 106.68)) (stroke (width 0) (type default)) (uuid "708f56c1-84bd-4ce5-8d36-a9ca214b02a1"))
+(wire (pts (xy 215.9 106.68) (xy 228.6 106.68)) (stroke (width 0) (type default)) (uuid "b0f7d53d-706b-43b3-b253-19c67c56ec3d"))
+(global_label "FC_TX_RF" (shape bidirectional) (at 91.44 114.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "37987fd9-f3e6-473a-a1da-1f8d83ddb0b3"))
+(global_label "RP_RX" (shape bidirectional) (at 195.58 114.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "3f7120dd-fdf1-4c31-81f9-8baf47699ed9"))
+(text "04 — RADIO / INTERFACE CA01" (at 20.32 20.32 0) (effects (font (size 2 2)) (justify left)) (uuid "504bced3-3d5b-431c-b010-48f4927ffcf0"))
+(text "Alimentation et port Pixhawk à gauche ; module RP4TD à droite." (at 20.32 31.75 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "bce597fa-d91b-407c-87d4-73bf74f9661c"))
+(text "5 V local protégé par F102 ; condensateurs regroupés près du port radio." (at 20.32 45.72 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2b28d674-1d38-47c5-9314-5aeae8c5d548"))
+(text "UART retour : RP TX → Pixhawk RX" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e318c739-2173-492e-b859-71d739b2ef44"))
+(text "UART aller : Pixhawk TX → RP RX" (at 83.82 130.81 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "69173ac0-1bf7-4cc1-bb78-a23f177eab7c"))
+(text "R401 / R402 : NON MONTÉES (DNP) avant validation des niveaux UART\net des courants vers les appareils hors tension." (at 20.32 146.05 0) (effects (font (size 1.4 1.4)) (justify left)) (uuid "433246a8-afa8-4d46-9cd4-92d190ccd17f"))
+(text "J401 / J402 : brochages logiques CA01 ; connecteurs OEM et empreintes à valider.\nRF partagé RC / MAVLink : une perte de liaison peut affecter les deux fonctions.\nÉtude non fabricable ; aucune qualification matérielle." (at 20.32 170.18 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2923e06b-a4f6-4ea5-a1a7-ae34632c67f7"))
+
+(junction (at 116.84 91.44) (diameter 0) (color 0 0 0 0) (uuid "c502c41c-6f43-497f-b5d4-ba472ed1c747"))
 )

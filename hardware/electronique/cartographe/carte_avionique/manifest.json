@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "reference": "CA01",
-  "revision": "0.3",
-  "date": "2026-09-22",
+  "revision": "0.5-pre",
+  "date": "2026-10-01",
   "artifact_status": "Implémenté",
   "hardware_status": "Planifié",
   "qualification": "À valider",
@@ -10,7 +10,7 @@
   "project": "CA01_Avionique.kicad_pro",
   "schematic": "CA01_Avionique.kicad_sch",
   "pcb": "CA01_Avionique.kicad_pcb",
-  "pcb_state": "Canevas vide ; aucun placement, contour ou routage",
+  "pcb_state": "Canevas vide V0.3 ; aucun placement, contour ou routage ; non synchronisé avec le schéma V0.5 préliminaire",
   "specification": "../../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01",
   "sheets": [
     "CA01_Avionique.kicad_sch",
@@ -26,44 +26,27 @@
     "bridge": "https://github.com/mixelpixx/KiCAD-MCP-Server",
     "bridge_commit": "ac716d1a8bfad325b4aa93a398222645b3f78fd7",
     "backend": "fichier / swig",
-    "method": "Composants, feuilles, labels et contrôles via MCP ; normalisation bibliothèque CLI et corrections ciblées des métadonnées"
+    "method": "Reprise des fichiers KiCad préservant les retouches utilisateur ; netlist/ERC et export graphique via CLI KiCad ; contrôles de topologie par broches"
   },
   "external_modules": [
     {
       "part": "RadioMaster RP4TD LBT",
-      "integration": "Module rapporté ; J401 adaptateur logique, connecteur/maintien à définir",
-      "supply": "5V_RADIO depuis DC/DC local CA01 cible V0.5 ; schéma V0.3 historique"
+      "integration": "Module rapporté ; J401 logique, connecteur/maintien à définir ; UART J402 avec R401/R402 DNP",
+      "supply": "5V_RADIO via F102 depuis 5V_AUX local CA01, jamais depuis POWER1/2"
     },
     {
-      "part": "Holybro PM02D",
-      "integration": "Module complet hors CA01, en série batterie IN→OUT distribution, faisceau adapté ; BEC conservé ; POWER1 direct et dérivation radio J101",
-      "limits": "60 A continus / 100 A <60 s PCB ; faisceau adapté à dimensionner et qualifier. Sortie 5,2 V/3 A partagée. CA01 hors propulsion. Couverture monitoring global à vérifier au banc.",
-      "implementation_note": "Historique du schéma interne V0.3 ; cible V0.5 PM08-CAN BEC1/2 vers POWER1/2, CAN1 séparé ; migration non exécutée"
+      "part": "Holybro PM08-CAN et PDB 300A top-entry candidate",
+      "integration": "Hors CA01 ; PM en série batterie vers PDB ; BEC1/2 vers POWER1/2, CAN1 distinct ; W08 XT30 fournit le 6S de CA01",
+      "limits": "200 A continus annoncés pour PM, deux BEC 5,3 V/3 A ; faisceau, protection XT30, thermique et calibration non qualifiés"
+    },
+    {
+      "part": "H-RTK F9P DroneCAN Helical STM32G4 candidat",
+      "integration": "CAN2/5 V hors CA01 ; UART2 W36 TX/GPRMC pin3, PPS pin5, GND pin6 vers J503 logique ; pin1 VCC NC",
+      "limits": "Variante STM32G4, niveaux et GPRMC à mesurer ; S32K1 pin5 NC"
     }
   ],
-  "functional_blocks": [
-    {
-      "ref": "U101",
-      "function": "Protection amont charge utile non conçue"
-    },
-    {
-      "ref": "U102",
-      "function": "Buck calcul LM5146-Q1 candidat, étage puissance absent"
-    },
-    {
-      "ref": "U501",
-      "function": "Adaptation niveau Airy inconnue"
-    },
-    {
-      "ref": "U503",
-      "function": "Régulateur local3V3 non choisi"
-    }
-  ],
-  "functional_blocks_excluded_from": [
-    "BOM",
-    "PCB",
-    "simulation"
-  ],
+  "functional_blocks": [],
+  "functional_blocks_excluded_from": [],
   "assembly_gates": [
     {
       "refs": [
@@ -78,18 +61,28 @@
         "JP501"
       ],
       "state": "Cavalier ouvert",
-      "close_after": "Caractérisation SYNC_OUT1 et conception/validation U501"
+      "close_after": "Caractérisation SYNC_OUT1 et conception/validation de son adaptation dédiée ; option non montée en V1"
+    },
+    {
+      "refs": [
+        "R530",
+        "R531",
+        "R532",
+        "R533"
+      ],
+      "state": "DNP",
+      "close_after": "Mesures GNSS/Airy/Orin, seuils et délais, référenceCSI3.3 et tous séquencements hors tension validés ; circuits physiques présents."
     }
   ],
   "open_design_items": [
-    "Passifs de puissance, feedback et thermique LM76003",
-    "Conception complète LM5146-Q1",
-    "Protections et sélectivité amont/aval",
-    "Budget charge des rails5V/3V3 et vol/radio",
-    "Brochages physiques, références et empreintes des connecteurs",
-    "Calibration et couverture mesure globale PM02D ; faisceau adapté et thermique",
-    "Caractérisation UART et SYNC_OUT1",
-    "Contour, placement, routage, isolement carbone et intégrationSA03"
+    "Mesurer charges permanentes/appels Orin NX, USB, SSD, Airy, RP4TD et J301 ; confirmer enveloppe VIN et ambiante ; capacités de rails ne sont pas consommations mission",
+    "Sélectionner TVS selon transitoires positifs/négatifs et énergie ; qualifier SOA LM74800/FET sous charge et appel total ; seuils UVLO/OV aux tolérances",
+    "Fermer F101 10 A candidat, pouvoir de coupure DC/Icc batterie, courbes et sélectivité F102 1 A/F501 400 mA ; protéger W08 près PDB",
+    "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
+    "Valider hypothèse3.3V GNSS G4, seuils Schmitt, chargePPSAiry et RS232 ; circuits physiques présents, fermerR530-R533 seulement après banc ; valider référenceCSI3.3 et séquencement",
+    "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
+    "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
+    "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
   ],
   "verification": {
     "static": "verification/controle_statique.json",
@@ -97,33 +90,54 @@
     "netlist": "verification/netlist.xml",
     "mcp": "verification/mcp_controles_20260922.json",
     "recipe": "verification/verify_ca01.ps1",
-    "connectivity_check_count": 14,
-    "erc_errors_open": 3,
+    "connectivity_check_count": 221,
+    "erc_errors_open": 0,
     "erc_warning_count": 0,
-    "erc_affected_nets": [
-      "VIN_PAYLOAD_PROT",
-      "GND",
-      "3V3_SYNC"
-    ],
-    "independent_review": "Revue V0.3 : PM en tete, BEC conserve, POWER1 direct, CA01 hors propulsion, registre et limites simulation/banc coherents. Deux annotations corrigees (BEC/shunt non presume et ancienne mention85A). Calculs DC/DC, protections, thermique et implantation non qualifies.",
-    "hardware_tests": "Non exécutés : circuit incomplet, matériel non assemblé"
+    "independent_review": "Revue indépendante 29-30/09/2026 : calculs LM76003 aux coins, pinmaps, polarités, DNP, bootstrap compute corrigé, shunt2512 et Ccap, seuil OV de réarmement ajusté. Conception candidate, empreintes/SOA/Ceff/stabilité et séquencements hors tension restent ouverts.",
+    "hardware_tests": "Non exécutés : schéma préliminaire non fabricable, PCB vide et matériel non assemblé",
+    "erc_affected_pins": [],
+    "compact_rework": "verification/reprise_compacte_20260929.json",
+    "arithmetic": "verification/calculs_reproduits.json",
+    "connectivity_rules": "verification/connectivity_rules.json",
+    "preview": "verification/CA01_schema_preliminaire.pdf",
+    "sync_preservation": "verification/conservation_sync_20260930.json",
+    "sync_review": "verification/synchronisation_revue_20260930.json",
+    "sources": "verification/sources_controle_20260930.json",
+    "radio_layout": "verification/reprise_radio_20260930.json",
+    "radio_layout_recipe": "verification/verify_radio_layout.py",
+    "power_layout": "verification/reprise_energie_power_20261001.json",
+    "power_layout_recipe": "verification/verify_power_layout.py",
+    "power_layout_review": "verification/revue_energie_power_20261001.json"
   },
   "source_references": [
-    "https://holybro.com/products/pm02d-power-module",
-    "https://holybro.com/products/pm03d-power-module",
-    "https://www.ti.com/product/LM76003",
+    "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+    "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry",
+    "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+    "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/pinout",
     "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
     "https://www.ti.com/product/LM5146-Q1",
-    "https://www.ti.com/product/SN74LVC1G17",
     "https://docs.baslerweb.com/a2a4096-30ucbas",
-    "https://robosense-robotics.github.io/product-manual/en/Airy/"
+    "hardware/electronique/cartographe/sources_fabricants/RoboSense_Airy_User_Guide_v1.3_20251105.pdf"
   ],
   "global_wiring": "../cablage_global.json",
   "current_sizing_review": {
-    "date": "2026-09-22",
+    "date": "2026-09-30",
     "status": "À valider",
-    "note": "PM08-CAN retenu pour conception : 200A continus annoncés, pointe400A1s25C ; 2BEC5,3V3A. Ces valeurs ne qualifient ni connecteurs ni faisceau. Budget réel, température et couverture mesure à valider.",
-    "reference": "DOC-ELEC §4.2.2/5.1"
+    "calculations": "dimensionnement.json",
+    "candidate_bom": "bom_candidate.json",
+    "source_inventory": "../sources_fabricants/manifest_sources.json",
+    "arithmetic_proof": "verification/calculs_reproduits.json",
+    "capacity_targets": {
+      "12V_COMPUTE_a": 6,
+      "12V_LIDAR_a": 3,
+      "5V_AUX_total_a": 3,
+      "3V3_SYNC_budget_a": 0.05
+    },
+    "working_vin_v": [
+      18,
+      25.2
+    ],
+    "limits": "Hypothèses de calcul, pas exigences figées. J301 réserve ; synchronisation physique candidate implémentée. TVS amont, PCB, charges, Ceff et banc ouverts."
   },
   "global_wiring_verification": "../verification/cablage_global_v05_20260924.json",
   "target_wiring_revision": "0.5",
@@ -163,16 +177,82 @@
     }
   },
   "pending_migration": {
-    "implemented_revision": "0.3",
+    "implemented_revision": "0.5-pre",
     "target_wiring_revision": "0.5",
-    "status": "Planifié",
+    "status": "À valider",
     "ready_for_connection": false,
     "changes": [
-      "Conserver et redimensionner U301 ou sélectionner un DC/DC 5V local protégé depuis VBAT_PAYLOAD",
-      "Retirer les anciens nets PM02D/BEC1 radio et toute entrée BEC2 AUX_IN de la cible",
-      "Adapter 5V_RADIO, 5V_SYNC, 3V3_SYNC et vérifier absence de retour vers POWER1/POWER2",
-      "Conserver et dimensionner 12V_COMPUTE vers XT30 et 12V_LIDAR",
-      "Rendre compatibles les connecteurs et la netlist avec la porteuse Holybro, puis ERC/DRC"
+      "Mesurer charges permanentes/appels Orin NX, USB, SSD, Airy, RP4TD et J301 ; confirmer enveloppe VIN et ambiante ; capacités de rails ne sont pas consommations mission",
+      "Sélectionner TVS selon transitoires positifs/négatifs et énergie ; qualifier SOA LM74800/FET sous charge et appel total ; seuils UVLO/OV aux tolérances",
+      "Fermer F101 10 A candidat, pouvoir de coupure DC/Icc batterie, courbes et sélectivité F102 1 A/F501 400 mA ; protéger W08 près PDB",
+      "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
+      "Valider hypothèse3.3V GNSS G4, seuils Schmitt, chargePPSAiry et RS232 ; circuits physiques présents, fermerR530-R533 seulement après banc ; valider référenceCSI3.3 et séquencement",
+      "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
+      "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
+      "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
     ]
+  },
+  "schematic_state": "Circuits physiques candidats énergie, Basler et PPS/GPRMC implémentés ; schéma de synchronisation complet, sorties DNP avant banc. Protection amont, empreintes, PCB et qualification restent ouverts.",
+  "schematic_design_skill": "../../../../.agents/skills/hw-design-schematique/SKILL.md",
+  "synchronisation_design": {
+    "status": "Implémenté",
+    "qualification": "À valider",
+    "sheet": "05_synchronisation.kicad_sch",
+    "calculations": "dimensionnement.json#/synchronisation/time_design",
+    "output_isolation": [
+      "R530",
+      "R531",
+      "R532",
+      "R533"
+    ],
+    "new_orin_reference": "J509 : Camera pin22 VDD3.3, pin1GND ; domaine à vérifier"
+  },
+  "protected_circuit_comparison": "verification/conservation_sync_20260930.json",
+  "radio_layout": {
+    "date": "2026-09-30",
+    "status": "Implémenté",
+    "sheet": "04_radio.kicad_sch",
+    "pdf_page": 3,
+    "orientation": "Pixhawk et alimentation à gauche, radio à droite ; sens UART aller/retour explicites",
+    "enlarged_symbols": [
+      "CA01_Fonctions:Radio_UART_Pixhawk_L",
+      "CA01_Fonctions:Radio_RP4TD_R"
+    ],
+    "electrical_changes": false,
+    "baseline": "verification/netlist_avant_reprise_radio_20260930.xml",
+    "proof": "verification/reprise_radio_20260930.json"
+  },
+  "power_layout": {
+    "date": "2026-10-01",
+    "status": "Implémenté",
+    "sheet_reorganised": "01_energie_pm.kicad_sch",
+    "pdf_page": 2,
+    "enlarged_ic": "U102 / LM5146QRGYRQ1",
+    "power_symbol": "CA01_Fonctions:Alimentation_Barre",
+    "power_orientation_degrees": 0,
+    "ground_symbol": "power:GND",
+    "ground_value_visible": false,
+    "symbol_count": 144,
+    "rail_symbol_count": 43,
+    "ground_symbol_count": 101,
+    "electrical_changes": false,
+    "source_flags": [
+      {
+        "ref": "#FLG9101",
+        "source": "L101/2",
+        "rail": "12V_COMPUTE"
+      },
+      {
+        "ref": "#FLG9102",
+        "source": "F102/2",
+        "rail": "5V_RADIO"
+      },
+      {
+        "ref": "#FLG9301",
+        "source": "L301/2",
+        "rail": "5V_AUX"
+      }
+    ],
+    "baseline": "verification/netlist_avant_reprise_energie_power_20261001.xml"
   }
 }

@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 24 septembre 2026 |
+| Dernière mise à jour | 25 septembre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -81,8 +81,8 @@ active restent masqués et explicitement exclus par le manifeste.
 | `SA05A_Bloc_capteurs` | maintenir rigidement Airy, Basler et objectif entre eux | platine capteurs isolée | extrinsèques et champ de vue **À valider** |
 | `SA05B_Appui_Sorbothane` | isoler le bloc capteurs tout en limitant son débattement | quatre appuis Sorbothane captifs | contacts locaux corrigés ; tenue **À valider** |
 | `SA05_Capteurs_Isoles` | intégrer le bloc capteurs suspendu au drone | quatre appuis et retenues de câbles | huit poses contrôlées sans interférence ; **À valider** physiquement |
-| `SA06_RTK` | éloigner et orienter antenne/récepteur RTK | support, entretoises et interface antenne | enveloppes provisoires **À valider** |
-| `SA07_Station_sol` | porter base RTK, tablette, radio et accessoires | boîtier et éléments du commerce | architecture candidate **À valider** |
+| `SA06_RTK` | étudier H-RTK F9P DroneCAN Helical STM32G4 et son antenne à ciel dégagé | nouveau support, câble CAN, UART2 PPS/GPRMC, antenne et dégagement | CAO historique Rover patch non migrée ; variante et montage **À valider** |
+| `SA07_Station_sol` | porter H-RTK F9P Base, antenne HANT-X627A, poste et radio | mât/trépied, boîtier et éléments du commerce | implantation cible **À valider** |
 
 ### 4.1 Batterie interchangeable
 
@@ -122,6 +122,17 @@ préserver leur calibration extrinsèque. Quatre appuis Sorbothane isolent ce bl
 du châssis et des moteurs. Des pièces métalliques captives limitent le débattement
 en cas de choc ou rupture. Les câbles doivent former une boucle souple et ne pas
 court-circuiter l'isolation.
+
+Le [guide fabricant Airy v1.3, pages PDF 20–21](../../hardware/electronique/cartographe/sources_fabricants/RoboSense_Airy_User_Guide_v1.3_20251105.pdf)
+demande trois vis M3×8 avec dispositif anti-desserrage (dépassement
+4,5 mm), une surface d'appui de planéité meilleure que 0,15 mm, deux piges
+de positionnement Ø3 (dépassement 3 mm) et plus de 2 cm de mou au câble. Il recommande un support métallique rigide assurant
+la dissipation par contact avec la base ou le dessus du LiDAR ; la fréquence
+du premier mode de l'ensemble LiDAR-support doit dépasser 50 Hz. La platine
+P16 actuelle, prototype imprimé, ne démontre ni le chemin thermique ni ces
+tolérances et modes. Reprendre son interface Airy puis vérifier planéité,
+fixation, conduction thermique, vibrations et dégagement du câble sur
+l'assemblage réel : **À valider**.
 
 La correction sauvegardée les 15–16 septembre 2026 déplace l'Airy de +4 mm
 suivant X (centre de montage X = -35 mm) et ses trois perçages sur P16. La
@@ -178,8 +189,10 @@ La carte commune **CA01** regroupe dans la cible la radio RP4TD, ses conversions
 locales 5 V et les adaptations de synchronisation, hors porteuse. Le
 **PM08-CAN** reste fixé au châssis près de la distribution, sur un support
 séparé de CA01 et de la cassette batterie. Il reste sur le drone pendant
-l'échange de pack. Le chemin de puissance cible est batterie → PM08-CAN →
-toutes les branches. Le BEC1 dessert POWER1 et le BEC2 POWER2 du Pixhawk ;
+l'échange de pack. La PDB Holybro 300A Top Entry, SKU 18138, est une
+**candidate** pour la distribution fixe en aval du PM08-CAN : batterie →
+PM08-CAN → PDB → départs ESC et CA01. Le BEC1 dessert POWER1 et le BEC2
+POWER2 du Pixhawk ;
 la mesure DroneCAN rejoint CAN1 par un faisceau distinct. Les deux BEC ne
 sont pas mis en parallèle. Le 5 V local protégé de CA01 est issu d'un départ
 batterie aval du PM08-CAN et alimente notamment la radio, indépendamment du
@@ -195,6 +208,15 @@ sur les câbles et l'accès aux connecteurs. Réserver l'enveloppe fabricant
 45 × 41 × 26 mm hors câbles et tenir compte des 185 g annoncés câbles inclus ;
 ce ne sont ni l'encombrement installé ni une masse mesurée dans notre montage.
 [Source Holybro PM08-CAN](https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a).
+La [PDB candidate](https://holybro.com/products/power-distribution-board-pdb-300a-top-entry)
+porte six XT90 et deux XT30 orientés vers le haut, des bornes à vis de puissance
+et des trous de fixation M3. Prévoir un support isolé du carbone et un accès
+aux connecteurs, aux protections des départs et aux opérations de maintenance.
+Un XT30 est envisagé pour l'entrée 6S de CA01 ; son courant admissible dans
+le montage, la polarité, les dégagements, le cheminement, la décharge des câbles,
+l'encombrement et la masse installée sont **À valider**. La PDB ne remplace ni
+le PM08-CAN en série ni les connecteurs de signaux de CA01. Aucune géométrie
+PDB n'est encore intégrée à la CAO active.
 Les rayons de courbure, terminaisons de puissance, dégagements de maintenance,
 fixations, isolation des vis, vibrations et dissipation restent **À valider**.
 Les fixations ne doivent pas contraindre le boîtier, les composants ou les
@@ -208,8 +230,8 @@ implicitement de signaux ; aucun échange sous charge n'est prévu.
 Les fichiers CAO SA03/SA04, P03/P04/P06/P20 et les enveloppes ci-dessous
 restent ceux de l'empilage du 16 septembre. Ils ne représentent ni la porteuse
 Pixhawk Jetson, ni le module Orin NX 16 Go, ni le rail XT30 et ses câbles,
-ni la nouvelle implantation CA01 ou le support fixe PM08-CAN. L'enveloppe
-PM02D demeure historique. Les anciennes enveloppes RC et télémétrie séparées
+ni la nouvelle implantation CA01, la PDB candidate ou le support fixe
+PM08-CAN. L'enveloppe PM02D demeure historique. Les anciennes enveloppes RC et télémétrie séparées
 ne représentent pas deux modules à ajouter au RP4TD. Aucune réserve de hauteur
 ni absence de collision antérieure ne qualifie la nouvelle implantation.
 
@@ -268,15 +290,15 @@ revue de conception, pas la fabrication fonctionnelle ou le vol.
 
 | Point | Traitement réalisé / décision de travail | Donnée ou validation nécessaire pour clôturer |
 |---|---|---|
-| contacts capteurs | géométrie corrigée, huit poses contrôlées et bilan statique mis à jour | tolérances, câbles, rotations, ancrages M3, essai vibratoire et calibration |
+| contacts capteurs | géométrie corrigée, huit poses contrôlées et bilan statique mis à jour | interface Airy selon guide v1.3 : planéité, vis/piges, chemin thermique et premier mode >50 Hz ; câbles, rotations, essai vibratoire et calibration |
 | fixation avionique | ancienne CAO P06, P20–P22 et retenues créées sur trous OEM | nouveau support de porteuse, matériau/procédé, tolérances, freinage, accès et essais de retenue |
 | Jetson / P04 | deux collisions de l'ancienne maquette Orin Nano restent ouvertes | modèle exact porteuse/Orin NX, nouvelle fixation et contrôle d'interférence avant fabrication |
 | loquet batterie | conserver verrouillage mécanique positif indépendant du SBS ; famille Southco 97 avec verrou secondaire candidate | référence complète loquet/gâche, efforts, montage, essais avec gants et cycles |
 | batterie et cassette | enveloppe 6S 10 Ah candidate conservée | pack exact, tolérances, gonflement, mousse, sangles et masse réelle |
 | SBS / faisceau | implantation existante maintenue | contacts et câbles réels, rayon de courbure, traction, précharge et échauffement (DOC-ELEC) |
-| RTK / antenne | supports P07–P09 et enveloppes conservés | récepteur/antenne exacts, ancrage, connecteurs, dégagement radio et repères |
+| RTK / antenne | supports P07–P09 et enveloppes Rover patch historiques conservés | candidat Helical STM32G4 : support/antenne et SMA éventuel, câbles CAN + UART2 de temps, ciel dégagé, carbone/propulsion, masse et repères à vérifier |
 | caméra / optique | Basler conservée ; translation Airy traçable | objectif réel, champ de vue, masques, longueur des vis et extrinsèques |
-| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN fixé au châssis ; ancienne CAO conservée | contour/fixations CA01, support PM08-CAN, porteuse commune et XT30, décharge câbles, encombrement, vibrations et thermique ; actualiser SA03/SA04 après définition (DOC-ELEC §4.2) |
+| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN fixé au châssis ; PDB 300A Top Entry candidate en aval ; ancienne CAO conservée | support et isolation PDB, accès XT90/XT30, protection W08 au plus près du port et segment amont exposé à minimiser, décharge des départs, contour/fixations CA01, support PM08-CAN, encombrement, vibrations et thermique ; actualiser SA03/SA04 après définition (DOC-ELEC §4.2) |
 | masse et centrage | quantités CAO actives corrigées ; bilan isolateurs actualisé | masse de chaque pièce fabriquée et équipement, centre de gravité complet, poussée/endurance |
 | sources et exports | sources fabricant conservées, corrections natives et exports locaux | réouverture/recalcul, revue de montage puis essais matériels selon DOC-VAL |
 
@@ -332,9 +354,10 @@ conception puis confirmées à la revue de fabrication.
 | vis M2, écrous frein et capture métallique | 4 jeux visés | limitation sûre du débattement | dimensionnement **À valider** |
 | Airy, Basler et objectif | 1 chacun | bloc optique/LiDAR calibré | équipements candidats/présélectionnés |
 | porteuse Holybro Pixhawk Jetson, Pixhawk 6X module seul et Orin NX 16 Go | 1 chacun | ensemble calcul/vol de la nouvelle cible | **Planifié** ; encombrement, fixation et thermique **À valider** |
-| GNSS et antenne | 1 chacun | navigation et interface de fixation | enveloppes partielles **À valider** |
+| H-RTK F9P DroneCAN Helical STM32G4 et antenne candidats | 1 module embarqué | navigation RTK et PPS ; interface de fixation | remplacement étudié du Rover patch ; référence, enveloppe CAO, masse et montage **À valider** |
 | PM08-CAN et support fixe châssis | 1 par drone | distribution mesurée et deux BEC, près de la distribution | **Planifié** ; enveloppe fabricant 45 × 41 × 26 mm hors câbles, 185 g avec câbles ; intégration **À valider** |
-| base RTK, mât, pieds, boîtier et tablette | 1 jeu sol | station de référence et opérateur | architecture candidate |
+| PDB Holybro 300A Top Entry, SKU 18138, et support | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | **Planifié** ; masse, encombrement installé, isolation, accès et faisceaux **À valider** |
+| H-RTK F9P Base, HANT-X627A, mât/trépied, boîtier et poste QGC | 1 jeu sol | référence RTK et opérateur | sélection cible **Planifiée** ; assise, repère et câbles **À valider** |
 
 Les références électriques détaillées sont tenues dans `DOC-ELEC`. Les
 références et occurrences CAO exactes restent dans
@@ -346,10 +369,11 @@ Le bilan actuel estime le cartographe avec batterie candidate entre 4,7 et
 5,3 kg. Cette plage provient de volumes CAO et provisions, pas d'une pesée ; elle
 reste **À valider**. La cassette rapide ajoute de la matière et doit être
 réintégrée au bilan après définition du loquet et du faisceau. Ce bilan historique
-n'intègre ni le remplacement par PM08-CAN ni la porteuse commune avec Orin NX.
+n'intègre ni le remplacement par PM08-CAN, ni la PDB candidate, ni la
+porteuse commune avec Orin NX.
 Réconcilier le contenu du kit, retirer les anciens modules et supports devenus
-inutiles, puis compter le PM08-CAN, la porteuse, l'Orin NX, leurs supports,
-refroidissement et faisceaux réels sans double comptage des câbles inclus.
+inutiles, puis compter le PM08-CAN, la PDB, la porteuse, l'Orin NX, leurs
+supports, refroidissement et faisceaux réels sans double comptage des câbles inclus.
 Les 185 g fabricant ne s'ajoutent donc pas directement au total historique.
 
 ### 6.1 Bilan de masse de travail
@@ -466,6 +490,10 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 25 septembre 2026 | Variante H-RTK Helical STM32G4 candidate pour PPS : SA06, antenne et passage CAN/UART2 à reprendre ; CAO Rover patch conservée comme historique |
+| 25 septembre 2026 | Guide Airy v1.3 intégré pour fixation, planéité, piges, mou câble, rigidité et dissipation ; P16 actuelle à reprendre et vérifier |
+| 25 septembre 2026 | PDB Holybro 300A Top Entry SKU 18138 inscrite comme candidate en aval du PM08-CAN ; support M3, XT90/XT30, isolation, accès et masse installée à valider, CAO non migrée |
+| 24 septembre 2026 | Rover H-RTK F9P à patch intégré et Base H-RTK F9P/HANT-X627A sélectionnés ; supports SA06/SA07 et enveloppes historiques à reprendre |
 | 24 septembre 2026 | cible porteuse Holybro avec Pixhawk 6X module et Orin NX 16 Go ; BEC1/2 vers POWER1/POWER2, CA01 5 V local et XT30/12 V candidat ; SA03/SA04, manifeste et preuves CAO historiques non migrés |
 | 22 septembre 2026 | cible PM08-CAN fixé au châssis près de la distribution, hors pack ; deux BEC affectés vol/radio et auxiliaires/synchronisation ; nouvelle enveloppe et masse à intégrer, CAO et circuits KiCad V0.3 non migrés |
 | 22 septembre 2026 | PM02D complet en tête de distribution avec faisceau adapté ; BEC conservé hors CA01 ; support sur cassette à étudier ; simulation distincte de qualification électrique |

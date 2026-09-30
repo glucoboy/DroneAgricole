@@ -1,0 +1,124 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-09-29T22:22:45",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184",
+            "violations": []
+        },
+        {
+            "path": "/01_energie_pm/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184/a6ca9abc-674f-4cd6-bee8-087fb9cf4185",
+            "violations": []
+        },
+        {
+            "path": "/04_radio/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092",
+            "violations": []
+        },
+        {
+            "path": "/02_buck_12v_capteurs/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184/167086e2-b448-4252-bc8d-3cb028748500",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U201 Pin 20 [PVIN, Power input, Line]",
+                            "pos": {
+                                "x": 1.0795,
+                                "y": 0.6858
+                            },
+                            "uuid": "5a5cfaf4-9ade-4a4f-b11a-d1d3b1f3f33e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U201 Pin 13 [AGND, Power input, Line]",
+                            "pos": {
+                                "x": 1.2573,
+                                "y": 1.0414
+                            },
+                            "uuid": "86d8ff5c-f95b-491b-9cd9-9a576768ef26"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U201 Pin 9 [BIAS, Power input, Line]",
+                            "pos": {
+                                "x": 1.3335,
+                                "y": 0.6858
+                            },
+                            "uuid": "5e266bf8-0749-4ed1-b366-78628024786b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/05_synchronisation/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184/87097e58-fdf3-43d0-a36c-2e7e45a020dd",
+            "violations": []
+        },
+        {
+            "path": "/03_buck_5v_aux/",
+            "uuid_path": "/2c5e7995-042d-414f-9412-7fd29c3ee184/a0ebb51e-8eca-4cad-a9fb-6f133f647da2",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U301 Pin 9 [BIAS, Power input, Line]",
+                            "pos": {
+                                "x": 1.3335,
+                                "y": 0.6858
+                            },
+                            "uuid": "874673a1-6868-48ed-898a-18afc45c661d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        }
+    ],
+    "source": "CA01_Avionique.kicad_sch"
+}

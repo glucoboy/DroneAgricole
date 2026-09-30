@@ -1,90 +1,1143 @@
 {
   "schema_version": 1,
-  "date_utc": "2026-09-22T15:59:40.7959765Z",
-  "scope": "Revue statique CA01 V0.3, pas de qualification materielle",
+  "date_utc": "2026-09-30T22:24:28.0947413Z",
+  "scope": "CA01 cible V0.5 preliminaire ; aucune qualification materielle",
   "platform": "Windows amd64",
   "kicad_version": "10.0.6",
-  "component_count": 45,
-  "net_count": 44,
+  "component_count": 151,
+  "net_count": 111,
   "connectivity_checks": [
     {
-      "id": "basler_return",
+      "id": "legacy_removed",
       "passed": true,
-      "detail": "Retour opto uniquement au collecteur, sans pont GND"
+      "detail": "Aucun transit alimentation vol ou I2C PM"
     },
     {
-      "id": "basler_supply",
+      "id": "input_6s",
       "passed": true,
-      "detail": "Entree Line1 sur rail trigger protege ; pas alimentation camera"
+      "detail": "Entree 6S, FETs et sortie protegee"
     },
     {
-      "id": "airy_open",
+      "id": "radio_local_fuse",
       "passed": true,
-      "detail": "Deux nets distincts de part et autre du cavalier ouvert"
+      "detail": "Radio depuis 5 V local"
     },
     {
-      "id": "buffer_input_pulldown",
+      "id": "compute_lidar_outputs",
       "passed": true,
-      "detail": "Rappel entree buffer present"
+      "detail": "Deux rails 12 V distincts"
     },
     {
-      "id": "trigger_chain",
+      "id": "gnss_power_isolated",
       "passed": true,
-      "detail": "Buffer, resistance de base et transistor sans bypass"
+      "detail": "GNSS alimente par CAN2, pas CA01"
     },
     {
-      "id": "radio_flight_input",
+      "id": "camera_grounds_separate",
       "passed": true,
-      "detail": "Entree domaine vol reservee a la radio"
+      "detail": "Retour opto distinct de GND GPIO"
     },
     {
-      "id": "pm_transit_absent",
+      "id": "airy_optional_open",
       "passed": true,
-      "detail": "PM vers Pixhawk direct hors CA01 : aucun transit I2C ni J102"
-    },
-    {
-      "id": "flight_aux_distinct",
-      "passed": true,
-      "detail": "Nets positifs vol/aux distincts ; masse commune conservee"
-    },
-    {
-      "id": "buck_2_bootstrap",
-      "passed": true,
-      "detail": "Bootstrap entre BOOT et SW"
-    },
-    {
-      "id": "buck_2_vcc",
-      "passed": true,
-      "detail": "VCC decouple et pad expose sur GND"
-    },
-    {
-      "id": "buck_3_bootstrap",
-      "passed": true,
-      "detail": "Bootstrap entre BOOT et SW"
-    },
-    {
-      "id": "buck_3_vcc",
-      "passed": true,
-      "detail": "VCC decouple et pad expose sur GND"
+      "detail": "SYNC_OUT1 option DNP"
     },
     {
       "id": "R401_dnp",
       "passed": true,
-      "detail": "Pont UART non monte avant validation niveaux"
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
     },
     {
       "id": "R402_dnp",
       "passed": true,
-      "detail": "Pont UART non monte avant validation niveaux"
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
+    },
+    {
+      "id": "R530_dnp",
+      "passed": true,
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
+    },
+    {
+      "id": "R531_dnp",
+      "passed": true,
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
+    },
+    {
+      "id": "R532_dnp",
+      "passed": true,
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
+    },
+    {
+      "id": "R533_dnp",
+      "passed": true,
+      "detail": "Pont non monte avant verification des niveaux et sequencements"
+    },
+    {
+      "id": "buck_2_bootstrap",
+      "passed": true,
+      "detail": "BOOT, SW et inductance LM76003"
+    },
+    {
+      "id": "buck_2_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose"
+    },
+    {
+      "id": "buck_2_bias",
+      "passed": true,
+      "detail": "BIAS depuis VOUT par R et decouplage"
+    },
+    {
+      "id": "buck_2_feedback",
+      "passed": true,
+      "detail": "Diviseur VOUT FB GND"
+    },
+    {
+      "id": "C201_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C206_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C207_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C203_polarity",
+      "passed": true,
+      "detail": "Polymere sortie positif VOUT negatif GND"
+    },
+    {
+      "id": "C208_feedforward",
+      "passed": true,
+      "detail": "Cff en parallele resistance haute"
+    },
+    {
+      "id": "U201_input_ground",
+      "passed": true,
+      "detail": "PVIN et AGND"
+    },
+    {
+      "id": "buck_3_bootstrap",
+      "passed": true,
+      "detail": "BOOT, SW et inductance LM76003"
+    },
+    {
+      "id": "buck_3_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose"
+    },
+    {
+      "id": "buck_3_bias",
+      "passed": true,
+      "detail": "BIAS depuis VOUT par R et decouplage"
+    },
+    {
+      "id": "buck_3_feedback",
+      "passed": true,
+      "detail": "Diviseur VOUT FB GND"
+    },
+    {
+      "id": "C301_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C306_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C307_input",
+      "passed": true,
+      "detail": "Decouplage entree"
+    },
+    {
+      "id": "C303_polarity",
+      "passed": true,
+      "detail": "Polymere sortie positif VOUT negatif GND"
+    },
+    {
+      "id": "C308_feedforward",
+      "passed": true,
+      "detail": "Cff en parallele resistance haute"
+    },
+    {
+      "id": "U301_input_ground",
+      "passed": true,
+      "detail": "PVIN et AGND"
+    },
+    {
+      "id": "5V_AUX_fuse",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "5V_SYNC_input",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "3V3_SYNC_regulated",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "sync_ground",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "aux1_gate_series",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "gate_pulldown",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "opto_return_switched",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "exposure_raw",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "exposure_input_clamp",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "pullup_reverse_block",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "capture_series",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "capture_output",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "gnss_pps_input",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "gnss_rmc_input",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "R530_source",
+      "passed": true,
+      "detail": "Résistance de sortie série, indépendamment de son orientation non polarisée"
+    },
+    {
+      "id": "R530_output",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "R531_source",
+      "passed": true,
+      "detail": "Résistance de sortie série, indépendamment de son orientation non polarisée"
+    },
+    {
+      "id": "R531_output",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "R532_source",
+      "passed": true,
+      "detail": "Résistance de sortie série, indépendamment de son orientation non polarisée"
+    },
+    {
+      "id": "R532_output",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "R533_source",
+      "passed": true,
+      "detail": "Résistance de sortie série, indépendamment de son orientation non polarisée"
+    },
+    {
+      "id": "R533_output",
+      "passed": true,
+      "detail": "Synchronisation : groupe de broches attendu"
+    },
+    {
+      "id": "nc_J503_1",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_J503_2",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_J503_4",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_J502_1",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_J502_5",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_U503_4",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_U509_1",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "nc_JP501_2",
+      "passed": true,
+      "detail": "Broche volontairement non connectee"
+    },
+    {
+      "id": "distinct_Q501/3_Q501/2",
+      "passed": true,
+      "detail": "Aucune liaison directe entre domaines adaptes"
+    },
+    {
+      "id": "distinct_J502/4_J508/1",
+      "passed": true,
+      "detail": "Aucune liaison directe entre domaines adaptes"
+    },
+    {
+      "id": "distinct_J503/5_J504/1",
+      "passed": true,
+      "detail": "Aucune liaison directe entre domaines adaptes"
+    },
+    {
+      "id": "distinct_J503/3_J504/2",
+      "passed": true,
+      "detail": "Aucune liaison directe entre domaines adaptes"
+    },
+    {
+      "id": "input_connector_fuse",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "input_after_fuse",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "common_drain_vs",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "dgate",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "hgate",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "hgate_ramp",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "charge_pump",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "front_uv",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "front_ov_switch",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "front_ov",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "protected_input",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_vin_filter",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_rt",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_ss",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_enable",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "bootstrap_sw",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "bootstrap_bst",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_vcc",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "high_gate",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "low_gate",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "shunt_top",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "current_limit",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "feedback",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compensation",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "comp_series",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "feedforward_series",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "compute_output",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "ground",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_nc_U101_13",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_nc_U102_7",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_nc_U102_9",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_nc_U102_10",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_nc_U102_16",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "isolated_power_gate_rails",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_U101",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_U102",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_Q101",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_Q102",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_Q103",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "symbol_pinmap_Q104",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "value_C103_Value",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "value_C105_Value",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "value_R104_Value",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "value_R116_Footprint",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "value_R116_MPN",
+      "passed": true,
+      "detail": "Entree/compute : circuit et brochage candidat relu"
+    },
+    {
+      "id": "time_airy_supply",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_orin_supply",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_airy_input",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_ground",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_pps_fanout",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_rmc_fanout",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_rmc_logic_before_rs232",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R534_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R535_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R536_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R537_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R538_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R539_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R540_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R541_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R542_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R543_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C504_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C505_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C506_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C507_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C508_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C509_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C510_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C511_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C512_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C513_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C514_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C515_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C516_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C517_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C518_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C519_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C520_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C521_path",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U510_3",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U510_4",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U512_1",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U513_1",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U506_7",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U506_8",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U506_9",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U506_12",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_nc_U506_13",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_separate_power_domains",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_separate_serial_stages",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U504_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U504_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U505_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U505_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U507_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U507_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U511_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U511_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U512_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U512_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U513_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U513_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U510_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U510_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U506_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_U506_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_D503_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_D503_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_D504_mpn",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_D504_footprint",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R534_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R535_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R536_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R537_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R538_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R539_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R540_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R541_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R542_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R543_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R530_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R531_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R532_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_R533_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C514_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C515_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C516_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C517_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C518_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C519_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_C520_value",
+      "passed": true,
+      "detail": "Synchronisation physique candidate : invariant de circuit"
+    },
+    {
+      "id": "time_pinmap_U504",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U505",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U507",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U511",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U512",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U513",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U510",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_U506",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_D503",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_pinmap_D504",
+      "passed": true,
+      "detail": "Brochage réel datasheet fabricant"
+    },
+    {
+      "id": "time_included_U504",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U505",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U506",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U507",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U510",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U511",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U512",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_U513",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_D503",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_included_D504",
+      "passed": true,
+      "detail": "Circuit physique inclus en BOM et carte avec empreinte, non DNP"
+    },
+    {
+      "id": "time_C514_voltage",
+      "passed": true,
+      "detail": "LDO Airy : condensateur 25V candidat"
+    },
+    {
+      "id": "time_C515_voltage",
+      "passed": true,
+      "detail": "LDO Airy : condensateur 25V candidat"
     }
   ],
   "connectivity_passed": true,
   "erc": {
-    "exit_code": 5,
-    "errors": 3,
+    "exit_code": 0,
+    "errors": 0,
     "warnings": 0,
-    "passed": false,
-    "report": "erc.json"
+    "passed": true,
+    "report": "erc.json",
+    "ignored_checks": [
+      {
+        "description": "Global label only appears once in the schematic",
+        "key": "single_global_label"
+      },
+      {
+        "description": "Four connection points are joined together",
+        "key": "four_way_junction"
+      },
+      {
+        "description": "SPICE model issue",
+        "key": "simulation_model_issue"
+      },
+      {
+        "description": "Assigned footprint doesn't match footprint filters",
+        "key": "footprint_filter"
+      }
+    ]
   },
   "manufacturing_ready": false,
   "hardware_tests_executed": false,
@@ -92,23 +1145,23 @@
   "files": [
     {
       "file": "01_energie_pm.kicad_sch",
-      "sha256": "4c2c982d260ae971b7dd316ca0c1fd75a7de8db8409c8b0a4e942e89e768b593"
+      "sha256": "bbd07f009b89551d7550bbc79b8378da3dc3e52926d5170c576280760575ce93"
     },
     {
       "file": "02_buck_12v_capteurs.kicad_sch",
-      "sha256": "b88eb8cb2da358bda4109b16b005059ff628138556afa2daceed70587ceb65ce"
+      "sha256": "9659581274d0d44a5a9a888633fd0da0782ac63e10129dbab2400824ef325816"
     },
     {
       "file": "03_buck_5v_aux.kicad_sch",
-      "sha256": "69f82bd37fc7a804583762cc8c9ae25eedf3e52125a39552051ebc02492a8737"
+      "sha256": "542c8b9786e50d270db3f7e169ef9b0f4f05eb05a954840f74959c965eb6f563"
     },
     {
       "file": "04_radio.kicad_sch",
-      "sha256": "b4fc57528c8b86d90adb99aa881f50942da8829774fd7b8a113fef6edb603d59"
+      "sha256": "f07d4832a31552567b5201ae2d7d08257cf03438739d07ca8818c4d7167fec93"
     },
     {
       "file": "05_synchronisation.kicad_sch",
-      "sha256": "6e61e49ee551b7e755bcbaf75a3500a2e96e67d5254dd5c963f4875476b7ca2f"
+      "sha256": "435e62f3ff46be3068b839a1c12937a7884c2d2f0f36c17be5ac1a639d7d671d"
     },
     {
       "file": "CA01_Avionique.kicad_pcb",
@@ -120,15 +1173,29 @@
     },
     {
       "file": "CA01_Avionique.kicad_sch",
-      "sha256": "f0383c7583eb9b71f03576bab86a677120a6a0b9c8ef5372e97c6bd88f3ce6b4"
+      "sha256": "79c30f1de73e17d20f48c6bf17621a63b07d9341bf538faae4f9ab67ec87a26b"
+    },
+    {
+      "file": "CA01_Design.kicad_sym",
+      "sha256": "cc25567d2e21183ad413d013307014772434c49e51c0490d12a0ade0e298af48"
     },
     {
       "file": "CA01_Fonctions.kicad_sym",
-      "sha256": "0b287f488ec90557e9f18c114ee1afeb31871de88f53188985f7c5d811d3bd2c"
+      "sha256": "6d2c2bfb671236eb3114ef7a7ec67c03789bd362f08a53be7692bbd1f9559381"
     },
     {
       "file": "sym-lib-table",
-      "sha256": "9860d63deeb6485b2c73aa6986aa6141e366a1af7720cb13f0b6df99594de368"
+      "sha256": "7923678c2c758f93b6c15428ba2e22490c494049516fffbdd4fd0d415a56e334"
+    }
+  ],
+  "recipe_inputs": [
+    {
+      "file": "verify_ca01.ps1",
+      "sha256": "f58a71677c6793587c04ab61688dc4ff6ef0c419eb0bd0f00f4cba5575739ff5"
+    },
+    {
+      "file": "connectivity_rules.json",
+      "sha256": "ed68ae4c9ec8fb93dc49be2feb45a40080b8218d0bd74d5f7dae89947c5831fc"
     }
   ]
 }

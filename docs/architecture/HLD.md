@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-HLD` |
 | Nature | document vivant |
-| Dernière mise à jour | 24 septembre 2026 |
+| Dernière mise à jour | 30 septembre 2026 |
 | Statut | architecture système préliminaire ; capacités qualifiées indiquées explicitement |
 
 ## 1. Objet et périmètre
@@ -67,7 +67,7 @@ détails de leur domaine.
 | Drone cartographe | acquisition synchronisée et géoréférencée de la parcelle | matériel et qualification **À valider** ; CAO et chaîne d'essai implémentées partiellement |
 | Station de mission | cycle hors vol, simulation, exploitation des acquisitions et résultats | socle C++17/Qt 6 implémenté ; simulation et cartographie d'essai opérationnelles préliminaires |
 | Drone de traitement | navigation locale, déploiement du bras et application ciblée | planifié |
-| Base RTK locale | référence géodésique et corrections sans abonnement | architecture candidate **À valider** |
+| Base RTK locale | référence géodésique et corrections sans abonnement | Holybro H-RTK F9P Base sélectionnée ; implantation et chaîne RTCM **À valider** |
 | Bancs et simulation | validation reproductible avant essais physiques | bancs logiciels disponibles ; banc matériel **À valider** |
 
 ## 4. Scénario opérationnel nominal
@@ -183,8 +183,12 @@ La poursuite en AUTO est le comportement cible **Planifié**, conditionné à un
 mission valide, une navigation suffisante, l'énergie, la géofence et les gardes
 embarquées ; elle n'autorise pas une poursuite aveugle à tout défaut. Les
 conditions métier du traitement restent applicables sans liaison sol.
-Si des corrections RTK utilisent le même RF, la coupure peut aussi dégrader la
-localisation : cette conséquence doit être évaluée séparément.
+La cible transporte les corrections RTK sur ce RF commun via QGroundControl.
+Une perte de QGC, du Wi-Fi local ou du RF arrête les corrections et peut faire
+passer le rover de RTK Fix à Float ou GNSS autonome. PX4 doit décider selon la
+qualité de navigation réellement disponible ; la poursuite AUTO avec cette
+dégradation reste **À valider**. La commande physique reste disponible lors de
+la seule perte PC/Wi-Fi, sous réserve que le RF Pocket–drone fonctionne.
 
 Les délais, limites de perte admissibles, choix du repli et paramètres PX4
 restent **À valider** en simulation puis sur cible. Les exceptions de perte RC,
@@ -218,7 +222,7 @@ Principes non négociables :
 
 | Information | Producteur | Consommateur | Contrôle attendu |
 |---|---|---|---|
-| Acquisition capteurs | drone cartographe | station | manifeste, horodatage, calibration, empreintes |
+| Acquisition capteurs | drone cartographe | station | manifeste, horodatage, source et verrouillage des horloges, offset/incertitude, association image-déclenchement, calibration et empreintes |
 | Carte candidate/approuvée | station | opérateur puis drone de traitement | version, repère, qualité, compatibilité, approbation |
 | Mission de cartographie | préparation sol | cartographe | surface, relief de référence, couverture, contraintes, validation et accusé de réception |
 | Mission de traitement | station | drone de traitement | carte liée, contraintes, prescription, expiration |
@@ -260,14 +264,21 @@ La porteuse commune réduit les interfaces mécaniques et les câbles entre
 contrôleur de vol et compagnon ; le Pixhawk conserve son autorité de vol
 indépendamment du logiciel Jetson. Révisions matérielles, encombrement,
 thermique et disponibilité restent **À valider**. La CAO actuelle représente
-encore un kit Orin Nano et une base Pixhawk v2A distincts. Le GNSS embarqué reste
-à choisir entre une intégration DroneCAN de classe H-RTK et une solution
-ArduSimple adaptée. La cible d'intégration devient une **liaison RF commune**
+encore un kit Orin Nano et une base Pixhawk v2A distincts. Le choix de conception est un **Holybro H-RTK F9P DroneCAN Rover** embarqué et une
+**Holybro H-RTK F9P Base** au sol. Pour obtenir un PPS physique en plus du
+CAN2 de navigation, la variante **Helical STM32G4** du Rover devient la cible
+**Planifiée** ; sa broche 5 UART2/PPS doit être confirmée sur la révision livrée.
+La variante S32K1 avec broche 5 non connectée ne satisfait pas cette fonction.
+Le montage, le repère de la base, les performances RTK et la distribution du
+temps restent **À valider**. La cible d'intégration devient une **liaison RF commune**
 à la commande manuelle et à MAVLink/QGroundControl (§4.6–4.7), pour réduire
 les modules, antennes et besoins d'alimentation. Elle remplace la présélection
 antérieure de deux radios distinctes ; celles-ci restent une solution de repli.
 La perte commune est assumée comme hypothèse d'architecture, sans prétendre
-à une redondance de liaison. La présélection Pocket ELRS EU-LBT + RP4TD en
+à une redondance de liaison. RTCM, commandes QGC ponctuelles et télémétrie
+doivent partager le débit MAVLink ; la faisabilité simultanée est **À valider**
+par T-RF-06. Les consignes de déplacement continues sont produites à bord
+via le compagnon et PX4, pas par une boucle dépendant du poste au sol. La présélection Pocket ELRS EU-LBT + RP4TD en
 mode MAVLink, les alternatives et les limites sont portées par
 [DOC-ELEC §7.4](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#74-liaison-rf-commune-rc-et-mavlink).
 Aucun choix de matériel ou de firmware n'est **Qualifié**.
@@ -301,6 +312,37 @@ Le cahier des charges et le câblage cible sont portés par
 [DOC-ELEC §4.2](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01)
 et [§4.3](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#43-câblage-global-du-cartographe).
 
+La synchronisation du cartographe repose, en cible **Planifiée**, sur un même
+repère de temps GNSS et des événements physiques mesurables. Le Rover fournit
+la navigation RTK à PX4 par CAN2 ; sa sortie PPS candidate rejoint CA01, qui
+prépare PPS et GPRMC compatibles avec l’Airy et une référence temporelle pour
+le Jetson par les accès disponibles de la porteuse. La Jetson sous ROS 2 décide
+des captures métier ; PX4 réalise leur déclenchement matériel sur la Basler
+par une sortie AUX affectée et CA01 adapte ce signal à son entrée optocouplée ;
+le retour ExposureActive de la caméra rejoint une entrée de capture du Pixhawk
+réservée à cet effet. Les points Airy continuent par Ethernet et les images
+Basler par USB3 vers le Jetson. Les événements PX4 transitent par le lien
+compagnon interne candidat TELEM2. Le retour de capture ne remplace pas le PPS
+et l’Airy SYNC_OUT1 reste une option ultérieure. La disponibilité de chaque port,
+les niveaux électriques et l’offset/incertitude entre horloges GNSS, PX4 et
+Jetson sont **À valider** ; cette architecture ne démontre pas encore une
+synchronisation acquise. Voir [DOC-ELEC §8](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#8-synchronisation-et-repères-temporels),
+[DOC-SW §7.1](ARCHITECTURE_LOGICIELLE.md#71-composants-logiques-cibles) et
+[DOC-VAL §12.8](../VALIDATION_QUALIFICATION.md).
+
+Dans cette cible **Planifié / À valider**, `mission_manager` sur la Jetson
+décide quand acquérir une image selon la couverture ; `sensor_manager`
+coordonne la demande, les diagnostics et l'association des données. PX4
+exécute la commande caméra et mesure le retour d'exposition ; CA01 adapte
+les signaux sans décider d'une capture. Une seule autorité de capture est
+active pendant le relevé : les déclenchements autonomes de mission PX4 ou
+les commandes de test QGroundControl doivent être exclus de cette session.
+Le GNSS, les IMU et le LiDAR produisent des flux continus : ils ne reçoivent
+pas un ordre de nouvelle mesure à chaque photo. La Jetson associe l'image
+à la pose et aux points mesurés dans une fenêtre temporelle justifiée,
+avec compensation du mouvement ; l'heure de réception n'est pas l'heure
+d'acquisition. Le PPS fournit un repère d'horloge, pas une cadence photo.
+
 Cette évolution définit la cible ; **les circuits internes KiCad V0.3 et la
 CAO SA03/SA04 ne sont pas migrés**. Le schéma CA01 existant ne démontre pas
 encore le rail 5 V local protégé ni les nouvelles interfaces. La CAO conserve
@@ -332,7 +374,7 @@ référence du comportement attendu au niveau système.
 
 | ID | Exigence |
 |---|---|
-| `MAP-FUN-001` | Acquérir de manière synchronisée LiDAR, IMU, GNSS RTK et images. |
+| `MAP-FUN-001` | Coordonner les captures depuis la Jetson/ROS 2, avec une seule autorité active ; acquérir et dater les flux LiDAR, IMU, GNSS RTK et images dans un repère temporel traçable ; associer demande, déclenchement physique, exposition et image, mesurer les offsets et incertitudes, et marquer invalides les données dont la synchronisation est perdue ou indémontrable. |
 | `MAP-FUN-002` | Maintenir une estimation de trajectoire pendant une dégradation GNSS temporaire. |
 | `MAP-FUN-003` | Produire un nuage 3D géoréférencé de la zone couverte. |
 | `MAP-FUN-004` | Segmenter au minimum terrain, végétation, poteaux et obstacles structurants. |
@@ -417,9 +459,10 @@ visibilité et écartement restent **À valider** sur la plateforme physique.
 | Exigence | Allocation principale | Test ou preuve | Résultat actuel |
 |---|---|---|---|
 | `SAFE-REQ-001/002` | PX4, pont compagnon | perte Offboard et perte compagnon en SITL puis banc | SITL partiel implémenté ; matériel **À valider** |
-| `SYS-FUN-007/008/009`, `SAFE-REQ-010` | PX4, compagnon, RC/MAVLink et QGC | `T-RF-01..05`, DOC-VAL §9.1 | **Planifié**, non exécuté |
+| `SYS-FUN-007/008/009`, `SAFE-REQ-010` | PX4, compagnon, RC/MAVLink, RTCM et QGC | `T-RF-01..06`, DOC-VAL §9.1 | **Planifié**, non exécuté |
 | `MAP-FUN-009` | planification de couverture et suivi embarqué | `T-MAP-COV-01`, DOC-VAL §9.1 | **Planifié**, non exécuté |
-| `SYS-FUN-002/006`, `MAP-FUN-001` | cartographe, station | manifeste, temps, calibration et empreintes | contrats partiels implémentés |
+| `SYS-FUN-002/006` | cartographe, station | manifeste, données brutes, calibration et empreintes | contrats de rejeu partiels **Implémentés** ; acquisition sur matériel **À valider** |
+| `MAP-FUN-001` | Rover/CA01, PX4, Airy, Basler et `sensor_manager` Jetson | `T-AIRY-SYNC-01`, `T-CA01-09`, DOC-VAL §12.8 : verrouillage, offsets/incertitudes, association exposition/image, pertes et reprise | **Planifié / À valider** ; aucune synchronisation matérielle démontrée |
 | `MAP-FUN-003/005/008` | chaîne cartographique | jeux synthétiques, rejeu FriûlBot et diagnostics | implémenté préliminaire ; précision **À valider** |
 | `TRT-FUN-001`, `GCS-FUN-001` | station | approbation, compatibilité et rejet | planifié |
 | `TRT-FUN-003/004` | carte, planificateur, PX4 | relief/obstacles/fils puis vols progressifs | planifié |
@@ -459,6 +502,9 @@ ne sont pas disponibles.
 
 | Date | Modification |
 |---|---|
+| 30 septembre 2026 | Responsabilités temporelles clarifiées : décision de capture Jetson/ROS 2, impulsion PX4 et adaptation CA01 ; flux continus associés au temps réel d'exposition, autorité unique et distinction PPS/cadence ; cible Planifié / À valider |
+| 25 septembre 2026 | synchronisation cartographe cible : Rover Helical STM32G4 PPS candidat, CA01 distribution du temps, AUX PX4 vers Basler et retour ExposureActive vers capture Pixhawk ; horloges et ports à qualifier |
+| 24 septembre 2026 | sélection Rover/Base Holybro F9P ; correction RTCM visée via RF commun, commandes sol ponctuelles et télémétrie sous budget à valider |
 | 24 septembre 2026 | cible Pixhawk Jetson Baseboard avec Pixhawk 6X module et Orin NX 16 Go ; BEC1/2 vers POWER1/POWER2, CAN1 séparé, CA01 5 V local protégé et porteuse via XT30/12 V candidat ; CAO et KiCad non migrés |
 | 22 septembre 2026 | cible PM08-CAN fixe sur châssis près de la distribution ; BEC1 vers POWER1/vol/radio, BEC2 vers CA01 auxiliaires/synchronisation, mesure DroneCAN CAN1 ; retrait buck 5 V auxiliaire planifié, CAO et circuits KiCad V0.3 non migrés |
 | 22 septembre 2026 | PM02D complet en tête de distribution avec faisceau adapté ; BEC conservé hors CA01 ; support sur cassette à étudier ; simulation distincte de qualification électrique |

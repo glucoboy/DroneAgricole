@@ -5,7 +5,7 @@
 	(uuid "2c5e7995-042d-414f-9412-7fd29c3ee184")
 	(paper "A4")
 	(lib_symbols)
-	(text "LM76003 candidat\n5V auxiliaires / budget ouvert\nPassifs de puissance a dimensionner"
+	(text "5V local CA01 depuis 6S protege\nRadio, auxiliaires et synchronisation\nBudget et passifs a dimensionner"
 		(exclude_from_sim no)
 		(at 205 65 0)
 		(effects
@@ -16,7 +16,7 @@
 		)
 		(uuid "40093f06-423f-45a1-b66b-eb1f57f4408c")
 	)
-	(text "CA01 - Carte commune avionique / EBAUCHE V0.3"
+	(text "CA01 - Alimentation, radio et synchronisation / CIBLE V0.5"
 		(exclude_from_sim no)
 		(at 20 20 0)
 		(effects
@@ -50,7 +50,7 @@
 		)
 		(uuid "7a423988-4114-4064-809b-5d8e73094495")
 	)
-	(text "22/09/2026 - Architecture et circuits partiels. NON FABRICABLE.\nRP4TD rapporte + DC/DC + synchronisation ; PM02D externe.\nAucun courant propulsion sur cette carte. PM02D complet en tete."
+	(text "25/09/2026 - Migration du schema vers la cible V0.5. NON FABRICABLE.\nPM08-CAN, BEC1/2 et CAN hors CA01 ; 6S protege depuis PDB.\nAucun courant propulsion sur cette carte. Valeurs a valider."
 		(exclude_from_sim no)
 		(at 20 30 0)
 		(effects
@@ -61,7 +61,7 @@
 		)
 		(uuid "7ec98282-f3ff-4feb-93c0-def77a32755b")
 	)
-	(text "Entree radio issue du domaine vol\nBranche charge utile protegee\n12V calcul : bloc a concevoir"
+	(text "Entree CA01 depuis XT30/PDB 6S avec protection\n5V radio local ; POWER1/2 independants hors carte\n12V calcul : bloc a concevoir"
 		(exclude_from_sim no)
 		(at 35 65 0)
 		(effects
@@ -72,7 +72,7 @@
 		)
 		(uuid "86bd93b3-2985-4f91-84bf-24064435c341")
 	)
-	(text "Nets globaux : interfaces entre feuilles. Valeurs TBD et blocs FONCTION non dimensionnes.\nLes champs de puissance sont des objectifs, pas une qualification.\nVoir DOC-ELEC (cahier des charges) et manifest.json (limites et verifications)."
+	(text "Nets globaux : interfaces entre feuilles. Circuits physiques candidats ; protections et interfaces a valider.\nLes champs de puissance sont des objectifs, pas une qualification.\nVoir DOC-ELEC (cahier des charges) et manifest.json (limites et verifications)."
 		(exclude_from_sim no)
 		(at 20 170 0)
 		(effects
@@ -83,7 +83,7 @@
 		)
 		(uuid "96853b2b-9c60-48f3-8aba-a31eb4b90023")
 	)
-	(text "Airy : entree ouverte\nAdaptation + driver Basler amorce\nNiveaux et chronometrie a valider"
+	(text "GNSS PPS/GPRMC via CA01 vers Airy et Orin\nPixhawk AUX1 vers Basler ; ExposureActive vers CAP1\nNiveaux et chronometrie a valider"
 		(exclude_from_sim no)
 		(at 120 120 0)
 		(effects

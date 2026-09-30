@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-29T20:22:46.2120302Z",
+  "scope": "CA01 cible V0.5 preliminaire ; aucune qualification materielle",
+  "platform": "Windows amd64",
+  "kicad_version": "10.0.6",
+  "component_count": 53,
+  "net_count": 51,
+  "connectivity_checks": [
+    {
+      "id": "legacy_removed",
+      "passed": true,
+      "detail": "Aucun transit alimentation vol ou I2C PM"
+    },
+    {
+      "id": "input_6s",
+      "passed": true,
+      "detail": "Entree 6S et bloc protection visible"
+    },
+    {
+      "id": "radio_local_fuse",
+      "passed": true,
+      "detail": "Radio alimentee depuis 5 V CA01"
+    },
+    {
+      "id": "compute_lidar_outputs",
+      "passed": true,
+      "detail": "Deux sorties 12 V distinctes"
+    },
+    {
+      "id": "gnss_power_isolated",
+      "passed": true,
+      "detail": "VCC GNSS UART2 non raccorde"
+    },
+    {
+      "id": "gnss_pps",
+      "passed": true,
+      "detail": "PPS sur deux adaptations distinctes"
+    },
+    {
+      "id": "gnss_gprmc",
+      "passed": true,
+      "detail": "GPRMC sur deux adaptations distinctes"
+    },
+    {
+      "id": "gnss_no_direct_bypass",
+      "passed": true,
+      "detail": "Aucun raccordement direct de niveaux inconnus"
+    },
+    {
+      "id": "sync_rails",
+      "passed": true,
+      "detail": "Rails synchronisation candidats depuis 5 V local"
+    },
+    {
+      "id": "camera_trigger",
+      "passed": true,
+      "detail": "AUX1 adapte vers Basler Line1"
+    },
+    {
+      "id": "camera_exposure",
+      "passed": true,
+      "detail": "ExposureActive adapte vers CAP1"
+    },
+    {
+      "id": "camera_grounds_separate",
+      "passed": true,
+      "detail": "Retour opto distinct de GND GPIO"
+    },
+    {
+      "id": "airy_optional_open",
+      "passed": true,
+      "detail": "Option SYNC_OUT1 ouverte et DNP"
+    },
+    {
+      "id": "radio_uart_dnp",
+      "passed": true,
+      "detail": "Ponts UART radio DNP"
+    },
+    {
+      "id": "buck_2_bootstrap",
+      "passed": true,
+      "detail": "Bootstrap, SW et inductance du LM76003, sans nom de reseau impose"
+    },
+    {
+      "id": "buck_2_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose"
+    },
+    {
+      "id": "buck_2_bias",
+      "passed": true,
+      "detail": "BIAS relie a VOUT par R non polarisee et decouple par C"
+    },
+    {
+      "id": "buck_2_feedback",
+      "passed": true,
+      "detail": "Diviseur VOUT vers FB vers GND, sans orientation passive imposee"
+    },
+    {
+      "id": "buck_3_bootstrap",
+      "passed": true,
+      "detail": "Bootstrap, SW et inductance du LM76003, sans nom de reseau impose"
+    },
+    {
+      "id": "buck_3_vcc",
+      "passed": true,
+      "detail": "VCC decouple et pad expose"
+    },
+    {
+      "id": "buck_3_bias",
+      "passed": true,
+      "detail": "BIAS relie a VOUT par R non polarisee et decouple par C"
+    },
+    {
+      "id": "buck_3_feedback",
+      "passed": true,
+      "detail": "Diviseur VOUT vers FB vers GND, sans orientation passive imposee"
+    }
+  ],
+  "connectivity_passed": true,
+  "erc": {
+    "exit_code": 5,
+    "errors": 4,
+    "warnings": 0,
+    "passed": false,
+    "report": "erc.json"
+  },
+  "manufacturing_ready": false,
+  "hardware_tests_executed": false,
+  "qualification": "A valider",
+  "files": [
+    {
+      "file": "01_energie_pm.kicad_sch",
+      "sha256": "c591b961216d23ab9ce6972da07f8910979ecc662f7c0ce6f48311935be9ea36"
+    },
+    {
+      "file": "02_buck_12v_capteurs.kicad_sch",
+      "sha256": "35d495e1ceb8f0592f55a465801ad0bc606e4bdc4034ac7fc6e5a7ed596bd2d1"
+    },
+    {
+      "file": "03_buck_5v_aux.kicad_sch",
+      "sha256": "b29fc483f32fb7b30fd8595f938b401717c8633300ccf5160c6ede01608c1d7f"
+    },
+    {
+      "file": "04_radio.kicad_sch",
+      "sha256": "b4fc57528c8b86d90adb99aa881f50942da8829774fd7b8a113fef6edb603d59"
+    },
+    {
+      "file": "05_synchronisation.kicad_sch",
+      "sha256": "f2be1585a68d9723d183374eb0279c72824b9222258bc6aff5612fe6d26875c4"
+    },
+    {
+      "file": "CA01_Avionique.kicad_pcb",
+      "sha256": "35d21e9c97583bd81f3254e0aa214613f2a6bd5d95f5c3108fd89032dc27408d"
+    },
+    {
+      "file": "CA01_Avionique.kicad_pro",
+      "sha256": "3a8af6728b354476a2a4b1f58890143685f29c1388023486c44519fa9e61ec8f"
+    },
+    {
+      "file": "CA01_Avionique.kicad_sch",
+      "sha256": "b0a89f39cc1cf32da9970510d9c754a48a14899ef43322a7a79caefc49dd47be"
+    },
+    {
+      "file": "CA01_Fonctions.kicad_sym",
+      "sha256": "1021a7b507424e464b1a22af1fb141726f71d46f89f1f64f52ad9c261f8fb801"
+    },
+    {
+      "file": "sym-lib-table",
+      "sha256": "9860d63deeb6485b2c73aa6986aa6141e366a1af7720cb13f0b6df99594de368"
+    }
+  ]
+}

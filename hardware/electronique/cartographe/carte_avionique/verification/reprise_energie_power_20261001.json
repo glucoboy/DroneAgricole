@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-30T22:24:28.323923+00:00",
+  "scope": "Reprise graphique page 2 et symboles alimentation/GND ; comparaison des six feuilles CA01",
+  "platform": "Windows amd64 ; KiCad 10.0.6",
+  "checks": [
+    {
+      "id": "all_components_preserved",
+      "passed": true,
+      "count": 151
+    },
+    {
+      "id": "all_pin_groups_identical",
+      "passed": true,
+      "count": 111,
+      "removed": [],
+      "added": []
+    },
+    {
+      "id": "all_electrical_fields_and_identities_preserved",
+      "passed": true,
+      "modified": []
+    },
+    {
+      "id": "rail_labels_replaced",
+      "passed": true,
+      "remaining": []
+    },
+    {
+      "id": "power_symbols_upright",
+      "passed": true,
+      "count": 144
+    }
+  ],
+  "passed": true,
+  "inputs": [
+    {
+      "file": "netlist_avant_reprise_energie_power_20261001.xml",
+      "sha256": "091d0ff6e3e5f6f19c025abf65a4d4ea8e0a187ba55c6e4e0b1b61a35e8e4870"
+    },
+    {
+      "file": "netlist.xml",
+      "sha256": "d5cac370891c96e61ccca990b607d5ecc1ee5bfea457085a87ebf1b0a4403d6c"
+    },
+    {
+      "file": "01_energie_pm.kicad_sch",
+      "sha256": "bbd07f009b89551d7550bbc79b8378da3dc3e52926d5170c576280760575ce93"
+    },
+    {
+      "file": "CA01_Design.kicad_sym",
+      "sha256": "cc25567d2e21183ad413d013307014772434c49e51c0490d12a0ade0e298af48"
+    },
+    {
+      "file": "CA01_Fonctions.kicad_sym",
+      "sha256": "6d2c2bfb671236eb3114ef7a7ec67c03789bd362f08a53be7692bbd1f9559381"
+    }
+  ],
+  "allowed_graphical_changes": [
+    "Positions et orientations des symboles, fils et textes ; U102 agrandi sans modification du brochage",
+    "Labels de rails remplacés par symboles power global ; GND standard, alimentations à barre orientée vers le haut"
+  ],
+  "visual_recipe": "Exporter le PDF avec KiCad puis inspecter la page 2 et toutes les feuilles affectées ; ce contrôle graphique est manuel",
+  "hardware_tests_executed": false,
+  "qualification": "À valider",
+  "limits": [
+    "Comparaison statique des broches et champs électriques ; aucun essai matériel ni simulation électrique"
+  ]
+}

@@ -1,0 +1,752 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-30",
+  "qualification": "À valider",
+  "hardware_tests_executed": false,
+  "entry_compute": {
+    "status": "À valider",
+    "assumptions": {
+      "vin_working_v": [
+        18.0,
+        25.2
+      ],
+      "not_battery_safety_threshold": true,
+      "rail_capacities_w": [
+        72,
+        36,
+        15
+      ],
+      "simultaneous_total_w": 123,
+      "efficiency_for_input_budget": 0.9,
+      "total_input_current_at_18v_a": 7.592592592592593,
+      "input_capacitance_upper_working_f": 0.0003,
+      "ambient_max": "À mesurer, présélection à 60°C seulement"
+    },
+    "front_end": {
+      "controller": "LM74800QDRRRQ1",
+      "mosfets": "2×CSD19531Q5A",
+      "connection": "Commun-drain ; Q101 source entrée/drain milieu, Q102 drain milieu/source VIN_PAYLOAD_PROT",
+      "controller_pinmap": {
+        "1": "DGATE",
+        "2": "A",
+        "3": "VSNS",
+        "4": "SW",
+        "5": "OV",
+        "6": "EN/UVLO",
+        "7": "GND",
+        "8": "HGATE",
+        "9": "OUT",
+        "10": "VS",
+        "11": "CAP",
+        "12": "C",
+        "13": "RTN FLOTTANT, ne pas GND"
+      },
+      "fets_pinmap": {
+        "1": "S",
+        "2": "S",
+        "3": "S",
+        "4": "G",
+        "5": "D",
+        "6": "D",
+        "7": "D",
+        "8": "D",
+        "EP": "D"
+      },
+      "cin": "220nF100V entrée/GND ; CEFF>=100nF à justifier",
+      "c_vs": "220nF100V milieu/GND ; CEFF>=100nF à justifier",
+      "c_cap": "220nF50V ; CEFF>=100nF après tolérance/température/DCbias exigé",
+      "c_bulk": "33µF100V EEE-FK2A330P après protection, source BOM EVM TI ; CtotalVIN<=300µF hypothèse",
+      "c_dvdt": "10nF100V avec100ohm en série HGATE/GND",
+      "uvlo_top_bottom_ohm": [
+        100000,
+        8060
+      ],
+      "uvlo_on_typ_v": 16.503952853598015,
+      "uvlo_off_typ_v": 15.176665012406946,
+      "ov_top_bottom_ohm": [
+        100000,
+        4420
+      ],
+      "ov_trip_typ_v": 29.081678733031676,
+      "ov_recovery_typ_v": 26.695610859728507,
+      "uv_ov_resistors_tolerance": ".1%",
+      "dvdt_typ_v_s": 5500.0,
+      "ramp_25_2v_typ_s": 0.004581818181818182,
+      "inrush_cap_only_typ_max_c_a": 1.65,
+      "inrush_cap_only_worst_ihgate_max_cmin_a": 2.499999999999999,
+      "energy_cap_charging_max_j": 0.09525599999999998,
+      "conduction_each_25c_rdsmax_w": 0.3689437585733882,
+      "fuse": "10A candidat ; référence physique, courbe thermique, I²t, pouvoir de coupure DC et sélectivité ouverts ; protéger W08 prèsPDB",
+      "tvs": "NON SÉLECTIONNÉE : SMBJ33CA seule rejetée car CAP-A peut dépasser85V lors négatif+sortie maintenue ; deuxTVS ou architecture différente à fermer selon transitoires réels",
+      "open": "SOA MOSFET hotplug chargé, ramp sous charge, transitoires/énergieTVS, chargecapacitive totale réelle, températurePCB, court-circuit/fuse",
+      "ov_recovery_min_with_01percent_v": 25.70494071991357,
+      "ov_trip_minmax_with_01percent_v": [
+        28.157180715212387,
+        30.00954607548725
+      ],
+      "ov_change_reason": "4.42k remplace4.59k pour permettre récupération au retourpack6S25.2V aprèstripOV; division±0.1%, seuilsTImin/max et marge20mV pourleakage200nA sur100k inclus; transitoires restent nonqualifiés."
+    },
+    "compute_buck": {
+      "controller": "LM5146QRGYRQ1",
+      "mosfets": "2×CSD19531Q5A ; adaptation de gate et switching à valider vs EVM",
+      "inductor": "XAL1010-682MED6.8µH±20% candidat archivé ; DCRmax8.9mΩ Isat21.8A à−30%, Irms14A à20°Crise",
+      "frequency_hz": 400000,
+      "rt_ohm": 24900,
+      "feedback_ohm": [
+        21000,
+        1500
+      ],
+      "feedback_vfb_v": 0.8,
+      "vout_typ_v": 12.0,
+      "feedback_tolerance": ".1%",
+      "input_power_capacitors": "5×4.7µF100V X7R1210 +100nF100V ; valeurCEFF sousbiais/thermique à contrôler",
+      "output_capacitors": "5×22µF25V X7R1210, CEFFtotal>=60µF@12V de travail; MPN/courbesDCbias ouverts",
+      "vin_pin_filter": "2.2ohm +100nF100V sur VINpin20",
+      "bootstrap": "2.2ohm VCC->BST ;100nF25V BST/SW",
+      "vcc": "2.2µF25V VCC/GND ; pas bypass12VversVCC (VCCmax13V, varianteBASLER portée autre)",
+      "soft_start_f": 1e-07,
+      "soft_start_typ_s": 0.008,
+      "uvlo_top_bottom_ohm": [
+        100000,
+        9310
+      ],
+      "uvlo_on_typ_v": 14.08936627282492,
+      "uvlo_off_typ_v": 13.08936627282492,
+      "syncin": "GND pour DEM, SYNCOUTNC, PGOODNC sauf pointde mesure ; NC9/16NC",
+      "grounds": "AGND6,PGND12,EP15/21 reliés masse commune avec jonctionKelvin locale ; shunt sourcelowmasse"
+    },
+    "current_limit_shunt": {
+      "r_shunt_ohm": 0.01,
+      "r_shunt_rating_w": 1,
+      "r_shunt_tolerance": "0.5% ; WSLT2512R0100DEA candidat",
+      "r_ilim_ohm": 750,
+      "i_ilim_min_typ_max_a": [
+        9e-05,
+        0.0001,
+        0.00011
+      ],
+      "offset_min_max_v": [
+        -0.008,
+        0.0035
+      ],
+      "valley_typ_a": 7.5,
+      "valley_conservative_range_a": [
+        5.853233830845772,
+        9.178391959798994
+      ],
+      "loop": "Qlow source→shunt→GND, ILIM→750Ω→hautshunt ; Kelvin ; pas shunt dansAGND",
+      "r_shunt_footprint": "2512",
+      "valley_with_temperature_working_range_a": [
+        5.74320987654321,
+        9.331645569620255
+      ],
+      "temperature_assumption": "Résistances -40..125°C ; Rilim100ppm/K et shunt75ppm/K, variation100K conservatrice ; pas ambiance carte approuvée",
+      "nominal_shunt_power_6a_18v_w": 0.12000000000000002,
+      "ilim_note": "La fenêtre de fonctionnement6A doit être revalidée à tous coins fréquence/VOUT/L/température et sous court-circuit ; 7.5A est vallée, pas courant de sortie/limite amont."
+    },
+    "ripple": {
+      "delta_i_nominal_25_2_a": 2.3109243697478985,
+      "delta_i_lminus20_a": 2.888655462184873,
+      "inductor_peak_at6a_worst_ltol_a": 7.444327731092437,
+      "inductor_rms6a_worst_a": 6.057669590274317,
+      "input_cin_rms_peak_a": 3,
+      "output_ripple_cap_only_ceff60u_v": 0.01504508053221288,
+      "load_step_requirement": "Ceff >= deltaI*dt/deltaV ; pour4A20µs500mV=>160µF, dépasse60µF ; capacité/loop ou droopàchoisir selonloadréelle"
+    },
+    "compensation_evm_candidate": {
+      "Rcomp_ohm": 8060,
+      "Ccomp_f": 4.7e-09,
+      "Cpole_f": 1e-10,
+      "Rfeedforward_ohm": 51.1,
+      "Cfeedforward_f": 1e-09,
+      "connection": "COMP->C4.7nF->R8.06k->FB ; C100pF COMP/FB ; VOUT->R51.1->C1nF->FB en parallèle avec21k ;1.50k FB/GND",
+      "not_qualified": "Reprendre EVM6.8µH/5×22µF reste base ; CEFF/DCbias, chargeUSBOrin et MOSFET modifiés imposent Bode/transitoires réels"
+    },
+    "gates": [
+      "Budgetcontinu/startupréelCPU/LiDAR/AUX",
+      "EnveloppeVINtransitoires positive/négative/impédance/énergie",
+      "SOAhotplug et saturationinputramp souschargéréelle",
+      "OCPminimum supérieur6A àtouscoins (valley+ondulation), maximumsûrshortcircuit",
+      "F101 pouvoircoupureDC≥Iccbatterie et protectiondépartW08",
+      "MPNcapacitésDCbias etESR/thermique",
+      "Bode≥45° margephase et≥10dBgain provisoires àvalider",
+      "PCBbouclescourtes etthermique",
+      "Banc rails/charge/défautavantconnexion"
+    ],
+    "date": "2026-09-30",
+    "bootstrap_net_expected": [
+      "C111/2",
+      "Q103/1",
+      "Q103/2",
+      "Q103/3",
+      "Q104/5",
+      "L101/1",
+      "U102/19"
+    ],
+    "schematic": "hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch",
+    "component_reference_visibility": "U101LM74800QDRRRQ1 U102LM5146QRGYRQ1 et Q101..104CSD19531Q5A visibles",
+    "footprint_gates": [
+      "CSD19531Q5A : empreinteTDSON-8-1 générique logiquecompatible, dimensionspatternTIQ5Aà vérifier/créer (sources pads0.50mm vsTI~0.65mm).",
+      "EEE-FK2A330P : empreinte générique8x10.5 provisoire à vérifier avec outline fabricant.",
+      "LM74800RTN13 ne pas GND, conductionthermalepas viafillGND",
+      "Connecteurs OEMXT30 et sensaccouplement àdéfinir"
+    ]
+  },
+  "lm76003": [
+    {
+      "rail": "12V_LIDAR",
+      "load_design_a": 3,
+      "vin_range_v": [
+        18,
+        25.2
+      ],
+      "l_nominal_h": 1.5e-05,
+      "l_tolerance": 0.2,
+      "l_dc_temperature_note": "Additional decrease under DC bias and temperature not guaranteed by these corner calculations",
+      "cout_nominal_f": 0.0001,
+      "cout_tolerance": 0.2,
+      "cout_esrmax_ohm": 0.024,
+      "cout_min_for_5pct_step_max_f": 2.8834127365873398e-05,
+      "esrmax_allowed_min_ohm": 0.027480158730158733,
+      "ripple_max_a": 1.1904761904761902,
+      "peak_max_a": 3.595238095238095,
+      "current_limit_hs_min_a": 4.35,
+      "current_limit_hs_max_a": 6.8,
+      "steady_ripple_bound_max_v": 0.032798971861471855,
+      "cout_rms_max_a": 0.34366087451763433,
+      "input_rms_max_a": 1.5,
+      "feedback_top_ohm": 90900,
+      "feedback_bottom_ohm": 8320,
+      "vout_nominal_v": 11.997033653846154,
+      "vout_interval_fb_resistor_leak_v": [
+        11.689755556653672,
+        12.211738709778492
+      ],
+      "feedback_tolerance": 0.001,
+      "feedback_tcr_ppm_per_k": 25,
+      "temp_delta_max_k": 100,
+      "feedback_note": "PWM reference; additional typical PFM offset 2% not a guaranteed maximum",
+      "cff_estimated_f": 4.693166403710276e-10,
+      "crossover_estimated_hz": 12883.333333333332,
+      "inductor_copper_loss_max_w": 0.16959671201814058,
+      "corners": [
+        {
+          "vin_v": 18,
+          "frequency_hz": 440000.0,
+          "l_h": 1.2e-05,
+          "ripple_a": 0.7575757575757576,
+          "peak_a": 3.378787878787879,
+          "cmin_f": 1.91067238036935e-05,
+          "esrmax_ohm": 0.02815656565656566,
+          "ripple_bound_v": 0.02087207300275482,
+          "inductor_rms_a": 3.0079605636331417
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 440000.0,
+          "l_h": 1.8e-05,
+          "ripple_a": 0.5050505050505051,
+          "peak_a": 3.2525252525252526,
+          "cmin_f": 2.6500442131755256e-05,
+          "esrmax_ohm": 0.04065656565656566,
+          "ripple_bound_v": 0.013914715335169883,
+          "inductor_rms_a": 3.0035406330508745
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 560000.0,
+          "l_h": 1.2e-05,
+          "ripple_a": 0.5952380952380952,
+          "peak_a": 3.2976190476190474,
+          "cmin_f": 1.8173028470647515e-05,
+          "esrmax_ohm": 0.027480158730158733,
+          "ripple_bound_v": 0.015946534863945577,
+          "inductor_rms_a": 3.0049169205102086
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 560000.0,
+          "l_h": 1.8e-05,
+          "ripple_a": 0.3968253968253968,
+          "peak_a": 3.1984126984126986,
+          "cmin_f": 2.56074158058285e-05,
+          "esrmax_ohm": 0.03998015873015874,
+          "ripple_bound_v": 0.010631023242630384,
+          "inductor_rms_a": 3.002186292181716
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 440000.0,
+          "l_h": 1.2e-05,
+          "ripple_a": 1.1904761904761902,
+          "peak_a": 3.595238095238095,
+          "cmin_f": 2.1525000572619617e-05,
+          "esrmax_ohm": 0.029960317460317465,
+          "ripple_bound_v": 0.032798971861471855,
+          "inductor_rms_a": 3.0196196443714935
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 440000.0,
+          "l_h": 1.8e-05,
+          "ripple_a": 0.7936507936507935,
+          "peak_a": 3.3968253968253967,
+          "cmin_f": 2.8834127365873398e-05,
+          "esrmax_ohm": 0.04246031746031747,
+          "ripple_bound_v": 0.021865981240981238,
+          "inductor_rms_a": 3.008735636750961
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 560000.0,
+          "l_h": 1.2e-05,
+          "ripple_a": 0.9353741496598639,
+          "peak_a": 3.4676870748299318,
+          "cmin_f": 2.003037571793645e-05,
+          "esrmax_ohm": 0.02889739229024943,
+          "ripple_bound_v": 0.02505884050048591,
+          "inductor_rms_a": 3.0121272217467276
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 560000.0,
+          "l_h": 1.8e-05,
+          "ripple_a": 0.6235827664399092,
+          "peak_a": 3.311791383219955,
+          "cmin_f": 2.741254072805741e-05,
+          "esrmax_ohm": 0.041397392290249434,
+          "ripple_bound_v": 0.016705893666990605,
+          "inductor_rms_a": 3.005395917714792
+        }
+      ],
+      "cout_inrush_a_3p5ms": 0.4114285714285714,
+      "cout_inrush_typ_a_6p3ms": 0.1904761904761905,
+      "input_ripple_bound_v_if_ceff10uf": 0.17045454545454544,
+      "thermal": {
+        "conduction_estimate_max_w_from_rds_spec": 1.1701565255731923,
+        "switching_loss_example_w": 0.42336,
+        "edge_time_total_assumed_ns": 20,
+        "note": "Illustrative loss estimate only: edge times, Coss, dead-time, BIAS and PCB Rth/airflow not closed; verify TJ<=125C at maximum ambient and loading. JEDEC RthJA29.6C/W is not the card thermal qualification."
+      },
+      "passive_power": {
+        "feedback_top_max_w": 0.0013835241251996182,
+        "bias_r1_typ_loss_w_at_7ma": 4.9000000000000005e-05
+      },
+      "source_sections": {
+        "TI_LM76003": "Tables Electrical6.5,6.7;8.2.2.2,4,5,6,7; eq17,20,21,22,23,24,25,26;10.3",
+        "Panasonic": "OS-CON catalogpp34-35SVPF;pp38-39SVPC",
+        "Coilcraft": "XAL1010table and mechanical drawing, Isat30pct25Ctyp"
+      }
+    },
+    {
+      "rail": "5V_AUX",
+      "load_design_a": 3,
+      "vin_range_v": [
+        18,
+        25.2
+      ],
+      "l_nominal_h": 6.8e-06,
+      "l_tolerance": 0.2,
+      "l_dc_temperature_note": "Additional decrease under DC bias and temperature not guaranteed by these corner calculations",
+      "cout_nominal_f": 0.00012,
+      "cout_tolerance": 0.2,
+      "cout_esrmax_ohm": 0.022,
+      "cout_min_for_5pct_step_max_f": 8.213703121804447e-05,
+      "esrmax_allowed_min_ohm": 0.027144731040564377,
+      "ripple_max_a": 1.6744387148798912,
+      "peak_max_a": 3.8372193574399454,
+      "current_limit_hs_min_a": 4.35,
+      "current_limit_hs_max_a": 6.8,
+      "steady_ripple_bound_max_v": 0.04179278523493304,
+      "cout_rms_max_a": 0.4833688213887181,
+      "input_rms_max_a": 1.3437096247164249,
+      "feedback_top_ohm": 39700,
+      "feedback_bottom_ohm": 10000,
+      "vout_nominal_v": 4.999820000000001,
+      "vout_interval_fb_resistor_leak_v": [
+        4.875666598724963,
+        5.085242032935775
+      ],
+      "feedback_tolerance": 0.001,
+      "feedback_tcr_ppm_per_k": 25,
+      "temp_delta_max_k": 100,
+      "feedback_note": "PWM reference; additional typical PFM offset 2% not a guaranteed maximum",
+      "cff_estimated_f": 3.4685629439937673e-10,
+      "crossover_estimated_hz": 25766.666666666664,
+      "inductor_copper_loss_max_w": 0.0821794442156674,
+      "corners": [
+        {
+          "vin_v": 18,
+          "frequency_hz": 440000.0,
+          "l_h": 5.4400000000000004e-06,
+          "ripple_a": 1.5086527035056445,
+          "peak_a": 3.7543263517528223,
+          "cmin_f": 6.083332970575233e-05,
+          "esrmax_ohm": 0.028366021324354663,
+          "ripple_bound_v": 0.03765488570672185,
+          "inductor_rms_a": 3.03144675278701
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 440000.0,
+          "l_h": 8.16e-06,
+          "ripple_a": 1.0057684690037632,
+          "peak_a": 3.502884234501882,
+          "cmin_f": 7.976120970282476e-05,
+          "esrmax_ohm": 0.039699354657687994,
+          "ripple_bound_v": 0.025103257137814566,
+          "inductor_rms_a": 3.014016840989808
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 560000.0,
+          "l_h": 5.4400000000000004e-06,
+          "ripple_a": 1.1853699813258636,
+          "peak_a": 3.592684990662932,
+          "cmin_f": 5.585935150202057e-05,
+          "esrmax_ohm": 0.027144731040564377,
+          "ripple_bound_v": 0.02883430119009409,
+          "inductor_rms_a": 3.019452240509699
+        },
+        {
+          "vin_v": 18,
+          "frequency_hz": 560000.0,
+          "l_h": 8.16e-06,
+          "ripple_a": 0.7902466542172424,
+          "peak_a": 3.395123327108621,
+          "cmin_f": 7.503829782674387e-05,
+          "esrmax_ohm": 0.038478064373897704,
+          "ripple_bound_v": 0.01922286746006273,
+          "inductor_rms_a": 3.008660967031978
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 440000.0,
+          "l_h": 5.4400000000000004e-06,
+          "ripple_a": 1.6744387148798912,
+          "peak_a": 3.8372193574399454,
+          "cmin_f": 6.331481089633078e-05,
+          "esrmax_ohm": 0.028992324033990706,
+          "ripple_bound_v": 0.04179278523493304,
+          "inductor_rms_a": 3.038691398857528
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 440000.0,
+          "l_h": 8.16e-06,
+          "ripple_a": 1.1162924765865943,
+          "peak_a": 3.558146238293297,
+          "cmin_f": 8.213703121804447e-05,
+          "esrmax_ohm": 0.04032565736732404,
+          "ripple_bound_v": 0.027861856823288695,
+          "inductor_rms_a": 3.0172574314721063
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 560000.0,
+          "l_h": 5.4400000000000004e-06,
+          "ripple_a": 1.3156304188342003,
+          "peak_a": 3.6578152094171,
+          "cmin_f": 5.7755717805533666e-05,
+          "esrmax_ohm": 0.02763682602670698,
+          "ripple_bound_v": 0.032002905716478056,
+          "inductor_rms_a": 3.023944490768113
+        },
+        {
+          "vin_v": 25.2,
+          "frequency_hz": 560000.0,
+          "l_h": 8.16e-06,
+          "ripple_a": 0.8770869458894668,
+          "peak_a": 3.4385434729447333,
+          "cmin_f": 7.686943545312222e-05,
+          "esrmax_ohm": 0.03897015936004032,
+          "ripple_bound_v": 0.021335270477652036,
+          "inductor_rms_a": 3.01066550658723
+        }
+      ],
+      "cout_inrush_a_3p5ms": 0.2057142857142857,
+      "cout_inrush_typ_a_6p3ms": 0.09523809523809525,
+      "input_ripple_bound_v_if_ceff10uf": 0.1367845117845118,
+      "thermal": {
+        "conduction_estimate_max_w_from_rds_spec": 0.9515784583025159,
+        "switching_loss_example_w": 0.42336,
+        "edge_time_total_assumed_ns": 20,
+        "note": "Illustrative loss estimate only: edge times, Coss, dead-time, BIAS and PCB Rth/airflow not closed; verify TJ<=125C at maximum ambient and loading. JEDEC RthJA29.6C/W is not the card thermal qualification."
+      },
+      "passive_power": {
+        "feedback_top_max_w": 0.00041835576251250667,
+        "bias_r1_typ_loss_w_at_7ma": 4.9000000000000005e-05
+      },
+      "source_sections": {
+        "TI_LM76003": "Tables Electrical6.5,6.7;8.2.2.2,4,5,6,7; eq17,20,21,22,23,24,25,26;10.3",
+        "Panasonic": "OS-CON catalogpp34-35SVPF;pp38-39SVPC",
+        "Coilcraft": "XAL1010table and mechanical drawing, Isat30pct25Ctyp"
+      }
+    }
+  ],
+  "synchronisation": {
+    "date": "2026-09-30",
+    "status": "À valider",
+    "rail_3v3": {
+      "ref": "U503",
+      "part": "TPS7A2033PDBVR",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "pinout": {
+        "1": "IN",
+        "2": "GND",
+        "3": "EN",
+        "4": "NC",
+        "5": "OUT"
+      },
+      "vin_max_v": 5.25,
+      "vout_min_v": 3.2505,
+      "vout_max_v": 3.3495,
+      "load_budget_a": 0.05,
+      "power_w": 0.099975,
+      "theta_ja_c_w": 187.1,
+      "rise_estimate_c": 18.7053225,
+      "capacitors": "4.7 uF / 10 V X7R, Ceff >= 0.47 uF; CIN/COUT",
+      "limits": "PCB TI de référence thermique; profil réel, charge et capacité sous polarisation à vérifier"
+    },
+    "trigger": {
+      "part": "PMV30UN2",
+      "ref_recommendation": "Q501",
+      "footprint": "Package_TO_SOT_SMD:SOT-23",
+      "pinout": {
+        "1": "G",
+        "2": "S",
+        "3": "D"
+      },
+      "gate_series_ohm": 330,
+      "gate_pulldown_ohm": 100000,
+      "line1_max_current_a": 0.015,
+      "rds_max_1v5_25c_ohm": 0.1,
+      "vds_calc_v": 0.0015,
+      "gate_peak_3v3_a": 0.01,
+      "gate_tau_typ_ns": 216.15,
+      "limits": "Température et temps réels à mesurer, entrée opto à >5 mA avec rails et câble réels"
+    },
+    "exposure": {
+      "part": "SN74LVC1G17DBVR",
+      "ref": "U509",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "pinout": {
+        "1": "NC",
+        "2": "A",
+        "3": "GND",
+        "4": "Y",
+        "5": "VCC"
+      },
+      "supply": "3V3_SYNC",
+      "input_series_ohm": 4700,
+      "input_series_rating_w": 0.25,
+      "input_clamp_candidate": "BZT52H-C4V7",
+      "clamp_footprint": "Diode_SMD:D_SOD-123F",
+      "pullup_ohm": 1000,
+      "pullup_supply": "5V_SYNC",
+      "pullup_reverse_isolation": "BAT54H, A vers5V_SYNC, K vers rappel1k",
+      "pullup_diode_footprint": "Diode_SMD:D_SOD-123F",
+      "output_series_ohm": 1000,
+      "decoupling_f": 1e-07,
+      "fault_voltage_v": 24,
+      "fault_current_approx_a": 0.004106383,
+      "fault_series_power_approx_w": 0.07925319,
+      "fault_clamp_power_approx_w": 0.0193,
+      "limits": "Zener candidate de protection DC, non qualification ESD; capacité/temps mesurés. Ioff protège côté CA01 seulement, séquencement cible Pixhawk éteinte reste ouvert."
+    },
+    "f501": {
+      "part_candidate": "SF-0603F040-2",
+      "nominal_a": 0.4,
+      "voltage_v": 50,
+      "interrupt_a": 50,
+      "cold_resistance_typ_ohm": 0.496,
+      "cold_resistance_tolerance_fraction": 0.25,
+      "melting_i2t_typ_a2_s": 0.004,
+      "load_budget_a": 0.08,
+      "nominal_load_fraction": 0.2,
+      "drop_nominal_v": 0.03968,
+      "clearing_2in_max_s": 60,
+      "status": "À valider",
+      "limits": "Protection secondaire 400mA, pas garantie sélectivité. Les défauts LDO limités peuvent ne pas ouvrirF501. Appel, chaud, I²t, maintienRC etimpédancetraces à qualifier. Source BournsSF0603F PDF archivée."
+    },
+    "time_candidates": {
+      "U504": "SN74LVC1T45DBVR : PPS vers 5V_AIRY_IO",
+      "U505": "SN74LVC1T45DBVR : PPS vers 3V3_ORIN_IO_REF",
+      "U506": "TRS3232EIDR : UART logique 5V_AIRY_IO vers RS232 Airy",
+      "U507": "SN74LVC1T45DBVR : GPRMC vers 3V3_ORIN_IO_REF",
+      "U510": "TPS70950DBVR : 12V_LIDAR vers 5V_AIRY_IO ; EN laissé ouvert, activation interne constructeur",
+      "U511": "SN74LVC1T45DBVR : GPRMC Schmitt vers DIN1 du TRS sous 5V_AIRY_IO",
+      "U512_U513": "SN74LVC1G17DBVR : entrées Schmitt PPS et GPRMC sous 3V3_SYNC",
+      "limits": "Circuits physiques implémentés ; prototype candidat 3.3V GNSS / RS232 Airy. R530-R533 DNP avant validation des niveaux, timing et séquencement."
+    },
+    "radio": {
+      "part": "RadioMaster RP4TD",
+      "published_voltage_v": "4.5-12.4",
+      "published_consumption": null,
+      "hypothesis_budget_a": 0.5,
+      "limits": "Aucun courant annoncé dans manuelofficiel; budget etF102non qualifiables sansmesure"
+    },
+    "sources_inventory": "../sources_fabricants/manifest_sources.json",
+    "implemented_references": {
+      "ldo": "U503",
+      "mosfet": "Q501",
+      "gate_series": "R510",
+      "gate_pulldown": "R511",
+      "input_series": "R512",
+      "pullup": "R513",
+      "capture_series": "R514",
+      "pullup_diode": "D501",
+      "input_zener": "D502",
+      "ldo_cin": "C501",
+      "ldo_cout": "C502",
+      "buffer_bypass": "C503",
+      "output_dnp": [
+        "R530",
+        "R531",
+        "R532",
+        "R533"
+      ],
+      "time": {
+        "input_series": [
+          "R534",
+          "R535"
+        ],
+        "input_pulldown": [
+          "R536",
+          "R537"
+        ],
+        "source_bleed": "R538",
+        "airy_bleed": "R539",
+        "orin_reference_bleed": "R540",
+        "orin_output_pulldown": [
+          "R541",
+          "R542"
+        ],
+        "rs232_idle": "R543",
+        "input_esd": [
+          "D503",
+          "D504"
+        ],
+        "reference_orin": "J509",
+        "source_frontend": [
+          "U512",
+          "U513"
+        ],
+        "translation": [
+          "U504",
+          "U505",
+          "U507",
+          "U511"
+        ],
+        "rs232": "U506",
+        "airy_ldo": "U510",
+        "pump": [
+          "C516",
+          "C517",
+          "C518",
+          "C519"
+        ],
+        "rs232_decoupling": [
+          "C520",
+          "C521"
+        ],
+        "airy_ldo_capacitors": [
+          "C514",
+          "C515"
+        ]
+      }
+    },
+    "time_candidate_status": "Schéma physique Implémenté, matériel À valider ; J509 référence Orin ajoutée, sorties isolées par DNP.",
+    "time_design": {
+      "status": "Implémenté / matériel À valider",
+      "gnss_nominal_v": 3.3,
+      "gnss_voh_min_assumed_v": 2.9,
+      "gnss_vol_max_assumed_v": 0.4,
+      "gnss_level_limit": "VOH/VOL issus du ZED-F9P alimenté à3.3V ; non confirmés sur la sortie du Holybro G4 exact.",
+      "input_series_ohm": 330,
+      "input_pulldown_ohm": 22000,
+      "resistor_tolerance_fraction": 0.01,
+      "schmitt_input_leak_max_a": 5e-06,
+      "schmitt_ioff_max_a": 1e-05,
+      "schmitt_vtplus_working_bound_v": 2.74,
+      "schmitt_vtminus_working_bound_v": 0.89,
+      "threshold_limit": "TI G17 revY spécifie VT+ aux tensions discrètes3.0V et4.5V. Borne2.74V et VT-0.89V à3.3V sont hypothèses de monotonie à contrôler, pas garanties ni interpolation.",
+      "input_high_candidate_v": 2.854648724071034,
+      "input_low_candidate_v": 0.39573054187192125,
+      "input_off_candidate_v": 0.2222,
+      "translation_vih_v": 2.0,
+      "translation_vil_v": 0.8,
+      "schmitt_voh_min_at100ua_v": 3.1505,
+      "schmitt_vol_max_at100ua_v": 0.1,
+      "translator_ioff_max_a": 2e-06,
+      "orin_output_pulldown_ohm": 47000,
+      "orin_off_candidate_v": 0.09494,
+      "orin_reference": "J509/1 : Holybro Camera0 ou Camera1 pin22 VDD3.3 ; J509/2 : même port pin1GND. Valider domaine commun avec GPIO_07/UART2_RXD et extinction. Ne jamais utiliser le VCC5V des portsGPIO/Debug.",
+      "airy_ldo": {
+        "mpn": "TPS70950DBVR",
+        "vin_max_working_v": 12.6,
+        "vout_min_v": 4.89,
+        "vout_max_v": 5.11,
+        "load_budget_a": 0.025,
+        "theta_ja_c_w": 212.1,
+        "ambient_working_c": 60,
+        "tj_max_working_c": 125,
+        "power_estimate_w": 0.19275,
+        "rise_estimate_c": 40.882275,
+        "cin_nominal_f": 1e-05,
+        "cout_nominal_f": 1e-05,
+        "cin_cout_ceff_min_f": 2.2e-06,
+        "limits": "Budget25mA incluant PPS12mA, RS232 et bleed. Estimation JEDEC, pas thermique PCB. Reverse-blocking au-dessus1.8V selon datasheet ; ne garantit pas zéro courant sur toute extinction.",
+        "cin_cout_rating_v": 25
+      },
+      "bleeders_ohm": 3010,
+      "bleeder_3v3_min_a": 0.0010692082497286274,
+      "rs232": {
+        "mpn": "TRS3232EIDR",
+        "supply": "5V_AIRY_IO",
+        "pump_caps_nominal_f": 1e-06,
+        "pump_cap_rating_v": 25,
+        "pump_ceff_required_f": [
+          1e-07,
+          4.7e-07,
+          4.7e-07,
+          4.7e-07
+        ],
+        "bypass_ceff_min_f": 1e-06,
+        "din1_pullup_ohm": 100000,
+        "din1_idle_min_candidate_v": 4.587,
+        "din1_vih_max_v": 2.4,
+        "limits": "DOUT1 bipolaire inversé. Charge réceptrice >=3kOhm ; résistance/capacité du câble à mesurer. Ceff des quatre condensateurs et du bypass à confirmer ; DOUT hors tension non garanti HiZ.",
+        "bypass_nominal_f": 2.2e-06
+      },
+      "outputs": {
+        "R530_ohm": 47,
+        "R531_ohm": 47,
+        "R532_ohm": 100,
+        "R533_ohm": 100,
+        "dnp": true,
+        "airy_pps_load_working_max_a": 0.012,
+        "airy_pps_high_candidate_v": 3.2303599999999997,
+        "airy_pps_required_min_v": 3.0,
+        "limits": "VOH3.8 du traducteur à4.5V/32mA : application à5V/12mA est borne candidate à mesurer avec PPS Airy. Charge et délais des portsOrin non garantis."
+      },
+      "protection": "TPD1E05U06 au connecteur avant330ohm ; protection ESD candidate, pas tolérance DC24V ni qualification système. Masse commune courte ; aucune résistance GNSS vers rail CA01.",
+      "gates": [
+        "Mesurer niveaux source sur SKU12037 exact et seuils/fronts Schmitt",
+        "Qualifier rails sous toutes séquences Orin/CA01/Airy/GNSS, fuites et référenceCSI",
+        "Mesurer charge PPSAiry<=12mA, niveaux>3V, largeur20..200ms et période1s",
+        "Valider RS232 bipolaire, RMC GP valideA96008N1 et relationPPS/date",
+        "MPN/Ceff des MLCC, connecteurs/empreintes et PCB à finaliser"
+      ],
+      "orin_reference_pulldown_ohm": 10000
+    }
+  },
+  "allocation_5v": {
+    "capacity_total_a": 3,
+    "radio_budget_provisional_a": 0.5,
+    "sync_budget_provisional_a": 0.08,
+    "j301": "Réserve sans charge affectée ; toute charge partage le budget total de 3 A",
+    "remaining_provisional_a": 2.42,
+    "limits": "0,5 A radio est une hypothèse de réservation, pas une consommation publiée ou mesurée."
+  }
+}

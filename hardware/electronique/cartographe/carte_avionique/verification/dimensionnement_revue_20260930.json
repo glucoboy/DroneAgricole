@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-30",
+  "scope": "CA01 V0.5-pre, dimensionnement candidat et preuves statiques Windows amd64",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "hardware_tests_executed": false,
+  "component_count": 116,
+  "net_count": 89,
+  "connectivity_check_count": 112,
+  "analytical_check_count": 27,
+  "chip_values_visible": [
+    {
+      "ref": "U101",
+      "value": "LM74800QDRRRQ1",
+      "file": "01_energie_pm.kicad_sch",
+      "visible": true,
+      "passed": true
+    },
+    {
+      "ref": "U102",
+      "value": "LM5146QRGYRQ1",
+      "file": "01_energie_pm.kicad_sch",
+      "visible": true,
+      "passed": true
+    },
+    {
+      "ref": "U201",
+      "value": "LM76003RNPR",
+      "file": "02_buck_12v_capteurs.kicad_sch",
+      "visible": true,
+      "passed": true
+    },
+    {
+      "ref": "U301",
+      "value": "LM76003RNPR",
+      "file": "03_buck_5v_aux.kicad_sch",
+      "visible": true,
+      "passed": true
+    },
+    {
+      "ref": "U503",
+      "value": "TPS7A2033PDBVR",
+      "file": "05_synchronisation.kicad_sch",
+      "visible": true,
+      "passed": true
+    },
+    {
+      "ref": "U509",
+      "value": "SN74LVC1G17DBVR",
+      "file": "05_synchronisation.kicad_sch",
+      "visible": true,
+      "passed": true
+    }
+  ],
+  "pdf_preview_pages": 6,
+  "independent_review": {
+    "reviewer": "Agent indépendant review_dimensionnement",
+    "result": "Favorable pour dimensionnement préliminaire",
+    "corrections_confirmed": [
+      "C111 bootstrap SW",
+      "R116 shunt2512",
+      "C103 Ceff≥100nF",
+      "OV réarmement batterie pleine",
+      "F501 inclusion BOM",
+      "exclusions GNSS et DNP",
+      "documentation et preuves cohérentes"
+    ]
+  },
+  "remaining_gates": [
+    "Mesurer charges permanentes/appels Orin NX, USB, SSD, Airy, RP4TD et J301 ; confirmer enveloppe VIN et ambiante ; capacités de rails ne sont pas consommations mission",
+    "Sélectionner TVS selon transitoires positifs/négatifs et énergie ; qualifier SOA LM74800/FET sous charge et appel total ; seuils UVLO/OV aux tolérances",
+    "Fermer F101 10 A candidat, pouvoir de coupure DC/Icc batterie, courbes et sélectivité F102 1 A/F501 400 mA ; protéger W08 près PDB",
+    "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
+    "Niveaux GNSS G4 PPS/GPRMC et Airy RS232/TTL ; remplacer U504-U507 par circuits physiques avant de fermer R530-R533",
+    "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
+    "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
+    "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
+  ],
+  "files": [
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/dimensionnement.json",
+      "sha256": "744871ce72962ab5e8e09942e87ddcc497b3c00a76601e6f2f10a1df95e196ed"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/bom_candidate.json",
+      "sha256": "b9aefe6794063495e58b542f524f9ce1778af650eaa4427f44ee6650f5b71cdc"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/manifest.json",
+      "sha256": "8d896c0569dfae93f081eeffb952c6652d3f7b7ebc0a9e720e03b73f260ce7a0"
+    },
+    {
+      "file": "hardware/electronique/cartographe/sources_fabricants/manifest_sources.json",
+      "sha256": "3fe3b67ef85fe44634336b44f535c96e6e7e2cf65d297d2efeee74dedf660e69"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/verification/controle_statique.json",
+      "sha256": "228c8d608e9f3ca099363928cc918e874396f55a816c7436c888bc9cb470dc8d"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/verification/calculs_reproduits.json",
+      "sha256": "525321b1af02f0ddc9319d7f035abea1bcd02f50301de08f63311eb70381f609"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/verification/CA01_schema_preliminaire.pdf",
+      "sha256": "0c6d82520fd514bfb1c4af30348f4b7905a5c1ad99fb28b5774c1fdca4899f9a"
+    },
+    {
+      "file": "hardware/electronique/cartographe/carte_avionique/verification/connectivity_rules.json",
+      "sha256": "ed94098d4f4b0a4de557c5abd28236b24bf6ce80d4b4124acc311489b34b4c78"
+    }
+  ]
+}

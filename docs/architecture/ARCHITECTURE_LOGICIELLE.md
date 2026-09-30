@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 24 septembre 2026 |
+| Dernière mise à jour | 30 septembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -78,6 +78,50 @@ protections et essais de défaut relèvent de
 [DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md). Une perte ou un redémarrage
 du Jetson ne doit pas empêcher les failsafes PX4 ; ce comportement doit être
 démontré sur la configuration matérielle finale.
+
+### 3.1 Acheminement RTK et partage de la liaison RF
+
+La sélection matérielle étudiée est un **Holybro H-RTK F9P DroneCAN Rover
+Helical STM32G4** sur le drone, dont la sortie UART2/PPS doit être vérifiée sur
+la révision livrée, et un **Holybro H-RTK F9P Base (SKU 12022)** au sol. Statut
+de leur intégration logicielle : **Planifié / À valider**. La base se raccorde en
+USB à QGroundControl, qui encapsule les corrections RTCM dans des messages
+MAVLink 2 `GPS_RTCM_DATA`. Le chemin candidat est : QGroundControl → Wi-Fi local
+du TX Backpack de la Pocket ELRS → RF ELRS commune → RP4TD en mode MAVLink →
+UART Pixhawk 6X → PX4 → rover DroneCAN. Le port CAN, la configuration PX4 et
+la continuité effective jusqu'au rover sont définis dans
+[DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md) et restent **À valider**.
+
+Cette même liaison doit transporter les commandes **ponctuelles** de la station
+(mission, mode, repositionnement autorisé) vers PX4 et le retour de télémétrie
+essentielle. Les manches de la Pocket empruntent la voie RC du même système
+ELRS ; leur disponibilité lorsque QGroundControl ou le Wi-Fi local s'arrête
+doit être démontrée. Le flux de corrections est continu et occupe la montée
+sol → drone : la référence PX4 d'environ 300 octets/s sous MAVLink 2 n'est
+pas une mesure de la base F9P sélectionnée. À 333 Hz Full, ExpressLRS annonce
+environ 735 octets/s montants avec RC et 1470 descendants, **avant pertes,
+réémissions et effet du profil EU-LBT** ; à 250 Hz, la montée annoncée est
+environ 300 octets/s. Les volumes F9P, les débits utiles et la marge pour les
+commandes sont donc **À valider** sur le matériel. Les transferts volumineux
+de missions ou paramètres doivent être planifiés hors phase critique et la
+télémétrie PX4 limitée aux messages réellement requis.
+
+Les consignes Offboard dynamiques restent générées localement par le Jetson
+vers PX4 selon la frontière du §2. Une boucle de déplacement pilotée en continu
+depuis la station n'est pas couverte par le partage RF candidat : PX4 exige
+un signal Offboard continu supérieur à 2 Hz et déclenche un repli si ce signal
+disparaît. Sa latence, sa fraîcheur et sa coexistence avec RTCM/RC exigeraient
+une qualification distincte. La perte des corrections RTK ne doit pas être
+confondue avec une perte RC ou une perte Offboard ; les réactions associées
+relèvent de PX4 et des scénarios de [DOC-VAL](../VALIDATION_QUALIFICATION.md).
+La correction de position via CAN2 et la distribution PPS/GPRMC pour la
+synchronisation sont deux fonctions distinctes : une position RTK fixe ne
+prouve pas que les horloges Airy, PX4 et Jetson sont alignées.
+
+Sources de capacité et de protocole :
+[ExpressLRS MAVLink](https://www.expresslrs.org/software/mavlink/),
+[PX4 RTK](https://docs.px4.io/main/en/advanced/rtk_gps),
+[PX4 Offboard](https://docs.px4.io/main/en/flight_modes/offboard).
 
 ## 4. Architecture de la station
 
@@ -326,7 +370,7 @@ intra-processus des flux lourds n'est admise qu'après mesure.
 
 | Composant | Responsabilité | Validation principale |
 |---|---|---|
-| `sensor_manager` | pilotes, démarrage, timestamps et diagnostics | pertes, fréquences, redémarrage et données invalides |
+| `sensor_manager` | pilotes, acquisition, contrat d’horloge et diagnostics de synchronisation | `T-AIRY-SYNC-01` puis offsets/incertitudes, association image-exposition, pertes et redémarrages sur banc |
 | `calibration_manager` | calibrations versionnées et arbre de repères | cohérence, empreintes et reprojection |
 | `px4_bridge` | état PX4 et consignes bornées | SITL, perte Offboard et conversions de repères |
 | `lio_adapter` | normaliser l'odométrie du moteur LIO retenu | ATE/RPE, complétude, ressources et rejeu |
@@ -347,6 +391,96 @@ intra-processus des flux lourds n'est admise qu'après mesure.
 | `safety_supervisor` | invariants et inhibition applicative | injection de chaque défaut critique |
 | `logger_recorder` | manifeste, événements et données de rejeu | intégrité, stockage plein et rejeu déterministe |
 | `benchmark_runner` | campagnes reproductibles hors vol | contrats, empreintes et comparaison multi-runs |
+
+#### 7.1.1 Contrat temporel du cartographe — **Planifié / À valider**
+
+La décision métier de capture appartient à `mission_manager` sur la Jetson
+sous ROS 2. `sensor_manager` vérifie la disponibilité des capteurs et du
+temps, coordonne la demande et assemble les données ; l'adaptateur PX4
+traduit la demande en commande caméra compatible avec le firmware retenu.
+PX4 génère l'impulsion physique, CA01 adapte les signaux et la Basler expose.
+Le transport exact de commande (MAVLink local ou `VehicleCommand` via un
+pont ROS 2 exposant les topics requis) reste **À valider** ; ROS 2 ne garantit
+ni l'instant du front AUX ni une exposition simultanée des périphériques.
+Pendant un relevé, un seul producteur de commandes caméra est actif ; les
+déclenchements autonomes de mission PX4 et les tests QGroundControl sont
+désactivés ou exclus du relevé. Les flux GNSS, IMU et Airy restent continus.
+
+Le contrat de capture cible conserve la session, un identifiant de demande,
+la cible, la date de demande et sa limite de validité. Il distingue demande
+émise, acceptation/refus, déclenchement observé, exposition mesurée, image
+reçue, puis association complète ou échec explicite. Un acquittement de
+commande ne prouve pas l'exposition. La stratégie initiale sérialise les
+demandes ponctuelles ; après une réponse perdue, aucune répétition aveugle
+n'est admise tant que le résultat précédent reste indéterminé. Vérifier les
+doublons, les demandes périmées et la remise à zéro des séquences au banc.
+La limite de validité côté Jetson ne garantit pas que PX4 rejette un ordre
+déjà en transit : le protocole, les délais et la politique de purge/reprise
+doivent être établis avant implémentation. Aucun identifiant applicatif
+n'est supposé transmis par le fil AUX : la correspondance
+`session/demande -> séquence PX4 -> ExposureActive -> Frame ID`
+doit être démontrée, y compris après pertes et redémarrages. Ces contrats
+sont **Planifiés** ; leur implémentation et leur qualification restent ouvertes.
+
+La chaîne candidate exploite le Rover Helical STM32G4 pour la navigation RTK
+par CAN2 vers PX4 et, sous réserve de vérification matérielle, pour le PPS
+physique. La sortie GPRMC sur UART2 exige une configuration vérifiée et
+persistante ; elle n'est pas présumée active. Les messages GNSS binaires
+DroneCAN ne sont pas des phrases NMEA. Serial Forwarding est un tunnel
+d'octets distinct, exploitable si le nœud et le port interne le supportent ;
+son accès par GUI/u-center ne prouve ni un proxy PX4 disponible ni une
+passerelle nominale vers l'Airy. Un tunnel permanent ou une reconstruction
+RMC demanderait un adaptateur explicite, des diagnostics et une qualification
+de l'association au PPS physique. Ces alternatives restent **À valider**
+selon [DOC-ELEC §8.1](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#81-référence-gnss-commune-étudiée).
+Dans la voie directe candidate, CA01 adapte et répartit PPS/GPRMC vers l’Airy et une référence de
+temps vers le Jetson. PX4 émet un déclenchement caméra par une sortie AUX
+réservée à la demande de la Jetson ; CA01 adapte ce signal à l’entrée
+optocouplée Basler. Le retour
+ExposureActive est routé en cible vers FMU_CAP1 (AD&IO, broche 2 du Pixhawk
+6X). La capture effective par `camera_capture`, sa configuration `Camera_Capture`
+et les groupes de timers des sorties AUX sont **À valider** sur le firmware
+retenu et au banc. FMU_CAP1 reste réservé au retour d’exposition et ne peut
+pas recevoir simultanément le PPS. Airy Ethernet et Basler USB3 restent des voies
+de données ; le lien interne TELEM2 Pixhawk–Jetson transporte les événements
+PX4. SYNC_OUT1 de l’Airy n’est pas la source du déclenchement dans cette cible.
+Ports, firmwares, caractéristiques électriques et mécanisme réel de capture
+restent **À valider** dans [DOC-ELEC §8](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#8-synchronisation-et-repères-temporels).
+
+Le contrat de `sensor_manager` et de l’enregistreur distingue pour chaque
+mesure l’horodatage du capteur, l’heure UTC reconstruite, le temps monotone de
+l’hôte à la réception, et l’événement matériel associé lorsque disponible.
+Chaque conversion explicite son époque, sa source de temps, l’état de
+verrouillage, l’offset et l’incertitude mesurés ; elle conserve l’original sans
+remplacer silencieusement un temps absent par l’heure de réception. La relation
+entre PPS/GPRMC, horloge du Jetson et horloge PX4 est calibrée et surveillée :
+les messages reçus par TELEM2 seuls ne garantissent pas un horodatage physique
+commun. Les identifiants de déclenchement, exposition et image, les numéros de
+scan, ainsi que les pertes de paquets et de fronts sont enregistrés. Une fois la
+capture FMU_CAP1 qualifiée, le front ExposureActive horodaté prime sur la
+date de la commande AUX pour l’association de la frame Basler ; l’association doit rester vérifiable même
+lorsque des images sont manquées ou réordonnées.
+
+Pour chaque image, l'association utilise le temps d'exposition corrigé de
+la latence mesurée du retour, puis le milieu d'exposition selon la convention
+retenue. La pose provient d'un historique horodaté GNSS/IMU/PX4 et d'une
+interpolation dont les limites sont explicites ; les points LiDAR gardent
+leurs temps propres pour la compensation du mouvement. Ni une lecture de
+la dernière position reçue ni un appariement par ordre d'arrivée ne suffisent.
+La fenêtre, l'incertitude et les références d'échantillons sont conservées
+dans le résultat. Les filtres ROS 2 peuvent rapprocher des messages déjà
+datés ; ils ne synchronisent pas les horloges ni les expositions physiques.
+Voir [message_filters ROS 2](https://github.com/ros2/message_filters/blob/rolling/doc/index.rst).
+
+À la perte du verrouillage, d’un PPS, d’un retour ExposureActive, d’un flux
+capteur ou après redémarrage d’un équipement, `sensor_manager` signale la
+donnée comme temporellement invalide ou dégradée, suspend l’association
+intercapteurs incertaine et conserve le diagnostic brut. La reprise exige une
+nouvelle preuve de verrouillage et d’offset/incertitude dans les limites
+approuvées avant de réactiver la fusion. Les seuils chiffrés, la latence
+d’exposition, la datation par point Airy et le comportement sous chaque défaut
+sont **À valider** par `MAP-FUN-001` et `T-AIRY-SYNC-01` de
+[DOC-VAL §12.8](../VALIDATION_QUALIFICATION.md).
 
 ### 7.2 Allocation algorithmique
 
@@ -520,6 +654,8 @@ les modules logiciels doivent être testés.
 | `SW-MAP-001` projeter la couleur sans masquer les erreurs | camera color fusion | `test_camera_color_fusion` | implémenté préliminaire |
 | `SW-MAP-002` reconstruire avec diagnostics bornés | scan reconstruction, adaptateur FriûlBot, rejeu | `test_scan_reconstruction`, `test_vineyard_map`, `test_dashboard_mapping:surface` | 23 scans / 61 903 triangles sur une fenêtre réelle ; préliminaire, voir DOC-VAL |
 | `SW-SAFE-001` ne pas usurper l'autorité PX4 | pont PX4/ROS 2 sur porteuse commune | scénarios SITL perte Offboard/compagnon, puis banc perte/redémarrage Orin NX et défaut d'alimentation selon DOC-ELEC | SITL partiel ; cible matérielle **À valider** |
+| `SW-TIM-001` coordonner les captures Jetson et conserver une datation intercapteurs traçable | `mission_manager`, `sensor_manager`, adaptateur PX4, enregistreur, PX4, Airy et Basler | `T-AIRY-SYNC-01` et `T-CA01-09` : autorité unique, demande/commande/exposition/image, offsets/incertitudes, pertes et reprise sur banc | **Planifié / À valider** ; aucun essai sur capteurs cible |
+| `SW-RTK-001` acheminer les corrections sans saturer la commande ou la télémétrie | QGroundControl, TX Backpack, ELRS, RP4TD, PX4, H-RTK F9P Base/Rover | `T-RF-06` tri-flux et pertes ciblées, DOC-VAL §9.1 | sélection matérielle retenue ; débit et continuité **À valider** |
 | `SW-PORT-001` construire et exécuter sur ARM | conteneurs et runtime Orin NX 16 Go | CI `arm64`, rejeu 1×, ressources et thermique sur porteuse cible | **À valider** |
 
 ### 10.4 Portefeuille de données de validation
@@ -601,6 +737,10 @@ campagne relèvent de [DOC-VAL](../VALIDATION_QUALIFICATION.md).
 
 | Date | Modification |
 |---|---|
+| 30 septembre 2026 | Flux GNSS standard, NMEA direct et tunnel série distingués ; configuration GPRMC UART2 et alternatives de passerelle explicites, aucune disponibilité PX4 ni synchro PPS déduite du GUI |
+| 30 septembre 2026 | Contrat de capture planifié : Jetson/ROS 2 décide, PX4 exécute ; session/demande et états distincts, autorité unique, absence de répétition aveugle, association aux flux continus et limites du transport à qualifier |
+| 25 septembre 2026 | contrat temporel cartographe planifié : PPS/GPRMC GNSS vers Airy/Jetson, trigger AUX PX4 et retour ExposureActive candidat sur FMU_CAP1 à qualifier, correspondance UTC/monotone/événements avec incertitude et états invalides |
+| 24 septembre 2026 | H-RTK F9P Base/Rover retenus ; chemin RTCM via QGroundControl et RF commune candidat, budget tri-flux et séparation Offboard local documentés, validation matérielle ouverte |
 | 24 septembre 2026 | cible de déploiement Orin NX 16 Go et Pixhawk 6X module sur porteuse Holybro ; frontière PX4/ROS 2 maintenue, interface et défauts à valider sur matériel |
 | 13 septembre 2026 | consolidation des décisions actives de déploiement, contrats, télémétrie, PX4, cartographie et extension ; retrait du registre ADR |
 | 10 septembre 2026 | configuration VS Code pour ouvrir `software/cpp` directement ; configuration et compilation Debug vérifiées via les tâches locales |

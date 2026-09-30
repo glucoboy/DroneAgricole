@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-29T20:22:46.428473+00:00",
+  "scope": "CARTE-012 / T-CA01-12 : reprise compacte et conservation de topologie utilisateur, candidats passifs uniquement",
+  "platform": "Windows amd64",
+  "kicad_version": "10.0.6",
+  "comparison": "Ensembles de broches, noms de reseaux ignores ; bornes des seuls symboles Device:R non polarises interchangeables. Capacites/inductances et toutes les autres broches strictes.",
+  "before_netlist_sha256": "a5d95aaeca6a5fa6ad86d28d632adbfd9f91fe4cfbda2156bca83251ae4c20a4",
+  "after_netlist_sha256": "bd032a5555d8f3429ee4ea84776fed574052c3df34846c8efcbcd1e4ceb22eb0",
+  "before_component_count": 53,
+  "after_component_count": 53,
+  "before_net_count": 51,
+  "after_net_count": 51,
+  "removed_refs": [],
+  "added_refs": [],
+  "removed_node_sets": [],
+  "added_node_sets": [],
+  "topology_equivalent": true,
+  "component_value_changes": [
+    {
+      "ref": "C202",
+      "before": "470n / 16V CAND.",
+      "after": "470n / 16V X7R CAND."
+    },
+    {
+      "ref": "C204",
+      "before": "2u2 / 10V CAND.",
+      "after": "2u2 / 10V X7R CAND."
+    },
+    {
+      "ref": "C205",
+      "before": "A_CALCULER",
+      "after": "1u / 25V X7R CAND."
+    },
+    {
+      "ref": "C302",
+      "before": "470n / 16V CAND.",
+      "after": "470n / 16V X7R CAND."
+    },
+    {
+      "ref": "C304",
+      "before": "2u2  10V CAND.",
+      "after": "2u2 / 10V X7R CAND."
+    },
+    {
+      "ref": "C305",
+      "before": "A_CALCULER",
+      "after": "1u / 16V X7R CAND."
+    },
+    {
+      "ref": "R201",
+      "before": "A_CALCULER",
+      "after": "90k9 0.1% CAND."
+    },
+    {
+      "ref": "R202",
+      "before": "A_CALCULER",
+      "after": "8k32 0.1% CAND."
+    },
+    {
+      "ref": "R203",
+      "before": "A_CALCULER",
+      "after": "1R CAND."
+    },
+    {
+      "ref": "R301",
+      "before": "A_CALCULER",
+      "after": "39k7 0.1% CAND."
+    },
+    {
+      "ref": "R302",
+      "before": "A_CALCULER",
+      "after": "10k 0.1% CAND."
+    },
+    {
+      "ref": "R303",
+      "before": "A_CALCULER",
+      "after": "1R CAND."
+    }
+  ],
+  "protected_property_changes": [],
+  "skill_validation": {
+    "validator": "skill-creator/scripts/quick_validate.py",
+    "passed": true,
+    "ui_metadata_yaml_passed": true
+  },
+  "graphic_review": {
+    "sheets": [
+      "02_buck_12v_capteurs",
+      "03_buck_5v_aux",
+      "05_synchronisation"
+    ],
+    "method": "Exports KiCad inspectes ; circuits regroupes, liaisons locales visibles"
+  },
+  "hardware_tests_executed": false,
+  "manufacturing_ready": false,
+  "qualification": "À valider",
+  "before_netlist": "netlist_avant_reprise_20260929.xml",
+  "after_netlist": "netlist_avant_dimensionnement_20260929.xml",
+  "independent_review": {
+    "date": "2026-09-29",
+    "completed": true,
+    "blocking_findings": [],
+    "scope": "Topologie, empreintes des preuves, syntaxe des recettes, rendu, valeurs candidates TI et nouvelle skill",
+    "open_erc_errors": [
+      "U201/20",
+      "U201/13",
+      "U201/9",
+      "U301/9"
+    ],
+    "erc_warnings": 0,
+    "limitation": "Ne qualifie ni les performances électriques, ni le PCB, ni le matériel."
+  },
+  "historical": true,
+  "history_note": "Reprise graphique avant dimensionnement des composants ; le schéma et les preuves actives évoluent ensuite."
+}

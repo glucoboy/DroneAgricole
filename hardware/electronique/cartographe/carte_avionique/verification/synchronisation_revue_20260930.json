@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-30T20:20:56.655365+00:00",
+  "scope": "CARTE-009 / ELEC-TIM-001 : schéma physique PPS/GPRMC CA01",
+  "reviewer": "Investigation et revue indépendante /root/holybro_pps_evidence ; rendu /root et /root/capture_audit",
+  "outcome": "préliminaire",
+  "blocking_topology_findings": 0,
+  "resolved_findings": [
+    "TPS709 remplace LDO sans protection inverse adaptée à la coupure du12V",
+    "Entrées330ohm/22k et borne Schmitt explicitement candidate",
+    "Rappel10k du railOrin pour référence débranchée",
+    "C5202.2u nominal pour viser1u effectif ; C51525V, BOM harmonisée",
+    "ExclusionsBOM et étatsPCB des connecteurs préexistants conservés",
+    "Labelsd alimentation et découplages directs rendus lisibles"
+  ],
+  "executed": {
+    "kicad": "10.0.6 Windows amd64",
+    "components": 151,
+    "nets": 111,
+    "connectivity_checks": 221,
+    "erc_errors": 0,
+    "erc_warnings": 0,
+    "conservation_checks": 3,
+    "arithmetic_checks": 44,
+    "preview_pdf": "CA01_schema_preliminaire.pdf",
+    "sync_page": 5,
+    "visual_inspection": true
+  },
+  "open": [
+    "Niveaux GNSSHolybro exacts, seuilSchmitt3.3V, chargePPSAiry et niveauxOrin",
+    "RéférenceCSI suivantIOréels, extinction/brownout/fuites cible",
+    "Ceff et références de passifs candidates, empreintes/connecteurs/PCB",
+    "RS23296008N1GP/RMCvalidA et timingdatePPS",
+    "ProtectionamontTVS/SOA, budgets/thermique non qualifiés"
+  ],
+  "hardware_tests_executed": false,
+  "manufacturing_ready": false,
+  "qualification": "À valider",
+  "inputs": [
+    {
+      "file": "05_synchronisation.kicad_sch",
+      "sha256": "401eb0239822cf352a7d3bb1d1cc0898b35ddfce58a84fbe1139ad822c9ab621"
+    },
+    {
+      "file": "CA01_Design.kicad_sym",
+      "sha256": "c93d3f20119655802aa90ee77dd9abf5e1f673fa751a7f96f6ca47326c741dde"
+    },
+    {
+      "file": "bom_candidate.json",
+      "sha256": "0e6801ae9c06baaa3486eca1e12599edb18ec46dc3faea47e8d4d83f5d7f300e"
+    },
+    {
+      "file": "dimensionnement.json",
+      "sha256": "37f5aff1ca54a6b0276f0d9079805e5bb033e203d5c8c0d4d6d55c0a88ac301f"
+    },
+    {
+      "file": "verification\\controle_statique.json",
+      "sha256": "ba10ae726359c07acfbf2e0689a022a34d457ece37be281c8519eac7d3a24874"
+    },
+    {
+      "file": "verification\\conservation_sync_20260930.json",
+      "sha256": "e35e4eb4b1ca0b356c1b3ae9ed85bdc8ba46d6d1fe9d78bcd99831a062bb4a9a"
+    },
+    {
+      "file": "verification\\calculs_reproduits.json",
+      "sha256": "44b0a6a94f8e77de4249e74c2bfb226890f075ff4584ba9cd0d554bcdb83d1c6"
+    },
+    {
+      "file": "verification\\CA01_schema_preliminaire.pdf",
+      "sha256": "ef712e76eb731735de3a14abd16526cb821adedf8e3389ec52a2aacf8d2c4f31"
+    }
+  ]
+}
