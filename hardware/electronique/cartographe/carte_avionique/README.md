@@ -1,5 +1,9 @@
 # Utiliser le projet KiCad CA01
 
+Le schéma complet exporté est disponible dans [CA01_Avionique.pdf](CA01_Avionique.pdf)
+(six pages, à côté du projet KiCad). La copie dans `verification/CA01_schema_preliminaire.pdf`
+est identique ; la provenance de l'export est dans `verification/export_pdf_20261001.json`.
+
 Ouvrir `CA01_Avionique.kicad_pro` avec KiCad 10.0.6. La feuille racine
 donne accès aux cinq sous-feuilles : entrée et protections 6S, rails 12 V,
 5 V local, radio et synchronisation. Conserver `CA01_Fonctions.kicad_sym`,

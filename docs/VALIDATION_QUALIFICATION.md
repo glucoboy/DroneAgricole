@@ -849,6 +849,13 @@ graphique ; la qualification électrique reste **À valider**.
 
 ### 12.7.4 Lisibilité énergie et symboles d'alimentation, 1 octobre 2026
 
+L'[export PDF complet](../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.pdf)
+du 1 octobre est aussi disponible à côté du projet KiCad. La
+[preuve d'export](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_20261001.json)
+consigne les empreintes des sources et du PDF, l'ordre des six feuilles et
+l'identité de la copie `verification/CA01_schema_preliminaire.pdf`.
+Les pages 2 et 3 réexportées ont été inspectées ; aucun circuit n'est modifié.
+
 Chaîne : `CARTE-003 / CARTE-004 / CARTE-012` → feuille `01_energie_pm`
 et convention graphique des cinq sous-feuilles → contrôle statique et
 revue de `T-CA01-12`. Reprise **Implémentée** : symbole U102 agrandi,
@@ -1090,6 +1097,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 1 octobre 2026 | Export PDF CA01 vérifié : six pages, provenance par empreintes, inspection des pages 2/3 et copie de vérification identique ; aucune modification électrique |
 | 1 octobre 2026 | Reprise graphique page 2 et symboles alimentation/GND ; conservation électrique, ERC et revue des rendus ; aucun essai matériel |
 | 30 septembre 2026 | Page 3 radio inspectée après reprise graphique ; trois contrôles de conservation sur 151 composants et 111 réseaux, 221 invariants et ERC 0/0 ; aucune modification électrique ni essai matériel |
 | 30 septembre 2026 | Recette§12.7.2 pour tempsGNSS physique candidat : Schmitt/TVS, translations, RS232/railAiry et référenceOrinCSI ; 44 contrôles arithmétiques, sortiesDNP, niveaux et séquencements à valider ; aucun essai matériel |
