@@ -1,6 +1,6 @@
 {
-  "date_utc": "2026-10-01T05:18:13.383414+00:00",
-  "scope": "Export PDF KiCad courant ; aucune modification des circuits",
+  "date_utc": "2026-10-01T06:26:05.024806+00:00",
+  "scope": "Reprise graphique LM74800 page 2 et export PDF KiCad courant ; circuits conservés",
   "toolchain": "KiCad 10.0.6 Windows amd64",
   "page_count": 6,
   "page_sheets": [
@@ -15,7 +15,7 @@
   "source_files": [
     {
       "file": "01_energie_pm.kicad_sch",
-      "sha256": "bbd07f009b89551d7550bbc79b8378da3dc3e52926d5170c576280760575ce93"
+      "sha256": "98977e73691948438c1858032d6ad1d4f43a4b7553337c8adeb2fcbb2440f94b"
     },
     {
       "file": "02_buck_12v_capteurs.kicad_sch",
@@ -39,7 +39,7 @@
     },
     {
       "file": "CA01_Design.kicad_sym",
-      "sha256": "cc25567d2e21183ad413d013307014772434c49e51c0490d12a0ade0e298af48"
+      "sha256": "b2db7a2fd0f1edfd8eaa37f02bcdfe702cc5438cf23044c714dbdb8a73b3f681"
     },
     {
       "file": "CA01_Fonctions.kicad_sym",
@@ -48,14 +48,27 @@
   ],
   "pdf": {
     "file": "CA01_Avionique.pdf",
-    "sha256": "037716fe0a45b7f5ed92bc044565203d29442957e029f9c4706d00a6a1819a55"
+    "sha256": "ff5215d3e578e5a30c1c1671775a9fa36f63df47a77d71653807c22bc570169d"
   },
   "verification_copy_identical": true,
   "hardware_tests_executed": false,
-  "hardware_tests_reason": "Export documentaire uniquement",
+  "hardware_tests_reason": "Reprise graphique uniquement ; aucun dimensionnement ni circuit modifié",
   "visual_inspection_pages": [
     2,
     3
   ],
-  "visual_inspection_result": "Pages exportées inspectées : mise en page et symboles d'alimentation actuels visibles"
+  "visual_inspection_result": "Page 2 complète et détail LM74800 inspectés : broches et passifs espacés, textes lisibles, alimentations vers le haut ; page 3 inspectée et conservée",
+  "layout_comparison": {
+    "baseline_git_commit": "9f98d6114da6a1a8b31b3379e260d7d0dcb9bea9",
+    "baseline_netlist_git_path": "hardware/electronique/cartographe/carte_avionique/verification/netlist.xml",
+    "fresh_baseline_netlist_sha256": "ee02e435f86598105999c1a31a996cc313c4ebda635198abfc8d0622ad4187ed",
+    "current_netlist_sha256": "b123d8e423049af8f058503d1293c27c901e62ac2132679ddcb804c9d331b35a",
+    "fresh_baseline_matches_committed_baseline": true,
+    "all_111_pin_groups_identical": true,
+    "all_151_component_fields_and_identities_preserved": true,
+    "all_library_pin_numbers_names_and_types_preserved": true,
+    "reserved_lower_and_f102_nodes_identical": true,
+    "reserved_node_count": 162,
+    "reproduction": "Exporter la netlist avec KiCad ; verify_power_layout.py compare les broches et champs à la référence archivée. La netlist du commit de référence permet aussi de reproduire la comparaison avant/après cette retouche."
+  }
 }

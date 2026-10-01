@@ -855,6 +855,14 @@ du 1 octobre est aussi disponible à côté du projet KiCad. La
 consigne les empreintes des sources et du PDF, l'ordre des six feuilles et
 l'identité de la copie `verification/CA01_schema_preliminaire.pdf`.
 Les pages 2 et 3 réexportées ont été inspectées ; aucun circuit n'est modifié.
+La reprise complémentaire de U101 (LM74800) en page 2 agrandit son symbole
+et dégage les mesures, diviseurs UVLO/OV, commandes de grille et pompe
+de charge. La netlist fraîche exportée avant cette retouche est identique
+à la netlist finale par ensembles de broches ; les valeurs et identités
+des composants sont conservées. Le convertisseur U102 et la branche F102
+restent inchangés. Le contrôle de rendu de cette retouche est effectué
+sur le PDF final ; la revue indépendante ci-dessous porte sur la reprise
+antérieure de U102 et des symboles d'alimentation.
 
 Chaîne : `CARTE-003 / CARTE-004 / CARTE-012` → feuille `01_energie_pm`
 et convention graphique des cinq sous-feuilles → contrôle statique et
@@ -1097,6 +1105,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 1 octobre 2026 | Reprise LM74800 page 2 : équivalence des 111 réseaux et conservation des composants, ERC vierge et PDF inspecté ; aucun essai matériel pour cette retouche graphique |
 | 1 octobre 2026 | Export PDF CA01 vérifié : six pages, provenance par empreintes, inspection des pages 2/3 et copie de vérification identique ; aucune modification électrique |
 | 1 octobre 2026 | Reprise graphique page 2 et symboles alimentation/GND ; conservation électrique, ERC et revue des rendus ; aucun essai matériel |
 | 30 septembre 2026 | Page 3 radio inspectée après reprise graphique ; trois contrôles de conservation sur 151 composants et 111 réseaux, 221 invariants et ERC 0/0 ; aucune modification électrique ni essai matériel |

@@ -357,7 +357,12 @@ pour faciliter son accès. Il comprend six pages ; sa copie dans `verification`
 reste identique et la provenance d'export est consignée dans DOC-VAL §12.7.4.
 
 **Convention graphique — 1 octobre 2026.** La page 2 (`01_energie_pm`)
-sépare la protection d'entrée du convertisseur calcul. Le symbole U102 est
+sépare la protection d'entrée du convertisseur calcul. Le symbole U101
+(LM74800) est agrandi : mesures A/VSNS et diviseurs UVLO/OV à gauche,
+DGATE et pompe de charge au-dessus, OUT et HGATE à droite. Les MOSFETs
+restent sur un chemin de puissance horizontal ; R105/C104 et les
+condensateurs C101–C105 sont reliés directement, sans labels locaux.
+La broche RTN13 reste non connectée. Le symbole U102 est
 agrandi ; ses réseaux FB/COMP, bootstrap et commande de grille restent
 filaires, avec les passifs à proximité et la sortie à droite. Sur les cinq
 sous-feuilles, les rails utilisent `Alimentation_Barre`, avec tige verticale
@@ -1337,6 +1342,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 1 octobre 2026 | Zone LM74800 de la page 2 reprise : U101 agrandi, diviseurs et pompe de charge dégagés, connexions conservées ; PDF réexporté et inspecté |
 | 1 octobre 2026 | PDF schématique CA01 réexporté et accessible à côté du projet KiCad ; lien direct dans le README, provenance et six pages vérifiées |
 | 1 octobre 2026 | Page 2 réorganisée et U102 agrandi ; alimentations à barre vers le haut et masses GND sur toutes les feuilles, réseaux et champs électriques conservés ; preuve et revue de lisibilité référencées dans DOC-VAL |
 | 30 septembre 2026 | Page 3 radio réorganisée : Pixhawk à gauche, RP4TD à droite, connecteurs agrandis et UART filaires ; topologie et champs électriques conservés, ERC 0/0 ; guideline entrées/sorties et taille des IC explicitée |

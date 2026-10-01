@@ -65,7 +65,7 @@ proof = {
                 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
                for path in (BASE, CURRENT, HERE.parent/'01_energie_pm.kicad_sch', HERE.parent/'CA01_Design.kicad_sym', HERE.parent/'CA01_Fonctions.kicad_sym')],
     'allowed_graphical_changes': [
-        'Positions et orientations des symboles, fils et textes ; U102 agrandi sans modification du brochage',
+        'Positions et orientations des symboles, fils et textes ; U101 et U102 agrandis sans modification du brochage',
         'Labels de rails remplacés par symboles power global ; GND standard, alimentations à barre orientée vers le haut',
     ],
     'visual_recipe': 'Exporter le PDF avec KiCad puis inspecter la page 2 et toutes les feuilles affectées ; ce contrôle graphique est manuel',
