@@ -1287,10 +1287,13 @@ réel. La prise d'équilibrage et ses fils sont retenus dans P51/P52.
 
 Côté fixe, deux fils AWG8 `55A0111-8-2/-0` (Ønominal4,78mm, étude5mm),
 cosses Phoenix `3240219` et entretoises Cu P48 relient les contacts au kit.
-Les chemins tangents559,39/475,79mm utilisent R≥50mm et dépassent les
-152,4mm libres prescrits près des contacts par TE114-13206. Préparer600/520mm,
-puis ajuster après contrôle des engagements et sertissages. P49/P50 isolent
-les bornes fixes ; deux épissures TE`34321` sont couvertes de gaine adhésive
+Les chemins tangents compacts du4octobre mesurent480,91/425,75mm, utilisent
+R≥50mm et dépassent les152,4mm libres prescrits près des contacts par
+TE114-13206. Les préparations600/520mm étaient celles de la boucle initiale ;
+la coupe du routage compact reste **À valider** sur gabarit après mesure des
+ports, engagements, sertissages et liberté flottante. P49/P50 isolent
+les bornes fixes ; l'intersection géométrique préexistante positif/P49 de
+84,525mm³ reste ouverte et doit être résolue avant fabrication. Deux épissures TE`34321` sont couvertes de gaine adhésive
 ATUM`12/3-0-50MM` (`NB08926001`, préparation50mm, réservation posée44mm).
 Cette épissure suppose un **kit JETI8mm² confirmé** ; la notice proposant
 6ou8mm², le lot6mm² exige une autre terminaison validée avant assemblage.
@@ -1850,6 +1853,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Repli des deux adaptateurs fixesTE/JETI en conservantR50 et terminaisons :480,91/425,75mm libres ; coupe sur gabarit et intersectionP49 non résolue, aucune qualification matérielle (§6.1, DOC-MEC§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Catalogue CAO trié et anciennes intégrations globales archivées ; dernière stack conservée, GNSS/faisceau séparés, aucune modification d'interface ou de câblage (§6, DOC-MEC§2.1) |
 | 4 octobre 2026 | Option GNSS déportée par SMA au-dessus du pack, récepteur inférieur avec compas intégré et deux antennes RP4TD sur plateau déporté ; coaxiaux, fixation, passages et essais magnétiques/RF ouverts (§6) |
 | 3 octobre 2026 | Revue mécanique CA01/Holybro synchronisée sur plan fabricant ; interfaceM3 confirmée, isolement tiges/carbone/PCB, précharge et fiches accouplées À valider (DOC-MEC§4.4.1.1) |

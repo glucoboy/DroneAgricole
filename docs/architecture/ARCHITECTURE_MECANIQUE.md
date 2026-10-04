@@ -325,8 +325,9 @@ Sept colliers T50R `111-05012` sont posés : deux sur le module, dont le
 premier partagé avec P53, deux sur la commande magnétique, deux sur XT90,
 un autour des gaines sur P53. Les lumières natives laissent passer les fils
 et le collier. Les deux adaptateurs fixes ont des arcs tangents de rayon
-minimal50mm pour un diamètre d'étude5mm, et des longueurs libres559,39/475,79mm
-avant retenue. Leurs boucles montent àZ232,5mm ; il faut vérifier leur tenue
+minimal50mm pour un diamètre d'étude5mm. Le repli du 4 octobre conserve ces
+rayons et réduit les longueurs libres à480,91/425,75mm avant retenue (§4.1.3.1).
+Les boucles initiales montaient àZ232,5mm ; il faut vérifier leur tenue
 réelle et la liberté de la fixation flottante TE, notamment aux limites de
 son déplacement. Les entrées du module sont des réservations d'étude à
 mesurer sur le kit ; elles n'autorisent aucun perçage du module commercial.
@@ -355,6 +356,43 @@ La preuve d'intégration distingue le balayage continu, les poses échantillonn�
 les volumes fonctionnels des composants achetés et les modèles simplifiés.
 Voir DOC-VAL§12.1.3 : aucune absence de blocage physique ni qualification du
 verrouillage n'est déduite d'une simple ouverture du fichier.
+
+##### 4.1.3.1 Couleurs et compacité du dock — 4 octobre 2026
+
+Le fichier courant reste `SA02A_Dock20Ah.FCStd`. Les noms des pièces et
+assemblages sont conservés lors des évolutions ; aucun nouveau suffixe de
+révision n'est ajouté. Les 91 petits natifs du dock et de ses dépendances
+(2,31 Mo avant édition) sont suivis explicitement par Git. L'état initial est
+conservé sur `codex/batterie-avant-evolution-20261004`, sans changement de la
+branche de travail ni de l'index utilisateur. Les sources fabricant et
+exports lourds restent exclus.
+
+Les matériaux de présentation persistants distinguent pack bleu, rails
+bleu-vert, isolants ocre, retenue orange, cuivre, JETI violet et câbles rouge/noir.
+Ces couleurs ne définissent pas les matériaux physiques ni une qualification.
+Les références natives et les 181 occurrences conservent leurs arbres et
+placements. Les deux cordons fixes gardent `Chemin`, `Section` et `Part::Sweep`.
+
+Le premier compactage **Implémenté** replie les grandes boucles arrière
+avec des demi-tours inclinés et raccords en S de rayon50mm. Départs, arrivées,
+tangentes, pack, fixations et protections sont conservés. L'enveloppe
+conservatrice FreeCAD passe de548,64×135,84×212,89mm à543,84×135,84×150,57mm :
+hauteur−29,3%, volume de boîte−29,9%, longueur−0,9%. Ce volume de boîte
+n'est ni un volume de matière ni une réduction équivalente de masse.
+Les longueurs libres480,91/425,75mm dépassent152,4mm ; cela ne démontre pas
+la liberté réelle de la fixation flottante TE. Résultats et limites dans
+[DOC-VAL§12.1.7](../VALIDATION_QUALIFICATION.md#1217-couleurs-et-compacité-du-dock--4-octobre-2026).
+L'intersection préexistante positif/P49, environ84,525mm³, reste **À valider**.
+
+| Solution explorée | Effet et décision courante | Suite nécessaire |
+|---|---|---|
+| Replier les deux boucles fixes | gain de hauteur calculé29,3%, appliqué en place | liberté flottante, courbures, retenue, vibration et thermique au banc |
+| Rapprocher/repositionner JETI et ses raccords | potentiel sur la longueur arrière, **Planifié / À valider**, non chiffré | relever les sorties du kit et reprendre support, reprise de traction et routes |
+| Repositionner le XT90 frontal et P47 | équipement jusqu'àX209,85 contreX99 pour le pack maximal ; potentiel de raccourcissement, **À valider** | conserver les150mm de fils du pack, ranger le mou, vérifier accès et maintien |
+| Retoucher la cassette | fond202×90 pour pack nominal193×76 et étude198×78 : gain limité | maintenir jeux, gonflement et captures sans comprimer le softpack |
+
+Le compactage physique complet reste **À valider** ; aucun changement de
+capacité batterie, de connecteur commercial ou de mécanisme de coupure n'est engagé.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -1239,6 +1277,7 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Couleurs natives du dock et suivi Git de91 petits natifs ; noms stables, repli des deux cordons fixesR50 et hauteur calculée−29,3% ; pistes JETI/XT90/cassette et intersectionP49 ouverte (§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Tri des natifs : 10 sous-assemblages courants et deux montages de construction, 13 anciens SA et cinq globaux archivés avec leurs dépendances ; catalogue/guide actualisés, réouvertures séparées et reprise de source stack contrôlées (§2.1, DOC-VAL§12.1.6) |
 | 4 octobre 2026 | Scénario GNSS sur plateaux et antennes radio déportées : bras OEM identifié, retraits bruts conditionnels de 41,1/80,8 g, hypothèses matériaux et absence de gain net/masse cible distinguées ; aucun placement CAO modifié (§6.1) |
 | 3 octobre 2026 | Stack revue sur plan Holybro4M3/120×74 : CA01 synchronisée, perçages natifs repris, appuis24/2, fixation communeP17 et vis65, plaqueP56 dérivée ; première visserie rejetée, accès outil avec déposebloccapteurs et qualification mécanique/électrique ouvertes (§4.4.1.1) |

@@ -25970,7 +25970,60 @@
     "hierarchie": "verification/hierarchie_20Ah_20261002.json",
     "source_hierarchie_sha256": "cb5e124c6ecb8a850169211664aeab6a4c8157cac454e5b6d7dbd76cd40566c2",
     "comptage": "Occurrences effectivement liées des pièces ; OEMX650 compté comme unkit, pas autant de kits que de feuilles STEP.",
-    "archive_conception": true
+    "archive_conception": true,
+    "evolution_courante": {
+      "date": "2026-10-04",
+      "noms_stables": true,
+      "assemblage": "sous_assemblages/SA02A_Dock20Ah.FCStd",
+      "realisation_CAO": "Implémenté",
+      "statut": "À valider",
+      "verification": "verification/controle_compacite_dock20Ah.json",
+      "couleurs": "verification/couleurs_dock20Ah.json",
+      "rendu": "verification/rendu_dock20Ah_courant.json",
+      "dimensions_conservatrices_mm": [
+        543.8362525604712,
+        135.840738114862,
+        150.5705905153507
+      ],
+      "cordons_fixes": [
+        {
+          "reference": "EQ_CordonFixe8AWG_Plus20A",
+          "longueur_libre_mm": 480.9149071274868,
+          "rayons_arcs_mm": [
+            49.99999999999992,
+            50.0,
+            50.0,
+            50.00000000000001,
+            50.00000000000002
+          ],
+          "arbre_natif_preserve": true
+        },
+        {
+          "reference": "EQ_CordonFixe8AWG_Moins20A",
+          "longueur_libre_mm": 425.7503482138903,
+          "rayons_arcs_mm": [
+            50.0,
+            50.0,
+            49.999999999999964,
+            49.99999999999995
+          ],
+          "arbre_natif_preserve": true
+        }
+      ],
+      "placements_modifies": false,
+      "longueurs_preparation_mm": null,
+      "limite_preparation": "Coupe à déterminer sur gabarit et lot réel.",
+      "registre_faisceau_historique": "verification/faisceau_dock20Ah_20261002.json",
+      "branche_Git_etat_initial": "codex/batterie-avant-evolution-20261004",
+      "commit_Git_etat_initial": "dc0190226f13425f6785df7af99c4aa3ea4bd6c4",
+      "limites": [
+        "Intersection préexistante positif/P49 de 84.525mm³ non résolue ; aucune absence globale d’interférence revendiquée.",
+        "Épissures et gaines modélisées en recouvrement ; montage réel à mesurer.",
+        "Liberté flottante TE, rayons réels, accès, vibration, thermique, hélices et vol non qualifiés."
+      ],
+      "DOC_MEC": "§4.1.3.1",
+      "DOC_VAL": "§12.1.7"
+    }
   },
   "configuration_systeme_candidate": {
     "reference": "CFG-CARTO-CIBLE-20261003",
@@ -35441,7 +35494,9 @@
         "fichier": "sous_assemblages/SA02A_Dock20Ah.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "0de69474a48f9456ae70a5ecf337d5e79c06da219dab41036d74122d83c32ba9",
+        "verification": "verification/controle_compacite_dock20Ah.json"
       },
       {
         "reference": "SA03_CA01_Holybro_Revue_20261003",
@@ -35553,6 +35608,7 @@
     "manifest_avant_tri_sha256": "efcd1ad825513886054bd50d3dbaa6c1d29b720f938c6b4ca1411c91d9dbd6e2",
     "verification": "verification/controle_tri_courant_20261004.json",
     "revue": "verification/revue_independante_tri_20261004.json",
-    "verification_archive": "verification/controle_tri_archive_20261004.json"
+    "verification_archive": "verification/controle_tri_archive_20261004.json",
+    "politique_noms": "Fichiers évolués en place ; retours arrière Git des petits natifs explicitement suivis."
   }
 }

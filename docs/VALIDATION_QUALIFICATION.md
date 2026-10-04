@@ -758,6 +758,53 @@ campagne d'interférences et essais mécaniques/électriques/RF/vol, car aucun
 placement, solide ou interface matérielle n'est modifié. Les preuves
 antérieures et leurs réserves continuent de s'appliquer.
 
+### 12.1.7 Couleurs et compacité du dock — 4 octobre 2026
+
+Chaîne `MEC-ARC-001`, `MEC-BAT-001` → dock et deux cordons fixes TE/JETI →
+`T-CARTO-DOCK-COULEURS-01`, `T-CARTO-DOCK-COMPACT-01` →
+[couleurs](../hardware/mecanique/cartographe/verification/couleurs_dock20Ah.json),
+[implantation](../hardware/mecanique/cartographe/verification/compacite_dock20Ah.json),
+[contrôle indépendant en processus neuf](../hardware/mecanique/cartographe/verification/controle_compacite_dock20Ah.json)
+et [rendu natif](../hardware/mecanique/cartographe/verification/rendu_dock20Ah_courant.json).
+La [revue indépendante](../hardware/mecanique/cartographe/verification/revue_compacite_dock20Ah.json)
+contrôle les tangences natives, les BRep préservés et les tables d'apparence.
+Recettes `update_compacite_dock20Ah.py`, `finalize_couleurs_dock20Ah.py`,
+`verify_compacite_dock20Ah.py` et `render_dock20Ah_courant.py` dans le même répertoire.
+
+Protocole Windows amd64 / FreeCAD1.1.3 : conserver références/placements,
+réouvrir et recalculer, vérifier liens et arbres Chemin/Section/Sweep,
+solides valides, rayons circulaires50mm, longueurs libres>152,4mm,
+absence de nouvelle collision externe et séparation continue de la cassette
+sur+X. Les couleurs doivent être relues depuis les fichiers et contrôlées
+sur une capture native ; une couleur en mémoire n'est pas un résultat finalisé.
+Le PythonFreeCAD externe produisait des tables MaterialList v3 vides à la
+sauvegarde : la finalisation restaure les tables GUI initiales depuis Git,
+remplace seulement les apparences et vérifie ensuite leur réouverture.
+
+Résultats :181 liens dock résolus, aucun objetInvalid, deux balayages natifs
+valides,629 BRep exactement inchangés hors des deux cordons, aucune
+intersection inter-cordons ni avec châssis/stack/capteurs/distribution.
+La séparation conservatrice surX est17,17mm pour l'extraction continue+X.
+L'enveloppe FreeCAD passe de548,64×135,84×212,89mm à543,84×135,84×150,57mm
+(hauteur−29,3%, boîte−29,9%) ; conducteurs480,91/425,75mm libres.
+Les couleurs sont persistantes sur89 références et les noms restent inchangés.
+
+Conclusion **préliminaire**, CAO **Implémenté**, physique **À valider**.
+L'intersection préexistante positif/P49 d'environ84,525mm³ est conservée,
+signalée et doit être résolue avant fabrication. Les recouvrements avec
+épissures/gaines sont consignés, sans conclure à l'absence globale d'interférence.
+Non exécutés : mesure des ports/lot, liberté flottante, courbures réelles,
+accessibilité et montage, vibration, thermique/isolement/courant, hélices et vol,
+car les fournitures et le banc ne sont pas disponibles dans cette validation CAO.
+
+L'état initial de91 petits natifs est conservé dans Git sur
+`codex/batterie-avant-evolution-20261004` ;
+[preuve de suivi](../hardware/mecanique/cartographe/verification/suivi_git_dock20Ah.json).
+Les preuves du2–3octobre et du tri§12.1.6 restent historiques : leurs
+empreintes antérieures ne certifient pas les fichiers évolués. Les nouvelles
+empreintes sont celles du contrôle ci-dessus ; les exports STEP des deux
+cordons sont régénérés. Aucune nouvelle qualification du drone complet.
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -1972,6 +2019,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
+| MEC-ARC-001, MEC-BAT-001 | dock courant coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
 
 ## 14. Actions de qualification ouvertes
 
@@ -2004,6 +2052,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 4 octobre 2026 | Dock coloré et repli natif de deux cordons ; réouverture et collisions vérifiées,629 BRep préservés, hauteur−29,3%, intersectionP49 toujours ouverte ; état initial dans Git et nouvelles empreintes distinctes des preuves historiques (§12.1.7) |
 | 4 octobre 2026 | Tri des sous-assemblages : miroir autonome et 321 empreintes préservées, réouvertures FreeCAD courant/archive séparées sans erreur, reprise de source châssis contrôlée ; géométrie et essais physiques inchangés (§12.1.6) |
 | 4 octobre 2026 | Calcul conditionnel GNSS/radio sur plateaux : volumes et empreintes contrôlés, matériaux hypothétiques, aucun crédit en double des supports absents de la cible ; gain net et qualification physique ouverts (§12.1.5) |
 | 3 octobre 2026 | Revue stack sur plan Holybro : neuf natifs, CA01 courante et perçages, fixation communeP17 parM3×65 et appuis24/2 ; contraintes de montage, précharge et isolement ouvertes (§12.7.14) |
