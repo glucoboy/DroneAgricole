@@ -47,5 +47,14 @@ m=read(MEC/'manifest.json')
 assert m['configuration_dock20Ah']['evolution_courante']['noms_stables']
 assert m['configuration_dock20Ah']['evolution_courante']['dimensions_batterie_et_energie_mm']==control['dimensions_batterie_et_energie_mm']
 proof={'date':'2026-10-04','controle':'T-CARTO-ETAGE-REGISTRES-01','sources_geometriques_revalidees_par_empreinte':len(control['sources_sha256']),'occurrences':len(n['occurrences']),'quantites_concordantes':True,'couleurs_natives_relues':colors,'rendus_empreintes_concordantes':True,'pack_controle_mm':[193,76,58],'enveloppe_et_lot':'À valider','qualification_physique':'À valider','finalisation_correcte':True}
+import FreeCAD as A
+construction=[]
+for name in ['SA02_Cassette20Ah_Coulissante','SA02_Contacts20Ah']:
+ path=MEC/'sous_assemblages'/(name+'.FCStd');doc=A.openDocument(str(path));doc.recompute()
+ invalid=[o.Name for o in doc.Objects if 'Invalid' in o.State]
+ broken=[o.Name for o in doc.Objects if o.TypeId=='App::Link' and not o.LinkedObject]
+ assert not invalid and not broken,(name,invalid,broken)
+ construction.append({'fichier':str(path.relative_to(ROOT)).replace('\\','/'),'sha256':sha(path),'invalid':invalid,'liens_non_resolus':broken})
+proof['montages_construction_reouverts']=construction
 (VER/'controle_registres_etage_batterie.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({'occurrences':len(n['occurrences']),'references_colorees':len(colors),'finalisation_correcte':True}))
