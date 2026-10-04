@@ -315,22 +315,15 @@ dans `hardware/mecanique/cartographe/verification/` et le manifeste voisin.
 | butée | P35 fixe et portée P36 sous fond ; réglage M4 indépendant des contacts | réglage du stage primaire et contrôle du jeu axial au banc |
 | verrou | SouthcoR4-05-40-405-10 + gâcheR4-90-0521-10, montage aux cotes du plan J-R4-05-10 | tenue admissible, verrouillage et commande avec gants non qualifiés |
 | contacts | TE1648151-1/1648156-1, deux positions de puissance, fixation flottante et supports P39/P40 | anomalies des cavités STEP signalées ; compatibilité et engagement à contrôler sur la paire réelle |
-| chemin électrique mobile | conducteurs cuivreC101 P42, section10mm², sous protections P43–P45, raccordement frontal | procédé de pliage, isolation, serrage et échauffement à qualifier |
-| coupure fixe | JETIMainSwitch100 et commande magnétique sur P41, captures et colliers | OFF avant déverrouillage ; mémoireON et négatif commuté selon DOC-ELEC§6.1 |
-| raccordement pack | protection P46, porte-à-faux XT90 P47, fils d'origine conservés | sorties du lot, mou, courbures et tenue du porte-à-faux à contrôler |
-| faisceau fixe | entretoises Cu P48, protections P49/P50, deux fils AWG8 et épissures TE34321 isolées ATUM | kit JETI8mm² à confirmer ; sorties du module réservées dans la CAO, sans usinage du produit |
-| équilibrage et reprise | coffret P51/P52 pour prise et mou ; P53 retient les gaines surP41 et transmet le serrage au module par deux portées | calage, rigidité, dissipation et vibration à valider sur lot réel |
+| chemin électrique mobile | pack retourné, fils AWG8 courts et cosses à 90° Klauke 742F5 M5 candidates sur TE ; P43/P44 à l'arrière | lot, compatibilité AWG8, sertissage, isolation et échauffement **À valider** |
+| coupure fixe | JETI MainSwitch100 et commande magnétique à l'étage inférieur sur P57 candidat | OFF avant déverrouillage ; mémoire ON et négatif commuté selon DOC-ELEC §6.1 |
+| raccordement pack | XT90-S, adaptateurs AWG10 et P42/P45–P47 retirés ; TE/P39/P40 reculés de 82 mm | supports rallongés, lot et préparation du pack **À valider** |
+| faisceau fixe | entretoises Cu P48, protections P49/P50 et deux fils AWG8 vers JETI inférieur | raccords au kit JETI, section réelle, bridage et sorties à définir ; réservations CAO sans usinage du produit |
+| équilibrage et reprise | coffret P51/P52 pour prise et mou dans le corridor intérieur ; anciennes retenues P41/P53 retirées | fixations des coffrets, calage, rigidité et vibration **À valider** |
 
-Sept colliers T50R `111-05012` sont posés : deux sur le module, dont le
-premier partagé avec P53, deux sur la commande magnétique, deux sur XT90,
-un autour des gaines sur P53. Les lumières natives laissent passer les fils
-et le collier. Les deux adaptateurs fixes ont des arcs tangents de rayon
-minimal50mm pour un diamètre d'étude5mm. Le repli du 4 octobre conserve ces
-rayons et réduit les longueurs libres à480,91/425,75mm avant retenue (§4.1.3.1).
-Les boucles initiales montaient àZ232,5mm ; il faut vérifier leur tenue
-réelle et la liberté de la fixation flottante TE, notamment aux limites de
-son déplacement. Les entrées du module sont des réservations d'étude à
-mesurer sur le kit ; elles n'autorisent aucun perçage du module commercial.
+La configuration courante est décrite au §4.1.3.2. L'ancienne implantation
+P41/P53, les sept colliers et les épissures frontales ne définissent plus
+les quantités courantes ; voir la BOM actualisée et Git pour leur historique.
 
 Le choix s'appuie sur des produits existants : la famille SouthcoR4 est un
 loquet commercial automatique pour fermeture par poussée ; la famille TE
@@ -348,8 +341,11 @@ elles ne sont pas déposées à chaque échange. Une seconde cassette reprend
 uniquement les lignes mobiles. Les pièces P13–P15 et le SBS sont retirés de
 la configuration active, P23–P26 restant des candidats archivés.
 
-Les contrôles de course portent sur la géométrie nominale et l'enveloppe de
-pack d'étude. Les supports du loquet ont été repris après détection d'un
+Les contrôles antérieurs de course au DOC-VAL §12.1.3 portaient sur leur
+géométrie nominale et leur enveloppe de pack d'étude. Le contrôle courant
+au §12.1.8 porte uniquement sur le pack nominal de 193 × 76 × 58 mm ;
+l'enveloppe de 198 × 78 × 60 mm et le lot réel restent **À valider**.
+Les supports du loquet ont été repris après détection d'un
 accrochage, les fixations de rails déportées hors flange et les vis supérieures
 rendues affleurantes pour traverser sous le plateau pendant toute l'extraction.
 La preuve d'intégration distingue le balayage continu, les poses échantillonnées,
@@ -379,20 +375,79 @@ tangentes, pack, fixations et protections sont conservés. L'enveloppe
 conservatrice FreeCAD passe de548,64×135,84×212,89mm à543,84×135,84×150,57mm :
 hauteur−29,3%, volume de boîte−29,9%, longueur−0,9%. Ce volume de boîte
 n'est ni un volume de matière ni une réduction équivalente de masse.
-Les longueurs libres480,91/425,75mm dépassent152,4mm ; cela ne démontre pas
-la liberté réelle de la fixation flottante TE. Résultats et limites dans
+La longueur480,91/425,75mm ne démontre ni la distance spatiale152,4mm
+au premier collier ni la liberté réelle de la fixation flottanteTE. Résultats et limites dans
 [DOC-VAL§12.1.7](../VALIDATION_QUALIFICATION.md#1217-couleurs-et-compacité-du-dock--4-octobre-2026).
-L'intersection préexistante positif/P49, environ84,525mm³, reste **À valider**.
+L'intersection préexistante positif/P49, environ 84,525 mm³, restait ouverte
+lors de cette première étape ; elle est traitée par le nouveau trajet au §4.1.3.2.
 
-| Solution explorée | Effet et décision courante | Suite nécessaire |
+| Solution explorée lors de la première étape historique | Effet et décision à cette étape | Suite nécessaire à cette étape |
 |---|---|---|
 | Replier les deux boucles fixes | gain de hauteur calculé29,3%, appliqué en place | liberté flottante, courbures, retenue, vibration et thermique au banc |
 | Rapprocher/repositionner JETI et ses raccords | potentiel sur la longueur arrière, **Planifié / À valider**, non chiffré | relever les sorties du kit et reprendre support, reprise de traction et routes |
 | Repositionner le XT90 frontal et P47 | équipement jusqu'àX209,85 contreX99 pour le pack maximal ; potentiel de raccourcissement, **À valider** | conserver les150mm de fils du pack, ranger le mou, vérifier accès et maintien |
 | Retoucher la cassette | fond202×90 pour pack nominal193×76 et étude198×78 : gain limité | maintenir jeux, gonflement et captures sans comprimer le softpack |
 
-Le compactage physique complet reste **À valider** ; aucun changement de
-capacité batterie, de connecteur commercial ou de mécanisme de coupure n'est engagé.
+Cette première étape est historique ; l'orientation du pack et son
+raccordement sont maintenant repris au§4.1.3.2. La capacité et le mécanisme
+de coupure sont conservés ; le compactage physique reste **À valider**.
+
+##### 4.1.3.2 Énergie à l'étage inférieur et pack directement au TE — 4 octobre 2026
+
+Choix utilisateur **Implémenté en CAO**, physique **À valider** : JETI,
+commande magnétique, PM08-CAN et PDB 18138 sont placés dans SA07 sous la
+batterie, autour de la pile centrale. Le plateau P57 candidat comporte trois
+îlots étagés, appuis, butées, lumières et attaches sur deux axes OEM ; vis,
+sangles, maintien vertical/axial, dissipation et procédure restent à définir.
+Les modules débordent latéralement de l'empreinte du pack. Une implantation
+centrale entre les plateaux a été écartée pour collisions et manque de place
+aux prises. Les sources fabricant ne sont pas usinées.
+
+Le pack est tourné de 180° autour de Z. Le TE et les panneaux P39/P40 reculent
+de 82 mm ;
+leurs bras sont allongés vers les ancrages existants. Cette concession donne
+la place aux deux fils AWG8 directs et aux cosses à 90° candidates Klauke
+742F5 M5. Le XT90-S frontal, les deux adaptateurs AWG10, les longues barres
+P42 et leurs protections longitudinales sont retirés. Les chemins mobiles
+mesurent 89,70/90,56 mm, avec des arcs de rayon 50 mm. La 742F5 a une section
+nominale de 10 mm² : sa compatibilité exacte AWG8, son sertissage et la géométrie du
+coude ne sont pas confirmés. Sa représentation est une enveloppe d'étude
+**À valider** ; la définition directe AWG8/742F5 M5 n'est pas qualifiée.
+Les sorties du lot pack ne sont pas cotées ; aucun travail sur les cellules scellées.
+
+Le contrôle CAO courant porte uniquement sur le pack nominal de
+193 × 76 × 58 mm. L'enveloppe d'étude de 198 × 78 × 60 mm, sans tolérance
+fabricant publiée, et le lot réel restent **À valider**.
+
+P43/P44 deviennent un coffret arrière court sous Z102,5 ; le plateau commence
+à Z103 (jeu nominal de 0,5 mm, tolérances **À valider**). P51/P52 et la boucle
+d'équilibrage sont dans le corridor intérieur, pour éviter les colonnes Y±52
+pendant l'extraction. Des passages sont ajoutés à P31 ; les fixations des
+coffrets, protections contre le frottement et la résistance des bras en
+porte-à-faux de 82 mm restent **À valider**. Les anciennes vis de retenue
+de l'équilibrage ne sont plus posées.
+
+Les deux fils fixes descendent vers JETI, avec des arcs de rayon 50 mm et des
+longueurs de 354,42/354,07 mm. Leur dressage et les sorties du kit doivent
+être approuvés avant fabrication ; la distance
+TE de 152,4 mm concerne le premier collier si utilisé, pas la longueur bouclée.
+Le rayon nominal de 50 mm ne démontre pas une conformité globale au dressage
+et au flottement TE. Les faisceaux JETI → PM08-CAN → PDB restent à recoter,
+ainsi que les prises accouplées. PM08-CAN est la sélection courante ; PM08D
+désigne une autre famille de module, sans substitution.
+
+La charge hors drone nécessite un adaptateur de puissance TE protégé,
+**Planifié**. La prise JST d'équilibrage seule ne remplace pas la liaison
+de puissance de charge ; la charge ne passe pas par JETI OUT.
+
+Natifs conservés en place : SA02A, SA02Cassette, SA02Contacts, SA07 et
+Integration_Stack_Revue_20261003. Point Git avant migration :
+`codex/batterie-avant-etage-inferieur`. Manifeste et BOM courants renvoient
+au contrôle et à la nomenclature dans `verification/` ; les preuves antérieures
+et leurs empreintes sont historiques. Mesures et limites : DOC-VAL §12.1.8.
+L'état courant est sauvegardé sur `codex/batterie-etage-inferieur` ; les
+branches de conception et les fichiers natifs conservent la possibilité
+de revenir à la définition précédente sans renommer les assemblages.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -791,10 +846,10 @@ antérieurs conservent leur périmètre.
 | Jetson / P04 | deux collisions de l'ancienne maquette Orin Nano restent ouvertes | modèle exact porteuse/Orin NX, nouvelle fixation et contrôle d'interférence avant fabrication |
 | loquet batterie | SouthcoR4-05-40-405-10 + gâcheR4-90-0521-10, indépendant des contacts | stage primaire, efforts, commande avec gants, protection contre ouverture accidentelle et cycles |
 | batterie et cassette | TattuNMC6S20Ah TAA200006S5X9S et cassette interplateaux | réception du pack, tolérances, gonflement, calage, isolation et masse réelle |
-| TE / faisceau du dock20Ah | contacts MiddleDrawer, XT90 et JETI implantés dans la CAO active | engagement réel, liberté flottante, courbure, traction, précharge et échauffement (DOC-ELEC§6.1) |
+| TE / faisceau du dock 20 Ah | liaison directe candidate AWG8/742F5 M5 vers contacts Middle Drawer ; JETI à l'étage inférieur ; XT90-S/AWG10/P42 retirés | engagement réel, compatibilité et sertissage, liberté flottante, courbure, traction, précharge et échauffement (DOC-ELEC §6.1) |
 | RTK / antenne | supports P07–P09 et enveloppes Rover patch historiques conservés | candidat Helical STM32G4 : support/antenne et SMA éventuel, câbles CAN + UART2 de temps, ciel dégagé, carbone/propulsion, masse et repères à vérifier |
 | caméra / optique | Basler conservée ; translation Airy traçable | objectif réel, champ de vue, masques, longueur des vis et extrinsèques |
-| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN fixé au châssis ; PDB 300A Top Entry candidate en aval ; ancienne CAO conservée | support et isolation PDB, accès XT90/XT30, protection W08 au plus près du port et segment amont exposé à minimiser, décharge des départs, contour/fixations CA01, support PM08-CAN, encombrement, vibrations et thermique ; actualiser SA03/SA04 après définition (DOC-ELEC §4.2) |
+| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN et PDB 300A Top Entry candidate implantés dans SA07 sur P57 candidat | fixations et isolation, accès XT90/XT30 de la PDB, protection W08 au plus près du port, retenue des départs, contour/fixations CA01, encombrement, vibrations et thermique (DOC-ELEC §4.2 et §6.1) |
 | masse et centrage | quantités CAO actives corrigées ; bilan isolateurs actualisé | masse de chaque pièce fabriquée et équipement, centre de gravité complet, poussée/endurance |
 | sources et exports | sources fabricant conservées, corrections natives et exports locaux | réouverture/recalcul, revue de montage puis essais matériels selon DOC-VAL |
 
@@ -853,9 +908,10 @@ La visserie, la gâche fonctionnelle et la capture axiale définitives ne sont
 pas définies par ces réservations.
 
 La table précédente conserve les références historiques. La configuration
-20 Ah remplace P13–P15/P20 par P27–P53 selon les quantités effectives de la
+20 Ah et l'étage énergie emploient les références P27–P57 selon les quantités effectives de la
 [BOM du dock](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json).
-P37 est répété quatre fois ; P32 et P42 deux fois ; P38 dérive le plateau309
+P37 est répété quatre fois et P32 deux fois ; P42 et P45–P47 sont retirés.
+P57 est le plateau énergie candidat. P38 dérive le plateau 309
 du kit sans achat d'un second kit. Les vis OEM réutilisées, les vis remplacées
 et les vis ajoutées sont distinguées par les recettes et la BOM.
 
@@ -867,15 +923,15 @@ et les vis ajoutées sont distinguées par les recettes et la BOM.
 | batterie TattuNMC6S20Ah TAA200006S5X9S | 1 par cassette | énergie et masse principale amovible | choix d'intégration ; énergie réelle et profil électrique **À valider** |
 | TE ELCON 1648151-1/1648156-1 et contacts M5 1766283-1/6648335-1 | 1 paire, 2 contacts par côté | connexion guidée du dock | références existantes ; engagement et courant **À valider** |
 | Southco R4-05-40-405-10 et R4-90-0521-10 | 1 loquet + 1 gâche | verrouillage positif automatique | choix implémenté ; essais **À valider** |
-| JETI J-MSW-100-MS, commande et support P41 | 1 jeu fixe | coupure avant échange | séquence et charge réelle **À valider** |
+| JETI J-MSW-100-MS, commande et plateau P57 candidat | 1 jeu fixe | coupure avant échange, à l'étage inférieur | CAO **Implémenté** ; fixations, séquence et charge réelle **À valider** |
 | EPDM RS PRO 205-513, découpes et cales de pack | selon hauteur mesurée | protection et calage permanent | EPDM dense70ShA, pas mousse compressible ; ne pas forcer le softpack |
 | Sorbothane 30 duro | 4 appuis | isolation du bloc capteurs | géométrie finale **À valider** |
 | vis M2, écrous frein et capture métallique | 4 jeux visés | limitation sûre du débattement | dimensionnement **À valider** |
 | Airy, Basler et objectif | 1 chacun | bloc optique/LiDAR calibré | équipements candidats/présélectionnés |
 | porteuse Holybro Pixhawk Jetson, Pixhawk 6X module seul et Orin NX 16 Go | 1 chacun | ensemble calcul/vol de la nouvelle cible | représentation groupée **Implémenté** dans la maquette inactive ; fixation et thermique **À valider** |
 | H-RTK F9P DroneCAN Helical STM32G4 et antenne candidats | 1 module embarqué | navigation RTK et PPS ; interface de fixation | enveloppe nominale **Implémenté** dans la maquette inactive ; référence, interfaces, masse et montage **À valider** |
-| PM08-CAN et support fixe châssis | 1 par drone | distribution mesurée et deux BEC, près de la distribution | enveloppe 45 × 41 × 26 mm hors câbles **Implémenté** ; 185 g avec câbles ; support et intégration **À valider** |
-| PDB Holybro 300A Top Entry, SKU 18138, et support | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | STEP fabricant **Implémenté** dans la maquette inactive ; support, masse, encombrement installé, isolation, accès et faisceaux **À valider** |
+| PM08-CAN et plateau P57 candidat | 1 par drone | distribution mesurée et deux BEC, à l'étage inférieur dans SA07 | enveloppe 45 × 41 × 26 mm hors câbles **Implémenté** ; 185 g avec câbles ; fixations et faisceaux **À valider** ; PM08D distinct |
+| PDB Holybro 300A Top Entry, SKU 18138, et plateau P57 candidat | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | STEP fabricant implanté dans SA07, CAO **Implémenté** ; fixations, masse, isolation, accès et faisceaux **À valider** |
 | H-RTK F9P Base, HANT-X627A, mât/trépied, boîtier et poste QGC | 1 jeu sol | référence RTK et opérateur | sélection cible **Planifiée** ; assise, repère et câbles **À valider** |
 
 Les références électriques détaillées sont tenues dans `DOC-ELEC`. Les
@@ -1277,6 +1333,7 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Étage énergie inférieur et liaison directe candidate AWG8/742F5 M5 au TE ; pack retourné, supports reculés de 82 mm, coffrets et passages repris ; contrôle du seul pack nominal, enveloppe d'étude/lot/fixations/thermique **À valider**, adaptateur de charge **Planifié** (§4.1.3.2, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Couleurs natives du dock et suivi Git de91 petits natifs ; noms stables, repli des deux cordons fixesR50 et hauteur calculée−29,3% ; pistes JETI/XT90/cassette et intersectionP49 ouverte (§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Tri des natifs : 10 sous-assemblages courants et deux montages de construction, 13 anciens SA et cinq globaux archivés avec leurs dépendances ; catalogue/guide actualisés, réouvertures séparées et reprise de source stack contrôlées (§2.1, DOC-VAL§12.1.6) |
 | 4 octobre 2026 | Scénario GNSS sur plateaux et antennes radio déportées : bras OEM identifié, retraits bruts conditionnels de 41,1/80,8 g, hypothèses matériaux et absence de gain net/masse cible distinguées ; aucun placement CAO modifié (§6.1) |

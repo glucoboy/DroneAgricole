@@ -22,7 +22,7 @@ Les dernières vues natives de la stack sont dans
 | Bloc optique/LiDAR | [SA05A_Bloc_capteurs.FCStd](sous_assemblages/SA05A_Bloc_capteurs.FCStd) |
 | Appui Sorbothane réutilisé quatre fois | [SA05B_Appui_Sorbothane.FCStd](sous_assemblages/SA05B_Appui_Sorbothane.FCStd) |
 | GNSS Helical G4 candidat | [SA06_RTK_Helical_Systeme_Candidat.FCStd](sous_assemblages/SA06_RTK_Helical_Systeme_Candidat.FCStd) |
-| PM08/PDB candidats | [SA07_Distribution_Systeme_Candidat.FCStd](sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd) |
+| Étage inférieur : JETI, PM08-CAN et PDB candidats | [SA07_Distribution_Systeme_Candidat.FCStd](sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd) |
 | Station sol, dernière représentation disponible | [SA07_Station_sol.FCStd](sous_assemblages/SA07_Station_sol.FCStd) |
 | Réservations de faisceau, passages À valider | [SA08_Faisceau_Systeme_Candidat.FCStd](sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd) |
 | Construction : cassette coulissante | [SA02_Cassette20Ah_Coulissante.FCStd](sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd) |
@@ -48,6 +48,32 @@ du catalogue courant et peuvent recréer des variantes retirées.
 
 Le dock dépend encore des montages de construction `SA02_Cassette20Ah_Coulissante`
 et `SA02_Contacts20Ah`, conservés dans le dossier courant.
+Conserver les noms des fichiers et les faire évoluer en place. Les petits
+natifs du dock et leurs dépendances sont suivis par Git ; état avant déplacement
+de l'énergie sur `codex/batterie-avant-etage-inferieur`. Le contrôle courant est
+`verification/verify_etage_batterie.py`. Les contrôles de compacité antérieurs
+portent sur une définition historique.
+L'état de conception courant est sauvegardé sur la branche locale
+`codex/batterie-etage-inferieur`, sans changer l'index de travail utilisateur.
+Les contrôles de tri ci-dessous portent les empreintes historiques du tri.
+Pour réappliquer la visibilité et les couleurs courantes, utiliser
+`verification/persist_etage_batterie.py`. Pour contrôler et afficher les natifs
+courants, utiliser les commandes ci-dessous ; les rendus sont produits depuis
+les sources enregistrées, sans les modifier. Les recettes de migration
+`update_raccordement_direct_batterie.py`, `canonical_positions_etage_batterie.py`,
+`update_faisceau_etage_batterie.py` et `finalize_etage_batterie.py` documentent
+les étapes de construction ; elles ne remplacent pas l'ouverture des natifs
+courants et ne doivent pas être lancées isolément pour restaurer un état.
+
+```powershell
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_etage_batterie.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_etage_batterie.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_etage_batterie.py
+```
+
+La nomenclature actuelle est `verification/nomenclature_etage_batterie.json` ;
+les fichiers BOM et faisceau existants sont actualisés en place. Le raccordement
+aval JETI/PM08/PDB et les fixations physiques restent à définir.
 La recette de stack `verification/build_stack_revue_20261003.py` reprend
 le châssis rehaussé archivé et rétablit ses liens vers les pièces courantes
 avec `sources_cao_archivees_20261004.py`. La reprise de source a été vérifiée ;

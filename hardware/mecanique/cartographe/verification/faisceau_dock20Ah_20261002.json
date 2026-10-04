@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "date_utc": "2026-10-03",
+  "date_utc": "2026-10-04",
   "realisation": "Implémenté : routes natives, interfaces, retenues et références de raccordement",
   "statut_physique": "À valider",
-  "objet": "Faisceau cassette 6S 20 Ah, sans modification des fils scellés du pack ni du câblage CA01 existant",
+  "objet": "Pack préparé pour raccordement direct TE, sans XT90-S frontal ; étage énergie inférieur candidat",
   "tension": {
     "serie": 6,
     "nominale_V": 22.2,
@@ -15,14 +15,14 @@
       "net": "BAT_PLUS_BRUT",
       "origine": "TAA200006S5X9S.+",
       "destination": "TE mobile.position puissance PLUS",
-      "connexion": "XT90-S du pack vers adaptateur Amass XT90H-M.G.Y avec cap arrière 043.0222.Y",
+      "connexion": "Fil AWG8 du pack vers cosse90 candidate742F5 puis contactTE M5 mobile ; sortie et sertissage lot À valider",
       "etat_OFF": "Sous tension"
     },
     {
       "net": "BAT_MOINS_BRUT",
       "origine": "TAA200006S5X9S.-",
       "destination": "TE mobile.position puissance MOINS",
-      "connexion": "Même paire détrompée ; aucune modification des fils AWG8/150mm du pack"
+      "connexion": "Fil AWG8 du pack vers cosse90 candidate742F5 puis contactTE M5 mobile ; sortie et sertissage lot À valider"
     },
     {
       "net": "BAT_PLUS_BRUT",
@@ -61,19 +61,19 @@
     ],
     "affectation": "39 PLUS ;40 MOINS, orientation verrouilléeSA02A",
     "39_centre_monde_mm": [
-      -118.25,
+      -200.2548,
       21.6535,
       69.745
     ],
     "40_centre_monde_mm": [
-      -118.25,
+      -200.2548,
       21.6535,
       86.255
     ],
     "contacts_signaux_1_38": "Non équipés ; pas de précharge ni interverrouillage inventé par ces cavités"
   },
   "terminaisons": {
-    "puissance_TE": "Contacts à filetage intérieurM5 :2bornesfixes versJETI et2bornesmobiles versP42 ;2bornes supplémentaires devantP42 pour2cordonsXT90. Six connexionsM5 pour deux nets.",
+    "puissance_TE": "Quatre terminaisons M5 : deux cosses90 mobiles et deux cossesPhoenix3240219 fixes ; P42/AWG10/XT90-S retirés de cette variante.",
     "couple_max_TE_M5_Nm": 2.9,
     "source_couple": "TE 114-13206 Rev F, page 6 §3.7",
     "cosse_AWG8_10mm2_M5": {
@@ -87,217 +87,113 @@
       "designation": "C-RCI 6/M5"
     },
     "regle": "Choisir selon section réelle du pigtail, pas selon le nom du pack. Aucun AWG8 forcé dans une soudure Amass prescrite 10AWG. Ni serrage au fond du filetage ni borne métallique nue accessible.",
-    "dimensions_faisceaux": "Longueurs natives et préparations ci-dessous. Les préparations réservent une marge ; dénudages, sertissages et longueur finale sur gabarit à valider avec le lot. Aucun fil scellé du pack raccourci."
+    "dimensions_faisceaux": "Chemins CAO mobiles89.70/90.56mm, fixes354.42/354.07mm ; préparation, dénudage et coupe à définir sur lot/gabarit. Pas intervention sur cellules scellées.",
+    "cosse_mobile_candidate": {
+      "mpn": "742F5",
+      "fabricant": "Klauke",
+      "nominal_mm2": 10,
+      "AWG8_sertissage_confirme": false,
+      "trou_M5_mm": 5.3,
+      "geometrie": "enveloppe coude étude"
+    }
   },
   "routes_mobiles": [
     {
-      "net": "BAT_PLUS_BRUT",
-      "reference": "P42_ConducteurCuCassette20Ah",
-      "quantite": 1,
-      "matiere": "CuivreC101 ép1mm section10mm²",
-      "depart_borne_mm": [
-        -118.25,
-        21.6535,
+      "reference": "EQ_LeadPack8AWG_Plus20A",
+      "depart_mm": [
+        -99,
+        5,
+        82
+      ],
+      "entree_cosse_mm": [
+        -186.2548,
+        11.1535,
         69.745
       ],
-      "arrivee_borne_mm": [
-        135,
-        -45.5,
-        69.745
-      ],
-      "pli": "90° Rint1mm ; développé et procédé à valider",
-      "protection": "P43/P44/P45 ;P46 devant"
+      "longueur_mm": 89.6998000228923,
+      "rayon_mm": 50,
+      "diametre_etude_mm": 5
     },
     {
-      "net": "BAT_MOINS_BRUT",
-      "reference": "P42_ConducteurCuCassette20Ah",
-      "quantite": 1,
-      "matiere": "CuivreC101 ép1mm section10mm²",
-      "depart_borne_mm": [
-        -118.25,
-        21.6535,
+      "reference": "EQ_LeadPack8AWG_Moins20A",
+      "depart_mm": [
+        -99,
+        -5,
+        82
+      ],
+      "entree_cosse_mm": [
+        -186.2548,
+        11.1535,
         86.255
       ],
-      "arrivee_borne_mm": [
-        135,
-        -45.5,
-        86.255
-      ],
-      "pli": "90° Rint1mm ; développé et procédé à valider",
-      "protection": "P43/P44/P45 ;P46 devant"
-    },
-    {
-      "net": "BAT_PLUS_BRUT",
-      "fil_mpn": "55A0111-10-2",
-      "AWG": 10,
-      "section_nominale_mm2": 5.26,
-      "diametre_nominal_mm": 3.25,
-      "enveloppe_CAO_mm": 3.4,
-      "cosse_mpn": "3240028",
-      "connecteur_mpn": "XT90H-M.G.Y",
-      "longueur_chemin_CAO_indicative_mm": 57.317908048875495,
-      "longueur_coupe_mm": null,
-      "modele": "EQ_Cordon10AWG_Plus_Dock20A",
-      "rayon_projection_CAO_mm": 33.1,
-      "source": "https://www.te.com/fr/product-070069-002.html",
-      "reference_native": "EQ_Cordon10AWG_Plus_Dock20A",
-      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Cordon10AWG_Plus_Dock20A.FCStd",
-      "sha256": "88a4010d4cad621638105185682d466e4c423f36d96e8f071c0b5a43069fabb3",
-      "longueur_chemin_CAO_mm": 57.317908048875495,
-      "forme_valide": true,
-      "solides": 1,
-      "preparation_fil_mm": 90,
-      "validation_coupe": "Préparer cette longueur puis ajuster sur gabarit après contrôle des engagements cosse/soudure Amass ; coupe finale non qualifiée."
-    },
-    {
-      "net": "BAT_MOINS_BRUT",
-      "fil_mpn": "55A0111-10-0",
-      "AWG": 10,
-      "section_nominale_mm2": 5.26,
-      "diametre_nominal_mm": 3.25,
-      "enveloppe_CAO_mm": 3.4,
-      "cosse_mpn": "3240028",
-      "connecteur_mpn": "XT90H-M.G.Y",
-      "longueur_chemin_CAO_indicative_mm": 63.97672263451329,
-      "longueur_coupe_mm": null,
-      "modele": "EQ_Cordon10AWG_Moins_Dock20A",
-      "rayon_projection_CAO_mm": 43.1,
-      "source": "https://www.te.com/en/product-552231-000.html",
-      "reference_native": "EQ_Cordon10AWG_Moins_Dock20A",
-      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Cordon10AWG_Moins_Dock20A.FCStd",
-      "sha256": "07ecb98ca9012704e8a81a778b8ed4f958440f241d4fa4f144204730bfc6a02c",
-      "longueur_chemin_CAO_mm": 63.97672263451329,
-      "forme_valide": true,
-      "solides": 1,
-      "preparation_fil_mm": 100,
-      "validation_coupe": "Préparer cette longueur puis ajuster sur gabarit après contrôle des engagements cosse/soudure Amass ; coupe finale non qualifiée."
+      "longueur_mm": 90.55769115841943,
+      "rayon_mm": 50,
+      "diametre_etude_mm": 5
     }
   ],
   "segment_fixe_TE_JETI": {
-    "statut": "Implémenté : CAO et BOM ; fabrication et essais À valider",
-    "depart_bornes_mm": [
-      [
-        -167.353,
-        21.6535,
-        69.745
-      ],
-      [
-        -167.353,
-        21.6535,
-        86.255
-      ]
-    ],
-    "destination": "JETI IN+/IN-",
-    "section_lot_JETI_mm2": null,
-    "notice_sections_mm2": [
-      6,
-      8
-    ],
-    "lot_requis": "8 mm² confirmé pour splice34321 retenu ; si kit6 mm², choisir une épissure différente validée avant assemblage.",
     "routes": [
       {
-        "reference_native": "EQ_CordonFixe8AWG_Plus20A",
-        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd",
-        "sha256": "bfd27c83cb3468086173b666de14984395185be38271ea606b7c7a2776f6c625",
-        "longueur_chemin_CAO_mm": 559.3918094625536,
-        "forme_valide": true,
-        "solides": 1,
-        "net": "BAT_PLUS_BRUT",
-        "fil_mpn": "55A0111-8-2",
-        "AWG": 8,
-        "diametre_nominal_mm": 4.78,
-        "diametre_etude_mm": 5,
-        "rayon_minimum_arcs_CAO_mm": 50,
-        "preparation_fil_mm": 600,
-        "cosse_mpn": "3240219",
-        "epissure_mpn": "34321",
-        "gaine_mpn": "ATUM-12/3-0-50MM",
-        "gaine_ID_TE": "NB08926001",
-        "gaine_preparation_mm": 50,
-        "gaine_pose_etude_mm": 44,
-        "reprise": "P53 et collier T50R après la boucle libre ; tenue et mouvement flottant à valider",
-        "premier_bridage_apres_chemin_libre_CAO_mm": 559.3918094625536,
-        "longueur_coupe_finale_mm": null
-      },
-      {
-        "reference_native": "EQ_CordonFixe8AWG_Moins20A",
-        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd",
-        "sha256": "07c9873f7794e98320c2bd9900b7854f05a844c0c7d1478f08e463efc5f06587",
-        "longueur_chemin_CAO_mm": 475.78682081456463,
-        "forme_valide": true,
-        "solides": 1,
-        "net": "BAT_MOINS_BRUT",
-        "fil_mpn": "55A0111-8-0",
-        "AWG": 8,
-        "diametre_nominal_mm": 4.78,
-        "diametre_etude_mm": 5,
-        "rayon_minimum_arcs_CAO_mm": 50,
-        "preparation_fil_mm": 520,
-        "cosse_mpn": "3240219",
-        "epissure_mpn": "34321",
-        "gaine_mpn": "ATUM-12/3-0-50MM",
-        "gaine_ID_TE": "NB08926001",
-        "gaine_preparation_mm": 50,
-        "gaine_pose_etude_mm": 44,
-        "reprise": "P53 et collier T50R après la boucle libre ; tenue et mouvement flottant à valider",
-        "premier_bridage_apres_chemin_libre_CAO_mm": 475.78682081456463,
-        "longueur_coupe_finale_mm": null
-      }
-    ],
-    "stock_JETI_routes": [
-      {
-        "reference_native": "EQ_FactoryJETI_IN_Plus20A",
-        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_FactoryJETI_IN_Plus20A.FCStd",
-        "sha256": "9814eb89e96ce13c72bd5e2909bb8bf996bd02aafa2e6c43c084902b36a941b4",
-        "longueur_chemin_CAO_mm": 39.55415775814134,
-        "forme_valide": true,
-        "solides": 1
-      },
-      {
-        "reference_native": "EQ_FactoryJETI_IN_Moins20A",
-        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_FactoryJETI_IN_Moins20A.FCStd",
-        "sha256": "ad9bbdad5b6e256cb6c7b62a1e8a6b3dcb139b815994a503ff77df64348cc4a5",
-        "longueur_chemin_CAO_mm": 39.55415775814134,
-        "forme_valide": true,
-        "solides": 1
-      }
-    ],
-    "ports_module": {
-      "centres_etude_mm": [
-        [
-          -130,
-          -8,
-          123.5
+        "reference": "EQ_CordonFixe8AWG_Plus20A",
+        "depart_mm": [
+          -261.9,
+          -5.2465,
+          69.745
         ],
-        [
-          -130,
-          8,
-          123.5
-        ]
-      ],
-      "mesures_fabricant": false,
-      "limite": "Réservations dans modèle dérivé uniquement ; ne pas usiner le module commercial. Mesurer le kit puis revoir les routes si ses sorties diffèrent."
-    },
-    "protection": "P48 entretoises Cu, P49/P50 capot fixe, ATUM sur les deux épissures ; passages des fils et du collier dans P53/P41.",
-    "rayon_stock_etude_mm": 11.5,
-    "limite": "R50 et >152,4mm libres démontrés géométriquement sur adaptateur. Compatibilité du mouvement flottant TE, rigidité, vibration et courbures réelles du stock JETI restent À valider."
+        "fin_mm": [
+          -40,
+          -115,
+          -16.5
+        ],
+        "longueur_mm": 354.4247189561309,
+        "rayons_mm": [
+          50.0,
+          50.000000000000036,
+          50.00000000000001
+        ],
+        "distance_spatiale_TE_module_mm": 264.4637171640942,
+        "premier_collier_CAO": null
+      },
+      {
+        "reference": "EQ_CordonFixe8AWG_Moins20A",
+        "depart_mm": [
+          -261.9,
+          -5.2465,
+          86.255
+        ],
+        "fin_mm": [
+          -40,
+          -99,
+          -16.5
+        ],
+        "longueur_mm": 354.0662549757638,
+        "rayons_mm": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "distance_spatiale_TE_module_mm": 262.57291500886,
+        "premier_collier_CAO": null
+      }
+    ],
+    "destination": "JETI IN étage inférieur",
+    "stock_JETI_section_mm2": null,
+    "section_kit_a_confirmer_mm2": 8,
+    "raccords_et_retention": "À définir sur sorties réelles ; anciennesépissures/P53 non posées danscourant",
+    "TE_152_4mm": "distance spatiale au collier si présent, pas longueur bouclée ; aucun collier procheTE enCAO",
+    "dressage_TE": "Orientation−Y des cossesfixes et liberté desdeuxmoitiés à approuver/valider selon114-13206 ; R50 ne prouvepas conformité."
   },
   "contraintes_implantation": [
-    "La coque mobile porte la femelle à contacts live protégés ; les guides et détrompeurs doivent permettre l'insertion avant les contacts de puissance.",
-    "Rail et butée mécanique supportent les efforts ; aucun effort de butée transmis au connecteur TE.",
-    "Observer TE114-13206 : faisceau libre près des contacts, premier bridage au moins152,4mm de l'extrémité des fils, rayon de courbure au moins10fois le diamètre du plus gros fil, sauf implantation différente explicitement approuvée par TE.",
-    "Capot isolant sur toutes les terminaisons et retenue du XT90/adaptateur ; les fils et la prise d'équilibrage ne doivent pas traverser la course des rails, du verrou ou des hélices.",
-    "Pas de câble USB, de chargeur ou d'alimentation externe pendant l'échange ; tous retours de puissance en aval de OUT-.",
-    "Télémétrie Ext JETI non raccordée ; ne pas relier son retour à OUT- ou à une masse CA01 sans interface qualifiée."
+    "JETI/PM08-CAN/PDB dans SA07 sous la batterie ; dégagements des corps contrôlés, faisceaux aval à recoter",
+    "Préparation directe du pack vers TE, lot et sertissage des cosses candidates À valider",
+    "Dressage et flottement TE À valider selon 114-13206 ; aucun collier proche TE représenté"
   ],
   "limites_courant": {
     "TE_contacts_annonce_A": 125,
     "JETI_annonce_A": 100,
     "pack_5C_annonce_A": 100,
-    "XT90_catalogue_A": 45,
-    "condition_XT90": "Amass2025,10AWG,élévationde température inférieure à85°C ; ne constitue pas une limite thermique qualifiée du montage",
     "courant_systeme_qualifie_A": null,
-    "conclusion": "Une chaîne conservant XT90-S ne peut pas être annoncée85/90/100Acontinus à partir des seules autres références. Mesurer profil mission, résistance, transitoires et échauffement complet, avec tension basse du pack et ambiance réelle."
+    "conclusion": "XT90-S retiré de cette variante ; les calibres catalogue TE/JETI/pack ne qualifient pas le courant continu de la chaîne complète. Mesurer résistance, transitoires, courant mission et échauffement sur le lot et le montage réel."
   },
   "procedure_echange": [
     "PX4 désarmé, hélices immobiles et positionnées selon la preuve d'insertion ; aucune liaison externe raccordée.",
@@ -323,44 +219,108 @@
     "Banc intégré PM08/CA01/ESC",
     "Qualification vol"
   ],
-  "fils_pack_conserves": [
-    {
-      "reference_native": "EQ_LeadPack8AWG_Plus20A",
-      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd",
-      "sha256": "79a62d6c900551a80e97dcff76730dddd3d9ddc16057e7a73a25189c1171eb4a",
-      "longueur_chemin_CAO_mm": 130.45927332790782,
-      "forme_valide": true,
-      "solides": 1,
-      "longueur_fournie_mm": 150,
-      "mou_a_ranger_mm": 19.540726672092177,
-      "diametre_etude_mm": 5,
-      "sortie_pack_mesuree": false,
-      "limite": "Sorties du lot et rayon de courbure réel à contrôler ; géométrie interpolée sans auto-intersection ne qualifie pas le pliage des fils. Ranger le mou hors course sans modifier les fils scellés."
-    },
-    {
-      "reference_native": "EQ_LeadPack8AWG_Moins20A",
-      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd",
-      "sha256": "c13daa37699300522dc33b0074e072397a6af53818f6b713d0bc58606f7a52bf",
-      "longueur_chemin_CAO_mm": 143.01291625654733,
-      "forme_valide": true,
-      "solides": 1,
-      "longueur_fournie_mm": 150,
-      "mou_a_ranger_mm": 6.987083743452672,
-      "diametre_etude_mm": 5,
-      "sortie_pack_mesuree": false,
-      "limite": "Sorties du lot et rayon de courbure réel à contrôler ; géométrie interpolée sans auto-intersection ne qualifie pas le pliage des fils. Ranger le mou hors course sans modifier les fils scellés."
-    }
-  ],
   "retenues": {
-    "collier_mpn": "111-05012",
-    "quantite": 7,
-    "repartition": "2 module dont premier partagé avecP53 ;2 commande ;2 XT90 ;1 gaines surP53",
-    "equilibrage": "Prise et faisceau du pack rangés dansP51/P52 ; genre, sortie et mou à contrôler sur le lot.",
-    "limite": "Retenues implémentées dans la CAO ; traction, rigidité et vibration non testées physiquement."
+    "puissance_mobile": "P43/P44 candidats",
+    "equilibrage": "P51/P52 danscorridor intérieur ; anciennesvisretenue retirées, fixation àdéfinir",
+    "modules_fixes": "P57 appuis/butées/lumières ; vis/sangles et reprise de traction àsélectionner",
+    "statut": "À valider"
   },
   "sources_sha256": {
-    "hardware/mecanique/cartographe/sous_assemblages/SA02A_Dock20Ah.FCStd": "2d56900de86f1e7e39e650c000da0553ee74fb1084597c50e958a0ec4ce7adde",
-    "hardware/mecanique/cartographe/verification/build_dock20Ah_20261003.py": "a682e10fcbad1c7cf1321140719089343973cad192e7d9180561c03957013a3c",
-    "hardware/mecanique/cartographe/verification/sync_faisceau20Ah_20261003.py": "864197ab668acde7ea33958d3c779fb242c71453bebef72b33a6a6715f5b5a45"
+    "hardware/mecanique/cartographe/pieces/fabriquees/P28_RailDroit20Ah.FCStd": "a37d62288a8e87405b17887efb9053513ec6558d4819b6f1eef7ca5ed1014809",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P29_RailGauche20Ah.FCStd": "2785cdb82a48607535eb631808b0884049c1f4aca428778aaeb4baebf42bb3a8",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P30_FondCassetteG10_20Ah.FCStd": "5c2989c2e3a3c0a322021d21f22e6e43bc6877e3b29d291ee6fc94604cf5b160",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P31_CaptureCassette20Ah.FCStd": "d99abd66c1255703707349523797b964f3789e5544f86cb16446de52eb174cf2",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P32_CapG10Capture20Ah.FCStd": "818c0100206e0f6ed2d20675fbc0fd637ba6bf03910ca0d0987e3c350455715d",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P33_PoigneePorteGache20Ah.FCStd": "bea4318e5ea2a897fd0cd09ab0d1b78aa4127e675bdb29e873a3bddebb5c3965",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P34_SupportFixeSouthco20Ah.FCStd": "e09e14ae038d0bf004e8e6be1cbdc76d235ac745c51a930e9a17ac730a0b79a9",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P35_SupportButee20Ah.FCStd": "f54fc4d1e9eae22ad5e8377224f434e17b7c5f0031b59dcc15a398570f3414d8",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P36_PorteeMobileButee20Ah.FCStd": "aadf6ed4f3ca55a3b28291fce112f5aabdcad78d19cee0422c6c67c6cc3e501c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd": "95dad8403a8404f02b0bf6865ba44e6131f53d881d10c2a46465dd10e08560b7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_MousseEPDM1_Dock.FCStd": "7690a3edb628996f68b0f8d51e1b0708a415e912f77758af0c4d704f5d8c4ada",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_SouthcoR405.FCStd": "2ae32018d6d36247eb6ab2b40d3b32277f997f2560eccda4abd5a519d9422511",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_SouthcoGacheR490.FCStd": "575bffdf8e4d19db7681591d472444b44ec8be540980d97adb96a845c48c8b8e",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_VisButeeM4x20_Dock.FCStd": "eb35b51cbb8449276afb7cfe40b8ee90434e349508122d76ba6ec68e66c75d0f",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x12_Dock.FCStd": "4e90880c97f733333088ad525c9fadf4fb1c6d5493d76397842c1304aafe2d77",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M3_Dock.FCStd": "d08d0ce5d8064c19109f7e9ca3c93b91531a0bdf66b905c4067e7952111bcf74",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M3_Dock.FCStd": "3822d681ccc40dbb611405c0f13116fbe58b834b240315e7e6dc38255c52f4c7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7046_2_M3x8_Dock.FCStd": "eb6f49c3a0f09be761c34a95311039ecf05fe65e92b31cd630170c1b688fc628",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x8_Dock.FCStd": "9d5873e4b271719089612344e7c2653aa4d264b084b9d7721119959929f1751b",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x16_Dock.FCStd": "33cf69f2a8d07aeacbe728cfe48a85fd16904cfd0f12b30a5055f67ff4d073aa",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M4x20_Dock.FCStd": "b8846e13a529f8b3961ae72bf417c04a9e8155372aed69ec79c1f7e8378679f7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M4_Dock.FCStd": "d18894f0c99c1cc12fbc06ffd50c1733a076e0d329a599bc233f8b1ed289dc54",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M4_Dock.FCStd": "750690d9618221740051140e712f0c852beb3d18c922423156c545dfa7b66060",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_DIN934_M5_Dock.FCStd": "9842cb2d48bdc1561415af48c71b9f5f6895b40d01b0dbfa613b686025e1b2c4",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7046_2_M25x5_Dock.FCStd": "253722d2c2e94f92002ed7ee14b5ec60fff6c241cb12ed0e6d66af756c7989c6",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M25_Dock.FCStd": "17203cd5e2b08b6fac61fe8f61ee12f4f243341ccde654717bc14163c147540a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1648151_Dock20.FCStd": "0d7526a58b30141f358c1a3127cb1226ceb6b3e6bc46c8333185340a3e37b20e",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1648156_Dock20.FCStd": "1837323844b36623ee87e6f4ea80bb859d7e62942cef667fdc590b80180b11e3",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1766283_Dock20.FCStd": "698c9d6c1ad56321042d411995b93971cf774dca66d318d1a4a8c428fefd23d8",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_6648335_Dock20.FCStd": "cfed01f889d33434a793ed6b398f90f27b482b92a6a367fae10ddde140bce30d",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P39_SupportFixeContacts20Ah.FCStd": "230fcaeba7d66d2972ac414f90a54c3a606e9d4d73dd4755afb57c4b0b0e13bb",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P40_SupportMobileContacts20Ah.FCStd": "28224ed46df52bd383447bf92ed0c9fc9f2ac423ea0d51bae472691f195622a0",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1650589_Dock20.FCStd": "0a8488e22dc4d1ef6ef37d3d9e638c168411351cb8ec676d98f9d03c9a1040b4",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M4_Contacts20Ah.FCStd": "de73c85ed21f78e26fe4c9d4ed657a4d9c423459820fb87c18822071219885f6",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M4x20_Contacts20Ah.FCStd": "44b25ba4a78f343a17bc718aa52b0b06b1c2ffaf0d243a7240397f2810c580a5",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_DIN9021_M5_Contacts20Ah.FCStd": "8d9002d1545728df7bff50e80b4efb6a70197b15b36d32a24ebf01ec000d673c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M4_Contacts20Ah.FCStd": "c05e63bb6f09ccd6ae9cbd24d889907b50bfe7cb4cacad70ae81ab1020abac6b",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO10511_M4_Contacts20Ah.FCStd": "09ca2c77581b3cb66df5e3419881b986d51c7dac1c2cced5f9592240006e5e8a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x16_Dock20A.FCStd": "5cd5f571e0ad78d2340b677b865eb994f4bbd1985c89b27def1742685f649dc8",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M3_Contacts20Ah.FCStd": "81a36608e7e07f35592cf4cf444c92a12ff25ebf0fc2dd5f6601d41a6dfd0d37",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x14_Contacts20Ah.FCStd": "d8342117ee318770303dcb6ced1bdde81be1d012a0b7501786cedc0c67e7be4e",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_DIN7991_M3x16_Contacts20Ah.FCStd": "ee8627aa9948648a07a61d4766a42052840b811f5b3110c72a650d7b801ac476",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P43_ProtectionConducteurs20Ah.FCStd": "ed2e6ab4743062db3c38f87310d422cb6a65b50669e6db5cf46e09441684ef36",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P44_CouvercleArriereConducteurs20Ah.FCStd": "e5bd5da1ebc55e3725a0158e1a12abc57e39fde9dd5bf52eba218e25f92a87dc",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M5x8_Dock20A.FCStd": "2ca63249d53bd16df2e8051246a6d1ba2b7d1218fdfadd617049f9dd0c7ad363",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M5_Dock20A.FCStd": "2a8d448058c5652f124f6ed2493bcea1b9d4fa813285091812aa8a90534d2560",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd": "831a2cc8a85e41e819075da7be80e92a09827e25bf0adbc324ed126740a9f45a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd": "17d6270a6dd4520ec6e7a1879dca9963493031ac2fad830dec44e1a58420f93a",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P48_EntretoiseConductriceCuM5_Dock20Ah.FCStd": "c959ec552455c6d23f61d036cf6aa240c4e2dfd47c780dd4c541f7250c775b70",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Phoenix3240219_Dock20A.FCStd": "04dc9977716948e9e3881c647648d2d3ae0b006e6fcfea79776092a2770ddf61",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M5x20_Dock20A.FCStd": "dd407755586638c5c2071e12a42589b641bb6152c96b80970749e94ac340c3fb",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P49_ProtectionFixeTE20Ah.FCStd": "e3a4364d967b83b2d902a2d00873f2207092570171db8616f69bea0bda45c28e",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P50_CapotProtectionFixeTE20Ah.FCStd": "f1d0c0084a0db6160027af92a0a715ad279674c39efabab4c354346337e0cc43",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x12_Dock20A.FCStd": "9491f1ad84af88b23798fffb98c2121753d3d5cd0f003facf3523a4f43bc14ae",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M3_Dock20A.FCStd": "d20b7ce7ae9743b55f4e96dbf4f96287c4e5e2d00f2d8f3acfe295a852fc4e23",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M3_Dock20A.FCStd": "ccd44a628e4cc3c69d36b44ffc73d944218330ef684687ab3cd846b3ddde1e3d",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M2x8_Dock20A.FCStd": "ff6cc745a1db7cd4961f652069801ab4fe7214736f5a1a18215a8efbb0fd45f3",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M2_Dock20A.FCStd": "f8ee99777c361ed18df61814d0925c90580d65ac60adb244f1e6a36e6a418393",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd": "ebedd95c8b983b2ea36bfa2e18702b9ec1afca4151a3e5ae056795b94cdf3d8c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd": "8a2cab492786003cd64112cddfa1ffd9668e6a7da782e0a19d10abf3c05c34ce",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P51_RetenueEquilibrage20Ah.FCStd": "9dae492e2255779515c261f389b3605b50f1960cecfb340528d54aa66938345d",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P52_CapotEquilibrage20Ah.FCStd": "fba767343be96c08c7670da75fca99a4bf1efe899d24d5a760d962a9be069225",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_EquilibragePack20Ah_Reservation.FCStd": "15014a1597c7dff3b8435c920c5278f1a21fd693f9a1e971c9ca250194df09fa",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BoucleEquilibragePack20Ah_Reservation.FCStd": "b9451d082763050773d87517624d66a58e0791afdd6ad27edeb71a4a69d6b81c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M2x6_Dock20A.FCStd": "a7feb7951b8fcdc797971478fdf7124f3af0ed53db0263fb98bd16ab5d06a59c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Klauke742F5_Cosse90_TE.FCStd": "3af1982083143ce4100eebe1373314ae9b385be287a9926e1069add97eef4128",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd": "de3c9bcd13a09df2112a2047627972ababbfab293dce135a1a37b96bc2654686",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd": "6db469ef495f199d7cb1f374e6f60ab661bed2b053db7afda8049a68cb51521c",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P57_PlateauEnergieInferieur.FCStd": "9473f8ff22aefef502b565f910490dcad76f5f7f86763a340cb12211d72307b8",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMainSwitch100_PortsEtude20A.FCStd": "daa4446ef70c1e13d0cc4cd82e2368adbc85288ac95d521bb530fb668a51850a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMagneticSwitch.FCStd": "43a1dc78b0366e1bcecc6fd985a4a23d68cbee0b560ed8bb9f2a6827bf84a23a"
+  },
+  "fils_pack_preparation": {
+    "XT90_S": "retiré de la définitionCAO",
+    "fils_scelles_cellules": "hors périmètre",
+    "longueur_usine_mm": 150,
+    "coupe_finale_mm": null,
+    "statut": "À valider"
+  },
+  "charge_hors_drone": {
+    "statut": "Planifié",
+    "interface": "Adaptateur TE protégé vers les deux voies de puissance et chargeur compatible 6S NMC, avec équilibrage séparé",
+    "limite": "JST d’équilibrage seul insuffisant ; jamais charger via JETI OUT. Adaptateur, polarités, isolement et protocole À valider."
+  },
+  "perimetre_geometrique": {
+    "pack_nominal_mm": [
+      193,
+      76,
+      58
+    ],
+    "enveloppe_etude_mm": [
+      198,
+      78,
+      60
+    ],
+    "controle": "Pack nominal uniquement ; enveloppe maximale, sorties du lot et tolérances À valider"
   }
 }

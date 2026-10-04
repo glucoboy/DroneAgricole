@@ -570,6 +570,11 @@ physique ne découle de cette préétude.
 
 ### 12.1.3 Cassette 6S 20 Ah et rehausse20mm, 2–3 octobre 2026
 
+Résultat historique avant la migration de l'étage énergie et le raccordement
+direct du pack (§12.1.8). Les quantités, coupes, retenues P41/P53 et essais
+ci-dessous décrivent cette ancienne configuration ; ils ne certifient pas
+la définition ni les fichiers courants.
+
 **Périmètre : CAO native FreeCAD1.1.3, Windows, variante20Ah.** La capacité
 20 Ah et la rehausse20mm sont choisies pour cette implémentation, sans
 qualification matérielle. Les anciennes preuves de berceau et de faisabilité
@@ -760,6 +765,10 @@ antérieures et leurs réserves continuent de s'appliquer.
 
 ### 12.1.7 Couleurs et compacité du dock — 4 octobre 2026
 
+Résultat historique de la première étape de compactage ; la définition
+courante et son contrôle sont décrits au §12.1.8. Les réserves ci-dessous
+décrivent l'état contrôlé à cette étape, sans certifier les fichiers évolués.
+
 Chaîne `MEC-ARC-001`, `MEC-BAT-001` → dock et deux cordons fixes TE/JETI →
 `T-CARTO-DOCK-COULEURS-01`, `T-CARTO-DOCK-COMPACT-01` →
 [couleurs](../hardware/mecanique/cartographe/verification/couleurs_dock20Ah.json),
@@ -773,7 +782,7 @@ Recettes `update_compacite_dock20Ah.py`, `finalize_couleurs_dock20Ah.py`,
 
 Protocole Windows amd64 / FreeCAD1.1.3 : conserver références/placements,
 réouvrir et recalculer, vérifier liens et arbres Chemin/Section/Sweep,
-solides valides, rayons circulaires50mm, longueurs libres>152,4mm,
+solides valides, rayons circulaires50mm, longueurs dechemin relevées,
 absence de nouvelle collision externe et séparation continue de la cassette
 sur+X. Les couleurs doivent être relues depuis les fichiers et contrôlées
 sur une capture native ; une couleur en mémoire n'est pas un résultat finalisé.
@@ -804,6 +813,84 @@ Les preuves du2–3octobre et du tri§12.1.6 restent historiques : leurs
 empreintes antérieures ne certifient pas les fichiers évolués. Les nouvelles
 empreintes sont celles du contrôle ci-dessus ; les exports STEP des deux
 cordons sont régénérés. Aucune nouvelle qualification du drone complet.
+
+### 12.1.8 Étage énergie et raccordement direct du pack — 4 octobre 2026
+
+Chaîne `MEC-ARC-001`/`MEC-BAT-001` → SA02A, SA07 et P31/P39/P40/P43/P44/P51/P57 →
+`T-CARTO-ETAGE-DIRECT-01` → [contrôle](../hardware/mecanique/cartographe/verification/controle_etage_batterie.json),
+[distribution](../hardware/mecanique/cartographe/verification/distribution_etage_batterie.json),
+[revue indépendante](../hardware/mecanique/cartographe/verification/revue_etage_batterie.json),
+[cohérence des registres et des couleurs](../hardware/mecanique/cartographe/verification/controle_registres_etage_batterie.json),
+[rendu natif](../hardware/mecanique/cartographe/verification/rendu_etage_batterie.json).
+Windows amd64, FreeCAD 1.1.3 ; aucune qualification matérielle.
+
+Périmètre courant : liaison directe candidate AWG8/742F5 M5, XT90-S,
+adaptateurs AWG10 et barres P42 retirés ; JETI, commande magnétique,
+PM08-CAN et PDB dans SA07 sur P57 candidat. PM08-CAN reste la sélection
+courante ; PM08D est un module distinct, sans substitution. Le modèle de
+cosse 742F5, notamment sa forme de coude, est une représentation d'étude **À valider**,
+sans qualification de sa compatibilité AWG8 ni du sertissage.
+
+Protocole : réouvrir/recalculer dans un processus neuf ; contrôler les liens,
+l'unicité de JETI/PM08-CAN/PDB, les corps sous la batterie et les géométries
+finales ; mesurer quatre balayages natifs, les rayons de 50 mm et les
+intersections, puis l'extraction échantillonnée contre le châssis et les
+pièces fixes. Les formes de construction cachées ne doivent pas gonfler
+`App::Part.Shape` : les visibilités App et GUI sont synchronisées, les BRep
+courants conservés et les matériaux natifs relus après sauvegarde.
+Le contrôle porte uniquement sur le pack nominal de 193 × 76 × 58 mm.
+L'enveloppe d'étude de 198 × 78 × 60 mm, sans tolérance fabricant publiée,
+et le lot réel restent **À valider**.
+
+Résultats courants : 130 occurrences du dock ; aucun objet `Invalid` ni
+lien non résolu dans le contrôle. Fils mobiles de 89,70/90,56 mm ; fixes
+de 354,42/354,07 mm, arcs de rayon 50 mm. Enveloppe batterie et énergie :
+429,00 × 208,50 × 177,00 mm. Cette boîte inclut le déport latéral de SA07 ;
+ne pas comparer son volume à l'ancien dock seul ni déduire un gain de
+masse. Les détails des intersections et des poses d'extraction figurent
+dans la preuve et la revue, sans assertion globale de conformité physique.
+La réserve PDB de 22 mm est sans collision avec le châssis.
+
+La revue indépendante vérifie 13 occurrences nouvelles et l'extraction de
+9 occurrences mobiles aux courses 0, 10, 25, 50, 100, 200, 350 et 500 mm,
+sans intersection détectée sur ce périmètre. Les quatre paires finales
+cosse/vis/rondelle ont un volume commun nul après correction de leur pose
+et de l'enveloppe d'étude du coude. Le contrôle des registres confirme
+135 occurrences SA02A/SA07, les quantités et empreintes concordantes,
+ainsi que les matériaux relus dans 91 sources natives.
+
+Les collisions détectées avec logement TE/capture/cosse, un tube du châssis
+et le plateau pendant l'extraction ont motivé des recoupes des coffrets,
+un routage fixe plus précoce, des passages dans P31 et le rangement de
+l'équilibrage dans le corridor intérieur. Le nouveau trajet traite aussi
+l'intersection historique positif/P49 du §12.1.7. Le jeu nominal P44/plateau
+est de 0,5 mm ; les tolérances restent **À valider**. La comparaison
+échantillonnée n'est pas une preuve continue générale ; les guides STEP TE
+gardent leurs limites historiques : ni accouplement ni flottement qualifiés.
+
+Conclusion **préliminaire**, CAO **Implémenté**, matériel **À valider**.
+Non exécutés : réception des lots pack/cosses/kit, compatibilité AWG8 et
+sertissage, essai de l'adaptateur de charge TE, dressage et liberté TE,
+finalisation des vis/sangles/coffrets, résistance des bras en porte-à-faux
+de 82 mm, traction, vibration, isolement/courant/thermique, hélices et vol ;
+les fournitures et le banc ne sont pas disponibles. Les faisceaux aval
+JETI → PM08-CAN → PDB restent à recoter. L'adaptateur de puissance TE
+protégé pour la charge hors drone est **Planifié** ; la prise JST
+d'équilibrage seule ne remplace pas la liaison de puissance de charge,
+et la charge ne passe pas par JETI OUT.
+
+Les anciennes préparations de 150/600/520 mm et les tableaux de sept
+colliers sont historiques et ne définissent pas les coupes ou quantités
+actuelles ; BOM et faisceau sont mis à jour. La distance TE de 152,4 mm
+est spatiale et concerne le collier éventuel ; un rayon nominal de 50 mm
+et une longueur totale suffisante ne démontrent pas une conformité globale
+au dressage perpendiculaire ni au flottement.
+
+Point Git avant migration : `codex/batterie-avant-etage-inferieur` ; noms
+des assemblages conservés. Les preuves §12.1.3/12.1.6/12.1.7 sont historiques
+et leurs empreintes ne certifient pas les fichiers courants. Le contrôle
+courant porte les nouvelles empreintes ; aucune qualification du drone
+complet n'est ajoutée.
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -2019,7 +2106,8 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
-| MEC-ARC-001, MEC-BAT-001 | dock courant coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
+| MEC-ARC-001, MEC-BAT-001 | étage énergie et raccordement direct candidat AWG8/742F5 M5 au TE | T-CARTO-ETAGE-DIRECT-01, §12.1.8 | liens/rayons/implantation/collisions/extraction du pack nominal contrôlés ; enveloppe d'étude, lot et fixations **À valider** | CAO **Implémenté**, préliminaire |
+| MEC-ARC-001, MEC-BAT-001 | dock historique coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
 
 ## 14. Actions de qualification ouvertes
 
@@ -2052,6 +2140,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 4 octobre 2026 | CAO étage énergie et liaison directe candidate AWG8/742F5 M5 au TE : retrait XT90-S/AWG10/P42, supports repris ; contrôle du seul pack nominal et rendu ; enveloppe d'étude/lot/physique **À valider**, adaptateur de charge protégé **Planifié** (§12.1.8) |
 | 4 octobre 2026 | Dock coloré et repli natif de deux cordons ; réouverture et collisions vérifiées,629 BRep préservés, hauteur−29,3%, intersectionP49 toujours ouverte ; état initial dans Git et nouvelles empreintes distinctes des preuves historiques (§12.1.7) |
 | 4 octobre 2026 | Tri des sous-assemblages : miroir autonome et 321 empreintes préservées, réouvertures FreeCAD courant/archive séparées sans erreur, reprise de source châssis contrôlée ; géométrie et essais physiques inchangés (§12.1.6) |
 | 4 octobre 2026 | Calcul conditionnel GNSS/radio sur plateaux : volumes et empreintes contrôlés, matériaux hypothétiques, aucun crédit en double des supports absents de la cible ; gain net et qualification physique ouverts (§12.1.5) |

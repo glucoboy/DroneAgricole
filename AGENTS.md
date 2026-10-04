@@ -11,6 +11,7 @@ Ce fichier s'applique à l'ensemble du workspace.
 - Réserver les `README.md` locaux aux instructions d'utilisation du répertoire ou de l'artefact voisin. Les manifestes, configurations, schémas et preuves de vérification restent autorisés.
 - Employer les états **Planifié**, **Implémenté**, **Qualifié** et **À valider** selon `docs/INDEX.md`. Ne jamais présenter une hypothèse, une sélection candidate ou une valeur préliminaire comme une exigence figée.
 - Ne pas versionner les rosbags, datasets, modèles lourds, secrets, clés ou résultats volumineux.
+- Faire évoluer les fichiers de pièces, sous-assemblages et assemblages en place, sans suffixe de date ou de révision supplémentaire. Utiliser Git pour les retours arrière ; les petits natifs CAO explicitement suivis peuvent être versionnés avec leurs dépendances, les sources fabricant lourdes et exports restant exclus.
 
 ## Invariants d'architecture et de sûreté
 

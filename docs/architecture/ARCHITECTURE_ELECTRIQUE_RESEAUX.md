@@ -1158,10 +1158,10 @@ ni la tension de charge ni l'endurance du nouveau montage.
 |---|---|---:|---|---|
 | `ELEC-BAT-01` | Tattu NMC 6S 20 Ah TAA200006S5X9S | 1 par cassette | source d'énergie | sélection mécanique ; profil électrique **À valider** |
 | `ELEC-CON-01` | TE ELCON 1648151-1 / 1648156-1 | 1 paire par drone avec une cassette | accouplement guidé pendant l'insertion | détails §6.1 ; montage physique **À valider** |
-| `ELEC-CAB-01` | contacts M5 TE 1766283-1 / 6648335-1 et adaptateur XT90 | 2 contacts de puissance par côté | préserver le pack et raccorder le dock | BOM du dock ; courant, terminaison et parcours **À valider** |
+| `ELEC-CAB-01` | contacts M5 TE 1766283-1 / 6648335-1 et cosses à 90° Klauke 742F5 M5 candidates | 2 contacts de puissance par côté | raccorder les fils AWG8 du pack au dock | BOM du dock ; compatibilité AWG8, sertissage, courant et parcours **À valider** |
 | `ELEC-SW-01` | JETI MainSwitch100 J-MSW-100-MS et commande magnétique | 1 jeu fixe par drone | coupure et limitation de l'étincelle | commutation du négatif ; état ON mémorisé, voir §6.1 |
 | `ELEC-PWR-01` | PDB Holybro 300A top-entry SKU 18138 candidate | 1 | distribution passive aval PM08 vers ESC et CA01 | six XT90/deux XT30 annoncés ; branche CA01, montage et courant par sortie **À valider** |
-| `ELEC-PWR-02` | Holybro PM08-CAN 14S 200A | 1 par drone, fixe au châssis | mesure DroneCAN ; BEC1→POWER1, BEC2→POWER2 | support/faisceau **Planifiés**, courants/thermique **À valider** |
+| `ELEC-PWR-02` | Holybro PM08-CAN 14S 200A, distinct du PM08D | 1 par drone, à l'étage inférieur dans SA07 | mesure DroneCAN ; BEC1→POWER1, BEC2→POWER2 | implantation CAO sur P57 **Implémenté** ; fixations/faisceau/courants/thermique **À valider** |
 | `ELEC-PWR-03` | conversions CA01 12 V calcul/LiDAR et 5 V auxiliaires | selon rails §4.2 | Jetson XT30, Airy, radio et synchronisation | schéma V0.5-pre partiel ; références/protections et ERC à fermer |
 | `ELEC-CA01` | carte avionique commune CA01 | 1 | porteuse radio, conversion et synchronisation ; PM externe | schéma V0.5-pre et démarrage du routage quatre couches **Implémentés** ; routage complet **Planifié**, qualification **À valider**, non fabricable |
 | `ELEC-FCU-01` | Holybro Pixhawk 6X module seul | 1 | contrôle de vol PX4 sur porteuse | sélection cible **Planifiée** ; matériel **À valider** |
@@ -1175,7 +1175,7 @@ ni la tension de charge ni l'endurance du nouveau montage.
 | `ELEC-CTL-01` | RadioMaster RP4TD candidat, partagé avec ELEC-TLM-01 | 1 par drone équipé | commande manuelle + MAVLink sur RF commun | présélection §7.4 ; **À valider** |
 | `ELEC-TLM-01` | Pocket ELRS EU-LBT au sol + même RP4TD embarqué | 1 ensemble par drone utilisé, sans double comptage du RX | QGC/MAVLink + commande manuelle | présélection §7.4 ; débit, portée et conformité **À valider** |
 | `ELEC-RTK-01` | Holybro H-RTK F9P Base (12022), antenne HANT-X627A et USB vers PC QGC | 1 jeu | corrections RTCM sans abonnement | sélection cible **Planifiée** ; repère, installation et transit **À valider** |
-| `ELEC-CHG-01` | chargeur LiPo et accessoires sûrs | 1 jeu | recharge et stockage | référence/procédure **À valider** |
+| `ELEC-CHG-01` | chargeur LiPo et adaptateur de puissance TE protégé | 1 jeu | recharge hors drone et stockage | adaptateur **Planifié** ; référence/procédure **À valider** ; JST d'équilibrage seul insuffisant |
 
 **Option d'implantation GNSS/radio — 4 octobre 2026, Planifié / À valider.**
 Le catalogue FreeCAD a été trié : seules les dernières représentations et
@@ -1255,88 +1255,79 @@ l'accessibilité de la prise ou l'absence de pincement. Cette option reste
 **Planifiée / À valider** ; aucun équipement électrique ou câble natif
 n'est déplacé par la préétude.
 
-### 6.1 Dock 20 Ah : contacts et coupure, 2–3 octobre 2026
+### 6.1 Dock 20 Ah : raccordement direct et coupure, 4 octobre 2026
 
-La nouvelle définition du dock est distincte du câblage CA01 en cours de
-routage. Elle ajoute en tête : **pack 6S → adaptateur XT90 → contacts TE du
-dock → JETI MainSwitch100 → PM08-CAN → toutes les branches**. La géométrie
-du drone utilise encore les équipements avioniques historiques ; elle ne
-démontre pas le montage du PM08 et de la porteuse Holybro cible. Le faisceau
-et les quantités propres au dock sont définis par
-[la BOM consolidée](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json)
-et [le registre du faisceau](../../hardware/mecanique/cartographe/verification/faisceau_dock20Ah_20261002.json).
+La chaîne courante est **pack 6S AWG8 → cosses à 90° candidates → TE mobile/fixe →
+JETI IN/OUT → PM08-CAN → PDB → toutes les branches**. JETI, commande magnétique,
+PM08-CAN et PDB sont placés à l'étage inférieur dans SA07 sur P57 candidat.
+Le raccordement frontal XT90-S, les adaptateurs AWG10 et les barres P42 sont
+retirés. Le schéma CA01 conserve ses circuits ; cette migration CAO n'est
+pas un routage KiCad. L'implantation CAO a l'état **Implémenté** ; la définition
+directe AWG8/742F5 M5 reste candidate et n'est pas qualifiée.
 
-La paire commerciale TE ELCON 125A Middle Drawer reprend les deux positions
-de puissance 39/40, avec deux contacts `1766283-1` côté broches et deux
-`6648335-1` côté douilles ; les positions signal restent inutilisées.
-Les deux logements sont guidés avant l'engagement des contacts. Une moitié
-flottante utilise les vis à épaulement `1650589-1`. Les butées mécaniques
-reprennent la cassette selon la spécification TE 114-13206 : les contacts
-ne servent ni de fin de course, ni de verrou. Le calibre 125 A est celui
-des contacts dans les conditions fabricant, **pas celui du système complet**.
-Les sources STEP et plans officiels sont conservés inchangés ; les limites
-de leurs cavités simplifiées sont consignées dans la preuve des contacts.
+TE ELCON 125 A Middle Drawer : logements 1648151-1/1648156-1, broches
+1766283-1 fixes flottantes sur vis 1650589-1 et douilles 6648335-1 mobiles.
+Positions 39 = + et 40 = − ; aucun signal ni interverrouillage ajouté.
+Contacts M5 × 0,8 internes ; couple plafond de 2,9 N·m selon 114-13206,
+engagement de vis et talonnage à contrôler. Rails, butée et verrou Southco
+reprennent la cassette ; les contacts ne font pas fin de course ni retenue.
+Les calibres catalogue ne qualifient pas le drone.
 
-Les liaisons mobiles comprennent deux conducteurs CuC101 P42 et deux
-adaptateurs AWG10 `55A0111-10-2/-0`, cosses Phoenix `3240028`, sous P43–P47.
-Leurs chemins natifs mesurent57,32/63,98mm ; préparations90/100mm avant
-ajustage sur gabarit. Les fils AWG8 de150mm du pack sont conservés ; leurs
-routes d'étude130,46/143,01mm imposent de ranger le mou et de mesurer les
-sorties du lot. Les rayons du modèle interpolé ne qualifient pas le pliage
-réel. La prise d'équilibrage et ses fils sont retenus dans P51/P52.
+La cosse à 90° Klauke 742F5 M5 est candidate : cuivre étamé, trou de 5,3 mm,
+section nominale de 10 mm², conducteurs fins de classes 5/6. Son adéquation
+AWG8, le sertissage, l'outillage et la forme exacte du coude restent
+**À valider**. Sa représentation CAO est une enveloppe d'étude. Elle permet
+un départ axial court ; la cosse Phoenix droite exigeait des contre-coudes
+trop longs. Les deux fils du pack ont des chemins CAO de 89,70/90,56 mm,
+avec des arcs de rayon 50 mm, sans prolongation ni barres longitudinales.
+Les 150 mm usine sont une donnée d'achat ; retrait du XT90-S, préparation,
+coupe et dénudage doivent être définis sur le lot, sans intervention sur
+les cellules scellées. Le contrôle CAO concerne uniquement le pack nominal
+de 193 × 76 × 58 mm ; l'enveloppe d'étude de 198 × 78 × 60 mm et le lot réel
+restent **À valider**.
 
-Côté fixe, deux fils AWG8 `55A0111-8-2/-0` (Ønominal4,78mm, étude5mm),
-cosses Phoenix `3240219` et entretoises Cu P48 relient les contacts au kit.
-Les chemins tangents compacts du4octobre mesurent480,91/425,75mm, utilisent
-R≥50mm et dépassent les152,4mm libres prescrits près des contacts par
-TE114-13206. Les préparations600/520mm étaient celles de la boucle initiale ;
-la coupe du routage compact reste **À valider** sur gabarit après mesure des
-ports, engagements, sertissages et liberté flottante. P49/P50 isolent
-les bornes fixes ; l'intersection géométrique préexistante positif/P49 de
-84,525mm³ reste ouverte et doit être résolue avant fabrication. Deux épissures TE`34321` sont couvertes de gaine adhésive
-ATUM`12/3-0-50MM` (`NB08926001`, préparation50mm, réservation posée44mm).
-Cette épissure suppose un **kit JETI8mm² confirmé** ; la notice proposant
-6ou8mm², le lot6mm² exige une autre terminaison validée avant assemblage.
-Le couple des contacts M5 est plafonné à2,9Nm selon TE, sans talonnage des vis.
+Côté fixe : cosses Phoenix 3240219 AWG8, P48 et P49/P50, fils 55A0111-8-2/-0
+(Ø nominal de 4,78 mm, étude de 5 mm), routes de rayon 50 mm et de longueur
+354,42/354,07 mm vers JETI inférieur. Les anciennes épissures et retenues
+P41/P53 ne définissent plus le faisceau courant : raccords sur fils OEM,
+section du kit de 6/8 mm², bridage et sorties réelles sont à définir.
+PM08-CAN reste la sélection courante. Sa variante à fils étamés SKU 15029
+est candidate pour faciliter le raccordement aval. Le PM08D numérique I²C
+est distinct, sans substitution. Les réservations JETI/PM08-CAN/PDB ne sont
+pas des sorties fabricant cotées.
 
-P53 reprend les deux gaines après la boucle libre ; sept colliers T50R sont
-comptés dans la BOM. Le premier collier du module est partagé avec P53,
-dont deux portées transmettent le serrage au boîtier. Liberté flottante TE,
-traction, rigidité et thermique du calage restent **À valider**. Les ports
-JETI du modèle dérivé sont des réservations d'étude sans cotes fabricant :
-mesurer les sorties réelles et revoir les routes si nécessaire ; **ne pas
-usiner le module**. Le banc doit contrôler aussi les courbures du câble
-fourni avec le kit, différentes des arcs R50 de l'adaptateur.
+TE 114-13206 §3.18 impose une liberté des fils qui ne restreigne pas le
+flottement, un dressage perpendiculaire au connecteur, un rayon au moins égal
+à dix fois le diamètre extérieur du plus gros fil et un collier éventuel
+à au moins 152,4 mm du départ connecteur. La longueur
+d'une boucle ne démontre pas cette distance spatiale. Aucun premier collier
+proche du TE n'est posé dans cette CAO ; l'orientation −Y des cosses fixes
+et les fils courts côté mobile doivent être approuvés et validés pour cette
+application. Les rayons nominaux de 50 mm et les longueurs de câble ne
+démontrent pas une conformité globale à cette spécification.
 
-Le module JETI est annoncé9–51V sur la page produit et8–51V dans la notice,
-deux plages compatibles avec notre6S. Il comporte une fonction
-anti-étincelle existante. Il **coupe le conducteur négatif** : le positif
-reste raccordé. Aucun retour de masse externe, USB, chargeur ou liaison
-auxiliaire ne doit relier le négatif brut du pack au négatif aval et
-contourner cette coupure. La télémétrie JETI n'est pas raccordée au Pixhawk
-par cette conception. Le PM08 et toute la distribution restent en aval.
-La capacité admissible et la forme de la limitation du courant d'appel ne
-sont pas fournies pour notre charge ; l'essai avec les charges réelles est
-obligatoire. Le produit ne constitue pas une précharge calculée et qualifiée.
+JETI MainSwitch100 fournit coupure et anti-étincelle ; il commute **le négatif
+seulement**, le positif demeure raccordé. Aucun retour aval, USB, chargeur
+ou auxiliaire ne doit rejoindre le négatif brut et contourner la coupure.
+PM08-CAN et tous les consommateurs restent en aval. Sa télémétrie n'est pas
+raccordée ici. L'anti-étincelle est annoncé ; courant d'appel, charge et
+températures restent à mesurer. Retirer le XT90-S ne qualifie ni 85 A ni
+100 A pour le système.
 
-**Séquence d'échange** : drone au sol, PX4 désarmé, moteurs arrêtés et pales
-dégagées ; commander JETI OFF et vérifier la coupure, libérer le loquet,
-extraire la cassette, insérer la suivante jusqu'à la butée et vérifier
-le verrouillage, puis commander ON. Le module mémorise son état : une
-déconnexion alors qu'il est ON peut entraîner une remise sous tension
-automatique à la reconnexion. Aucun interverrouillage électrique automatique
-OFF/loquet n'est revendiqué. La prise d'équilibrage reste destinée à la
-charge hors drone ; le pack et ses câbles AWG8 de 150 mm ne sont pas modifiés.
+Échange : au sol, désarmé, moteurs arrêtés ; JETI OFF vérifié avant
+déverrouillage/extraction ; insertion jusqu'à la butée, verrouillage vérifié,
+puis ON. L'état ON est mémorisé : il faut commander OFF avant déconnexion.
+Aucun interverrouillage OFF/loquet automatique n'est revendiqué. La charge
+hors drone nécessite un adaptateur de puissance TE protégé, **Planifié**,
+jamais une connexion par JETI OUT. La prise JST d'équilibrage, rangée sous
+P51/P52, seule ne remplace pas la liaison de puissance de charge. Le choix
+du pack et les seuils PX4/CA01 sont conservés.
 
-La source fabricant Amass 2025 annonce pour la famille XT90S/XT90H **45 A
-maximum sous la condition 10AWG et ΔT <85 °C**. Cette condition n'est pas
-un objectif thermique admissible de notre drone. La prise conservée du pack
-empêche d'affirmer 85 ou 100 A continus pour l'ensemble, même avec des contacts
-TE 125 A et un module JETI 100 A. Les profils 1–3C usuels du pack représentent
-20–60 A : capacité sous charge, chute de tension, courant et température de
-chaque liaison doivent être mesurés avant toute qualification en vol. Les
-références et sources primaires sont dans
-[sources_bom_dock20Ah_20261002.json](../../hardware/mecanique/cartographe/verification/sources_bom_dock20Ah_20261002.json).
+[Faisceau courant](../../hardware/mecanique/cartographe/verification/faisceau_dock20Ah_20261002.json),
+[BOM](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json),
+[Klauke fabricant](https://www.klauke.com/be/de/winkelrohrkabelschuhe-cu-90-und-45-abgewinkelt-f-reihe),
+[PM08-CAN fabricant](https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a).
+Validation CAO et limites matérielles : DOC-VAL §12.1.8, DOC-MEC §4.1.3.2.
 
 ## 7. Architecture réseau et données
 
@@ -1853,6 +1844,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Liaison pack directe candidate AWG8/742F5 M5 au TE, sans XT90-S/AWG10/P42 ; énergie à l'étage inférieur, PM08-CAN conservé et PM08D distinct ; contrôle du seul pack nominal, dressage TE/lot/fixations/thermique **À valider**, adaptateur de charge protégé **Planifié** (§6.1, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Repli des deux adaptateurs fixesTE/JETI en conservantR50 et terminaisons :480,91/425,75mm libres ; coupe sur gabarit et intersectionP49 non résolue, aucune qualification matérielle (§6.1, DOC-MEC§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Catalogue CAO trié et anciennes intégrations globales archivées ; dernière stack conservée, GNSS/faisceau séparés, aucune modification d'interface ou de câblage (§6, DOC-MEC§2.1) |
 | 4 octobre 2026 | Option GNSS déportée par SMA au-dessus du pack, récepteur inférieur avec compas intégré et deux antennes RP4TD sur plateau déporté ; coaxiaux, fixation, passages et essais magnétiques/RF ouverts (§6) |

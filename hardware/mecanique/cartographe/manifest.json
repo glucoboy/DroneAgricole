@@ -25974,55 +25974,31 @@
     "evolution_courante": {
       "date": "2026-10-04",
       "noms_stables": true,
-      "assemblage": "sous_assemblages/SA02A_Dock20Ah.FCStd",
       "realisation_CAO": "Implémenté",
       "statut": "À valider",
-      "verification": "verification/controle_compacite_dock20Ah.json",
-      "couleurs": "verification/couleurs_dock20Ah.json",
-      "rendu": "verification/rendu_dock20Ah_courant.json",
-      "dimensions_conservatrices_mm": [
-        543.8362525604712,
-        135.840738114862,
-        150.5705905153507
+      "assemblage": "sous_assemblages/SA02A_Dock20Ah.FCStd",
+      "distribution": "sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd",
+      "verification": "verification/controle_etage_batterie.json",
+      "rendu": "verification/rendu_etage_batterie.json",
+      "nomenclature": "verification/nomenclature_etage_batterie.json",
+      "dimensions_batterie_et_energie_mm": [
+        429.0,
+        208.5,
+        177.0
       ],
-      "cordons_fixes": [
-        {
-          "reference": "EQ_CordonFixe8AWG_Plus20A",
-          "longueur_libre_mm": 480.9149071274868,
-          "rayons_arcs_mm": [
-            49.99999999999992,
-            50.0,
-            50.0,
-            50.00000000000001,
-            50.00000000000002
-          ],
-          "arbre_natif_preserve": true
-        },
-        {
-          "reference": "EQ_CordonFixe8AWG_Moins20A",
-          "longueur_libre_mm": 425.7503482138903,
-          "rayons_arcs_mm": [
-            50.0,
-            50.0,
-            49.999999999999964,
-            49.99999999999995
-          ],
-          "arbre_natif_preserve": true
-        }
-      ],
-      "placements_modifies": false,
-      "longueurs_preparation_mm": null,
-      "limite_preparation": "Coupe à déterminer sur gabarit et lot réel.",
-      "registre_faisceau_historique": "verification/faisceau_dock20Ah_20261002.json",
-      "branche_Git_etat_initial": "codex/batterie-avant-evolution-20261004",
-      "commit_Git_etat_initial": "dc0190226f13425f6785df7af99c4aa3ea4bd6c4",
+      "TE_recul_mm": 82,
+      "pack_rotation_Z_deg": 180,
       "limites": [
-        "Intersection préexistante positif/P49 de 84.525mm³ non résolue ; aucune absence globale d’interférence revendiquée.",
-        "Épissures et gaines modélisées en recouvrement ; montage réel à mesurer.",
-        "Liberté flottante TE, rayons réels, accès, vibration, thermique, hélices et vol non qualifiés."
+        "Interfaces borne/fil intentionnelles à distinguer des collisions.",
+        "Échantillons extraction ne constituent pas preuve continue.",
+        "Cosses90/AWG8 et ports lot non qualifiés ; fixation coffrets/équilibrage, cantilever82mm et supportsP57 à valider.",
+        "TE152.4mm est une distance spatiale au premier bridage ; aucun bridage câble fixé procheTE représenté.",
+        "Sorties JETI/PM/PDB et faisceaux aval candidats à compléter ; pas de qualification matérielle."
       ],
-      "DOC_MEC": "§4.1.3.1",
-      "DOC_VAL": "§12.1.7"
+      "branche_Git_avant": "codex/batterie-avant-etage-inferieur",
+      "DOC_MEC": "§4.1.3.2",
+      "DOC_VAL": "§12.1.8",
+      "branche_Git_courante": "codex/batterie-etage-inferieur"
     }
   },
   "configuration_systeme_candidate": {
@@ -35487,7 +35463,8 @@
         "fichier": "sous_assemblages/SA01_Chassis_Stack_Revue_20261003.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "f0244829e278c8cc2cb61deb24628d10864b14793fac5b78356330e50541ccda"
       },
       {
         "reference": "SA02A_Dock20Ah",
@@ -35495,85 +35472,98 @@
         "role": "courant",
         "realisation_CAO": "Implémenté",
         "statut": "À valider",
-        "sha256": "0de69474a48f9456ae70a5ecf337d5e79c06da219dab41036d74122d83c32ba9",
-        "verification": "verification/controle_compacite_dock20Ah.json"
+        "sha256": "40bfbab2f3c1cd2f55695b9617b5c2eaff22d7b46e7e5a8d72193ab081c07d7f",
+        "verification": "verification/controle_etage_batterie.json"
       },
       {
         "reference": "SA03_CA01_Holybro_Revue_20261003",
         "fichier": "sous_assemblages/SA03_CA01_Holybro_Revue_20261003.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "a41b74dfff4ad8dfb84e079dbca9520a143b332d407f7672184e0d695796e074"
       },
       {
         "reference": "SA05_Capteurs_Isoles",
         "fichier": "sous_assemblages/SA05_Capteurs_Isoles.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "7a4388076326c9918bcb2c498537b57f672ae0dbf67f2ea44902fb1bc27b9694"
       },
       {
         "reference": "SA05A_Bloc_capteurs",
         "fichier": "sous_assemblages/SA05A_Bloc_capteurs.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "e02525e07bf45b36ba2ac6975431b35c68d623d52e8fb39b99897903136ba772"
       },
       {
         "reference": "SA05B_Appui_Sorbothane",
         "fichier": "sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "3e8ea7a5414b2e98eadb190357c9ba989ddb65a8141af443d4f098d60b4b1ec4"
       },
       {
         "reference": "SA06_RTK_Helical_Systeme_Candidat",
         "fichier": "sous_assemblages/SA06_RTK_Helical_Systeme_Candidat.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "5ef07d3d2e9152f5261bfbdaf9512b5f74cc4d23ed61b7dc10c8920635d9f08d"
       },
       {
         "reference": "SA07_Distribution_Systeme_Candidat",
         "fichier": "sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "5760a4c7bb08a218a7eef18b4e7f413aee2f69ba5317de0f001dacbb76c28866",
+        "verification": "verification/controle_etage_batterie.json"
       },
       {
         "reference": "SA07_Station_sol",
         "fichier": "sous_assemblages/SA07_Station_sol.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "d7458ffe92a2952bc42bdd8ab5657db3a86d939f3ecf42b66215a82791d7b5c0"
       },
       {
         "reference": "SA08_Faisceau_Systeme_Candidat",
         "fichier": "sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd",
         "role": "courant",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "63e26f3140c8470260f4baadcc006900d982333828b3bfd6e66db0858f995740"
       },
       {
         "reference": "SA02_Cassette20Ah_Coulissante",
         "fichier": "sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd",
         "role": "construction",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "5861faeee7ce99c6380e202d262da48ab861ad33388dc4642a1efc91318c8bb4"
       },
       {
         "reference": "SA02_Contacts20Ah",
         "fichier": "sous_assemblages/SA02_Contacts20Ah.FCStd",
         "role": "construction",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "4942a70d68451b8785249ce38cc8057b9a13f82e6f82a406db4ef8793e0978a0"
       },
       {
         "reference": "Integration_Stack_Revue_20261003",
         "fichier": "assemblages/Integration_Stack_Revue_20261003.FCStd",
         "role": "integration_locale_sans_faisceau",
         "realisation_CAO": "Implémenté",
-        "statut": "À valider"
+        "statut": "À valider",
+        "sha256": "451a87280de78b396da90c93fd19857680eb083fa696c091177511ce8bbbc172",
+        "verification": "verification/controle_etage_batterie.json"
       }
     ],
     "sous_assemblages_courants": 10,
