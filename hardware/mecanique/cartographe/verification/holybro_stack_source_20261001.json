@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "status": "Implémenté / À valider",
+  "scope": "Lecture du STEP fabricant pour placement CA01 ; aucune qualification mécanique, thermique ou de montage",
+  "source": {
+    "file": "sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+    "url": "https://2367252986-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FLIgtGDAvVGkCKGOJb1bR%2Fuploads%2FfmyPF1aoswez9UZU8jKd%2FPixhawk-Jetson-Baseboard-3D.stp?alt=media&token=951dd8e7-dcbf-40ee-b01e-c96342744a76",
+    "landing_page": "https://docs.holybro.com/autopilot/pixhawk-baseboards/download",
+    "retrieved_date": "2026-10-01",
+    "bytes": 78172053,
+    "sha256": "DFEE72717B735C4B10089435AE1019482878F6607051F1A3B8397DA7721ED6EE",
+    "unchanged": true,
+    "cad_file_name": "ORIN_NX-RC02_BOARDANDM-0603_ASM",
+    "cad_export_date": "2024-06-19T14:15:33",
+    "cad_revision_limit": "RC02 est un indice de nom CAO ; révision commerciale du matériel non démontrée"
+  },
+  "tool": {
+    "name": "FreeCAD",
+    "version": "1.1.3 20260725",
+    "api": "Part.read",
+    "command": "C:/Program Files/FreeCAD 1.1/bin/python.exe -c <inspection Part.read, BoundBox, Solids, Faces>",
+    "solid_count": 2079,
+    "valid": true
+  },
+  "measurements_mm": {
+    "assembly_bbox": [
+      -0.1176914536239635,
+      -0.9999998569081661,
+      -8.0254,
+      126.11769145362396,
+      80.51936152561716,
+      30.898320000083473
+    ],
+    "assembly_size": [
+      126.2353829072479,
+      81.51936138252532,
+      38.92372000008347
+    ],
+    "board_outline": [
+      126,
+      80
+    ],
+    "mounting_hole_centers": [
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        77
+      ],
+      [
+        123,
+        3
+      ],
+      [
+        123,
+        77
+      ]
+    ],
+    "mounting_hole_diameter": 3.2,
+    "mounting_pitch": [
+      120,
+      74
+    ],
+    "main_board_planes_z": [
+      0.03,
+      2.02232
+    ],
+    "main_board_plane_distance": 1.99232,
+    "lowest_corner_hardware_z": -8.0254,
+    "lowest_noncorner_component_z": -4.28239220030321,
+    "heatsink_fan_volume_bbox": [
+      8.99,
+      11.2,
+      12.89832,
+      47.99,
+      69,
+      30.89832
+    ]
+  },
+  "manufacturer_drawing": {
+    "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight",
+    "board_dimensions_mm": [
+      126,
+      80
+    ],
+    "bare_board_assembly_height_mm": 22.9,
+    "orin_heatsink_fcu_height_mm": 38.6,
+    "board_thickness_drawing_mm": 1.6,
+    "alloy_case_mm": [
+      130,
+      84,
+      20
+    ],
+    "discrepancy": "Épaisseur apparente du corps principal STEP 1,99232 mm, différente de la cote dessin 1,6 mm ; révision/assemblage réels à confirmer"
+  },
+  "placement_candidate": {
+    "ca01_outline_mm": [
+      126,
+      80
+    ],
+    "ca01_holes_mm": [
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        77
+      ],
+      [
+        123,
+        3
+      ],
+      [
+        123,
+        77
+      ]
+    ],
+    "position": "Sous la porteuse Holybro, côté opposé au dissipateur/ventilateur ; recommandation candidate",
+    "orientation_preferred": "Composants CA01 vers extérieur inférieur ; seuls PCB/pads de soudure font face à la porteuse",
+    "face_to_face_gap_candidate_mm": 10,
+    "gap_limit": "10 mm candidat couvre les reliefs inférieurs observés dans ce STEP en conservant une marge ; réservations vis et volumes de câbles à contrôler avec CA01 et matériel exacts",
+    "opposing_components_option": "Si composants CA01 orientés vers Holybro : calculer gap = relief Holybro local + hauteur CA01 locale + jeu ; 20 mm est une candidate uniquement si hauteurs CA01 <=12 mm hors coins et jeu >=2 mm",
+    "mounting_keepout": "Quatre zones autour des axes de vis, diamètre et hauteur suivant vis/entretoises/rondelles sélectionnées ; aucune fixation électronique de puissance dans ces zones",
+    "electrical_references": "DOC-ELEC §4.2, CARTE-010/011 ; DOC-MEC §4.4, MEC-AVI-001"
+  },
+  "limits": [
+    "Aucun essai de montage physique ni vibration, thermique, CEM ou tenue mécanique",
+    "Volumes de câbles, accouplement connecteurs et accès SSD/radio non inclus",
+    "Au moins certains dissipateurs et composants apparaissent en solides dupliqués : collisions internes naïves non interprétables comme défaut matériel",
+    "Le boîtier aluminium est une variante ; ce contrôle porte sur le STEP assemblage sans ce boîtier",
+    "État de configuration SA03/SA04 existants non modifié",
+    "Ne pas déclarer Qualifié sur la seule validité du STEP"
+  ],
+  "git_policy": "Source STEP lourde exclue Git ; cette preuve légère assure la traçabilité"
+}

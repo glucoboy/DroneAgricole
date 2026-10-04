@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "verification_date": "2026-10-02T05:21:46.652833+00:00",
+  "toolchain": "10.0.6 Windows amd64",
+  "requirements": [
+    "CARTE-003",
+    "CARTE-004",
+    "CARTE-005",
+    "CARTE-006",
+    "CARTE-011",
+    "CARTE-012"
+  ],
+  "scope": "CA01 : routage initial, géométrie et réseaux, hors qualification matériel",
+  "passed": true,
+  "conclusion": "préliminaire",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "checks": [
+    {
+      "name": "4 couches cuivre",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Inventaire et fixations conservés",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Positions mécaniques conservées",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Affectations modèles 3D conservées",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Contour 126x80 mm et épaisseur 1.6 mm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Tous réseaux pads conformes à la netlist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Valeurs, DNP et références empreintes synchronisés",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "10 zones remplies, raccord plein",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Définition des plans et îlots au potentiel attendu",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Exclusions Kelvin et SW sérialisées comme trous de zones",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Centre de l’exclusion sans cuivre : CA01_GND_F.Cu/0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Centre de l’exclusion sans cuivre : CA01_BATTERIE_PROTEGEE/0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "111 vias traversants 0.6/0.3 mm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Réseaux et centres de chaque via",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Chaque via rejoint le cuivre rempli de son réseau",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "30 trous thermiques 0.3 mm intégrés EP GND",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "U101 EP13 flottant sans via ajouté",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Prises sense R116 exclues du remplissage GND avant routage Kelvin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "4 segments : entrée fusible et drains communs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Cuivre et diélectriques natifs totalisent 1.6 mm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "DRC zéro violation et parité zéro",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Routage explicitement incomplet et non fabricable",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "problems": [],
+  "pcb_footprints": 155,
+  "copper_layers": 4,
+  "track_segments": 4,
+  "vias": 111,
+  "thermal_holes_in_footprints": 30,
+  "zones": 10,
+  "unrouted_connections": 218,
+  "drc_violations": 0,
+  "schematic_parity": 0,
+  "hardware_tests_executed": false,
+  "remaining": [
+    "Reprise placement électrique des condensateurs VIN et des boucles DC/DC avant leur routage",
+    "Gate, bootstrap, SW/self, sorties, Kelvin R116, FB/COMP/ILIM et signaux non terminés",
+    "TVS/fusible/Icc/Ceff, procédé via-in-pad/stencil, cuivre/stack fabricant, géométrie RP4TD et essais thermiques/CEM ouverts",
+    "Aucun essai matériel ; vias dissipent la chaleur sans démontrer la température réelle"
+  ],
+  "inputs": [
+    {
+      "path": "CA01_Avionique.kicad_pcb",
+      "sha256": "e53f2657d1e17866a8b42d1378d09f53615e71ea438e3aaf96827c5228afd7ee"
+    },
+    {
+      "path": "CA01_Avionique.kicad_pro",
+      "sha256": "ed6c1074d8cca648ba685fa1c254ba8cb5c56d85e8e90c03ece19c6f0ec9088a"
+    },
+    {
+      "path": "routage.json",
+      "sha256": "27080238aba973af5787616034829f1317b0a6468f228946532f57a279948c16"
+    },
+    {
+      "path": "placement_mecanique.json",
+      "sha256": "d7874a1e294dcc1a7b63818e5cecae06c4cb4fb487f3ff0b21b9acd38a447e9a"
+    },
+    {
+      "path": "modeles_3d.json",
+      "sha256": "ce6ab08e1a710ee4a7abc3ba6b6e670443e812fc8c1457499ce7f4de8a62b68b"
+    },
+    {
+      "path": "verification\\netlist.xml",
+      "sha256": "ab16dedd859e3c2e1b49141d75b9b196baf15d2a47c45e2f8250c3984f225418"
+    },
+    {
+      "path": "verification\\drc_routage_20261001.json",
+      "sha256": "14945d24b3b9ba2085b78cfe369045eb3662d488a012572d6ad87f40425750a6"
+    },
+    {
+      "path": "verification\\verify_routing.py",
+      "sha256": "4ce794c0280e7f4f46fc7377f9160c82b7628fa74e8835a78d77ebe5f84ffe9a"
+    },
+    {
+      "path": "verification\\start_routing.py",
+      "sha256": "ecc18890b9409b289ce9e1b4523d8169e965540c86ee28cfd0c68b40d405143b"
+    },
+    {
+      "path": "verification\\variante_lm76003_percages_20261001.json",
+      "sha256": "98e3956cee7475fd308b49346d457a177e184e3022aa36fdca53ec234011e5ab"
+    }
+  ]
+}

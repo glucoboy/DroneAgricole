@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "reviewer": "Agent indépendant connecteurs",
+  "scope": "Remplacement R116 CSM3637 standard après acceptation utilisateur ±0,1 %",
+  "factual_blockers": [],
+  "passed": true,
+  "qualification": "À valider",
+  "hardware_tests_executed": false,
+  "findings": [
+    "MPN Y14880R01000B9R,10mΩ,±0,1%,15ppm/K,3W : schéma/BOM/configuration/PCB concordants.",
+    "Recalcul indépendant en mémoire :0,195207448901166W à6A et0,6162973038520478W en limitation ; correspondance à1e-12.",
+    "Quatre pads physiques séparés : paire1 sourceQ104/ILIM, paire2GND ; affectation des réseaux conforme.",
+    "R11642,5/52,5 ; C12429/49,C12634/49 ; tous autres placements conservés.",
+    "155empreintes,111groupes de broches conservés,0parité/chevauchement/piste/zone ; seuls30perçages thermiques0,2mm ouverts.",
+    "DOC-ELEC4.2.9/DOC-VAL12.7.6 cohérents avec tolérance acceptée et qualification ouverte."
+  ],
+  "limits": [
+    "Orientation mécanique0° : E1 plus proche de Q104 que I1 ; conduire la force viaI1 et la mesure viaE1 au futur routage.",
+    "Le derating à125°C d’ambiance ne garantit pas le TCR au-delà125°C de température résistive.",
+    "Température réelle, court-circuit, impulsions/hiccup, stencil et pièces reçues non qualifiés."
+  ],
+  "inputs": [
+    {
+      "path": "01_energie_pm.kicad_sch",
+      "sha256": "26e334d94d461262ddc5034ca08e983d22b17090dbd101ebe93e1c7aad45bf23"
+    },
+    {
+      "path": "bom_candidate.json",
+      "sha256": "f94067f48948de91e28ae345630994b14c1bf94ddd8f81cc139a75089e4ab31c"
+    },
+    {
+      "path": "dimensionnement.json",
+      "sha256": "0d6501d594db44e6874198b700dfa28781411f44f1ddfdde9c5cf118b1abda9c"
+    },
+    {
+      "path": "CA01_Avionique.kicad_pcb",
+      "sha256": "fa5803091fb64d1d8831b2bb48a74468acd568646d165da09de215e61c893103"
+    },
+    {
+      "path": "CA01_Mecanique.pretty/VPG_CSM3637.kicad_mod",
+      "sha256": "a90ce02a01c6b2e5c90cf518e9cf69fd79767ecd0ca43482e51475d36a8a99da"
+    },
+    {
+      "path": "placement_mecanique.json",
+      "sha256": "c4274015df1356da60775bdb1a2cf05674943301dbcba5805ab775824b13ed38"
+    },
+    {
+      "path": "verification/verify_shunt_thermique.py",
+      "sha256": "1eb0f077294c3934dceb27056cd85441404fa311d89907ad164684bb78ce5269"
+    },
+    {
+      "path": "verification/shunt_thermique_20261001.json",
+      "sha256": "e800a3a227d005845cb2a7307c8c782a233618dad28ecf79a7c4dba407945351"
+    },
+    {
+      "path": "verification/placement_mecanique_20261001.json",
+      "sha256": "dc02872147b3e96be2b5fd5b398002def709fbf0c6a423a3db5c4cb7ea0bcb64"
+    }
+  ]
+}

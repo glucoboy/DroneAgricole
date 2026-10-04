@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-02",
+  "status": "À valider",
+  "realisation_recherche": "Implémenté",
+  "objet": "Recherche d'un verrouillage commercial automatique pour cassette coulissante 6S 20 Ah, sans modifier la CAO ni la sélection active.",
+  "solution_principale": {
+    "fabricant": "Southco",
+    "mpn_loquet": "R4-05-40-405-10",
+    "mpn_gache": "R4-90-0521-10",
+    "principe": "Loquet rotatif mécanique push-to-close à deux stages : capture automatique de la gâche lors de l'insertion, libération volontaire par gâchette manuelle intégrée.",
+    "matiere_loquet": "Boîtier acier zingué chromate brillant ; cliquet/gâchette acier trempé ; ressort inox passivé ; bumper EPDM selon J-R4-05-10.",
+    "commande": "Gâchette manuelle intégrée ; aucun câble ni actionneur séparé nécessaire dans cette configuration.",
+    "securite": "Le stage secondaire retient une fermeture incomplète avant le stage primaire. La gâchette libère le loquet ; aucune seconde commande de sécurité ni protection contre une action accidentelle n'est démontrée par les sources. Prévoir accès protégé à la gâchette, contrôle de position complètement insérée et maintien mécanique séparé si requis par l'analyse de sûreté.",
+    "dimensions_mm": {
+      "corps": {
+        "hauteur": 46,
+        "largeur": 21.2,
+        "epaisseur": 10
+      },
+      "trous_fixation": {
+        "nombre": 2,
+        "diametre": 4.5,
+        "tolerance_plus": 0.1,
+        "tolerance_moins": 0,
+        "entraxe": 25.4,
+        "tolerance_entraxe": 0.3
+      },
+      "gache": {
+        "diametre_zone_capture": 6,
+        "filetage": "M5×0,8",
+        "longueur_totale": 28.2,
+        "longueur_reference_jusqu_a_rondelle": 18.4,
+        "diametre_tete": 10,
+        "hexagone": 8,
+        "epaisseur_tete": 2.5
+      },
+      "course_gachette_main": 7,
+      "gachette": {
+        "projection_reference_depuis_axe_fixation": 24,
+        "course_reference": 7,
+        "precision": "Cotes de référence du plan ; projection complète du mécanisme et accès avec gants à contrôler sur modèle/échantillon."
+      },
+      "preparation": {
+        "position_gache_depuis_trou_bas": 12.7,
+        "tolerance_position": 0.2,
+        "degagement_rayon_entree": 4,
+        "degagements_rayon": 3,
+        "angle_entree_deg": 30
+      },
+      "desalignement_illustre_vertical_plus_moins": 1.5,
+      "ecartement_plans_support_max_illustre": 6,
+      "precision_ecartement": "Cote 6 MAX illustrée en vue de montage : reconstituer l'empilement réel de supports ; ne pas assimiler à l'épaisseur admissible d'un panneau sans vérifier la vue.",
+      "course_insertion_first_contact_secondaire_primaire": null
+    },
+    "limites_dimensionnelles": "Les cotes sans tolérance sont seulement de référence. La note A exige une pose nominale pour une cassette rigide ; la capacité de recentrage d'une porte flexible ne peut pas être transférée à des rails rigides.",
+    "performance_publiee": {
+      "document": "Southco_TD-R4-05-J_performance.pdf",
+      "revision": "A, 03NOV2016",
+      "references_testees": [
+        "R4-05-20-405-10",
+        "R4-05-20-505-10",
+        "R4-05-40-405-10",
+        "R4-05-40-505-10"
+      ],
+      "force_liberation_moyenne_N": [
+        6,
+        7
+      ],
+      "cycles": 20000,
+      "charge_joint_N": 50,
+      "condition": "Position latérale nominale, zéro désalignement",
+      "force_moyenne_avant_rupture_ou_arrachement_primaire_N": 2600,
+      "force_moyenne_avant_rupture_ou_arrachement_secondaire_N": 2000,
+      "force_moyenne_avant_rupture_gache_N": 1500,
+      "couple_vis_montage_max_Nm": 4,
+      "charge_admissible_service_N": null,
+      "avertissement": "Les chiffres de résistance concernent rupture/déformation empêchant le fonctionnement, sans coefficient de sécurité. Ce ne sont pas des charges admissibles de vol. Essais sur montage utilisateur nécessaires."
+    },
+    "masse_kg": null,
+    "ip": null,
+    "modele_3d": {
+      "lien_CAD_annonce": "https://southco.com/en_us_int/r4-05-40-405-10",
+      "step_archive": false,
+      "raison": "La page fabricant annonce CAD Download, mais les accès directs retournent WAF/429 et le navigateur CUA n'a pas démarré. Aucun contournement de challenge effectué. Plan complet officiel accessible et archivé ; aucun faux STEP fabriqué."
+    }
+  },
+  "bom_partielle": [
+    {
+      "quantite": 1,
+      "fabricant": "Southco",
+      "mpn": "R4-05-40-405-10",
+      "fonction": "Loquet automatique, deux stages, bumper et gâchette manuelle",
+      "preuve": "Catalogue p.290, J-R4-05-10 et fiche produit officielle"
+    },
+    {
+      "quantite": 1,
+      "fabricant": "Southco",
+      "mpn": "R4-90-0521-10",
+      "fonction": "Gâche cylindrique Ø6, M5×0,8, acier",
+      "preuve": "Catalogue p.291 et TD-R4-05-J ; vendue séparément"
+    },
+    {
+      "quantite": 2,
+      "fabricant": null,
+      "mpn": null,
+      "designation": "Vis M4 candidates traversantes, retenue par écrous ou inserts à définir",
+      "fonction": "Fixation des deux trous Ø4,5",
+      "statut": "À valider",
+      "preuve": "Déduit du diamètre de trou et montage rivet/vis fabricant ; Southco ne publie ni MPN de vis, ni longueur, ni classe dans les documents récupérés.",
+      "couple_max_fabricant_Nm": 4
+    },
+    {
+      "quantite": 2,
+      "fabricant": null,
+      "mpn": null,
+      "designation": "Rondelles et écrous freinés M4 candidats si fixation traversante",
+      "fonction": "Retenue de visserie sur support",
+      "statut": "À valider",
+      "preuve": "Choix d'intégration utilisateur ; non spécifié fabricant"
+    },
+    {
+      "quantite": 1,
+      "fabricant": null,
+      "mpn": null,
+      "designation": "Support fileté M5×0,8 ou écrou freiné M5 candidat",
+      "fonction": "Fixation de gâche",
+      "statut": "À valider",
+      "preuve": "Filetage publié ; longueur d'engagement et retenue dépendront du support, non figées"
+    }
+  ],
+  "implantation_candidate": {
+    "repere": "Insertion cassette selon −X, extraction +X ; grand axe du pack selon X.",
+    "baie_libre_hauteur_mm": 70,
+    "pack_enveloppe_max_mm": [
+      198,
+      78,
+      60
+    ],
+    "support_provision_mm": 7,
+    "jeu_superieur_mm": 3,
+    "canal_colonnes_Y_mm": 99,
+    "jeu_lateral_par_cote_pack_mm": 10.5,
+    "analyse": "Le corps 46 mm orienté selon Z est inférieur aux 70 mm libres. Il ne peut pas être empilé au-dessus du pack de 60 mm : avec 7 mm de support, il ne reste que 3 mm. Dans les 10,5 mm latéraux par côté, l'épaisseur de 10 mm consomme presque tout l'espace avant les supports/jeux. Préférer une implantation du corps hors enveloppe du pack, par exemple sur un support fixe frontal/arrière prolongé, après vérification colonnes, plateau, commandes et contacts.",
+    "suivi": "Le support reprend les efforts ; le connecteur ne constitue ni butée ni verrou mécanique. Butée finale et engagement primaire doivent être synchronisés avec la position pleinement accouplée des contacts.",
+    "limite": "Préimplantation dimensionnelle seulement. Cinématique rotative et course d'insertion non cotées numériquement ; implantation dans la baie et extraction avec rails/câbles/gants non démontrées."
+  },
+  "exemple_existant": {
+    "fabricant": "Southco",
+    "document": "Southco_DogAndDrive_micro_rotary_application.pdf",
+    "client": "Dog&Drive",
+    "application": "Marchepied rabattable automobile en carbone",
+    "demonstration": "Micro R4 avec bumper intégrés dans une structure compacte ; deux loquets sont commandés par câble Bowden et AC-50. La source illustre une implémentation commerciale réelle, sans identifier le MPN exact choisi ni qualifier une batterie/drone.",
+    "transfert": "Principe réel de fermeture automatique et déclenchement déporté ; la solution proposée ici emploie la version à gâchette manuelle afin de limiter la BOM."
+  },
+  "repli": {
+    "necessaire": false,
+    "raison": "La solution micro documentée satisfait le principe de verrouillage automatique. Une commande déportée via version bottom trigger et AC/câble serait à reconfigurer si l'accès manuel se révèle impossible ; aucune seconde solution faussement complète n'est figée."
+  },
+  "validations_effectuees": [
+    "État Git inspecté ; modifications existantes préservées.",
+    "MPN exact et caractéristiques vérifiés sur résultats de pages fabricant.",
+    "Catalogue officiel p.290/291 et plan complet J-R4-05-10 rendu et inspecté visuellement.",
+    "Performance publiée séparée des charges admissibles.",
+    "PDF fabricant originaux archivés et empreintes SHA256 prévues dans manifeste local."
+  ],
+  "restant_a_valider": [
+    "STEP exact fabricant non récupéré.",
+    "Course d'insertion entre premier contact, secondaire et primaire et état à vide à vérifier sur modèle fournisseur ou échantillon.",
+    "Longueurs/classes de visserie et retenue de gâche à dimensionner sur supports réels.",
+    "Accès avec gants, poussière, vibrations, protection gâchette et détection de fin d'insertion.",
+    "Vérification de fermeture primaire seulement après engagement correct des contacts, maintien secondaire et retrait sans charge électrique.",
+    "Efforts sous charge réelle et endurance sur la cible drone ; aucune qualification de vol."
+  ],
+  "sources": [
+    {
+      "url": "https://southco.com/en_us_int/r4-05-40-405-10",
+      "type": "Fiche MPN officielle",
+      "archive": null
+    },
+    {
+      "url": "https://media.southco.com/media/static/Literature/r4-r.en.pdf",
+      "archive": "Southco_R4_catalogue_en.pdf",
+      "pages_pdf": [
+        1,
+        2
+      ]
+    },
+    {
+      "url": "https://media.southco.com/media/static/JDrawing/j-r4-05-10.pdf",
+      "archive": "Southco_J-R4-05-10_plan.pdf",
+      "revision": "D, 01FEB2021",
+      "pages_pdf": [
+        1,
+        2
+      ]
+    },
+    {
+      "url": "https://media.southco.com/media/static/TestDataSheet/TD-R4-05-J.pdf",
+      "archive": "Southco_TD-R4-05-J_performance.pdf"
+    },
+    {
+      "url": "https://media.southco.com/media/static/en/case-study/2023-cs-dog-and-drive-en.pdf",
+      "archive": "Southco_DogAndDrive_micro_rotary_application.pdf"
+    }
+  ]
+}

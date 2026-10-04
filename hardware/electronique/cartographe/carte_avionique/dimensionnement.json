@@ -117,8 +117,8 @@
     },
     "current_limit_shunt": {
       "r_shunt_ohm": 0.01,
-      "r_shunt_rating_w": 1,
-      "r_shunt_tolerance": "0.5% ; WSLT2512R0100DEA candidat",
+      "r_shunt_rating_w": 3,
+      "r_shunt_tolerance": "0.1% ; Y14880R01000B9R sélectionné, qualification À valider",
       "r_ilim_ohm": 750,
       "i_ilim_min_typ_max_a": [
         9e-05,
@@ -131,18 +131,19 @@
       ],
       "valley_typ_a": 7.5,
       "valley_conservative_range_a": [
-        5.853233830845772,
-        9.178391959798994
+        5.876623376623377,
+        9.141641641641643
       ],
       "loop": "Qlow source→shunt→GND, ILIM→750Ω→hautshunt ; Kelvin ; pas shunt dansAGND",
-      "r_shunt_footprint": "2512",
+      "r_shunt_footprint": "3637 / 4 bornes Kelvin",
       "valley_with_temperature_working_range_a": [
-        5.74320987654321,
-        9.331645569620255
+        5.8011633897804655,
+        9.238908412669055
       ],
-      "temperature_assumption": "Résistances -40..125°C ; Rilim100ppm/K et shunt75ppm/K, variation100K conservatrice ; pas ambiance carte approuvée",
-      "nominal_shunt_power_6a_18v_w": 0.12000000000000002,
-      "ilim_note": "La fenêtre de fonctionnement6A doit être revalidée à tous coins fréquence/VOUT/L/température et sous court-circuit ; 7.5A est vallée, pas courant de sortie/limite amont."
+      "temperature_assumption": "Rilim100ppm/K et shunt15ppm/K, variation100K candidate ; température résistive dans −55..125°C pour le TCR ; pas ambiance carte approuvée",
+      "nominal_shunt_power_6a_18v_w": 0.12060073048827377,
+      "ilim_note": "La fenêtre de fonctionnement6A doit être revalidée à tous coins fréquence/VOUT/L/température et sous court-circuit ; 7.5A est vallée, pas courant de sortie/limite amont.",
+      "r_shunt_tcr_max_abs_ppm_per_k": 15
     },
     "ripple": {
       "delta_i_nominal_25_2_a": 2.3109243697478985,
@@ -748,5 +749,91 @@
     "j301": "Réserve sans charge affectée ; toute charge partage le budget total de 3 A",
     "remaining_provisional_a": 2.42,
     "limits": "0,5 A radio est une hypothèse de réservation, pas une consommation publiée ou mesurée."
+  },
+  "shunt_requested_specification": {
+    "ref": "R116",
+    "resistance_ohm": 0.01,
+    "initial_tolerance_fraction": 0.001,
+    "tcr_max_abs_ppm_per_k": 25,
+    "connection": "4 bornes Kelvin préférées",
+    "status": "Implémenté",
+    "qualification": "À valider",
+    "date": "2026-10-01",
+    "decision": "Utilisateur : ±0,1 % accepté le 01/10/2026 ; TCR≤25 ppm/K conservé."
+  },
+  "shunt_replacement_candidate": {
+    "manufacturer": "VPG Foil Resistors",
+    "family": "CSM3637",
+    "resistance_ohm": 0.01,
+    "rated_power_at_70c_w": 3,
+    "catalog_initial_tolerance_fraction": 0.001,
+    "catalog_tcr_max_abs_ppm_per_k": 15,
+    "catalog_conforms_to_requested_tolerance": true,
+    "body_nominal_mm": [
+      9.144,
+      9.398,
+      0.8
+    ],
+    "datasheet": "https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet",
+    "datasheet_revision": "4138-EN Rev. 8, 8 juillet 2025",
+    "status": "Implémenté",
+    "condition": "Référence standard sélectionnée ; stock, pièces reçues, stencil et thermique réelle À valider.",
+    "mpn": "Y14880R01000B9R",
+    "qualification": "À valider"
+  },
+  "thermal_pcb_plan": {
+    "date": "2026-10-02",
+    "status": "Implémenté",
+    "routing_done": true,
+    "requirements": [
+      "U201/U301 LM76003 : DAP soudé à GND, cuivre local et plans GND reliés par vias thermiques.",
+      "U102 LM5146 : EP à AGND/PGND avec retour Kelvin local ; vias et plans GND.",
+      "Q101–Q104 CSD19531Q5A : cuivre et vias au potentiel de drain de chaque MOSFET, EP drain ; aucune connexion thermique aveugle à GND.",
+      "R116 : pistes de force larges et prises Kelvin séparées jusqu’au composant, suivant pattern fabricant de la référence finale.",
+      "Nombre/diamètre de vias et cuivre implémentés en candidat : quatre couches, 70/35/35/70µm ; nouveaux vias Ø0,6/0,3 et trous EP LM76003 Ø0,5/0,3. Stackup, via-in-pad/stencil et tolérances à valider fabricant.",
+      "Conserver les nœuds de commutation compacts ; ne pas agrandir le cuivre SW uniquement pour la thermique.",
+      "Qualifier à charges simultanées, ambiance maximale et débit minimal local mesuré dans la stack ; vitesse drone ne garantit pas le LFM local."
+    ],
+    "routing_stage": "Complet en CAO ; aucune qualification courant/thermique/CEM",
+    "configuration": "routage.json",
+    "proof": "verification/routage_complet_20261002.json",
+    "copper_layers": 4,
+    "copper_thickness_um": [
+      70,
+      35,
+      35,
+      70
+    ],
+    "thermal_hole_drill_mm": 0.3,
+    "qualification": "À valider"
+  },
+  "previous_shunt_20261001": {
+    "r_shunt_ohm": 0.01,
+    "r_shunt_rating_w": 1,
+    "r_shunt_tolerance": "0.5% ; WSLT2512R0100DEA candidat",
+    "r_ilim_ohm": 750,
+    "i_ilim_min_typ_max_a": [
+      9e-05,
+      0.0001,
+      0.00011
+    ],
+    "offset_min_max_v": [
+      -0.008,
+      0.0035
+    ],
+    "valley_typ_a": 7.5,
+    "valley_conservative_range_a": [
+      5.853233830845772,
+      9.178391959798994
+    ],
+    "loop": "Qlow source→shunt→GND, ILIM→750Ω→hautshunt ; Kelvin ; pas shunt dansAGND",
+    "r_shunt_footprint": "2512",
+    "valley_with_temperature_working_range_a": [
+      5.74320987654321,
+      9.331645569620255
+    ],
+    "temperature_assumption": "Résistances -40..125°C ; Rilim100ppm/K et shunt75ppm/K, variation100K conservatrice ; pas ambiance carte approuvée",
+    "nominal_shunt_power_6a_18v_w": 0.12000000000000002,
+    "ilim_note": "La fenêtre de fonctionnement6A doit être revalidée à tous coins fréquence/VOUT/L/température et sous court-circuit ; 7.5A est vallée, pas courant de sortie/limite amont."
   }
 }

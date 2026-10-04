@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-01",
+  "reviewer": "Agent revue_rp4td_tht : revue indépendante lecture seule ; consolidation finale agent principal",
+  "scope": "Création et affectation du symbole dédié et empreinte quatre broches THT RP4TD sur CA01, sans routage",
+  "review_passed": true,
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "symbol": "CA01_Radio:RadioMaster_RP4TD",
+  "footprint": "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat",
+  "physical_contact_geometry_qualified": false,
+  "electrical_footprint_complete": true,
+  "checks": {
+    "schematic_components": 151,
+    "pcb_footprints": 155,
+    "connectivity_checks_passed": 230,
+    "pin_groups_preserved_by_declared_bijection": 111,
+    "dnp_preserved": 8,
+    "module_bom_count": 1,
+    "pin_net_mapping": {
+      "1": "5V_RADIO",
+      "2": "GND",
+      "3": "RP_TX",
+      "4": "RP_RX"
+    },
+    "pads_through_hole": 4,
+    "drill_mm": 0.8,
+    "copper_diameter_mm": 1.6,
+    "candidate_pitch_mm": 2.6,
+    "photo_estimated_not_oem_dimensions": true,
+    "pad_library_pcb_coordinates_identical": true,
+    "courtyard_overlaps": 0,
+    "tracks": 0,
+    "zones": 0,
+    "erc_errors": 0,
+    "erc_warnings": 0,
+    "schematic_parity_issues": 0,
+    "unrouted_connections": 350,
+    "existing_thermal_drill_errors": 30,
+    "placement_check_passed": true,
+    "native_fresh_process_passed": true,
+    "pdf_modified_page_inspected": 3,
+    "all_current_proof_input_hashes_verified": true,
+    "project_rules_preserved": true
+  },
+  "independent_review_minor_observations": [
+    {
+      "item": "Ancien libellé contact_geometry_status dans la BOM",
+      "resolved": true,
+      "resolution": "Coordonnées candidates estimées sur photo ; cotes OEM et validation du montage non disponibles."
+    }
+  ],
+  "open_items": [
+    "Mesure réelle des centres des demi-trous et tolérances par rapport au contour ; photo présente ~2,5 % de divergence de rapport largeur/longueur",
+    "Sélection des broches réelles et vérification du diamètre, hauteur libre, brasage et accès de soudure",
+    "Profil sous-face, isolant et appui complémentaire ; fixation et vibrations sur drone",
+    "30 perçages thermiques Ø0,2 mm face au minimum projet Ø0,3 mm ; routage, stackup et qualification encore ouverts"
+  ],
+  "hardware_tests_executed": false,
+  "sources": [
+    {
+      "url": "https://radiomasterrc.com/cdn/shop/files/RP4TD-Image-1000X1000px-1.jpg?v=1750061219",
+      "use": "Ordre des quatre contacts et estimation photographique des axes, aucune tolérance métrologique garantie."
+    }
+  ],
+  "inputs": [
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/CA01_Radio.kicad_sym",
+      "sha256": "4c578329bd8651306988912a2367afb1c5f9839c9b5525c050cecbead045529b"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/sym-lib-table",
+      "sha256": "3076969e1f7e01a0a8657d7fd6ce431ea297720808eaefc02dcc797651ffa162"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/fp-lib-table",
+      "sha256": "fa692b1aa54b2d216491e9c601f94114a66f092832c621896cc893d3df9d72c0"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/CA01_Mecanique.pretty/RadioMaster_RP4TD_Broches_THT_Candidat.kicad_mod",
+      "sha256": "7ce61b19f183aa40ae671c93cb4ebd9eb3313f5ef77ad695ba706db83c3c748b"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch",
+      "sha256": "d4abd7d6d564d9332af8c0d0194a0c7ec654352003faf3e0135e864878ab7fba"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_pcb",
+      "sha256": "66cf95726c6cf8da373b3cfa3d354458b565bbc4479a6151dcbfeddc59cfa261"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/empreinte_rp4td.json",
+      "sha256": "a53195d5f8ca6d1914fdabfae7496538b6e6dbd3e37eaca949955a261754d554"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/bom_candidate.json",
+      "sha256": "0d04ea6ed37cf7600bfa3fc135a17d3fbd4703239c7f42db8dd597afa9fe5afa"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/verification/placement_mecanique_20261001.json",
+      "sha256": "481f50c686f781f2a7a5106002e898617fe1f80450e5741868226a71064aff3a"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/verification/controle_statique.json",
+      "sha256": "687c261fbff88b88319b4b4e77624a8614a0977d0c7ed88df32146bd7dd221a4"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/verification/drc_placement_20261001.json",
+      "sha256": "78cad0d5eeb639e9a12397c383e486b6d1aaaeb2bf7fb4b8a75ebe9014477f5d"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/verification/export_pdf_rp4td_tht_20261001.json",
+      "sha256": "01fe7feafbfd81e3ca09f4f204a98d79f0447711b1561132ede605659bed4b09"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/revue_stack_ca01_20261001.json",
+      "sha256": "e1ad22ab907021260183f925909f7c14f8a85e0bd3bac70d0ba501d2c262f142"
+    },
+    {
+      "path": "hardware/electronique/cartographe/sources_fabricants/rp4td/RP4TD_Image_1.jpg",
+      "sha256": "b3b912ac5bc0af102f6c49133ffe4dcf6d022581436ebc3515df2645ff8403fd"
+    }
+  ],
+  "historical_review": "verification/revue_rp4td_direct_20261001.json"
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "status": "À valider",
+  "scope": "Comparaison énergétique hypothétique 12S ; configuration actuelle incompatible, aucune propulsion 12S sélectionnée ni qualifiée.",
+  "inputs": {
+    "voltage_nominal_v": 44.4,
+    "voltage_full_v": 50.4,
+    "capacity_ah": 10,
+    "energy_nominal_wh": 444,
+    "usable_fraction_assumed": 0.8,
+    "usable_energy_wh": 355.2,
+    "pack_mass_kg_assumed": 2.7,
+    "pack_mass_model": "Deux packs candidats6S10Ah de1.35kg ; somme masses, pas batterie12S commerciale choisie.",
+    "additional_pack_mass_kg": 1.35,
+    "original_mass_scenarios_kg": [
+      5,
+      5.3,
+      5.6
+    ],
+    "resulting_mass_scenarios_kg": [
+      6.35,
+      6.65,
+      6.95
+    ],
+    "additional_integration_mass_included": false,
+    "avionics_battery_w": 93.75,
+    "propulsion_reference_voltage_v": 22.2,
+    "propulsion_reference_motor": "MN4014 KV330",
+    "propulsion_reference_propeller": "T-Motor15×5CF",
+    "propulsion_reference_curve": [
+      {
+        "g": 830,
+        "w": 79.92
+      },
+      {
+        "g": 1150,
+        "w": 130.98
+      },
+      {
+        "g": 1430,
+        "w": 173.16
+      },
+      {
+        "g": 1690,
+        "w": 224.22
+      },
+      {
+        "g": 1920,
+        "w": 264.18
+      }
+    ],
+    "power_multiplier_sensitivity": 1.2
+  },
+  "assumptions": [
+    "Une propulsion12S différente et adaptée conserverait par hypothèse les mêmes watts par poussée que la courbe6S ; ce transfert n'est pas démontré.",
+    "Les masses nouvelles de propulsion, supports, cassette, convertisseurs et faisceaux ne sont pas incluses.",
+    "Réserve20% de l'énergie nominale et puissance+20% deux sensibilités non qualifiées."
+  ],
+  "formulas": {
+    "mass": "original_mass_kg - 1.35 + 2.70",
+    "propulsion_power": "4 * linear_interpolation(mass_kg * 1000 / 4, reference_curve)",
+    "duration": "60 * 44.4 * 10 * 0.8 / (reference_propulsion_power_w + 93.75)"
+  },
+  "results": [
+    {
+      "mass_kg": 6.35,
+      "thrust_per_rotor_g": 1587.5,
+      "power_reference_propulsion_w": 816.3623076923077,
+      "power_reference_total_w": 910.1123076923077,
+      "hypothetical_duration_min": 23.416890223184627,
+      "power_plus20percent_duration_min": 19.51407518598719
+    },
+    {
+      "mass_kg": 6.65,
+      "thrust_per_rotor_g": 1662.5,
+      "power_reference_propulsion_w": 875.2776923076923,
+      "power_reference_total_w": 969.0276923076923,
+      "hypothetical_duration_min": 21.9931795233287,
+      "power_plus20percent_duration_min": 18.327649602773914
+    },
+    {
+      "mass_kg": 6.95,
+      "thrust_per_rotor_g": 1737.5,
+      "power_reference_propulsion_w": 929.8904347826087,
+      "power_reference_total_w": 1023.6404347826087,
+      "hypothetical_duration_min": 20.819810624739578,
+      "power_plus20percent_duration_min": 17.34984218728298
+    }
+  ],
+  "same_energy_comparison": {
+    "battery": "12S5Ah",
+    "energy_wh": 222,
+    "pack_mass_assumed_kg": 1.35,
+    "pack_mass_verified": false,
+    "results": [
+      {
+        "mass_kg": 5,
+        "thrust_per_rotor_g": 1250,
+        "power_reference_propulsion_w": 584.1771428571428,
+        "power_reference_total_w": 677.9271428571428,
+        "hypothetical_duration_min": 15.718503252561908,
+        "power_plus20percent_duration_min": 13.098752710468256
+      },
+      {
+        "mass_kg": 5.3,
+        "thrust_per_rotor_g": 1325,
+        "power_reference_propulsion_w": 629.37,
+        "power_reference_total_w": 723.12,
+        "hypothetical_duration_min": 14.736143378692333,
+        "power_plus20percent_duration_min": 12.280119482243611
+      },
+      {
+        "mass_kg": 5.6,
+        "thrust_per_rotor_g": 1400,
+        "power_reference_propulsion_w": 674.5628571428572,
+        "power_reference_total_w": 768.3128571428572,
+        "hypothetical_duration_min": 13.869350097337579,
+        "power_plus20percent_duration_min": 11.557791747781318
+      }
+    ],
+    "conclusion": "À masse et puissance égales, autonomie égale à6S10Ah ; la tension seule ne double pas l'énergie."
+  },
+  "compatibility": {
+    "current_system_can_use_12s_directly": false,
+    "esc": {
+      "reference": "Tekko32F445A",
+      "lipo_cells": "2–6S",
+      "compatible": false,
+      "source": "https://holybro.com/products/tekko32-f4-45a-esc"
+    },
+    "motor": {
+      "reference": "MN4014KV330",
+      "lipo_cells": "4–8S",
+      "compatible": false,
+      "source": "https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html"
+    },
+    "pm08": {
+      "voltage_input_v": [
+        7,
+        60.9
+      ],
+      "nominally_compatible": true,
+      "source": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a"
+    },
+    "ca01": {
+      "working_input_v": [
+        18,
+        25.2
+      ],
+      "ov_trip_typ_v": 29.081678733031676,
+      "lm76003_input_capacitor_rating_v": 50,
+      "compatible": false,
+      "source": "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md §4.2.7 et dimensionnement.json"
+    },
+    "pdb": {
+      "reference": "Holybro300A TopEntry",
+      "voltage_rating_confirmed": false,
+      "source": "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry"
+    },
+    "mechanics": {
+      "kit_takeoff_limit_published_kg": 6.3,
+      "all_scenarios_exceed_published_limit": true,
+      "existing_battery_cassette_fit_confirmed": false,
+      "source": "https://holybro.com/products/x650-development-kit"
+    }
+  },
+  "verification": {
+    "independent_arithmetic_check": "Trois points recalculés indépendamment, résultats concordants.",
+    "simulation_executed": false,
+    "hardware_tests_executed": false,
+    "architecture_migrated": false,
+    "qualification_claimed": false
+  },
+  "limitations": [
+    "Aucune autonomie réelle du drone actuel en12S ne peut être prédite avec cette courbe.",
+    "Pas de preuve de capacité livrée, masse/centrage finaux, rendement12S ou tenue structurelle.",
+    "L'augmentation d'énergie procure ~50% d'autonomie dans ce modèle ; ce n'est pas un gain démontré du12S."
+  ]
+}

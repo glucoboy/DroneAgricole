@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-03",
+  "realisation": "Implémenté : routes natives, interfaces, retenues et références de raccordement",
+  "statut_physique": "À valider",
+  "objet": "Faisceau cassette 6S 20 Ah, sans modification des fils scellés du pack ni du câblage CA01 existant",
+  "tension": {
+    "serie": 6,
+    "nominale_V": 22.2,
+    "charge_maximale_lot_V": null,
+    "limite": "Valeur exacte à relever dans la notice du lot TAA200006S5X9S ; aucune modification de seuil CA01/PX4."
+  },
+  "netlist": [
+    {
+      "net": "BAT_PLUS_BRUT",
+      "origine": "TAA200006S5X9S.+",
+      "destination": "TE mobile.position puissance PLUS",
+      "connexion": "XT90-S du pack vers adaptateur Amass XT90H-M.G.Y avec cap arrière 043.0222.Y",
+      "etat_OFF": "Sous tension"
+    },
+    {
+      "net": "BAT_MOINS_BRUT",
+      "origine": "TAA200006S5X9S.-",
+      "destination": "TE mobile.position puissance MOINS",
+      "connexion": "Même paire détrompée ; aucune modification des fils AWG8/150mm du pack"
+    },
+    {
+      "net": "BAT_PLUS_BRUT",
+      "origine": "TE fixe.position puissance PLUS",
+      "destination": "JETI MainSwitch100.IN+",
+      "etat_OFF": "Sous tension"
+    },
+    {
+      "net": "BAT_MOINS_BRUT",
+      "origine": "TE fixe.position puissance MOINS",
+      "destination": "JETI MainSwitch100.IN-"
+    },
+    {
+      "net": "BUS_PLUS_AVAL",
+      "origine": "JETI MainSwitch100.OUT+",
+      "destination": "PM08 entrée batterie + puis distribution/CA01/ESC",
+      "etat_OFF": "Positif toujours raccordé"
+    },
+    {
+      "net": "BUS_MOINS_AVAL",
+      "origine": "JETI MainSwitch100.OUT-",
+      "destination": "PM08 entrée batterie - puis tous retours distribution/CA01/ESC",
+      "contrainte": "Aucun retour aval vers BAT_MOINS_BRUT en dehors du JETI"
+    },
+    {
+      "net": "COMMANDE_JETI",
+      "origine": "MagneticSwitch MASTER normal fourni",
+      "destination": "MainSwitch connecteur Switch",
+      "connexion": "Câble du kit conforme à sa notice ; brochage à contrôler sur le lot avant raccordement"
+    }
+  ],
+  "positions_TE": {
+    "utilisees": [
+      39,
+      40
+    ],
+    "affectation": "39 PLUS ;40 MOINS, orientation verrouilléeSA02A",
+    "39_centre_monde_mm": [
+      -118.25,
+      21.6535,
+      69.745
+    ],
+    "40_centre_monde_mm": [
+      -118.25,
+      21.6535,
+      86.255
+    ],
+    "contacts_signaux_1_38": "Non équipés ; pas de précharge ni interverrouillage inventé par ces cavités"
+  },
+  "terminaisons": {
+    "puissance_TE": "Contacts à filetage intérieurM5 :2bornesfixes versJETI et2bornesmobiles versP42 ;2bornes supplémentaires devantP42 pour2cordonsXT90. Six connexionsM5 pour deux nets.",
+    "couple_max_TE_M5_Nm": 2.9,
+    "source_couple": "TE 114-13206 Rev F, page 6 §3.7",
+    "cosse_AWG8_10mm2_M5": {
+      "fabricant": "Phoenix Contact",
+      "mpn": "3240219",
+      "designation": "C-RCI 10/M5"
+    },
+    "cosse_AWG10_4_6mm2_M5": {
+      "fabricant": "Phoenix Contact",
+      "mpn": "3240028",
+      "designation": "C-RCI 6/M5"
+    },
+    "regle": "Choisir selon section réelle du pigtail, pas selon le nom du pack. Aucun AWG8 forcé dans une soudure Amass prescrite 10AWG. Ni serrage au fond du filetage ni borne métallique nue accessible.",
+    "dimensions_faisceaux": "Longueurs natives et préparations ci-dessous. Les préparations réservent une marge ; dénudages, sertissages et longueur finale sur gabarit à valider avec le lot. Aucun fil scellé du pack raccourci."
+  },
+  "routes_mobiles": [
+    {
+      "net": "BAT_PLUS_BRUT",
+      "reference": "P42_ConducteurCuCassette20Ah",
+      "quantite": 1,
+      "matiere": "CuivreC101 ép1mm section10mm²",
+      "depart_borne_mm": [
+        -118.25,
+        21.6535,
+        69.745
+      ],
+      "arrivee_borne_mm": [
+        135,
+        -45.5,
+        69.745
+      ],
+      "pli": "90° Rint1mm ; développé et procédé à valider",
+      "protection": "P43/P44/P45 ;P46 devant"
+    },
+    {
+      "net": "BAT_MOINS_BRUT",
+      "reference": "P42_ConducteurCuCassette20Ah",
+      "quantite": 1,
+      "matiere": "CuivreC101 ép1mm section10mm²",
+      "depart_borne_mm": [
+        -118.25,
+        21.6535,
+        86.255
+      ],
+      "arrivee_borne_mm": [
+        135,
+        -45.5,
+        86.255
+      ],
+      "pli": "90° Rint1mm ; développé et procédé à valider",
+      "protection": "P43/P44/P45 ;P46 devant"
+    },
+    {
+      "net": "BAT_PLUS_BRUT",
+      "fil_mpn": "55A0111-10-2",
+      "AWG": 10,
+      "section_nominale_mm2": 5.26,
+      "diametre_nominal_mm": 3.25,
+      "enveloppe_CAO_mm": 3.4,
+      "cosse_mpn": "3240028",
+      "connecteur_mpn": "XT90H-M.G.Y",
+      "longueur_chemin_CAO_indicative_mm": 57.317908048875495,
+      "longueur_coupe_mm": null,
+      "modele": "EQ_Cordon10AWG_Plus_Dock20A",
+      "rayon_projection_CAO_mm": 33.1,
+      "source": "https://www.te.com/fr/product-070069-002.html",
+      "reference_native": "EQ_Cordon10AWG_Plus_Dock20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Cordon10AWG_Plus_Dock20A.FCStd",
+      "sha256": "88a4010d4cad621638105185682d466e4c423f36d96e8f071c0b5a43069fabb3",
+      "longueur_chemin_CAO_mm": 57.317908048875495,
+      "forme_valide": true,
+      "solides": 1,
+      "preparation_fil_mm": 90,
+      "validation_coupe": "Préparer cette longueur puis ajuster sur gabarit après contrôle des engagements cosse/soudure Amass ; coupe finale non qualifiée."
+    },
+    {
+      "net": "BAT_MOINS_BRUT",
+      "fil_mpn": "55A0111-10-0",
+      "AWG": 10,
+      "section_nominale_mm2": 5.26,
+      "diametre_nominal_mm": 3.25,
+      "enveloppe_CAO_mm": 3.4,
+      "cosse_mpn": "3240028",
+      "connecteur_mpn": "XT90H-M.G.Y",
+      "longueur_chemin_CAO_indicative_mm": 63.97672263451329,
+      "longueur_coupe_mm": null,
+      "modele": "EQ_Cordon10AWG_Moins_Dock20A",
+      "rayon_projection_CAO_mm": 43.1,
+      "source": "https://www.te.com/en/product-552231-000.html",
+      "reference_native": "EQ_Cordon10AWG_Moins_Dock20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Cordon10AWG_Moins_Dock20A.FCStd",
+      "sha256": "07ecb98ca9012704e8a81a778b8ed4f958440f241d4fa4f144204730bfc6a02c",
+      "longueur_chemin_CAO_mm": 63.97672263451329,
+      "forme_valide": true,
+      "solides": 1,
+      "preparation_fil_mm": 100,
+      "validation_coupe": "Préparer cette longueur puis ajuster sur gabarit après contrôle des engagements cosse/soudure Amass ; coupe finale non qualifiée."
+    }
+  ],
+  "segment_fixe_TE_JETI": {
+    "statut": "Implémenté : CAO et BOM ; fabrication et essais À valider",
+    "depart_bornes_mm": [
+      [
+        -167.353,
+        21.6535,
+        69.745
+      ],
+      [
+        -167.353,
+        21.6535,
+        86.255
+      ]
+    ],
+    "destination": "JETI IN+/IN-",
+    "section_lot_JETI_mm2": null,
+    "notice_sections_mm2": [
+      6,
+      8
+    ],
+    "lot_requis": "8 mm² confirmé pour splice34321 retenu ; si kit6 mm², choisir une épissure différente validée avant assemblage.",
+    "routes": [
+      {
+        "reference_native": "EQ_CordonFixe8AWG_Plus20A",
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd",
+        "sha256": "bfd27c83cb3468086173b666de14984395185be38271ea606b7c7a2776f6c625",
+        "longueur_chemin_CAO_mm": 559.3918094625536,
+        "forme_valide": true,
+        "solides": 1,
+        "net": "BAT_PLUS_BRUT",
+        "fil_mpn": "55A0111-8-2",
+        "AWG": 8,
+        "diametre_nominal_mm": 4.78,
+        "diametre_etude_mm": 5,
+        "rayon_minimum_arcs_CAO_mm": 50,
+        "preparation_fil_mm": 600,
+        "cosse_mpn": "3240219",
+        "epissure_mpn": "34321",
+        "gaine_mpn": "ATUM-12/3-0-50MM",
+        "gaine_ID_TE": "NB08926001",
+        "gaine_preparation_mm": 50,
+        "gaine_pose_etude_mm": 44,
+        "reprise": "P53 et collier T50R après la boucle libre ; tenue et mouvement flottant à valider",
+        "premier_bridage_apres_chemin_libre_CAO_mm": 559.3918094625536,
+        "longueur_coupe_finale_mm": null
+      },
+      {
+        "reference_native": "EQ_CordonFixe8AWG_Moins20A",
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd",
+        "sha256": "07c9873f7794e98320c2bd9900b7854f05a844c0c7d1478f08e463efc5f06587",
+        "longueur_chemin_CAO_mm": 475.78682081456463,
+        "forme_valide": true,
+        "solides": 1,
+        "net": "BAT_MOINS_BRUT",
+        "fil_mpn": "55A0111-8-0",
+        "AWG": 8,
+        "diametre_nominal_mm": 4.78,
+        "diametre_etude_mm": 5,
+        "rayon_minimum_arcs_CAO_mm": 50,
+        "preparation_fil_mm": 520,
+        "cosse_mpn": "3240219",
+        "epissure_mpn": "34321",
+        "gaine_mpn": "ATUM-12/3-0-50MM",
+        "gaine_ID_TE": "NB08926001",
+        "gaine_preparation_mm": 50,
+        "gaine_pose_etude_mm": 44,
+        "reprise": "P53 et collier T50R après la boucle libre ; tenue et mouvement flottant à valider",
+        "premier_bridage_apres_chemin_libre_CAO_mm": 475.78682081456463,
+        "longueur_coupe_finale_mm": null
+      }
+    ],
+    "stock_JETI_routes": [
+      {
+        "reference_native": "EQ_FactoryJETI_IN_Plus20A",
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_FactoryJETI_IN_Plus20A.FCStd",
+        "sha256": "9814eb89e96ce13c72bd5e2909bb8bf996bd02aafa2e6c43c084902b36a941b4",
+        "longueur_chemin_CAO_mm": 39.55415775814134,
+        "forme_valide": true,
+        "solides": 1
+      },
+      {
+        "reference_native": "EQ_FactoryJETI_IN_Moins20A",
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_FactoryJETI_IN_Moins20A.FCStd",
+        "sha256": "ad9bbdad5b6e256cb6c7b62a1e8a6b3dcb139b815994a503ff77df64348cc4a5",
+        "longueur_chemin_CAO_mm": 39.55415775814134,
+        "forme_valide": true,
+        "solides": 1
+      }
+    ],
+    "ports_module": {
+      "centres_etude_mm": [
+        [
+          -130,
+          -8,
+          123.5
+        ],
+        [
+          -130,
+          8,
+          123.5
+        ]
+      ],
+      "mesures_fabricant": false,
+      "limite": "Réservations dans modèle dérivé uniquement ; ne pas usiner le module commercial. Mesurer le kit puis revoir les routes si ses sorties diffèrent."
+    },
+    "protection": "P48 entretoises Cu, P49/P50 capot fixe, ATUM sur les deux épissures ; passages des fils et du collier dans P53/P41.",
+    "rayon_stock_etude_mm": 11.5,
+    "limite": "R50 et >152,4mm libres démontrés géométriquement sur adaptateur. Compatibilité du mouvement flottant TE, rigidité, vibration et courbures réelles du stock JETI restent À valider."
+  },
+  "contraintes_implantation": [
+    "La coque mobile porte la femelle à contacts live protégés ; les guides et détrompeurs doivent permettre l'insertion avant les contacts de puissance.",
+    "Rail et butée mécanique supportent les efforts ; aucun effort de butée transmis au connecteur TE.",
+    "Observer TE114-13206 : faisceau libre près des contacts, premier bridage au moins152,4mm de l'extrémité des fils, rayon de courbure au moins10fois le diamètre du plus gros fil, sauf implantation différente explicitement approuvée par TE.",
+    "Capot isolant sur toutes les terminaisons et retenue du XT90/adaptateur ; les fils et la prise d'équilibrage ne doivent pas traverser la course des rails, du verrou ou des hélices.",
+    "Pas de câble USB, de chargeur ou d'alimentation externe pendant l'échange ; tous retours de puissance en aval de OUT-.",
+    "Télémétrie Ext JETI non raccordée ; ne pas relier son retour à OUT- ou à une masse CA01 sans interface qualifiée."
+  ],
+  "limites_courant": {
+    "TE_contacts_annonce_A": 125,
+    "JETI_annonce_A": 100,
+    "pack_5C_annonce_A": 100,
+    "XT90_catalogue_A": 45,
+    "condition_XT90": "Amass2025,10AWG,élévationde température inférieure à85°C ; ne constitue pas une limite thermique qualifiée du montage",
+    "courant_systeme_qualifie_A": null,
+    "conclusion": "Une chaîne conservant XT90-S ne peut pas être annoncée85/90/100Acontinus à partir des seules autres références. Mesurer profil mission, résistance, transitoires et échauffement complet, avec tension basse du pack et ambiance réelle."
+  },
+  "procedure_echange": [
+    "PX4 désarmé, hélices immobiles et positionnées selon la preuve d'insertion ; aucune liaison externe raccordée.",
+    "Mettre MainSwitchOFF par clé magnétique et vérifier son indication OFF avant de libérer le verrou.",
+    "Extraire puis insérer la cassette préparée jusqu'à butée et verrouillage complet.",
+    "Contrôler verrou et contacts, puis activer le MainSwitch par clé magnétique et effectuer les contrôles PX4 usuels."
+  ],
+  "memoire_ON": {
+    "source": "JETI MagneticSwitch2025/06, page16",
+    "comportement": "Une déconnexion en ON est mémorisée ; reconnexion restaure ON",
+    "interverrouillage_OFF_materiel": false,
+    "consequence": "Le respect de OFF avant retrait reste une action obligatoire ; aucune garantie automatique OFF à chaque insertion n'est déclarée."
+  },
+  "essais_requis_non_executes": [
+    "Polarités et verrouillage de chaque contact TE",
+    "Absence de traction, pli et coincement de fils sur course complète",
+    "Sertissage et traction",
+    "Test isolement/retours de masse",
+    "Précharge avec capacités réelles",
+    "Rappel ON/OFF et interruptions",
+    "Courant mission et thermique",
+    "Vibration, poussière, cycles",
+    "Banc intégré PM08/CA01/ESC",
+    "Qualification vol"
+  ],
+  "fils_pack_conserves": [
+    {
+      "reference_native": "EQ_LeadPack8AWG_Plus20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd",
+      "sha256": "79a62d6c900551a80e97dcff76730dddd3d9ddc16057e7a73a25189c1171eb4a",
+      "longueur_chemin_CAO_mm": 130.45927332790782,
+      "forme_valide": true,
+      "solides": 1,
+      "longueur_fournie_mm": 150,
+      "mou_a_ranger_mm": 19.540726672092177,
+      "diametre_etude_mm": 5,
+      "sortie_pack_mesuree": false,
+      "limite": "Sorties du lot et rayon de courbure réel à contrôler ; géométrie interpolée sans auto-intersection ne qualifie pas le pliage des fils. Ranger le mou hors course sans modifier les fils scellés."
+    },
+    {
+      "reference_native": "EQ_LeadPack8AWG_Moins20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd",
+      "sha256": "c13daa37699300522dc33b0074e072397a6af53818f6b713d0bc58606f7a52bf",
+      "longueur_chemin_CAO_mm": 143.01291625654733,
+      "forme_valide": true,
+      "solides": 1,
+      "longueur_fournie_mm": 150,
+      "mou_a_ranger_mm": 6.987083743452672,
+      "diametre_etude_mm": 5,
+      "sortie_pack_mesuree": false,
+      "limite": "Sorties du lot et rayon de courbure réel à contrôler ; géométrie interpolée sans auto-intersection ne qualifie pas le pliage des fils. Ranger le mou hors course sans modifier les fils scellés."
+    }
+  ],
+  "retenues": {
+    "collier_mpn": "111-05012",
+    "quantite": 7,
+    "repartition": "2 module dont premier partagé avecP53 ;2 commande ;2 XT90 ;1 gaines surP53",
+    "equilibrage": "Prise et faisceau du pack rangés dansP51/P52 ; genre, sortie et mou à contrôler sur le lot.",
+    "limite": "Retenues implémentées dans la CAO ; traction, rigidité et vibration non testées physiquement."
+  },
+  "sources_sha256": {
+    "hardware/mecanique/cartographe/sous_assemblages/SA02A_Dock20Ah.FCStd": "2d56900de86f1e7e39e650c000da0553ee74fb1084597c50e958a0ec4ce7adde",
+    "hardware/mecanique/cartographe/verification/build_dock20Ah_20261003.py": "a682e10fcbad1c7cf1321140719089343973cad192e7d9180561c03957013a3c",
+    "hardware/mecanique/cartographe/verification/sync_faisceau20Ah_20261003.py": "864197ab668acde7ea33958d3c779fb242c71453bebef72b33a6a6715f5b5a45"
+  }
+}

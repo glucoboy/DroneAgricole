@@ -1,0 +1,116 @@
+"""Exports de vues directement par FreeCADGui, sans sauvegarde des natifs."""
+from pathlib import Path
+import hashlib, json, traceback, zipfile, xml.etree.ElementTree as ET
+import FreeCAD as App
+import FreeCADGui as Gui
+from PySide import QtCore, QtWidgets
+
+ROOT=Path('D:/ProjetGuillaume/DroneAgricole')
+MEC=ROOT/'hardware/mecanique/cartographe'
+VER=MEC/'verification'
+OUT=MEC/'exports/rendus_freecad_sous_assemblages_20261003'
+OUT.mkdir(parents=True,exist_ok=True)
+CONFIG=VER/'visuels_sous_assemblages_20261003.json'
+MACRO=VER/'rendus_sous_assemblages_freecad_20261003.FCMacro'
+PROGRESS=VER/'progression_rendus_freecad_20261003.json'
+RESTORED=[]
+ARCHIVE_HASHES={}
+
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def write(path,data):Path(path).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+def restore_link_for_view(obj):
+    # Les anciennes versions peuvent référencer un nom OEM disparu du fichier
+    # courant. Retrouver exclusivement ce nom exact dans une sauvegarde existante.
+    original=Path(obj.Document.FileName)
+    with zipfile.ZipFile(original) as z:xml=ET.fromstring(z.read('Document.xml'))
+    link=xml.find('./ObjectData/Object[@name="'+obj.Name+'"]/'
+                  'Properties/Property[@name="LinkedObject"]/XLink')
+    assert link is not None,obj.Name
+    name=link.get('name');basename=Path(link.get('file')).name
+    candidates=sorted(VER.rglob(basename))
+    for file in candidates:
+        with zipfile.ZipFile(file) as z:source=ET.fromstring(z.read('Document.xml'))
+        if source.find('./Objects/Object[@name="'+name+'"]') is None:continue
+        doc=App.openDocument(str(file));target=doc.getObject(name)
+        if target is None:continue
+        placement=App.Placement(obj.LinkPlacement);transform=obj.LinkTransform
+        obj.LinkedObject=target;obj.LinkPlacement=placement;obj.LinkTransform=transform
+        rel=str(file.relative_to(ROOT)).replace('\\','/')
+        ARCHIVE_HASHES[rel]=sha(file)
+        RESTORED.append({'document':str(original.relative_to(ROOT)).replace('\\','/'),
+                         'lien':obj.Name,'objet_original':name,'source_archive':rel,
+                         'source_sha256':sha(file),'sauvegarde_document':False})
+        return target
+    raise RuntimeError('Source exacte introuvable pour '+obj.Name+' / '+str(name))
+
+def show_tree(obj,seen):
+    key=(obj.Document.Name,obj.Name)
+    if key in seen:return
+    seen.add(key)
+    if obj.TypeId in ['App::Origin','App::Plane','App::Line','App::Point','Spreadsheet::Sheet']:return
+    if obj.ViewObject:
+        obj.ViewObject.Visibility=True
+        if hasattr(obj.ViewObject,'listDisplayModes') and 'Shaded' in obj.ViewObject.listDisplayModes():
+            obj.ViewObject.DisplayMode='Shaded'
+    if obj.TypeId=='App::Link':show_tree(obj.LinkedObject or restore_link_for_view(obj),seen)
+    elif obj.TypeId!='PartDesign::Body':
+        for child in getattr(obj,'Group',[]):show_tree(child,seen)
+
+def export_all():
+    result={'date':'2026-10-03','moteur':'FreeCADGui.activeView().saveImage / Coin3D',
+            'version_FreeCAD':App.Version(),'macro_sha256':sha(MACRO),
+            'configuration_sha256':sha(CONFIG),'finalisation_correcte':False,
+            'sous_assemblages':[], 'natifs_preserves':False,
+            'limites':['Captures natives de la vue 3D ; aucune qualification physique.',
+                       'Aucune géométrie reconstruite ou simplifiée hors FreeCAD.',
+                       'Vues sauvegardées des modèles courants, candidats et historiques.']}
+    before={str(p.relative_to(ROOT)).replace('\\','/'):sha(p)
+            for p in MEC.rglob('*.FCStd') if 'verification' not in p.parts}
+    try:
+        Gui.activateWorkbench('PartWorkbench')
+        config=json.loads(CONFIG.read_text(encoding='utf-8'))
+        for index,item in enumerate(config['sous_assemblages']):
+            ident=item['id'];path=MEC/'sous_assemblages'/(ident+'.FCStd')
+            write(PROGRESS,{'phase':'rendu','index':index+1,'total':len(config['sous_assemblages']),'id':ident})
+            doc=App.openDocument(str(path));App.setActiveDocument(doc.Name)
+            gd=Gui.getDocument(doc.Name)
+            view=gd.activeView() or gd.createView('Gui::View3DInventor')
+            root=doc.getObject('Ensemble') or doc.getObject('Reference') or doc.getObject('StackCandidate')
+            assert root is not None,ident
+            show_tree(root,set())
+            view.setCameraType('Orthographic')
+            Gui.Selection.clearSelection()
+            Gui.updateGui()
+            artefacts=[]
+            for direction in ['isometrique','dessous']:
+                if direction=='isometrique':view.viewAxonometric()
+                else:view.viewBottom()
+                view.fitAll();Gui.updateGui()
+                file=OUT/(ident+'_'+direction+'.png')
+                view.saveImage(str(file),1800,1200,'White')
+                assert file.exists() and file.stat().st_size>1000,ident
+                artefacts.append({'vue':direction,'fichier':str(file.relative_to(ROOT)).replace('\\','/'),
+                                  'sha256':sha(file)})
+            result['sous_assemblages'].append({**item,'source':str(path.relative_to(ROOT)).replace('\\','/'),
+                                            'source_sha256':sha(path),'images':artefacts})
+            write(PROGRESS,{'phase':'exporté','index':index+1,'total':len(config['sous_assemblages']),'id':ident})
+        before.update(ARCHIVE_HASHES)
+        assert all(sha(ROOT/f)==h for f,h in before.items()),'Natif modifié pendant capture'
+        result.update({'finalisation_correcte':True,'natifs_preserves':True,
+                       'nombre_natifs_preserves':len(before),'sources_sha256':before,
+                       'nombre_sous_assemblages':len(result['sous_assemblages']),
+                       'liens_historiques_retablis_pour_affichage':RESTORED})
+        write(VER/'rendus_sous_assemblages_freecad_20261003.json',result)
+        write(PROGRESS,{'phase':'terminé','sous_assemblages':len(result['sous_assemblages']),'images':sum(len(r['images']) for r in result['sous_assemblages'])})
+    except Exception:
+        result['erreur']=traceback.format_exc()
+        write(VER/'rendus_sous_assemblages_freecad_20261003.json',result)
+        write(PROGRESS,{'phase':'erreur','erreur':result['erreur']})
+    finally:
+        # Session isolée réservée à cet export ; aucune sauvegarde de document.
+        if __name__ != 'cad_rpc_export':
+            for name in list(App.listDocuments()):App.closeDocument(name)
+            QtCore.QTimer.singleShot(0,Gui.getMainWindow().close)
+
+if __name__ != 'cad_rpc_export':QtCore.QTimer.singleShot(1000,export_all)

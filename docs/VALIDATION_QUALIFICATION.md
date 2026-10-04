@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 1 octobre 2026 |
+| Dernière mise à jour | 4 octobre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -197,7 +197,7 @@ archives ; FriûlBot est le jeu cartographique temporel actif.
 | Élément | Valeur |
 |---|---|
 | Bag | 6 557 409 210 octets ; MD5 `f79aac2893a0b910863962fbd9a9a2bf` |
-| Images `0029SET.zip` | 5 518 848 615 octets ; MD5 `14ded790d1771006218fc02980ee3eb8` |
+| Images `0029SET.zip` | 5 518 848 615 octets ; MD5 `14ded790d1771006219fc02980ee3eb8` |
 | Durée / messages | 1 283,858 s / 977 318 |
 | Capteurs utiles | 12 728 scans, 256 812 IMU, 638 déclenchements, 638 jeux × 5 TIFF, 3 855 GNSS |
 
@@ -452,6 +452,312 @@ Les 2,8 mm disponibles au-dessus du DC/DC (2,2 mm sangle comprise) imposent une
 revue des connexions avant fabrication. La conclusion est **conforme pour les
 contrôles CAO déclarés**, avec la qualification du matériel **À valider**.
 
+### 12.1.1 Batterie 6S — variante de berceau fixe et capot captif, 2 octobre 2026
+
+Périmètre : nouveaux natifs candidats P23–P26 et sous-assemblages de batterie
+16/20 Ah, séparés du drone actif ; DOC-MEC §4.1.1. La capacité, les matériaux,
+le loquet et les interfaces restent **À valider**. L'enveloppe maximale de
+la 20 Ah comprend des tolérances d'étude qui ne sont pas des données fabricant.
+Environnement de contrôle : Windows `amd64`, Python fourni avec FreeCAD 1.1.3,
+processus séparé ; aucune commande de drone ni simulation de vol.
+
+| Test / exigences | Protocole et critère du contrôle préliminaire |
+|---|---|
+| `T-BAT-CAO-01` / `MEC-ARC-001` | ouvrir et recalculer dans un processus neuf ; arbres CSG/paramètres présents, solides valides, liens résolus, fichiers/objets/matrices conformes au manifeste ; empreintes des fichiers actifs inchangées |
+| `T-BAT-CAO-02` / `HW-BAT-SWAP-04` | comparer les deux enveloppes nominales et maximales aux appuis et au capot fermé ; volume commun nul hors contacts d'appui ; relever les jeux et la cale 20 Ah |
+| `T-BAT-CAO-03` / `HW-BAT-SWAP-01/04` | capot aux positions discrètes entre 0 et 110° puis sortie verticale de chaque pack ; aucune collision volumique sur le périmètre modélisé ; la cinématique réelle du loquet est exclue |
+| `T-BAT-CAO-04` / `MEC-INT-001`, `HW-BAT-SWAP-02` | comparer les nouvelles formes aux feuilles OEM avec leurs placements globaux, à l'avionique et au SBS/P15 courants ; sonder la matière autour des ancrages centrés sur les lumières OEM |
+
+Résultat **préliminaire** : neuf références natives valides, deux
+sous-assemblages et quinze liens contrôlés après réouverture/recalcul dans
+un processus neuf, sans erreur. Les matrices du manifeste correspondent aux
+occurrences fermées ; les fichiers de la configuration active et le contenu
+préexistant du manifeste sont conservés. Les commandes d'angle 0/45/110°
+ont été vérifiées sur les expressions natives.
+
+Pour chaque capacité, aucune collision volumique n'est détectée sur les
+23 positions du capot (0…110°, pas 5°), ni sur les douze positions de sortie
+verticale (packs nominal/maximal, décalages Z0/5/20/50/100/200 mm).
+L'intégration externe contrôle 358 obstacles BRep par variante et relève
+neuf distances ciblées contre trois petites feuilles OEM ; aucun volume
+commun supérieur au seuil numérique n'est détecté. L'intersection initiale
+de 110 mm³ avec P15 est corrigée par une encoche du seul P23 candidat,
+avec jeu géométrique d'étude de 0,5 mm. Les trous candidats ont de la matière
+autour de leur axe au rayon de sondage 2,5 mm, sans démonstration de résistance.
+
+Preuves relatives à `hardware/mecanique/cartographe/` :
+
+- [construction et mouvements internes](../hardware/mecanique/cartographe/verification/construction_berceau_fixe_candidat_20261002.json) ;
+- [intégration externe des deux variantes](../hardware/mecanique/cartographe/verification/integration_berceau_fixe_20261002.json) ;
+- [réouverture, manifeste et empreintes](../hardware/mecanique/cartographe/verification/controle_berceau_fixe_manifest_20261002.json).
+
+Les vues fermé/ouvert 16/20 Ah ont été inspectées à partir des maillages
+des formes natives ; leurs empreintes sont consignées avec les exports.
+L'intégration utilise les 27 exclusions OEM historiques explicites ; le
+plateau `Part__Feature311` reste contrôlé. Le module RTK historique fourni
+en mesh sans BRep est exclu du calcul volumique et signalé dans la preuve,
+tandis que son support et l'antenne restent contrôlés. La nouvelle pile
+CA01/Holybro n'est pas substituée dans ce contrôle.
+
+La revue indépendante est favorable sur ce périmètre : réouverture des
+deux sous-assemblages, quinze liens, paramètres/angles natifs et empreintes
+concordants. Elle souligne que la retenue sous efforts dans toutes les
+directions en position fermée n'est pas vérifiée par les tests d'ouverture
+et d'extraction. Cette limite reste **À valider** ; la revue est consignée dans
+`hardware/mecanique/cartographe/verification/revue_berceau_fixe_20261002.json`.
+
+Le seuil de volume commun 10⁻⁶ mm³ est une tolérance numérique de contrôle,
+pas un jeu fonctionnel approuvé. Un balayage discret ne démontre pas tout
+le mouvement continu. Les formes simplifiées de batterie et de loquet ne
+représentent ni fils, ni connecteurs mobiles, ni déformation du pack.
+
+Les essais physiques sont **Planifiés / À valider** : montage sur le plateau
+réel avec accès aux écrous/rondelles et blocage du glissement ; verrouillage
+complet et incomplet, visibilité de l'état fermé et sécurité d'ouverture ;
+tenue sous efforts établis à partir du profil de vol approuvé ; vibrations,
+chocs et cycles ; échange avec gants et poussière en moins de 30 s ;
+absence de pincement, abrasion, compression excessive et traction sur le SBS.
+Les charges, nombres de cycles, matériaux et critères d'usure doivent être
+fixés avant essai. Aucun essai de banc, fabrication ou vol n'est couvert ici.
+
+### 12.1.2 Batterie interplateaux — préétude dimensionnelle, 2 octobre 2026
+
+Exigences concernées : `MEC-INT-001`, `MEC-BAT-001`, `HW-BAT-SWAP-01/02/04`
+et `MEC-MAS-001`. Environnement : Windows `amd64`, FreeCAD 1.1.3 dans un
+processus séparé sans sauvegarde de CAO. Périmètre : mesure des plateaux et
+colonnes OEM, confrontation aux enveloppes de pack 16/20 Ah et aux occupants
+actuels, scénarios dimensionnels de rehausse en mémoire ; DOC-MEC §4.1.2.
+
+Le logement visé mesure 50 mm entre Z33 et Z83. Les hauteurs nues
+65/58 mm ne rentrent pas. Avec enveloppes maximales 67/60 mm et provision
+de 9 mm pour appuis/protection/jeu, le besoin libre est 76/69 mm, soit
+26/19 mm de rehausse minimale. Les options arrondies +30/+20 mm sont
+**À valider** ; elles ne sont pas une conception de nouvelles entretoises.
+Le Pixhawk, sa platine, son isolant et sa sangle occupent actuellement le volume
+et doivent faire l'objet d'une nouvelle implantation.
+
+Les disques d'hélices ne figurent pas dans le modèle OEM. Le calcul géométrique
+avec diamètre hypothétique 381 mm et axes moteurs issus de la CAO donne
+78,81 mm entre les disques à l'endroit étroit du trajet +X ; il ne reste que
+0,41 mm par côté d'un pack de 78 mm, hors mains/fils/tolérances. Le Z exact
+du plan d'hélice n'est pas connu et toute enveloppe de disque testée est
+une hypothèse. Aucun passage réel ni dégagement de pales n'est qualifié.
+
+Preuve et protocole reproductible :
+`hardware/mecanique/cartographe/verification/logement_interplateaux_20261002.json`
+et `verify_logement_interplateaux_20261002.py`. La coupe de principe associée
+a été inspectée ; elle représente les hauteurs d'étude et non un nouvel
+assemblage fabriquable. Résultat **préliminaire** : douze scénarios en mémoire,
+soixante positions discrètes d'extraction OEM et vingt positions avec disques
+hypothétiques contrôlées, aucune erreur de recalcul et empreintes CAO
+avant/après identiques. Dans les scénarios sans SA03, le pack maximal 20 Ah
+passe avec +20 mm, et le 16 Ah avec +30 mm, aux cinq translations X testées.
+La présence de SA03 conserve les collisions avec le Pixhawk et sa sangle.
+Les extensions de colonnes sont des cylindres illustratifs Ø5, sans visserie,
+filetages ou structure nouvelle conçus.
+
+La revue indépendante confirme les mesures, les calculs de rehausse et la
+cohérence des limites, sans finding bloquant. Elle distingue rangement
+statique, extraction, enveloppes absentes et migration de l'avionique.
+Résultat et empreintes : `verification/revue_logement_interplateaux_20261002.json`
+auprès de la preuve mécanique.
+
+Non exécutés : nouvelle CAO structurelle de rehausse/verrou, placement de
+l'avionique cible, tolérancement de fabrication, rigidité/vibrations,
+mesure des hélices réelles, accès avec gants/câbles, pesée/centrage et vol.
+Ces étapes nécessitent les interfaces et matériels réels ; aucune qualification
+physique ne découle de cette préétude.
+
+### 12.1.3 Cassette 6S 20 Ah et rehausse20mm, 2–3 octobre 2026
+
+**Périmètre : CAO native FreeCAD1.1.3, Windows, variante20Ah.** La capacité
+20 Ah et la rehausse20mm sont choisies pour cette implémentation, sans
+qualification matérielle. Les anciennes preuves de berceau et de faisabilité
+restent historiques. Les scripts de construction conservent les originaux,
+créent des références distinctes et assemblent par liens externes.
+
+| Test / besoin | Protocole et preuve | Interprétation |
+|---|---|---|
+| `T-BAT20-NATIF` / `MEC-ARC-001` | reconstruire les natifs, fermer, rouvrir dans un nouveau processus et recalculer ; comparer sources, liens, formes finales et matrices ; `hierarchie_20Ah_20261002.json`, `reouverture_rehausse20_avionique_20261002.json` | réussite de représentation native, sans qualification des pièces |
+| `T-BAT20-INSERT` / `HW-BAT-SWAP-01/04` | volume commun au verrouillage puis balayage des frontières mobiles sur300mm et poses de0à300mm parpas1mm ; géométries positives conservatrices pour faces nonextrudables ; `integration20Ah_20261002.json` | absence d'interférence limitée aux volumes couverts ; les interfaces fonctionnelles et anomalies STEP restent identifiées séparément |
+| `T-BAT20-FIX` / `MEC-INT-001` | placer vis, rondelles, écrous et poches dans les solides finaux ; vérifier rails/P38, fonds/captures, loquet, contacts et capots | une vis nominalement bien placée ne démontre ni résistance ni serrage |
+| `T-BAT20-CONTACT` / `HW-BAT-SWAP-02` | comparer plans et STEP officiels, coteA12,7mm et positions de puissance ; `construction_contacts20Ah_20261002.json` | compatibilité de catalogue ; anomalies de cavités STEP et engagement réel à confirmer |
+| `T-BAT20-PROP` / `MEC-INT-001` | enveloppes de quatre rotors15pouces ; comparaison àposition verrouillée et durantcourse avec pales parallèlesX381×40×4mm | hypothèse de pale stationnaire à mesurer ; orientation libre pendant échange produit des collisions |
+| `T-BAT20-BOM` / `MEC-BAT-001` | comparer quantités effectives CAO, standards, MPN, source fabricant et pièces de coupe ; `bom_dock20Ah_20261002.json`, `sources_bom_dock20Ah_20261002.json` | nomenclature de prototype, pas preuve de courant admissible, approvisionnement ni conformité de masse |
+
+**Résultat final du3octobre2026, après correction des appuis des écrous M4
+de butée :** dock181occurrences, hiérarchie575liens. Les99éléments mobiles
+et445fixes du drone représentés passent la course continue300mm ainsi que
+les301poses espacées de1mm : **zéro obstacle hors interfaces fonctionnelles
+TE déclarées**. Toutes les paires de course sont couvertes ; aucune vis ni
+aucun support n'est exclu. Les volumes internes des logements/contacts TE
+et les représentations de filets/cavités des quatre bornesM5 restent bruts
+et séparés du bilan. Position verrouillée, fixes dock/drone et interfaces
+internes hors ces représentations sont libres. Les empreintes restent
+inchangées durant l'exécution ; `finalisation_correcte=true` et certificat
+continu complet dans `integration20Ah_20261002.json`. L'état sauvegardé
+ExtractionX=0 et le SHA du dock sont consignés dans cette preuve.
+
+Les enveloppes de pales parquées parallèlesX donnent zéro intersection ;
+les rotors en position verrouillée aussi. En orientation libre durant
+l'échange,50cas d'interférence sont détectés : le résultat d'insertion est
+donc **conditionnel au stationnement des pales**, et leur largeur40mm est
+une hypothèse à contrôler. Le modèle RTK maillé reste hors contrôle BRep.
+
+La relecture native de la rehausse donne334liens, zéro erreur et zéro
+collision sur son périmètre. `controle_manifest_dock20Ah_20261003.json`
+confirme575liens et matrices, sans erreur ;
+`review_bom_dock20Ah_20261003.json` confirme quantités et empreintes.
+La BOM comprend27références fabriquées,34devisserie et25lignes commerciales.
+Le classeur est contrôlé contre ces valeurs par
+`controle_classeur_bom20Ah_20261003.json`, avec inspection visuelle des trois
+feuilles ; aucune qualification dans MicrosoftExcel n'est revendiquée.
+`preservation_dock20Ah_20261002.json` confirme131fichiers antérieurs inchangés.
+La revue indépendante a vérifié les portéesP53, le serrage transmis au
+module, les retenues et les quatre écrous désormais en appui surP35.
+
+Les modèles de logement TE sont conservés **inchangés**. Leurs cavités
+internes simplifiées produisent un recouvrement des guides àla cote de
+montage du plan et des recouvrements avec les contacts insérés. Une dérivée
+d'analyse prolonge les profils de guide sous forme de coupes natives ;
+cette dérivée n'est ni une modification d'achat, ni une correction approuvée
+par TE. La preuve conserve les volumes bruts et dérivés et ne transforme
+pas les recouvrements restants en résultat«zéro». Une course de cassette
+libre par rapport au châssis **ne clôt donc pas** l'engagement physique de
+la paire de connecteurs. Il faut confronter les deux pièces ou obtenir les
+cotes fonctionnelles fabricant avant de déclarer l'absence de blocage complète.
+
+Les défauts mécaniques détectés sont corrigés dans la conception : portée
+de butée qui accrochait le loquet, vis de rails dans le passage des flanges,
+têtes de fixation arrière au-dessus de Z103 pendant la course et poches
+d'écrous trop proches du bord. Le test final doit être relancé après toute
+modification d'un conducteur, capot, câble ou élément de visserie. Le
+maximum de pack198×78×60mm reste un maximum d'étude sans tolérance publiée.
+
+La liberté de la fixation flottante TE sur toute sa plage, les coudes des
+fils fournis avec le pack et les sorties non cotées du kitJETI doivent être
+mesurés. Les lumières deP53/P41 sont implémentées, mais la rigidité,
+vibration, dissipation des deux portées et retenue des longues boucles
+restent **À valider**. Le splice34321 suppose le lotJETI8mm² confirmé ;
+aucun kit6mm² n'est accepté par simple extrapolation. Les longueurs de
+préparation et réservations de ports ne sont pas une instruction pour
+usiner le module ni pour couper définitivement ses câbles.
+
+**Essais physiques non exécutés**, pièces et drone montés indisponibles :
+réception dimensionnelle du pack et connecteurs ; réglage de la butée au
+stageprimaire avec engagement des contacts ; insertion lente sur toutecourse
+sans pincement ni effort sur le softpack ; contrôle des deux stages, traction
+et retenue dans toutesorientations ; essais gants/poussière/cycles ; inspection
+du verrou contre ouverture accidentelle ; vibration et tenue des supports ;
+pesée, centrage et vol progressif. Aucun statut **Qualifié** n'est attribué.
+
+Le protocole électrique de banc doit commencer hors hélices : continuité,
+polarité39/40 et isolationavant alimentation ; vérification que tous les
+retours sont en aval du négatifJETI ; commandeOFF avant ouverture du loquet
+et essai explicite de la mémoireON ; mesure du courant d'appel avec la
+capacité réelle de distribution ; courant gradué, chutes de tension,
+températures XT90/JETI/TE/barres/cosses et stabilité. Les valeurs100/125A
+annoncées pour deux composants ne qualifient pas la chaîne complète.
+Les charges mécaniques, durée/courant et critères thermiques d'acceptation
+restent à établir selon le profil réel ; aucun seuil de réussite physique
+n'est inventé à partir de cette vérification géométrique.
+
+### 12.1.4 Configuration et faisceau système candidats, 3 octobre 2026
+
+Périmètre : cartographe X650 6S 20 Ah, variante de revue inactive
+`Drone_Cartographe_Systeme_Candidat.FCStd`, sous Windows amd64 avec le
+Python de FreeCAD 1.1.3. Le matériel n'est pas assemblé par cette campagne.
+L'[inventaire initial](../hardware/mecanique/cartographe/verification/inventaire_systeme_20261003.json)
+compte 566 occurrences feuilles sur 151 fichiers CAO et aucun objet `Invalid`.
+La [BOM cible](../hardware/mecanique/cartographe/configuration_cible_20261003.json)
+recense 60 postes ; une masse ou quantité inconnue reste `null`.
+
+| Besoin | Composant / contrôle | Résultat et preuve | Conclusion |
+|---|---|---|---|
+| `MEC-ARC-001`, `MEC-AVI-001` | `T-CARTO-SYS-NATIF` : construction puis réouverture/recalcul indépendant, empreintes des sources et des natifs | 42 nouveaux fichiers, 45 liens externes décrits par leurs matrices ; 35 balayages valides ; 154 sources CAO existantes préservées ; [construction](../hardware/mecanique/cartographe/verification/construction_systeme_faisceau_20261003.json) et [contrôle](../hardware/mecanique/cartographe/verification/controle_systeme_faisceau_20261003.json) | cohérence numérique **Implémenté** ; montage **À valider** |
+| `CAB-CARTO-001`, `ELEC-PWR-002` | `T-CARTO-SYS-CAB` : chaque Wxx active appartient exactement à un groupe physique, interne, réservé ou sans fil | 33 liaisons, 28 groupes ; aucune liaison omise ou comptée deux fois ; [registre physique](../hardware/electronique/cartographe/faisceau_systeme_cible_20261003.json) | registre **Implémenté** ; fabrication **À valider** |
+| `MEC-ARC-001`, `CAB-CARTO-001` | `T-CARTO-SYS-GEOM` : intersections BRep statiques des nouveaux équipements et des cordons avec les équipements représentés ; rayon obtenu comparé à la réservation | nouvelles poses PM08/PDB après collision dans l'itération initiale ; zéro intersection des nouveaux équipements ; 23 chemins sous le rayon réservé ; 32 cordons avec intersections brutes, sans exclusion automatique des interfaces | passages **À valider** ; conception ouverte |
+| `MEC-MAS-001` | `T-CARTO-SYS-MAS` : complément cuivre des quatre conducteurs ajoutés au dock, sans addition des cordons OEM déjà inclus | 83,35 g de cuivre nominal ; budget historique partiel augmenté à 6,195–6,809 kg ; [bilan](../hardware/mecanique/cartographe/verification/bilan_masse_systeme_candidat_20261003.json) | **préliminaire** ; masse totale cible inconnue |
+
+Les critères de cohérence sont : sources inchangées, liens résolus,
+recalcul sans objet `Invalid`, chaque nouveau balayage valide à un solide,
+couverture Wxx exacte. Une exécution sans erreur finalise sa preuve ; elle
+ne démontre pas le respect des passages. Les rayons réservés sont des
+hypothèses de routage, pas des minima fabricant qualifiés. Les intersections
+de fin de cordon et les collisions véritables doivent encore être distinguées
+sur des connecteurs accouplés et des sorties OEM cotés.
+
+La revue indépendante, le manifeste et l'aperçu sont conservés dans
+[la revue](../hardware/mecanique/cartographe/verification/revue_systeme_faisceau_20261003.json),
+[le contrôle du manifeste](../hardware/mecanique/cartographe/verification/controle_manifest_systeme_candidat_20261003.json)
+et [le rendu](../hardware/mecanique/cartographe/verification/rendu_systeme_faisceau_20261003.json).
+L'itération initiale est conservée sous
+`hardware/mecanique/cartographe/verification/archive_systeme_initial_20261003/`.
+Les preuves actuelles portent les empreintes de la recette et des natifs.
+
+Non exécutés : fabrication et montage des nouveaux supports/isolants,
+accouplement/traction, mesures de rayons sur matériel, contrôle inter-cordons
+et accès outils, débattement continu cassette avec le faisceau cible, repli
+des bras, enveloppes hélices et mouvement réel du bloc capteurs,
+continuité/isolement/précharge/thermique/CEM, pesée/centrage et vol.
+Les interfaces du lot, les fournitures et les masses manquantes empêchent
+de fermer ces validations. Refroidissement, accessoires de vol et LED OEM
+n'ont pas de route native. Aucun montage fixé, faisceau complet ou marge
+de masse démontrée n'est déclaré **Qualifié**.
+
+### 12.1.5 Calcul conditionnel GNSS/radio sur plateaux, 4 octobre 2026
+
+Chaîne `MEC-MAS-001` → bras OEM +Y et supports historiques P07–P09 →
+`T-CARTO-GNSS-MAS-01` → [preuve de calcul](../hardware/mecanique/cartographe/verification/scenario_gnss_plateaux_20261004.json).
+Sous Windows amd64, la [recette](../hardware/mecanique/cartographe/verification/calcul_scenario_gnss_plateaux_20261004.py)
+réutilise les volumes de l'inventaire et du bilan mécanique, vérifie les
+empreintes OEM/P07/P08/P09 et relit le JSON finalisé. Les matériaux restent
+hypothétiques : bras 41,1 g avec ferrures aluminium ou 28,8 g avec ferrures
+polymères ; anciens supports 39,7 g. Retrait historique maximal considéré
+80,8 g sous la première hypothèse, avant additions. Les deux scénarios
+de matériaux ne constituent pas des bornes physiques garanties.
+
+Résultat arithmétique **Implémenté**, implantation **Planifié / À valider**.
+Aucun fichier CAO, occurrence du manifeste, BOM active ou route de faisceau
+n'est modifié. P07–P09 étant déjà absents de la maquette Helical candidate,
+leur retrait ne lui apporte aucun second crédit. Le gain net et la masse
+totale cible restent inconnus. Non exécutés : nouveaux placements BRep,
+conception/pesée des supports et coaxiaux, contrôle d'accès/passages,
+masques et essais RF, perturbations du compas sous charge, centrage et vol.
+Ces validations demandent des fournitures et une implantation définies.
+
+### 12.1.6 Tri des sous-assemblages FreeCAD, 4 octobre 2026
+
+Chaîne `MEC-ARC-001` → catalogue courant/archives autonomes →
+`T-CARTO-TRI-NATIF-01` → [plan et empreintes](../hardware/mecanique/cartographe/verification/plan_tri_sous_assemblages_20261004.json),
+[courant](../hardware/mecanique/cartographe/verification/controle_tri_courant_20261004.json),
+[archive](../hardware/mecanique/cartographe/verification/controle_tri_archive_20261004.json),
+[reprise de source](../hardware/mecanique/cartographe/verification/controle_tri_source_stack_20261004.json)
+et [catalogue](../hardware/mecanique/cartographe/verification/controle_catalogue_tri_20261004.json).
+La [revue indépendante](../hardware/mecanique/cartographe/verification/revue_independante_tri_20261004.json)
+confirme la cohérence du catalogue, les empreintes et l'idempotence de sa mise à jour.
+
+Sous Windows amd64, FreeCAD1.1.3 réouvre les 12 sous-assemblages conservés
+et l'intégration locale dans un processus neuf : 178 documents chargés,
+aucun objet `Invalid`, aucun lien non résolu, aucune dépendance du courant
+vers l'archive. Un autre processus réouvre le candidat complet archivé :
+155 documents, aucun objet `Invalid` ni lien non résolu, toutes ses
+dépendances natives dans l'archive. Les 290 natifs de l'instantané et
+31 sauvegardes gardent leurs empreintes ; 18 natifs dépassés sont déplacés.
+
+La reprise du châssis de base archivé, utilisée par la recette de stack,
+est testée séparément : sept documents ouverts, liens du châssis rétablis
+vers les pièces courantes, aucune sauvegarde de source. L'adaptation du
+builder est tracée par son empreinte dans le contrôle du catalogue ; les
+preuves de génération du 3 octobre ne sont pas réécrites ni interprétées
+comme une régénération exécutée après le tri.
+
+Le rangement et ses contrôles sont **Implémenté** ; les limites physiques
+restent **À valider**. Non exécutés : régénération de la stack, nouvelle
+campagne d'interférences et essais mécaniques/électriques/RF/vol, car aucun
+placement, solide ou interface matérielle n'est modifié. Les preuves
+antérieures et leurs réserves continuent de s'appliquer.
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -506,25 +812,25 @@ de répétitions ; aucun seuil ne sera choisi après observation du résultat.
 Utiliser une alimentation limitée, sans hélices, avec arrêt sur surtension,
 surcourant, échauffement hors limites ou reset du domaine vol.
 
-| Test / exigence | Protocole et critère | État au 20 septembre |
+| Test / exigence | Protocole et critère | État au 2 octobre 2026 |
 |---|---|---|
 | `T-CA01-01 / CARTE-001` | revue schéma/netlist puis inspection du faisceau : aucun chemin propulsion ; mesure globale identifiée | netlist partielle vérifiée ; faisceau et mesure globale **À valider** |
 | `T-CA01-02 / CARTE-002` | défauts limités sur chaque départ charge utile : aucun reset Pixhawk ; si le 5 V radio CA01 est perdu, perte RC détectée et repli PX4 sûr | non exécuté ; critère cible V0.5 |
-| `T-CA01-03 / CARTE-003` | rampes 6S, inversion contrôlée, appel et transitoires selon enveloppe approuvée : protections et seuils respectés | protections et protocole détaillé **À valider** |
-| `T-CA01-04 / CARTE-004` | charges statiques/dynamiques 12 V calcul vers XT30 Holybro, puis Orin NX/USB/SSD : stabilité, polarité, limite porteuse et thermique respectées | non exécuté ; LM5146 réel candidat depuis30/09, boucle/Ceff/charges à valider |
-| `T-CA01-05 / CARTE-005` | source 12 V capable d'au moins 2 A, démarrages et acquisition Airy à chaud : aucun reset | non exécuté |
-| `T-CA01-06 / CARTE-006` | 5 V local CA01, charges radio/auxiliaires, défauts et séquences : budgets fermés, plages respectées, aucun retour vers POWER1/2 | V0.5-pre : F102 entre 5V_AUX et 5V_RADIO vérifié en netlist ; budgets et banc **À valider** |
+| `T-CA01-03 / CARTE-003` | rampes 6S, inversion contrôlée, appel et transitoires selon enveloppe approuvée : protections et seuils respectés | protections **À valider** ; protocole T-CA01-E02/E04 et TH03 défini §12.7.11, critères non approuvés, banc non exécuté |
+| `T-CA01-04 / CARTE-004` | charges statiques/dynamiques 12 V calcul vers XT30 Holybro, puis Orin NX/USB/SSD : stabilité, polarité, limite porteuse et thermique respectées | buck/routage candidat **Implémenté** §12.7.13 ; T-CA01-E03/E06 et TH01/02 planifiés, boucle/Ceff/charges/banc **À valider** |
+| `T-CA01-05 / CARTE-005` | source 12 V capable d'au moins 2 A, démarrages et acquisition Airy à chaud : aucun reset | routage candidat **Implémenté** ; T-CA01-E03/E06 et TH01/02 planifiés ; démarrage Airy réel non exécuté |
+| `T-CA01-06 / CARTE-006` | 5 V local CA01, charges radio/auxiliaires, défauts et séquences : budgets fermés, plages respectées, aucun retour vers POWER1/2 | 5 V/routage candidat **Implémenté** ; T-CA01-E03/E04/E05/E06 planifiés ; budgets/séquences/protections/banc **À valider** |
 | `T-CA01-07 / CARTE-007` | révisions PM/porteuse et faisceau identifiés ; BEC1→POWER1, BEC2→POWER2, CAN1 distinct ; budgets ≤3 A chacun, bascule et calibration PX4 conformes | schéma V0.3 historique ; matériel V0.5 non exécuté |
 | `T-CA01-08 / CARTE-008` | mesurer UART et état hors tension avant de monter R401/R402 ; essais RC/QGC avec Jetson arrêté, puis `T-RF-01..06` | DNP vérifié ; banc et RF non exécutés |
 | `T-CA01-09 / CARTE-009`, `ELEC-TIM-001` | qualifier CA01 : W36 GNSS→CA01 sans retour +5 V, W23/W24 PPS/GPRMC tamponnés vers Airy/Orin, référenceIO J509, adaptation AUX Pixhawk vers opto Basler Line1, retour réel ExposureActive Line2 vers FMU_CAP1, niveaux et isolement ; suivre `T-AIRY-SYNC-01` (§12.8) | schéma physique temps/trigger/capture candidat Implémenté ; sortiesR530–R533DNP, niveauxOEM/référenceIO et banc À valider ; recette§12.7.2 |
-| `T-CA01-10 / CARTE-010` | CAO avec porteuse Holybro/Orin NX/PM08/CA01 et vrais connecteurs puis montage SA03/SA04 : accès, fixations, isolation et thermique conformes | non exécuté ; ancienne CAO conservée |
-| `T-CA01-11 / CARTE-011` | charges simultanées, thermique, bruit et CEM puis progression moteurs autorisée : marges et capteurs conformes | non exécuté |
-| `T-CA01-12 / CARTE-012` | sources, BOM, empreintes, netlist, ERC puis DRC : aucune valeur ouverte et revue complète avant fabrication | V0.5-pre depuis30/09 : 221 invariants selon preuve régénérée ; GNSS en composants physiques candidats, interfacesOEM/empreintes/BOM/PCB incomplets ; **non conforme pour fabrication** |
+| `T-CA01-10 / CARTE-010` | CAO avec porteuse Holybro/Orin NX/PM08/CA01 et vrais connecteurs puis montage SA03/SA04 : accès, fixations, isolation et thermique conformes | contrôles CAO candidats §12.7.5/9, placement électrique repris §12.7.13 ; montage SA03/thermique TH02 non exécutés |
+| `T-CA01-11 / CARTE-011` | charges simultanées, thermique, bruit et CEM puis progression moteurs autorisée : marges et capteurs conformes | T-CA01-TH01..03 et CEM01..04 définis §12.7.11 ; critères/marges/référentiel **À valider**, aucun essai matériel |
+| `T-CA01-12 / CARTE-012` | sources, BOM, empreintes, netlist, ERC puis DRC : aucune valeur ouverte et revue complète avant fabrication | V0.5-pre : 230 invariants/ERC0 ; routage complet §12.7.13, DRC0/parité0/connexion0 selon configuration ;44 MPN/protections/DFM/process ouverts, **non conforme pour fabrication** |
 
-Aucun essai de charge, thermique, RF, synchronisation sur capteurs, simulation
-électrique, DRC de carte routée ou vol réalisé : composants et protections
-incomplets, PCB non conçu et matériel non assemblé. Ces absences ne sont pas
-compensées par les contrôles statiques.
+Aucun essai de charge, thermique, RF, synchronisation sur capteurs,
+simulation électrique ou vol réalisé ; matériel non assemblé, protections
+et qualification ouvertes. Le DRC du PCB intégralement routé est désormais
+exécuté (§12.7.13) ; il ne compense pas l'absence de ces essais matériels.
 
 
 ### 12.3 CA01 V0.2 et câblage global, 21 septembre 2026
@@ -850,9 +1156,11 @@ graphique ; la qualification électrique reste **À valider**.
 ### 12.7.4 Lisibilité énergie et symboles d'alimentation, 1 octobre 2026
 
 L'[export PDF complet](../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.pdf)
-du 1 octobre est aussi disponible à côté du projet KiCad. La
+est disponible à côté du projet KiCad. Il est régénéré après attribution
+des empreintes au §12.7.5 ; la
 [preuve d'export](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_20261001.json)
-consigne les empreintes des sources et du PDF, l'ordre des six feuilles et
+consigne les empreintes historiques des sources et du PDF de la retouche,
+l'ordre des six feuilles et
 l'identité de la copie `verification/CA01_schema_preliminaire.pdf`.
 Les pages 2 et 3 réexportées ont été inspectées ; aucun circuit n'est modifié.
 La reprise complémentaire de U101 (LM74800) en page 2 agrandit son symbole
@@ -884,6 +1192,596 @@ consigne le contrôle de topologie et de rendu.
 
 Aucun essai matériel ou nouvelle simulation électrique : changement de
 présentation uniquement. La qualification matérielle reste **À valider**.
+
+### 12.7.5 Empreintes et préplacement mécanique CA01, 1 octobre 2026
+
+Chaîne : `CARTE-010 / CARTE-012` → schéma, BOM, empreintes locales,
+PCB et stack FreeCAD candidate → `T-CA01-10 / T-CA01-12` →
+[preuve de placement](../hardware/electronique/cartographe/carte_avionique/verification/placement_mecanique_20261001.json)
+et trois revues indépendantes composants, connecteurs et mécanique.
+État **Implémenté**, qualification **À valider**, `manufacturing_ready=false`.
+
+Les 23 empreintes manquantes sont attribuées ; les quatre MOSFET Q5A et
+le shunt R116 reçoivent des cuivres spécifiques aux références TI/Vishay.
+Les connecteurs sont confrontés aux destinations et aux broches CA01,
+sans recopier implicitement un connecteur OEM ayant davantage de contacts.
+Le brochage XT30 local conserve 1 = positif et 2 = GND du schéma.
+Les fichiers `empreintes_composants.json` et `empreintes_connecteurs.json`
+portent candidats, sources, pinmaps et limites de qualification.
+
+Recette dans le README CA01 : exporter netlist/ERC avec `verify_ca01.ps1`,
+exécuter `verify_dimensionnement.py`, reconstruire avec `build_placement.py`
+sans `--initialise`, lancer le DRC KiCad avec parité schématique, puis
+`verify_placement.py`. Résultats : 151 composants et valeurs conservés,
+111 groupes de broches inchangés, huit DNP conservés, 221 invariants,
+ERC 0 erreur / 0 avertissement avec la configuration existante,
+44 contrôles arithmétiques conformes. Les 155 empreintes PCB comprennent
+quatre fixations ; zéro problème de parité, modèle de corps manquant,
+chevauchement de courtyards ou intrusion dans les réserves RP4TD/TVS.
+Zéro piste et zéro zone ; 348 connexions non routées sont attendues.
+
+Le DRC conserve **30 perçages thermiques de 0,2 mm** sur U201/U301 face
+au minimum projet de 0,3 mm. Aucune règle n'est abaissée pour les masquer ;
+empreinte thermique et procédé fabricant restent ouverts avant fabrication.
+Le placement mécanique ne démontre pas les boucles de commutation, Kelvin,
+retours de courant, distances électriques et dissipation du PCB routé.
+
+Les [revues composants](../hardware/electronique/cartographe/carte_avionique/verification/revue_composants_placement_20261001.json)
+et [connecteurs](../hardware/electronique/cartographe/carte_avionique/verification/revue_connecteurs_placement_20261001.json)
+confirment pads, réseaux, DNP, BOM et orientation. L'export graphique
+SVG et les six pages du PDF ont été inspectés ; la
+[preuve d'export de cette étape](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_empreintes_20261001.json)
+consigne leurs sources et l'identité des deux PDF.
+
+La [revue mécanique](../hardware/mecanique/cartographe/verification/revue_stack_ca01_20261001.json)
+relit indépendamment les 155 placements, réouvre les trois documents
+FreeCAD et résout les deux liens externes. Le PCB natif et ses quatre
+perçages sont valides ; les 163 solides composants correspondent au STEP
+final. À l'écart candidat de 10 mm, les intervalles Z sont disjoints,
+séparation conservative ≥1,9446 mm pour les géométries représentées.
+Source Holybro, repères, hypothèses et limites : DOC-MEC §4.4.1.
+
+**Non exécutés :** routage, qualification fabricant, montage réel,
+accouplement des faisceaux/queues THT, thermique, CEM, vibrations,
+mesures de rails et de synchronisation. Carte non fabriquée ni assemblée ;
+les boîtes composants servent au contrôle d'encombrement candidat.
+La sélection TVS, F101/Icc, Ceff, détrompage 12 V/5 V et variantes
+matérielles restent ouverts. Aucune qualification matérielle déduite.
+
+### 12.7.6 Enveloppe analytique du shunt et dissipation PCB, 1 octobre 2026
+
+Chaîne : `CARTE-004 / CARTE-011 / CARTE-012` → R116, DAP/EP et plans/vias
+planifiés → `T-CA01-04 / T-CA01-11 / T-CA01-12` →
+[recette reproductible](../hardware/electronique/cartographe/carte_avionique/verification/verify_shunt_thermique.py)
+et [preuve analytique](../hardware/electronique/cartographe/carte_avionique/verification/shunt_thermique_20261001.json).
+Les hypothèses et la cible utilisateur sont dans `dimensionnement.json` ;
+DOC-ELEC §4.2.9 distingue composant actuellement représenté et remplacement.
+
+Le calcul intègre la conduction pendant l'état bas du buck, l'ondulation,
+les coins VIN/VOUT/L/fréquence et la variation de résistance. Enveloppes
+arrondies : 0,20 W à 6 A et 0,62 W en limitation soutenue. La comparaison
+au derating fabricant favorise CSM3637 3 W, encore 1,35 W à 125 °C
+d'ambiance locale candidate ; le domaine TCR vise la température résistive
+jusqu'à 125 °C, autoéchauffement compris.
+Dix contrôles arithmétiques passent ; les 44 contrôles de dimensionnement
+existants restent conformes. La
+[revue indépendante](../hardware/electronique/cartographe/carte_avionique/verification/revue_shunt_standard_20261001.json)
+reproduit les chiffres en mémoire, vérifie les empreintes SHA256 et les
+affectations drain/GND sur le PCB ; aucune erreur factuelle relevée.
+Le résultat est **À valider**, aucune qualification matérielle déduite.
+L'utilisateur accepte ±0,1 %. R116 est remplacé par CSM3637
+Y14880R01000B9R 10 mΩ /15 ppm/K /3 W, avec empreinte quatre bornes,
+préplacement et modèle de stack synchronisés. La topologie et la valeur
+10 mΩ restent inchangées ; tolérance, puissance et boîtier sont déclarés
+comme modification autorisée dans la configuration de placement.
+ERC : zéro erreur/avertissement, 221 invariants conformes ; placement :
+155 empreintes, zéro chevauchement, zéro problème de parité, aucune piste
+ni zone. Les 30 perçages thermiques de 0,2 mm sous la règle de 0,3 mm restent
+ouverts. Le PDF final comporte six pages : page 2 rendue et inspectée,
+texte des cinq autres pages identique à l'export précédent ;
+[provenance](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_shunt_standard_20261001.json).
+
+Critères de fermeture : pièces reçues conformes à 10 mΩ ±0,1 % / ≤25 ppm/K,
+connexion Kelvin conforme, puissance et énergie de défaut admissibles,
+température mesurée sous le derating avec marge déclarée, répétition de
+défauts sans dommage ni dérive hors spécification, températures DAP/EP
+compatibles avec les limites de chaque composant. Le banc utilisera les
+charges simultanées, l'ambiance maximale et le débit minimal mesuré dans
+la stack finale, après fermeture du routage et des protections.
+
+**Non exécutés :** essais thermiques et défauts sur carte, validation des
+impulsions par le fabricant, mesures LFM et routage. Carte non assemblée,
+stackup ouvert ; plans/vias **Planifiés**, `manufacturing_ready=false`.
+
+### 12.7.7 Étape mécanique RP4TD antérieure, 1 octobre 2026
+
+L’étape filaire précédente ajoutait MOD401 propre au PCB, sans pads,
+en conservant J401/W11 : 156 empreintes, zéro chevauchement et parité.
+Sa [revue](../hardware/electronique/cartographe/carte_avionique/verification/revue_rp4td_20261001.json)
+reste une preuve historique. Cette variante est remplacée par la cible
+directe du §12.7.8 ; les fichiers de placement et de stack courants ne
+constituent plus les entrées de cette revue ancienne.
+
+### 12.7.8 Symbole et empreinte RP4TD sur broches, 1 octobre 2026
+
+Chaîne : `CARTE-008 / CARTE-010 / CARTE-012` → MOD401 →
+`T-CA01-08 / T-CA01-10 / T-CA01-12` →
+[inventaire](../hardware/electronique/cartographe/carte_avionique/empreinte_rp4td.json),
+[placement](../hardware/electronique/cartographe/carte_avionique/verification/placement_mecanique_20261001.json),
+[revue THT](../hardware/electronique/cartographe/carte_avionique/verification/revue_rp4td_tht_20261001.json)
+et [export PDF](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_rp4td_tht_20261001.json).
+Symbole, empreinte et préplacement **Implémentés**, géométrie et montage
+**À valider**, `manufacturing_ready=false`. L’étape directe sans pads est
+historique dans `revue_rp4td_direct_20261001.json` et la preuve de stack.
+
+La demande de création est traitée par une empreinte **candidate** à
+quatre pads THT à partir de la photo TOP constructeur, à défaut de plan coté.
+Ce choix remplace l’absence de géométrie ; il ne transforme pas la photo
+en métrologie. Protocole KiCad10.0.6 Windowsamd64 : netlist/ERC, contrôle
+de la seule bijection J401/n→MOD401/n et des autres réseaux/DNP, construction
+normale du PCB, DRC avec parité, `verify_placement.py`, revue indépendante
+du signe des axes/ordre RX/TX/5V/G, des quatre pads et de leurs dégagements.
+Exporter PDF/SVG/STEP, inspecter page3 et placement ; réouvrir FreeCAD
+dans un processus neuf avec quatre trous MOD401 paramétriques.
+
+Résultats : **230 contrôles de connectivité réussis**, ERC **0 erreur / 0
+avertissement**, 151composants/111réseaux. MOD401 est compté une fois,
+J401/W11 sont retirés, les huit DNP sont conservés. PCB **155 empreintes**,
+**0 erreur de parité**, **0 chevauchement**, quatre pads correctement
+raccordés, aucun modèle absent, **0 piste / 0 zone**. Les 30 perçages
+thermiques0,2mm préexistants restent ouverts ; 350 connexions non routées
+sont attendues. Le contrôle de placement passe pour son périmètre,
+sans qualifier les cotes des contacts ni la fabricabilité.
+
+Candidate : X11,85mm,Y±3,9/±1,3mm (pas2,6mm), trou fini0,8mm/pad1,6mm
+pour broche ronde0,5mm générique. Pixels et transformation sont consignés
+dans l’inventaire, image originale archivée et hashée. Les rapports image
+et corps nominal diffèrent d’environ2,5% ; aucune tolérance n’est garantie.
+Les nouveaux trous sont présents dans STEP et natif ; 163solides composants,
+un corps radio et liens externes valides. Huit features de perçage natives :
+quatre M3 et quatre MOD401. La poseZ du corps reste illustrative, broches3D
+et hauteur libre non définies. Assemblage SA03 actif historique inchangé.
+
+PDF six pages : page3 rendue/inspectée, texte des cinq autres pages
+identique à l’export précédent. Le symbole dédié est rechargeable dans
+`CA01_Radio.kicad_sym`, avec affectation par `sym-lib-table`.
+
+**Non exécutés :** mesure des centres/diamètres réels, contrôle broches
+reçues, détermination de la hauteur et de l’appui isolant, brasage/montage
+réel, continuité sur pièce, vibration, isolation, accès BIND/U.FL/antennes,
+thermique et RF. Pas de plan coté et carte non assemblée ; l’empreinte
+candidate doit être corrigée/confirmée avant fabrication.
+
+### 12.7.9 Substitution des modèles3D CA01, 1 octobre 2026
+
+Chaîne `CARTE-010 / CARTE-012` → modèles, PCB et variante native CA01/Holybro
+→ `T-CA01-10 / T-CA01-12` →
+[inventaire3D](../hardware/electronique/cartographe/carte_avionique/modeles_3d.json),
+[preuve3D](../hardware/mecanique/cartographe/verification/modeles_3d_ca01_20261001.json)
+et [preuve de placement](../hardware/electronique/cartographe/carte_avionique/verification/placement_mecanique_20261001.json).
+**Implémenté**, qualification **À valider**, `manufacturing_ready=false`.
+
+L'audit initial identifie onze familles de boîtes et aucun fichier manquant
+inattendu : trous, points de test et cavalier ouvert ne sont pas des composants.
+Dix familles /16occurrences sont remplacées par des modèles détaillés
+issus de bibliothèques, auteurs ou plans fabricants, sans modification de
+pad, réseau, UUID, valeur, DNP, pose ou règle électrique. Les sources originales
+sont archivées, les21STEP de bibliothèque utilisés ont une copie locale,
+et les dix références de pièces nouvelles possèdent un document natif distinct.
+RP4TD standard reste une enveloppe : modèle détaillé fiable introuvable,
+résultat RP4TD-M rejeté. Les MPN non sélectionnés restent génériques.
+
+Recette Windows amd64 : `build_ca01_ti_models.py`,
+`build_ca01_component_models.py` et `build_ca01_connector_models.py`
+reproduisent les modèles nominaux. Le mapping `modeles_3d.json` est repris
+par `build_placement.py`. Exporter avec KiCad10.0.6
+`pcb export step --user-origin 50x50mm --no-dnp --subst-models`, puis
+exécuter `update_ca01_models_native.py` et, dans un processus FreeCAD1.1.3
+neuf, `verify_ca01_models_native.py`. Le rendu KiCad courant est inspecté.
+Une [reconstruction isolée](../hardware/mecanique/cartographe/verification/reconstruction_modeles_ca01_20261001.json)
+confirme que la recette reprend les 155 empreintes, leurs modèles, poses,
+valeurs, pads et réseaux ; PCB et réglages du projet source restent inchangés.
+Les positions de référence sont dans `positions_modeles_ca01_20261001.json`.
+
+La revue indépendante révèle puis fait corriger quatre écarts de modèle :
+axes DPY perpendiculaires aux pads, contacts force/sense CSM inversés enY,
+translation PH absente du STEP et décalage de plaque Q5A rectifié àX+.65.
+Le contact Kelvin sense recouvre91.93% de sa plage nominale, avec0.125mm
+de dépassement intérieur ; ses tolérances et le brasage restent à valider.
+La validation porte sur les STEP relus,
+pas seulement la vue ou la matrice du document natif. Les centres des queues
+XT30/VH sont alignés aux trous ; contacts DPY/CSM et PH concordants après
+correction. Les tolérances d'assemblage restent ouvertes.
+
+Résultats : **155 empreintes conservées**, zéro piste/zone, parité zéro,
+zéro modèle attendu absent, zéro chevauchement de courtyards. Les30perçages
+thermiques0,2mm sous la règle0,3mm et350connexions non routées restent
+ouverts. Le STEP comporte308solides composants /141composants représentés ;
+réouverture et recalcul des dix nouveaux natifs et de la stack sans erreur,
+liens résolus, PCB paramétrique préservé, concordance STEP/natif et assemblage
+actif conservés. Aucune interférence entre composants distincts ni volume
+commun CA01/Holybro dans les shapes nominales. Distance minimale des formes
+1,9446mm ; intervalles Z englobants recouvrants de0,0604mm, donc aucune
+conclusion par disjonction des seules boîtes Z.
+
+**Non exécutés :** métrologie des composants reçus, montage réel et tolérances,
+faisceaux accouplés, broches/sous-face RP4TD, thermique, CEM, vibrations,
+routage et fabrication. Les modèles détaillés ne sont pas des STEP OEM
+garantis. Ces contrôles ne qualifient ni montage ni vol.
+
+### 12.7.10 Démarrage du routage et vias thermiques CA01, 1 octobre 2026
+
+Les §12.7.5–12.7.9 conservent les résultats datés des étapes précédentes
+(PCB sans cuivre et trous thermiques Ø0,2 mm). Le présent paragraphe décrit
+l’étape initiale des 1–2 octobre ; le routage final est décrit au §12.7.13.
+
+Chaîne `CARTE-003/004/005/006/011/012` → stackup, plans, DC/DC et MOSFET →
+`T-CA01-03/04/05/06/11/12` → [configuration](../hardware/electronique/cartographe/carte_avionique/routage.json),
+[preuve de routage initial](../hardware/electronique/cartographe/carte_avionique/verification/routage_initial_20261001.json)
+et [revue indépendante](../hardware/electronique/cartographe/carte_avionique/verification/revue_routage_20261001.json).
+Réalisation **Implémentée**, résultat **préliminaire**, qualification **À valider**,
+`manufacturing_ready=false`. Cible de contrôle : KiCad 10.0.6, Windows amd64 ;
+les empreintes des fichiers/configurations sont consignées dans les preuves.
+
+Protocole : exporter netlist/ERC avec `verify_ca01.ps1`, contrôler la
+variante thermique par `verify_lm76003_thermal_variant.py`, construire
+l’étape sur un PCB sans cuivre par `start_routing.py`, remplir les zones
+et lancer le DRC avec parité, puis `verify_routing.py` et revue indépendante.
+Après cette initialisation, `start_routing.py` et `build_placement.py`
+refusent le PCB contenant des pistes/vias/zones ; poursuivre l’édition
+dans le fichier courant. Aucun historique de routage n’est effacé.
+
+Critères du lot : quatre couches et épaisseur 1,6 mm conformes à la
+configuration ; GND et batterie protégée distincts ; vias thermiques sur
+le potentiel réel des pads ; RTN13 flottant ; exclusion GND F.Cu des prises
+Kelvin R116 ; contours, poses, modèles, valeurs/DNP et topologie conservés ;
+zéro violation DRC de géométrie/parité. Les connexions restantes doivent
+être comptées explicitement, sans être qualifiées comme un routage complet.
+
+| Contrôle | Résultat courant / preuve |
+|---|---|
+| Empilage et cuivre | 4 couches ; 70/35/35/70 µm, diélectriques0,15/1,09/0,15 mm et FR4 candidats fabricant ; DOC-ELEC §4.2.9 |
+| Cuivre créé | 10 zones, 111 vias Ø0,6/0,3 mm et quatre segments ; J103→F101 et Q101→Q102 seulement |
+| Potentiels thermiques | U102/U201/U301→GND, Q101/Q102→drain commun, Q103→VIN_PAYLOAD_PROT, Q104→SW compact ; U101/13 sans via |
+| DAP LM76003 | 30 trous Ø0,3/padsØ0,5 ; neuf contrôles de variante réussis, cuivre/XY conservés, anneau nominal0,1 mm et entre-trous minimal0,35 mm |
+| Schéma | 151 composants/111 réseaux, 230 invariants réussis ; ERC0 erreur/0 avertissement selon configuration ; valeurs/DNP et groupes de broches conservés |
+| DRC initial | 0 violation de géométrie, 0 problème de parité, **218 connexions non routées** ; [rapport](../hardware/electronique/cartographe/carte_avionique/verification/drc_routage_20261001.json) |
+| Mécanique | 155 empreintes, poses/contour/fixations et mapping3D conservés ; aucune qualification physique supplémentaire |
+
+La [preuve de variante](../hardware/electronique/cartographe/carte_avionique/verification/variante_lm76003_percages_20261001.json)
+compare l’empreinte bibliothèque et la variante locale ainsi que les netlists
+avant/après. Les seuls champs électriques modifiés sont les associations
+U201/U301 ; le symbole bibliothèque standard est conservé. Les deux PDF
+schématiques sont réexportés et identiques ; feuilles convertisseurs4/6
+rendues et inspectées, avec [provenance dédiée](../hardware/electronique/cartographe/carte_avionique/verification/export_pdf_variante_lm76003_20261001.json).
+La skill HW Design schématique est appliquée à ces associations sans modifier
+la mise en page ni les circuits. Les couches PCB sont inspectées dans la revue.
+
+Les vias utilisent des connexions directes au cuivre pour diffuser la chaleur ;
+les reliefs thermiques destinés au brasage ne prouvent pas cette diffusion.
+Les grilles, bootstrap, boucle SW/self, sorties, Kelvin et FB/COMP/ILIM
+restent à placer/router ; l’exclusion Kelvin ne termine pas la mesure.
+Des surfaces et sections de cuivre candidates n’établissent ni pertes,
+chute de tension, température, stabilité ou CEM sur la carte réelle.
+
+**Non exécutés :** simulation thermique/boucle, charges permanentes/appels,
+mesures de chutes/températures, CEM, validation fabricant de l’empilage et
+des tolérances, procédé via-in-pad/remplissage/stencil, métrologie RP4TD,
+fabrication, brasage et montage réel. La carte reste non assemblée,
+routage/protections/interfaces incomplets ; ces essais attendent la clôture
+du design et des protocoles de banc. Aucun essai de vol ou pulvérisation.
+
+La finalisation du **2 octobre 2026** confirme les 14 contrôles de la
+revue indépendante. Une [reconstruction isolée](../hardware/electronique/cartographe/carte_avionique/verification/reproduction_routage_20261002.json)
+à partir des empreintes et positions déclarées retrouve les mêmes composants,
+modèles, pads/réseaux, pistes, vias et contours de zones, hors UUID.
+Les [gardes de préservation](../hardware/electronique/cartographe/carte_avionique/verification/protection_routage_20261002.json)
+refusent les deux reconstructions sur une copie déjà routée ; source, projet
+et copie restent inchangés. La recette reproductible est
+`verification/verify_routing_reproduction.py` ; les commandes sont dans le
+README CA01. ERC, neuf contrôles de variante, 44 calculs et contrôle du
+shunt ont été rejoués avec succès. DRC et parité restent à zéro, avec
+218 connexions restantes. Ces résultats couvrent le démarrage du routage.
+
+
+### 12.7.11 Plan de validation électrique, thermique et CEM CA01
+
+Le [plan structuré](../hardware/electronique/cartographe/carte_avionique/validation_electrique_thermique_cem.json)
+est **Planifié**, critères candidats et qualification **À valider**. Il
+décline les essais existants sans les remplacer : CARTE-002..009/011/012
+→ protection, convertisseurs, interfaces et montage CA01/SA03
+→ T-CA01-E01..E06, T-CA01-TH01..TH03, T-CA01-CEM01..CEM04
+→ résultats et mesures à produire. Aucun essai physique n'est exécuté
+par la préparation de ce protocole.
+
+**Prérequis et ordre.** Fermer les revues schéma/PCB/empreintes/BOM et
+DFM, puis vérifier la carte assemblée hors tension. Justifier TVS,
+fusibles et pouvoir de coupure DC, protection W08 proche PDB, SOA,
+appel capacitif, charges et limites OEM. Les réactions aux défauts du
+domaine vol suivent d'abord la simulation/PX4 SITL pertinente du §2.
+Alimenter ensuite avec une source limitée et des charges fictives ;
+les charges réelles se raccordent seulement après validation de leurs
+rails et interfaces. Le banc intégré reste sans hélices, avec coupure
+matérielle accessible ; aucun vol ni essai de traitement n'est prévu.
+
+La matrice de caractérisation candidate couvre VIN **18 / 21,6 / 25,2 V**
+et charges **0 / 25 / 50 / 100 %** des capacités de dimensionnement :
+12 V calcul **6 A**, 12 V LiDAR **3 A**, 5 V auxiliaire **3 A total**
+(radio, synchronisation et J301), budget 3,3 V **50 mA**. Ces valeurs
+ne sont ni des consommations de mission ni des exigences figées.
+Le courant réel Airy au démarrage est mesuré ; la source doit soutenir
+le besoin d'au moins 2 A déjà identifié. Balayer aussi les faibles
+charges en PFM et les transitions de régime. Fixer avant exécution
+nombre de cycles/répétitions, températures, durées, fronts de charge,
+rampes et conditions de séquencement.
+
+Les critères numériques de tolérance des rails, ondulation, dépassements,
+établissement, marge de boucle, température, stabilisation et CEM restent
+**À valider**. Le plan expose les champs ouverts et un enregistrement
+d'approbation : l'absence d'un critère ou d'une incertitude interdit
+un verdict qualifiant. L'inversion, la surtension et les défauts limités
+attendent amplitude/durée/énergie approuvées et compatibilité SOA/protection.
+**Aucun court-circuit direct sur batterie.** Arrêter sur dépassement d'un
+seuil sûr, limitation source inattendue, surchauffe, reset du domaine vol,
+retour d'alimentation, odeur/arc ou perte des mesures. Décharger et contrôler
+les tensions avant intervention.
+
+| Sous-test / renvoi | Protocole et preuve attendue |
+|---|---|
+| T-CA01-E01 → T-CA01-01/10/12 | Inspection montage/MPN/DNP/polarités/EP, continuité et isolement hors tension, géométrie RP4TD reçue ; contrôle shunt quatre fils et prises Kelvin ; photos/inspection joints |
+| T-CA01-E02 → T-CA01-03 | Rampes et démarrages avec limitation, appel et UVLO/OV/hystérésis ; VDS/VGS et profil SOA de Q101/Q102 ; inversion/transitoires seulement selon énergie approuvée |
+| T-CA01-E03 → T-CA01-04/05/06 | Rails séparés puis simultanés, charge statique/dynamique et PFM ; tension/ondulation au COUT et à la charge, chutes, rendement, gates/bootstrap/SW et stabilité compute |
+| T-CA01-E04 → T-CA01-02/03/06, T-PM-V05-03 | Défauts de branche limités, sélectivité/limitation/hiccup et reprise ; aucune réalimentation ni reset Pixhawk ; perte radio détectée et repli PX4 attendu |
+| T-CA01-E05 → T-CA01-06/08/09, T-AIRY-SYNC-01 | Niveaux/fronts/courants hors tension et séquences OEM suivant §12.7.2/12.8 ; référence J509, PPS/GPRMC, trigger/ExposureActive/Frame ID ; DNP fermés uniquement après leurs conditions |
+| T-CA01-E06 → T-CA01-04/05/06, T-PM-V05-04/06 | Orin/SSD/USB, Airy et RP4TD réels identifiés, démarrages séparés/simultanés et profil acquisition/calcul ; appels, charge continue, resets et budget J301 |
+| T-CA01-TH01 → T-CA01-04/05/06/11 | Carte seule, pertes et carte de température, thermocouples/IR/ambiante/débit ; coins chauffants sélectionnés par mesure et stabilité thermique selon critère approuvé |
+| T-CA01-TH02 → T-CA01-10/11, T-PM-V05-06 | Répéter à charges simultanées dans SA03 final, orientation/espacement/capots/câbles réels, chaleur Jetson, ambiance maximale et débit local minimal mesuré |
+| T-CA01-TH03 → T-CA01-03/11 | Appels répétitifs et défauts limités approuvés, SOA/derating et protection ; contrôler dommages et régulation avant/après refroidissement |
+| T-CA01-CEM01 → T-CA01-11 | Préconformité conduite entrée/sorties et cartographie E/H ; référence convertisseurs arrêtés, chacun actif puis simultanés, VIN/charges/PFM ; spectres et montage reproductibles |
+| T-CA01-CEM02 → T-CA01-08/09/11, T-RF-01..06 | Comparer GNSS/radio/temps/acquisition à référence électrique équivalente avec géométrie identique ; qualité/pertes/corruption/reset/gigue et corrélation DC/DC |
+| T-CA01-CEM03 → T-CA01-02/03/11 | Immunité pertinente par ports en laboratoire, après sélection du référentiel, niveaux/énergie/critères de performance ; fonctionnement avant/pendant/après et récupération |
+| T-CA01-CEM04 → T-CA01-11 | Intégration ESC/moteurs suivant portes DOC-VAL au banc sécurisé sans hélices ; site/laboratoire rayonné final avec montage/faisceaux/antennes gelés ; aucun résultat de vol déduit |
+
+**Mesures thermiques.** Instrumenter U101/U102/U201/U301/U503, Q101–Q104,
+R116, selfs, fusibles, pistes/vias et connecteurs, avec sondes isolées sur
+les drains. Consigner température boîtier, PCB, air local et débit, puis
+estimer la jonction avec méthode adaptée, pertes et incertitudes. Pour
+U201/U301, TI demande une jonction sous **125 °C** en exploitation ;
+la marge de design et le seuil d'arrêt restent à approuver avant banc.
+Les limites des autres MPN réellement montés sont relevées séparément.
+L'arrêt thermique et les maximums absolus ne sont pas des critères nominaux.
+Le plan n'utilise pas une résistance θJA de coupon fabricant comme preuve
+de température sur CA01 ; la température IR du boîtier ne mesure pas
+directement la jonction. La qualification carte seule ne s'étend pas à
+SA03 ni au débit d'air supposé en vol.
+Sources primaires : [LM76003, layout/thermique](https://www.ti.com/lit/ds/symlink/lm76003.pdf),
+[LM5146-Q1](https://www.ti.com/lit/ds/symlink/lm5146-q1.pdf) et
+[TI SPRA953D, interprétation des métriques thermiques](https://www.ti.com/lit/an/spra953d/spra953d.pdf),
+consultées le 2 octobre 2026.
+
+**Préconformité CEM.** Définir avant mesure le réseau de stabilisation
+adapté au DC, protections analyseur, configuration câble/masse et
+paramètres spectre (bande, RBW/VBW, détecteur et plancher de bruit).
+Inclure faible charge/PFM et convertisseurs simultanés. Une sonde de
+champ proche sert au diagnostic ; elle ne remplace ni un site rayonné
+ni le référentiel/limites/critères de performance à sélectionner et
+vérifier avec le laboratoire avant qualification. Aucun niveau arbitraire
+d'ESD, RF ou impulsion n'est prescrit par ce plan.
+
+Chaque exécution conserve révision/numéro de série, BOM montée/DNP, SHA256
+des entrées, montage, firmwares/paramètres, instruments et étalonnages,
+calibrations/émissivité/débit, profils des charges, unités/incertitudes,
+captures brutes, critères approuvés, événements, anomalies et conclusion.
+Les contrats T0 du §3 s'appliquent aux exécutions logicielles liées ;
+le registre physique ajoute l'identité métrologique. Les données brutes
+volumineuses restent hors Git, avec manifestes et synthèses légers liés.
+
+**Résultats :** plan et traçabilité **Implémentés** dans les artefacts,
+campagne **Planifiée**, qualification **À valider**. Simulation de boucle,
+essais électriques, thermiques, CEM, laboratoire, montage et mesures
+physiques **non exécutés**, car la carte n'est pas fabriquée/assemblée et
+les gates de design, procédé et critères de banc restent ouverts.
+La réussite d'un contrôle de fichiers du plan n'est pas un résultat matériel.
+
+### 12.7.12 Dossier de fabrication candidat CA01
+
+Le [dossier de contraintes](../hardware/electronique/cartographe/carte_avionique/fabrication/contraintes_fabrication.json)
+est **Implémenté** comme dossier provisoire, manufacturing_ready=false : aucun fabricant sélectionné,
+commande ou fabrication lancée. Il relie CARTE-012 → fichiers CAO/BOM et
+procédés → T-CA01-12 / gates FAB-G01..06 → DFM et libération à finaliser.
+Le contour nominal reste 126 × 80 mm ; le placement électrique courant
+et les exports provisoires vérifiés sont décrits au §12.7.13. La fabrication
+physique reste **Planifiée**. Aucun ancien résultat de préplacement ou
+routage initial ne qualifie les données finales du fabricant.
+
+| Élément candidat | À confirmer avant release |
+|---|---|
+| 4 couches, 1,6 mm ; cuivre 70/35/35/70 µm | Cuivre fini garanti et tolérances, matériau FR4/Tg/CTE/Td, résines/épaisseurs pressées ; plans GND et VIN_PAYLOAD_PROT distincts, SW compact |
+| Diélectriques 0,15/1,09/0,15 mm | Somme diélectrique 1,39 mm + cuivre 0,21 mm = 1,60 mm nominal ; finition/vernis et tolérance d'épaisseur à intégrer avec le fabricant |
+| Vias traversants Ø0,6 / trou0,3 mm | Anneau CAO nominal0,15 mm ; cuivre de barillet, diamètre fini/outil réel, décentrage et anneaux internes/externes à confirmer |
+| EP U201/U301 : 30 trous Ø0,3 / padsØ0,5 mm | Anneau CAO nominal0,1 mm critique ; vérifier le diamètre outil et la métallisation, sans réduction automatique silencieuse des trous |
+| H1..H4 : quatre NPTH Ø3,2 mm | Positions, tolérances et enveloppe vis/entretoises SA03 ; isolation et jeux cuivre/carbone |
+| MOD401 : quatre PTH Ø0,8 / padsØ1,6 mm | Géométrie RP4TD/broches reçues mesurée, hauteur/appui isolant, brochage et séquence de soudure |
+| Pistes/espaces signaux0,2 mm, zones0,25 mm, cuivre/bord0,5 mm | DFM au cuivre extérieur70 µm, vernis QFN et tolérances, inventaire de tous trous/slots depuis le PCB final |
+| Via-in-pad, finition/stencil | Remplissage/cap cuivre plan candidats ou autre procédé démontré ; fuite de pâte, coplanarité, vides/joint EP et profil refusion approuvés assembleur |
+
+Les anneaux CAO ne sont pas des anneaux de fabrication garantis : la taille
+de l'outil et la métallisation changent le calcul. Le remplissage/cap est
+un candidat à approuver ; le tenting global seul ne démontre pas l'absence
+de pompage de soudure sous un pad EP ouvert.
+Ces points sont étayés par les guides primaires fabricant
+[Eurocircuits, perçages](https://www.eurocircuits.com/technical-guidelines/pcb-design-guidelines/drilled-holes/),
+[anneaux et classes](https://www.eurocircuits.com/pcb-classification-drill-class/) et
+[via-in-pad](https://www.eurocircuits.com/technical-guidelines/pcb-assembly-guidelines/via-in-pad/),
+consultés le 2 octobre 2026 ; ils ne constituent pas une sélection du fabricant
+ni l'acceptation du stack CA01.
+
+
+La [BOM d'assemblage candidate CSV](../hardware/electronique/cartographe/carte_avionique/fabrication/bom_assemblage_candidate.csv)
+et son [registre d'assemblage](../hardware/electronique/cartographe/carte_avionique/fabrication/assemblage_candidate.json)
+consignent **151 références**, **141 pièces candidates à monter** (136 SMD,
+5 THT), **8 DNP**, deux pastilles test sans composant et quatre fixations
+NPTH présentes uniquement sur PCB. La quantité de montage est zéro pour
+les DNP/objets sans pièce ; aucun montage physique n'est exécuté.
+**44 références à monter ont encore leur MPN vide dans la BOM** ; les
+champs sont conservés sans substitution. Les colonnes MPN BOM/netlist et
+valeur BOM/PCB sont distinctes : 38 MPN BOM non renseignés en netlist
+(dont quatre DNP) et quatre labels R201/R202/R301/R302 omettant le suffixe
+25 ppm restent à réconcilier avant release. Empreintes et DNP concordent
+entre les trois sources ; ces contrôles n'établissent pas la conformité
+des pièces ni du brasage. Le CSV se vérifie par réimport intégral et
+ses empreintes sont liées à l'instantané des sources ; il ne remplace
+pas le fichier de placement CPL final.
+
+Le dossier prévoit Gerber X2/job des quatre cuivres, vernis/serigraphie/contour
+et pâte approuvée, Excellon **PTH/NPTH séparés** avec slots et tableau
+d'outils/convention de taille, netlist IPC-D-356, BOM finale/CPL/pin1/DNP,
+plan de montage/inspection EP et manifeste SHA256 des exports à révision
+gelée. Les fichiers CAM doivent être inspectés et comparés aux sources ;
+aucune correction fabricant silencieuse n'est acceptée. Le tableau outils,
+la revue DFM, les tolérances et la preuve du procédé restent à approuver ; les exports provisoires sont décrits au §12.7.13.
+
+**Portes de sortie :** fermeture MPN/protections/Ceff/interfaces/RP4TD ;
+routage intégral sans connexion restante et ERC/DRC/parité/revue sans
+anomalie ouverte ; stack/vias/perçages/stencil/finition approuvés ; exports
+et empreintes cohérents ; prototype destiné à des essais et critères
+approuvés. Fabrication d'un prototype et qualification pour usage sont
+deux états distincts : aucun prototype ne devient **Qualifié** par sa
+seule fabrication. Les preuves électriques/thermiques/CEM du §12.7.11
+restent nécessaires dans leur périmètre.
+
+
+
+### 12.7.13 Routage complet CA01 et dossier fabricant provisoire, 2 octobre 2026
+
+La [carte native routée](../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_pcb)
+a désormais **zéro connexion non routée**. Chaîne CARTE-003/004/005/006/011/012
+→ protections/DC/DC, retours, Kelvin, interfaces et couches PCB
+→ T-CA01-03/04/05/06/11/12
+→ [preuve de routage complet](../hardware/electronique/cartographe/carte_avionique/verification/routage_complet_20261002.json)
+et [DRC final](../hardware/electronique/cartographe/carte_avionique/verification/drc_routage_complet_20261002.json).
+Le routage est **Implémenté**, résultat **préliminaire**, qualification
+électrique/thermique/CEM **À valider**, manufacturing_ready=false.
+Les preuves initiales et leurs 218 connexions du §12.7.10 restent
+historiques ; elles ne sont pas les comptages du PCB final.
+
+Cible du contrôle : **Windows amd64, KiCad 10.0.6**, PCB dans son projet
+et bibliothèques déclarées. Protocole : remplir les zones, exécuter DRC
+avec parité, contrôler nets/pads/empreintes/DNP, plans/vias et règle Kelvin,
+puis consigner sources/commandes/empreintes dans la preuve finale.
+La revue indépendante passe28/28 ; les459 associations pad/net sont conservées.
+Le contrôle principal passe15/15 et la comparaison des exports10/10.
+Les perçages sont297PTH (251vias+30EP+16contacts) et4NPTH ;
+les136positionsSMD et141positions totales concordent avec le PCB et la BOM.
+Les coordonnées Excellon sont arrondies à0,001mm (écart maximal0,0005mm
+attendu par encodage), sans garantir la tolérance du procédé physique.
+ERC0/0 et230invariants schématiques ont été rejoués sur les sources courantes.
+Une exécution sur une copie isolée sans contexte projet peut signaler des
+bibliothèques manquantes ; le rapport final ci-dessus porte sur le projet
+natif. La configuration de DRC et ses exclusions font partie de la preuve.
+
+| Contrôle du routage final | Résultat / limite |
+|---|---|
+| Structure | 155 empreintes (151 références électriques et quatre fixations), contour nominal 126 × 80 mm ; placement électrique repris pour boucles/routage, montage SA03 réel **À valider** |
+| Pistes et vias | **1 255 segments**, **251 vias traversants**, **10 zones de cuivre** et **sept zones de règles Kelvin** ; paramètres et surfaces réellement remplies dans la preuve |
+| Continuité des bus de charge | Contrôle CAO indépendant candidat : chemin large de **1,8 mm** sur 12V_COMPUTE, 12V_LIDAR et 5V_AUX vers leurs charges, et **0,6 mm** pour l'alimentation radio via F102 ; branches fines de feedback conservées, sans leur attribuer le courant de charge ; capacité de courant/chute/échauffement **À valider** |
+| Empilage | Quatre couches, GND et VIN_PAYLOAD_PROT distincts ; cuivre 70/35/35/70 µm et épaisseur 1,6 mm candidats ; validation fabricant et thermique **À valider** |
+| Potentiels thermiques | EP U102/U201/U301→GND, Q101/Q102→drain commun, Q103→VIN_PAYLOAD_PROT, Q104→SW compact ; U101/13 flottant |
+| DAP LM76003 | **30 trous Ø0,3 mm**, 15 pour U201 et 15 pour U301 ; procédé via-in-pad/anneau réel/stencil encore **À valider** |
+| DRC natif final | **0 violation**, **0 connexion non routée**, **0 différence de parité** dans le rapport ; résultat selon configuration, aucun verdict fabricant |
+| Audit des catégories ignorées | Cinq catégories ignorées dans le rapport natif : courtyard manquant, extrémité piste non centrée sur via, tuning géométrique, filtres empreinte/symbole et type de composant/pads ; ces cinq catégories ont ensuite été réactivées dans une copie isolée, sans changement du projet courant : [audit complet](../hardware/electronique/cartographe/carte_avionique/verification/drc_controles_reactives_20261002.json), zéro violation/connexion et aucun contrôle ignoré |
+| Assemblage candidat | CSV 151 références / 141 pièces candidates : 136 SMD + 5 THT, huit DNP, deux pastilles test sans pièce ; aucune différence empreinte/DNP/face/exclusions relevée par comparaison avec le PCB routé |
+| Qualification | **0 essai matériel** ; les 13 protocoles du §12.7.11 ont critères proposés et mesures attendues, **0 critère approuvé** à ce stade |
+
+
+La [revue indépendante du routage final](../hardware/electronique/cartographe/carte_avionique/verification/revue_routage_complet_20261002.json)
+contrôle la continuité géométrique des bus de charge après reprise des
+étranglements 12V_COMPUTE et 5V_AUX vers F102. Des chemins de puissance
+dédiés sont présents ; les branches fines vers le feedback restent des
+prises de mesure. Ce contrôle CAO candidat utilise 1,8 mm pour les chemins
+calcul/LiDAR/auxiliaires vers les charges et 0,6 mm pour la radio.
+Il ne qualifie pas le courant disponible : cuivre fini garanti, chutes,
+pertes, densité de courant locale et températures attendent DFM et banc.
+
+
+La fin de connectivité et le DRC ne démontrent ni courant admissible,
+chute de tension, stabilité, SOA, température de jonction ni CEM.
+Le plan §12.7.11 s'applique à la révision réellement fabriquée/assemblée :
+alimentation limitée et charges fictives d'abord, puis charges réelles,
+thermique SA03 et préconformité CEM selon les portes du §2.
+
+Le [manifeste des exports provisoires](../hardware/electronique/cartographe/carte_avionique/fabrication/export_manifest.json)
+relie les fichiers de
+[fabrication provisoire](../hardware/electronique/cartographe/carte_avionique/fabrication/exports_provisoires_20261002/)
+au PCB final contrôlé. Ces exports sont un brouillon à vérifier par
+le fabricant/assembleur, avec inventaire perçages, stack, contraintes et
+BOM candidate du §12.7.12. Ils n'autorisent aucune commande.
+Les empreintes du manifeste et du registre de BOM assemblage désignent
+l'instantané **final candidat** du PCB et des sources exportées ; les champs
+BOM/empreinte/DNP utilisés par ce CSV sont rapprochés du PCB routé.
+Cet instantané reste distinct d'une release fabricant approuvée.
+
+**Fabrication toujours non conforme / incomplète :** TVS, fusibles et Icc
+batterie/protection W08, SOA/appel, Ceff et fermeture de boucle, interfaces
+OEM et absence de réalimentation, métrologie RP4TD, **44 MPN à monter
+encore absents**, cohérence MPN/labels, cuivre fini/stack et tolérances,
+anneaux outil/métallisation, remplissage/cap des vias sous pads, stencil,
+inspection des joints et revue DFM finale restent ouverts.
+Les sorties provisoires ne ferment aucune de ces gates par leur seule
+existence. Aucun essai électrique/thermique/CEM, fabrication, assemblage,
+montage réel, vol ou pulvérisation n'a été réalisé par ce lot.
+
+
+### 12.7.14 Revue native de montage de la stack, 3 octobre 2026
+
+Périmètre : `MEC-AVI-001 / MEC-INT-001 / CARTE-010`, CAO nominale
+Windowsamd64, KiCad10.0.6 et FreeCAD1.1.3. Le dessinHolybro transmis
+par l'utilisateur définit126×80, quatreM3, entraxes120×74 et pieds8mm.
+Les images sources et le STEPOEM inchangé sont associés à leurs empreintes.
+Le générateur crée9natifs distincts, conserve283entrées sources et reprend
+CA01courante :308solides composants,50perçages de pads paramétriques,
+conversion explicite du substratSTEP1,46 vers enveloppePCB1,6mm.
+
+| Exigence | Test / critère numérique | Preuve |
+|---|---|---|
+| MEC-ARC-001 / CARTE-010 | T-STACK-REVUE-NATIF : sources inchangées, liens résolus, recalcul sansInvalid, poseZnative−54,3746, arbrePCBconservé | [construction](../hardware/mecanique/cartographe/verification/construction_stack_revue_20261003.json) et [contrôle](../hardware/mecanique/cartographe/verification/controle_stack_revue_20261003.json) |
+| MEC-AVI-001 / MEC-INT-001 | T-STACK-REVUE-GEOM : volumes communs des éléments ajoutés et obstacles représentés ; contact filetéOEM déclaré distinctement, coaxialité et chaîne d'appui | [audit](../hardware/mecanique/cartographe/verification/audit_mecanique_stack_20261003.json), contrôle et [revue indépendante](../hardware/mecanique/cartographe/verification/revue_independante_stack_20261003.json) |
+| MEC-AVI-001 | Accès : outil axial sous les quatre vis ; ne doit pas être présenté accessible avec bloccapteurs monté | audit : obstacleP16 ; déposeSA05A requise pour montage/maintenance |
+
+La propositionCHC sous la plaque est rejetée pour intersectionP17.
+La variante montée utilise4colonnesG1024mm,4appuisG102mm et4visM3×65
+sousP17 avec rondelles ; elle partage la fixationP17/plaque/stack.
+P56 remplace la plaque basse par une dérivée avec quatre trousØ3,2,
+sans fraiser le carbone. Engagement nominal5,726mm, marge géométrique
+au fond1,274mm ; cela ne garantit pas la profondeur filetée utile.
+Le recalcul teste aussi la pose enregistrée, pour détecter une coordonnée
+négative ramenée àzéro par un type de propriété inadapté.
+
+Résultat final du contrôle en processus neuf : réouverture/recalcul sans
+objetInvalid, pose native correcte, volume communHolybro/CA01nul,
+aucune intersection détectée des cartes avec les obstacles représentés
+aux deux poses, ni des16occurrences de fixation avecCA01/châssis/dock/
+capteurs/distribution. Le recouvrement du filetageM3 dans les piedsOEM
+est une interface intentionnelle, pas une collision interdite.
+L'enveloppeCA01courante laisse2,7546mm au-dessus de la plaque àZ−65,
+contre13,38mm dans le montage24/2 ; la facePCB est à24mm de la plaque.
+Ces mesures géométriques ne couvrent ni tolérances ni fiches accouplées.
+
+Les rendus sont des capturesFreeCADGui/Coin3D, sans sauvegarde des
+natifs : [preuve d'export](../hardware/mecanique/cartographe/verification/rendus_stack_revue_20261003.json).
+Recettes : `extract_stack_drills_20261003.py` avec PythonKiCad,
+exportKiCadSTEP `--user-origin50x50mm --no-dnp`,
+`build_stack_revue_20261003.py`, puis `verify_stack_revue_20261003.py`
+dans un processus neuf et macro `rendus_stack_revue_20261003.FCMacro`.
+Le manifeste référence cette variante inactive ; ancienne maquette et
+faisceau restent de périmètres différents.
+
+Conclusion **préliminaire / À valider**, CAO **Implémenté**.
+Non exécutés : métrologie de lot, couple/précharge, compression/fluageP17
+etG10, résistance/vibrations, masse réelle, isolement tiges/carbone/PCB,
+accouplement/traction/rayons des cordons, course avec nouveau faisceau,
+thermique, montage réel etvol. La dépose nécessaire des capteurs et la
+libérationP17 lors du desserrage font partie des contraintes de conception.
 
 ### 12.8 Synchronisation GNSS, Airy, Basler et Pixhawk
 
@@ -1069,10 +1967,11 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | `SW-MAP-002` / `MAP-GLOBAL-001` | ICP, triangulation angulaire et fusion voxelisée | tests algorithmes, contrats et parcours surface réel | 23 scans, 61 903 faces ; `.runtime/scan-surface/` | implémenté, précision et collision **À valider** |
 | `EVO-001` | cibles CMake et services | contrôles de dépendances et CTest | conforme sous Windows | Linux/ARM **À valider** |
 | `UX-002` | navigation et pages Qt | routes, retour et contexte | réussi sous Windows | cible **À valider** |
-| `CARTE-001..012` | carte avionique CA01 | `T-CA01-01..12`, §12.2 et §12.7.1–12.7.2 | 221 invariants et 44 contrôles analytiques ; ERC selon preuve régénérée ; banc non exécuté | **Implémenté** en schéma préliminaire ; matériel **À valider**, fabrication non conforme |
-| CAB-CARTO-001, CARTE-002/004/006/007/010/011, ELEC-PWR-001/002 | baseboard Holybro, Pixhawk 6X, PM08-CAN, PDB Holybro 300 A top-entry candidate, W08/CA01 et Jetson Orin NX 16 Go ; cible V0.5 | T-PM-V05-01..06 et T-PDB-V05-01, §12.7 | protocole planifié ; aucun faisceau ni essai V0.5 exécuté | **Planifié / À valider** |
+| `CARTE-001..012` | carte avionique CA01 | `T-CA01-01..12`, §12.2 et §12.7.1–12.7.13 ; E01..E06/TH01..03/CEM01..04 | 230 invariants et 44 contrôles analytiques ; ERC0/0 ; routage complet quatre couches, 1 255 segments / 251 vias, continuité large CAO candidate, DRC0/parité0/connexion0 selon configuration ; 13 protocoles / 0 banc | schéma/routage **Implémentés** ; matériel **À valider**, fabrication non conforme/gates ouvertes |
+| CAB-CARTO-001, CARTE-002/004/006/007/010/011, ELEC-PWR-001/002 | baseboard Holybro, Pixhawk 6X, PM08-CAN, PDB Holybro 300 A top-entry candidate, W08/CA01 et Jetson Orin NX 16 Go ; cible V0.5 | T-CARTO-SYS-CAB/GEOM, §12.1.4 ; T-PM-V05-01..06 et T-PDB-V05-01, §12.7 | 33 Wxx recensées, 35 réservations CAO ; passages ouverts ; aucun faisceau physique ni essai électrique V0.5 exécuté | registre et maquette **Implémentés** ; matériel **À valider** |
+| MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
-| `HW-BAT-SWAP-01..06` | cassette batterie | inspection, efforts, cycles et défauts | protocole défini dans DOC-MEC | non exécuté |
+| `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
 
 ## 14. Actions de qualification ouvertes
 
@@ -1105,6 +2004,21 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 4 octobre 2026 | Tri des sous-assemblages : miroir autonome et 321 empreintes préservées, réouvertures FreeCAD courant/archive séparées sans erreur, reprise de source châssis contrôlée ; géométrie et essais physiques inchangés (§12.1.6) |
+| 4 octobre 2026 | Calcul conditionnel GNSS/radio sur plateaux : volumes et empreintes contrôlés, matériaux hypothétiques, aucun crédit en double des supports absents de la cible ; gain net et qualification physique ouverts (§12.1.5) |
+| 3 octobre 2026 | Revue stack sur plan Holybro : neuf natifs, CA01 courante et perçages, fixation communeP17 parM3×65 et appuis24/2 ; contraintes de montage, précharge et isolement ouvertes (§12.7.14) |
+| 3 octobre 2026 | Configuration cible 60 postes et faisceau système : 35 routes natives, couverture 33 Wxx, préservation des sources et bilan cuivre ; fixations, rayons, interférences et masse cible ouverts (§12.1.4) |
+| 3 octobre 2026 | Cassette 20 Ah et rehausse 20 mm : références natives, visserie, contrôles de course, enveloppes de pales et BOM ; anomalies des STEP TE et essais de verrouillage/électricité/masse explicitement ouverts (§12.1.3) |
+| 2 octobre 2026 | Préétude batterie interplateaux : logement 50 mm, occupants avionique et rehausses dimensionnelles +20/+30 mm ; accès latéral et hélices hypothétiques distingués de l'absence de collision OEM ; aucune modification ni qualification de structure (§12.1.2) |
+| 2 octobre 2026 | Reprise batterie 6S : défauts historiques identifiés ; neuf natifs/deux assemblages/quinze liens candidats vérifiés, 23 poses de capot et sorties verticales sans collision sur le périmètre déclaré ; encoche P23/P15 corrigée, empreintes actives conservées ; verrou et essais physiques À valider (§12.1.1) |
+| 2 octobre 2026 | CA01 : routage complet, 1 255 segments / 251 vias / 10 zones et sept zones de règles Kelvin ; continuité large candidate des bus calcul/LiDAR/AUX et radio contrôlée ; DRC natif 0 violation / 0 connexion / 0 parité selon configuration ; 13 protocoles proposés et dossier fabricant provisoire,44 MPN/process/protections et banc ouverts, aucune qualification physique (§12.7.13) |
+| 2 octobre 2026 | CA01 : protocole électrique E01–E06, thermique TH01–TH03 et préconformité CEM01–CEM04 planifié, critères/gates ouverts ; dossier fabricant candidat stack/vias/perçages/process sans commande ni qualification physique (§12.7.11–12) |
+| 2 octobre 2026 | Finalisation CA01 : 14 contrôles de revue indépendante, reconstruction isolée équivalente et gardes de protection conformes ; ERC/variante/calculs/shunt/DRC rejoués, 218 connexions restantes ; aucune qualification matérielle (§12.7.10) |
+| 1 octobre 2026 | CA01 : démarrage routage4couches, plans GND/batterie protégée, vias par potentiel, variante DAP Ø0,3 et exclusion Kelvin ; contrôles DRC0/parité0 avec218 connexions restantes, conservation schéma/mécanique et revue indépendante ; thermique/CEM/fabrication non exécutées (§12.7.10) |
+| 1 octobre 2026 | CA01 :10familles/16occurrences de modèles3D remplacées, sources locales,308solides/141composants ;réouverture et interférences contrôlées,RP4TD détaillé introuvable (§12.7.9) |
+| 1 octobre 2026 | RP4TD : symbole dédié et quatre pads THT candidats ;230contrôles/ERC0,parité0,courtyards sans chevauchement,155empreintes sans routage ; cotes photographiques non qualifiées (§12.7.8) |
+| 1 octobre 2026 | R116 remplacé par CSM3637 standard après acceptation ±0,1 %, calculs et contrôles de schéma/placement/stack actualisés ; plans/vias Planifiés et tenue matérielle/impulsionnelle À valider (§12.7.6) |
+| 1 octobre 2026 | 23 empreintes attribuées et cuivre Q5A/shunt corrigé ; préplacement151composants+4fixations sans routage, parité et chevauchements0,30perçages thermiques ouverts ; trois revues indépendantes, stack native et PDF6pages vérifiés ; qualification physique À valider |
 | 1 octobre 2026 | Reprise LM74800 page 2 : équivalence des 111 réseaux et conservation des composants, ERC vierge et PDF inspecté ; aucun essai matériel pour cette retouche graphique |
 | 1 octobre 2026 | Export PDF CA01 vérifié : six pages, provenance par empreintes, inspection des pages 2/3 et copie de vérification identique ; aucune modification électrique |
 | 1 octobre 2026 | Reprise graphique page 2 et symboles alimentation/GND ; conservation électrique, ERC et revue des rendus ; aucun essai matériel |

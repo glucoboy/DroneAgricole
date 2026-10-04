@@ -1,0 +1,680 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "reference": "CA01",
+  "revision": "0.5-pre",
+  "status": "Planifié",
+  "qualification": "À valider",
+  "hardware_tests_executed": false,
+  "scope": "Protocole de banc CA01 pour électricité, thermique et préconformité CEM ; aucun essai ni qualification physique exécuté.",
+  "documents": {
+    "requirements": "../../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01",
+    "validation": "../../../../docs/VALIDATION_QUALIFICATION.md#12711-plan-de-validation-electrique-thermique-et-cem-ca01",
+    "routing": "routage.json",
+    "fabrication": "fabrication/contraintes_fabrication.json"
+  },
+  "execution_order": [
+    "Revue schéma/BOM/empreintes/PCB, simulations calculs/boucles et réaction PX4 aux défauts en SITL concernés.",
+    "Inspection hors tension et continuité de la carte assemblée.",
+    "Alimentation limitée avec charges fictives, protections puis dynamique et séquencements.",
+    "Charges réelles identifiées après conformité de leurs rails et interfaces.",
+    "Thermique indépendante puis SA03 à charges simultanées.",
+    "Préconformité CEM puis essais intégrés moteurs seulement suivant progression DOC-VAL."
+  ],
+  "prerequisites": [
+    "Routage final revu, ERC/DRC/parité et fabrication DFM conformes ; DNP respectés ; absence de court-circuit et polarité contrôlées.",
+    "TVS, fusibles/pouvoir de coupure DC, protection W08 proche PDB, SOA Q101/Q102 et appel capacitif justifiés ; pas de batterie pour les premières alimentations.",
+    "Pièces/révisions/numéros de série identifiés, BOM réellement montée, géométrie RP4TD mesurée, inspection joints EP/shunt/connexions THT.",
+    "Enveloppe VIN, charge réelle, température ambiante maximale, débit local minimal, tension/timing des interfaces et limites d'essai approuvés.",
+    "Seuils de sortie/ondulation/transitoire/température et incertitudes renseignés avant verdict qualifiant ; une valeur manquante empêche de conclure conforme.",
+    "Instruments identifiés avec état d'étalonnage/calibration, tensions de mode commun et protections sondes vérifiées ; moteurs sans hélices pour le banc intégré.",
+    "Réactions logiciels aux pertes d'alimentation/RC/CAN étudiées sur simulation/PX4 SITL selon DOC-VAL ; aucun vol ni pulvérisation."
+  ],
+  "safe_stop": {
+    "method": "Couper la source avec un arrêt matériel accessible ; décharger puis vérifier les tensions avant intervention.",
+    "conditions": [
+      "Dépassement d'un seuil d'arrêt tension/courant/température approuvé ou limitation source persistante inattendue.",
+      "Risque de dépasser les limites d'exploitation recommandées/SOA avec marge et incertitude, même avant maximum absolu.",
+      "Fumée, odeur, arc, polarité inattendue, oscillation persistante, reset du domaine vol ou retour d'alimentation non prévu.",
+      "Perte de mesure, sonde détachée, journal absent ou sécurité du banc indisponible."
+    ],
+    "prohibitions": [
+      "Aucun court-circuit direct sur batterie.",
+      "Ne pas utiliser arrêt thermique ni maximum absolu fabricant comme seuil nominal d'acceptation.",
+      "Ne pas injecter inversion/surtension/court-circuit tant que amplitude, durée, énergie et SOA/protections ne sont pas approuvées."
+    ]
+  },
+  "candidate_matrix": {
+    "status": "À valider",
+    "vin_v": [
+      18,
+      21.6,
+      25.2
+    ],
+    "vin_note": "Points exploratoires de l'enveloppe 6S de dimensionnement ; UVLO/OV, rampes et transitoires dépendent de limites approuvées distinctes.",
+    "rails": [
+      {
+        "net": "12V_COMPUTE",
+        "target_v": 12,
+        "candidate_capacity_a": 6
+      },
+      {
+        "net": "12V_LIDAR",
+        "target_v": 12,
+        "candidate_capacity_a": 3
+      },
+      {
+        "net": "5V_AUX",
+        "target_v": 5,
+        "candidate_capacity_a": 3,
+        "note": "3 A total radio + synchronisation + réserve J301 ; ne pas additionner 3 A pour chaque sortie."
+      },
+      {
+        "net": "3V3_SYNC",
+        "target_v": 3.3,
+        "candidate_budget_a": 0.05
+      }
+    ],
+    "load_fractions": [
+      0,
+      0.25,
+      0.5,
+      1
+    ],
+    "thermal_environments": [
+      "Carte seule : ambiance mesurée, convection naturelle puis débit caractérisé.",
+      "SA03 final : orientation/components sous CA01, écart/capots/isolants/câbles réels, Jetson et ventilateur chargés, débit minimal local réel.",
+      "Coin mission ambiante maximale approuvée ; panne ventilateur seulement après énergie et arrêt sûrs définis."
+    ],
+    "repeat_count": null,
+    "repeat_count_status": "À valider avant exécution ; identifier au minimum chaque démarrage et cycle, nombre prévu et réalisé.",
+    "temperature_points_c": null,
+    "temperature_points_status": "À valider ; aucune ambiance maximale approuvée à ce jour.",
+    "limits": {
+      "steady_rail_tolerance": null,
+      "ripple_mv_pp": null,
+      "transient_undershoot_overshoot": null,
+      "settling_time_ms": null,
+      "current_trip_window": null,
+      "temperature_margin_c": null,
+      "thermal_stability_slope_c_per_min": null,
+      "thermal_stability_window_min": null,
+      "cem_reference_and_limits": null
+    },
+    "approval_record": null
+  },
+  "instruments": [
+    {
+      "id": "SOURCE",
+      "purpose": "Alimentation programmable limitée, tension/courant enregistrés, coupure accessible, rampes contrôlées."
+    },
+    {
+      "id": "LOAD",
+      "purpose": "Charges électroniques DC/dynamiques séparées par rail, résolution aux faibles charges/PFM, limitations d'énergie."
+    },
+    {
+      "id": "DMM_KELVIN",
+      "purpose": "Multimètre et mesure quatre fils pour shunt, chute des pistes/connecteurs et continuité ; ne pas confondre résistance DC et isolement."
+    },
+    {
+      "id": "SCOPE",
+      "purpose": "Oscilloscope ; sonde différentielle adaptée VIN/SW/gates ; sonde courant ; mesure ondulation à faible boucle sur COUT puis connecteur, bande passante et mode AC/DC consignés."
+    },
+    {
+      "id": "TEMP",
+      "purpose": "Thermocouples fins isolés et caméra IR avec émissivité/emplacement documentés, température ambiante, débit local mesuré ; isoler électriquement les sondes posées sur drains."
+    },
+    {
+      "id": "LOOP",
+      "purpose": "Analyseur de réponse en fréquence pour boucle compute si point d'injection adapté ; charge/signal d'essai définis sans contourner protections."
+    },
+    {
+      "id": "CEM",
+      "purpose": "Analyseur/récepteur EMI, limiteur/atténuateurs, réseau de stabilisation adapté au banc DC et sondes E/H ; antennes/site et générateurs d'immunité au laboratoire après définition du référentiel."
+    },
+    {
+      "id": "LOG",
+      "purpose": "Acquisition simultanée états PX4/reset, RC/télémétrie, GNSS, acquisition Airy/Jetson, UART et timestamps ; firmwares/paramètres figés."
+    }
+  ],
+  "tests": [
+    {
+      "id": "T-CA01-E01",
+      "parent_tests": [
+        "T-CA01-01",
+        "T-CA01-10",
+        "T-CA01-12"
+      ],
+      "requirements": [
+        "CARTE-001",
+        "CARTE-010",
+        "CARTE-012"
+      ],
+      "components": [
+        "PCB",
+        "connecteurs",
+        "EP",
+        "R116",
+        "MOD401"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "Hors tension, carte assemblée, tous OEM déconnectés.",
+      "steps": [
+        "Contrôler montage/MPN/polarités/DNP, soudure et inspection EP/thermovias suivant critères assembleur.",
+        "Contrôler continuité rail/masse/contacts, isolement entre rails et carbone/support, fixation et faisceau séparé POWER1/2/CAN1.",
+        "Comparer résistance faible shunt par quatre fils avec BOM et vérifier prises Kelvin séparées jusqu'à R116."
+      ],
+      "measurements": [
+        "Résistances/continuités par contact, inspection photo ou RX EP, défauts montage."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Aucun pont ni inversion ; aucun chemin propulsion dans CA01 ; nets conformes à schéma.",
+          "Géométrie MOD401 et broches conforme aux mesures pièce reçue ; DNP conservés."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-E02",
+      "parent_tests": [
+        "T-CA01-03"
+      ],
+      "requirements": [
+        "CARTE-003"
+      ],
+      "components": [
+        "J103",
+        "F101",
+        "U101",
+        "Q101",
+        "Q102",
+        "CIN"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "Source limitée, charges fictives, protections et SOA approuvées.",
+      "steps": [
+        "Démarrer progressivement sans charge puis aux paliers, rampes VIN ascendantes/descendantes.",
+        "Mesurer UVLO/OV et hystérésis, appel capacitif, VDS/VGS/temps de démarrage.",
+        "Inversion/transitoires seulement via dispositif et énergie limités approuvés ; vérifier extinction et reprise contrôlée."
+      ],
+      "measurements": [
+        "VIN/VIN_PAYLOAD_PROT, courant entrée/appel, seuils UVLO/OV, VDS/VGS, températures/profil SOA."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Limites tension/courant/énergie et hystérésis au pire des tolérances respectées.",
+          "Aucune excitation indésirable ou détérioration ; reprise seulement selon seuils approuvés."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-E03",
+      "parent_tests": [
+        "T-CA01-04",
+        "T-CA01-05",
+        "T-CA01-06"
+      ],
+      "requirements": [
+        "CARTE-004",
+        "CARTE-005",
+        "CARTE-006"
+      ],
+      "components": [
+        "U102/Q103/Q104/L101/R116",
+        "U201/L201",
+        "U301/L301",
+        "U503",
+        "J104/J201/J301"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "Charges électroniques rail par rail puis simultanées, VIN candidates approuvées.",
+      "steps": [
+        "Balayer charges statiques et faibles charges/PFM, puis paliers dynamiques avec fronts/durée approuvés.",
+        "Mesurer au convertisseur et connecteur/faisceau, démarrage/arrêt et décharge.",
+        "Mesurer réponse boucle compute sans modifier routage Kelvin/AGND ; inspecter SW/bootstrap/gates avec sondes appropriées."
+      ],
+      "measurements": [
+        "VOUT tolérance/ondulation mVpp/chute, courant/power/rendement, fréquence/PFM, dépassements/temps établissement, marge de boucle."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Rails dans l'enveloppe des charges et critères d'ondulation/transitoire approuvés, aucune oscillation persistante.",
+          "Budget5V total respecté ; courant limite compute validé aux coins, pas déduit d'un simple courant nominal."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-E04",
+      "parent_tests": [
+        "T-CA01-02",
+        "T-CA01-03",
+        "T-CA01-06",
+        "T-PM-V05-03"
+      ],
+      "requirements": [
+        "CARTE-002",
+        "CARTE-003",
+        "CARTE-006"
+      ],
+      "components": [
+        "F101/F102/F501",
+        "protections rails",
+        "PX4/radio"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "SITL réactions pertinent fermé ; banc limité sans hélices, durées/énergies approuvées.",
+      "steps": [
+        "Défaut résistance puis surcharge/court-circuit limité de chaque départ séparément.",
+        "Enregistrer limitation/hiccup/sélectivité et températures, enlever défaut et observer reprise.",
+        "Sur domaine vol indépendant surveiller resets et détecter perte radio/repli PX4."
+      ],
+      "measurements": [
+        "Courant/énergie/durée défaut, rail vol, événement protection/reprise, reset/RC/PX4, températures."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Défaut isolé sans reset Pixhawk ni réalimentation ; perte RC détectée et repli PX4 attendu.",
+          "SOA/protection/câble restent dans critères ; pas de court-circuit direct batterie."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-E05",
+      "parent_tests": [
+        "T-CA01-06",
+        "T-CA01-08",
+        "T-CA01-09",
+        "T-AIRY-SYNC-01"
+      ],
+      "requirements": [
+        "CARTE-006",
+        "CARTE-008",
+        "CARTE-009",
+        "ELEC-TIM-001"
+      ],
+      "components": [
+        "UART RF",
+        "U503..U509",
+        "R401/R402/R530..R533",
+        "J509",
+        "JP501"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "OEM révisions/niveaux identifiés, DNP maintenus jusqu'aux essais concernés.",
+      "steps": [
+        "Rejouer recettes DOC-VAL §12.7.2/12.8 ; séquences CA01/OEM on/off, niveaux/charge et courants de retour.",
+        "Mesurer UART/GNSS/PPS, trigger et ExposureActive avec référence/retours réels.",
+        "Fermer seulement les DNP pour interfaces approuvées ; JP501/SYNC_OUT1 restent hors V1."
+      ],
+      "measurements": [
+        "Vhigh/Vlow/fronts/overshoot/Ioff/retour, délais/gigue/PPS/GPRMC, corrélation Frame ID/exposition."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Plages OEM et courants hors tension respectés, aucune réalimentation, timestamps/association conformes aux critères.",
+          "RC/télémétrie opérationnels Jetson arrêté."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-E06",
+      "parent_tests": [
+        "T-CA01-04",
+        "T-CA01-05",
+        "T-CA01-06",
+        "T-PM-V05-04",
+        "T-PM-V05-06"
+      ],
+      "requirements": [
+        "CARTE-004",
+        "CARTE-005",
+        "CARTE-006"
+      ],
+      "components": [
+        "Orin NX/SSD/USB",
+        "Airy",
+        "RP4TD",
+        "SA03/faisceaux"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "E03/E05 conformes ; charges et révisions identifiées.",
+      "steps": [
+        "Démarrer séparément puis simultanément les charges réelles ; cycles chaud/froid dans limites approuvées.",
+        "Exécuter profil représentatif acquisition/calcul/USB/radio, mesurer crêtes appels et régime.",
+        "Tester arrêts/reprises calcul et budget réserve J301 réellement affecté."
+      ],
+      "measurements": [
+        "Profils courant/énergie, rails à la charge, resets/data loss, consommation radio, températures."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Démarrages sans reset/boucle de reset ; rails/OEM dans limites et budgets mesurés.",
+          "La capacité3A LiDAR soutient besoin≥2A démarrage identifié ; autres consommations restent mesures."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-TH01",
+      "parent_tests": [
+        "T-CA01-04",
+        "T-CA01-05",
+        "T-CA01-06",
+        "T-CA01-11"
+      ],
+      "requirements": [
+        "CARTE-004",
+        "CARTE-005",
+        "CARTE-006",
+        "CARTE-011"
+      ],
+      "components": [
+        "U101/U102/U201/U301/U503",
+        "Q101..Q104",
+        "R116",
+        "L101/L201/L301",
+        "fusibles/connecteurs"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "E02/E03 conformes, banc carte seule, limites arrêt/températures renseignées.",
+      "steps": [
+        "Mesurer pertes d'entrée/sortie, sélectionner coins chauffants par mesures.",
+        "Instrumenter boîtiers/cuivre/vias/rails/connecteurs et température air ; ne pas court-circuiter drains avec thermocouples.",
+        "Attendre critère de stabilité approuvé et conserver toute courbe ; arrêt si critères atteints."
+      ],
+      "measurements": [
+        "Tc/TPCB/Tamb, deltaT et dérive, Pentrée/Psortie/pertes avec incertitudes, débit local, tension/chute."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "TJ estimé par méthode adaptée et incertitude inférieur limite exploitation MPN moins marge approuvée ; LM76003 sous125°C.",
+          "Aucun arrêt thermique, dérive anormale, point chaud connecteur/shunt ; la caméra IR seule ne mesure pas TJ."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-TH02",
+      "parent_tests": [
+        "T-CA01-10",
+        "T-CA01-11",
+        "T-PM-V05-06"
+      ],
+      "requirements": [
+        "CARTE-010",
+        "CARTE-011"
+      ],
+      "components": [
+        "SA03",
+        "CA01",
+        "Holybro/Orin",
+        "câbles/isolants"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "TH01 conforme, stack finale et ambiance/débit minimal approuvés.",
+      "steps": [
+        "Répéter charges simultanées avec supports/capots/espacement et orientation réels.",
+        "Mesurer débit d'air local minimum et échauffement par Jetson/ventilation ; couvrir pire VIN/PFM/PWM charge.",
+        "Panne ventilateur seulement sous procédure approuvée ; surveiller rails et repli prévu."
+      ],
+      "measurements": [
+        "Thermographie/thermocouples, débit local, température air, états rails/fan/logs."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Marges et limites respectées dans montage final ; vitesse drone n'est pas mesure d'air au PCB.",
+          "Pas de transfert de qualification carte seule vers SA03 sans cet essai."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-TH03",
+      "parent_tests": [
+        "T-CA01-03",
+        "T-CA01-11"
+      ],
+      "requirements": [
+        "CARTE-003",
+        "CARTE-011"
+      ],
+      "components": [
+        "Q101/Q102",
+        "F101/F102/F501",
+        "TVS final",
+        "chemins force/R116"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "E04 et TH02 conformes ; défauts énergie/température approuvés.",
+      "steps": [
+        "Mesurer échauffement aux appels répétés et défauts limités durant scénario approuvé.",
+        "Comparer VDS/IDS durée à SOA/derating effectif et protection ; vérifier état après défaut.",
+        "Refaire E01 et régulation sur carte refroidie pour repérer dommages latents."
+      ],
+      "measurements": [
+        "Énergie impulsionnelle, VDS/IDS/temps, températures/résistance/performances avant/après."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Aucun dépassement SOA/énergie/limites avec marge ; protections sélectives ; pas de dégradation détectable."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-CEM01",
+      "parent_tests": [
+        "T-CA01-11"
+      ],
+      "requirements": [
+        "CARTE-011"
+      ],
+      "components": [
+        "DC/DC",
+        "VIN/GND",
+        "SW",
+        "faisceaux"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "Électrique/thermique conformes ; montage, réseau DC et protections analyseur adaptés.",
+      "steps": [
+        "Établir référence DC/DC arrêtés puis isoler chaque buck et simultané.",
+        "Balayer VIN et faibles charges PFM, pleine charge, radio/Jetson activité ; scans conduits entrée/sorties et sondes E/H.",
+        "Fixer et documenter câble/orientation/retours, bande/RBW/VBW/détecteur/plancher bruit ; conserver spectres."
+      ],
+      "measurements": [
+        "Spectres conduits, champ proche, pics à fSW/harmoniques/battements, cartographie source et bruit rails."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Préconformité uniquement ; pics comparés au gabarit et marge à choisir, aucune certification déduite d'une sonde de champ proche."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-CEM02",
+      "parent_tests": [
+        "T-CA01-08",
+        "T-CA01-09",
+        "T-CA01-11",
+        "T-RF-01..06"
+      ],
+      "requirements": [
+        "CARTE-008",
+        "CARTE-009",
+        "CARTE-011"
+      ],
+      "components": [
+        "GNSS",
+        "RP4TD/télémétrie",
+        "Airy/Basler",
+        "SA03"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "CEM01 référence disponible, OEM/antennes/distance et firmwares fixés.",
+      "steps": [
+        "Comparer DC/DC arrêtés (sources propres équivalentes) puis chacun/allumés et charges mission.",
+        "Comparer GNSS/radio/acquisition/temps sur montage et géométrie identiques ; répétitions et fenêtres approuvées.",
+        "Chercher couplage conduits/faisceaux/antennes en corrélation avec activité des convertisseurs."
+      ],
+      "measurements": [
+        "GNSS fix/CN0/erreurs, RC quality/pertes/télémétrie, data loss, gigue/Frame ID, resets, spectres."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Aucun reset ni corruption silencieuse ; dégradation GNSS/radio/capteurs sous budgets approuvés.",
+          "Comparer baseline et fenêtre perturbée ; ne pas confondre liaison radio réglementaire et préconformité PCB."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-CEM03",
+      "parent_tests": [
+        "T-CA01-02",
+        "T-CA01-03",
+        "T-CA01-11"
+      ],
+      "requirements": [
+        "CARTE-002",
+        "CARTE-003",
+        "CARTE-011"
+      ],
+      "components": [
+        "entrées/câbles/connecteurs",
+        "protections",
+        "PX4"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "Référentiel CEM, ports, catégories et amplitudes/durées/critères de performance approuvés en laboratoire.",
+      "steps": [
+        "Définir puis injecter progressivement perturbations conduites/ESD/RF pertinentes avec dispositif qualifié.",
+        "Enregistrer rails/RC/PX4/acquisition pendant et après, arrêt avant limites de sécurité.",
+        "Vérifier récupération et inspecter dommages ; aucune amplitude normative inventée."
+      ],
+      "measurements": [
+        "Niveau/fréquence/forme onde/temps/point injection, fonctionnement avant/pendant/après, énergie et anomalies."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Critères performance du référentiel sélectionné respectés ; arrêt/reset/repli selon exigences.",
+          "Toute injection non approuvée est non exécutée ; sans référentiel le résultat reste exploratoire."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    },
+    {
+      "id": "T-CA01-CEM04",
+      "parent_tests": [
+        "T-CA01-11"
+      ],
+      "requirements": [
+        "CARTE-011"
+      ],
+      "components": [
+        "montage final/faisceaux/antennes",
+        "moteurs/ESC",
+        "PX4/GNSS"
+      ],
+      "status": "Planifié",
+      "qualification": "À valider",
+      "setup": "CEM01..03 selon périmètre fermé ; portes DOC-VAL/SITL/banc closes, procédure sans hélices.",
+      "steps": [
+        "Reprendre mesures sous excitation ESC/moteurs permise progressivement au banc sécurisé.",
+        "Conserver géométrie/câbles et consigner courant/commande/activité moteurs.",
+        "Préparer ensuite essais rayonnés final au site/laboratoire selon référentiel adopté, sans vol à cette étape."
+      ],
+      "measurements": [
+        "Spectres rayonnés/conduits, GNSS/radio/temps, resets PX4, courants/températures."
+      ],
+      "acceptance": {
+        "candidate_criteria": [
+          "Absence perturbation invalidante et marges sous gabarit adopté ; banc moteurs ne qualifie pas vol.",
+          "Certification reste distincte jusqu'au rapport laboratoire et fermeture référentiel."
+        ],
+        "numeric_limits": "Appliquer seulement les limites approuvées de candidate_matrix/approval_record et celles des MPN réels, avec incertitude.",
+        "approved": false
+      },
+      "result": null
+    }
+  ],
+  "evidence": {
+    "required": [
+      "ID test/exigence, opérateur, date UTC, banc, révision et numéro de série PCB, lots/MPN réellement montés et DNP.",
+      "SHA256 PCB/projet/schémas/BOM/routage/plan et paramètres appliqués ; profil des charges et géométrie SA03.",
+      "Instruments/étalonnages, schéma connexion et photos, sondes/bande passante/échantillonnage, calibrations températures/émissivité/débit et incertitudes.",
+      "Valeurs mesurées min/max/nominales avec unités, critères approuvés et incertitudes, événements de sécurité, échecs et anomalies.",
+      "Oscillogrammes bruts, traces courant/température/EMI et logs PX4/capteurs ; comparaisons référence et perturbée.",
+      "Conclusion conforme/non conforme/préliminaire/À valider strictement limitée au matériel, banc et révision testés ; contre-essai après correction et clôture anomalies."
+    ],
+    "storage": "Données volumineuses hors Git dans results/ ou répertoire verification/ local ; versionner seulement manifeste/empreintes/synthèse autorisés ; aucun secret ni rosbag lourd.",
+    "t0": "Les exécutions logicielles liées aux essais utilisent les contrats T0 applicables de DOC-VAL §3 ; le registre physique conserve les identités métrologiques en plus.",
+    "results": [],
+    "overall_conclusion": "À valider"
+  },
+  "sources": [
+    {
+      "id": "TI_LM76003",
+      "url": "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
+      "access_date": "2026-10-02",
+      "revision": "SNVSAK0A, octobre 2019",
+      "relevance": "Exploitation TJ sous125°C, DAP/GND et thermique/layout ; PFM faible charge."
+    },
+    {
+      "id": "TI_LM5146",
+      "url": "https://www.ti.com/lit/ds/symlink/lm5146-q1.pdf",
+      "access_date": "2026-10-02",
+      "revision": "SNVSAU0B, novembre 2021",
+      "relevance": "Layout, EP GND et limites spécifiques LM5146-Q1 ; boucle/ILIM."
+    },
+    {
+      "id": "TI_METRICS",
+      "url": "https://www.ti.com/lit/an/spra953d/spra953d.pdf",
+      "access_date": "2026-10-02",
+      "revision": "SPRA953D, mars 2024",
+      "relevance": "RθJA dépend du PCB/banc ; mesure de température boîtier ne constitue pas mesure directe TJ."
+    }
+  ]
+}

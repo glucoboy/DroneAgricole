@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "date_utc": "2026-10-01T06:26:03.8012914Z",
+  "date_utc": "2026-10-02T08:40:28.8957397Z",
   "scope": "CA01 cible V0.5 preliminaire ; aucune qualification materielle",
   "platform": "Windows amd64",
   "kicad_version": "10.0.6",
@@ -21,6 +21,11 @@
       "id": "radio_local_fuse",
       "passed": true,
       "detail": "Radio depuis 5 V local"
+    },
+    {
+      "id": "radio_direct_module",
+      "passed": true,
+      "detail": "Module RP4TD directement sur CA01, connecteur J401 retire"
     },
     {
       "id": "compute_lidar_outputs",
@@ -1111,6 +1116,46 @@
       "id": "time_C515_voltage",
       "passed": true,
       "detail": "LDO Airy : condensateur 25V candidat"
+    },
+    {
+      "id": "radio_direct_module_power",
+      "passed": true,
+      "detail": "Module direct alimente par rail radio protege"
+    },
+    {
+      "id": "radio_direct_module_ground",
+      "passed": true,
+      "detail": "Retour module direct et UART Pixhawk"
+    },
+    {
+      "id": "radio_direct_module_tx",
+      "passed": true,
+      "detail": "TX module vers RX Pixhawk par R401 DNP"
+    },
+    {
+      "id": "radio_direct_module_rx",
+      "passed": true,
+      "detail": "RX module depuis TX Pixhawk par R402 DNP"
+    },
+    {
+      "id": "radio_direct_module_pinmap",
+      "passed": true,
+      "detail": "Fonctions constructeur ; numeros internes CA01, non OEM"
+    },
+    {
+      "id": "radio_direct_module_included",
+      "passed": true,
+      "detail": "Vrai module inclus BOM/carte, sans doublon board-only"
+    },
+    {
+      "id": "radio_direct_module_footprint",
+      "passed": true,
+      "detail": "Empreinte directe provisoire a completer, non fabricable"
+    },
+    {
+      "id": "radio_direct_module_mpn",
+      "passed": true,
+      "detail": "SKU RadioMaster RP4TD LBT"
     }
   ],
   "connectivity_passed": true,
@@ -1145,31 +1190,31 @@
   "files": [
     {
       "file": "01_energie_pm.kicad_sch",
-      "sha256": "98977e73691948438c1858032d6ad1d4f43a4b7553337c8adeb2fcbb2440f94b"
+      "sha256": "26e334d94d461262ddc5034ca08e983d22b17090dbd101ebe93e1c7aad45bf23"
     },
     {
       "file": "02_buck_12v_capteurs.kicad_sch",
-      "sha256": "9659581274d0d44a5a9a888633fd0da0782ac63e10129dbab2400824ef325816"
+      "sha256": "d0a311b9e2a7992a977f70e0c76f63af66117b0b08980bf4aa1600bf7640ed23"
     },
     {
       "file": "03_buck_5v_aux.kicad_sch",
-      "sha256": "542c8b9786e50d270db3f7e169ef9b0f4f05eb05a954840f74959c965eb6f563"
+      "sha256": "d3d2f341630b245473b12d5a5e3f92ffb7c88b4cd2161f69685d0de970ddfa53"
     },
     {
       "file": "04_radio.kicad_sch",
-      "sha256": "f07d4832a31552567b5201ae2d7d08257cf03438739d07ca8818c4d7167fec93"
+      "sha256": "d4abd7d6d564d9332af8c0d0194a0c7ec654352003faf3e0135e864878ab7fba"
     },
     {
       "file": "05_synchronisation.kicad_sch",
-      "sha256": "435e62f3ff46be3068b839a1c12937a7884c2d2f0f36c17be5ac1a639d7d671d"
+      "sha256": "9d3f7b6c84881f9dc79d985f21374b1103c7e78a128d618d8f47f30f8531d495"
     },
     {
       "file": "CA01_Avionique.kicad_pcb",
-      "sha256": "35d21e9c97583bd81f3254e0aa214613f2a6bd5d95f5c3108fd89032dc27408d"
+      "sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70"
     },
     {
       "file": "CA01_Avionique.kicad_pro",
-      "sha256": "3a8af6728b354476a2a4b1f58890143685f29c1388023486c44519fa9e61ec8f"
+      "sha256": "0e09197617530be64c6f4701ead05297cb7832bb7c0f99415ecfe3b177b19326"
     },
     {
       "file": "CA01_Avionique.kicad_sch",
@@ -1181,21 +1226,25 @@
     },
     {
       "file": "CA01_Fonctions.kicad_sym",
-      "sha256": "6d2c2bfb671236eb3114ef7a7ec67c03789bd362f08a53be7692bbd1f9559381"
+      "sha256": "a2b527055cc5c9a5651d2b6f00fe20b46cf71906637a14100682bd5257d2d896"
+    },
+    {
+      "file": "CA01_Radio.kicad_sym",
+      "sha256": "4c578329bd8651306988912a2367afb1c5f9839c9b5525c050cecbead045529b"
     },
     {
       "file": "sym-lib-table",
-      "sha256": "7923678c2c758f93b6c15428ba2e22490c494049516fffbdd4fd0d415a56e334"
+      "sha256": "3076969e1f7e01a0a8657d7fd6ce431ea297720808eaefc02dcc797651ffa162"
     }
   ],
   "recipe_inputs": [
     {
       "file": "verify_ca01.ps1",
-      "sha256": "f58a71677c6793587c04ab61688dc4ff6ef0c419eb0bd0f00f4cba5575739ff5"
+      "sha256": "d19dc60ab10d1f5e66bc9dba1956af0843d54415ee8b61d030be6c3bc942680f"
     },
     {
       "file": "connectivity_rules.json",
-      "sha256": "ed68ae4c9ec8fb93dc49be2feb45a40080b8218d0bd74d5f7dae89947c5831fc"
+      "sha256": "b0d2583fc7a74b1cf64528adec7830f90f3c74910864869a4949808843db4370"
     }
   ]
 }

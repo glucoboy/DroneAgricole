@@ -1,0 +1,76 @@
+"""Captures natives FreeCADGui/Coin3D ; aucune sauvegarde des documents."""
+from pathlib import Path
+import json,hashlib,traceback
+import FreeCAD as App
+import FreeCADGui as Gui
+from PySide import QtCore
+from pivy import coin
+ROOT=Path('D:/ProjetGuillaume/DroneAgricole');MEC=ROOT/'hardware/mecanique/cartographe'
+VER=MEC/'verification';OUT=MEC/'exports/stack_avionique_revue_20261003'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def show(o,seen):
+    if o is None or (o.Document.Name,o.Name) in seen:return
+    seen.add((o.Document.Name,o.Name))
+    if o.TypeId in ['App::Origin','App::Line','App::Plane','App::Point','Spreadsheet::Sheet']:return
+    if o.ViewObject:
+        o.ViewObject.Visibility=True
+        if hasattr(o.ViewObject,'listDisplayModes') and 'Shaded' in o.ViewObject.listDisplayModes():o.ViewObject.DisplayMode='Shaded'
+    if o.TypeId=='App::Link':show(o.LinkedObject,seen)
+    elif o.TypeId=='PartDesign::Body':
+        for c in o.Group:
+            if c.ViewObject:c.ViewObject.Visibility=(c==o.Tip)
+        if o.Tip:o.Tip.ViewObject.Visibility=True
+    else:
+        for c in getattr(o,'Group',[]):show(c,seen)
+def export():
+    rows=[]
+    try:
+        build=json.loads((VER/'construction_stack_revue_20261003.json').read_text(encoding='utf-8'))
+        names={str(ROOT/x['fichier']).replace('\\','/') for x in build['nouveaux_fichiers']}
+        for name,d in list(App.listDocuments().items()):
+            if d.FileName.replace('\\','/') in names:App.closeDocument(name)
+        s=App.openDocument(str(MEC/'sous_assemblages/SA03_CA01_Holybro_Revue_20261003.FCStd'))
+        card=s.getObject('CA01').LinkedObject.Document
+        card.getObject('PCB').ViewObject.ShapeColor=(.08,.38,.21)
+        card.getObject('PCB').Tip.ViewObject.ShapeColor=(.08,.38,.21)
+        card.getObject('ComposantsKiCad').ViewObject.ShapeColor=(.32,.34,.37)
+        card.getObject('ComposantsKiCad').ViewObject.DiffuseColor=[(.32,.34,.37)]
+        for o in s.getObject('StackRevue').Group:
+            if o.TypeId=='App::Link' and o.Name not in ['Holybro','CA01']:
+                result=o.LinkedObject.Document.getObject('Resultat')
+                result.ViewObject.ShapeColor=(.64,.47,.24) if o.Name.startswith(('Appui','Entretoise')) else (.7,.73,.77)
+        def capture(d,root,name,direction,center=None,height=None):
+            App.setActiveDocument(d.Name);gd=Gui.getDocument(d.Name)
+            view=gd.activeView() or gd.createView('Gui::View3DInventor')
+            show(root,set());view.setCameraType('Orthographic')
+            if direction=='iso':view.viewAxonometric()
+            elif direction=='front':view.viewFront()
+            else:view.viewBottom()
+            Gui.Selection.clearSelection();Gui.updateGui();view.fitAll()
+            cam=view.getCameraNode()
+            if center is not None:
+                axis=cam.orientation.getValue().multVec(coin.SbVec3f(0,0,cam.focalDistance.getValue()))
+                cam.position.setValue(*[center[i]+axis[i] for i in range(3)])
+            if height is not None:cam.height.setValue(height)
+            Gui.updateGui();file=OUT/(name+'.png')
+            view.saveImage(str(file),1800,1200,'White')
+            rows.append({'nom':name,'fichier':str(file.relative_to(ROOT)).replace('\\','/'),'sha256':sha(file),'vue':direction})
+        capture(s,s.getObject('StackRevue'),'stack_montee_isometrique','iso',center=(63,40,-18),height=180)
+        capture(s,s.getObject('StackRevue'),'stack_montee_profil','front',center=(63,40,-18),height=150)
+        capture(card,card.getObject('CarteCA01'),'CA01_placement_courant','iso',center=(63,-40,6),height=120)
+        capture(s,s.getObject('StackRevue'),'stack_montee_dessous','bottom',center=(63,40,-18),height=115)
+        t=App.openDocument(str(MEC/'assemblages/Integration_Stack_Revue_20261003.FCStd'))
+        capture(t,t.getObject('IntegrationRevue'),'integration_stack_profil','front',center=(0,0,-68),height=205)
+        capture(t,t.getObject('IntegrationRevue'),'integration_stack_isometrique','iso',center=(0,0,-68),height=270)
+        assert all(sha(ROOT/r['fichier'])==r['sha256'] for r in build['nouveaux_fichiers'])
+        write(VER/'rendus_stack_revue_20261003.json',{'date':'2026-10-03','finalisation_correcte':True,
+            'moteur':'FreeCADGui/Coin3D activeView.saveImage','version_FreeCAD':App.Version(),
+            'macro_sha256':sha(__file__),'construction_sha256':sha(VER/'construction_stack_revue_20261003.json'),
+            'images':rows,'natifs_preserves':True,'qualification':'À valider',
+            'limites':['Vue locale du drone cadrée autour de la stack ; bras hors cadre.',
+                'Couleurs de présentation en mémoire ; aucun fichier CAO sauvegardé.',
+                'Montage candidat : tenue, couple, tolérances, fiches/câbles et thermique non qualifiés.']})
+    except Exception:
+        write(VER/'rendus_stack_revue_20261003.json',{'finalisation_correcte':False,'erreur':traceback.format_exc(),'images':rows})
+if __name__!='stack_rpc':QtCore.QTimer.singleShot(0,export)

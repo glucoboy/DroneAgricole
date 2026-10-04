@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-HLD` |
 | Nature | document vivant |
-| Dernière mise à jour | 30 septembre 2026 |
+| Dernière mise à jour | 3 octobre 2026 |
 | Statut | architecture système préliminaire ; capacités qualifiées indiquées explicitement |
 
 ## 1. Objet et périmètre
@@ -287,7 +287,7 @@ La carte avionique commune **CA01** est **Planifiée** pour regrouper RP4TD,
 conversions de charge utile et adaptation de synchronisation. La cible retenue
 le 22 septembre 2026 utilise un **PM08-CAN fixé au châssis, près de la
 distribution**, hors CA01 et hors cassette batterie. Il remplace le PM02D de
-la définition précédente : batterie → PM08-CAN → toutes les branches, pour
+la définition précédente : batterie → interface du dock et coupure JETI → PM08-CAN → toutes les branches, pour
 la mesure globale. Les courants admissibles, protections et la couverture de
 mesure restent **À valider** sur la configuration réelle.
 
@@ -295,9 +295,24 @@ Le **BEC1 du PM08-CAN** alimente **POWER1** et le **BEC2** alimente
 **POWER2** du Pixhawk 6X monté sur la porteuse, par deux chemins distincts.
 La mesure batterie passe séparément par **DroneCAN vers CAN1**. Ces entrées
 forment une redondance candidate au niveau de l'alimentation du contrôleur ;
-la batterie et le PM08-CAN restent des causes de défaillance communes.
+la batterie, les contacts du dock, la coupure JETI et le PM08-CAN restent des
+causes de défaillance communes.
 Brochage de la nouvelle porteuse, isolation entre rails, budgets et comportement
 en défaut sont **À valider** selon [DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md).
+
+La cassette 6S 20 Ah et la rehausse de 20 mm sont désormais implémentées en
+CAO. L'échange se fait au sol, moteurs arrêtés, après coupure JETI OFF,
+avec pales dégagées et contrôle du verrouillage avant remise sous tension.
+Le module commute le négatif et mémorise son état : aucun interverrouillage
+automatique de puissance avec le loquet n'est revendiqué. La CAO conserve
+l'avionique historique et ne réalise pas la migration Holybro/CA01 cible.
+La mécanique, les courants et la masse complète restent **À valider** ; voir
+DOC-MEC §4.1.3 et DOC-ELEC §6.1.
+Le connecteur XT90 conservé est annoncé45A sous conditions fabricant ;
+la chaîne complète n'est donc pas déclarée85/100A. Le budget partiel avec
+provisions connues6,112–6,726kg dépasse déjà la limite publiée6,3kg en
+borne haute. Le vol et les anciennes estimations d'autonomie ne sont pas
+validés pour cette nouvelle définition.
 
 **CA01 conserve un rail local 5 V protégé** depuis un départ batterie aval du
 PM08-CAN pour la radio, les auxiliaires et la synchronisation. La radio reste
@@ -502,6 +517,7 @@ ne sont pas disponibles.
 
 | Date | Modification |
 |---|---|
+| 3 octobre 2026 | Dock 6S 20 Ah et coupure JETI en tête du PM08 ; causes de défaillance communes et échange au sol explicités, sans changement de l'autorité de PX4 ; CAO historique et cible Holybro/CA01 distinguées |
 | 30 septembre 2026 | Responsabilités temporelles clarifiées : décision de capture Jetson/ROS 2, impulsion PX4 et adaptation CA01 ; flux continus associés au temps réel d'exposition, autorité unique et distinction PPS/cadence ; cible Planifié / À valider |
 | 25 septembre 2026 | synchronisation cartographe cible : Rover Helical STM32G4 PPS candidat, CA01 distribution du temps, AUX PX4 vers Basler et retour ExposureActive vers capture Pixhawk ; horloges et ports à qualifier |
 | 24 septembre 2026 | sélection Rover/Base Holybro F9P ; correction RTCM visée via RF commun, commandes sol ponctuelles et télémétrie sous budget à valider |

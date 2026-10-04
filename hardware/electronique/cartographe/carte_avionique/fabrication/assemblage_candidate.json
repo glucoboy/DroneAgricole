@@ -1,0 +1,708 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "reference": "CA01",
+  "revision": "0.5-pre",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "scope": "Nomenclature et intention de montage candidates ; aucun approvisionnement, fabrication ou assemblage exécuté.",
+  "assembly_csv": "bom_assemblage_candidate.csv",
+  "csv_encoding": "UTF-8",
+  "csv_delimiter": ",",
+  "csv_quote": "\"",
+  "csv_grain": "Une ligne par référence du bom_candidate.json, inclut DNP et objets sans composant avec quantité0.",
+  "source_policy": "MPN repris textuellement de BOM ; MPN netlist dans colonne séparée. Aucun MPN manquant n'est remplacé ou inventé. Les divergences restent visibles et à fermer.",
+  "inputs_sha256": {
+    "bom_candidate.json": "0b357f66377ec467144a8feb30361e88fa3cd4aab01c5720de80ec02ab5d680f",
+    "verification\\netlist.xml": "8833c3860c56247ad7ed2bc6b826cfc655343c9688ea23d7b89844ab58674501",
+    "CA01_Avionique.kicad_pcb": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70"
+  },
+  "snapshot_note": "Instantané final candidat de comparaison BOM/empreintes/DNP/face ; positions dans CPL exports_provisoires_20261002. Aucune release fabricant.",
+  "output_sha256": {
+    "bom_assemblage_candidate_csv": "bcefd4e743b0e4343af89b7938b877b7f2b77838df473cda1294eed5a9663921"
+  },
+  "counts": {
+    "bom_rows": 151,
+    "candidate_mounted_parts": 141,
+    "candidate_mounted_smd": 136,
+    "candidate_mounted_tht": 5,
+    "dnp_refs": 8,
+    "no_component_testpads": 2,
+    "pcb_only_npth_mounting_holes": 4,
+    "mounted_missing_mpn": 44,
+    "mpn_bom_not_in_netlist": 38,
+    "value_label_differences": 4
+  },
+  "candidate_mounted_smd_refs": [
+    "C101",
+    "C102",
+    "C103",
+    "C104",
+    "C105",
+    "C110",
+    "C111",
+    "C112",
+    "C113",
+    "C114",
+    "C115",
+    "C116",
+    "C117",
+    "C118",
+    "C119",
+    "C120",
+    "C121",
+    "C122",
+    "C123",
+    "C124",
+    "C125",
+    "C126",
+    "C201",
+    "C202",
+    "C203",
+    "C204",
+    "C205",
+    "C206",
+    "C207",
+    "C208",
+    "C301",
+    "C302",
+    "C303",
+    "C304",
+    "C305",
+    "C306",
+    "C307",
+    "C308",
+    "C401",
+    "C402",
+    "C501",
+    "C502",
+    "C503",
+    "C504",
+    "C505",
+    "C506",
+    "C507",
+    "C508",
+    "C509",
+    "C510",
+    "C511",
+    "C512",
+    "C513",
+    "C514",
+    "C515",
+    "C516",
+    "C517",
+    "C518",
+    "C519",
+    "C520",
+    "C521",
+    "D501",
+    "D502",
+    "D503",
+    "D504",
+    "F101",
+    "F102",
+    "F501",
+    "J402",
+    "J502",
+    "J503",
+    "J504",
+    "J505",
+    "J506",
+    "J507",
+    "J508",
+    "J509",
+    "L101",
+    "L201",
+    "L301",
+    "Q101",
+    "Q102",
+    "Q103",
+    "Q104",
+    "Q501",
+    "R101",
+    "R102",
+    "R103",
+    "R104",
+    "R105",
+    "R110",
+    "R111",
+    "R112",
+    "R113",
+    "R114",
+    "R115",
+    "R116",
+    "R117",
+    "R118",
+    "R119",
+    "R120",
+    "R201",
+    "R202",
+    "R203",
+    "R301",
+    "R302",
+    "R303",
+    "R510",
+    "R511",
+    "R512",
+    "R513",
+    "R514",
+    "R534",
+    "R535",
+    "R536",
+    "R537",
+    "R538",
+    "R539",
+    "R540",
+    "R541",
+    "R542",
+    "R543",
+    "U101",
+    "U102",
+    "U201",
+    "U301",
+    "U503",
+    "U504",
+    "U505",
+    "U506",
+    "U507",
+    "U509",
+    "U510",
+    "U511",
+    "U512",
+    "U513"
+  ],
+  "candidate_mounted_tht_refs": [
+    "J103",
+    "J104",
+    "J201",
+    "J301",
+    "MOD401"
+  ],
+  "dnp": [
+    {
+      "reference": "J501",
+      "type": "SMD",
+      "mpn_bom": "SM02B-GHS-TB(LF)(SN)",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "SYNC_OUT1 hors V1 ; adaptation dédiée avant usage"
+    },
+    {
+      "reference": "JP501",
+      "type": "Cavalier cuivre ouvert sans composant",
+      "mpn_bom": "",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Cavalier cuivre laissé ouvert",
+      "gate": "SYNC_OUT1 hors V1 ; adaptation dédiée avant usage"
+    },
+    {
+      "reference": "R401",
+      "type": "SMD",
+      "mpn_bom": "CRCW06030000Z0EA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider UART OEM et absence réalimentation hors tension"
+    },
+    {
+      "reference": "R402",
+      "type": "SMD",
+      "mpn_bom": "CRCW06030000Z0EA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider UART OEM et absence réalimentation hors tension"
+    },
+    {
+      "reference": "R530",
+      "type": "SMD",
+      "mpn_bom": "CRCW060347R0FKEA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider GNSS/Airy/Orin, référenceJ509/niveaux/délais et tous séquencements"
+    },
+    {
+      "reference": "R531",
+      "type": "SMD",
+      "mpn_bom": "CRCW060347R0FKEA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider GNSS/Airy/Orin, référenceJ509/niveaux/délais et tous séquencements"
+    },
+    {
+      "reference": "R532",
+      "type": "SMD",
+      "mpn_bom": "CRCW0603100RFKEA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider GNSS/Airy/Orin, référenceJ509/niveaux/délais et tous séquencements"
+    },
+    {
+      "reference": "R533",
+      "type": "SMD",
+      "mpn_bom": "CRCW0603100RFKEA",
+      "quantity": 0,
+      "pcb_footprint_present": true,
+      "state": "Ne pas monter",
+      "gate": "Valider GNSS/Airy/Orin, référenceJ509/niveaux/délais et tous séquencements"
+    }
+  ],
+  "objects_without_mounted_component": [
+    {
+      "reference": "JP501",
+      "type": "Cavalier cuivre ouvert sans composant",
+      "quantity": 0,
+      "footprint": "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm"
+    },
+    {
+      "reference": "TP201",
+      "type": "Pastille test sans composant",
+      "quantity": 0,
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm"
+    },
+    {
+      "reference": "TP301",
+      "type": "Pastille test sans composant",
+      "quantity": 0,
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm"
+    }
+  ],
+  "pcb_only_npth_mounting_holes": [
+    {
+      "reference": "H1",
+      "empreinte": "MountingHole:MountingHole_3.2mm_M3",
+      "dnp": false,
+      "exclu_bom": true,
+      "type": "NPTH fixation sans composant à commander"
+    },
+    {
+      "reference": "H2",
+      "empreinte": "MountingHole:MountingHole_3.2mm_M3",
+      "dnp": false,
+      "exclu_bom": true,
+      "type": "NPTH fixation sans composant à commander"
+    },
+    {
+      "reference": "H3",
+      "empreinte": "MountingHole:MountingHole_3.2mm_M3",
+      "dnp": false,
+      "exclu_bom": true,
+      "type": "NPTH fixation sans composant à commander"
+    },
+    {
+      "reference": "H4",
+      "empreinte": "MountingHole:MountingHole_3.2mm_M3",
+      "dnp": false,
+      "exclu_bom": true,
+      "type": "NPTH fixation sans composant à commander"
+    }
+  ],
+  "missing_mpn_mounted_refs": [
+    "C101",
+    "C102",
+    "C103",
+    "C104",
+    "C110",
+    "C111",
+    "C112",
+    "C113",
+    "C114",
+    "C115",
+    "C116",
+    "C117",
+    "C118",
+    "C119",
+    "C120",
+    "C121",
+    "C122",
+    "C123",
+    "C124",
+    "C125",
+    "C126",
+    "C501",
+    "C502",
+    "C503",
+    "R101",
+    "R102",
+    "R103",
+    "R104",
+    "R105",
+    "R110",
+    "R111",
+    "R112",
+    "R113",
+    "R114",
+    "R115",
+    "R117",
+    "R118",
+    "R119",
+    "R120",
+    "R510",
+    "R511",
+    "R512",
+    "R513",
+    "R514"
+  ],
+  "source_differences": [
+    {
+      "ref": "C504",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C505",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C506",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C507",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C508",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C509",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C510",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C511",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C512",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C513",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "C514",
+      "field": "MPN",
+      "bom": "C3216X7R1E106K160AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C515",
+      "field": "MPN",
+      "bom": "C3216X7R1E106K160AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C516",
+      "field": "MPN",
+      "bom": "C2012X7R1E105K125AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C517",
+      "field": "MPN",
+      "bom": "C2012X7R1E105K125AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C518",
+      "field": "MPN",
+      "bom": "C2012X7R1E105K125AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C519",
+      "field": "MPN",
+      "bom": "C2012X7R1E105K125AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C520",
+      "field": "MPN",
+      "bom": "C2012X7R1E225K125AB",
+      "netlist": ""
+    },
+    {
+      "ref": "C521",
+      "field": "MPN",
+      "bom": "C1608X7R1H104K080AA",
+      "netlist": ""
+    },
+    {
+      "ref": "D501",
+      "field": "MPN",
+      "bom": "BAT54H",
+      "netlist": ""
+    },
+    {
+      "ref": "D502",
+      "field": "MPN",
+      "bom": "BZT52H-C4V7",
+      "netlist": ""
+    },
+    {
+      "ref": "F501",
+      "field": "MPN",
+      "bom": "SF-0603F040-2",
+      "netlist": ""
+    },
+    {
+      "ref": "Q501",
+      "field": "MPN",
+      "bom": "PMV30UN2",
+      "netlist": ""
+    },
+    {
+      "ref": "R201",
+      "field": "value",
+      "bom": "90k9 0.1% 25ppm",
+      "pcb": "90k9 0.1%"
+    },
+    {
+      "ref": "R202",
+      "field": "value",
+      "bom": "8k32 0.1% 25ppm",
+      "pcb": "8k32 0.1%"
+    },
+    {
+      "ref": "R301",
+      "field": "value",
+      "bom": "39k7 0.1% 25ppm",
+      "pcb": "39k7 0.1%"
+    },
+    {
+      "ref": "R302",
+      "field": "value",
+      "bom": "10k 0.1% 25ppm",
+      "pcb": "10k 0.1%"
+    },
+    {
+      "ref": "R530",
+      "field": "MPN",
+      "bom": "CRCW060347R0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R531",
+      "field": "MPN",
+      "bom": "CRCW060347R0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R532",
+      "field": "MPN",
+      "bom": "CRCW0603100RFKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R533",
+      "field": "MPN",
+      "bom": "CRCW0603100RFKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R534",
+      "field": "MPN",
+      "bom": "CRCW0603330RFKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R535",
+      "field": "MPN",
+      "bom": "CRCW0603330RFKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R536",
+      "field": "MPN",
+      "bom": "CRCW060322K0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R537",
+      "field": "MPN",
+      "bom": "CRCW060322K0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R538",
+      "field": "MPN",
+      "bom": "CRCW06033K01FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R539",
+      "field": "MPN",
+      "bom": "CRCW06033K01FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R540",
+      "field": "MPN",
+      "bom": "CRCW060310K0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R541",
+      "field": "MPN",
+      "bom": "CRCW060347K0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R542",
+      "field": "MPN",
+      "bom": "CRCW060347K0FKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "R543",
+      "field": "MPN",
+      "bom": "CRCW0603100KFKEA",
+      "netlist": ""
+    },
+    {
+      "ref": "U503",
+      "field": "MPN",
+      "bom": "TPS7A2033PDBVR",
+      "netlist": ""
+    },
+    {
+      "ref": "U509",
+      "field": "MPN",
+      "bom": "SN74LVC1G17DBVR",
+      "netlist": ""
+    }
+  ],
+  "assembly_rules": [
+    "QFN/EP U102/U201/U301 et MOSFET : pâte, via-in-pad remplissage/cap et joint thermique à approuver fabricant/assembleur, inspection EP définie.",
+    "Définir profil refusion/pâte/MSL/finition et tolérances de coplanarité avec les MPN réellement reçus.",
+    "Broches THT RP4TD : diamètre/longueur/centres/photo à mesurer, hauteur et appui isolant avant fabrication ; montage module après refusion suivant procédure approuvée.",
+    "J103/J104 XT30 et autres connecteurs : vérifier polarité, pin1, faces et accès brasage ; dégagements outils/serrage compatibles SA03.",
+    "La colonne face_pcb ne remplace pas fichier CPL avec X/Y/rotation/origine ; la BOM n'est pas un fichier de placement.",
+    "141 quantités candidates ne sont pas 141 composants réellement montés ; montage_physique_execute=false sur chaque ligne."
+  ],
+  "release_gates": [
+    {
+      "id": "ASM-G01",
+      "state": "À valider",
+      "criterion": "Sélectionner44MPN actuellement manquants à monter et vérifier paramètres/derating/Ceff/TCR/stock sans substitution silencieuse.",
+      "affected_refs": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "C110",
+        "C111",
+        "C112",
+        "C113",
+        "C114",
+        "C115",
+        "C116",
+        "C117",
+        "C118",
+        "C119",
+        "C120",
+        "C121",
+        "C122",
+        "C123",
+        "C124",
+        "C125",
+        "C126",
+        "C501",
+        "C502",
+        "C503",
+        "R101",
+        "R102",
+        "R103",
+        "R104",
+        "R105",
+        "R110",
+        "R111",
+        "R112",
+        "R113",
+        "R114",
+        "R115",
+        "R117",
+        "R118",
+        "R119",
+        "R120",
+        "R510",
+        "R511",
+        "R512",
+        "R513",
+        "R514"
+      ]
+    },
+    {
+      "id": "ASM-G02",
+      "state": "À valider",
+      "criterion": "Réconcilier MPN BOM/netlist et labels de valeur avant gel sources ; conserver les différences documentées tant que non résolues."
+    },
+    {
+      "id": "ASM-G03",
+      "state": "À valider",
+      "criterion": "Pièces reçues et empreintes validées, RP4TD mesuré, polarités/hauteur/tolérances/process EP/via-in-pad approuvés."
+    },
+    {
+      "id": "ASM-G04",
+      "state": "À valider",
+      "criterion": "CPL/BOM/DNP/stencil/profile/inspection approuvés, références/origines/rotations/pin1 vérifiées sur PCB final."
+    },
+    {
+      "id": "ASM-G05",
+      "state": "À valider",
+      "criterion": "BOM finale liée au manifeste exports gelés et gates FAB-G01..06 ; contrôle électrique bare-board et inspection assemblage avant banc."
+    }
+  ],
+  "declarative_verification": {
+    "json_and_csv": "conforme pour la représentation candidate, aucun verdict de conformité matériel",
+    "csv_row_count": 151,
+    "unique_refs": 151,
+    "quantity_sum": 141,
+    "dnp_agreement_bom_netlist_pcb": true,
+    "footprint_agreement_bom_netlist_pcb": true,
+    "csv_roundtrip_all_fields": true,
+    "validation_plan": {
+      "tests": 13,
+      "unique_ids": 13,
+      "all_measurements_declared": true,
+      "all_candidate_criteria_declared": true,
+      "approved_acceptance_count": 0,
+      "hardware_tests_executed": 0,
+      "conclusion": "Protocole mesurable à compléter par limites et approbations ; aucun test physique exécuté."
+    },
+    "final_pcb_and_cpl_checked": true
+  },
+  "physical_assembly_executed": false,
+  "assembled_hardware_result": null
+}

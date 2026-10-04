@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "statut": "À valider",
+  "objet": "Bilan des volumes pleins des references mecaniques actives pour sensibilite autonomie ; aucune qualification de masse, centrage ou endurance",
+  "sources": {
+    "manifest": "hardware/mecanique/cartographe/manifest.json",
+    "sha256_manifest": "af53add9f870b49ceff415249d9f9e3b322066927601e01c21c487efff8628e9",
+    "documentation": "docs/architecture/ARCHITECTURE_MECANIQUE.md section 6.1",
+    "limite_manifest": "Configuration historique SA03_Avionique ; variante SA03_CA01_Holybro_candidat non substituee au drone actif"
+  },
+  "methode": {
+    "outil": "FreeCAD",
+    "version": "1.1.3",
+    "executable": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "lecture": "App.openDocument puis getObject(source_objet) et Shape.Volume ; quantites issues du manifeste ; App.closeDocument sans sauvegarde",
+    "execution": "Processus separe sans GUI ; script ponctuel non conserve ; aucune modification de FCStd",
+    "conversion": "Masse en g = volume total en mm3 / 1000 * densite en g/cm3"
+  },
+  "hypotheses": {
+    "densite_uniforme_non_metaux_g_cm3": 1.25,
+    "remplissage": "Volumes pleins ; aucune reduction par tranchage, remplissage, supports ou usinage",
+    "materiaux": "Hypothese commune de provision ; ne demontre pas les materiaux reellement fabriques",
+    "P20": "Le manifeste indique Prototype polymere ou plaque isolante ; materiau A valider. P20 nest pas classe metal. Sa densite finale peut differer de 1,25.",
+    "ancien_poste_pieces_g": 350,
+    "ancien_poste_limite": "Poste environ 350 g P01-P10, repris du bilan historique ; valeur arrondie et non pesee",
+    "batterie_nominale_g": 1350,
+    "batterie_tolerance_non_propagee_g": 20,
+    "batterie": "Tattu G-Tech 10 Ah 6S candidate, 222 Wh"
+  },
+  "references_actives_non_metalliques": [
+    {
+      "reference": "P03_Adaptateur_Jetson",
+      "fichier": "pieces/fabriquees/P03_Adaptateur_Jetson.FCStd",
+      "objet_lu": "P03_AdaptateurDegage",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 43141.196012184344,
+      "volume_total_mm3": 43141.196012184344,
+      "sha256_fcstd": "dba0458af20118c8cd751b01796c4cff7ee091162e9442a2778787a8848d9a36",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 53.92649501523043
+    },
+    {
+      "reference": "P04_Entretoise_Jetson",
+      "fichier": "pieces/fabriquees/P04_Entretoise_Jetson.FCStd",
+      "objet_lu": "P04_PiedJetson1",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 323.26988405438976,
+      "volume_total_mm3": 1293.079536217559,
+      "sha256_fcstd": "f5b0da272e58455b6949db926826d4b675b7bbf7b23f303cf99eedbf345ce815",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 1.6163494202719488
+    },
+    {
+      "reference": "P06_Platine_auxiliaire",
+      "fichier": "pieces/fabriquees/P06_Platine_auxiliaire.FCStd",
+      "objet_lu": "P06_Equipee_pile",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 35720.6360312311,
+      "volume_total_mm3": 35720.6360312311,
+      "sha256_fcstd": "5af1229cf31e2bc08858e56bedbdebb84299f7047c82be802e1f88838532f86a",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 44.650795039038876
+    },
+    {
+      "reference": "P07_Support_RTK",
+      "fichier": "pieces/fabriquees/P07_Support_RTK.FCStd",
+      "objet_lu": "P07_SupportRTKInferieur",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 20554.099133547003,
+      "volume_total_mm3": 20554.099133547003,
+      "sha256_fcstd": "b03398db0f3bb672fb15d2e597deeaa7297933853067ef6ee20b25a8316e624c",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 25.692623916933755
+    },
+    {
+      "reference": "P08_Entretoise_RTK",
+      "fichier": "pieces/fabriquees/P08_Entretoise_RTK.FCStd",
+      "objet_lu": "P08_EntretoiseRTK1",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 1090.7609693263762,
+      "volume_total_mm3": 4363.043877305505,
+      "sha256_fcstd": "2b7b5ce4a98603c85683447b9d1070888d5f086f977fea3bcb0b0946f965683b",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 5.453804846631882
+    },
+    {
+      "reference": "P09_Interface_antenne",
+      "fichier": "pieces/fabriquees/P09_Interface_antenne.FCStd",
+      "objet_lu": "P09_InterfaceAntenne",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 6851.963991413446,
+      "volume_total_mm3": 6851.963991413446,
+      "sha256_fcstd": "768d115d012fe7ca1b2ee9b7344dece8b5f7a58f08340c2fe9cf8082a63f355d",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 8.564954989266807
+    },
+    {
+      "reference": "P10_Retenue_cable",
+      "fichier": "pieces/fabriquees/P10_Retenue_cable.FCStd",
+      "objet_lu": "P10_AttacheCable1",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 655.9999999999998,
+      "volume_total_mm3": 2623.999999999999,
+      "sha256_fcstd": "4942f6839f823d94710c35883cf1559cc42f06a2ff471d77d2e18b78de9cc0b4",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 3.279999999999999
+    },
+    {
+      "reference": "P13_Berceau_rapide",
+      "fichier": "pieces/fabriquees/P13_Berceau_rapide.FCStd",
+      "objet_lu": "Berceau",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 105256.34093614662,
+      "volume_total_mm3": 105256.34093614662,
+      "sha256_fcstd": "93410e1995a927816e1e8ecd829cf299ecfe5711797e6caa2650f098f6e252c7",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 131.57042617018328
+    },
+    {
+      "reference": "P14_Cassette_batterie",
+      "fichier": "pieces/fabriquees/P14_Cassette_batterie.FCStd",
+      "objet_lu": "Cassette",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 84975.99999999997,
+      "volume_total_mm3": 84975.99999999997,
+      "sha256_fcstd": "d27cd7ac3ddfe64302145ab956284237213f6f2618c1540fdad3f75aabdf099c",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 106.21999999999997
+    },
+    {
+      "reference": "P15_Support_SBSX75A",
+      "fichier": "pieces/fabriquees/P15_Support_SBSX75A.FCStd",
+      "objet_lu": "Support",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 57316.164749011725,
+      "volume_total_mm3": 57316.164749011725,
+      "sha256_fcstd": "ebfeac59f1a778050659063aeb52023c8c5eccc01e2aeb13e0a31c8cc07a37b2",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 71.64520593626466
+    },
+    {
+      "reference": "P16_Platine_capteurs_isolee",
+      "fichier": "pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd",
+      "objet_lu": "P01_PlatineRenforcee",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 100422.76245198204,
+      "volume_total_mm3": 100422.76245198204,
+      "sha256_fcstd": "026bcc7336d9cc4761788d52c24f7df7501f5d811ac358f434400e82ad0f5bce",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 125.52845306497754
+    },
+    {
+      "reference": "P17_Support_deporte_isolation",
+      "fichier": "pieces/fabriquees/P17_Support_deporte_isolation.FCStd",
+      "objet_lu": "Support",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 4939.154249589485,
+      "volume_total_mm3": 19756.61699835794,
+      "sha256_fcstd": "02a9e57838d88f43b9900714b3406bbab72cf9f017e01fabe92c98adcd0face2",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 24.69577124794742
+    },
+    {
+      "reference": "P20_Platine_avionique_superieure",
+      "fichier": "pieces/fabriquees/P20_Platine_avionique_superieure.FCStd",
+      "objet_lu": "Platine",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 24993.589383113256,
+      "volume_total_mm3": 24993.589383113256,
+      "sha256_fcstd": "2f3784a3bdc54531c1ca0aa73b0fc507ec26023c5fc84aff7c1838985d0a8b6f",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 31.241986728891572
+    },
+    {
+      "reference": "P21_Cale_avionique_1mm",
+      "fichier": "pieces/fabriquees/P21_Cale_avionique_1mm.FCStd",
+      "objet_lu": "Cale",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 24.47300677146449,
+      "volume_total_mm3": 97.89202708585796,
+      "sha256_fcstd": "cbba76633b1866ed370fe292cc24975d3db5217fdf6cb3077847322285d3a0cd",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 0.12236503385732246
+    },
+    {
+      "reference": "P22_Cale_avionique_12",
+      "fichier": "pieces/fabriquees/P22_Cale_avionique_12.FCStd",
+      "objet_lu": "Cale",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 49.423535626274614,
+      "volume_total_mm3": 197.69414250509845,
+      "sha256_fcstd": "2222fb5b72ecb403f31b33b954b20420a47ed03f2b479555e5d3a346cc7302cd",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 0.24711767813137306
+    }
+  ],
+  "references_metalliques_distinctes": [
+    {
+      "reference": "P18_Manchon_limiteur_metal",
+      "fichier": "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd",
+      "objet_lu": "Manchon",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 47.87184018281355,
+      "volume_total_mm3": 191.4873607312542,
+      "sha256_fcstd": "9f625cdaa9bc887adee9169fd1fb7902e5443f4f859bb48e1c515b77e9f252ae",
+      "matiere": "Metal ; nuance et procede A valider"
+    },
+    {
+      "reference": "P19_Rondelle_capture_metal",
+      "fichier": "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd",
+      "objet_lu": "Rondelle",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 150.13671291505622,
+      "volume_total_mm3": 600.5468516602249,
+      "sha256_fcstd": "4c7ae50d147098d7388218cc3017c218d46d77745fdc22e1525ba956f1c6a395",
+      "matiere": "Metal ; nuance et procede A valider"
+    }
+  ],
+  "references_exclues_sol_ou_historiques": [
+    {
+      "reference": "P01_Platine_capteurs",
+      "fichier": "pieces/fabriquees/P01_Platine_capteurs.FCStd",
+      "objet_lu": "P01_PlatineRenforcee",
+      "quantite_drone_actif": 0,
+      "volume_unitaire_mm3": 100769.59428093839,
+      "volume_total_mm3": 0.0,
+      "sha256_fcstd": "9f7463c2abb21a107eaadb5f5553f73fa202bf83523543b7dfa63a28415455b6",
+      "raison_exclusion": "Variante historique remplacee dans la configuration active"
+    },
+    {
+      "reference": "P02_Entretoise_capteurs",
+      "fichier": "pieces/fabriquees/P02_Entretoise_capteurs.FCStd",
+      "objet_lu": "P02_Entretoise1",
+      "quantite_drone_actif": 0,
+      "volume_unitaire_mm3": 3536.6165138521733,
+      "volume_total_mm3": 0.0,
+      "sha256_fcstd": "f1ab74991bc098fffe01417defd8a6c751fb35ccbb730f25f50b5687496659d3",
+      "raison_exclusion": "Variante historique remplacee dans la configuration active"
+    },
+    {
+      "reference": "P05_Bac_batterie",
+      "fichier": "pieces/fabriquees/P05_Bac_batterie.FCStd",
+      "objet_lu": "P05_BacBatterie",
+      "quantite_drone_actif": 0,
+      "volume_unitaire_mm3": 50351.04956677355,
+      "volume_total_mm3": 0.0,
+      "sha256_fcstd": "d35877c44b838c01b254bcd180c7723c9c8ce7e14af2b1978c221a8664de0007",
+      "raison_exclusion": "Variante historique remplacee dans la configuration active"
+    },
+    {
+      "reference": "P11_Boitier_base_sol",
+      "fichier": "pieces/fabriquees/P11_Boitier_base_sol.FCStd",
+      "objet_lu": "P11_BoitierBaseRTK",
+      "quantite_drone_actif": 0,
+      "volume_unitaire_mm3": 76847.92973278415,
+      "volume_total_mm3": 0.0,
+      "sha256_fcstd": "dfd8b8b8be02361fa893c971cd820edc7d1e2483e166135480ab28699f7d18d4",
+      "raison_exclusion": "Equipement de base sol"
+    },
+    {
+      "reference": "P12_Couvercle_base_sol",
+      "fichier": "pieces/fabriquees/P12_Couvercle_base_sol.FCStd",
+      "objet_lu": "P12_CouvercleBaseRTK",
+      "quantite_drone_actif": 0,
+      "volume_unitaire_mm3": 32291.0495667735,
+      "volume_total_mm3": 0.0,
+      "sha256_fcstd": "f9f5914d9138b3c64f0dfaf68d5ac534429c1df19207c4f32e106e12b7ca64d1",
+      "raison_exclusion": "Equipement de base sol"
+    }
+  ],
+  "resultats": {
+    "volume_non_metaux_cm3": 507.5650792701015,
+    "masse_pleine_non_metaux_g": 634.4563490876269,
+    "delta_vs_ancien_poste_350_g": 284.4563490876269,
+    "volume_metaux_cm3": 0.7920342123914791,
+    "metaux_estimation_distincte_g": {
+      "densite_alu_hypothese_g_cm3": 2.7,
+      "masse_alu_g": 2.1384923734569936,
+      "densite_acier_hypothese_g_cm3": 7.85,
+      "masse_acier_g": 6.2174685672731105,
+      "plage_arrondie_g": [
+        2,
+        6
+      ],
+      "inclus_dans_plage_kg": false
+    },
+    "historique_hors_batterie_g": [
+      3355,
+      3965
+    ],
+    "masse_avec_batterie_nominale_kg": [
+      4.989456349087627,
+      5.599456349087627
+    ],
+    "plage_arrondie_kg": [
+      4.989,
+      5.599
+    ]
+  },
+  "limites": [
+    "Plage hors metalliques P18/P19, tolerance batterie, changements electroniques et fixations non closes ; nest pas une borne de la configuration cible complete.",
+    "Le remplacement PM02D par PM08-CAN, la PDB candidate et la porteuse/Pixhawk/Orin NX/CA01 restent a reconcilier avec le kit et les provisions historiques.",
+    "Les 185 g fabricant PM08-CAN comprennent les cables ; retirer les anciens composants et ne pas doubler les faisceaux.",
+    "Supports, refroidissement, SSD, fixations, loquet, Anderson SBS X-75A, faisceaux et protections reels non inventories par une masse pesee ; certaines provisions historiques peuvent les couvrir sans preuve.",
+    "Le bloc mobile de capteurs inclut deja Airy, Basler et objectif ; ne pas ajouter son total au bilan.",
+    "La masse historique du kit X650 complet sans batterie est annoncee 2000 g ; contenu exact, revisions et inclusions A valider.",
+    "Une pesee de chaque piece, de lelectronique et du drone complet et une mesure de consommation sont necessaires avant une prediction de vol qualifiee."
+  ],
+  "verification": {
+    "lecture_objets_sources": "Reussie pour chaque reference P01-P22 du manifeste ; quantites actives appliquees",
+    "fichiers_cao_sauvegardes": false,
+    "pesee": false,
+    "tranchage": false,
+    "essai_vol": false,
+    "qualification": "Non realisee"
+  }
+}

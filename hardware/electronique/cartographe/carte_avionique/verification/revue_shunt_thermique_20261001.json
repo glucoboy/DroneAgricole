@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "reviewer": "Agent indépendant empreintes_composants",
+  "status": "À valider",
+  "factual_blockers": [],
+  "hardware_tests_executed": false,
+  "checks": [
+    "Recette reproduite en mémoire avec sortie neutralisée ; neuf contrôles conformes.",
+    "Puissances cible reproduites : 0,1953047603990424 W à 6 A ; 0,6165152525210035 W en limitation soutenue.",
+    "Derating CSM3637 3 W à 70 °C vers zéro à 170 °C : 1,35 W à 125 °C local candidat.",
+    "Domaine TCR en température résistive distingué de l’ambiance ; impulsions/hiccup non qualifiés.",
+    "Cible ±0,05 % / 25 ppm maintenue ; catalogue ±0,1 % refusé ; MPN spécial null et confirmation false.",
+    "PCB sans pistes ni zones ; pads exposés Q101..Q104 aux drains, U102EP21 et U201/U301DAP à GND.",
+    "BOM, manifeste et documents DOC-ELEC 4.2.9 / DOC-VAL 12.7.6 cohérents."
+  ],
+  "inputs": [
+    {
+      "path": "dimensionnement.json",
+      "sha256": "13591d3d7210c02c8472062511bffd7de80a3477eb74a107b394501501733e4e"
+    },
+    {
+      "path": "verification/verify_shunt_thermique.py",
+      "sha256": "8429146d0d2c1488a10aef2d17d7efb24545d3119a072316b577d1696361c88e"
+    },
+    {
+      "path": "verification/shunt_thermique_20261001.json",
+      "sha256": "e03c5e29fda2ca514c4f77b03c8bcc4cfc676e374c99ebc90b8f74bb05ec37f4"
+    },
+    {
+      "path": "CA01_Avionique.kicad_pcb",
+      "sha256": "f9bc8823780ce1ce3b1a6fee96aaff3cf1068e04fed0c2d8ca12bb580d77cb25"
+    }
+  ],
+  "limitations": [
+    "Aucune référence spéciale garantie ni substitution PCB.",
+    "Qualification thermique réelle, défauts pulsés et débit local non exécutés."
+  ]
+}

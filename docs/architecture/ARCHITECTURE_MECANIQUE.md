@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 25 septembre 2026 |
+| Dernière mise à jour | 4 octobre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -36,31 +36,71 @@ Le manifeste est l'autorité pour les noms de fichiers et matrices de placement.
 Ce document explique l'intention et la nomenclature, sans recopier toutes les
 coordonnées.
 
+### 2.1 Catalogue courant et archives — 4 octobre 2026
+
+Le tri demandé conserve **10 sous-assemblages courants et deux montages de
+construction** dans `hardware/mecanique/cartographe/sous_assemblages/`.
+Les versions précédentes sont dans `archives/avant_tri_20261004/`, avec une
+copie de leurs pièces et montages liés aux mêmes chemins relatifs. Treize
+anciens sous-assemblages, cinq assemblages globaux et 31 sauvegardes FreeCAD
+ont quitté les répertoires courants. Aucun natif conservé ou archivé n'a
+changé d'empreinte ; la géométrie et les placements restent identiques.
+
+Le [catalogue](../../hardware/mecanique/cartographe/manifest.json), clé
+`catalogue_courant_20261004`, décrit la sélection et la correspondance des
+anciens chemins vers l'archive. Le manifeste et le guide précédents restent
+dans l'instantané archivé. Les preuves datées conservent leur périmètre
+historique ; les chemins des configurations archivées sont explicitement
+relocalisés dans le catalogue et la BOM cible.
+
+L'intégration locale de stack est le seul assemblage conservé dans
+`assemblages/`. GNSS, faisceau et station sol restent disponibles séparément.
+Aucun nouveau drone complet n'est assemblé ou qualifié par ce rangement.
+La proposition GNSS sur plateaux reste **Planifié / À valider** ; les routes
+du faisceau ne sont pas recalées sur la stack revue. Les deux montages
+`SA02_Cassette20Ah_Coulissante` et `SA02_Contacts20Ah` restent nécessaires
+aux recettes du dock et ne représentent pas des doublons à embarquer.
+
+La recette de stack reprend le châssis rehaussé archivé puis rétablit en
+mémoire ses liens vers les pièces courantes ; aucune dépendance vers des
+pièces archivées n'est introduite dans le nouveau châssis à régénérer.
+La reprise de source a été testée, sans relancer la génération de la stack.
+Les recettes antérieures de variantes retirées restent des preuves historiques,
+distinctes des commandes de maintenance du catalogue courant.
+Contrôles de rangement et réouverture **Implémenté**, physique **À valider** :
+DOC-VAL§12.1.6 et [guide d'ouverture](../../hardware/mecanique/cartographe/README.md).
+
 ## 3. Architecture mécanique du système
 
 ```text
- Systeme_Cartographie
- ├── Drone_Cartographe
- │   ├── SA01_Chassis
- │   ├── SA02_Energie_EchangeRapide
- │   │   └── SA02A_Connecteur_SBSX75A
- │   ├── SA03_Avionique
- │   ├── SA04_Calcul
- │   ├── SA05_Capteurs_Isoles
- │   │   ├── SA05A_Bloc_capteurs
- │   │   └── 4 × SA05B_Appui_Sorbothane
- │   └── SA06_RTK
- └── SA07_Station_sol
+ Integration_Stack_Revue_20261003 (étude locale, sans faisceau)
+ ├── SA01_Chassis_Stack_Revue_20261003
+ ├── SA02A_Dock20Ah
+ ├── SA03_CA01_Holybro_Revue_20261003
+ ├── SA05_Capteurs_Isoles
+ │   ├── SA05A_Bloc_capteurs
+ │   └── 4 × SA05B_Appui_Sorbothane
+ └── SA07_Distribution_Systeme_Candidat
+
+ Sous-assemblages courants séparés de cette étude locale :
+ SA06_RTK_Helical_Systeme_Candidat
+ SA08_Faisceau_Systeme_Candidat
+ SA07_Station_sol
 ```
 
-Assemblages de référence :
+Dernière intégration mécanique à ouvrir :
 
-- `hardware/mecanique/cartographe/assemblages/Drone_Cartographe.FCStd` ;
-- `hardware/mecanique/cartographe/assemblages/Systeme_Cartographie.FCStd`.
+- `hardware/mecanique/cartographe/assemblages/Integration_Stack_Revue_20261003.FCStd`.
 
-`SA02_Energie` et `SA05_Capteurs` sont conservés comme variantes historiques.
-Les configurations actives sont respectivement `SA02_Energie_EchangeRapide` et
-`SA05_Capteurs_Isoles`.
+Les anciennes intégrations complètes `Drone_Cartographe_20Ah` et
+`Systeme_Cartographie_20Ah` sont dans l'archive du §2.1, ainsi que le candidat
+système complet utilisant encore le précédent préplacement d'avionique.
+
+La configuration de travail adopte la batterie **6S 20 Ah**, une cassette
+coulissante et une rehausse du dernier plateau de **20 mm**, sur demande du
+2 octobre 2026. Les assemblages précédents, dont `SA02_Energie_EchangeRapide`,
+restent des archives. `SA05_Capteurs_Isoles` est conservé. L'état **Implémenté**
+désigne la CAO ; la fabrication et le fonctionnement physique restent **À valider**.
 
 L'orientation nadir Airy–Basler reste une hypothèse d'intégration **À valider**.
 Les supports imprimés servent d'abord aux contrôles d'encombrement et de
@@ -73,10 +113,10 @@ active restent masqués et explicitement exclus par le manifeste.
 
 | Sous-assemblage | Fonction | Choix actuel | État |
 |---|---|---|---|
-| `SA01_Chassis` | structure, bras, train et propulsion | enveloppe fabricant Holybro X650 V2 | candidat ; résistance et vibrations **À valider** |
-| `SA02_Energie_EchangeRapide` | maintenir et échanger la batterie sans outil | berceau fixe, cassette, guidage, sangle et réservation de loquet | CAO implémentée ; loquet et essais **À valider** |
-| `SA02A_Connecteur_SBSX75A` | accouplement électrique pendant l'insertion | SBS X-75A et support P15 | implantation simplifiée ; tolérances et cycles **À valider** |
-| `SA03_Avionique` | fixer Pixhawk, conversion et radios | maquette historique à deux niveaux sur plateaux carbone OEM, P06/P20, cales et sangles | ancienne CAO **Implémenté** ; migration vers porteuse commune **Planifié** |
+| `SA01_Chassis_Rehausse20` | structure, bras, train et propulsion | X650 V2, quatre entretoises de 70 mm, plateau supérieur +20 mm et plateau309 repercé | CAO **Implémenté** ; résistance et vibrations **À valider** |
+| `SA02A_Dock20Ah` | maintenir et échanger la batterie sans outil | dock complet : cassette captive, rails, butée réglable, Southco R4 et interfaces électriques | CAO **Implémenté** ; verrouillage réel et essais **À valider** |
+| contacts du dock 20 Ah | accouplement pendant la translation, indépendant de la retenue | paire TE ELCON 125A Middle Drawer et module JETI MainSwitch100 | sélection commerciale ; tolérances, courant et séquence **À valider** |
+| `SA03_Avionique_Rehausse20` | libérer le logement et fixer l'avionique | Pixhawk historique déplacé au-dessus du plateau avec P27 ; niveau inférieur P06 conservé | CAO **Implémenté** ; migration vers porteuse commune **Planifié** |
 | `SA04_Calcul` | fixer Jetson, SSD et refroidissement | maquette historique avec adaptateur P03 et quatre entretoises P04 | ancienne CAO **Implémenté** ; deux contacts connus, migration **Planifié** |
 | `SA05A_Bloc_capteurs` | maintenir rigidement Airy, Basler et objectif entre eux | platine capteurs isolée | extrinsèques et champ de vue **À valider** |
 | `SA05B_Appui_Sorbothane` | isoler le bloc capteurs tout en limitant son débattement | quatre appuis Sorbothane captifs | contacts locaux corrigés ; tenue **À valider** |
@@ -86,10 +126,20 @@ active restent masqués et explicitement exclus par le manifeste.
 
 ### 4.1 Batterie interchangeable
 
-La batterie 6S 10 Ah candidate est installée dans une cassette guidée par P13 et
-P14. Un verrouillage mécanique positif doit empêcher la sortie dans toutes les
-orientations de vol. La connexion ne doit pas servir de retenue mécanique. Le
-loquet représenté est une réservation et non un composant qualifié.
+La référence choisie pour l'intégration est **Tattu TAA200006S5X9S**, NMC 6S
+20 Ah, 22,2 V nominaux, 444 Wh, 1 950 ±20 g et 193 ×76 ×58 mm. L'enveloppe
+198 ×78 ×60 mm utilisée pour les jeux est une hypothèse d'étude, sans tolérance
+fabricant publiée pour cette référence. La cassette entre au-dessus des bras,
+entre les faces Z33 et Z103 : le plateau supérieur passe de Z83 à Z103.
+Le Pixhawk qui occupait ce volume est déplacé au-dessus du plateau.
+
+La batterie reste montée dans sa cassette : les vis et captures sont permanentes
+pour chaque pack. L'échange consiste à faire coulisser cet ensemble jusqu'aux
+butées mécaniques réglables. La gâche **Southco R4-90-0521-10** entre alors dans
+le loquet automatique à deux stages **R4-05-40-405-10**. La commande manuelle
+libère le loquet pour l'extraction vers `+X`. La butée, les rails et le loquet
+reprennent les efforts ; aucun effort de retenue ne doit passer par les contacts.
+Les stages du cliquet et sa charge admissible ne sont pas simulés par la CAO.
 
 Le mécanisme doit être vérifié pour insertion incorrecte, absence de verrouillage,
 traction câble, vibrations, chocs, usure, remplacement avec gants et impossibilité
@@ -97,23 +147,214 @@ de court-circuit. Tous les critères et tolérances restent **À valider**.
 
 | ID | Exigence de cassette | Résultat actuel |
 |---|---|---|
-| `HW-BAT-SWAP-01` | échange sans outil, vis déposée ni sangle refaite | architecture définie ; essai non exécuté |
-| `HW-BAT-SWAP-02` | prise détrompée accessible, manipulation par le corps | SBS X-75A intégré en CAO simplifiée |
-| `HW-BAT-SWAP-03` | retenue positive et sécurité contre ouverture accidentelle | loquet à sélectionner |
-| `HW-BAT-SWAP-04` | capture verticale/transversale et butée longitudinale | principe CAO contrôlé |
+| `HW-BAT-SWAP-01` | échange sans outil, vis déposée ni sangle refaite | cassette et poignée natives ; essai non exécuté |
+| `HW-BAT-SWAP-02` | prise détrompée accessible, manipulation par le corps | contacts guidés accouplés par insertion ; tension coupée pendant l'échange |
+| `HW-BAT-SWAP-03` | retenue positive et sécurité contre ouverture accidentelle | Southco R4-05-40-405-10 et gâche exacte ; effort et commande à valider |
+| `HW-BAT-SWAP-04` | capture verticale/transversale et butée longitudinale | butées représentées ; retenue sous efforts dans toutes les orientations **À valider** |
 | `HW-BAT-SWAP-05` | échange mécanique et connexion en moins de 30 s | exigence acceptée ; essai **À valider** |
 | `HW-BAT-SWAP-06` | pas de détérioration après cycles avec poussière et gants | critères et essai **À valider** |
 
-L'extraction est longitudinale vers `+X`. Le connecteur est débranché
-manuellement vers `-Y` avant extraction ; il ne constitue ni une butée ni un
-verrou de batterie.
+L'échange s'effectue au sol, PX4 désarmé et moteurs arrêtés. Les pales doivent
+être orientées parallèlement au grand axe de translation pour dégager le passage.
+Le disque d'hélice de 15 pouces laisse seulement 78,81 mm entre les rotors avant,
+alors que le fond de cassette mesure 90 mm : une insertion sans condition sur
+la position des pales serait bloquée. Les pales réelles ne sont pas présentes
+dans le STEP OEM ; leur profil et le maintien de leur orientation sont **À valider**.
+La coupure JETI doit être commandée avant la libération du loquet ; voir DOC-ELEC.
+La connexion SBS manuelle et les pièces P13–P15 appartiennent à l'archive 10 Ah.
 
-Le réceptacle SBS possède une bride représentée à 76,2 × 45,7 mm ; P15 reprend
-une découpe 58,4 × 27,4 mm et quatre perçages Ø4,06 mm sur entraxes
-42,93 × 35,56 mm. Dans le repère actuel, l'axe de connexion est parallèle à Y,
-centré en X = 60 mm et Z = 125 mm, avec face de montage Y = -120 mm. Les modèles
-sont reconstruits à partir des plans publics et restent à confronter aux STEP
-fabricant ou aux pièces reçues.
+#### 4.1.1 Archive de préétude : berceau fixe et capot, 2 octobre 2026
+
+L'intégration est réexaminée pour les candidats 6S 16 et 20 Ah, sans
+sélectionner leur capacité. Le logement entre butées de P14 est **184 × 70 mm** :
+il ne reçoit pas leurs enveloppes nominales de 192 × 76 et 193 × 76 mm.
+L'objet natif `PatteGache` existe dans P14 mais n'est pas inclus dans
+`CassetteBrute` ; la cassette finale ne comporte donc pas cette patte.
+La réservation historique de loquet ne démontre pas un verrouillage fonctionnel.
+
+Le plateau OEM `Part__Feature311` mesure 128 × 120 × 2 mm, à Z = 83…85 mm.
+Ses quatre lumières de 27 × 3 mm sont centrées en X = ±36 et Y = ±33,5 mm.
+Les trous de P13 en X = ±40 et Y = ±35 mm ne sont pas centrés sur ces lumières.
+La reprise candidate utilise leurs centres, avec des perçages Ø3,2 mm dans
+le nouveau berceau pour des fixations M3. Elle évite de proposer un nouveau
+perçage OEM, mais l'accès sous-face, les rondelles, les fixations occupées,
+l'anti-glissement et la résistance restent **À valider**.
+
+Une variante de **berceau fixe avec capot articulé captif** est préparée pour
+l'échange de la batterie seule. Ce principe supprime la cassette portée par
+chaque pack et permet d'agir sur un cadre rigide plutôt que de serrer le loquet
+directement contre la batterie. La cassette dédiée reste une alternative si
+la protection du pack ou la manipulation réelle l'impose. La configuration
+active `SA02_Energie_EchangeRapide` est conservée pour comparaison.
+
+| Paramètre de la variante | Valeur candidate et justification |
+|---|---|
+| Logement intérieur XY | 204 × 84 mm ; enveloppe commune étudiée 198 × 78 mm, puis protection et jeu |
+| Batterie 16 Ah | nominal 192 × 76 × 65 mm ; enveloppe avec tolérances publiées 197 × 78 × 67 mm |
+| Batterie 20 Ah | nominal 193 × 76 × 58 mm ; enveloppe 198 × 78 × 60 mm issue de tolérances d'étude, **non publiées pour cette référence** |
+| Appui inférieur | cadre Z85…89, plaque isolante candidate 1 mm, mousse réservée 2 mm ; batterie 16 Ah à Z92 |
+| Compensation 20 Ah | cale candidate de 7 mm ; même hauteur nominale supérieure que la 16 Ah |
+| Capture supérieure | capot rigide à Z160…163, ouverture intérieure 192 × 72 mm ; dépassement de la largeur du pack empêché en position fermée |
+| Ouverture | axe Y candidat en X = −110, Z = 161,5 mm ; angle d'étude 110°, extraction du pack vers +Z |
+
+À l'enveloppe maximale de 67 mm, le pack atteint Z159 : la garde rigide
+supérieure est seulement **1 mm**. La mousse supérieure, la compression,
+les arrondis de protection, le gonflement admissible du pack et les dispersions
+de fabrication doivent être définis avant fabrication. Le jeu géométrique
+ne démontre pas une précharge ni l'absence d'usure de l'enveloppe souple.
+
+Pour le fast latching, la paire **Southco 91-361-52 / gâche 91-634-52** est
+une candidate d'implantation : petit loquet inox réglable, avec sécurité
+secondaire contre l'ouverture accidentelle. Les [données officielles Southco](https://southco.com/en_us_int/91-361-52)
+et le [catalogue série 91](https://media.southco.com/media/static/Literature/91.en.pdf)
+donnent une réservation fermée d'environ 58 × 24 × 17 mm et un entraxe
+longitudinal réglable de 39 à 47 mm avec cette gâche. La base reste sur le
+berceau et la gâche agit sur le capot rigide. Les cotes de perçage définitives,
+l'orientation, le débattement du levier et l'accrochage réel restent **À valider**
+sur le modèle fabricant ou un exemplaire reçu. La sécurité secondaire du
+loquet ne constitue pas une seconde retenue indépendante en cas de rupture.
+
+Le connecteur SBS demeure débranché manuellement avant l'ouverture et la
+sortie du pack ; les câbles doivent être retenus hors du capot et du levier.
+La variante ne démontre ni l'accès avec gants, ni la connexion en charge,
+ni la durée d'échange. Elle n'est pas insérée dans l'assemblage drone actif.
+
+Les arbres natifs et les liens externes sont **Implémentés** dans
+`SA02_BerceauFixe_Candidat` (16 Ah) et `SA02_BerceauFixe_Candidat_20Ah`
+(20 Ah). Chaque référence possède sa feuille de paramètres ; le capot est
+piloté dans le sous-assemblage par `Parametres.AngleOuvertureCandidat`
+(cellule B50, sauvegardée à 0°). Le fond et la cale sont ajourés, avec une
+surface continue de protection sous le pack. Les rayons de contact,
+les protections latérales et l'impossibilité d'agresser le softpack restent
+à détailler avant fabrication.
+
+Les preuves et leur périmètre sont tenus dans
+`verification/construction_berceau_fixe_candidat_20261002.json`,
+`integration_berceau_fixe_20261002.json` et
+`controle_berceau_fixe_manifest_20261002.json` ; voir DOC-VAL §12.1.1.
+Le contrôle des voisins utilise l'avionique historique du drone actif,
+pas la nouvelle cible CA01/Holybro. Toute migration de cette pile impose
+un nouveau contrôle d'intégration.
+Les contrôles d'ouverture et de sortie ne vérifient pas la retenue sous
+efforts dans toutes les directions en position fermée. La revue indépendante
+confirme les liens, les paramètres, les empreintes et la cohérence des limites ;
+elle ne qualifie ni la capture ni le mécanisme réel.
+
+#### 4.1.2 Préétude de faisabilité entre plateaux — contexte historique
+
+La demande du 2 octobre 2026 vise le logement au-dessus des bras : dessus du
+plateau OEM `Part__Feature309` à Z33, dessous du dernier plateau
+`Part__Feature311` à Z83. Il offre **50 mm libres**. Le plateau inférieur
+mesure 160 × 160 mm ; le supérieur 128 × 120 mm. Les deux plateaux avionique
+plus bas, Z0…2 et Z31…33, ne laissent que 29 mm et ne constituent pas ce logement.
+
+Les packs 16 et 20 Ah ne rentrent pas dans les 50 mm actuels, même nus.
+La préétude horizontale, grand axe X, réserve 4 mm de fond, 1 mm de plaque
+isolante, 2 mm de mousse et au moins 2 mm de jeu supérieur. Ces épaisseurs
+sont des hypothèses **À valider**, pas un support nouvellement conçu.
+
+| Pack | Hauteur maximale étudiée | Hauteur libre nécessaire | Rehausse minimale calculée | Rehausse candidate arrondie |
+|---|---:|---:|---:|---:|
+| 6S 16 Ah | 67 mm, tolérances publiées | 76 mm | +26 mm | **+30 mm**, logement 80 mm, jeu haut 6 mm |
+| 6S 20 Ah | 60 mm, tolérances d'étude non fabricant | 69 mm | +19 mm | **+20 mm**, logement 70 mm, jeu haut 3 mm |
+
+Pour un logement commun aux deux candidats, **+30 mm** est une base de
+dimensionnement à examiner. Les quatre colonnes OEM sont nominalement
+`HUAZHU-LV-M3-50`, Ø extérieur 5 mm, aux axes X/Y = ±52 mm. Une rehausse
+de 20/30 mm correspondrait à des colonnes nominales de 70/80 mm ; filets,
+longueurs effectives, visserie, rigidité, contreventement éventuel et reprise
+des efforts du plateau sont **À valider**. La présente étude ne remplace
+aucune colonne et ne déplace aucun plateau dans les fichiers natifs.
+
+Le passage entre rangées de colonnes est de 99 mm : la largeur maximale
+du pack de 78 mm laisse 10,5 mm par côté avant guides et protections.
+La longueur de 198 mm dépasse le plateau inférieur de 19 mm par extrémité,
+et le supérieur de 35 mm ; les appuis et la capture doivent reprendre ces
+porte-à-faux. Le volume actuel est occupé par P20, l'isolant, le Pixhawk et
+sa sangle entre Z34 et Z81,6 : **la rehausse seule ne libère pas le logement**.
+Une nouvelle implantation de l'avionique est nécessaire. La pile candidate
+Holybro/CA01 possède son propre repère, sans placement drone validé ; elle
+ne démontre pas que cette migration est déjà résolue.
+
+Le capot ouvrant à 110° du §4.1.1 ne peut pas être repris sous un plateau
+fixe. Une sortie longitudinale avec retenue frontale, ou un plateau supérieur
+ouvrant captif pour un retrait vertical, reste **Planifié / À valider**.
+La connexion SBS reste indépendante de la retenue et son accès doit être
+redéfini avec le nouveau trajet du pack.
+
+Les hélices sont absentes de la CAO OEM. À partir des axes moteurs
+X/Y = ±229,90664 mm, une enveloppe hypothétique de disque Ø381 mm (15 pouces)
+laisse environ **78,81 mm entre les disques** lors d'une sortie +X près
+des moteurs. Un pack de largeur 78 mm n'y dispose que de 0,41 mm par côté,
+hors mains, câbles et tolérances des hélices. La position statique centrale
+et l'échange latéral sont donc deux problèmes distincts ; une absence
+de collision avec les seules pièces CAO ne valide pas le passage réel près
+des pales. Le plan d'hélice, le volume balayé, les dégagements et le scénario
+d'échange doivent être vérifiés sur les références réelles.
+
+Conclusion de préétude : rangement central envisageable après rehausse et
+migration de l'avionique ; accès, fast latching, rigidité et centrage restent
+**À valider**. Descendre le pack abaisse son centre propre, mais le centrage
+du drone dépend également de l'avionique déplacée et de la masse des supports.
+Preuve : `verification/logement_interplateaux_20261002.json` ; coupe de
+principe `verification/logement_interplateaux_20261002.png` ; DOC-VAL §12.1.2.
+
+#### 4.1.3 Cassette 20 Ah, rehausse et composants commerciaux
+
+La préétude précédente est remplacée pour la configuration de travail par
+les natifs du dock 20 Ah. Les originaux OEM et les variantes précédentes
+restent inchangés. Les recettes, références, matrices et empreintes sont
+dans `hardware/mecanique/cartographe/verification/` et le manifeste voisin.
+
+| Interface | Définition d'intégration | Limite |
+|---|---|---|
+| logement | faces Z33/Z103, quatre entretoises P37 aluminium6061T6 Ø6×70 avec M3 aux extrémités | rigidité et reprise des efforts à vérifier sur pièces |
+| avionique | P27 G10, Pixhawk historique au-dessus du plateau ; niveau P06 conservé | aucune implantation qualifiée de la porteuse Holybro/CA01 cible |
+| rails | P28/P29, chanfreins d'entrée et flange captive ; jeu nominal0,5mm en dessous/dessus | usure, tolérances, poussière et efforts d'insertion à mesurer |
+| cassette | fond P30 G10ép2, capture P31, deux bandes P32 G10ép2 avec vis fraisées affleurantes | pack maximal d'étude touche la capture haute ; calage du pack réel à mesurer sans comprimer le softpack |
+| butée | P35 fixe et portée P36 sous fond ; réglage M4 indépendant des contacts | réglage du stage primaire et contrôle du jeu axial au banc |
+| verrou | SouthcoR4-05-40-405-10 + gâcheR4-90-0521-10, montage aux cotes du plan J-R4-05-10 | tenue admissible, verrouillage et commande avec gants non qualifiés |
+| contacts | TE1648151-1/1648156-1, deux positions de puissance, fixation flottante et supports P39/P40 | anomalies des cavités STEP signalées ; compatibilité et engagement à contrôler sur la paire réelle |
+| chemin électrique mobile | conducteurs cuivreC101 P42, section10mm², sous protections P43–P45, raccordement frontal | procédé de pliage, isolation, serrage et échauffement à qualifier |
+| coupure fixe | JETIMainSwitch100 et commande magnétique sur P41, captures et colliers | OFF avant déverrouillage ; mémoireON et négatif commuté selon DOC-ELEC§6.1 |
+| raccordement pack | protection P46, porte-à-faux XT90 P47, fils d'origine conservés | sorties du lot, mou, courbures et tenue du porte-à-faux à contrôler |
+| faisceau fixe | entretoises Cu P48, protections P49/P50, deux fils AWG8 et épissures TE34321 isolées ATUM | kit JETI8mm² à confirmer ; sorties du module réservées dans la CAO, sans usinage du produit |
+| équilibrage et reprise | coffret P51/P52 pour prise et mou ; P53 retient les gaines surP41 et transmet le serrage au module par deux portées | calage, rigidité, dissipation et vibration à valider sur lot réel |
+
+Sept colliers T50R `111-05012` sont posés : deux sur le module, dont le
+premier partagé avec P53, deux sur la commande magnétique, deux sur XT90,
+un autour des gaines sur P53. Les lumières natives laissent passer les fils
+et le collier. Les deux adaptateurs fixes ont des arcs tangents de rayon
+minimal50mm pour un diamètre d'étude5mm, et des longueurs libres559,39/475,79mm
+avant retenue. Leurs boucles montent àZ232,5mm ; il faut vérifier leur tenue
+réelle et la liberté de la fixation flottante TE, notamment aux limites de
+son déplacement. Les entrées du module sont des réservations d'étude à
+mesurer sur le kit ; elles n'autorisent aucun perçage du module commercial.
+
+Le choix s'appuie sur des produits existants : la famille SouthcoR4 est un
+loquet commercial automatique pour fermeture par poussée ; la famille TE
+ELCON Drawer est conçue pour accouplement guidé de tiroirs, avec appuis et
+butées séparés ; la coupure/anti-étincelle JETI est un module commercial.
+Ces implémentations ne constituent pas une qualification d'application UAV.
+Les originaux, plans et notices sont conservés dans
+`sources_fabricants/batterie20Ah_20261002/`, avec les exemples et leur provenance.
+
+La [BOM du dock](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json)
+définit les quantités pour un drone et une cassette, les MPN commerciaux,
+les standards et longueurs de vis, les pièces fabriquées et leurs fichiers.
+Les fixations permanentes sont posées lors de la préparation d'un pack ;
+elles ne sont pas déposées à chaque échange. Une seconde cassette reprend
+uniquement les lignes mobiles. Les pièces P13–P15 et le SBS sont retirés de
+la configuration active, P23–P26 restant des candidats archivés.
+
+Les contrôles de course portent sur la géométrie nominale et l'enveloppe de
+pack d'étude. Les supports du loquet ont été repris après détection d'un
+accrochage, les fixations de rails déportées hors flange et les vis supérieures
+rendues affleurantes pour traverser sous le plateau pendant toute l'extraction.
+La preuve d'intégration distingue le balayage continu, les poses échantillonnées,
+les volumes fonctionnels des composants achetés et les modèles simplifiés.
+Voir DOC-VAL§12.1.3 : aucune absence de blocage physique ni qualification du
+verrouillage n'est déduite d'une simple ouverture du fichier.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -182,8 +423,9 @@ le **Pixhawk 6X module seul** et le **Jetson Orin NX 16 Go**. Elle remplace
 l'implantation séparée Pixhawk/base v2A dans SA03 et kit Orin Nano dans SA04.
 Le support, l'isolation, la dissipation, les accès aux ports et les faisceaux
 doivent être redéfinis sans présumer des perçages ou jeux de l'ancienne CAO.
-Ce regroupement est **Planifié** ; les assemblages et le manifeste FreeCAD
-restent ceux de la configuration du 16 septembre.
+L'intégration au drone reste **Planifiée**. Une variante native CA01/Holybro
+est **Implémentée** au §4.4.1 ; la configuration active du drone conserve
+l'assemblage du 16 septembre.
 
 La carte commune **CA01** regroupe dans la cible la radio RP4TD, ses conversions
 locales 5 V et les adaptations de synchronisation, hors porteuse. Le
@@ -197,7 +439,8 @@ la mesure DroneCAN rejoint CAN1 par un faisceau distinct. Les deux BEC ne
 sont pas mis en parallèle. Le 5 V local protégé de CA01 est issu d'un départ
 batterie aval du PM08-CAN et alimente notamment la radio, indépendamment du
 Jetson. Un rail 12 V candidat dessert l'entrée XT30 de la porteuse ; le rail
-LiDAR et les adaptations de synchronisation restent à définir. Brochages,
+LiDAR et les adaptations de synchronisation sont des circuits candidats
+KiCad V0.5-pre, implémentés mais non qualifiés. Brochages,
 protections, budgets et essais sont décrits dans
 [DOC-ELEC §4.2](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01)
 et [§4.3](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#43-câblage-global-du-cartographe).
@@ -223,12 +466,14 @@ Les fixations ne doivent pas contraindre le boîtier, les composants ou les
 soudures ; aucun effort de cassette ne doit transiter par les câbles du PM.
 
 Le raccordement batterie, le détrompage, la coupure et la séquence d'échange
-restent à définir. POWER1, POWER2, DroneCAN et les départs d'alimentation
-restent sur le châssis pendant l'échange du pack. Le connecteur SBS de puissance ne transporte pas
-implicitement de signaux ; aucun échange sous charge n'est prévu.
+sont définis pour le dock20Ah au§4.1.3 et dans DOC-ELEC§6.1 ; leur mise en
+œuvre physique reste À valider. POWER1, POWER2, DroneCAN et les départs
+d'alimentation restent sur le châssis pendant l'échange. Les positions
+signal des contacts TE sont inutilisées ; aucun échange sous charge n'est prévu.
 
-Les fichiers CAO SA03/SA04, P03/P04/P06/P20 et les enveloppes ci-dessous
-restent ceux de l'empilage du 16 septembre. Ils ne représentent ni la porteuse
+La CAO avionique est héritée de l'empilage du 16 septembre ; la variante
+SA03_Avionique_Rehausse20 déplace le Pixhawk historique surP27. Ces modèles
+et SA04/P03/P04/P06 ne représentent ni la porteuse
 Pixhawk Jetson, ni le module Orin NX 16 Go, ni le rail XT30 et ses câbles,
 ni la nouvelle implantation CA01, la PDB candidate ou le support fixe
 PM08-CAN. L'enveloppe PM02D demeure historique. Les anciennes enveloppes RC et télémétrie séparées
@@ -239,11 +484,177 @@ La cible nécessite une reprise des sous-assemblages, du manifeste et du bilan
 de masse après choix des révisions matérielles et des modèles fabricants. Le
 contour de CA01, ses fixations, les dégagements antennes, l'isolation du carbone,
 les connecteurs XT30, POWER1/POWER2 et CAN, le refroidissement et les rayons
-de courbure restent **À valider**. Les circuits internes KiCad V0.3 conservent
-leur ancienne définition ; le 5 V local protégé et les nouvelles interfaces
-ne sont pas démontrés par la CAO ou le schéma actuels. Les nouvelles masses
+de courbure restent **À valider**. Les circuits internes KiCad V0.5-pre
+et le préplacement CA01 sont implémentés ; le 5 V local protégé et les
+nouvelles interfaces restent à qualifier électriquement. Les nouvelles masses
 alimenteront le modèle de simulation ; la CAO et Gazebo ne démontrent pas la
 tenue thermique du module, de la porteuse ou des faisceaux.
+
+#### 4.4.1 Préplacement CA01 et variante Holybro, 1 octobre 2026
+
+Le contour candidat CA01 mesure **126 × 80 mm**, avec quatre trous Ø3,2 mm
+aux centres (3 ; 3), (123 ; 3), (123 ; 77) et (3 ; 77) dans le repère local.
+Il reprend les entraxes 120 × 74 mm de la porteuse. Le PCB natif CA01
+est paramétrique : corps de 1,6 mm, quatre perçages M3 et quatre
+perçages MOD401 candidats Ø0,8mm, composants importés
+du STEP KiCad, dont MOD401 RP4TD 23,7 × 16,3 × 4 mm tourné de 90°.
+Les 151 composants schématiques incluent désormais MOD401 ; avec quatre
+fixations, le PCB contient 155 empreintes. Le contour, les fixations, connecteurs et la radio restent conservés
+dans le routage complet quatre couches (DOC-ELEC§4.2.11, DOC-VAL§12.7.13).
+Le placement électrique de48références a été repris le02/10 ; les associations
+de modèles3D restent présentes, mais les exports FreeCAD/STEP du01/10
+représentent les positions antérieures des composants déplacés. Leur mise
+à jour est maintenant réalisée dans la variante de revue du §4.4.1.1 ; le
+contrôle d'accès/hauteur complet reste **À valider** avant fabrication.
+Les pistes, plans et vias ne sont pas détaillés dans le natif
+FreeCAD ; la thermique et le montage réels restent **À valider**.
+
+Source : STEP inchangé de la [page de téléchargement Holybro](https://docs.holybro.com/autopilot/pixhawk-baseboards/download),
+`sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp`. Ses métadonnées
+indiquent ORIN_NX-RC02 et un export du 19 juin 2024 ; elles ne démontrent
+pas la révision commerciale reçue. Le PCB STEP mesure environ 1,992 mm
+contre 1,6 mm sur le dessin : la révision et l'épaisseur restent **À valider**.
+
+Ouvrir `sous_assemblages/SA03_CA01_Holybro_candidat.FCStd` en conservant
+les pièces liées. Les deux occurrences externes sont Holybro à l'identité
+et CA01 retournée de 180° autour de X, décalée à Z = −9,97 mm.
+L'écart entre faces de PCB est **10 mm candidat**, piloté par une expression ;
+les composants CA01 regardent vers l'extérieur inférieur. Cette variante
+ne remplace pas `SA03_Avionique` dans l'assemblage actif du drone.
+
+Les modèles3D de dix familles, soit **16 occurrences**, remplacent les
+anciennes boîtes : Q101–Q104, U101, U201/U301, D503/D504, R116, F101,
+J103/J104, J201/J301 et J502. Les modèles détaillés XT30-M et PH proviennent
+de la bibliothèque de leur auteur ; les autres sont reconstruits depuis
+les plans cotés fabricants, avec arbre natif et terminaisons représentées.
+Ce sont des modèles nominaux **Implémentés / À valider**, pas des STEP OEM.
+Les originaux sont conservés sans modification et les pièces dérivées
+restent distinctes. Le modèle XT30-M conserve une hauteur5,0mm contre
+5,2mm sur le plan ; PH5,6mm contre5,5mm. Les queues VH1,14mm carrées
+ont une diagonale1,612mm dans des trous1,7mm : tolérances à vérifier.
+
+Les modèles détaillés KiCad déjà présents, dont GH et XAL1010, sont conservés
+avec copies locales. Les 21 fichiers de bibliothèque utilisés ne dépendent
+plus du répertoire d'installation KiCad. Les MPN encore absents de la BOM
+restent des représentations de boîtier, sans sélection électrique nouvelle.
+L'[inventaire courant](../../hardware/electronique/cartographe/carte_avionique/modeles_3d.json)
+porte chemins, références, provenance et hashes. Les exports courants sont
+dans `exports/ca01_modeles3d_20261001/` ; les anciennes boîtes et l'export
+à163solides restent historiques. Les valeurs maximales de l'enveloppe du
+shunt précédente ne deviennent pas les cotes nominales du modèle actuel.
+
+Le STEP courant comporte **308 solides composants pour141 composants
+représentés**, plus le substrat. Les DNP, trous M3, points de test et jumper
+ouvert n'ajoutent pas de composants physiques. Le PCB natif conserve son
+arbre : une boîte additive, quatre perçages M3 et quatre perçages radio.
+La réouverture en processus neuf confirme les liens externes, la concordance
+STEP/natif et la conservation de `SA03_Avionique` actif.
+
+Les shapes nominales des composants distincts n'interfèrent pas. Le volume
+commun CA01/Holybro est nul, avec une distance minimale entre les formes
+représentées de **1,9446mm**. Les intervalles Z des boîtes englobantes se
+recouvrent désormais de0,0604mm à cause des queues traversantes : l'ancienne
+preuve par intervalles disjoints ne s'applique plus. Ces contrôles ne
+qualifient pas les tolérances, entretoises, retenues, fiches accouplées,
+câbles, thermique ou vibrations. La TVS conserve seulement une réserve2D.
+Protocole et preuves courants : DOC-VAL §12.7.9.
+
+Le RP4TD standard **MOD401** reste la seule famille de boîte provisoire :
+aucun STEP détaillé fiable trouvé, et le modèle d'une variante RP4TD-M a
+été rejeté. Son enveloppe nominale23,7×16,3×4mm reste à
+(16,5;20,5)mm/90°, une seule occurrence. J401/W11 et l'ancienne
+réserve séparée restent supprimés. Le profil sous-face, les composants du
+module, les broches et leur hauteur installée ne sont pas connus.
+
+**Empreinte THT candidate Implémentée / À valider :** quatre trous0,8mm
+sont ajoutés dans la construction native, alignés aux centres photographiques
+X11,85,Y±3,9/±1,3mm des contacts dans le repère d’empreinte. Le plan coté
+OEM n’est pas disponible ; cette estimation doit être mesurée sur le module.
+Le profil sous-face reste à relever. Le dessous est peuplé ; aucun jeu Z
+radio/CA01 n’est défini. La méthode retenue emploie quatre broches
+verticales soudées dans CA01 puis aux demi-trous du récepteur, avec axes
+alignés à leurs centres. Section ronde0,5mm, trou0,8mm et pad1,6mm sont candidats ; leur compatibilité
+aux demi-trous et la hauteur libre restent à vérifier. La géométrie courante
+ne représente pas les broches3D ni leur hauteur installée. La pose Z du corps
+nominal est uniquement illustrative : elle ne prouve ni contact soudable
+ni absence d’interférence sous le module. Le gap inter-PCB Holybro/CA01
+de 10 mm reste l’hypothèse antérieure ; il ne fixe pas ce jeu local.
+Maintien, isolation et accès BIND/U.FL/antennes restent ouverts selon
+DOC-ELEC §4.2.10 ; résultats et limites DOC-VAL §12.7.8.
+
+Traçabilité : `CARTE-010 / CARTE-012` → PCB et variante native →
+`T-CA01-10 / T-CA01-12` → preuves `verification/holybro_stack_source_20261001.json`
+et `verification/revue_stack_ca01_20261001.json`, recettes DOC-VAL §12.7.5/12.7.6.
+État **Implémenté**, qualification **À valider** ; aucune fabrication ni
+mesure physique exécutée.
+
+##### 4.4.1.1 Reprise de la stack sur le plan Holybro, 3 octobre 2026
+
+Le [plan coté Holybro](https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight)
+est la référence des interfaces : PCB126×80×1,6mm, quatre trousØ3,2,
+entraxe120×74mm ; vue avec Orin : quatre fixationsM3 et appuis8mm.
+L'ensemble annoncé avec refroidissement/FCU mesure38,6mm de haut.
+Les deux dessins originaux sont conservés sous `sources_fabricants/Holybro_*_Dimensions.jpg`.
+Le STEP fabricant déjà disponible reste inchangé ; son pied inférieur est
+àZ−8,0254 et sa sous-facePCB àZ0,03, soit8,0554mm apparents. Le plan
+définit les cotes nominales ; cette différence de révision/tolérance et
+l'épaisseurSTEP1,99232mm restent **À valider** sur le matériel reçu.
+Ne pas redimensionner globalement le STEP pour masquer ces écarts.
+
+La première proposition de visCHC sous la plaque basse est rejetée : les
+têtes et rondelles touchent les quatre P17. Les mêmes axes(±60,±37)mm
+servent à la stack, à la plaque basse et aux passagesØ3,4 deP17.
+La variante native `SA03_CA01_Holybro_Revue_20261003` représente donc
+une **fixation commune candidate**, sans ajouter une deuxième vis d'ancrage
+P17 absente de la CAO initiale. Les M2 d'isolation capteurs restent distinctes.
+
+| Élément de la chaîne candidate | Quantité | Définition nominale représentée |
+|---|---:|---|
+| P55 entretoise basseG10 | 4 | longueur24mm, Ø6, passageØ3,2 ; appui plaqueZ−90 versPCBZ−66 |
+| CA01 retournée, composants vers le bas | 1 | PCBZ−66..−64,4 ; placement courant02/10 ; quatre axesM3 |
+| P54 appui supérieurG10 | 4 | longueur2mm, Ø5,5, passageØ3,2 ; appuiPCBZ−64,4 verspiedOEMZ−62,4 |
+| VisCHCM3×65 et rondellesM3 | 4+4 | têtes sousP17, face d'appuiZ−121,674 ; pointeZ−56,674 |
+| P56 plaque basse dérivée | 1, substitution | sourceOEM intacte ; quatre trousØ3 reprisØ3,2, sans fraisage du carbone |
+
+La pose de la porteuse estZ−54,3746mm, dérivée des appuis24/2 et du pied
+STEP ; le gapPCB est10,0554mm. Ces valeurs décrivent la variante calculée,
+pas des cotes qualifiées de fabrication. L'engagement géométrique dans les
+piedsM3 est5,726mm, avec1,274mm avant le fond représenté ; profondeur
+filetée utile, longueur sous tête réelle et couple restent à confirmer.
+Cette chaîne reprend aussiP17 : desserrer les vis libère ses ancrages.
+L'outil axial rencontreP16 ; déposer le bloccapteursSA05A pour monter ou
+entretenir la stack, puis remonter les isolateurs selon leur procédure.
+Ces paramètres ne pilotent pas globalement toute la quincaillerie : pour
+une autre pose ou un autre gap, reprendre la recette et recontrôler les
+appuis, les longueurs de vis et l'accès ; ne pas déduire un montage complet
+d'une modification isolée du gap dans le natif.
+
+Le PCB de revue conserve son arbre natif et ajoute42perçages de pads aux
+huit trous historiques, soit50. Les308solides composants proviennent du
+PCB courant, avec46composants physiques déplacés depuis le préplacement.
+L'exportKiCad sans cuivre extérieur représente un substrat1,46mm ; la
+convention mécanique restitue1,6mm au PCB et translate les composants
+de+0,14mm. Ce changement de repère est explicite dans la preuve, sans
+qualification du stackup fabricant ni détail des251vias de routage.
+
+Ouvrir `assemblages/Integration_Stack_Revue_20261003.FCStd` pour examiner
+la pose avec la plaqueP56, le dock et les capteurs. Les assemblages actifs
+et la maquette avec ancien faisceau restent préservés. Le manifeste et
+la BOM cible référencent cette revue séparément : aucun recalage du
+faisceau ni gel du drone complet n'en résulte. Vues produites directement
+parFreeCAD dans `exports/stack_avionique_revue_20261003/`.
+
+Chaîne `MEC-AVI-001 / MEC-INT-001 / CARTE-010` → variante native →
+`T-STACK-REVUE-NATIF/GEOM` → DOC-VAL§12.7.14 et
+`verification/controle_stack_revue_20261003.json` ; revue indépendante
+`verification/revue_independante_stack_20261003.json`.
+CAO **Implémenté**, conception et tenue **À valider** : compression/fluage
+P17 et G10, précharge du PCB, résistance de la longue vis, serrage,
+vibrations, fiches accouplées, réserves radio et refroidissement non
+qualifiés. Les appuisG10 ne prouvent pas l'isolement des tiges dans le
+carbone ou les trousPCB ; stratégie de masse/isolants à définir.
+
+#### 4.4.2 Empilage historique du 16 septembre
 
 Les paragraphes et cotes suivants décrivent uniquement la CAO historique
 **Implémenté** le 16 septembre ; ils ne sont pas la géométrie de la cible.
@@ -288,14 +699,61 @@ revue de conception, pas la fabrication fonctionnelle ou le vol.
 
 ### 4.5 Points restant à fermer pour le drone cartographe
 
+#### Revue de configuration et faisceau système — 3 octobre 2026
+
+La [nomenclature cible](../../hardware/mecanique/cartographe/configuration_cible_20261003.json)
+recense 60 postes embarqués, avec quantités, références connues, masses publiées,
+inclusions et données manquantes. Elle complète la BOM détaillée du dock ; elle
+ne transforme pas une sélection candidate en référence qualifiée. Objectif,
+SSD, accessoires de vol, antennes RF, fournitures de câblage, procédés et
+supports définitifs restent **À valider**. Le kit X650 comprend déjà une
+avionique, une PDB XT60/XT30, des moteurs, ESC, LED et câbles : les retraits
+doivent être individualisés avant d'ajouter la cible, sans crédit de masse
+inventé. Les quatre départs XT90 de la PDB candidate exigent des adaptateurs
+vers les XT30 des ESC OEM.
+
+Une nouvelle maquette de revue **Implémenté**, inactive et **À valider**, est
+disponible dans
+`hardware/mecanique/cartographe/assemblages/Drone_Cartographe_Systeme_Candidat.FCStd`.
+Elle conserve les liens vers châssis, dock et capteurs ; elle remplace dans
+cette seule variante l'avionique/calcul/RTK historiques par la pile
+Holybro/CA01, la distribution PM08/PDB et une enveloppe RTK Helical.
+La pile est translatée de `(-63, -40, -65) mm` ; PM08 et GNSS sont des
+primitives nominales, la PDB provient d'un STEP fabricant inchangé.
+Après les interférences de l'itération initiale, le PM08 est placé en
+`(-138, -82, -28) mm` et l'enveloppe de la PDB occupe
+`X = 90..150`, `Y = -40..40`, `Z = -59..-36 mm`.
+Cette implantation n'est pas un montage fixé : les supports, isolants,
+prises accouplées et accès de maintenance restent à concevoir.
+
+Le sous-assemblage `SA08_Faisceau_Systeme_Candidat` contient 35 références
+de cordons à chemins arrondis et balayages natifs, pilotées par la
+[recette déclarative](../../hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json).
+Les coordonnées de sortie OEM sont des réservations, pas des centres de
+contacts mesurés. Trois groupes physiques restent non routés : câble du
+refroidissement, accessoires de vol et LED OEM. Les liaisons internes,
+réserves non montées et liaisons sans fil ne créent pas de cordon artificiel.
+
+Les rayons réservés ne sont pas respectés sur 23 des 35 chemins. Le contrôle
+final ne détecte aucune intersection entre les nouveaux équipements et les
+sous-ensembles représentés ; 32 cordons présentent au moins une intersection
+brute avec un équipement, y compris aux sorties nominales. Ces résultats sont consignés dans
+[le contrôle système](../../hardware/mecanique/cartographe/verification/controle_systeme_faisceau_20261003.json).
+Il faut reprendre l'implantation et les routes, coter les interfaces, ajouter
+les retenues et vérifier la course cassette, le repli des bras et le mouvement
+du bloc isolé. Aucun passage complet de câble, fixation ou bilan de centrage
+n'est validé par cette maquette. L'assemblage actif 20 Ah et ses sources
+existantes sont préservés par empreintes ; les archives et leurs essais
+antérieurs conservent leur périmètre.
+
 | Point | Traitement réalisé / décision de travail | Donnée ou validation nécessaire pour clôturer |
 |---|---|---|
 | contacts capteurs | géométrie corrigée, huit poses contrôlées et bilan statique mis à jour | interface Airy selon guide v1.3 : planéité, vis/piges, chemin thermique et premier mode >50 Hz ; câbles, rotations, essai vibratoire et calibration |
 | fixation avionique | ancienne CAO P06, P20–P22 et retenues créées sur trous OEM | nouveau support de porteuse, matériau/procédé, tolérances, freinage, accès et essais de retenue |
 | Jetson / P04 | deux collisions de l'ancienne maquette Orin Nano restent ouvertes | modèle exact porteuse/Orin NX, nouvelle fixation et contrôle d'interférence avant fabrication |
-| loquet batterie | conserver verrouillage mécanique positif indépendant du SBS ; famille Southco 97 avec verrou secondaire candidate | référence complète loquet/gâche, efforts, montage, essais avec gants et cycles |
-| batterie et cassette | enveloppe 6S 10 Ah candidate conservée | pack exact, tolérances, gonflement, mousse, sangles et masse réelle |
-| SBS / faisceau | implantation existante maintenue | contacts et câbles réels, rayon de courbure, traction, précharge et échauffement (DOC-ELEC) |
+| loquet batterie | SouthcoR4-05-40-405-10 + gâcheR4-90-0521-10, indépendant des contacts | stage primaire, efforts, commande avec gants, protection contre ouverture accidentelle et cycles |
+| batterie et cassette | TattuNMC6S20Ah TAA200006S5X9S et cassette interplateaux | réception du pack, tolérances, gonflement, calage, isolation et masse réelle |
+| TE / faisceau du dock20Ah | contacts MiddleDrawer, XT90 et JETI implantés dans la CAO active | engagement réel, liberté flottante, courbure, traction, précharge et échauffement (DOC-ELEC§6.1) |
 | RTK / antenne | supports P07–P09 et enveloppes Rover patch historiques conservés | candidat Helical STM32G4 : support/antenne et SMA éventuel, câbles CAN + UART2 de temps, ciel dégagé, carbone/propulsion, masse et repères à vérifier |
 | caméra / optique | Basler conservée ; translation Airy traçable | objectif réel, champ de vue, masques, longueur des vis et extrinsèques |
 | distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN fixé au châssis ; PDB 300A Top Entry candidate en aval ; ancienne CAO conservée | support et isolation PDB, accès XT90/XT30, protection W08 au plus près du port et segment amont exposé à minimiser, décharge des départs, contour/fixations CA01, support PM08-CAN, encombrement, vibrations et thermique ; actualiser SA03/SA04 après définition (DOC-ELEC §4.2) |
@@ -341,22 +799,45 @@ conception puis confirmées à la revue de fabrication.
 | `P21_Cale_avionique_1mm` | 4 | liaison au plateau supérieur OEM | isolant rigide **À valider** | **Implémenté** en CAO |
 | `P22_Cale_avionique_12` | 4 | dégagement sangles sous P06, 1,2 mm | isolant rigide **À valider** | **Implémenté** en CAO |
 
+La variante de berceau fixe utilise les références ci-dessous. Leurs quantités
+sont celles de la variante ; leur quantité dans le drone actif reste **zéro**.
+
+| Référence candidate | Quantité dans la variante | Rôle | État |
+|---|---:|---|---|
+| `P23_BerceauFixe_Candidat` | 1 | logement ajouré, butées et ancrages OEM candidats | CAO **Implémenté** ; matériau/fixations/tenue **À valider** |
+| `P24_ProtectionG10_Candidat` | 1 | plaque continue inférieure de 1 mm | CAO **Implémenté** ; G10 et isolation **À valider** |
+| `P25_CapotCaptif_Candidat` | 1 | capture supérieure articulée | CAO **Implémenté** ; axe/capture/verrouillage **À valider** |
+| `P26_Cale20Ah_Candidat` | 1 uniquement en 20 Ah | compensation de hauteur de 7 mm, réseau et peau continue | CAO **Implémenté** ; appui/protection **À valider** |
+
+Les enveloppes natives des packs 16/20 Ah, de la mousse basse, de l'axe et du
+loquet sont des réservations commerciales **À valider**, pas des modèles OEM.
+La visserie, la gâche fonctionnelle et la capture axiale définitives ne sont
+pas définies par ces réservations.
+
+La table précédente conserve les références historiques. La configuration
+20 Ah remplace P13–P15/P20 par P27–P53 selon les quantités effectives de la
+[BOM du dock](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json).
+P37 est répété quatre fois ; P32 et P42 deux fois ; P38 dérive le plateau309
+du kit sans achat d'un second kit. Les vis OEM réutilisées, les vis remplacées
+et les vis ajoutées sont distinguées par les recettes et la BOM.
+
 ### 5.2 Équipements et fournitures à impact mécanique
 
 | Réf./famille | Qté | Rôle | État |
 |---|---:|---|---|
 | châssis X650 V2 et propulsion associée | 1 | structure et portance | candidat **À valider** |
-| batterie LiPo 6S 10 Ah Tattu candidate | 1 en vol | énergie et masse principale amovible | sélection **À valider** |
-| connecteur Anderson SBS X-75A | 1 paire | connexion rapide de puissance | présélection d'étude |
-| loquet rapide | 1 | verrouillage positif de cassette | référence **À valider** |
-| mousse et sangles de cassette | 1 jeu | calage et retenue secondaire | dimensions/matière **À valider** |
+| batterie TattuNMC6S20Ah TAA200006S5X9S | 1 par cassette | énergie et masse principale amovible | choix d'intégration ; énergie réelle et profil électrique **À valider** |
+| TE ELCON 1648151-1/1648156-1 et contacts M5 1766283-1/6648335-1 | 1 paire, 2 contacts par côté | connexion guidée du dock | références existantes ; engagement et courant **À valider** |
+| Southco R4-05-40-405-10 et R4-90-0521-10 | 1 loquet + 1 gâche | verrouillage positif automatique | choix implémenté ; essais **À valider** |
+| JETI J-MSW-100-MS, commande et support P41 | 1 jeu fixe | coupure avant échange | séquence et charge réelle **À valider** |
+| EPDM RS PRO 205-513, découpes et cales de pack | selon hauteur mesurée | protection et calage permanent | EPDM dense70ShA, pas mousse compressible ; ne pas forcer le softpack |
 | Sorbothane 30 duro | 4 appuis | isolation du bloc capteurs | géométrie finale **À valider** |
 | vis M2, écrous frein et capture métallique | 4 jeux visés | limitation sûre du débattement | dimensionnement **À valider** |
 | Airy, Basler et objectif | 1 chacun | bloc optique/LiDAR calibré | équipements candidats/présélectionnés |
-| porteuse Holybro Pixhawk Jetson, Pixhawk 6X module seul et Orin NX 16 Go | 1 chacun | ensemble calcul/vol de la nouvelle cible | **Planifié** ; encombrement, fixation et thermique **À valider** |
-| H-RTK F9P DroneCAN Helical STM32G4 et antenne candidats | 1 module embarqué | navigation RTK et PPS ; interface de fixation | remplacement étudié du Rover patch ; référence, enveloppe CAO, masse et montage **À valider** |
-| PM08-CAN et support fixe châssis | 1 par drone | distribution mesurée et deux BEC, près de la distribution | **Planifié** ; enveloppe fabricant 45 × 41 × 26 mm hors câbles, 185 g avec câbles ; intégration **À valider** |
-| PDB Holybro 300A Top Entry, SKU 18138, et support | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | **Planifié** ; masse, encombrement installé, isolation, accès et faisceaux **À valider** |
+| porteuse Holybro Pixhawk Jetson, Pixhawk 6X module seul et Orin NX 16 Go | 1 chacun | ensemble calcul/vol de la nouvelle cible | représentation groupée **Implémenté** dans la maquette inactive ; fixation et thermique **À valider** |
+| H-RTK F9P DroneCAN Helical STM32G4 et antenne candidats | 1 module embarqué | navigation RTK et PPS ; interface de fixation | enveloppe nominale **Implémenté** dans la maquette inactive ; référence, interfaces, masse et montage **À valider** |
+| PM08-CAN et support fixe châssis | 1 par drone | distribution mesurée et deux BEC, près de la distribution | enveloppe 45 × 41 × 26 mm hors câbles **Implémenté** ; 185 g avec câbles ; support et intégration **À valider** |
+| PDB Holybro 300A Top Entry, SKU 18138, et support | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | STEP fabricant **Implémenté** dans la maquette inactive ; support, masse, encombrement installé, isolation, accès et faisceaux **À valider** |
 | H-RTK F9P Base, HANT-X627A, mât/trépied, boîtier et poste QGC | 1 jeu sol | référence RTK et opérateur | sélection cible **Planifiée** ; assise, repère et câbles **À valider** |
 
 Les références électriques détaillées sont tenues dans `DOC-ELEC`. Les
@@ -365,7 +846,7 @@ références et occurrences CAO exactes restent dans
 
 ## 6. Budgets mécaniques
 
-Le bilan actuel estime le cartographe avec batterie candidate entre 4,7 et
+Le bilan historique estime le cartographe avec batterie candidate entre 4,7 et
 5,3 kg. Cette plage provient de volumes CAO et provisions, pas d'une pesée ; elle
 reste **À valider**. La cassette rapide ajoute de la matière et doit être
 réintégrée au bilan après définition du loquet et du faisceau. Ce bilan historique
@@ -398,6 +879,94 @@ d'environ 63 g et ajoute donc environ 246 g avant connecteurs, loquet, visserie
 et faisceau. Le bilan total 4,7–5,3 kg doit être recalculé après tranchage et
 pesée de cette variante.
 
+La reprise de berceau fixe du §4.1.1 conserve environ **96,084 cm³** de cadre
+P23, **17,488 cm³** de capot P25 et **17,136 cm³** de protection P24.
+La 20 Ah ajoute une cale P26 de **51,564 cm³**. À la même densité hypothétique
+de 1,25 g/cm³ pour P23/P25/P26, ces seules pièces représentent environ
+**142 g en 16 Ah** et **206 g en 20 Ah**. La plaque G10, les mousses,
+le loquet et sa gâche, l'axe, les fixations, P15/SBS et le faisceau sont exclus
+de ces chiffres : ils ne constituent pas une masse installée ni une économie
+de masse démontrée. Les estimations d'autonomie du §6.3 restent rattachées
+à la configuration mécanique précédente ; aucun gain n'est attribué à cette
+variante avant fermeture du bilan complet.
+
+#### Budget du dock20Ah — intégration du 2–3 octobre 2026
+
+Le [bilan partiel de la BOM](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json)
+remplace P13–P15/P20 et les quatre colonnes50mm, ajoute les nouveaux supports,
+captures, visserie, protections, conducteurs et moduleJETI. Les matériaux
+et densités de calcul sont des hypothèses de fabrication, sans pesée.
+Une provision séparée pour les logements/contacts TE porte déjà la borne
+haute historique au-dessus des **6,3kg annoncés pour le X650**, avant fermeture
+de toutes les masses de faisceaux, cales et loquet. Il n'existe donc aucune
+marge de masse démontrée pour le drone complet. La variante Holybro/CA01
+cible et le contenu réel du kit doivent également être réconciliés.
+
+Le sous-total final est **5,888–6,502kg** ; avec les provisions TE, EPDM de
+fond et masses publiées des cosses/épissures, il devient **6,112–6,726kg**.
+Ces intervalles héritent des hypothèses historiques et ne sont pas des
+bornes garanties. Ils excluent encore plusieurs masses, ainsi que la
+propagation des±20g du pack ; aucune compatibilité en vol n'est démontrée.
+
+La BOM détaille ce qui est calculé, publié et noncompté ; aucune masse manquante
+n'est assimilée à zéro. Avant un vol, peser le drone complet, mesurer le
+centrage, confronter la propulsion au chargement et adapter la structure ou
+alléger les composants si la limite applicable est dépassée. Les anciennes
+estimations20Ah de§6.3 ne décrivent pas cette nouvelle configuration.
+
+Le [complément de masse du 3 octobre](../../hardware/mecanique/cartographe/verification/bilan_masse_systeme_candidat_20261003.json)
+identifie **83,35 g de cuivre nominal** pour les quatre fils ajoutés déjà
+routés dans le dock, hors isolants, étamage, fiches et terminaisons. Leur
+addition au budget historique porte ce sous-total à environ
+**6,195–6,809 kg**. Ce résultat reste partiel et historique : ce n'est ni
+la masse complète du faisceau, ni celle de la nouvelle cible, ni une borne
+garantie. La tolérance du pack, les matériaux réels et la réconciliation des
+ensembles restent ouverts. Les réservations système comportent des fils
+livrés dans les ensembles PM08/JETI/kit : leur cuivre ne doit pas être ajouté
+une seconde fois. La masse complète de la cible reste inconnue ; aucune
+marge sous les 6,3 kg commerciaux du X650 n'est démontrée.
+
+#### Scénario GNSS sur plateaux et antennes radio déportées — 4 octobre 2026
+
+Option **Planifié / À valider**, sans modification de placement FreeCAD :
+retirer le bras OEM côté GPS (+Y, objets146–156), placer l'antenne Helical
+au-dessus de la batterie et son récepteur sur le plateau inférieur. Le bras
+opposé (−Y, objets157–167) est supposé conservé pour les deux antennes RP4TD ;
+cette interprétation du « plateau déporté » reste à confirmer. Aucun crédit
+de masse n'est attribué au bras conservé. Le raccord SMA déjà représenté sur
+ce bras ne démontre pas une interface compatible avec les deux antennes U.FL.
+
+La [preuve de calcul conditionnel](../../hardware/mecanique/cartographe/verification/scenario_gnss_plateaux_20261004.json)
+réutilise les volumes vérifiés et contrôle les empreintes des sources.
+Le bras retiré représente **41,1 g provisionnels** avec tube carbone,
+ferrures aluminium, visserie acier, raccord SMA laiton et mousse EVA.
+Avec des ferrures polymères, la provision devient **28,8 g** : ce sont deux
+hypothèses de matériaux, pas des bornes garanties ni des masses mesurées.
+Les anciens P07×1/P08×4/P09×1 représentent encore **39,7 g** à 1,25 g/cm³,
+en volume plein. P07 est le support inférieur du récepteur, distinct du bras OEM.
+Le retrait de 41,1 g suppose également que raccord SMA, visserie et EVA du
+bras sortent du drone ; tout accessoire réutilisé reste compté embarqué.
+
+| Scénario de retrait sur la configuration historique | Retrait brut, hypothèse ferrures aluminium |
+|---|---:|
+| bras OEM +Y seul | 41,1 g |
+| bras +Y et tous les anciens supports P07–P09 | 80,8 g |
+
+Dans le deuxième scénario, la soustraction seule sur le sous-total historique
+6,195–6,809 kg donne **6,115–6,729 kg**, avant les nouveaux supports,
+coaxiaux, connecteurs et changements de câbles. Ce résultat n'est pas la
+masse complète de la cible. P07–P09 sont déjà absents de la maquette Helical
+candidate : aucun second crédit de 39,7 g ne lui est applicable. Réutiliser
+une pièce impose également de la conserver dans le bilan. Le retrait OEM
+est compté une seule fois dans le contenu conservé du kit X650.
+
+Le gain net et la masse totale cible restent inconnus. Définir les supports
+antenne/récepteur/radio, les coaxiaux et leurs retenues, vérifier la place
+disponible, les passages, les masques RF et le compas intégré au récepteur
+inférieur près des câbles de puissance (DOC-ELEC§6). Les extrinsèques GNSS
+doivent suivre la nouvelle position réelle de l'antenne ; aucun centrage,
+montage, essai magnétique ou RF n'est qualifié par ce calcul.
+
 ### 6.2 Batteries comparées
 
 | Candidate | Énergie | Masse publiée | Dimensions nominales | Statut |
@@ -405,6 +974,9 @@ pesée de cette variante.
 | Tattu G-Tech 8 Ah 6S | 177,6 Wh | 1 044 ou 1 160 g | 172,2 × 65,58 × 45,5 mm | alternative légère ; fiche incohérente **À valider** |
 | Tattu G-Tech 10 Ah 6S | 222 Wh | 1 350 ±20 g | 176 × 66 × 58 mm, tolérances publiées ±5/±2/±2 | candidate de dimensionnement **À valider** |
 | Tattu Plus 12 Ah 6S | 266,4 Wh | 1 670 ±100 g | 202 × 76 × 61 mm | trop longue pour l'enveloppe actuelle |
+| Tattu classique 12 Ah 6S 30C XT90, TAA120006S30X | 266,4 Wh | 1 544 ±20 g | 192 × 72 × 54 mm | candidate distincte du Plus historique ; montage **À valider** |
+| Tattu G-Tech classique 16 Ah 6S 30C XT90-S, fiche US | 355,2 Wh | 1 988 ±20 g | 192 × 76 × 65 mm | candidate ; cassette, centrage et masse complète **À valider** |
+| Tattu semi-solid 20 Ah 6S 5C XT90-S, TAA200006S5X9S | 444 Wh | 1 950 ±20 g | 193 × 76 × 58 mm | technologie distincte ; énergie sous charge, profil électrique et montage **À valider** |
 
 Avec la 10 Ah, l'ancienne estimation donne 4,685–5,335 kg au décollage. La
 masse maximale publiée du X650 et ses durées publicitaires ne constituent pas
@@ -420,8 +992,185 @@ En supposant, uniquement pour étude, 80 % des 222 Wh disponibles avant réserve
 | 800 W | 13,3 min |
 | 1 000 W | 10,7 min |
 
-Cette table n'est pas une prévision de vol. Puissance chargée, température,
+Cette table seule n'est pas une prévision de vol. Puissance chargée, température,
 vieillissement et réserve de retour doivent être mesurés.
+
+#### Estimation avec la mécanique disponible au 2 octobre 2026 — À valider
+
+La lecture des volumes natifs des pièces actives non métalliques donne
+507,565 cm³, soit 634,456 g sous l'hypothèse uniforme de pièces pleines à
+1,25 g/cm³. Le remplacement du poste historique de 350 g ajoute environ
+284 g ; P18/P19 ajoutent encore environ 2–6 g selon leur matériau. Avec la
+batterie nominale de 1 350 g, cela conduit à environ **4,99–5,61 kg**,
+en conservant les provisions électroniques historiques. Ce bilan partiel
+n'est pas la masse complète actuelle : PM08-CAN, PDB, porteuse/Orin/CA01,
+refroidissement et faisceaux doivent être réconciliés avec les éléments
+remplacés, sans double comptage. Densités, remplissage, contenu exact du kit
+et tolérance batterie restent à mesurer. Voir la
+[preuve de volumes et de masse](../../hardware/mecanique/cartographe/verification/bilan_masse_volumes_20261002.json).
+
+Pour estimer le stationnaire, chaque moteur fournit un quart du poids.
+La [courbe T-Motor MN4014 KV330](https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html)
+à 22,2 V avec hélice 15×5CF fournit les couples poussée/puissance
+830 g/79,92 W, 1 150 g/130,98 W, 1 430 g/173,16 W, 1 690 g/224,22 W
+et 1 920 g/264,18 W. La puissance est interpolée linéairement en poussée,
+puis multipliée par quatre. Le budget avionique de DOC-ELEC §5.1 ajoute
+75 W / 0,80 = 93,75 W côté batterie, une seule fois pour tout le drone.
+Les hélices du kit sont des Gemfan 1555 : la courbe 15×5CF est une
+approximation d'étude et ne qualifie pas cette propulsion.
+
+Avec 20 % d'énergie nominale conservée en réserve **par hypothèse**,
+E = 22,2 × 10 × 0,80 = 177,6 Wh et t = 60 × E / P totale :
+
+| Masse totale étudiée | Puissance totale interpolée | Stationnaire avant réserve | Sensibilité : puissance totale +20 % |
+|---:|---:|---:|---:|
+| 5,0 kg | 678 W | 15,7 min | 13,1 min |
+| 5,3 kg | 723 W | 14,7 min | 12,3 min |
+| 5,6 kg | 768 W | 13,9 min | 11,6 min |
+| 6,0 kg | 841 W | 12,7 min | 10,6 min |
+
+Le bilan mécanique partiel conduit ainsi à **environ 14–16 min au
+stationnaire** ; une consommation totale supérieure de 20 % donne
+**environ 12–13 min**. Ce supplément de puissance est une sensibilité
+choisie, pas une marge démontrée pour une mission, le vent ou les pertes.
+La réserve de 20 % ne démontre pas le retour depuis une distance donnée.
+Ces durées portent sur le vol total avant réserve ; transits, décollage,
+retour et atterrissage doivent être déduits pour une durée de cartographie.
+La capacité délivrée à froid, le vieillissement, la chute de tension et les
+seuils PX4 peuvent encore diminuer cette estimation.
+
+Le [calcul détaillé](../../hardware/mecanique/cartographe/verification/estimation_autonomie_20261002.json)
+conserve entrées, formules, résultats et limites. L'interpolation et les
+quatre scénarios ont été recalculés indépendamment avec résultats concordants.
+Cette vérification analytique ne qualifie ni `MEC-MAS-001` ni
+`ELEC-PWR-002` : pesée/centrage, poussée et consommation avec les hélices
+réelles, capacité délivrée et essais selon DOC-VAL restent à exécuter.
+État de l'estimation : **À valider** ; aucun essai de vol ni simulation exécuté.
+
+#### Comparaison énergétique 12S — À valider
+
+L'étude du 12S conserve 10 Ah par hypothèse : 44,4 V nominaux,
+50,4 V pleine charge et 444 Wh, dont 355,2 Wh avant réserve d'étude de
+20 %. Deux packs 6S 10 Ah candidats représenteraient 2,70 kg, soit
+1,35 kg supplémentaires. Cette masse est une construction de comparaison,
+pas la sélection d'un pack 12S commercial. La cassette actuelle à un pack
+ne couvre pas ce nouvel encombrement ; fixation, centrage et volume sont à
+redéfinir. Les masses des adaptations nécessaires ne sont pas incluses.
+
+**La chaîne actuelle ne peut pas recevoir directement une batterie 12S** ;
+voir [DOC-ELEC §5.2.1](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#521-compatibilité-dune-batterie-12s).
+Les résultats suivants supposent une nouvelle propulsion compatible 12S
+conservant exactement les mêmes watts par poussée que la courbe 6S du
+§6.3. Ce transfert de rendement est une hypothèse non démontrée : ces durées
+ne sont pas une prévision du matériel actuel, ni d'une propulsion 12S choisie.
+
+| Masse 6S de référence | Masse avec batterie 12S hypothétique | Puissance de référence | Durée hypothétique avant réserve | Sensibilité : puissance +20 % |
+|---:|---:|---:|---:|---:|
+| 5,00 kg | 6,35 kg | 910 W | 23,4 min | 19,5 min |
+| 5,30 kg | 6,65 kg | 969 W | 22,0 min | 18,3 min |
+| 5,60 kg | 6,95 kg | 1 024 W | 20,8 min | 17,3 min |
+
+Dans ce modèle, doubler l'énergie tout en ajoutant 1,35 kg donne environ
+50 % de durée supplémentaire. Une 12S 5 Ah ne fournit que 222 Wh : à masse
+et rendement identiques à la 6S 10 Ah, sa durée reste identique. Le gain
+calculé vient de l'énergie ajoutée ; un gain dû à la tension seule n'est pas
+démontré. Une 6S 20 Ah de même masse et rendement donnerait également ce
+résultat dans le modèle, sans démontrer la faisabilité de cette autre variante.
+
+Les trois masses dépassent déjà la limite de décollage **publiée** du
+[X650, 6,3 kg](https://holybro.com/products/x650-development-kit), avant
+refonte de propulsion et montage : elles ne sont pas admissibles pour la
+configuration actuelle sur la base de cette publication. Le
+[calcul 12S](../../hardware/mecanique/cartographe/verification/estimation_autonomie_12s_20261002.json)
+conserve les hypothèses, formules, incompatibilités et résultats recalculés
+indépendamment. Aucun changement de sélection batterie, de CAO, de câblage,
+de paramètres PX4 ou de qualification n'est engagé par cette comparaison.
+
+#### Comparaison énergétique 8S — À valider
+
+À capacité maintenue de 10 Ah, le 8S représente 29,6 V nominaux,
+33,6 V pleine charge et 296 Wh. La masse est supposée proportionnelle aux
+cellules : 1,35 × 8/6 = 1,80 kg, soit +450 g. Aucun pack 8S n'est choisi ;
+sa masse et sa compatibilité avec la cassette ne sont pas vérifiées.
+Les masses des nouveaux ESC, des modifications CA01, du montage et des
+faisceaux sont exclues. Le bilan d'avionique initial reste partiellement ouvert.
+
+En conservant **par hypothèse** les watts par poussée de la courbe 6S et
+le budget avionique de 93,75 W, avec 80 % des 296 Wh disponibles avant
+réserve d'étude, on obtient :
+
+| Masse 6S de référence | Masse avec pack 8S hypothétique | Puissance de référence | Stationnaire avant réserve | Sensibilité : puissance +20 % |
+|---:|---:|---:|---:|---:|
+| 5,00 kg | 5,45 kg | 746 W | 19,1 min | 15,9 min |
+| 5,30 kg | 5,75 kg | 792 W | 17,9 min | 14,9 min |
+| 5,60 kg | 6,05 kg | 851 W | 16,7 min | 13,9 min |
+
+Le gain calculé est environ 20–22 % par rapport aux scénarios 6S 10 Ah,
+et ne constitue pas une mesure d'autonomie en 8S. Les masses restent
+250–850 g sous la limite X650 publiée de 6,3 kg **avant adaptations** ;
+cela ne qualifie ni le centrage, ni la résistance, ni la marge de contrôle.
+
+Les moteurs MN4014 KV330 sont annoncés pour 4–8S, mais les hélices Gemfan
+1555 et leur charge en 8S ne sont pas qualifiées par la courbe à 22,2 V.
+Les ESC actuels et la protection d'entrée CA01 restent incompatibles ; voir
+[DOC-ELEC §5.2.2](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#522-compatibilité-dune-batterie-8s).
+Le [calcul 8S](../../hardware/mecanique/cartographe/verification/estimation_autonomie_8s_20261002.json)
+conserve les formules et limites ; les trois scénarios ont été recalculés
+indépendamment. Aucun changement matériel ou de paramètres PX4, aucune
+simulation et aucun essai en 8S ne sont réalisés par cette comparaison.
+
+#### Augmentation de capacité en conservant le 6S — À valider
+
+Le 6S est conservé pour respecter la plage de tension des ESC actuels.
+Une capacité plus élevée peut augmenter l'énergie sans relever la tension
+standard 22,2 V nominal / 25,2 V pleine charge. La capacité de référence
+reste 10 Ah ; aucune candidate ci-dessous n'est sélectionnée ou qualifiée.
+
+La comparaison retient le scénario central de 5,30 kg, dont 1,35 kg de
+batterie actuelle, remplacée par la masse publiée de chaque référence.
+La courbe propulsion 6S du §6.3, les 93,75 W d'avionique, la réserve
+d'énergie de 20 % et la sensibilité de puissance +20 % sont conservées :
+
+| Candidate précise | Masse du pack | Masse totale centrale, hors adaptation | Stationnaire avant réserve | Sensibilité : puissance +20 % |
+|---|---:|---:|---:|---:|
+| 10 Ah actuelle | 1,350 kg | 5,300 kg | 14,7 min | 12,3 min |
+| [12 Ah classique XT90](https://gensace.de/products/tattu-12000mah-22-2v-30c-6s1p-uav-lipo-battery-pack-with-xt90-plug) | 1,544 kg | 5,494 kg | 17,0 min | 14,2 min |
+| [16 Ah classique, fiche US](https://genstattu.com/ta-30c-16000-6s1p-xt90.html) | 1,988 kg | 5,938 kg | 20,6 min | 17,1 min |
+| [20 Ah semi-solid 5C](https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug) | 1,950 kg | 5,900 kg | 25,9 min | 21,6 min |
+
+La 16 Ah classique est une candidate à examiner pour un gain central
+d'environ 40 %. La 20 Ah semi-solid apporte un gain analytique central
+d'environ 76 %, mais son profil de tension et son énergie délivrée sous
+charge ne sont pas assimilés à ceux d'une LiPo classique. La fiche déclare
+5C et vise des usages nominaux 1–3C ; courants continus et transitoires,
+chargeur, tension de charge, affaissement de tension, température, réserve
+et seuils PX4 doivent être vérifiés. Les 1 800 g d'une brochure ne
+correspondent pas à la masse de 1 950 g de la référence retenue pour ce calcul.
+
+Les packs comparés dépassent l'enveloppe nominale actuelle de
+176 × 66 × 58 mm. Cassette/berceau, retenue, centre de gravité, connectique
+et faisceau sont à vérifier ou adapter ; aucune CAO n'est modifiée ici.
+L'augmentation de capacité ne suffit pas à établir la compatibilité du montage.
+
+Le bilan mécanique initial partiel est 4,991–5,605 kg. Avec les masses
+nominales, la 16 Ah conduit à 5,629–6,243 kg, et la 20 Ah à
+5,591–6,205 kg, **avant adaptations**. À la borne haute, les marges sous
+la limite commerciale X650 de 6,3 kg sont seulement 56,5 g et 94,5 g,
+ou 36,5 g et 74,5 g avec +20 g de tolérance pack. Une pesée et la fermeture
+du bilan d'avionique/montage sont donc requises avant de retenir une capacité.
+Les durées varient aussi avec cette masse : environ 19,2–22,1 min au
+stationnaire pour la 16 Ah, et 24,2–27,8 min pour la 20 Ah, sous les
+mêmes hypothèses de calcul. Ces intervalles ne bornent pas toutes les incertitudes.
+
+Deux packs actuels 10 Ah en parallèle donneraient 6S 20 Ah, mais
+2,70 kg de batteries et 6,65 kg au scénario central, au-dessus des 6,3 kg
+publiés avant câblage/montage. Cette intégration n'est pas retenue ici.
+
+La [preuve de calcul des capacités 6S](../../hardware/mecanique/cartographe/verification/estimation_autonomie_capacite_6s_20261002.json)
+conserve références, formules, bornes de masse et limites. Les scénarios
+centraux et bornes 16/20 Ah ont été recalculés indépendamment avec résultats
+concordants. État **À valider** : aucune pesée, décharge, simulation,
+qualification de vol ou modification de paramètres PX4 réalisée.
 
 Avant gel de la plateforme :
 
@@ -442,7 +1191,7 @@ Les limites commerciales du X650 ne sont pas des exigences qualifiées du projet
 | Airy ↔ Basler | dérive extrinsèque | cible de calibration avant/après essai |
 | bloc capteurs ↔ isolateurs | contact en butée, mode propre inadapté | débattement, modal et essai moteur |
 | batterie ↔ cassette | éjection ou insertion partielle | essais multi-orientations, chocs et cycles |
-| cassette ↔ SBS X-75A | effort transmis au connecteur | tolérances, guidage, cycles et traction câble |
+| cassette ↔ TE MiddleDrawer | effort transmis au connecteur ou engagement incomplet | tolérances, liberté flottante, guidage, cycles et traction câble |
 | Jetson ↔ support | contact, chauffe, maintenance | contrôle d'interférence et essai thermique |
 | antenne RTK ↔ structure | masque, multipath, vibration | champ libre, répétabilité et essai GNSS |
 | câbles ↔ pièces mobiles/isolées | fatigue ou pont vibratoire | rayon, rétention, frottement et cycles |
@@ -454,11 +1203,11 @@ centralisés dans [DOC-VAL](../VALIDATION_QUALIFICATION.md).
 
 | Exigence | Composant | Test/preuve | Résultat |
 |---|---|---|---|
-| `MEC-ARC-001` réutiliser les références | arborescence FreeCAD | `verification/hierarchie.json` | contrôlé sur la maquette |
-| `MEC-BAT-001` échange sans outil et verrouillage positif | P13, P14, loquet | `verification/echange_rapide.json` puis essai physique | CAO contrôlée ; physique **À valider** |
-| `MEC-CON-001` ne pas charger mécaniquement le connecteur | guidage cassette, P15 | `verification/integration_SBSX75A.json`, cycles | implantation contrôlée ; cycles **À valider** |
+| `MEC-ARC-001` réutiliser les références | arborescence FreeCAD20Ah | `verification/hierarchie_20Ah_20261002.json`, `T-BAT20-NATIF` | références liées dans la maquette active ; pièces physiques **À valider** |
+| `MEC-BAT-001` échange sans outil et verrouillage positif | railsP28/P29, cassetteP30–P33, butéeP35/P36, SouthcoR4 | `T-BAT20-INSERT/FIX`, puis essai du verrou | CAO **Implémenté** ; fonctionnement et tenue **À valider** |
+| `MEC-CON-001` ne pas charger mécaniquement le connecteur | butée séparée, supportsP39/P40, contactsTE | `T-BAT20-CONTACT/INSERT`, cycles | géométrie de course contrôlée ; engagement réel et flottement **À valider** |
 | `MEC-VIB-001` préserver les capteurs et leur calibration | SA05 capteurs isolés | `verification/isolation_capteurs.json`, vibration et calibration | contacts corrigés ; huit poses contrôlées ; physique **À valider** |
-| `MEC-AVI-001` retenue et intégration avionique | ancienne CAO P06, P20–P22 ; cible porteuse commune à intégrer | `verification/avionique_empilee_20260916.json`, puis nouvelle revue CAO et essai physique | ancienne CAO contrôlée ; cible et tenue **À valider** |
+| `MEC-AVI-001` retenue et intégration avionique | ancienne CAO P06, P20–P22 ; cible Holybro/CA01 et fixation communeP17 dans variante inactive | `T-STACK-REVUE-NATIF/GEOM`, DOC-VAL §12.7.14 ; maquette avec faisceau §12.1.4 et ancienne preuve16/09 de périmètres distincts | montage candidat **Implémenté** ; tenue, précharge, accès/maintenance et isolation **À valider** |
 | `MEC-MAS-001` respecter masse et centrage qualifiés | assemblage complet | pesée et centrage | non exécuté |
 | `MEC-INT-001` absence d'interférences | tous sous-assemblages | contrôles FreeCAD et revue physique | capteurs et avionique contrôlés sur périmètre déclaré ; contacts Jetson ouverts |
 | `MEC-THM-001` maintenir les températures admissibles | calcul et enveloppes | banc à puissance nominale | **À valider** |
@@ -490,6 +1239,20 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Tri des natifs : 10 sous-assemblages courants et deux montages de construction, 13 anciens SA et cinq globaux archivés avec leurs dépendances ; catalogue/guide actualisés, réouvertures séparées et reprise de source stack contrôlées (§2.1, DOC-VAL§12.1.6) |
+| 4 octobre 2026 | Scénario GNSS sur plateaux et antennes radio déportées : bras OEM identifié, retraits bruts conditionnels de 41,1/80,8 g, hypothèses matériaux et absence de gain net/masse cible distinguées ; aucun placement CAO modifié (§6.1) |
+| 3 octobre 2026 | Stack revue sur plan Holybro4M3/120×74 : CA01 synchronisée, perçages natifs repris, appuis24/2, fixation communeP17 et vis65, plaqueP56 dérivée ; première visserie rejetée, accès outil avec déposebloccapteurs et qualification mécanique/électrique ouvertes (§4.4.1.1) |
+| 3 octobre 2026 | Revue BOM système à 60 postes et maquette cible inactive avec 35 routes natives ; présélections et masses incluses distinguées, rayons/interférences ouverts et cuivre du dock ajouté au budget historique seulement ; aucun gel de montage ni qualification des passages (§4.5, §6.1, DOC-VAL §12.1.4) |
+| 3 octobre 2026 | Sélection6S20Ah, rehausse20mm, déplacementPixhawk et cassette coulissanteP27–P53 ; loquetSouthcoR4, contactsTE et coupureJETI existants, faisceaux protégés et retenus, BOM consolidée ; vérifications de course et limites STEP/hélices/masse distinguées de la qualification physique (§4.1.3, DOC-VAL§12.1.3) |
+| 2 octobre 2026 | Faisabilité batterie entre plateaux OEM Z33/Z83 : 50 mm actuels insuffisants ; rehausses candidates +20 mm en 20 Ah et +30 mm en 16 Ah, déplacement avionique et nouvel accès/verrou nécessaires ; dégagement près des hélices non qualifié (§4.1.2) |
+| 2 octobre 2026 | Reprise batterie 6S : logement P14 trop petit, patte de gâche hors solide final et ancrages décentrés ; variantes natives de berceau fixe P23–P26/capot captif pour 16/20 Ah, Southco91 candidat et contrôles distincts de la tenue physique (§4.1.1, DOC-VAL §12.1.1) |
+| 2 octobre 2026 | Maintien 6S et comparaison capacités : 12/16 Ah classiques et 20 Ah semi-solid avec références et masses publiées ; gains conditionnels, cassette/centrage et bilan complet à fermer, marge faible sous limite X650 à la borne haute ; aucune nouvelle capacité sélectionnée (§6.2–6.3) |
+| 2 octobre 2026 | Comparaison 8S 10 Ah hypothétique : 296 Wh, batterie provisionnelle de 1,80 kg et gain analytique 20–22 % ; moteur dans plage fabricant mais ESC et CA01 incompatibles, masses et fonctionnement chargé À valider (§6.3) |
+| 2 octobre 2026 | Comparaison hypothétique 12S 10 Ah : 444 Wh, batterie de 2,70 kg et durée analytique 21–23 min avant réserve, 17–20 min sous sensibilité +20 % ; propulsion actuelle incompatible, masse supérieure à la limite X650 publiée et cassette à reprendre ; aucune migration engagée (§6.3) |
+| 2 octobre 2026 | Estimation d'autonomie avec batterie 6S 10 Ah : correction partielle des volumes mécaniques, interpolation poussée/puissance, budget avionique et réserve d'étude ; environ 14–16 min au stationnaire et 12–13 min sous sensibilité +20 % de puissance ; masses électroniques, hélices réelles et vol À valider (§6.3) |
+| 2 octobre 2026 | Routage CA01 : contour/fixations/connecteurs conservés,48placements électriques repris ; exports mécaniques01/10 à réactualiser, aucune qualification de montage (§4.4.1) |
+| 2 octobre 2026 | Démarrage du routage CA01 quatre couches : placements, modèles, contour et fixations conservés ; distinction entre PCB électrique et exports mécaniques, thermique et fabrication À valider |
+| 1 octobre 2026 | Préplacement CA01 126 × 80 mm et quatre trous Ø3,2 ; variante native sous Holybro avec gap candidat 10 mm et onze familles d'enveloppes ; R116 CSM3637 et MOD401 RP4TD direct synchronisés dans PCB/STEP/natif, J401/W11 et ancienne réserve retirés ; 163solides historiques ;10familles/16occurrences de boîtes remplacées par modèles détaillés nominaux,308solides/141composants courants ;réouverture/liens et interférences contrôlés ;RP4TD détaillé introuvable ;4trousTHT natifs photoestimés, pads/broches/hauteur À valider, thermique/fabrication À valider |
 | 25 septembre 2026 | Variante H-RTK Helical STM32G4 candidate pour PPS : SA06, antenne et passage CAN/UART2 à reprendre ; CAO Rover patch conservée comme historique |
 | 25 septembre 2026 | Guide Airy v1.3 intégré pour fixation, planéité, piges, mou câble, rigidité et dissipation ; P16 actuelle à reprendre et vérifier |
 | 25 septembre 2026 | PDB Holybro 300A Top Entry SKU 18138 inscrite comme candidate en aval du PM08-CAN ; support M3, XT90/XT30, isolation, accès et masse installée à valider, CAO non migrée |

@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "scope": "CA01 préplacement mécanique sans routage",
+  "manufacturing_ready": false,
+  "conventions": [
+    "14 prises PCB CA01 physiques candidates ; J401 remplacé par le module RP4TD directement connecté (empreinte_rp4td.json).",
+    "Pinmaps des prises restants conservés ; substitution autorisée J401/1..4 par MOD401/1..4 uniquement.",
+    "Orientation latérale retenue pour accès au bord dans un empilage compact.",
+    "EmpreintesJST bibliothèqueKiCad10 ; dérivésXT30 échangent uniquement numéros de pads1/2 pour préserver polarité du schéma."
+  ],
+  "connectors": [
+    {
+      "ref": "J103",
+      "mpn": "XT30PW-M30.G.Y",
+      "footprint": "CA01_Mecanique:XT30PW_M_CA01_PositivePin1",
+      "status": "À valider",
+      "source": [
+        "https://www.china-amass.com/public/upload/20240724/f0e2b366ec22371aad62b2d6948772a0.pdf",
+        "https://www.china-amass.net/uploads/32.XT30PW-M30-SPEC-2025V0.pdf"
+      ],
+      "destination": "PDB Holybro XT30 W08 via protection de branche",
+      "mating_candidate": "XT30U-F.G.Y côté câble",
+      "pinmap": {
+        "1": "VBAT_PAYLOAD",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "20 A annoncés sous condition thermique ; section, courant, retenue et protection à valider.",
+        "Deux pads électriques et deux ancrages traversants non numérotés. Original KiCad pad1=−/pad2=+ ; dérivé CA01 pad1=+/pad2=−. Dessin AMASS confirme géométrie mais ne numérote pas les contacts : polarité et marquage réels à contrôler."
+      ],
+      "mechanical_body_bounds_mm": [
+        -8.15,
+        -13.1,
+        3.15,
+        -4.1
+      ],
+      "height_mm": 5.2,
+      "mechanical_geometry_basis": "AMASS catalogue2024 pagePDF8, corpsPW-M5.20mm, broches3mm sousPCB pourM30 ; dimensionsnominales et non enveloppemaxgarantie.",
+      "mechanical_geometry_status": "À valider : boundsF.FabKiCadnominales ; boîteCAOcandidate, pasforme3Dfabricant exacte."
+    },
+    {
+      "ref": "J104",
+      "mpn": "XT30PW-F30.G.Y",
+      "footprint": "CA01_Mecanique:XT30PW_F_CA01_PositivePin1",
+      "status": "À valider",
+      "source": [
+        "https://www.china-amass.com/public/upload/20240724/f0e2b366ec22371aad62b2d6948772a0.pdf",
+        "https://www.china-amass.net/uploads/32.XT30PW-M30-SPEC-2025V0.pdf"
+      ],
+      "destination": "Holybro Pixhawk Jetson Baseboard XT30 W09",
+      "mating_candidate": "XT30U-M.G.Y côté câble",
+      "pinmap": {
+        "1": "12V_COMPUTE",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "20 A annoncés sous condition thermique ; section, courant, retenue et protection à valider.",
+        "Deux pads électriques et deux ancrages traversants non numérotés. Original KiCad pad1=−/pad2=+ ; dérivé CA01 pad1=+/pad2=−. Dessin AMASS confirme géométrie mais ne numérote pas les contacts : polarité et marquage réels à contrôler."
+      ],
+      "mechanical_body_bounds_mm": [
+        -3.15,
+        -14.05,
+        8.15,
+        -4.0
+      ],
+      "height_mm": 5.15,
+      "mechanical_geometry_basis": "AMASS catalogue2024 pagePDF8, corpsPW-F5.15mm, broches3mm sousPCB pourF30 ; dimensionsnominales et non enveloppemaxgarantie.",
+      "mechanical_geometry_status": "À valider : boundsF.FabKiCadnominales ; boîteCAOcandidate, pasforme3Dfabricant exacte."
+    },
+    {
+      "ref": "J201",
+      "mpn": "B2PS-VH(LF)(SN)",
+      "footprint": "Connector_JST:JST_VH_B2PS-VH_1x02_P3.96mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eVH.pdf"
+      ],
+      "destination": "Airy puissance W10 : VIN aviation6/7, GND5/8 ou faisceauB1/B2",
+      "mating_candidate": "VHR-2N + SVH-21T-P1.1 (AWG22..18) ou SVH-41T-P1.1 (AWG20..16), selon section",
+      "pinmap": {
+        "1": "12V_LIDAR",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "VH10 A seulement avec AWG16 et header standard ; section/température à déterminer.",
+        "J20112 V et J3015 V interchangeables mécaniquement : tension sérigraphiée et détrompage du faisceau à finaliser."
+      ],
+      "mechanical_body_bounds_mm": [
+        -1.95,
+        0.0,
+        5.91,
+        14.9
+      ],
+      "height_mm": 8.5,
+      "mechanical_geometry_basis": "JST eVH page3 bareheaderSideentry8.5mm ; page4 ensembleaccouplé10.5mm N-type ; boîtecandidate exclutfiche et câble.",
+      "mechanical_geometry_status": "À valider : boundsF.FabKiCadnominales ; boîteCAOcandidate, pasforme3Dfabricant exacte."
+    },
+    {
+      "ref": "J301",
+      "mpn": "B2PS-VH(LF)(SN)",
+      "footprint": "Connector_JST:JST_VH_B2PS-VH_1x02_P3.96mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eVH.pdf"
+      ],
+      "destination": "Réserve5V W26 sans charge affectée",
+      "mating_candidate": "VHR-2N + SVH-21T-P1.1 (AWG22..18) ou SVH-41T-P1.1 (AWG20..16), selon section",
+      "pinmap": {
+        "1": "5V_AUX",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "VH10 A seulement avec AWG16 et header standard ; section/température à déterminer.",
+        "J20112 V et J3015 V interchangeables mécaniquement : tension sérigraphiée et détrompage du faisceau à finaliser."
+      ],
+      "mechanical_body_bounds_mm": [
+        -1.95,
+        0.0,
+        5.91,
+        14.9
+      ],
+      "height_mm": 8.5,
+      "mechanical_geometry_basis": "JST eVH page3 bareheaderSideentry8.5mm ; page4 ensembleaccouplé10.5mm N-type ; boîtecandidate exclutfiche et câble.",
+      "mechanical_geometry_status": "À valider : boundsF.FabKiCadnominales ; boîteCAOcandidate, pasforme3Dfabricant exacte."
+    },
+    {
+      "ref": "J402",
+      "mpn": "SM03B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM03B-GHS-TB_1x03-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro TELEM1 ou3 W12 : OEM6GND,2TX vers CA01RX,3RX depuis CA01TX ; port à affecter",
+      "mating_candidate": "GHR-03V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "GND",
+        "2": "FC_RX_RF",
+        "3": "FC_TX_RF"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J501",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf"
+      ],
+      "destination": "Airy W17 DNP : aviation10SYNC_OUT1/D2 bleu ; GND/D4 noir",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/AIRY_SYNC_RAW",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J502",
+      "mpn": "S6B-PH-SM4-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_PH_S6B-PH-SM4-TB_1x06-1MP_P2.00mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf",
+        "https://docs.baslerweb.com/a2a4096-30ucbas"
+      ],
+      "destination": "Basler câbleM8 mâle6p A-standard W18/W34 : 1/5NC,2Line1,3opto,4ExposureActive,6GNDGPIO",
+      "mating_candidate": "PHR-6 + SPH-002T-P0.5S, AWG24 candidat",
+      "pinmap": {
+        "1": "NC",
+        "2": "5V_SYNC",
+        "3": "/05_synchronisation/BASLER_OPTO_RETURN",
+        "4": "/05_synchronisation/BASLER_EXPOSURE_RAW",
+        "5": "NC",
+        "6": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "PH2 A avec AWG24, 100 V, plage0,032..0,22mm². Retenue friction : faisceau à immobiliser et tenue vibrations à valider.",
+        "CA01PH6 ne constitue pas une M8. Basler impose câble≥0,14mm²/blindé/torsadé ; AWG24 candidat0,20..0,22mm² respecte les plages. Référence M8 et liaison de blindage à finaliser. Broche3 opto distincte de GND6 ;1/5NC conservés."
+      ],
+      "mechanical_body_bounds_mm": [
+        -7.95,
+        -3.2,
+        7.95,
+        4.4
+      ],
+      "height_mm": 5.5,
+      "mechanical_geometry_basis": "JST ePH page4 SMTSideentry5.5mm ; largeur6pins15.9mm ; nominale, fichePHR/câbleexclus.",
+      "mechanical_geometry_status": "À valider : boundsF.FabKiCadnominales ; boîteCAOcandidate, pasforme3Dfabricant exacte."
+    },
+    {
+      "ref": "J503",
+      "mpn": "SM06B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM06B-GHS-TB_1x06-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/pinout"
+      ],
+      "destination": "H-RTK DroneCAN Helical G4 UART2 W36 : 3TX,5PPS,6GND ;1/2/4NC",
+      "mating_candidate": "GHR-06V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "NC",
+        "2": "NC",
+        "3": "/05_synchronisation/GNSS_GPRMC_IN",
+        "4": "NC",
+        "5": "/05_synchronisation/GNSS_PPS_IN",
+        "6": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser.",
+        "G4 uniquement ; pin1+5V GNSS volontairementNC ; S32K1 pin5NC incompatiblePPS."
+      ]
+    },
+    {
+      "ref": "J504",
+      "mpn": "SM04B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM04B-GHS-TB_1x04-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf"
+      ],
+      "destination": "Airy W23 : aviation9PPS/D3,11GPRMC/D1,5/8GND/D4 ; CA01 quatre fils dont deux retours",
+      "mating_candidate": "GHR-04V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/PPS_AIRY",
+        "2": "/05_synchronisation/GPRMC_AIRY",
+        "3": "GND",
+        "4": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J505",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro OrinGPIO GH6 W24 : 2GPIO07,6GND ; adaptation2vers6",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/PPS_ORIN",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J506",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro OrinDebug SH6 W24 : 3RXD,6GND ; adaptation2vers6",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/GPRMC_ORIN",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J507",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro FMUPWMOUT GH10 W33 : 2FMUCH1,10GND ; adaptation2vers10",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/FCU_AUX1",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J508",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro ADIO GH8 W35 : 2FMUCAP1,8GND ; adaptation2vers8",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "/05_synchronisation/FCU_CAP1",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser."
+      ]
+    },
+    {
+      "ref": "J509",
+      "mpn": "SM02B-GHS-TB(LF)(SN)",
+      "footprint": "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal",
+      "status": "À valider",
+      "source": [
+        "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "destination": "Holybro Camera0 ou1 CSI FFC22 W24 : 22VDD3.3,1GND ; extracteurFFC non conçu, pas câbleGH direct",
+      "mating_candidate": "GHR-02V-S + SSHL-002T-P0.2",
+      "pinmap": {
+        "1": "3V3_ORIN_IO_REF",
+        "2": "GND"
+      },
+      "limits": [
+        "Référence candidate pour préplacement ; matériel et faisceau non qualifiés.",
+        "GH verrouillable1 A avec AWG26, 50 V ; AWG30..26/0,05..0,13mm². Deux ancragesSMT non électriques.",
+        "Numérotation CA01 conservée ; pas de présomption de câble droit vers équipement. PrisesGH identiques : identification et prévention erreurs à finaliser.",
+        "PriseCA01 physiqueGH2 représentable surPCB ; extraction3.3V depuisFFC22 reste à concevoir. Aucun accouplement directGH2/CSI."
+      ]
+    }
+  ]
+}

@@ -33,7 +33,8 @@ function Absent([string]$pin){$found=@($nets.Keys | Where-Object {$nets[$_] -con
 function Dnp([string]$ref){$c=@($net.export.components.comp | Where-Object {$_.ref -eq $ref});return ($c.Count -eq 1 -and @($c[0].property | Where-Object {$_.name -eq 'dnp'}).Count -gt 0)}
 Check 'legacy_removed' (('J101' -notin $refs) -and ('J102' -notin $refs) -and (-not $nets.ContainsKey('5V2_FLIGHT')) -and (-not $nets.ContainsKey('PM_SCL')) -and (-not $nets.ContainsKey('PM_SDA'))) 'Aucun transit alimentation vol ou I2C PM'
 Check 'input_6s' ((Has 'VBAT_PAYLOAD' 'J103/1') -and (Has 'GND' 'J103/2') -and (Has 'VIN_PAYLOAD_PROT' 'Q102/1')) 'Entree 6S, FETs et sortie protegee'
-Check 'radio_local_fuse' ((Has '5V_AUX' 'F102/1') -and (Has '5V_RADIO' 'F102/2') -and (Has '5V_RADIO' 'J401/1')) 'Radio depuis 5 V local'
+Check 'radio_local_fuse' ((Has '5V_AUX' 'F102/1') -and (Has '5V_RADIO' 'F102/2') -and (Has '5V_RADIO' 'MOD401/1')) 'Radio depuis 5 V local'
+Check 'radio_direct_module' (('MOD401' -in $refs) -and ('J401' -notin $refs)) 'Module RP4TD directement sur CA01, connecteur J401 retire'
 Check 'compute_lidar_outputs' ((Has '12V_COMPUTE' 'J104/1') -and (Has '12V_LIDAR' 'J201/1')) 'Deux rails 12 V distincts'
 Check 'gnss_power_isolated' ((Absent 'J503/1') -and (Has 'GND' 'J503/6')) 'GNSS alimente par CAN2, pas CA01'
 Check 'camera_grounds_separate' ((Has 'GND' 'J502/6') -and (-not (Has 'GND' 'J502/3')) -and (Has 'BASLER_OPTO_RETURN' 'J502/3')) 'Retour opto distinct de GND GPIO'

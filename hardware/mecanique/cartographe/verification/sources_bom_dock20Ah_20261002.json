@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-03",
+  "statut": "À valider",
+  "objet": "Contrôle indépendant des références commerciales et restrictions électriques du dock 6S 20 Ah",
+  "sources": [
+    {
+      "fabricant": "TE Connectivity / Raychem",
+      "mpn": [
+        "55A0111-10-2",
+        "55A0111-10-0"
+      ],
+      "url": "https://www.te.com/en/product-552231-000.html",
+      "url_rouge": "https://www.te.com/fr/product-070069-002.html",
+      "donnees": {
+        "AWG": 10,
+        "nombre_brins": 37,
+        "AWG_brins": 26,
+        "diametre_conducteur_mm": 2.82,
+        "diametre_exterieur_nominal_mm": 3.25,
+        "isolant": "ETFE modifié réticulé",
+        "conducteur": "Cuivre étamé",
+        "tension_catalogue_V": 600,
+        "temperature_catalogue_C": [
+          -65,
+          150
+        ]
+      },
+      "limite": "Référence existante pour adaptateur10AWG ; le Ø3,4mm CAO est une réservation conservatrice à contrôler. Ni courant système ni rayon de courbure du routage interpolé n'est qualifié par la seule fiche. Longueurs de coupe à compléter par les engagements des terminaisons mesurés."
+    },
+    {
+      "fabricant": "Gens Ace / Tattu",
+      "mpn": "TAA200006S5ASX",
+      "active": false,
+      "designation": "Alternative commerciale non montée AS150+XT150",
+      "url": "https://gensace.de/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-as150-xt150-plug",
+      "donnees": {
+        "capacite_Ah": 20,
+        "serie": 6,
+        "tension_nominale_V": 22.2,
+        "dimensions_nominales_mm": [
+          193,
+          76,
+          58
+        ],
+        "masse_g": 1950,
+        "tolerance_masse_g": 20,
+        "fils": "AWG8/150mm"
+      },
+      "source_connecteurs": "Amass_Catalogue_2025.pdf pages27/32 : XT15060A MAX et AS15075A MAX, 8AWG ΔT<85°C ; ne pas appliquer les caractéristiques .G2 à la version .G sans contrôle du lot.",
+      "limite": "Alternative à étudier ; aucune modification CAO, aucun achat et aucune qualification mission déduite du catalogue. Genres, polarités, retenue et adaptateur restent à concevoir."
+    },
+    {
+      "fabricant": "Gens Ace / Tattu",
+      "mpn": "TAA200006S5X9S",
+      "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "copie_locale": "hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/GensAce_Tattu_NMC_TAA200006S5X9S.html",
+      "donnees": {
+        "capacite_Ah": 20,
+        "serie": 6,
+        "tension_nominale_V": 22.2,
+        "energie_nominale_Wh": 444,
+        "dimensions_nominales_mm": [
+          193,
+          76,
+          58
+        ],
+        "masse_g": 1950,
+        "tolerance_masse_g": 20,
+        "sortie": "XT90-S",
+        "fils": "AWG8",
+        "longueur_fils_mm": 150,
+        "decharge_max_annoncee_C": 5
+      },
+      "limite": "L'enveloppe 198×78×60 mm est une hypothèse d'intégration, pas une tolérance publiée. La tension de charge exacte du lot et les performances chargées restent à confirmer."
+    },
+    {
+      "fabricant": "Amass",
+      "mpn": "XT90H-M.G.Y",
+      "url": "https://www.china-amass.com/public/upload/20250319/41b7a7787d7c61edc3371469ba98f193.pdf",
+      "page_pdf": 23,
+      "copie_locale": "hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/Amass_Catalogue_2025.pdf",
+      "url_complementaire": "https://www.china-amass.net/xt90h-m-product/",
+      "donnees": {
+        "mating": "XT90S-F.G.Y côté batterie, variante et polarité du lot à contrôler",
+        "cap_arriere": "043.0222.Y",
+        "courant_catalogue_A": 45,
+        "condition_catalogue": "10AWG, élévation de température inférieure à 85°C",
+        "cycles_catalogue": 100,
+        "protection_catalogue": "IP40"
+      },
+      "limite": "45 A n'est pas un calibre qualifié du faisceau complet. Aucune affirmation de 85/90/100 A continus ne découle du nom XT90 ou du pack 5C. AWG8 du pack n'autorise pas à forcer AWG8 dans une soudure prescrite 10AWG."
+    },
+    {
+      "fabricant": "Phoenix Contact",
+      "mpn": "3240219",
+      "designation": "C-RCI 10/M5",
+      "url": "https://www.phoenixcontact.com/en-us/products/ring-cable-lug-c-rci-10-m5-3240219",
+      "url_catalogue": "https://assets.phoenixcontact.com/file/654b9ef5-f5d2-4503-949e-8aa342730567/media/original?1357900_EN_SG_Tools_LoRes.pdf=",
+      "donnees": {
+        "section_nominale_mm2": 10,
+        "AWG": 8,
+        "trou_mm": 5.3,
+        "largeur_mm": 8.8,
+        "longueur_mm": 31.3,
+        "epaisseur_metal_mm": 1.1,
+        "denudage_max_mm": 11,
+        "matiere": "Cuivre étamé, isolation PA"
+      },
+      "limite": "Cosse pour AWG8/10 mm² ; ne convient pas par simple analogie aux pigtails 10AWG ou aux câbles JETI 6 mm². Serrage M5, outillage de sertissage et traction doivent être qualifiés."
+    },
+    {
+      "fabricant": "Phoenix Contact",
+      "mpn": "3240028",
+      "designation": "C-RCI 6/M5",
+      "url": "https://www.phoenixcontact.com/en-us/products/ring-cable-lug-c-rci-6-m5-3240028",
+      "donnees": {
+        "sections_mm2": [
+          4,
+          6
+        ],
+        "AWG": [
+          12,
+          10
+        ],
+        "trou_mm": 5.3,
+        "largeur_mm": 9.5,
+        "longueur_mm": 26.7,
+        "epaisseur_metal_mm": 1,
+        "longueur_isolation_mm": 14,
+        "diametre_collerette_mm": 6.6,
+        "denudage_max_mm": 9,
+        "masse_publiee_g": 1.708
+      },
+      "limite": "Choix pour un raccord 10AWG ou 6 mm² ; variante du câble et terminaison finale à faire correspondre avant fabrication."
+    },
+    {
+      "fabricant": "HellermannTyton",
+      "mpn": "111-05012",
+      "designation": "T50R-PA612-BK",
+      "url": "https://www.hellermanntyton.com/products/cable-ties-inside-serrated/t50r/111-05012",
+      "donnees": {
+        "longueur_mm": 202,
+        "largeur_mm": 4.6,
+        "epaisseur_mm": 1.2,
+        "tete_mm": [
+          7.3,
+          7.6,
+          5.9
+        ],
+        "diametre_boucle_mm": [
+          1.5,
+          50
+        ],
+        "matiere": "PA612 noir stabilisé UV",
+        "traction_min_catalogue_N": 225,
+        "temperature_C": [
+          -40,
+          90
+        ]
+      },
+      "limite": "Le catalogue ne qualifie pas notre support imprimé. La référence 111-05020 citée antérieurement n'a pas été retrouvée dans une source primaire ; remplacée par 111-05012."
+    },
+    {
+      "fabricant": "Accu",
+      "mpn": "SIK-M2.5-5-CS-BZP",
+      "designation": "Vis Phillips fraisée DIN965 M2,5×5",
+      "url": "https://www.accu.co.uk/phillips-countersunk-screws/989265-SIK-M2-5-5-CS-BZP",
+      "donnees": {
+        "longueur_totale_mm": 5,
+        "diametre_tete_mm": 4.7,
+        "hauteur_tete_mm": 1.5,
+        "angle_deg": 90,
+        "pas_mm": 0.45,
+        "matiere": "Acier4.8 zingué",
+        "masse_unitaire_publiee_g": 0.2
+      },
+      "limite": "Référence existante adaptée au profil natif Ø4,7/h1,5 ; ce profil ne doit pas porter l'identité générique ISO10642 sans vérification. La fraisure dans G10 et l'engagement M2,5 restent à contrôler physiquement."
+    },
+    {
+      "fabricant": "JETI",
+      "mpn": "J-MSW-100-MS",
+      "url": "https://jetimodelusa.com/products/j-msw-100-ms",
+      "manuel_url": "https://www.jetimodel.com/uloz/80e01fff-b841-4c82-a6df-907603e4c8d0.pdf/",
+      "copie_locale": "hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/JETI_MainSwitch_EN.pdf",
+      "pages": [
+        2,
+        3,
+        7
+      ],
+      "donnees": {
+        "module_mm": [
+          80,
+          36,
+          23
+        ],
+        "masse_module_avec_cables_g": 110,
+        "courant_soutenu_annonce_A": 100,
+        "tension_page_produit_V": [
+          9,
+          51
+        ],
+        "tension_notice_V": [
+          8,
+          51
+        ],
+        "section_cables_notice_mm2": [
+          6,
+          8
+        ],
+        "pole_commute": "Négatif",
+        "positif": "Toujours raccordé",
+        "anti_spark_annonce": true,
+        "commande_magnetique_incluse": true
+      },
+      "limite": "Compatibilité 6S en tension seulement. Variante physique de la commande, câbles livrés et courant du système restent à contrôler. Aucune capacité maximale de précharge ou rampe chiffrée n'a été trouvée. Le calibre JETI ne remplace pas celui de la XT90.",
+      "memoire_ON_source": "JETI_MagneticSwitch_202506.pdf page16 ; URL https://www.jetimodel.com/uloz/magnetic-switch-cz-pdf.pdf/"
+    },
+    {
+      "fabricant": "TE Connectivity / Raychem",
+      "mpn": [
+        "55A0111-8-2",
+        "55A0111-8-0"
+      ],
+      "url": "https://www.te.com/fr/product-4812533001.html",
+      "url_noir": "https://www.te.com/en/product-741387-000.html",
+      "donnees": {
+        "AWG": 8,
+        "nombre_brins": 133,
+        "diametre_exterieur_nominal_mm": 4.78,
+        "tension_catalogue_V": 600
+      },
+      "limite": "Ø5mm étude ; profil courant et courbures réelles à valider."
+    },
+    {
+      "fabricant": "TE Connectivity",
+      "mpn": "34321",
+      "url": "https://www.te.com/en/product-34321.html",
+      "donnees": {
+        "AWG": 8,
+        "longueur_mm": 21.01,
+        "diametre_exterieur_mm": 7.52,
+        "diametre_interieur_mm": 4.37,
+        "masse_g": 4.142
+      },
+      "limite": "Seulement pour kitJETI8mm² confirmé ; outillage de sertissage fabricant requis."
+    },
+    {
+      "fabricant": "TE Connectivity / Raychem",
+      "mpn": "ATUM-12/3-0-50MM",
+      "url": "https://www.te.com/en/product-NB08926001.html",
+      "donnees": {
+        "ID_TE": "NB08926001",
+        "longueur_preparation_mm": 50,
+        "rapport_retreint": "4:1"
+      },
+      "limite": "Réservation posée44mm ; diamètre final, adhésion et recouvrement à mesurer."
+    },
+    {
+      "fabricant": "Henkel",
+      "mpn": "1335884",
+      "url": "https://dm.henkel-dam.com/is/content/henkel/CATALOGUE-VRM-2021-FR",
+      "donnees": {
+        "designation": "Loctite243",
+        "volume_flacon_mL": 50
+      },
+      "limite": "Compatibilité sur borne puissance TE à confirmer ; aucun couple universel inventé."
+    }
+  ],
+  "regles_electriques": [
+    "Respecter IN et OUT du MainSwitch ; batterie vers IN, toutes les charges et tous leurs retours vers OUT.",
+    "Ne jamais contourner la commutation négative par le retour du PM08, du CA01, des ESC, un USB, un chargeur ou une alimentation externe pendant l'échange.",
+    "La sortie Ext de télémétrie JETI n'est pas raccordée à PX4/CA01 ; ne pas attribuer de brochage JR sans notice du kit réel.",
+    "Le système doit être mis OFF avant déconnexion ; sa mémoire peut restaurer ON à la reconnexion. Le verrouillage mécanique n'est pas un interverrouillage électrique OFF.",
+    "La mesure PX4/PM08 et les fonctions de sécurité PX4 restent en aval ; ne pas compter sur une alarme JETI comme coupure automatique de protection.",
+    "Charge de la batterie hors drone, conformément à la chimie et au manuel du lot ; aucun paramètre PX4 ou seuil CA01 modifié par cette BOM."
+  ],
+  "essais_non_executes": [
+    "Contrôle du lot et des polarités",
+    "Sertissage et traction des terminaisons",
+    "Résistance et échauffement de la chaîne au profil de mission réel",
+    "Appel capacitif de l'ensemble des charges",
+    "Mémoire ON/OFF et absence de retour de masse externe",
+    "Cycles poussière, eau, vibration et retenue",
+    "Masse complète et centre de gravité",
+    "Vol"
+  ]
+}

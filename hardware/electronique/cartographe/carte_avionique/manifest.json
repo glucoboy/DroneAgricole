@@ -2,7 +2,7 @@
   "schema_version": 1,
   "reference": "CA01",
   "revision": "0.5-pre",
-  "date": "2026-10-01",
+  "date": "2026-10-02",
   "artifact_status": "Implémenté",
   "hardware_status": "Planifié",
   "qualification": "À valider",
@@ -10,7 +10,7 @@
   "project": "CA01_Avionique.kicad_pro",
   "schematic": "CA01_Avionique.kicad_sch",
   "pcb": "CA01_Avionique.kicad_pcb",
-  "pcb_state": "Canevas vide V0.3 ; aucun placement, contour ou routage ; non synchronisé avec le schéma V0.5 préliminaire",
+  "pcb_state": "Routage complet 4 couches : 155 empreintes, 1255 segments, 251 vias traversants, 10 zones cuivre et 7 exclusions Kelvin, 30 trous EP Ø0,3 ; DRC 0, parité 0, 0 connexion restante ; qualification et fabrication À valider",
   "specification": "../../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#42-cahier-des-charges-de-la-carte-avionique-commune-ca01",
   "sheets": [
     "CA01_Avionique.kicad_sch",
@@ -26,13 +26,21 @@
     "bridge": "https://github.com/mixelpixx/KiCAD-MCP-Server",
     "bridge_commit": "ac716d1a8bfad325b4aa93a398222645b3f78fd7",
     "backend": "fichier / swig",
-    "method": "Reprise des fichiers KiCad préservant les retouches utilisateur ; netlist/ERC et export graphique via CLI KiCad ; contrôles de topologie par broches"
+    "method": "Reprise des fichiers KiCad préservant les retouches utilisateur ; netlist/ERC et export graphique via CLI KiCad ; contrôles de topologie par broches ; empreintes documentées, préplacement par pcbnew, parité CLI et trois revues indépendantes"
   },
   "external_modules": [
     {
       "part": "RadioMaster RP4TD LBT",
-      "integration": "Module rapporté ; J401 logique, connecteur/maintien à définir ; UART J402 avec R401/R402 DNP",
-      "supply": "5V_RADIO via F102 depuis 5V_AUX local CA01, jamais depuis POWER1/2"
+      "integration": "MOD401 sur quatre broches rondes0.5mm candidates, trous0.8/pads1.6 ; centresphotoestimésX11.85,Y±3.9/±1.3 (pas2.6), nonfabricable avant mesure ; J401/W11 retirés",
+      "supply": "5V_RADIO via F102 depuis 5V_AUX local CA01, jamais depuis POWER1/2",
+      "mechanical_footprint": "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat",
+      "pcb_reference": "MOD401",
+      "mechanical_inventory": "empreinte_rp4td.json",
+      "direct_mount_status": "Implémenté",
+      "electrical_footprint_ready": false,
+      "mounting_method": "Broches traversantes soudées",
+      "symbol": "CA01_Radio:RadioMaster_RP4TD",
+      "electrical_footprint_complete": true
     },
     {
       "part": "Holybro PM08-CAN et PDB 300A top-entry candidate",
@@ -81,8 +89,10 @@
     "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
     "Valider hypothèse3.3V GNSS G4, seuils Schmitt, chargePPSAiry et RS232 ; circuits physiques présents, fermerR530-R533 seulement après banc ; valider référenceCSI3.3 et séquencement",
     "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
-    "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
-    "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
+    "Connecteurs et empreintes candidats attribués ; qualifier polarité XT30, courant/sertissage, masse/blindage, détrompage12V/5V, géométrie des composants reçus et stencil TI/shunt",
+    "PCB : routage complet 4 couches, DRC0/parité0/0connexions ; procédé fabricant, thermique/CEM et banc À valider ; trous thermiques Ø0,3 présents",
+    "R116 : CSM3637 Y14880R01000B9R 10mΩ ±0,1 % /15ppm/K /3W sélectionné et routé avec prises Kelvin ; stencil, pièces reçues et thermique réelle/défauts À valider.",
+    "RP4TD THT candidat : mesurer centres/diamètres des demi-trous et corriger coordonnées photographiques, sélectionner broches et hauteur/appui isolant. Quatre pads présents et parité0, aucune qualification géométrique ou de brasage."
   ],
   "verification": {
     "static": "verification/controle_statique.json",
@@ -90,11 +100,11 @@
     "netlist": "verification/netlist.xml",
     "mcp": "verification/mcp_controles_20260922.json",
     "recipe": "verification/verify_ca01.ps1",
-    "connectivity_check_count": 221,
+    "connectivity_check_count": 230,
     "erc_errors_open": 0,
     "erc_warning_count": 0,
     "independent_review": "Revue indépendante 29-30/09/2026 : calculs LM76003 aux coins, pinmaps, polarités, DNP, bootstrap compute corrigé, shunt2512 et Ccap, seuil OV de réarmement ajusté. Conception candidate, empreintes/SOA/Ceff/stabilité et séquencements hors tension restent ouverts.",
-    "hardware_tests": "Non exécutés : schéma préliminaire non fabricable, PCB vide et matériel non assemblé",
+    "hardware_tests": "Non exécutés : carte non fabriquée ni assemblée ; protections et qualification ouvertes",
     "erc_affected_pins": [],
     "compact_rework": "verification/reprise_compacte_20260929.json",
     "arithmetic": "verification/calculs_reproduits.json",
@@ -108,7 +118,45 @@
     "power_layout": "verification/reprise_energie_power_20261001.json",
     "power_layout_recipe": "verification/verify_power_layout.py",
     "power_layout_review": "verification/revue_energie_power_20261001.json",
-    "pdf_export": "verification/export_pdf_20261001.json"
+    "pdf_export": "verification/export_pdf_variante_lm76003_20261001.json",
+    "footprint_components": "empreintes_composants.json",
+    "footprint_connectors": "empreintes_connecteurs.json",
+    "placement": "verification/placement_mecanique_20261001.json",
+    "placement_recipe": "verification/verify_placement.py",
+    "placement_builder": "verification/build_placement.py",
+    "placement_preview": "verification/CA01_placement_mecanique.svg",
+    "drc_placement": "verification/drc_placement_20261001.json",
+    "component_review": "verification/revue_composants_placement_20261001.json",
+    "connector_review": "verification/revue_connecteurs_placement_20261001.json",
+    "mechanical_review": "../../../mecanique/cartographe/verification/revue_stack_ca01_20261001.json",
+    "pdf_export_historical_layout": "verification/export_pdf_20261001.json",
+    "shunt_thermal": "verification/shunt_thermique_20261001.json",
+    "shunt_thermal_recipe": "verification/verify_shunt_thermique.py",
+    "shunt_thermal_review": "verification/revue_shunt_standard_20261001.json",
+    "pdf_export_historical_footprints": "verification/export_pdf_empreintes_20261001.json",
+    "shunt_thermal_review_historical": "verification/revue_shunt_thermique_20261001.json",
+    "rp4td_footprint": "empreinte_rp4td.json",
+    "rp4td_direct_review": "verification/revue_rp4td_direct_20261001.json",
+    "current_pdf": "verification/export_pdf_rp4td_tht_20261001.json",
+    "rp4td_review_historical_wired": "verification/revue_rp4td_20261001.json",
+    "rp4td_review": "verification/revue_rp4td_tht_20261001.json",
+    "pdf_export_historical_shunt": "verification/export_pdf_shunt_standard_20261001.json",
+    "rp4td_review_historical_direct": "verification/revue_rp4td_direct_20261001.json",
+    "pdf_export_historical_direct": "verification/export_pdf_rp4td_direct_20261001.json",
+    "models_3d": "modeles_3d.json",
+    "models_3d_review": "../../../mecanique/cartographe/verification/modeles_3d_ca01_20261001.json",
+    "routing": "verification/routage_complet_20261002.json",
+    "routing_recipe": "verification/verify_routing.py",
+    "routing_builder": "verification/start_routing.py",
+    "drc_routing": "verification/drc_routage_complet_20261002.json",
+    "routing_review": "verification/revue_routage_complet_20261002.json",
+    "thermal_footprint_variant": "verification/variante_lm76003_percages_20261001.json",
+    "routing_reproduction": "verification/reproduction_routage_20261002.json",
+    "routing_reproduction_recipe": "verification/verify_routing_reproduction.py",
+    "routing_preservation": "verification/protection_routage_20261002.json",
+    "last_routing_verification_date": "2026-10-02",
+    "routing_initial_historical": "verification/routage_initial_20261001.json",
+    "routing_geometry": "verification/routage_geometrie_20261002.json"
   },
   "source_references": [
     "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
@@ -138,7 +186,7 @@
       18,
       25.2
     ],
-    "limits": "Hypothèses de calcul, pas exigences figées. J301 réserve ; synchronisation physique candidate implémentée. TVS amont, PCB, charges, Ceff et banc ouverts."
+    "limits": "Hypothèses de calcul, pas exigences figées ; TVS, charges, Ceff et banc ouverts. Placement électrique repris et routage complet implémenté."
   },
   "global_wiring_verification": "../verification/cablage_global_v05_20260924.json",
   "target_wiring_revision": "0.5",
@@ -189,11 +237,12 @@
       "Références et Ceff sous bias/température des MLCC entrée/compute/sync ; boucle compute et réponse transitoire, PFM LM76003, courant limite aux coins, pertes/thermique",
       "Valider hypothèse3.3V GNSS G4, seuils Schmitt, chargePPSAiry et RS232 ; circuits physiques présents, fermerR530-R533 seulement après banc ; valider référenceCSI3.3 et séquencement",
       "Garantir absence de réalimentation quand Pixhawk/Orin/capteurs sont éteints ; résistance série et Ioff côté CA01 ne suffisent pas pour une cible éteinte",
-      "Choisir connecteurs, vérifier toutes empreintes dont TI Q5A des CSD19531 et shunt ; courant admissible/sertissage/masse/blindage/détrompage",
-      "PCB : contour, isolation carbone, boucles courtes, Kelvin, thermique et DRC ; banc rails/défauts sans hélices puis synchronisation et RF"
+      "Connecteurs et empreintes candidats attribués ; qualifier polarité XT30, courant/sertissage, masse/blindage, détrompage12V/5V, géométrie des composants reçus et stencil TI/shunt",
+      "PCB : routage complet 4 couches, DRC0/parité0/0connexions ; procédé fabricant, thermique/CEM et banc À valider ; trous thermiques Ø0,3 présents",
+      "R116 : CSM3637 Y14880R01000B9R 10mΩ ±0,1 % /15ppm/K /3W sélectionné et routé avec prises Kelvin ; stencil, pièces reçues et thermique réelle/défauts À valider."
     ]
   },
-  "schematic_state": "Circuits physiques candidats énergie, Basler et PPS/GPRMC implémentés ; schéma de synchronisation complet, sorties DNP avant banc. Protection amont, empreintes, PCB et qualification restent ouverts.",
+  "schematic_state": "Circuits physiques candidats et 151 empreintes attribuées ; variante thermique LM76003 Ø0,3 synchronisée ; routage complet présent, protections et qualification ouvertes",
   "schematic_design_skill": "../../../../.agents/skills/hw-design-schematique/SKILL.md",
   "synchronisation_design": {
     "status": "Implémenté",
@@ -268,5 +317,104 @@
       "export_and_fresh_comparison": "verification/export_pdf_20261001.json"
     }
   },
-  "schematic_pdf": "CA01_Avionique.pdf"
+  "schematic_pdf": "CA01_Avionique.pdf",
+  "mechanical_placement": {
+    "date": "2026-10-01",
+    "status": "Implémenté",
+    "qualification": "À valider",
+    "configuration": "placement_mecanique.json",
+    "outline_mm": [
+      126,
+      80
+    ],
+    "mounting_holes_mm": [
+      [
+        3,
+        3,
+        3.2
+      ],
+      [
+        123,
+        3,
+        3.2
+      ],
+      [
+        123,
+        77,
+        3.2
+      ],
+      [
+        3,
+        77,
+        3.2
+      ]
+    ],
+    "candidate_thickness_mm": 1.6,
+    "routing_done": true,
+    "copper_zones": 10,
+    "stack_candidate": "CA01 sous Holybro, composants vers extérieur inférieur, écart entre PCB10mm candidat",
+    "native_stack": "../../../mecanique/cartographe/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd",
+    "body_models": "21STEP de bibliothèque locaux ;10familles/16occurrences détaillées par modèle auteur ou plan ; RP4TD standard reste seule enveloppe.",
+    "fabrication_open": "Contacts RP4TD photo estimés ; trous thermiques Ø0,3/anneaux/procédé, stack fabricant, BOM, protections et qualification ouverts",
+    "board_only_modules": [],
+    "direct_mount_rp4td": "Quatre pads THT connectés ; axesphotoestimés±3.9/±1.3mm,X11.85. Hauteur des broches inconnue, corps3Dillustratif.",
+    "component_placements_current_in_freecad": false
+  },
+  "shunt_requested_specification": {
+    "ref": "R116",
+    "resistance_ohm": 0.01,
+    "initial_tolerance_fraction": 0.001,
+    "tcr_max_abs_ppm_per_k": 25,
+    "connection": "4 bornes Kelvin préférées",
+    "status": "Implémenté",
+    "qualification": "À valider",
+    "date": "2026-10-01",
+    "decision": "Utilisateur : ±0,1 % accepté le 01/10/2026 ; TCR≤25 ppm/K conservé."
+  },
+  "shunt_replacement_candidate": {
+    "manufacturer": "VPG Foil Resistors",
+    "family": "CSM3637",
+    "resistance_ohm": 0.01,
+    "rated_power_at_70c_w": 3,
+    "catalog_initial_tolerance_fraction": 0.001,
+    "catalog_tcr_max_abs_ppm_per_k": 15,
+    "catalog_conforms_to_requested_tolerance": true,
+    "body_nominal_mm": [
+      9.144,
+      9.398,
+      0.8
+    ],
+    "datasheet": "https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet",
+    "datasheet_revision": "4138-EN Rev. 8, 8 juillet 2025",
+    "status": "Implémenté",
+    "condition": "Référence standard sélectionnée ; stock, pièces reçues, stencil et thermique réelle À valider.",
+    "mpn": "Y14880R01000B9R",
+    "qualification": "À valider"
+  },
+  "thermal_pcb_plan": {
+    "status": "Implémenté",
+    "requirements": "dimensionnement.json#/thermal_pcb_plan",
+    "routing_done": true,
+    "qualification": "À valider"
+  },
+  "routing_configuration": "routage.json",
+  "routing_stage_date": "2026-10-02",
+  "fabrication_draft_manifest": "fabrication/export_manifest.json",
+  "validation_protocol": "validation_electrique_thermique_cem.json",
+  "validation_completed_routing": {
+    "counts": {
+      "footprints": 155,
+      "segments": 1255,
+      "vias": 251,
+      "copper_zones": 10,
+      "rule_areas": 7,
+      "thermal_ep_holes": 30,
+      "unconnected": 0
+    },
+    "root_checks": 15,
+    "independent_review": "verification/revue_routage_complet_20261002.json",
+    "drc": "verification/drc_routage_complet_20261002.json",
+    "drc_reactivated_checks": "verification/drc_controles_reactives_20261002.json",
+    "physical_tests": 0
+  }
 }

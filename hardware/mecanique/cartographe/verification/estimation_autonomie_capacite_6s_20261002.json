@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "status": "À valider",
+  "scope": "Augmentation de capacité en6S pour préserver la compatibilité en tension des ESC ; candidates d'étude, aucun changement matériel ni achat.",
+  "decision": {
+    "retained_series_cells": 6,
+    "reason": "Les ESC du kit sont limités à6S ; augmenter les Ah conserve la tension nominale standard.",
+    "baseline_capacity_ah": 10,
+    "larger_capacity_selected": false
+  },
+  "inputs": {
+    "voltage_nominal_v": 22.2,
+    "standard_lipo_full_voltage_v": 25.2,
+    "central_baseline_mass_kg": 5.3,
+    "baseline_pack_mass_kg": 1.35,
+    "baseline_mass_budget_kg": [
+      4.991456,
+      5.605456
+    ],
+    "battery_nominal_mass_used": true,
+    "additional_installation_mass_included": false,
+    "usable_energy_fraction_assumed": 0.8,
+    "avionics_battery_w": 93.75,
+    "power_sensitivity_multiplier": 1.2,
+    "motor_reference_curve": [
+      {
+        "g": 830,
+        "w": 79.92
+      },
+      {
+        "g": 1150,
+        "w": 130.98
+      },
+      {
+        "g": 1430,
+        "w": 173.16
+      },
+      {
+        "g": 1690,
+        "w": 224.22
+      },
+      {
+        "g": 1920,
+        "w": 264.18
+      }
+    ],
+    "motor": "MN4014KV330",
+    "reference_propeller": "T-Motor15×5CF",
+    "kit_propeller": "Gemfan1555",
+    "published_takeoff_limit_kg": 6.3
+  },
+  "formulas": {
+    "mass_total": "baseline_mass -1.35 +candidate_battery_mass",
+    "energy_nominal_wh": "22.2 *capacity_ah",
+    "power_total_w": "4 *linear_interpolation(250*mass_total_kg, curve) +93.75",
+    "duration_min": "60 *energy_nominal_wh *0.8 /power_total_w"
+  },
+  "candidates": [
+    {
+      "label": "Tattu G-Tech10Ah, référence courante",
+      "capacity_ah": 10,
+      "mass_kg": 1.35,
+      "dimensions_mm": [
+        176,
+        66,
+        58
+      ],
+      "source": "https://genstattu.com/ta-30c-10000-6s1p-ec5.html",
+      "type": "LiPo classique",
+      "mass_tolerance_g": 20,
+      "central_result": {
+        "mass_total_kg": 5.3,
+        "nominal_energy_wh": 222,
+        "usable_energy_assumed_wh": 177.60000000000002,
+        "power_total_reference_w": 723.12,
+        "current_at_22_2_v_a": 32.57297297297298,
+        "hover_duration_min": 14.736143378692333,
+        "power_plus20percent_duration_min": 12.280119482243611,
+        "margin_under_published_6_3kg": 1
+      },
+      "mass_budget_results": [
+        {
+          "mass_total_kg": 4.991456,
+          "nominal_energy_wh": 222,
+          "usable_energy_assumed_wh": 177.60000000000002,
+          "power_total_reference_w": 676.6400502857143,
+          "current_at_22_2_v_a": 30.479281544401548,
+          "hover_duration_min": 15.748402707614567,
+          "power_plus20percent_duration_min": 13.12366892301214,
+          "margin_under_published_6_3kg": 1.3085439999999995
+        },
+        {
+          "mass_total_kg": 5.605456,
+          "nominal_energy_wh": 222,
+          "usable_energy_assumed_wh": 177.60000000000002,
+          "power_total_reference_w": 769.1347645714286,
+          "current_at_22_2_v_a": 34.64571011583012,
+          "hover_duration_min": 13.85452912915418,
+          "power_plus20percent_duration_min": 11.545440940961816,
+          "margin_under_published_6_3kg": 0.6945439999999996
+        }
+      ]
+    },
+    {
+      "label": "Tattu12Ah30C XT90 SKU TAA120006S30X",
+      "capacity_ah": 12,
+      "mass_kg": 1.544,
+      "dimensions_mm": [
+        192,
+        72,
+        54
+      ],
+      "source": "https://gensace.de/products/tattu-12000mah-22-2v-30c-6s1p-uav-lipo-battery-pack-with-xt90-plug",
+      "type": "LiPo classique",
+      "mass_tolerance_g": 20,
+      "central_result": {
+        "mass_total_kg": 5.494,
+        "nominal_energy_wh": 266.4,
+        "usable_energy_assumed_wh": 213.12,
+        "power_total_reference_w": 752.3447142857143,
+        "current_at_22_2_v_a": 33.889401544401544,
+        "hover_duration_min": 16.996464196788214,
+        "power_plus20percent_duration_min": 14.16372016399018,
+        "margin_under_published_6_3kg": 0.806
+      },
+      "mass_budget_results": [
+        {
+          "mass_total_kg": 5.185456,
+          "nominal_energy_wh": 266.4,
+          "usable_energy_assumed_wh": 213.12,
+          "power_total_reference_w": 705.8647645714286,
+          "current_at_22_2_v_a": 31.79571011583012,
+          "hover_duration_min": 18.11565138509761,
+          "power_plus20percent_duration_min": 15.096376154248011,
+          "margin_under_published_6_3kg": 1.1145439999999995
+        },
+        {
+          "mass_total_kg": 5.799456000000001,
+          "nominal_energy_wh": 266.4,
+          "usable_energy_assumed_wh": 213.12,
+          "power_total_reference_w": 801.9939360000002,
+          "current_at_22_2_v_a": 36.125852972972986,
+          "hover_duration_min": 15.94426020697493,
+          "power_plus20percent_duration_min": 13.28688350581244,
+          "margin_under_published_6_3kg": 0.5005439999999988
+        }
+      ]
+    },
+    {
+      "label": "Tattu G-Tech16Ah30C XT90-S, fiche US",
+      "capacity_ah": 16,
+      "mass_kg": 1.988,
+      "dimensions_mm": [
+        192,
+        76,
+        65
+      ],
+      "source": "https://genstattu.com/ta-30c-16000-6s1p-xt90.html",
+      "type": "LiPo classique",
+      "mass_tolerance_g": 20,
+      "central_result": {
+        "mass_total_kg": 5.938,
+        "nominal_energy_wh": 355.2,
+        "usable_energy_assumed_wh": 284.16,
+        "power_total_reference_w": 829.2018461538462,
+        "current_at_22_2_v_a": 37.35143451143451,
+        "hover_duration_min": 20.56145928652057,
+        "power_plus20percent_duration_min": 17.13454940543381,
+        "margin_under_published_6_3kg": 0.3620000000000001
+      },
+      "mass_budget_results": [
+        {
+          "mass_total_kg": 5.629456,
+          "nominal_energy_wh": 355.2,
+          "usable_energy_assumed_wh": 284.16,
+          "power_total_reference_w": 772.7501931428571,
+          "current_at_22_2_v_a": 34.80856725868726,
+          "hover_duration_min": 22.063533793058618,
+          "power_plus20percent_duration_min": 18.38627816088218,
+          "margin_under_published_6_3kg": 0.6705439999999996
+        },
+        {
+          "mass_total_kg": 6.243456,
+          "nominal_energy_wh": 355.2,
+          "usable_energy_assumed_wh": 284.16,
+          "power_total_reference_w": 889.1887052307693,
+          "current_at_22_2_v_a": 40.05354528066528,
+          "hover_duration_min": 19.17433262445136,
+          "power_plus20percent_duration_min": 15.978610520376135,
+          "margin_under_published_6_3kg": 0.056543999999999706
+        }
+      ]
+    },
+    {
+      "label": "Tattu20Ah5C XT90-S SKU TAA200006S5X9S",
+      "capacity_ah": 20,
+      "mass_kg": 1.95,
+      "dimensions_mm": [
+        193,
+        76,
+        58
+      ],
+      "source": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "type": "NMC semi-solid, énergie/profil à caractériser",
+      "mass_tolerance_g": 20,
+      "central_result": {
+        "mass_total_kg": 5.8999999999999995,
+        "nominal_energy_wh": 444,
+        "usable_energy_assumed_wh": 355.20000000000005,
+        "power_total_reference_w": 821.7392307692306,
+        "current_at_22_2_v_a": 37.01528066528066,
+        "hover_duration_min": 25.935234928542748,
+        "power_plus20percent_duration_min": 21.612695773785624,
+        "margin_under_published_6_3kg": 0.40000000000000036
+      },
+      "mass_budget_results": [
+        {
+          "mass_total_kg": 5.591456,
+          "nominal_energy_wh": 444,
+          "usable_energy_assumed_wh": 355.20000000000005,
+          "power_total_reference_w": 767.0257645714286,
+          "current_at_22_2_v_a": 34.550710115830114,
+          "hover_duration_min": 27.78524657761394,
+          "power_plus20percent_duration_min": 23.154372148011614,
+          "margin_under_published_6_3kg": 0.7085439999999998
+        },
+        {
+          "mass_total_kg": 6.205456000000001,
+          "nominal_energy_wh": 444,
+          "usable_energy_assumed_wh": 355.20000000000005,
+          "power_total_reference_w": 881.7260898461541,
+          "current_at_22_2_v_a": 39.71739143451145,
+          "hover_duration_min": 24.170771677765114,
+          "power_plus20percent_duration_min": 20.142309731470927,
+          "margin_under_published_6_3kg": 0.09454399999999907
+        }
+      ]
+    }
+  ],
+  "parallel_two_current_packs": {
+    "capacity_ah": 20,
+    "voltage_nominal_v": 22.2,
+    "batteries_mass_kg": 2.7,
+    "central_result": {
+      "mass_total_kg": 6.65,
+      "nominal_energy_wh": 444,
+      "usable_energy_assumed_wh": 355.20000000000005,
+      "power_total_reference_w": 969.0276923076923,
+      "current_at_22_2_v_a": 43.64989604989605,
+      "hover_duration_min": 21.9931795233287,
+      "power_plus20percent_duration_min": 18.327649602773914,
+      "margin_under_published_6_3kg": -0.35000000000000053
+    },
+    "qualification": "À valider",
+    "integration_selected": false,
+    "limitation": "Dépasse6.3kg publié au scénario central ; connexions, protections, équilibrage et montage non étudiés."
+  },
+  "sources": {
+    "baseline_mass": "hardware/mecanique/cartographe/verification/estimation_autonomie_20261002.json",
+    "motor_curve": "https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html",
+    "kit": "https://holybro.com/products/x650-development-kit"
+  },
+  "limitations": [
+    "Bilan mécanique initial partiel ; changements avioniques non reconciliés et marge montage non incluse.",
+    "Les packs candidats dépassent l'enveloppe nominale de batterie176×66×58mm ; cassette/berceau/maintien/centrage/connectique à vérifier ou adapter.",
+    "Les masses/dimensions sont publiées ; aucun pack pesé et aucune variante commerciale sélectionnée.",
+    "La table utilise masses nominales sans propagation de toutes tolérances : àbornehaute16Ah seulement56.5g sous6.3kg avant montage,36.5g si+20gpack ;20Ah94.5g/74.5g.",
+    "La20Ah semi-solid n'est pas assimilée à une LiPo classique : profil charge, tension minimale sous charge, courant permanent/transitoire et énergie disponible à caractériser.",
+    "Fiche20Ah5C et usage1–3C déclarés ;5×20Ah=100A arithmétique n'est pas une preuve de tenue au profil réel.",
+    "Ne pas transférer la revendication de décharge3.2V/cellule vers les seuilsPX4 sans validation ; réserve20% est une hypothèse commune.",
+    "Courbe hélices15×5CF est unproxy ; météo/température/vieillissement et rendement réel non mesurés."
+  ],
+  "verification": {
+    "independent_arithmetic_check": "Centrales12/16/20Ah et bornes16/20Ah recalculées indépendamment, concordantes.",
+    "hardware_tests_executed": false,
+    "simulation_executed": false,
+    "cad_modified": false,
+    "qualification_claimed": false
+  }
+}

@@ -1,0 +1,602 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-03",
+  "statut": "À valider",
+  "objet": "Audit indépendant mécanique de l'ancien préplacement CA01/Holybro et de sa pose dans le drone candidat ; revue préparatoire avant correction",
+  "modifications_CAO_par_auditeur": false,
+  "configuration_active_modifiee": false,
+  "outil": {
+    "nom": "FreeCAD",
+    "version": "1.1.3",
+    "executable": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "methode": "Processus headless, App.openDocument, inspection objets/liens/BRep/cylindres ; aucune sauvegarde des natifs"
+  },
+  "sources_sha256": {
+    "hardware/mecanique/cartographe/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd": "d4ed28ecb61bcda9fe5d01990f65cabc8a1a9cc07fd85871bea4913b8e2408c2",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd": "7fb15a40a5ec708661d31adf2936a160e04862bc687773fc02b1b1e6ddffc566",
+    "hardware/mecanique/cartographe/pieces/fabriquees/CA01_PCB_Preplacement.FCStd": "c0e343bb8191326595bf1f27a990b4d9f512bc2a367ca0ba7380b1fb70f5869b",
+    "hardware/mecanique/cartographe/sous_assemblages/SA01_Chassis_Rehausse20.FCStd": "2b55d807ba2deef505d6389a36bf247d03fbaba43af56e2adf959373579e9bdc",
+    "hardware/mecanique/cartographe/assemblages/Drone_Cartographe_Systeme_Candidat.FCStd": "1ebcd68d5e36ffec665ef7472e07fe6e877d5d3dce0d4d20f550ec9cb4201a8b"
+  },
+  "pile": {
+    "document": "SA03_CA01_Holybro_candidat",
+    "racine": "StackCandidate",
+    "objets_constitutifs": [
+      "Holybro : App::Link vers PorteuseFabricant",
+      "CA01 : App::Link vers CarteCA01",
+      "ParametresStack : EcartPCB10mm"
+    ],
+    "fixations_CA01_presentes": false,
+    "support_chassis_present": false,
+    "chaine_appui_complete": false,
+    "transformation_CA01": {
+      "translation_mm": [
+        0,
+        0,
+        -9.97
+      ],
+      "rotation_X_deg": 180
+    },
+    "bbox_Holybro_local_mm": [
+      -0.11769145362396394,
+      -0.9999998569081657,
+      -8.0254,
+      126.11769145362396,
+      80.51936152561716,
+      30.898320000083473
+    ],
+    "bbox_CA01_local_avant_flip_mm": [
+      0,
+      -80,
+      -2.005,
+      126,
+      0,
+      12.095
+    ],
+    "PCB_local_avant_flip_Z_mm": [
+      0,
+      1.6
+    ],
+    "PCB_local_apres_flip_Z_mm": [
+      -11.57,
+      -9.97
+    ],
+    "bbox_pile_local_mm": [
+      -0.11769145362396394,
+      -0.9999998569081657,
+      -22.065,
+      126.11769145362396,
+      80.51936152561716,
+      30.898320000083473
+    ],
+    "gap_PCB_CA01_materiel_coin_OEM_mm": 1.9446,
+    "gap_limite": "Différence Z entre face supérieure CA01−9,97 et face inférieure hex OEM−8,0254 ; intervalle vide, pas entretoise ni appui mécanique.",
+    "trous_CA01": {
+      "diametre_mm": 3.2,
+      "axes_local_apres_flip_xy_mm": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          77
+        ],
+        [
+          123,
+          3
+        ],
+        [
+          123,
+          77
+        ]
+      ],
+      "axes_global_xy_mm": [
+        [
+          -60,
+          -37
+        ],
+        [
+          -60,
+          37
+        ],
+        [
+          60,
+          -37
+        ],
+        [
+          60,
+          37
+        ]
+      ],
+      "coaxiaux_OEM": true,
+      "limite": "Coaxialité nominale CAO ; tolérances et jeu de montage à vérifier."
+    }
+  },
+  "coins_OEM": {
+    "indices_solides_hex": [
+      2049,
+      2051,
+      2053,
+      2055
+    ],
+    "indices_solides_ecrous": [
+      2050,
+      2052,
+      2054,
+      2056
+    ],
+    "indices_base_zero": true,
+    "corps_hex": {
+      "quantite": 4,
+      "volume_unitaire_mm3": 147.29417640617544,
+      "largeur_X_mm": 5.5,
+      "Z_min_mm": -8.0254,
+      "Z_max_mm": 6.19589,
+      "face_dessous_Z_mm": -8.0254,
+      "face_epaulement_Z_mm": -0.0254
+    },
+    "interface_inferieure": {
+      "type_constate": "Alésage avec géométrie filetée intérieure, borgne vers le haut du corps hexagonal",
+      "surface_cylindrique_rayon_mm": 1.25,
+      "orientation_face": "Reversed",
+      "plage_Z_cylindres_mm": [
+        -7.7254,
+        -1.0254
+      ],
+      "fond_plan_Z_mm": -1.0254,
+      "profondeur_de_reservation_depuis_face_basse_mm": 7,
+      "passage_libre_traversant": false
+    },
+    "interface_superieure": {
+      "type_constate": "Goujon fileté vers+Z traversant la carte OEM et retenu par écrou",
+      "surface_cylindrique_rayon_mm": 1.45,
+      "orientation_face": "Forward",
+      "plage_Z_cylindres_mm": [
+        -0.0254,
+        5.77466
+      ],
+      "face_extremite_nominale_Z_mm": 5.9746
+    },
+    "ecrou_superieur": {
+      "volume_unitaire_mm3": 44.2169935382687,
+      "Z_min_mm": 1.73982,
+      "Z_max_mm": 4.8648
+    },
+    "conclusion": "Le modèle OEM ne présente pas quatre trous traversants libres : son matériel de maintien doit être conservé et son interface femelle inférieure explicitement utilisée ou remplacée après confirmation fabricant.",
+    "limites": [
+      "Les rayons de cylindres ne fixent pas à eux seuls norme, diamètre nominal, pas ou profondeur utile du filetage réel.",
+      "La profondeur géométrique7mm ne vaut pas engagement admissible ni longueur de vis ; chanfreins et filetage réel à contrôler.",
+      "Ne pas inventer une référence M3 traversante et ne pas qualifier un assemblage par les seuls entraxes."
+    ]
+  },
+  "plaque_basse": {
+    "document": "SA01_Chassis_Rehausse20",
+    "occurrence": "Part__Feature312",
+    "bbox_mm": [
+      -64,
+      -60,
+      -92,
+      64,
+      60,
+      -90
+    ],
+    "epaisseur_mm": 2,
+    "trous_aux_axes_pile": {
+      "diametre_mm": 3,
+      "axes_xy_mm": [
+        [
+          -60,
+          -37
+        ],
+        [
+          -60,
+          37
+        ],
+        [
+          60,
+          -37
+        ],
+        [
+          60,
+          37
+        ]
+      ],
+      "coaxialite_nominale": true
+    },
+    "comparaison_trous": "PlaqueØ3 et CA01Ø3,2 ; jeu réel, tolérances, diamètre externe du matériel et isolants à valider. Aucune interférence M3 automatiquement déduite."
+  },
+  "poses": [
+    {
+      "nom": "Pose ancienne dans drone candidat",
+      "translation_mm": [
+        -63,
+        -40,
+        -65
+      ],
+      "bbox_pile_global_mm": [
+        -63.11769145362397,
+        -40.99999985690817,
+        -87.065,
+        63.11769145362397,
+        40.51936152561716,
+        -34.10167999991653
+      ],
+      "CA01_PCB_Z_mm": [
+        -76.57,
+        -74.97
+      ],
+      "gap_vertical_plus_bas_CA01_plaque_mm": 2.935,
+      "gap_vertical_plan_bas_PCB_plaque_mm": 13.43,
+      "controle_BRep_chassis": {
+        "objet": "OEM_Conserve",
+        "volume_common_mm3": 0,
+        "statut": "Exécuté sur géométrie ancienne inspectée",
+        "limite": "Une absence d'intersection ne fournit pas appui, fixation, tolérances, accessibilité ou montage complet."
+      },
+      "distance_exacte_Part_distToShape": "Calcul arrêté après contrôle common=0,0mm³, coût élevé sur compound OEM. Seule différence verticale de bbox consignée ; distance exacte non déterminée."
+    },
+    {
+      "nom": "Pose relevée de10mm, étude pour correction",
+      "translation_mm": [
+        -63,
+        -40,
+        -55
+      ],
+      "bbox_pile_global_mm": [
+        -63.11769145362397,
+        -40.99999985690817,
+        -77.065,
+        63.11769145362397,
+        40.51936152561716,
+        -24.10167999991653
+      ],
+      "CA01_PCB_Z_mm": [
+        -66.57,
+        -64.97
+      ],
+      "gap_vertical_plus_bas_CA01_plaque_mm": 12.935,
+      "gap_vertical_plan_bas_PCB_plaque_mm": 23.43,
+      "controle_BRep_chassis": {
+        "volume_common_mm3": null,
+        "statut": "Non exécuté par cet audit : arrêt du calcul de distance de la première pose avant passage à la seconde. Nouvelle géométrie à vérifier par recette de revue."
+      },
+      "limite": "Calcul analytique par translation de l'ancienne géométrie. Ne valide pas les nouveaux composants issus du STEP courant ni de nouvelles fixations."
+    }
+  ],
+  "defauts_prouves": [
+    {
+      "id": "STACK-MEC-01",
+      "gravite": "Montage non défini",
+      "constat": "Aucune vis/entretoise/écrou propre à CA01 et aucun support reliant la pile au châssis dans l'ancien sous-assemblage ; la translation seule ne constitue pas une fixation."
+    },
+    {
+      "id": "STACK-MEC-02",
+      "gravite": "Interface de fixation incorrectement présumée",
+      "constat": "Matériel OEM à quatre coins : femelle inférieure borgne et goujon/écrou supérieur ; ce n'est pas un passage traversant libre."
+    },
+    {
+      "id": "STACK-MEC-03",
+      "gravite": "Dégagement faible",
+      "constat": "Ancienne pose laisse seulement2,935mm entre le plus bas CA01 représenté et la plaque basse ; aucune marge pour fiches, câbles, outils, écrous/têtes, tolérances ou vibration démontrée."
+    },
+    {
+      "id": "STACK-MEC-04",
+      "gravite": "Configuration de composants périmée",
+      "constat": "L'ancien natif de préplacement représente le placement01/10 ; le PCB courant a des placements modifiés02/10. Les réserves géométriques doivent être recontrôlées après synchronisation."
+    }
+  ],
+  "corrections_possibles": [
+    "Synchroniser CA01 avec le STEP courant dans une nouvelle référence native, en conservant le corpsPCB et ses arbres paramétriques.",
+    "Conserver l'OEM inchangé ; documenter filetage réel, profondeur utile, accès dessous et couple avant concevoir la chaîne de fixation.",
+    "Étudier la pose+10mm dans une variante, puis vérifierBRep châssis/dock, mouvement cassette, fiches accouplées et passage de câbles.",
+    "Définir séparément les appuis carte/carbone, isolants, captures et longueurs de vis. Les quatre entraxes concordants sont un point de départ, pas une solution fixée.",
+    "Éviter d'appuyer des composants ou de reprendre les efforts de cassette par la pile ou ses câbles."
+  ],
+  "suite_generation": {
+    "recette_parent": "verification/build_stack_revue_20261003.py",
+    "nouveau_stack": "sous_assemblages/SA03_CA01_Holybro_Revue_20261003.FCStd",
+    "portee": "Le générateur parent actualiseCA01 et produit une variante de revueZ−55 ; ses preuves de réouverture, hashes et interférences sont séparées de cet audit de l'état initial."
+  },
+  "validations_non_executees": [
+    "Aucune modification/sauvegarde de CAO par cet auditeur.",
+    "Montage physique, métrologie de lot, couple, traction, vibrations, thermique et vol non exécutés.",
+    "Aucun rendu externe produit."
+  ],
+  "qualification": "À valider ; diagnostic mécanique, aucune qualification physique",
+  "revue_chaine_apres_plan_fournisseur": {
+    "date": "2026-10-03",
+    "objet": "Revue de la chaîne candidate après lecture du plan utilisateur et actualisation CA01",
+    "plan_fournisseur": {
+      "fichier": "sources_fabricants/Holybro_PixhawkJetson_Orin_Dimensions.jpg",
+      "sha256": "f11d677ede5c5ddcaaaf89d4bdcc4ade6a7223b48bc8441a6f786f92d116e9a7",
+      "lecture_image_effectuee": true,
+      "cotes_confirmees": {
+        "filetages": "4-M3",
+        "colonnes_mm": 8,
+        "entraxes_mm": [
+          120,
+          74
+        ]
+      },
+      "consequence": "Le filetage M3 est confirmé par le plan. La réserve initiale sur son identification est levée ; profondeur utile réelle, engagement et couple restent à vérifier."
+    },
+    "sources_revue_sha256": {
+      "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd": "425c67c6bba5e92bf384ca07b85d19f6aeedfd71db6f4d737f379247e1d7191c",
+      "sous_assemblages/SA03_CA01_Holybro_Revue_20261003.FCStd": "9b0dda52e68cb6a5bd6967e005596fe9b37e21ebb7d0e290fbcf42807dd4c326",
+      "assemblages/Integration_Stack_Revue_20261003.FCStd": "4c9b7048045e5dd876f7f6ded569c26482199170b3b1ff0678aca50eb9ac3471",
+      "sous_assemblages/SA05_Capteurs_Isoles.FCStd": "e7b8ce143243984dfc9eb9c8e27cc6e5d019da06aff6ee3d5a86e510697516ba",
+      "pieces/fabriquees/P17_Support_deporte_isolation.FCStd": "02a9e57838d88f43b9900714b3406bbab72cf9f017e01fabe92c98adcd0face2"
+    },
+    "geometrie_actualisee": {
+      "pose_Holybro_Z_mm": -55,
+      "CA01_bbox_global_mm": [
+        -63,
+        -40,
+        -77.19,
+        63,
+        40,
+        -63.09
+      ],
+      "CA01_solides": 309,
+      "PCB_Z_mm": [
+        -66.57,
+        -64.97
+      ],
+      "pied_OEM_Z_mm": -63.0254,
+      "plaque_basse_Z_mm": [
+        -92,
+        -90
+      ],
+      "gap_min_composants_plaque_mm": 12.81,
+      "limite": "Plus bas CA01 actualisé−77,19 ; ancienne estimation−77,065 ne décrit plus cette géométrie."
+    },
+    "chainage_nominal": {
+      "axes_xy_mm": [
+        [
+          -60,
+          -37
+        ],
+        [
+          -60,
+          37
+        ],
+        [
+          60,
+          -37
+        ],
+        [
+          60,
+          37
+        ]
+      ],
+      "tube_bas": {
+        "longueur_mm": 23.43,
+        "OD_mm": 6,
+        "ID_mm": 3.2,
+        "Z_mm": [
+          -90,
+          -66.57
+        ]
+      },
+      "PCB": {
+        "epaisseur_mm": 1.6,
+        "Z_mm": [
+          -66.57,
+          -64.97
+        ]
+      },
+      "bague_haute": {
+        "longueur_mm": 1.9446,
+        "OD_mm": 5.5,
+        "ID_mm": 3.2,
+        "Z_mm": [
+          -64.97,
+          -63.0254
+        ]
+      },
+      "coherence_Z": true,
+      "limites": [
+        "Dimensions exactes découlant du STEP et de sa pose ; pas tolérances ou références d'achat garanties.",
+        "Rayon3mm du tube tangent au bord PCB à3mm de chaque trou ; aucune marge de bord supplémentaire démontrée.",
+        "Anneaux et tubes testés comme solides virtuels en mémoire ; aucun matériel durable créé par auditeur."
+      ]
+    },
+    "variante_CHC_rejetee": {
+      "rondelle_Z_mm": [
+        -92.5,
+        -92
+      ],
+      "tete_reservation": {
+        "diametre_mm": 5.5,
+        "hauteur_mm": 3,
+        "Z_mm": [
+          -95.5,
+          -92.5
+        ]
+      },
+      "vis_M3x35": {
+        "face_appui_Z_mm": -92.5,
+        "pointe_Z_mm": -57.5,
+        "engagement_nominal_mm": 5.5254,
+        "marge_fond_geometrique_mm": 1.4746
+      },
+      "coherence_longueur": true,
+      "conclusion": "Rejet mécanique : têtes et rondelles occupent les supportsP17 des quatre appuis capteurs.",
+      "intersections_par_axe_mm3": {
+        "tube_vs_CA01": 0,
+        "bague_vs_CA01": 0,
+        "tube_vs_obstacles": 0,
+        "tete_vs_P17": 44.037275021694946,
+        "rondelle_OD7_ID3_2_vs_P17": 14.702653618800229,
+        "outil_D4_L30_vs_P17": 89.52954726497359
+      },
+      "axes_tous_controles": true,
+      "P17_obstacles": {
+        "indices_solides": [
+          48,
+          55,
+          62,
+          69
+        ],
+        "references": "SA05_Capteurs_Isoles/Appui_1..4/Support_P17",
+        "geometrie": "Corps des supports appuis rejoint face inférieure plaque àZ−92 ; passage axial existantØ3,4 à(±60,±37)",
+        "autre_passage": "Ø2,2 aux axes des isolateurs déportés de10mm"
+      },
+      "outil_limite": "Réservation virtuelle de tigeØ4×30mm sous tête ; aucune qualification d'un outil de marque. Le blocage confirme l'absence d'accès axial direct par dessous dans configuration assemblée."
+    },
+    "alternative_fraisee": {
+      "statut": "Candidate cohérente géométriquement ; à construire et vérifier par parent",
+      "norme_candidate": "DIN7991 M3×35, longueur totale tête comprise",
+      "tete_face_exterieure_Z_mm": -92,
+      "pointe_Z_mm": -57,
+      "engagement_nominal_mm": 6.0254,
+      "marge_fond_geometrique_mm": 0.9754,
+      "rondelle_sous_plaque": false,
+      "materiel_Z_inferieur_a_moins92": false,
+      "geometrie_fraisure": {
+        "diametre_entree_mm": 6,
+        "diametre_passage_mm": 3.2,
+        "angle_inclus_deg": 90,
+        "profondeur_conique_theorique_mm": 1.4,
+        "epaisseur_plaque_mm": 2,
+        "ligament_axial_residuel_mm": 0.6,
+        "reference_nominale_existante": "build_contacts20Ah_20261002.py : EQ_DIN7991_M3x16_Contacts20Ah, têteØ6, hauteurconique1,5mm",
+        "avertissement": "Un côneØ6→Ø3 dehauteur1,7mm n'est pas90°. La hauteur réelle tête/col doit venir du plan de vis ; ne pas mélanger hauteur1,7mm et cône90°."
+      },
+      "sequence": "Déposer SA05_Capteurs_Isoles, monter/serrer la stack puis remettre SA05. Même séquence pour maintenance ; accès axial aux quatre vis indisponible avec capteurs montés.",
+      "validation_geometrique": "Aucune géométrie proposée ne descend sousZ−92 : les P17 finissent àZ−92 ; l'absence d'intersectionvolumique est possible, mais appui, faces et outil doivent être contrôlés sur la nouvelle référenceP56.",
+      "restrictions": [
+        "Tenue du carbone2mm après fraisuresØ6 non démontrée ; compression locale, délaminage, arrachement, vibrations et couple à qualifier.",
+        "Engagement6,0254mm inférieur à profondeur géométrique7mm mais marge0,9754mm doit couvrir longueur/tolérances/fond réel.",
+        "Le planM3 ne fournit pas couple, classe de résistance, forme de tête ni capacité de maintien.",
+        "Les vis fraisées centrent quatreaxes : surcontrainte et jeux réels à vérifier.",
+        "P56 dérivée : ne pas modifier plaqueOEM/source ou ancienchâssis actif."
+      ]
+    },
+    "alternatives_non_figees": [
+      "Fixation de pile par support déporté sur d'autres points accessibles du châssis, pour conserver la plaque carbone sans fraisage ; encombrement et rigidité à concevoir.",
+      "Revoir l'ancrageP17 et sa fixation commune avec pile sans inventer un passage d'outil ; cela modifie la chaîne de capture capteurs et requiert nouvelle validation."
+    ],
+    "conclusion": "La chaîne tube/bague est cohérente enZ et libre vis-à-vis deCA01. La varianteCHC/rondelle sous plaque est rejetée auxquatreaxes. La solutionfraisée nécessite déposecapteurs et reste candidate jusqu'au contrôle natif et aux validations de tenue/lot.",
+    "limites": "Contrôles statiques virtuels sur fichiers listés. Ni accouplement de fiches, ni faisceau recalé, ni tenue physique, thermique, vibration ou vol qualifiés."
+  },
+  "fixation_commune_consolidee": {
+    "objet": "Consolidation : fixation commune P17/plaque basse/stack par quatre vis longues, variante sans fraisage retenue provisoirement",
+    "etat": "Planifié / À valider ; géométrie virtuelle cohérente, matériel non créé par auditeur",
+    "quantites": {
+      "vis_M3x65": 4,
+      "rondelle_M3_ep0_5": 4,
+      "tube_G10_L24_OD6_ID3_2": 4,
+      "bague_G10_L2_OD5_5_ID3_2": 4,
+      "plaque_P56_derivation": 1
+    },
+    "identification_P17": {
+      "vis_M3_ancrage_existantes_dans_CAO": 0,
+      "vis_M2_capture_existantes": 4,
+      "distinction": "Chaque appuiSA05B comporte Vis_M2x25 sur l'axe isolateur déporté10mm ; aucune visM3 d'ancrageP17 n'est modélisée.",
+      "passages": {
+        "ancrage_partage": "Ø3,4 aux quatre axes(±60,±37), traversantZ−121,174..−92",
+        "capture_isolateur": "Ø2,2 aux axes déportés10mm : exemple(−50,−37)"
+      },
+      "consequence": "Une fixationM3 commune ne dédouble pas une visM3 existante dans la CAO inspectée. L'inventaire physique réel reste à vérifier."
+    },
+    "chaine_fabricable_candidate": {
+      "P17_Z_mm": [
+        -121.174,
+        -92
+      ],
+      "plaque_basse_Z_mm": [
+        -92,
+        -90
+      ],
+      "tube_L24_Z_mm": [
+        -90,
+        -66
+      ],
+      "PCB_Z_mm": [
+        -66,
+        -64.4
+      ],
+      "bague_L2_Z_mm": [
+        -64.4,
+        -62.4
+      ],
+      "pied_OEM_Z_mm": -62.4,
+      "pose_Holybro_Z_mm": -54.3746,
+      "gap_PCB_mm": 10.0554,
+      "CA01_bbox_Z_mm": [
+        -76.62,
+        -62.52
+      ],
+      "rondelle_Z_mm": [
+        -121.674,
+        -121.174
+      ],
+      "vis": {
+        "norme_candidate": "ISO4762 M3×65 CHC, référence d'achat à confirmer",
+        "face_appui_Z_mm": -121.674,
+        "tete_reservation_Z_mm": [
+          -124.674,
+          -121.674
+        ],
+        "tete_diametre_reservation_mm": 5.5,
+        "hauteur_reservation_mm": 3,
+        "pointe_Z_mm": -56.674,
+        "engagement_nominal_mm": 5.726,
+        "fond_geometrique_Z_mm": -55.4,
+        "marge_fond_mm": 1.274
+      },
+      "P56": "Dérivation des quatre passages plaqueØ3→Ø3,2 ; aucun fraisage",
+      "plan_STEP": "Plan8mm nominal ; géométrieSTEP porte une sous-facePCB0,03mm et épaulement−0,0254mm : différentiel8,0554mm conservé, tolérances à valider."
+    },
+    "controles_BRep_virtuels": {
+      "conditions": "Solides créés en mémoire uniquement, aucune pièce de matériel sauvegardée.",
+      "axes_tous_controles": true,
+      "vis_et_rondelles": {
+        "pose_identique_a_preuve_M3x65": true,
+        "obstacles_controles": [
+          "Châssis rehaussé20",
+          "Dock20Ah",
+          "Capteurs isolés",
+          "DistributionPM/PDB"
+        ],
+        "volume_intersection_par_axe_mm3": {
+          "tige": 0,
+          "tete": 0,
+          "rondelle": 0
+        },
+        "limite": "La tige virtuelle ne comprend ni filet ni empreinte ; l'engagementOEM intentionnel est vérifié séparément par cotes et plan."
+      },
+      "tube_et_bague_24_2_vs_CA01": {
+        "solides_CA01": 309,
+        "volume_intersection_mm3": 0,
+        "nombre_paires_testees": 8
+      },
+      "outil_D4_L30_sous_tete": {
+        "intersections_P17_mm3": 0,
+        "intersections_P16_mm3_par_axe": 62.83185307179586,
+        "reference_obstacle": "SA05_Capteurs_Isoles/Bloc_capteurs, solide0 de la maquette",
+        "conclusion": "Accès axial non disponible avec platineP16/bloccapteurs assemblé ; matériel partagé peut rester à sa place mais bloccapteurs à déposer pour outil."
+      }
+    },
+    "montage_maintenance": {
+      "ordre_candidate": [
+        "Présenter P17 sous plaque, tubes24mm et stackCA01/bagues2mm/Holybro au-dessus.",
+        "Serrer les quatre visM3 longues avec le bloccapteursP16 déposé et les quatre axes accessibles.",
+        "Remonter bloccapteurs et éléments d'isolation, en conservant leur captureM2 indépendante."
+      ],
+      "dependance": "Desserrage ou dépose de la pile libère également l'ancrageP17 : soutenir le bloccapteurs et appliquer une séquence de maintenance maîtrisée.",
+      "precaution": "La séquence détaillée et l'accessibilité des capturesM2 doivent être revues sur montage physique ; aucun accès libre en configuration fermée revendiqué."
+    },
+    "limites_qualification": [
+      "Fixation partagée : nouvel effort/précharge traversent P17, plaque carbone, tubeG10, PCBCA01 et bagueG10.",
+      "Compression/fluage de P17prototype, résistance des tubesG10, pression annulaire et écrasementPCB, vibration et maintien des extrinsèques à qualifier.",
+      "Ø6 du tube tangent au bord deCA01 autour d'un trou à3mm : tolérances/jeu de bord à contrôler.",
+      "EngagementM35,726mm calculé ; longueur réelle vis, fond taraudé, engagement effectif, couple et freinage restent à mesurer.",
+      "Jeu réel après passageplaqueØ3,2, alignement des quatre points et surcontrainte à vérifier.",
+      "Solution fraisée abandonnée provisoirement : pas de perte de ligament carbone introduite par cette variante.",
+      "Thermique, connecteurs accouplés et faisceau de la pile ne sont pas validés par cette fixation."
+    ]
+  }
+}

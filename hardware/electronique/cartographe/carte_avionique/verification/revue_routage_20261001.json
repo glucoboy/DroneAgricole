@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "implementation_date": "2026-10-01",
+  "review": "Revue indépendante thermique et intégrité du routage initial CA01",
+  "reviewer": "thermal_review",
+  "target": "KiCad 10.0.6 / Windows amd64",
+  "inputs_sha256": {
+    "CA01_Avionique.kicad_pcb": "e53f2657d1e17866a8b42d1378d09f53615e71ea438e3aaf96827c5228afd7ee",
+    "CA01_Avionique.kicad_pro": "ed6c1074d8cca648ba685fa1c254ba8cb5c56d85e8e90c03ece19c6f0ec9088a",
+    "routage.json": "27080238aba973af5787616034829f1317b0a6468f228946532f57a279948c16",
+    "verification/start_routing.py": "ecc18890b9409b289ce9e1b4523d8169e965540c86ee28cfd0c68b40d405143b",
+    "CA01_Mecanique.pretty/TI_LM76003_RNP_ThermalVias_D0p3.kicad_mod": "46a3b5b2ee73b34f594db78821cbd02325313363e17897d90b6573e8ff636d63"
+  },
+  "checks": [
+    {
+      "id": "EMPILAGE_NATIF",
+      "passed": true,
+      "evidence": {
+        "copper_mm": [
+          0.07,
+          0.035,
+          0.035,
+          0.07
+        ],
+        "dielectric_mm": [
+          0.15,
+          1.09,
+          0.15
+        ],
+        "total_mm": 1.6
+      }
+    },
+    {
+      "id": "COUNTS",
+      "passed": true,
+      "evidence": {
+        "footprints": 155,
+        "zones": 10,
+        "vias": 111,
+        "segments": 4
+      }
+    },
+    {
+      "id": "PADS_THERMIQUES_NETS",
+      "passed": true,
+      "evidence": {
+        "U101": [
+          "unconnected-(U101-RTN_FLOAT-Pad13)"
+        ],
+        "U102": [
+          "GND"
+        ],
+        "U201": [
+          "GND"
+        ],
+        "U301": [
+          "GND"
+        ],
+        "Q101": [
+          "Net-(Q101-D)"
+        ],
+        "Q102": [
+          "Net-(Q101-D)"
+        ],
+        "Q103": [
+          "VIN_PAYLOAD_PROT"
+        ],
+        "Q104": [
+          "Net-(Q104-D)"
+        ]
+      }
+    },
+    {
+      "id": "RACCORD_PLEIN",
+      "passed": true,
+      "evidence": "10 zones avec ZONE_CONNECTION_FULL"
+    },
+    {
+      "id": "GND_CONTINU",
+      "passed": true,
+      "evidence": "Une composante de cuivre sur In1.GND"
+    },
+    {
+      "id": "EXCLUSIONS_NATIVES",
+      "passed": true,
+      "evidence": {
+        "GND_F_holes": 1,
+        "VIN_In2_holes": 1
+      }
+    },
+    {
+      "id": "EXCLUSIONS_REMPLISSAGE",
+      "passed": true,
+      "evidence": {
+        "CA01_GND_F.Cu": [
+          {
+            "local_xy_mm": [
+              42,
+              48
+            ],
+            "copper_present": false
+          },
+          {
+            "local_xy_mm": [
+              45,
+              48
+            ],
+            "copper_present": false
+          },
+          {
+            "local_xy_mm": [
+              47,
+              48
+            ],
+            "copper_present": false
+          }
+        ],
+        "CA01_BATTERIE_PROTEGEE": [
+          {
+            "local_xy_mm": [
+              43,
+              44
+            ],
+            "copper_present": false
+          },
+          {
+            "local_xy_mm": [
+              50,
+              40
+            ],
+            "copper_present": false
+          },
+          {
+            "local_xy_mm": [
+              57,
+              44
+            ],
+            "copper_present": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "U101_RTN_FLOTTANT",
+      "passed": true,
+      "evidence": "Aucun autre élément connecté au pad13"
+    },
+    {
+      "id": "SHUNT_KELVIN_RESERVE",
+      "passed": true,
+      "evidence": "Deux pads sense isolés des zones ; pad force GND relié au plan ; routes Kelvin restantes"
+    },
+    {
+      "id": "SW_COMPACT",
+      "passed": true,
+      "evidence": "Deux îlots F/B de 5.2 x 5.0 mm ; aucune zone SW interne"
+    },
+    {
+      "id": "VIN_PROTEGE",
+      "passed": true,
+      "evidence": "Aval Q102 ; entrée VBAT et drain commun Net-(Q101-D) distincts"
+    },
+    {
+      "id": "LM76003_TROUS",
+      "passed": true,
+      "evidence": {
+        "U201": [
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3
+        ],
+        "U301": [
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3
+        ]
+      }
+    },
+    {
+      "id": "VIAS_MANIFESTE",
+      "passed": true,
+      "evidence": {
+        "actual": 111,
+        "manifest": 111,
+        "comparison": "Conversion indépendante Decimal des coordonnées millimétriques en nanomètres ; évite troncature flottante p.FromMM de 1nm",
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "DRC_PARITE",
+      "passed": true,
+      "evidence": {
+        "violations": 0,
+        "schematic_parity": 0,
+        "unconnected_items": 218,
+        "exit_code": 0,
+        "ignored_checks": [
+          {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+          },
+          {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+          },
+          {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+          },
+          {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+          },
+          {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+          }
+        ],
+        "source_unmodified": true,
+        "command": "kicad-cli pcb drc --format json --schematic-parity --severity-error --severity-warning ; rapport temporaire ; aucune sauvegarde du PCB"
+      }
+    }
+  ],
+  "independent_drc": {
+    "violations": 0,
+    "schematic_parity": 0,
+    "unconnected_items": 218,
+    "exit_code": 0,
+    "ignored_checks": [
+      {
+        "description": "Footprint has no courtyard defined",
+        "key": "missing_courtyard"
+      },
+      {
+        "description": "Track endpoint not centered on via",
+        "key": "track_not_centered_on_via"
+      },
+      {
+        "description": "Tuning profile track geometries",
+        "key": "tuning_profile_track_geometries"
+      },
+      {
+        "description": "Footprint doesn't match symbol's footprint filters",
+        "key": "footprint_filters_mismatch"
+      },
+      {
+        "description": "Footprint component type doesn't match footprint pads",
+        "key": "footprint_type_mismatch"
+      }
+    ],
+    "source_unmodified": true,
+    "command": "kicad-cli pcb drc --format json --schematic-parity --severity-error --severity-warning ; rapport temporaire ; aucune sauvegarde du PCB"
+  },
+  "findings": [
+    {
+      "id": "REV_ROUTAGE_001",
+      "status": "Corrigé et revérifié",
+      "problem": "Append(...,-1,-1) après NewHole ajoutait les points au contour extérieur ; exclusions Kelvin/SW absentes du PCB sauvegardé",
+      "correction": "Append(...,0,hole_index), contrôle du nombre de trous, relecture native et remplissage",
+      "closed": true
+    }
+  ],
+  "blocking_findings_for_initial_scope": [],
+  "limits": [
+    "Routage initial seulement : 218 connexions restantes, boucles de commutation et pistes Kelvin non réalisées",
+    "Procédé via-in-pad/stencil et couronne 0.1 mm des trous LM76003 à confirmer fabricant",
+    "TVS, protections, Ceff, charges, géométrie RP4TD et stack fabricant ouverts",
+    "Aucun essai matériel thermique/CEM ; aucune qualification électrique ou fabricabilité"
+  ],
+  "conclusion": "Conforme au périmètre de démarrage après correction des exclusions natives ; aucun défaut bloquant restant identifié dans ce périmètre",
+  "passed": true,
+  "qualification": "À valider",
+  "manufacturing_ready": false
+}

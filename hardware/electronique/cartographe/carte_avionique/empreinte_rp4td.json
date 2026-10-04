@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "reference": "MOD401",
+  "manufacturer": "RadioMaster",
+  "module": "RP4TD",
+  "manufacturer_sku_lbt": "HP0157.RX-RP4TD-LBT",
+  "footprint": "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat",
+  "type": "Module électrique directement monté sur quatre broches soudées dans CA01 ; axes alignés aux centres des demi-trous RP4TD",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "on_board": true,
+  "board_only": false,
+  "excluded_from_bom": false,
+  "excluded_from_position_files": false,
+  "electrical_pad_count": 4,
+  "mounting_hole_count": 0,
+  "keepout_zone_count": 0,
+  "connection": {
+    "mode": "Quatre broches verticales soudées dans des pastilles THT CA01 puis aux demi-trous métallisés RP4TD ; sans J401 ni W11",
+    "logical_ca01_mapping": {
+      "MOD401.1": "5V_RADIO / pad5V",
+      "MOD401.2": "GND / padG",
+      "MOD401.3": "RP_TX / padTX",
+      "MOD401.4": "RP_RX / padRX"
+    },
+    "pin_numbering_is_oem": false,
+    "removed_connector": "J401",
+    "removed_wire": "W11",
+    "note": "Quatre pads THT raccordés au schéma ; numérotation interne CA01. Centres estimés sur la vue TOP du fabricant, sans garantie métrologique."
+  },
+  "mechanical": {
+    "body_nominal_mm": [
+      23.7,
+      16.3,
+      4.0
+    ],
+    "body_tolerances_mm": null,
+    "courtyard_mm": [
+      25.5,
+      17
+    ],
+    "courtyard_basis": "Corps nominal plus marge ; extension côté contacts àX13mm pour englober les padsØ1.6 et dégagement candidat0.35mm.",
+    "local_axes": "Longueur23,7mm selonX, largeur16,3mm selonY ; originecentréeXY ; enveloppeSTEPbaseZ0.",
+    "candidate_placement_board_local_mm_deg": [
+      16.5,
+      20.5,
+      90
+    ],
+    "candidate_courtyard_bounds_board_local_mm": [
+      8,
+      7.5,
+      25,
+      33
+    ],
+    "end_annotations": "U.FL au bord−X ; quatre pads THT sur bord+X, centres estimés sur la photo TOP, pas des cotes OEM.",
+    "fixation": "Montage soudé sur quatre broches demandé ; hauteur de broche et tenue mécanique/vibratoire à définir, appui isolant complémentaire à évaluer.",
+    "underside_insulation": "À valider ; dessous peuplé, pas de contact à plat ni de hauteur Z déduits du corps nominal.",
+    "antenna": {
+      "connectors": "2×U.FL",
+      "coax_nominal_length_mm": 65,
+      "manufacturer_size_image_overall_length_mm": 79,
+      "manual_t_bar_span_mm": 55,
+      "coax_bend_radius_mm": null,
+      "mated_connector_height_mm": null,
+      "mounting_and_carbon_clearance": "À valider ; antennes et câbles hors empreinte de corps."
+    },
+    "courtyard_local_bounds_mm": [
+      -12.5,
+      -8.5,
+      13.0,
+      8.5
+    ]
+  },
+  "model": {
+    "path": "${KIPRJMOD}/../../../mecanique/cartographe/exports/ca01_placement_20261001/RP4TD.step",
+    "workspace_file": "hardware/mecanique/cartographe/exports/ca01_placement_20261001/RP4TD.step",
+    "sha256": "c6aff153b5f693a21a21d281022be05c89e0fbc19e1fdf3f4f85413f9305aad9",
+    "present": true,
+    "representation": "Enveloppe nominale seule ; hauteur de montage direct, sous-face et liaison soudée non représentées.",
+    "qualification": "À valider"
+  },
+  "sources": [
+    {
+      "url": "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "kind": "Fabricant, pageproduit",
+      "supports": "Dimensions23,7×16,3×4mm et antennesU.FL/coax65mm ; SKU varianteLBT."
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0609/8324/7079/files/RP4TD.pdf?v=1730771705",
+      "kind": "Fabricant, manuel lié parpageproduitetcataloguemanuels",
+      "catalogue_update": "2024-11-05",
+      "pages_used": [
+        1
+      ],
+      "supports": "VuesTOP/BOTTOM, dimensionsnominales, 4padsfonctionnelsRX/TX/5V/G, U.FLx2 ; aucune cotepad/pas ni troufixation.",
+      "limit": "Page2chinoise comporte texte/dessinRP3(22×13mm) incohérent ; non utilisé pourRP4TD."
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0609/8324/7079/files/RP4TD-Details-PC_06_600x600.jpg?v=1700558752",
+      "kind": "Fabricant, imageSize depageproduit",
+      "supports": "Corps23,7×16,3×4mm ; coax65mm et longueurillustrée79mm."
+    },
+    {
+      "url": "https://radiomasterrc.com/cdn/shop/files/RP4TD-Image-1000X1000px-1.jpg?v=1750061219",
+      "kind": "Fabricant, photographie TOP RP4TD_V1.1",
+      "supports": "Ordre RX/TX/5V/G et estimation candidate des centres des demi-trous ; aucune cote de fabrication."
+    }
+  ],
+  "limits": [
+    "Aucune zone cuivre keepout créée ; interdiction d’occuper mécaniquement le courtyard à prendre en compte auplacement/routage futur.",
+    "AccèsBIND/LED/U.FL, fixation, isolationdechaqueface et dégagementsfaisceau/antennesÀvalider.",
+    "Aucune qualificationfabrication, électrique, RF, thermique ou vibratoire.",
+    "Quatre pads présents, parité vérifiable ; centres et pas2.6mm estimés sur photo, Ø0.8/Ø1.6 et broches rondes0.5mm candidats. Géométrie à mesurer avant fabrication, aucune tolérance OEM attribuée."
+  ],
+  "electrical_footprint_ready": false,
+  "manufacturing_ready": false,
+  "direct_mount": {
+    "status": "Implémenté",
+    "qualification": "À valider",
+    "geometry_source_available": false,
+    "missing_data": [
+      "Mesurer centres/diamètres des demi-trous sur la révision reçue et corriger la candidate photographique",
+      "Sélectionner broches réelles et vérifier compatibilité diamètre/section, perçage fini et tolérances",
+      "Relever profil sous-face, définir hauteur libre/appui isolant et valider brasage/vibrations"
+    ],
+    "pad_coordinates_mm": [
+      {
+        "number": 4,
+        "function": "RX",
+        "x": 11.85,
+        "y": 3.9
+      },
+      {
+        "number": 3,
+        "function": "TX",
+        "x": 11.85,
+        "y": 1.3
+      },
+      {
+        "number": 1,
+        "function": "5V",
+        "x": 11.85,
+        "y": -1.3
+      },
+      {
+        "number": 2,
+        "function": "GND",
+        "x": 11.85,
+        "y": -3.9
+      }
+    ],
+    "pad_sizes_mm": {
+      "all_copper_diameter": 1.6,
+      "finished_hole_diameter": 0.8,
+      "copper_radial_annulus_nominal": 0.4,
+      "pad1_shape": "rect",
+      "others_shape": "circle",
+      "qualification": "À valider"
+    },
+    "contact_pitch_mm": 2.6,
+    "mounting_clearance_z_mm": null,
+    "image_measurement_used": true,
+    "solder_process": "Assemblage sur broches : souder quatre broches dans CA01 puis les demi-trous RP4TD aux broches ; procédé et pièces À valider",
+    "mounting_method": "Broches traversantes, connexion permanente soudée",
+    "requested_by_user": "2026-10-01 : broches soudées dans CA01, puis RP4TD soudé aux broches ; empreinte alignée aux demi-cercles des contacts du récepteur",
+    "pad_type_target": "thru_hole plated, copper *.Cu and mask *.Mask ; pas de F.Paste pour le montage manuel candidat",
+    "alignment_datum": "Centres géométriques des quatre demi-trous métallisés RP4TD ; quatre axes de broche/pastille CA01 coïncidents en XY dans la face de montage, sans supposer ordre miroir ou pas",
+    "pin_count": 4,
+    "pin_part_number": null,
+    "pin_cross_section_mm": {
+      "type": "round",
+      "diameter_candidate": 0.5,
+      "part_selected": false
+    },
+    "finished_hole_diameter_mm": 0.8,
+    "copper_pad_diameter_mm": 1.6,
+    "pin_free_height_mm": null,
+    "pin_fit_constraint": "Diamètre fini de perçage à définir selon section maximale réelle de broche, tolérances et jeu de montage ; broche carrée à vérifier sur sa diagonale. Adapter à la dimension du demi-trou reçu.",
+    "mounting_height_constraint": "Hauteur libre à définir selon composants sous-face, isolation et tolérances ; pas de contact du dessous peuplé avec CA01.",
+    "geometry_basis": {
+      "kind": "Estimation photographique candidate, pas de plan coté OEM",
+      "source_url": "https://radiomasterrc.com/cdn/shop/files/RP4TD-Image-1000X1000px-1.jpg?v=1750061219",
+      "source_file": "hardware\\electronique\\cartographe\\sources_fabricants\\rp4td\\RP4TD_Image_1.jpg",
+      "source_sha256": "b3b912ac5bc0af102f6c49133ffe4dcf6d022581436ebc3515df2645ff8403fd",
+      "image_dimensions_px": [
+        1000,
+        1000
+      ],
+      "body_bounds_px": [
+        258,
+        158,
+        742,
+        844
+      ],
+      "contact_centres_px_top_view": {
+        "RX": [
+          385,
+          844
+        ],
+        "TX": [
+          462,
+          844
+        ],
+        "5V": [
+          540,
+          844
+        ],
+        "GND": [
+          617,
+          844
+        ]
+      },
+      "width_scale_mm_per_px": 0.033677685950413226,
+      "local_transform": "X axis toward pad edge +11.85mm; Y=-(image_u-500)*16.3/484, rounded to symmetric candidate +/-3.9 and +/-1.3mm",
+      "nominal_body_mm": [
+        23.7,
+        16.3,
+        4
+      ],
+      "photo_ratio": 1.4173553719008265,
+      "nominal_ratio": 1.4539877300613495,
+      "uncertainty_mm": null,
+      "note": "Perspective/lens distortion and nominal body definition unknown; ratio discrepancy about2.5%. No dimensional tolerance or physical alignment guaranteed."
+    }
+  },
+  "symbol": "CA01_Radio:RadioMaster_RP4TD",
+  "electrical_footprint_complete": true
+}

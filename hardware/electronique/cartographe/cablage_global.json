@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "reference": "CAB-CARTO-01",
-  "date": "2026-09-30",
+  "date": "2026-10-03",
   "scope": "Cartographe uniquement ; traitement/pompe/vannes hors périmètre",
   "status": "Planifié / À valider",
   "harness_ready": false,
   "conventions": [
     "Broches CA01 = numérotation logique du schéma V0.5-pre, empreintes non figées",
     "Flèches énergie = alimentation et retour ; masses, blindages et carbone à concevoir",
-    "Cible V0.5 documentaire ; schéma CA01 V0.5 préliminaire, PCB/CAO non migrés, aucun faisceau assemblé",
+    "Cible V0.5 : schéma et routage PCB CA01 candidats ; maquette système et réservations de câbles implémentées le03/10, aucun faisceau physique assemblé ; interfaces et fixation À valider",
     "BEC1 vers POWER1 et BEC2 vers POWER2, sans parallèle ni retour ; Jetson sur XT30 séparé",
     "Les ports combinés PM08-CAN exigent séparation énergie/CAN ; aucun câble six fils droit vers POWER1/2",
     "Numéros de contacts côté PM et composition du faisceau livré à relever sur les révisions réelles",
@@ -74,10 +74,10 @@
     },
     {
       "id": "RF",
-      "name": "RP4TD rapporté sur CA01",
+      "name": "RP4TD en montage direct sur CA01",
       "inputs": "5V local CA01 ; UART ; RF",
       "outputs": "UART ; RF",
-      "open": "défaut 5V local, UART, consommation et antennes à tester",
+      "open": "Contacts et sous-face à coter, jeuZ/brasage/support, alimentation/UART/RF à valider",
       "status": "À valider"
     },
     {
@@ -282,17 +282,6 @@
       "route": "J201 → alimentation Airy",
       "pins": "J201:1 12V_LIDAR ; :2 GND ; Airy faisceau optionnel B1/B2 ou aviation 6/7 VIN, 5/8 GND",
       "open": "faisceau livré, polarité, section et source 12V capable de 2A au démarrage à vérifier",
-      "status": "Planifié / À valider",
-      "assembled": false
-    },
-    {
-      "id": "W11",
-      "from": "CA01",
-      "to": "RF",
-      "type": "Énergie + UART",
-      "route": "J401 → pads RP4TD",
-      "pins": "J401:1 = 5V_RADIO ; :2 = GND ; :3 = RP_TX ; :4 = RP_RX",
-      "open": "5V local CA01, numérotation logique non OEM ; R401/R402 DNP",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -577,7 +566,12 @@
     {
       "id": "W07",
       "date": "2026-09-24",
-      "reason": "Ancienne dérivation BEC1 vers radio supprimée ; CA01 reçoit le 6S protégé par W08 et alimente RP4TD par W11"
+      "reason": "Ancienne dérivation BEC1 vers radio supprimée ; CA01 reçoit le 6S protégé par W08 et alimente directement MOD401 RP4TD."
+    },
+    {
+      "id": "W11",
+      "date": "2026-10-01",
+      "reason": "Module RP4TD monté et raccordé directement sur CA01 ; connecteur J401 supprimé de la cible. Géométrie des contacts MOD401 à coter."
     }
   ],
   "power_allocation": {
@@ -685,5 +679,17 @@
       ]
     },
     "orientation_verified_on_hardware": false
-  }
+  },
+  "internal_connections": [
+    {
+      "id": "CA01-MOD401",
+      "from": "CA01",
+      "to": "RF",
+      "route": "Connexions PCB directes MOD401, sans faisceau",
+      "pins": "1=5V_RADIO/pad5V ;2=GND/padG ;3=RP_TX/padTX ;4=RP_RX/padRX ; numéros logiques CA01",
+      "status": "Implémenté en PCB candidat ; À valider sur matériel",
+      "assembled": false,
+      "limits": "Routage PCB candidat réalisé ; contacts physiques et connexion sur matériel À valider."
+    }
+  ]
 }

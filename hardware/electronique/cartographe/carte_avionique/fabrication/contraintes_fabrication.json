@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "reference": "CA01",
+  "revision": "0.5-pre",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "release_status": "Brouillon de dossier fabricant",
+  "manufacturing_ready": false,
+  "order_placed": false,
+  "scope": "Contraintes candidates et portes DFM pour consultation future ; ce fichier n'autorise ni fabrication, ni assemblage, ni raccordement au drone.",
+  "source_artifacts": {
+    "pcb": "../CA01_Avionique.kicad_pcb",
+    "project": "../CA01_Avionique.kicad_pro",
+    "schematic": "../CA01_Avionique.kicad_sch",
+    "bom": "../bom_candidate.json",
+    "routing": "../routage.json",
+    "placement": "../placement_mecanique.json",
+    "footprints": "../empreintes_composants.json",
+    "validation": "../validation_electrique_thermique_cem.json"
+  },
+  "board": {
+    "outline_mm": [
+      126,
+      80
+    ],
+    "candidate_thickness_mm": 1.6,
+    "reference_origin": "Origine auxiliaire CAO(50,50)mm ; Gerber/Excellon/CPL en repère local X droite/Y opposé au Y CAO. NPTH vérifiés(3,-3),(123,-3),(123,-77),(3,-77).",
+    "pcb_origin_mm": [
+      50,
+      50
+    ],
+    "mounting": {
+      "type": "NPTH",
+      "hole_diameter_mm": 3.2,
+      "centres_local_mm": [
+        [
+          3,
+          3
+        ],
+        [
+          123,
+          3
+        ],
+        [
+          123,
+          77
+        ],
+        [
+          3,
+          77
+        ]
+      ],
+      "qualification": "À valider",
+      "requirements": "Tolérances diamètre/position et enveloppe vis/entretoises définies avec SA03 ; isolement carbone et cuivre autour fixations contrôlés."
+    },
+    "finish_candidate": "ENIG candidat pour coplanarité QFN/EP et prototype ; fabricant/assembleur doivent confirmer procédé et exigences, aucune finition native validée.",
+    "material_candidate": "FR4 ; famille matériau, Tg/CTE/Td, absorption humidité et compatibilité nombre de refusions à confirmer.",
+    "thickness_tolerance_mm": null,
+    "outline_tolerance_mm": null,
+    "bow_twist_limit": null,
+    "copper_weight_tolerance": null,
+    "notes": "Dimensions nominales du design ; tolérances et conditions environnementales finales ouvertes."
+  },
+  "stackup": {
+    "status": "À valider",
+    "layer_count": 4,
+    "candidate_nominal_total_mm": 1.6,
+    "nominal_copper_sum_mm": 0.21,
+    "nominal_dielectric_sum_mm": 1.39,
+    "layers": [
+      {
+        "sequence": 1,
+        "kicad": "F.Cu",
+        "copper_um": 70,
+        "role": "Composants, puissance et boucles de commutation compactes"
+      },
+      {
+        "sequence": 2,
+        "kicad": "In1.Cu",
+        "copper_um": 35,
+        "role": "Plan GND de référence ; ne pas couper les retours de signaux"
+      },
+      {
+        "sequence": 3,
+        "kicad": "In2.Cu",
+        "copper_um": 35,
+        "role": "Plan VIN_PAYLOAD_PROT batterie protégée, exclusions et îlot drain local selon nets"
+      },
+      {
+        "sequence": 4,
+        "kicad": "B.Cu",
+        "copper_um": 70,
+        "role": "Signaux/retours GND et diffusion thermique sur îlots au potentiel réel"
+      }
+    ],
+    "dielectrics": [
+      {
+        "between": [
+          "F.Cu",
+          "In1.Cu"
+        ],
+        "type": "prepreg",
+        "candidate_mm": 0.15
+      },
+      {
+        "between": [
+          "In1.Cu",
+          "In2.Cu"
+        ],
+        "type": "core",
+        "candidate_mm": 1.09
+      },
+      {
+        "between": [
+          "In2.Cu",
+          "B.Cu"
+        ],
+        "type": "prepreg",
+        "candidate_mm": 0.15
+      }
+    ],
+    "manufacturer_confirmations": [
+      "Confirmer si cuivre annoncé est cuivre de base ou fini après métallisation ; ajuster calculs pistes/thermique au cuivre fini garanti.",
+      "Fournir matériau/résine et épaisseurs pressées/tolérances ; 1,60 mm nominal Cu+diélectriques n'inclut pas nécessairement vernis/finition.",
+      "Confirmer réalisabilité70/35/35/70 µm et alternatives standard proposées, équilibre cuivre, contraintes d'etch et anneaux.",
+      "Aucune impédance contrôlée revendiquée ; si l'intégration impose des liaisons à impédance définie, déclarer cible/tolérance puis recalculer et requalifier."
+    ],
+    "approved_stackup": null
+  },
+  "drawn_design_rules": {
+    "qualification": "À valider fabricant ; valeurs de CAO ne constituent pas capacité process garantie.",
+    "signal_track_min_mm": 0.2,
+    "signal_clearance_target_mm": 0.2,
+    "power_zone_clearance_mm": 0.25,
+    "copper_board_edge_min_mm": 0.5,
+    "standard_via": {
+      "type": "Traversant F.Cu à B.Cu, métallisé",
+      "pad_diameter_mm": 0.6,
+      "hole_mm": 0.3,
+      "nominal_radial_ring_mm": 0.15
+    },
+    "lm76003_ep_holes": {
+      "refs": [
+        "U201",
+        "U301"
+      ],
+      "footprint": "CA01_Mecanique:TI_LM76003_RNP_ThermalVias_D0p3",
+      "pad_number": "31",
+      "net": "GND",
+      "count_per_component": 15,
+      "total_count": 30,
+      "pad_diameter_mm": 0.5,
+      "hole_mm": 0.3,
+      "nominal_radial_ring_mm": 0.1,
+      "drawn_min_hole_edge_distance_mm": 0.35,
+      "qualification": "À valider, anneau critique pour fabricant après surdiamètre de perçage/plating/registration"
+    },
+    "minimum_drill_mm": 0.3,
+    "minimum_drawn_hole_to_hole_mm": 0.25,
+    "microvias_blind_buried": "Non requis par ce candidat ; tous vias présents traversants.",
+    "warning": "Anneau nominal = (pad-trou CAO)/2 ; l'anneau de fabrication dépend outil réel, métallisation et décentrage. Ne pas calculer automatiquement la capacité process sur diamètre CAO seul."
+  },
+  "thermal_connections": {
+    "U101_13": "Flottant, aucun raccord thermique électrique à GND.",
+    "U102_21": "GND ; raccord local AGND/PGND selon layout fabricant et prises Kelvin, vias EP.",
+    "U201_31": "GND",
+    "U301_31": "GND",
+    "Q101_5": "Net-(Q101-D)",
+    "Q102_5": "Net-(Q101-D)",
+    "Q103_5": "VIN_PAYLOAD_PROT",
+    "Q104_5": "Net-(Q104-D) : SW, îlot compact",
+    "requirements": [
+      "Vias/plans connectés électriquement seulement au net du pad ; pas de liaison drain/GND créée pour refroidir.",
+      "Connexions directes des thermovias au cuivre ; distinguer reliefs de brasage des chemins de diffusion thermique.",
+      "Conserver SW compact et sensible FB/COMP/ILIM/Kelvin protégé ; pas d'agrandissement SW dicté seulement par thermique.",
+      "Nombre de vias, cuivre utile rempli et pertes/chutes ne valent pas qualification TJ sur carte réelle."
+    ]
+  },
+  "via_process": {
+    "status": "À valider",
+    "drawn_native_initial": "Tenting global avant/arrière ; filling/capping non spécifiés dans le début de routage. Les trous EP sous pad ouvert ne sont pas protégés du pompage de soudure par une simple intention de tenting.",
+    "candidate_soldered_ep_process": "Vias traversants sous surfaces soudées EP/MOSFET/self : remplissage résine compatible et cap cuivre plan candidat ; couverture/planéité et procédé final à approuver fabricant/assembleur.",
+    "alternative": "Autre procédé seulement si assemblage QFN/EP garantit quantité soudure, coplanarité, absence de pompage et joint thermique, avec preuve sur coupons/inspection. Le tenting seul n'est pas preuve.",
+    "questions": [
+      "Liste explicite de trous/vias à remplir/capper et de trous composants à conserver ouverts ; ne pas remplir trous RP4TD/connecteurs.",
+      "Diamètre fini minimal garanti, surdiamètre outil, épaisseur métallisation barillet, aspect ratio et règles d'anneau à toutes couches.",
+      "Remplissage, cap cuivre, tolérance creux/bosse et résistance thermique compatibles profil refusion.",
+      "Aucune réduction automatique de trous CAO sans validation concepteur, y compris trous EP0,3."
+    ],
+    "selected_process": null
+  },
+  "drilling": {
+    "unit": "mm",
+    "files": "Excellon séparés PTH et NPTH ; carte de perçage et tableau outils joints, aucun regroupement ambigu.",
+    "hole_size_convention": "Convention diamètres CAO/fichier versus trous finis et outils réelle explicitée par fabricant avant release ; tolérances par classe.",
+    "known_families": [
+      {
+        "kind": "PTH via",
+        "candidate_hole_mm": 0.3,
+        "pad_mm": 0.6,
+        "count": 251
+      },
+      {
+        "kind": "PTH EP LM76003",
+        "candidate_hole_mm": 0.3,
+        "pad_mm": 0.5,
+        "count": 30,
+        "note": "15 par U201/U301, pad31 GND ; anneau de fabrication critique."
+      },
+      {
+        "kind": "PTH module MOD401",
+        "candidate_hole_mm": 0.8,
+        "pad_mm": 1.6,
+        "count": 4,
+        "note": "Géométrie/diamètres broches/centres issus photo à mesurer sur RP4TD reçu avant fabrication."
+      },
+      {
+        "kind": "NPTH fixation",
+        "candidate_hole_mm": 3.2,
+        "count": 4,
+        "note": "Positions H1..H4 et tolérances à confirmer SA03."
+      },
+      {
+        "kind": "PTH connecteurs autres",
+        "candidate_hole_mm": [
+          1.0,
+          1.7,
+          1.9
+        ],
+        "count": 12,
+        "note": "Quatre trous de chaque diamètre nominal, ronds dans cette version ; diamètres/tolérances et pièces reçues à valider."
+      }
+    ],
+    "tool_inventory_final": [
+      {
+        "file": "PTH",
+        "tool": "T1",
+        "nominal_cao_hole_mm": 0.3,
+        "count": 251,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T2",
+        "nominal_cao_hole_mm": 0.3,
+        "count": 30,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T3",
+        "nominal_cao_hole_mm": 0.8,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T4",
+        "nominal_cao_hole_mm": 1.0,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T5",
+        "nominal_cao_hole_mm": 1.7,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T6",
+        "nominal_cao_hole_mm": 1.9,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "NPTH",
+        "tool": "T1",
+        "nominal_cao_hole_mm": 3.2,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      }
+    ],
+    "position_tolerance_mm": null,
+    "hole_tolerance_mm": null,
+    "barrel_copper_min_um": null,
+    "slot_constraints": "Exporter rainures métallisés/non métallisés distinctement ; pas de simulation de slot par perçages recouvrants ; contour fermé et fraisage/rayons compatibles fabricant."
+  },
+  "assembly": {
+    "status": "À valider",
+    "candidate_stencil_thickness_mm": null,
+    "paste_alloy": null,
+    "reflow_profile": null,
+    "requirements": [
+      "BOM figée MPN/value/empreinte/DNP avec quantité/alternatives qualifiées ; fichiers pick/place et orientation/pin1 contrôlés.",
+      "Définir fenêtre et fraction de pâte EP U102/U201/U301/MOSFET suivant fabricant et process assembleur ; aucune couverture arbitraire retenue.",
+      "Fixer critères d'inspection EP (RX si pertinent), vides et surface brasée avec assembleur et les limites thermiques ; planéité du cap vérifiée.",
+      "THT RP4TD et connecteurs : brochage, longueur/diamètre broches, accès assemblage, dessous peuplé et appui isolant validés.",
+      "Vérifier fiducials, rails de panneau/tooling, serigraphie polarités/tensions, dégagements composants/dessoudage et supports SA03.",
+      "Approuver profil refusion et nombres cycles compatible MSL/composants/finition ; éviter contamination/no-clean non caractérisée.",
+      "Conserver R401/R402/R530..R533 DNP et JP501 ouvert jusqu'aux conditions banc décrites dans manifest/plan."
+    ]
+  },
+  "fabricator_dfm_questions": [
+    "Accepter stack/cuivre et tolérances, diamètre fini/via0,3 et anneau padEP0,5, drill-to-drill/copper, registration/perçage après métallisation.",
+    "Vérifier pistes/espaces0,2 sur cuivre extérieur70µm et voisinage QFN/pads dans Gerber final ; DRC logiciel seul insuffisant.",
+    "Fournir tolérances vernis et ponts minimaux QFN, expansion des pads et via-in-pad ; pas de masque au détriment de pad soudé.",
+    "Finition/épaisseur, marque lot, contrôle netlist électrique et coupons de process, isolement et continuité bare-board.",
+    "Confirmer plan de panneau/sens montage/origine/révision et accès inspection ; aucune correction CAM silencieuse.",
+    "Classes acceptation, durée de stockage/conditionnement sec et contrôles de réception à fixer dans commande seulement après release."
+  ],
+  "release_gates": [
+    {
+      "id": "FAB-G01",
+      "state": "À valider",
+      "criterion": "BOM/MPN/protections TVS/fusible/Icc/SOA/Ceff, interfaces/niveaux et géométrie RP4TD fermés, revues indépendantes pertinentes."
+    },
+    {
+      "id": "FAB-G02",
+      "state": "À valider",
+      "criterion": "Routage intégral à zéro connexion non routée, ERC/DRC/parité sans anomalie ouverte, boucles/Kelvin/thermique et placement inspectés visuellement."
+    },
+    {
+      "id": "FAB-G03",
+      "state": "À valider",
+      "criterion": "Stack/vias/remplissage/perçages/anneaux/vernissage/pâte/finition/tolérances approuvés par fabricant/assembleur ; DFM final sans réserve."
+    },
+    {
+      "id": "FAB-G04",
+      "state": "À valider",
+      "criterion": "Gerber/Excellon/IPC netlist/BOM/CPL/stencil/origines et plans comparés au PCB final, inventaire trous et SHA256 cohérents."
+    },
+    {
+      "id": "FAB-G05",
+      "state": "À valider",
+      "criterion": "Prototype : critères banc, procédures safe-stop et enveloppes approuvés ; destination et conditions d'essais identifiées. Aucun prototype ne devient Qualifié par fabrication."
+    },
+    {
+      "id": "FAB-G06",
+      "state": "À valider",
+      "criterion": "Usage/installations après preuves physiques électrique/thermique/CEM exigées dans plan et approbation du périmètre ; manufacturing_ready ne vaut qualification du vol."
+    }
+  ],
+  "required_release_outputs": [
+    {
+      "artifact": "Quatre Gerber cuivre F.Cu/In1.Cu/In2.Cu/B.Cu + masque/serigraphie/Edge.Cuts, Gerber X2/job",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "Gerber pâte ou données stencil approuvées assembleur ; THT exclus paste selon empreintes.",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "Excellon PTH/NPTH, slots, carte perçage et tableau outils avec tailles/convention/tolérances.",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "Netlist IPC-D-356 de bare-board et test électrique fabricant, nets comparés à PCB.",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "BOM finale et fichier placement/CPL avec face/origine/rotation/pin1/DNP.",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "Plan montage et inspect RX EP, stack fabricant/material/via process/panneau/acceptation.",
+      "status": "Planifié"
+    },
+    {
+      "artifact": "Rapports ERC/DRC/parité/revue/DFM et manifeste SHA256 des fichiers exportés à révision gelée.",
+      "status": "Planifié"
+    }
+  ],
+  "release_snapshot": {
+    "date": "2026-10-02",
+    "pcb_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+    "config_sha256": "ea060b7caf398bef73d362fda4e2ecc1a57f3f909f8b3be10b795c3978b7c0a2",
+    "export_manifest": "export_manifest.json",
+    "tool_inventory": [
+      {
+        "file": "PTH",
+        "tool": "T1",
+        "nominal_cao_hole_mm": 0.3,
+        "count": 251,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T2",
+        "nominal_cao_hole_mm": 0.3,
+        "count": 30,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T3",
+        "nominal_cao_hole_mm": 0.8,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T4",
+        "nominal_cao_hole_mm": 1.0,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T5",
+        "nominal_cao_hole_mm": 1.7,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "PTH",
+        "tool": "T6",
+        "nominal_cao_hole_mm": 1.9,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      },
+      {
+        "file": "NPTH",
+        "tool": "T1",
+        "nominal_cao_hole_mm": 3.2,
+        "count": 4,
+        "production_tool_diameter_mm": null,
+        "finished_hole_tolerance_mm": null
+      }
+    ],
+    "drc": "../verification/drc_routage_complet_20261002.json",
+    "erc": "../verification/erc.json",
+    "unrouted_connections": 0,
+    "inspection": "Contrôles numériques et vues CAO ; DFM/inspection fabricant non exécutés",
+    "manufacturer_approval": null,
+    "status": "Brouillon candidat, non libéré"
+  },
+  "sources": [
+    {
+      "id": "EC_HOLES",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-design-guidelines/drilled-holes/",
+      "access_date": "2026-10-02",
+      "scope": "Exemple de fabricant : différencie PTH/NPTH, ENDSIZE/TOOLSIZE et réduction via ; pas sélection du fabricant CA01."
+    },
+    {
+      "id": "EC_ANNULAR",
+      "url": "https://www.eurocircuits.com/pcb-classification-drill-class/",
+      "access_date": "2026-10-02",
+      "scope": "Anneaux de fabrication calculés à partir taille outil ; valeurs et capacités à confirmer fabricant retenu."
+    },
+    {
+      "id": "EC_VIP",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-assembly-guidelines/via-in-pad/",
+      "access_date": "2026-10-02",
+      "scope": "Risque de fuite/pompage soudure sous via-in-pad ; process assembleur à approuver."
+    },
+    {
+      "id": "TI_LM76003",
+      "url": "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
+      "access_date": "2026-10-02",
+      "scope": "DAP GND, vias thermique et layout réel à respecter."
+    },
+    {
+      "id": "TI_LM5146",
+      "url": "https://www.ti.com/lit/ds/symlink/lm5146-q1.pdf",
+      "access_date": "2026-10-02",
+      "scope": "EP GND, plans et cuivre associés aux boucles de puissance."
+    }
+  ]
+}

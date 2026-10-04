@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "reference": "CA01",
+  "revision": "0.5-pre",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "release_status": "Exports provisoires, non libérés pour commande",
+  "manufacturing_ready": false,
+  "order_placed": false,
+  "assembly_executed": false,
+  "conclusion": "conforme",
+  "checks": [
+    {
+      "id": "GERBER_COUCHES",
+      "passed": true,
+      "details": {
+        "plot_files": 11,
+        "layers": 4,
+        "bbox_including_edge_line_mm": {
+          "X": 126.05,
+          "Y": 80.05
+        },
+        "nominal_outline_centreline_mm": [
+          126,
+          80
+        ],
+        "finish_in_job": "None"
+      }
+    },
+    {
+      "id": "EXCELLON_PTH",
+      "passed": true,
+      "details": {
+        "count": 297,
+        "metric": true,
+        "max_coordinate_rounding_mm": 0.0005000000000059401,
+        "observed_export_resolution_mm": 0.001,
+        "comparison_tolerance_mm": 0.0005,
+        "unmatched_export": [],
+        "unmatched_native": [],
+        "local_export_axes": "X droite, Y opposé au Y CAO, origine auxiliaire(50,50) de CAO"
+      }
+    },
+    {
+      "id": "EXCELLON_NPTH",
+      "passed": true,
+      "details": {
+        "count": 4,
+        "metric": true,
+        "max_coordinate_rounding_mm": 0,
+        "observed_export_resolution_mm": 0.1,
+        "comparison_tolerance_mm": 0.05,
+        "unmatched_export": [],
+        "unmatched_native": [],
+        "local_export_axes": "X droite, Y opposé au Y CAO, origine auxiliaire(50,50) de CAO"
+      }
+    },
+    {
+      "id": "CPL_positions_smd_candidates.csv",
+      "passed": true,
+      "details": {
+        "count": 136,
+        "mismatches": [],
+        "rotations_pin1_assembly_approval": "À valider assembleur ; cohérence native CAO seulement"
+      }
+    },
+    {
+      "id": "CPL_positions_toutes_candidates.csv",
+      "passed": true,
+      "details": {
+        "count": 141,
+        "mismatches": [],
+        "rotations_pin1_assembly_approval": "À valider assembleur ; cohérence native CAO seulement"
+      }
+    },
+    {
+      "id": "BOM_ET_DNP",
+      "passed": true,
+      "details": {
+        "rows": 151,
+        "mounted": 141,
+        "smd": 136,
+        "tht": 5,
+        "mounted_missing_mpn": 44
+      }
+    },
+    {
+      "id": "IPC_ALIASES_UNIQUES",
+      "passed": true,
+      "details": {
+        "alias_count": 112,
+        "units_header": "P  UNITS CUST 0",
+        "coordinate_unit_mm": 0.00254,
+        "origin": "auxiliaire CAO, Y inversé ; enregistrement IPC en0,0001inch",
+        "alias_mapping": "ipc_aliases_candidates.csv"
+      }
+    },
+    {
+      "id": "drc_routage_complet_20261002.json",
+      "passed": true,
+      "details": {
+        "violations": 0,
+        "unconnected": 0,
+        "ignored_checks": 5
+      }
+    },
+    {
+      "id": "drc_controles_reactives_20261002.json",
+      "passed": true,
+      "details": {
+        "violations": 0,
+        "unconnected": 0,
+        "ignored_checks": 0
+      }
+    },
+    {
+      "id": "REVUE_INDEPENDANTE",
+      "passed": true,
+      "details": "28 contrôles, SHA PCB courant"
+    }
+  ],
+  "export_folder": "exports_provisoires_20261002",
+  "source_sha256": {
+    "CA01_Avionique.kicad_pcb": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+    "CA01_Avionique.kicad_pro": "0e09197617530be64c6f4701ead05297cb7832bb7c0f99415ecfe3b177b19326",
+    "routage.json": "ea060b7caf398bef73d362fda4e2ecc1a57f3f909f8b3be10b795c3978b7c0a2",
+    "placement_mecanique.json": "4e71fdc33bf4a0abf15d7d2b5d919723594e95599a63d6d085eabed36e63ab78",
+    "validation_electrique_thermique_cem.json": "fe1a816743d3bae6a9a58578a5395550d1ad0a1003ef0b36f785874790f5fe3a",
+    "verification\\routage_complet_20261002.json": "66a52044ea798cc8187f839e165cfa424834cb6593dc8326062d3c1831f40838",
+    "verification\\revue_routage_complet_20261002.json": "bf32b3732c4544c6edd7a83e2f41939d8eef32c4977571727fa019e2944b72a4",
+    "verification\\erc.json": "9c3edd4e0e0dd4350e93fb081d41d6656c3e15bce3deae22856048cf525fcf5c",
+    "verification\\netlist.xml": "8833c3860c56247ad7ed2bc6b826cfc655343c9688ea23d7b89844ab58674501",
+    "verification\\drc_controles_reactives_20261002.json": "7961b193306b74dcd8082d38ec10a9451b36f5e6ad02ecceda393d58d0e3bea7",
+    "fabrication\\bom_assemblage_candidate.csv": "bcefd4e743b0e4343af89b7938b877b7f2b77838df473cda1294eed5a9663921",
+    "fabrication\\assemblage_candidate.json": "f8886486000a0884552d53f9afe3e14009377424bd035917203ce5e1b55e819b",
+    "fabrication\\contraintes_fabrication.json": "2cc1db55f02e34724447b29a8c173a565ae6aab27eb925a165033c00b5654052",
+    "verification\\verify_fabrication_exports.py": "2303527019521ff4a2d3515fc1de6b7517d9146b3cbb6754c28114af53f307bd"
+  },
+  "export_sha256": {
+    "exports_provisoires_20261002\\assemblage\\positions_smd_candidates.csv": "9f45bc88b015859e867264f0fee1c7dcba6c0ea8caa9d1fcdd7039e7605199d8",
+    "exports_provisoires_20261002\\assemblage\\positions_toutes_candidates.csv": "a2a7927fef656a8eb3391f597b3aaa1e91dd94426f0f0b0bcacec9ebc381d908",
+    "exports_provisoires_20261002\\CA01_Avionique_candidate.d356": "1805d3845b252d63becf4514a5db8fb932377a99f4787e8c50f8b5cd98d3b79f",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-B_Cu.gbl": "c580b8ec431bc96ec3805787a4c541eacac56acdbab36cd9971c7399214ee66c",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-B_Mask.gbs": "c08191821089ba50c252153d55f546abe8f77951df8120027612547fae427871",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-B_Paste.gbp": "0c14e04c75de8eef6fb52ec0904ce686c3976c8fb5cf3b44a4ae625a994a61d7",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-B_Silkscreen.gbo": "4969c452065a7cab44575bd40ff2de14872e5762130d86d7ad4860e92f64414f",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-Edge_Cuts.gm1": "c17aa33a1b091412bab10fc4ec7ce8ad2c4adf795d17c8184ca2c42e4b2ffb8c",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-F_Cu.gtl": "80f1b8413cabe364d310db69357af5ec5a549aafa21d25814a2ddf0b73dd6520",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-F_Mask.gts": "9bb97dcecbbf15a54d0c5c36f0f19297a2414532e4f926600e61cf7b81b97383",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-F_Paste.gtp": "72192cfc6542d0d161a114ed6586bd4ccf2dde4d79a5c7477a0693f34646817a",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-F_Silkscreen.gto": "c0e7d23b917ead547be2b23dd9220a3a1fa2a3cdcfb8464bb1beea1c0a7505c8",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-In1_Cu.g1": "b2f651a230a8964c0e39a4c5f244a885edb4221deea2058537d810f1be78cddd",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-In2_Cu.g2": "7db5924cf31a28b7e7a799a5255fde003b14abdf7f5aca1b9a16aab9d777db15",
+    "exports_provisoires_20261002\\gerber\\CA01_Avionique-job.gbrjob": "3e0c7c0bbe5f3056e4750355624a8d4a76d3c6f330d964ab12ebd8145d93ab1b",
+    "exports_provisoires_20261002\\ipc_aliases_candidates.csv": "fa9b947febb20456058e7c95c3f80837cd93c6de005a1d14d419ef29836f1f8e",
+    "exports_provisoires_20261002\\percages\\CA01_Avionique-drill.rpt": "912dcb62035c294185e16fb83dd919801f3a052f92e928c7d6f10581ac03e377",
+    "exports_provisoires_20261002\\percages\\CA01_Avionique-NPTH-drl_map.svg": "304cbfa82469385749c2ee1980742263819967c6e1a69181b7091b0265c775de",
+    "exports_provisoires_20261002\\percages\\CA01_Avionique-NPTH.drl": "9d7ee827450d935f9178e2df14689932e6949212bc98cb89d41ee16662ca5152",
+    "exports_provisoires_20261002\\percages\\CA01_Avionique-PTH-drl_map.svg": "b75119e93782847fa7d64c73149c203a1fb1fbca239a5bd9a1156a2a06ffac98",
+    "exports_provisoires_20261002\\percages\\CA01_Avionique-PTH.drl": "712d2deec9e2016e84bf83dcba70bb3a9722623153a4d61dfd94f809d6044550"
+  },
+  "tool_table": [
+    {
+      "file": "PTH",
+      "tool": "T1",
+      "nominal_cao_hole_mm": 0.3,
+      "count": 251,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "PTH",
+      "tool": "T2",
+      "nominal_cao_hole_mm": 0.3,
+      "count": 30,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "PTH",
+      "tool": "T3",
+      "nominal_cao_hole_mm": 0.8,
+      "count": 4,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "PTH",
+      "tool": "T4",
+      "nominal_cao_hole_mm": 1.0,
+      "count": 4,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "PTH",
+      "tool": "T5",
+      "nominal_cao_hole_mm": 1.7,
+      "count": 4,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "PTH",
+      "tool": "T6",
+      "nominal_cao_hole_mm": 1.9,
+      "count": 4,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    },
+    {
+      "file": "NPTH",
+      "tool": "T1",
+      "nominal_cao_hole_mm": 3.2,
+      "count": 4,
+      "production_tool_diameter_mm": null,
+      "finished_hole_tolerance_mm": null
+    }
+  ],
+  "hole_counts": {
+    "PTH": 297,
+    "NPTH": 4
+  },
+  "notes": [
+    "Gerber job bounding box126.05×80.05 inclut traitEdgeCuts. Contour nominal centreligne126×80.",
+    "Finish None et Revision rev? du job natif ne fixent pas finition/révision industrielle ; candidature ENIG et révision0.5-pre dans les contraintes/manifeste à approuver.",
+    "Excellon diamètres CAO nominaux : outils production et diamètres finis compensés/tolérances à confirmer fabricant.",
+    "136positionsSMD dont U201/U301 avec trous EP ;141positions totales dont5THT. Pas de DNP/TP/fixations dans CPL.",
+    "BOM141pièces dont44MPNmanquants ; aucune commande ni montage autorisé par ces exports.",
+    "Comparaison numérique et aperçu de couches ; contrôle fabricant CAM/DFM, coupons/contrôle électrique bare-board et qualification thermique/CEM restent ouverts."
+  ]
+}

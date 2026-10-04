@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "scope": "Empreintes des composants CA01 hors connecteurs ; préparation du placement mécanique sans routage",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "parts": [
+    {
+      "ref": "F101",
+      "mpn": "0451010.MRL",
+      "manufacturer": "Littelfuse",
+      "footprint": "Fuse:Fuse_Littelfuse-NANO2-451_453",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": false,
+      "source": "https://www.littelfuse.com/assetdocs/fuse-451-and-453-datasheet?assetguid=533cd5cc-956c-4243-867f-6ab5a62f6ba1",
+      "source_pages": [
+        2,
+        3,
+        4
+      ],
+      "mechanical": {
+        "body_mm": [
+          6.1,
+          2.69,
+          2.69
+        ],
+        "pads_mm": [
+          1.96,
+          3.15
+        ],
+        "pad_centers_mm": [
+          [
+            -2.455,
+            0
+          ],
+          [
+            2.455,
+            0
+          ]
+        ],
+        "body_max_mm": [
+          6.3,
+          2.94,
+          2.94
+        ]
+      },
+      "candidate_electrical": {
+        "rated_a": 10,
+        "rated_vdc": 125,
+        "interrupt_a_at_32vdc": 400,
+        "i2t_a2s": 26.46,
+        "continuous_derating_percent": 25
+      },
+      "qualification": "À valider",
+      "limit": "Référence candidate pour réserver le volume NANO2 seulement ; Icc réel batterie/PDB et protection amont W08, sélectivité, I2t d'appel, courant continu avec température et application fabricant à fermer avant routage/fabrication. Ne pas supposer Icc <400 A ni traiter 10 A comme budget continu validé."
+    },
+    {
+      "ref": "C401",
+      "mpn": "C1608X7R1H104K080AA",
+      "manufacturer": "TDK",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": false,
+      "source": "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C1608X7R1H104K080AA",
+      "mechanical": {
+        "body_mm": [
+          1.6,
+          0.8,
+          0.8
+        ]
+      },
+      "candidate_electrical": {
+        "capacitance_f": 1e-07,
+        "rated_vdc": 50,
+        "dielectric": "X7R"
+      },
+      "qualification": "À valider",
+      "limit": "MPN mécanique candidate, tension nominale supérieure au minimum16V du schéma ; capacité effective et tolérances restent à vérifier."
+    },
+    {
+      "ref": "C402",
+      "mpn": "CGA4J1X5R1C106K125AC",
+      "manufacturer": "TDK",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": false,
+      "source": "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=CGA4J1X5R1C106K125AC",
+      "mechanical": {
+        "body_mm": [
+          2.0,
+          1.25,
+          1.25
+        ]
+      },
+      "candidate_electrical": {
+        "capacitance_f": 1e-05,
+        "rated_vdc": 16,
+        "dielectric": "X5R",
+        "max_operating_temperature_c": 85
+      },
+      "qualification": "À valider",
+      "limit": "MPN mécanique candidate production ; Ceff sous5V, tolérances et enveloppe thermique85°C ouvertes. L'empreinte ne garantit pas10uF effectifs."
+    },
+    {
+      "ref": "R401",
+      "mpn": "CRCW06030000Z0EA",
+      "manufacturer": "Vishay",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": true,
+      "source": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+      "qualification": "À valider",
+      "limit": "Pont0R candidat ; conserver DNP jusqu'à validation des niveaux UART et des appareils hors tension."
+    },
+    {
+      "ref": "R402",
+      "mpn": "CRCW06030000Z0EA",
+      "manufacturer": "Vishay",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": true,
+      "source": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+      "qualification": "À valider",
+      "limit": "Pont0R candidat ; conserver DNP jusqu'à validation des niveaux UART et des appareils hors tension."
+    },
+    {
+      "ref": "TP201",
+      "mpn": "",
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+      "pads": [
+        "1"
+      ],
+      "dnp": false,
+      "source": "Bibliothèque installée KiCad10.0.6 TestPoint.pretty/TestPoint_Pad_D1.5mm.kicad_mod",
+      "mechanical": {
+        "probe_pad_diameter_mm": 1.5
+      },
+      "qualification": "À valider",
+      "limit": "Cuivre de test sans composant à commander ; accessibilité de la sonde à vérifier dans l'empilage."
+    },
+    {
+      "ref": "TP301",
+      "mpn": "",
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+      "pads": [
+        "1"
+      ],
+      "dnp": false,
+      "source": "Bibliothèque installée KiCad10.0.6 TestPoint.pretty/TestPoint_Pad_D1.5mm.kicad_mod",
+      "mechanical": {
+        "probe_pad_diameter_mm": 1.5
+      },
+      "qualification": "À valider",
+      "limit": "Cuivre de test sans composant à commander ; accessibilité de la sonde à vérifier dans l'empilage."
+    },
+    {
+      "ref": "JP501",
+      "mpn": "",
+      "footprint": "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "dnp": true,
+      "exclude_from_bom": true,
+      "source": "Bibliothèque installée KiCad10.0.6 Jumper.pretty/SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm.kicad_mod",
+      "qualification": "À valider",
+      "limit": "Cavalier à souder ouvert, sans composant ; conserver ouvert/DNP. La broche2 reste NC et aucune adaptation Airy SYNC_OUT1 n'est implémentée."
+    },
+    {
+      "ref": "Q101",
+      "mpn": "CSD19531Q5A",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_Q5A_CSD19531",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "pad_functions": {
+        "1": "S",
+        "2": "S",
+        "3": "S",
+        "4": "G",
+        "5": "D, toutes terminaisons5..8 et plaque drain"
+      },
+      "source": "https://www.ti.com/lit/ds/symlink/csd19531q5a.pdf",
+      "source_local": "../sources_fabricants/TI_CSD19531Q5A_datasheet.pdf",
+      "source_pages": [
+        1,
+        9,
+        10,
+        11
+      ],
+      "qualification": "À valider",
+      "limit": "Cuivre Q5A reconstruit depuis le patternTI ; pâte drain segmentée candidate à relire pour fabrication. Aucune qualificationSOA/appels/thermique.",
+      "mechanical": {
+        "body_nominal_mm": [
+          6.0,
+          4.9,
+          1.0
+        ],
+        "body_max_mm": [
+          6.1,
+          5.0,
+          1.1
+        ]
+      }
+    },
+    {
+      "ref": "Q102",
+      "mpn": "CSD19531Q5A",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_Q5A_CSD19531",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "same_pattern_as": "Q101",
+      "qualification": "À valider",
+      "limit": "Même patternQ5A ; pâte, SOA et thermique à valider.",
+      "mechanical": {
+        "body_nominal_mm": [
+          6.0,
+          4.9,
+          1.0
+        ],
+        "body_max_mm": [
+          6.1,
+          5.0,
+          1.1
+        ]
+      }
+    },
+    {
+      "ref": "Q103",
+      "mpn": "CSD19531Q5A",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_Q5A_CSD19531",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "same_pattern_as": "Q101",
+      "qualification": "À valider",
+      "limit": "Même patternQ5A ; pâte, commutations et thermique à valider.",
+      "mechanical": {
+        "body_nominal_mm": [
+          6.0,
+          4.9,
+          1.0
+        ],
+        "body_max_mm": [
+          6.1,
+          5.0,
+          1.1
+        ]
+      }
+    },
+    {
+      "ref": "Q104",
+      "mpn": "CSD19531Q5A",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_Q5A_CSD19531",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "same_pattern_as": "Q101",
+      "qualification": "À valider",
+      "limit": "Même patternQ5A ; pâte, commutations et thermique à valider.",
+      "mechanical": {
+        "body_nominal_mm": [
+          6.0,
+          4.9,
+          1.0
+        ],
+        "body_max_mm": [
+          6.1,
+          5.0,
+          1.1
+        ]
+      }
+    },
+    {
+      "ref": "R116",
+      "mpn": "Y14880R01000B9R",
+      "manufacturer": "VPG Foil Resistors",
+      "footprint": "CA01_Mecanique:VPG_CSM3637",
+      "pads": [
+        "1",
+        "2"
+      ],
+      "physical_pad_count": 4,
+      "pad_functions": {
+        "1": "I1 force + E1 sense, côté X négatif",
+        "2": "I2 force + E2 sense, côté X positif"
+      },
+      "source": "https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet",
+      "source_revision": "4138-EN Rev8-July-2025",
+      "source_pages": [
+        1,
+        2,
+        4
+      ],
+      "ordering_code": {
+        "product": "1488 = CSM3637",
+        "value": "0R01000 = 0,010 Ω",
+        "tolerance": "B = ±0,1 %",
+        "characteristics": "9 = sans plomb standard",
+        "packaging": "R = bande et bobine"
+      },
+      "mechanical": {
+        "body_nominal_mm": [
+          9.144,
+          9.398,
+          0.8
+        ],
+        "body_tolerance_mm": 0.254,
+        "body_max_mm": [
+          9.398,
+          9.652,
+          1.054
+        ],
+        "orientation": "L selon X, W selon Y ; origine centrée XY ; sense E1/E2 au bord Y négatif.",
+        "manufacturer_land_pattern_mm": {
+          "a": 2.95,
+          "b": 9.91,
+          "c": 1.68,
+          "d": 0.61,
+          "l": 4.52,
+          "tolerance": 0.076
+        },
+        "force_pad_size_mm": [
+          2.95,
+          7.62
+        ],
+        "sense_pad_size_mm": [
+          2.95,
+          1.68
+        ],
+        "same_side_force_sense_gap_mm": 0.61,
+        "force_centers_mm": [
+          [
+            -3.735,
+            1.145
+          ],
+          [
+            3.735,
+            1.145
+          ]
+        ],
+        "sense_centers_mm": [
+          [
+            -3.735,
+            -4.115
+          ],
+          [
+            3.735,
+            -4.115
+          ]
+        ],
+        "courtyard_mm": [
+          11,
+          10.5
+        ]
+      },
+      "catalogue_electrical": {
+        "resistance_ohm": 0.01,
+        "initial_tolerance_fraction": 0.001,
+        "tcr_max_abs_ppm_per_k": 15,
+        "tcr_temperature_domain_c": [
+          -55,
+          125
+        ],
+        "tcr_reference_c": 25,
+        "rated_power_at_70c_w": 3,
+        "derating_zero_c": 170
+      },
+      "qualification": "À valider",
+      "limit": "Référence standard conforme à la tolérance ±0,1 % acceptée le01/10 et au TCR demandé ≤25ppm/K dans le domaine fabricant. Quatre pads physiques, deux numéros de symbole : I1/E1 pin1 et I2/E2 pin2. Les prises E doivent être routées séparément des chemins I jusqu’à ILIM/retour de mesure ; la netlist à deux pins ne contraint pas seule le Kelvin. Aucun routage effectué. Stencil, température réelle, précision à chaud et tenue aux impulsions/défauts non qualifiés.",
+      "duplicate_pad_numbers_are_jumpers": true,
+      "jumper_interpretation": "Connexion interne I1/E1 et I2/E2 du composant, pas de pont PCB ; permet les chemins Kelvin distincts",
+      "footprint_sha256": "c91d6fb2d9ae9b14e43705b63c0b7da7a3c06272c5ad59c728b72fd5b014f218"
+    },
+    {
+      "ref": "U201",
+      "mpn": "LM76003RNPR",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_LM76003_RNP_ThermalVias_D0p3",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ],
+      "dnp": false,
+      "source": "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
+      "source_pages": [
+        53
+      ],
+      "status": "Implémenté",
+      "qualification": "À valider",
+      "manufacturing_ready": false,
+      "thermal_variant": {
+        "base_footprint": "Package_DFN_QFN:Texas_RNP0030B_WQFN-30-1EP_4x6mm_P0.5mm_EP1.8x4.5mm_ThermalVias",
+        "source_library_sha256": "2cdbf931ee2f4cf44fed55b2076f2686dcfa14b308f3ee6e4c074c952fc504e1",
+        "changes": "15 trous métallisés du pad31: Ø0,2→0,3mm; cuivre Ø0,5mm, XY et autres éléments conservés",
+        "plated_holes": 15,
+        "drill_mm": 0.3,
+        "pad_diameter_mm": 0.5,
+        "min_pitch_mm": 0.65,
+        "min_hole_to_hole_mm": 0.35,
+        "annular_ring_mm": 0.1,
+        "limits": [
+          "Anneau annulaire nominal au minimum projet; tolérances à confirmer avec fabricant",
+          "Brasure, remplissage/bouchage et fuite de pâte dans les trous à valider avec assembleur",
+          "La géométrie du pad ne prouve pas la performance thermique"
+        ]
+      }
+    },
+    {
+      "ref": "U301",
+      "mpn": "LM76003RNPR",
+      "manufacturer": "Texas Instruments",
+      "footprint": "CA01_Mecanique:TI_LM76003_RNP_ThermalVias_D0p3",
+      "pads": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ],
+      "dnp": false,
+      "source": "https://www.ti.com/lit/ds/symlink/lm76003.pdf",
+      "source_pages": [
+        53
+      ],
+      "status": "Implémenté",
+      "qualification": "À valider",
+      "manufacturing_ready": false,
+      "thermal_variant": {
+        "base_footprint": "Package_DFN_QFN:Texas_RNP0030B_WQFN-30-1EP_4x6mm_P0.5mm_EP1.8x4.5mm_ThermalVias",
+        "source_library_sha256": "2cdbf931ee2f4cf44fed55b2076f2686dcfa14b308f3ee6e4c074c952fc504e1",
+        "changes": "15 trous métallisés du pad31: Ø0,2→0,3mm; cuivre Ø0,5mm, XY et autres éléments conservés",
+        "plated_holes": 15,
+        "drill_mm": 0.3,
+        "pad_diameter_mm": 0.5,
+        "min_pitch_mm": 0.65,
+        "min_hole_to_hole_mm": 0.35,
+        "annular_ring_mm": 0.1,
+        "limits": [
+          "Anneau annulaire nominal au minimum projet; tolérances à confirmer avec fabricant",
+          "Brasure, remplissage/bouchage et fuite de pâte dans les trous à valider avec assembleur",
+          "La géométrie du pad ne prouve pas la performance thermique"
+        ]
+      }
+    }
+  ],
+  "ti_q5a_pattern_mm": {
+    "source_gate_pad_size": [
+      0.75,
+      0.65
+    ],
+    "source_gate_pitch": 1.27,
+    "drain_envelope": [
+      4.95,
+      4.46
+    ],
+    "drain_teeth": [
+      0.65,
+      0.65
+    ],
+    "F1": 6.255,
+    "F2": 4.46,
+    "F3": 4.46,
+    "F4": 0.65,
+    "F5": 0.62,
+    "F6": 0.65,
+    "F7": 0.75,
+    "F8": 0.65,
+    "F9": 0.62,
+    "F10": 4.95,
+    "F11": 4.46,
+    "orientation": "Rotation180 degrés du dessinTI page10 : source1 en haut à gauche, gate4 en bas à gauche, drain à droite. Origine au centre du boîtier.",
+    "paste": "Source/gate pleine surface ; drain4 fenêtres1.70x1.70 et4 fenêtres0.55x0.50mm ; choix préliminaire à valider par l'assembleur, distinct du cuivre constructeur."
+  },
+  "existing_footprint_audit": [
+    {
+      "refs": [
+        "Q101",
+        "Q102",
+        "Q103",
+        "Q104"
+      ],
+      "previous": "Package_TO_SOT_SMD:TDSON-8-1",
+      "finding": "Source/gate actuels0.85x0.50 et drain4.55x4.41mm ne suivent pas le patternQ5A ; remplacement local requis."
+    },
+    {
+      "refs": [
+        "R116"
+      ],
+      "previous": "Resistor_SMD:R_2512_6332Metric",
+      "finding": "Pads actuels1.225x3.35mm et espace4.70mm ; Vishay prescrit1.65x3.68mm et espace4.06mm ; remplacement local requis."
+    },
+    {
+      "refs": [
+        "F102",
+        "F501"
+      ],
+      "current": "Fuse:Fuse_0603_1608Metric",
+      "finding": "SourceBournsSF0603F : boîtier1608 compatible pour préplacement ; courbes/protection électriques non qualifiées."
+    },
+    {
+      "refs": [
+        "C401",
+        "C402",
+        "R401",
+        "R402",
+        "TP201",
+        "TP301",
+        "JP501"
+      ],
+      "finding": "Tous sont on_board yes. JP501 in_bom no doit néanmoins avoir des pads ; R401/R402 DNP doivent être placés sans assemblage."
+    }
+  ],
+  "limits": [
+    "MPN sélectionnés pour la réservation mécanique, jamais qualification électrique.",
+    "Aucun modèle3D exact TIQ5A ouWSLT ajouté ; courtyards et facesF.Fab utilisables pour le préplacement, hauteur fabricant déclarée dans ce manifeste.",
+    "Fabrication, stencil et essais matériels non autorisés par ces preuves."
+  ]
+}

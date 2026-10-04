@@ -1,0 +1,1728 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-03",
+  "reference": "CFG-CARTO-CIBLE-20261003",
+  "objet": "Registre de BOM embarquée et d'intégration cible ; sans achat ni qualification physique",
+  "statut": "Implémenté en registre et maquette ; intégration À valider",
+  "configuration": {
+    "active": null,
+    "cible": "Cartographe6S20Ah avec porteuseHolybro/6X/OrinNX/CA01,PM08,PDB18138,GNSSHelicalG4",
+    "cible_active": false,
+    "cible_assemblee": false,
+    "maquette_revue_assemblee": true,
+    "fixations_completes": false,
+    "portee": "Drone embarqué avec une cassette ; station sol, pièces de rechange et matériel atelier exclus",
+    "assemblage_revue_candidat": "archives/avant_tri_20261004/assemblages/Drone_Cartographe_Systeme_Candidat.FCStd",
+    "limite_revue": "Maquette complète antérieure archivée ; catalogue courant des dernières implémentations. Aucune configuration complète nouvellement qualifiée.",
+    "variante_stack_revue": "assemblages/Integration_Stack_Revue_20261003.FCStd",
+    "limite_stack_revue": "Fixation commune candidate à P17, accès outil avec bloccapteurs déposé ; ancien faisceau non recalé, physique et masse À valider.",
+    "ancienne_configuration_active_archivee": "archives/avant_tri_20261004/assemblages/Drone_Cartographe_20Ah.FCStd",
+    "catalogue_courant": "manifest.json#catalogue_courant_20261004",
+    "assemblage_local_courant": "assemblages/Integration_Stack_Revue_20261003.FCStd",
+    "tri_sous_assemblages": "Implémenté ; GNSS sur plateaux Planifié, faisceau non recalé sur nouvelle stack."
+  },
+  "regles_masse": [
+    "null signifie inconnue, jamais0g ; les quantités nulles restent des postes ouverts.",
+    "Masse commerciale, provision volumique et pesée sont distinctes.",
+    "Les masses d'ensemble ne s'additionnent pas à leurs sous-composants.",
+    "Aucun total cible garanti avant réconciliation kit/dock/électronique/faisceaux."
+  ],
+  "sources": {
+    "HB": {
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight",
+      "verifiee": "2026-10-03",
+      "nature": "Documentation primaire Holybro"
+    },
+    "HBP": {
+      "url": "https://holybro.com/products/pixhawk-jetson-baseboard?variant=44636223602877",
+      "verifiee": "2026-10-03",
+      "nature": "Page primaire Holybro ; la variante de ce lien est 11072A avec boîtier"
+    },
+    "FCU": {
+      "url": "https://docs.holybro.com/autopilot/pixhawk-6x/technical-specification",
+      "verifiee": "2026-10-03",
+      "nature": "Documentation primaire Holybro"
+    },
+    "PM": {
+      "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+      "verifiee": "2026-10-03",
+      "nature": "Page primaire Holybro"
+    },
+    "PDB": {
+      "url": "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry",
+      "verifiee": "2026-10-03",
+      "nature": "Page primaire Holybro ; métadonnée Shopify weight180 non retenue comme masse nette"
+    },
+    "RTK": {
+      "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification",
+      "verifiee": "2026-10-03",
+      "nature": "Documentation primaire Holybro"
+    },
+    "AIRY": {
+      "url": "https://robosense-robotics.github.io/product-manual/en/Airy/",
+      "verifiee": "2026-10-03",
+      "nature": "Manuel primaire RoboSense"
+    },
+    "CAM": {
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "verifiee": "2026-10-03",
+      "nature": "Documentation primaire Basler"
+    },
+    "X650": {
+      "url": "https://holybro.com/products/x650-development-kit",
+      "verifiee": "2026-10-03",
+      "nature": "Page primaire Holybro"
+    },
+    "LOCAL": {
+      "url": null,
+      "verifiee": null,
+      "nature": "DOC-MEC et manifeste locaux ; donnée candidate, pas confirmation fabricant"
+    }
+  },
+  "bom": [
+    {
+      "id": "DOCK20",
+      "designation": "Dock complet 6S20Ah, batterie, mécanisme, JETI, contacts et faisceau amont",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Configuration de travail choisie",
+      "statut_CAO": "Implémenté dans drone actif",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Décomposer exclusivement par la BOM référencée ; aucun second comptage des lignes dock",
+      "dimensions_mm": null,
+      "fichier_CAO": "sous_assemblages/SA02A_Dock20Ah.FCStd",
+      "reserves": [
+        "La BOM dock inclut aussi P27/P37/P38 et la visserie de rehausse : réconcilier ces lignes, ne pas les ajouter deux fois."
+      ],
+      "bom_detaillee": "verification/bom_dock20Ah_20261002.json",
+      "faisceau": "verification/faisceau_dock20Ah_20261002.json"
+    },
+    {
+      "id": "X650KIT",
+      "designation": "Kit X650 V2 structure, bras, moteurs, ESC, train et accessoires",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "30182 /30183 (variante6X à confirmer)",
+      "source": "X650",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté ; modèle OEM adapté dans SA01_Chassis_Rehausse20",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 2000,
+      "masse_source": "X650",
+      "masse_perimetre": "Masse commerciale du kit hors batterie ; contenu exact de la variante et électronique inclus non réconciliés",
+      "incluse_dans": null,
+      "comptage": "Référence informative seulement ; ne pas additionner2000g avec tous ses contenus sans réconciliation",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_Chassis_X650.FCStd",
+      "reserves": [
+        "Retirer ou exclure PM02D/ancienne PDB/FCU/accessoires du kit si remplacés, après inventaire physique ; aucun crédit de masse arbitraire.",
+        "Kit complet annoncé inclut6X/basev2A,PM02D,M10,SiK,PDBXT60/XT30,4LEDWS2812,propulsion et accessoires : retrait quantifié nécessaire pour masse OEM réellement conservée."
+      ]
+    },
+    {
+      "id": "MOTORS",
+      "designation": "T-Motor MN4014 KV330",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "MN4014 KV330",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Moteurs dans modèle X650",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Inclus au kit ; masse séparée non ajoutée",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence selon DOC-ELEC§5.2 ; confirmer lot, sens et correspondance moteurs physiques."
+      ]
+    },
+    {
+      "id": "ESC",
+      "designation": "Holybro Tekko32 F4 45A",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "Tekko32 F4 45A",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation OEM ; révision et interfaces à confirmer",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Inclus au kit ; masse séparée non ajoutée",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "6S conservé ; protocole consigne et brochage ouverts."
+      ]
+    },
+    {
+      "id": "PROPS",
+      "designation": "Hélices Gemfan1555",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "Gemfan1555",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : enveloppes de rotation seulement",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Présence au kit à confirmer ; masse non individualisée",
+      "dimensions_mm": [
+        381,
+        null,
+        null
+      ],
+      "fichier_CAO": null,
+      "reserves": [
+        "Deux sens de rotation ; quantité de rechange hors masse embarquée.",
+        "Pales détaillées absentes ; largeur40mm et épaisseur4mm sont hypothèses de parcage, pas cotes fabricant."
+      ]
+    },
+    {
+      "id": "ARMS",
+      "designation": "Bras, brides et fixations OEM",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté partiellement dans CAO OEM",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Décomposition du kit, quantité par inventaire OEM ; ne pas multiplier les kits",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Occurrences OEM à rapprocher du lot ; P38 remplace plateau309, P37 remplace quatre colonnes50mm."
+      ]
+    },
+    {
+      "id": "GEAR",
+      "designation": "Train et fixations OEM",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté partiellement dans CAO OEM",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Décomposition du kit, quantité par inventaire OEM ; ne pas multiplier les kits",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Occurrences OEM à rapprocher du lot ; P38 remplace plateau309, P37 remplace quatre colonnes50mm."
+      ]
+    },
+    {
+      "id": "PLATES",
+      "designation": "Plateaux carbone OEM, dont plateau309 repris P38",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté partiellement dans CAO OEM",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Décomposition du kit, quantité par inventaire OEM ; ne pas multiplier les kits",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Occurrences OEM à rapprocher du lot ; P38 remplace plateau309, P37 remplace quatre colonnes50mm."
+      ]
+    },
+    {
+      "id": "OEMFAST",
+      "designation": "Visserie et accessoires OEM effectivement conservés",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté partiellement dans CAO OEM",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "X650KIT",
+      "comptage": "Décomposition du kit, quantité par inventaire OEM ; ne pas multiplier les kits",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Occurrences OEM à rapprocher du lot ; P38 remplace plateau309, P37 remplace quatre colonnes50mm."
+      ]
+    },
+    {
+      "id": "AVI_GROUP",
+      "designation": "Porteuse + Jetson + dissipateur/ventilateur + Pixhawk6X + SSD + Wi-Fi, masse groupée publiée",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "HB",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 190,
+      "masse_source": "HB",
+      "masse_perimetre": "Ensemble illustratif Holybro incluant Jetson, heatsink,6X,SSD et Wi-Fi ; références SSD/fan et révision non garanties",
+      "incluse_dans": null,
+      "comptage": "Provision groupée candidate ; compter une fois seulement, en attente de pesée",
+      "dimensions_mm": [
+        126,
+        80,
+        38.6
+      ],
+      "fichier_CAO": "pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd",
+      "reserves": [
+        "Page porteuse175g sans FCU /185g avecFCU implique10g, mais page6X publie23g pour module : incohérence conservée ;190g n'est pas masse exacte de notre configuration.",
+        "STEP RC02 du19/06/2024 ≠ preuve révision commerciale ; bbox mesurée126,235×81,519×38,924mm.",
+        "Boîtier90g exclu du190g."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "CARRIER",
+      "designation": "Holybro Pixhawk Jetson Baseboard",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "11072",
+      "source": "HBP",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Incluse dans masse groupée ;85g nu informatif non ajouté",
+      "dimensions_mm": [
+        126,
+        80,
+        22.9
+      ],
+      "fichier_CAO": null,
+      "reserves": [
+        "11072 sans boîtier candidat ; lien initial44636223602877 correspond11072A avec boîtier, à confirmer avant figer la fourniture."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "FCU",
+      "designation": "Pixhawk6X module seul",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "Pixhawk6X module seul",
+      "source": "FCU",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Incluse dans masse groupée ;23g documenté séparément non ajouté",
+      "dimensions_mm": [
+        38.8,
+        31.8,
+        14.6
+      ],
+      "fichier_CAO": null,
+      "reserves": [
+        "Révision8 actuelle à garantir ; ancienne basev2A exclue de cible.",
+        "Contradiction de masse avec delta10g de page porteuse ; aucune déduction de masse pour solder le bilan."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "CPU",
+      "designation": "NVIDIA Jetson Orin NX16Go",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "900-13767-0000-001",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Inclus dans masse groupée ; MPN présélectionné dans DOC-ELEC, à confirmer sur fourniture",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ancien OrinNano developer kit/P03/P04 ne représente pas cette référence.",
+        "Ne pas additionner module NX et STEP assemblage contenant déjà le module."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "SSD",
+      "designation": "SSD NVMe M.2 sur porteuse",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "HBP",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Inclus provisoirement dans190g ; référence réelle inconnue",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ports compatibles2242/2280 ; choisir capacité/endurance thermique et référence.",
+        "Bundle Holybro annonce512GB avec marque/modèle variable ; aucun SSD exact figé."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "COOL",
+      "designation": "Dissipateur, ventilateur, interface thermique et fixations Jetson",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "HBP",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Inclus provisoirement dans190g ; ajout de refroidissement différent impose remplacement de provision",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, débit, prise, câble et retenue à déterminer ; qualification thermique absente."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "WIFI",
+      "designation": "Wi-Fi/Bluetooth et antennes éventuelles",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "HBP",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Représentation groupée dans la maquette Holybro candidate ; références du lot et composants internes À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "AVI_GROUP",
+      "comptage": "Carte incluse dans190g illustratif, besoin d'installation à confirmer ; antennes non présumées incluses",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Modèles du bundle variables8265NGW/RTL8B22CE/similaire ; aucune fonction Wi-Fi ni antenne imposée par ce fichier."
+      ],
+      "representation_CAO_candidate": "archives/avant_tri_20261004/sous_assemblages/SA03_CA01_Holybro_candidat.FCStd"
+    },
+    {
+      "id": "CASE",
+      "designation": "Boîtier aluminium porteuse optionnel",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": "11072A (option boîtier)",
+      "source": "HB",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 90,
+      "masse_source": "HB",
+      "masse_perimetre": "Boîtier extérieur seul",
+      "incluse_dans": null,
+      "comptage": "Option non sélectionnée ; exclue du bilan cible tant non choisie",
+      "dimensions_mm": [
+        130,
+        84,
+        20
+      ],
+      "fichier_CAO": null,
+      "reserves": []
+    },
+    {
+      "id": "CA01",
+      "designation": "Carte CA01 assemblée, composants peuplés et RP4TD direct",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "CA01_Avionique (référence projet)",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; natif01/10 à resynchroniser au PCB routé02/10",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": [
+        126,
+        80,
+        1.6
+      ],
+      "fichier_CAO": "pieces/fabriquees/CA01_PCB_Preplacement.FCStd",
+      "reserves": [
+        "Masse PCB4couches+cuivre+soudure+composants peuplés ouverte ;DNP exclus.",
+        "GNSS U504–U507 non réalisés/DNP : route temporelle complète non réalisée."
+      ],
+      "bom_detaillee": "../../electronique/cartographe/carte_avionique/bom_candidate.json",
+      "variante_CAO_courante": "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd"
+    },
+    {
+      "id": "RF",
+      "designation": "RadioMaster RP4TD",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "RP4TD",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Enveloppe nominale candidate sur CA01 ; hauteurZ illustrative",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "CA01",
+      "comptage": "Sous-composant CA01 ; jamais ajout comme ancien moduleRC/télémétrie",
+      "dimensions_mm": [
+        23.7,
+        16.3,
+        4
+      ],
+      "fichier_CAO": "pieces/commerce/Enveloppe_CA01_RP4TD.FCStd",
+      "reserves": [
+        "Broches4THT, demi-trous, sous-face et jeuZ à mesurer avant fabrication."
+      ]
+    },
+    {
+      "id": "RFANT",
+      "designation": "Antennes RP4TD avec coaxiaux et retenues",
+      "quantite_cible": 2,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Dégagement carbone, zones radio, prises et longueurs non figés ; compter aussi coaxial si hors masse radio."
+      ]
+    },
+    {
+      "id": "PM08",
+      "designation": "Holybro PM08-CAN, câbles inclus",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "15028",
+      "source": "PM",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; enveloppe nominale, interfaces et fixation À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 185,
+      "masse_source": "PM",
+      "masse_perimetre": "Module et câbles fabricant, variantes exactes à contrôler",
+      "incluse_dans": null,
+      "comptage": "Masse publiée candidate ; fils factory ne doivent pas être ajoutés une seconde fois",
+      "dimensions_mm": [
+        45,
+        41,
+        26
+      ],
+      "fichier_CAO": "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+      "reserves": [
+        "15028 XT90 conforme lien DOC-ELEC ;15029 fils étamés et15030 XT90/cosses alternatives non choisies.",
+        "AWG8 silicone ; Molex CLIK-Mate2mm6pins pour ports combinés énergie/CAN.",
+        "Support isolant séparé du dock requis ; ne pas modifier modèle fabricant pour supprimer une interférence."
+      ]
+    },
+    {
+      "id": "PDB",
+      "designation": "Holybro PDB300A Top Entry",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "18138",
+      "source": "PDB",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; STEP original fabricant, fixation À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+      "reserves": [
+        "SixXT90 et deuxXT30 vers le haut ; fixationM3 ; masse nette non publiée dans texte vérifié.",
+        "Valeur Shopify180g identique aux accessoires non retenue comme poids net.",
+        "CAD fabricant disponible à intégrer ; dégagement fiches accouplées/bornes/maintenance ouvert."
+      ]
+    },
+    {
+      "id": "LIDAR",
+      "designation": "RoboSense Airy",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "Airy",
+      "source": "AIRY",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté capteurs isolés ; source STEP copie distributeur à révision non confirmée",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 230,
+      "masse_source": "DOC-MEC§6.1 ; valeur nominale à vérifier sur révision livrée",
+      "masse_perimetre": "Capteur hors faisceau, support et connecteur",
+      "incluse_dans": null,
+      "comptage": "Masse nominale candidate",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_Airy.FCStd",
+      "reserves": [
+        "Planéité/appui thermique/vis et premier mode>50Hz selon guide ; orientation nadir à valider.",
+        "Ne pas compter volume FOV comme matière."
+      ]
+    },
+    {
+      "id": "CAMERA",
+      "designation": "Basler a2A4096-30ucBAS",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "a2A4096-30ucBAS",
+      "source": "CAM",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans bloc capteurs ; révision modèle à rapprocher lot",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 85,
+      "masse_source": "DOC-MEC§6.1 ; source Basler",
+      "masse_perimetre": "Caméra hors objectif et câbles",
+      "incluse_dans": null,
+      "comptage": "Masse nominale candidate",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_Basler.FCStd",
+      "reserves": [
+        "VisM3 profondeur4mm selon dessin archivé ; longueur à sélectionner sans talonnage.",
+        "USB3 etM8 signal avec dégagement et retenue indépendants des isolateurs."
+      ]
+    },
+    {
+      "id": "LENS",
+      "designation": "Objectif C-mount et retenue",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Enveloppe provisoire, référence non choisie",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_Objectif.FCStd",
+      "reserves": [
+        "Focale, format capteur, GSD/FOV, hauteur mission, masse réelle et montage à définir ; plage80–150g historique n'est pas borne garantie."
+      ],
+      "masse_intervalle_provision_g": [
+        80,
+        150
+      ]
+    },
+    {
+      "id": "GNSS_GROUP",
+      "designation": "H-RTK F9P DroneCAN Helical STM32G4 et antenne",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "12037 (SKU candidat à garantir G4)",
+      "source": "RTK",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; enveloppe nominale, interfaces et fixation À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": 58,
+      "masse_source": "RTK",
+      "masse_perimetre": "Masse Helical publiée ; inclusion antenne/câbles non explicitée",
+      "incluse_dans": null,
+      "comptage": "Provision groupée candidate ; ne pas ajouter antenne avant clarification",
+      "dimensions_mm": null,
+      "fichier_CAO": "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "reserves": [
+        "Variante STM32G4 requise pour PPSUART2pin5 ;S32K1pin5NC.",
+        "Ancien EQ_RTK maillé simpleRTK2B ne représente pas ce candidat."
+      ]
+    },
+    {
+      "id": "GNSS",
+      "designation": "Module GNSS Helical G4",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "12037 (candidat G4)",
+      "source": "RTK",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; enveloppe nominale, interfaces et fixation À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "GNSS_GROUP",
+      "comptage": "Inclus provisoirement dans58g ; périmètre à confirmer",
+      "dimensions_mm": [
+        51.1,
+        35,
+        22.9
+      ],
+      "fichier_CAO": "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "reserves": []
+    },
+    {
+      "id": "GNSSANT",
+      "designation": "Antenne hélicoïdale et raccordSMA éventuel",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "RTK",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans la maquette candidate ; enveloppe nominale, interfaces et fixation À valider",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": "GNSS_GROUP",
+      "comptage": "Inclusion dans58g à confirmer ; coaxial éventuel additionnel ouvert",
+      "dimensions_mm": [
+        27.5,
+        27.5,
+        59
+      ],
+      "fichier_CAO": "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "reserves": [
+        "Carte SMAfemale, antenne SMAmale ; pose directe ou coaxial et mât à définir.",
+        "Antenne patch historique/P07–P09 incompatibilité présumée non soldée."
+      ]
+    },
+    {
+      "id": "SAFE",
+      "designation": "Bouton sécurité, buzzer et signalisation Pixhawk selon inventaire",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Aucune fonction supposée présente ; fixer les références, quantités et implantation selon lot réel."
+      ]
+    },
+    {
+      "id": "SENSOR_PLATE",
+      "designation": "PlatineP16 bloc capteurs",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "P16_Platine_capteurs_isolee",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_ARM",
+      "designation": "SupportsP17 des quatre appuis",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "P17_Support_deporte_isolation",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_SLEEVE",
+      "designation": "Manchons limiteurs métalP18",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "P18_Manchon_limiteur_metal",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_WASHER",
+      "designation": "Rondelles capture métalP19",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "P19_Rondelle_capture_metal",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SORB_BOT",
+      "designation": "Appuis Sorbothane30duro inférieurs",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "0510030-30",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SORB_TOP",
+      "designation": "Tampons Sorbothane30duro supérieurs",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "0510010-30",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_BOLT",
+      "designation": "VisM2×25CHC des quatre appuis",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "ISO4762 M2×25 (étude)",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_NUT",
+      "designation": "Écrous freinM2 des quatre appuis",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "Écrou freinM2 (étude)",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "CABLE_RETAIN",
+      "designation": "Retenues câblesP10 du bloc capteurs",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": "P10_Retenue_cable",
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans SA05_Capteurs_Isoles ; conservation candidate",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": "Volumes disponibles ; matière/procédé/densité et quantités réelles à consolider",
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Les quatre SA05B répètent une référence locale : compter quatre fois, pas la quantitélocale1 du manifeste.",
+        "Pas de pesée ni qualification de rigidité/vibration ; câbles ne doivent pas court-circuiter l'isolation."
+      ]
+    },
+    {
+      "id": "SENSOR_FIX",
+      "designation": "Fixations Airy/Basler/objectif surP16 et ancragesP17",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "AVI_SUPPORT",
+      "designation": "Support isolant de pile porteuse/CA01 au châssis",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans variante inactive de stack montée",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Choix candidat ; tenue/précharge/fluage P17 et PCB, isolement tiges/carbone, serrage et fournisseur À valider."
+      ],
+      "sous_BOM_revue": [
+        {
+          "reference": "P55_EntretoiseBasse_Stack",
+          "quantite": 4,
+          "definition_mm": {
+            "L": 24,
+            "D": 6,
+            "passage": 3.2
+          },
+          "statut": "À valider",
+          "masse_unitaire_g": null,
+          "masse_perimetre": "Matière, fournisseur et pesée non établis"
+        },
+        {
+          "reference": "P56_PlaqueBasse_PercagesStack",
+          "quantite": 1,
+          "substitution": "OEM312, aucune addition de plaque",
+          "definition_mm": {
+            "trous_repris": 3.2
+          },
+          "statut": "À valider",
+          "masse_unitaire_g": null,
+          "masse_perimetre": "Matière, fournisseur et pesée non établis"
+        }
+      ]
+    },
+    {
+      "id": "AVI_SPACERS",
+      "designation": "Entretoises de pileCA01/porteuse et fixationM3",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans variante inactive de stack montée",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Choix candidat ; tenue/précharge/fluage P17 et PCB, isolement tiges/carbone, serrage et fournisseur À valider."
+      ],
+      "sous_BOM_revue": [
+        {
+          "reference": "P54_Appui_CA01_Holybro_Stack",
+          "quantite": 4,
+          "definition_mm": {
+            "L": 2,
+            "D": 5.5,
+            "passage": 3.2
+          },
+          "statut": "À valider",
+          "masse_unitaire_g": null,
+          "masse_perimetre": "Matière, fournisseur et pesée non établis"
+        }
+      ]
+    },
+    {
+      "id": "AVI_FAST",
+      "designation": "Vis, rondelles et écrous de fixation avionique",
+      "quantite_cible": 4,
+      "quantite_statut": "Quatre jeux candidats vis+rondelle",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Implémenté dans variante inactive de stack montée",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Choix candidat ; tenue/précharge/fluage P17 et PCB, isolement tiges/carbone, serrage et fournisseur À valider."
+      ],
+      "sous_BOM_revue": [
+        {
+          "reference": "EQ_VisM3x65_Stack",
+          "quantite": 4,
+          "definition_mm": {
+            "longueur_sous_tete": 65,
+            "filet_nominal": 3
+          },
+          "statut": "À valider",
+          "masse_unitaire_g": null,
+          "masse_perimetre": "Matière, fournisseur et pesée non établis"
+        },
+        {
+          "reference": "EQ_RondelleM3_Stack",
+          "quantite": 4,
+          "definition_mm": {
+            "epaisseur": 0.5,
+            "D": 7,
+            "passage": 3.2
+          },
+          "statut": "À valider",
+          "masse_unitaire_g": null,
+          "masse_perimetre": "Matière, fournisseur et pesée non établis"
+        }
+      ]
+    },
+    {
+      "id": "PM_SUPPORT",
+      "designation": "SupportPM08 isolé du carbone, retenue et fixation",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "PDB_SUPPORT",
+      "designation": "SupportPDB isolé, protections bornes et fixation",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "RTK_SUPPORT",
+      "designation": "Support/mâtGNSS et maintien antenne",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "RF_SUPPORT",
+      "designation": "Supports et reprises des deux antennesRF",
+      "quantite_cible": 2,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "SAFE_SUPPORT",
+      "designation": "SupportsSAFE et retenues éventuelles",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "BRANCH_PROTECT",
+      "designation": "Protection de brancheW08 au plus prèsXT30PDB et son support",
+      "quantite_cible": 1,
+      "quantite_statut": "Quantité d'intégration candidate",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "HARNESS_TIES",
+      "designation": "Colliers/cavaliers/gaines hors dock",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "HARNESS_EDGE",
+      "designation": "Passe-fils et protection d'arêtes carbone hors dock",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "WIRE_TERMS",
+      "designation": "Cosses/épissures/contacts/fiches accouplées hors dock",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "SHIELDS",
+      "designation": "Blindages et raccords de blindage selon analyseCEM",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "FINISH",
+      "designation": "Freinage, isolants, interface thermique et consommables installés",
+      "quantite_cible": null,
+      "quantite_statut": "À définir",
+      "mpn": null,
+      "source": "LOCAL",
+      "statut_selection": "Candidate ; À valider",
+      "statut_CAO": "Planifié : non intégré au drone cible",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste ouvert",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Référence, quantité, matériau, dimensions et masse à définir ; aucun achat ou montage validé par ce fichier."
+      ]
+    },
+    {
+      "id": "ESC_ADAPTERS",
+      "designation": "Quatre adaptateurs de puissance PDBXT90 vers ESCXT30",
+      "quantite_cible": 4,
+      "quantite_statut": "Quantité candidate issue de quatre départs",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "Planifié / À valider",
+      "statut_CAO": "Planifié",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inconnu ; jamais assimilé à zéro",
+      "incluse_dans": null,
+      "comptage": "Poste additionnel hors dock, à distinguer câblage du kit",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "PDB18138 disposeXT90,ESCkit45A disposentXT30 ; sections,courant,protection,polarité,connecteurs accouplés et retenues à définir."
+      ]
+    },
+    {
+      "id": "LED",
+      "designation": "QuatreLEDWS2812 du kit",
+      "quantite_cible": 4,
+      "quantite_statut": "Conservation embarquée à confirmer",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    },
+    {
+      "id": "M10",
+      "designation": "GNSSM10 du kit",
+      "quantite_cible": 0,
+      "quantite_statut": "Exclu de cible ; retrait à quantifier",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    },
+    {
+      "id": "SIK",
+      "designation": "RadioSiK du kit",
+      "quantite_cible": 0,
+      "quantite_statut": "Exclu de cible ; retrait à quantifier",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    },
+    {
+      "id": "OLD_PDB",
+      "designation": "AnciennePDBXT60/XT30 du kit",
+      "quantite_cible": 0,
+      "quantite_statut": "Exclu de cible ; retrait à quantifier",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    },
+    {
+      "id": "OLD_PM02D",
+      "designation": "PM02D du kit",
+      "quantite_cible": 0,
+      "quantite_statut": "Exclu de cible ; retrait à quantifier",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    },
+    {
+      "id": "OLD_FCU_BASE",
+      "designation": "Pixhawk6X et basev2A du kit",
+      "quantite_cible": 0,
+      "quantite_statut": "Exclu de cible ; retrait à quantifier",
+      "mpn": null,
+      "source": "X650",
+      "statut_selection": "À valider",
+      "statut_CAO": "Historique OEM ; conservation/exclusion à réconcilier",
+      "statut_physique": "À valider",
+      "masse_unitaire_g": null,
+      "masse_source": null,
+      "masse_perimetre": "Inclus dans2000g du kit ; masse individuelle inconnue",
+      "incluse_dans": "X650KIT",
+      "comptage": "Aucun crédit de retrait tant non pesé",
+      "dimensions_mm": null,
+      "fichier_CAO": null,
+      "reserves": [
+        "Ne pas compter comme second équipement cible ; inventaire réel et masse de retrait ouverts."
+      ]
+    }
+  ],
+  "faisceau_hors_dock": {
+    "source_registre": "../../electronique/cartographe/cablage_global.json",
+    "schema": "Chaque connexion activeWxx doit devenir une route ou une liaison interne explicite, avec connecteurs accouplés, section, diamètre,rayon,coupe,marge,retenues et masse linéique.",
+    "masse_g": null,
+    "statut": "Implémenté en réservation CAO ; À valider",
+    "limites": [
+      "35 routes natives candidates présentes, dont JETI OUT→PM08 IN et PM08→PDB ; sorties OEM, prises accouplées, sections, rayons, longueur de coupe et masses finales À valider.",
+      "Les fils stockPM08 compris dans185g doivent être identifiés puis retirés du poste additionnel.",
+      "W19SSD est internePCIe : pas de câble externe inventé ;W20refroidissement dépend du lot.",
+      "W13 est la paire de coaxiauxRF ; montageRP4TD direct élimine ancienW11, pasW13. GNSS et antennesRF restent routes distinctes.",
+      "Les connecteurs livrés, fichesM8/USB3/Ethernet/XT30/XT90/Molex/JST et protections de branches restent dans l'inventaire à finaliser."
+    ]
+  },
+  "exclusions_cible": [
+    "Ancien OrinNano/EQ_Jetson et P03/P04 à remplacer après intégration cible.",
+    "Ancien Pixhawk6X/basev2A et P27/support rehausse à réconcilier, pas ajoutés au module seul.",
+    "Ancien PM02D/convertisseurs/synchronisation/radioRC/télémétrie séparés et leurs mousses/sangles remplacés ; pas de crédit arbitraire.",
+    "Ancien RTKpatch/EQ_RTK maillé et P07–P09 ne représentent pas HelicalG4.",
+    "Boîtier optionnel, caméraIMX219/accessoiresbundle/UBEC/PM02D/PDBbundle non automatiquement montés.",
+    "P13–P15/P20 et cassette rapide10Ah sont archives ; dock20Ah fait autorité."
+  ],
+  "contraintes_CAO": {
+    "repere": "X longitudinal,Y transversal,Z haut ; repèrePX4/extrinsèques à confirmer",
+    "cassette": {
+      "course_mm": 300,
+      "sens": "+X",
+      "volume_logement_Z_mm": [
+        33,
+        103
+      ],
+      "procedure": "Au sol,PX4désarmé,JETIOFF,moteurs arrêtés,pales parallèlesX",
+      "limites": [
+        "Insertion enveloppes pales381×40×4 libre selon preuve actuelle ; orientation libre des pales interfère avec cassette.",
+        "Les cinq pairesTE d'accouplement produisent intersectionsBRep et sont exclues du certificat de course ; ni accouplement physique ni tolérances qualifiés.",
+        "Toute nouvelle implantation/support/faisceau exige relance contrôlecourse continue et301poses1mm."
+      ]
+    },
+    "pile": {
+      "source": "verification/holybro_stack_source_20261001.json",
+      "bbox_source_mm": [
+        126.2353829072479,
+        81.51936138252532,
+        38.92372000008347
+      ],
+      "trous_xy_mm": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          77
+        ],
+        [
+          123,
+          3
+        ],
+        [
+          123,
+          77
+        ]
+      ],
+      "trous_diametre_mm": 3.2,
+      "gap_CA01_porteuse_candidat_mm": 10,
+      "orientation_CA01": "Composants vers extérieur inférieur",
+      "limites": [
+        "Vis/entretoises,accouplementconnecteurs,maintenanceSSD,routesUSB/XT30/CAN,refroidissement et dégagementantenne non inclus dansSTEP.",
+        "PCBCA01nominal126×80 et4trous ; placement48composants modifié02/10 non synchronisé dans natif01/10."
+      ],
+      "revue_placement_candidate": {
+        "translation_mm": [
+          -63,
+          -40,
+          -65
+        ],
+        "minimum_CA01_Z_mm": -87.065,
+        "sommet_Holybro_Z_mm": -34.102,
+        "support": "À concevoir ; ancienneP03 Z−90..−86 peut interférer ;P03/P04 exclus de nouvelle pile",
+        "statut": "Placement de revue, ne démontre pas un montage fixé"
+      }
+    },
+    "TE": {
+      "premier_bridage_min_mm": 152.4,
+      "rayon_min_ratio_diametre": 10,
+      "AWG8_route_R_mm": 50,
+      "limites": [
+        "StockJETIR11,5mm/ports hypothétiques ; vérifier kit8mm² réel avant splice34321.",
+        "Tous retours en avalOUT- ; aucune liaisonUSB/chargeur/externe pendant échange.",
+        "Faisceaux mobiles hors rails/verrou/hélices ; capots isolants et reprises de traction."
+      ]
+    },
+    "capteurs": {
+      "poses_controlees": 8,
+      "limites": [
+        "Débattement complet,rayons des câbles,effort par câbles,isolationvibration et masquesFOV à contrôler après routage.",
+        "Basler profondeur taraudée4mm ; ne pas déduire longueurvis de seule épaisseur support."
+      ]
+    }
+  },
+  "audit_masse": {
+    "ancienne_preuve": "verification/bom_dock20Ah_20261002.json",
+    "ancien_sous_total_partiel_kg": [
+      6.112090430236095,
+      6.726090430236095
+    ],
+    "limite_X650_commerciale_kg": 6.3,
+    "limite": "Intervalle historique avec provisions, hors masses manquantes et électronique cible ; ce n'est pas le total de la présente BOM.",
+    "qualification": "Aucune marge de masse/centrage/endurance démontrée",
+    "complement_cuivre_dock_g": 83.34999583961438,
+    "ancien_sous_total_plus_cuivre_nominal_kg": [
+      6.195440426075709,
+      6.809440426075709
+    ],
+    "masse_totale_cible_kg": null
+  },
+  "validations": {
+    "executees": [
+      "LectureGit,docs,manifeste,BOMdock,faisceau,hierarchie et preuves existantes.",
+      "Sources primaires web vérifiées le03/10/2026.",
+      "FreeCAD1.1.3 headless importFreeCAD/Part etvolume cube1mm vérifiés.",
+      "Inventaire récursif actif : 566 occurrences feuilles, 151 fichiers sources, zéro objet Invalid.",
+      "Construction de 42 nouveaux natifs et 35 balayages valides ; 154 sources CAO existantes préservées par empreintes."
+    ],
+    "non_executees": [
+      "Pas de pesée,centrage,assemblage,thermique,vibration ni vol."
+    ],
+    "etat": "À valider",
+    "preuves": [
+      "verification/inventaire_systeme_20261003.json",
+      "verification/construction_systeme_faisceau_20261003.json",
+      "verification/controle_systeme_faisceau_20261003.json",
+      "verification/bilan_masse_systeme_candidat_20261003.json"
+    ]
+  },
+  "revue_stack_20261003": {
+    "manifest_key": "configuration_stack_revue_20261003",
+    "sous_BOM": [
+      {
+        "reference": "P54_Appui_CA01_Holybro_Stack",
+        "quantite": 4,
+        "definition_mm": {
+          "L": 2,
+          "D": 5.5,
+          "passage": 3.2
+        },
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      },
+      {
+        "reference": "P55_EntretoiseBasse_Stack",
+        "quantite": 4,
+        "definition_mm": {
+          "L": 24,
+          "D": 6,
+          "passage": 3.2
+        },
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      },
+      {
+        "reference": "EQ_VisM3x65_Stack",
+        "quantite": 4,
+        "definition_mm": {
+          "longueur_sous_tete": 65,
+          "filet_nominal": 3
+        },
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      },
+      {
+        "reference": "EQ_RondelleM3_Stack",
+        "quantite": 4,
+        "definition_mm": {
+          "epaisseur": 0.5,
+          "D": 7,
+          "passage": 3.2
+        },
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      },
+      {
+        "reference": "P56_PlaqueBasse_PercagesStack",
+        "quantite": 1,
+        "substitution": "OEM312, aucune addition de plaque",
+        "definition_mm": {
+          "trous_repris": 3.2
+        },
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      },
+      {
+        "reference": "CA01_PCB_Revue_20261003",
+        "quantite": 1,
+        "substitution": "CA01_preplacement, aucune deuxième carte",
+        "statut": "À valider",
+        "masse_unitaire_g": null,
+        "masse_perimetre": "Matière, fournisseur et pesée non établis"
+      }
+    ],
+    "montage": {
+      "axes_globaux_mm": [
+        [
+          -60,
+          -37
+        ],
+        [
+          -60,
+          37
+        ],
+        [
+          60,
+          -37
+        ],
+        [
+          60,
+          37
+        ]
+      ],
+      "entretoise_basse_longueur_mm": 24,
+      "appui_haut_longueur_mm": 2,
+      "vis_M3_longueur_mm": 65,
+      "rondelle_epaisseur_mm": 0.5,
+      "engagement_nominal_mm": 5.726,
+      "pose_Holybro_Z_mm": -54.3746,
+      "marge_fond_taraudage_STEP_mm": 1.274,
+      "fixation_commune": "P17/plaque basse/P55/CA01/P54/pied OEM ; pas de deuxième fixation M3 P17 présente dans CAO initiale",
+      "acces_outil": "Déposer bloccapteursSA05A pour montage/maintenance ; accès obstrué avec P16 montée",
+      "tenue_limites": "Compression/fluage P17 et G10, charge carte/isolateurs, effort vis et couple non qualifiés",
+      "engagement_limite": "Cote de forme du STEP, pas profondeur filetée garantie ou validation résistance",
+      "plaquebasse_reprise_percages_mm": 3.2,
+      "quincaillerie_ajoutee_occurrences": 16
+    },
+    "bilan_masse": {
+      "statut": "À valider",
+      "masse_stack_montee_g": null,
+      "masse_fixations_ajoutees_g": null,
+      "regle": "La plaqueP56 et CA01de revue sont des substitutions ; P17 et kitOEM restent comptés dans leur ensemble. Aucune masseCAO de métal fileté assimilée à pesée."
+    }
+  }
+}

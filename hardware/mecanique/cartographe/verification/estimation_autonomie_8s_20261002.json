@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "status": "À valider",
+  "scope": "Comparaison énergétique hypothétique8S10Ah ; assemblage actuel incompatible, aucune migration ni sélection pack.",
+  "inputs": {
+    "voltage_nominal_v": 29.6,
+    "voltage_full_v": 33.6,
+    "capacity_ah": 10,
+    "nominal_energy_wh": 296,
+    "usable_fraction_assumed": 0.8,
+    "usable_energy_wh": 236.8,
+    "pack_mass_assumed_kg": 1.8,
+    "pack_mass_model": "1.35kg×8/6, proportionnelle au nombre de cellules ; aucune masse publiée ni pesée d'un pack8S choisi.",
+    "additional_pack_mass_kg": 0.45,
+    "original_mass_scenarios_kg": [
+      5,
+      5.3,
+      5.6
+    ],
+    "resulting_mass_scenarios_kg": [
+      5.45,
+      5.75,
+      6.05
+    ],
+    "additional_modification_mass_included": false,
+    "avionics_battery_power_w": 93.75,
+    "reference_curve": [
+      {
+        "g": 830,
+        "w": 79.92
+      },
+      {
+        "g": 1150,
+        "w": 130.98
+      },
+      {
+        "g": 1430,
+        "w": 173.16
+      },
+      {
+        "g": 1690,
+        "w": 224.22
+      },
+      {
+        "g": 1920,
+        "w": 264.18
+      }
+    ],
+    "reference_motor": "MN4014KV330",
+    "reference_voltage_v": 22.2,
+    "reference_propeller": "T-Motor15×5CF",
+    "kit_propeller": "Gemfan1555",
+    "power_multiplier_sensitivity": 1.2
+  },
+  "formulas": {
+    "mass": "original_mass_kg -1.35 +1.80",
+    "power": "4*linear_interpolation(mass_kg*250, reference_curve)+93.75",
+    "duration": "60*29.6*10*0.8/power_w",
+    "power_sensitivity_duration": "duration_min/1.2"
+  },
+  "results": [
+    {
+      "mass_kg": 5.45,
+      "thrust_per_rotor_g": 1362.5,
+      "power_reference_propulsion_w": 651.9664285714285,
+      "power_reference_total_w": 745.7164285714285,
+      "hypothetical_duration_min": 19.05281881373904,
+      "power_plus20percent_duration_min": 15.877349011449203
+    },
+    {
+      "mass_kg": 5.75,
+      "thrust_per_rotor_g": 1437.5,
+      "power_reference_propulsion_w": 698.5315384615385,
+      "power_reference_total_w": 792.2815384615385,
+      "hypothetical_duration_min": 17.93301914820489,
+      "power_plus20percent_duration_min": 14.944182623504076
+    },
+    {
+      "mass_kg": 6.05,
+      "thrust_per_rotor_g": 1512.5,
+      "power_reference_propulsion_w": 757.4469230769231,
+      "power_reference_total_w": 851.1969230769231,
+      "hypothetical_duration_min": 16.6917896608938,
+      "power_plus20percent_duration_min": 13.909824717411501
+    }
+  ],
+  "compatibility": {
+    "current_assembly_can_use_8s_directly": false,
+    "motor": {
+      "lipo_cells": "4–8S",
+      "within_manufacturer_voltage_range": true,
+      "propeller_and_load_at_8s_qualified": false,
+      "source": "https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html"
+    },
+    "esc": {
+      "lipo_cells": "2–6S",
+      "compatible": false,
+      "source": "https://holybro.com/products/tekko32-f4-45a-esc"
+    },
+    "pm08": {
+      "voltage_input_v": [
+        7,
+        60.9
+      ],
+      "nominally_compatible": true,
+      "source": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a"
+    },
+    "ca01": {
+      "working_input_v": [
+        18,
+        25.2
+      ],
+      "ov_trip_typ_v": 29.081678733031676,
+      "compatible": false,
+      "source": "hardware/electronique/cartographe/carte_avionique/dimensionnement.json"
+    },
+    "pdb": {
+      "maximum_voltage_confirmed": false,
+      "source": "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry"
+    },
+    "mechanics": {
+      "published_takeoff_limit_kg": 6.3,
+      "all_scenario_masses_below_published_limit": true,
+      "margins_before_modifications_kg": [
+        0.85,
+        0.55,
+        0.25
+      ],
+      "existing_battery_cassette_fit_confirmed": false,
+      "source": "https://holybro.com/products/x650-development-kit"
+    }
+  },
+  "assumptions": [
+    "Puissance par poussée et rendement total transférés de la courbe6S au8S par hypothèse, sans données8S/Gemfan1555.",
+    "Masse pack1.80kg non vérifiée ; massesESC, modificationsCA01, cassette et faisceaux non incluses.",
+    "Réserve20% d'énergie nominale et sensibilité+20% de puissance ne sont pas des marges qualifiées.",
+    "Plage mécanique initiale partiellement reconciliée ; bilan de l'avionique actuelle incomplet."
+  ],
+  "verification": {
+    "independent_arithmetic_check": "Trois scénarios concordants avec recalcul indépendant.",
+    "hardware_tests_executed": false,
+    "simulation_executed": false,
+    "qualification_claimed": false,
+    "architecture_changed": false
+  },
+  "conclusion": "Dans le modèle,~20–22% de durée supplémentaire vs6S10Ah; scénario central17.93min stationnaire ou14.94min sous sensibilité+20%, réserve20% dans les deux cas. Pas une prévision de l'assemblage actuel sous8S."
+}

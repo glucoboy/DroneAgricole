@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-04",
+  "statut": "À valider",
+  "controle": "T-CARTO-GNSS-MAS-01",
+  "besoin": "MEC-MAS-001",
+  "perimetre": "Calcul conditionnel sur volumes CAO déjà vérifiés ; aucun placement ou natif modifié.",
+  "plateau_radio_hypothese": "Bras OEM opposé -Y conservé, interprétation non confirmée par utilisateur.",
+  "bras_retire": "OEM +Y Part__Feature146–156, actuellement sous interface antenne P09.",
+  "bras_conserve": "OEM -Y Part__Feature157–167 ; aucun crédit de masse pour ce bras.",
+  "detail_bras": [
+    {
+      "famille": "ferrures",
+      "objets": [
+        "Part__Feature146",
+        "Part__Feature148"
+      ],
+      "volume_mm3": 8483.256632571774,
+      "matiere_hypothese": "aluminium hypothétique",
+      "densite_hypothese_g_cm3": 2.7,
+      "masse_provision_g": 22.90479290794379
+    },
+    {
+      "famille": "tube",
+      "objets": [
+        "Part__Feature147"
+      ],
+      "volume_mm3": 6891.738681900436,
+      "matiere_hypothese": "composite carbone hypothétique",
+      "densite_hypothese_g_cm3": 1.6,
+      "masse_provision_g": 11.026781891040699
+    },
+    {
+      "famille": "vis_ecrous",
+      "objets": [
+        "Part__Feature149",
+        "Part__Feature150",
+        "Part__Feature152",
+        "Part__Feature153"
+      ],
+      "volume_mm3": 275.40253139848556,
+      "matiere_hypothese": "acier hypothétique",
+      "densite_hypothese_g_cm3": 7.85,
+      "masse_provision_g": 2.1619098714781115
+    },
+    {
+      "famille": "raccord_SMA",
+      "objets": [
+        "Part__Feature151",
+        "Part__Feature155",
+        "Part__Feature156"
+      ],
+      "volume_mm3": 582.1590272445064,
+      "matiere_hypothese": "laiton hypothétique",
+      "densite_hypothese_g_cm3": 8.5,
+      "masse_provision_g": 4.948351731578304
+    },
+    {
+      "famille": "EVA",
+      "objets": [
+        "Part__Feature154"
+      ],
+      "volume_mm3": 435.7074851263687,
+      "matiere_hypothese": "mousse hypothétique",
+      "densite_hypothese_g_cm3": 0.1,
+      "masse_provision_g": 0.04357074851263687
+    }
+  ],
+  "bras_alu_carbone_g": 41.085407150553536,
+  "bras_ferrures_polymere_g": 28.784685033324465,
+  "supports_RTK_historiques": [
+    {
+      "reference": "P07_Support_RTK",
+      "fichier": "pieces/fabriquees/P07_Support_RTK.FCStd",
+      "objet_lu": "P07_SupportRTKInferieur",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 20554.099133547003,
+      "volume_total_mm3": 20554.099133547003,
+      "sha256_fcstd": "b03398db0f3bb672fb15d2e597deeaa7297933853067ef6ee20b25a8316e624c",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 25.692623916933755
+    },
+    {
+      "reference": "P08_Entretoise_RTK",
+      "fichier": "pieces/fabriquees/P08_Entretoise_RTK.FCStd",
+      "objet_lu": "P08_EntretoiseRTK1",
+      "quantite_drone_actif": 4,
+      "volume_unitaire_mm3": 1090.7609693263762,
+      "volume_total_mm3": 4363.043877305505,
+      "sha256_fcstd": "2b7b5ce4a98603c85683447b9d1070888d5f086f977fea3bcb0b0946f965683b",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 5.453804846631882
+    },
+    {
+      "reference": "P09_Interface_antenne",
+      "fichier": "pieces/fabriquees/P09_Interface_antenne.FCStd",
+      "objet_lu": "P09_InterfaceAntenne",
+      "quantite_drone_actif": 1,
+      "volume_unitaire_mm3": 6851.963991413446,
+      "volume_total_mm3": 6851.963991413446,
+      "sha256_fcstd": "768d115d012fe7ca1b2ee9b7344dece8b5f7a58f08340c2fe9cf8082a63f355d",
+      "densite_hypothese_g_cm3": 1.25,
+      "masse_pleine_hypothese_g": 8.564954989266807
+    }
+  ],
+  "supports_RTK_historiques_g": 39.71138375283245,
+  "retrait_brut_historique_tous_supports_alu_g": 80.79679090338598,
+  "retrait_brut_historique_tous_supports_polymere_g": 68.49606878615691,
+  "budget_historique_partiel_avant_kg": [
+    6.195440426075709,
+    6.809440426075709
+  ],
+  "budget_historique_partiel_apres_retrait_alu_kg": [
+    6.114643635172324,
+    6.728643635172324
+  ],
+  "budget_historique_partiel_apres_retrait_polymere_kg": [
+    6.126944357289553,
+    6.740944357289552
+  ],
+  "formule_cible": "M_apres = M_avant_cible - M_bras_OEM + M_nouveaux_supports_et_coax - M_supports_cible_effectivement_supprimes + delta_autres_cables",
+  "regle_cible": "P07–P09 absents de la maquette Helical candidate : aucun second crédit de 39,711 g sur cette maquette. Le budget historique contient encore ces supports.",
+  "masse_totale_cible_kg": null,
+  "gain_net_cible_g": null,
+  "masses_nouveaux_coax_supports_g": null,
+  "GNSS": {
+    "variante": "H-RTK F9P DroneCAN Helical STM32G4 candidat",
+    "masse_groupe_publiee_g": 58,
+    "masse_separee_recepteur_g": null,
+    "masse_separee_antenne_g": null,
+    "montage": "Antenne supérieure séparée par SMA, récepteur inférieur ; compas reste dans récepteur."
+  },
+  "radio": {
+    "module": "RP4TD conservé sur CA01",
+    "antennes_deportees": 2,
+    "interface": "U.FL ; distincte du SMA GNSS",
+    "gain_par_deplacement_seul_g": 0
+  },
+  "sources_primaires": [
+    "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification",
+    "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/overview",
+    "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+    "https://docs.px4.io/main/en/gps_compass/"
+  ],
+  "limites": [
+    "Densités et matériaux de bras hypothétiques ; alternatives non assimilables à des bornes physiques garanties.",
+    "Conserver ou réutiliser P07/P08/P09 impose de déduire uniquement les pièces réellement retirées.",
+    "Les 41,1 g supposent le retrait du bras complet avec raccord SMA, vis et EVA ; tout accessoire réutilisé reste compté embarqué.",
+    "Les sous-totaux historiques ne réconcilient pas le kit OEM, la nouvelle stack, PM08/PDB, le faisceau complet et les autres postes ouverts.",
+    "Nouveau coaxial GNSS et supports antenne/récepteur/radio non définis ; masses inconnues, non supposées nulles.",
+    "Aucune qualification RF, magnétique, mécanique, centrage, thermique, montage ou vol."
+  ],
+  "sources_sha256": {
+    "hardware/mecanique/cartographe/verification/inventaire_systeme_20261003.json": "db48f2f03dfb64f5dd518e7859849b7d559ac2615c3eebff0b2044e8dde70e6a",
+    "hardware/mecanique/cartographe/verification/bilan_masse_volumes_20261002.json": "5d4787983b27a8e51329a979adb0d297a3bfee5ce5a9f74caceb054c315c6e91",
+    "hardware/mecanique/cartographe/verification/bilan_masse_systeme_candidat_20261003.json": "5285c9d67c9dd4ad161f2e55a6c1a0f5c96a18e3df5c8f117a886b51dd749866",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Chassis_X650.FCStd": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+    "hardware/mecanique/cartographe/verification/calcul_scenario_gnss_plateaux_20261004.py": "76488c65b346e1baffc6766e5ecc34df2dd649d0d553e768783e40d014f79030"
+  },
+  "sources_natives_inchangees": true
+}

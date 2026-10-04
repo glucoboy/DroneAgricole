@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "conclusion": "conforme",
+  "scope": "CAO et contrôles statiques Windows amd64 KiCad 10.0.6 uniquement",
+  "manufacturing_ready": false,
+  "physical_tests_executed": 0,
+  "inputs_sha256": {
+    "CA01_Avionique.kicad_pcb": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+    "CA01_Avionique.kicad_pro": "0e09197617530be64c6f4701ead05297cb7832bb7c0f99415ecfe3b177b19326",
+    "modeles_3d.json": "ce6ab08e1a710ee4a7abc3ba6b6e670443e812fc8c1457499ce7f4de8a62b68b",
+    "verification\\drc_routage_complet_20261002.json": "5f981f359ab709b11938c802e7f17062f89d0ba74726dd84d4e447603c6505bb",
+    "verification\\drc_controles_reactives_20261002.json": "7961b193306b74dcd8082d38ec10a9451b36f5e6ad02ecceda393d58d0e3bea7",
+    "verification\\revue_routage_complet_20261002.json": "bf32b3732c4544c6edd7a83e2f41939d8eef32c4977571727fa019e2944b72a4",
+    "verification\\routage_geometrie_20261002.json": "48c894fed6d3dfa4fde5d770efb9be7aca939b38b0db2e25980c7be45702a331",
+    "verification\\verify_completed_routing.py": "4849b67af5534d48785ad695d411c83cc355ea8abfdbed60acd095ccf40e4b68"
+  },
+  "counts": {
+    "footprints": 155,
+    "segments": 1255,
+    "vias": 251,
+    "copper_zones": 10,
+    "rule_areas": 7,
+    "thermal_ep_holes": 30,
+    "unconnected": 0
+  },
+  "checks": [
+    {
+      "id": "DRC_PARITE_CONNECTIVITE",
+      "passed": true,
+      "details": {
+        "violations": 0,
+        "unconnected_items": 0,
+        "schematic_parity": 0
+      }
+    },
+    {
+      "id": "STACK_QUATRE_COUCHES",
+      "passed": true,
+      "details": "F/In1/In2/B, 1.6 mm nominal"
+    },
+    {
+      "id": "PLANS_DISTINCTS",
+      "passed": true,
+      "details": "GND In1 et batterie protégée In2"
+    },
+    {
+      "id": "COUCHES_INTERNES_SANS_PISTE",
+      "passed": true,
+      "details": "Plans internes réservés au cuivre de zone"
+    },
+    {
+      "id": "POTENTIELS_THERMIQUES",
+      "passed": true,
+      "details": {
+        "U102": "GND",
+        "U201": "GND",
+        "U301": "GND",
+        "Q101": "Net-(Q101-D)",
+        "Q102": "Net-(Q101-D)",
+        "Q103": "VIN_PAYLOAD_PROT",
+        "Q104": "Net-(Q104-D)"
+      }
+    },
+    {
+      "id": "U101_EP_FLOTTANT",
+      "passed": true,
+      "details": "EP13 sans via ni GND"
+    },
+    {
+      "id": "TROUS_EP",
+      "passed": true,
+      "details": {
+        "U201": 15,
+        "U301": 15
+      }
+    },
+    {
+      "id": "VIAS_TRAVERSANTS",
+      "passed": true,
+      "details": ".6/.3 mm nominal ; procédé non qualifié"
+    },
+    {
+      "id": "PAD_SHUNT_JUMPER",
+      "passed": true,
+      "details": "Deux bornes internes I/E ; aucune liaison PCB force/sense au pad"
+    },
+    {
+      "id": "KELVIN_HAUT_SEPARE",
+      "passed": true,
+      "details": "E1 vers R115 ; I1 vers sources Q104 ; jumper désactivé seulement en mémoire"
+    },
+    {
+      "id": "E2_ISOLE_DES_PLANS",
+      "passed": true,
+      "details": "Prise E2 et via exclus du remplissage GND ; jonction au bout PGND"
+    },
+    {
+      "id": "KELVIN_BAS_VERS_PGND",
+      "passed": true,
+      "details": "E2 vers PGND12 ; contrôle de jonction unique dans revue indépendante"
+    },
+    {
+      "id": "ASSOCIATIONS_MODELES_3D",
+      "passed": true,
+      "details": {
+        "changed": [],
+        "mechanical_exports_placements_current": false
+      }
+    },
+    {
+      "id": "DRC_CONTROLES_REACTIVES",
+      "passed": true,
+      "details": "Copie isolée : cinq catégories ignore réactivées en warning, projet courant préservé"
+    },
+    {
+      "id": "REVUE_INDEPENDANTE",
+      "passed": true,
+      "details": "28 contrôles, SHA PCB courant"
+    }
+  ],
+  "ignored_drc_checks": [
+    {
+      "description": "Footprint has no courtyard defined",
+      "key": "missing_courtyard"
+    },
+    {
+      "description": "Track endpoint not centered on via",
+      "key": "track_not_centered_on_via"
+    },
+    {
+      "description": "Tuning profile track geometries",
+      "key": "tuning_profile_track_geometries"
+    },
+    {
+      "description": "Footprint doesn't match symbol's footprint filters",
+      "key": "footprint_filters_mismatch"
+    },
+    {
+      "description": "Footprint component type doesn't match footprint pads",
+      "key": "footprint_type_mismatch"
+    }
+  ],
+  "drills_native": {
+    "0.3": 30,
+    "3.2": 4,
+    "1.0": 4,
+    "1.9": 4,
+    "1.7": 4,
+    "0.8": 4
+  },
+  "limitations": [
+    "TVS/fusible/Icc/SOA/Ceff ouverts",
+    "Cotes RP4TD photographiques à mesurer",
+    "Tolérances stack/perçage/via-in-pad et assemblage à confirmer",
+    "Mesures électriques, thermiques et CEM non exécutées",
+    "Les valeurs de largeur ne qualifient pas le courant admissible"
+  ]
+}

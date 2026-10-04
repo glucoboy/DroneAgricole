@@ -833,6 +833,22 @@
 		)
 		(embedded_fonts no)
 	)
+
+(symbol "CA01_Fonctions:RP4TD_Module" (pin_names (offset 1.27)) (in_bom yes) (on_board yes) (property "Reference" "MOD" (at 0 21 0) (effects (font (size 1.27 1.27)))) (property "Value" "RP4TD_Module" (at 0 -17 0) (effects (font (size 1.27 1.27))))(property "ki_keywords" "RadioMaster RP4TD module direct a coter" (at 0 0 0) (effects (font (size 1.27 1.27)) hide)) (property "ki_fp_filters" "CA01_Mecanique:RadioMaster_RP4TD_Montage_Direct_A_Coter" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))(symbol "RP4TD_Module_0_1" (rectangle (start -5.08 17.78) (end 2.54 -12.7) (stroke (width 0.254) (type default)) (fill (type background))))(symbol "RP4TD_Module_1_1" (pin passive line (at -10.16 15.24 0) (length 5.08) (name "5V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 7.62 0) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 0.0 0) (length 5.08) (name "TX" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 -7.62 0) (length 5.08) (name "RX" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27))))))
+		(property "Footprint" "CA01_Mecanique:RadioMaster_RP4TD_Montage_Direct_A_Coter" (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Datasheet" "https://cdn.shopify.com/s/files/1/0609/8324/7079/files/RP4TD.pdf?v=1730771705" (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Description" "RP4TD monte directement sur CA01 ; contacts physiques a coter, empreinte sans pads provisoire non fabricable. Broches logiques 1=5V,2=GND,3=TX,4=RX ; numerotation interne non OEM." (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+)
+
+(symbol "CA01_Radio:RadioMaster_RP4TD" (pin_names (offset 1.27)) (in_bom yes) (on_board yes) (property "Reference" "MOD" (at 0 21 0) (effects (font (size 1.27 1.27)))) (property "Value" "RadioMaster_RP4TD" (at 0 -17 0) (effects (font (size 1.27 1.27))))(property "ki_keywords" "RadioMaster RP4TD module direct a coter" (at 0 0 0) (effects (font (size 1.27 1.27)) hide)) (property "ki_fp_filters" "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))(symbol "RadioMaster_RP4TD_0_1" (rectangle (start -5.08 17.78) (end 2.54 -12.7) (stroke (width 0.254) (type default)) (fill (type background))))(symbol "RadioMaster_RP4TD_1_1" (pin passive line (at -10.16 15.24 0) (length 5.08) (name "5V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 7.62 0) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 0.0 0) (length 5.08) (name "TX" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))(pin passive line (at -10.16 -7.62 0) (length 5.08) (name "RX" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27))))))
+		(property "Footprint" "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat" (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Datasheet" "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver" (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Description" "RadioMaster RP4TD standard, CRSF RX/TX/5V/G. Logical CA01 numbering 1=5V,2=GND,3=TX,4=RX, not OEM. Four-pin THT mounting candidate; photo-estimated contact geometry must be measured before manufacturing." (at 0 21 0) (effects (font (size 1.27 1.27)) hide))
+)
 )
 (sheet_instances
 		(path "/"
@@ -872,7 +888,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_GH_SM03B-GHS-TB_1x03-1MP_P1.25mm_Horizontal"
 			(at 43.18 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -883,7 +899,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf"
 			(at 43.18 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -922,9 +938,11 @@
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "SM03B-GHS-TB(LF)(SN)" (at 43.18 99.06 0) (effects (font (size 1.27 1.27)) hide))
+)
 (symbol
-		(lib_id "CA01_Fonctions:Radio_RP4TD_R")
+		(lib_id "CA01_Radio:RadioMaster_RP4TD")
 		(at 238.76 99.06 0)
 		(unit 1)
 		(body_style 1)
@@ -934,7 +952,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "e15b9d98-0b61-4c30-ae34-e020de506b49")
-		(property "Reference" "J401"
+		(property "Reference" "MOD401"
 			(at 238.76 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -945,7 +963,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VERS MODULE RP4TD"
+		(property "Value" "RP4TD / BROCHES THT CANDIDAT"
 			(at 238.76 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -956,7 +974,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "CA01_Mecanique:RadioMaster_RP4TD_Broches_THT_Candidat"
 			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -967,7 +985,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://cdn.shopify.com/s/files/1/0609/8324/7079/files/RP4TD.pdf?v=1730771705"
 			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -978,7 +996,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" "RP4TD sur quatre broches THT ; positions des pads estimées sur photo constructeur, à mesurer avant fabrication. Numérotation interne CA01 1=5V,2=GND,3=TX,4=RX."
 			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -1004,12 +1022,18 @@
 		(instances
 			(project "CA01_Avionique"
 				(path "/2c5e7995-042d-414f-9412-7fd29c3ee184/e99590a7-f7d9-4750-bcb2-2a7ff955d092"
-					(reference "J401")
+					(reference "MOD401")
 					(unit 1)
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "HP0157.RX-RP4TD-LBT" (at 238.76 99.06 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Connection_Status" "Connexion directe ; contacts non cotes ; empreinte electrique a completer, non fabricable" (at 238.76 99.06 0) (effects (font (size 1.27 1.27)) hide))
+
+		(property "Qualification" "À valider : centres estimés sur photo, perçage/broches/hauteur candidats ; non fabricable avant mesure" (at 238.76 99.06 0) (effects (font (size 1.27 1.27)) hide))
+)
 (symbol
 		(lib_id "Device:R")
 		(at 139.7 99.06 270)
@@ -1043,7 +1067,7 @@
 
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 139.7 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -1054,7 +1078,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 139.7 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -1090,7 +1114,9 @@
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "CRCW06030000Z0EA" (at 139.7 99.06 0) (effects (font (size 1.27 1.27)) hide))
+)
 (symbol
 		(lib_id "Device:R")
 		(at 139.7 114.3 90)
@@ -1124,7 +1150,7 @@
 
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 139.7 114.3 0)
 			(hide yes)
 			(show_name no)
@@ -1135,7 +1161,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 139.7 114.3 0)
 			(hide yes)
 			(show_name no)
@@ -1171,7 +1197,9 @@
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "CRCW06030000Z0EA" (at 139.7 114.3 0) (effects (font (size 1.27 1.27)) hide))
+)
 (symbol
 		(lib_id "Device:C")
 		(at 165.1 71.12 0)
@@ -1205,7 +1233,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 165.1 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -1216,7 +1244,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C1608X7R1H104K080AA"
 			(at 165.1 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -1252,7 +1280,9 @@
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "C1608X7R1H104K080AA" (at 165.1 71.12 0) (effects (font (size 1.27 1.27)) hide))
+)
 (symbol
 		(lib_id "Device:C")
 		(at 203.2 71.12 0)
@@ -1286,7 +1316,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 203.2 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -1297,7 +1327,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=CGA4J1X5R1C106K125AC"
 			(at 203.2 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -1333,7 +1363,9 @@
 				)
 			)
 		)
-	)
+	
+		(property "MPN" "CGA4J1X5R1C106K125AC" (at 203.2 71.12 0) (effects (font (size 1.27 1.27)) hide))
+)
 (wire (pts (xy 53.34 91.44) (xy 116.84 91.44)) (stroke (width 0) (type default)) (uuid "d14629e4-b54d-440d-994e-63a78ef93214"))
 (wire (pts (xy 116.84 91.44) (xy 228.6 91.44)) (stroke (width 0) (type default)) (uuid "d8cf1567-8f5c-438a-8fbf-47003d018295"))
 
@@ -1371,13 +1403,13 @@
 (wire (pts (xy 215.9 106.68) (xy 228.6 106.68)) (stroke (width 0) (type default)) (uuid "b0f7d53d-706b-43b3-b253-19c67c56ec3d"))
 (global_label "FC_TX_RF" (shape bidirectional) (at 91.44 114.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "37987fd9-f3e6-473a-a1da-1f8d83ddb0b3"))
 (global_label "RP_RX" (shape bidirectional) (at 195.58 114.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "3f7120dd-fdf1-4c31-81f9-8baf47699ed9"))
-(text "04 — RADIO / INTERFACE CA01" (at 20.32 20.32 0) (effects (font (size 2 2)) (justify left)) (uuid "504bced3-3d5b-431c-b010-48f4927ffcf0"))
-(text "Alimentation et port Pixhawk à gauche ; module RP4TD à droite." (at 20.32 31.75 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "bce597fa-d91b-407c-87d4-73bf74f9661c"))
-(text "5 V local protégé par F102 ; condensateurs regroupés près du port radio." (at 20.32 45.72 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2b28d674-1d38-47c5-9314-5aeae8c5d548"))
+(text "04 — RADIO / RP4TD SUR BROCHES THT" (at 20.32 20.32 0) (effects (font (size 2 2)) (justify left)) (uuid "504bced3-3d5b-431c-b010-48f4927ffcf0"))
+(text "UART Pixhawk à gauche ; module RP4TD directement sur CA01 à droite." (at 20.32 31.75 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "bce597fa-d91b-407c-87d4-73bf74f9661c"))
+(text "5 V local protégé par F102 ; condensateurs regroupés près du module radio." (at 20.32 45.72 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2b28d674-1d38-47c5-9314-5aeae8c5d548"))
 (text "UART retour : RP TX → Pixhawk RX" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e318c739-2173-492e-b859-71d739b2ef44"))
 (text "UART aller : Pixhawk TX → RP RX" (at 83.82 130.81 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "69173ac0-1bf7-4cc1-bb78-a23f177eab7c"))
 (text "R401 / R402 : NON MONTÉES (DNP) avant validation des niveaux UART\net des courants vers les appareils hors tension." (at 20.32 146.05 0) (effects (font (size 1.4 1.4)) (justify left)) (uuid "433246a8-afa8-4d46-9cd4-92d190ccd17f"))
-(text "J401 / J402 : brochages logiques CA01 ; connecteurs OEM et empreintes à valider.\nRF partagé RC / MAVLink : une perte de liaison peut affecter les deux fonctions.\nÉtude non fabricable ; aucune qualification matérielle." (at 20.32 170.18 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2923e06b-a4f6-4ea5-a1a7-ae34632c67f7"))
+(text "MOD401 directement sur CA01 ; J401 et faisceau W11 supprimés.\nQuatre pads THT photoestimes : cotes a mesurer avant fabrication.\nRF partagé RC / MAVLink ; niveaux, protections et montage À valider." (at 20.32 170.18 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2923e06b-a4f6-4ea5-a1a7-ae34632c67f7"))
 
 (junction (at 116.84 91.44) (diameter 0) (color 0 0 0 0) (uuid "c502c41c-6f43-497f-b5d4-ba472ed1c747"))
 )

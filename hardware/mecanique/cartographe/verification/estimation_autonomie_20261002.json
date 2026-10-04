@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "status": "À valider",
+  "scope": "Estimation analytique du cartographe ; aucune pesée, simulation, mesure de décharge, essai propulsion ou vol.",
+  "sources": {
+    "mass_budget": "docs/architecture/ARCHITECTURE_MECANIQUE.md §6.1–6.2",
+    "avionics_budget": "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md §5.1",
+    "manufacturer_motor_curve": "https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html",
+    "kit_propellers": "https://holybro.com/products/x650-development-kit",
+    "active_parts_mass": "hardware/mecanique/cartographe/verification/bilan_masse_volumes_20261002.json"
+  },
+  "inputs": {
+    "nominal_voltage_v": 22.2,
+    "capacity_ah": 10,
+    "nominal_energy_wh": 222,
+    "usable_fraction_assumed": 0.8,
+    "usable_energy_wh": 177.6,
+    "rotors": 4,
+    "avionics_output_w": 75,
+    "conversion_efficiency_assumed": 0.8,
+    "curve_motor": "MN4014 KV330",
+    "curve_propeller": "T-Motor 15×5CF",
+    "kit_propeller": "Gemfan 1555",
+    "curve": [
+      {
+        "g": 830,
+        "w": 79.92
+      },
+      {
+        "g": 1150,
+        "w": 130.98
+      },
+      {
+        "g": 1430,
+        "w": 173.16
+      },
+      {
+        "g": 1690,
+        "w": 224.22
+      },
+      {
+        "g": 1920,
+        "w": 264.18
+      }
+    ],
+    "historical_mass_kg": [
+      4.685,
+      5.335
+    ],
+    "cassette_mass_net_change_kg": 0.246,
+    "corrected_cassette_only_mass_kg": [
+      4.931,
+      5.581
+    ],
+    "mission_power_multiplier_sensitivity": 1.2,
+    "solid_printed_parts_mass_kg": 0.634456,
+    "printed_parts_net_change_kg": 0.284456,
+    "corrected_mechanical_only_mass_kg": [
+      4.991456,
+      5.605456
+    ],
+    "metal_parts_mass_assumed_kg": [
+      0.002,
+      0.006
+    ]
+  },
+  "formulas": {
+    "thrust": "mass_kg * 1000 / 4",
+    "motor_power": "linear_interpolation(thrust_g, curve)",
+    "total_power": "4 * motor_power_w + 75 / 0.8",
+    "duration_min": "60 * (22.2 * 10 * 0.8) / total_power_w",
+    "sensitivity_duration_min": "duration_min / 1.2"
+  },
+  "results": [
+    {
+      "mass_kg": 5,
+      "thrust_per_motor_g": 1250,
+      "power_propulsion_w": 584.1771428571428,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 677.9271428571428,
+      "current_at_22_2v_a": 30.537258687258685,
+      "hover_duration_min": 15.718503252561908,
+      "power_plus20percent_duration_min": 13.098752710468256
+    },
+    {
+      "mass_kg": 5.3,
+      "thrust_per_motor_g": 1325,
+      "power_propulsion_w": 629.37,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 723.12,
+      "current_at_22_2v_a": 32.57297297297298,
+      "hover_duration_min": 14.736143378692333,
+      "power_plus20percent_duration_min": 12.280119482243611
+    },
+    {
+      "mass_kg": 5.6,
+      "thrust_per_motor_g": 1400,
+      "power_propulsion_w": 674.5628571428572,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 768.3128571428572,
+      "current_at_22_2v_a": 34.60868725868726,
+      "hover_duration_min": 13.869350097337579,
+      "power_plus20percent_duration_min": 11.557791747781318
+    },
+    {
+      "mass_kg": 6,
+      "thrust_per_motor_g": 1500,
+      "power_propulsion_w": 747.6276923076923,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 841.3776923076923,
+      "current_at_22_2v_a": 37.89989604989605,
+      "hover_duration_min": 12.664942388445324,
+      "power_plus20percent_duration_min": 10.55411865703777
+    }
+  ],
+  "cassette_only_results": [
+    {
+      "mass_kg": 4.931,
+      "thrust_per_motor_g": 1232.75,
+      "power_propulsion_w": 573.7827857142856,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 667.5327857142856,
+      "current_at_22_2v_a": 30.0690444015444,
+      "hover_duration_min": 15.963260873542971,
+      "power_plus20percent_duration_min": 13.302717394619142
+    },
+    {
+      "mass_kg": 5.581,
+      "thrust_per_motor_g": 1395.25,
+      "power_propulsion_w": 671.7006428571428,
+      "power_avionics_battery_w": 93.75,
+      "power_total_w": 765.4506428571428,
+      "current_at_22_2v_a": 34.47975868725869,
+      "hover_duration_min": 13.921211118492383,
+      "power_plus20percent_duration_min": 11.60100926541032
+    }
+  ],
+  "limitations": [
+    "Le bilan corrigé ne ferme pas les remplacements PM08/PDB/porteuse/Orin/CA01, les supports actifs, le refroidissement et les faisceaux ; pas de masse complète actuelle revendiquée.",
+    "Volumes pleins, densité et provisions ne remplacent pas la pesée ; la tolérance ±20g de batterie n'est pas propagée dans les bornes historiques.",
+    "Courbe hélice fabricant différente de l'hélice du kit ; interpolation et partage uniforme de poussée sont des hypothèses.",
+    "20% d'énergie réservée et +20% de puissance sont deux hypothèses distinctes ; aucune réserve de retour ni couverture du vent/mission n'est démontrée.",
+    "Énergie nominale supposée disponible : température, vieillissement, affaissement de tension et seuils PX4 non mesurés.",
+    "Durée totale calculée avant réserve, pas durée de cartographie nette des transits et du retour.",
+    "Densité uniforme1.25g/cm³ pour pièces non métalliques, dont P20 polymère ou plaque isolante À valider ; métaux P18/P19 provision2–6g."
+  ],
+  "verification": {
+    "independent_arithmetic_review": "Recalcul indépendant concordant des quatre scénarios et des deux bornes cassette.",
+    "hardware_tests_executed": false,
+    "related_requirements": [
+      "MEC-MAS-001",
+      "ELEC-PWR-002"
+    ],
+    "qualification_claimed": false
+  },
+  "mechanical_only_results": [
+    {
+      "mass_kg": 4.991456,
+      "power_propulsion_w": 582.8900502857143,
+      "power_total_w": 676.6400502857143,
+      "hover_duration_min": 15.748402707614567,
+      "power_plus20percent_duration_min": 13.12366892301214
+    },
+    {
+      "mass_kg": 5.605456,
+      "power_propulsion_w": 675.3847645714286,
+      "power_total_w": 769.1347645714286,
+      "hover_duration_min": 13.85452912915418,
+      "power_plus20percent_duration_min": 11.545440940961816
+    }
+  ]
+}

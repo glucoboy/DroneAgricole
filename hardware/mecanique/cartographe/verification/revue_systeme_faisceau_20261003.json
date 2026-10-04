@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-03",
+  "statut": "À valider",
+  "conclusion": "préliminaire",
+  "finalisation_correcte": true,
+  "revue_independante": true,
+  "mode": "Lecture seule des entrées et archives natives ; écriture de la revue seule",
+  "configuration": "hardware/mecanique/cartographe/assemblages/Drone_Cartographe_Systeme_Candidat.FCStd",
+  "entrees_sha256": {
+    "hardware/mecanique/cartographe/configuration_cible_20261003.json": "6d7ed969b81f3ceff82f790884decf888cc3c57d6ffd549e0d73ad001f2d2e33",
+    "hardware/electronique/cartographe/faisceau_systeme_cible_20261003.json": "84233adf277149a8f1a587339b39ece6229e7b2136985429ed6e5421335368f0",
+    "hardware/electronique/cartographe/cablage_global.json": "d514e1ad67104f859e0416a9f4ef69abc7d16dcd9c6ec8c04821b5884f8eb29a",
+    "hardware/mecanique/cartographe/manifest.json": "e5523bda72b37c78cbf77bf9f166d113c4e10217c9d30d6edbf0e8bfb0d31ae5",
+    "docs/VALIDATION_QUALIFICATION.md": "5a82c26968d9dd46b1a3216e53de888626bae95b833df7586d02b4ac9cbb2287",
+    "hardware/mecanique/cartographe/verification/inspect_configuration_systeme_20261003.py": "551de94a6d03f4fba110a7a8f1f893c846e657042ca252e37782707650ddfb56",
+    "hardware/mecanique/cartographe/verification/inventaire_systeme_20261003.json": "db48f2f03dfb64f5dd518e7859849b7d559ac2615c3eebff0b2044e8dde70e6a",
+    "hardware/mecanique/cartographe/verification/build_systeme_faisceau_candidat_20261003.py": "fa78cb483d378d7f8833b7bfd33255567d5ae48a4ef2c2733535e599816213cc",
+    "hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json": "229fb0cb98478919e8ea6bdaad5b08f607b4edd8cbb22056a4eaf4c312e9c046",
+    "hardware/mecanique/cartographe/verification/construction_systeme_faisceau_20261003.json": "d703c66d84e5db4a92cb2839ca13eefe14aa0f6b6491cde0751163b66052dd79",
+    "hardware/mecanique/cartographe/verification/verify_systeme_faisceau_candidat_20261003.py": "77c6c2be507cb9d44e567e83d39f8ddf1fcb16d31ad8ad22064a450cf868adc9",
+    "hardware/mecanique/cartographe/verification/controle_systeme_faisceau_20261003.json": "f17e480c09b688c37f677ec0c99c18c1eca91d07935a69265b184921d47ba456",
+    "hardware/mecanique/cartographe/verification/bilan_masse_systeme_candidat_20261003.json": "5285c9d67c9dd4ad161f2e55a6c1a0f5c96a18e3df5c8f117a886b51dd749866",
+    "hardware/mecanique/cartographe/verification/update_manifest_systeme_candidat_20261003.py": "6ee228aed2e74ab5dcf47b82aa5384a1755c270893934fa0a5d1fbcd73674634",
+    "hardware/mecanique/cartographe/verification/controle_manifest_systeme_candidat_20261003.json": "ec5dde0ac3276bf369756f15d77c746266d7a8c1d59277ca6dd79234b1b03a9e",
+    "hardware/mecanique/cartographe/verification/rendu_systeme_faisceau_20261003.json": "cca8a47b0a9531924ab46669d58a3d86ba764e6f4fff90f2ba1e6c0996d86142"
+  },
+  "controles_executees": {
+    "recette_construction_concordantes": true,
+    "sources_CAO_sha256_preservees": 154,
+    "nouveaux_natifs_sha256_concordants": 42,
+    "liens_externes_natifs_resolus": 45,
+    "matrices_occurrences_concordantes": 45,
+    "Wxx_actifs_couverts_exactement_une_fois": 33,
+    "controle_final_construction_et_script_sha256_concordants": true,
+    "reouverture_recalcul_sans_erreur_preuve_finale": true,
+    "balayages_valides_preuve_finale": 35,
+    "intersections_nouveaux_equipements_paires_controlees": 0,
+    "routes_intersections_brutes": 32,
+    "routes_sous_rayon_reservation": 23,
+    "arithmetique_cuivre_et_perimetre_masse_revus": true,
+    "manifest_champs_preexistants_preserves": true,
+    "manifest_sha256_concordant_preuve": true,
+    "configuration_candidate_inactive": true,
+    "DOC_VAL_12_1_4_coherent_resultats_limites": true
+  },
+  "manifest_comparaison_independante": {
+    "champs_exclus": [
+      "configuration_systeme_candidate"
+    ],
+    "sha256_canonique_avant_apres": "bb0bd3f4eb6492d2ecc49eb953e2f709375257124ce15348a8c5cde33c83932c",
+    "encodage_lecture_baseline": "cp1252, encodage local Windows du premier inventaire de revue",
+    "canonisation": "JSON trié, ensure_ascii=false, séparateurs virgule/deux-points, encodage de la canonisation UTF8",
+    "note": "Comparaison cohérente avant/après avec le même encodage ; hashes de fichiers ci-dessus calculés sur octets exacts."
+  },
+  "anomalies_coherence_bloquantes": [],
+  "corrections_recontrolees": [
+    "JETI OUT→PM08 IN et PM08→PDB déclarés réservations natives présentes, interfaces et coupe À valider.",
+    "W23 Airy trois conducteurs utiles, quatre contacts de prise ; concordance avec recette.",
+    "Statuts BOM et validations distinguent maquette candidate et matériel physique."
+  ],
+  "anomalies_conception_ouvertes": [
+    {
+      "id": "SYS-REV-ROUTES",
+      "constat": "32 routes avec intersections BRep brutes.",
+      "routes": [
+        "JETI_OUT_PM",
+        "PM_OUT_PDB",
+        "PDB_ESC_1",
+        "ESC_PHASES_1",
+        "FCU_ESC_1",
+        "PDB_ESC_2",
+        "ESC_PHASES_2",
+        "FCU_ESC_2",
+        "PDB_ESC_3",
+        "ESC_PHASES_3",
+        "FCU_ESC_3",
+        "PDB_ESC_4",
+        "ESC_PHASES_4",
+        "FCU_ESC_4",
+        "PM_POWER1",
+        "PM_POWER2",
+        "PM_CAN1",
+        "PDB_CA01",
+        "CA01_JETSON",
+        "AIRY_12V",
+        "AIRY_TEMPS",
+        "CA01_UART_RF",
+        "COAX_RF_2",
+        "USB3_CAMERA",
+        "M8_CAMERA",
+        "GNSS_CAN2",
+        "ORIN_PPS",
+        "ORIN_GPRMC",
+        "ORIN_REF3V3",
+        "FCU_TRIGGER",
+        "FCU_CAPTURE",
+        "GNSS_PPS_GPRMC"
+      ],
+      "impact": "Passages non validés ; interfaces et collisions physiques à distinguer sur prises exactes."
+    },
+    {
+      "id": "SYS-REV-RAYONS",
+      "constat": "23 routes sous rayon de réservation.",
+      "routes": [
+        "JETI_OUT_PM",
+        "PM_OUT_PDB",
+        "PDB_ESC_1",
+        "PDB_ESC_2",
+        "PM_POWER1",
+        "PM_POWER2",
+        "PM_CAN1",
+        "PDB_CA01",
+        "CA01_JETSON",
+        "AIRY_TRONC",
+        "AIRY_ETH",
+        "AIRY_TEMPS",
+        "CA01_UART_RF",
+        "COAX_RF_1",
+        "COAX_RF_2",
+        "USB3_CAMERA",
+        "M8_CAMERA",
+        "ORIN_PPS",
+        "ORIN_GPRMC",
+        "ORIN_REF3V3",
+        "FCU_TRIGGER",
+        "FCU_CAPTURE",
+        "GNSS_PPS_GPRMC"
+      ],
+      "impact": "Routage et choix câble/rayon fabricant ouverts."
+    },
+    {
+      "id": "SYS-REV-INCOMPLET",
+      "constat": "Refroidissement, accessoires de vol et LED OEM non routés ; supports, retenues et accouplements absents.",
+      "impact": "Aucun montage fixé ni faisceau complet."
+    },
+    {
+      "id": "SYS-REV-MASSE",
+      "constat": "Cuivre nominal dock83,34999583961438g ; budget historique partiel augmenté6,195440426075709–6,809440426075709kg. Cuivre réservations système104,06993293764657g non additionnable au budget.",
+      "impact": "Masse cible et centrage inconnus ; câbles OEM et kit à réconcilier."
+    }
+  ],
+  "limites": [
+    "Revue indépendante des données, archives FCStd, empreintes, liens, placements, registres et arithmétique ; recalcul et booléens OCCT proviennent du processus FreeCAD distinct dont la preuve finale concorde.",
+    "Absence d’interférence dans les paires d’équipements contrôlées ne démontre pas fixation, montage, tolérances, accès ni débattements.",
+    "Rendu considéré comme illustration seule.",
+    "CA01 native illustre placement du01/10 ; composants déplacés le02/10 non synchronisés, accès et hauteur du PCB courant ouverts.",
+    "Pas de contrôle indépendant supplémentaire de course cassette, capteurs, repli bras, hélices, inter-cordons, outil, rayon fabricant, traction, continuité, isolement, thermique, CEM, pesée ou vol."
+  ],
+  "fixations_qualifiees": false,
+  "passages_qualifies": false,
+  "masse_cible_qualifiee": false,
+  "fabrication_autorisee": false
+}

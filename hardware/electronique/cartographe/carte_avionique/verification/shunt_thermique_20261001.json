@@ -1,0 +1,684 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-01",
+  "component": "R116",
+  "status": "À valider",
+  "arithmetic_passed": true,
+  "hardware_tests_executed": false,
+  "input": {
+    "path": "dimensionnement.json",
+    "sha256": "f9fdb62941b4adf5e20af638afd608ccbff3cced5c7a8b9ba016b1b0abfbd35c",
+    "recipe_path": "verification\\verify_shunt_thermique.py",
+    "recipe_sha256": "1eb0f077294c3934dceb27056cd85441404fa311d89907ad164684bb78ce5269",
+    "configuration_declared_shunt": {
+      "r_shunt_ohm": 0.01,
+      "r_shunt_rating_w": 3,
+      "r_shunt_tolerance": "0.1% ; Y14880R01000B9R sélectionné, qualification À valider",
+      "r_ilim_ohm": 750,
+      "i_ilim_min_typ_max_a": [
+        9e-05,
+        0.0001,
+        0.00011
+      ],
+      "offset_min_max_v": [
+        -0.008,
+        0.0035
+      ],
+      "valley_typ_a": 7.5,
+      "valley_conservative_range_a": [
+        5.876623376623377,
+        9.141641641641643
+      ],
+      "loop": "Qlow source→shunt→GND, ILIM→750Ω→hautshunt ; Kelvin ; pas shunt dansAGND",
+      "r_shunt_footprint": "3637 / 4 bornes Kelvin",
+      "valley_with_temperature_working_range_a": [
+        5.8011633897804655,
+        9.238908412669055
+      ],
+      "temperature_assumption": "Rilim100ppm/K et shunt15ppm/K, variation100K candidate ; température résistive dans −55..125°C pour le TCR ; pas ambiance carte approuvée",
+      "nominal_shunt_power_6a_18v_w": 0.12060073048827377,
+      "ilim_note": "La fenêtre de fonctionnement6A doit être revalidée à tous coins fréquence/VOUT/L/température et sous court-circuit ; 7.5A est vallée, pas courant de sortie/limite amont.",
+      "r_shunt_tcr_max_abs_ppm_per_k": 15
+    },
+    "requested_specification": {
+      "ref": "R116",
+      "resistance_ohm": 0.01,
+      "initial_tolerance_fraction": 0.001,
+      "tcr_max_abs_ppm_per_k": 25,
+      "connection": "4 bornes Kelvin préférées",
+      "status": "Implémenté",
+      "qualification": "À valider",
+      "date": "2026-10-01",
+      "decision": "Utilisateur : ±0,1 % accepté le 01/10/2026 ; TCR≤25 ppm/K conservé."
+    },
+    "replacement_candidate": {
+      "manufacturer": "VPG Foil Resistors",
+      "family": "CSM3637",
+      "resistance_ohm": 0.01,
+      "rated_power_at_70c_w": 3,
+      "catalog_initial_tolerance_fraction": 0.001,
+      "catalog_tcr_max_abs_ppm_per_k": 15,
+      "catalog_conforms_to_requested_tolerance": true,
+      "body_nominal_mm": [
+        9.144,
+        9.398,
+        0.8
+      ],
+      "datasheet": "https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet",
+      "datasheet_revision": "4138-EN Rev. 8, 8 juillet 2025",
+      "status": "Implémenté",
+      "condition": "Référence standard sélectionnée ; stock, pièces reçues, stencil et thermique réelle À valider.",
+      "mpn": "Y14880R01000B9R",
+      "qualification": "À valider"
+    }
+  },
+  "review_parameters": {
+    "requested_tolerance_fraction": 0.001,
+    "requested_tcr_ppm_per_k": 25,
+    "delta_temperature_k": 100,
+    "local_ambient_candidate_max_c": 125,
+    "inductance_nominal_h": 6.8e-06,
+    "inductance_tolerance_fraction": 0.2,
+    "rt_tolerance_fraction": 0.01,
+    "rt_tcr_unapproved_ppm_per_k": 100,
+    "rilim_tolerance_fraction": 0.01,
+    "rilim_tcr_assumed_ppm_per_k": 100,
+    "feedback_resistor_tolerance_fraction": 0.001,
+    "feedback_reference_tolerance_fraction": 0.01,
+    "stress_constant_current_a": 13.09
+  },
+  "review_parameters_from_configuration": [],
+  "review_parameters_defaults_candidate": [
+    "delta_temperature_k",
+    "feedback_reference_tolerance_fraction",
+    "feedback_resistor_tolerance_fraction",
+    "inductance_nominal_h",
+    "inductance_tolerance_fraction",
+    "local_ambient_candidate_max_c",
+    "requested_tcr_ppm_per_k",
+    "requested_tolerance_fraction",
+    "rilim_tcr_assumed_ppm_per_k",
+    "rilim_tolerance_fraction",
+    "rt_tcr_unapproved_ppm_per_k",
+    "rt_tolerance_fraction",
+    "stress_constant_current_a"
+  ],
+  "electrical_inputs": {
+    "normal_load_a": 6.0,
+    "vin_v": [
+      18.0,
+      25.2
+    ],
+    "vout_bounds_v": [
+      11.857846153846156,
+      12.142646646646645
+    ],
+    "inductance_bounds_h": [
+      5.4400000000000004e-06,
+      8.16e-06
+    ],
+    "frequency_rt_tolerance_bounds_hz": [
+      377748.6182353175,
+      425946.2090787392
+    ],
+    "rt_temperature_unapproved_frequency_bounds_hz": [
+      374008.532906255,
+      430248.6960391305
+    ],
+    "rilim_bounds_ohm": [
+      735.075,
+      765.075
+    ],
+    "irs_min_typ_max_a": [
+      9e-05,
+      0.0001,
+      0.00011
+    ],
+    "offset_min_max_v": [
+      -0.008,
+      0.0035
+    ]
+  },
+  "model": {
+    "topology": "Shunt source MOSFET bas, courant uniquement pendant 1-D en CCM établi idéal.",
+    "duty": "D=VOUT/VIN",
+    "ripple": "deltaI=VOUT*(1-D)/(L*f)",
+    "rms": "Irms_shunt^2=(1-D)*(Iout^2+deltaI^2/12)",
+    "valley_limit": "Ivalley=(IRS*Rilim-VILIM_TH)/Rshunt",
+    "at_valley_limit": "Iout=Ivalley+deltaI/2 ; P=Rshunt*(1-D)*(Ivalley^2+Ivalley*deltaI+deltaI^2/3)",
+    "frequency_model": "TI 380..420kHz à RT=25kΩ, proportion inverse RT ; RT24,9k±1 %.",
+    "correlated_resistance": "Le même Rshunt est utilisé pour seuil et puissance à chaque coin ; ne pas combiner seuil Rmin et pertes Rmax.",
+    "limitations": "Pas de chute MOSFET/shunt/DCR, dead-time, retard OCP, bias/température L, saturation ni commande hiccup dans le modèle CCM."
+  },
+  "normal_nominal": [
+    {
+      "vin_v": 18.0,
+      "vout_v": 12.0,
+      "l_h": 6.8e-06,
+      "frequency_hz": 400000,
+      "r_shunt_ohm": 0.01,
+      "duty": 0.6666666666666666,
+      "iout_a": 6.0,
+      "ripple_pp_a": 1.4705882352941175,
+      "valley_a": 5.264705882352941,
+      "peak_a": 6.735294117647059,
+      "shunt_rms_a": 3.4727615882503904,
+      "shunt_power_w": 0.12060073048827376
+    },
+    {
+      "vin_v": 25.2,
+      "vout_v": 12.0,
+      "l_h": 6.8e-06,
+      "frequency_hz": 400000,
+      "r_shunt_ohm": 0.01,
+      "duty": 0.4761904761904762,
+      "iout_a": 6.0,
+      "ripple_pp_a": 2.3109243697478985,
+      "valley_a": 4.844537815126051,
+      "peak_a": 7.155462184873949,
+      "shunt_rms_a": 4.369239557292151,
+      "shunt_power_w": 0.19090254309006516
+    }
+  ],
+  "current_requested_specification_envelope": {
+    "r_shunt_bounds_ohm": [
+      0.009965025,
+      0.010035025
+    ],
+    "normal_corner_count": 32,
+    "normal_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.010035025,
+      "duty": 0.47054945054945063,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 4.472435929107925,
+      "peak_a": 7.527564070892075,
+      "shunt_rms_a": 4.4127129515843775,
+      "shunt_power_w": 0.19540236397745273
+    },
+    "normal_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.4818510574066129,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 4.46913746870507,
+      "peak_a": 7.53086253129493,
+      "shunt_rms_a": 4.365561766810043,
+      "shunt_power_w": 0.18991473731768052
+    },
+    "valley_limit_min_max_a": [
+      6.2438060692424795,
+      9.24817047624065
+    ],
+    "valley_min_symmetric_offset_conservative_a": 5.795376693132305,
+    "min_output_limit_margin_above_load_a": 0.8122234702018165,
+    "min_output_limit_margin_symmetric_offset_a": 0.36379409409164243,
+    "limit_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.47054945054945063,
+      "iout_a": 10.775734547132725,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 9.24817047624065,
+      "peak_a": 12.3032986180248,
+      "shunt_rms_a": 7.867003033486579,
+      "shunt_power_w": 0.6167327737467776
+    },
+    "limit_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.4818510574066129,
+      "iout_a": 10.77903300753558,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 9.24817047624065,
+      "peak_a": 12.309895538830508,
+      "shunt_rms_a": 7.785064233327712,
+      "shunt_power_w": 0.6039525134719156
+    },
+    "constant_current_stress_power_w": 1.7194824672024998
+  },
+  "historical_0_05percent_25ppm_envelope": {
+    "r_shunt_bounds_ohm": [
+      0.009970012500000002,
+      0.0100300125
+    ],
+    "normal_corner_count": 32,
+    "normal_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.0100300125,
+      "duty": 0.47054945054945063,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 4.472435929107925,
+      "peak_a": 7.527564070892075,
+      "shunt_rms_a": 4.4127129515843775,
+      "shunt_power_w": 0.1953047603990424
+    },
+    "normal_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009970012500000002,
+      "duty": 0.4818510574066129,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 4.46913746870507,
+      "peak_a": 7.53086253129493,
+      "shunt_rms_a": 4.365561766810043,
+      "shunt_power_w": 0.19000978973876045
+    },
+    "valley_limit_min_max_a": [
+      6.24692641210567,
+      9.24354407780331
+    ],
+    "valley_min_symmetric_offset_conservative_a": 5.798272933358759,
+    "min_output_limit_margin_above_load_a": 0.8153438130650068,
+    "min_output_limit_margin_symmetric_offset_a": 0.36669033431809606,
+    "limit_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009970012500000002,
+      "duty": 0.47054945054945063,
+      "iout_a": 10.771108148695385,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 9.24354407780331,
+      "peak_a": 12.29867221958746,
+      "shunt_rms_a": 7.863647934158738,
+      "shunt_power_w": 0.6165152525210035
+    },
+    "limit_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009970012500000002,
+      "duty": 0.4818510574066129,
+      "iout_a": 10.77440660909824,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 9.24354407780331,
+      "peak_a": 12.305269140393168,
+      "shunt_rms_a": 7.781745176963084,
+      "shunt_power_w": 0.6037396701963816
+    },
+    "constant_current_stress_power_w": 1.7186235848512497
+  },
+  "rt_temperature_unapproved_separate_envelope": {
+    "r_shunt_bounds_ohm": [
+      0.009965025,
+      0.010035025
+    ],
+    "normal_corner_count": 32,
+    "normal_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 374008.532906255,
+      "r_shunt_ohm": 0.010035025,
+      "duty": 0.47054945054945063,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.0856794232019915,
+      "valley_a": 4.457160288399004,
+      "peak_a": 7.542839711600996,
+      "shunt_rms_a": 4.413650766759759,
+      "shunt_power_w": 0.19548542887519954
+    },
+    "normal_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 374008.532906255,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.4818510574066129,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.0923423132157577,
+      "valley_a": 4.453828843392121,
+      "peak_a": 7.546171156607879,
+      "shunt_rms_a": 4.366493486623299,
+      "shunt_power_w": 0.18999581105596589
+    },
+    "valley_limit_min_max_a": [
+      6.2438060692424795,
+      9.24817047624065
+    ],
+    "valley_min_symmetric_offset_conservative_a": 5.795376693132305,
+    "min_output_limit_margin_above_load_a": 0.8065392961922235,
+    "min_output_limit_margin_symmetric_offset_a": 0.35810992008204945,
+    "limit_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 374008.532906255,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.47054945054945063,
+      "iout_a": 10.791010187841646,
+      "ripple_pp_a": 3.0856794232019915,
+      "valley_a": 9.24817047624065,
+      "peak_a": 12.333849899442642,
+      "shunt_rms_a": 7.878606444654845,
+      "shunt_power_w": 0.6185534115257149
+    },
+    "limit_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 374008.532906255,
+      "r_shunt_ohm": 0.009965025,
+      "duty": 0.4818510574066129,
+      "iout_a": 10.794341632848528,
+      "ripple_pp_a": 3.0923423132157577,
+      "valley_a": 9.248170476240649,
+      "peak_a": 12.340512789456408,
+      "shunt_rms_a": 7.796568741878298,
+      "shunt_power_w": 0.605738834185302
+    },
+    "constant_current_stress_power_w": 1.7194824672024998
+  },
+  "vpg_standard_0_1percent_15ppm_envelope": {
+    "r_shunt_bounds_ohm": [
+      0.009975015000000002,
+      0.010025015
+    ],
+    "normal_corner_count": 32,
+    "normal_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.010025015,
+      "duty": 0.47054945054945063,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 4.472435929107925,
+      "peak_a": 7.527564070892075,
+      "shunt_rms_a": 4.4127129515843775,
+      "shunt_power_w": 0.195207448901166
+    },
+    "normal_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009975015000000002,
+      "duty": 0.4818510574066129,
+      "iout_a": 6.0,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 4.46913746870507,
+      "peak_a": 7.53086253129493,
+      "shunt_rms_a": 4.365561766810043,
+      "shunt_power_w": 0.19010512803178348
+    },
+    "valley_limit_min_max_a": [
+      6.25004052363014,
+      9.238908412669051
+    ],
+    "valley_min_symmetric_offset_conservative_a": 5.8011633897804655,
+    "min_output_limit_margin_above_load_a": 0.8184579245894774,
+    "min_output_limit_margin_symmetric_offset_a": 0.36958079073980254,
+    "limit_max_power": {
+      "vin_v": 25.2,
+      "vout_v": 11.857846153846156,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009975015000000002,
+      "duty": 0.47054945054945063,
+      "iout_a": 10.766472483561126,
+      "ripple_pp_a": 3.05512814178415,
+      "valley_a": 9.238908412669051,
+      "peak_a": 12.2940365544532,
+      "shunt_rms_a": 7.860286124177838,
+      "shunt_power_w": 0.6162973038520475
+    },
+    "limit_max_peak": {
+      "vin_v": 25.2,
+      "vout_v": 12.142646646646645,
+      "l_h": 5.4400000000000004e-06,
+      "frequency_hz": 377748.6182353175,
+      "r_shunt_ohm": 0.009975015000000002,
+      "duty": 0.4818510574066129,
+      "iout_a": 10.76977094396398,
+      "ripple_pp_a": 3.061725062589859,
+      "valley_a": 9.238908412669051,
+      "peak_a": 12.300633475258909,
+      "shunt_rms_a": 7.778419482068356,
+      "shunt_power_w": 0.6035264087063748
+    },
+    "constant_current_stress_power_w": 1.7177672727214999
+  },
+  "historical_legacy_0_5percent_75ppm_envelope": {
+    "basis": "Ancienne sélection WSLT2512R0100DEA ; 75ppm/100K est l'hypothèse historique, pas une confirmation fabricant supplémentaire ni l'état PCB actuel.",
+    "calculated": {
+      "r_shunt_bounds_ohm": [
+        0.009875375,
+        0.010125375
+      ],
+      "normal_corner_count": 32,
+      "normal_max_power": {
+        "vin_v": 25.2,
+        "vout_v": 11.857846153846156,
+        "l_h": 5.4400000000000004e-06,
+        "frequency_hz": 377748.6182353175,
+        "r_shunt_ohm": 0.010125375,
+        "duty": 0.47054945054945063,
+        "iout_a": 6.0,
+        "ripple_pp_a": 3.05512814178415,
+        "valley_a": 4.472435929107925,
+        "peak_a": 7.527564070892075,
+        "shunt_rms_a": 4.4127129515843775,
+        "shunt_power_w": 0.19716166239328758
+      },
+      "normal_max_peak": {
+        "vin_v": 25.2,
+        "vout_v": 12.142646646646645,
+        "l_h": 5.4400000000000004e-06,
+        "frequency_hz": 377748.6182353175,
+        "r_shunt_ohm": 0.009875375,
+        "duty": 0.4818510574066129,
+        "iout_a": 6.0,
+        "ripple_pp_a": 3.061725062589859,
+        "valley_a": 4.46913746870507,
+        "peak_a": 7.53086253129493,
+        "shunt_rms_a": 4.365561766810043,
+        "shunt_power_w": 0.18820617600443443
+      },
+      "valley_limit_min_max_a": [
+        6.188091799069171,
+        9.33212662810273
+      ],
+      "valley_min_symmetric_offset_conservative_a": 5.743663814920436,
+      "min_output_limit_margin_above_load_a": 0.7565092000285079,
+      "min_output_limit_margin_symmetric_offset_a": 0.3120812158797728,
+      "limit_max_power": {
+        "vin_v": 25.2,
+        "vout_v": 11.857846153846156,
+        "l_h": 5.4400000000000004e-06,
+        "frequency_hz": 377748.6182353175,
+        "r_shunt_ohm": 0.009875375,
+        "duty": 0.47054945054945063,
+        "iout_a": 10.859690698994804,
+        "ripple_pp_a": 3.05512814178415,
+        "valley_a": 9.33212662810273,
+        "peak_a": 12.387254769886878,
+        "shunt_rms_a": 7.927890326389293,
+        "shunt_power_w": 0.6206815889360474
+      },
+      "limit_max_peak": {
+        "vin_v": 25.2,
+        "vout_v": 12.142646646646645,
+        "l_h": 5.4400000000000004e-06,
+        "frequency_hz": 377748.6182353175,
+        "r_shunt_ohm": 0.009875375,
+        "duty": 0.4818510574066129,
+        "iout_a": 10.862989159397658,
+        "ripple_pp_a": 3.061725062589859,
+        "valley_a": 9.33212662810273,
+        "peak_a": 12.393851690692587,
+        "shunt_rms_a": 7.845297435336928,
+        "shunt_power_w": 0.6078164127673721
+      },
+      "constant_current_stress_power_w": 1.7349637680375
+    },
+    "requested_initial_tolerance_met": false,
+    "requested_tcr_met_by_historical_assumption": false
+  },
+  "selected_reference_interpretation": {
+    "configured_mpn": "Y14880R01000B9R",
+    "expected_manufacturer_mpn_for_csm3637_10mohm_0_1percent_leadfree_reel": "Y14880R01000B9R",
+    "ordering_code": {
+      "Y1488": "CSM3637",
+      "0R01000": "0,01000 Ω",
+      "B": "±0,1 %",
+      "9": "sans plomb",
+      "R": "bande et bobine"
+    },
+    "configured_mpn_matches_ordering_code": true,
+    "catalogue_conforms_to_current_request": true,
+    "special_order_required_by_current_request": false,
+    "hardware_qualification": false
+  },
+  "vpg_candidate_comparison": [
+    {
+      "family": "CSM2512",
+      "nominal_ohm": 0.01,
+      "rating_at_70c_w": 1,
+      "allowed_at_candidate_ambient_w": 0.45,
+      "catalogue_best_tolerance_fraction": 0.001,
+      "catalogue_tcr_max_ppm_per_k": 15,
+      "tcr_temperature_domain_c": [
+        -55,
+        125
+      ],
+      "tcr_reference_c": 25,
+      "requested_initial_tolerance_met": true,
+      "requested_tcr_met_within_catalogue_domain": true,
+      "catalogue_conforms_to_current_request": true,
+      "historical_0_05percent_request_met": false,
+      "normal_6a_analytical_power_within_derating": true,
+      "continuous_upper_valley_limit_power_within_derating": false,
+      "constant_13_09a_stress_within_derating": false,
+      "normal_power_margin_w": 0.25479255109883403,
+      "upper_limit_power_margin_w": -0.1662973038520475,
+      "maximum_local_ambient_from_upper_limit_power_c": 108.37026961479525,
+      "availability": "Famille et résistance catalogue ; aucun stock ni délai garanti par cette preuve.",
+      "selection_status": "Conforme à la demande actuelle sur tolérance et TCR catalogue ; thermique et pulses À valider."
+    },
+    {
+      "family": "CSM3637",
+      "nominal_ohm": 0.01,
+      "rating_at_70c_w": 3,
+      "allowed_at_candidate_ambient_w": 1.35,
+      "catalogue_best_tolerance_fraction": 0.001,
+      "catalogue_tcr_max_ppm_per_k": 15,
+      "tcr_temperature_domain_c": [
+        -55,
+        125
+      ],
+      "tcr_reference_c": 25,
+      "requested_initial_tolerance_met": true,
+      "requested_tcr_met_within_catalogue_domain": true,
+      "catalogue_conforms_to_current_request": true,
+      "historical_0_05percent_request_met": false,
+      "normal_6a_analytical_power_within_derating": true,
+      "continuous_upper_valley_limit_power_within_derating": true,
+      "constant_13_09a_stress_within_derating": false,
+      "normal_power_margin_w": 1.1547925510988342,
+      "upper_limit_power_margin_w": 0.7337026961479526,
+      "maximum_local_ambient_from_upper_limit_power_c": 149.4567565382651,
+      "availability": "Famille et résistance catalogue ; aucun stock ni délai garanti par cette preuve.",
+      "selection_status": "Conforme à la demande actuelle sur tolérance et TCR catalogue ; thermique et pulses À valider."
+    }
+  ],
+  "thermal_interpretation": {
+    "candidate_ambient_c": 125,
+    "derating_curve": "Pautorisé=P70*clamp((170-Tambient)/100,0,1)",
+    "ambient_approval": "125 °C est une enveloppe de comparaison candidate, pas l'ambiance carte mesurée/approuvée.",
+    "temperature_distinction": "Le déclassement utilise l'ambiance locale ; le TCR utilise la température résistive. À ambiance 125 °C, l'autoéchauffement peut sortir du domaine TCR garanti jusqu'à 125 °C.",
+    "theta_ja_c_per_w": null,
+    "airflow_lfm": null,
+    "temperature_rise_c": null,
+    "thermal_qualification": false,
+    "precision": "±0.1 % initial ne garantit pas cette précision globale : 25 ppm/K sur 100 K ajoute jusqu'à 0.25 %. Stabilité de vie, soudure et connexions Kelvin non incluses.",
+    "catalogue_15ppm_drift_over_delta_temperature_fraction": 0.0015
+  },
+  "current_limit_interpretation": {
+    "simplified_typical_valley_a": 7.5,
+    "typical_valley_including_ti_minus2mv_a": 7.7,
+    "warning": "7,5 A est la vallée simplifiée, ni le courant de sortie moyen ni le pic. 13,09 A est un stress DC imposé, pas une borne calculée de protection.",
+    "sensitivity_at_10mohm": {
+      "minus8mv_offset_current_a": 0.8,
+      "plus3_5mv_offset_current_a": 0.35,
+      "irs_ten_percent_typical_current_span_a": 0.75
+    }
+  },
+  "faults_not_qualified": {
+    "ti_hiccup_cycles": {
+      "consecutive_limit_events": 128,
+      "off_cycles": 8192
+    },
+    "illustrative_timing_from_frequency_bounds": [
+      {
+        "frequency_hz": 377748.6182353175,
+        "128_cycles_s": 0.0003388496842105263,
+        "8192_cycles_s": 0.021686379789473683,
+        "constant_stress_energy_in_128_cycles_j": 0.0005826460910171037
+      },
+      {
+        "frequency_hz": 425946.2090787392,
+        "128_cycles_s": 0.00030050742857142855,
+        "8192_cycles_s": 0.019232475428571427,
+        "constant_stress_energy_in_128_cycles_j": 0.0005167172546926789
+      }
+    ],
+    "not_a_waveform_bound": true,
+    "open": [
+      "Court-circuit : VOUT chute, D et conduction bas changent ; le modèle12V CCM ne borne pas la faute.",
+      "Mesurer pics, retards OCP, courant bas, queue inductive, skips, soft-start et répétition hiccup.",
+      "Obtenir limite pulse/I²t répétitif fabricant et dérive après faute ; essai surcharge5s catalogue ne qualifie pas la forme d'onde CA01.",
+      "Valider dissipation PCB/câbles/capacités, saturation L et sécurité MOSFET/fusible sous défaut."
+    ]
+  },
+  "sources": [
+    {
+      "url": "https://www.ti.com/lit/ds/symlink/lm5146-q1.pdf",
+      "document": "LM5146-Q1, RevB",
+      "sections": "Table électrique FSW/IRS/VILIM_TH ; 8.3.5,8.3.10,8.3.11"
+    },
+    {
+      "url": "https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet",
+      "document": "VPG CSM Series 4138-EN, Rev8-July-2025",
+      "sections": "p1 ratings/TCR/tolérance ; p2 courbe puissance ; p3 surcharge/stabilité ; p4 codification"
+    }
+  ],
+  "checks": {
+    "low_side_nominal_18v_reference": true,
+    "low_side_nominal_25_2v_reference": true,
+    "frequency_rt_24_9k_one_percent_reference": true,
+    "derating_2512_125c": true,
+    "derating_3637_125c": true,
+    "derating_zero_170c": true,
+    "normal_ccm_all_corners": true,
+    "requested_bounds_bracket_nominal": true,
+    "catalogue_conformity_matches_current_request": true,
+    "historical_0_05percent_catalogue_comparison": true
+  },
+  "conclusion": "Recette arithmétique seulement. À 125 °C candidat, CSM2512 couvre 6 A mais pas la limite haute continue ; CSM3637 couvre les deux dans le modèle. Les offres standard ±0,1 % / 15 ppm/K répondent à la demande actuelle sur tolérance et TCR. La cible ±0,05 % historique reste distincte et non satisfaite en catalogue standard. Aucune qualification thermique réelle ni pulse obtenue."
+}

@@ -1,0 +1,725 @@
+{
+  "schema_version": 1,
+  "reference": "FAISCEAU-SYSTEME-CARTO-CIBLE-20261003",
+  "date": "2026-10-03",
+  "perimetre": "Drone cartographe X650, dock 6S 20 Ah et avionique CA01/Holybro cible ; traitements exclus",
+  "statut": "Implémenté en registre et réservations CAO ; À valider",
+  "fabrication_autorisee_par_ce_registre": false,
+  "representation_CAO_candidate": {
+    "assemblage": "hardware/mecanique/cartographe/sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd",
+    "recette": "hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json",
+    "preuve_construction": "hardware/mecanique/cartographe/verification/construction_systeme_faisceau_20261003.json",
+    "preuve_controle": "hardware/mecanique/cartographe/verification/controle_systeme_faisceau_20261003.json",
+    "nombre_routes": 35,
+    "longueurs_mesurees": "Dans la preuve de construction par ID route ; aucune longueur de coupe définie.",
+    "limite": "Réservations avec sorties OEM non cotées ; 23 chemins sous les rayons réservés, fixations et passages À valider."
+  },
+  "source_liaisons": "hardware/electronique/cartographe/cablage_global.json",
+  "nombre_liaisons_actives_attendu": 33,
+  "liaisons_retirees_non_reintroduites": [
+    "W07",
+    "W11",
+    "W30"
+  ],
+  "configuration": {
+    "energie_active": "SA02A_Dock20Ah",
+    "avionique_active_historique": "SA03_Avionique_Rehausse20",
+    "avionique_cible": "SA03_CA01_Holybro_candidat",
+    "avionique_cible_active_dans_drone": false,
+    "limite": "Ce registre décrit la cible électrique. Une route sur les anciens équipements ne prouve pas le passage sur la porteuse Holybro cible."
+  },
+  "conventions": [
+    "Chaque Wxx actif est classé exactement une fois dans groupes ; un Wxx peut couvrir plusieurs tronçons physiques ou quatre départs.",
+    "W10/W15/W23 utilisent un faisceau Airy commun : ne pas additionner trois masses de cordon industriel.",
+    "W18/W34 partagent un câble M8 Basler à quatre conducteurs utiles ; pins1/5 non raccordées et pin3 distincte de pin6.",
+    "W24 exige trois adaptateurs distincts PPS, GPRMC et référence3,3V ; aucun Y passif UART ni câble GH direct vers CSI22.",
+    "Les prises PCB sont comptées dans CA01. Les fiches câble, contacts, blindages, protections et retenues appartiennent au faisceau.",
+    "Les diamètres et rayons non sourcés ci-dessous sont des réservations de CAO À valider, sans prescription de fabrication ni qualification électrique.",
+    "Les longueurs de route et de coupe sont distinctes. Toutes les longueurs inconnues restent null ; aucun budget cuivre complet ne peut être annoncé sans longueurs.",
+    "Les masses des équipements livrés avec leurs câbles incluent ceux-ci : PM08 annoncé185g câbles inclus, JETI110g avec câbles, pack1950g avec fils et XT90."
+  ],
+  "familles_cables": [
+    {
+      "id": "FIL-DOCK-AWG10",
+      "statut": "Implémenté en CAO / À valider physiquement",
+      "mpn": [
+        "55A0111-10-2",
+        "55A0111-10-0"
+      ],
+      "section_nominale_mm2": 5.26,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": 3.25,
+      "diametre_enveloppe_cao_mm": 3.4,
+      "rayon_reservation_mm": 34,
+      "masse_lineique_g_m": null,
+      "preuve": "hardware/mecanique/cartographe/verification/sources_bom_dock20Ah_20261002.json",
+      "limite_rayon": "Réservation future10D ; routes mobiles existantes interpolées non qualifiées et à recontrôler avant substitution."
+    },
+    {
+      "id": "FIL-DOCK-AWG8",
+      "statut": "Implémenté en CAO / À valider physiquement",
+      "mpn": [
+        "55A0111-8-2",
+        "55A0111-8-0"
+      ],
+      "section_nominale_mm2": 8.37,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": 4.78,
+      "diametre_enveloppe_cao_mm": 5,
+      "rayon_reservation_mm": 50,
+      "masse_lineique_g_m": null,
+      "preuve": "hardware/mecanique/cartographe/verification/sources_bom_dock20Ah_20261002.json",
+      "limite": "AWG8 désigne8,37mm² nominal cuivre ; compatibilité splice34321 conditionnée au lot JETI8mm² confirmé."
+    },
+    {
+      "id": "PUISSANCE-AWG8-CANDIDAT",
+      "statut": "À valider : hypothèse CAO",
+      "mpn": null,
+      "section_nominale_mm2": 8.37,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": null,
+      "diametre_enveloppe_cao_mm": 5,
+      "rayon_reservation_mm": 50,
+      "masse_lineique_g_m": null,
+      "limite": "Sections JETI OUT/PM/PDB à relever ; pas un dimensionnement sur courant mission ni un choix de connecteur."
+    },
+    {
+      "id": "PUISSANCE-AWG14-CANDIDAT",
+      "statut": "À valider : hypothèse CAO",
+      "mpn": null,
+      "section_nominale_mm2": 2.08,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": null,
+      "diametre_enveloppe_cao_mm": 3,
+      "rayon_reservation_mm": 30,
+      "masse_lineique_g_m": null,
+      "limite": "Branches CA01/Jetson seulement ; chute de tension, appels, XT30, fusible et thermique à dimensionner."
+    },
+    {
+      "id": "PUISSANCE-AWG20-CANDIDAT",
+      "statut": "À valider : hypothèse CAO",
+      "mpn": null,
+      "section_nominale_mm2": 0.52,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": null,
+      "diametre_enveloppe_cao_mm": 1.6,
+      "rayon_reservation_mm": 16,
+      "masse_lineique_g_m": null,
+      "limite": "AWG20 pour puissance Airy sous2A candidat ; longueur/derating et contacts VH à valider."
+    },
+    {
+      "id": "SIGNAL-AWG26-CANDIDAT",
+      "statut": "À valider : hypothèse CAO",
+      "mpn": null,
+      "section_nominale_mm2": 0.129,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": null,
+      "diametre_enveloppe_cao_mm": 1.1,
+      "rayon_reservation_mm": 11,
+      "masse_lineique_g_m": null,
+      "limite": "Compatible nominalement avec plage JST-GH ; puissance POWER doublée, CAN torsadé et consommation réelle à vérifier."
+    },
+    {
+      "id": "BASLER-M8-CANDIDAT",
+      "statut": "À valider : hypothèse CAO",
+      "mpn": null,
+      "section_nominale_mm2": 0.205,
+      "nombre_conducteurs_utiles": 4,
+      "nombre_conducteurs_cable_physique": null,
+      "diametre_enveloppe_cao_mm": 5.5,
+      "rayon_reservation_mm": 55,
+      "masse_lineique_g_m": null,
+      "limite": "AWG24 candidat≥0,14mm², blindé/torsadé ; câble6conducteurs possible mais non choisi. Compter cuivre de tous fils physiques, pas seulement quatre utiles."
+    },
+    {
+      "id": "AIRY-INDUSTRIEL-CANDIDAT",
+      "statut": "À valider : réservation",
+      "mpn": null,
+      "section_nominale_mm2": null,
+      "nombre_conducteurs_cable_physique": null,
+      "diametre_enveloppe_cao_mm": 8,
+      "rayon_reservation_mm": 80,
+      "masse_lineique_g_m": null,
+      "limite": "Enveloppe collective illustrative pour alimentation/Ethernet/synchronisation ; faisceau fourni et bifurcations OEM à identifier."
+    },
+    {
+      "id": "USB3-VERROUILLABLE-CANDIDAT",
+      "statut": "À valider : réservation",
+      "mpn": null,
+      "section_nominale_mm2": null,
+      "nombre_conducteurs_cable_physique": null,
+      "diametre_enveloppe_cao_mm": 6,
+      "rayon_reservation_mm": 60,
+      "masse_lineique_g_m": null,
+      "limite": "Référence, sorties prises USB, rayon fabricant, longueur et masse à sélectionner."
+    },
+    {
+      "id": "COAX-RF-CANDIDAT",
+      "statut": "À valider : réservation",
+      "mpn": null,
+      "section_nominale_mm2": null,
+      "nombre_conducteurs_cable_physique": null,
+      "diametre_enveloppe_cao_mm": 2.5,
+      "rayon_reservation_mm": 25,
+      "masse_lineique_g_m": null,
+      "limite": "Ne préjuge pas de la référence coaxiale livrée ni du rayon mini fabricant."
+    }
+  ],
+  "groupes": [
+    {
+      "id": "F01-ENERGIE-AMONT",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W01"
+      ],
+      "description": "Pack XT90-S→adaptateur→TE mobile/fixe→JETI IN puis JETI OUT→PM08 IN",
+      "troncons": [
+        {
+          "id": "F01-DOCK",
+          "registre_existant": "hardware/mecanique/cartographe/verification/faisceau_dock20Ah_20261002.json",
+          "route_native_existante": true,
+          "longueur_route_mm": null,
+          "familles": [
+            "FIL-DOCK-AWG10",
+            "FIL-DOCK-AWG8"
+          ],
+          "points_exactement_connus": [
+            "TE cavité39 PLUS",
+            "TE cavité40 MOINS"
+          ],
+          "points_nominalement_reserves": [
+            "JETI IN, positions d'étude"
+          ],
+          "masse_additionnelle_g": null
+        },
+        {
+          "id": "F01-AVAL-JETI",
+          "route_native_existante": true,
+          "route_native_candidate": "hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json#JETI_OUT_PM",
+          "famille": "PUISSANCE-AWG8-CANDIDAT",
+          "nombre_conducteurs": 2,
+          "longueur_route_mm": null,
+          "longueur_coupe_mm": null,
+          "endpoints_oem_cotes": false,
+          "limite": "JETI OUT et PM08 IN non cotés ; mesurer le kit. Les fils fournis JETI ne doivent pas être comptés deux fois.",
+          "masse_additionnelle_g": null
+        },
+        {
+          "id": "F01-COMMANDE-JETI",
+          "inclus_dans_kit": true,
+          "route_native_existante": true,
+          "nombre_conducteurs": null,
+          "longueur_route_mm": null,
+          "masse_additionnelle_g": null,
+          "limite": "Contrôler brochage/longueur du lot ; éviter le trajet cassette et la course verrou."
+        }
+      ]
+    },
+    {
+      "id": "F02-PROPULSION-DC",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W02"
+      ],
+      "description": "Quatre départs PDB cible XT90 vers ESC Tekko32 F4 45A XT30",
+      "nombre_branches": 4,
+      "conducteurs_par_branche": 2,
+      "famille": null,
+      "section_nominale_mm2": null,
+      "diametre_enveloppe_cao_mm": null,
+      "rayon_reservation_mm": null,
+      "longueur_route_mm": null,
+      "masse_lineique_g_m": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Quatre adaptateurs XT90 vers XT30 explicites, à dimensionner sans modifier les prises OEM ; genres, sections, courants, masses, positions et passage dans les bras à confirmer. Retirer seulement la PDB kit après réconciliation des inclusions.",
+      "adaptateurs": {
+        "quantite": 4,
+        "entree": "XT90 de PDB candidate",
+        "sortie": "XT30 ESC OEM",
+        "genres_confirmes": false,
+        "masse_unitaire_g": null,
+        "section_mm2": null,
+        "statut": "Planifié / À valider"
+      }
+    },
+    {
+      "id": "F03-PHASES-MOTEURS",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W03"
+      ],
+      "description": "Quatre faisceaux ESC→moteur",
+      "nombre_branches": 4,
+      "conducteurs_par_branche": 3,
+      "famille": null,
+      "section_nominale_mm2": null,
+      "diametre_enveloppe_cao_mm": null,
+      "rayon_reservation_mm": null,
+      "longueur_route_mm": null,
+      "masse_lineique_g_m": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Références kit T-Motor MN4014 KV330 / Tekko32 F4 45A identifiées par fabricant ; emplacement ESC et connecteurs de phase réels à confirmer. Fils OEM possiblement déjà inclus dans kit."
+    },
+    {
+      "id": "F04-COMMANDE-ESC",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W04"
+      ],
+      "description": "MAIN1..4→ESC, un signal et un retour par ESC",
+      "nombre_branches": 4,
+      "conducteurs_par_branche": 2,
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "MAIN/protocole PWM/DShot/télémétrie et connecteurs ; isoler tout BEC ESC non utilisé. AUX1 réservé caméra."
+    },
+    {
+      "id": "F05-DISTRIBUTION",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W05"
+      ],
+      "description": "PM08 OUT→PDB",
+      "nombre_conducteurs": 2,
+      "famille": "PUISSANCE-AWG8-CANDIDAT",
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Variante PM08 et connecteur PDB300A TopEntry SKU18138, courant/thermique et accès aux fixations."
+    },
+    {
+      "id": "F06-PM-FCU",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W06",
+        "W31",
+        "W32"
+      ],
+      "description": "Trois tronçons séparés BEC1→POWER1, CAN→CAN1, BEC2→POWER2",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "troncons": [
+        {
+          "wxx": "W06",
+          "nombre_conducteurs": 4,
+          "pins_fcu": "1/2 +5V,5/6 GND ;3/4NC"
+        },
+        {
+          "wxx": "W31",
+          "nombre_conducteurs": 3,
+          "pins_fcu": "2CANH,3CANL torsadés,4GND ;1NC"
+        },
+        {
+          "wxx": "W32",
+          "nombre_conducteurs": 4,
+          "pins_fcu": "1/2 +5V,5/6 GND ;3/4NC"
+        }
+      ],
+      "a_trancher": "Brochage PM08, orientation, composition des câbles livrés, courant par contact et terminaisonCAN. Ne jamais brancher un six-fils PM droit sur POWER."
+    },
+    {
+      "id": "F08-CA01-ENTREE",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W08"
+      ],
+      "description": "PDB XT30→protection proche PDB→CA01 J103",
+      "nombre_conducteurs": 2,
+      "famille": "PUISSANCE-AWG14-CANDIDAT",
+      "longueur_route_mm": null,
+      "connecteur_ca01": "XT30PW-M30.G.Y, pin1VBAT_PAYLOAD/pin2GND",
+      "fiche_ca01_candidate": "XT30U-F.G.Y",
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Polarité réelle Amass, protectionDC et segments exposés amont, section/appels de charge utile."
+    },
+    {
+      "id": "F09-JETSON-ENERGIE",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W09"
+      ],
+      "description": "CA01 J104→XT30 Jetson12V",
+      "nombre_conducteurs": 2,
+      "famille": "PUISSANCE-AWG14-CANDIDAT",
+      "longueur_route_mm": null,
+      "connecteur_ca01": "XT30PW-F30.G.Y, pin1 12V_COMPUTE/pin2GND",
+      "fiche_ca01_candidate": "XT30U-M.G.Y",
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Polarité Jetson, appels Orin/USB/SSD, longueur et protection."
+    },
+    {
+      "id": "F10-AIRY-COMMUN",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W10",
+        "W15",
+        "W23"
+      ],
+      "description": "Un faisceau Airy industriel avec dérivations puissance, Ethernet et PPS/GPRMC",
+      "famille": "AIRY-INDUSTRIEL-CANDIDAT",
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "masse_cordon_industriel_g": null,
+      "nombre_cordons_industriels": 1,
+      "derivations": [
+        {
+          "fonction": "W10",
+          "famille": "PUISSANCE-AWG20-CANDIDAT",
+          "nombre_conducteurs": 2,
+          "prise_ca01": "J201B2PS-VH + VHR-2N / contacts selon section",
+          "airypins": "6/7VIN,5/8GND ouB1/B2 faisceauOEM"
+        },
+        {
+          "fonction": "W15",
+          "famille": null,
+          "nombre_conducteurs": null,
+          "interface": "Ethernet direct Airy→Jetson ; cordon et interface OEM à identifier"
+        },
+        {
+          "fonction": "W23",
+          "famille": "SIGNAL-AWG26-CANDIDAT",
+          "nombre_conducteurs": 3,
+          "nombre_contacts_prise": 4,
+          "limite_conducteurs": "Trois utiles PPS/GPRMC/GND ; quatrième cavité non équipée dans la réservation. Nombre physique du cordon OEM à confirmer.",
+          "prise_ca01": "J504 GH4/GHR-04V-S+SSHL-002T-P0.2",
+          "airypins": "9PPS,11GPRMC,5/8GND ; RS232 candidat"
+        }
+      ],
+      "a_trancher": "Révision aviation/faisceauAiry, blindage, masse commune, bifurcations, priseEthernetJetson et dégagementAiry/rondelle."
+    },
+    {
+      "id": "F12-RADIO-UART",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W12"
+      ],
+      "description": "CA01 J402→TELEM1 ou3 Pixhawk",
+      "nombre_conducteurs": 3,
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "longueur_route_mm": null,
+      "prise_ca01": "GH3/GHR-03V-S+SSHL-002T-P0.2",
+      "brochage": "CA01 1GND/2RX/3TX ; OEM6GND/2TX/3RX",
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Choisir portRF distinct TELEM2 compagnon ; pas injection5V TELEM."
+    },
+    {
+      "id": "F13-ANTENNES-RF",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W13"
+      ],
+      "description": "Deux coaxiaux RP4TD→antennes",
+      "nombre_branches": 2,
+      "famille": "COAX-RF-CANDIDAT",
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "MPN antennes/coaxiaux, terminaisons, dégagement carbone et orientation ; RP4TD unique."
+    },
+    {
+      "id": "I14-COMPAGNON",
+      "classe": "interne",
+      "wxx": [
+        "W14"
+      ],
+      "description": "TELEM2↔UART1 internes porteuse Holybro ; pas cordon externe additionnel",
+      "masse_faisceau_externe_g": 0,
+      "limite": "Configuration et firmware à valider."
+    },
+    {
+      "id": "F16-USB-CAMERA",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W16"
+      ],
+      "description": "Jetson→Basler USB3 alimenté",
+      "famille": "USB3-VERROUILLABLE-CANDIDAT",
+      "nombre_cordons": 1,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "MPN câble verrouillable, positions prises, débit/budgetUSB et boucle souple du bloc isolé."
+    },
+    {
+      "id": "R17-DIAGNOSTIC-AIRY",
+      "classe": "réserve_non_montée",
+      "wxx": [
+        "W17"
+      ],
+      "description": "SYNC_OUT1→J501 ; JP501 ouvert, pas installé",
+      "masse_faisceau_installe_g": 0
+    },
+    {
+      "id": "F18-M8-CAMERA-COMMUN",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W18",
+        "W34"
+      ],
+      "description": "Un câble Basler M8 mâle6p A→CA01 J502PH6, trigger et retour ExposureActive",
+      "famille": "BASLER-M8-CANDIDAT",
+      "nombre_cordons": 1,
+      "longueur_route_mm": null,
+      "prise_ca01": "S6B-PH-SM4-TB/PHR-6+SPH-002T-P0.5S",
+      "brochage": "1NC,2Line1/5V_SYNC,3retour opto commuté,4Line2 ExposureActive,5NC,6GND_GPIO",
+      "endpoints_oem_cotes": false,
+      "a_trancher": "MPN M8, blindage/terminaison, effort surJ502 friction et boucle isolée capteurs."
+    },
+    {
+      "id": "I19-SSD",
+      "classe": "interne",
+      "wxx": [
+        "W19"
+      ],
+      "description": "SSD M.2 NVMe interne porteuse ; pas rail externe ni cordon à inventer",
+      "masse_faisceau_externe_g": 0,
+      "a_trancher": "MPN SSD/endurance/thermique."
+    },
+    {
+      "id": "F20-REFROIDISSEMENT",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W20"
+      ],
+      "description": "Jetson→refroidissement à choisir",
+      "famille": null,
+      "nombre_conducteurs": null,
+      "longueur_route_mm": null,
+      "masse_lineique_g_m": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Refroidissement, tension, contrôle, prise et masse ; ne pas présumer ventilateur5V/12V."
+    },
+    {
+      "id": "F21-GNSS-CAN",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W21"
+      ],
+      "description": "Pixhawk CAN2→H-RTK Helical STM32G4",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "nombre_conducteurs": 4,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "CANH/L torsadés,5V/GND, G4 garanti, terminaisons, protection, révision et implantationGNSS."
+    },
+    {
+      "id": "I22-ANTENNE-GNSS",
+      "classe": "interne",
+      "wxx": [
+        "W22"
+      ],
+      "description": "Antenne hélicoïdale directement intégrée/fixée selon variante candidate ; aucune rallonge supposée",
+      "masse_faisceau_externe_g": 0,
+      "limite": "Si variante avecSMA/coax séparé retenue, reclasser en faisceau physique avec masse et route ; position ciel/multipath à valider."
+    },
+    {
+      "id": "F24-TEMPS-ORIN",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W24"
+      ],
+      "description": "Trois adaptateurs CA01↔Orin distincts",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "nombre_troncons": 3,
+      "conducteurs_par_troncon": 2,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "troncons": [
+        {
+          "prise_ca01": "J505GH2",
+          "oem": "GPIOGH6 pin2GPIO07/PPS,6GND"
+        },
+        {
+          "prise_ca01": "J506GH2",
+          "oem": "DebugSH6 pin3UART2_RXD/GPRMC,6GND"
+        },
+        {
+          "prise_ca01": "J509GH2",
+          "oem": "CSIFFC22 pin22VDD3.3/pin1GND via extracteur à concevoir"
+        }
+      ],
+      "a_trancher": "ExtracteurFFC, sorties mécaniques, masse adaptateur, domaine3.3V réel, pinmux et séquencement hors tension."
+    },
+    {
+      "id": "F25-ACCESSOIRES-VOL",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W25"
+      ],
+      "description": "Bouton sécurité/buzzer/signalisation selon inventaire livré",
+      "famille": null,
+      "nombre_conducteurs": null,
+      "longueur_route_mm": null,
+      "masse_lineique_g_m": null,
+      "endpoints_oem_cotes": false,
+      "a_trancher": "Aucune fonction supposée présente ; inventorier références/prises et fixer emplacements."
+    },
+    {
+      "id": "R26-RESERVE5V",
+      "classe": "réserve_non_montée",
+      "wxx": [
+        "W26"
+      ],
+      "description": "J301 réserve sans charge affectée ; pas cordon installé",
+      "masse_faisceau_installe_g": 0
+    },
+    {
+      "id": "S27-RF-RC-MAVLINK",
+      "classe": "sans_fil",
+      "wxx": [
+        "W27"
+      ],
+      "description": "Pocket↔RP4TD ELRS commun RC/MAVLink ; pas cordon externe",
+      "masse_faisceau_embarque_g": 0
+    },
+    {
+      "id": "S28-QGC-BACKPACK",
+      "classe": "sans_fil",
+      "wxx": [
+        "W28"
+      ],
+      "description": "WiFi sol QGC↔Backpack ; hors masse drone",
+      "masse_faisceau_embarque_g": 0
+    },
+    {
+      "id": "S29-RTCM",
+      "classe": "sans_fil",
+      "wxx": [
+        "W29"
+      ],
+      "description": "TransportRTC M baseUSB→QGC→ELRS→Pixhawk→CAN2 déjàW21 ; pas cordon supplémentaire",
+      "masse_faisceau_embarque_additionnelle_g": 0,
+      "limite": "USB base sol exclu masse drone, CAN2 compté une foisW21."
+    },
+    {
+      "id": "F33-TRIGGER-FCU",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W33"
+      ],
+      "description": "Pixhawk AUX1→CA01J507",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "nombre_conducteurs": 2,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "brochage": "J507GH2 ; OEM FMUPWMOUT GH10 pin2FMUCH1/pin10GND",
+      "a_trancher": "Affectation PX4/groupetimer ; MAIN1..4 propulsion distincts et aucun retour5V."
+    },
+    {
+      "id": "F35-CAPTURE-FCU",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W35"
+      ],
+      "description": "CA01J508→FMU_CAP1 Pixhawk",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "nombre_conducteurs": 2,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "brochage": "J508GH2 ; OEM ADIO GH8 pin2FMUCAP1/pin8GND",
+      "a_trancher": "CAP1 capture ExposureActive seul, pas PPS partagé ; driver/niveau3.3V et front à qualifier."
+    },
+    {
+      "id": "F36-GNSS-TEMPS",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W36"
+      ],
+      "description": "H-RTK Helical G4UART2→CA01J503",
+      "famille": "SIGNAL-AWG26-CANDIDAT",
+      "nombre_conducteurs": 3,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "brochage": "GH6 :3TX/GPRMC,5PPS,6GND ;1/2/4NC, aucun5V UART2",
+      "a_trancher": "RévisionG4 impérative, S32K1pin5NC incompatible ; émissionRMC, niveaux et absence retour alimentation."
+    }
+  ],
+  "connecteurs_ca01": {
+    "source": "hardware/electronique/cartographe/carte_avionique/empreintes_connecteurs.json",
+    "placement_source": "hardware/electronique/cartographe/carte_avionique/placement_mecanique.json",
+    "placement_numerique_disponible": true,
+    "limite": "Prises PCB nominales disponibles, fiches accouplées/câbles/contacts/forces d'extraction absents ; endpoints monde obtenus seulement après placement actif de la cible."
+  },
+  "budget_cuivre": {
+    "statut": "À valider : modèle arithmétique disponible, données de longueur incomplètes",
+    "densite_cuivre_hypothese_g_cm3": 8.96,
+    "formule": "masse_cuivre_g = somme(section_nominale_mm2 * longueur_conducteur_mm /1000 *8.96)",
+    "masse_cuivre_totale_g": null,
+    "masse_totale_faisceau_g": null,
+    "ne_pas_utiliser_comme_masse_cable": "Le cuivre seul exclut isolant, étamage, blindage, gaines, fiches, contacts, retenues, adaptateurs et préparations. Les enveloppes CAO ne sont pas des volumes cuivre.",
+    "segments_dock_mesurables": [
+      {
+        "reference": "EQ_Cordon10AWG_Plus_Dock20A",
+        "section_mm2": 5.26,
+        "longueur_route_mm": 57.317908048875495
+      },
+      {
+        "reference": "EQ_Cordon10AWG_Moins_Dock20A",
+        "section_mm2": 5.26,
+        "longueur_route_mm": 63.97672263451329
+      },
+      {
+        "reference": "EQ_CordonFixe8AWG_Plus20A",
+        "section_mm2": 8.37,
+        "longueur_route_mm": 559.3918094625536
+      },
+      {
+        "reference": "EQ_CordonFixe8AWG_Moins20A",
+        "section_mm2": 8.37,
+        "longueur_route_mm": 475.78682081456463
+      }
+    ],
+    "limite_dock": "Ces quatre chemins sont des fils ajoutés hors câbles pack/JETI fournis. Leur coupe finale n'est pas fixée ; les deux conducteurs rigidesCuP42 sont à compter par volume réel, déjà compris dans fabrication du dock."
+  },
+  "contraintes_surete": [
+    "PX4 seul commande les ESC ; aucune branche moteur viaCA01 ni commande directe propriétaire.",
+    "Tout courant propulsion et charge utile traversePM08IN→OUT, aucune dérivation directe batterie.",
+    "JETI commute le négatif : aucun retour aval versBAT_MOINS_BRUT en dehorsJETI ; pas liaisonExtJETI sans interface qualifiée.",
+    "OFFJETI ne coupe pas positif brut : capoter toutes bornes. ON mémorisé impose OFF vérifié avant déverrouillage cassette.",
+    "Échange désarmé, hélices immobiles, aucune liaison externeUSB/chargeur ; fils hors course cassette/verrou/rails et hors hélices.",
+    "Près des contactsTE : premier bridage≥152.4mm et rayon≥10D selonTE114-13206, mouvement flottant et traction non qualifiés.",
+    "BEC1/POWER1 etBEC2/POWER2 séparés, CAN séparé ; aucun parallèle avecBECESC ni retour5V versFCU.",
+    "W08 protection au plus prèsPDB ; segments exposés amont, IccDC/sélectivité et appels à dimensionner.",
+    "J20112V/J3015V interchangeables et prisesGH similaires : détrompage/repérage à concevoir avant raccordement.",
+    "Pin3M8 retour opto distincteGND6 ; alimentation caméraUSB seule, pasM8.",
+    "Boucles souples vers bloc isolé capteurs sans pontage de l'isolation antivibratoire ; rayons, traction et vibration à tester.",
+    "Blindages, isolation carbone, éloignement phases/DCconvertisseurs versusGNSS/radio/signaux, fixations et frottements restent ouverts.",
+    "Un solide valide ou une absence d'interférence nominale ne qualifie pas la courbure physique, le montage, la thermique, la CEM ni le faisceau de vol."
+  ],
+  "validations_restantes": [
+    "Activer et fixer tous équipements de la cible avant routes définitives ; identifier chaque endpointOEM et fiche accouplée.",
+    "Choisir MPN câbles puis renseigner diamètre/rayon fabricant, nombre réel de conducteurs, masse linéique et longueur de coupe.",
+    "Vérifier continuité pointàpoint/polarité/isolement avant toute mise sous tension ; contrôlesPOWER/CAN séparés.",
+    "Tester passages en poses d'insertion/extraction/ouverture, mouvement capteurs et assemblage avec tolérances/efforts réels.",
+    "Réconcilier BOM kit/PM/JETI/pack avec câbles inclus puis peser sousensembles et drone complet ; aucune qualification masse ou vol ici."
+  ],
+  "inventaire_kit_source": {
+    "source": "https://holybro.com/products/x650-development-kit",
+    "verifie_par": "Agent principal le 3 octobre 2026",
+    "moteurs": "4 T-Motor MN4014 KV330",
+    "ESC": "4 Tekko32 F4 45A avec XT30",
+    "PDB_kit": "XT60 / XT30, distincte de la Holybro 300A Top Entry candidate",
+    "helices": "4 Gemfan 1555",
+    "LED": "4 WS2812",
+    "statut": "Références constructeur ; révision et matériel livré À valider"
+  },
+  "liaisons_additionnelles_sans_W": [
+    {
+      "id": "F-LED-KIT",
+      "classe": "faisceau_physique",
+      "description": "Quatre LED WS2812 embarquées livrées dans le kit X650 ; liaison absente du registre Wxx actuel",
+      "quantite_modules": 4,
+      "wxx": null,
+      "nombre_conducteurs": null,
+      "port_commande": null,
+      "alimentation": null,
+      "longueur_route_mm": null,
+      "diametre_enveloppe_cao_mm": null,
+      "rayon_reservation_mm": null,
+      "masse_lineique_g_m": null,
+      "masse_additionnelle_g": null,
+      "inclus_dans_masse_kit_annoncee": "À confirmer ; ne pas ajouter arbitrairement au kit",
+      "statut": "Planifié / À valider",
+      "a_trancher": "Inventorier montage et fils OEM, entrée/sortie chaînage, alimentation et commande PX4 compatibles ; ne pas réserver AUX1 caméra ni supposer un rail CA01."
+    }
+  ]
+}

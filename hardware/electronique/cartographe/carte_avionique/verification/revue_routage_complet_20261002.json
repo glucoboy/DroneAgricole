@@ -1,0 +1,2562 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02T08:58:29.475590+00:00",
+  "conclusion": "conforme",
+  "status": "Implémenté",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "passed": true,
+  "scope": "Independent Windows amd64 KiCad static review; no PCB/project edits",
+  "requirement_refs": [
+    "CARTE-003",
+    "CARTE-004",
+    "CARTE-005",
+    "CARTE-006",
+    "CARTE-011",
+    "CARTE-012"
+  ],
+  "environment": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "machine": "AMD64",
+    "kicad": "10.0.6",
+    "python": "3.11.5 (main, Jan 23 2026, 07:39:48) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe"
+  },
+  "inputs_sha256": {
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pro": "0e09197617530be64c6f4701ead05297cb7832bb7c0f99415ecfe3b177b19326",
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\verification\\netlist.xml": "8833c3860c56247ad7ed2bc6b826cfc655343c9688ea23d7b89844ab58674501",
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\verification\\review_completed_kelvin.py": "eab48462d08550eebf5650225a1785605910dfe9e9254d96cc6e3aed2b111eca",
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\verification\\review_completed_power_path.py": "c70da59e4dc377aa95e3f47ac14255613fd48a910c65ce82563ce4c4820ce34c",
+    "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\verification\\verify_completed_routing_review.py": "a84be98b47bbfb8f22a75cf9112b540ffdeae24393a5942da37675a9e2ada856"
+  },
+  "protocol": "Fresh process per width-removal test; thresholds are candidate geometry checks, not qualified current capacity. Native physical clusters and filled planes, netlist pad mapping, Kelvin isolation after in-memory terminal cut, native DRC with project severities.",
+  "checks": [
+    {
+      "id": "NETLIST_PADS_PRESERVED",
+      "passed": true,
+      "details": {
+        "expected_nodes": 459,
+        "pcb_nodes": 459,
+        "mismatches": [],
+        "encoding_conversion": "KiCad PCB literal {slash} decoded to / for XML comparison; all conversions listed",
+        "converted_nodes": [
+          {
+            "ref": "U201",
+            "pin": "11",
+            "pcb_net": "unconnected-(U201-SS{slash}TRK-Pad11)",
+            "xml_net": "unconnected-(U201-SS/TRK-Pad11)"
+          },
+          {
+            "ref": "U102",
+            "pin": "1",
+            "pcb_net": "Net-(U102-EN{slash}UVLO)",
+            "xml_net": "Net-(U102-EN/UVLO)"
+          },
+          {
+            "ref": "U102",
+            "pin": "3",
+            "pcb_net": "Net-(U102-SS{slash}TRK)",
+            "xml_net": "Net-(U102-SS/TRK)"
+          },
+          {
+            "ref": "R112",
+            "pin": "2",
+            "pcb_net": "Net-(U102-EN{slash}UVLO)",
+            "xml_net": "Net-(U102-EN/UVLO)"
+          },
+          {
+            "ref": "C113",
+            "pin": "1",
+            "pcb_net": "Net-(U102-SS{slash}TRK)",
+            "xml_net": "Net-(U102-SS/TRK)"
+          },
+          {
+            "ref": "R102",
+            "pin": "1",
+            "pcb_net": "Net-(U101-EN{slash}UVLO)",
+            "xml_net": "Net-(U101-EN/UVLO)"
+          },
+          {
+            "ref": "R113",
+            "pin": "1",
+            "pcb_net": "Net-(U102-EN{slash}UVLO)",
+            "xml_net": "Net-(U102-EN/UVLO)"
+          },
+          {
+            "ref": "R101",
+            "pin": "2",
+            "pcb_net": "Net-(U101-EN{slash}UVLO)",
+            "xml_net": "Net-(U101-EN/UVLO)"
+          },
+          {
+            "ref": "U301",
+            "pin": "11",
+            "pcb_net": "unconnected-(U301-SS{slash}TRK-Pad11)",
+            "xml_net": "unconnected-(U301-SS/TRK-Pad11)"
+          },
+          {
+            "ref": "U101",
+            "pin": "6",
+            "pcb_net": "Net-(U101-EN{slash}UVLO)",
+            "xml_net": "Net-(U101-EN/UVLO)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ALL_SIGNAL_PAD_GROUPS_CONNECTED",
+      "passed": true,
+      "details": {
+        "nets": 111,
+        "disconnected": [],
+        "method": "Declared component internal duplicate-pad jumpers enabled; Kelvin checked separately with jumpers disabled"
+      }
+    },
+    {
+      "id": "GND_REFERENCE_PLANE_PRESENT",
+      "passed": true,
+      "details": [
+        "CA01_GND_In1.Cu"
+      ]
+    },
+    {
+      "id": "INTERNAL_PLANES_WITHOUT_TRACES",
+      "passed": true,
+      "details": "No trace on In1/In2; vias retained, In1 GND and In2 protected battery copper zones"
+    },
+    {
+      "id": "STACK_FOUR_LAYERS",
+      "passed": true,
+      "details": {
+        "layers": 4,
+        "thickness_mm": 1.6
+      }
+    },
+    {
+      "id": "GEOMETRY_COUNTS",
+      "passed": true,
+      "details": {
+        "footprints": 155,
+        "segments": 1255,
+        "vias": 251,
+        "copper_zones": 10,
+        "rule_areas": 7
+      }
+    },
+    {
+      "id": "DUPLICATE_JUMPERS_DECLARED",
+      "passed": true,
+      "details": "Le modele represente les connexions internes du composant, aucun pont cuivre PCB ajoute"
+    },
+    {
+      "id": "HIGH_KELVIN_PHYSICALLY_SEPARATED",
+      "passed": true,
+      "details": "Jumpers desactives uniquement en memoire pour cette mesure"
+    },
+    {
+      "id": "HIGH_SENSE_TO_R115",
+      "passed": true,
+      "details": "Prise sense haute vers R115"
+    },
+    {
+      "id": "HIGH_FORCE_TO_Q104",
+      "passed": true,
+      "details": "Force haute vers les trois sources Q104"
+    },
+    {
+      "id": "E2_NO_FILLED_GND_AT_POSITION",
+      "passed": true,
+      "details": "Aucun cuivre GND rempli F/B/In1 au point E2"
+    },
+    {
+      "id": "CORRIDOR_NATIVE_ZONE_KEEPOUTS",
+      "passed": true,
+      "details": "Six zones natives bloquant les remplissages B"
+    },
+    {
+      "id": "NO_ADDED_GND_VIA_IN_CORRIDOR",
+      "passed": true,
+      "details": [
+        [
+          46.235,
+          48.385
+        ]
+      ]
+    },
+    {
+      "id": "BOOTSTRAP_CONNECTED",
+      "passed": true,
+      "details": "Bootstrap local BST/SW"
+    },
+    {
+      "id": "GATES_CONNECTED",
+      "passed": true,
+      "details": "HO et LO vers MOSFETs"
+    },
+    {
+      "id": "IN1_WITHOUT_TRACE",
+      "passed": true,
+      "details": "Plan GND de reference intact"
+    },
+    {
+      "id": "ONE_PGND_TERMINAL_SEGMENT",
+      "passed": true,
+      "details": "Segment B terminal vers via PGND34.5/43.3"
+    },
+    {
+      "id": "LOW_KELVIN_ISOLATED_BEFORE_PGND",
+      "passed": true,
+      "details": {
+        "method": "Retrait uniquement en memoire du segment terminal PGND ; aucun SaveBoard",
+        "sense_cluster_objects": 7,
+        "cluster": [
+          {
+            "type": "PCB_TRACK",
+            "xy_mm_local": [
+              25.7,
+              46.9
+            ]
+          },
+          {
+            "type": "PCB_TRACK",
+            "xy_mm_local": [
+              25.7,
+              43.1
+            ]
+          },
+          {
+            "type": "PCB_TRACK",
+            "xy_mm_local": [
+              29.6,
+              50.8
+            ]
+          },
+          {
+            "type": "PCB_TRACK",
+            "xy_mm_local": [
+              46.235,
+              50.8
+            ]
+          },
+          {
+            "type": "PCB_TRACK",
+            "xy_mm_local": [
+              46.235,
+              48.385
+            ]
+          },
+          {
+            "type": "PCB_VIA",
+            "xy_mm_local": [
+              46.235,
+              48.385
+            ]
+          },
+          {
+            "type": "PAD",
+            "xy_mm_local": [
+              46.235,
+              48.385
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "POWER_PATH_1",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "12V_COMPUTE",
+        "minimum_track_width_mm": 1.8,
+        "source_pad": [
+          "L101",
+          "2"
+        ],
+        "destination_pad": [
+          "J104",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "6da22f66-b2a7-4c0c-9d8f-346d79dcd7c5",
+            "width_mm": 0.8014,
+            "length_mm": 0.5207134336657736,
+            "start_mm_local": [
+              23.8068,
+              38.3682
+            ],
+            "end_mm_local": [
+              24.175,
+              38.0
+            ],
+            "layer": "F.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_2",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "12V_LIDAR",
+        "minimum_track_width_mm": 1.8,
+        "source_pad": [
+          "L201",
+          "2"
+        ],
+        "destination_pad": [
+          "J201",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "18451ef1-8d41-4752-bc5c-4ec9e6a43ed9",
+            "width_mm": 0.9016,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              69.15,
+              51.675
+            ],
+            "end_mm_local": [
+              69.2,
+              51.725
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "219d1d27-8022-428f-94f9-05daa5668637",
+            "width_mm": 0.9016,
+            "length_mm": 0.4949747468305833,
+            "start_mm_local": [
+              68.8,
+              51.325
+            ],
+            "end_mm_local": [
+              69.15,
+              51.675
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "2f40a60d-9ede-40c2-979c-1e993e732d05",
+            "width_mm": 0.8014,
+            "length_mm": 1.3797,
+            "start_mm_local": [
+              74.0286,
+              53.8761
+            ],
+            "end_mm_local": [
+              72.6489,
+              53.8761
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "32e15ed6-ed04-4058-a78a-62614e96ccba",
+            "width_mm": 0.601,
+            "length_mm": 0.484,
+            "start_mm_local": [
+              82.8625,
+              23.566
+            ],
+            "end_mm_local": [
+              82.8625,
+              24.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "4ba651ef-7c46-4298-8e57-6f5eaf0b8133",
+            "width_mm": 0.8014,
+            "length_mm": 0.528633029615063,
+            "start_mm_local": [
+              72.8988,
+              54.3738
+            ],
+            "end_mm_local": [
+              72.525,
+              54.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "50bc2f63-8674-4a21-a766-e697c59138e9",
+            "width_mm": 0.8014,
+            "length_mm": 9.4262,
+            "start_mm_local": [
+              82.325,
+              54.3738
+            ],
+            "end_mm_local": [
+              72.8988,
+              54.3738
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "829be423-ead4-4521-9136-cd60f001eff0",
+            "width_mm": 0.8014,
+            "length_mm": 0.17522106037802648,
+            "start_mm_local": [
+              72.6489,
+              53.8761
+            ],
+            "end_mm_local": [
+              72.525,
+              54.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "8eba91a8-9915-4c9c-ab61-463611a3c890",
+            "width_mm": 0.601,
+            "length_mm": 1.7285,
+            "start_mm_local": [
+              82.8625,
+              21.8375
+            ],
+            "end_mm_local": [
+              82.8625,
+              23.566
+            ],
+            "layer": "F.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_3",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "5V_AUX",
+        "minimum_track_width_mm": 1.8,
+        "source_pad": [
+          "L301",
+          "2"
+        ],
+        "destination_pad": [
+          "J301",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "178c6133-e242-40e1-ac48-4518bf1455d7",
+            "width_mm": 0.8014,
+            "length_mm": 0.528633029615063,
+            "start_mm_local": [
+              103.8988,
+              54.3738
+            ],
+            "end_mm_local": [
+              103.525,
+              54.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "2ffa811b-4745-41da-ab94-2ac58fc8f9a7",
+            "width_mm": 0.2,
+            "length_mm": 1.9309,
+            "start_mm_local": [
+              100.4228,
+              51.5022
+            ],
+            "end_mm_local": [
+              102.3537,
+              51.5022
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "431ca89b-1b1d-4a59-8fa2-dd9416417020",
+            "width_mm": 0.8014,
+            "length_mm": 4.0845,
+            "start_mm_local": [
+              107.9833,
+              54.3738
+            ],
+            "end_mm_local": [
+              103.8988,
+              54.3738
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "6d7604aa-0a16-483a-8aca-278fb149c9e4",
+            "width_mm": 0.2,
+            "length_mm": 0.48960073529356557,
+            "start_mm_local": [
+              102.3537,
+              51.5022
+            ],
+            "end_mm_local": [
+              102.6999,
+              51.8484
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "710fc39e-7fb1-423e-9294-4c538b87d4a1",
+            "width_mm": 0.2,
+            "length_mm": 1.3265,
+            "start_mm_local": [
+              102.6999,
+              51.8484
+            ],
+            "end_mm_local": [
+              102.6999,
+              53.1749
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "7547beb5-9c34-459d-8404-236230dcf981",
+            "width_mm": 0.2,
+            "length_mm": 0.3150867816967256,
+            "start_mm_local": [
+              100.2,
+              51.725
+            ],
+            "end_mm_local": [
+              100.4228,
+              51.5022
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "a9400537-c344-422c-be8d-1f4a3471bfee",
+            "width_mm": 0.2,
+            "length_mm": 1.166867610314041,
+            "start_mm_local": [
+              102.6999,
+              53.1749
+            ],
+            "end_mm_local": [
+              103.525,
+              54.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "da10b7bd-c3ee-4e8a-8714-a0bfd64bde6d",
+            "width_mm": 0.9016,
+            "length_mm": 1.65,
+            "start_mm_local": [
+              98.55,
+              51.725
+            ],
+            "end_mm_local": [
+              100.2,
+              51.725
+            ],
+            "layer": "F.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_4",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "5V_AUX",
+        "minimum_track_width_mm": 0.6,
+        "source_pad": [
+          "L301",
+          "2"
+        ],
+        "destination_pad": [
+          "F102",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "2ffa811b-4745-41da-ab94-2ac58fc8f9a7",
+            "width_mm": 0.2,
+            "length_mm": 1.9309,
+            "start_mm_local": [
+              100.4228,
+              51.5022
+            ],
+            "end_mm_local": [
+              102.3537,
+              51.5022
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "6d7604aa-0a16-483a-8aca-278fb149c9e4",
+            "width_mm": 0.2,
+            "length_mm": 0.48960073529356557,
+            "start_mm_local": [
+              102.3537,
+              51.5022
+            ],
+            "end_mm_local": [
+              102.6999,
+              51.8484
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "710fc39e-7fb1-423e-9294-4c538b87d4a1",
+            "width_mm": 0.2,
+            "length_mm": 1.3265,
+            "start_mm_local": [
+              102.6999,
+              51.8484
+            ],
+            "end_mm_local": [
+              102.6999,
+              53.1749
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "7547beb5-9c34-459d-8404-236230dcf981",
+            "width_mm": 0.2,
+            "length_mm": 0.3150867816967256,
+            "start_mm_local": [
+              100.2,
+              51.725
+            ],
+            "end_mm_local": [
+              100.4228,
+              51.5022
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "a9400537-c344-422c-be8d-1f4a3471bfee",
+            "width_mm": 0.2,
+            "length_mm": 1.166867610314041,
+            "start_mm_local": [
+              102.6999,
+              53.1749
+            ],
+            "end_mm_local": [
+              103.525,
+              54.0
+            ],
+            "layer": "F.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_5",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "5V_RADIO",
+        "minimum_track_width_mm": 0.6,
+        "source_pad": [
+          "F102",
+          "2"
+        ],
+        "destination_pad": [
+          "MOD401",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_6",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "Net-(U101-A)",
+        "minimum_track_width_mm": 1.5,
+        "source_pad": [
+          "F101",
+          "2"
+        ],
+        "destination_pad": [
+          "Q101",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "5bda570c-160c-410a-9543-3e2504d30ee3",
+            "width_mm": 0.6498,
+            "length_mm": 0.0005,
+            "start_mm_local": [
+              23.095,
+              70.752
+            ],
+            "end_mm_local": [
+              23.095,
+              70.7525
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "695e8c1d-c1f3-4faa-95a9-9819bf2af5bd",
+            "width_mm": 0.6498,
+            "length_mm": 0.0005,
+            "start_mm_local": [
+              24.365,
+              70.752
+            ],
+            "end_mm_local": [
+              24.365,
+              70.7525
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "7aa765e2-e537-4595-87c2-74ed28cd8925",
+            "width_mm": 0.2,
+            "length_mm": 2.1375,
+            "start_mm_local": [
+              29.5625,
+              57.25
+            ],
+            "end_mm_local": [
+              27.425,
+              57.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "89a45618-0185-41e3-a622-ff86cc12ecf2",
+            "width_mm": 0.2,
+            "length_mm": 3.05,
+            "start_mm_local": [
+              30.225,
+              55.0
+            ],
+            "end_mm_local": [
+              27.175,
+              55.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "a5d69789-b23d-4e28-ab73-65acd453d368",
+            "width_mm": 0.2,
+            "length_mm": 1.4142135623730951,
+            "start_mm_local": [
+              27.175,
+              55.0
+            ],
+            "end_mm_local": [
+              26.175,
+              56.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "a5d6a9f1-4761-4751-af61-ab03625fdb5b",
+            "width_mm": 0.2502,
+            "length_mm": 0.5,
+            "start_mm_local": [
+              29.5625,
+              57.25
+            ],
+            "end_mm_local": [
+              29.5625,
+              57.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b576b4cf-c822-483a-8008-d390e28d2308",
+            "width_mm": 0.2,
+            "length_mm": 1.767766952966369,
+            "start_mm_local": [
+              27.425,
+              57.25
+            ],
+            "end_mm_local": [
+              26.175,
+              56.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b76e5ac0-c3e2-47bc-9980-48b67db9e66d",
+            "width_mm": 0.6498,
+            "length_mm": 0.0005,
+            "start_mm_local": [
+              25.635,
+              70.752
+            ],
+            "end_mm_local": [
+              25.635,
+              70.7525
+            ],
+            "layer": "F.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_7",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "Net-(Q101-D)",
+        "minimum_track_width_mm": 1.5,
+        "source_pad": [
+          "Q101",
+          "5"
+        ],
+        "destination_pad": [
+          "Q102",
+          "5"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "00c7cf7f-6dc8-4074-a21f-4ee7f4c31aec",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.3,
+              61.15
+            ],
+            "end_mm_local": [
+              35.35,
+              61.1
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "01716843-9bac-4c90-98c3-d6c9b0bd0fbf",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.45,
+              61.05
+            ],
+            "end_mm_local": [
+              35.5,
+              61.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "04d6445d-59cf-46e1-9d53-9867e83ad9be",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              33.2,
+              56.15
+            ],
+            "end_mm_local": [
+              33.25,
+              56.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "07013b74-3406-444a-959d-5b39dfa994b1",
+            "width_mm": 0.2,
+            "length_mm": 0.55,
+            "start_mm_local": [
+              34.75,
+              61.15
+            ],
+            "end_mm_local": [
+              35.3,
+              61.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "0a4cfa19-ea06-48f0-9237-2c1287af6cd7",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              34.7,
+              61.2
+            ],
+            "end_mm_local": [
+              34.75,
+              61.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "0b5b9a91-3dd0-4408-b2a8-ca7d8c18684a",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.75,
+              60.05
+            ],
+            "end_mm_local": [
+              35.8,
+              60.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "0e1cff29-8e88-46cc-a210-9efdd336342e",
+            "width_mm": 0.2,
+            "length_mm": 1.25,
+            "start_mm_local": [
+              31.0,
+              55.5
+            ],
+            "end_mm_local": [
+              31.0,
+              54.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "13022664-33be-4b28-b72d-232ca7b13b8c",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              31.05,
+              55.55
+            ],
+            "end_mm_local": [
+              31.0,
+              55.5
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "15d979bc-031f-43af-b2c6-b2c9265409bf",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.75,
+              58.95
+            ],
+            "end_mm_local": [
+              35.75,
+              58.9
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "17afbe2c-a246-4783-b5d5-da5be01f485a",
+            "width_mm": 0.2,
+            "length_mm": 0.14142135623730953,
+            "start_mm_local": [
+              31.0,
+              54.25
+            ],
+            "end_mm_local": [
+              31.1,
+              54.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "1bd911fa-ae26-4511-b1c1-010210df2c00",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              34.1,
+              56.5
+            ],
+            "end_mm_local": [
+              34.15,
+              56.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "1cb7112b-e6f2-4a12-a807-b241230ec5d1",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              33.35,
+              57.65
+            ],
+            "end_mm_local": [
+              33.3,
+              57.65
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "20f78002-e6f1-4803-bee8-f9db9ccaa7bc",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.15,
+              57.7
+            ],
+            "end_mm_local": [
+              35.1,
+              57.65
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "240f6fe6-aad6-4b43-a128-69496e2407bc",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              31.2,
+              55.75
+            ],
+            "end_mm_local": [
+              31.05,
+              55.6
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "246238e0-2ffb-4578-9ca1-3c9a19b4020b",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              34.05,
+              56.4
+            ],
+            "end_mm_local": [
+              34.1,
+              56.45
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "2aaffafe-9567-45ef-90f2-1c5cdecec212",
+            "width_mm": 0.2,
+            "length_mm": 0.4,
+            "start_mm_local": [
+              34.15,
+              56.55
+            ],
+            "end_mm_local": [
+              34.15,
+              56.95
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "2b41afc0-d8ad-4f83-8efb-e8a92a4279cd",
+            "width_mm": 0.2,
+            "length_mm": 0.2,
+            "start_mm_local": [
+              31.5,
+              55.8
+            ],
+            "end_mm_local": [
+              31.3,
+              55.8
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "2eadb5a2-15b8-434a-becd-89154f9b8b79",
+            "width_mm": 0.2,
+            "length_mm": 0.55,
+            "start_mm_local": [
+              35.45,
+              58.6
+            ],
+            "end_mm_local": [
+              35.45,
+              58.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "36b888df-23b3-4641-8e42-95c48b1fbc9b",
+            "width_mm": 0.2,
+            "length_mm": 0.45,
+            "start_mm_local": [
+              33.35,
+              57.5
+            ],
+            "end_mm_local": [
+              33.8,
+              57.5
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "3a79a897-6337-4c62-ab17-c3fbbef372c4",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.7,
+              60.75
+            ],
+            "end_mm_local": [
+              35.75,
+              60.7
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "446c4e3a-db5f-49ff-8c60-5a617b988f20",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              34.1,
+              57.0
+            ],
+            "end_mm_local": [
+              34.1,
+              57.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "458ecde5-2eb0-4f90-ae18-626ad54f0ae8",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.8,
+              59.0
+            ],
+            "end_mm_local": [
+              35.75,
+              58.95
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "45ffd75b-319c-4b24-8d10-73550c3ef27d",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.4,
+              57.6
+            ],
+            "end_mm_local": [
+              33.35,
+              57.65
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "49c9d961-0747-4949-88af-43b081846924",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.35,
+              61.1
+            ],
+            "end_mm_local": [
+              35.4,
+              61.1
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "4dfa6290-a8cc-48b5-a553-61495e075213",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              31.35,
+              52.25
+            ],
+            "end_mm_local": [
+              31.4,
+              52.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "553eb458-c879-49a1-a9a2-2f0cc3c91106",
+            "width_mm": 0.2,
+            "length_mm": 0.6625,
+            "start_mm_local": [
+              32.4375,
+              57.75
+            ],
+            "end_mm_local": [
+              33.1,
+              57.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "55627451-6b97-4938-ad22-2dfc73fd8d8b",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.4,
+              61.1
+            ],
+            "end_mm_local": [
+              35.45,
+              61.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "583bb042-774a-46b0-bf43-b8b9860c7aa3",
+            "width_mm": 0.2,
+            "length_mm": 0.45,
+            "start_mm_local": [
+              33.3,
+              56.1
+            ],
+            "end_mm_local": [
+              33.75,
+              56.1
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "58c8f794-1f6a-4403-89fc-d63d326db237",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              35.35,
+              57.85
+            ],
+            "end_mm_local": [
+              35.2,
+              57.7
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "598239b1-b12a-4f43-b12d-a66c31628a17",
+            "width_mm": 0.2,
+            "length_mm": 0.14142135623730953,
+            "start_mm_local": [
+              33.75,
+              56.1
+            ],
+            "end_mm_local": [
+              33.85,
+              56.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "5c853d60-c8a1-4888-985c-cc08655a458f",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.35,
+              57.9
+            ],
+            "end_mm_local": [
+              35.35,
+              57.85
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "5ef326b3-b2d0-4836-acb2-416ab7b1cf74",
+            "width_mm": 0.2,
+            "length_mm": 1.3435028842544405,
+            "start_mm_local": [
+              32.45,
+              56.75
+            ],
+            "end_mm_local": [
+              31.5,
+              55.8
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "61a67a83-b6bd-4107-9537-8765d1513397",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.65,
+              60.85
+            ],
+            "end_mm_local": [
+              35.7,
+              60.8
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "61b3012f-0ffe-4a8a-97a5-995c107c98d7",
+            "width_mm": 0.2,
+            "length_mm": 0.0125,
+            "start_mm_local": [
+              32.4375,
+              56.75
+            ],
+            "end_mm_local": [
+              32.45,
+              56.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "63f67913-af56-4913-a728-335e73cf9895",
+            "width_mm": 0.2,
+            "length_mm": 0.1,
+            "start_mm_local": [
+              33.05,
+              56.2
+            ],
+            "end_mm_local": [
+              33.15,
+              56.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "64efb942-a14c-4b0c-9465-540d7f1fdea9",
+            "width_mm": 0.2,
+            "length_mm": 1.65,
+            "start_mm_local": [
+              31.1,
+              54.15
+            ],
+            "end_mm_local": [
+              31.1,
+              52.5
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "674e36c6-d397-413a-89a3-3ec65975432e",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.3,
+              57.65
+            ],
+            "end_mm_local": [
+              33.25,
+              57.7
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "70e3c37b-0423-42e2-b500-20ac402cdf21",
+            "width_mm": 0.2,
+            "length_mm": 0.14142135623730953,
+            "start_mm_local": [
+              30.4,
+              60.95
+            ],
+            "end_mm_local": [
+              30.5,
+              60.85
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "73dc4fc1-7b17-41cc-b790-073d101a40ce",
+            "width_mm": 0.2,
+            "length_mm": 1.6,
+            "start_mm_local": [
+              35.0,
+              57.6
+            ],
+            "end_mm_local": [
+              33.4,
+              57.6
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "77f08200-27cb-4f4e-ab82-520290984a65",
+            "width_mm": 0.2,
+            "length_mm": 0.025,
+            "start_mm_local": [
+              30.225,
+              61.0
+            ],
+            "end_mm_local": [
+              30.2,
+              61.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "7ed9de98-e974-4288-9f38-f102765d6da4",
+            "width_mm": 0.2,
+            "length_mm": 0.42426406871192857,
+            "start_mm_local": [
+              35.75,
+              58.9
+            ],
+            "end_mm_local": [
+              35.45,
+              58.6
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "85be1df2-246a-41df-9d10-12af44b417d2",
+            "width_mm": 0.2,
+            "length_mm": 0.3535533905932738,
+            "start_mm_local": [
+              33.1,
+              57.75
+            ],
+            "end_mm_local": [
+              33.35,
+              57.5
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "8819d33e-055f-41f0-bbba-d485df557827",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.25,
+              56.15
+            ],
+            "end_mm_local": [
+              33.3,
+              56.1
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "8940513a-8b56-408c-a155-00a3b073b7c8",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.4,
+              58.0
+            ],
+            "end_mm_local": [
+              35.4,
+              57.95
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "8d916d26-913a-489f-9d94-20ebf842c369",
+            "width_mm": 0.2,
+            "length_mm": 0.2,
+            "start_mm_local": [
+              30.5,
+              60.85
+            ],
+            "end_mm_local": [
+              30.7,
+              60.85
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "91cc00e4-5148-4f26-ab09-25380c820b14",
+            "width_mm": 0.2,
+            "length_mm": 1.0,
+            "start_mm_local": [
+              35.8,
+              60.0
+            ],
+            "end_mm_local": [
+              35.8,
+              59.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "92cd6bda-2d1a-4e3e-9f72-fe3e7495dc7a",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.15,
+              56.2
+            ],
+            "end_mm_local": [
+              33.2,
+              56.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "9997a9cc-7fc7-43b4-8122-b775706396ac",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              32.45,
+              56.75
+            ],
+            "end_mm_local": [
+              32.5,
+              56.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ab1c529c-c922-4ac7-b81f-490df3745738",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              31.3,
+              52.25
+            ],
+            "end_mm_local": [
+              31.35,
+              52.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b1153b37-f5ce-4b6c-a637-306cec6fc52c",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              35.5,
+              61.05
+            ],
+            "end_mm_local": [
+              35.65,
+              60.9
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b17c0978-637c-4f7f-8450-8b9c660382c5",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              34.1,
+              57.05
+            ],
+            "end_mm_local": [
+              34.05,
+              57.1
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b2b3e533-d88f-42c6-bee1-4a86871fff11",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              34.1,
+              56.45
+            ],
+            "end_mm_local": [
+              34.1,
+              56.5
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b5d70a0c-8f28-490a-88e6-5fe8ef996a04",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.2,
+              57.7
+            ],
+            "end_mm_local": [
+              35.15,
+              57.7
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b6b10c11-8ef5-4434-9a15-0459bebf30d0",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              31.15,
+              52.4
+            ],
+            "end_mm_local": [
+              31.3,
+              52.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "b956f944-4267-4ffe-98f4-34a9c3263865",
+            "width_mm": 0.2,
+            "length_mm": 0.025,
+            "start_mm_local": [
+              30.225,
+              61.0
+            ],
+            "end_mm_local": [
+              30.2,
+              61.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ba0ebb1d-b3b3-48b8-a7ed-b48ec22696b4",
+            "width_mm": 0.2,
+            "length_mm": 0.65,
+            "start_mm_local": [
+              35.75,
+              60.7
+            ],
+            "end_mm_local": [
+              35.75,
+              60.05
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "c1fe44d0-bc09-46e8-a9ad-27ed4d79df14",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              31.15,
+              52.45
+            ],
+            "end_mm_local": [
+              31.15,
+              52.4
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "c3f6ac49-ce24-4c07-9d2f-79490801e965",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.65,
+              60.9
+            ],
+            "end_mm_local": [
+              35.65,
+              60.85
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "cab9df2b-a575-49c2-825f-d7b6dc2dcfed",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              33.85,
+              56.2
+            ],
+            "end_mm_local": [
+              33.9,
+              56.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "cac2976a-b07c-4a84-9965-18bed7293411",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              31.25,
+              55.75
+            ],
+            "end_mm_local": [
+              31.2,
+              55.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "cb87220b-fff1-43b6-aaed-af4f2af261c0",
+            "width_mm": 0.2,
+            "length_mm": 0.0125,
+            "start_mm_local": [
+              32.4375,
+              56.75
+            ],
+            "end_mm_local": [
+              32.45,
+              56.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ce318783-8104-4748-a210-7b4df49491b6",
+            "width_mm": 0.2,
+            "length_mm": 0.28284271247461906,
+            "start_mm_local": [
+              34.05,
+              57.15
+            ],
+            "end_mm_local": [
+              33.85,
+              57.35
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ce3f1da9-6234-41fd-8347-50d55e043569",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              31.05,
+              55.6
+            ],
+            "end_mm_local": [
+              31.05,
+              55.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ce7b6b61-9b8a-46ea-bbaa-1d8123cf2125",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              31.1,
+              52.5
+            ],
+            "end_mm_local": [
+              31.15,
+              52.45
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d421f0d4-25a9-4d44-854e-0d9b436ce0f3",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              34.05,
+              56.35
+            ],
+            "end_mm_local": [
+              34.05,
+              56.4
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d484388c-7c3f-40b2-8cc2-29c1936893af",
+            "width_mm": 0.2,
+            "length_mm": 0.5656854249492381,
+            "start_mm_local": [
+              30.2,
+              61.0
+            ],
+            "end_mm_local": [
+              30.6,
+              61.4
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d563dfdf-158b-43e9-af35-a0f60e6120ff",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.1,
+              57.65
+            ],
+            "end_mm_local": [
+              35.05,
+              57.65
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d730811f-b005-4c72-9592-870245837634",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              33.9,
+              56.2
+            ],
+            "end_mm_local": [
+              34.05,
+              56.35
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d755459b-f595-4af1-8b7b-8043b1bae3c7",
+            "width_mm": 0.2,
+            "length_mm": 0.15,
+            "start_mm_local": [
+              30.25,
+              60.95
+            ],
+            "end_mm_local": [
+              30.4,
+              60.95
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d82b8b13-6cbe-4a54-ae05-64c026314d64",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              34.15,
+              56.95
+            ],
+            "end_mm_local": [
+              34.1,
+              57.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d82facc9-b5c9-47d3-a0a9-39968f14c919",
+            "width_mm": 0.2,
+            "length_mm": 2.15,
+            "start_mm_local": [
+              31.4,
+              52.2
+            ],
+            "end_mm_local": [
+              33.55,
+              52.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "d9ee400d-dfba-4706-adb4-acb5a8d1ca81",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              35.7,
+              60.8
+            ],
+            "end_mm_local": [
+              35.7,
+              60.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "e832cb63-1ee0-4304-b858-d0602db866d2",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              34.05,
+              57.1
+            ],
+            "end_mm_local": [
+              34.05,
+              57.15
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "ec80017e-6fa4-4803-9694-4f067359e8a1",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              31.3,
+              55.8
+            ],
+            "end_mm_local": [
+              31.25,
+              55.75
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "f4bf6432-4812-45d2-900f-c42a55e8bdf3",
+            "width_mm": 0.2,
+            "length_mm": 0.7778174593052024,
+            "start_mm_local": [
+              32.5,
+              56.75
+            ],
+            "end_mm_local": [
+              33.05,
+              56.2
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "f519f307-6cd0-471d-a6b5-6dca213a001a",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.45,
+              58.05
+            ],
+            "end_mm_local": [
+              35.4,
+              58.0
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "f7e85e43-af10-409b-a2c8-07e23c5bfdcc",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              30.2,
+              61.0
+            ],
+            "end_mm_local": [
+              30.25,
+              60.95
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "f86a09d5-3145-4aab-bae7-0e413ab6039f",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.4,
+              57.95
+            ],
+            "end_mm_local": [
+              35.35,
+              57.9
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "fe716d8b-b38a-44d8-865f-e4547338b22b",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              35.05,
+              57.65
+            ],
+            "end_mm_local": [
+              35.0,
+              57.6
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "00552cd0-2c59-4336-a763-464320fbb208",
+            "width_mm": 0.2,
+            "length_mm": 0.14142135623730953,
+            "start_mm_local": [
+              33.1,
+              61.95
+            ],
+            "end_mm_local": [
+              33.2,
+              62.05
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "1e153586-112f-4691-a9da-ae1cfcf2c3f9",
+            "width_mm": 0.2,
+            "length_mm": 0.4949747468305833,
+            "start_mm_local": [
+              30.95,
+              61.15
+            ],
+            "end_mm_local": [
+              31.3,
+              61.5
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "315daad8-bd9f-4b0b-9bd0-7546d22d1718",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              33.85,
+              62.0
+            ],
+            "end_mm_local": [
+              33.9,
+              62.0
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "32bcb7a4-46c7-409c-b10e-bb3fe58e37c9",
+            "width_mm": 0.2,
+            "length_mm": 0.14142135623730953,
+            "start_mm_local": [
+              31.35,
+              61.5
+            ],
+            "end_mm_local": [
+              31.45,
+              61.6
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "35a37c84-cc01-4d3f-8dc5-07df4173f1b7",
+            "width_mm": 0.2,
+            "length_mm": 0.1,
+            "start_mm_local": [
+              33.55,
+              65.85
+            ],
+            "end_mm_local": [
+              33.55,
+              65.95
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "3f5de0ff-a803-4a01-9956-cfb103df6842",
+            "width_mm": 0.2,
+            "length_mm": 0.7071067811865476,
+            "start_mm_local": [
+              33.05,
+              65.35
+            ],
+            "end_mm_local": [
+              33.55,
+              65.85
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "4dc394b4-f71d-4a51-b482-9576aa140dfe",
+            "width_mm": 0.2,
+            "length_mm": 0.2,
+            "start_mm_local": [
+              33.4,
+              62.1
+            ],
+            "end_mm_local": [
+              33.6,
+              62.1
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "50f84416-cdc8-4257-bc3f-d13734404219",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              33.05,
+              61.95
+            ],
+            "end_mm_local": [
+              33.1,
+              61.95
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "56680f47-7149-40c9-91bc-38c2b5102c31",
+            "width_mm": 0.2,
+            "length_mm": 3.3941125496954285,
+            "start_mm_local": [
+              30.6,
+              61.4
+            ],
+            "end_mm_local": [
+              33.0,
+              63.8
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "5cd50032-365c-4991-8632-d79f73e1fe7e",
+            "width_mm": 0.2,
+            "length_mm": 0.15,
+            "start_mm_local": [
+              33.65,
+              62.05
+            ],
+            "end_mm_local": [
+              33.8,
+              62.05
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "69e9d712-fecf-40b6-b563-5fafc1a89bb0",
+            "width_mm": 0.2,
+            "length_mm": 0.3535533905932738,
+            "start_mm_local": [
+              30.7,
+              60.85
+            ],
+            "end_mm_local": [
+              30.95,
+              61.1
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "7f58d27e-8be1-4099-81f2-43fdd3589bb9",
+            "width_mm": 0.2,
+            "length_mm": 1.2,
+            "start_mm_local": [
+              33.0,
+              63.8
+            ],
+            "end_mm_local": [
+              33.0,
+              65.0
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "8186fee1-dd3f-4209-8988-a1b144355c05",
+            "width_mm": 0.2,
+            "length_mm": 0.15,
+            "start_mm_local": [
+              33.2,
+              62.05
+            ],
+            "end_mm_local": [
+              33.35,
+              62.05
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "979df437-2ce3-4f3c-baad-a44958bf3b96",
+            "width_mm": 0.2,
+            "length_mm": 0.21213203435596428,
+            "start_mm_local": [
+              33.55,
+              65.95
+            ],
+            "end_mm_local": [
+              33.7,
+              66.1
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "9ec14764-32b5-4bec-8234-cbafb4dc36ba",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.35,
+              62.05
+            ],
+            "end_mm_local": [
+              33.4,
+              62.1
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "9f8b23fb-f94c-49fa-9014-10cfbe4cdc46",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              31.55,
+              61.6
+            ],
+            "end_mm_local": [
+              31.6,
+              61.65
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "a62da5ba-a2cc-4c66-b5a2-0b4b3f82224d",
+            "width_mm": 0.2,
+            "length_mm": 1.15,
+            "start_mm_local": [
+              31.6,
+              61.65
+            ],
+            "end_mm_local": [
+              32.75,
+              61.65
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "a6f025fc-099c-4596-80e5-5499db80cfc9",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              31.3,
+              61.5
+            ],
+            "end_mm_local": [
+              31.35,
+              61.5
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "a8b2e947-42ff-4918-8a6e-38aeb22bbe1f",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.6,
+              62.1
+            ],
+            "end_mm_local": [
+              33.65,
+              62.05
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "d6061501-a89b-4697-a6d3-02092e101bd3",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.0,
+              65.0
+            ],
+            "end_mm_local": [
+              33.05,
+              65.05
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "d85cc868-211c-44b5-bab3-5695e358be68",
+            "width_mm": 0.2,
+            "length_mm": 0.05,
+            "start_mm_local": [
+              30.95,
+              61.1
+            ],
+            "end_mm_local": [
+              30.95,
+              61.15
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "deb4bb9c-c100-417b-88a3-d0b9aada03d9",
+            "width_mm": 0.2,
+            "length_mm": 0.3,
+            "start_mm_local": [
+              33.05,
+              65.05
+            ],
+            "end_mm_local": [
+              33.05,
+              65.35
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "e07e7930-681d-4133-84c4-cf12fc55a360",
+            "width_mm": 0.2,
+            "length_mm": 0.1,
+            "start_mm_local": [
+              31.45,
+              61.6
+            ],
+            "end_mm_local": [
+              31.55,
+              61.6
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "e611b7a0-6e54-4ee2-bc29-dc475533bd08",
+            "width_mm": 0.2,
+            "length_mm": 0.42426406871192857,
+            "start_mm_local": [
+              32.75,
+              61.65
+            ],
+            "end_mm_local": [
+              33.05,
+              61.95
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "f022cfee-d76f-42db-9423-5c33e11a763a",
+            "width_mm": 0.2,
+            "length_mm": 0.07071067811865477,
+            "start_mm_local": [
+              33.8,
+              62.05
+            ],
+            "end_mm_local": [
+              33.85,
+              62.0
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "fd13b8b3-8d27-40d5-8a39-620fd746b7d8",
+            "width_mm": 0.2,
+            "length_mm": 1.1313708498984762,
+            "start_mm_local": [
+              33.9,
+              62.0
+            ],
+            "end_mm_local": [
+              34.7,
+              61.2
+            ],
+            "layer": "B.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "POWER_PATH_8",
+      "passed": true,
+      "details": {
+        "source": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_pcb",
+        "source_sha256": "a6cdaa969a8ac71890a7139b2259b68040cbe3cacc1a3a0e358b1eebc4b25b70",
+        "source_unchanged": true,
+        "net": "Net-(Q104-D)",
+        "minimum_track_width_mm": 1.5,
+        "source_pad": [
+          "Q104",
+          "5"
+        ],
+        "destination_pad": [
+          "L101",
+          "1"
+        ],
+        "initial_connected": true,
+        "passed": true,
+        "removed_tracks": [
+          {
+            "uuid": "07dc67a3-a3ff-4841-a944-9d0025dfe49b",
+            "width_mm": 0.6,
+            "length_mm": 2.54,
+            "start_mm_local": [
+              40.2475,
+              33.095
+            ],
+            "end_mm_local": [
+              40.2475,
+              35.635
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "3b6880e7-8fdb-4352-bb57-b16e0ad21959",
+            "width_mm": 0.2,
+            "length_mm": 0.5,
+            "start_mm_local": [
+              35.2,
+              37.55
+            ],
+            "end_mm_local": [
+              35.7,
+              37.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "3c85882f-eec9-4052-9ed7-f0da39ba8e3e",
+            "width_mm": 0.25,
+            "length_mm": 0.7,
+            "start_mm_local": [
+              35.2,
+              38.25
+            ],
+            "end_mm_local": [
+              35.2,
+              37.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "4a6ff14a-6b73-4c88-a4c1-9f9a8ba26717",
+            "width_mm": 0.25,
+            "length_mm": 0.675,
+            "start_mm_local": [
+              37.0,
+              37.55
+            ],
+            "end_mm_local": [
+              37.0,
+              38.225
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "57912d6d-1e60-4667-9fcf-99011bbcbcbf",
+            "width_mm": 0.25,
+            "length_mm": 1.8,
+            "start_mm_local": [
+              35.2,
+              37.55
+            ],
+            "end_mm_local": [
+              37.0,
+              37.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "75a77496-091b-4312-ba88-022a700286ec",
+            "width_mm": 0.25,
+            "length_mm": 0.55,
+            "start_mm_local": [
+              34.65,
+              38.25
+            ],
+            "end_mm_local": [
+              35.2,
+              38.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "8caf15ff-7912-4485-8a72-67a2e4baa11c",
+            "width_mm": 0.2,
+            "length_mm": 0.7,
+            "start_mm_local": [
+              35.2,
+              38.25
+            ],
+            "end_mm_local": [
+              35.2,
+              37.55
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "aa33eaba-9755-4beb-9dae-6f3e5e69d66c",
+            "width_mm": 0.2,
+            "length_mm": 0.55,
+            "start_mm_local": [
+              34.65,
+              38.25
+            ],
+            "end_mm_local": [
+              35.2,
+              38.25
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "de17ef02-9839-4031-b45a-23fb7a2176b2",
+            "width_mm": 0.6,
+            "length_mm": 1.9475,
+            "start_mm_local": [
+              40.2475,
+              34.365
+            ],
+            "end_mm_local": [
+              38.3,
+              34.365
+            ],
+            "layer": "F.Cu"
+          },
+          {
+            "uuid": "1f4a8d7c-b1ea-426b-a238-167aa77a3f28",
+            "width_mm": 0.65,
+            "length_mm": 1.7356554957709782,
+            "start_mm_local": [
+              35.7,
+              37.55
+            ],
+            "end_mm_local": [
+              37.0,
+              36.4
+            ],
+            "layer": "B.Cu"
+          },
+          {
+            "uuid": "6e2e6252-659d-4353-963c-bf19a61d8d5d",
+            "width_mm": 0.65,
+            "length_mm": 2.1,
+            "start_mm_local": [
+              37.0,
+              36.4
+            ],
+            "end_mm_local": [
+              39.1,
+              36.4
+            ],
+            "layer": "B.Cu"
+          }
+        ],
+        "method": "Fresh pcbnew process; narrow tracks removed only in memory, no SaveBoard. Duplicate-pad jumpers disabled in memory. Vias, pads and filled zones retained. This checks a wide physical path, not current capacity."
+      }
+    },
+    {
+      "id": "INDEPENDENT_NATIVE_DRC_PARITY",
+      "passed": true,
+      "details": {
+        "returncode": 0,
+        "counts": {
+          "violations": 0,
+          "unconnected_items": 0,
+          "schematic_parity": 0
+        },
+        "ignored_checks": [
+          {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+          },
+          {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+          },
+          {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+          },
+          {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+          },
+          {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+          }
+        ],
+        "configuration": "Project severities unchanged; five pre-existing ignored checks remain explicitly listed",
+        "report": "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\electronique\\cartographe\\carte_avionique\\verification\\revue_routage_complet_20261002_drc.json",
+        "report_sha256": "9ec1198b61f0602bb3233680dbde887d4a96303f3e815507881224785c6599d8"
+      }
+    },
+    {
+      "id": "SOURCE_INPUTS_UNCHANGED",
+      "passed": true,
+      "details": "PCB, project, netlist and recipes retain their initial hashes; no SaveBoard"
+    }
+  ],
+  "counts": {
+    "footprints": 155,
+    "segments": 1255,
+    "vias": 251,
+    "copper_zones": 10,
+    "rule_areas": 7
+  },
+  "limitations": [
+    "All current, temperature, load, stability, efficiency, startup, transient, EMC and manufacturer DFM tests remain unexecuted.",
+    "Via current capacity, short MOSFET source necks, LM76003 fanouts and thermal rise remain À valider.",
+    "No proof of fabrication readiness or qualification on hardware.",
+    "DRC uses unchanged project severities including five ignored checks; separate audit required for those ignored checks."
+  ],
+  "references": [
+    "https://www.ti.com/lit/ds/symlink/lm5146-q1.pdf"
+  ],
+  "t0_applicability": "Hardware CAO static proof; dataset, calibration, simulation and flight T0 contracts not applicable.",
+  "physical_tests_executed": 0
+}

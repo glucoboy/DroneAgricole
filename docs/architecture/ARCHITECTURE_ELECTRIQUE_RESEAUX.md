@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-ELEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 1 octobre 2026 |
+| Dernière mise à jour | 4 octobre 2026 |
 | Statut | architecture candidate ; schémas, faisceaux et qualifications **À valider** |
 
 ## 1. Objet
@@ -151,7 +151,7 @@ leur empreinte restent à fixer pour la cible V0.5.
 | Sorties de temps candidates | PPS/GPRMC adaptés vers Airy et Orin | W23/W24 ; J504 Airy, J505/J506 Orin logiques ; broches fabricant selon §4.3 | conversion série Airy, fan-out, protection, pinmux et masse **À valider** |
 | Entrée commande caméra | AUX1 Pixhawk et GND | W33 ; J507 logique ; FMU PWM OUT pin2 3,3 V, pin10 GND | fonction PX4, groupe timer et protection **À valider** |
 | Entrée optionnelle | SYNC_OUT1 Airy et retour | J501:1 = AIRY_SYNC_RAW, :2 = GND ; W17 | impulsion angulaire non caractérisée ; JP501 ouvert |
-| Entrée/sortie radio | 5 V/GND RP4TD et UART | J401:1 = 5V_RADIO, :2 = GND, :3 = RP_TX, :4 = RP_RX ; W11 | niveaux et brochage OEM **À valider** |
+| Module radio direct | 5 V/GND RP4TD et UART | MOD401:1 = 5V_RADIO, :2 = GND, :3 = RP_TX, :4 = RP_RX ; sans W11/J401 | contacts physiques et montage **À valider** |
 | Entrée/sortie contrôleur | UART radio Pixhawk | J402:1 = GND, :2 = FC_RX_RF, :3 = FC_TX_RF ; W12 | port et TX/RX **À valider** ; pas d'alimentation Pixhawk |
 | Sortie puissance | 12 V calcul vers XT30 Jetson | J104:1 = 12V_COMPUTE, :2 = GND ; W09 | conversion et courant **À valider** |
 | Sortie puissance | 12 V Airy | J201:1 = 12V_LIDAR, :2 = GND ; W10 | conversion et faisceau **À valider** |
@@ -178,8 +178,9 @@ Le PM08-CAN, fixé au châssis près de la distribution, remplace le PM02D dans
 la cible. Le fabricant annonce 200 A continus, 400 A pendant 1 s à 25 °C
 et deux BEC indépendants de 5,3 V/3 A chacun ; ces valeurs ne qualifient ni
 connecteurs, ni faisceau, ni tenue thermique installée. Son enveloppe
-45 × 41 × 26 mm hors câbles et sa masse de 185 g câbles inclus doivent
-encore être répercutées dans la CAO et le bilan de masse.
+45 × 41 × 26 mm hors câbles est représentée dans la maquette système
+inactive du 3 octobre. Sa masse de 185 g câbles inclus est inscrite dans
+la BOM cible ; la réconciliation du bilan et les fixations restent **À valider**.
 
 | Voie fonctionnelle | Destination | Contrainte |
 |---|---|---|
@@ -274,8 +275,8 @@ sans leur attribuer une action logicielle de vol non spécifiée.
 La feuille `04_radio.kicad_sch` (page 3 du PDF) est reprise graphiquement
 le 30 septembre 2026 : port Pixhawk et arrivée 5 V à gauche, module radio
 à droite, voies UART reliées par des fils directs et sens aller/retour
-explicites. Les symboles J401/J402 sont agrandis pour afficher les fonctions
-des broches ; les condensateurs sont regroupés près de J401. Valeurs,
+explicites. Les symboles MOD401/J402 sont agrandis pour afficher les fonctions
+des broches ; les condensateurs sont regroupés près du module MOD401. Valeurs,
 numéros de broches, connexions et DNP sont conservés (DOC-VAL §12.7.3).
 La guideline schématique place autant que possible les entrées à gauche
 et les sorties à droite ; les symboles d'IC doivent être agrandis lorsque
@@ -354,7 +355,8 @@ résultat thermique n'est revendiqué par l'existence du schéma.
 Le [schéma PDF complet CA01](../../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.pdf)
 est exporté directement depuis le projet KiCad et placé à côté de ses sources
 pour faciliter son accès. Il comprend six pages ; sa copie dans `verification`
-reste identique et la provenance d'export est consignée dans DOC-VAL §12.7.4.
+reste identique ; provenance actuelle DOC-VAL §12.7.10, exports et retouches
+antérieurs conservés aux §12.7.4–12.7.9.
 
 **Convention graphique — 1 octobre 2026.** La page 2 (`01_energie_pm`)
 sépare la protection d'entrée du convertisseur calcul. Le symbole U101
@@ -387,7 +389,9 @@ Le dimensionnement du 29–30 septembre 2026 ajoute les circuits réels
 ci-dessous, avec références complètes visibles dans le schéma. Les connexions
 locales restent réalisées par fils suivant la
 [skill HW Design schématique](../../.agents/skills/hw-design-schematique/SKILL.md).
-Le PCB est vide ; la carte demeure **À valider**, non fabricable et non raccordable.
+Le PCB contient depuis le 1 octobre le placement mécanique (§4.2.8) et
+un démarrage du routage avec plans et vias thermiques (§4.2.9–4.2.11).
+La carte demeure **À valider**, non fabricable et non raccordable.
 
 Les hypothèses de calcul sont VIN = **18–25,2 V**, capacités de sorties
 12V_COMPUTE **6 A**, 12V_LIDAR **3 A**, 5V_AUX **3 A au total**. Elles restent
@@ -401,7 +405,7 @@ le départ W08. Les appels, profils réels, transitoires et températures sont o
 | Protection entrée U101 | LM74800QDRRRQ1, Q101/Q102 CSD19531Q5A en drain commun ; CAP 220 nF/50 V avec Ceff ≥100 nF ; bulk 33 µF/100 V EEE-FK2A330P | RTN13 flottant ; contrôleur sans limitation de surcourant ; SOA sous charge et TVS **à concevoir/valider** |
 | UV/OV entrée | UV 100 kΩ/8,06 kΩ ; OV 100 kΩ/4,42 kΩ, 0,1 % | UV typ. 16,50/15,18 V ; OV typ. 29,08/26,70 V, récupération minimale calculée 25,70 V incluant tolérances/fuite ; permet le réarmement à 25,2 V dans ces hypothèses |
 | Appel entrée | HGATE 100 Ω et 10 nF ; capacité aval totale supposée ≤300 µF | rampe typ. 4,58 ms à 25,2 V, appel capacitif seul 1,65 A typ./2,50 A au coin Ig/C ; ne couvre pas démarrage des bucks sous charge |
-| Calcul U102 | LM5146QRGYRQ1, Q103/Q104 CSD19531Q5A ; XAL1010-682MED 6,8 µH ; 400 kHz/24,9 kΩ ; FB 21 kΩ/1,50 kΩ | 12 V/6 A cible ; bootstrap 100 nF via 2,2 Ω, VCC 2,2 µF ; shunt 10 mΩ WSLT2512R0100DEA 0,5 %/1 W, ILIM 750 Ω ; boucle/courant limite/thermique à fermer |
+| Calcul U102 | LM5146QRGYRQ1, Q103/Q104 CSD19531Q5A ; XAL1010-682MED 6,8 µH ; 400 kHz/24,9 kΩ ; FB 21 kΩ/1,50 kΩ | 12 V/6 A cible ; bootstrap 100 nF via 2,2 Ω, VCC 2,2 µF ; shunt 10 mΩ Y14880R01000B9R ±0,1 % /15 ppm/K /3 W (§4.2.9), ILIM 750 Ω ; boucle/courant limite/thermique à fermer |
 | Capacités calcul | entrée 5×4,7 µF/100 V, sortie 5×22 µF/25 V, X7R1210 | Ceff sortie ≥60 µF hypothèse ; exemple 4 A/20 µs/0,5 V demande 160 µF : réponse transitoire non démontrée |
 | Compensation calcul | base TI EVM : 8,06 kΩ + 4,7 nF série COMP→FB, 100 pF parallèle ; 51,1 Ω + 1 nF VOUT→FB | point de départ ; MOSFET/Ceff/charges diffèrent, Bode et transitoires obligatoires |
 | LiDAR U201 | LM76003RNPR ; L201 15 µH XAL1010-153MED ; C203 100 µF/25 V 25SVPF100M (ESRmax24 mΩ), C208 470 pF C0G | Icrête max. calculée 3,60 A < limite HS minimale 4,35 A ; Cmin TI eq.23 =28,83 µF, disponible au −20 %=80 µF ; marge conditionnelle |
@@ -467,7 +471,7 @@ Panasonic, Nexperia, Bourns et Vishay sont conservées. Le catalogue TDK histori
 est un miroir DigiKey identifié ; ordre actuel et courbes des variantes à fermer.
 
 Le [contrôle statique](../../hardware/electronique/cartographe/carte_avionique/verification/controle_statique.json)
-porte sur 151 composants/111 réseaux et **221 invariants** ;
+porte désormais sur 151 composants/111 réseaux et **230 invariants** ;
 ERC **0 erreur, 0 avertissement selon configuration du projet**, et
 [44 contrôles analytiques](../../hardware/electronique/cartographe/carte_avionique/verification/calculs_reproduits.json)
 conformes. Trois contrôles de conservation du lottemps sont portés par
@@ -497,7 +501,7 @@ qualifiée sur banc.
 | Protection | LM74800/FET réels, TVS absente, calibres de fusibles candidats | SOA chargée, transitoires/énergie, Icc et coupureDC, sélectivité/câble W08 prèsPDB, seuils aux tolérances |
 | Temps et caméra | trigger/capture et GNSS en composants physiques candidats, sortiesR530–R533DNP | niveaux GNSS/Airy établis, référenceOrin validée, protections et délais ; cibles éteintes sans réalimentation |
 | Radio et réserve | consommation inconnue, UARTDNP ; J301 sans charge | profils, protection, TX/RX et hors tension confirmés ; budget3A total partagé |
-| Interfaces et empreintes | connecteurs logiques et empreintes candidates | références exactes, TIQ5A/shunt, détrompage/retours/blindages/calibres et correspondance faisceau |
+| Interfaces et empreintes | 151 références avec empreinte, prises CA01 candidates et préplacement mécanique implémentés (§4.2.8) | confirmer pièces livrées, polarités et faisceaux ; cuivre TIQ5A/shunt revu, pâte, détrompage/retours/blindages/calibres et raccordement OEM ouverts |
 | Revue | ERC conforme mais étude/PCB incomplets | plus de bloc non réalisé ni valeur ouverte, BOM commandable et sources à jour ; revue indépendante des marges et topologies |
 
 Un ERC sans erreur ne clôt pas les exigences électriques ou les limites
@@ -516,7 +520,304 @@ pas nécessairement d'attendre pour fermer un circuit CA01 indépendant ; elles
 deviennent bloquantes si elles changent ses rails, ses connecteurs, ses ports
 ou ses budgets. Elles restent obligatoires pour clore le câblage du drone.
 
+#### 4.2.8 Empreintes et préplacement mécanique CA01, 1 octobre 2026
+
+Le [PCB](../../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_pcb)
+est **Implémenté** pour revue mécanique : 151 composants du schéma, dont les
+options DNP et MOD401 RP4TD (§4.2.10), plus quatre fixations M3, soit
+155 empreintes. MOD401 possède quatre pads THT candidats ; leur géométrie est estimée
+sur photo et doit être mesurée avant fabrication (§4.2.10).
+Le contour candidat est 126 × 80 mm, épaisseur 1,6 mm, trous Ø3,2 mm sur
+entraxes 120 × 74 mm ; provenance et empilage candidat : DOC-MEC §4.4.1.
+Le PCB courant comporte **quatre couches**, avec plans de cuivre, vias
+thermiques et quatre segments de pistes de démarrage (§4.2.9–4.2.11).
+L’épaisseur reste 1,6 mm ; stackup et cuivre sont des candidats à confirmer
+avec le fabricant. Les positions, contour, fixations et modèles3D sont conservés.
+
+Les [connecteurs](../../hardware/electronique/cartographe/carte_avionique/empreintes_connecteurs.json)
+sont choisis à partir des destinations et des fils réellement utilisés :
+J103/J104 XT30 latéraux, J201/J301 JST-VH pour puissance, J502 JST-PH6
+pour le câble Basler et les autres signaux JST-GH selon leur nombre de contacts.
+La fiche CA01 et le port OEM sont distincts : un câble GH2 CA01 vers GPIO6
+Orin ou PWM10 Pixhawk nécessite la correspondance explicite des contacts.
+J502 PH6 n'est pas une M8 ; J503 garde ses NC et ne reprend pas le +5 V GNSS.
+J509 est désormais une prise physique GH2 pour la référence IO ; l'extraction
+CSI22 et son domaine électrique restent **À valider**. Les exclusions BOM
+des anciennes prises logiques sont levées, excepté J501 DNP ; JP501 reste un
+cavalier ouvert et les points de test ne sont pas des composants à commander.
+
+Les deux empreintes XT30 locales échangent les numéros 1/2 du modèle KiCad
+pour conserver **broche 1 positive et broche 2 GND** du schéma. Leur géométrie
+et marquage sont conservés ; le contrôle de polarité sur pièces reste ouvert.
+Les [autres choix](../../hardware/electronique/cartographe/carte_avionique/empreintes_composants.json)
+ajoutent F101 Littelfuse 0451010.MRL candidat, passifs radio, pads de test
+et cavalier ; Q101–Q104 utilisent le cuivre TI Q5A. R116 initialement placé
+avec le pattern Vishay WSLT2512 est remplacé par CSM3637 au §4.2.9.
+La pâte Q5A segmentée, le fusible sous charge et toutes les marges
+électriques restent **À valider**. Les 8 DNP et 111 groupes de broches sont
+conservés après substitution logique J401→MOD401 au §4.2.10.
+
+Les prises sont orientées vers les bords. Les fonctions puissance et
+synchronisation sont regroupées ; MOD401 occupe sa réserve de corps ; la réserve graphique de la TVS
+d’entrée encore à définir reste libre. Les [modèles3D](../../hardware/electronique/cartographe/carte_avionique/modeles_3d.json)
+remplacent dix familles de boîtes par des géométries détaillées de bibliothèque,
+d'auteur ou dérivées de plans fabricants, avec contacts et queues traversantes.
+Seul MOD401 RP4TD reste une enveloppe : aucun STEP détaillé fiable disponible.
+Les modèles nominaux restent **À valider** ; cordons, accouplements et retenues
+ne sont pas représentés. Sources et vérifications : DOC-MEC §4.4.1 et DOC-VAL §12.7.9. Le préplacement ne
+fige pas les boucles de commutation, prises Kelvin, dissipation ou éloignements
+CEM à reprendre pour le routage. J201 12 V et J301 5 V acceptent la même fiche :
+le détrompage du faisceau reste à résoudre avant raccordement.
+
+Chaîne `CARTE-010 / CARTE-012` → empreintes, PCB et variante CAO d'empilage →
+`T-CA01-10 / T-CA01-12` → contrôles/revues DOC-VAL §12.7.5 et §12.7.10.
+Les 30 trous thermiques U201/U301 utilisent désormais la variante locale
+Ø0,3 mm/pads Ø0,5 mm ; le minimum projet reste Ø0,3 mm. Le routage complet est décrit au §4.2.11 ; `manufacturing_ready=false`.
+
+#### 4.2.9 Dissipation PCB et cible du shunt, 1 octobre 2026
+
+Les plans de cuivre et vias thermiques sont **Implémentés** pour le
+démarrage du routage ; les performances thermiques restent **À valider**.
+Le choix courant est **quatre couches**, afin de conserver une référence
+GND sous les composants et d’allouer une couche distincte à la batterie
+protégée. Un PCB deux couches offre moins de liberté pour ces plans et les
+retours locaux ; davantage de couches n’est pas justifié à cette étape.
+
+| Couche | Cuivre candidat | Allocation courante |
+|---|---:|---|
+| F.Cu | 70 µm | composants, pistes de puissance/signaux, GND et îlots de drains/SW |
+| In1.Cu | 35 µm | plan GND de référence |
+| In2.Cu | 35 µm | `VIN_PAYLOAD_PROT` sur la partie puissance et îlot du drain commun Q101/Q102 |
+| B.Cu | 70 µm | signaux, GND et îlots thermiques locaux |
+
+FR4, diélectriques 0,15/1,09/0,15 mm et épaisseur totale 1,6 mm sont
+**candidats**, à confirmer avec le fabricant. Le cuivre externe plus épais
+est choisi pour les départs de puissance et la diffusion de chaleur ; il
+ne constitue pas une preuve de courant admissible ou de température. Le
+plan batterie est limité à la zone puissance et exclut le nœud SW calcul.
+`VBAT_PAYLOAD` reste distinct de `VIN_PAYLOAD_PROT` après protections.
+
+U201/U301 LM76003 ont leur DAP à GND : 15 trous métallisés Ø0,3 mm sur
+pads Ø0,5 mm par empreinte, avec cuivre/centres conservés. La variante
+locale `CA01_Mecanique:TI_LM76003_RNP_ThermalVias_D0p3` est affectée aux
+instances du schéma et à la BOM ; anneau nominal 0,1 mm et entre-trous
+minimal 0,35 mm. U102 LM5146 reçoit six vias à son EP GND.
+Les pads exposés Q101–Q104 CSD19531Q5A sont au **drain** : les neuf vias
+de chaque transistor gardent exactement leur réseau. Q101/Q102 partagent
+`Net-(Q101-D)`, Q103 utilise `VIN_PAYLOAD_PROT` et Q104 le nœud
+`Net-(Q104-D)` ; ce dernier reçoit seulement deux petits îlots F/B pour
+limiter sa surface rayonnante. Le pad RTN13 de U101 reste flottant, sans via.
+
+Les vias de diffusion thermique ont une connexion électrique directe au
+cuivre du même potentiel ; un relief thermique de brasage ne remplit pas
+le même rôle. Les antipads des autres plans empêchent de relier les drains
+à GND ou de court-circuiter les protections. Une exclusion dans GND F.Cu
+couvre les prises sense du shunt R116 pour garder force et mesure séparées
+jusqu’aux bornes ; leurs pistes Kelvin restent à router. Procédé via-in-pad,
+bouchage/remplissage, cuivre fini et stencil restent **À valider** avec
+fabricant et assembleur. La création des vias ne démontre pas la
+température des DC/DC, MOSFET ou du shunt dans la stack réelle.
+
+La tolérance initiale **±0,1 %** est acceptée par l'utilisateur ; la cible
+reste **10 mΩ et |TCR| ≤25 ppm/K**. Le WSLT2512 (0,5 %, 75 ppm/K, 1 W)
+est remplacé par **VPG CSM3637 / Y14880R01000B9R**, quatre bornes Kelvin,
+**±0,1 %, ±15 ppm/K et 3 W à 70 °C**, conformément au
+[catalogue fabricant](https://vpgfoilresistors.com/products/current-sense-resistors/csm2512/datasheet)
+(4138-EN Rev. 8, juillet 2025), avec derating linéaire jusqu'à zéro à
+170 °C. Le choix, l'empreinte et le préplacement sont **Implémentés**,
+qualification **À valider**. Son corps nominal 9,144 × 9,398 × 0,8 mm
+remplace l'enveloppe 2512 dans la variante de stack ; le modèle conservateur
+utilise les dimensions maximales 9,398 × 9,652 × 1,054 mm.
+Le symbole conserve deux réseaux logiques ; les quatre pads sont associés
+par paire aux deux extrémités résistives. Les chemins de force et de mesure
+doivent être séparés jusqu'aux bornes au routage. Le CSM2512 1 W laisse
+moins de marge en limitation et n'est pas retenu.
+
+R116 est dans le retour du MOSFET bas Q104, pas traversé par 6 A en continu.
+En CCM idéal, avec D = Vout/Vin et ΔI = Vout(1−D)/(Lf), sa perte vaut
+R × (1−D) × (Iout² + ΔI²/12). Les coins conservateurs de la
+[preuve analytique](../../hardware/electronique/cartographe/carte_avionique/verification/shunt_thermique_20261001.json)
+donnent environ **0,20 W à 6 A** et **0,62 W en limitation soutenue**, sous
+les hypothèses de calcul déclarées. À 125 °C d'ambiance locale candidate,
+le catalogue CSM3637 autorise encore 1,35 W : marge de puissance favorable, conditionnelle à la version
+sélectionnée et à la température réelle. Cela ne démontre pas la tenue aux
+impulsions de court-circuit ni une température de composant sur CA01.
+Le TCR catalogue est garanti de −55 à +125 °C de température résistive :
+une ambiance à 125 °C avec autoéchauffement ne ferme pas cette garantie.
+
+Les prises Kelvin doivent rester séparées des chemins de force. À 25 ppm/K,
+100 K de variation ajoutent jusqu'à 0,25 % à la résistance (0,15 % avec
+le TCR du composant choisi) ; ±0,1 % est la tolérance initiale,
+pas la précision à chaud ni celle de la limitation
+LM5146. Le débit d'air minimal local dans la stack, les charges simultanées
+et l'ambiance maximale sont à mesurer. La convection des selfs et les
+estimations LDO/contrôleurs restent à vérifier au même banc thermique.
+Chaîne `CARTE-004 / CARTE-011 / CARTE-012` → R116, plans et vias →
+`T-CA01-04 / T-CA01-11 / T-CA01-12` → DOC-VAL §12.7.6.
+
+#### 4.2.10 Symbole et empreinte RP4TD sur broches, 1 octobre 2026
+
+Le symbole **CA01_Radio:RadioMaster_RP4TD** est créé dans la bibliothèque
+dédiée `CA01_Radio.kicad_sym` et affecté à **MOD401** dans la feuille radio.
+Numéros internes CA01 : 1=5V, 2=GND, 3=TX récepteur, 4=RX récepteur ;
+les fonctions CRSF RX/TX/5V/G inférieures sont utilisées, sans les pads
+latéraux R/T de l’UART auxiliaire. Types passifs conservés pour la continuité
+de la topologie ; le contrôle statique ne valide pas les niveaux UART.
+J401/W11 sont supprimés ; F102, C401/C402, J402 et R401/R402 DNP restent.
+Le récepteur est compté une fois dans la BOM de CA01.
+
+L’empreinte **RadioMaster_RP4TD_Broches_THT_Candidat** est **Implémentée**,
+qualification **À valider** : quatre pads traversants métallisés sur
+`*.Cu / *.Mask`, sans pâte. Les broches sont soudées dans CA01 puis dans
+les demi-trous du récepteur. Origine au centre du corps nominal
+23,7 × 16,3 mm, axeX positif vers les contacts :
+
+| Pad logique | Fonction | X local candidat (mm) | Y local candidat (mm) |
+|---|---|---:|---:|
+| 1 | 5V | 11,85 | −1,3 |
+| 2 | GND | 11,85 | −3,9 |
+| 3 | TX | 11,85 | +1,3 |
+| 4 | RX | 11,85 | +3,9 |
+
+**Ces coordonnées sont une estimation photographique, pas des cotes OEM.**
+La [vue TOP RadioMaster](https://radiomasterrc.com/cdn/shop/files/RP4TD-Image-1000X1000px-1.jpg?v=1750061219),
+archivée inchangée dans `sources_fabricants/rp4td/RP4TD_Image_1.jpg`, montre
+RX/TX/5V/G de gauche à droite. Largeur 16,3mm projetée sur484pixels ;
+les centres observés u385/462/540/617 donnent Y≈3,87/1,28/−1,35/−3,94mm,
+arrondis à la candidate symétrique ±3,9/±1,3mm (pas2,6mm). Les axesX
+sont projetés au bord nominal +11,85mm. Le rapport de l’image diffère
+d’environ2,5% du rapport nominal : aucune tolérance ni garantie
+d’alignement physique n’est attribuée. La face BOTTOM est miroir ;
+la page2RP3 erronée du manuel reste exclue.
+
+Broche ronde0,5mm générique, trou fini0,8mm et pad1,6mm sont des choix
+**candidats** : jeu diamétral nominal0,3mm et couronne radiale0,4mm.
+Ils doivent être confrontés au diamètre des demi-trous et aux broches
+réelles ; aucun modèle commandable n’est encore retenu. Une broche carrée
+ne se vérifie pas comme une broche ronde. Le courtyard s’étend àX13mm
+côté contacts pour englober le cuivre ; préplacement (16,5 ;20,5)mm à90°.
+Hauteur libre, profil sous-face, appui isolant opposé et maintien en
+porte-à-faux/vibrations restent ouverts ; modèle3D de corps illustratif.
+
+L’[inventaire](../../hardware/electronique/cartographe/carte_avionique/empreinte_rp4td.json)
+porte pixels, transformation, coordonnées et limites. Les quatre pads
+sont raccordés aux quatre broches ; parité0,151composants+4fixations,
+155 empreintes. L’état de routage courant est au §4.2.11 ; la géométrie
+radio reste inchangée. **La carte reste non fabricable avant mesures
+et clôture des autres points ouverts.** Traçabilité `CARTE-008/010/012` →
+MOD401 → `T-CA01-08/10/12` → DOC-VAL §12.7.8.
+
+#### 4.2.11 Routage complet CA01, 2 octobre 2026
+
+Le [PCB KiCad](../../hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_pcb)
+est routé : **1 255 segments, 251 vias traversants, 10 zones de cuivre,
+sept exclusions Kelvin et zéro connexion restante**. Il conserve les
+155 empreintes, les 111 réseaux logiques, les huit DNP, le contour126×80mm,
+les fixations, connecteurs et la radio. Le placement électrique de
+48 références a été repris pour les boucles DC/DC, leurs condensateurs
+et les échappements des contrôleurs. Les modèles3D restent associés ;
+les exports FreeCAD/STEP du préplacement du01/10 restent historiques.
+La variante `CA01_PCB_Revue_20261003` reprend maintenant le placement
+courant et50perçages de pads, sans modifier le PCB électrique ; voir
+DOC-MEC§4.4.1.1 et DOC-VAL§12.7.14. La fixation communeM3 avecP17 et
+la plaque carbone exige de définir masse/isolement des tiges, dégagement
+cuivre et pressions d'appui. Les entretoisesG10 ne démontrent pas seules
+l'isolement électrique ; fiches accouplées et ancien faisceau système
+ne sont pas recalés ni qualifiés par cette revue.
+
+Quatre couches sont retenues comme **candidat À valider fabricant** :
+F.Cu70µm composants/puissance, In1.Cu35µm GND, In2.Cu35µm batterie protégée
+VIN_PAYLOAD_PROT, B.Cu70µm signaux/retours/diffusion. Épaisseur nominale1,6mm,
+diélectriques0,15/1,09/0,15mm ; cuivre fini, matériau, pressage et tolérances
+restent ouverts. Aucune piste n'occupe les couches internes. L'exclusion
+locale autour du via E2 évite une jonction prématurée du Kelvin au plan GND.
+Les plans batterie et GND sont distincts ; les vias thermiques respectent
+le potentiel électrique de chaque pad, sans connexion thermique commune
+entre nets. U101/13 reste flottant ; U102/21 et U201/U301/31 sont àGND ;
+Q101/Q102 au drain commun, Q103 àVIN_PAYLOAD_PROT, Q104 au SW compact.
+Les 30 trous EP intégrés aux LM76003 restent séparés des 251 vias de carte :
+Ø0,3mm/padsØ0,5mm, anneau nominal0,1mm, procédé via-in-pad/stencil À valider.
+
+Les forces, grilles, bootstrap, VCC, SW/self, sorties, compensations et
+signaux sont connectés. Le shunt R116 utilise ses connexions internes I/E,
+représentées par les pads à numéro dupliqué configurés comme jumpers
+([KiCad10](https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html#jumper-pads)).
+Ce modèle n'ajoute aucun pont PCB entre les prises de mesure et de force.
+E1 rejoint R115 séparément ; E2 rejoint PGND12 par un retourB isolé des plans
+jusqu'à sa jonction côté contrôleur. Les deux chemins sont contrôlés par
+suppression des jumpers et coupure du dernier segment uniquement en mémoire.
+Des bus de charge dédiés évitent de faire circuler le courant dans les
+branches fines de feedback : continuité ≥1,8mm vers les sorties calcul,
+LiDAR et AUX, seuil candidat0,6mm vers la radio viaF102. Les sections locales
+aux pads, le cuivre fini, les vias et les températures restent à qualifier.
+
+La [preuve](../../hardware/electronique/cartographe/carte_avionique/verification/routage_complet_20261002.json),
+le [DRC](../../hardware/electronique/cartographe/carte_avionique/verification/drc_routage_complet_20261002.json)
+et la [revue indépendante](../../hardware/electronique/cartographe/carte_avionique/verification/revue_routage_complet_20261002.json)
+portent sur Windows amd64/KiCad10.0.6 : DRC0, parité0, aucune connexion
+restante ; revue28/28. Un audit isolé réactive les cinq contrôles ignorés
+du projet et trouve aussi zéro violation, sans modifier le projet courant.
+Les preuves du démarrage01/10 restent historiques. Les recettes initiales
+de placement/routage refusent d'effacer le cuivre existant ; utiliser les
+contrôles du routage complet pour la cible actuelle.
+
+Le [plan de validation](../../hardware/electronique/cartographe/carte_avionique/validation_electrique_thermique_cem.json)
+contient 13 protocoles électriques, thermiques et CEM, sans essai matériel
+exécuté ni critères finaux approuvés (DOC-VAL§12.7.11). Le
+[dossier fabricant provisoire](../../hardware/electronique/cartographe/carte_avionique/fabrication/export_manifest.json)
+contient Gerber, Excellon, cartes de perçage, BOM/CPL et contraintes stack/vias.
+TVS, fusible/Icc/SOA/Ceff, références BOM manquantes, contactsRP4TD,
+procédé fabricant/assembleur et banc restent **À valider**.
+Routage **Implémenté** ; matériel non qualifié, `manufacturing_ready=false`.
+Chaîne `CARTE-003/004/005/006/011/012` → couches/plans/DC/DC/MOSFET →
+`T-CA01-03/04/05/06/11/12` → DOC-VAL§12.7.13.
+
 ### 4.3 Câblage global du cartographe
+
+#### Registre des faisceaux physiques et revue CAO — 3 octobre 2026
+
+Le [registre système cible](../../hardware/electronique/cartographe/faisceau_systeme_cible_20261003.json)
+classe exactement une fois les **33 liaisons Wxx actives** du câblage global,
+en 28 groupes physiques, internes, sans fil ou réserves non montées.
+W07, W11 et W30 restent retirées. Le montage direct RP4TD supprime W11,
+mais conserve les deux coaxiaux W13. W19 est interne au port M.2,
+W14 est interne à la porteuse et le transport RTCM W29 n'ajoute pas de
+cordon au CAN2 W21 déjà compté. Les quatre LED OEM sont ajoutées à
+l'inventaire sans inventer un identifiant W ni une alimentation CA01.
+
+W10/W15/W23 partagent le cordon Airy et ses dérivations ; W18/W34 partagent
+un seul M8 Basler. W24 comporte trois adaptateurs distincts PPS, GPRMC et
+référence 3,3 V, dont l'interface CSI reste à concevoir. La paire opto
+Basler pin2/pin3 reste distincte de Line2/pin6 ; le M8 n'alimente pas
+la caméra. POWER1, POWER2 et CAN1 restent séparés, sans six fils droits
+PM→POWER, parallèle des BEC ni réalimentation via CAN1 +5 V.
+
+La maquette inactive `Drone_Cartographe_Systeme_Candidat.FCStd` comporte
+35 routes natives de réservation, dont JETI OUT→PM08 et PM08→PDB,
+en complément des routes existantes du dock. Voir DOC-MEC §4.5 et
+DOC-VAL §12.1.4. Le registre conserve les sections, diamètres et rayons
+non confirmés comme hypothèses **À valider** ; les masses linéiques,
+longueurs de coupe et sorties OEM inconnues restent `null`.
+Le refroidissement, les accessoires de vol et le chaînage LED restent
+à inventorier et à router. Les prises accouplées, protections W08,
+retenues, isolement carbone, repli des bras et boucles souples vers
+les capteurs ne sont pas démontrés par les primitives de câbles.
+
+Les ESC Tekko32 F4 45A du kit X650 utilisent des XT30 ; les quatre
+départs XT90 de la PDB 18138 candidate nécessitent donc quatre
+adaptateurs explicitement dimensionnés et comptés, sans modification
+présumée des cordons OEM. Le PM08 185 g est annoncé câbles inclus,
+comme le pack et le JETI comprennent des fils : aucune nouvelle ligne
+de masse ne les ajoute à nouveau. Le cuivre nominal calculé est un
+complément partiel, distinct d'une masse de câble assemblé.
+
+Tout retour aval de puissance reste derrière OUT− du JETI, sans détour
+vers BAT− brut. Son positif reste raccordé en OFF et sa mémoire ON
+ne réalise pas un interverrouillage automatique. Les exigences de
+longueur libre et de rayon près des contacts TE restent celles du
+faisceau du dock ; les endpoints JETI/PM dessinés ne sont pas cotés
+sur le matériel. Aucun raccordement ni fabrication du faisceau complet
+n'est autorisé par cette revue.
 
 Exigence `CAB-CARTO-001` : tenir les E/S et les liaisons Wxx cohérentes avec le schéma, puis contrôler chaque faisceau point à point avant branchement.
 
@@ -525,19 +826,22 @@ des entrées/sorties, **Planifié / À valider**, pas un faisceau prêt à fabri
 Révision cible V0.5 du 24 septembre : PM08-CAN sur châssis, BEC1 vers POWER1,
 BEC2 vers POWER2 et DroneCAN distinct sur CAN1 ; CA01 retrouve son 5 V local.
 Budgets, bascule, compatibilité et thermique **À valider** ; CA01 est migrée
-en schéma préliminaire V0.5-pre, tandis que la CAO reste à mettre à jour.
+en schéma préliminaire V0.5-pre. La maquette système inactive du 3 octobre
+représente cette implantation cible ; la migration de l'assemblage actif,
+les fixations et la mise à jour du natif CA01 restent **À valider**.
 Le périmètre couvre le cartographe et ses liens au sol ; la pompe, les vannes
 et les actionneurs du drone de traitement feront l'objet de leur propre variante.
 
 Sources techniques éditables : [schéma global Mermaid](../../hardware/electronique/cartographe/cablage_global.mmd)
 et [registre modules/liaisons](../../hardware/electronique/cartographe/cablage_global.json).
-Les 34 liaisons actives documentaires sont `W01..W06`, `W08..W29`,
+Les 33 liaisons actives documentaires sont `W01..W06`, `W08..W10`, `W12..W29`,
 `W31..W36`. W36 distribue PPS/GPRMC du GNSS vers CA01. W31 porte DroneCAN PM et W32 le BEC2 ; W33 commande
 la caméra, W34 rapporte l'exposition et W35 rejoint FMU_CAP1. W07, ancienne dérivation du BEC1 vers la
-radio, est retirée ; W08 alimente CA01 et W11 relie sa radio. W30 reste retiré
+radio, est retirée ; W08 alimente CA01 et le RP4TD reçoit ses connexions directement sur PCB.
+W11 est retiré pour ce montage ; W30 reste retiré
 et sa fonction de mesure est portée par W31.
 W06 ne transporte que l'énergie. Les identifiants retirés ne sont pas réutilisés.
-W32 correspond au second départ FCU. W11, W18, W23, W24 et W26
+W32 correspond au second départ FCU. W18, W23, W24 et W26
 dépendent de la migration du 5 V local et des adaptations CA01. Les broches conservées et interfaces à
 migrer sont distinguées dans le registre ; aucune preuve V0.4 ne qualifie V0.5.
 Les flèches d'énergie représentent alimentation **et retour** ; la masse est
@@ -570,7 +874,7 @@ flowchart TB
  CARD -.->|"W18 : Line1 trigger opto"| CAM
  CAM -.->|"W34 : ExposureActive Line2"| CARD
  CARD -.->|"W35 : retour 3,3 V FMU_CAP1"| FCU
- CARD -->|"W11 : 5 V local + UART"| RF["RP4TD sur CA01"]
+ CARD -->|"PCB direct : 5 V local + UART, à coter"| RF["MOD401 RP4TD sur CA01"]
  RF <-.->|"UART via J402 ; DNP en V0"| FCU
  RF <-->|"RF commun RC + MAVLink 2"| POCKET["Pocket / Backpack"]
  QGC["QGroundControl"] <-->|"Wi-Fi local : MAVLink 2 + RTCM"| POCKET
@@ -599,7 +903,7 @@ Aucun accessoire optionnel non identifié n'est considéré comme déjà install
 | `PM` Holybro PM08-CAN sur châssis | batterie 6S via IN | OUT vers distribution ; BEC1 et BEC2 5,3 V/3 A vers FCU ; DroneCAN | variante, brochage, câbles et terminaisons ; tenue thermique et mesure à vérifier |
 | `FCU` Pixhawk 6X sur porteuse Holybro | POWER1/2 ; CAN1 PM ; CAN2 GNSS ; ExposureActive sur FMU_CAP1 candidat | MAIN propulsion, AUX1 caméra, TELEM2 temps/événements | capture/commande et pont d'horloges **À valider** |
 | `CA01` Carte alimentation/radio/synchronisation | 6S protégé ; GNSS PPS/GPRMC ; AUX1 ; ExposureActive ; SYNC_OUT1 option DNP | 12 V/5 V ; PPS/GPRMC Airy/Orin ; trigger Basler ; retour CAP1 ; UART RF | circuits énergie/caméra candidats ; quatre adaptations GNSS ouvertes/DNP, protections/PCB/banc à fermer, non raccordable |
-| `RF` RP4TD rapporté sur CA01 | 5 V local CA01 ; UART ; RF | UART ; RF | défaut 5 V local, UART, consommation et antennes à tester |
+| `RF` MOD401 RP4TD en montage direct sur CA01 | 5 V local CA01 ; UART ; RF | UART ; RF | défaut 5 V local, UART, consommation et antennes à tester |
 | `RFANT1..2` Deux antennes RP4TD | coaxiaux RF | liaison radio | références, emplacement et dégagement carbone |
 | `CPU` Orin NX 16 Go et porteuse Holybro | 12 V XT30 ; USB/Ethernet ; PPS GPIO_07 et GPRMC UART candidats ; TELEM2 interne | acquisition et horloges associées | GPIO/UART, pinmux, console et incertitude **À valider** |
 | `SSD` SSD NVMe | alimentation et PCIe porteuse | données stockées | modèle, endurance et courant |
@@ -633,7 +937,6 @@ n'indique qu'un sens de lecture.
 | `W08` | `DIST` → `CA01` | Un XT30 de PDB → protection proche du port → entrée J103 CA01 | J103:1 = VBAT_PAYLOAD ; :2 = GND ; aucun signal sur XT30 | polarité et accouplement, calibre XT30/faisceau, fusible/protection, segment amont exposé et appels CA01 à valider ; ne pas confondre avec W09 |
 | `W09` | `CA01` → `CPU` | 12 V calcul candidat → XT30 Jetson de la porteuse | J104:1 = 12V_COMPUTE ; :2 = GND, correspondance XT30 à documenter | polarité, protection, tension et appels Orin NX/USB/SSD à mesurer |
 | `W10` | `CA01` → `LID` | J201 → alimentation Airy | J201:1 = 12V_LIDAR ; :2 = GND ; faisceau Airy optionnel B1/B2 ou aviation pins 6/7 VIN, 5/8 GND | connecteur/faisceau livré, polarité, section et source 12 V capable de 2 A au démarrage à vérifier |
-| `W11` | `CA01` → `RF` | J401 → pads RP4TD | J401:1 = 5V_RADIO ; :2 = GND ; :3 = RP_TX ; :4 = RP_RX | numérotation logique CA01, pas numéros OEM ; R401/R402 DNP |
 | `W12` | `CA01` → `FCU` | J402 → UART Pixhawk réservé RF | J402:1 = GND ; :2 = FC_RX_RF ; :3 = FC_TX_RF | choisir port ; TX/RX croisés ; pas injection 5 V TELEM supposée |
 | `W13` | `RF` → `RFANT1..2` | Deux liaisons coaxiales | ports antenne du module, deux antennes | références et cheminements ; pas deux systèmes radio indépendants |
 | `W14` | `FCU` → `CPU` | TELEM2 Pixhawk ↔ UART1 Jetson internes, lien local candidat | MAVLink 2 capture/trigger, GNSS et TIMESYNC ; ROS 2 sur interface séparée si besoin | débit, séquences et incertitude d'offset **À valider**, port RF séparé |
@@ -775,29 +1078,134 @@ l'hypothèse ancienne et ne fige pas une exigence.
 - Vérifier au banc le monitoring PM08 avec OUT, BEC1 et BEC2 séparément,
   puis simultanément ; tester perte CAN et absence de réalimentation entre rails.
 
+### 5.2.1 Compatibilité d'une batterie 12S
+
+Le scénario comparatif DOC-MEC §6.3 considère 12S, soit 44,4 V nominaux
+et 50,4 V pleine charge. **Ce n'est pas un remplacement compatible de la
+batterie 6S actuelle** ; la sélection courante et ses schémas restent 6S.
+
+| Élément actuel/candidat | Constat pour 12S |
+|---|---|
+| [Tekko32 F4 45A](https://holybro.com/products/tekko32-f4-45a-esc) du kit | entrée 2–6S annoncée : incompatible |
+| [MN4014 KV330](https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html) du kit | 4–8S annoncés : incompatible |
+| [PM08-CAN](https://holybro.com/products/dronecan-pm08-power-module-14s-200a) candidat | 7–60,9 V et 2–14S annoncés : tension nominalement compatible, sans qualification du montage |
+| CA01, §4.2.7 | calculs 18–25,2 V ; OV typique 29,08 V ; Cin LM76003 50 V inférieurs aux 50,4 V du pack chargé : incompatible en l'état |
+| PDB, connectique et faisceaux | tension maximale PDB et tenue des interfaces/transitoires non confirmées pour cette variante |
+
+Une étude 12S nécessiterait une propulsion adaptée, une nouvelle enveloppe
+de tension/transitoires, les protections et passifs CA01 recalculés, une
+revue de distribution, une configuration énergie PX4 adaptée et une
+validation suivant DOC-VAL. Les tensions admissibles de quelques circuits
+intégrés ne suffisent pas à rendre la carte ou le drone compatibles.
+La [preuve de comparaison](../../hardware/mecanique/cartographe/verification/estimation_autonomie_12s_20261002.json)
+porte des durées conditionnelles avec rendement transféré de la courbe 6S,
+pas une autonomie du drone actuel sous 12S. État : **À valider** ; aucun
+circuit, faisceau ou paramètre de vol n'a été modifié pour cette étude.
+
+### 5.2.2 Compatibilité d'une batterie 8S
+
+Le scénario DOC-MEC §6.3 conserve 10 Ah et considère 29,6 V nominaux,
+33,6 V pleine charge. La chaîne actuelle ne peut pas recevoir directement
+ce pack ; le choix courant reste 6S.
+
+- Le [MN4014 KV330](https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html)
+  figure dans la plage 4–8S fabricant, mais sa consommation et ses limites
+  avec les Gemfan 1555 à 33,6 V ne sont pas démontrées par la courbe 6S.
+- Les [Tekko32 F4 45A](https://holybro.com/products/tekko32-f4-45a-esc)
+  sont limités à 2–6S et doivent être remplacés pour une variante 8S.
+- Le [PM08-CAN](https://holybro.com/products/dronecan-pm08-power-module-14s-200a)
+  accepte nominalement 7–60,9 V ; cela ne qualifie pas le faisceau ni la PDB,
+  dont la tension maximale reste à confirmer.
+- La protection CA01 coupe typiquement à 29,08 V, sous la tension nominale
+  8S. Son enveloppe calculée 18–25,2 V doit être reprise pour 33,6 V et les
+  transitoires, avec revue des seuils, protections, passifs, pertes et thermique.
+
+Le gain d'autonomie calculé dans
+[la preuve 8S](../../hardware/mecanique/cartographe/verification/estimation_autonomie_8s_20261002.json)
+suppose un rendement et des watts par poussée identiques au 6S ; ce n'est
+pas une consommation 8S validée. ESC, CA01, distribution, profils de
+propulsion, configuration énergie PX4, montage et essais DOC-VAL restent
+**À valider** avant une migration, qui n'est pas engagée par cette estimation.
+
+### 5.2.3 Augmenter la capacité en conservant le 6S
+
+Le 6S reste retenu pour conserver la compatibilité en tension des ESC.
+Une LiPo classique 6S de plus grande capacité conserve 22,2 V nominaux
+et 25,2 V pleine charge ; elle n'impose pas à elle seule de remplacer les
+ESC pour une tension plus élevée. Le courant mission peut toutefois
+augmenter avec la masse, et le courant de défaut disponible, la connectique,
+le faisceau, la protection, la précharge et la charge doivent être réévalués.
+La référence choisie pour l'intégration mécanique est désormais la 6S 20 Ah
+`TAA200006S5X9S` ; ses performances sur le profil mission restent **À valider**.
+
+La candidate [20 Ah semi-solid 5C, TAA200006S5X9S](https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug)
+est annoncée 6S 22,2 V, 1 950 ±20 g, 193 × 76 × 58 mm. La fiche vise
+des usages 1–3C et ne fournit pas ici de courbe de décharge qualifiant notre
+profil. Le produit arithmétique 5C ×20 Ah =100 A n'est pas une preuve
+de tenue à nos pointes, températures ou durée. La tension de charge
+admissible, la capacité sous charge et les seuils de retour/atterrissage
+doivent être établis pour cette référence. La revendication fabricant
+de décharge jusqu'à 3,2 V/cellule ne devient pas un seuil PX4 du projet.
+
+Voir [le calcul comparatif 6S](../../hardware/mecanique/cartographe/verification/estimation_autonomie_capacite_6s_20261002.json).
+Cette comparaison reste une preuve historique avant la nouvelle cassette.
+La sélection 20 Ah du 2 octobre ne modifie aucun paramètre PX4 et ne qualifie
+ni la tension de charge ni l'endurance du nouveau montage.
+
 ## 6. Nomenclature électrique candidate
 
 | ID | Équipement | Quantité | Fonction | État |
 |---|---|---:|---|---|
-| `ELEC-BAT-01` | LiPo 6S 10 Ah Tattu candidate | 1 en vol + 1 identique en stock | source d'énergie | candidate de dimensionnement **À valider** |
-| `ELEC-CON-01` | Anderson SBS X-75A, fiche et réceptacle | 1 paire | échange batterie | présélection d'étude |
-| `ELEC-CAB-01` | contacts 1339G4 et câble AWG4 | selon faisceau | courant batterie | terminaison et longueur **À valider** |
+| `ELEC-BAT-01` | Tattu NMC 6S 20 Ah TAA200006S5X9S | 1 par cassette | source d'énergie | sélection mécanique ; profil électrique **À valider** |
+| `ELEC-CON-01` | TE ELCON 1648151-1 / 1648156-1 | 1 paire par drone avec une cassette | accouplement guidé pendant l'insertion | détails §6.1 ; montage physique **À valider** |
+| `ELEC-CAB-01` | contacts M5 TE 1766283-1 / 6648335-1 et adaptateur XT90 | 2 contacts de puissance par côté | préserver le pack et raccorder le dock | BOM du dock ; courant, terminaison et parcours **À valider** |
+| `ELEC-SW-01` | JETI MainSwitch100 J-MSW-100-MS et commande magnétique | 1 jeu fixe par drone | coupure et limitation de l'étincelle | commutation du négatif ; état ON mémorisé, voir §6.1 |
 | `ELEC-PWR-01` | PDB Holybro 300A top-entry SKU 18138 candidate | 1 | distribution passive aval PM08 vers ESC et CA01 | six XT90/deux XT30 annoncés ; branche CA01, montage et courant par sortie **À valider** |
 | `ELEC-PWR-02` | Holybro PM08-CAN 14S 200A | 1 par drone, fixe au châssis | mesure DroneCAN ; BEC1→POWER1, BEC2→POWER2 | support/faisceau **Planifiés**, courants/thermique **À valider** |
 | `ELEC-PWR-03` | conversions CA01 12 V calcul/LiDAR et 5 V auxiliaires | selon rails §4.2 | Jetson XT30, Airy, radio et synchronisation | schéma V0.5-pre partiel ; références/protections et ERC à fermer |
-| `ELEC-CA01` | carte avionique commune CA01 | 1 | porteuse radio, conversion et synchronisation ; PM externe | schéma V0.5-pre **Implémenté** partiellement ; PCB/CAO **Planifiés**, non fabricable |
+| `ELEC-CA01` | carte avionique commune CA01 | 1 | porteuse radio, conversion et synchronisation ; PM externe | schéma V0.5-pre et démarrage du routage quatre couches **Implémentés** ; routage complet **Planifié**, qualification **À valider**, non fabricable |
 | `ELEC-FCU-01` | Holybro Pixhawk 6X module seul | 1 | contrôle de vol PX4 sur porteuse | sélection cible **Planifiée** ; matériel **À valider** |
 | `ELEC-CMP-01` | NVIDIA Jetson Orin NX 16 Go 900-13767-0000-001 | 1 | compagnon ROS 2 | sélection cible **Planifiée** ; thermique/performance **À valider** |
 | `ELEC-BRD-01` | Holybro Pixhawk Jetson Baseboard | 1 | porteuse commune FCU/compagnon | révision, connecteurs, fixation et alimentation **À valider** |
 | `ELEC-STO-01` | SSD NVMe 1 To candidat | 1 | acquisition locale | endurance/thermique **À valider** |
 | `ELEC-LID-01` | RoboSense Airy | 1 | LiDAR horodaté par PPS/GPRMC candidat | temps, lock et intégration **À valider** |
 | `ELEC-CAM-01` | Basler a2A4096-30ucBAS USB | 1 | image RGB | présélection confirmée ; optique **À valider** |
-| `ELEC-SYN-01` | tampons PPS/GPRMC et adaptation AUX1/ExposureActive sur CA01 | 1 | distribution de temps et capture image | nouveaux circuits **Planifiés** ; J501/JP501 DNP |
+| `ELEC-SYN-01` | tampons PPS/GPRMC et adaptation AUX1/ExposureActive sur CA01 | 1 | distribution de temps et capture image | circuits candidats **Implémentés**, qualification **À valider** ; DNP conservés |
 | `ELEC-GNS-01` | H-RTK F9P DroneCAN Helical STM32G4 candidat | 1 | RTK CAN2 et PPS UART2 pin5 | G4 et niveaux à garantir ; S32K1 pin5 NC ; montage/RTK **À valider** |
 | `ELEC-CTL-01` | RadioMaster RP4TD candidat, partagé avec ELEC-TLM-01 | 1 par drone équipé | commande manuelle + MAVLink sur RF commun | présélection §7.4 ; **À valider** |
 | `ELEC-TLM-01` | Pocket ELRS EU-LBT au sol + même RP4TD embarqué | 1 ensemble par drone utilisé, sans double comptage du RX | QGC/MAVLink + commande manuelle | présélection §7.4 ; débit, portée et conformité **À valider** |
 | `ELEC-RTK-01` | Holybro H-RTK F9P Base (12022), antenne HANT-X627A et USB vers PC QGC | 1 jeu | corrections RTCM sans abonnement | sélection cible **Planifiée** ; repère, installation et transit **À valider** |
 | `ELEC-CHG-01` | chargeur LiPo et accessoires sûrs | 1 jeu | recharge et stockage | référence/procédure **À valider** |
+
+**Option d'implantation GNSS/radio — 4 octobre 2026, Planifié / À valider.**
+Le catalogue FreeCAD a été trié : seules les dernières représentations et
+les deux montages de construction du dock restent dans `sous_assemblages/`.
+Les configurations globales précédentes sont archivées avec leurs dépendances
+(DOC-MEC§2.1). Ce rangement ne modifie aucune interface électrique ou route ;
+le GNSS sur plateaux et les antennes radio déportées restent à implémenter.
+
+Le [H-RTK DroneCAN Helical](https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/overview)
+autorise une antenne directement vissée ou déportée par câble SMA.
+Le scénario demandé place l'antenne au-dessus de la batterie et le récepteur
+en dessous ; conserver la variante STM32G4 et les liaisons CAN2/W21 et
+PPS/GPRMC/W36. La [spécification](https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification)
+indique SMA femelle côté récepteur, SMA mâle côté antenne et 58 g groupés ;
+elle ne fournit pas les masses séparées ni celle d'une rallonge choisie.
+Le compas BMM150/IST8310 reste dans le récepteur inférieur. Vérifier les
+perturbations batterie/JETI/PDB et câbles sous charge avant d'accepter cette
+pose, selon les [recommandations PX4](https://docs.px4.io/main/en/gps_compass/).
+
+Le RP4TD reste sur CA01 ; ses deux antennes sont candidates sur le plateau
+déporté. Leurs prises U.FL sont distinctes du SMA GNSS : références de
+coaxiaux, adaptateurs éventuels, retenues et supports restent ouvertes.
+Préserver le dégagement des éléments rayonnants, les rayons fabricant et
+l'isolation vibratoire si le plateau retenu est suspendu. La [source
+RadioMaster](https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver)
+et le manuel ne permettent pas de figer une masse radio avec antennes sans
+pesée. Déplacer ces composants ne retire pas leur masse ; seule la différence
+de supports et de câbles entre dans le delta (DOC-MEC§6.1).
+Les routes natives antérieures ne représentent pas cette option ; aucun
+passage, bilan de pertes RF ou montage magnétique n'est déclaré validé.
 
 Les quantités de rechange et de banc ne sont pas figées. Les équipements
 mécaniques associés sont listés dans `DOC-MEC`.
@@ -818,7 +1226,7 @@ et sa défaillance sont évalués au §7.4. Les choix matériels sont **Planifi�
 leur intégration et leur qualification restent **À valider** ; voir DOC-HLD
 §4.6–4.7.
 
-Pour un drone et deux cassettes, la présélection SBS prévoit deux fiches mobiles
+Dans l'archive précédente, pour un drone et deux cassettes, la présélection SBS prévoyait deux fiches mobiles
 `SBSX75A-PLUG-KIT-BLK`, un réceptacle panneau `SBSX75A-PMREC-KIT-BLK`, six
 contacts `1339G4`, les joints adaptés au diamètre réel des câbles et des
 capuchons pour toutes les interfaces débranchées. Le constructeur annonce
@@ -826,6 +1234,106 @@ capuchons pour toutes les interfaces débranchées. Le constructeur annonce
 valeurs reposent sur des critères thermiques différents et ne qualifient pas
 notre faisceau. Effort d'accouplement, chute de tension, température, étanchéité
 et cycles restent **À valider**.
+
+La reprise mécanique du 2 octobre 2026 étudie aussi un berceau fixe à capot
+captif pour les packs 6S 16/20 Ah (DOC-MEC §4.1.1). Dans cette variante,
+chaque batterie possède son faisceau mobile et sa fiche protégée ; le
+réceptacle reste fixé au drone. Le SBS est manipulé par son corps et débranché
+manuellement avant l'ouverture du capot et l'extraction verticale du pack.
+Le capot, le loquet et les butées reprennent les efforts mécaniques ; aucun
+effort de maintien de batterie ne doit passer par le connecteur.
+Le support P15, l'accès latéral, les boucles de câble, les rayons de courbure
+et l'absence de pincement sont à reprendre dans cette variante : la présence
+du SBS historique ne démontre pas cette nouvelle interface. Aucun brochage,
+circuit, paramètre PX4 ou choix électrique actif n'est modifié.
+
+L'option de batterie entre les deux plateaux supérieurs (DOC-MEC §4.1.2)
+nécessite de déplacer l'avionique qui occupe actuellement ce logement et
+de reprendre le trajet du faisceau batterie/SBS. La rehausse dimensionnelle
+de 20/30 mm ne démontre ni une nouvelle implantation Holybro/CA01, ni
+l'accessibilité de la prise ou l'absence de pincement. Cette option reste
+**Planifiée / À valider** ; aucun équipement électrique ou câble natif
+n'est déplacé par la préétude.
+
+### 6.1 Dock 20 Ah : contacts et coupure, 2–3 octobre 2026
+
+La nouvelle définition du dock est distincte du câblage CA01 en cours de
+routage. Elle ajoute en tête : **pack 6S → adaptateur XT90 → contacts TE du
+dock → JETI MainSwitch100 → PM08-CAN → toutes les branches**. La géométrie
+du drone utilise encore les équipements avioniques historiques ; elle ne
+démontre pas le montage du PM08 et de la porteuse Holybro cible. Le faisceau
+et les quantités propres au dock sont définis par
+[la BOM consolidée](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json)
+et [le registre du faisceau](../../hardware/mecanique/cartographe/verification/faisceau_dock20Ah_20261002.json).
+
+La paire commerciale TE ELCON 125A Middle Drawer reprend les deux positions
+de puissance 39/40, avec deux contacts `1766283-1` côté broches et deux
+`6648335-1` côté douilles ; les positions signal restent inutilisées.
+Les deux logements sont guidés avant l'engagement des contacts. Une moitié
+flottante utilise les vis à épaulement `1650589-1`. Les butées mécaniques
+reprennent la cassette selon la spécification TE 114-13206 : les contacts
+ne servent ni de fin de course, ni de verrou. Le calibre 125 A est celui
+des contacts dans les conditions fabricant, **pas celui du système complet**.
+Les sources STEP et plans officiels sont conservés inchangés ; les limites
+de leurs cavités simplifiées sont consignées dans la preuve des contacts.
+
+Les liaisons mobiles comprennent deux conducteurs CuC101 P42 et deux
+adaptateurs AWG10 `55A0111-10-2/-0`, cosses Phoenix `3240028`, sous P43–P47.
+Leurs chemins natifs mesurent57,32/63,98mm ; préparations90/100mm avant
+ajustage sur gabarit. Les fils AWG8 de150mm du pack sont conservés ; leurs
+routes d'étude130,46/143,01mm imposent de ranger le mou et de mesurer les
+sorties du lot. Les rayons du modèle interpolé ne qualifient pas le pliage
+réel. La prise d'équilibrage et ses fils sont retenus dans P51/P52.
+
+Côté fixe, deux fils AWG8 `55A0111-8-2/-0` (Ønominal4,78mm, étude5mm),
+cosses Phoenix `3240219` et entretoises Cu P48 relient les contacts au kit.
+Les chemins tangents559,39/475,79mm utilisent R≥50mm et dépassent les
+152,4mm libres prescrits près des contacts par TE114-13206. Préparer600/520mm,
+puis ajuster après contrôle des engagements et sertissages. P49/P50 isolent
+les bornes fixes ; deux épissures TE`34321` sont couvertes de gaine adhésive
+ATUM`12/3-0-50MM` (`NB08926001`, préparation50mm, réservation posée44mm).
+Cette épissure suppose un **kit JETI8mm² confirmé** ; la notice proposant
+6ou8mm², le lot6mm² exige une autre terminaison validée avant assemblage.
+Le couple des contacts M5 est plafonné à2,9Nm selon TE, sans talonnage des vis.
+
+P53 reprend les deux gaines après la boucle libre ; sept colliers T50R sont
+comptés dans la BOM. Le premier collier du module est partagé avec P53,
+dont deux portées transmettent le serrage au boîtier. Liberté flottante TE,
+traction, rigidité et thermique du calage restent **À valider**. Les ports
+JETI du modèle dérivé sont des réservations d'étude sans cotes fabricant :
+mesurer les sorties réelles et revoir les routes si nécessaire ; **ne pas
+usiner le module**. Le banc doit contrôler aussi les courbures du câble
+fourni avec le kit, différentes des arcs R50 de l'adaptateur.
+
+Le module JETI est annoncé9–51V sur la page produit et8–51V dans la notice,
+deux plages compatibles avec notre6S. Il comporte une fonction
+anti-étincelle existante. Il **coupe le conducteur négatif** : le positif
+reste raccordé. Aucun retour de masse externe, USB, chargeur ou liaison
+auxiliaire ne doit relier le négatif brut du pack au négatif aval et
+contourner cette coupure. La télémétrie JETI n'est pas raccordée au Pixhawk
+par cette conception. Le PM08 et toute la distribution restent en aval.
+La capacité admissible et la forme de la limitation du courant d'appel ne
+sont pas fournies pour notre charge ; l'essai avec les charges réelles est
+obligatoire. Le produit ne constitue pas une précharge calculée et qualifiée.
+
+**Séquence d'échange** : drone au sol, PX4 désarmé, moteurs arrêtés et pales
+dégagées ; commander JETI OFF et vérifier la coupure, libérer le loquet,
+extraire la cassette, insérer la suivante jusqu'à la butée et vérifier
+le verrouillage, puis commander ON. Le module mémorise son état : une
+déconnexion alors qu'il est ON peut entraîner une remise sous tension
+automatique à la reconnexion. Aucun interverrouillage électrique automatique
+OFF/loquet n'est revendiqué. La prise d'équilibrage reste destinée à la
+charge hors drone ; le pack et ses câbles AWG8 de 150 mm ne sont pas modifiés.
+
+La source fabricant Amass 2025 annonce pour la famille XT90S/XT90H **45 A
+maximum sous la condition 10AWG et ΔT <85 °C**. Cette condition n'est pas
+un objectif thermique admissible de notre drone. La prise conservée du pack
+empêche d'affirmer 85 ou 100 A continus pour l'ensemble, même avec des contacts
+TE 125 A et un module JETI 100 A. Les profils 1–3C usuels du pack représentent
+20–60 A : capacité sous charge, chute de tension, courant et température de
+chaque liaison doivent être mesurés avant toute qualification en vol. Les
+références et sources primaires sont dans
+[sources_bom_dock20Ah_20261002.json](../../hardware/mecanique/cartographe/verification/sources_bom_dock20Ah_20261002.json).
 
 ## 7. Architecture réseau et données
 
@@ -1342,6 +1850,23 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 4 octobre 2026 | Catalogue CAO trié et anciennes intégrations globales archivées ; dernière stack conservée, GNSS/faisceau séparés, aucune modification d'interface ou de câblage (§6, DOC-MEC§2.1) |
+| 4 octobre 2026 | Option GNSS déportée par SMA au-dessus du pack, récepteur inférieur avec compas intégré et deux antennes RP4TD sur plateau déporté ; coaxiaux, fixation, passages et essais magnétiques/RF ouverts (§6) |
+| 3 octobre 2026 | Revue mécanique CA01/Holybro synchronisée sur plan fabricant ; interfaceM3 confirmée, isolement tiges/carbone/PCB, précharge et fiches accouplées À valider (DOC-MEC§4.4.1.1) |
+| 3 octobre 2026 | Registre physique cible : 33 Wxx classées en 28 groupes, cordons Airy/M8 partagés, trois adaptateurs W24 et quatre adaptateurs XT90→XT30 ; 35 réservations CAO sans gel des sections/prises/rayons ni masse finale (§4.3, DOC-VAL §12.1.4) |
+| 3 octobre 2026 | Dock 6S 20 Ah : références TE ELCON et JETI, conducteurs rigides protégés, mémoire ON et négatif commuté ; contraintes de la XT90 du pack et séquence OFF avant échange ; BOM et faisceau distincts du routage CA01, essais physiques à réaliser (§6.1) |
+| 2 octobre 2026 | Option batterie interplateaux : avionique et faisceau/SBS à réimplanter, rehausse mécanique seule insuffisante ; aucune modification de la configuration électrique (§6, DOC-MEC §4.1.2) |
+| 2 octobre 2026 | Variante mécanique de berceau fixe et capot captif : connexion SBS manuelle avant extraction verticale, retenue mécanique séparée et faisceau/support à reprendre ; architecture électrique 6S conservée (§6, DOC-MEC §4.1.1) |
+| 2 octobre 2026 | Maintien 6S pour les ESC ; augmentation de capacité étudiée avec revue masse/courant et variante semi-solid distincte, profil de décharge/charge et seuils PX4 À valider, aucune sélection ni modification matérielle (§5.2.3) |
+| 2 octobre 2026 | Variante 8S étudiée : moteur dans plage 4–8S sans qualification hélice/charge, ESC 6S et OV CA01 29,08 V incompatibles ; PM08 nominalement compatible, sélection système 6S conservée (§5.2.2) |
+| 2 octobre 2026 | Comparaison batterie 12S : limites ESC 6S, moteurs 4–8S, entrée/OV et Cin CA01 explicitées ; PM08 nominalement compatible, distribution à confirmer ; architecture 6S conservée et autonomie 12S uniquement hypothétique (§5.2.1) |
+| 2 octobre 2026 | CA01 : routage complet1255segments/251vias, Kelvin isolé et bus dédiés ; DRC/parité/connectivité0, revue indépendante28/28, plan13protocoles et fabrication provisoire ; qualification matérielle ouverte (§4.2.11) |
+| 2 octobre 2026 | Finalisation du démarrage CA01 : revue indépendante conforme à son périmètre, reconstruction isolée identique et gardes de préservation vérifiées ; empilage fabricant, routage complet et qualification ouverts |
+| 1 octobre 2026 | Démarrage routage CA01 : quatre couches, plans GND/batterie protégée, vias thermiques par potentiel, variantes LM76003 Ø0,3 et exclusion Kelvin ; 10 zones/111 vias/4 segments, DRC0/parité0 avec218 connexions restantes, fabrication et thermique À valider (§4.2.9–4.2.11) |
+| 1 octobre 2026 | Modèles 3D CA01 : 10 familles d'enveloppes remplacées pour 16 composants, références KiCad locales et stack FreeCAD actualisées ; géométrie nominale revue, RP4TD détaillé et montage physique À valider ; aucun routage (§4.2.8) |
+| 1 octobre 2026 | Symbole CA01_Radio et empreinte RP4TD quatre pads THT candidats créés ; centres photoestimés, parité0,155 empreintes sans routage ; géométrie/broches/hauteur À valider ; schéma Implémenté, montage Planifié et non fabricable (§4.2.10) |
+| 1 octobre 2026 | Plans/vias thermiques planifiés ; ±0,1 % accepté pour R116, remplacement par CSM3637 Y14880R01000B9R 10 mΩ /15 ppm/K /3 W, empreinte Kelvin et préplacement mis à jour ; thermique matérielle et impulsions À valider (§4.2.9) |
+| 1 octobre 2026 | 23 empreintes manquantes affectées ; corrections cuivre Q5A/shunt et polarité logique XT30, prises CA01 versus destinations OEM explicitées ; préplacement 151 composants + 4 fixations sans routage, protections/faisceaux et qualification ouverts |
 | 1 octobre 2026 | Zone LM74800 de la page 2 reprise : U101 agrandi, diviseurs et pompe de charge dégagés, connexions conservées ; PDF réexporté et inspecté |
 | 1 octobre 2026 | PDF schématique CA01 réexporté et accessible à côté du projet KiCad ; lien direct dans le README, provenance et six pages vérifiées |
 | 1 octobre 2026 | Page 2 réorganisée et U102 agrandi ; alimentations à barre vers le haut et masses GND sur toutes les feuilles, réseaux et champs électriques conservés ; preuve et revue de lisibilité référencées dans DOC-VAL |

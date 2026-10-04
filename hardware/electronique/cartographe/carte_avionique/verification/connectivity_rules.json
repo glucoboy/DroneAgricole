@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "checks": [
     {
       "id": "5V_AUX_fuse",
@@ -835,7 +835,7 @@
       "kind": "field",
       "ref": "R116",
       "field": "Footprint",
-      "contains": "2512"
+      "contains": "VPG_CSM3637"
     },
     {
       "id": "value_R116_MPN",
@@ -843,7 +843,7 @@
       "kind": "field",
       "ref": "R116",
       "field": "MPN",
-      "contains": "WSLT2512R0100DEA"
+      "contains": "Y14880R01000B9R"
     },
     {
       "id": "time_airy_supply",
@@ -1834,6 +1834,84 @@
       "field": "Value",
       "contains": "25V",
       "detail": "LDO Airy : condensateur 25V candidat"
+    },
+    {
+      "id": "radio_direct_module_power",
+      "kind": "same",
+      "net": "5V_RADIO",
+      "pins": [
+        "MOD401/1",
+        "F102/2",
+        "C401/1",
+        "C402/1"
+      ],
+      "detail": "Module direct alimente par rail radio protege"
+    },
+    {
+      "id": "radio_direct_module_ground",
+      "kind": "same",
+      "net": "GND",
+      "pins": [
+        "MOD401/2",
+        "C401/2",
+        "C402/2",
+        "J402/1"
+      ],
+      "detail": "Retour module direct et UART Pixhawk"
+    },
+    {
+      "id": "radio_direct_module_tx",
+      "kind": "same",
+      "net": "RP_TX",
+      "pins": [
+        "MOD401/3",
+        "R401/1"
+      ],
+      "detail": "TX module vers RX Pixhawk par R401 DNP"
+    },
+    {
+      "id": "radio_direct_module_rx",
+      "kind": "same",
+      "net": "RP_RX",
+      "pins": [
+        "MOD401/4",
+        "R402/2"
+      ],
+      "detail": "RX module depuis TX Pixhawk par R402 DNP"
+    },
+    {
+      "id": "radio_direct_module_pinmap",
+      "kind": "pinmap",
+      "ref": "MOD401",
+      "expected": {
+        "1": "5V",
+        "2": "GND",
+        "3": "TX",
+        "4": "RX"
+      },
+      "detail": "Fonctions constructeur ; numeros internes CA01, non OEM"
+    },
+    {
+      "id": "radio_direct_module_included",
+      "kind": "included",
+      "ref": "MOD401",
+      "detail": "Vrai module inclus BOM/carte, sans doublon board-only"
+    },
+    {
+      "id": "radio_direct_module_footprint",
+      "kind": "field",
+      "ref": "MOD401",
+      "field": "Footprint",
+      "contains": "RadioMaster_RP4TD_Broches_THT_Candidat",
+      "detail": "Empreinte directe provisoire a completer, non fabricable"
+    },
+    {
+      "id": "radio_direct_module_mpn",
+      "kind": "field",
+      "ref": "MOD401",
+      "field": "MPN",
+      "contains": "HP0157.RX-RP4TD-LBT",
+      "detail": "SKU RadioMaster RP4TD LBT"
     }
   ]
 }

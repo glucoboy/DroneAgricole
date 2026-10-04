@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "reviewer": "Agent indépendant connecteurs",
+  "scope": "MOD401 empreinte mécanique RP4TD ; raccordement filaire existant conservé",
+  "passed": true,
+  "factual_blockers": [],
+  "qualification": "À valider",
+  "hardware_tests_executed": false,
+  "checks": [
+    "156références uniques exactement :151netlist+4fixations+MOD401.",
+    "MOD401board_only,excluBOM/positions,aucun pad ; modèleRP4TD.step présent etSHAconforme inventaire.",
+    "Corps23,7×16,3mm,courtyard25×17mm ; placement16,5/20,5/90° donnant[8,8,25,33].",
+    "J401GH4,pinmapW11,R401/R402DNP et111groupesnetlist conservés.",
+    "BOM151composants sans doublon ; MOD401metadata mécanique renvoie au module externe unique.",
+    "Exception de réservation limitée au propriétaireMOD401 ; autres composants etTVS restent contrôlés.",
+    "Proofplacementpassed :0parité/chevauchement/piste/zone,350unrouted attendus,30drills0,2mmpréexistants."
+  ],
+  "visual_inspection": "Aperçu SVG rendu et inspecté par agent principal ; empreinteMOD401 visible dans la réservation.",
+  "limits": [
+    "Empreinte pour montage filaire, pas un land pattern de raccordement directement soudé.",
+    "Cotes nominales, tolérances/pads/fixation/isolant/antennes non qualifiés."
+  ],
+  "inputs": [
+    {
+      "path": "CA01_Avionique.kicad_pcb",
+      "sha256": "4da3f486e9c36a33f2548443b79529972e7be8d354e26eec4976196947230ce8"
+    },
+    {
+      "path": "04_radio.kicad_sch",
+      "sha256": "f2fb71eba236caacbfe79e351a98b08bd4539f8405f820350c43bee9a747054f"
+    },
+    {
+      "path": "bom_candidate.json",
+      "sha256": "09303fa7c2d46e786d05cc0ab02c586aaa362c25037a1c51cf8887d7b29d3377"
+    },
+    {
+      "path": "placement_mecanique.json",
+      "sha256": "98be462b17ff4906ca0ebace1277b73171aedaa4d445437edca11447fa2de919"
+    },
+    {
+      "path": "empreinte_rp4td.json",
+      "sha256": "cf3e07dbee3d459866e8b29c3be31eac08294bb4c8fcf139d6590e3cc7965387"
+    },
+    {
+      "path": "CA01_Mecanique.pretty/RadioMaster_RP4TD_Montage_Filaire.kicad_mod",
+      "sha256": "329c755f664423e58ab0251ca7de06cfeb14edc81a71ac75fa5bed15ba33b558"
+    },
+    {
+      "path": "verification/build_placement.py",
+      "sha256": "ea39e863d025528538f2c3617d9f4a40e764a4c5e9b19b86c4e46c00fccba807"
+    },
+    {
+      "path": "verification/verify_placement.py",
+      "sha256": "0a62fcb7542a3c7280d594aaa7becb123cda0d4d887cd377eb2e61c8350aa7fa"
+    },
+    {
+      "path": "verification/placement_mecanique_20261001.json",
+      "sha256": "30cf9ca2d46c7049652bdf96dd15c33a6250d21b783d1b9ec1124a0840cfa43b"
+    }
+  ]
+}
