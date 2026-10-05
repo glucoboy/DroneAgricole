@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-ELEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 4 octobre 2026 |
+| Dernière mise à jour | 5 octobre 2026 |
 | Statut | architecture candidate ; schémas, faisceaux et qualifications **À valider** |
 
 ## 1. Objet
@@ -33,7 +33,7 @@ et les essais d'interface. Les implantations sont décrites dans
 ## 3. Chaîne d'énergie candidate du cartographe
 
 ```text
-Batterie 6S amovible → connexion/coupure/protection à définir → PM08-CAN
+Batterie 6S amovible → BMS embarqué (Planifié) → connecteur/coupure JETI → PM08-CAN
   ├─ OUT 6S → PDB Holybro 300A top-entry candidate → 4 ESC/moteurs
   │             └─ XT30 candidat → protection proche du départ → CA01 : 12 V calcul/LiDAR et 5 V auxiliaires/radio
   ├─ BEC1 5,3 V/3 A → POWER1 de la porteuse Pixhawk Jetson
@@ -1257,7 +1257,8 @@ n'est déplacé par la préétude.
 
 ### 6.1 Dock 20 Ah : raccordement direct et coupure, 4 octobre 2026
 
-La chaîne courante est **pack 6S AWG8 → cosses à 90° candidates → TE mobile/fixe →
+La chaîne représentée dans la CAO enregistrée du 4 octobre, sans BMS, est
+**pack 6S AWG8 → cosses à 90° candidates → TE mobile/fixe →
 JETI IN/OUT → PM08-CAN → PDB → toutes les branches**. JETI, commande magnétique,
 PM08-CAN et PDB sont placés à l'étage inférieur dans SA07 sur P57 candidat.
 Le raccordement frontal XT90-S, les adaptateurs AWG10 et les barres P42 sont
@@ -1328,6 +1329,87 @@ du pack et les seuils PX4/CA01 sont conservés.
 [Klauke fabricant](https://www.klauke.com/be/de/winkelrohrkabelschuhe-cu-90-und-45-abgewinkelt-f-reihe),
 [PM08-CAN fabricant](https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a).
 Validation CAO et limites matérielles : DOC-VAL §12.1.8, DOC-MEC §4.1.3.2.
+
+### 6.2 BMS dans la cassette et évolution du connecteur — 5 octobre 2026
+
+`ELEC-BMS-001` / `SAFE-REQ-011` : chaque cassette 6S 20 Ah du cartographe
+emporte son BMS, **Planifié**, référence et réalisation **À valider**.
+La cible devient **pack → BMS → connecteur blind-mate → JETI → PM08-CAN → PDB**.
+La CAO et la netlist représentée au §6.1 conservent le TE ; aucune substitution
+fabricant ni intégration de BMS n'est réalisée à ce stade.
+
+Le BMS doit surveiller les six groupes de cellules et les températures
+accessibles, gérer l'équilibrage et définir les protections de charge/décharge.
+Il n'est pas un chargeur. Son courant continu, ses pointes et durées, ses pertes,
+son refroidissement et ses seuils doivent suivre le profil mission mesuré et
+les prescriptions du pack. Une étiquette « 100 A » seule ne sélectionne pas
+un BMS. JETI conserve la commande de coupure et sa fonction anti-étincelle ;
+PM08-CAN conserve mesure et BEC. Leur suppression éventuelle exige une autre
+évolution documentée, pas une conséquence implicite de l'ajout du BMS.
+
+Le fabricant du [Tattu sélectionné](https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug)
+annonce une sortie d'équilibrage JST-XHR-7P. L'accès aux six groupes via les
+sept prises B0…B6 est envisageable sous vérification du brochage, ordre,
+continuité, fil ouvert et limites fabricant, sans ouvrir les cellules scellées.
+Ces prises restent dans la cassette ; les signaux du connecteur d'échange
+ne sont pas utilisés comme sept prises cellules brutes. Les températures
+externes mesurables ne prouvent pas la température interne des cellules.
+
+Le choix du port de charge précède le brochage du fond de panier. Avec deux
+contacts de puissance communs charge/décharge, choisir un BMS à port commun
+protégeant aussi la charge. Un BMS avec P−/C− séparés demande un autre port
+de charge ou une voie de puissance adaptée ; ne pas réunir arbitrairement
+ces bornes et ne pas charger par un contact de signal. L'adaptateur de charge
+reste **Planifié** ; chargeur/USB/équilibrage ne doivent pas contourner les
+protections ni le capteur de courant du BMS.
+
+JETI commute le négatif. Une masse de communication entre le BMS amont et
+l'avionique aval peut contourner cette coupure, même si les FET du BMS sont
+côté positif. Si cette communication est ajoutée, prévoir une interface
+galvaniquement isolée, alimentation de l'interface comprise, ou revoir
+explicitement la topologie de coupure. Omettre un fil GND d'une paire CAN
+ne prouve pas l'absence de retour par transceiver ou protection. CAN-H/CAN-L,
+présence, réveil ou identification restent des fonctions candidates ; le
+brochage et le protocole ne sont pas arrêtés. DroneCAN n'est pas déduit d'une
+simple interface CAN de BMS. Si BMS et PM08 publient une mesure batterie,
+identifier/arbitrer les producteurs afin de ne pas compter deux batteries.
+
+Le budget des signaux précède la sélection : à titre d'allocation candidate,
+CAN-H/CAN-L et référence isolée utilisent trois voies, une boucle de présence
+deux autres ; un format 2+6 ne laisse alors qu'une voie pour réveil ou autre
+fonction. Ce n'est pas un brochage adopté. Démarrage de la précharge et
+détection d'insertion doivent fonctionner lorsque l'avionique est éteinte,
+par une logique locale ou une alimentation auxiliaire isolée définie.
+L'ordre de fermeture/ouverture des contacts doit être établi par les plans
+de la variante exacte, sans le déduire du seul terme blind-mate.
+
+Une coupure BMS coupe propulsion et les deux BEC du PM08 : POWER1/POWER2
+n'apportent pas de secours face à cette cause commune. Pour les dérives
+progressives (cellule faible sous charge, température), dimensionner les
+alertes et marges afin de permettre retour/atterrissage avant la protection
+ultime sur le profil qualifié. Un court-circuit ou une surintensité brusque
+peut exiger une coupure immédiate, sans délai garanti pour PX4 ; ne pas
+inhiber ni retarder ces protections pour le vol. Seuils et délais restent
+**À valider** selon le pack, le BMS et la mission.
+Voir [la politique PX4](https://docs.px4.io/main/en/config/safety).
+
+Les familles proposées par l'utilisateur sont comparées comme **candidates** :
+
+| Famille | Donnée fabricant vérifiée | Conséquence pour la sélection |
+|---|---|---|
+| [DuraSwap Concentric](https://cdn.amphenol-cs.com/media/wysiwyg/files/documentation/datasheet/inputoutput/duraswap-concentric.pdf) | 2 puissance + 6 signaux ; 100 A en 4 AWG, 10 000 cycles ; empreinte annoncée 50×50 mm ; flottement radial ±1 mm avec plaque prévue | premier candidat à approfondir pour échanges fréquents ; compatibilité AWG8, paire exacte, montage et environnement à confirmer. Le DuraSwap standard est annoncé jusqu'à 70 A, pas 100 A |
+| [Floating Mate 2+12](https://amphenol-industrial.com/wp-content/uploads/amphenol/floating-mate-connector-series-ic-27.pdf) | 120 A maximum/contact, élévation catalogue 45 K, 12 signaux ; flottement 2,4 mm ; 100 cycles ; IP2XB ; terminaisons 4/6/8 AWG selon référence | le calibre ne qualifie pas 120 A sur le faisceau AWG8 ; durée de vie à confronter à la fréquence d'échange. IP2XB n'est pas une étanchéité à l'eau |
+| [BSC](https://www.amphenol.co.jp/military/catalog/BSC.pdf) | système modulaire puissance/signaux ; calibre et cycles dépendent du contact et du module | comparer un assemblage exact, ses dimensions, sa masse et ses contacts ; pas un calibre unique de série |
+| [PwrMAX G2](https://www.amphenol-cs.com/media/wysiwyg/files/documentation/datasheet/power/pwr_pwrmax_g2_powerconnector.pdf) | jusqu'à 100 A/contact avec élévation de 30 °C en air calme ; puissance/signaux configurable, PCB ou busbar | candidat si BMS et fond de panier sont conçus ensemble ; reprise mécanique, cuivre, thermique et protection environnementale à définir |
+| [Anderson MARC](https://www.andersonpower.com/product-lines/marc/) | 29 A/circuit, huit contacts polyvalents ; 10 000 cycles | écarté de la présélection de puissance principale ; ne pas additionner les contacts sans architecture et qualification de partage du courant |
+
+La présélection privilégie DuraSwap Concentric et, si une carte de fond de
+panier est développée avec le BMS, PwrMAX G2. Il s'agit d'un ordre d'étude,
+pas d'une commande ou d'un remplacement du TE. FMLB/blind-mate ne suffisent
+pas à autoriser une extraction sous charge. La sélection nécessite courant
+réel, courbes de déclassement, cycles mission, contacts protégés côté pack,
+guidage/flottement, effort, verrouillage et référence complète de la paire.
+Implantation : DOC-MEC §4.1.3.3 ; validations planifiées : DOC-VAL §12.1.9.
 
 ## 7. Architecture réseau et données
 
@@ -1844,6 +1926,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | BMS embarqué requis et chaîne cible définie ; charge, coupures et communication isolée à étudier ; alternatives blind-mate vérifiées, distinction DuraSwap standard/Concentric et limites de cycles/AWG explicites ; aucun remplacement CAO (§6.2) |
 | 4 octobre 2026 | Liaison pack directe candidate AWG8/742F5 M5 au TE, sans XT90-S/AWG10/P42 ; énergie à l'étage inférieur, PM08-CAN conservé et PM08D distinct ; contrôle du seul pack nominal, dressage TE/lot/fixations/thermique **À valider**, adaptateur de charge protégé **Planifié** (§6.1, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Repli des deux adaptateurs fixesTE/JETI en conservantR50 et terminaisons :480,91/425,75mm libres ; coupe sur gabarit et intersectionP49 non résolue, aucune qualification matérielle (§6.1, DOC-MEC§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Catalogue CAO trié et anciennes intégrations globales archivées ; dernière stack conservée, GNSS/faisceau séparés, aucune modification d'interface ou de câblage (§6, DOC-MEC§2.1) |

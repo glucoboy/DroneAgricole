@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 4 octobre 2026 |
+| Dernière mise à jour | 5 octobre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -448,6 +448,46 @@ et leurs empreintes sont historiques. Mesures et limites : DOC-VAL §12.1.8.
 L'état courant est sauvegardé sur `codex/batterie-etage-inferieur` ; les
 branches de conception et les fichiers natifs conservent la possibilité
 de revenir à la définition précédente sans renommer les assemblages.
+
+##### 4.1.3.3 BMS embarqué et compartiment d'interface — 5 octobre 2026
+
+Besoin utilisateur `ELEC-BMS-001` / `SAFE-REQ-011` : le BMS reste solidaire
+de chaque cassette 6S 20 Ah du cartographe pendant l'extraction. Intégration
+**Planifiée**, module et cotes installées **À valider**. Le TE et les natifs
+du §4.1.3.2 restent la configuration représentée ; aucun volume de carte
+BMS ni modèle de connecteur candidat n'est ajouté avec des cotes supposées.
+
+| Implantation étudiée | Mesure dans la CAO enregistrée | Conclusion préliminaire |
+|---|---|---|
+| Sur le dessus du pack | pack nominal Z40…98, plateau à Z103 : 5 mm bruts ; seulement 3 mm avec l'enveloppe d'étude de hauteur 60 mm | pas de place démontrée pour carte équipée, isolant, support et dissipation ; demanderait une reprise en hauteur, sauf module dont les cotes prouvent le contraire |
+| Entre pack et connecteur, P43/P44 mobile | extérieur P43 96×46×39,5 mm ; cavité effective X−200…−106, Y−13…29, Z63…98,5, soit 94×42×35,5 mm | implantation candidate privilégiée ; cavité déjà occupée par fils/cosses/vis, pas une réserve BMS disponible |
+
+L'intégration cible reprend ou compartimente P43/P44 et redessine le trajet
+**pack → BMS → connecteur**. P51/P52 et la prise d'équilibrage peuvent être
+réorganisés avec les prises cellules internes au BMS. Conserver la continuité
+des protections, les accès après extraction, l'isolation et les jeux sur
+toute la course. La carte et son dissipateur sont retenus par la structure
+de cassette ; les efforts d'accouplement et la masse ajoutée ne passent ni
+par les cellules, ni par les soudures, ni par les contacts électriques.
+
+Le coffret est proche du pack : dissipation et température des cellules
+doivent être étudiées ensemble. Un boîtier fermé n'est pas une solution de
+refroidissement démontrée. Le BMS, ses borniers, le câblage et les isolants
+doivent être comptés dans l'enveloppe et la masse ; une dimension de PCB
+nu ne suffit pas. La capacité/référence 6S 20 Ah reste la sélection courante.
+
+La sélection du connecteur est couplée à celle du BMS. L'empreinte annoncée
+50×50 mm du DuraSwap Concentric ne constitue pas une profondeur accouplée
+ni une intégration directe dans P43, large de 46 mm. Les terminaisons,
+guides, flottement, arrêt mécanique, verrou et accès de maintenance exigent
+les plans de la paire exacte. Un connecteur sur PCB doit être soutenu pour
+éviter de transmettre les efforts à la carte BMS. Comparaison électrique :
+DOC-ELEC §6.2.
+
+Pour coter la prochaine évolution en place : référence/version BMS, dimensions
+avec dissipateur et fixations, emplacement des prises de puissance/cellules,
+rayons des fils, masse et exigences thermiques ; puis paire exacte du
+connecteur et schéma de charge/communication. Validation : DOC-VAL §12.1.9.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -1333,6 +1373,7 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | BMS solidaire de la cassette Planifié ; compartiment arrière P43/P44 privilégié après réaménagement, faible jeu au-dessus mesuré ; aucun module/cote ni remplacement de connecteur supposé (§4.1.3.3) |
 | 4 octobre 2026 | Étage énergie inférieur et liaison directe candidate AWG8/742F5 M5 au TE ; pack retourné, supports reculés de 82 mm, coffrets et passages repris ; contrôle du seul pack nominal, enveloppe d'étude/lot/fixations/thermique **À valider**, adaptateur de charge **Planifié** (§4.1.3.2, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Couleurs natives du dock et suivi Git de91 petits natifs ; noms stables, repli des deux cordons fixesR50 et hauteur calculée−29,3% ; pistes JETI/XT90/cassette et intersectionP49 ouverte (§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Tri des natifs : 10 sous-assemblages courants et deux montages de construction, 13 anciens SA et cinq globaux archivés avec leurs dépendances ; catalogue/guide actualisés, réouvertures séparées et reprise de source stack contrôlées (§2.1, DOC-VAL§12.1.6) |

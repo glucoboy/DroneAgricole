@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-HLD` |
 | Nature | document vivant |
-| Dernière mise à jour | 3 octobre 2026 |
+| Dernière mise à jour | 5 octobre 2026 |
 | Statut | architecture système préliminaire ; capacités qualifiées indiquées explicitement |
 
 ## 1. Objet et périmètre
@@ -217,6 +217,16 @@ Principes non négociables :
   ne dépend pas d'un capteur unique.
 - En cas de défaut de traitement, fermeture du produit avant les autres actions
   de mission.
+- Chaque cassette 6S 20 Ah du cartographe doit emporter son BMS : besoin
+  **Planifié**, choix et intégration **À valider**. Le BMS surveille/protège
+  le pack ; PX4 conserve les décisions de vol. Une protection BMS ouvrant
+  la puissance peut supprimer propulsion et avionique simultanément : les
+  alertes et la politique PX4 doivent anticiper les dérives progressives
+  avec des marges qualifiées. Un court-circuit ou défaut sévère peut exiger
+  une protection immédiate, sans délai garanti pour atterrir ; les protections
+  du pack ne sont ni inhibées ni retardées pour préserver le vol.
+  JETI et PM08-CAN restent dans la définition courante ; le BMS ne les
+  remplace pas automatiquement (DOC-ELEC §6.2, DOC-MEC §4.1.3.3).
 
 ## 6. Informations échangées
 
@@ -439,6 +449,7 @@ référence du comportement attendu au niveau système.
 | `SAFE-REQ-008` | Les essais progressent par portes, de la simulation vers le réel. |
 | `SAFE-REQ-009` | Le traitement reste inhibé sans localisation, carte, corridor et bras valides. |
 | `SAFE-REQ-010` | Distinguer pertes RC, GCS, RF commune, RTK et Offboard selon AUTO/MANU ; maintenir les protections embarquées et maîtriser la reconnexion. |
+| `SAFE-REQ-011` | Intégrer un BMS dans chaque cassette 6S 20 Ah du cartographe ; coordonner alertes et protections avec PX4, sans voie de puissance ou de communication contournant la coupure. **Planifié / À valider** ; DOC-ELEC `ELEC-BMS-001`, DOC-VAL §12.1.9. |
 
 ### 8.6 Objectifs de performance préliminaires
 
@@ -517,6 +528,7 @@ ne sont pas disponibles.
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | BMS embarqué dans chaque cassette cartographe requis ; protections et alertes coordonnées avec PX4, défaillance d'énergie commune et absence de contournement explicitées ; intégration Planifiée / À valider |
 | 3 octobre 2026 | Dock 6S 20 Ah et coupure JETI en tête du PM08 ; causes de défaillance communes et échange au sol explicités, sans changement de l'autorité de PX4 ; CAO historique et cible Holybro/CA01 distinguées |
 | 30 septembre 2026 | Responsabilités temporelles clarifiées : décision de capture Jetson/ROS 2, impulsion PX4 et adaptation CA01 ; flux continus associés au temps réel d'exposition, autorité unique et distinction PPS/cadence ; cible Planifié / À valider |
 | 25 septembre 2026 | synchronisation cartographe cible : Rover Helical STM32G4 PPS candidat, CA01 distribution du temps, AUX PX4 vers Basler et retour ExposureActive vers capture Pixhawk ; horloges et ports à qualifier |

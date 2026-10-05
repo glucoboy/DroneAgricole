@@ -1,6 +1,6 @@
 """Instantané Git local de la conception, sans changer branche ni index utilisateur."""
 from pathlib import Path
-import hashlib,json,os,subprocess,tempfile
+import hashlib,json,os,subprocess,tempfile,sys
 ROOT=Path(__file__).resolve().parents[4];MEC=ROOT/'hardware/mecanique/cartographe';VER=MEC/'verification'
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
@@ -11,7 +11,7 @@ branch='codex/batterie-etage-inferieur';before=read(VER/'suivi_git_etage_batteri
 m=read(MEC/'manifest.json');m['configuration_dock20Ah']['evolution_courante']['branche_Git_courante']=branch
 (MEC/'manifest.json').write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 files=before['fichiers']+[r['fichier'] for r in read(VER/'nomenclature_etage_batterie.json')['occurrences']]
-files+=['hardware/mecanique/README.md','hardware/mecanique/cartographe/README.md','AGENTS.md']
+files+=['hardware/mecanique/README.md','hardware/mecanique/cartographe/README.md','docs/architecture/HLD.md','AGENTS.md']
 files+=['hardware/mecanique/cartographe/sous_assemblages/'+s+'.FCStd' for s in ['SA02_Cassette20Ah_Coulissante','SA02_Contacts20Ah']]
 files+=git('ls-files','--others','--exclude-standard','--','hardware/mecanique/cartographe/verification').splitlines()
 files+=git('diff','--name-only','--','hardware/mecanique/cartographe/verification').splitlines()
@@ -25,7 +25,8 @@ old=subprocess.run(['git','rev-parse','--verify','refs/heads/'+branch],cwd=ROOT,
 parent=old.stdout.strip() if old.returncode==0 else before['commit']
 try:
  git('read-tree',parent,env=env);git('add','-f','--',*files,env=env)
- commit=git('commit-tree',git('write-tree',env=env),'-p',parent,'-m','Batterie directe TE et énergie à étage inférieur, conception CAO candidate',env=env)
+ title='Planifier le BMS de cassette et comparer les connecteurs blind-mate' if '--plan-bms' in sys.argv else 'Batterie directe TE et énergie à étage inférieur, conception CAO candidate'
+ commit=git('commit-tree',git('write-tree',env=env),'-p',parent,'-m',title,env=env)
  git('update-ref','refs/heads/'+branch,commit,old.stdout.strip() if old.returncode==0 else '')
 finally:Path(name).unlink(missing_ok=True)
 assert sha(index)==initial_index and git('diff','--raw','--',unrelated)==initial_unrelated and git('rev-parse','--abbrev-ref','HEAD')==initial_branch
