@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "date_utc": "2026-10-04",
+  "date_utc": "2026-10-05",
   "realisation": "Implémenté : routes natives, interfaces, retenues et références de raccordement",
   "statut_physique": "À valider",
-  "objet": "Pack préparé pour raccordement direct TE, sans XT90-S frontal ; étage énergie inférieur candidat",
+  "objet": "Pack6S+BMSmobile commun→TE→JETI→PM08 ; diagnosticUARTisolé",
   "tension": {
     "serie": 6,
     "nominale_V": 22.2,
@@ -13,45 +13,48 @@
   "netlist": [
     {
       "net": "BAT_PLUS_BRUT",
-      "origine": "TAA200006S5X9S.+",
-      "destination": "TE mobile.position puissance PLUS",
-      "connexion": "Fil AWG8 du pack vers cosse90 candidate742F5 puis contactTE M5 mobile ; sortie et sertissage lot À valider",
-      "etat_OFF": "Sous tension"
+      "origine": "Tattu.+",
+      "destination": "TE39",
+      "connexion": "AWG8 continu ; BMS positif parBC22=B6 viafaisceaucellulesinterne, pasdepiquageB+ bulk"
     },
     {
       "net": "BAT_MOINS_BRUT",
-      "origine": "TAA200006S5X9S.-",
-      "destination": "TE mobile.position puissance MOINS",
-      "connexion": "Fil AWG8 du pack vers cosse90 candidate742F5 puis contactTE M5 mobile ; sortie et sertissage lot À valider"
+      "origine": "Tattu.-",
+      "destination": "JBD.B-",
+      "connexion": "AWG8 usine court versentréeBMS"
+    },
+    {
+      "net": "P_MINUS_PROTEGE",
+      "origine": "JBD.C- portcommun A01 (P- logique)",
+      "destination": "TE40 puisJETI.IN-",
+      "connexion": "LiaisonrapportéeAWG8, aucuneconnexionretouravalàB- brut"
     },
     {
       "net": "BAT_PLUS_BRUT",
-      "origine": "TE fixe.position puissance PLUS",
-      "destination": "JETI MainSwitch100.IN+",
-      "etat_OFF": "Sous tension"
-    },
-    {
-      "net": "BAT_MOINS_BRUT",
-      "origine": "TE fixe.position puissance MOINS",
-      "destination": "JETI MainSwitch100.IN-"
-    },
-    {
-      "net": "BUS_PLUS_AVAL",
-      "origine": "JETI MainSwitch100.OUT+",
-      "destination": "PM08 entrée batterie + puis distribution/CA01/ESC",
-      "etat_OFF": "Positif toujours raccordé"
+      "origine": "TE39 fixe",
+      "destination": "JETI.IN+"
     },
     {
       "net": "BUS_MOINS_AVAL",
-      "origine": "JETI MainSwitch100.OUT-",
-      "destination": "PM08 entrée batterie - puis tous retours distribution/CA01/ESC",
-      "contrainte": "Aucun retour aval vers BAT_MOINS_BRUT en dehors du JETI"
+      "origine": "JETI.OUT-",
+      "destination": "PM08 puisPDB etavionique"
     },
     {
-      "net": "COMMANDE_JETI",
-      "origine": "MagneticSwitch MASTER normal fourni",
-      "destination": "MainSwitch connecteur Switch",
-      "connexion": "Câble du kit conforme à sa notice ; brochage à contrôler sur le lot avant raccordement"
+      "net": "BUS_PLUS_AVAL",
+      "origine": "JETI.OUT+",
+      "destination": "PM08 puisPDB etavionique"
+    },
+    {
+      "net": "UART_ISOLE",
+      "origine": "JBD.TX/RX/B- brut",
+      "destination": "TE3signaux puisTTLcôtéisoléWaveshare15817",
+      "connexion": "VDDJBD/5VTTLNC, USBJetsonaval ; aucunevoieàGNDavionique"
+    },
+    {
+      "net": "PRESENCE_PASSIVE",
+      "origine": "TE2contacts postmate",
+      "destination": "bouclemobile, NCcôtéfixe",
+      "connexion": "indépendanteB- brut, pasinterlock"
     }
   ],
   "positions_TE": {
@@ -59,18 +62,40 @@
       39,
       40
     ],
-    "affectation": "39 PLUS ;40 MOINS, orientation verrouilléeSA02A",
+    "affectation": "39=B+ continu ;40=P−protégé. 5contacts#20 candidats, cavitésnumérotées null",
     "39_centre_monde_mm": [
-      -200.2548,
+      -244.2548,
       21.6535,
       69.745
     ],
     "40_centre_monde_mm": [
-      -200.2548,
+      -244.2548,
       21.6535,
       86.255
     ],
-    "contacts_signaux_1_38": "Non équipés ; pas de précharge ni interverrouillage inventé par ces cavités"
+    "contacts_signaux_1_38": "Cinq contacts #20 candidats : S_GND, S_TX, S_RX, S_PRESENT_A/B ; 1..32 logements #20, numéros de cavités nonconfirmés (null). 33..38 autrespuissancesinutilisées ; boucleprésencefixeNC, aucuninterlock.",
+    "signaux_candidats": [
+      {
+        "logical_id": "S_GND",
+        "cavity_number": null
+      },
+      {
+        "logical_id": "S_TX",
+        "cavity_number": null
+      },
+      {
+        "logical_id": "S_RX",
+        "cavity_number": null
+      },
+      {
+        "logical_id": "S_PRESENT_A",
+        "cavity_number": null
+      },
+      {
+        "logical_id": "S_PRESENT_B",
+        "cavity_number": null
+      }
+    ]
   },
   "terminaisons": {
     "puissance_TE": "Quatre terminaisons M5 : deux cosses90 mobiles et deux cossesPhoenix3240219 fixes ; P42/AWG10/XT90-S retirés de cette variante.",
@@ -87,7 +112,7 @@
       "designation": "C-RCI 6/M5"
     },
     "regle": "Choisir selon section réelle du pigtail, pas selon le nom du pack. Aucun AWG8 forcé dans une soudure Amass prescrite 10AWG. Ni serrage au fond du filetage ni borne métallique nue accessible.",
-    "dimensions_faisceaux": "Chemins CAO mobiles89.70/90.56mm, fixes354.42/354.07mm ; préparation, dénudage et coupe à définir sur lot/gabarit. Pas intervention sur cellules scellées.",
+    "dimensions_faisceaux": "Longueurscourantes dansroutes_mobiles etsegment_fixe_TE_JETI ; pascoupesfabrication, anciens89.7/90.56/354mmhistoriques.",
     "cosse_mobile_candidate": {
       "mpn": "742F5",
       "fabricant": "Klauke",
@@ -100,80 +125,69 @@
   "routes_mobiles": [
     {
       "reference": "EQ_LeadPack8AWG_Plus20A",
-      "depart_mm": [
-        -99,
-        5,
-        82
-      ],
-      "entree_cosse_mm": [
-        -186.2548,
-        11.1535,
-        69.745
-      ],
-      "longueur_mm": 89.6998000228923,
-      "rayon_mm": 50,
-      "diametre_etude_mm": 5
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd",
+      "longueur_chemin_mm": 133.69980002289233,
+      "diametre_etude_mm": 5,
+      "rayon_fabrication_valide": false,
+      "mobile": true,
+      "statut": "À valider"
     },
     {
       "reference": "EQ_LeadPack8AWG_Moins20A",
-      "depart_mm": [
-        -99,
-        -5,
-        82
-      ],
-      "entree_cosse_mm": [
-        -186.2548,
-        11.1535,
-        86.255
-      ],
-      "longueur_mm": 90.55769115841943,
-      "rayon_mm": 50,
-      "diametre_etude_mm": 5
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd",
+      "longueur_chemin_mm": 47.11243233952097,
+      "diametre_etude_mm": 5,
+      "rayon_fabrication_valide": false,
+      "mobile": true,
+      "statut": "À valider"
+    },
+    {
+      "reference": "EQ_BoucleEquilibragePack20Ah_Reservation",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_BoucleEquilibragePack20Ah_Reservation.FCStd",
+      "longueur_chemin_mm": 104.27044947659282,
+      "diametre_etude_mm": null,
+      "rayon_fabrication_valide": false,
+      "mobile": true,
+      "statut": "À valider"
+    },
+    {
+      "reference": "EQ_BMS_PMoins_TE20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_BMS_PMoins_TE20A.FCStd",
+      "longueur_chemin_mm": 51.87946339924204,
+      "diametre_etude_mm": 5,
+      "rayon_fabrication_valide": false,
+      "mobile": true,
+      "statut": "À valider"
+    },
+    {
+      "reference": "EQ_BMS_UART_TE20A",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_BMS_UART_TE20A.FCStd",
+      "longueur_chemin_mm": 81.42621983083913,
+      "diametre_etude_mm": null,
+      "rayon_fabrication_valide": false,
+      "mobile": true,
+      "statut": "À valider"
     }
   ],
   "segment_fixe_TE_JETI": {
     "routes": [
       {
         "reference": "EQ_CordonFixe8AWG_Plus20A",
-        "depart_mm": [
-          -261.9,
-          -5.2465,
-          69.745
-        ],
-        "fin_mm": [
-          -40,
-          -115,
-          -16.5
-        ],
-        "longueur_mm": 354.4247189561309,
-        "rayons_mm": [
-          50.0,
-          50.000000000000036,
-          50.00000000000001
-        ],
-        "distance_spatiale_TE_module_mm": 264.4637171640942,
-        "premier_collier_CAO": null
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd",
+        "longueur_chemin_mm": 398.4247189561309,
+        "diametre_etude_mm": 5,
+        "rayon_fabrication_valide": false,
+        "mobile": false,
+        "statut": "À valider"
       },
       {
         "reference": "EQ_CordonFixe8AWG_Moins20A",
-        "depart_mm": [
-          -261.9,
-          -5.2465,
-          86.255
-        ],
-        "fin_mm": [
-          -40,
-          -99,
-          -16.5
-        ],
-        "longueur_mm": 354.0662549757638,
-        "rayons_mm": [
-          50.0,
-          50.0,
-          50.0
-        ],
-        "distance_spatiale_TE_module_mm": 262.57291500886,
-        "premier_collier_CAO": null
+        "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd",
+        "longueur_chemin_mm": 398.06625497576374,
+        "diametre_etude_mm": 5,
+        "rayon_fabrication_valide": false,
+        "mobile": false,
+        "statut": "À valider"
       }
     ],
     "destination": "JETI IN étage inférieur",
@@ -184,16 +198,17 @@
     "dressage_TE": "Orientation−Y des cossesfixes et liberté desdeuxmoitiés à approuver/valider selon114-13206 ; R50 ne prouvepas conformité."
   },
   "contraintes_implantation": [
-    "JETI/PM08-CAN/PDB dans SA07 sous la batterie ; dégagements des corps contrôlés, faisceaux aval à recoter",
-    "Préparation directe du pack vers TE, lot et sertissage des cosses candidates À valider",
-    "Dressage et flottement TE À valider selon 114-13206 ; aucun collier proche TE représenté"
+    "BMSPCBmax130.5×65.5×12mm, prises/dissipation nonincluses",
+    "TEaddition44mm, P43/P44 142×76mm, hauteurcapot102.5 inchangée",
+    "Ports/terminaisons/rayons SA08candidats, aucunequalificationmatérielle"
   ],
   "limites_courant": {
     "TE_contacts_annonce_A": 125,
     "JETI_annonce_A": 100,
     "pack_5C_annonce_A": 100,
     "courant_systeme_qualifie_A": null,
-    "conclusion": "XT90-S retiré de cette variante ; les calibres catalogue TE/JETI/pack ne qualifient pas le courant continu de la chaîne complète. Mesurer résistance, transitoires, courant mission et échauffement sur le lot et le montage réel."
+    "conclusion": "XT90-S retiré de cette variante ; les calibres catalogue TE/JETI/pack ne qualifient pas le courant continu de la chaîne complète. Mesurer résistance, transitoires, courant mission et échauffement sur le lot et le montage réel.",
+    "BMS_catalogue_A": 100
   },
   "procedure_echange": [
     "PX4 désarmé, hélices immobiles et positionnées selon la preuve d'insertion ; aucune liaison externe raccordée.",
@@ -221,9 +236,10 @@
   ],
   "retenues": {
     "puissance_mobile": "P43/P44 candidats",
-    "equilibrage": "P51/P52 danscorridor intérieur ; anciennesvisretenue retirées, fixation àdéfinir",
+    "equilibrage": "InterneP43, P51/P52 retirés ; adaptation6SJST7→faisceau22Sàvalider",
     "modules_fixes": "P57 appuis/butées/lumières ; vis/sangles et reprise de traction àsélectionner",
-    "statut": "À valider"
+    "statut": "À valider",
+    "BMS": "AppuiP58 1mm ; maintienpositif/dissipation/fixationsÀvalider"
   },
   "sources_sha256": {
     "hardware/mecanique/cartographe/pieces/fabriquees/P28_RailDroit20Ah.FCStd": "a37d62288a8e87405b17887efb9053513ec6558d4819b6f1eef7ca5ed1014809",
@@ -256,8 +272,8 @@
     "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1648156_Dock20.FCStd": "1837323844b36623ee87e6f4ea80bb859d7e62942cef667fdc590b80180b11e3",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1766283_Dock20.FCStd": "698c9d6c1ad56321042d411995b93971cf774dca66d318d1a4a8c428fefd23d8",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_6648335_Dock20.FCStd": "cfed01f889d33434a793ed6b398f90f27b482b92a6a367fae10ddde140bce30d",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P39_SupportFixeContacts20Ah.FCStd": "230fcaeba7d66d2972ac414f90a54c3a606e9d4d73dd4755afb57c4b0b0e13bb",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P40_SupportMobileContacts20Ah.FCStd": "28224ed46df52bd383447bf92ed0c9fc9f2ac423ea0d51bae472691f195622a0",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P39_SupportFixeContacts20Ah.FCStd": "c39bffa00cdde28f0af6480e84ca0244311d6858fc5124c8468d66eedb7d0491",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P40_SupportMobileContacts20Ah.FCStd": "1643b209a891e20ad22610c689528d6650ceede99b7860514151e2fc5dba9d10",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1650589_Dock20.FCStd": "0a8488e22dc4d1ef6ef37d3d9e638c168411351cb8ec676d98f9d03c9a1040b4",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M4_Contacts20Ah.FCStd": "de73c85ed21f78e26fe4c9d4ed657a4d9c423459820fb87c18822071219885f6",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M4x20_Contacts20Ah.FCStd": "44b25ba4a78f343a17bc718aa52b0b06b1c2ffaf0d243a7240397f2810c580a5",
@@ -268,12 +284,12 @@
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M3_Contacts20Ah.FCStd": "81a36608e7e07f35592cf4cf444c92a12ff25ebf0fc2dd5f6601d41a6dfd0d37",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x14_Contacts20Ah.FCStd": "d8342117ee318770303dcb6ced1bdde81be1d012a0b7501786cedc0c67e7be4e",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_DIN7991_M3x16_Contacts20Ah.FCStd": "ee8627aa9948648a07a61d4766a42052840b811f5b3110c72a650d7b801ac476",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P43_ProtectionConducteurs20Ah.FCStd": "ed2e6ab4743062db3c38f87310d422cb6a65b50669e6db5cf46e09441684ef36",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P44_CouvercleArriereConducteurs20Ah.FCStd": "e5bd5da1ebc55e3725a0158e1a12abc57e39fde9dd5bf52eba218e25f92a87dc",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P43_ProtectionConducteurs20Ah.FCStd": "a7a1d6a3ab79627a5fca714d89f958f59b428c17933823965a189e3dcf46491e",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P44_CouvercleArriereConducteurs20Ah.FCStd": "6da938c6c49c5d0fce7fb0fb1c81ec7657585143ce5c8f915513a951c19459ef",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M5x8_Dock20A.FCStd": "2ca63249d53bd16df2e8051246a6d1ba2b7d1218fdfadd617049f9dd0c7ad363",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M5_Dock20A.FCStd": "2a8d448058c5652f124f6ed2493bcea1b9d4fa813285091812aa8a90534d2560",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd": "831a2cc8a85e41e819075da7be80e92a09827e25bf0adbc324ed126740a9f45a",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd": "17d6270a6dd4520ec6e7a1879dca9963493031ac2fad830dec44e1a58420f93a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd": "2fa74e33665934f8022cd81d966f1e96e219a6e6e59918794882383fe58d0086",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd": "beea15f01c8e640cf2143b36ee6c5d93089cb620dcbe1739891432bdf73f807b",
     "hardware/mecanique/cartographe/pieces/fabriquees/P48_EntretoiseConductriceCuM5_Dock20Ah.FCStd": "c959ec552455c6d23f61d036cf6aa240c4e2dfd47c780dd4c541f7250c775b70",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_Phoenix3240219_Dock20A.FCStd": "04dc9977716948e9e3881c647648d2d3ae0b006e6fcfea79776092a2770ddf61",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M5x20_Dock20A.FCStd": "dd407755586638c5c2071e12a42589b641bb6152c96b80970749e94ac340c3fb",
@@ -284,19 +300,63 @@
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M3_Dock20A.FCStd": "ccd44a628e4cc3c69d36b44ffc73d944218330ef684687ab3cd846b3ddde1e3d",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M2x8_Dock20A.FCStd": "ff6cc745a1db7cd4961f652069801ab4fe7214736f5a1a18215a8efbb0fd45f3",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M2_Dock20A.FCStd": "f8ee99777c361ed18df61814d0925c90580d65ac60adb244f1e6a36e6a418393",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd": "ebedd95c8b983b2ea36bfa2e18702b9ec1afca4151a3e5ae056795b94cdf3d8c",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd": "8a2cab492786003cd64112cddfa1ffd9668e6a7da782e0a19d10abf3c05c34ce",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P51_RetenueEquilibrage20Ah.FCStd": "9dae492e2255779515c261f389b3605b50f1960cecfb340528d54aa66938345d",
-    "hardware/mecanique/cartographe/pieces/fabriquees/P52_CapotEquilibrage20Ah.FCStd": "fba767343be96c08c7670da75fca99a4bf1efe899d24d5a760d962a9be069225",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd": "fe814467ac5d9486e4db3621c99f848411ba91d4130d96040685aedb51670973",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd": "ee17a5fe80c5d15923f0a2aebba1cf5bcaabde580d299e50e0ac53a611c17ca3",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_EquilibragePack20Ah_Reservation.FCStd": "15014a1597c7dff3b8435c920c5278f1a21fd693f9a1e971c9ca250194df09fa",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_BoucleEquilibragePack20Ah_Reservation.FCStd": "b9451d082763050773d87517624d66a58e0791afdd6ad27edeb71a4a69d6b81c",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M2x6_Dock20A.FCStd": "a7feb7951b8fcdc797971478fdf7124f3af0ed53db0263fb98bd16ab5d06a59c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BoucleEquilibragePack20Ah_Reservation.FCStd": "53adcdafbbea17bdfb60e961f16cfcaa1a14076db71b791a497b40333c875e91",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_Klauke742F5_Cosse90_TE.FCStd": "3af1982083143ce4100eebe1373314ae9b385be287a9926e1069add97eef4128",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd": "dfc673352d1195054f3700bb1d0c27a87a86cbd8835e72aad1f29a45c580cd45",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BMS_PMoins_TE20A.FCStd": "92af450e1573f2418014fa7143073adb19b4099f60808ce8afe3344a6398eb39",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1650161_1_Signal20.FCStd": "5e25780adacad3c8814112940cff7caa0708702ad7e9e371c66b511bcf10e9e0",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1650155_1_Signal20.FCStd": "b8b0057b267cd07d332d6710a96186934152467df2a3cc4351f43f81c735052c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1650162_2_Signal20.FCStd": "a7df10f43c4eb70ccd2a6b82f7e985008c32285d9c39fead8c3b2e3454a2dbfb",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_TE_1648325_1_Signal20.FCStd": "7567a57296a84f9bb85a4e6ef176a5e433b7a467c061385063f448be90a36f07",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BMS_UART_TE20A.FCStd": "278a718314f3a1656cbe21863c1e97ceabc24a2b406dad24885c128db46e4e9b",
+    "hardware/mecanique/cartographe/pieces/fabriquees/P58_AppuiIsolationBMS.FCStd": "c823bfd49afa019fab9befe64b95bbaeb8e4e78c431036496097efecd96eb641",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BouclePresenceTE20A.FCStd": "c0ffcab2efaf7c75e13bd5deda426d05251b44137fd3378935ba983748ace261",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd": "de3c9bcd13a09df2112a2047627972ababbfab293dce135a1a37b96bc2654686",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd": "6db469ef495f199d7cb1f374e6f60ab661bed2b053db7afda8049a68cb51521c",
     "hardware/mecanique/cartographe/pieces/fabriquees/P57_PlateauEnergieInferieur.FCStd": "9473f8ff22aefef502b565f910490dcad76f5f7f86763a340cb12211d72307b8",
     "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMainSwitch100_PortsEtude20A.FCStd": "daa4446ef70c1e13d0cc4cd82e2368adbc85288ac95d521bb530fb668a51850a",
-    "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMagneticSwitch.FCStd": "43a1dc78b0366e1bcecc6fd985a4a23d68cbee0b560ed8bb9f2a6827bf84a23a"
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMagneticSwitch.FCStd": "43a1dc78b0366e1bcecc6fd985a4a23d68cbee0b560ed8bb9f2a6827bf84a23a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd": "17fb50df708391efd7b2f9d92e6631248a540f3e185ef081d3aac2e2a8b5e6e6",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_JETI_OUT_PM_Systeme_Candidat.FCStd": "e3a4c9fdee6ed71b939f5232d58e46d609e9e6f2c282ececffa099081606cf4a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PM_OUT_PDB_Systeme_Candidat.FCStd": "87408ece30001946a9bfb4d2742a565ea2839fc6e198f3f040ec9110fbc61a49",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PDB_ESC_1_Systeme_Candidat.FCStd": "9cc90e3c82df333b01f9e1d703f327465108b9426d3038a76e81f85be87557ae",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ESC_PHASES_1_Systeme_Candidat.FCStd": "8f3de5916c058752518c1ca5507d575dd2949ec08cc6da40fc694c6a5951e403",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_ESC_1_Systeme_Candidat.FCStd": "5363eacf834254b795b89ac6c3b8c6061aa9d048262bf26d40d7f7d5b56c4034",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PDB_ESC_2_Systeme_Candidat.FCStd": "aed49c68ec92bf7b2494029a292aa6a0843a4bdaaf95ab383f120e0f82f145fa",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ESC_PHASES_2_Systeme_Candidat.FCStd": "958c7d8b49ea88a2612c1a67374ca4a2ee7a3232c6f36de7cce1cbd33326eaa7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_ESC_2_Systeme_Candidat.FCStd": "db3e157796daf158b73cc8a52a36b0ea7d7dcf78ed09e6ff543168d42b057260",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PDB_ESC_3_Systeme_Candidat.FCStd": "9fe2ffec0dff21d5909e4f8b2b44987d169cca25f9ded89f1347f60ac2b446d9",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ESC_PHASES_3_Systeme_Candidat.FCStd": "ff134296f534252993cf0b785cbf0183101ba840c0b2e8d44bcc21b4a4ee4dc1",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_ESC_3_Systeme_Candidat.FCStd": "e84b3e13ff2ed7231dd6fad0f237d4e0ad7511042ce55b357ff0445f4fab6036",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PDB_ESC_4_Systeme_Candidat.FCStd": "ac4b2e845afb88db71a6197e54d071045ce668ab364338fb35c50ff90e0bf880",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ESC_PHASES_4_Systeme_Candidat.FCStd": "c2b7269144658c26ad6a9e5b5795f2b2ddc2074f182cf62b9493f131477cb0af",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_ESC_4_Systeme_Candidat.FCStd": "d9a4360b83729cc19ab7c1c45bb56606146fe3d21a40f453d4e6f1869b1f1242",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PM_POWER1_Systeme_Candidat.FCStd": "5049cceda20dd12a94b2e3476ef8b9054c062faaff3d8afc6483ef9590d426eb",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PM_POWER2_Systeme_Candidat.FCStd": "5a70a752f68e2b8d7e95167c374f7509ebb628e9218f2816fdadf667461e7052",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PM_CAN1_Systeme_Candidat.FCStd": "f344c5989e28b717898108cc6ec04a7c7c1d454cced8696b9e4d028e31b23bc7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_PDB_CA01_Systeme_Candidat.FCStd": "5fa65f7c722359f1157fac8676217fc9eae4a3bdb9716e3415e16abecb79c42d",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_CA01_JETSON_Systeme_Candidat.FCStd": "6c5830bd057349cb5c9bc650b22481796653f270797a9f85526879cedd82fca1",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_AIRY_TRONC_Systeme_Candidat.FCStd": "98286001cf3328006dfff2e145bccfb467edb1d33641989a0ee887482fa048dc",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_AIRY_12V_Systeme_Candidat.FCStd": "5b9489fd3dc16b6dfa1cf1fec858d59b1aedc439f483058a83926e2d38484634",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_AIRY_ETH_Systeme_Candidat.FCStd": "d3b1b3fa9dd9fe50929dfcc1bdb6e1985e228ed3259d69f5b4fbcc46e7eb5d03",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_AIRY_TEMPS_Systeme_Candidat.FCStd": "ddd776fb811e8727b245ab819fa92f772d2df068e191a72cbb69d9a8c1f163b7",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_CA01_UART_RF_Systeme_Candidat.FCStd": "cd6257ae4479b0fa4e9d2172d942efe89ba340f6a98080df6977cb44be003226",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_COAX_RF_1_Systeme_Candidat.FCStd": "83f1efad65dcb30748774421d7c63f0e0646113675e25d328ee34e9aaf97176a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_COAX_RF_2_Systeme_Candidat.FCStd": "a2f0de27782b78b2079444a331566d201c7197b4a883297485072f6fa7173112",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_USB3_CAMERA_Systeme_Candidat.FCStd": "6358a8e207cc63bacd51ff8be062bcd795a08a140c621d5d23ddee6b8b1e7523",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_M8_CAMERA_Systeme_Candidat.FCStd": "c92327233d7e917fc45ce9adccc37930d46780bf0e71a6eddc529b1fdfa0f592",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_GNSS_CAN2_Systeme_Candidat.FCStd": "a5da3742637243d47504f3771a610f940d4d17e784a5fd22e424facc32c86d1d",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ORIN_PPS_Systeme_Candidat.FCStd": "b83d7b4eb296310eca14cfc667f58205ddf9a5cccadcb2ee6f1d7ea810633d8a",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ORIN_GPRMC_Systeme_Candidat.FCStd": "5148bbc57f04afc5c660862c965fcfde61d6d0b6170a988fb3d1d182ff3430de",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ORIN_REF3V3_Systeme_Candidat.FCStd": "96814c60637ee8d153a220f54509942d1e8f8367ab3fb73ffcd15de15f93fdc9",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_TRIGGER_Systeme_Candidat.FCStd": "5d9bf4e0161643207731a2e1d64efd63b227816a31349032232ef987df91f38c",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_FCU_CAPTURE_Systeme_Candidat.FCStd": "6218ba6d6fdc87efd83592ca9676cc3a5b5ce27cc8398c37dc63797b67853915",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_GNSS_PPS_GPRMC_Systeme_Candidat.FCStd": "0b8f4ad145ff3b5ea0a07ad88ec12f242961aed267da19061e55b139d3eb9a0b",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_TE5_SIGNAL_ISOLATEUR_Systeme_Candidat.FCStd": "8d7ef0ce643421a99a76ea75155485efab7f265229d9a1164f180797149c1449",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Route_ISOLATEUR_USB_JETSON_Systeme_Candidat.FCStd": "764f4a5d4daba384b1df34af345dcff558a79f8804b3b40696718da979d372a0"
   },
   "fils_pack_preparation": {
     "XT90_S": "retiré de la définitionCAO",
@@ -307,8 +367,8 @@
   },
   "charge_hors_drone": {
     "statut": "Planifié",
-    "interface": "Adaptateur TE protégé vers les deux voies de puissance et chargeur compatible 6S NMC, avec équilibrage séparé",
-    "limite": "JST d’équilibrage seul insuffisant ; jamais charger via JETI OUT. Adaptateur, polarités, isolement et protocole À valider."
+    "interface": "AdaptateurTE versB+ etP−portcommun protégéeparJBD, chargeur6SNMCcompatible",
+    "limite": "NejamaischargerparB−brut, priseUART ouJETI.OUT ; adaptateur/protectionPlanifiés, cellulesJSTinternes cassette"
   },
   "perimetre_geometrique": {
     "pack_nominal_mm": [
@@ -327,8 +387,8 @@
     "date": "2026-10-05",
     "besoin": "ELEC-BMS-001",
     "exigence_systeme": "SAFE-REQ-011",
-    "statut": "Planifié",
-    "reference": null,
+    "statut": "Implémenté enCAO/schéma, physiqueÀvalider",
+    "reference": "JBD-SP22S003 Li-ion A01 100A",
     "dimensions_installees_mm": null,
     "position_candidate": "Compartiment mobile P43/P44 entre pack et connecteur, à réaménager",
     "chaine_cible": [
@@ -339,14 +399,19 @@
       "PM08-CAN",
       "PDB"
     ],
-    "CAO_actuelle": "TE sans BMS ; aucune occurrence ajoutée",
+    "CAO_actuelle": "BMSmobileP43+P58 ; TEconservé5signaux ; SA07isolation+SA08 actuel",
     "DOC_ELEC": "§6.2",
     "DOC_MEC": "§4.1.3.3",
     "DOC_VAL": "§12.1.9",
-    "charge": "Port commun protégé candidat si deux voies puissance ; port séparé à définir sinon",
-    "communication": "Protocole et allocation des signaux À valider ; interface galvanique à prévoir si lien BMS amont / avionique aval JETI",
+    "charge": "PortcommunB+/P−protégé",
+    "communication": "UART9600 8N1 isolédonnéesetDC/DC, VDD/5VNC ; décodeurPlanifié",
     "interfaces_cellules": "JST-XHR-7P OEM à vérifier ; B0..B6 restent dans la cassette, sans intervention sur cellules scellées",
     "qualification": "À valider",
-    "protections_et_vol": "Marges alerte/PX4 pour dérives progressives ; défaut sévère ou court-circuit peut exiger coupure immédiate, sans délai d’atterrissage garanti ni retard/inhibition des protections"
+    "protections_et_vol": "Marges alerte/PX4 pour dérives progressives ; défaut sévère ou court-circuit peut exiger coupure immédiate, sans délai d’atterrissage garanti ni retard/inhibition des protections",
+    "dimensions_PCB_max_mm": [
+      130.5,
+      65.5,
+      12
+    ]
   }
 }

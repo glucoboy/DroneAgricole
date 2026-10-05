@@ -2,6 +2,8 @@
 from pathlib import Path
 import zipfile,xml.etree.ElementTree as ET,json
 import FreeCAD as A
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('recompute_supports_etage_batterie.py')
 ROOT=Path(__file__).resolve().parents[4];MEC=ROOT/'hardware/mecanique/cartographe';rows=[]
 for name in ['P39_SupportFixeContacts20Ah','P40_SupportMobileContacts20Ah']:
  p=MEC/'pieces/fabriquees'/(name+'.FCStd')

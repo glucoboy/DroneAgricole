@@ -4,6 +4,8 @@ Ne remplace aucun natif existant. Les routes sont des réservations, pas un
 dossier de fabrication. Exécuter avec le Python FreeCAD 1.1.
 """
 from pathlib import Path
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('build_systeme_faisceau_candidat_20261003.py')
 import hashlib, json, math
 import FreeCAD as A
 import Part

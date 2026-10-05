@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reference": "FAISCEAU-SYSTEME-CARTO-CIBLE-20261003",
-  "date": "2026-10-03",
+  "date": "2026-10-05",
   "perimetre": "Drone cartographe X650, dock 6S 20 Ah et avionique CA01/Holybro cible ; traitements exclus",
   "statut": "Implémenté en registre et réservations CAO ; À valider",
   "fabrication_autorisee_par_ce_registre": false,
@@ -15,7 +15,7 @@
     "limite": "Réservations avec sorties OEM non cotées ; 23 chemins sous les rayons réservés, fixations et passages À valider."
   },
   "source_liaisons": "hardware/electronique/cartographe/cablage_global.json",
-  "nombre_liaisons_actives_attendu": 33,
+  "nombre_liaisons_actives_attendu": 40,
   "liaisons_retirees_non_reintroduites": [
     "W07",
     "W11",
@@ -36,25 +36,12 @@
     "Les prises PCB sont comptées dans CA01. Les fiches câble, contacts, blindages, protections et retenues appartiennent au faisceau.",
     "Les diamètres et rayons non sourcés ci-dessous sont des réservations de CAO À valider, sans prescription de fabrication ni qualification électrique.",
     "Les longueurs de route et de coupe sont distinctes. Toutes les longueurs inconnues restent null ; aucun budget cuivre complet ne peut être annoncé sans longueurs.",
-    "Les masses des équipements livrés avec leurs câbles incluent ceux-ci : PM08 annoncé185g câbles inclus, JETI110g avec câbles, pack1950g avec fils et XT90."
+    "Les masses des équipements livrés avec leurs câbles incluent ceux-ci : PM08 annoncé185g câbles inclus, JETI110g avec câbles, pack1950g avec fils et XT90.",
+    "BMS mobile JBD-SP22S003 Li-ion A01 ; pack sans raccord XT90-S dans cible ; mapping/lot et thermique À valider.",
+    "Cinq contactsTE de signal : numéros cavités non confirmés, affectation logique candidate non fabricable.",
+    "Mesures BMS UART uniquement, isolation données+DC/DC Waveshare15817 fixe ; protocole lecture seule et adaptateur PX4 Planifiés."
   ],
   "familles_cables": [
-    {
-      "id": "FIL-DOCK-AWG10",
-      "statut": "Implémenté en CAO / À valider physiquement",
-      "mpn": [
-        "55A0111-10-2",
-        "55A0111-10-0"
-      ],
-      "section_nominale_mm2": 5.26,
-      "conducteurs_par_fil": 1,
-      "diametre_nominal_mm": 3.25,
-      "diametre_enveloppe_cao_mm": 3.4,
-      "rayon_reservation_mm": 34,
-      "masse_lineique_g_m": null,
-      "preuve": "hardware/mecanique/cartographe/verification/sources_bom_dock20Ah_20261002.json",
-      "limite_rayon": "Réservation future10D ; routes mobiles existantes interpolées non qualifiées et à recontrôler avant substitution."
-    },
     {
       "id": "FIL-DOCK-AWG8",
       "statut": "Implémenté en CAO / À valider physiquement",
@@ -163,6 +150,18 @@
       "rayon_reservation_mm": 25,
       "masse_lineique_g_m": null,
       "limite": "Ne préjuge pas de la référence coaxiale livrée ni du rayon mini fabricant."
+    },
+    {
+      "id": "SIGNAL-TE-AWG24-CANDIDAT",
+      "statut": "Planifié / À valider",
+      "mpn": null,
+      "section_nominale_mm2": 0.205,
+      "conducteurs_par_fil": 1,
+      "diametre_nominal_mm": null,
+      "diametre_enveloppe_cao_mm": null,
+      "rayon_reservation_mm": null,
+      "masse_lineique_g_m": null,
+      "limite": "Plage #20TE24–20AWG ; cordon HY2.0 JBD OEM à relever, adaptateur éventuel à concevoir ; pas AWG26 serti directement au contactTE."
     }
   ],
   "groupes": [
@@ -170,17 +169,19 @@
       "id": "F01-ENERGIE-AMONT",
       "classe": "faisceau_physique",
       "wxx": [
-        "W01"
+        "W01",
+        "W37",
+        "W38",
+        "W39"
       ],
-      "description": "Pack XT90-S→adaptateur→TE mobile/fixe→JETI IN puis JETI OUT→PM08 IN",
+      "description": "Pack AWG8 → BMS mobile → B+ continu/P− protégé → TE M5 mobile/fixe → JETI IN/OUT → PM08 IN ; aucun XT90-S",
       "troncons": [
         {
           "id": "F01-DOCK",
           "registre_existant": "hardware/mecanique/cartographe/verification/faisceau_dock20Ah_20261002.json",
-          "route_native_existante": true,
+          "route_native_existante": false,
           "longueur_route_mm": null,
           "familles": [
-            "FIL-DOCK-AWG10",
             "FIL-DOCK-AWG8"
           ],
           "points_exactement_connus": [
@@ -188,9 +189,12 @@
             "TE cavité40 MOINS"
           ],
           "points_nominalement_reserves": [
-            "JETI IN, positions d'étude"
+            "BMS B− brut/P− protégé",
+            "Cosses M5 TE candidate39PLUS/40MOINS",
+            "JETI IN"
           ],
-          "masse_additionnelle_g": null
+          "masse_additionnelle_g": null,
+          "limite": "Les anciennes routes AWG10/rigides sont retirées de la cible BMS. Consulter géométrie et registre mécaniques courants ; les longueurs historiques ne sont pas des coupes nouvelles."
         },
         {
           "id": "F01-AVAL-JETI",
@@ -631,6 +635,54 @@
       "endpoints_oem_cotes": false,
       "brochage": "GH6 :3TX/GPRMC,5PPS,6GND ;1/2/4NC, aucun5V UART2",
       "a_trancher": "RévisionG4 impérative, S32K1pin5NC incompatible ; émissionRMC, niveaux et absence retour alimentation."
+    },
+    {
+      "id": "F40-UART-BMS-ISO",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W40"
+      ],
+      "description": "JBD RX/TX/GND brut → TE3contacts → côté TTL isolé Waveshare15817",
+      "famille": "SIGNAL-TE-AWG24-CANDIDAT",
+      "nombre_conducteurs": 3,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "contrat": "contrat_uart_bms.json",
+      "a_trancher": "Niveau TTL, HY2.0 exact J2/J3, vue cavités, prolongation/EMI ; VDD JBD et5VTTL isolateur NC."
+    },
+    {
+      "id": "F41-USB-BMS-ISO",
+      "classe": "faisceau_physique",
+      "wxx": [
+        "W41"
+      ],
+      "description": "USB Waveshare15817 isolé → Jetson aval",
+      "nombre_cordons": 1,
+      "longueur_route_mm": null,
+      "endpoints_oem_cotes": false,
+      "masse_lineique_g_m": null,
+      "a_trancher": "Référence et verrouillage câble USB, port réservé Jetson et backpower hors tension."
+    },
+    {
+      "id": "R42-PRESENCE-BMS",
+      "classe": "réserve_non_montée",
+      "wxx": [
+        "W42"
+      ],
+      "description": "Deux contacts postmate TE et pont passive cassette, côté châssis NC",
+      "nombre_conducteurs": 2,
+      "masse_faisceau_installe_g": 0,
+      "a_trancher": "Numéros cavités et circuit de détection indépendant de B− brut ; pas d’interverrouillage opérationnel."
+    },
+    {
+      "id": "F43-CHARGE-HORS-DRONE",
+      "classe": "faisceau_sol",
+      "wxx": [
+        "W43"
+      ],
+      "description": "Chargeur6S NMC → adaptateur TE → B+/P− protégé ; hors drone",
+      "masse_faisceau_embarque_g": 0,
+      "a_trancher": "Profil OEM, courant/contacts/fusible et interdiction branche brute B−. Pas de charge sur JST balance."
     }
   ],
   "connecteurs_ca01": {
@@ -646,29 +698,8 @@
     "masse_cuivre_totale_g": null,
     "masse_totale_faisceau_g": null,
     "ne_pas_utiliser_comme_masse_cable": "Le cuivre seul exclut isolant, étamage, blindage, gaines, fiches, contacts, retenues, adaptateurs et préparations. Les enveloppes CAO ne sont pas des volumes cuivre.",
-    "segments_dock_mesurables": [
-      {
-        "reference": "EQ_Cordon10AWG_Plus_Dock20A",
-        "section_mm2": 5.26,
-        "longueur_route_mm": 57.317908048875495
-      },
-      {
-        "reference": "EQ_Cordon10AWG_Moins_Dock20A",
-        "section_mm2": 5.26,
-        "longueur_route_mm": 63.97672263451329
-      },
-      {
-        "reference": "EQ_CordonFixe8AWG_Plus20A",
-        "section_mm2": 8.37,
-        "longueur_route_mm": 559.3918094625536
-      },
-      {
-        "reference": "EQ_CordonFixe8AWG_Moins20A",
-        "section_mm2": 8.37,
-        "longueur_route_mm": 475.78682081456463
-      }
-    ],
-    "limite_dock": "Ces quatre chemins sont des fils ajoutés hors câbles pack/JETI fournis. Leur coupe finale n'est pas fixée ; les deux conducteurs rigidesCuP42 sont à compter par volume réel, déjà compris dans fabrication du dock."
+    "segments_dock_mesurables": [],
+    "limite_dock": "Anciennes longueurs AWG10/AWG8 non réutilisées : nouvelle chaîne BMS à coter dans les registres mécaniques courants, coupe et masse non déterminées."
   },
   "contraintes_surete": [
     "PX4 seul commande les ESC ; aucune branche moteur viaCA01 ni commande directe propriétaire.",
@@ -683,14 +714,22 @@
     "Pin3M8 retour opto distincteGND6 ; alimentation caméraUSB seule, pasM8.",
     "Boucles souples vers bloc isolé capteurs sans pontage de l'isolation antivibratoire ; rayons, traction et vibration à tester.",
     "Blindages, isolation carbone, éloignement phases/DCconvertisseurs versusGNSS/radio/signaux, fixations et frottements restent ouverts.",
-    "Un solide valide ou une absence d'interférence nominale ne qualifie pas la courbure physique, le montage, la thermique, la CEM ni le faisceau de vol."
+    "Un solide valide ou une absence d'interférence nominale ne qualifie pas la courbure physique, le montage, la thermique, la CEM ni le faisceau de vol.",
+    "BMS P− protégé seul retour puissance TE et charge ; B− brut demeure dans cassette sauf référence UART au côté galvaniquement isolé.",
+    "Isolation UART numérique ET alimentation DC/DC ; ni VDD BMS, ni5VTTL Waveshare, ni blindage/châssis ne relient domaine brut et avionique. Niveau3.3V candidat, mesure du lot obligatoire.",
+    "JETI négatif demeure après BMS ; données BMS ne remplacent pas PM08/PX4. Coupure BMS coupe les deux BEC et propulsion ; marges d’alarme/retour/atterrissage PX4 avant coupure ultime à valider.",
+    "Présence passive deux fils isolée de B− brut, côté fixe NC ; aucune entrée CA01 ou fonction verrou/coupure supposée réalisée.",
+    "Charge hors drone via B+/P− protégé commun ; aucune charge par B− brut ou prises cellules. Fusible court-circuit/inrush/précharge et qualification thermique ouverts."
   ],
   "validations_restantes": [
     "Activer et fixer tous équipements de la cible avant routes définitives ; identifier chaque endpointOEM et fiche accouplée.",
     "Choisir MPN câbles puis renseigner diamètre/rayon fabricant, nombre réel de conducteurs, masse linéique et longueur de coupe.",
     "Vérifier continuité pointàpoint/polarité/isolement avant toute mise sous tension ; contrôlesPOWER/CAN séparés.",
     "Tester passages en poses d'insertion/extraction/ouverture, mouvement capteurs et assemblage avec tolérances/efforts réels.",
-    "Réconcilier BOM kit/PM/JETI/pack avec câbles inclus puis peser sousensembles et drone complet ; aucune qualification masse ou vol ici."
+    "Réconcilier BOM kit/PM/JETI/pack avec câbles inclus puis peser sousensembles et drone complet ; aucune qualification masse ou vol ici.",
+    "Contrôler OEM JST Tattu et mapping6S JBD, bornes C−/P−, nombre/fonctions NTC, niveau UART, isolation alimentation/données et absence bypass sous toutes alimentations.",
+    "Qualifier BMS100A en cassette : courant mission, pertes/températures, refroidissement, vibration, seuils et maintien de la protection ultime ; essais sans hélices avant vol.",
+    "Implémenter parseur C++17 read-only avec longueur/checksum/fraîcheur ; transfert PX4 Planifié, sans CAN JBD ni commande moteur."
   ],
   "inventaire_kit_source": {
     "source": "https://holybro.com/products/x650-development-kit",
@@ -720,6 +759,17 @@
       "inclus_dans_masse_kit_annoncee": "À confirmer ; ne pas ajouter arbitrairement au kit",
       "statut": "Planifié / À valider",
       "a_trancher": "Inventorier montage et fils OEM, entrée/sortie chaînage, alimentation et commande PX4 compatibles ; ne pas réserver AUX1 caméra ni supposer un rail CA01."
+    },
+    {
+      "id": "I-BMS-BALANCE-6S",
+      "classe": "interne_cassette",
+      "description": "JST-XHR-7P Tattu vers adaptateur cellules JBD6S, aucun passage blindmate",
+      "nombre_conducteurs_pack": 7,
+      "mapping_confirmed": false,
+      "masse_additionnelle_g": null,
+      "statut": "Planifié / À valider",
+      "contrat": "contrat_uart_bms.json"
     }
-  ]
+  ],
+  "manufacturing_ready": false
 }

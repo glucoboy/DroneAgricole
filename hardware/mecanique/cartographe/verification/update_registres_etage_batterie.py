@@ -1,5 +1,7 @@
 """Consolidation en place des contrats, de la nomenclature et des docs vivants."""
 from pathlib import Path
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('update_registres_etage_batterie.py')
 import json,hashlib,re,zipfile,sys,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[4];MEC=ROOT/'hardware/mecanique/cartographe';VER=MEC/'verification'
 def read(p):return json.loads(p.read_text(encoding='utf-8'))

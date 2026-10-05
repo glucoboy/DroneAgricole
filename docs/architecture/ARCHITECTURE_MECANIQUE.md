@@ -54,10 +54,11 @@ historique ; les chemins des configurations archivées sont explicitement
 relocalisés dans le catalogue et la BOM cible.
 
 L'intégration locale de stack est le seul assemblage conservé dans
-`assemblages/`. GNSS, faisceau et station sol restent disponibles séparément.
+`assemblages/`. Le faisceau SA08 est lié à cette intégration locale ; GNSS et station sol restent séparés.
 Aucun nouveau drone complet n'est assemblé ou qualifié par ce rangement.
 La proposition GNSS sur plateaux reste **Planifié / À valider** ; les routes
-du faisceau ne sont pas recalées sur la stack revue. Les deux montages
+du faisceau sont désormais recalées sur la stack revue (§4.1.3.3), avec ports
+réservés et interfaces de lot À valider. Les deux montages
 `SA02_Cassette20Ah_Coulissante` et `SA02_Contacts20Ah` restent nécessaires
 aux recettes du dock et ne représentent pas des doublons à embarquer.
 
@@ -73,18 +74,18 @@ DOC-VAL§12.1.6 et [guide d'ouverture](../../hardware/mecanique/cartographe/READ
 ## 3. Architecture mécanique du système
 
 ```text
- Integration_Stack_Revue_20261003 (étude locale, sans faisceau)
+ Integration_Stack_Revue_20261003 (étude locale avec SA08)
  ├── SA01_Chassis_Stack_Revue_20261003
  ├── SA02A_Dock20Ah
  ├── SA03_CA01_Holybro_Revue_20261003
  ├── SA05_Capteurs_Isoles
  │   ├── SA05A_Bloc_capteurs
  │   └── 4 × SA05B_Appui_Sorbothane
- └── SA07_Distribution_Systeme_Candidat
+ ├── SA07_Distribution_Systeme_Candidat
+ └── SA08_Faisceau_Systeme_Candidat
 
  Sous-assemblages courants séparés de cette étude locale :
  SA06_RTK_Helical_Systeme_Candidat
- SA08_Faisceau_Systeme_Candidat
  SA07_Station_sol
 ```
 
@@ -451,43 +452,54 @@ de revenir à la définition précédente sans renommer les assemblages.
 
 ##### 4.1.3.3 BMS embarqué et compartiment d'interface — 5 octobre 2026
 
-Besoin utilisateur `ELEC-BMS-001` / `SAFE-REQ-011` : le BMS reste solidaire
-de chaque cassette 6S 20 Ah du cartographe pendant l'extraction. Intégration
-**Planifiée**, module et cotes installées **À valider**. Le TE et les natifs
-du §4.1.3.2 restent la configuration représentée ; aucun volume de carte
-BMS ni modèle de connecteur candidat n'est ajouté avec des cotes supposées.
+`ELEC-BMS-001` / `SAFE-REQ-011` : BMS **JBD-SP22S003 Li-ion A01 100A**
+solidaire de la cassette. Réalisation CAO **Implémentée**, dimensions équipées,
+fixation, masse, courant et physique **À valider**. Le TE Middle Drawer
+1648156-1/1648151-1 est conservé et reçoit cinq signaux ; raisons et
+références de contacts dans DOC-ELEC§6.2. Aucun effort d'accouplement ne doit
+passer par les cellules ou le PCB.
 
-| Implantation étudiée | Mesure dans la CAO enregistrée | Conclusion préliminaire |
-|---|---|---|
-| Sur le dessus du pack | pack nominal Z40…98, plateau à Z103 : 5 mm bruts ; seulement 3 mm avec l'enveloppe d'étude de hauteur 60 mm | pas de place démontrée pour carte équipée, isolant, support et dissipation ; demanderait une reprise en hauteur, sauf module dont les cotes prouvent le contraire |
-| Entre pack et connecteur, P43/P44 mobile | extérieur P43 96×46×39,5 mm ; cavité effective X−200…−106, Y−13…29, Z63…98,5, soit 94×42×35,5 mm | implantation candidate privilégiée ; cavité déjà occupée par fils/cosses/vis, pas une réserve BMS disponible |
+Sur le dessus du pack, le plateau à Z103 ne laisse que5 mm nominaux ou 3 mm
+avec l'enveloppe d'étude : insuffisant pour ce PCB. L'ancien P43 offrait
+94×42mm de cavité utile, déjà occupée. La carte est donc horizontale dans
+le compartiment arrière, avec enveloppe maximale documentée **130,5 × 65,5 × 12 mm**
+à X−239…−108,5, Y±32,75, Z50…62. Les prises, bornes et dissipateur ne sont
+pas inclus dans ces cotes ; leurs passages sont explicitement réservés,
+sans position fabricant inventée.
 
-L'intégration cible reprend ou compartimente P43/P44 et redessine le trajet
-**pack → BMS → connecteur**. P51/P52 et la prise d'équilibrage peuvent être
-réorganisés avec les prises cellules internes au BMS. Conserver la continuité
-des protections, les accès après extraction, l'isolation et les jeux sur
-toute la course. La carte et son dissipateur sont retenus par la structure
-de cassette ; les efforts d'accouplement et la masse ajoutée ne passent ni
-par les cellules, ni par les soudures, ni par les contacts électriques.
+P43/P44 évoluent en place : emprise **142 × 76 mm**, fondZ47, capotZ100,5…102,5.
+Le TE recule de44 mm supplémentaires, soit 126 mm depuis l'implantation
+frontale historique ; P39/P40 gardent leurs ancrages et rallongent leurs bras.
+Cela ajoute44mm en longueur à l'étude sans BMS, **sans augmenter la hauteur**
+du coffret. La largeur suit celle du pack nominal ; aucune comparaison
+de volume dock seul/distribution complète ni gain de masse n'est revendiqué.
+Le cantilever et le jeu nominal capot/plateau 0,5 mm restent à qualifier.
 
-Le coffret est proche du pack : dissipation et température des cellules
-doivent être étudiées ensemble. Un boîtier fermé n'est pas une solution de
-refroidissement démontrée. Le BMS, ses borniers, le câblage et les isolants
-doivent être comptés dans l'enveloppe et la masse ; une dimension de PCB
-nu ne suffit pas. La capacité/référence 6S 20 Ah reste la sélection courante.
+Un appui isolant P58 de1mm est représenté sous le PCB. La retenue positive,
+visserie, procédé, rigidité et thermique restent à définir ; aucun trou
+fabricant ni taraudage n'est ajouté au BMS. P51/P52 et leur visserie sont
+retirés de la configuration active ; JST et B0…B6 restent dans P43. Le
+fil négatif du pack arrive au BMS, et une nouvelle liaison P− protégée
+va au TE. Le positif reste commun. XT90-S et barresP42 restent retirés.
 
-La sélection du connecteur est couplée à celle du BMS. L'empreinte annoncée
-50×50 mm du DuraSwap Concentric ne constitue pas une profondeur accouplée
-ni une intégration directe dans P43, large de 46 mm. Les terminaisons,
-guides, flottement, arrêt mécanique, verrou et accès de maintenance exigent
-les plans de la paire exacte. Un connecteur sur PCB doit être soutenu pour
-éviter de transmettre les efforts à la carte BMS. Comparaison électrique :
-DOC-ELEC §6.2.
+À l'étage inférieur, JETI/PM08/PDB conservent leurs positions. L'interface
+Waveshare15817 isolée est une **réservation90×80×26mm**, pas une cote OEM
+confirmée ; ports, fixation et accès USB doivent être relevés sur le lot.
+Les contacts #20 sont provisoires ; axes de cavités issus du STEP TE,
+numérotation réelle et sertissage non libérés pour fabrication.
 
-Pour coter la prochaine évolution en place : référence/version BMS, dimensions
-avec dissipateur et fixations, emplacement des prises de puissance/cellules,
-rayons des fils, masse et exigences thermiques ; puis paire exacte du
-connecteur et schéma de charge/communication. Validation : DOC-VAL §12.1.9.
+SA08 et ses références de câbles sont recotés sur les sorties courantes et
+liés à **Integration_Stack_Revue_20261003.FCStd**, conservé en place. Les
+points de passage réservés n'attestent pas une prise accouplée. GNSS et
+plusieurs équipements de mission restent candidats ; l'intégration locale
+ne constitue pas un drone final qualifié.
+
+Sources et placements dans le manifeste, BOM et nomenclature courants.
+Preuve BMS : `verification/controle_bms_cassette.json` ; faisceau : registre
+SA08 courant. Les preuves de l'étape sans BMS sont historiques et ne
+certifient pas les nouvelles empreintes. Les recettes anciennes refusent
+la configuration BMS afin de ne pas rétablir leurs anciens placements.
+Validation et limites : DOC-VAL§12.1.9.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -601,8 +613,8 @@ soudures ; aucun effort de cassette ne doit transiter par les câbles du PM.
 Le raccordement batterie, le détrompage, la coupure et la séquence d'échange
 sont définis pour le dock20Ah au§4.1.3 et dans DOC-ELEC§6.1 ; leur mise en
 œuvre physique reste À valider. POWER1, POWER2, DroneCAN et les départs
-d'alimentation restent sur le châssis pendant l'échange. Les positions
-signal des contacts TE sont inutilisées ; aucun échange sous charge n'est prévu.
+d'alimentation restent sur le châssis pendant l'échange. Cinq positions signal TE candidates sont réservées à UART isolé et présence
+passive (§4.1.3.3) ; aucun échange sous courant de puissance n'est prévu.
 
 La CAO avionique est héritée de l'empilage du 16 septembre ; la variante
 SA03_Avionique_Rehausse20 déplace le Pixhawk historique surP27. Ces modèles
@@ -855,29 +867,24 @@ La pile est translatée de `(-63, -40, -65) mm` ; PM08 et GNSS sont des
 primitives nominales, la PDB provient d'un STEP fabricant inchangé.
 Après les interférences de l'itération initiale, le PM08 est placé en
 `(-138, -82, -28) mm` et l'enveloppe de la PDB occupe
-`X = 90..150`, `Y = -40..40`, `Z = -59..-36 mm`.
+`X = 90..150`, `Y = -135..-55`, `Z = -52..-29 mm` (étage courant).
 Cette implantation n'est pas un montage fixé : les supports, isolants,
 prises accouplées et accès de maintenance restent à concevoir.
 
-Le sous-assemblage `SA08_Faisceau_Systeme_Candidat` contient 35 références
-de cordons à chemins arrondis et balayages natifs, pilotées par la
-[recette déclarative](../../hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json).
-Les coordonnées de sortie OEM sont des réservations, pas des centres de
-contacts mesurés. Trois groupes physiques restent non routés : câble du
-refroidissement, accessoires de vol et LED OEM. Les liaisons internes,
-réserves non montées et liaisons sans fil ne créent pas de cordon artificiel.
+Le sous-assemblage `SA08_Faisceau_Systeme_Candidat` contient désormais
+37 références de cordons à chemins arrondis et balayages natifs, pilotées
+par la [recette](../../hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json).
+Le faisceau recoté est lié à l'intégration locale courante avec BMS/TE.
+Les sorties sont des passages réservés, pas des prises accouplées de lot.
+Trois groupes restent non routés : refroidissement, accessoires de vol et LED.
 
-Les rayons réservés ne sont pas respectés sur 23 des 35 chemins. Le contrôle
-final ne détecte aucune intersection entre les nouveaux équipements et les
-sous-ensembles représentés ; 32 cordons présentent au moins une intersection
-brute avec un équipement, y compris aux sorties nominales. Ces résultats sont consignés dans
-[le contrôle système](../../hardware/mecanique/cartographe/verification/controle_systeme_faisceau_20261003.json).
-Il faut reprendre l'implantation et les routes, coter les interfaces, ajouter
-les retenues et vérifier la course cassette, le repli des bras et le mouvement
-du bloc isolé. Aucun passage complet de câble, fixation ou bilan de centrage
-n'est validé par cette maquette. L'assemblage actif 20 Ah et ses sources
-existantes sont préservés par empreintes ; les archives et leurs essais
-antérieurs conservent leur périmètre.
+Le contrôle courant est [la relecture native BMS](../../hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json).
+Les 37 cordons sont valides et sans intersection avec les obstacles
+contrôlés en position assemblée ; les rayons, contacts, retenues, repli des
+bras, mouvement du bloc isolé et course continue restent À valider.
+Le contrôle du3octobre et ses 32 cordons avec recouvrements est historique ;
+ses anciennes empreintes ne certifient pas les routes actuelles.
+Aucune qualification matérielle ni bilan de centrage n'est déduit.
 
 | Point | Traitement réalisé / décision de travail | Donnée ou validation nécessaire pour clôturer |
 |---|---|---|
@@ -1373,7 +1380,8 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
-| 5 octobre 2026 | BMS solidaire de la cassette Planifié ; compartiment arrière P43/P44 privilégié après réaménagement, faible jeu au-dessus mesuré ; aucun module/cote ni remplacement de connecteur supposé (§4.1.3.3) |
+| 5 octobre 2026 | BMS commercial etappuiP58 implémentés encassette ; P43/P44 élargis142×76, TEreculadditionnel44mm et5signaux, interfaceisoléeétagefixe, SA08recoté intégré ; physiqueÀvalider (§4.1.3.3) |
+| 5 octobre 2026 | Préparationinitiale BMS solidaire de la cassette Planifié ; compartiment arrière P43/P44 privilégié après réaménagement, faible jeu au-dessus mesuré ; aucun module/cote ni remplacement de connecteur supposé (§4.1.3.3) |
 | 4 octobre 2026 | Étage énergie inférieur et liaison directe candidate AWG8/742F5 M5 au TE ; pack retourné, supports reculés de 82 mm, coffrets et passages repris ; contrôle du seul pack nominal, enveloppe d'étude/lot/fixations/thermique **À valider**, adaptateur de charge **Planifié** (§4.1.3.2, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Couleurs natives du dock et suivi Git de91 petits natifs ; noms stables, repli des deux cordons fixesR50 et hauteur calculée−29,3% ; pistes JETI/XT90/cassette et intersectionP49 ouverte (§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Tri des natifs : 10 sous-assemblages courants et deux montages de construction, 13 anciens SA et cinq globaux archivés avec leurs dépendances ; catalogue/guide actualisés, réouvertures séparées et reprise de source stack contrôlées (§2.1, DOC-VAL§12.1.6) |

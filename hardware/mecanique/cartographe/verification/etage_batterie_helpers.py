@@ -8,6 +8,14 @@ ROOT=Path(__file__).resolve().parents[4]; MEC=ROOT/'hardware/mecanique/cartograp
 def meta(o,k,v):
  if k not in o.PropertiesList:o.addProperty('App::PropertyString',k)
  setattr(o,k,str(v))
+
+def require_legacy_layout(recipe):
+ """Empêche une ancienne recette de rétablir silencieusement le dock sans BMS."""
+ p=MEC/'sous_assemblages/SA02A_Dock20Ah.FCStd'
+ if p.exists():
+  with zipfile.ZipFile(p) as z:
+   if b'BMSIntegre' in z.read('Document.xml'):
+    raise RuntimeError(recipe+' est historique sans BMS. Utiliser update_bms_cassette.py et le faisceau courant ; retour antérieur par Git.')
 def packed(rgb):
  r,g,b=(round(float(v)*255) for v in rgb[:3]); return (r<<24)|(g<<16)|(b<<8)|255
 def material_table(colors):

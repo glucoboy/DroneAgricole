@@ -2,8 +2,8 @@
 
 Ouvrir [Integration_Stack_Revue_20261003.FCStd](assemblages/Integration_Stack_Revue_20261003.FCStd)
 pour la dernière intégration mécanique locale : châssis, dock20Ah, stack,
-bloc capteurs et distribution. GNSS et faisceau restent des sous-assemblages
-séparés ; cette étude locale n'est pas un drone complet qualifié.
+bloc capteurs, distribution et faisceau SA08 recoté. Le GNSS reste un sous-assemblage
+séparé ; cette étude locale n'est pas un drone complet qualifié.
 
 Le catalogue courant est `manifest.json`, clé `catalogue_courant_20261004`.
 Conserver toute l'arborescence pour résoudre les liens externes. Les références
@@ -89,3 +89,10 @@ Vérifier le rangement et les liens, dans des processus PythonFreeCAD séparés 
 
 Ces commandes s'exécutent depuis le répertoire cartographe. Le tri et les
 contrôles ne modifient aucun placement ni géométrie native.
+
+Pour faire évoluer la configuration BMS en place, exécuter avec Python FreeCAD
+`verification/update_bms_cassette.py`, puis la recette SA08 courante,
+`verification/verify_bms_cassette.py` et `verification/update_registres_bms.py`.
+Les anciennes recettes sans BMS refusent cette configuration ; retours par Git.
+Le BMS et les contacts de signal restent des enveloppes candidates ;
+utiliser le manifeste et DOC-ELEC§6.2 pour les limites et le contrat UART.

@@ -9,6 +9,8 @@ def bbox(s):
  return [b.XMin,b.YMin,b.ZMin,b.XMax,b.YMax,b.ZMax]
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def main():
+ from etage_batterie_helpers import require_legacy_layout
+ require_legacy_layout('update_distribution_etage_batterie.py')
  assembly=A.openDocument(str(MEC/'assemblages/Integration_Stack_Revue_20261003.FCStd'))
  chassis=assembly.getObject('SA01_Chassis_Rehausse20').LinkedObject.Document
  stack=assembly.getObject('Stack_Holybro_CA01').Shape

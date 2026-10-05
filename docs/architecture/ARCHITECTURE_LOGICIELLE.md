@@ -482,6 +482,24 @@ d’exposition, la datation par point Airy et le comportement sous chaque défau
 sont **À valider** par `MAP-FUN-001` et `T-AIRY-SYNC-01` de
 [DOC-VAL §12.8](../VALIDATION_QUALIFICATION.md).
 
+#### 7.1.2 Diagnostic BMS de cassette — Planifié / À valider, 5 octobre 2026
+
+La conception électrique représente JBD-SP22S003 A01 via TE, UART isolé
+Waveshare15817 et USB Jetson. Le décodeur et son intégration restent
+**Planifiés** : aucune nouvelle logique embarquée n'est implémentée par
+la modification CAO. Contrat déclaratif :
+[UART BMS](../../hardware/electronique/cartographe/contrat_uart_bms.json).
+
+Un futur adaptateur C++17 devra vérifier longueur, checksum JBD, unités,
+courant signé, nombre de cellules, délais et fraîcheur. Les lectures03/04/05
+préparent tension, SOC, capacité, cycles, cellules, NTC, protections et MOS ;
+commandes d'écriture et modification des seuils interdites dans le diagnostic.
+PM08 conserve la mesure batterie utilisée par PX4. Identifier et arbitrer
+les producteurs avant publication, sans compter deux batteries pour un
+seul pack. Aucun protocole DroneCAN n'est supposé et aucun moteur commandé.
+Jeux de trames, corruption, perte de port, retard et identité seront testés
+hors ligne puis au banc avant intégration PX4. DOC-ELEC§6.2, DOC-VAL§12.1.9.
+
 ### 7.2 Allocation algorithmique
 
 | Étape | Baseline/candidat | Statut et test attendu |
@@ -737,6 +755,7 @@ campagne relèvent de [DOC-VAL](../VALIDATION_QUALIFICATION.md).
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | Contrat UART JBD via TE et interface isolée ; décodeur C++17 en lecture seule Planifié, identité/fraîcheur à tester et PM08 conservé comme source batterie PX4 (§7.1.2) |
 | 30 septembre 2026 | Flux GNSS standard, NMEA direct et tunnel série distingués ; configuration GPRMC UART2 et alternatives de passerelle explicites, aucune disponibilité PX4 ni synchro PPS déduite du GUI |
 | 30 septembre 2026 | Contrat de capture planifié : Jetson/ROS 2 décide, PX4 exécute ; session/demande et états distincts, autorité unique, absence de répétition aveugle, association aux flux continus et limites du transport à qualifier |
 | 25 septembre 2026 | contrat temporel cartographe planifié : PPS/GPRMC GNSS vers Airy/Jetson, trigger AUX PX4 et retour ExposureActive candidat sur FMU_CAP1 à qualifier, correspondance UTC/monotone/événements avec incertitude et états invalides |

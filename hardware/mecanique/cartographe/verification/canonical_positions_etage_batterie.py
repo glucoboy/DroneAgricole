@@ -1,6 +1,7 @@
 """Infrastructure de placement absolu, sans accumulation au rejeu."""
 from etage_batterie_helpers import *
 import json
+require_legacy_layout('canonical_positions_etage_batterie.py')
 for name in ['P39_SupportFixeContacts20Ah','P40_SupportMobileContacts20Ah']:
  r=load('pieces/fabriquees',name);d=r.Document
  for o in d.Objects:

@@ -1,5 +1,17 @@
 flowchart TB
- BAT["Batterie 6S"] -->|"W01 : connexion / protection / coupure à définir"| PM["PM08-CAN fixe sur châssis"]
+ subgraph CASSETTE["Cassette amovible : raccord direct sans XT90-S"]
+ BAT["Tattu NMC20Ah6S"] -->|"W01 : B+ / B− bruts"| BMS["JBD-SP22S003 Li-ion A01 100A candidat"]
+ BAT -.->|"JST7 B0…B6 : adaptateur6S interne à valider"| BMS
+ BMS -->|"W37 : B+ continu / P− protégé, cossesM5"| TE["TE Middle Drawer existant : 2puissance +5signaux candidats"]
+ end
+ subgraph ETAGE["Étage inférieur fixe"]
+ TE -->|"W38 : B+ / P−"| JETI["JETI MainSwitch100 : négatif commuté"]
+ JETI -->|"W39 : +continu / −commuté"| PM["PM08-CAN fixe"]
+ end
+ BMS -.->|"W40 via TE : TX/RX/GND brut, VDD NC"| ISO["Waveshare15817 UART : isolation données +DC/DC"]
+ ISO <-->|"W41 USB Jetson aval : diagnostic read-only Planifié"| CPU
+ TE -.->|"W42 : boucle passive2contacts postmate ; fixeNC"| PRES["Présence réservée, aucun interlock réalisé"]
+ CHARGE["Chargeur6S NMC hors drone seulement"] -.->|"W43 adaptateurTE : B+ / P− protégé"| TE
  PM -->|"W05 : sortie 6S"| DIST["PDB Holybro 300A top-entry candidate"]
  DIST --> ESC["4 ESC"] --> MOT["4 moteurs"]
  FCU["Pixhawk 6X sur porteuse Holybro"] -->|"MAIN1..4 : consignes moteur PX4"| ESC
@@ -31,4 +43,4 @@ flowchart TB
  CARD -.->|"W24 : PPS GPIO + GPRMC UART ; référence 3,3 V en retour"| CPU
  BASE["H-RTK F9P Base + HANT-X627A"] -->|"W29 RTCM via USB"| QGC
  FCU -.->|"inventaire / ports à définir"| SAFE["Bouton / buzzer / indications éventuels"]
- NOTE["Cible V0.5 ; CA01 KiCad V0.5-pre non fabricable, PCB/CAO non migrés. POWER1/POWER2 séparés ; Jetson via XT30."]
+ NOTE["Système BMS candidat ; CA01 KiCad0.5-pre inchangée non fabricable. Numéros cavités signal à confirmer. JETI OFF avant échange sans courant ; seuils PX4 avant coupure ultime BMS à valider."]

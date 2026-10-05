@@ -1,5 +1,7 @@
 """Infrastructure FreeCAD : repli des deux cordons fixes, fichiers et arbres conservés."""
 from pathlib import Path
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('update_compacite_dock20Ah.py')
 import hashlib
 import json
 import FreeCAD as App

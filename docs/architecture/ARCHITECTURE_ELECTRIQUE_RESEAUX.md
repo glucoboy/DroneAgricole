@@ -33,7 +33,7 @@ et les essais d'interface. Les implantations sont décrites dans
 ## 3. Chaîne d'énergie candidate du cartographe
 
 ```text
-Batterie 6S amovible → BMS embarqué (Planifié) → connecteur/coupure JETI → PM08-CAN
+Batterie 6S amovible → BMS JBD (CAO candidate Implémentée) → connecteur/coupure JETI → PM08-CAN
   ├─ OUT 6S → PDB Holybro 300A top-entry candidate → 4 ESC/moteurs
   │             └─ XT30 candidat → protection proche du départ → CA01 : 12 V calcul/LiDAR et 5 V auxiliaires/radio
   ├─ BEC1 5,3 V/3 A → POWER1 de la porteuse Pixhawk Jetson
@@ -792,10 +792,11 @@ Basler pin2/pin3 reste distincte de Line2/pin6 ; le M8 n'alimente pas
 la caméra. POWER1, POWER2 et CAN1 restent séparés, sans six fils droits
 PM→POWER, parallèle des BEC ni réalimentation via CAN1 +5 V.
 
-La maquette inactive `Drone_Cartographe_Systeme_Candidat.FCStd` comporte
-35 routes natives de réservation, dont JETI OUT→PM08 et PM08→PDB,
-en complément des routes existantes du dock. Voir DOC-MEC §4.5 et
-DOC-VAL §12.1.4. Le registre conserve les sections, diamètres et rayons
+La maquette historique `Drone_Cartographe_Systeme_Candidat.FCStd` est archivée.
+La configuration locale courante `Integration_Stack_Revue_20261003.FCStd`
+lie SA08 et ses 37 routes recotées, dont les liaisons UART isolée et USB BMS.
+Les routes internes du dock restent distinctes. Voir DOC-MEC§4.1.3.3 et
+DOC-VAL§12.1.9. Le registre conserve les sections, diamètres et rayons
 non confirmés comme hypothèses **À valider** ; les masses linéiques,
 longueurs de coupe et sorties OEM inconnues restent `null`.
 Le refroidissement, les accessoires de vol et le chaînage LED restent
@@ -852,7 +853,19 @@ entrées électriques séparées. CA01 ne reçoit aucun BEC du PM.
 
 ```mermaid
 flowchart TB
- BAT["Batterie 6S"] -->|"W01 : connexion / protection / coupure à définir"| PM["PM08-CAN fixe sur châssis"]
+ subgraph CASSETTE["Cassette amovible : raccord direct sans XT90-S"]
+ BAT["Tattu NMC20Ah6S"] -->|"W01 : B+ / B− bruts"| BMS["JBD-SP22S003 Li-ion A01 100A candidat"]
+ BAT -.->|"JST7 B0…B6 : adaptateur6S interne à valider"| BMS
+ BMS -->|"W37 : B+ continu / P− protégé, cossesM5"| TE["TE Middle Drawer existant : 2puissance +5signaux candidats"]
+ end
+ subgraph ETAGE["Étage inférieur fixe"]
+ TE -->|"W38 : B+ / P−"| JETI["JETI MainSwitch100 : négatif commuté"]
+ JETI -->|"W39 : +continu / −commuté"| PM["PM08-CAN fixe"]
+ end
+ BMS -.->|"W40 via TE : TX/RX/GND brut, VDD NC"| ISO["Waveshare15817 UART : isolation données +DC/DC"]
+ ISO <-->|"W41 USB Jetson aval : diagnostic read-only Planifié"| CPU
+ TE -.->|"W42 : boucle passive2contacts postmate ; fixeNC"| PRES["Présence réservée, aucun interlock réalisé"]
+ CHARGE["Chargeur6S NMC hors drone seulement"] -.->|"W43 adaptateurTE : B+ / P− protégé"| TE
  PM -->|"W05 : sortie 6S"| DIST["PDB Holybro 300A top-entry candidate"]
  DIST --> ESC["4 ESC"] --> MOT["4 moteurs"]
  FCU["Pixhawk 6X sur porteuse Holybro"] -->|"MAIN1..4 : consignes moteur PX4"| ESC
@@ -884,7 +897,7 @@ flowchart TB
  CARD -.->|"W24 : PPS GPIO + GPRMC UART ; référence 3,3 V en retour"| CPU
  BASE["H-RTK F9P Base + HANT-X627A"] -->|"W29 RTCM via USB"| QGC
  FCU -.->|"inventaire / ports à définir"| SAFE["Bouton / buzzer / indications éventuels"]
- NOTE["Cible V0.5 ; CA01 KiCad V0.5-pre non fabricable, PCB/CAO non migrés. POWER1/POWER2 séparés ; Jetson via XT30."]
+ NOTE["Système BMS candidat ; CA01 KiCad0.5-pre inchangée non fabricable. Numéros cavités signal à confirmer. JETI OFF avant échange sans courant ; seuils PX4 avant coupure ultime BMS à valider."]
 ```
 
 #### 4.3.1 Entrées et sorties des modules
@@ -894,29 +907,35 @@ Les antennes RF/GNSS, les équipements au sol et les accessoires de sécurité
 sont recensés pour éviter les omissions de faisceau ou d'alimentation.
 Aucun accessoire optionnel non identifié n'est considéré comme déjà installé.
 
-| Module | Entrées | Sorties / interfaces | À figer |
+| Module | Entrées | Sorties | Réserves |
 |---|---|---|---|
-| `BAT` Batterie 6S candidate | charge externe hors vol | puissance batterie | pack/révision, décharge et connecteur définitifs |
-| `DIST` PDB Holybro 300A top-entry candidate | PM08-CAN OUT +/− | six XT90 et deux XT30 annoncés ; départs ESC et CA01 | bornes/liaison PM, polarité, protection W08, courant par sortie, montage et tenue thermique à valider |
+| `BAT` Tattu NMC20Ah6S TAA200006S5X9S candidat | charge hors drone par port BMS protégé | B+ et B− bruts, JST-XHR-7P B0…B6 internes cassette | Brochage OEM, seuils/charge NMC, état du lot et tenue mission ; retrait XT90-S autorisé mais terminaison à valider |
+| `DIST` Holybro PDB300A TopEntry candidate, étage inférieur | PM08-CAN OUT 6S +/− | 4 départs ESC candidats XT90 ; départ CA01 candidat XT30 | liaison PM, polarité, protection branche CA01, courant par connecteur, montage et thermique à valider |
 | `ESC1..4` Quatre ESC | 6S ; consigne Pixhawk | trois phases vers chaque moteur | références, protocole et brochages |
 | `M1..4` Quatre moteurs | trois phases ESC | couple mécanique | références, ordre et sens |
-| `PM` Holybro PM08-CAN sur châssis | batterie 6S via IN | OUT vers distribution ; BEC1 et BEC2 5,3 V/3 A vers FCU ; DroneCAN | variante, brochage, câbles et terminaisons ; tenue thermique et mesure à vérifier |
-| `FCU` Pixhawk 6X sur porteuse Holybro | POWER1/2 ; CAN1 PM ; CAN2 GNSS ; ExposureActive sur FMU_CAP1 candidat | MAIN propulsion, AUX1 caméra, TELEM2 temps/événements | capture/commande et pont d'horloges **À valider** |
-| `CA01` Carte alimentation/radio/synchronisation | 6S protégé ; GNSS PPS/GPRMC ; AUX1 ; ExposureActive ; SYNC_OUT1 option DNP | 12 V/5 V ; PPS/GPRMC Airy/Orin ; trigger Basler ; retour CAP1 ; UART RF | circuits énergie/caméra candidats ; quatre adaptations GNSS ouvertes/DNP, protections/PCB/banc à fermer, non raccordable |
-| `RF` MOD401 RP4TD en montage direct sur CA01 | 5 V local CA01 ; UART ; RF | UART ; RF | défaut 5 V local, UART, consommation et antennes à tester |
+| `PM` Holybro PM08-CAN fixe à l’étage inférieur | JETI OUT via IN, après BMS et TE | OUT distribution ; BEC1/2 5,3 V/3 A vers POWER1/2 ; DroneCAN | variante, brochage réel et faisceau séparateur ; tenue thermique, couverture/calibration ; support fixe |
+| `FCU` Pixhawk 6X module seul sur Holybro Pixhawk Jetson Baseboard | POWER1 depuis BEC1 ; POWER2 depuis BEC2 ; CAN1 mesures PM ; RC/navigation/compagnon ; retour ExposureActive sur AD&IO FMU_CAP1 candidat | ESC ; états ; télémétrie ; AUX1 trigger caméra candidat | CAN1 PM ; bus GNSS, bascule des deux POWER et terminaisons à finaliser |
+| `CA01` Carte alimentation/radio/synchronisation | 6S charge utile protégé ; GNSS UART2 PPS/GPRMC ; AUX1 Pixhawk ; ExposureActive Basler ; SYNC_OUT1 Airy option non montée | 12V calcul/LiDAR ; 5V local radio/aux ; PPS/GPRMC adaptés Airy et Jetson ; trigger Basler ; retour exposition 3,3V vers FMU_CAP1 ; UART RF | Circuits d’énergie et caméra candidats dimensionnés ; U504-U507 GNSS non réalisés/DNP ; TVS, sélectivité, Ceff, niveaux, empreintes/PCB et banc ouverts ; non fabricable/non raccordable |
+| `RF` RP4TD en montage direct sur CA01 | 5V local CA01 ; UART ; RF | UART ; RF | Contacts et sous-face à coter, jeuZ/brasage/support, alimentation/UART/RF à valider |
 | `RFANT1..2` Deux antennes RP4TD | coaxiaux RF | liaison radio | références, emplacement et dégagement carbone |
-| `CPU` Orin NX 16 Go et porteuse Holybro | 12 V XT30 ; USB/Ethernet ; PPS GPIO_07 et GPRMC UART candidats ; TELEM2 interne | acquisition et horloges associées | GPIO/UART, pinmux, console et incertitude **À valider** |
+| `CPU` Jetson Orin NX 16 Go sur Holybro Pixhawk Jetson Baseboard | 12V candidat via XT30 ; données capteurs/Pixhawk ; PPS sur Orin GPIO et GPRMC sur UART candidat | USB caméra ; Ethernet ; consignes haut niveau | révision porteuse, polarité XT30 et budget USB/SSD/refroidissement |
 | `SSD` SSD NVMe | alimentation et PCIe porteuse | données stockées | modèle, endurance et courant |
 | `FAN` Refroidissement Jetson | alimentation et éventuelle commande | retour vitesse éventuel | solution/refroidissement, connecteur et budget |
-| `LID` RoboSense Airy | 12 V ; Ethernet ; PPS/GPRMC candidats | UDP horodaté ; SYNC_OUT1 option DNP | verrouillage, point/UTC et niveaux **À valider** |
-| `CAM` Basler a2A4096-30ucBAS | USB3 ; Line1 trigger opto | images Frame ID/chunk ; Line2 ExposureActive candidat | sortie GPIO, latence et association **À valider** |
-| `GNSS` H-RTK F9P DroneCAN Helical STM32G4 candidat | 5 V vol, antenne hélicoïdale, RTCM via CAN2 | navigation PX4 ; UART2 TX/GPRMC et PPS pin5 | révision G4 impérative, S32K1 pin5 NC ; niveaux et configuration **À valider** |
-| `GNSSANT` Antenne hélicoïdale candidate | fixation directe ou SMA selon variante | signaux GNSS | montage, ciel dégagé et multipath **À valider** |
+| `LID` RoboSense Airy | 12V ; Ethernet ; PPS pin9 et GPRMC pin11 adaptés depuis CA01 candidats | Ethernet/UDP horodaté ; SYNC_OUT1 optionnel non monté | variante/faisceau et niveaux de synchronisation |
+| `CAM` Basler a2A4096-30ucBAS | USB3 alimenté ; trigger optocouplé | images USB3 avec Frame ID/chunk ; ExposureActive Line2 pin4 et GND pin6 candidats | câble USB/M8 et configuration trigger ; niveau et délai ExposureActive à mesurer |
+| `GNSS` Holybro DroneCAN H-RTK F9P Helical STM32G4 candidat temps | 5 V domaine vol ; antenne hélicoïdale ; RTCM via Pixhawk/CAN2 | navigation PX4 DroneCAN ; UART2 TX/GPRMC et PPS pin5 candidats vers CA01 | référence/révision STM32G4 à garantir (S32K1 pin5 NC) ; niveaux UART2/PPS, émission GPRMC, CAN2, terminaison, alimentation et PX4 à valider |
+| `GNSSANT` Antenne hélicoïdale du H-RTK candidat | connexion mécanique ou SMA de la variante confirmée | signaux GNSS | fixation, coaxial éventuel, ciel dégagé, masque et multipath à valider |
 | `SAFE` Accessoires Pixhawk à identifier | alimentation/commande FCU | bouton sécurité / buzzer / signalisation éventuels | inventaire livré et références ; aucune fonction supposée présente |
 | `POCKET` Pocket ELRS / Backpack au sol | manches ; supervision QGC ; énergie propre | liaison RF commune | configuration et batteries |
-| `GCS` Station QGroundControl sur PC | Base H-RTK par USB ; supervision via Backpack Wi-Fi | RTCM MAVLink 2, missions et commandes ponctuelles | version, continuité PC et charge RF **À valider** |
-| `BASE` Holybro H-RTK F9P Base et HANT-X627A | GNSS ; énergie USB/sol | RTCM par USB vers QGC | repère connu/survey-in, implantation, alimentation et câble **À valider** |
-| `AUX_RESERVE` Réserve auxiliaire sans charge affectée | 5 V local CA01, sortie J301 à adapter | aucune fonction affectée | charge, protection et budget avant usage ; V0.5-pre non fabricable |
+| `GCS` Station QGroundControl | base H-RTK F9P par USB ; supervision RF | RTCM MAVLink 2 ; missions et commandes ponctuelles | continuité PC/Backpack et charge RF |
+| `BASE` Holybro H-RTK F9P Base + HANT-X627A | GNSS ; alimentation USB/sol | RTCM via USB vers QGC | repère, implantation, alimentation et acheminement RTCM |
+| `AUX_RESERVE` Réserve auxiliaire sans charge affectée | 5V local CA01, sortie J301 à adapter | aucune fonction affectée | charge, protection et budget avant usage ; schéma V0.5-pre non fabricable |
+| `BMS` JBD-SP22S003 Li-ion A01, variante100A, embarqué cassette | B+/B− bruts, prises cellules internes et NTC | B+ continu, P− protégé commun charge/décharge, UART brut | Bornes C−/P−, mapping6S, température/derating, précharge absente et seuils OEM à valider |
+| `TE` TE ELCON125A Middle Drawer1648151-1/1648156-1 | 2contacts puissance #4 et5signaux #20 | Puissance vers JETI, UART vers isolateur, boucle passive distincte | Plans de cavités, séquence réelle, sertissages, isolement/carbone, protection contacts mobiles et câbles à valider |
+| `JETI` JETI MainSwitch100, étage inférieur fixe | TE B+ continu/P− protégé | B+ continu/retour négatif commuté vers PM IN | OFF mémorisé vérifié avant échange ; pas de retour brut contournant la coupure |
+| `BMS_ISO` Waveshare USB TO RS232/485/TTL SKU15817, fixe | TXD/RXD/GND UART côté isolé ; USB énergie/données côté Jetson | USB diagnostic vers Jetson à travers isolation numérique et DC/DC | Niveau UART JBD à relever avant réglage TTL3.3V ; 5V isolateur et VDD JBD NC, tests Ioff/backpower/CEM à faire |
+| `PRESENCE_RESERVE` Boucle passive présence TE, réserve non raccordée | Deux contacts postmate reliés ensemble dans cassette | Aucun signal exploité ; côté châssis NC | Pas de liaison B− brut ; éventuel circuit de détection CA01 à concevoir séparément |
+| `CHARGE_EXTERNE` Chargeur6S NMC externe sur adaptateur TE protégé | Énergie secteur hors drone | B+ et retour P− protégé du BMS commun | Aucun chargeur embarqué ; mode charge incompatible insertion drone, profils OEM/seuils/connectique et fusible à valider |
 
 #### 4.3.2 Registre des liaisons
 
@@ -928,39 +947,46 @@ n'indique qu'un sens de lecture.
 
 | Liaison | Modules | Fonction | Signaux / contacts connus | Réserve avant câblage |
 |---|---|---|---|---|
-| `W01` | `BAT` → `PM` | Batterie amovible → connexion/coupure/protection → PM08-CAN IN fixe | +/− ; 6S ; 25,2 V pleine charge candidate | variante et faisceau à dimensionner ; aucun départ contournant PM ; déconnexion batterie coupe aussi PM |
+| `W01` | `BAT` → `BMS` | Pack mobile sans XT90-S → BMS embarqué : B− brut vers B−, B+ continu vers TE | AWG8 OEM candidat ; B+ brut / B− brut distinct de P− protégé | Courant100A annoncé non qualifié ; bornes/sections et protection court-circuit à valider ; aucun départ direct vers PM/PDB |
 | `W02` | `DIST` → `ESC1..4` | Quatre départs propulsion | +/− vers chaque ESC | courant moteur via PM08-CAN IN/OUT, jamais via CA01 ; sections et protections à dimensionner |
 | `W03` | `ESC1..4` → `M1..4` | Trois phases par moteur | U/V/W logiques, ordre à vérifier | référence ESC/moteur et sens à figer |
-| `W04` | `FCU` → `ESC1..4` | Sorties moteur PX4 MAIN1..4 candidates | signal/retour ; PWM/DShot/autre à choisir | allocation MAIN, ordre moteur et protocole **À valider** ; AUX1 réservé caméra |
-| `W05` | `PM` → `DIST` | PM08-CAN OUT → PDB Holybro 300A top-entry candidate | 6S +/− ; bornes/faisceau de puissance à sélectionner | compatibilité physique PM/PDB, polarité, courant total, pointes, température et terminaisons à qualifier |
-| `W06` | `PM` → `FCU` | BEC1 → POWER1 de la porteuse | côté porteuse : +5 V contacts 1/2, GND 5/6 ; 3/4 SCL/SDA non raccordés au PM | contacts côté PM, orientation et faisceau à contrôler ; 3 A annoncés |
-| `W08` | `DIST` → `CA01` | Un XT30 de PDB → protection proche du port → entrée J103 CA01 | J103:1 = VBAT_PAYLOAD ; :2 = GND ; aucun signal sur XT30 | polarité et accouplement, calibre XT30/faisceau, fusible/protection, segment amont exposé et appels CA01 à valider ; ne pas confondre avec W09 |
-| `W09` | `CA01` → `CPU` | 12 V calcul candidat → XT30 Jetson de la porteuse | J104:1 = 12V_COMPUTE ; :2 = GND, correspondance XT30 à documenter | polarité, protection, tension et appels Orin NX/USB/SSD à mesurer |
-| `W10` | `CA01` → `LID` | J201 → alimentation Airy | J201:1 = 12V_LIDAR ; :2 = GND ; faisceau Airy optionnel B1/B2 ou aviation pins 6/7 VIN, 5/8 GND | connecteur/faisceau livré, polarité, section et source 12 V capable de 2 A au démarrage à vérifier |
+| `W04` | `FCU` → `ESC1..4` | PX4 MAIN1..4 candidats → 4 ESC ; AUX1 réservé à la caméra | signal/retour ; PWM/DShot/autre à choisir | allocation MAIN, ordre, protocole et télémétrie ESC à valider |
+| `W05` | `PM` → `DIST` | PM08-CAN OUT → PDB Holybro 300A Top Entry candidate | 6S +/− ; sortie puissance PM, variante de terminaisons à choisir | liaison PM/PDB, polarité, courant, pointes, température et terminaisons à valider |
+| `W06` | `PM` → `FCU` | BEC1 → POWER1 de la porteuse | côté porteuse : +5V contacts 1/2, GND 5/6 ; SCL/SDA 3/4 non raccordés au PM | contacts côté PM, orientation et faisceau à contrôler ; 3A annoncés |
+| `W08` | `DIST` → `CA01` | PDB XT30 candidat → protection de branche au plus près du port → CA01 J103 | 6S +/− vers J103:1 VBAT_PAYLOAD et :2 GND ; aucun signal sur XT30 | polarité, accouplement, calibre XT30/câble, protection, segment PDB/XT30 en amont exposé au défaut et appels CA01 à valider ; distinct de W09 |
+| `W09` | `CA01` → `CPU` | 12V calcul candidat → XT30 Jetson de la porteuse | J104:1 = 12V_COMPUTE ; :2 = GND | polarité, protection, tension et appels Orin NX/USB/SSD à mesurer |
+| `W10` | `CA01` → `LID` | J201 → alimentation Airy | J201:1 12V_LIDAR ; :2 GND ; Airy faisceau optionnel B1/B2 ou aviation 6/7 VIN, 5/8 GND | faisceau livré, polarité, section et source 12V capable de 2A au démarrage à vérifier |
 | `W12` | `CA01` → `FCU` | J402 → UART Pixhawk réservé RF | J402:1 = GND ; :2 = FC_RX_RF ; :3 = FC_TX_RF | choisir port ; TX/RX croisés ; pas injection 5 V TELEM supposée |
 | `W13` | `RF` → `RFANT1..2` | Deux liaisons coaxiales | ports antenne du module, deux antennes | références et cheminements ; pas deux systèmes radio indépendants |
-| `W14` | `FCU` → `CPU` | TELEM2 Pixhawk ↔ UART1 Jetson internes, lien local candidat | MAVLink 2 capture/trigger, GNSS et TIMESYNC ; ROS 2 sur interface séparée si besoin | débit, séquences et incertitude d'offset **À valider**, port RF séparé |
+| `W14` | `FCU` → `CPU` | TELEM2 Pixhawk ↔ UART1 Jetson internes à la porteuse, lien local candidat | MAVLink 2 événements CAMERA_TRIGGER/CAMERA_IMAGE_CAPTURED, état GNSS et synchronisation d'horloges ; uXRCE-DDS via autre port si requis | configurer flux, débit, TIMESYNC, conversion UTC/monotone et incertitude ; ne pas partager le port RF |
 | `W15` | `LID` → `CPU` | Ethernet direct Airy ↔ Jetson | interface/câble Ethernet du faisceau Airy | port Jetson, IP, blindage ; partage Ethernet FCU éventuel à résoudre |
 | `W16` | `CPU` → `CAM` | USB3 direct Jetson ↔ caméra | alimentation par USB et USB3 Vision | câble verrouillable, budget port et débits ; pas alimentation via M8 |
-| `W17` | `LID` → `CA01` | SYNC_OUT1 → J501, option non montée | Airy pin10/D2 → J501:1 ; retour D4 → :2 | niveau/latence non documentés ; JP501 ouvert, pas maître caméra V1 |
-| `W18` | `CA01` → `CAM` | J502 → trigger Basler Line1 opto | M8 pin1 réservé ; pin2 Line1/5V_SYNC ; pin3 GND opto commuté ; pin4/6 retour W34 ; pin5 NC | courant, front et absence de retour 5 V vers AUX1 **À valider** |
+| `W17` | `LID` → `CA01` | SYNC_OUT1 Airy → J501, option diagnostique non montée | Airy aviation 10 / D2 bleu → J501:1 ; D4 noir retour → :2 | sortie angulaire et caractéristiques électriques/latence non documentées ; JP501 ouvert ; pas maître du trigger V1 |
+| `W18` | `CA01` → `CAM` | CA01 → Basler Line1 opto via J502 candidat | M8 pin1 NC ; pin2 Line1/5V_SYNC ; pin3 retour opto commuté ; pin4 Line2 ExposureActive retour W34 ; pin5 NC ; pin6 GND GPIO retour W34 | 5V local CA01, courant opto, niveaux/polarité, durée et protection à dimensionner ; pin3 distinct de pin6 |
 | `W19` | `CPU` → `SSD` | Port M.2 NVMe de la porteuse | PCIe / alimentation interne porteuse | référence SSD et courant ; pas de rail externe ajouté par supposition |
 | `W20` | `CPU` → `FAN` | Commande/alimentation refroidissement candidat | connecteur porteuse ou autre solution à définir | aucune tension ou numérotation de ventilateur présumée |
-| `W21` | `FCU` → `GNSS` | DroneCAN Helical STM32G4 candidat sur CAN2 | CAN H/L, GND, 5 V selon version | CAN1 PM ; révision G4, terminaison, protection, courant et PX4 **À valider** |
-| `W22` | `GNSS` → `GNSSANT` | Antenne hélicoïdale | fixation directe ou SMA selon variante réelle | dégagement, câble éventuel, masque et multipath **À valider** |
-| `W23` | `CA01` → `LID` | PPS/GPRMC tamponnés et adaptés vers Airy | Airy aviation 9/D3 PPS, 11/D1 GPRMC, 5/8/D4 GND | niveau RS232/TTL réel, timing et masse **À valider** |
-| `W24` | `CA01` ↔ `CPU` | PPS/GPRMC tamponnés vers Orin et référence IO | Orin GPIO pin2 GPIO_07/PPS, pin6 GND ; Orin Debug pin3 UART2_RXD/GPRMC, pin6 GND ; référenceCamera0 ou1 pin22VDD3,3 V/pin1GND versJ509 candidats | référence liée aux domainesIO, console/pinmux, niveaux, Linux PPS et offset **À valider** ; +5 V GPIO/Debug non utilisé |
+| `W21` | `FCU` → `GNSS` | H-RTK F9P DroneCAN Helical STM32G4 candidat sur CAN2 | CAN H/L, GND, 5 V 4,75–5,25 V selon brochage exact | CAN1 PM ; CAN2/Jetson, terminaison, protection, alimentation ; variante G4 avec PPS à confirmer avant achat |
+| `W22` | `GNSS` → `GNSSANT` | Réception GNSS par antenne hélicoïdale candidate | antenne directement fixée ou par SMA selon version confirmée | position, masque, multipath et orientation à valider |
+| `W23` | `CA01` → `LID` | CA01 → Airy : PPS tamponné + GPRMC adapté, alimentation GNSS sur CAN2 distincte | Airy aviation pin9 PPS/D3, pin11 GPRMC/D1, pin5/8 GND/D4 ; GPRMC 9600 8N1 | Interface RS232 retenue ; mesurer niveaux et chargePPS, largeur/timing, séquencement et masse commune |
+| `W24` | `CA01` → `CPU` | CA01 → Jetson : PPS/GPRMC adaptés ; retour référence3.3V Orin vers J509 | Orin GPIO pin2 GPIO_07/PPS et pin6 GND candidats ; Orin Debug pin3 UART2_RXD/GPRMC et pin6 GND candidats ; Camera0 ou Camera1 pin22 VDD3.3→CA01J509/1, pin1GND→J509/2 ; Camera0 ou Camera1 pin22 VDD3.3→CA01J509/1, pin1GND→J509/2 | DomaineCSI3.3 identique aux IO et extinction à mesurer ; fan-out actif sans Y passif ; pinmuxPPS, consoleUART, chrony/UTC et incertitude à valider |
 | `W25` | `FCU` → `SAFE` | Accessoires de vol à inventorier | bouton/buzzer/LED : ports et niveaux inconnus | réalisation après identification du matériel livré |
-| `W26` | `CA01` → `AUX_RESERVE` | Distribution du 5 V local → réserve J301 à adapter | J301:1 = 5V_AUX ; :2 = GND confirmés par netlist V0.5-pre | budget/protection à fermer ; aucune qualification matérielle |
-| `W27` | `POCKET` → `RF` | ELRS commun RC + MAVLink 2 : RTCM montant, commandes ponctuelles, télémétrie descendante | liaison sans fil ; Pocket autonome | profil 333 Hz Full EU-LBT et marges/portée **À valider** |
-| `W28` | `GCS` → `POCKET` | Wi-Fi local QGC ↔ Backpack | MAVLink/UDP candidat, y compris GPS_RTCM_DATA | radio manuelle fonctionne sans PC ; continuité RTCM et versions **À valider** |
-| `W29` | `BASE` → `GNSS` | Base USB → QGC → ELRS → Pixhawk → DroneCAN Helical G4 candidat | RTCM GPS_RTCM_DATA/MAVLink 2 puis RTCMStream CAN2 | débit, configuration PX4 et perte **À valider** |
-| `W31` | `PM` → `FCU` | PM08-CAN → CAN1 de la porteuse, séparé de POWER1/POWER2 | côté porteuse : CAN1 2 H, 3 L, 4 GND ; contact 1 +5 V OUT non raccordé au PM | contacts PM et faisceau à vérifier ; torsade, terminaisons, configuration PX4 |
-| `W32` | `PM` → `FCU` | BEC2 → POWER2 de la porteuse | côté porteuse : +5 V contacts 1/2, GND 5/6 ; 3/4 SCL/SDA non raccordés au PM | contacts côté PM, orientation et faisceau à contrôler ; 3 A annoncés ; aucun pont vers POWER1 |
-| `W33` | `FCU` → `CA01` | AUX1 commande caméra | baseboard FMU PWM OUT pin2 FMU_CH1 3,3 V, pin10 GND | fonction PX4, groupe timer, protection et aucun retour 5 V **À valider** |
-| `W34` | `CAM` → `CA01` | Basler Line2 ExposureActive | M8 pin4 Line2, pin6 GND GPIO ; pin3 retour opto distinct | sortie, rappel, courant et latence **À valider** ; U509 SN74LVC1G17 candidat ; séquencement et fronts à valider |
-| `W35` | `CA01` → `FCU` | retour exposition vers capture Pixhawk | baseboard AD&IO pin2 FMU_CAP1 3,3 V, pin8 GND | configuration camera_capture et front **À valider** ; PPS non raccordé à CAP1 |
-| `W36` | `GNSS` → `CA01` | entrée PPS/GPRMC H-RTK G4 UART2 | pin3 TX/GPRMC, pin5 PPS, pin6 GND ; pin1 +5 V **non raccordé** (GNSS alimenté par CAN2) | SKU G4, niveau et GPRMC **À valider** ; S32K1 pin5 NC |
+| `W26` | `CA01` → `AUX_RESERVE` | Distribution du 5V local → réserve J301 à adapter | J301:1 = 5V_AUX ; :2 = GND, confirmés par netlist V0.5-pre | Réserve sans charge affectée ; budget de 3 A partagé radio/sync/J301, protection et charge à fermer |
+| `W27` | `POCKET` → `RF` | ELRS commun RC + MAVLink 2 : RTCM montant, commandes ponctuelles et télémétrie | liaison sans fil ; Pocket alimentée séparément | profil 333 Hz Full EU-LBT, marge et portée à qualifier |
+| `W28` | `GCS` → `POCKET` | Wi-Fi local QGC ↔ Backpack, RTCM compris | MAVLink/UDP candidat avec GPS_RTCM_DATA | radio manuelle sans PC ; continuité RTCM et versions à valider |
+| `W29` | `BASE` → `GNSS` | Base USB → QGC → Backpack/ELRS → Pixhawk → DroneCAN Helical G4 candidat | GPS_RTCM_DATA en MAVLink 2 ; RTCMStream DroneCAN | transport fonctionnel sélectionné ; débit, CAN2, configuration PX4 et perte à valider |
+| `W31` | `PM` → `FCU` | PM08-CAN → CAN1 de la porteuse, séparé de POWER1/POWER2 | côté porteuse : CAN1 2 H, 3 L, 4 GND ; contact 1 +5V OUT non raccordé au PM | contacts PM et faisceau à vérifier ; torsade, terminaisons, configuration PX4 |
+| `W32` | `PM` → `FCU` | BEC2 → POWER2 de la porteuse | côté porteuse : +5V contacts 1/2, GND 5/6 ; SCL/SDA 3/4 non raccordés au PM | contacts côté PM, orientation et faisceau à contrôler ; 3A annoncés ; aucun pont vers POWER1 |
+| `W33` | `FCU` → `CA01` | FMU PWM OUT AUX1 candidat → adaptation CA01 | baseboard FMU PWM OUT pin2 = FMU_CH1 (3,3V), pin10 = GND ; sortie moteur MAIN1..4 à réserver propulsion | affectation PX4, groupe timer, polarité/largeur, protection et aucun retour 5V vers FCU à valider |
+| `W34` | `CAM` → `CA01` | Basler ExposureActive → adaptation CA01 | M8 pin4 = Line2 GPIO sortie ExposureActive ; pin6 = GND GPIO ; pin3 GND opto distinct | mode sortie Basler, pull-up et courant, niveaux/fronts, latence et association Frame ID à valider ; pins4/6 NC en V0.3 |
+| `W35` | `CA01` → `FCU` | CA01 retour 3,3V → AD&IO FMU_CAP1 Pixhawk | baseboard AD&IO pin2 = FMU_CAP1, pin8 = GND ; CAP1 dédié exposition | driver camera_capture PX4, polarité/timer, timestamp/UTC et essais ; CAP1 ne reçoit pas aussi le PPS |
+| `W36` | `GNSS` → `CA01` | H-RTK Helical STM32G4 UART2 → CA01 : PPS, GPRMC et GND ; VCC UART2 non raccordé (alimentation par CAN2) | G4 UART2 pin3 TX/GPRMC, pin5 PPS, pin6 GND ; pin1 +5 V non raccordé à CA01 | SKU G4, pin5 PPS (S32K1 NC), niveaux, émission GPRMC, protection et absence de retour alimentation à valider |
+| `W37` | `BMS` → `TE` | B+ continu et P− protégé → TE mobile, cosses M5 sans XT90-S | CAO candidate cavité39PLUS/cavité40MOINS ; contacts #4 M5, mapping à contrôler sur lot | P− peut être marqué C− sur fiche commune ; jamais B− brut au contact puissance négatif |
+| `W38` | `TE` → `JETI` | TE fixe → JETI IN étage inférieur | +/− ; − = P− protégé amont JETI | Positif permanent ; capotage et absence de chemin vers masse avionique hors JETI |
+| `W39` | `JETI` → `PM` | JETI OUT → PM08-CAN IN étage inférieur | + continu, − commuté JETI | Toutes charges embarquées après PM IN/OUT ; bascule JETI et inrush à tester |
+| `W40` | `BMS` → `BMS_ISO` | JBD UART →5contacts TE dont3UART → TTL Waveshare côté isolé | J2candidat1GND=B−brut,2RXD_BMS←TXD_ISO,3TXD_BMS→RXD_ISO ;4VDD NC | J2/J3 contradictoire dans fiche ; niveau logique lot à relever ; GND brut ne rejoint ni USB GND ni masse avionique |
+| `W41` | `BMS_ISO` → `CPU` | USB Waveshare → port USB Jetson aval, données et alimentation hôte | Isolation données et DC/DC ; aucun fil5VTTL ni VDD_BMS raccordé | Parser C++17 lecture seule et adaptation PX4 Planifiés ; aucune commande moteur ni commande BMS |
+| `W42` | `TE` → `PRESENCE_RESERVE` | Deux broches TE postmate court-circuitées entre elles dans cassette ; extrémités fixes NC | S_PRESENT_A/S_PRESENT_B distincts de B− brut et de masse avionique | Aucun interverrouillage réalisé ; éventuelle entrée CA01 non raccordée, circuit à concevoir |
+| `W43` | `CHARGE_EXTERNE` → `TE` | Hors drone uniquement : chargeur → adaptateur TE → B+ et P− protégé BMS commun | Même polarité protégée que puissance ; jamais retour chargeur sur B− brut, jamais courant charge dans JST cellules | Profil et courant NMC approuvés OEM, protection et interlock charge/vol à valider |
 
 Pour transformer ce registre en dossier de faisceau : renseigner pour chaque
 Wxx correspondant à un tronçon physique les références des deux connecteurs et contacts, vues de brochage, nombre
@@ -1255,7 +1281,7 @@ l'accessibilité de la prise ou l'absence de pincement. Cette option reste
 **Planifiée / À valider** ; aucun équipement électrique ou câble natif
 n'est déplacé par la préétude.
 
-### 6.1 Dock 20 Ah : raccordement direct et coupure, 4 octobre 2026
+### 6.1 Définition historique sans BMS : raccordement direct, 4 octobre 2026
 
 La chaîne représentée dans la CAO enregistrée du 4 octobre, sans BMS, est
 **pack 6S AWG8 → cosses à 90° candidates → TE mobile/fixe →
@@ -1332,84 +1358,95 @@ Validation CAO et limites matérielles : DOC-VAL §12.1.8, DOC-MEC §4.1.3.2.
 
 ### 6.2 BMS dans la cassette et évolution du connecteur — 5 octobre 2026
 
-`ELEC-BMS-001` / `SAFE-REQ-011` : chaque cassette 6S 20 Ah du cartographe
-emporte son BMS, **Planifié**, référence et réalisation **À valider**.
-La cible devient **pack → BMS → connecteur blind-mate → JETI → PM08-CAN → PDB**.
-La CAO et la netlist représentée au §6.1 conservent le TE ; aucune substitution
-fabricant ni intégration de BMS n'est réalisée à ce stade.
+`ELEC-BMS-001` / `SAFE-REQ-011` : le BMS commercial **JBD-SP22S003 Li-ion
+A01, variante 100 A**, est sélectionné pour le prototype. CAO et schéma
+**Implémentés**, lot, montage, performances et protection **À valider**.
+Il couvre 6–22S NMC et utilise un port commun charge/décharge : B+ reste
+continu, B− brut entre dans le BMS et P−/C− protégé va au contact TE40.
+La notice A01 nomme la borne protégée **C−** ; P− est son nom fonctionnel
+dans le registre. Le positif du BMS arrive par BC22=B6 dans le faisceau
+cellules interne : aucune borne positive de puissance ni piquage supplémentaire.
+Le TE39 porte B+. Tous les consommateurs sont ensuite derrière le JETI,
+qui commute le négatif, puis PM08-CAN et PDB. Aucune charge ni masse avionique
+ne rejoint B− brut. Le chargeur hors drone passe aussi par B+/P− protégé ;
+l'adaptateur de charge et sa protection restent **Planifiés**.
 
-Le BMS doit surveiller les six groupes de cellules et les températures
-accessibles, gérer l'équilibrage et définir les protections de charge/décharge.
-Il n'est pas un chargeur. Son courant continu, ses pointes et durées, ses pertes,
-son refroidissement et ses seuils doivent suivre le profil mission mesuré et
-les prescriptions du pack. Une étiquette « 100 A » seule ne sélectionne pas
-un BMS. JETI conserve la commande de coupure et sa fonction anti-étincelle ;
-PM08-CAN conserve mesure et BEC. Leur suppression éventuelle exige une autre
-évolution documentée, pas une conséquence implicite de l'ajout du BMS.
+La [spécification JBD A01](https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf)
+donne un PCB de 130±0,5 ×65±0,5 ×10±2 mm. Cela n'inclut pas une enveloppe
+installée de prises, câbles ou dissipation. Le courant «100 A» n'est pas
+qualifié dans le coffret : les pertes, températures, courant mission,
+pointes et seuils doivent être mesurés sur le lot. Le module n'est pas un
+chargeur. JETI et PM08-CAN sont conservés ; aucun module PM08D I²C substitué.
 
-Le fabricant du [Tattu sélectionné](https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug)
-annonce une sortie d'équilibrage JST-XHR-7P. L'accès aux six groupes via les
-sept prises B0…B6 est envisageable sous vérification du brochage, ordre,
-continuité, fil ouvert et limites fabricant, sans ouvrir les cellules scellées.
-Ces prises restent dans la cassette ; les signaux du connecteur d'échange
-ne sont pas utilisés comme sept prises cellules brutes. Les températures
-externes mesurables ne prouvent pas la température interne des cellules.
+**Connecteur retenu pour ce montage : TE Middle Drawer existant**,
+1648156-1 mobile /1648151-1 fixe, contacts #4 M5 6648335-1 /1766283-1.
+Son boîtier comporte 32 logements de signal et huit de puissance ; seuls
+deux de puissance sont utilisés. La [famille TE](https://www.te.com/en/products/brands/elcon/elcon-drawer-connectors.html)
+est documentée blind-mate, flottante et hot-plug. Cela ne qualifie pas
+l'interruption des contacts #4 à 100 A. Échange au sol, désarmé, **JETI OFF
+et courant puissance nul** avant extraction ; ON seulement après insertion
+et verrouillage. L'état ON mémorisé impose de commander OFF avant déconnexion.
+Les instructions TE114-13206, notamment dressage, rayon, liberté et distance
+au premier collier, restent à valider dans cette application.
 
-Le choix du port de charge précède le brochage du fond de panier. Avec deux
-contacts de puissance communs charge/décharge, choisir un BMS à port commun
-protégeant aussi la charge. Un BMS avec P−/C− séparés demande un autre port
-de charge ou une voie de puissance adaptée ; ne pas réunir arbitrairement
-ces bornes et ne pas charger par un contact de signal. L'adaptateur de charge
-reste **Planifié** ; chargeur/USB/équilibrage ne doivent pas contourner les
-protections ni le capteur de courant du BMS.
+| Alternative vérifiée | Motif de non-sélection pour ce prototype |
+|---|---|
+| DuraSwap Concentric 2+6, 100A/4AWG, 10000cycles | [GS20-0895 §6.7](https://cdn.amphenol-cs.com/media/wysiwyg/files/documentation/gs-20-0895.pdf) interdit tout contact puissance ou signal sous potentiel pendant l'accouplement. Le TX JBD peut rester alimenté, même avec DSG OFF ; JETI OFF ne résout pas cette condition. AWG8 et terminaisons resteraient aussi à confirmer. |
+| Floating Mate2+12 | 100cycles catalogue ; déclassement et durée de vie mission non démontrés. |
+| BSC BSC1A1C-000/001, 2+8 | AWG8 couvert par contacts usinés USCP000-203/-206 ; permission de raccordement sous potentiel et cotes complètes du cadre non établies dans le [catalogue](https://www.amphenol.co.jp/military/catalog/BSC.pdf). |
+| PwrMAX G2 | PCB/busbar ; exigerait une carte et sa reprise mécanique plutôt qu'un raccordement direct au BMS commercial. |
+| Anderson SBS75X | Raccordement sous potentiel possible ; courant IEC en AWG8 60–65A selon charge des auxiliaires, donc pas une chaîne100A qualifiée. |
+| Anderson MARC / TE Mini Drawer1648111-1 | Calibre principal insuffisant ; Mini n'accepte pas les contacts #4. |
 
-JETI commute le négatif. Une masse de communication entre le BMS amont et
-l'avionique aval peut contourner cette coupure, même si les FET du BMS sont
-côté positif. Si cette communication est ajoutée, prévoir une interface
-galvaniquement isolée, alimentation de l'interface comprise, ou revoir
-explicitement la topologie de coupure. Omettre un fil GND d'une paire CAN
-ne prouve pas l'absence de retour par transceiver ou protection. CAN-H/CAN-L,
-présence, réveil ou identification restent des fonctions candidates ; le
-brochage et le protocole ne sont pas arrêtés. DroneCAN n'est pas déduit d'une
-simple interface CAN de BMS. Si BMS et PM08 publient une mesure batterie,
-identifier/arbitrer les producteurs afin de ne pas compter deux batteries.
+**Données via cinq contacts de signal TE**, sans prises cellules brutes :
 
-Le budget des signaux précède la sélection : à titre d'allocation candidate,
-CAN-H/CAN-L et référence isolée utilisent trois voies, une boucle de présence
-deux autres ; un format 2+6 ne laisse alors qu'une voie pour réveil ou autre
-fonction. Ce n'est pas un brochage adopté. Démarrage de la précharge et
-détection d'insertion doivent fonctionner lorsque l'avionique est éteinte,
-par une logique locale ou une alimentation auxiliaire isolée définie.
-L'ordre de fermeture/ouverture des contacts doit être établi par les plans
-de la variante exacte, sans le déduire du seul terme blind-mate.
-
-Une coupure BMS coupe propulsion et les deux BEC du PM08 : POWER1/POWER2
-n'apportent pas de secours face à cette cause commune. Pour les dérives
-progressives (cellule faible sous charge, température), dimensionner les
-alertes et marges afin de permettre retour/atterrissage avant la protection
-ultime sur le profil qualifié. Un court-circuit ou une surintensité brusque
-peut exiger une coupure immédiate, sans délai garanti pour PX4 ; ne pas
-inhiber ni retarder ces protections pour le vol. Seuils et délais restent
-**À valider** selon le pack, le BMS et la mission.
-Voir [la politique PX4](https://docs.px4.io/main/en/config/safety).
-
-Les familles proposées par l'utilisateur sont comparées comme **candidates** :
-
-| Famille | Donnée fabricant vérifiée | Conséquence pour la sélection |
+| Fonction logique | Contact fixe candidat /douille mobile | Raccordement |
 |---|---|---|
-| [DuraSwap Concentric](https://cdn.amphenol-cs.com/media/wysiwyg/files/documentation/datasheet/inputoutput/duraswap-concentric.pdf) | 2 puissance + 6 signaux ; 100 A en 4 AWG, 10 000 cycles ; empreinte annoncée 50×50 mm ; flottement radial ±1 mm avec plaque prévue | premier candidat à approfondir pour échanges fréquents ; compatibilité AWG8, paire exacte, montage et environnement à confirmer. Le DuraSwap standard est annoncé jusqu'à 70 A, pas 100 A |
-| [Floating Mate 2+12](https://amphenol-industrial.com/wp-content/uploads/amphenol/floating-mate-connector-series-ic-27.pdf) | 120 A maximum/contact, élévation catalogue 45 K, 12 signaux ; flottement 2,4 mm ; 100 cycles ; IP2XB ; terminaisons 4/6/8 AWG selon référence | le calibre ne qualifie pas 120 A sur le faisceau AWG8 ; durée de vie à confronter à la fréquence d'échange. IP2XB n'est pas une étanchéité à l'eau |
-| [BSC](https://www.amphenol.co.jp/military/catalog/BSC.pdf) | système modulaire puissance/signaux ; calibre et cycles dépendent du contact et du module | comparer un assemblage exact, ses dimensions, sa masse et ses contacts ; pas un calibre unique de série |
-| [PwrMAX G2](https://www.amphenol-cs.com/media/wysiwyg/files/documentation/datasheet/power/pwr_pwrmax_g2_powerconnector.pdf) | jusqu'à 100 A/contact avec élévation de 30 °C en air calme ; puissance/signaux configurable, PCB ou busbar | candidat si BMS et fond de panier sont conçus ensemble ; reprise mécanique, cuivre, thermique et protection environnementale à définir |
-| [Anderson MARC](https://www.andersonpower.com/product-lines/marc/) | 29 A/circuit, huit contacts polyvalents ; 10 000 cycles | écarté de la présélection de puissance principale ; ne pas additionner les contacts sans architecture et qualification de partage du courant |
+| S_GND | 1650161-1 prémate /1648325-1 | B− brut vers GND du côté TTL isolé seulement |
+| S_TX | 1650155-1 /1648325-1 | TX JBD vers RX isolateur |
+| S_RX | 1650155-1 /1648325-1 | RX JBD vers TX isolateur |
+| S_PRESENT_A/B | 2×1650162-2 postmate /1648325-1 | Boucle mobile passive, indépendante de B− ; côté fixe NC |
 
-La présélection privilégie DuraSwap Concentric et, si une carte de fond de
-panier est développée avec le BMS, PwrMAX G2. Il s'agit d'un ordre d'étude,
-pas d'une commande ou d'un remplacement du TE. FMLB/blind-mate ne suffisent
-pas à autoriser une extraction sous charge. La sélection nécessite courant
-réel, courbes de déclassement, cycles mission, contacts protégés côté pack,
-guidage/flottement, effort, verrouillage et référence complète de la paire.
-Implantation : DOC-MEC §4.1.3.3 ; validations planifiées : DOC-VAL §12.1.9.
+Les axes CAO proviennent des cavités #20 du STEP TE ; **numéros de cavités,
+vues de sertissage, dimensions complètes et séquence réelle restent à valider**.
+Le registre laisse les numéros `null`. Les longueurs prémate/postmate ne
+prouvent pas l'ordre relatif avec les contacts de puissance. Aucun interlock
+ni précharge locale automatique n'est implémenté. Les contacts commerciaux
+nouveaux sont représentés par des enveloppes provisoires, pas des plans d'usinage.
+
+L'UART JBD est non isolé, 9600 bauds,8N1. Le connecteur indiqué J2 HY2.0-4P
+porte 1=B− brut,2=RX,3=TX,4=VDD. La mention J3 ailleurs dans la notice et
+le niveau logique doivent être contrôlés sur le lot. L'interface **Waveshare
+USB TO RS232/485/TTL, SKU15817** est placée à l'étage fixe ; son manuel décrit
+l'isolation des données et l'alimentation DC/DC isolée. Son USB rejoint le
+Jetson alimenté en aval JETI. **VDD JBD et sortie5V TTL isolée restent NC**.
+GND TTL=B− brut ; aucune liaison au GND USB, châssis ou blindage aval.
+La variante USB TO TTL(B) non isolée ne convient pas. La réservation CAO
+90×80×26mm n'est pas une cote fabricant confirmée.
+
+Les lectures JBD03/04/05 préparent tension, courant signé, SOC, capacités,
+cycles, tensions des six groupes, températures NTC accessibles, défauts et
+états MOS. Les affectations NTC de la notice sont contradictoires : aucun
+nombre de sondes externes ni mesure interne des cellules n'est garanti.
+Les sept prises JST-XHR-7P du [Tattu](https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug)
+restent dans la cassette. L'adaptation 6S au faisceau22S suit la notice et
+les contrôles d'ordre/continuité/fil ouvert ; jamais supposer que les sept
+premières cavités suffisent, ni intervenir sur les cellules scellées.
+
+Le transport diagnostic est prévu en lecture seule. Le décodeur C++17,
+l'identification batterie, fraîcheur des mesures et publication sont
+**Planifiés**, sans compatibilité DroneCAN supposée. **PM08 reste le producteur
+batterie PX4 actuel** : pas de seconde batterie fictive créée à partir du même
+pack. Contrat : [UART BMS](../../hardware/electronique/cartographe/contrat_uart_bms.json).
+
+Une protection BMS peut couper propulsion et les deux BEC du PM08 : aucune
+garantie d'atterrissage après coupure brusque. Les alertes de dérive progressive
+et marges PX4 se règlent au banc sur le profil mission ; ne pas inhiber ni
+retarder les protections sévères. Précharge, isolement, contacts accessibles,
+charge, sertissage, vibration et thermique restent **À valider**.
+
+Schéma et registre courants : §4.3. Implantation : DOC-MEC§4.1.3.3.
+Validation : DOC-VAL§12.1.9. La définition sans BMS du §6.1 est historique.
 
 ## 7. Architecture réseau et données
 
@@ -1926,7 +1963,8 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
-| 5 octobre 2026 | BMS embarqué requis et chaîne cible définie ; charge, coupures et communication isolée à étudier ; alternatives blind-mate vérifiées, distinction DuraSwap standard/Concentric et limites de cycles/AWG explicites ; aucun remplacement CAO (§6.2) |
+| 5 octobre 2026 | BMS JBD A01 commercial sélectionné, TE conservé avec5signaux/UART isolé ; CAO/schéma candidats Implémentés, courant/lot/thermiqueÀvalider (§6.2) |
+| 5 octobre 2026 | Préparation initiale BMS embarqué requis et chaîne cible définie ; charge, coupures et communication isolée à étudier ; alternatives blind-mate vérifiées, distinction DuraSwap standard/Concentric et limites de cycles/AWG explicites ; aucun remplacement CAO (§6.2) |
 | 4 octobre 2026 | Liaison pack directe candidate AWG8/742F5 M5 au TE, sans XT90-S/AWG10/P42 ; énergie à l'étage inférieur, PM08-CAN conservé et PM08D distinct ; contrôle du seul pack nominal, dressage TE/lot/fixations/thermique **À valider**, adaptateur de charge protégé **Planifié** (§6.1, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Repli des deux adaptateurs fixesTE/JETI en conservantR50 et terminaisons :480,91/425,75mm libres ; coupe sur gabarit et intersectionP49 non résolue, aucune qualification matérielle (§6.1, DOC-MEC§4.1.3.1, DOC-VAL§12.1.7) |
 | 4 octobre 2026 | Catalogue CAO trié et anciennes intégrations globales archivées ; dernière stack conservée, GNSS/faisceau séparés, aucune modification d'interface ou de câblage (§6, DOC-MEC§2.1) |

@@ -2,6 +2,7 @@
 from etage_batterie_helpers import *
 from update_raccordement_direct_batterie import cyl,cut
 import Part,json,zipfile,xml.etree.ElementTree as ET
+require_legacy_layout('finalize_etage_batterie.py')
 dock=load('sous_assemblages','SA02A_Dock20Ah','Ensemble').Document
 r=load('pieces/fabriquees','P43_ProtectionConducteurs20Ah');d=r.Document
 d.CoffretArriere.Length=96;d.CoffretArriere.Height=39.5;p=d.CoffretArriere.Placement;p.Base=A.Vector(-202,-15,61);d.CoffretArriere.Placement=p

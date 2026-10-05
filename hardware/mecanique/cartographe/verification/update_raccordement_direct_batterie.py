@@ -44,6 +44,7 @@ def route(start,end,lead_fraction=.5):
  return Part.Wire(edges)
 
 def main():
+ require_legacy_layout('update_raccordement_direct_batterie.py')
  dock=load('sous_assemblages','SA02A_Dock20Ah','Ensemble').Document
  before=bb(dock.Ensemble.Shape);removed=[]
  # Les pièces natifs/catalogue retirées restent disponibles dans Git.

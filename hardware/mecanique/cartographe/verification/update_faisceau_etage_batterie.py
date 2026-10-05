@@ -2,6 +2,7 @@
 from update_raccordement_direct_batterie import route, cyl,cut
 from etage_batterie_helpers import *
 import Part, math,json
+require_legacy_layout('update_faisceau_etage_batterie.py')
 dock=load('sous_assemblages','SA02A_Dock20Ah','Ensemble').Document
 rows=[]
 for i,(pol,z,yend) in enumerate([('Plus',69.745,-115),('Moins',86.255,-99)]):

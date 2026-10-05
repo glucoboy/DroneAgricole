@@ -892,39 +892,42 @@ et leurs empreintes ne certifient pas les fichiers courants. Le contrôle
 courant porte les nouvelles empreintes ; aucune qualification du drone
 complet n'est ajoutée.
 
-### 12.1.9 BMS de cassette et connecteur d'échange — préparation du 5 octobre 2026
+### 12.1.9 BMS de cassette et connecteur d'échange — 5 octobre 2026
 
-`SAFE-REQ-011` / `ELEC-BMS-001` → BMS mobile, interface blind-mate et
-communication protégée → tests ci-dessous. Besoin **Planifié**, références,
-implantation et qualification **À valider**. Aucun BMS n'est présent dans
-les natifs contrôlés au §12.1.8 ; leurs résultats ne qualifient pas la cible
-avec BMS ou un autre connecteur.
+`SAFE-REQ-011` / `ELEC-BMS-001` → JBD-SP22S003 A01, TE5signaux,
+isolationUART et SA08 → contrôles natifs et schéma courants. CAO et schéma
+**Implémentés**, qualification matérielle **À valider**. Les preuves
+de l'étape sans BMS (§12.1.8) et leurs anciennes empreintes sont historiques.
 
-Les investigations en lecture seule utilisent les natifs Windows amd64 /
-FreeCAD 1.1.3 et les données fabricant référencées dans DOC-ELEC §6.2.
-Jeu brut au-dessus : 5 mm pour le pack nominal, 3 mm pour l'enveloppe
-d'étude ; cavité P43 effective 94×42×35,5 mm, déjà occupée par les
-terminaisons et les fils. Ces mesures orientent le compartiment arrière
-comme **candidat à reprendre**, sans preuve qu'un BMS non sélectionné tient
-dans cet espace. Les calibres/cycles des connecteurs sont des données de
-catalogue, pas des résultats obtenus sur drone.
+Preuves : [CAO BMS](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json),
+[câblage](../hardware/electronique/cartographe/verification/cablage_global_bms.json),
+nomenclature et manifeste courants ; revue indépendante finale dans
+`hardware/mecanique/cartographe/verification/revue_bms_cassette.json`.
+Relecture dans un processus FreeCAD neuf : liens, recalcul, enveloppe PCB,
+collisions et extraction échantillonnée0/10/25/50/100/200/350/500mm. Les
+recouvrements intentionnels aux terminaisons sont énumérés avec leur motif,
+séparément des collisions non résolues. Cela ne valide pas les prises de
+lot, les tolérances ni une course continue. SA08 est contrôlé séparément.
 
-| Test planifié | Critère à fermer avant réalisation | État |
+Le vérificateur électrique couvre27 modules, 40 liaisons, 28 broches CA01 et
+trois trames de requête JBD 03/04/05 avec checksum. Le diagramme Mermaid
+est synchronisé avec DOC-ELEC. Aucun test de décodeur exécutable, de
+communication réelle ni de courant n'est confondu avec ces contrôles.
+
+| Essai | Critères restant à fermer | État |
 |---|---|---|
-| `T-CARTO-BMS-01` réception/interface pack | référence 6S compatible NMC ; prises B0…B6, ordre, fil ouvert et températures accessibles vérifiés ; conformité aux instructions pack/BMS | **Planifié**, lot et BMS absents |
-| `T-CARTO-BMS-02` implantation/extraction | modèle exact BMS/dissipateur/prises et connecteur ; enveloppe, jeux, maintien, accès, course, masse et reprise des efforts acceptés selon protocole chiffré | **Planifié**, dimensions inconnues |
-| `T-CARTO-BMS-03` puissance/charge/thermique | profil continu et pointes mesurés ; pertes, températures, charge commune/séparée, précharge et protections conformes aux limites retenues | **Planifié**, aucun seuil ni courant qualifié |
-| `T-CARTO-BMS-04` coupures/communication | aucun contournement BMS/JETI par chargeur, USB ou signaux ; isolation/interface validée ; source batterie et protocole PX4 identifiés | **Planifié**, topologie à arrêter |
-| `T-CARTO-BMS-05` alerte/protection coordonnée | essais simulés puis banc : marges d'alerte/action PX4 pour dérives progressives ; réaction des protections aux défauts brusques/sévères et perte de mesure ; aucune garantie d'atterrissage après court-circuit, aucune inhibition/temporisation injustifiée des protections | **Planifié**, aucun essai nouveau exécuté |
-| `T-CARTO-BMS-06` cycles/environnement | nombre d'échanges mission, guidage, flottement, retenue, intrusion, vibration et échauffement satisfaits par la paire exacte | **Planifié**, objectifs chiffrés à définir |
+| T-CARTO-BMS-01 réception/interface pack | lotA01, chimie6S, ordreB0…B6/JST, adaptation22S, fil ouvert, NTC, J2/J3, niveauTTL | Planifié, pas de matériel |
+| T-CARTO-BMS-02 implantation/extraction | PCBtolérancé représenté ; modèle équipé, bornes, dissipateur, fixations, jeux, extractioncontinue, rigidité et masse à accepter | CAO Implémentée, physique À valider |
+| T-CARTO-BMS-03 puissance/charge/thermique | courantmission, pertes, pointes, chargeprotégée, précharge et températures selonOEM | Planifié ;100A système non qualifié |
+| T-CARTO-BMS-04 coupures/communication | aucunevoieB−brut versavionique, isolationsdata+DC/DC, VDD/5VNC, mappingTE etportsréels, parser/identité/fraîcheur | Topologiedéclarativecontrôlée ; banc etlogiciel Planifiés |
+| T-CARTO-BMS-05 alerte/protection coordonnée | margesPX4pour dérivesprogressives, défauts sévères immédiats, perte de mesure ; aucuneinhibitionprotections | Planifié, pas d'essai nouveau |
+| T-CARTO-BMS-06 cycles/environnement | nombreéchangesmission, retenue, guidage/flottement, touchsafe, intrusion etvibration | Planifié, objectifs à fermer |
 
-La carte BMS et ses coupures constituent un élément d'énergie commun à
-propulsion et avionique ; les deux BEC PM08 ne rendent pas cette défaillance
-redondante. Qualification progressive selon DOC-VAL : aucune expérimentation
-de coupure de puissance en vol n'a été exécutée ; les essais de défaut sont
-planifiés d'abord en simulation, puis sur banc selon les portes du document.
-La prochaine CAO évoluera sous les noms existants une fois les composants
-et interfaces définis ; DOC-MEC §4.1.3.3 et DOC-ELEC §6.2 portent la cible.
+Une coupure BMS supprime propulsion et les deux BEC du PM08 ; POWER1/2 ne
+constituent pas un secours à cette cause commune. Les lectures BMS sont
+diagnostiques ; PM08 reste source PX4 actuelle. Non exécutés : réception,
+sertissage, isolation physique, dissipation100A, charge, vibration, cycles,
+matériel embarqué et vol, faute de lot/banc. Aucun résultat **Qualifié**.
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -2140,7 +2143,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
-| SAFE-REQ-011, ELEC-BMS-001 | BMS solidaire de cassette et connecteur d'échange candidat | T-CARTO-BMS-01..06, §12.1.9 | implantation, charge, protections, communication et cycles à valider ; aucun BMS ajouté en CAO ni nouvel essai matériel | **Planifié / À valider** |
+| SAFE-REQ-011, ELEC-BMS-001 | BMS solidaire de cassette et connecteur d'échange candidat | T-CARTO-BMS-01..06, §12.1.9 | CAO JBD/TE et schéma40liaisons implémentés ; charge/thermique/isolation/logiciel/cycles à valider, aucun essai matériel | CAO/schéma **Implémentés**, physique **À valider** |
 | MEC-ARC-001, MEC-BAT-001 | étage énergie et raccordement direct candidat AWG8/742F5 M5 au TE | T-CARTO-ETAGE-DIRECT-01, §12.1.8 | liens/rayons/implantation/collisions/extraction du pack nominal contrôlés ; enveloppe d'étude, lot et fixations **À valider** | CAO **Implémenté**, préliminaire |
 | MEC-ARC-001, MEC-BAT-001 | dock historique coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
 
@@ -2175,7 +2178,8 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
-| 5 octobre 2026 | Plan de validation BMS embarqué/blind-mate : portée séparée de la CAO TE sans BMS, critères de charge/coupure/communication/implantation/cycles à fermer ; lecture seule et sources fabricant, aucun nouvel essai matériel (§12.1.9) |
+| 5 octobre 2026 | ContrôlesCAOBMS/UART/TE etschéma40liaisons, revueindépendante etempreintescourantes ; limitesphysiquesnonqualifiées (§12.1.9) |
+| 5 octobre 2026 | Préparationinitiale Plan de validation BMS embarqué/blind-mate : portée séparée de la CAO TE sans BMS, critères de charge/coupure/communication/implantation/cycles à fermer ; lecture seule et sources fabricant, aucun nouvel essai matériel (§12.1.9) |
 | 4 octobre 2026 | CAO étage énergie et liaison directe candidate AWG8/742F5 M5 au TE : retrait XT90-S/AWG10/P42, supports repris ; contrôle du seul pack nominal et rendu ; enveloppe d'étude/lot/physique **À valider**, adaptateur de charge protégé **Planifié** (§12.1.8) |
 | 4 octobre 2026 | Dock coloré et repli natif de deux cordons ; réouverture et collisions vérifiées,629 BRep préservés, hauteur−29,3%, intersectionP49 toujours ouverte ; état initial dans Git et nouvelles empreintes distinctes des preuves historiques (§12.1.7) |
 | 4 octobre 2026 | Tri des sous-assemblages : miroir autonome et 321 empreintes préservées, réouvertures FreeCAD courant/archive séparées sans erreur, reprise de source châssis contrôlée ; géométrie et essais physiques inchangés (§12.1.6) |

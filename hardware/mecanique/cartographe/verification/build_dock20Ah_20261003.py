@@ -1,5 +1,7 @@
 """Infrastructure CAO : dock6S20Ah complet, composants et faisceau candidat. Aucun vol qualifié."""
 from pathlib import Path
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('build_dock20Ah_20261003.py')
 import json,math
 import FreeCAD as A,Part
 from cad_dock20_helpers import *
