@@ -21,7 +21,7 @@ for cat in ['pieces_fabriquees','visserie_modelee','composants_commerce']:
    p=ROOT/r['fichier'];assert sha(p)==r['sha256'],r['fichier'];assert r['quantite_installee']==counts.get(p.stem,0),(p,r['quantite_installee'])
 f=read(VER/'faisceau_dock20Ah_20261002.json');assert f['limites_courant']['courant_systeme_qualifie_A'] is None
 assert f['cible_BMS_cassette']['dimensions_installees_mm'] is None
-m=read(MEC/'manifest.json');e=m['configuration_dock20Ah']['evolution_courante'];assert e['noms_stables'] and e['TE_recul_mm']==52 and e['colonne_longueur_mm']==95
+m=read(MEC/'manifest.json');e=m['configuration_dock20Ah']['evolution_courante'];assert e['noms_stables'] and e['TE_recul_mm']==12 and e['colonne_longueur_mm']==95
 assert e['dimensions_batterie_et_energie_mm']==proofs[0]['dimensions_batterie_et_energie_mm']
 assert m['catalogue_courant_20261004']['faisceau_recale_sur_stack']
 rows=[r for r in m['occurrences'] if r.get('assemblage')=='Integration_Stack_Revue_20261003'];assert len(rows)==6 and any(r['reference']=='SA08_Faisceau_Systeme_Candidat' for r in rows)

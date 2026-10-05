@@ -892,85 +892,118 @@ et leurs empreintes ne certifient pas les fichiers courants. Le contrôle
 courant porte les nouvelles empreintes ; aucune qualification du drone
 complet n'est ajoutée.
 
-### 12.1.9 BMS de cassette et connecteur d'échange — 5 octobre 2026
+### 12.1.9 BMS de cassette et raccordement TE compact — 5 octobre 2026
 
 `SAFE-REQ-011` / `ELEC-BMS-001` → JBD-SP22S003 A01, TE5signaux,
 isolationUART et SA08 → contrôles natifs et schéma courants. CAO et schéma
-**Implémentés**, qualification matérielle **À valider**. Les preuves
-de l'étape sans BMS (§12.1.8) et leurs anciennes empreintes sont historiques.
+**Implémentés**, qualification matérielle **À valider**. BMS au-dessus du
+pack, P37 de95 mm et plateau/fixations rehaussés de25 mm conservés.
 
-La configuration courante place le BMS au-dessus du pack, avec P37 de95 mm,
-plateau et fixations rehaussés de25 mm, P43/P44 repris et TE avancé de74 mm.
-Le [comparatif de compacité](../hardware/mecanique/cartographe/verification/implantation_bms_dessus.json)
-est recalculé par le contrôle BMS sur les natifs enregistrés : batterie/énergie
-473×210,5×177 →399×210,5×181 mm, volume englobant −13,738 % ; cassette mobile
-409,900×108,5×68,5 →346,337×108,5×91 mm, volume +12,246 %. L’intégration locale
-598,628×511,015×501,529 →538,596×511,015×501,529 mm diminue de10,028 %.
-Ces mesures remplacent la première comparaison provisoire ; la relecture
-SA08 des fichiers enregistrés est réussie.
-La [référence arrière recalculée](../hardware/mecanique/cartographe/verification/bbox_bms_arriere_git.json)
-comprend 145 sources aux empreintes exactes et deux reconstructions
-paramétriques isolées, P37 à70 mm et rehausse du châssis à20 mm. Cette
-référence ne correspond pas à147 fichiers binaires identiques à Git `94d04d0`.
-Le volume de la cassette seule augmente ; la réduction du modèle d’intégration locale
-ne démontre pas celle d’un drone complet équipé ni une réduction de masse.
-Aucune qualification physique n’en est déduite.
+Le dernier compactage avance le TE encore40 mm sur X, avec décalage
+Y−6,1535/Z+12,255 mm, réoriente la cosse négative de−90° autour de X et
+supprime la chambre78×46×42 au profit de protections locales des cosses.
+Les axes des douilles/contacts et vis sont cohérents après réouverture.
+Le [comparatif courant](../hardware/mecanique/cartographe/verification/compactage_raccord_bms_te.json)
+se réfère à Git `1ccbad81` :143 sources natives identiques aux fichiers Git
+et quatre sources OEM lourdes figées localement par SHA. Utiliser les bornes
+`bbox_apres_verification_mm`, recalculées en processus neuf :
 
-Les résultats de la première implantation BMS arrière, sauvegardée dans Git
-`94d04d0`, sont historiques. Les preuves actives
-[CAO BMS](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json),
-[SA08 natif](../hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json),
-registres et revue indépendante `verification/revue_bms_cassette.json`
-portent des périmètres distincts. Le contrôle BMS de la nouvelle implantation
-est réussi ; la relecture des37 natifs SA08 est réussie sur les empreintes
-courantes. Le
-[contrôle des registres](../hardware/mecanique/cartographe/verification/controle_registres_bms.json)
-confirme182 occurrences,115 références,294 empreintes géométriques, six
-liens d’intégration,37 routes et40 liaisons, avec quantités concordantes et
-couleurs relues. Le
+| Périmètre identique avant/après | Avant L×l×H (mm) | Courant (mm) | Volume englobant |
+|---|---|---|---|
+| Batterie et énergie | 399×210,5×181 | 388×210,5×181 | −2,757 % |
+| Cassette mobile | 346,337×108,5×91 | 295,900×113,6535×91 | −10,505 % |
+| Intégration locale | 538,596×511,015×501,529 | 538,596×511,015×501,529 | 0 % |
+
+La cassette gagne50,4369 mm sur X et s’élargit de5,1535 mm sur Y ;
+l’ensemble énergie gagne11 mm sur X. Le gain de cassette inclut aussi la
+correction d’orientation des douilles. L’isolateur fixe et les bras limitent
+respectivement ces deux enveloppes. Avancer le TE de40 mm ne démontre pas
+40 mm de gain global, de réduction de matière ou de masse. Le cache auteur
+immédiatement enregistré donnaitXmin−167,796 ; le recalcul frais donne
+**−167,900059 mm**, seule valeur retenue. Aucune qualification physique
+ni enveloppe de drone de mission complet n’en est déduite.
+
+Les contrôles de l’étape arrière Git `94d04d0`, de son comparatif145 sources
+exactes/deux reconstructions P37=70/rehausse=20, puis de la première
+implantation supérieure Git `1ccbad81` sont historiques. Leurs réussites
+ne certifient pas le dernier déplacement. Les fichiers et noms restent
+stables ; retours arrière par Git.
+
+Le [contrôle BMS courant](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
+réouvre/recalcule les natifs en processus FreeCAD neuf :147 sources,
+aucune erreur de recalcul ni lien rompu, cinq routes valides avec contrôle
+BOP, axes et entrées des cosses cohérents, aucune collision non classée.
+Les parcours mobiles mesurent17,2548 mm B+ axial,77,6861 mm B− brut,
+49,3353 mm C− protégé,52,9941 mm équilibrage et83,6733 mm UART.
+Les huit poses d’extraction0/10/25/50/100/200/350/500 mm sont libres.
+Seul le recouvrement86,5901 mm³ câble d’équilibrage/réservation JST est
+intentionnel ; accouplement physique **À valider**. Ce test reste limité au
+pack nominal193×76×58 mm ; enveloppe d’étude198×78×60 et lot réel non acceptés.
+
+Le départ fixe des cinq signaux TE de SA08 est recalé vers
+(−195, −26,1535, 90,255) mm. Le
+[contrôle complet des37 routes](../hardware/mecanique/cartographe/verification/controle_routes_systeme_courant.json)
+est réussi en mode «natifs enregistrés», sans collision et avec sources
+externes stables. PM_OUT_PDB conserve son départ puis descend de4 mm pour
+éviter le dock ; cette correction est incluse dans le contrôle complet.
+La [relecture finale après sauvegarde](../hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json)
+est réussie en processus neuf :109 empreintes de sources obstacles et38
+fichiers de faisceau concordants,37 routes valides au contrôle BOP et
+identité géométrique natif/candidat avec différence symétrique maximale
+0 mm³ pour seuil1e−5 mm³. La preuve candidate et la recette de vérification
+sont rattachées par chemin et SHA. Les booléens contre les obstacles ne sont
+pas recalculés dans ce processus ; le résultat complet est réutilisé après
+contrôle d’identité. La relecture indépendante P49 confirme un solide BOP sain,
+24 interfaces sans collision et sommetZ121 conservé ; rigidité physique
+**À valider**. Les cordons fixes mesurent305,7557/325,2341 mm avec troisR50
+chacun et extrémités JETI cohérentes. Aucune collision non classée ou réserve
+géométrique ne reste ouverte dans le périmètre nominal contrôlé.
+
+Les registres sont actualisés :182 occurrences,115 références et629 placements
+dans le manifeste, avec TE à12 mm de recul sur X. Le
 [rendu final](../hardware/mecanique/cartographe/verification/rendu_bms_cassette.json)
-est produit sans modification des147 sources. La preuve de revue doit
-être lue selon son périmètre et ses empreintes : les réussites arrière
-ne certifient pas les déplacements courants.
+produit deux PNG relus, sans modification des147 sources : protections
+locales et P49 monobloc visibles, grande chambre supprimée. La dernière
+mise en concordance doit suivre le gel documentaire :
+`verify_registres_bms.py`, puis contrôle électrique `verify_cablage.ps1`
+rattachant notamment le chemin et le SHA de DOC-ELEC. Consulter les preuves
+[des registres](../hardware/mecanique/cartographe/verification/controle_registres_bms.json)
+et [du câblage](../hardware/electronique/cartographe/verification/cablage_global_bms.json)
+pour les résultats et empreintes de cette dernière exécution. La [revue indépendante](../hardware/mecanique/cartographe/verification/revue_bms_cassette.json)
+doit porter sur ces mêmes natifs et documents.
 
-Protocole BMS exécuté sur la nouvelle implantation : réouverture/recalcul en processus
-FreeCAD neuf, contrôle des liens et des arbres, mesures avant/après,
-enveloppe PCB, absence d'interférence non justifiée et extraction
-échantillonnée0/10/25/50/100/200/350/500 mm. Contrôler aussi coffret supérieur,
-protection courte sous le pack, plateau/fixations déplacés et routes internes
-vers TE. Résultat BMS : aucune erreur de recalcul ni lien non résolu ;
-aucune collision non résolue aux huit positions. Le recouvrement de86,59 mm³
-entre fil d’équilibrage et réservation JST est intentionnel ; aucun
-accouplement physique n’en est déduit. La relecture des37 routes SA08 recalées
-est réussie selon une méthode distincte :
-[contrôle des candidats contre les obstacles](../hardware/mecanique/cartographe/verification/controle_routes_systeme_courant.json),
-puis contrôle des109 empreintes de sources obstacles et38 fichiers de
-faisceau, réouverture native, validité et auto-intersections BOP, identité
-natif/candidat avec différence symétrique maximale0 mm³. Les booléens contre
-les obstacles ne sont pas recalculés dans la relecture native. Le seul
-recouvrement de réservation BMS ci-dessus garde son motif explicite. Ces contrôles
-numériques ne prouvent pas les prises équipées, les tolérances de lot,
-les jeux sous flexion, les courbures physiques ni une course continue.
+Un résultat «sans collision» ne valide pas les rayons : PM_OUT_PDB mesure
+R50/R33/R28,9365 pour R50 souhaité ; TE5_SIGNAL_ISOLATEUR mesure185,6664 mm
+avec R7,04/R8,2925/R9,24/R4,4 pour R23 souhaité. Ces écarts restent
+explicitement **À valider**, sans réduction silencieuse des critères.
 
-Le vérificateur électrique couvre27 modules, 40 liaisons, 28 broches CA01 et
-trois trames de requête JBD 03/04/05 avec checksum. Le diagramme Mermaid
-est synchronisé avec DOC-ELEC. Aucun test de décodeur exécutable, de
-communication réelle ni de courant n'est confondu avec ces contrôles.
+Le circuit reste27 modules et40 liaisons ; le vérificateur électrique
+couvre aussi28 broches CA01 et trois requêtes JBD03/04/05 avec checksum.
+Le diagramme Mermaid reste synchronisé avec DOC-ELEC. Aucun contrôle de
+trame déclarative n’est un test de décodeur, de communication réelle ou de
+courant. B+ continu→TE39, B− brut→BMS, C−/P− protégé→TE40 ; charge hors
+drone par B+/P− protégé, jamais B− brut. L’UART brut ne rejoint l’avionique
+qu’à travers l’isolateur fixe ; VDD JBD et5V TTL isolée restent NC.
 
 | Essai | Critères restant à fermer | État |
 |---|---|---|
 | T-CARTO-BMS-01 réception/interface pack | lotA01, chimie6S, ordreB0…B6/JST, adaptation22S, fil ouvert, NTC, J2/J3, niveauTTL | Planifié, pas de matériel |
-| T-CARTO-BMS-02 implantation/extraction | BMS au-dessus, PCB tolérancé, P37/plateau/fixations, jeux3/4 mm d’étude, modèle équipé et câbles ; extraction continue, rigidité et masse à accepter | CAO **Implémentée** ; contrôles BMS et37 routes SA08 enregistrées réussis, physique **À valider** |
-| T-CARTO-BMS-03 puissance/charge/thermique | courantmission, pertes, pointes, chargeprotégée, précharge et températures selonOEM | Planifié ;100A système non qualifié |
-| T-CARTO-BMS-04 coupures/communication | aucunevoieB−brut versavionique, isolationsdata+DC/DC, VDD/5VNC, mappingTE etportsréels, parser/identité/fraîcheur | Topologiedéclarativecontrôlée ; banc etlogiciel Planifiés |
-| T-CARTO-BMS-05 alerte/protection coordonnée | margesPX4pour dérivesprogressives, défauts sévères immédiats, perte de mesure ; aucuneinhibitionprotections | Planifié, pas d'essai nouveau |
-| T-CARTO-BMS-06 cycles/environnement | nombreéchangesmission, retenue, guidage/flottement, touchsafe, intrusion etvibration | Planifié, objectifs à fermer |
+| T-CARTO-BMS-02 implantation/extraction | BMS supérieur, PCB tolérancé, P37/plateau/fixations, jeux3/4 mm, protections locales et continuité P49, cosses/câbles ; course continue, rigidité et masse | CAO **Implémentée**, contrôle BMS réussi ; contrôle complet et relecture native SA08 réussis, physique **À valider** |
+| T-CARTO-BMS-03 puissance/charge/thermique | courant mission, pertes, pointes, charge protégée, précharge et températures selonOEM | Planifié ;100A système non qualifié |
+| T-CARTO-BMS-04 coupures/communication | aucune voie B− brut vers avionique, isolationdata+DC/DC, VDD/5VNC, mappingTE/ports réels, parser/identité/fraîcheur | Topologie déclarative contrôlée ; banc et logiciel Planifiés |
+| T-CARTO-BMS-05 alerte/protection coordonnée | margesPX4 pour dérives progressives, défauts sévères immédiats, perte de mesure ; aucune inhibition des protections | Planifié, pas d’essai nouveau |
+| T-CARTO-BMS-06 cycles/environnement | nombre échanges mission, retenue, guidage/flottement, protection au toucher, intrusion et vibration | Planifié, objectifs à fermer |
 
+Rayons brutsR16,77/équilibrageR12,41/UARTR8, diamètre AWG8 réservé5 mm,
+ports non cotés, cosse742F5 M5/10 mm² et positif axial très court restent
+**À valider** sur lot. Les132,7452 mm de solde sur les150 mm usine ne sont
+pas une longueur de coupe. Aucun test numérique ne qualifie sertissage,
+tolérances, liberté flottante, reprise de traction ou dissipation100A.
 Une coupure BMS supprime propulsion et les deux BEC du PM08 ; POWER1/2 ne
-constituent pas un secours à cette cause commune. Les lectures BMS sont
-diagnostiques ; PM08 reste source PX4 actuelle. Non exécutés : réception,
-sertissage, isolation physique, dissipation100A, charge, vibration, cycles,
-matériel embarqué et vol, faute de lot/banc. Aucun résultat **Qualifié**.
+constituent pas un secours à cette cause commune. PM08 reste source PX4.
+Non exécutés : réception, sertissage, isolation physique, thermique, charge,
+vibration, cycles, matériel embarqué et vol, faute de lot/banc. Aucun
+résultat **Qualifié**.
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -2221,7 +2254,8 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
-| 5 octobre 2026 | BMS au-dessus du pack : comparaison géométrique BMS recalculée par périmètre, anciens contrôles arrière historiques ; contrôles BMS/extraction,37 routes SA08 enregistrées et registres réussis, aucun essai matériel nouveau (§12.1.9). |
+| 5 octobre 2026 | Compactage pack/BMS/TE :147 sources relues, cinq routes BOP, axes/entrées et huit poses d’extraction contrôlés ; comparaison depuis1ccbad81 sur bornes recalculées ; contrôle complet et persistance SA08 réussis, aucun essai matériel (§12.1.9). |
+| 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : comparaison géométrique BMS recalculée par périmètre, anciens contrôles arrière historiques ; contrôles BMS/extraction,37 routes SA08 enregistrées et registres réussis, aucun essai matériel nouveau (§12.1.9). |
 | 5 octobre 2026 | ContrôlesCAOBMS/UART/TE etschéma40liaisons, revueindépendante etempreintescourantes ; limitesphysiquesnonqualifiées (§12.1.9) |
 | 5 octobre 2026 | Préparationinitiale Plan de validation BMS embarqué/blind-mate : portée séparée de la CAO TE sans BMS, critères de charge/coupure/communication/implantation/cycles à fermer ; lecture seule et sources fabricant, aucun nouvel essai matériel (§12.1.9) |
 | 4 octobre 2026 | CAO étage énergie et liaison directe candidate AWG8/742F5 M5 au TE : retrait XT90-S/AWG10/P42, supports repris ; contrôle du seul pack nominal et rendu ; enveloppe d'étude/lot/physique **À valider**, adaptateur de charge protégé **Planifié** (§12.1.8) |

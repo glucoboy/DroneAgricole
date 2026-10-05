@@ -31,9 +31,11 @@ Les dernières vues natives de la stack sont dans
 L'antenne GNSS sur le plateau supérieur et le récepteur sous la batterie
 restent une option étudiée ; les fichiers conservés gardent leur pose précédente.
 Le faisceau SA08 est lié à la stack revue ; son recalage suit le BMS au-dessus
-du pack et le TE rapproché. Les contrôles courants confirment les37 routes
-enregistrées par identité avec les candidats contrôlés et contrôle BOP.
-Relancer les contrôles après toute modification des sources.
+du pack et le TE rapproché. Après le dernier rapprochement et remplacement
+de la chambre de fils par des protections locales, le contrôle complet des37
+routes et leur relecture native finale sont réussis, avec identité géométrique
+et empreintes concordantes. Relancer les contrôles après
+toute modification des sources et rattacher leurs empreintes finales.
 Les limites physiques,
 la BOM et les validations sont dans [DOC-MEC](../../../docs/architecture/ARCHITECTURE_MECANIQUE.md),
 [DOC-ELEC](../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md)
@@ -55,7 +57,11 @@ et `SA02_Contacts20Ah`, conservés dans le dossier courant.
 Conserver les noms des fichiers et les faire évoluer en place. Les petits
 natifs et leurs dépendances sont suivis par Git. La sauvegarde `94d04d0`
 conserve l'implantation BMS arrière ; la conception courante place le BMS
-au-dessus du pack, avec le plateau rehaussé. Les noms historiques des pièces
+au-dessus du pack, avec le plateau rehaussé et le raccordement TE compact.
+La sauvegarde `1ccbad81` conserve le premier étage supérieur avant ce dernier
+compactage. Lire `verification/compactage_raccord_bms_te.json` pour les
+mesures après recalcul, et non le cache auteur immédiatement enregistré.
+Les noms historiques des pièces
 et assemblages, dont P37 «70», ne décrivent pas nécessairement leurs cotes
 courantes : consulter les paramètres natifs et le manifeste.
 

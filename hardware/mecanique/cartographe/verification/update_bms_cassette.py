@@ -23,7 +23,8 @@ def envelope(name,dim,rgb,mpn,source,limit):
 
 def mobile(d,name,r,pos):
  o=d.getObject(name) or link(d,d.Ensemble,name,r,pos)
- o.setLink(r);o.LinkPlacement=A.Placement(A.Vector(*pos),A.Rotation());meta(o,'Mobile','oui')
+ rotation=o.LinkPlacement.Rotation
+ o.setLink(r);o.LinkPlacement=A.Placement(A.Vector(*pos),rotation);meta(o,'Mobile','oui')
  o.setExpression('LinkPlacement.Base.x',str(pos[0])+' mm + Parametres.ExtractionX')
  return o
 

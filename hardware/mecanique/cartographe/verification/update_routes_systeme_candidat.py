@@ -41,11 +41,11 @@ def rounded(points, desired):
     wire = Part.Wire(edges)
     return wire, radii
 
-def candidate_recipe():
+def candidate_recipe(te_pin=(-149,-6.1535,90.255)):
     data = json.loads(RECIPE.read_text(encoding='utf-8'))
     paths = {
       'JETI_OUT_PM': [(46,-107,-6),(85,-107,-6),(85,-150,-6),(-165,-150,-6),(-165,-62,-6),(-144,-62,-15)],
-      'PM_OUT_PDB': [(-84,-62,-6),(-84,-165,-6),(120,-165,-6),(120,-100,-20)],
+      'PM_OUT_PDB': [(-84,-62,-6),(-84,-90,-10),(-84,-165,-10),(120,-165,-10),(120,-100,-20)],
       'PM_POWER1': [(-146,-78,-15),(-158,-78,-15),(-158,-45,-15),(-158,-45,-53),(-69,-20,-53)],
       'PM_POWER2': [(-146,-66,-15),(-158,-66,-15),(-158,-45,-15),(-158,-45,-53),(-69,-8,-53)],
       'PM_CAN1': [(-146,-54,-15),(-158,-54,-15),(-158,-45,-15),(-158,-45,-53),(-69,5,-53)],
@@ -89,8 +89,11 @@ def candidate_recipe():
         if row['id'].startswith(('ESC_PHASES_', 'PDB_ESC_', 'FCU_ESC_')):
             row['terminaisons'] += ' ESC et moteur : ports inconnus, corridor déplacé hors volumes OEM ; aucune continuité matérielle démontrée.'
     existing = {r['id'] for r in data['routes']}
+    dx,dy,dz=te_pin[0]+189,te_pin[1],te_pin[2]-78
+    signal_start=(-235+dx,-20+dy,78+dz)
+    signal_turn=(-251+dx,-20+dy,78+dz)
     for name, group, points, diameter, radius, wires in [
-      ('TE5_SIGNAL_ISOLATEUR','DIAGNOSTIC-BMS-TTL',[(-235,-20,78),(-251,-20,78),(-251,-45,78),(-251,-45,-42),(-190,-45,-42),(-190,-55,-42)],4.5,23,5),
+      ('TE5_SIGNAL_ISOLATEUR','DIAGNOSTIC-BMS-TTL',[signal_start,signal_turn,(-251+dx,-45,78+dz),(-251+dx,-45,-42),(-190,-45,-42),(-190,-55,-42)],4.5,23,5),
       ('ISOLATEUR_USB_JETSON','DIAGNOSTIC-BMS-USB',[(-140,-100,-42),(-120,-100,-42),(-85,-60,-42),(-85,-46,-46.28228),(7.035,-46,-46.28228)],5,25,None),
     ]:
         row = dict(id=name,groupe=group,wxx=['W40'] if wires else ['W41'],points_mm=[list(p) for p in points],diametre_enveloppe_mm=diameter,
@@ -177,8 +180,10 @@ def check_shapes(data, shapes, obs):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--check',action='store_true'); args = ap.parse_args()
-    start = time.time(); executed_recipe_sha=sha(__file__);data = candidate_recipe(); shapes = {r['id']:geometry(r) for r in data['routes']}
+    start = time.time(); executed_recipe_sha=sha(__file__)
     top, obs = obstacles()
+    dock=top.getObject('SA02A_Dock20Ah').LinkedObject.Document
+    data = candidate_recipe(tuple(dock.Conn_HousingPin.LinkPlacement.Base)); shapes = {r['id']:geometry(r) for r in data['routes']}
     before = {relative(d.FileName):sha(d.FileName) for d in A.listDocuments().values() if d.FileName}
     rows = check_shapes(data, shapes, obs)
     clear_obstacles=not any(row['intersections'] for row in rows)

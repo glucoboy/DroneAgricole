@@ -16,7 +16,7 @@ def main():
  invalid=[d.Name+'.'+o.Name for d in A.listDocuments().values() for o in d.Objects if 'Invalid' in o.State]
  broken=[d.Name+'.'+o.Name for d in A.listDocuments().values() for o in d.Objects if o.TypeId=='App::Link' and (not o.LinkedObject or o.Shape.isNull())]
  assert not invalid and not broken,(invalid,broken)
- new=[o for o in dock.Objects if o.TypeId=='App::Link' and (o.Name.startswith(('BMS_','P43_','P44_','EQ_BMS_','EQ_LeadPack','EQ_BoucleEquilibrage','EQ_BouclePresence','EQ_CordonFixe','AppuiIsolationBMS')))]
+ new=[o for o in dock.Objects if o.TypeId=='App::Link' and (o.Name=='ProtectionFixeTE' or o.Name.startswith(('BMS_','P43_','P44_','EQ_BMS_','EQ_LeadPack','EQ_BoucleEquilibrage','EQ_BouclePresence','EQ_CordonFixe','AppuiIsolationBMS')))]
  hits=[]
  others=[o for o in dock.Objects if o.TypeId=='App::Link']
  for o in new:
@@ -68,6 +68,33 @@ def main():
   radii=[e.Curve.Radius for e in lead.Edges if hasattr(e.Curve,'Radius')]
   proof['positif_direct']=dict(longueur_mm=lead.Length,rayons_mm=radii,longueur_usine_etude_mm=150,surplus_usine_non_affecte_mm=150-lead.Length,limite='Coupe/sertissage/stockage du surplus à valider ; longueur sous139 mm ne qualifie pas le raccordement')
   assert all(abs(r-50)<1e-6 for r in radii) and lead.Length<139
+  if 'compact' in dock.Ensemble.BMSIntegre.lower():
+   guard=dock.ProtectionFixeTE.LinkedObject.Document
+   guard_final=guard.getObject(guard.Reference.ObjetFinal).Shape
+   guard_final.check(True)
+   assert guard_final.isValid() and len(guard_final.Solids)==1,'Protection fixe à rendre monobloc'
+   assert abs(dock.ProtectionFixeTE.Shape.BoundBox.ZMax-121)<1e-6,'Hauteur protection fixe modifiée'
+   expected_axis=A.Vector(-1,0,0)
+   axes=[]
+   for name in ['Conn_HousingSocket','Conn_ContactSocket39Plus','Conn_ContactSocket40Moins','VisM5ContactMobile0','VisM5ContactMobile1']:
+    axis=dock.getObject(name).LinkPlacement.Rotation.multVec(A.Vector(0,0,1))
+    assert (axis-expected_axis).Length<1e-6,(name,tuple(axis))
+    axes.append(dict(occurrence=name,axe_source_Z_monde=list(axis)))
+   for i,contact in enumerate(['Conn_ContactSocket39Plus','Conn_ContactSocket40Moins']):
+    lug=dock.getObject('CosseMobileDirecte'+str(i))
+    assert abs(dock.getObject(contact).Shape.BoundBox.XMax-lug.LinkPlacement.Base.x)<1e-4,contact
+   routes=[]
+   for name in ['EQ_LeadPack8AWG_Plus20A','EQ_LeadPack8AWG_Moins20A','EQ_BMS_PMoins_TE20A','EQ_BoucleEquilibragePack20Ah_Reservation','EQ_BMS_UART_TE20A']:
+    obj=dock.getObject(name);src=obj.LinkedObject.Document;wire=src.Chemin.Shape;obj.Shape.check(True)
+    rs=[e.Curve.Radius for e in wire.Edges if isinstance(e.Curve,Part.Circle)]
+    routes.append(dict(reference=name,longueur_mm=wire.Length,rayons_mm=rs,controle_BOP=True))
+   for i,name in enumerate(['EQ_LeadPack8AWG_Plus20A','EQ_BMS_PMoins_TE20A']):
+    wire=dock.getObject(name).LinkedObject.Document.Chemin.Shape;edge=wire.Edges[-1]
+    endpoint=edge.valueAt(edge.LastParameter);entry=dock.getObject('CosseMobileDirecte'+str(i)).LinkPlacement.multVec(A.Vector(14,-10.5,0))
+    assert (endpoint-entry).Length<1e-6,(name,list(endpoint),list(entry))
+    assert (edge.tangentAt(edge.LastParameter)-expected_axis).Length<1e-6,name
+   assert len(lead.Edges)==1 and isinstance(lead.Edges[0].Curve,Part.Line)
+   proof['raccord_compact']=dict(axes_geometriques=axes,routes=routes,entrees_cosses_axiales=True,protection_fixe_monobloc=True,hauteur_max_protection_fixe_mm=121,limite='Axes et interfaces de la représentation cohérents ; ne qualifie pas insertion, couple, sertissage, rayon ou accouplement du lot')
   proof['jeu_capot_plateau_mm']=chassis.Part__Feature311.Shape.BoundBox.ZMin-dock.P44_CouvercleArriereConducteurs20Ah.Shape.BoundBox.ZMax
   proof['jeu_pack_etude_fond_mm']=104-100
   p=VER/'implantation_bms_dessus.json';comp=json.loads(p.read_text(encoding='utf-8'))
@@ -76,12 +103,20 @@ def main():
    baseline=json.loads(reference.read_text(encoding='utf-8'));assert baseline['finalisation_correcte']
    comp['bbox_avant_mm']=baseline['bbox_mm'];comp['reference_avant']='verification/bbox_bms_arriere_git.json'
    comp['limite_reference_avant']='145 sources exactes et deux reconstructions paramétriques P37=70/châssisRehausse=20, recalculées isolément ; pas147blobsGit identiques'
-  comp['bbox_apres_mm']=dict(batterie_et_energie=bb(shape),cassette_mobile=bb(Part.makeCompound([o.Shape for o in dock.Objects if o.TypeId=='App::Link' and getattr(o,'Mobile','non')=='oui'])),integration_locale=bb(top.IntegrationRevue.Shape))
+  comp['bbox_apres_mm']=dict(dock=bb(dock.Ensemble.Shape),batterie_et_energie=bb(shape),cassette_mobile=bb(Part.makeCompound([o.Shape for o in dock.Objects if o.TypeId=='App::Link' and getattr(o,'Mobile','non')=='oui'])),integration_locale=bb(top.IntegrationRevue.Shape))
   for scope,a in comp['bbox_avant_mm'].items():
    b=comp['bbox_apres_mm'][scope];da=[a[i+3]-a[i] for i in range(3)];db=[b[i+3]-b[i] for i in range(3)]
    comp['comparaison'][scope]=dict(dimensions_avant_mm=da,dimensions_apres_mm=db,volume_avant_mm3=math.prod(da),volume_apres_mm3=math.prod(db),variation_volume_pct=100*(math.prod(db)/math.prod(da)-1))
   comp['sources_sha256']=proof['sources_sha256'];comp['finalisation_geometrique_correcte']=proof['finalisation_correcte']
   p.write_text(json.dumps(comp,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+  compact_path=VER/'compactage_raccord_bms_te.json'
+  if compact_path.exists():
+   current=json.loads(compact_path.read_text(encoding='utf-8'))
+   current['sources_apres_verification_sha256']=proof['sources_sha256']
+   current['bbox_apres_verification_mm']=comp['bbox_apres_mm']
+   current['controle_geometrique']='controle_bms_cassette.json'
+   current['finalisation_geometrique_correcte']=proof['finalisation_correcte']
+   compact_path.write_text(json.dumps(current,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  (VER/'controle_bms_cassette.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({k:proof[k] for k in ['intersections_brutes','extraction_echantillonnee','dimensions_batterie_et_energie_mm','finalisation_correcte']},ensure_ascii=False))
  if not proof['finalisation_correcte']:raise RuntimeError('Intersections non résolues ; voir contrôle BMS enregistré.')

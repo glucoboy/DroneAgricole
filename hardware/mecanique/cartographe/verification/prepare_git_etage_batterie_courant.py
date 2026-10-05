@@ -9,6 +9,7 @@ is_bms='--bms' in sys.argv
 review=read(VER/('revue_bms_cassette.json' if is_bms else 'revue_etage_batterie.json'))
 if is_bms:
  assert review['revue_finalisee'] and not review['points_P1_non_resolus'] and not review['points_P2_non_resolus']
+ assert read(VER/'compactage_raccord_bms_te.json')['finalisation_correcte'],'Raccord compact non finalisé'
  for group in ['fichiers_revus_sha256','sources_natives_revalidees_sha256']:
   for f,h in review[group].items():assert sha(ROOT/f)==h,('Revue périmée',f)
 else:assert not review['p1_non_resolus'] and not review['p2_non_resolus']
@@ -37,7 +38,7 @@ old=subprocess.run(['git','rev-parse','--verify','refs/heads/'+branch],cwd=ROOT,
 parent=old.stdout.strip() if old.returncode==0 else before['commit']
 try:
  git('read-tree',parent,env=env);git('add','-f','--',*files,env=env)
- title='Placer le BMS au-dessus du pack, rehausser le plateau et encadrer la compacité FreeCAD' if is_bms else ('Planifier le BMS de cassette et comparer les connecteurs blind-mate' if '--plan-bms' in sys.argv else 'Batterie directe TE et énergie à étage inférieur, conception CAO candidate')
+ title='Compacter le raccord BMS–TE, aligner les contacts et ajuster la protection des cosses' if is_bms else ('Planifier le BMS de cassette et comparer les connecteurs blind-mate' if '--plan-bms' in sys.argv else 'Batterie directe TE et énergie à étage inférieur, conception CAO candidate')
  commit=git('commit-tree',git('write-tree',env=env),'-p',parent,'-m',title,env=env)
  git('update-ref','refs/heads/'+branch,commit,old.stdout.strip() if old.returncode==0 else '')
 finally:Path(name).unlink(missing_ok=True)

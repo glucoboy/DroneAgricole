@@ -49,8 +49,9 @@ def main():
  f['positions_TE']['utilisees']=[39,40];f['positions_TE']['affectation']='39=B+ continu ;40=P−protégé. 5contacts#20 candidats, cavitésnumérotées null'
  f['positions_TE']['contacts_signaux_1_38']='Cinq contacts #20 candidats : S_GND, S_TX, S_RX, S_PRESENT_A/B ; 1..32 logements #20, numéros de cavités nonconfirmés (null). 33..38 autrespuissancesinutilisées ; boucleprésencefixeNC, aucuninterlock.'
  f['positions_TE']['signaux_candidats']=[dict(logical_id=k,cavity_number=None) for k in ['S_GND','S_TX','S_RX','S_PRESENT_A','S_PRESENT_B']]
- for key in ['39_centre_monde_mm','40_centre_monde_mm']:f['positions_TE'][key][0]=-170.2548
  dock=next(d for d in docs if Path(d.FileName).stem=='SA02A_Dock20Ah');route_rows=[]
+ for i,key in enumerate(['39_centre_monde_mm','40_centre_monde_mm']):f['positions_TE'][key]=list(dock.getObject('CosseMobileDirecte'+str(i)).LinkPlacement.Base)
+ recul_total=round(-137-dock.Conn_HousingPin.LinkPlacement.Base.x,6)
  for o in dock.Objects:
   if o.TypeId=='App::Link' and o.Name.startswith(('EQ_LeadPack','EQ_BMS_','EQ_CordonFixe','EQ_BoucleEquilibrage')):
    src=o.LinkedObject.Document;sw=src.getObject('Cordon')
@@ -63,7 +64,7 @@ def main():
  f['retenues']['BMS']='AppuiP58 1mm ; maintienpositif/dissipation/fixationsÀvalider'
  f['charge_hors_drone'].update(interface='AdaptateurTE versB+ etP−portcommun protégéeparJBD, chargeur6SNMCcompatible',limite='NejamaischargerparB−brut, priseUART ouJETI.OUT ; adaptateur/protectionPlanifiés, cellulesJSTinternes cassette')
  f['limites_courant']['BMS_catalogue_A']=100;f['limites_courant']['courant_systeme_qualifie_A']=None
- f['contraintes_implantation']=['BMSPCBmax130.5×65.5×12mm, prises/dissipation nonincluses','BMS au-dessus du pack Z107..119 ; coffret supérieur170×76 et protection courte cosses','Plateau+25mm, colonnes95mm ; TE rapproché74mm, recul total52mm','Surplus du positif usine150mm non affecté ; coupe/terminaisons/rayons À valider','Ports/terminaisons/rayons SA08candidats, aucunequalificationmatérielle']
+ f['contraintes_implantation']=['BMSPCBmax130.5×65.5×12mm, prises/dissipation nonincluses','BMS au-dessus du pack Z107..119 ; protection ajustée aux cosses et trajets courbes compacts','Plateau+25mm, colonnes95mm ; recul total TE '+str(recul_total)+'mm','Surplus du positif usine150mm non affecté ; coupe/terminaisons/rayons À valider','Ports/terminaisons/rayons SA08candidats, aucunequalificationmatérielle']
  f['cible_BMS_cassette'].update(statut='Implémenté enCAO/schéma, physiqueÀvalider',reference='JBD-SP22S003 Li-ion A01 100A',dimensions_PCB_max_mm=[130.5,65.5,12],dimensions_installees_mm=None,CAO_actuelle='BMSmobileP43+P58 ; TEconservé5signaux ; SA07isolation+SA08 actuel',charge='PortcommunB+/P−protégé',communication='UART9600 8N1 isolédonnéesetDC/DC, VDD/5VNC ; décodeurPlanifié')
  write(VER/'faisceau_dock20Ah_20261002.json',f)
  m=read(MEC/'manifest.json');active={r['fichier_assemblage'] for r in registries}
@@ -74,9 +75,9 @@ def main():
  for row in m['assemblages']:
   if row.get('reference')=='Integration_Stack_Revue_20261003':row.update(role='integration_locale_avec_faisceau_SA08',verification='verification/controle_bms_cassette.json',sha256=sha(top.FileName))
  control=read(VER/'controle_bms_cassette.json')
- e=m['configuration_dock20Ah']['evolution_courante'];e.update(date='2026-10-05',verification='verification/controle_bms_cassette.json',TE_recul_mm=52,dimensions_batterie_et_energie_mm=control['dimensions_batterie_et_energie_mm'],DOC_MEC='§4.1.3.3',DOC_VAL='§12.1.9',limites=control['limites'],assemblage_final='assemblages/Integration_Stack_Revue_20261003.FCStd',faisceau='sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd',implantation_BMS='Au-dessus du pack',rehausse_plateau_mm=25,colonne_longueur_mm=95,comparaison_compacite='verification/implantation_bms_dessus.json')
+ e=m['configuration_dock20Ah']['evolution_courante'];e.update(date='2026-10-05',verification='verification/controle_bms_cassette.json',TE_recul_mm=recul_total,dimensions_batterie_et_energie_mm=control['dimensions_batterie_et_energie_mm'],DOC_MEC='§4.1.3.3',DOC_VAL='§12.1.9',limites=control['limites'],assemblage_final='assemblages/Integration_Stack_Revue_20261003.FCStd',faisceau='sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd',implantation_BMS='Au-dessus du pack',rehausse_plateau_mm=25,colonne_longueur_mm=95,comparaison_compacite='verification/implantation_bms_dessus.json',optimisation_raccord='verification/compactage_raccord_bms_te.json')
  e['rendu']='verification/rendu_bms_cassette.json';e['verification_registres']='verification/controle_registres_bms.json';e['verification_faisceau']='verification/controle_faisceau_natif_bms.json'
- m['configuration_dock20Ah']['cible_BMS_cassette'].update(statut='Implémenté enCAO/schéma, physiqueÀvalider',reference_BMS='JBD-SP22S003 Li-ion A01 100A',implantation_candidate='PCB au-dessus du pack Z107..119, coffret supérieur170×76, appuiP58, plateau+25 et TE rapproché74mm',mise_a_jour_CAO=True,connecteur_selectionne_CAO='TE1648156-1/1648151-1+5signaux#20candidats',interface_isolee='Waveshare15817, dimensionsinstalléesréservées90×80×26')
+ m['configuration_dock20Ah']['cible_BMS_cassette'].update(statut='Implémenté enCAO/schéma, physiqueÀvalider',reference_BMS='JBD-SP22S003 Li-ion A01 100A',implantation_candidate='PCB au-dessus du pack Z107..119, appuiP58, plateau+25 ; TE aligné au positif et protection locale des cosses',mise_a_jour_CAO=True,connecteur_selectionne_CAO='TE1648156-1/1648151-1+5signaux#20candidats',interface_isolee='Waveshare15817, dimensionsinstalléesréservées90×80×26')
  cat=m['catalogue_courant_20261004'];cat.update(faisceau_recale_sur_stack=True,qualification_physique=False)
  for row in cat['selection']:
   p=MEC/row.get('fichier','')
