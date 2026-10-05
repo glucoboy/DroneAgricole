@@ -15,7 +15,9 @@ $pinErrors=@($expected.Keys | Where-Object {
  $actual=$pins[$_];$wanted=$expected[$_]
  -not ($actual -eq $wanted -or ($actual -and $actual.EndsWith('/'+$wanted)))
 })
-$md=Get-Content 'D:/ProjetGuillaume/DroneAgricole/docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md' -Raw -Encoding UTF8
+$docElecPath='D:/ProjetGuillaume/DroneAgricole/docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md'
+$docElecSha=(Get-FileHash $docElecPath -Algorithm SHA256).Hash.ToLower()
+$md=Get-Content $docElecPath -Raw -Encoding UTF8
 $diagram=(Get-Content "$root/cablage_global.mmd" -Raw -Encoding UTF8).Trim()
 $seriesErrors=@()
 $w01=@($w.connections | Where-Object {$_.id -eq 'W01' -and $_.from -eq 'BAT' -and $_.to -eq 'BMS'})
@@ -100,6 +102,9 @@ if(@($harness.familles_cables | Where-Object {$_.id -eq 'FIL-DOCK-AWG10'}).Count
 foreach($label in @('W01','W37','W38','W39','W40','W41','W42','W43','P− protégé','isolation données +DC/DC','fixeNC')){if(-not $diagram.Contains($label)){$seriesErrors+=('BMS diagram contract absent: '+$label)}}
 
 $proof=[ordered]@{date_utc=[DateTime]::UtcNow.ToString('o');scope='coherence schéma système BMS/TE/UART et netlist CA01 courante, aucune qualification matérielle';target_revision='0.6-bms-candidat';ca01_implemented_revision='0.5-pre';migration_ready=$false;pending_interfaces=@('W06/W32 contacts PM et bascule','W09 XT30 et budget','W18 tension trigger','W26 J301 5V local','W31 CAN1 et terminaisons','W21 CAN2/5V/terminaison GNSS','W27/W28 debit RF et Backpack','W29 debit RTCM et pertes RF','W05 PDB liaison PM et montage','W08 XT30 CA01 polarite/protection/courant','W10/W17/W23 Airy alimentation et synchronisation','W36 GNSS vers CA01 PPS/GPRMC et isolation VCC','W24 CA01 vers Orin PPS/GPRMC','W33 AUX1 trigger et W34/W35 retour exposition/FMU_CAP1','W01/W37-W43 lot BMS, bornes, mapping cellules, cavités TE, UART et isolation','Courant/thermique100A, précharge et seuils PX4 avant coupure ultime');series_errors=$seriesErrors;module_count=$ids.Count;connection_count=$w.connections.Count;unknown_endpoints=$bad.Count;duplicate_connection_ids=$duplicates.Count;ca01_pin_checks=$expected.Count;pin_errors=$pinErrors;diagram_matches_doc=(($md -replace '\r\n',[string][char]10).Contains(($diagram -replace '\r\n',[string][char]10)));status='Planifié / À valider';manufacturing_ready=$false;hardware_tests_executed=$false;uart_parser_tests_executed=$false;document_alignment_pending= (-not (($md -replace '\r\n',[string][char]10).Contains(($diagram -replace '\r\n',[string][char]10))));checks_passed=($seriesErrors.Count -eq 0 -and $bad.Count -eq 0 -and $duplicates.Count -eq 0 -and $pinErrors.Count -eq 0);mermaid_render_executed=$false;mermaid_render_limitation='Moteur Mermaid local absent ; connexions/labels structuraux contrôlés, rendu visuel à vérifier';harness_covered_connection_count=$hids.Count;bms_read_frames_checked=$uart.allowed_read_commands.Count;sources=@('cablage_global.json','cablage_global.mmd','faisceau_systeme_cible_20261003.json','contrat_uart_bms.json','verification/verify_cablage.ps1','carte_avionique/verification/netlist.xml','carte_avionique/manifest.json') | ForEach-Object {@{file=$_;sha256=(Get-FileHash "$root/$_" -Algorithm SHA256).Hash.ToLower()}}}
+$proof.doc_elec_file='docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md'
+$proof.doc_elec_sha256=$docElecSha
+if((Get-FileHash $docElecPath -Algorithm SHA256).Hash.ToLower() -ne $docElecSha){throw 'DOC-ELEC a changé pendant le contrôle'}
 $proof | ConvertTo-Json -Depth 8 | Set-Content "$root/verification/cablage_global_bms.json" -Encoding utf8
 if(Test-Path "$root/verification/rendu_cablage_bms.json"){
  $render=Get-Content "$root/verification/rendu_cablage_bms.json" -Raw -Encoding UTF8 | ConvertFrom-Json

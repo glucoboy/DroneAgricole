@@ -21,7 +21,7 @@ for cat in ['pieces_fabriquees','visserie_modelee','composants_commerce']:
    p=ROOT/r['fichier'];assert sha(p)==r['sha256'],r['fichier'];assert r['quantite_installee']==counts.get(p.stem,0),(p,r['quantite_installee'])
 f=read(VER/'faisceau_dock20Ah_20261002.json');assert f['limites_courant']['courant_systeme_qualifie_A'] is None
 assert f['cible_BMS_cassette']['dimensions_installees_mm'] is None
-m=read(MEC/'manifest.json');e=m['configuration_dock20Ah']['evolution_courante'];assert e['noms_stables'] and e['TE_recul_mm']==126
+m=read(MEC/'manifest.json');e=m['configuration_dock20Ah']['evolution_courante'];assert e['noms_stables'] and e['TE_recul_mm']==52 and e['colonne_longueur_mm']==95
 assert e['dimensions_batterie_et_energie_mm']==proofs[0]['dimensions_batterie_et_energie_mm']
 assert m['catalogue_courant_20261004']['faisceau_recale_sur_stack']
 rows=[r for r in m['occurrences'] if r.get('assemblage')=='Integration_Stack_Revue_20261003'];assert len(rows)==6 and any(r['reference']=='SA08_Faisceau_Systeme_Candidat' for r in rows)
@@ -38,6 +38,9 @@ for name,expected in [('EQ_JBD_SP22S003_BMS',[.12,.65,.32]),('EQ_Waveshare15817_
   assert all(abs(a-b)<=1/255+1e-6 for a,b in zip(rgb,expected)),(name,rgb)
   colors.append(dict(reference=name,rgb=rgb))
 elec=read(ROOT/'hardware/electronique/cartographe/verification/cablage_global_bms.json');assert elec['checks_passed'] and elec['diagram_matches_doc'] and elec['mermaid_render_executed']
+assert sha(ROOT/elec['doc_elec_file'])==elec['doc_elec_sha256'],'DOC-ELEC ne correspond plus au contrôle électrique'
+for source in elec['sources']:
+ assert sha(ROOT/'hardware/electronique/cartographe'/source['file'])==source['sha256'],source['file']
 out=dict(date='2026-10-05',test='T-CARTO-BMS-REGISTRES-01',occurrences=len(n['occurrences']),references=len(counts),sources_geometriques_revalidees=sum(len(c['sources_sha256']) for c in proofs),couleurs_relues=colors,liens_top=6,routes_natives=37,liaisons_schema=40,quantites_concordantes=True,qualification='À valider',finalisation_correcte=True)
 (VER/'controle_registres_bms.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(out))

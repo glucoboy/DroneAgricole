@@ -39,7 +39,8 @@ def wire_ref(name,points,rad,rgb,limit,curve=None):
  meta(r,'Limite',limit);meta(r,'LongueurChemin_mm',path.Shape.Length);final(d,r,sw,rgb)
  return r
 
-def main():
+def main_historique():
+ raise RuntimeError('Implantation arrière historique ; utiliser main() pour BMS supérieur. Retour par Git.')
  dock=load('sous_assemblages','SA02A_Dock20Ah','Ensemble').Document
  contacts=load('sous_assemblages','SA02_Contacts20Ah','Ensemble').Document
  if not hasattr(dock.Ensemble,'BMSIntegre'):
@@ -162,5 +163,9 @@ def main():
  meta(integration.IntegrationRevue,'Configuration','CassetteBMSJBD100A/TE5signaux ; JETI/PM08/PDB+isolationétageinférieur, faisceauSA08courant')
  save_native(integration)
  print('BMS intégré en place ; contrôles géométriques indépendants à exécuter')
+
+def main():
+ from update_bms_dessus import main as update
+ update()
 
 if __name__=='__main__':main()

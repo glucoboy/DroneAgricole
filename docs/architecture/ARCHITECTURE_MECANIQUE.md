@@ -114,7 +114,7 @@ active restent masqués et explicitement exclus par le manifeste.
 
 | Sous-assemblage | Fonction | Choix actuel | État |
 |---|---|---|---|
-| `SA01_Chassis_Rehausse20` | structure, bras, train et propulsion | X650 V2, quatre entretoises de 70 mm, plateau supérieur +20 mm et plateau309 repercé | CAO **Implémenté** ; résistance et vibrations **À valider** |
+| `SA01_Chassis_Stack_Revue_20261003` | structure, bras, train et propulsion | X650 V2, colonnes P37 de95 mm et plateau supérieur rehaussé de25 mm supplémentaires pour le BMS au-dessus du pack ; noms stables | CAO **Implémenté** ; résistance et vibrations **À valider** |
 | `SA02A_Dock20Ah` | maintenir et échanger la batterie sans outil | dock complet : cassette captive, rails, butée réglable, Southco R4 et interfaces électriques | CAO **Implémenté** ; verrouillage réel et essais **À valider** |
 | contacts du dock 20 Ah | accouplement pendant la translation, indépendant de la retenue | paire TE ELCON 125A Middle Drawer et module JETI MainSwitch100 | sélection commerciale ; tolérances, courant et séquence **À valider** |
 | `SA03_Avionique_Rehausse20` | libérer le logement et fixer l'avionique | Pixhawk historique déplacé au-dessus du plateau avec P27 ; niveau inférieur P06 conservé | CAO **Implémenté** ; migration vers porteuse commune **Planifié** |
@@ -130,9 +130,11 @@ active restent masqués et explicitement exclus par le manifeste.
 La référence choisie pour l'intégration est **Tattu TAA200006S5X9S**, NMC 6S
 20 Ah, 22,2 V nominaux, 444 Wh, 1 950 ±20 g et 193 ×76 ×58 mm. L'enveloppe
 198 ×78 ×60 mm utilisée pour les jeux est une hypothèse d'étude, sans tolérance
-fabricant publiée pour cette référence. La cassette entre au-dessus des bras,
-entre les faces Z33 et Z103 : le plateau supérieur passe de Z83 à Z103.
-Le Pixhawk qui occupait ce volume est déplacé au-dessus du plateau.
+fabricant publiée pour cette référence. La cassette entre au-dessus des bras.
+Le logement initial Z33…Z103 et la rehausse de20 mm sont historiques :
+la configuration BMS courante emploie le plateau supérieur à Z128…130 sur
+colonnes P37 de95 mm (§4.1.3.3). Le Pixhawk historique avait été déplacé
+au-dessus du plateau ; la pile Holybro/CA01 figure dans l’intégration locale courante.
 
 La batterie reste montée dans sa cassette : les vis et captures sont permanentes
 pour chaque pack. L'échange consiste à faire coulisser cet ensemble jusqu'aux
@@ -309,16 +311,16 @@ dans `hardware/mecanique/cartographe/verification/` et le manifeste voisin.
 
 | Interface | Définition d'intégration | Limite |
 |---|---|---|
-| logement | faces Z33/Z103, quatre entretoises P37 aluminium6061T6 Ø6×70 avec M3 aux extrémités | rigidité et reprise des efforts à vérifier sur pièces |
-| avionique | P27 G10, Pixhawk historique au-dessus du plateau ; niveau P06 conservé | aucune implantation qualifiée de la porteuse Holybro/CA01 cible |
+| logement | fond à Z33, plateau supérieur Z128…130, quatre colonnes P37 aluminium6061T6 Ø6×95 avec M3 aux extrémités ; ancien nom70 conservé | rigidité et reprise des efforts à vérifier sur pièces |
+| avionique | pile Holybro/CA01 dans l’intégration locale courante ; ancienne variante P27/Pixhawk historique | montage physique de la pile commune **À valider** |
 | rails | P28/P29, chanfreins d'entrée et flange captive ; jeu nominal0,5mm en dessous/dessus | usure, tolérances, poussière et efforts d'insertion à mesurer |
 | cassette | fond P30 G10ép2, capture P31, deux bandes P32 G10ép2 avec vis fraisées affleurantes | pack maximal d'étude touche la capture haute ; calage du pack réel à mesurer sans comprimer le softpack |
 | butée | P35 fixe et portée P36 sous fond ; réglage M4 indépendant des contacts | réglage du stage primaire et contrôle du jeu axial au banc |
 | verrou | SouthcoR4-05-40-405-10 + gâcheR4-90-0521-10, montage aux cotes du plan J-R4-05-10 | tenue admissible, verrouillage et commande avec gants non qualifiés |
 | contacts | TE1648151-1/1648156-1, deux positions de puissance, fixation flottante et supports P39/P40 | anomalies des cavités STEP signalées ; compatibilité et engagement à contrôler sur la paire réelle |
-| chemin électrique mobile | pack retourné, fils AWG8 courts et cosses à 90° Klauke 742F5 M5 candidates sur TE ; P43/P44 à l'arrière | lot, compatibilité AWG8, sertissage, isolation et échauffement **À valider** |
-| coupure fixe | JETI MainSwitch100 et commande magnétique à l'étage inférieur sur P57 candidat | OFF avant déverrouillage ; mémoire ON et négatif commuté selon DOC-ELEC §6.1 |
-| raccordement pack | XT90-S, adaptateurs AWG10 et P42/P45–P47 retirés ; TE/P39/P40 reculés de 82 mm | supports rallongés, lot et préparation du pack **À valider** |
+| chemin électrique mobile | pack retourné, fils AWG8 courts et cosses à 90° Klauke 742F5 M5 candidates sur TE ; BMS/P43/P44 au-dessus, protection courte des cosses dessous | lot, compatibilité AWG8, sertissage, isolation et échauffement **À valider** |
+| coupure fixe | JETI MainSwitch100 et commande magnétique à l'étage inférieur sur P57 candidat | OFF avant déverrouillage ; mémoire ON et négatif commuté selon DOC-ELEC §6.2 |
+| raccordement pack | XT90-S, adaptateurs AWG10 et P42/P45–P47 retirés ; TE/P39/P40 à52 mm de recul total après rapprochement de74 mm | ancrages préservés, bras raccourcis ; lot, préparation et rigidité **À valider** |
 | faisceau fixe | entretoises Cu P48, protections P49/P50 et deux fils AWG8 vers JETI inférieur | raccords au kit JETI, section réelle, bridage et sorties à définir ; réservations CAO sans usinage du produit |
 | équilibrage et reprise | coffret P51/P52 pour prise et mou dans le corridor intérieur ; anciennes retenues P41/P53 retirées | fixations des coffrets, calage, rigidité et vibration **À valider** |
 
@@ -393,7 +395,12 @@ Cette première étape est historique ; l'orientation du pack et son
 raccordement sont maintenant repris au§4.1.3.2. La capacité et le mécanisme
 de coupure sont conservés ; le compactage physique reste **À valider**.
 
-##### 4.1.3.2 Énergie à l'étage inférieur et pack directement au TE — 4 octobre 2026
+##### 4.1.3.2 Énergie à l'étage inférieur et pack directement au TE — étape historique du 4 octobre 2026
+
+Cette étape sans BMS conserve les résultats et cotes alors obtenus. Ses
+coffrets, reculs TE et longueurs de fils sont historiques ; l’implantation
+courante est décrite au §4.1.3.3. Le placement de JETI/PM08/PDB à l’étage
+inférieur et le raccordement direct au TE sont conservés.
 
 Choix utilisateur **Implémenté en CAO**, physique **À valider** : JETI,
 commande magnétique, PM08-CAN et PDB 18138 sont placés dans SA07 sous la
@@ -450,56 +457,101 @@ L'état courant est sauvegardé sur `codex/batterie-etage-inferieur` ; les
 branches de conception et les fichiers natifs conservent la possibilité
 de revenir à la définition précédente sans renommer les assemblages.
 
-##### 4.1.3.3 BMS embarqué et compartiment d'interface — 5 octobre 2026
+##### 4.1.3.3 BMS embarqué au-dessus du pack — 5 octobre 2026
 
-`ELEC-BMS-001` / `SAFE-REQ-011` : BMS **JBD-SP22S003 Li-ion A01 100A**
-solidaire de la cassette. Réalisation CAO **Implémentée**, dimensions équipées,
-fixation, masse, courant et physique **À valider**. Le TE Middle Drawer
-1648156-1/1648151-1 est conservé et reçoit cinq signaux ; raisons et
-références de contacts dans DOC-ELEC§6.2. Aucun effort d'accouplement ne doit
-passer par les cellules ou le PCB.
+`ELEC-BMS-001` / `SAFE-REQ-011` : le **JBD-SP22S003 Li-ion A01 100 A**
+reste solidaire de la cassette. Le BMS est désormais **au-dessus de la
+batterie**, conformément à la demande utilisateur. CAO **Implémentée** ;
+modèle équipé, retenue, masse, courant et qualification physique **À valider**.
+Le TE Middle Drawer1648156-1/1648151-1 et ses cinq fonctions de signal sont
+conservés ; références et limites électriques dans DOC-ELEC§6.2. Les efforts
+d'accouplement passent par les supports, pas par les cellules ni le PCB.
 
-Sur le dessus du pack, le plateau à Z103 ne laisse que5 mm nominaux ou 3 mm
-avec l'enveloppe d'étude : insuffisant pour ce PCB. L'ancien P43 offrait
-94×42mm de cavité utile, déjà occupée. La carte est donc horizontale dans
-le compartiment arrière, avec enveloppe maximale documentée **130,5 × 65,5 × 12 mm**
-à X−239…−108,5, Y±32,75, Z50…62. Les prises, bornes et dissipateur ne sont
-pas inclus dans ces cotes ; leurs passages sont explicitement réservés,
-sans position fabricant inventée.
+L'ancienne implantation arrière et ses contrôles, sauvegardés dans Git
+`94d04d0`, sont historiques. Elle conservait le plateau à Z103 et ajoutait
+44 mm de recul au TE. La nouvelle conception exploite le volume au-dessus
+du pack en adaptant les rehausses et le plateau avant d'allonger le dock.
+L'enveloppe PCB maximale documentée **130,5 ×65,5 ×12 mm** occupe
+**X±65,25, Y±32,75, Z107…119 mm**. Les prises, bornes, dissipateur et câbles
+accouplés ne sont pas compris dans cette enveloppe ; les ports réservés ne
+constituent pas des cotes fabricant.
 
-P43/P44 évoluent en place : emprise **142 × 76 mm**, fondZ47, capotZ100,5…102,5.
-Le TE recule de44 mm supplémentaires, soit 126 mm depuis l'implantation
-frontale historique ; P39/P40 gardent leurs ancrages et rallongent leurs bras.
-Cela ajoute44mm en longueur à l'étude sans BMS, **sans augmenter la hauteur**
-du coffret. La largeur suit celle du pack nominal ; aucune comparaison
-de volume dock seul/distribution complète ni gain de masse n'est revendiqué.
-Le cantilever et le jeu nominal capot/plateau 0,5 mm restent à qualifier.
+Les mêmes pièces évoluent en place :
 
-Un appui isolant P58 de1mm est représenté sous le PCB. La retenue positive,
-visserie, procédé, rigidité et thermique restent à définir ; aucun trou
-fabricant ni taraudage n'est ajouté au BMS. P51/P52 et leur visserie sont
-retirés de la configuration active ; JST et B0…B6 restent dans P43. Le
-fil négatif du pack arrive au BMS, et une nouvelle liaison P− protégée
-va au TE. Le positif reste commun. XT90-S et barresP42 restent retirés.
+- **P58** est l'appui isolant de1 mm, à Z106…107.
+- **P43** réunit dans son arbre natif le coffret supérieur de170×76 mm,
+  à Z104…123, et une protection courte des cosses sous le pack de78×46 mm,
+  à Z62…104. **P44** ferme le coffret à Z123…125.
+- Les colonnes **P37** passent à **95 mm**. Le nom historique
+  `P37_Entretoise70_6061_M3.FCStd` est conservé. Le plateau et ses fixations
+  montent ensemble de **25 mm**, jusqu'à Z128…130. Le jeu d'étude entre capot
+  et plateau vaut3 mm ; celui entre le pack maximal d'étude et le fond vaut4 mm.
+  Ces jeux ne sont pas une acceptation des tolérances, flexions ou vibrations.
+- Le TE avance de **74 mm** par rapport à l'implantation BMS arrière :
+  son recul total depuis l'implantation frontale historique est **52 mm**,
+  au lieu de126 mm. P39/P40 conservent leurs ancrages et leurs bras sont
+  raccourcis ; rigidité, efforts et liberté du montage flottant restent ouverts.
 
-À l'étage inférieur, JETI/PM08/PDB conservent leurs positions. L'interface
-Waveshare15817 isolée est une **réservation90×80×26mm**, pas une cote OEM
-confirmée ; ports, fixation et accès USB doivent être relevés sur le lot.
-Les contacts #20 sont provisoires ; axes de cavités issus du STEP TE,
-numérotation réelle et sertissage non libérés pour fabrication.
+Le fil positif OEM va directement au TE, sans XT90-S ni piquage B+ vers
+une borne BMS inventée. Sa route R50 mesurée passe de **133,6998 à59,6998 mm**.
+Le solde arithmétique de **90,3002 mm** sur les150 mm usine n'est pas affecté :
+stockage, longueur de coupe, insertion dans la cosse et sertissage du lot
+restent **À valider**. BMS alimenté/mesuré via BC22=B6 du faisceau cellules
+interne ; B− brut rejoint le BMS, puis P− protégé rejoint le TE. P51/P52,
+XT90-S et barresP42 restent retirés. La retenue du PCB, visserie, procédé,
+isolation et thermique sont à concevoir ; aucun trou fabricant n'est inventé.
 
-SA08 et ses références de câbles sont recotés sur les sorties courantes et
-liés à **Integration_Stack_Revue_20261003.FCStd**, conservé en place. Les
-points de passage réservés n'attestent pas une prise accouplée. GNSS et
-plusieurs équipements de mission restent candidats ; l'intégration locale
-ne constitue pas un drone final qualifié.
+Comparaison géométrique issue du contrôle BMS final sur les natifs enregistrés ;
+la relecture SA08 est réussie sur les fichiers enregistrés. La
+[référence arrière recalculée](../../hardware/mecanique/cartographe/verification/bbox_bms_arriere_git.json)
+utilise 145 sources aux empreintes exactes et deux reconstructions
+paramétriques isolées : P37 à70 mm et rehausse du châssis à20 mm. Elle ne
+correspond pas à147 fichiers binaires identiques à Git `94d04d0`. Mesures
+dans [la preuve de compacité](../../hardware/mecanique/cartographe/verification/implantation_bms_dessus.json) :
 
-Sources et placements dans le manifeste, BOM et nomenclature courants.
-Preuve BMS : `verification/controle_bms_cassette.json` ; faisceau : registre
-SA08 courant. Les preuves de l'étape sans BMS sont historiques et ne
-certifient pas les nouvelles empreintes. Les recettes anciennes refusent
-la configuration BMS afin de ne pas rétablir leurs anciens placements.
-Validation et limites : DOC-VAL§12.1.9.
+| Périmètre identique avant/après | Dimensions avant L×l×H (mm) | Dimensions après (mm) | Variation du volume englobant |
+|---|---|---|---|
+| Batterie et étage énergie | 473×210,5×177 | 399×210,5×181 | −13,738 % |
+| Cassette mobile seule | 409,900×108,5×68,5 | 346,337×108,5×91 | +12,246 % |
+| Intégration locale, propulsion comprise | 598,628×511,015×501,529 | 538,596×511,015×501,529 | −10,028 % |
+
+Le gain batterie/énergie est **local au périmètre comparé** : la cassette seule est
+plus courte mais plus haute, avec un volume englobant supérieur. Ces volumes
+ne sont ni des volumes de matière ni un gain de masse. Le contrôle BMS
+mesure aussi une réduction de10,028 % du
+volume englobant de l’intégration locale. Ce modèle local ne définit pas
+l’enveloppe équipée et qualifiée d’un drone de mission complet. Les premières
+valeurs provisoires de l’intégration sont remplacées par cette comparaison ;
+la relecture finale confirme l’identité des37 routes SA08 enregistrées.
+
+JETI/PM08/PDB gardent leur étage inférieur. L'isolateur Waveshare15817 est
+une **réservation90×80×26 mm**, sans cote OEM équipée confirmée. Les contacts
+#20 restent provisoires : fonctions logiques attribuées, numéros de cavités,
+séquence réelle et sertissage non libérés pour fabrication. SA08 et les
+références de fils évoluent sur la même intégration
+`Integration_Stack_Revue_20261003.FCStd` ; le passage TE à cinq signaux est
+recalé vers le départ d'étude **(−235, −20, 78) mm**, contre(−309, −20, 78)
+auparavant. Les37 routes recalées sont vérifiées sur les fichiers enregistrés.
+GNSS et plusieurs équipements de mission restent candidats.
+
+Sources, placements et nomenclature : manifeste et registres courants.
+[Contrôle BMS](../../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
+réussi en processus neuf, sans collision non résolue aux huit positions
+d’extraction0/10/25/50/100/200/350/500 mm. Le seul recouvrement de86,59 mm³
+correspond à l’entrée de la réservation du fil dans la réservation JST ;
+accouplement réel **À valider**. La relecture SA08 utilise le contrôle sans
+collision des candidats, les empreintes courantes des109 sources obstacles et
+38 fichiers de faisceau, puis leur identité géométrique avec les37 natifs :
+différence symétrique maximale0 mm³ et contrôle BOP des auto-intersections
+réussi. Les booléens contre les obstacles ne sont pas recalculés dans cette
+relecture native ; [la preuve des routes courantes](../../hardware/mecanique/cartographe/verification/controle_routes_systeme_courant.json)
+est réutilisée après contrôle d’identité. Le
+[contrôle des registres](../../hardware/mecanique/cartographe/verification/controle_registres_bms.json)
+confirme182 occurrences,115 références,294 empreintes géométriques, six
+liens d’intégration,37 routes et40 liaisons du schéma, avec couleurs relues.
+Les rendus sont produits sans modification des sources. Les recettes
+courantes gardent les noms de fichiers ; les anciennes définitions se
+retrouvent par Git. Validation et limites : DOC-VAL§12.1.9.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -879,9 +931,12 @@ Les sorties sont des passages réservés, pas des prises accouplées de lot.
 Trois groupes restent non routés : refroidissement, accessoires de vol et LED.
 
 Le contrôle courant est [la relecture native BMS](../../hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json).
-Les 37 cordons sont valides et sans intersection avec les obstacles
-contrôlés en position assemblée ; les rayons, contacts, retenues, repli des
-bras, mouvement du bloc isolé et course continue restent À valider.
+Après déplacement du BMS au-dessus et rapprochement du TE, les37 routes
+recalées sont contrôlées sans intersection avec les obstacles. La relecture
+native confirme les empreintes, la validité BOP et l’identité des volumes
+avec les candidats contrôlés ; elle réutilise leur contrôle de collision.
+Rayons, contacts, retenues, repli des bras, mouvement du bloc
+isolé et course continue restent **À valider**.
 Le contrôle du3octobre et ses 32 cordons avec recouvrements est historique ;
 ses anciennes empreintes ne certifient pas les routes actuelles.
 Aucune qualification matérielle ni bilan de centrage n'est déduit.
@@ -955,7 +1010,7 @@ La visserie, la gâche fonctionnelle et la capture axiale définitives ne sont
 pas définies par ces réservations.
 
 La table précédente conserve les références historiques. La configuration
-20 Ah et l'étage énergie emploient les références P27–P57 selon les quantités effectives de la
+20 Ah et l'étage énergie emploient les références P27–P58 selon les quantités effectives de la
 [BOM du dock](../../hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json).
 P37 est répété quatre fois et P32 deux fois ; P42 et P45–P47 sont retirés.
 P57 est le plateau énergie candidat. P38 dérive le plateau 309
@@ -1380,7 +1435,8 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
-| 5 octobre 2026 | BMS commercial etappuiP58 implémentés encassette ; P43/P44 élargis142×76, TEreculadditionnel44mm et5signaux, interfaceisoléeétagefixe, SA08recoté intégré ; physiqueÀvalider (§4.1.3.3) |
+| 5 octobre 2026 | BMS placé au-dessus du pack ; P37 portée à95 mm, plateau/fixations +25 mm, P43/P44 adaptés et TE avancé74 mm ; comparaison BMS contrôlée −13,738 % batterie/énergie, +12,246 % cassette seule et −10,028 % intégration locale ; contrôles BMS, SA08 enregistrés et registres réussis (§4.1.3.3). |
+| 5 octobre 2026 | Étape arrière historique dans Git94d04d0 : BMS/P58 dans P43/P44 de142×76, recul TE additionnel44 mm et SA08 recoté ; remplacée par l’implantation au-dessus du pack. |
 | 5 octobre 2026 | Préparationinitiale BMS solidaire de la cassette Planifié ; compartiment arrière P43/P44 privilégié après réaménagement, faible jeu au-dessus mesuré ; aucun module/cote ni remplacement de connecteur supposé (§4.1.3.3) |
 | 4 octobre 2026 | Étage énergie inférieur et liaison directe candidate AWG8/742F5 M5 au TE ; pack retourné, supports reculés de 82 mm, coffrets et passages repris ; contrôle du seul pack nominal, enveloppe d'étude/lot/fixations/thermique **À valider**, adaptateur de charge **Planifié** (§4.1.3.2, DOC-VAL §12.1.8) |
 | 4 octobre 2026 | Couleurs natives du dock et suivi Git de91 petits natifs ; noms stables, repli des deux cordons fixesR50 et hauteur calculée−29,3% ; pistes JETI/XT90/cassette et intersectionP49 ouverte (§4.1.3.1, DOC-VAL§12.1.7) |

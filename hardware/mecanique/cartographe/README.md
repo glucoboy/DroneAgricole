@@ -30,7 +30,11 @@ Les dernières vues natives de la stack sont dans
 
 L'antenne GNSS sur le plateau supérieur et le récepteur sous la batterie
 restent une option étudiée ; les fichiers conservés gardent leur pose précédente.
-Le faisceau système n'est pas recalé sur la stack revue. Les limites physiques,
+Le faisceau SA08 est lié à la stack revue ; son recalage suit le BMS au-dessus
+du pack et le TE rapproché. Les contrôles courants confirment les37 routes
+enregistrées par identité avec les candidats contrôlés et contrôle BOP.
+Relancer les contrôles après toute modification des sources.
+Les limites physiques,
 la BOM et les validations sont dans [DOC-MEC](../../../docs/architecture/ARCHITECTURE_MECANIQUE.md),
 [DOC-ELEC](../../../docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md)
 et [DOC-VAL](../../../docs/VALIDATION_QUALIFICATION.md).
@@ -49,35 +53,54 @@ du catalogue courant et peuvent recréer des variantes retirées.
 Le dock dépend encore des montages de construction `SA02_Cassette20Ah_Coulissante`
 et `SA02_Contacts20Ah`, conservés dans le dossier courant.
 Conserver les noms des fichiers et les faire évoluer en place. Les petits
-natifs du dock et leurs dépendances sont suivis par Git ; état avant déplacement
-de l'énergie sur `codex/batterie-avant-etage-inferieur`. Le contrôle courant est
-`verification/verify_etage_batterie.py`. Les contrôles de compacité antérieurs
-portent sur une définition historique.
-L'état de conception courant est sauvegardé sur la branche locale
-`codex/batterie-etage-inferieur`, sans changer l'index de travail utilisateur.
-Les contrôles de tri ci-dessous portent les empreintes historiques du tri.
-Pour réappliquer la visibilité et les couleurs courantes, utiliser
-`verification/persist_etage_batterie.py`. Pour contrôler et afficher les natifs
-courants, utiliser les commandes ci-dessous ; les rendus sont produits depuis
-les sources enregistrées, sans les modifier. Les recettes de migration
-`update_raccordement_direct_batterie.py`, `canonical_positions_etage_batterie.py`,
-`update_faisceau_etage_batterie.py` et `finalize_etage_batterie.py` documentent
-les étapes de construction ; elles ne remplacent pas l'ouverture des natifs
-courants et ne doivent pas être lancées isolément pour restaurer un état.
+natifs et leurs dépendances sont suivis par Git. La sauvegarde `94d04d0`
+conserve l'implantation BMS arrière ; la conception courante place le BMS
+au-dessus du pack, avec le plateau rehaussé. Les noms historiques des pièces
+et assemblages, dont P37 «70», ne décrivent pas nécessairement leurs cotes
+courantes : consulter les paramètres natifs et le manifeste.
+
+Les recettes sans BMS et les contrôles de compacité/étage énergie antérieurs
+sont historiques ; ne pas les rejouer pour maintenir cette implantation.
+`persist_etage_batterie.py` et les anciennes finalisations ne remplacent pas
+la recette BMS courante. Les scripts ci-dessous s'exécutent depuis ce
+répertoire, avec le Python fourni par FreeCAD1.1.
+
+Contrôler les natifs enregistrés et les registres, puis produire le rendu :
 
 ```powershell
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_etage_batterie.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_etage_batterie.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_etage_batterie.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_bms_cassette.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_routes_native_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_bms_cassette.py
 ```
 
-La nomenclature actuelle est `verification/nomenclature_etage_batterie.json` ;
-les fichiers BOM et faisceau existants sont actualisés en place. Le raccordement
-aval JETI/PM08/PDB et les fixations physiques restent à définir.
-La recette de stack `verification/build_stack_revue_20261003.py` reprend
-le châssis rehaussé archivé et rétablit ses liens vers les pièces courantes
-avec `sources_cao_archivees_20261004.py`. La reprise de source a été vérifiée ;
-la stack n'a pas été régénérée à l'occasion du tri.
+Pour reconstruire la configuration courante en place, reprendre les recettes
+de cette configuration et contrôler les résultats avant le rendu :
+
+```powershell
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_bms_cassette.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_routes_systeme_candidat.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/integrate_faisceau_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_bms_cassette.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_routes_native_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_registres_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_bms.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_bms_cassette.py
+```
+
+`update_bms_cassette.py` appelle l'implantation courante
+`update_bms_dessus.py`. Garder l'ordre des recettes : une nouvelle géométrie
+modifie les routes, puis leurs empreintes doivent être réconciliées avec les
+registres. Les passages de câbles sont des réservations ; une commande réussie
+ne libère pas un faisceau pour fabrication.
+La nomenclature est `verification/nomenclature_etage_batterie.json` ; BOM,
+faisceau et sources évoluent en place. Le branchement JBD/TE/UART isolé et ses
+limites sont décrits dans DOC-ELEC§6.2, les contrôles dans DOC-VAL§12.1.9.
+
+La recette historique de stack `verification/build_stack_revue_20261003.py`
+reprend le châssis rehaussé archivé via `sources_cao_archivees_20261004.py`.
+Elle n'est pas la commande de maintenance de la rehausse BMS courante.
+Les contrôles de tri ci-dessous conservent le périmètre historique du rangement.
 
 Vérifier le rangement et les liens, dans des processus PythonFreeCAD séparés :
 
@@ -90,9 +113,6 @@ Vérifier le rangement et les liens, dans des processus PythonFreeCAD séparés 
 Ces commandes s'exécutent depuis le répertoire cartographe. Le tri et les
 contrôles ne modifient aucun placement ni géométrie native.
 
-Pour faire évoluer la configuration BMS en place, exécuter avec Python FreeCAD
-`verification/update_bms_cassette.py`, puis la recette SA08 courante,
-`verification/verify_bms_cassette.py` et `verification/update_registres_bms.py`.
-Les anciennes recettes sans BMS refusent cette configuration ; retours par Git.
-Le BMS et les contacts de signal restent des enveloppes candidates ;
-utiliser le manifeste et DOC-ELEC§6.2 pour les limites et le contrat UART.
+Les BMS, contacts de signal et ports accouplés restent des enveloppes
+candidates. Conserver les sources fabricant inchangées et vérifier les limites
+du manifeste et de DOC-ELEC avant toute fabrication ou connexion réelle.

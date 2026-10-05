@@ -228,6 +228,13 @@ Principes non négociables :
   du pack ne sont ni inhibées ni retardées pour préserver le vol.
   JETI et PM08-CAN restent dans la définition courante ; le BMS ne les
   remplace pas automatiquement (DOC-ELEC §6.2, DOC-MEC §4.1.3.3).
+  La cassette place désormais le BMS au-dessus du pack sous un plateau
+  rehaussé, afin de raccourcir l’ensemble batterie/énergie. Les mesures CAO
+  montrent un gain sur l’ensemble batterie/énergie et sur l’intégration locale,
+  avec une cassette seule plus haute et de volume englobant supérieur. Elles
+  ne qualifient ni un drone équipé complet ni sa masse. La relecture des37
+  routes SA08 enregistrées est réussie ; les validations physiques restent
+  à fermer.
 
 ## 6. Informations échangées
 
@@ -529,6 +536,7 @@ ne sont pas disponibles.
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | BMS placé au-dessus du pack, plateau rehaussé et connecteur rapproché ; compacité CAO mesurée par périmètre, cassette seule plus haute, sans qualification du drone complet ni changement d’autorité PX4. |
 | 5 octobre 2026 | BMScommercialJBD/TE/UARTisolé intégrés enCAO etschéma ; diagnosticlogicielPlanifié, PM08 conservé sourcePX4, physiqueÀvalider |
 | 5 octobre 2026 | Besoininitial BMS embarqué dans chaque cassette cartographe requis ; protections et alertes coordonnées avec PX4, défaillance d'énergie commune et absence de contournement explicitées ; intégration Planifiée / À valider |
 | 3 octobre 2026 | Dock 6S 20 Ah et coupure JETI en tête du PM08 ; causes de défaillance communes et échange au sol explicités, sans changement de l'autorité de PX4 ; CAO historique et cible Holybro/CA01 distinguées |

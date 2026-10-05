@@ -1,7 +1,10 @@
 """Synchronisation des documents vivants avec la conception BMS candidate."""
 from pathlib import Path
-import re
+import re,zipfile
 ROOT=Path(__file__).resolve().parents[4]
+with zipfile.ZipFile(ROOT/'hardware/mecanique/cartographe/sous_assemblages/SA02A_Dock20Ah.FCStd') as native:
+ if b'BMS au-dessus du pack' in native.read('Document.xml'):
+  raise RuntimeError('update_docs_bms.py est historique pour le BMS arrière ; modifier les documents vivants en place pour la définition supérieure.')
 def change(path,fn):
  p=ROOT/path;t=p.read_text(encoding='utf-8');p.write_text(fn(t),encoding='utf-8')
 

@@ -9,6 +9,8 @@ import json, hashlib
 import FreeCAD as A
 import Part
 from sources_cao_archivees_20261004 import load_chassis_source
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('build_stack_revue_20261003.py')
 
 ROOT=Path(__file__).resolve().parents[4]
 MEC=ROOT/'hardware/mecanique/cartographe'; VER=MEC/'verification'

@@ -794,7 +794,10 @@ PM→POWER, parallèle des BEC ni réalimentation via CAN1 +5 V.
 
 La maquette historique `Drone_Cartographe_Systeme_Candidat.FCStd` est archivée.
 La configuration locale courante `Integration_Stack_Revue_20261003.FCStd`
-lie SA08 et ses 37 routes recotées, dont les liaisons UART isolée et USB BMS.
+lie SA08 et ses37 routes, dont les liaisons UART isolée et USB BMS.
+Le recalage après déplacement du BMS au-dessus du pack est vérifié sur
+les37 routes enregistrées, par identité avec les candidats contrôlés et
+contrôle BOP (DOC-VAL§12.1.9). Le contrôle de l’implantation arrière reste historique.
 Les routes internes du dock restent distinctes. Voir DOC-MEC§4.1.3.3 et
 DOC-VAL§12.1.9. Le registre conserve les sections, diamètres et rayons
 non confirmés comme hypothèses **À valider** ; les masses linéiques,
@@ -1377,6 +1380,19 @@ installée de prises, câbles ou dissipation. Le courant «100 A» n'est pas
 qualifié dans le coffret : les pertes, températures, courant mission,
 pointes et seuils doivent être mesurés sur le lot. Le module n'est pas un
 chargeur. JETI et PM08-CAN sont conservés ; aucun module PM08D I²C substitué.
+
+Le PCB est implanté au-dessus du pack, sous un plateau rehaussé de25 mm
+(DOC-MEC§4.1.3.3). Le TE avance de74 mm par rapport à la première implantation
+BMS arrière, sans changement du circuit, des27 modules ou des40 liaisons.
+Le positif OEM reste direct au TE, avec une route R50 de59,6998 mm au lieu
+de133,6998 mm ; le solde90,3002 mm sur les150 mm usine n'a pas d'affectation
+physique acceptée. Coupe, sertissage, stockage et reprise de traction sont
+**À valider**. Aucun fil auxiliaire B+ n'est ajouté au BMS.
+Le recalage SA08, dont le départ TE à(−235, −20, 78) mm, est vérifié sur
+les37 natifs enregistrés par identité avec les candidats contrôlés et contrôle
+BOP ; une longueur CAO ne démontre pas le rayon du câble de lot.
+Les jeux d'étude de3 mm au capot et4 mm sous le fond ne prouvent ni isolation,
+ventilation ni maintien mécanique de la carte équipée.
 
 **Connecteur retenu pour ce montage : TE Middle Drawer existant**,
 1648156-1 mobile /1648151-1 fixe, contacts #4 M5 6648335-1 /1766283-1.
@@ -1963,6 +1979,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | Implantation BMS au-dessus du pack et plateau +25 mm ; TE avancé74 mm et route positive raccourcie, circuit27 modules/40 liaisons inchangé ; isolation, charge protégée et qualification physique restent ouvertes (§6.2). |
 | 5 octobre 2026 | BMS JBD A01 commercial sélectionné, TE conservé avec5signaux/UART isolé ; CAO/schéma candidats Implémentés, courant/lot/thermiqueÀvalider (§6.2) |
 | 5 octobre 2026 | Préparation initiale BMS embarqué requis et chaîne cible définie ; charge, coupures et communication isolée à étudier ; alternatives blind-mate vérifiées, distinction DuraSwap standard/Concentric et limites de cycles/AWG explicites ; aucun remplacement CAO (§6.2) |
 | 4 octobre 2026 | Liaison pack directe candidate AWG8/742F5 M5 au TE, sans XT90-S/AWG10/P42 ; énergie à l'étage inférieur, PM08-CAN conservé et PM08D distinct ; contrôle du seul pack nominal, dressage TE/lot/fixations/thermique **À valider**, adaptateur de charge protégé **Planifié** (§6.1, DOC-VAL §12.1.8) |

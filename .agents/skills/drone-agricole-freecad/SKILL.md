@@ -36,6 +36,16 @@ Réutiliser la même référence pour les occurrences répétées. Ne pas dupliq
 
 Ne pas aplatir une pièce conçue ni remplacer son arbre natif par un solide importé. Ne jamais modifier une source fabricant ; dériver l'enveloppe ou l'adaptation dans une référence distincte.
 
+## Rechercher la compacité
+
+Comparer les implantations sur l'enveloppe du sous-assemblage complet : longueur, largeur, hauteur et volume englobant `L × l × H`. Inclure les câbles et connecteurs ; distinguer l'enveloppe en service du volume nécessaire à l'extraction, au montage et à l'accès aux fixations.
+
+- Exploiter les volumes libres, notamment au-dessus d'une batterie, et étudier l'adaptation des rehausses et du plateau avant d'étaler les modules dans la longueur. Respecter une implantation explicitement demandée, telle qu'un BMS au-dessus du pack, sans en faire une règle pour toutes les conceptions.
+- Ajuster la hauteur et l'étendue du plateau au besoin mesuré. Vérifier supports, accès aux ports, courbure et retenue des fils, extraction, ventilation et isolation électrique ; une absence de collision ne suffit pas à valider ces fonctions.
+- Consigner les dimensions avant/après, le volume comparé, la configuration et les hypothèses dans les preuves existantes. Décrire les gains et les compromis : une longueur réduite avec une hauteur ou un volume accrus n'est pas automatiquement une compacité améliorée. Distinguer les cotes nominales des tolérances et enveloppes encore À valider.
+
+Faire évoluer les mêmes fichiers de pièces, sous-assemblages et assemblages ; utiliser Git pour les retours arrière, sans nouveau suffixe de date ou de révision.
+
 ## Maintenir le manifeste
 
 Après une création, suppression, substitution ou modification de placement, mettre à jour le manifeste de la conception :

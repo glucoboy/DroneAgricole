@@ -8,6 +8,7 @@ from pathlib import Path
 import argparse, hashlib, json, math, time
 import FreeCAD as A
 import Part
+from etage_batterie_helpers import save_native,meta,color,link
 
 ROOT = Path(__file__).resolve().parents[4]
 MEC = ROOT / 'hardware/mecanique/cartographe'
@@ -72,7 +73,7 @@ def candidate_recipe():
         paths['ESC_PHASES_'+str(i)] = [(sx*200,sy*180,85),(sx*250,sy*180,85),(sx*266,sy*225,85)]
         paths['FCU_ESC_'+str(i)] = [(69,sy*24,-50),(85,sy*45,-50),(sx*165,sy*45,-50),(sx*165,sy*110,-50),(sx*165,sy*110,85),(sx*200,sy*180,85)]
     paths['PDB_ESC_3']=[(157,-86,-40),(180,-86,-40),(180,-86,85),(180,80,85),(-180,80,85),(-200,180,85)]
-    paths['PDB_ESC_4']=[(157,-68,-40),(180,-68,-40),(180,-68,110),(180,-47,110),(-200,-47,110),(-200,-180,85)]
+    paths['PDB_ESC_4']=[(157,-68,-40),(180,-62,-40),(180,-62,110),(-200,-62,110),(-200,-180,85)]
     paths['FCU_ESC_4']=[(69,-24,-50),(85,-45,-50),(-125,-45,-50),(-125,-170,-50),(-125,-170,85),(-200,-180,85)]
     for row in data['routes']:
         if row['id'] not in paths: continue  # diagnostic remplacé ci-dessous, rejeu stable
@@ -89,7 +90,7 @@ def candidate_recipe():
             row['terminaisons'] += ' ESC et moteur : ports inconnus, corridor déplacé hors volumes OEM ; aucune continuité matérielle démontrée.'
     existing = {r['id'] for r in data['routes']}
     for name, group, points, diameter, radius, wires in [
-      ('TE5_SIGNAL_ISOLATEUR','DIAGNOSTIC-BMS-TTL',[(-309,-20,78),(-325,-20,78),(-325,-45,78),(-325,-45,-42),(-190,-45,-42),(-190,-55,-42)],4.5,23,5),
+      ('TE5_SIGNAL_ISOLATEUR','DIAGNOSTIC-BMS-TTL',[(-235,-20,78),(-251,-20,78),(-251,-45,78),(-251,-45,-42),(-190,-45,-42),(-190,-55,-42)],4.5,23,5),
       ('ISOLATEUR_USB_JETSON','DIAGNOSTIC-BMS-USB',[(-140,-100,-42),(-120,-100,-42),(-85,-60,-42),(-85,-46,-46.28228),(7.035,-46,-46.28228)],5,25,None),
     ]:
         row = dict(id=name,groupe=group,wxx=['W40'] if wires else ['W41'],points_mm=[list(p) for p in points],diametre_enveloppe_mm=diameter,
@@ -105,7 +106,8 @@ def candidate_recipe():
     data.update(date='2026-10-05',statut='À valider',repere='mm, repère global assemblage courant, liens SA08 identité',
       configuration='Integration_Stack_Revue_20261003',recette=relative(__file__))
     data['ports_reserves'] = {
-      'TE5_fixe':[-309,-20,78], 'isolateur_TTL':[-190,-55,-42], 'isolateur_USB':[-140,-100,-42],
+      'TE5_fixe':next(r for r in data['routes'] if r['id']=='TE5_SIGNAL_ISOLATEUR')['points_mm'][0],
+      'isolateur_TTL':[-190,-55,-42], 'isolateur_USB':[-140,-100,-42],
       'Jetson_USB_acces':[7.035,-46,-46.28228], 'isolateur_volume_mm':[[-235,-140,-55],[-145,-60,-29]],
       'Jetson_double_USB_A_OEM_bbox_mm':[[-0.775,-39.35118,-55.52228],[14.845,-23.65213,-37.04228]],
       'Jetson_USB_zone_acces_mm':[[-1,-61,-55.5],[15,-43,-37]],
@@ -131,14 +133,20 @@ def candidate_recipe():
 
 def geometry(row):
     wire, radii = rounded(row['points_mm'], row['rayon_reservation_mm'])
+    assert all(r>row['diametre_enveloppe_mm']/2+1e-6 for r in radii),('Coude auto-intersectant',row['id'],radii)
     section = Part.Wire(Part.makeCircle(row['diametre_enveloppe_mm']/2, A.Vector(*row['points_mm'][0]),
        wire.Edges[0].tangentAt(wire.Edges[0].FirstParameter)))
     shape = wire.makePipeShell([section], True, True)
     assert shape.isValid() and len(shape.Solids)==1, row['id']
+    shape.check(True)  # isValid seul ne détecte pas les auto-intersections BOP.
     return wire, section, shape, radii
 
 def obstacles():
     top = A.openDocument(str(MEC/'assemblages/Integration_Stack_Revue_20261003.FCStd'))
+    for d in A.listDocuments().values():
+        for obj in d.Objects: obj.touch()
+    for _ in range(2):
+        for d in A.listDocuments().values(): d.recompute()
     result = []
     for o in top.IntegrationRevue.Group:
         if o.TypeId!='App::Link' or o.Name.startswith(('Faisceau', 'SA08')): continue
@@ -174,10 +182,10 @@ def main():
     before = {relative(d.FileName):sha(d.FileName) for d in A.listDocuments().values() if d.FileName}
     rows = check_shapes(data, shapes, obs)
     clear_obstacles=not any(row['intersections'] for row in rows)
+    dump(VER/'controle_candidats_faisceau_bms.json',dict(date='2026-10-05',recette_sha256=executed_recipe_sha,sources_lues_sha256=before,routes=rows,collisions_restantes=[r['id'] for r in rows if r['intersections']],finalisation_correcte=clear_obstacles,limite='Candidats contrôlés avant sauvegarde ; aucune preuve de persistance native'))
     if not args.check and clear_obstacles:
-        from etage_batterie_helpers import save_native, meta, color, link
         harness_path = MEC/'sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd'
-        harness = A.openDocument(str(harness_path)); root = harness.Reference
+        harness = next((d for d in A.listDocuments().values() if d.FileName and Path(d.FileName)==harness_path),None) or A.openDocument(str(harness_path)); root = harness.Reference
         for row in data['routes']:
             name = 'EQ_Route_'+row['id']+'_Systeme_Candidat'; path = MEC/'pieces/commerce'/(name+'.FCStd')
             dd = next((d for d in A.listDocuments().values() if d.FileName and Path(d.FileName)==path),None)
@@ -199,7 +207,10 @@ def main():
             meta(rr,'Recette',relative(__file__));meta(rr,'Terminaisons',row['terminaisons'])
             rgb=(.88,.15,.12) if row['id'].startswith(('JETI','PM_OUT','PDB_ESC','ESC_PHASES')) else (.95,.65,.10)
             if row['id'] in ['TE5_SIGNAL_ISOLATEUR','ISOLATEUR_USB_JETSON']: rgb=(.75,.2,.9)
-            color(sweep,rgb); dd.recompute(); assert sweep.Shape.isValid() and len(sweep.Shape.Solids)==1
+            color(sweep,rgb); sweep.touch(); dd.recompute(); assert sweep.Shape.isValid() and len(sweep.Shape.Solids)==1
+            sweep.Shape.check(True)
+            native_difference=sweep.Shape.cut(shape).Volume+shape.cut(sweep.Shape).Volume
+            assert native_difference<1e-5,('Balayage différent du candidat',row['id'],native_difference)
             save_native(dd,path if not dd.FileName else None)
             occurrence=harness.getObject(row['id']) or link(harness,root,row['id'],rr)
             occurrence.setLink(rr);occurrence.LinkTransform=False;occurrence.LinkPlacement=A.Placement();occurrence.ViewObject.OverrideMaterial=False
