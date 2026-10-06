@@ -1,4 +1,6 @@
 """Consolider les preuves du raccord compact, sans qualifier le matériel."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('finalize_compactage_bms_te.py')
 from pathlib import Path
 import hashlib
 import json

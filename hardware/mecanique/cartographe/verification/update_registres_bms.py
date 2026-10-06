@@ -1,4 +1,6 @@
 """Registres durables tirés des liens natifs courants, sans refaire la géométrie."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_registres_bms.py')
 from pathlib import Path
 from collections import Counter
 import json,hashlib

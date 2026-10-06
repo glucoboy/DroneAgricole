@@ -1,4 +1,6 @@
 """Infrastructure CAO : distribution et support isolant de l'étage batterie, fichiers évolués en place."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_distribution_etage_batterie.py')
 from pathlib import Path
 import hashlib, json, math
 import FreeCAD as A, Part

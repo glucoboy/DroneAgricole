@@ -228,6 +228,11 @@ Principes non négociables :
   du pack ne sont ni inhibées ni retardées pour préserver le vol.
   JETI et PM08-CAN restent dans la définition courante ; le BMS ne les
   remplace pas automatiquement (DOC-ELEC §6.2, DOC-MEC §4.1.3.3).
+  La batterie forme un sous-assemblage mobile distinct de son récepteur fixe.
+  JETI, PM08-CAN, la PDB, P57, la commande et l’isolateurUART sont directement
+  assemblés dans le principal ; cette organisation conserve leurs fonctions
+  et leur pose, conservée par la migration et sa réouverture contrôlée
+  (DOC-VAL§12.1.10).
   La cassette place le BMS au-dessus du pack sous un plateau rehaussé.
   Le dernier compactage rapproche le TE et remplace la grande chambre de
   raccordement par des protections locales : volume englobant de la cassette
@@ -321,15 +326,16 @@ causes de défaillance communes.
 Brochage de la nouvelle porteuse, isolation entre rails, budgets et comportement
 en défaut sont **À valider** selon [DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md).
 
-La cassette 6S 20 Ah et la rehausse de 20 mm sont désormais implémentées en
-CAO. L'échange se fait au sol, moteurs arrêtés, après coupure JETI OFF,
+La batterie 6S 20 Ah, son récepteur et la rehausse supérieure de45 mm
+au total (20 mm historiques puis25 mm pour le BMS) sont implémentés en CAO. L'échange se fait au sol, moteurs arrêtés, après coupure JETI OFF,
 avec pales dégagées et contrôle du verrouillage avant remise sous tension.
 Le module commute le négatif et mémorise son état : aucun interverrouillage
-automatique de puissance avec le loquet n'est revendiqué. La CAO conserve
-l'avionique historique et ne réalise pas la migration Holybro/CA01 cible.
+automatique de puissance avec le loquet n'est revendiqué. L’intégration locale
+courante représente la stack Holybro/CA01 ; les variantes précédentes
+d’avionique sont historiques.
 La mécanique, les courants et la masse complète restent **À valider** ; voir
-DOC-MEC §4.1.3 et DOC-ELEC §6.1.
-Le connecteur XT90 conservé est annoncé45A sous conditions fabricant ;
+DOC-MEC §4.1.3 et DOC-ELEC §6.2.
+Le connecteur XT90 de la distribution conservé est annoncé45A sous conditions fabricant ;
 la chaîne complète n'est donc pas déclarée85/100A. Le budget partiel avec
 provisions connues6,112–6,726kg dépasse déjà la limite publiée6,3kg en
 borne haute. Le vol et les anciennes estimations d'autonomie ne sont pas
@@ -539,6 +545,7 @@ ne sont pas disponibles.
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | Batterie et récepteur distingués, énergie directement dans le principal ; sûreté conservée, migration et réouverture contrôlées sans déplacement des pièces ni qualification physique. |
 | 5 octobre 2026 | Raccordement pack/BMS/TE compact : gain local cassette et énergie depuis1ccbad81, enveloppe d’intégration inchangée ; BMS supérieur, autorité PX4 et limites de qualification conservés. |
 | 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : BMS placé au-dessus du pack, plateau rehaussé et connecteur rapproché ; compacité CAO mesurée par périmètre, cassette seule plus haute, sans qualification du drone complet ni changement d’autorité PX4. |
 | 5 octobre 2026 | BMScommercialJBD/TE/UARTisolé intégrés enCAO etschéma ; diagnosticlogicielPlanifié, PM08 conservé sourcePX4, physiqueÀvalider |

@@ -38,7 +38,7 @@ coordonnées.
 
 ### 2.1 Catalogue courant et archives — 4 octobre 2026
 
-Le tri demandé conserve **10 sous-assemblages courants et deux montages de
+Le tri historique du 4 octobre conservait **10 sous-assemblages courants et deux montages de
 construction** dans `hardware/mecanique/cartographe/sous_assemblages/`.
 Les versions précédentes sont dans `archives/avant_tri_20261004/`, avec une
 copie de leurs pièces et montages liés aux mêmes chemins relatifs. Treize
@@ -58,9 +58,10 @@ L'intégration locale de stack est le seul assemblage conservé dans
 Aucun nouveau drone complet n'est assemblé ou qualifié par ce rangement.
 La proposition GNSS sur plateaux reste **Planifié / À valider** ; les routes
 du faisceau sont désormais recalées sur la stack revue (§4.1.3.3), avec ports
-réservés et interfaces de lot À valider. Les deux montages
-`SA02_Cassette20Ah_Coulissante` et `SA02_Contacts20Ah` restent nécessaires
-aux recettes du dock et ne représentent pas des doublons à embarquer.
+réservés et interfaces de lot À valider. La batterie mobile est désormais
+`SA02_Cassette20Ah_Coulissante` et le récepteur fixe `SA02A_Dock20Ah`.
+`SA02_Contacts20Ah` et `SA07_Distribution_Systeme_Candidat` sont conservés
+comme montages historiques non installés ; ils ne sont pas des doublons à embarquer.
 
 La recette de stack reprend le châssis rehaussé archivé puis rétablit en
 mémoire ses liens vers les pièces courantes ; aucune dépendance vers des
@@ -74,19 +75,28 @@ DOC-VAL§12.1.6 et [guide d'ouverture](../../hardware/mecanique/cartographe/READ
 ## 3. Architecture mécanique du système
 
 ```text
- Integration_Stack_Revue_20261003 (étude locale avec SA08)
+ Integration_Stack_Revue_20261003 (principal, étude locale)
  ├── SA01_Chassis_Stack_Revue_20261003
- ├── SA02A_Dock20Ah
+ ├── SA02_Cassette20Ah_Coulissante — Batterie 20 Ah, 67 pièces mobiles
+ ├── SA02A_Dock20Ah — Récepteur de batterie 20 Ah, 72 pièces fixes
  ├── SA03_CA01_Holybro_Revue_20261003
  ├── SA05_Capteurs_Isoles
  │   ├── SA05A_Bloc_capteurs
  │   └── 4 × SA05B_Appui_Sorbothane
- ├── SA07_Distribution_Systeme_Candidat
- └── SA08_Faisceau_Systeme_Candidat
+ ├── SA08_Faisceau_Systeme_Candidat
+ ├── PM08-CAN
+ ├── PDB18138
+ ├── P57, plateau énergie inférieur
+ ├── JETI MainSwitch100
+ ├── Commande magnétique JETI
+ └── Isolateur UART Waveshare15817
 
- Sous-assemblages courants séparés de cette étude locale :
+ Sous-assemblages séparés de cette étude locale :
  SA06_RTK_Helical_Systeme_Candidat
  SA07_Station_sol
+ Montages historiques non installés :
+ SA02_Contacts20Ah
+ SA07_Distribution_Systeme_Candidat
 ```
 
 Dernière intégration mécanique à ouvrir :
@@ -98,8 +108,9 @@ Les anciennes intégrations complètes `Drone_Cartographe_20Ah` et
 système complet utilisant encore le précédent préplacement d'avionique.
 
 La configuration de travail adopte la batterie **6S 20 Ah**, une cassette
-coulissante et une rehausse du dernier plateau de **20 mm**, sur demande du
-2 octobre 2026. Les assemblages précédents, dont `SA02_Energie_EchangeRapide`,
+coulissante et une rehausse du dernier plateau de **45 mm au total** :
+20 mm historiques puis25 mm supplémentaires pour le BMS au-dessus du pack.
+Les colonnes P37 mesurent95 mm et le plateau est à Z128…130 mm. Les assemblages précédents, dont `SA02_Energie_EchangeRapide`,
 restent des archives. `SA05_Capteurs_Isoles` est conservé. L'état **Implémenté**
 désigne la CAO ; la fabrication et le fonctionnement physique restent **À valider**.
 
@@ -115,8 +126,10 @@ active restent masqués et explicitement exclus par le manifeste.
 | Sous-assemblage | Fonction | Choix actuel | État |
 |---|---|---|---|
 | `SA01_Chassis_Stack_Revue_20261003` | structure, bras, train et propulsion | X650 V2, colonnes P37 de95 mm et plateau supérieur rehaussé de25 mm supplémentaires pour le BMS au-dessus du pack ; noms stables | CAO **Implémenté** ; résistance et vibrations **À valider** |
-| `SA02A_Dock20Ah` | maintenir et échanger la batterie sans outil | dock complet : cassette captive, rails, butée réglable, Southco R4 et interfaces électriques | CAO **Implémenté** ; verrouillage réel et essais **À valider** |
-| contacts du dock 20 Ah | accouplement pendant la translation, indépendant de la retenue | paire TE ELCON 125A Middle Drawer et module JETI MainSwitch100 | sélection commerciale ; tolérances, courant et séquence **À valider** |
+| `SA02_Cassette20Ah_Coulissante` | emporter la batterie et sa protection pendant l’échange | 67 pièces mobiles : pack, BMS supérieur, captures, coffret et contacts/fils TE mobiles | CAO **Implémenté**, migration contrôlée ; essais physiques **À valider** |
+| `SA02A_Dock20Ah`, label Récepteur | guider et retenir la batterie dans le drone | 72 pièces fixes : rails, butées, loquet, support et contacts/fils TE fixes | CAO **Implémenté**, migration contrôlée ; verrouillage réel et essais **À valider** |
+| six équipements et supports directs du principal | couper, mesurer et distribuer l’énergie, isoler l’UART | JETI et commande, PM08-CAN, PDB18138, P57 et Waveshare15817 ; ancien SA07 non installé | parentage CAO **Implémenté** et contrôlé ; montage physique **À valider** |
+| contacts du dock 20 Ah | accouplement pendant la translation, indépendant de la retenue | paire TE ELCON 125A Middle Drawer répartie entre batterie et récepteur ; JETI directement lié au principal | sélection commerciale ; tolérances, courant et séquence **À valider** |
 | `SA03_Avionique_Rehausse20` | libérer le logement et fixer l'avionique | Pixhawk historique déplacé au-dessus du plateau avec P27 ; niveau inférieur P06 conservé | CAO **Implémenté** ; migration vers porteuse commune **Planifié** |
 | `SA04_Calcul` | fixer Jetson, SSD et refroidissement | maquette historique avec adaptateur P03 et quatre entretoises P04 | ancienne CAO **Implémenté** ; deux contacts connus, migration **Planifié** |
 | `SA05A_Bloc_capteurs` | maintenir rigidement Airy, Basler et objectif entre eux | platine capteurs isolée | extrinsèques et champ de vue **À valider** |
@@ -526,7 +539,10 @@ ses réserves de compatibilité AWG8, de coude et d’outillage.
 
 B+ va directement au TE sans XT90-S ni borne B+ de puissance ajoutée au BMS.
 BC22=B6 du faisceau cellules alimente/mesure la carte ; B− brut rejoint le
-BMS puis C−/P− protégé rejoint TE40. JETI/PM08/PDB gardent l’étage inférieur.
+BMS puis C−/P− protégé rejoint TE40. JETI/PM08/PDB gardent l’étage inférieur
+et deviennent des pièces directement liées au principal, avec P57, la commande
+magnétique et l’isolateur fixe. Aucun déplacement n’est demandé par ce changement
+de parentage.
 P51/P52, XT90-S et barresP42 restent retirés. Aucun pont de masse ne doit
 contourner BMS ou JETI. L’isolateur fixe Waveshare15817 reste une
 réservation90×80×26 mm ; les contacts #20 et cavités restent provisoires.
@@ -558,7 +574,9 @@ exactes et deux reconstructions isolées P37=70/rehausse=20 ; il ne décrit
 pas la référence du dernier compactage. Les noms restent stables pour les
 retours arrière par Git.
 
-Le [contrôle BMS courant](../../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
+Les résultats géométriques ci-dessous précèdent le découpage batterie/récepteur ;
+leur transfert aux nouveaux parents est démontré par identité des sources de
+pièces et des placements mondiaux (§4.1.3.4), sans nouveaux booléens de collision. Le [contrôle BMS du compactage](../../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
 en processus neuf confirme147 sources, aucune erreur de recalcul ou lien
 rompu, axes/entrées cohérents, cinq routes valides au contrôle BOP et aucune
 collision non classée. Les huit poses d’extraction0/10/25/50/100/200/350/500 mm
@@ -585,6 +603,46 @@ empreintes sont consignés dans les preuves courantes, sans qualification
 matérielle implicite.
 Les réussites antérieures ne certifient pas cette configuration. GNSS et
 plusieurs équipements de mission restent candidats. Validation : DOC-VAL§12.1.9.
+
+##### 4.1.3.4 Batterie, récepteur et équipements directs — 5 octobre 2026
+
+La hiérarchie adoptée sépare les fonctions d’échange : les67 pièces mobiles
+sont dans `SA02_Cassette20Ah_Coulissante`, label «Batterie 20 Ah», et les72
+pièces fixes dans `SA02A_Dock20Ah`, label «Récepteur de batterie 20 Ah».
+Les noms de fichiers restent stables. Le pack, le BMS, le coffret et les
+raccords TE mobiles sortent ensemble ; le récepteur demeure dans le drone.
+L’extraction doit être appliquée une seule fois aux67 pièces mobiles.
+
+L’assemblage principal contient12 liens directs : six sous-assemblages et
+six pièces, PM08-CAN, PDB18138, plateauP57, JETI, commande magnétique et
+isolateurUART. `SA07_Distribution_Systeme_Candidat.FCStd` est conservé comme
+montage historique non installé. Cela rend le montage principal lisible
+sans dupliquer ces équipements ni conserver un dock monolithique.
+
+La migration est **Implémentée** en CAO et sa réouverture est réussie :
+aucun objet Invalid ni lien manquant. Le multiensemble des149 éléments
+affectés conserve ses références et poses mondiales (139 anciens éléments
+du dock, six équipements et quatre liens principaux traités comme blocs).
+Les apparences complètes sont identiques. Les sources des pièces et du
+faisceau restent inchangées ; seules la batterie, le récepteur et le
+principal ont été sauvegardés pour leur nouveau parentage. L’enveloppe
+du principal est identique avant/après dans le périmètre de cette preuve. Les mesures du compactage au §4.1.3.3 ne constituent pas un
+nouveau gain de volume dû au rangement. La preuve dédiée est
+`verification/decoupage_sous_assemblages_batterie.json` : parentage67/72,
+principal6+6, absence de doublon, liens résolus et identité géométrique après
+réouverture. Les contrôles frais et l’extraction sont dans
+`verification/controle_hierarchie_batterie.json`, la concordance des registres
+et de la BOM dans `verification/hierarchie_batterie_recepteur.json`, et les
+vues dans `verification/rendu_hierarchie_batterie.json`. Les translations
+0/50/500 mm déplacent uniquement les67 mobiles, une fois, et maintiennent
+72 éléments du récepteur, six équipements et37 routes fixes. Le contrôle
+ne sauvegarde aucun natif. Les registres publiés confirment182 occurrences
+et115 références sur le périmètre batterie/récepteur/énergie/SA08, sans
+double installation ; ces nombres ne décomptent pas tout le drone.
+Les contrôles de collision antérieurs sont transférés par identité des
+sources et poses, sans nouveaux booléens. La recette et les registres évoluent en place ;
+les anciennes recettes monolithiques doivent refuser ce parentage avant
+toute mutation. Maintenance : README cartographe ; protocole : DOC-VAL§12.1.10.
 
 ### 4.2 Isolation du bloc capteurs
 
@@ -986,7 +1044,7 @@ Aucune qualification matérielle ni bilan de centrage n'est déduit.
 | TE / faisceau du dock 20 Ah | liaison directe candidate AWG8/742F5 M5 vers contacts Middle Drawer ; JETI à l'étage inférieur ; XT90-S/AWG10/P42 retirés | engagement réel, compatibilité et sertissage, liberté flottante, courbure, traction, précharge et échauffement (DOC-ELEC §6.1) |
 | RTK / antenne | supports P07–P09 et enveloppes Rover patch historiques conservés | candidat Helical STM32G4 : support/antenne et SMA éventuel, câbles CAN + UART2 de temps, ciel dégagé, carbone/propulsion, masse et repères à vérifier |
 | caméra / optique | Basler conservée ; translation Airy traçable | objectif réel, champ de vue, masques, longueur des vis et extrinsèques |
-| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN et PDB 300A Top Entry candidate implantés dans SA07 sur P57 candidat | fixations et isolation, accès XT90/XT30 de la PDB, protection W08 au plus près du port, retenue des départs, contour/fixations CA01, encombrement, vibrations et thermique (DOC-ELEC §4.2 et §6.1) |
+| distribution / convertisseurs / radios | cible CA01 avec RP4TD et 5 V local ; PM08-CAN et PDB 300A Top Entry candidate directement liés au principal, sur P57 candidat | fixations et isolation, accès XT90/XT30 de la PDB, protection W08 au plus près du port, retenue des départs, contour/fixations CA01, encombrement, vibrations et thermique (DOC-ELEC §4.2 et §6.1) |
 | masse et centrage | quantités CAO actives corrigées ; bilan isolateurs actualisé | masse de chaque pièce fabriquée et équipement, centre de gravité complet, poussée/endurance |
 | sources et exports | sources fabricant conservées, corrections natives et exports locaux | réouverture/recalcul, revue de montage puis essais matériels selon DOC-VAL |
 
@@ -1067,8 +1125,8 @@ et les vis ajoutées sont distinguées par les recettes et la BOM.
 | Airy, Basler et objectif | 1 chacun | bloc optique/LiDAR calibré | équipements candidats/présélectionnés |
 | porteuse Holybro Pixhawk Jetson, Pixhawk 6X module seul et Orin NX 16 Go | 1 chacun | ensemble calcul/vol de la nouvelle cible | représentation groupée **Implémenté** dans la maquette inactive ; fixation et thermique **À valider** |
 | H-RTK F9P DroneCAN Helical STM32G4 et antenne candidats | 1 module embarqué | navigation RTK et PPS ; interface de fixation | enveloppe nominale **Implémenté** dans la maquette inactive ; référence, interfaces, masse et montage **À valider** |
-| PM08-CAN et plateau P57 candidat | 1 par drone | distribution mesurée et deux BEC, à l'étage inférieur dans SA07 | enveloppe 45 × 41 × 26 mm hors câbles **Implémenté** ; 185 g avec câbles ; fixations et faisceaux **À valider** ; PM08D distinct |
-| PDB Holybro 300A Top Entry, SKU 18138, et plateau P57 candidat | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | STEP fabricant implanté dans SA07, CAO **Implémenté** ; fixations, masse, isolation, accès et faisceaux **À valider** |
+| PM08-CAN et plateau P57 candidat | 1 par drone | distribution mesurée et deux BEC, à l'étage inférieur, directement dans le principal | enveloppe 45 × 41 × 26 mm hors câbles **Implémenté** ; 185 g avec câbles ; fixations et faisceaux **À valider** ; PM08D distinct |
+| PDB Holybro 300A Top Entry, SKU 18138, et plateau P57 candidat | 1 candidate par drone | distribution en aval du PM08-CAN ; six XT90 et deux XT30 orientés vers le haut, fixation M3 | STEP fabricant directement lié au principal, CAO **Implémenté** ; fixations, masse, isolation, accès et faisceaux **À valider** |
 | H-RTK F9P Base, HANT-X627A, mât/trépied, boîtier et poste QGC | 1 jeu sol | référence RTK et opérateur | sélection cible **Planifiée** ; assise, repère et câbles **À valider** |
 
 Les références électriques détaillées sont tenues dans `DOC-ELEC`. Les
@@ -1470,6 +1528,7 @@ présentée comme référence.
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | Batterie67 pièces et récepteur72 séparés, six équipements d’énergie directement dans le principal ; fichiers stables, anciens montages non installés ; réouverture149 références/poses/apparences conservées, extraction unique0/50/500 et registres182/115 contrôlés (§4.1.3.4). |
 | 5 octobre 2026 | Raccordement compact : TE avancé encore40 mm, positif axial17,2548 mm et C−49,3353 mm, protections locales ; depuis1ccbad81 cassette−10,505 %, énergie−2,757 %, intégration inchangée ; contrôle BMS réussi, contrôles complets et persistance SA08 réussis (§4.1.3.3). |
 | 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : BMS au-dessus du pack ; P37 portée à95 mm, plateau/fixations +25 mm, P43/P44 adaptés et TE avancé74 mm ; comparaison BMS contrôlée −13,738 % batterie/énergie, +12,246 % cassette seule et −10,028 % intégration locale ; contrôles BMS, SA08 enregistrés et registres réussis (§4.1.3.3). |
 | 5 octobre 2026 | Étape arrière historique dans Git94d04d0 : BMS/P58 dans P43/P44 de142×76, recul TE additionnel44 mm et SA08 recoté ; remplacée par l’implantation au-dessus du pack. |

@@ -6,6 +6,7 @@
   "statut": "Implémenté en registre et réservations CAO ; À valider",
   "fabrication_autorisee_par_ce_registre": false,
   "representation_CAO_candidate": {
+    "role": "Construction historique de 35 routes ; représentation courante et transfert de géométrie ci-dessous",
     "assemblage": "hardware/mecanique/cartographe/sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd",
     "recette": "hardware/mecanique/cartographe/verification/routes_systeme_candidat_20261003.json",
     "preuve_construction": "hardware/mecanique/cartographe/verification/construction_systeme_faisceau_20261003.json",
@@ -13,6 +14,15 @@
     "nombre_routes": 35,
     "longueurs_mesurees": "Dans la preuve de construction par ID route ; aucune longueur de coupe définie.",
     "limite": "Réservations avec sorties OEM non cotées ; 23 chemins sous les rayons réservés, fixations et passages À valider."
+  },
+  "representation_CAO_courante": {
+    "assemblage_principal": "hardware/mecanique/cartographe/assemblages/Integration_Stack_Revue_20261003.FCStd",
+    "faisceau": "hardware/mecanique/cartographe/sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd",
+    "nombre_routes": 37,
+    "preuve_geometrique_anterieure": "hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json",
+    "preuve_transfert_references_poses": "hardware/mecanique/cartographe/verification/decoupage_sous_assemblages_batterie.json",
+    "preuve_parents_registres": "hardware/mecanique/cartographe/verification/hierarchie_batterie_recepteur.json",
+    "limite": "Liens et parentage réorganisés, géométries conservées ; aucune longueur de coupe ni qualification physique supplémentaire."
   },
   "source_liaisons": "hardware/electronique/cartographe/cablage_global.json",
   "nombre_liaisons_actives_attendu": 40,
@@ -22,7 +32,13 @@
     "W30"
   ],
   "configuration": {
-    "energie_active": "SA02A_Dock20Ah",
+    "energie_active": "Integration_Stack_Revue_20261003",
+    "batterie_mobile": "SA02_Cassette20Ah_Coulissante",
+    "recepteur_fixe": "SA02A_Dock20Ah",
+    "equipements_energie_directs": [
+      "MainSwitchJETI", "CommandeMagnetiqueJETI", "PM08", "PDB18138",
+      "PlateauEnergieInferieur", "InterfaceBMSIsolee"
+    ],
     "avionique_active_historique": "SA03_Avionique_Rehausse20",
     "avionique_cible": "SA03_CA01_Holybro_candidat",
     "avionique_cible_active_dans_drone": false,

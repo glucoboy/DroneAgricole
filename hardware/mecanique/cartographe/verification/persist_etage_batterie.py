@@ -1,4 +1,6 @@
 """Infrastructure : synchroniser visibilité App/GUI et matériaux sans toucher aux BRep."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('persist_etage_batterie.py')
 from pathlib import Path
 import hashlib,json,struct,zipfile,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[4];VER=Path(__file__).resolve().parent

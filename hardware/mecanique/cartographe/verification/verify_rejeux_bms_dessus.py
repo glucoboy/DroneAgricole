@@ -1,4 +1,6 @@
 """Vérification négative : les recettes historiques ne remplacent pas la rehausse."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('verify_rejeux_bms_dessus.py')
 from etage_batterie_helpers import ROOT,MEC,VER
 import runpy,json,hashlib
 recipes=['build_stack_revue_20261003.py','build_rehausse20_avionique_20261002.py','update_docs_bms.py']

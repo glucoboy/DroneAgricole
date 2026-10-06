@@ -1,4 +1,6 @@
 """Synchronisation des documents vivants avec la conception BMS candidate."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_docs_bms.py')
 from pathlib import Path
 import re,zipfile
 ROOT=Path(__file__).resolve().parents[4]

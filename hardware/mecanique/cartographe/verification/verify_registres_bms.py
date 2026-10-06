@@ -1,4 +1,6 @@
 """Cohérence des empreintes, occurrences, BOM et couleurs actuelles après CAO."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('verify_registres_bms.py')
 from pathlib import Path
 from collections import Counter
 import hashlib,json,zipfile,xml.etree.ElementTree as ET,struct

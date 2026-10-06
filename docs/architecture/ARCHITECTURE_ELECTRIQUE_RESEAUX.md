@@ -795,6 +795,12 @@ PM→POWER, parallèle des BEC ni réalimentation via CAN1 +5 V.
 La maquette historique `Drone_Cartographe_Systeme_Candidat.FCStd` est archivée.
 La configuration locale courante `Integration_Stack_Revue_20261003.FCStd`
 lie SA08 et ses37 routes, dont les liaisons UART isolée et USB BMS.
+La batterie mobile et le récepteur fixe sont deux sous-assemblages distincts.
+JETI, PM08-CAN, PDB18138, plateauP57, commande magnétique et isolateurUART
+sont six pièces directement liées au principal ; SA07 est historique non installé.
+Ce parentage conserve le circuit27 modules/40 liaisons. Son identité avec
+la géométrie contrôlée avant migration est démontrée par conservation des
+sources et des poses mondiales (DOC-VAL§12.1.10) ; aucun nouvel essai matériel.
 Le dernier rapprochement du TE impose un nouveau recalage : contrôle complet
 des37 routes réussi sans collision, relecture finale des fichiers enregistrés
 réussie par identité/BOP et empreintes courantes (DOC-VAL§12.1.9). Les preuves
@@ -1191,7 +1197,7 @@ ni la tension de charge ni l'endurance du nouveau montage.
 | `ELEC-CAB-01` | contacts M5 TE 1766283-1 / 6648335-1 et cosses à 90° Klauke 742F5 M5 candidates | 2 contacts de puissance par côté | raccorder les fils AWG8 du pack au dock | BOM du dock ; compatibilité AWG8, sertissage, courant et parcours **À valider** |
 | `ELEC-SW-01` | JETI MainSwitch100 J-MSW-100-MS et commande magnétique | 1 jeu fixe par drone | coupure et limitation de l'étincelle | commutation du négatif ; état ON mémorisé, voir §6.1 |
 | `ELEC-PWR-01` | PDB Holybro 300A top-entry SKU 18138 candidate | 1 | distribution passive aval PM08 vers ESC et CA01 | six XT90/deux XT30 annoncés ; branche CA01, montage et courant par sortie **À valider** |
-| `ELEC-PWR-02` | Holybro PM08-CAN 14S 200A, distinct du PM08D | 1 par drone, à l'étage inférieur dans SA07 | mesure DroneCAN ; BEC1→POWER1, BEC2→POWER2 | implantation CAO sur P57 **Implémenté** ; fixations/faisceau/courants/thermique **À valider** |
+| `ELEC-PWR-02` | Holybro PM08-CAN 14S 200A, distinct du PM08D | 1 par drone, à l'étage inférieur directement dans le principal | mesure DroneCAN ; BEC1→POWER1, BEC2→POWER2 | implantation CAO sur P57 **Implémenté** ; fixations/faisceau/courants/thermique **À valider** |
 | `ELEC-PWR-03` | conversions CA01 12 V calcul/LiDAR et 5 V auxiliaires | selon rails §4.2 | Jetson XT30, Airy, radio et synchronisation | schéma V0.5-pre partiel ; références/protections et ERC à fermer |
 | `ELEC-CA01` | carte avionique commune CA01 | 1 | porteuse radio, conversion et synchronisation ; PM externe | schéma V0.5-pre et démarrage du routage quatre couches **Implémentés** ; routage complet **Planifié**, qualification **À valider**, non fabricable |
 | `ELEC-FCU-01` | Holybro Pixhawk 6X module seul | 1 | contrôle de vol PX4 sur porteuse | sélection cible **Planifiée** ; matériel **À valider** |
@@ -1381,6 +1387,14 @@ installée de prises, câbles ou dissipation. Le courant «100 A» n'est pas
 qualifié dans le coffret : les pertes, températures, courant mission,
 pointes et seuils doivent être mesurés sur le lot. Le module n'est pas un
 chargeur. JETI et PM08-CAN sont conservés ; aucun module PM08D I²C substitué.
+
+Le pack, le BMS supérieur, les prises cellules internes et le côté mobile TE
+appartiennent au sous-assemblage batterie `SA02_Cassette20Ah_Coulissante`.
+Le côté fixe TE et ses cordons appartiennent au récepteur `SA02A_Dock20Ah`.
+L’isolateur reste fixe, directement dans le principal, ainsi que JETI, sa commande,
+PM08-CAN, PDB et P57. Le découpage CAO ne déplace pas la frontière de protection :
+B− brut reste interne à la batterie, l’UART brut traverse TE puis l’isolation,
+et toutes les charges restent après JETI. Validation de parentage : DOC-VAL§12.1.10.
 
 Le PCB reste au-dessus du pack, sous le plateau rehaussé de25 mm
 (DOC-MEC§4.1.3.3). Le TE avance encore40 mm sur X depuis Git `1ccbad81`,
@@ -1990,6 +2004,7 @@ Tous ces choix restent **À valider**. Aucun faisceau de vol ne doit être fabri
 
 | Date | Modification |
 |---|---|
+| 5 octobre 2026 | Parentage CAO batterie/récepteur/principal clarifié ; circuit27 modules/40 liaisons, coupures BMS/JETI, charge protégée et isolationUART conservés. |
 | 5 octobre 2026 | Raccordement BMS/TE optimisé sans changement de topologie : B+ axial, C− courbe et cosse réorientée, chambre supprimée ; longueur usine/sertissage/flottement restent À valider, contrôle complet et persistance SA08 réussis (§6.2). |
 | 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : BMS au-dessus du pack et plateau +25 mm ; TE avancé74 mm et route positive raccourcie, circuit27 modules/40 liaisons inchangé ; isolation, charge protégée et qualification physique restent ouvertes (§6.2). |
 | 5 octobre 2026 | BMS JBD A01 commercial sélectionné, TE conservé avec5signaux/UART isolé ; CAO/schéma candidats Implémentés, courant/lot/thermiqueÀvalider (§6.2) |

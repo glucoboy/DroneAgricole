@@ -1,4 +1,6 @@
 """Vues natives courantes ; vue ouverte cache seulement P44 sans sauver la CAO."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('render_bms_cassette.py')
 from etage_batterie_helpers import *
 from PySide import QtCore
 import json,hashlib

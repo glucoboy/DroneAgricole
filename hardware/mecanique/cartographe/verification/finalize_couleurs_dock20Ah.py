@@ -5,6 +5,8 @@ save(). Réparer uniquement les données GUI, au format natif documenté par
 PropertyMaterialList::SaveDocFile (FreeCAD src/App/PropertyStandard.cpp).
 La géométrie courante est conservée ; les arbres GUI initiaux viennent de Git.
 """
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('finalize_couleurs_dock20Ah.py')
 from pathlib import Path
 import hashlib
 import io

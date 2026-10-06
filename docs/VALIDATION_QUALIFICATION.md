@@ -929,7 +929,8 @@ implantation supérieure Git `1ccbad81` sont historiques. Leurs réussites
 ne certifient pas le dernier déplacement. Les fichiers et noms restent
 stables ; retours arrière par Git.
 
-Le [contrôle BMS courant](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
+Les résultats suivants portent sur le compactage avant séparation des parents
+CAO ; la migration est contrôlée séparément au §12.1.10. Le [contrôle BMS du compactage](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
 réouvre/recalcule les natifs en processus FreeCAD neuf :147 sources,
 aucune erreur de recalcul ni lien rompu, cinq routes valides avec contrôle
 BOP, axes et entrées des cosses cohérents, aucune collision non classée.
@@ -959,7 +960,7 @@ contrôle d’identité. La relecture indépendante P49 confirme un solide BOP s
 chacun et extrémités JETI cohérentes. Aucune collision non classée ou réserve
 géométrique ne reste ouverte dans le périmètre nominal contrôlé.
 
-Les registres sont actualisés :182 occurrences,115 références et629 placements
+Les registres de cette étape avant migration sont actualisés :182 occurrences,115 références et629 placements
 dans le manifeste, avec TE à12 mm de recul sur X. Le
 [rendu final](../hardware/mecanique/cartographe/verification/rendu_bms_cassette.json)
 produit deux PNG relus, sans modification des147 sources : protections
@@ -1004,6 +1005,59 @@ constituent pas un secours à cette cause commune. PM08 reste source PX4.
 Non exécutés : réception, sertissage, isolation physique, thermique, charge,
 vibration, cycles, matériel embarqué et vol, faute de lot/banc. Aucun
 résultat **Qualifié**.
+
+### 12.1.10 Découpage batterie/récepteur et énergie directe — 5 octobre 2026
+
+`MEC-ARC-001` / `MEC-BAT-001` / `SAFE-REQ-011` → batterie mobile,
+récepteur fixe et principal6+6 → `T-CARTO-HIER-BAT-01` →
+`verification/decoupage_sous_assemblages_batterie.json`.
+La migration CAO est **Implémentée** et le contrôle après sauvegarde est
+réussi. Les preuves de migration et de contrôle frais sont finalisées. Le contrôle frais est
+`verification/controle_hierarchie_batterie.json`, la concordance registres/BOM
+`verification/hierarchie_batterie_recepteur.json`, et la vérification des vues
+`verification/rendu_hierarchie_batterie.json`. Les anciennes preuves de
+compactage restent gelées, avec leurs empreintes et leur parentage antérieur.
+
+Cible :67 pièces mobiles dans `SA02_Cassette20Ah_Coulissante`,72 fixes dans
+`SA02A_Dock20Ah`, six pièces d’énergie directement dans le principal et six
+liens de sous-assemblages, soit12 liens directs. SA07 est conservé hors
+configuration installée. Le protocole en processus FreeCAD neuf vérifie :
+
+- parentage et unicité, absence du groupe SA07 installé, liens résolus et recalcul ;
+- références et quantités identiques, matrices mondiales et orientations
+  conservées, sources natives de pièces/faisceau inchangées et couleurs avant/après ;
+- extraction appliquée une seule fois à l’ensemble mobile67 pièces,
+  récepteur et six équipements fixes immobiles, aux trois translations0/50/500 mm ;
+- empreintes des sources et des preuves du compactage permettant le transfert
+  de leurs résultats ; les sources de pièces et faisceau ne doivent pas changer.
+  Les huit poses et booléens de collision antérieurs sont réutilisés par cette
+  identité, sans les présenter comme de nouveaux calculs de collision ;
+- registres installés sans double comptage des montages historiques.
+
+Résultats : aucun objet Invalid ni lien non résolu,149 éléments affectés
+conservés comme multiensemble de références et matrices mondiales, apparences
+complètes identiques. Ces149 éléments sont139 anciens éléments du dock,
+six équipements et quatre liens principaux traités comme blocs ; ils ne
+constituent pas un inventaire détaillé de tous les objets internes du drone.
+Aux translations0/50/500 mm, seuls les67 mobiles bougent une fois ;72
+éléments du récepteur, six pièces directes et37 routes restent fixes.
+Le contrôle ne modifie aucun natif ; sources de pièces/faisceau, anciennes
+preuves et enveloppe du principal conservées. Les registres publiés
+confirment182 occurrences/115 références sur le périmètre batterie,
+récepteur, énergie directe et SA08, ainsi que12 liens directs dans le principal.
+
+Les gardes des anciennes recettes monolithiques doivent refuser cette
+hiérarchie avant mutation. Les preuves citées ici ne constituent pas
+un rejeu de toutes les recettes historiques. Les vues et leur contrôle
+sont rattachés à `verification/rendu_hierarchie_batterie.json` ; vérifier
+sa finalisation et ses empreintes avant de réutiliser une vue.
+
+Les mesures388×210,5×181 mm énergie,295,900×113,6535×91 mm cassette et
+538,596×511,015×501,529 mm intégration sont les références géométriques du
+compactage précédent. Leurs sources et poses sont conservées ; aucun nouveau gain
+n’est attribué au seul changement de hiérarchie. Circuit27 modules/40 liaisons
+et frontières BMS/JETI/isolation inchangés. Aucune qualification matérielle,
+course continue, tenue des fixations, thermique ou vol n’est ajoutée.
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -2219,6 +2273,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
+| MEC-ARC-001, MEC-BAT-001 | batterie67 mobiles, récepteur72 fixes et principal6 SA+6 pièces | T-CARTO-HIER-BAT-01, §12.1.10 | parentage12, multiensemble149, poses/apparences/sources conservées ; extraction0/50/500 unique ; registres182/115 sans doublon | CAO **Implémentée**, contrôle numérique réussi ; physique **À valider** |
 | SAFE-REQ-011, ELEC-BMS-001 | BMS solidaire de cassette et connecteur d'échange candidat | T-CARTO-BMS-01..06, §12.1.9 | CAO JBD/TE et schéma40liaisons implémentés ; charge/thermique/isolation/logiciel/cycles à valider, aucun essai matériel | CAO/schéma **Implémentés**, physique **À valider** |
 | MEC-ARC-001, MEC-BAT-001 | étage énergie et raccordement direct candidat AWG8/742F5 M5 au TE | T-CARTO-ETAGE-DIRECT-01, §12.1.8 | liens/rayons/implantation/collisions/extraction du pack nominal contrôlés ; enveloppe d'étude, lot et fixations **À valider** | CAO **Implémenté**, préliminaire |
 | MEC-ARC-001, MEC-BAT-001 | dock historique coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
@@ -2254,6 +2309,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Date | Évolution |
 |---|---|
+| 5 octobre 2026 | Protocole T-CARTO-HIER-BAT-01 : séparation67/72, principal6+6, identité des références/poses/couleurs et extraction unique ; réouverture après sauvegarde et registres réussis, sources conservées et anciens booléens transférés par identité ; physique À valider (§12.1.10). |
 | 5 octobre 2026 | Compactage pack/BMS/TE :147 sources relues, cinq routes BOP, axes/entrées et huit poses d’extraction contrôlés ; comparaison depuis1ccbad81 sur bornes recalculées ; contrôle complet et persistance SA08 réussis, aucun essai matériel (§12.1.9). |
 | 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : comparaison géométrique BMS recalculée par périmètre, anciens contrôles arrière historiques ; contrôles BMS/extraction,37 routes SA08 enregistrées et registres réussis, aucun essai matériel nouveau (§12.1.9). |
 | 5 octobre 2026 | ContrôlesCAOBMS/UART/TE etschéma40liaisons, revueindépendante etempreintescourantes ; limitesphysiquesnonqualifiées (§12.1.9) |

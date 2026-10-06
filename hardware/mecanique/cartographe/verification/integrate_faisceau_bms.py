@@ -1,4 +1,6 @@
 """Ajouter le faisceau courant au fichier d'intégration conservé en place."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('integrate_faisceau_bms.py')
 from etage_batterie_helpers import *
 import json
 proof=json.loads((VER/'controle_routes_systeme_courant.json').read_text(encoding='utf-8'))

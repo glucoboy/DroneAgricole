@@ -11,6 +11,8 @@ def meta(o,k,v):
 
 def require_legacy_layout(recipe):
  """Empêche une ancienne recette de rétablir silencieusement le dock sans BMS."""
+ from garde_hierarchie_batterie import require_monolithic_layout
+ require_monolithic_layout(recipe)
  p=MEC/'sous_assemblages/SA02A_Dock20Ah.FCStd'
  if p.exists():
   with zipfile.ZipFile(p) as z:

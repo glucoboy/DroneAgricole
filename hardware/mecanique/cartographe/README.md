@@ -1,8 +1,9 @@
 # Cartographe — dernières implémentations FreeCAD
 
 Ouvrir [Integration_Stack_Revue_20261003.FCStd](assemblages/Integration_Stack_Revue_20261003.FCStd)
-pour la dernière intégration mécanique locale : châssis, dock20Ah, stack,
-bloc capteurs, distribution et faisceau SA08 recoté. Le GNSS reste un sous-assemblage
+pour la dernière intégration mécanique locale : châssis, batterie mobile,
+récepteur fixe, stack, bloc capteurs et faisceau SA08. JETI, PM08-CAN, PDB,
+P57, commande et isolateurUART sont directement liés au principal. Le GNSS reste un sous-assemblage
 séparé ; cette étude locale n'est pas un drone complet qualifié.
 
 Le catalogue courant est `manifest.json`, clé `catalogue_courant_20261004`.
@@ -16,19 +17,19 @@ Les dernières vues natives de la stack sont dans
 | Fonction | Fichier courant |
 |---|---|
 | Châssis et plaque basse reprise | [SA01_Chassis_Stack_Revue_20261003.FCStd](sous_assemblages/SA01_Chassis_Stack_Revue_20261003.FCStd) |
-| Dock batterie20Ah complet | [SA02A_Dock20Ah.FCStd](sous_assemblages/SA02A_Dock20Ah.FCStd) |
+| Récepteur fixe20Ah,72 pièces | [SA02A_Dock20Ah.FCStd](sous_assemblages/SA02A_Dock20Ah.FCStd) |
 | Stack Holybro/CA01 revue | [SA03_CA01_Holybro_Revue_20261003.FCStd](sous_assemblages/SA03_CA01_Holybro_Revue_20261003.FCStd) |
 | Capteurs avec appuis | [SA05_Capteurs_Isoles.FCStd](sous_assemblages/SA05_Capteurs_Isoles.FCStd) |
 | Bloc optique/LiDAR | [SA05A_Bloc_capteurs.FCStd](sous_assemblages/SA05A_Bloc_capteurs.FCStd) |
 | Appui Sorbothane réutilisé quatre fois | [SA05B_Appui_Sorbothane.FCStd](sous_assemblages/SA05B_Appui_Sorbothane.FCStd) |
 | GNSS Helical G4 candidat | [SA06_RTK_Helical_Systeme_Candidat.FCStd](sous_assemblages/SA06_RTK_Helical_Systeme_Candidat.FCStd) |
-| Étage inférieur : JETI, PM08-CAN et PDB candidats | [SA07_Distribution_Systeme_Candidat.FCStd](sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd) |
+| Montage historique énergie, non installé | [SA07_Distribution_Systeme_Candidat.FCStd](sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd) |
 | Station sol, dernière représentation disponible | [SA07_Station_sol.FCStd](sous_assemblages/SA07_Station_sol.FCStd) |
 | Réservations de faisceau, passages À valider | [SA08_Faisceau_Systeme_Candidat.FCStd](sous_assemblages/SA08_Faisceau_Systeme_Candidat.FCStd) |
-| Construction : cassette coulissante | [SA02_Cassette20Ah_Coulissante.FCStd](sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd) |
-| Construction : contacts dock | [SA02_Contacts20Ah.FCStd](sous_assemblages/SA02_Contacts20Ah.FCStd) |
+| Batterie20Ah mobile avec BMS,67 pièces | [SA02_Cassette20Ah_Coulissante.FCStd](sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd) |
+| Montage historique contacts, non installé | [SA02_Contacts20Ah.FCStd](sous_assemblages/SA02_Contacts20Ah.FCStd) |
 
-L'antenne GNSS sur le plateau supérieur et le récepteur sous la batterie
+L'antenne GNSS sur le plateau supérieur et le récepteur GNSS sous la batterie
 restent une option étudiée ; les fichiers conservés gardent leur pose précédente.
 Le faisceau SA08 est lié à la stack revue ; son recalage suit le BMS au-dessus
 du pack et le TE rapproché. Après le dernier rapprochement et remplacement
@@ -52,8 +53,10 @@ Les recettes historiques du 6 septembre au 3 octobre restent des preuves de
 construction ; elles ne constituent pas une commande générale de régénération
 du catalogue courant et peuvent recréer des variantes retirées.
 
-Le dock dépend encore des montages de construction `SA02_Cassette20Ah_Coulissante`
-et `SA02_Contacts20Ah`, conservés dans le dossier courant.
+Ouvrir séparément la batterie `SA02_Cassette20Ah_Coulissante` et son récepteur
+`SA02A_Dock20Ah`, ou le principal pour voir leur montage. `SA02_Contacts20Ah`
+et `SA07_Distribution_Systeme_Candidat` sont conservés comme montages historiques
+non installés ; ne pas les ajouter au principal ni à la nomenclature installée.
 Conserver les noms des fichiers et les faire évoluer en place. Les petits
 natifs et leurs dépendances sont suivis par Git. La sauvegarde `94d04d0`
 conserve l'implantation BMS arrière ; la conception courante place le BMS
@@ -71,34 +74,48 @@ sont historiques ; ne pas les rejouer pour maintenir cette implantation.
 la recette BMS courante. Les scripts ci-dessous s'exécutent depuis ce
 répertoire, avec le Python fourni par FreeCAD1.1.
 
-Contrôler les natifs enregistrés et les registres, puis produire le rendu :
+Contrôler le découpage enregistré, ses placements et ses liens :
 
 ```powershell
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_bms_cassette.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_routes_native_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_bms_cassette.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_hierarchie_batterie.py
 ```
 
-Pour reconstruire la configuration courante en place, reprendre les recettes
-de cette configuration et contrôler les résultats avant le rendu :
+Pour appliquer ou reprendre le découpage fonctionnel en place :
 
 ```powershell
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_bms_cassette.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_routes_systeme_candidat.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/integrate_faisceau_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_bms_cassette.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_routes_native_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_registres_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_registres_bms.py
-& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_bms_cassette.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_hierarchie_batterie.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_hierarchie_batterie.py
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_registres_hierarchie_batterie.py
 ```
 
-`update_bms_cassette.py` appelle l'implantation courante
-`update_bms_dessus.py`. Garder l'ordre des recettes : une nouvelle géométrie
-modifie les routes, puis leurs empreintes doivent être réconciliées avec les
-registres. Les passages de câbles sont des réservations ; une commande réussie
-ne libère pas un faisceau pour fabrication.
+Pour vérifier les registres sans les réécrire, puis générer les vues :
+
+```powershell
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/update_registres_hierarchie_batterie.py --check
+& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/render_hierarchie_batterie.py
+```
+
+Lire les preuves distinctes : `verification/decoupage_sous_assemblages_batterie.json`
+pour la migration et la conservation géométrique après réouverture,
+`verification/controle_hierarchie_batterie.json` pour les contrôles frais,
+`verification/hierarchie_batterie_recepteur.json` pour les registres/BOM, et
+`verification/rendu_hierarchie_batterie.json` pour les vues. Vérifier leur
+finalisation après sauvegarde. Le contrôle frais du découpage et des registres est réussi :12 liens directs,
+67 mobiles/72 fixes/six pièces directes, références/poses/apparences
+conservées et extraction unique aux translations0/50/500 mm. Les sources
+de pièces et de faisceau sont inchangées ; les résultats du compactage
+sont transférés par cette identité, sans nouveaux booléens de collision. Ces commandes réorganisent
+les liens existants ; elles ne redessinent pas les modules ou les câbles.
+
+Les anciennes recettes `update_bms_cassette.py`, `update_bms_dessus.py`,
+`integrate_faisceau_bms.py` et `update_registres_bms.py` ne sont plus des
+commandes de maintenance de ce découpage. Les anciennes constructions de stack,
+dock et rehausse doivent le refuser avant toute mutation. Ne pas contourner
+ces gardes ni reconstruire l’ancien dock complet ou SA07 installé.
+Toute nouvelle modification géométrique requiert des contrôles et recettes
+adaptés aux deux parents batterie/récepteur, puis une mise en concordance des
+registres. Les passages restent des réservations **À valider** ; une commande
+réussie ne libère pas un faisceau pour fabrication.
 La nomenclature est `verification/nomenclature_etage_batterie.json` ; BOM,
 faisceau et sources évoluent en place. Le branchement JBD/TE/UART isolé et ses
 limites sont décrits dans DOC-ELEC§6.2, les contrôles dans DOC-VAL§12.1.9.
@@ -116,8 +133,9 @@ Vérifier le rangement et les liens, dans des processus PythonFreeCAD séparés 
 & 'C:/Program Files/FreeCAD 1.1/bin/python.exe' verification/verify_tri_sous_assemblages_20261004.py source_stack
 ```
 
-Ces commandes s'exécutent depuis le répertoire cartographe. Le tri et les
-contrôles ne modifient aucun placement ni géométrie native.
+Ces commandes s'exécutent depuis le répertoire cartographe. Leurs assertions
+de catalogue précèdent le découpage batterie/récepteur ; elles vérifient
+le rangement historique, pas la nouvelle hiérarchie installée.
 
 Les BMS, contacts de signal et ports accouplés restent des enveloppes
 candidates. Conserver les sources fabricant inchangées et vérifier les limites

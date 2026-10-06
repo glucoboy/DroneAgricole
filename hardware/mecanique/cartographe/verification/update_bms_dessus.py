@@ -1,4 +1,6 @@
 """Infrastructure FreeCAD : BMS supérieur et raccordement TE compact, natifs conservés."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_bms_dessus.py')
 from pathlib import Path
 import argparse, hashlib, json, math
 import FreeCAD as A

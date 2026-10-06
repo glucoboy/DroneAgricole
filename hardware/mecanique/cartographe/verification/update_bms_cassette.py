@@ -2,6 +2,8 @@
 
 Enveloppes d'étude explicites ; aucune instruction de modification des cellules.
 """
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_bms_cassette.py')
 from etage_batterie_helpers import *
 from update_raccordement_direct_batterie import box,cyl,cut,fuse,clear_features,route
 import Part,json,math,hashlib

@@ -3,6 +3,8 @@
 Exécuter avec le Python fourni par FreeCAD ; --apply sauvegarde en place.
 Le mode par défaut ne fait qu'inventorier les dépendances et leurs tailles.
 """
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('update_couleurs_dock20Ah.py')
 from pathlib import Path
 import hashlib
 import json

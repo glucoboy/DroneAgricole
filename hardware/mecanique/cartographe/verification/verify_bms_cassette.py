@@ -1,4 +1,6 @@
 """Relecture native neuve et collisions BMS/cassette ; jamais qualification physique."""
+from garde_hierarchie_batterie import require_monolithic_layout
+require_monolithic_layout('verify_bms_cassette.py')
 from pathlib import Path
 import hashlib,json,sys,math
 import FreeCAD as A,Part
