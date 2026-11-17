@@ -1,0 +1,61 @@
+{
+  "cases": {
+    "electrical-nominal": {
+      "checks": [
+        {"key":"continuity","family":"V1","method":"L2_CONTINUITY","subjects":["cordon","circuit-1","circuit-2","circuit-3","circuit-4"],"parameters":{},"tolerance":null},
+        {"key":"compatibility","family":"V1","method":"L2_COMPATIBILITY","subjects":["interface-a","interface-b"],"parameters":{},"tolerance":null},
+        {"key":"port-a","family":"V1","method":"L2_PORT","subjects":["interface-a","port-a"],"parameters":{"interface_id":"interface-a"},"tolerance":null},
+        {"key":"revision","family":"V1","method":"L2_REVISION","subjects":["interface-a","embase","fiche"],"parameters":{"interface_id":"interface-a"},"tolerance":null}
+      ]
+    },
+    "f12-wrong-port": {
+      "checks": [
+        {"key":"f12-port","family":"V1","method":"L2_PORT","subjects":["F12","TELEM1","GPS2"],"parameters":{"interface_id":"interface-a","expected_port_id":"TELEM1"},"tolerance":null}
+      ]
+    },
+    "f24a-unidentified": {
+      "checks": [
+        {"key":"f24a-port","family":"V1","method":"L2_PORT","subjects":["F24A","GPIO"],"parameters":{"interface_id":"interface-a","expected_port_id":"GPIO"},"tolerance":null}
+      ]
+    },
+    "angled-incompatible": {
+      "checks": [
+        {"key":"angled-compatibility","family":"V1","method":"L2_COMPATIBILITY","subjects":["interface-a","fiche-autre-cle"],"parameters":{},"tolerance":null}
+      ]
+    },
+    "manufacturer-revision-conflict": {
+      "checks": [
+        {"key":"manufacturer-revision","family":"V1","method":"L2_REVISION","subjects":["interface-a","fiche"],"parameters":{"interface_id":"interface-a"},"tolerance":null}
+      ]
+    },
+    "electrical-missing-data": {
+      "checks": [
+        {"key":"continuity","family":"V1","method":"L2_CONTINUITY","subjects":["cordon","circuit-4"],"parameters":{},"tolerance":null}
+      ]
+    },
+    "electrical-matrix-tampered": {
+      "checks": [
+        {"key":"continuity","family":"V1","method":"L2_CONTINUITY","subjects":["cordon","circuit-1","circuit-2"],"parameters":{},"tolerance":null}
+      ]
+    },
+    "diagnostic-nominal": {
+      "checks": [
+        {"key":"f40-debug","family":"V1","method":"L3_DIAGNOSTIC_PATH","subjects":["F40","DEBUG"],"parameters":{"path_id":"diag-debug-path"},"tolerance":null},
+        {"key":"f41-return","family":"V1","method":"L3_DIAGNOSTIC_PATH","subjects":["F41","RETURN"],"parameters":{"path_id":"diag-return-path"},"tolerance":null}
+      ]
+    },
+    "diagnostic-missing-return": {
+      "checks": [
+        {"key":"f40-debug","family":"V1","method":"L3_DIAGNOSTIC_PATH","subjects":["F40","DEBUG"],"parameters":{"path_id":"diag-debug-path"},"tolerance":null},
+        {"key":"f41-return","family":"V1","method":"L3_DIAGNOSTIC_PATH","subjects":["F41","RETURN"],"parameters":{"path_id":"diag-return-path"},"tolerance":null}
+      ]
+    },
+    "electrical-historical-documentary": {
+      "checks": [
+        {"key":"f12-recorded-geometry","family":"V1","method":"L1_ARCHIVED_GEOMETRY","subjects":["F12","W12","RC02"],"parameters":{"line_id":"W12","issue_id":"F12-ACTIVE-GEOMETRY"},"tolerance":null},
+        {"key":"f12-mounted-revision","family":"V1","method":"L1_L2_ARCHIVED_PORT","subjects":["F12","W12","TELEM1"],"parameters":{"line_id":"W12","issue_id":"F12-TELEM1-REVISION"},"tolerance":null},
+        {"key":"f24a-mounted-port","family":"V1","method":"L1_L2_ARCHIVED_PORT","subjects":["F24A","W24.A","GPIO"],"parameters":{"line_id":"W24.A"},"tolerance":null}
+      ]
+    }
+  }
+}

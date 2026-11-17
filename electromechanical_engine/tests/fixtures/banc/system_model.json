@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "banc-cable",
+  "revision": "1",
+  "frame": "banc XYZ, mm, Z vers le haut",
+  "provenance": {"status": "DOCUMENTEE", "source": "Banc synthétique CAB-ENG-001", "method": "Géométrie nominale de test"},
+  "equipment": [{"id": "source"}, {"id": "receiver"}],
+  "ports": [
+    {"id": "S", "equipment": "source", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [0, 0, 10], "tangent": [1, 0, 0]},
+    {"id": "T", "equipment": "receiver", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [100, 0, 10], "tangent": [-1, 0, 0]}
+  ],
+  "links": [{"id": "L1", "source": "S", "target": "T", "family": "signal", "source_cavities": ["1"], "target_cavities": ["1"]}],
+  "geometry": {
+    "boxes": [
+      {"id": "Deck", "origin_mm": [-5, -30, 0], "size_mm": [110, 60, 2]},
+      {"id": "Obstacle", "origin_mm": [45, -4, 2], "size_mm": [10, 8, 11]}
+    ],
+    "extraction": [
+      {"port": "S", "origin_mm": [-4, -1, 9], "size_mm": [4, 2, 2], "ignore_ids": ["L1"]}
+    ]
+  },
+  "corridors": [
+    {"id": "direct", "carrier": "Deck", "zone": "dessus", "width_mm": 10, "max_carrier_distance_mm": 25, "points_mm": [[0, 0, 10], [100, 0, 10]]},
+    {"id": "lateral", "carrier": "Deck", "zone": "bord", "width_mm": 8, "max_carrier_distance_mm": 25, "points_mm": [[0, 0, 10], [20, 0, 10], [20, 15, 10], [80, 15, 10], [80, 0, 10], [100, 0, 10]]},
+    {"id": "lateral-large", "carrier": "Deck", "zone": "bord", "width_mm": 8, "max_carrier_distance_mm": 25, "points_mm": [[0, 0, 10], [20, 0, 10], [20, -21, 10], [80, -21, 10], [80, 0, 10], [100, 0, 10]]},
+    {"id": "haut", "carrier": "Deck", "zone": "dessus", "width_mm": 8, "max_carrier_distance_mm": 25, "points_mm": [[0, 0, 10], [20, 0, 10], [20, 0, 23], [80, 0, 23], [80, 0, 10], [100, 0, 10]]}
+  ]
+}

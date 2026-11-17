@@ -1,0 +1,17 @@
+{
+  "consolidated-bench": [
+    {"key":"integrity","family":"V2","method":"native-integrity","subjects":["assembly"],"parameters":{}},
+    {"key":"geometry-l1","family":"V2","method":"route-geometry","subjects":["L1"],"parameters":{"required_diameter_mm":2},"tolerance":0.00001},
+    {"key":"geometry-l2","family":"V2","method":"route-geometry","subjects":["L2"],"parameters":{"required_diameter_mm":2},"tolerance":0.00001},
+    {"key":"radius-l1","family":"V2","method":"bend-radius","subjects":["L1"],"parameters":{"minimum_mm":4},"tolerance":1e-12},
+    {"key":"radius-l2","family":"V2","method":"bend-radius","subjects":["L2"],"parameters":{"minimum_mm":4},"tolerance":1e-12},
+    {"key":"all-pairs","family":"V2","method":"pair-coverage","subjects":["assembly"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"inventory_ids":["Deck","L1","L2","Obstacle"],"contacts":[{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle fixé au plateau dans le banc L5."}]},"tolerance":0.000001},
+    {"key":"l1-obstacle","family":"V2","method":"pair","subjects":["L1","Obstacle"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001},"tolerance":0.000001},
+    {"key":"extraction-s1","family":"V3","method":"extraction","subjects":["S1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L2","Obstacle"],"ignored_ids":["L1"]},"tolerance":0.000001},
+    {"key":"extraction-t1","family":"V3","method":"extraction","subjects":["T1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L2","Obstacle"],"ignored_ids":["L1"]},"tolerance":0.000001},
+    {"key":"extraction-s2","family":"V3","method":"extraction","subjects":["S2"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L1","Obstacle"],"ignored_ids":["L2"]},"tolerance":0.000001},
+    {"key":"extraction-t2","family":"V3","method":"extraction","subjects":["T2"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L1","Obstacle"],"ignored_ids":["L2"]},"tolerance":0.000001},
+    {"key":"total-length","family":"V5","method":"architecture-metric","subjects":["L1","L2"],"parameters":{"metric":"total_length_mm","unit":"mm","maximum":270,"metric_scope":{"route_ids":["L1","L2"]}},"tolerance":0.000001,"requirement_id":"L5-V5-length"},
+    {"key":"max-cable-z","family":"V5","method":"architecture-metric","subjects":["L1","L2"],"parameters":{"metric":"max_cable_z_mm","unit":"mm","maximum":25,"metric_scope":{"route_ids":["L1","L2"]}},"tolerance":0.000001,"requirement_id":"L5-V5-height"}
+  ]
+}

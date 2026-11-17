@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "l3-f31-bench",
+  "questions": [
+    {
+      "issue_id": "L3-F31-MATE-COMPATIBILITY",
+      "question": {
+        "id": "RQ.L3-F31-MATE-COMPATIBILITY",
+        "subject_ids": ["F31", "PM08", "CAN1"],
+        "status": "OPEN",
+        "question": "Une fiche à sortie coudée identifiée est-elle compatible avec l’embase du scénario F31 ?",
+        "hypothesis": "Une autre sortie peut libérer l’extraction si une paire applicable et sa course sont établies.",
+        "expected_evidence": "Identification des deux éléments de la paire, plan de détrompage et de cavités, orientation et course applicables.",
+        "refutation": "Un détrompage, un brochage ou un verrou incompatibles écartent la paire. Une course supérieure à l’espace disponible écarte ce montage.",
+        "dependent_decision": "Admettre la variante à fiche coudée à la comparaison du banc.",
+        "evidence_ids": []
+      },
+      "parameter": "mating_compatibility",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Inconnu",
+        "family": "Inconnue",
+        "part_number": "BENCH-F31-UNIDENTIFIED",
+        "revision": null,
+        "attributes": {
+          "identity_status": "Identifiant interne de recherche. Référence fabricant inconnue.",
+          "exit": "coudée"
+        }
+      },
+      "applicability": {
+        "domain": "BENCH",
+        "conditions": {"configuration": "l3-f31-bench", "interface": "F31/PM08/CAN1"}
+      },
+      "expected_authority": "MANUFACTURER",
+      "study": {
+        "strategy": "Faire varier la course dans les limites synthétiques du scénario et rapporter la marge à chaque valeur. Garder la compatibilité ouverte.",
+        "variables": ["course de déconnexion", "encombrement de la fiche"],
+        "next_observation": "Relever l’identification et l’orientation de la fiche puis vérifier le plan de la paire exacte."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "parameter": "mating_compatibility",
+      "reference": {
+        "manufacturer": "Banc synthétique DroneAgricole",
+        "family": "F31 de référence",
+        "part_number": "BENCH-F31-STRAIGHT",
+        "revision": "bench-1",
+        "attributes": {"identity_status": "Identifiant interne de banc", "exit": "droite"}
+      },
+      "applicability": {
+        "domain": "BENCH",
+        "conditions": {"configuration": "l3-f31-bench", "interface": "F31/PM08/CAN1"}
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.L3-F31-STRAIGHT-BENCH",
+        "kind": "SOURCE",
+        "domain": "BENCH",
+        "artifact_path": "architecture_decision_engine/fixtures/f31_straight_observation.json",
+        "uri": null,
+        "sha256": "b7160dd0677bbf9a505b144193e6047e0e87f1411fc01ce022013b140c229685",
+        "locator": "/mating_compatibility",
+        "revision": "bench-1",
+        "collected_at": "2026-11-13T00:00:00Z",
+        "method": "Lecture de l’accouplement déclaré pour la fiche droite de référence du scénario de test.",
+        "hypothetical": false,
+        "limits": "Constat documentaire sur une donnée synthétique du banc. La prise coudée et le montage réel du cartographe restent à identifier."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/mating_compatibility",
+        "checks": {"/fixture_id": "l3-f31-bench", "/fixture_revision": "bench-1", "/plug_id": "BENCH-F31-STRAIGHT"}
+      }
+    }
+  ]
+}

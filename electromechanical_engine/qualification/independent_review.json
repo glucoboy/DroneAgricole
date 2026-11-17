@@ -1,0 +1,88 @@
+{
+  "schema": "droneagricole.electromecanique.revue-qualification.v1",
+  "date": "2026-11-11",
+  "test_id": "T-EM-ENGINE-03",
+  "perimetre": "Reproduction des anomalies du validateur sur fixtures privées, contrelecture des corrections d’inventaire et de comparaison, contrôle de la portée des preuves historiques et du verdict DOC-VAL.",
+  "environnement": {
+    "os_architecture": "Windows amd64",
+    "freecad": "1.1.3",
+    "cables": "0.3.7",
+    "python_freecad": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+  },
+  "executions_independantes": [
+    {
+      "commande": "python -B -m unittest discover -s electromechanical_engine/tests -p test_qualification_inventory.py -v",
+      "phase": "avant correction",
+      "exit_code": 1,
+      "observation": "test_linked_untagged_obstacle_cannot_be_hidden_from_pair_inventory échoue avec AssertionError: FreeCADError not raised. Le BRep de l’obstacle recoupe L0 de 12.566370614359172 mm³. Le nouveau processus annonce reopened=true, recompute_ok=true et collision_complete=true. L’unique paire mesurée L0/plate passe.",
+      "preuve": "Sortie observée lors de l’exécution indépendante. Aucun journal persistant avant correction pour ce test."
+    },
+    {
+      "commande": "python -B -m unittest discover -s electromechanical_engine/tests -p test_qualification_radius.py -v",
+      "phase": "avant correction",
+      "exit_code": 1,
+      "observation": "Le sous-cas exact est rejeté, valeur native 7.199999999999996 mm contre seuil gelé 7.2 mm. Le sous-cas 7.199999 mm est rejeté comme attendu.",
+      "preuve": "Sortie observée lors de l’exécution indépendante. Aucun journal persistant avant correction pour ce test."
+    },
+    {
+      "commande": "python -B -m unittest discover -s electromechanical_engine/tests -p 'test_qualification*.py' -v",
+      "phase": "après corrections inventaire local et rayon",
+      "exit_code": 0,
+      "tests": 2,
+      "observation": "L’obstacle natif interne est rejeté. Sur deux natifs rouverts, le rayon analytique à la limite est accepté et le déficit de 0.000001 mm est rejeté."
+    },
+    {
+      "commande": "python -B -m unittest electromechanical_engine.tests.test_qualification_inventory.NativeQualificationInventoryTest.test_xlink_cannot_hide_an_obstacle_in_an_external_document -v",
+      "phase": "après restriction XLink",
+      "exit_code": 0,
+      "tests": 1,
+      "observation": "Le contrôle rejette le candidat à deux documents. La fermeture native de la fixture contient les deux documents attendus. Les deux SHA-256 restent identiques après le rejet."
+    },
+    {
+      "commande": "python -B -m unittest electromechanical_engine.tests.test_validation electromechanical_engine.tests.test_search -q",
+      "phase": "après corrections",
+      "exit_code": 0,
+      "tests": 43
+    },
+    {
+      "commande": "python -B -m unittest electromechanical_engine.tests.test_qualification_radius electromechanical_engine.tests.test_validation -v",
+      "phase": "après étalonnage à 16 ULP",
+      "exit_code": 0,
+      "tests": 28,
+      "observation": "La régression analytique de 13 ULP issue de la mesure historique et le seuil de 7.2 mm passent. Le déficit de 0.000001 mm reste rejeté et la spline favorable reste inconnue."
+    }
+  ],
+  "journaux_contre_lus": [
+    {
+      "fichier": ".runtime/em-go2/comparison-before.log",
+      "sha256": "6e5fd5cbcb4f1796f67bd25e88f0717378b6e6d52d140760a16b886c7f30aa27",
+      "constat": "La régression sur constat natif de couverture absent échoue avant correction."
+    },
+    {
+      "fichier": ".runtime/em-go2/qualification-tests.log",
+      "sha256": "0c175aa21871f4a5c19eacd6d6a78c03c818a61849d2d89827f7d287a9f155c2",
+      "constat": "72 tests réussis lors d’un premier rejeu de consolidation, sans saut annoncé, avant la régression F16 sur l’arrondi."
+    },
+    {
+      "fichier": ".runtime/electromechanical-engine/go2-native-2a/native_replay.json",
+      "sha256": "5603c94d64c54b4dbca409b277d1fb7405a88ba767bcea20c482a03bed3d521f",
+      "constat": "Les 53 axes et leurs métriques de zone sont stables pour chaque modèle dans les deux processus. Les paires CA01 et Holybro6XOrin dans le contrôle F31 de cette exécution n’ont pas le même statut de délai selon la répétition. Une mesure de zone stable ne prouve pas la stabilité des contrôles de collision."
+    },
+    {
+      "fichier": ".runtime/electromechanical-engine/go2-native-2d/native_replay.json",
+      "sha256": "8528d84a6a85b67196db8360fb562d8f4c16af6b40da3ef0a6f70f80656c46fb",
+      "constat": "Le recalcul de gaine après vidage du cache de F16 K échoue dans les deux processus. La mesure analytique diagnostique de F16 initial vaut 21.999999999999954 mm pour un rayon nominal historique de 22 mm."
+    }
+  ],
+  "contrelecture_doc_val": {
+    "document": "docs/VALIDATION_QUALIFICATION.md#qualification-moteur-go2",
+    "verdict": "GO CONDITIONNEL",
+    "justification": "La détection et les cas admissibles sont démontrés sur les bancs ciblés. Les mesures historiques établissent des constats ponctuels. Les références de montage et d’interface, le RPC positif et certaines paires historiques restent ouverts. La conclusion ne permet pas l’admission d’un historique complet ni une qualification physique.",
+    "limites": [
+      "La marge numérique de 16 ULP couvre le bruit observé sur la fixture au seuil de 7.2 mm et la mesure diagnostique du F16 initial à 13 ULP sous 22 mm. Aucun budget d’erreur universel n’est établi pour la reconstruction OCCT des arcs. Le seuil historique ne vaut pas exigence fournisseur.",
+      "Une spline favorable échantillonnée reste sans borne globale certifiée. Les deux bancs n’établissent ni la tenue d’une retenue ni la continuité du mouvement entre poses.",
+      "La couverture des paires vaut pour l’inventaire gelé ou le périmètre historique explicitement réconcilié. La présence des cinq constats requis dans un rapport de comparaison est un contrôle structurel. La réouverture indépendante du natif fournit la preuve géométrique.",
+      "L’enveloppe d’extraction de banc ne démontre pas le montage CAN1 réel. Les observations sur F41 ne démontrent pas l’accès fonctionnel au diagnostic."
+    ]
+  }
+}

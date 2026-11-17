@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "architecture": "A1",
+  "status": "À valider",
+  "assembly": {
+    "path": ".runtime/cartographe-action3-f12/candidat/assemblages/Prototype_Cartographe.FCStd",
+    "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa"
+  },
+  "isolated_source_receipt": {
+    "path": ".runtime/cartographe-action3-f12/candidat/experiment.json",
+    "sha256": "972fceb2cf8d9d65ceb9062ddb2341fed73d46a08f02a98ba6500899db08ba8f"
+  },
+  "reproduction_scripts": [
+    {
+      "path": ".runtime/cartographe-action3-f12/criblage.py",
+      "sha256": "4b4d47dc886ab03e52a6ac6fb7f6a30e11d822996b00130091f232facc324567"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f12/transplant.py",
+      "sha256": "b0105c5d4c998bff3f0f61a71938099bfddc9b5c107b7da88c99a00f9b5f8f50"
+    }
+  ],
+  "collision_report": {
+    "path": ".runtime/cartographe-action3-f12/criblage.json",
+    "sha256": "86c90b87dc7756ab3aaa5d19a61286c8109128b6f4eedbcd50cb18d1fb448c79"
+  },
+  "application_report": {
+    "path": ".runtime/cartographe-action3-f12/application.json",
+    "sha256": "da0320196f875d977f02727ed3ddcdc40f4d1f58a6b01079d6e6ddc70ae20a77"
+  },
+  "reopen_report": {
+    "path": ".runtime/cartographe-action3-f12/reouverture.json",
+    "sha256": "2808fe3a1d6a5a4661a4adcdbc97a84a840c8b7ec82370d89588c3ee3acb44a2"
+  },
+  "before": {
+    "endpoints_mm": [
+      [
+        -16.0,
+        41.0,
+        103.0
+      ],
+      [
+        59.825,
+        12.0,
+        135.5
+      ]
+    ],
+    "length_mm": 183.97922969134586
+  },
+  "candidate": {
+    "endpoints_mm": [
+      [
+        -16.0,
+        41.0,
+        103.0
+      ],
+      [
+        59.825,
+        25.0,
+        137.35232
+      ]
+    ],
+    "length_mm": 163.99887900224343,
+    "delta_mm": -19.980350689102437,
+    "axis": {
+      "stage": "geometry",
+      "failures": [
+        "route_measurement_error"
+      ],
+      "unknowns": [],
+      "minimum_radius_mm": null,
+      "radius_evidence": "unavailable",
+      "edge_measurements": [],
+      "join_angles_deg": [],
+      "waypoint_distances_mm": [],
+      "error": "'Part.Shape' object has no attribute 'OrderedEdges'",
+      "status": "fail"
+    },
+    "fixtures": {
+      "ClipColonneF12": {
+        "prototype": false,
+        "faces": true
+      },
+      "GabaritF12_GH6": {
+        "prototype": false,
+        "faces": true
+      }
+    }
+  },
+  "reopen": {
+    "applied_pid": 31580,
+    "observed_pid": 31532,
+    "files": 137,
+    "objects": 3733,
+    "partial": 0,
+    "invalid_states": [],
+    "linked_geometry": {
+      "linked_path": "pieces/commerce/W_F12_Prototype.FCStd",
+      "linked_object": "Ensemble",
+      "axis_endpoints_mm": [
+        [
+          -16.0,
+          41.0,
+          103.0
+        ],
+        [
+          59.825,
+          25.0,
+          137.35232
+        ]
+      ],
+      "axis_length_mm": 163.99887900224343,
+      "link_bbox_mm": [
+        -17.819070861842082,
+        76.81907086184208,
+        23.180929138157925,
+        44.752707354270825,
+        102.76744893034002,
+        148.81907086184208
+      ],
+      "link_volume_mm3": 870.7178681649917,
+      "link_state": [
+        "Up-to-date"
+      ]
+    },
+    "saved_root": false,
+    "changed_native_files": {
+      "pieces/commerce/EQ_Chassis_X650.FCStd": {
+        "before": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+        "after": "c3aa2acc52d6139eacfc754e6e0cfe1ee4af01901a2e24a87eeab1da0bb7c126"
+      },
+      "pieces/commerce/W_F12_Prototype.FCStd": {
+        "before": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+        "after": "7c033e4ec954a0f6a45fd13c3bb66fac4dfd6cce2845a553168535afec587341"
+      },
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd": {
+        "before": "96d1d056df6490223d8dc6448006bee3372d14ea66c59e17aa2964fedc8b7902",
+        "after": "5cca29efcacc1ee004d97cfaa18c23dc196cbe9a5fbb9d7523eb87cc9fd4fe81"
+      }
+    },
+    "changed_registers": [
+      "verification/routes_prototype.json"
+    ],
+    "verified_source_files": 139
+  },
+  "limits": "TELEM1 vérifié géométriquement. Le criblage couvre les occurrences enregistrées. Montage, retenue, accouplement, brochage et essais physiques restent à valider. La sauvegarde concerne SA07 et la réouverture avec recalcul concerne la racine complète."
+}

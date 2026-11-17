@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "date": "2026-11-12",
+  "status": "À valider",
+  "configuration": "Cartographe sans dock, diagnostic isolé F40/F41",
+  "source_geometry": {
+    "usb_b_face_mm": [
+      -68.8,
+      -28.575,
+      51.0
+    ],
+    "old_f41_endpoint_mm": [
+      -79.0,
+      24.0,
+      54.0
+    ],
+    "old_f41_length_mm": 1180.9420885415457,
+    "source_hash": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+    "baseline_native_count": 137
+  },
+  "sources": {
+    "module": "https://www.waveshare.com/wiki/USB_TO_RS232/485/TTL",
+    "cable": "https://www.delock.com/produkt/84809/merkmale.html"
+  },
+  "measurements": [
+    {
+      "path": ".runtime/cartographe-action3-f41/mesures.json",
+      "sha256": "b00f979e21b0d848681b142266c389722139cb66e62c2dd73b45d2b4d7ec2d83"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/mesures_detail.json",
+      "sha256": "68d247158182e280121b2b217ff40be0d5da2159875dc04aa51988bcbcd5dc49"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/essais.json",
+      "sha256": "bbadc854eee7bea520dfbd86c53c09913a0b368c1cee50553d4f82c83e927510"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/essais_f40.json",
+      "sha256": "3237ea6a39c01ea7edd74d951b9c27f2a04d521a6bb9a4ffc22822a0f3cdf899"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/poses_isolateur.json",
+      "sha256": "9d80ceaa502c4fecad7f5c22dfd565438567b756cc92af401252c19a192a0828"
+    }
+  ],
+  "reproduction": [
+    {
+      "path": ".runtime/cartographe-action3-f41/mesurer.py",
+      "sha256": "31fac09fb30e53f6b1abe0b77cad586ae7968b451ca8a798a02e24b9947a41ad"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/detail.py",
+      "sha256": "3d817633648c8122bd7b9dff1238cf44ebd9a14e553914d6685baf2d6831a14e"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/ports.py",
+      "sha256": "0a2971500550190e92864d63ae8d5714a541f1c9b9599c3307765bb7fac3b636"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/essayer.py",
+      "sha256": "c78e135ce8eb2942e4722eb682d35be55cedb459b386fe77db42727701a26a7a"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/essayer_f40.py",
+      "sha256": "55234dbd9a10dadaec6d5f4f3801fc6c56b6a72b4c2b7d81a8f947bf3aaf26d7"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f41/essayer_pose.py",
+      "sha256": "9e35041a7074d22f92e7e27364f3a069f699d6a950ec1ce7cd9b5fc3955f0773"
+    }
+  ],
+  "result": {
+    "initial_obstructions": [
+      {
+        "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F40",
+        "volume_mm3": 45.55395996539604,
+        "gap_mm": 0.0
+      },
+      {
+        "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+        "volume_mm3": 131.27400000000006,
+        "gap_mm": 0.0
+      }
+    ],
+    "proposed_translation_mm": [
+      0,
+      8,
+      0
+    ],
+    "proposed_usb_b_face_mm": [
+      -68.8,
+      -20.575,
+      51
+    ],
+    "sample_f41_length_mm": 443.78870614359175,
+    "sample_f41_points_mm": [
+      [
+        -88.8,
+        -20.575,
+        51
+      ],
+      [
+        -155,
+        -20.575,
+        51
+      ],
+      [
+        -155,
+        -20.575,
+        131.5
+      ],
+      [
+        -155,
+        -116,
+        131.5
+      ],
+      [
+        7,
+        -116,
+        131.5
+      ],
+      [
+        7,
+        -42,
+        131.5
+      ]
+    ],
+    "usb_clear_f41_trials": 12,
+    "tested_f40_routes": 24,
+    "clear_f40_routes": 0,
+    "tested_module_poses": 20,
+    "poses_with_both_ports_clear": 0
+  },
+  "limits": "Épaisseurs de fiche, tangentes de sortie et accès TTL estimés. Adaptation de fixation, gabarit de connecteur câblé et réserve de service à vérifier. Déplacement de module et trajets F40/F41 non appliqués au candidat consolidé."
+}

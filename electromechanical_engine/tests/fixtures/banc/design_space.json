@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "max_candidates": 5,
+  "alternatives": [
+    {"id": "direct", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "direct", "bend_radius_mm": 0}}},
+    {"id": "lateral", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}}, "corrects": {"candidate_id": "direct", "codes": ["V2.PAIR"]}},
+    {"id": "lateral-large", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral-large", "bend_radius_mm": 5}}},
+    {"id": "connectique-haute", "family": "IMPLANTATION_CONNECTIQUE", "routes": {"L1": {"corridor": "haut", "bend_radius_mm": 5}}, "changes": {"connectors": [{"port": "T", "option": "sortie haute"}]}, "hypotheses": ["Accouplement de l'option haute à documenter"]},
+    {"id": "carte-intermediaire", "family": "REVISION_ELECTRONIQUE", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}}, "changes": {"electronics": [{"id": "relais-de-signaux", "effect": "routage intermédiaire"}]}, "hypotheses": ["Schéma et compatibilité non vérifiés"]}
+  ]
+}

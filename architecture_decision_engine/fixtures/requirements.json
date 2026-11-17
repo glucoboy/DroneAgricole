@@ -1,0 +1,1001 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "SYNTHETIC_BENCH",
+  "benches": [
+    {
+      "id": "f31",
+      "rules": [
+        {
+          "requirement": {
+            "id": "f31-extraction",
+            "revision": "1",
+            "subject_ids": [
+              "PM08",
+              "CAN1",
+              "F31",
+              "ISOLATEUR"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_FINDING",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_FINDING",
+            "code": "EXTRACTION_ENVELOPE",
+            "subject_id": "interface-a",
+            "service": "extraction"
+          },
+          "diagnostic": {
+            "cause": "Le gabarit de retrait de la fiche droite recoupe l’isolateur. La cause persiste si seul le trajet aval change.",
+            "ranges": {
+              "pm08_y_mm": [
+                -10,
+                0
+              ]
+            },
+            "unknowns": [
+              "Course et gabarit de la référence montée"
+            ]
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-tool",
+            "revision": "1",
+            "subject_ids": [
+              "PM08",
+              "CAN1",
+              "F31",
+              "F35",
+              "F35-VOISIN"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_FINDING",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_FINDING",
+            "code": "TOOL_ENVELOPE",
+            "subject_id": "interface-a",
+            "service": "tool"
+          },
+          "diagnostic": {
+            "cause": "Le volume d’outil rencontre le cordon voisin.",
+            "ranges": {
+              "f35_y_mm": [
+                0,
+                8
+              ]
+            },
+            "unknowns": [
+              "Geste et accès au verrou réel"
+            ]
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-route",
+            "revision": "1",
+            "subject_ids": [
+              "F31",
+              "SUPPORT-TRAJET"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0.1,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_ROUTE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_ROUTE"
+          },
+          "diagnostic": {
+            "cause": "Le corps du cordon rencontre l’obstacle de trajet dans le corridor direct.",
+            "ranges": {
+              "f31_route_z_mm": [
+                -8,
+                8
+              ]
+            },
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-continuity",
+            "revision": "1",
+            "subject_ids": [
+              "F31",
+              "CAN1"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_DOMAIN",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_DOMAIN",
+            "domain": "electrical"
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-compatibility",
+            "revision": "1",
+            "subject_ids": [
+              "F31",
+              "CAN1"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_DOMAIN",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_DOMAIN",
+            "domain": "compatibility"
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": [
+              "L3-F31-MATE-COMPATIBILITY"
+            ]
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-geometry",
+            "revision": "1",
+            "subject_ids": [
+              "F31",
+              "CAN1"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_DOMAIN",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_DOMAIN",
+            "domain": "geometry"
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "f35-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "F35",
+              "PM08"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 13,
+            "terms": {
+              "pm08_y_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "Le départ voisin dispose d’une réserve bornée.",
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "pwr1-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "PWR1",
+              "POWER1",
+              "PM08"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 12,
+            "terms": {
+              "pm08_y_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "La réserve de POWER1 diminue en translation.",
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "pwr2-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "PWR2",
+              "POWER2",
+              "PM08"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 11,
+            "terms": {
+              "pm08_y_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "La réserve de POWER2 diminue en translation.",
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "pm08-placement-limit",
+            "revision": "1",
+            "subject_ids": [
+              "PM08"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 10,
+            "terms": {
+              "pm08_y_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "Débattement autorisé par le support synthétique.",
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "f31-length-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "F31",
+              "PM08",
+              "CAN1"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "L2_LENGTH_RESERVE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "L2_LENGTH_RESERVE"
+          },
+          "diagnostic": {
+            "cause": "L’axe développé peut dépasser la longueur disponible du banc.",
+            "ranges": {},
+            "unknowns": []
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": "length",
+          "unit": "mm",
+          "direction": "MIN",
+          "method": "L2_AXIS",
+          "cable_id": "F31"
+        },
+        {
+          "id": "mass",
+          "unit": "g",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 8,
+            "terms": {
+              "extra_fasteners": 2
+            }
+          }
+        },
+        {
+          "id": "profile",
+          "unit": "mm",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 10,
+            "terms": {
+              "profile_height_mm": 1
+            }
+          }
+        },
+        {
+          "id": "connections",
+          "unit": "1",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 2,
+            "terms": {}
+          }
+        },
+        {
+          "id": "complexity",
+          "unit": "1",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 2,
+            "terms": {
+              "extra_fasteners": 1
+            }
+          }
+        },
+        {
+          "id": "mountability",
+          "unit": "mm",
+          "direction": "MAX",
+          "method": "L2_SERVICE",
+          "service": "extraction"
+        },
+        {
+          "id": "maintenance",
+          "unit": "mm",
+          "direction": "MAX",
+          "method": "L2_SERVICE",
+          "service": "tool"
+        },
+        {
+          "id": "cost",
+          "unit": "EUR",
+          "direction": "MIN",
+          "method": "UNAVAILABLE",
+          "reason": "Composants et coûts réels indéterminés"
+        }
+      ]
+    },
+    {
+      "id": "diagnostic",
+      "rules": [
+        {
+          "requirement": {
+            "id": "diag-tool",
+            "revision": "1",
+            "subject_ids": [
+              "F40",
+              "F41",
+              "DIAG",
+              "OUTIL"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": -4,
+            "terms": {
+              "route_offset_mm": 1,
+              "diag_shift_mm": 1,
+              "remote_offset_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "La fenêtre d’accès est plus courte que le geste sous P75.",
+            "ranges": {
+              "route_offset_mm": [
+                0,
+                3
+              ]
+            },
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-shared-volume",
+            "revision": "1",
+            "subject_ids": [
+              "P75",
+              "DIAG",
+              "F40",
+              "F41",
+              "F24A",
+              "COAX"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 8,
+            "terms": {
+              "diag_shift_mm": -1,
+              "remote_offset_mm": -1,
+              "occupancy_penalty_mm": -1
+            }
+          },
+          "diagnostic": {
+            "cause": "Le déplacement et l’interface déportée consomment la même réserve de volume.",
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-gpio-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "P75",
+              "F24A"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 7,
+            "terms": {
+              "diag_shift_mm": -1
+            }
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-coax-reserve",
+            "revision": "1",
+            "subject_ids": [
+              "P75",
+              "COAX"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 0,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": 6,
+            "terms": {
+              "diag_shift_mm": -1
+            }
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-debug-path",
+            "revision": "1",
+            "subject_ids": [
+              "F40",
+              "DEBUG"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "FUNCTION_PATH",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "FUNCTION_PATH",
+            "parameter": "connection_graph",
+            "signal": "DEBUG",
+            "from": "controller",
+            "to": "service"
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-return-path",
+            "revision": "1",
+            "subject_ids": [
+              "F41",
+              "RETURN"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "FUNCTION_PATH",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "FUNCTION_PATH",
+            "parameter": "connection_graph",
+            "signal": "RETURN",
+            "from": "controller",
+            "to": "service"
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        },
+        {
+          "requirement": {
+            "id": "diag-electrical-contract",
+            "revision": "1",
+            "subject_ids": [
+              "F40",
+              "F41",
+              "DIAG"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "TRUE",
+            "criterion": {
+              "value": true,
+              "unit": "1",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "collected_at": "2026-11-13T00:00:00Z",
+              "precision": null,
+              "uncertainty": null,
+              "method": "Prescription de la fixture synthétique",
+              "input_value_refs": [],
+              "limits": "Banc L3 uniquement"
+            },
+            "method": "ELECTRICAL_CONTRACT",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "ELECTRICAL_CONTRACT",
+            "parameter": "interface_kind",
+            "graph_parameter": "connection_graph",
+            "signals": [
+              "DEBUG",
+              "RETURN"
+            ],
+            "contracts": {
+              "REMOTE_PASSIVE": {
+                "id": "diag-passive-bench",
+                "revision": "1",
+                "kind": "PASSIVE_BENCH",
+                "interface_node": "remote",
+                "connections": [
+                  {
+                    "from": "controller",
+                    "to": "remote",
+                    "signal": "DEBUG"
+                  },
+                  {
+                    "from": "remote",
+                    "to": "service",
+                    "signal": "DEBUG"
+                  },
+                  {
+                    "from": "controller",
+                    "to": "remote",
+                    "signal": "RETURN"
+                  },
+                  {
+                    "from": "remote",
+                    "to": "service",
+                    "signal": "RETURN"
+                  }
+                ]
+              }
+            },
+            "direct_connections": [
+              {
+                "from": "controller",
+                "to": "service",
+                "signal": "DEBUG"
+              },
+              {
+                "from": "controller",
+                "to": "service",
+                "signal": "RETURN"
+              }
+            ]
+          },
+          "diagnostic": {
+            "cause": null,
+            "ranges": {},
+            "unknowns": []
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": "profile",
+          "unit": "mm",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 12,
+            "terms": {
+              "profile_penalty_mm": 1,
+              "remote_offset_mm": 0.5
+            }
+          }
+        },
+        {
+          "id": "mountability",
+          "unit": "mm",
+          "direction": "MAX",
+          "method": "AFFINE",
+          "expression": {
+            "constant": -4,
+            "terms": {
+              "route_offset_mm": 1,
+              "diag_shift_mm": 1,
+              "remote_offset_mm": 1
+            }
+          }
+        },
+        {
+          "id": "mass",
+          "unit": "g",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 10,
+            "terms": {
+              "extra_junctions": 3,
+              "brace_count": 1
+            }
+          }
+        },
+        {
+          "id": "connections",
+          "unit": "1",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 2,
+            "terms": {
+              "extra_junctions": 1
+            }
+          }
+        },
+        {
+          "id": "complexity",
+          "unit": "1",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 2,
+            "terms": {
+              "extra_junctions": 1,
+              "brace_count": 1
+            }
+          }
+        },
+        {
+          "id": "maintenance",
+          "unit": "mm",
+          "direction": "MAX",
+          "method": "AFFINE",
+          "expression": {
+            "constant": -4,
+            "terms": {
+              "route_offset_mm": 1,
+              "diag_shift_mm": 1,
+              "remote_offset_mm": 1
+            }
+          }
+        },
+        {
+          "id": "length",
+          "unit": "mm",
+          "direction": "MIN",
+          "method": "AFFINE",
+          "expression": {
+            "constant": 30,
+            "terms": {
+              "route_offset_mm": 2,
+              "diag_shift_mm": 1,
+              "remote_offset_mm": 1
+            }
+          }
+        },
+        {
+          "id": "cost",
+          "unit": "EUR",
+          "direction": "MIN",
+          "method": "UNAVAILABLE",
+          "reason": "Pas de coût applicable aux composants fictifs"
+        }
+      ]
+    }
+  ]
+}

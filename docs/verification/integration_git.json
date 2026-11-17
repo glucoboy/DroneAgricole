@@ -1,0 +1,81 @@
+{
+  "id": "CONTROLE-INTEGRATION-GIT-20261117",
+  "date": "2026-11-17",
+  "purpose": "Sauvegarder les travaux courants et réunir les branches sans nouvelle qualification",
+  "initial_reference": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80 + workspace",
+  "environment": "Windows 11 amd64, GCC 16.2, Qt 6.11.2",
+  "station": {
+    "commands": [
+      "cmake --preset ci-windows",
+      "cmake --build --preset ci-windows --parallel 4",
+      "ctest --preset ci-windows --parallel 3"
+    ],
+    "build": "PASS",
+    "tests": {"total": 25, "passed": 22, "failed_assertions": 2, "interrupted": 1},
+    "findings": [
+      {"test": "test_workspace_pages", "result": "FAIL", "observation": "Attente de Masse unitaire : Inconnue incompatible avec le libellé courant Masse unitaire publiée/calculée"},
+      {"test": "test_result_repository", "result": "FAIL", "observation": "Somme de trois domaines : 155 ; résultats indexés : 169 ; nouveau domaine simulation à prendre en compte"},
+      {"test": "test_dashboard_mapping", "result": "INCOMPLETE", "duration_s": 208.95, "observation": "Interrompu pour borner la vérification ; MAP_PROGRESS atteint 100 %, aucun bilan QtTest terminal"}
+    ],
+    "local_logs": [
+      "build/ci-windows/Testing/Temporary/LastTest.log",
+      "build/ci-windows/Testing/Temporary/LastTestsFailed.log",
+      "build/workspace_pages_validation.txt",
+      "build/result_repository_validation.txt"
+    ]
+  },
+  "simulation": {
+    "commands": [
+      "cmake -S simulation -B build/cartographe -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+      "cmake --build build/cartographe --parallel 3",
+      "ctest --test-dir build/cartographe --output-on-failure -E cartographe_model_generation --parallel 3",
+      "build/cartographe/cartographe-evidence.exe self-test-sitl"
+    ],
+    "build": "PASS",
+    "ctest": {"passed": 6, "timeouts": 1, "timeout_s": 30},
+    "direct_replay": {"result": "PASS", "terminal_fixtures_accepted": 6, "adversarial_fixtures_rejected": 29, "flight_commands_emitted": 0},
+    "excluded_test": "cartographe_model_generation : préservation des dérivés existants",
+    "local_log": "build/cartographe/Testing/Temporary/LastTest.log"
+  },
+  "engines": {
+    "cpp_builds": "PASS L3 avec L1/L2, L4 et L5",
+    "l1_l2_tests": "PASS",
+    "l3_tests": "PASS au rejeu isolé après timeout initial du cas nominal à 30 s sous charge",
+    "l3_replay_command": "ctest --test-dir .runtime/l3_build -R ^l3_architecture_decision$ --output-on-failure",
+    "l4_tests": {"passed": 6, "skipped": 1, "native_methods_also_skipped": 6},
+    "l5_tests": {"passed": 2, "total": 2},
+    "python_command": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+    "python_tests": {"passed": 64, "skipped_native": 13, "total": 77},
+    "local_logs": [
+      ".runtime/l3_build/Testing/Temporary/LastTest.log",
+      ".runtime/l4-build/Testing/Temporary/LastTest.log",
+      ".runtime/integration-check-engines/l5/Testing/Temporary/LastTest.log"
+    ],
+    "log_limit": "Le rejeu L3 a remplacé le journal CTest initial ; la sortie unittest Python n'a pas été enregistrée"
+  },
+  "configuration_checks": {
+    "docker compose config --quiet": "PASS",
+    "docker compose -f compose.yaml -f simulation/compose.cartographe.yaml config --quiet": "PASS",
+    "ui_xml_readable": 10,
+    "text_files_scanned": 1627,
+    "possible_secret_pattern_matches": 0,
+    "invalid_json_detected": 0,
+    "secret_scan_limit": "Motifs de clés privées et jetons GitHub, AWS, OpenAI ; ce contrôle ne démontre pas l'absence de tout secret",
+    "diff_check": "Avertissements d'espacement conservés dans les sources existantes"
+  },
+  "branch_comparison_before_merge": {
+    "branch": "codex/batterie-etage-inferieur",
+    "paths_changed_since_initial_reference": 291,
+    "present_locally": 291,
+    "identical_to_branch": 269,
+    "different_current_versions": 22,
+    "local_inventory": "results/git-integration/branch-comparison-before.json"
+  },
+  "not_run": [
+    "Build ROS 2/PX4/Docker et cibles Linux/arm64",
+    "Campagnes natives FreeCAD, porte GO3A et intégration CLI L5",
+    "ERC/DRC KiCad",
+    "Vol SITL et essais physiques"
+  ],
+  "system_qualification": "À valider"
+}

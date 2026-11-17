@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "id": "T-EM-ENGINE-04",
+  "configuration": "prototype_cartographe",
+  "scope": "Étude conditionnelle et extraction sur copie du prototype sans dock",
+  "instruction": {
+    "filename": "03_reconception_cartographe.md",
+    "sha256": "be4c4a29c2e4129deb5a1eee458c8d6ac886e1396c32a0a281c1076b4ee881ae",
+    "sections": [
+      3,
+      5,
+      7,
+      8,
+      10
+    ]
+  },
+  "qualification": {
+    "path": "docs/verification/electromechanical_engine_go2.json",
+    "sha256": "2586dcbea67430ab05c4a57e08e3612c1546ffaf663a2290eca233043a2c7f57",
+    "decision": "GO CONDITIONNEL"
+  },
+  "engineering_requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "controls": {
+    "V1": "Conserver ou justifier chaque connexion inventoriée, avec destination et brochage vérifiés.",
+    "V2": "Réouvrir et recalculer, puis contrôler solides, tangences, rayons applicables, collisions et dégagements.",
+    "V3": "Vérifier retenues, accès, insertion, extraction, montage et démontage.",
+    "V4": "Contrôler les poses et la flexion, notamment F16, selon les limites applicables.",
+    "V5": "Comparer congestion P66 et baie, hauteur, longueur, supports, masse, coût et risques à périmètre commun après contrôle des impératifs.",
+    "V6": "Revoir les vues standardisées à échelle commune et mesurer les anomalies."
+  },
+  "hard_limits": [
+    "Aucun critère dimensionnel de banc synthétique transposé au prototype.",
+    "Aucun Pareto admissible sans preuves comparables et critères impératifs démontrés.",
+    "Aucune modification des natifs de référence."
+  ],
+  "budget": "Une extraction complète sur copie, comparaison des historiques disponibles et une piste par famille A/B/C. Une reprise native exige une baseline réouvrable, une correspondance métier explicite et une capacité de validation applicable.",
+  "validator_files": [
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+      "sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      "go2_sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      "match": true
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+      "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358",
+      "go2_sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/__init__.py",
+      "sha256": "38659bf698ee284d7d2d5234a3c25a16ba50b081c63985a21817175fa6983086",
+      "go2_sha256": "38659bf698ee284d7d2d5234a3c25a16ba50b081c63985a21817175fa6983086",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/__main__.py",
+      "sha256": "f3f15d80501929ade8959010f507c13a1bbeeeac8b9f7deb9ecef9d24f020065",
+      "go2_sha256": "f3f15d80501929ade8959010f507c13a1bbeeeac8b9f7deb9ecef9d24f020065",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da",
+      "go2_sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/freecad.py",
+      "sha256": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0",
+      "go2_sha256": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/freecad_worker.py",
+      "sha256": "768faab6b5ebec8f76a44397a9eae6cd6fe39777224e56529a22d975f181b50a",
+      "go2_sha256": "768faab6b5ebec8f76a44397a9eae6cd6fe39777224e56529a22d975f181b50a",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/metrics.py",
+      "sha256": "15218cd72cdd6c98d3af4275753d4842a4040ee3ee6d99ffbc80426a172f43b2",
+      "go2_sha256": "15218cd72cdd6c98d3af4275753d4842a4040ee3ee6d99ffbc80426a172f43b2",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/native_motion.py",
+      "sha256": "f89b1b4f808cd0e93a517735f9e29254408c2407da14e5d29ca77aa7c4fa80d9",
+      "go2_sha256": "f89b1b4f808cd0e93a517735f9e29254408c2407da14e5d29ca77aa7c4fa80d9",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/native_retention.py",
+      "sha256": "969354ad6acdc2e5fead9dbe5c4e6dbba2badc77d4264ba29b6ae7e78eee2595",
+      "go2_sha256": "969354ad6acdc2e5fead9dbe5c4e6dbba2badc77d4264ba29b6ae7e78eee2595",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/qualification/native_replay.py",
+      "sha256": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190",
+      "go2_sha256": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/search.py",
+      "sha256": "d853b7b2f0d1626489c03955d6f42dce85da9ab7c3cb32b5b0a0b34c42b4d81e",
+      "go2_sha256": "d853b7b2f0d1626489c03955d6f42dce85da9ab7c3cb32b5b0a0b34c42b4d81e",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_requirements.yaml",
+      "sha256": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38",
+      "go2_sha256": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_space.json",
+      "sha256": "02281be23142906e55d22302e1399c35395e5577f38a9d2b1c80f97bbaee1991",
+      "go2_sha256": "02281be23142906e55d22302e1399c35395e5577f38a9d2b1c80f97bbaee1991",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/system_model.json",
+      "sha256": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1",
+      "go2_sha256": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_requirements.yaml",
+      "sha256": "3d4c5505a3ccd0b169e0c5cecf269152942fb0273cb1a63a9b958ccff8f19042",
+      "go2_sha256": "3d4c5505a3ccd0b169e0c5cecf269152942fb0273cb1a63a9b958ccff8f19042",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_space.json",
+      "sha256": "4c79b6b6448017c5fb37c49f76cc6f6db27ef047a3ae5eedeb02972315360bc3",
+      "go2_sha256": "4c79b6b6448017c5fb37c49f76cc6f6db27ef047a3ae5eedeb02972315360bc3",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/system_model.json",
+      "sha256": "e82928f653677ee029912e00d1f5bda7eaf2894a3f3f54ffb05965ac194d1b7f",
+      "go2_sha256": "e82928f653677ee029912e00d1f5bda7eaf2894a3f3f54ffb05965ac194d1b7f",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_contracts.py",
+      "sha256": "23dba29d2c1517da246f862e9fde378a5839935833070c98372883a24cce8c9f",
+      "go2_sha256": "23dba29d2c1517da246f862e9fde378a5839935833070c98372883a24cce8c9f",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_freecad.py",
+      "sha256": "63b1425149198af7bea64a317bc3e9db2cb7b77f3ac620501c0f70d27df6c3cc",
+      "go2_sha256": "63b1425149198af7bea64a317bc3e9db2cb7b77f3ac620501c0f70d27df6c3cc",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_full_extraction.py",
+      "sha256": "95b41a8bf1163004ead6bec049d77ddc714f12106a28598b25e145455a85bc88",
+      "go2_sha256": "95b41a8bf1163004ead6bec049d77ddc714f12106a28598b25e145455a85bc88",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_metrics.py",
+      "sha256": "d505df6a869a72bce97572dbae191043268be296d2304868af2f176343d34bdb",
+      "go2_sha256": "d505df6a869a72bce97572dbae191043268be296d2304868af2f176343d34bdb",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_motion.py",
+      "sha256": "417822a0dabcbfb2f2a32f8a8426666eeac285fc96265ec0093bf5725139c93b",
+      "go2_sha256": "417822a0dabcbfb2f2a32f8a8426666eeac285fc96265ec0093bf5725139c93b",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_retention.py",
+      "sha256": "110aab7ada35d2ef7d6b09f3d5964a09bb4fcb3cb886d3966a9870638e8977ba",
+      "go2_sha256": "110aab7ada35d2ef7d6b09f3d5964a09bb4fcb3cb886d3966a9870638e8977ba",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_qualification_inventory.py",
+      "sha256": "1ace268c041f35c2b971e80f9553e3de067396a4d07f07573af88f3d23a64344",
+      "go2_sha256": "1ace268c041f35c2b971e80f9553e3de067396a4d07f07573af88f3d23a64344",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_qualification_radius.py",
+      "sha256": "84058890cea743d1f884d74f910123fddee9b7385ad060d6f5ea9551d2effced",
+      "go2_sha256": "84058890cea743d1f884d74f910123fddee9b7385ad060d6f5ea9551d2effced",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_search.py",
+      "sha256": "1cc62095b7a1e96f9269037f2683b8e3da9e9a12ee3bf72f66ccdd90b0e68f6c",
+      "go2_sha256": "1cc62095b7a1e96f9269037f2683b8e3da9e9a12ee3bf72f66ccdd90b0e68f6c",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/tests/test_validation.py",
+      "sha256": "6b53a5c2e1e4c2e9d0f2aa302009d1a5001287dc7584d4d1aef6e59c4cb6bba1",
+      "go2_sha256": "6b53a5c2e1e4c2e9d0f2aa302009d1a5001287dc7584d4d1aef6e59c4cb6bba1",
+      "match": true
+    },
+    {
+      "path": "electromechanical_engine/validation.py",
+      "sha256": "f51f87f7345d4574c8d9e5a16514b8d3c40d49e5e6cd4d5b6f37076b62c9a3fe",
+      "go2_sha256": "f51f87f7345d4574c8d9e5a16514b8d3c40d49e5e6cd4d5b6f37076b62c9a3fe",
+      "match": true
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+      "sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+      "go2_sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+      "match": true
+    }
+  ],
+  "go2_files_match": true,
+  "engine_reference": "Non constitué pour la validation globale. Les seuils, interfaces et correspondances nécessaires au contrat natif restent à établir."
+}

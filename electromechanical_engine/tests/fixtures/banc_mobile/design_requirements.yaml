@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "system_id": "banc-cable-mobile",
+  "revision": "1",
+  "provenance": {"status": "DOCUMENTEE", "source": "CAB-ENG-002, seuils propres au banc synthétique"},
+  "links": {"L1": {
+    "diameter_mm": 2, "min_radius_mm": 4, "min_dynamic_radius_mm": 4,
+    "min_reserve_mm": 15, "motion_length_tolerance_mm": 0.001,
+    "required_motion_states": ["intermediaire", "extreme"],
+    "requires_support": true, "max_unsupported_mm": 115
+  }},
+  "clearance_mm": 1,
+  "collision_tolerance_mm3": 0.000001,
+  "supports": [{"id": "Clip", "anchor": "Deck"}],
+  "allowed_contacts": [
+    {"a": "Deck", "b": "ClipSolid", "relation": "functional_contact", "source": "Clip solidaire du plateau du banc"},
+    {"a": "Deck", "b": "Obstacle", "relation": "functional_contact", "source": "Obstacle en appui sur le plateau du banc"},
+    {"a": "L1", "b": "ClipSolid", "relation": "functional_contact", "source": "Appui nominal de la gaine sur la retenue du banc"}
+  ],
+  "plateaux_mm": [0, 8],
+  "objectives": ["total_length_mm"]
+}

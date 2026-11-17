@@ -1,0 +1,630 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "scope": "Rejeu historique sur copies isolées, deux processus FreeCAD par cas. Mesures BRep sauvegardées.",
+  "command": "python -B -m electromechanical_engine.qualification.native_replay \"<Python FreeCAD>\" \"<nouveau dossier>\" a faces f16_targeted",
+  "reference": {
+    "path": "docs/verification/cartographe_action3_reference.json",
+    "sha256": "4686400209661cec85b07bf1946298a33b172b80e9ee422e00d9129345219b9b"
+  },
+  "raw_report": {
+    "path": ".runtime/cartographe-action3-historiques-20261111-175358360/native_replay.json",
+    "sha256": "59176a19b4ec85ebea4f44fd22be7f66c0444012f4a7a3ba641c936f4d7587e5"
+  },
+  "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+  "zones_mm": {
+    "bay": [
+      [
+        -94,
+        -88,
+        85
+      ],
+      [
+        94,
+        88,
+        165
+      ]
+    ],
+    "above": [
+      [
+        -118,
+        -108,
+        130.052
+      ],
+      [
+        118,
+        108,
+        250
+      ]
+    ],
+    "interlayer": [
+      [
+        -78,
+        -62,
+        110.22
+      ],
+      [
+        78,
+        62,
+        123.72
+      ]
+    ],
+    "p66_below": [
+      [
+        -80,
+        -67,
+        66.4
+      ],
+      [
+        80,
+        67,
+        83
+      ]
+    ],
+    "p66_ca01": [
+      [
+        -63,
+        -40,
+        88
+      ],
+      [
+        63,
+        40,
+        96.12
+      ]
+    ],
+    "sous_P66_emprise_stricte": [
+      [
+        -70,
+        -47,
+        39
+      ],
+      [
+        70,
+        47,
+        85
+      ]
+    ],
+    "sous_porteuse_emprise_stricte": [
+      [
+        -63,
+        -41,
+        110.22
+      ],
+      [
+        63,
+        40.52,
+        123.72
+      ]
+    ]
+  },
+  "source_hashes_note": "Le rapport brut contient les empreintes SHA-256 avant et après par fichier. Les effectifs par cas peuvent inclure des dépendances communes.",
+  "cases": [
+    {
+      "id": "f16_targeted",
+      "source": "hardware/mecanique/cartographe",
+      "files": 141,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeated_exactly": true,
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "f16_targeted/measure-1.log",
+          "exit_code": 0,
+          "report": "f16_targeted/measure-1.json",
+          "report_sha256": "58bfef4d061d02e0798d4bcedbafce9b8403caa7a145a2f1117c94522ea935b7",
+          "pid": 29884
+        },
+        {
+          "iteration": 2,
+          "log": "f16_targeted/measure-2.log",
+          "exit_code": 0,
+          "report": "f16_targeted/measure-2.json",
+          "report_sha256": "e638a63424f2076c00989679c6119cbc11aad5a04dc386260621655b761958f3",
+          "pid": 31608
+        }
+      ]
+    },
+    {
+      "id": "a",
+      "source": "hardware/mecanique/cartographe_refonte_systeme/A",
+      "files": 143,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeated_exactly": true,
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "a/measure-1.log",
+          "exit_code": 0,
+          "report": "a/measure-1.json",
+          "report_sha256": "58f97c66a095d75da88259bb8a537ac25fe0608b596188e08559d8b83876d8a9",
+          "pid": 31576
+        },
+        {
+          "iteration": 2,
+          "log": "a/measure-2.log",
+          "exit_code": 0,
+          "report": "a/measure-2.json",
+          "report_sha256": "cc762433ee853c5e5cbcbcdce3f75622945272911140c6218f4656077c083026",
+          "pid": 28504
+        }
+      ]
+    },
+    {
+      "id": "faces",
+      "source": "hardware/mecanique/cartographe_faces/Candidat",
+      "files": 148,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeated_exactly": true,
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "faces/measure-1.log",
+          "exit_code": 0,
+          "report": "faces/measure-1.json",
+          "report_sha256": "f02f5a17194658cf6b8c9a61c43e6e9f0efbd15f7d30f02669aabc36840a8139",
+          "pid": 11724
+        },
+        {
+          "iteration": 2,
+          "log": "faces/measure-2.log",
+          "exit_code": 0,
+          "report": "faces/measure-2.json",
+          "report_sha256": "741a6d918e4aecf03bdb437011b272f342b5fc213cadc91e351d792734597bc3",
+          "pid": 27364
+        }
+      ]
+    }
+  ],
+  "axes": {
+    "same_route_ids": true,
+    "count": 53,
+    "bay_mm": {
+      "A": 4221.879483656824,
+      "faces": 3860.64287159482,
+      "delta": -361.23661206200404
+    },
+    "below_carrier_footprint_mm": {
+      "A": 21.721053323074944,
+      "faces": 275.5080584322781,
+      "delta": 253.78700510920316
+    },
+    "total_mm": {
+      "A": 10885.079164281875,
+      "faces": 10788.378082402585,
+      "delta": -96.70108187928963
+    },
+    "max_sheath_z_mm": {
+      "A": 170.27787476169587,
+      "faces": 170.27787476169587,
+      "delta": 0.0
+    },
+    "above_carrier_mm": {
+      "A": 2051.21306292215,
+      "faces": 1802.0432305282043,
+      "delta": -249.16983239394585
+    }
+  },
+  "endpoints_mm": {
+    "A": {
+      "F12": [
+        [
+          -16.0,
+          41.0,
+          103.0
+        ],
+        [
+          59.825,
+          12.0,
+          135.5
+        ]
+      ],
+      "F24A": [
+        [
+          65.0,
+          4.0,
+          102.0
+        ],
+        [
+          -64.0,
+          15.0,
+          125.9
+        ]
+      ],
+      "F25": [
+        [
+          30.0,
+          -106.0,
+          97.5
+        ],
+        [
+          52.825,
+          9.5,
+          135.5
+        ]
+      ],
+      "F31": [
+        [
+          -18.0,
+          -76.0,
+          66.0
+        ],
+        [
+          52.849999999999994,
+          -14.5,
+          135.5
+        ]
+      ],
+      "F41": [
+        [
+          -79.0,
+          24.0,
+          54.0
+        ],
+        [
+          7.0,
+          -42.0,
+          131.5
+        ]
+      ]
+    },
+    "faces": {
+      "F12": [
+        [
+          -16.0,
+          41.0,
+          103.0
+        ],
+        [
+          59.825,
+          25.0,
+          137.35232
+        ]
+      ],
+      "F24A": [
+        [
+          65.0,
+          4.0,
+          102.0
+        ],
+        [
+          -59.825,
+          15.0,
+          120.7
+        ]
+      ],
+      "F25": [
+        [
+          30.0,
+          -106.0,
+          97.5
+        ],
+        [
+          52.825,
+          9.5,
+          137.35232
+        ]
+      ],
+      "F31": [
+        [
+          -18.0,
+          -76.0,
+          66.0
+        ],
+        [
+          52.849999999999994,
+          -14.5,
+          135.5
+        ]
+      ],
+      "F41": [
+        [
+          -79.0,
+          24.0,
+          54.0
+        ],
+        [
+          7.0,
+          -42.0,
+          131.5
+        ]
+      ]
+    }
+  },
+  "f16_p73": {
+    "initial": {
+      "stage": "integration",
+      "pair": [
+        "initial",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+      ],
+      "failures": [],
+      "unknowns": [],
+      "authorized_relation": false,
+      "intersection_volume_mm3": 0.0,
+      "clearance_mm": 0.19999999999998863,
+      "status": "pass"
+    },
+    "P": {
+      "stage": "integration",
+      "pair": [
+        "P",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+      ],
+      "failures": [
+        "forbidden_interference"
+      ],
+      "unknowns": [],
+      "authorized_relation": false,
+      "intersection_volume_mm3": 704.6300070013599,
+      "clearance_mm": 0.0,
+      "status": "fail"
+    }
+  },
+  "f31_faces": {
+    "solid": {
+      "stage": "solid",
+      "failures": [],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 2093.4680516971735,
+      "status": "pass"
+    },
+    "collisions": {
+      "scope": 349,
+      "excluded_aabb": 311,
+      "tested": 38,
+      "collisions": [],
+      "unknown": [
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+          "error": "Calcul OCC non résolu dans la limite de 5 s"
+        }
+      ],
+      "clear": [
+        {
+          "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature084",
+          "volume_mm3": 0.0,
+          "gap_mm": 22.455160978803047
+        },
+        {
+          "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature095",
+          "volume_mm3": 0.0,
+          "gap_mm": 25.141664659850434
+        },
+        {
+          "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM",
+          "volume_mm3": 0.0,
+          "gap_mm": 41.50514019746689
+        },
+        {
+          "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+          "volume_mm3": 0.0,
+          "gap_mm": 9.947598300641403E-14
+        },
+        {
+          "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+          "volume_mm3": 0.0,
+          "gap_mm": 0.5999999999999943
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#AppuiCA01_2",
+          "volume_mm3": 0.0,
+          "gap_mm": 21.50474791250729
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+          "volume_mm3": 0.0,
+          "gap_mm": 15.0
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#ColonnePorteuse_2",
+          "volume_mm3": 0.0,
+          "gap_mm": 21.27462688931224
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#EcrouStack2",
+          "volume_mm3": 0.0,
+          "gap_mm": 14.147818880839973
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface",
+          "volume_mm3": 0.0,
+          "gap_mm": 2.0
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#OrinFan",
+          "volume_mm3": 0.0,
+          "gap_mm": 58.37776559659565
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#RondelleStackB2",
+          "volume_mm3": 0.0,
+          "gap_mm": 16.748648286133687
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#RondelleStackH2",
+          "volume_mm3": 0.0,
+          "gap_mm": 19.822563459548576
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#VisStack2",
+          "volume_mm3": 0.0,
+          "gap_mm": 13.8995841320928
+        },
+        {
+          "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#microSD",
+          "volume_mm3": 0.0,
+          "gap_mm": 24.12250240560565
+        },
+        {
+          "occurrence": "sous_assemblages/SA06_Prototype_Navigation.FCStd#EcrouSupportSecurite1",
+          "volume_mm3": 0.0,
+          "gap_mm": 21.321919288263196
+        },
+        {
+          "occurrence": "sous_assemblages/SA06_Prototype_Navigation.FCStd#RondelleSupportSecuriteB1",
+          "volume_mm3": 0.0,
+          "gap_mm": 12.70880009008502
+        },
+        {
+          "occurrence": "sous_assemblages/SA06_Prototype_Navigation.FCStd#RondelleSupportSecuriteH1",
+          "volume_mm3": 0.0,
+          "gap_mm": 21.0055548698538
+        },
+        {
+          "occurrence": "sous_assemblages/SA06_Prototype_Navigation.FCStd#SupportSecurite",
+          "volume_mm3": 0.0,
+          "gap_mm": 5.0
+        },
+        {
+          "occurrence": "sous_assemblages/SA06_Prototype_Navigation.FCStd#VisSupportSecurite1",
+          "volume_mm3": 0.0,
+          "gap_mm": 10.749489785293102
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_PWR",
+          "volume_mm3": 0.0,
+          "gap_mm": 28.31586901863884
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#ConnecteurF16TypeA",
+          "volume_mm3": 0.0,
+          "gap_mm": 44.46898452953007
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F02_1",
+          "volume_mm3": 0.0,
+          "gap_mm": 2.0
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+          "volume_mm3": 0.0,
+          "gap_mm": 20.84498904899334
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_2",
+          "volume_mm3": 0.0,
+          "gap_mm": 0.7000000000000028
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_3",
+          "volume_mm3": 0.0,
+          "gap_mm": 14.2
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_4",
+          "volume_mm3": 0.0,
+          "gap_mm": 11.2
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F05_NEG",
+          "volume_mm3": 0.0,
+          "gap_mm": 3.750000000000201
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F05_POS",
+          "volume_mm3": 0.0,
+          "gap_mm": 0.029846745544723628
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AMONT",
+          "volume_mm3": 0.0,
+          "gap_mm": 5.200000000000011
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AVAL",
+          "volume_mm3": 0.0,
+          "gap_mm": 4.700000000000003
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F16",
+          "volume_mm3": 0.0,
+          "gap_mm": 32.995608330044156
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F24B",
+          "volume_mm3": 0.0,
+          "gap_mm": 5.299999999999997
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F24C",
+          "volume_mm3": 0.0,
+          "gap_mm": 12.299999999999997
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+          "volume_mm3": 0.0,
+          "gap_mm": 3.9000000000000057
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F35",
+          "volume_mm3": 0.0,
+          "gap_mm": 1.300000000000006
+        },
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41",
+          "volume_mm3": 0.0,
+          "gap_mm": 48.821764679410954
+        }
+      ]
+    }
+  },
+  "decision": "Mesures historiques reproductibles sur ce rejeu. Admissibilité et gain global ouverts, donc aucun classement de Pareto.",
+  "views": {
+    "index": "hardware/mecanique/cartographe_faces/exports/vues/index_vues.json",
+    "index_sha256": "6c7c6c25777ddb668afafd227e96b3d2f80e5dc82d2f3a9d58e787659cdc9397",
+    "crop_xyz_mm": [
+      [
+        -118,
+        118
+      ],
+      [
+        -153,
+        110
+      ],
+      [
+        28,
+        178
+      ]
+    ],
+    "scale_bar_mm": 50,
+    "source_files_reconciled": {
+      "A": 143,
+      "faces": 147,
+      "mismatch": 0
+    },
+    "images": [
+      {
+        "path": "hardware/mecanique/cartographe_faces/exports/vues/01_dessus_dessous_profil.png",
+        "sha256": "d78922a833cd251908e04fbe5ecdc1d1f304b091b7e2e7551a14490639b06ef4"
+      },
+      {
+        "path": "hardware/mecanique/cartographe_faces/exports/vues/02_baie_cables_retenues.png",
+        "sha256": "3898e2b08473c489110fdd225407b0f90d454507b340f73511ce972ae005a9a2"
+      }
+    ],
+    "observations": [
+      "Les vues supérieures et latérales conservent des retours périphériques et le point haut. La réduction de longueur dans la zone supérieure et la hauteur inchangée sont confirmées par les mesures natives.",
+      "La vue inférieure montre un passage supplémentaire sous la porteuse. La mesure sous emprise augmente de 253,787 mm.",
+      "Les volumes de fiches sont des gabarits. Extraction CAN1, mouvement F16 et réserve F41 restent ouverts."
+    ]
+  },
+  "regression": {
+    "command": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+    "environment_variable": "ELECTROMECHANICAL_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "exit_code": 0,
+    "passed": 73,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_seconds": 95.09,
+    "log": {
+      "path": ".runtime/cartographe-action3-tests.log",
+      "sha256": "8cf98feaa187f158da47c8cbd7de3b42d737923dce54308636fa634d93f6de21"
+    }
+  }
+}

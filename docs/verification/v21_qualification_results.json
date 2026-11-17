@@ -1,0 +1,3063 @@
+{
+  "schema": "drone_agricole.v21_independent_qualification.v1",
+  "test_id": "T-CARTO-V21-QUAL",
+  "date": "2026-11-15",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-ARC-001",
+    "MEC-INT-001",
+    "METH-001",
+    "G3A-01 à G3A-08"
+  ],
+  "verdict": "V21_EXPLORATION_NO_GO",
+  "conclusion": "non conforme",
+  "platform": {
+    "os": "Windows NT 10.0.26300.0",
+    "architecture": "amd64",
+    "shell": "PowerShell 7.6.9",
+    "compiler": "GCC 16.2.0 (MSYS2 UCRT64)",
+    "qt": "6.11.2",
+    "python": "3.14.4",
+    "freecad": "1.1.3",
+    "freecad_python": "3.11.14",
+    "occt": "7.8.1",
+    "cables_workbench": "0.3.7",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "source_state": "Arbre de travail avec modifications préexistantes et moteurs non suivis. Gel et empreintes des fichiers effectifs."
+  },
+  "scope": "Bancs logiciels et CAO sur copies privées, contexte H-01 en préflight seulement. Aucune reconstruction du cartographe ni campagne GO3.",
+  "qualification_statuses": {
+    "PASS": "L’oracle du test est satisfait, notamment lors d’un rejet attendu.",
+    "FAIL": "Écart à l’oracle ou intégration attendue indisponible.",
+    "INCONCLUSIVE": "Contrôle effectué avec une preuve insuffisante pour conclure sur l’interface ou la configuration.",
+    "NOT_RUN": "Contrôle non exécuté ou non atteint."
+  },
+  "independence": {
+    "criteria_set_before_new_candidates": true,
+    "immutable_after_observations": true,
+    "procedure": "Référentiels transmis hors des dossiers candidats. Revalidation L4 et V1 en dossiers neufs avec nouveaux processus FreeCAD et recalcul. Le test XLink mesure explicitement la confiance accordée au cache d’une reprise.",
+    "originals": "Les natifs d’origine du prototype et des cas historiques vérifiés sont restés identiques. Aucune reconstruction GO3A/GO3B.",
+    "review": "Revue indépendante en lecture seule après les contre-épreuves. Elle confirme le NO_GO et le niveau auquel s’applique chaque acceptation indue. Le code 1 de Q1-09 intervient avant lecture du reçu."
+  },
+  "frozen": {
+    "transverse": {
+      "path": ".runtime/v21-qualification/freeze.json",
+      "sha256": "99ed38c55b3b5b8e1e5c2a6b919c436bee046c295bcee34679bc6a2635f37b2b",
+      "utc": "2026-11-15T21:39:35.5776662Z",
+      "inputs_sha256": {
+        "docs/verification/go3a/GO3A_REQUIREMENTS.yaml": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+        "docs/verification/go3a/GO3A_SYSTEM_MODEL.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+        "docs/verification/go3a/GO3A_MANIFEST.json": "f3788b3a0ac717871b3538970cc0635bfb81a346f1b2b2db0df372eb5f6092fc",
+        "docs/verification/go3a/GO3A_DECISIONS.json": "78434f101d2dcfb658c31f188e658e54a66973e293cdcdf6c86548bf6ddac8f0",
+        "docs/verification/go3b/GO3B_ADMISSION.json": "b5bb1d3ab901e300b12558ba9cd33558210a9dee343520a0f0085257a7d58521",
+        "docs/verification/go3b/GO3B_SOURCE_MANIFEST.json": "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d",
+        "convergence_manager/fixtures/v21_evidence_plan.json": "0a86d3e65d9c711c66a747c456da48f255816c71dc082599e008e56cae850cdd",
+        "convergence_manager/fixtures/v21_h01_exploration.json": "7bb8e86d3613dcffea9bd38808b1b442e72fe6aabb19e67e3b1e4259c172241d",
+        "docs/verification/v21_exploration_gate.json": "d2577e29cdbb0b9451b02af74113d5eb67854b001eb98b8a35f87147e9105f28",
+        "docs/verification/v21_connector_tests.json": "7358359dfffd39f995bc985d86bd455b555f7816a582c9ab845738acbff7a623",
+        "docs/verification/v21_xlink_coverage.json": "bf60aec66f65241170339493fd57a6693aa603a8330c6cf1dfee82ca096c9767",
+        "docs/verification/go2bis_results.json": "a1382452bfd37036d39d26ca9def5190c286cb47ca36e05769b9a7311f92ac32",
+        "docs/verification/go2bis_l4.json": "cc69655e177ecddc10be75f42569fbdb093555032b5856933168cfffd46c0579",
+        "docs/electromechanical_v2/BASELINE_MANIFEST.json": "1871302537a1d77bec5399c03bf5a055cb41112c6fae1e26a1074f558861ad0b",
+        "validation_engine/fixtures/reference.json": "e851e42174d7554cf2b17d98adacf837ebc8ad37064a5c1c5d91946ca48e7f93",
+        "electromechanical_engine/qualification/native_replay.py": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190",
+        "electromechanical_engine/qualification/historical_catalog.json": "6a20e85035482e1ae3ff0dd710f663845476dacdc41ba0e98f0e067ee7aa98f9",
+        ".runtime/go2bis-l4/targeted-oracles.json": "19786c6c181b751dddf24b8f807a49f25bac7944f30cd0c4743e70415869007c",
+        ".runtime/go2bis-l4/targeted-worker.py": "a5bd372297adf1c300553458d7b1b99d3a107716a98cf2910744021619ca5f2e",
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/F16_copie.FCStd": "a5cfec750a8e93a3c0cf6cfe59f1035f2bd1b06dfa5a98ef9a8b31ae90bc0c07",
+        "hardware/mecanique/cartographe/verification/essai_wireflex/F16_copie.FCStd": "346b77b1a0973571e3e1adc8b86f8b886dbd34043b91b19bbc6d2a4a191578a8",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583",
+        "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json": "3bcf668782edab1530b5aed294f7643b2a98cb9587d0b51c00adddac6533c6a2",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/volumes_supports.json": "c75fe960697ed4c93c0fb607e421d84b780b6488a4879b94a2e5176bb31db33a",
+        "hardware/electronique/cartographe/contrat_uart_bms.json": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19",
+        "docs/verification/cartographe_action3_f41.json": "6ae0d0fa8cbb0cee524deec824f1846285ec7acd99044e2880ccd0b1cf97d52d",
+        "docs/verification/cartographe_action3_can1_service.json": "1b01c01a52a3fd82cc927dd5fa1dcd16c96b7700d804f859cbcc156f50cf295b"
+      },
+      "verified": {
+        "checked": 27,
+        "mismatches": []
+      }
+    },
+    "q1": {
+      "path": ".runtime/v21-qualification/q1/plan-sha256.json",
+      "sha256": "c519181c24fd83d092fbefe6baa461a842edd30a02c7ce53f44122db3c094565"
+    },
+    "q2": {
+      "path": ".runtime/v21-qualification/q2/replay-02/oracles.json",
+      "sha256": "d209c8e11e3f428571f689e4b385d11a881f67c57fc3e42307a6aff62b1f6d80"
+    },
+    "q3": {
+      "plan": {
+        "path": ".runtime/v21-qualification/q3/frozen-plan.json",
+        "sha256": "60fd9bb4012bd656b0ba98753cf72a8d645cfe70db647e68d1e6ea87fcbf4a01"
+      },
+      "closure": {
+        "path": ".runtime/v21-qualification/q3/cartographe-frozen-closure.json",
+        "sha256": "4c97f3c3524fe80bfdab73b047a71701e962f39123ee79e0040f6a442ae46e82"
+      },
+      "verification": {
+        "path": ".runtime/v21-qualification/q3/frozen-verify.json",
+        "sha256": "0d0e22d09585cca87a2fd3eee08016568428f6c539475e7f757773c8b3c89d7b"
+      }
+    },
+    "q4": {
+      "path": ".runtime/v21-qualification/q4/replay-confirmed/frozen-oracle.json",
+      "sha256": "69f29a9b4857268281c4e261aa4ca5022c190826cb4892cdfce77de9d1145cdb"
+    },
+    "q5": {
+      "criteria": {
+        "path": ".runtime/v21-qualification/q5/historical-supplement/criteria.json",
+        "sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30"
+      }
+    }
+  },
+  "reuse_conditions": [
+    "Fournir un référentiel H-01 vérifiable et compatible avec les outils actuels, puis démontrer explore, final, refus critiques et comptabilité de bout en bout.",
+    "Établir la position de sortie à partir d’un repère de fiche indépendant et refuser l’usurpation de preuve fournisseur par une géométrie.",
+    "Rejeter ou remesurer les observations de reprise XLink non authentifiées, avec vérification indépendante de la paire et du natif.",
+    "Exécuter la file d’exploration sur un banc intégré, matérialiser une alternative d’architecture sur copie, mesurer sa fusion et relier la continuité aux occurrences.",
+    "Confirmer les limites et les inconnues de la réception finale. Le montage physique reste À valider."
+  ],
+  "campaigns": {
+    "Q1": {
+      "status": "FAIL",
+      "historical_expected": {
+        "history": "NO_GO_MOTIVE, GO3A_CONDITIONNEL, 0/12",
+        "explore": "EXPLORATION_ALLOWED sur plan copié protégé, 8 INCONCLUSIVE, budget 0",
+        "final": "FINAL_NO_GO sans preuve intégrée",
+        "negative": [
+          "perte connue de liaison",
+          "collision interdite connue",
+          "écriture sur origine",
+          "absence de copie privée",
+          "promotion explicite en preuve requise"
+        ],
+        "refusal": "Refus documenté ou rejet de contrat, aucune file de construction et budget 0",
+        "budget_execution": "Un débit exige un reçu pour action exécutée. Observations Q4 pour le moteur L5."
+      },
+      "verified_files": {
+        "checked": 180,
+        "mismatches": [
+          {
+            "path": "electromechanical_engine/freecad_worker.py",
+            "frozen": "768faab6b5ebec8f76a44397a9eae6cd6fe39777224e56529a22d975f181b50a",
+            "observed": "883fdec99d9bc1e6773e008a2cbac1a75a8fb16f73da57ba0292560d5283d8ff"
+          }
+        ]
+      },
+      "cli_evidence": {
+        "path": ".runtime/v21-qualification/q1/results.json",
+        "sha256": "11256eabe2d22b0474389f1987fda0ddba3e4a773ff461c76748033e300d5ba8"
+      },
+      "cli_runs": [
+        {
+          "id": "Q1-01",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "NO_GO_MOTIVE"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "historical",
+            "--output",
+            ".runtime/v21-qualification/q1/history"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-01.log",
+          "status": "FAIL"
+        },
+        {
+          "id": "Q1-02",
+          "expected": {
+            "exit_code": 0,
+            "verdict": "EXPLORATION_ALLOWED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/explore"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-02.log",
+          "status": "FAIL"
+        },
+        {
+          "id": "Q1-03",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "FINAL_NO_GO"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "final",
+            "--output",
+            ".runtime/v21-qualification/q1/final"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-03.log",
+          "status": "FAIL"
+        },
+        {
+          "id": "Q1-04",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "EXPLORATION_BLOCKED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/loss",
+            "--plan",
+            ".runtime/v21-qualification/q1/plan-loss.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-04.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-05",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "EXPLORATION_BLOCKED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/collision",
+            "--plan",
+            ".runtime/v21-qualification/q1/plan-collision.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-05.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-06",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "EXPLORATION_BLOCKED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/write_origin",
+            "--plan",
+            ".runtime/v21-qualification/q1/plan-write_origin.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-06.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-07",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "EXPLORATION_BLOCKED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/no_private_copy",
+            "--plan",
+            ".runtime/v21-qualification/q1/plan-no_private_copy.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-07.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-08",
+          "expected": {
+            "exit_code": 2,
+            "verdict": "EXPLORATION_BLOCKED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/promotion",
+            "--plan",
+            ".runtime/v21-qualification/q1/plan-promotion.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-08.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-09",
+          "expected": {
+            "exit_code": 1,
+            "verdict": null
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "final",
+            "--output",
+            ".runtime/v21-qualification/q1/reuse_as_final",
+            "--receipt",
+            ".runtime/v21-qualification/q1/promotion/preflight.json"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-09.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-10a",
+          "expected": {
+            "exit_code": 4,
+            "verdict": "EXPLORATION_ALLOWED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/pause-resume",
+            "--steps",
+            "2"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-10a.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-10b",
+          "expected": {
+            "exit_code": 0,
+            "verdict": "EXPLORATION_ALLOWED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/pause-resume"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-10b.log",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "Q1-10c",
+          "expected": {
+            "exit_code": 0,
+            "verdict": "EXPLORATION_ALLOWED"
+          },
+          "observed": {
+            "exit_code": 1,
+            "verdict": null,
+            "finalized": false,
+            "reason": "Source modifiée : electromechanical_engine/freecad_worker.py"
+          },
+          "command": [
+            ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+            "preflight",
+            "--mode",
+            "explore",
+            "--output",
+            ".runtime/v21-qualification/q1/pause-resume"
+          ],
+          "log": ".runtime/v21-qualification/q1/Q1-10c.log",
+          "status": "NOT_RUN"
+        }
+      ],
+      "prior_evidence": {
+        "path": "docs/verification/v21_exploration_gate.json",
+        "sha256": "d2577e29cdbb0b9451b02af74113d5eb67854b001eb98b8a35f87147e9105f28"
+      },
+      "isolated": {
+        "source": {
+          "path": ".runtime/v21-qualification/q1/unit-sources-sha256.json",
+          "sha256": "480fc5cd8ba7d6c852ebd54afdb03db6e07d5265595beb9c8112ace79cc173e3"
+        },
+        "report": {
+          "path": ".runtime/v21-qualification/q1/unit-result.json",
+          "sha256": "972b274f0b73006ab0138b17080c8648f7803f6aad3705a77f0a8881b366a709"
+        },
+        "scope": "Fonctions de décision compilées telles que livrées, sans chargement du gel historique.",
+        "expected": {
+          "baseline": "Aucun motif",
+          "loss": "Motif de perte de liaison",
+          "collision": "Motif de collision",
+          "write_origin": "Motif de destination dangereuse",
+          "no_private_copy": "Motif copie privée absente",
+          "promotion": "Motif de promotion d’une hypothèse",
+          "final_without_receipt": "FINAL_NO_GO"
+        },
+        "observed": {
+          "baseline": [],
+          "collision": [
+            "KNOWN_VIOLATION:forbidden_collision"
+          ],
+          "final_without_receipt": {
+            "reason": "INTEGRATED_CANDIDATE_AND_INDEPENDENT_EVIDENCE_REQUIRED",
+            "verdict": "FINAL_NO_GO"
+          },
+          "loss": [
+            "KNOWN_VIOLATION:connectivity_loss"
+          ],
+          "no_private_copy": [
+            "private_copy"
+          ],
+          "promotion": [],
+          "write_origin": [
+            "UNSAFE_WRITE_TARGET"
+          ]
+        },
+        "satisfied": [
+          "baseline",
+          "loss",
+          "collision",
+          "write_origin",
+          "no_private_copy",
+          "final_without_receipt"
+        ],
+        "failed": [
+          "promotion"
+        ],
+        "promotion_effect": "Le champ de preuve impérative soumis est ignoré. La garde isolée n’émet aucun refus. Aucun crédit de réception n’a été observé.",
+        "budget_check": "La garde d’intégrité a empêché les contrôles et la comptabilité de bout en bout de H-01. L5 sur banc a observé des débits après construction."
+      },
+      "cli_interpretation": "Les commandes sont invoquées, non finalisées. Les contrôles fonctionnels sont NOT_RUN derrière l’échec d’intégrité. Aucun verdict ni crédit de réception."
+    },
+    "Q2": {
+      "status": "FAIL",
+      "case_count": 12,
+      "satisfied": 10,
+      "report": {
+        "path": ".runtime/v21-qualification/q2/replay-02/reports/qualification.json",
+        "sha256": "2f58b1bd4e8322255588889056873c9a294557d68465d0689c769332aafef615"
+      },
+      "cases": {
+        "nominal": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/nominal.json",
+            "input_sha256": "4be1bfd93df55eee6c9163678e0f27d26f4346a265f7f995e58bf35e4339aa22",
+            "accepted_results": [
+              "PASS"
+            ],
+            "required_findings": [
+              [
+                "PIN_MAPPING",
+                null,
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "PHYSICAL_PIN_NUMBER",
+                "ra1",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "EXPLICIT_MATE",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "keying",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "MATING_ORIENTATION",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "WIRE_EXIT",
+                "cordon/a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "MATED_PLUG",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "MATED_RECEPTACLE",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "EXTRACTION_ENVELOPE",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ],
+              [
+                "EXTRACTION_SWEEP",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "PASS",
+            "exit_code": 0,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "PASS",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "PIN_MAPPING",
+                "subject": null,
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "PHYSICAL_PIN_NUMBER",
+                "subject": "ra1",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "EXPLICIT_MATE",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "keying",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "MATING_ORIENTATION",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "WIRE_EXIT",
+                "subject": "cordon/a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "MATED_PLUG",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "MATED_RECEPTACLE",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "EXTRACTION_ENVELOPE",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              },
+              {
+                "code": "EXTRACTION_SWEEP",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/nominal.json",
+            "sha256": "57fb7087335dacc5c62263399039a8d28b9bfe57736740de4e71b35901209733"
+          }
+        },
+        "f12-bad-port": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/f12-bad-port.json",
+            "input_sha256": "208dfdbb53cb16421b064f87f17af1f6fb22c3023827386f5117452109b4e414",
+            "accepted_results": [
+              "FAIL"
+            ],
+            "required_findings": [
+              [
+                "WRONG_PORT",
+                "interface-a",
+                [
+                  "FAIL"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "FAIL",
+            "exit_code": 2,
+            "domains": {
+              "electrical": "FAIL",
+              "compatibility": "PASS",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "WRONG_PORT",
+                "subject": "interface-a",
+                "expected": [
+                  "FAIL"
+                ],
+                "observed": [
+                  "FAIL"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/f12-bad-port.json",
+            "sha256": "70a9f57da430ee6dd87f1392263855672ffc256d62dcdcc8c8c2ed2dc2c461f7"
+          }
+        },
+        "swapped-conductors": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/swapped-conductors.json",
+            "input_sha256": "3528495e16b045a5815338e0375303a534b3d1ac42fdf3779acdd41fcd11266b",
+            "accepted_results": [
+              "FAIL"
+            ],
+            "required_findings": [
+              [
+                "PIN_MAPPING",
+                null,
+                [
+                  "FAIL"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "FAIL",
+            "exit_code": 2,
+            "domains": {
+              "electrical": "FAIL",
+              "compatibility": "PASS",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "PIN_MAPPING",
+                "subject": null,
+                "expected": [
+                  "FAIL"
+                ],
+                "observed": [
+                  "FAIL",
+                  "PASS"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/swapped-conductors.json",
+            "sha256": "f4dc07f1fd22bae9932473b506b12f801db9a514ebdb54716ab2981e7aff8f1b"
+          }
+        },
+        "bad-key": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/bad-key.json",
+            "input_sha256": "f955847adc97b1cd6fb0967d43bc82adf5419d95d6239e556fa088b3520b4002",
+            "accepted_results": [
+              "FAIL"
+            ],
+            "required_findings": [
+              [
+                "keying",
+                "interface-a",
+                [
+                  "FAIL"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "FAIL",
+            "exit_code": 2,
+            "domains": {
+              "electrical": "INCONCLUSIVE",
+              "compatibility": "FAIL",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "keying",
+                "subject": "interface-a",
+                "expected": [
+                  "FAIL"
+                ],
+                "observed": [
+                  "FAIL"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/bad-key.json",
+            "sha256": "d11d518dbb550b4356850fb6cb1876ece18a63e113bbb9e4ee1cc7768d8a1138"
+          }
+        },
+        "unmatched-exit": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/unmatched-exit.json",
+            "input_sha256": "d65a3355c2fc68b4275b6c7df799d1abe6758f1262df5d2211570b517b20cfc4",
+            "accepted_results": [
+              "FAIL"
+            ],
+            "required_findings": [
+              [
+                "WIRE_EXIT",
+                "cordon/a",
+                [
+                  "FAIL"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "FAIL",
+            "exit_code": 2,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "PASS",
+              "geometry": "FAIL"
+            },
+            "findings": [
+              {
+                "code": "WIRE_EXIT",
+                "subject": "cordon/a",
+                "expected": [
+                  "FAIL"
+                ],
+                "observed": [
+                  "FAIL"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/unmatched-exit.json",
+            "sha256": "8bb2c5872b8fef8c6c50b382907212384d120d305c4bad403f8c3d37e5861d4b"
+          }
+        },
+        "matched-fictional-exit": {
+          "status": "FAIL",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/matched-fictional-exit.json",
+            "input_sha256": "2acdaa22efca8e8f67a6185f69bc4f361c912b7b4dc852be794b9a850c7349ab",
+            "accepted_results": [
+              "FAIL",
+              "INCONCLUSIVE"
+            ],
+            "required_findings": []
+          },
+          "observed": {
+            "verdict": "PASS",
+            "exit_code": 0,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "PASS",
+              "geometry": "PASS"
+            },
+            "findings": [],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/matched-fictional-exit.json",
+            "sha256": "5f3ac475bbbb9a8920648b4bafc16dc6ac4fa62cde0da10938a615001655d76c"
+          }
+        },
+        "blocked-withdrawal": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/blocked-withdrawal.json",
+            "input_sha256": "dcf86a42a137ddb68390d8320e20ba58881e12c17498a81beb988f70656c0a93",
+            "accepted_results": [
+              "FAIL"
+            ],
+            "required_findings": [
+              [
+                "EXTRACTION_ENVELOPE",
+                "interface-a",
+                [
+                  "FAIL"
+                ]
+              ],
+              [
+                "MATED_PLUG",
+                "interface-a",
+                [
+                  "PASS"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "FAIL",
+            "exit_code": 2,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "PASS",
+              "geometry": "FAIL"
+            },
+            "findings": [
+              {
+                "code": "EXTRACTION_ENVELOPE",
+                "subject": "interface-a",
+                "expected": [
+                  "FAIL"
+                ],
+                "observed": [
+                  "FAIL"
+                ],
+                "match": true
+              },
+              {
+                "code": "MATED_PLUG",
+                "subject": "interface-a",
+                "expected": [
+                  "PASS"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/blocked-withdrawal.json",
+            "sha256": "affd38adf0edf34305f32a44b7e45293aef84e9ef5574bb7d379674c9062d114"
+          }
+        },
+        "unverified-mpn": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/unverified-mpn.json",
+            "input_sha256": "ef47c0449c2e714f38ee119348c88a4ee3ff3388b7ac3a5e424a9c3c34b0170f",
+            "accepted_results": [
+              "INCONCLUSIVE"
+            ],
+            "required_findings": [
+              [
+                "PART_PROVENANCE",
+                "interface-a",
+                [
+                  "INCONCLUSIVE"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "INCONCLUSIVE",
+            "exit_code": 3,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "INCONCLUSIVE",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "PART_PROVENANCE",
+                "subject": "interface-a",
+                "expected": [
+                  "INCONCLUSIVE"
+                ],
+                "observed": [
+                  "INCONCLUSIVE"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/unverified-mpn.json",
+            "sha256": "82c8cd86ecfa86120e317a1cc3256c719a60bffb65874ff07b899455714cff22"
+          }
+        },
+        "hardware-revision-conflict": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/hardware-revision-conflict.json",
+            "input_sha256": "2ff484882038685a4b8a33a628de20a3fe44e17583643c580d64cdc881ff6a73",
+            "accepted_results": [
+              "FAIL",
+              "INCONCLUSIVE"
+            ],
+            "required_findings": [
+              [
+                "PORT_IDENTITY",
+                "interface-a",
+                [
+                  "FAIL",
+                  "INCONCLUSIVE"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "INCONCLUSIVE",
+            "exit_code": 3,
+            "domains": {
+              "electrical": "INCONCLUSIVE",
+              "compatibility": "PASS",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "PORT_IDENTITY",
+                "subject": "interface-a",
+                "expected": [
+                  "FAIL",
+                  "INCONCLUSIVE"
+                ],
+                "observed": [
+                  "INCONCLUSIVE"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/hardware-revision-conflict.json",
+            "sha256": "df7c829591d3396ccd022dc596c233d2d400a4559623a17b636668af80af4fcd"
+          }
+        },
+        "missing-contact": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/missing-contact.json",
+            "input_sha256": "65cbe227fc434600d3a0dc1b3364530dd62ab6ff31888944a25728787927cfaa",
+            "accepted_results": [
+              "FAIL",
+              "INCONCLUSIVE"
+            ],
+            "required_findings": [
+              [
+                "CONTACT_MAPPING",
+                "ra1",
+                [
+                  "FAIL",
+                  "INCONCLUSIVE"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "INCONCLUSIVE",
+            "exit_code": 3,
+            "domains": {
+              "electrical": "INCONCLUSIVE",
+              "compatibility": "INCONCLUSIVE",
+              "geometry": "PASS"
+            },
+            "findings": [
+              {
+                "code": "CONTACT_MAPPING",
+                "subject": "ra1",
+                "expected": [
+                  "FAIL",
+                  "INCONCLUSIVE"
+                ],
+                "observed": [
+                  "INCONCLUSIVE"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/missing-contact.json",
+            "sha256": "35f2c8fc6b93ec051c6f0cd0bfe8b393fb1d1a5efdd85305072a643d0694d5d5"
+          }
+        },
+        "approximate-model": {
+          "status": "PASS",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/approximate-model.json",
+            "input_sha256": "d6c3da34cb86063df53a7ded153d0b9dd56a8aaf6abeb8233f7696b4e9542255",
+            "accepted_results": [
+              "INCONCLUSIVE"
+            ],
+            "required_findings": [
+              [
+                "MATED_PLUG",
+                "interface-a",
+                [
+                  "INCONCLUSIVE"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "INCONCLUSIVE",
+            "exit_code": 3,
+            "domains": {
+              "electrical": "PASS",
+              "compatibility": "PASS",
+              "geometry": "INCONCLUSIVE"
+            },
+            "findings": [
+              {
+                "code": "MATED_PLUG",
+                "subject": "interface-a",
+                "expected": [
+                  "INCONCLUSIVE"
+                ],
+                "observed": [
+                  "INCONCLUSIVE"
+                ],
+                "match": true
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/approximate-model.json",
+            "sha256": "0910fcecbbeaa25d3f6306349d2c4aef20616656d29f98b90cb026857feb413a"
+          }
+        },
+        "cad-as-supplier-proof": {
+          "status": "FAIL",
+          "expected": {
+            "input": ".runtime/v21-qualification/q2/replay-02/fixtures/cad-as-supplier-proof.json",
+            "input_sha256": "fb49305a8abc7de91c5e9a8254e0f3b4564466d9a4ce0ca18c5a77f050d48db8",
+            "accepted_results": [
+              "INCONCLUSIVE"
+            ],
+            "required_findings": [
+              [
+                "PART_PROVENANCE",
+                "interface-a",
+                [
+                  "INCONCLUSIVE"
+                ]
+              ]
+            ]
+          },
+          "observed": {
+            "verdict": "INCONCLUSIVE",
+            "exit_code": 3,
+            "domains": {
+              "electrical": "INCONCLUSIVE",
+              "compatibility": "INCONCLUSIVE",
+              "geometry": "INCONCLUSIVE"
+            },
+            "findings": [
+              {
+                "code": "PART_PROVENANCE",
+                "subject": "interface-a",
+                "expected": [
+                  "INCONCLUSIVE"
+                ],
+                "observed": [
+                  "PASS"
+                ],
+                "match": false
+              }
+            ],
+            "input_integrity": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q2/replay-02/reports/cad-as-supplier-proof.json",
+            "sha256": "227108a2682ac2fa0bc942f975ef84494b49ee19b4dff961045039703f0f54df"
+          }
+        }
+      },
+      "independent_native": {
+        "nominal": {
+          "process_code": 0,
+          "status": "PASS",
+          "measured": {
+            "tolerances": {
+              "position_mm": 0.000001,
+              "volume_mm3": 0.000001,
+              "pose_matrix_components": 1e-8
+            },
+            "pids": {
+              "build": 29032,
+              "reopen": 25792
+            },
+            "fcstd_sha256": "7508891b88fe6d4bba99b5b988829f53b93fb025f7d56d3b44ea7f56af868a5e",
+            "interfaces": [
+              {
+                "end": "a",
+                "port": "port-a",
+                "exit_mm": [
+                  14,
+                  0,
+                  8.624468950438427e-18
+                ],
+                "contact_pair_count": 4,
+                "max_contact_gap_mm": 0,
+                "pull_status": "PASS",
+                "extraction_status": "PASS"
+              },
+              {
+                "end": "b",
+                "port": "port-b",
+                "exit_mm": [
+                  86,
+                  0,
+                  8.624468950437244e-18
+                ],
+                "contact_pair_count": 4,
+                "max_contact_gap_mm": 0,
+                "pull_status": "PASS",
+                "extraction_status": "PASS"
+              }
+            ],
+            "conductors": 4,
+            "card_count": 2,
+            "receptacle_count": 2,
+            "plug_count": 2,
+            "contact_pairs": 8,
+            "obstructed_retraction": "FAIL",
+            "obstruction_volume_mm3": 0.9999999999999998,
+            "generic_terminal": "FAIL",
+            "generic_terminal_endpoint_errors_mm": [
+              0,
+              0
+            ],
+            "provenance_same_native": true,
+            "oracle_match": true
+          },
+          "adapter_status": "PASS",
+          "proof": ".runtime/v21-qualification/q2/replay-02/reports/native-nominal/native_l2.json",
+          "proof_sha256": "28ef14b7b81abbcf79268768cecc233a670105974a2824611ab4f310fd4e8d4c"
+        },
+        "matched-fictional-exit": {
+          "process_code": 0,
+          "status": "FAIL",
+          "measured": {
+            "tolerances": {
+              "position_mm": 0.000001,
+              "volume_mm3": 0.000001,
+              "pose_matrix_components": 1e-8
+            },
+            "pids": {
+              "build": 26636,
+              "reopen": 14548
+            },
+            "fcstd_sha256": "5fc86c714e983c455be3dc23b287aac75ae033b4a0c26c71c1d484b192add52c",
+            "interfaces": [
+              {
+                "end": "a",
+                "port": "port-a",
+                "exit_mm": [
+                  11,
+                  0,
+                  -5.750934582465561e-17
+                ],
+                "contact_pair_count": 4,
+                "max_contact_gap_mm": 0,
+                "pull_status": "PASS",
+                "extraction_status": "PASS"
+              },
+              {
+                "end": "b",
+                "port": "port-b",
+                "exit_mm": [
+                  86,
+                  0,
+                  8.624468950437244e-18
+                ],
+                "contact_pair_count": 4,
+                "max_contact_gap_mm": 0,
+                "pull_status": "PASS",
+                "extraction_status": "PASS"
+              }
+            ],
+            "conductors": 4,
+            "card_count": 2,
+            "receptacle_count": 2,
+            "plug_count": 2,
+            "contact_pairs": 8,
+            "obstructed_retraction": "FAIL",
+            "obstruction_volume_mm3": 0.9999999999999998,
+            "generic_terminal": "FAIL",
+            "generic_terminal_endpoint_errors_mm": [
+              0,
+              0
+            ],
+            "provenance_same_native": true,
+            "oracle_match": false
+          },
+          "adapter_status": "PASS",
+          "proof": ".runtime/v21-qualification/q2/replay-02/reports/native-matched-fictional-exit/native_l2.json",
+          "proof_sha256": "c6bb5671c00d693587135edc2598c94c9754c94c47b8eae88e84b8374588258b"
+        }
+      },
+      "initial_attempt": {
+        "reference": {
+          "path": ".runtime/v21-qualification/q2/oracles.json",
+          "sha256": "c829e123ec9458979860d7822402dd7b8a5b1022fc851969d3a5db7e3ad56fa5"
+        },
+        "report": {
+          "path": ".runtime/v21-qualification/q2/reports/qualification.json",
+          "sha256": "4aced12f851fb141fcb123cdee30fe38856e1bc28bf5d519a8c137e030ce2ea2"
+        },
+        "disposition": "Non scoré. La pose synthétique de l’embase omettait sa translation. Relance avec les mêmes oracles et tolérances."
+      },
+      "commands": [
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/nominal.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/nominal.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/f12-bad-port.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/f12-bad-port.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/swapped-conductors.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/swapped-conductors.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/bad-key.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/bad-key.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/unmatched-exit.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/unmatched-exit.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/matched-fictional-exit.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/matched-fictional-exit.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/blocked-withdrawal.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/blocked-withdrawal.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/unverified-mpn.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/unverified-mpn.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/hardware-revision-conflict.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/hardware-revision-conflict.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/missing-contact.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/missing-contact.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/approximate-model.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/approximate-model.json"
+        ],
+        [
+          ".runtime/v21-qualification/q2/build/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-qualification/q2/replay-02/fixtures/cad-as-supplier-proof.json",
+          "--output",
+          ".runtime/v21-qualification/q2/replay-02/reports/cad-as-supplier-proof.json"
+        ],
+        [
+          "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "-B",
+          "hardware/mecanique/banc_interconnexion/verification/freecad_adapter.py",
+          "run",
+          ".runtime/v21-qualification/q2/replay-02/reports/nominal.json",
+          ".runtime/v21-qualification/q2/replay-02/reports/native-nominal",
+          "--freecad",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+        ],
+        [
+          "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "-B",
+          "hardware/mecanique/banc_interconnexion/verification/freecad_adapter.py",
+          "run",
+          ".runtime/v21-qualification/q2/replay-02/reports/matched-fictional-exit.json",
+          ".runtime/v21-qualification/q2/replay-02/reports/native-matched-fictional-exit",
+          "--freecad",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+        ]
+      ],
+      "ctest": {
+        "path": ".runtime/v21-qualification/q2/ctest.log",
+        "sha256": "d0fb4befdb36c5d0c25e4997ed51dd8d70c4b2ebb326af22c23ec2817cc98a51"
+      }
+    },
+    "Q3": {
+      "status": "FAIL",
+      "report": {
+        "path": ".runtime/v21-qualification/q3/results.json",
+        "sha256": "65b76e4a16ce7e74ac0a35d449f15c6f31316be2fd991de953a0440ae596e004"
+      },
+      "case_count": 6,
+      "satisfied": 5,
+      "checks": {
+        "Q3-01": {
+          "status": "PASS",
+          "observed": "Banc répliqué : poses, copies, réseau et visibilité contrôlés. Banc L4 : paire externe et retrait recalculés dans deux processus indépendants, changement de forme liée refusé."
+        },
+        "Q3-02": {
+          "status": "PASS",
+          "observed": "Timeout forcé à 1 ms et reprise de 2 points authentiques sur le banc CLI. 5 paires attendues, 4 BRep et 1 exclue; jeu Near 0,55 mm. Obstacle déplacé : racine identique, dépendance et clé modifiées, zéro reprise, 3 paires BRep, 2 exclusions. Dépendance absente : BLOQUÉ et NOT_RUN."
+        },
+        "Q3-03": {
+          "status": "PASS",
+          "observed": {
+            "axes_bound": 53,
+            "axes_expected": 53,
+            "contacts_bound": 0,
+            "contacts_examined": 0,
+            "contacts_expected": 0,
+            "equipment_bound": 108,
+            "interfaces": 142,
+            "line_axis_associations": 56,
+            "lines": 71,
+            "native_routes_without_electrical_axis": 0,
+            "off_axis_lines": 21,
+            "onboard_equipment_bound": 96,
+            "onboard_interfaces": 100,
+            "onboard_sides_without_contact_definition": 100
+          },
+          "joins": {
+            "native_files": 137,
+            "off_axis_categories": {
+              "interne_pcb": 1,
+              "au_sol": 6,
+              "retire": 6,
+              "interne_oem": 2,
+              "reserve_non_montee": 2,
+              "interface_directe": 1,
+              "sans_fil": 2,
+              "transport_reutilise": 1
+            },
+            "associations_in_l2_by_sense": {
+              "direct": 45,
+              "inverse": 11
+            },
+            "occurrences": 2772,
+            "equipment_bindings": 108,
+            "measured_pids": [
+              6068,
+              27272
+            ],
+            "pairs_examined": 103,
+            "pairs_not_run": 1506,
+            "exclusions_by_reason": {
+              "children": 299,
+              "Occurrence masquée dans la représentation native": 1907
+            },
+            "open_checks": {
+              "installed-connector-mating": {
+                "id": "installed-connector-mating",
+                "reason": "Révisions, datums d’accouplement et contacts physiques incomplets pour les interfaces.",
+                "requirement": "CAB-CARTO-001",
+                "status": "NOT_RUN"
+              },
+              "extraction-and-tool-access": {
+                "id": "extraction-and-tool-access",
+                "reason": "Course, outil et séquence de déverrouillage gelés manquants pour les fiches installées.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              "retention-attachment": {
+                "id": "retention-attachment",
+                "reason": "Appuis, contacts autorisés et stations à associer aux occurrences de cette fermeture.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              "motion-envelope": {
+                "id": "motion-envelope",
+                "reason": "Bornes des états mobiles et enveloppes continues absentes du référentiel de réception.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              "route-radius-and-terminal-tangency": {
+                "id": "route-radius-and-terminal-tangency",
+                "reason": "Axe natif observable au nominal. Rayons applicables et tangentes des ports réels restent à établir.",
+                "requirement": "CAB-CARTO-001",
+                "status": "INCONCLUSIVE"
+              },
+              "geometry-approximations": {
+                "id": "geometry-approximations",
+                "reason": "Solides OEM X650 simplifiés et gabarits de connectique candidats.",
+                "requirement": "MEC-INT-001",
+                "sources": [
+                  "docs/verification/cartographe_action3_x650.json",
+                  "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+                  "docs/verification/v21_connector_tests.json"
+                ],
+                "status": "INCONCLUSIVE"
+              }
+            }
+          }
+        },
+        "Q3-04": {
+          "status": "PASS",
+          "observed": {
+            "expected_pairs": 28514,
+            "possible_brep_pairs": 1609,
+            "pairs_screened_out": 26905,
+            "pairs_examined": 103,
+            "pairs_not_run": 1506,
+            "pairs_unmeasurable": 0,
+            "route_occurrences": 53,
+            "solid_occurrences": 565,
+            "unavailable_occurrences": [
+              {
+                "id": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/CA01/ReserveTVS",
+                "reason": "Forme partielle ou sans solide fermé."
+              }
+            ]
+          },
+          "real_attempts": [
+            {
+              "verdict": "V21_XLINK_CONDITIONAL",
+              "electrical": "INCONCLUSIVE",
+              "geometry": "INCONCLUSIVE",
+              "batch": {
+                "finalized": false,
+                "log": "batch.log",
+                "log_sha256": "1f9b06f6be01b188e75a1a2c5dcb73d1b217c4210265ffb12f0cf6e5e9a55e46",
+                "reason": "Budget du processus dépassé",
+                "scheduled": 650,
+                "started": 511,
+                "timed_out": true
+              },
+              "counts": {
+                "FAIL": 0,
+                "INCONCLUSIVE": 53,
+                "NOT_RUN": 1717,
+                "PASS": 457
+              },
+              "pairs_examined": 0,
+              "pairs_not_run": 1609,
+              "resumed_tasks": 0,
+              "saved_pid": 14108,
+              "reopened_pid": 23056,
+              "report": {
+                "path": ".runtime/v21-qualification/q3/real/run-a42d7397-fae5-4ba6-8b32-ab1b1b784992/campaign.json",
+                "sha256": "7b563e38c3ddfc4033d5de384359ed4f64a795eafcfb1d89fa6e0a0752c53956"
+              },
+              "t0": {
+                "path": ".runtime/v21-qualification/q3/real/run-a42d7397-fae5-4ba6-8b32-ab1b1b784992/t0_run_manifest.json",
+                "sha256": "cab0fe476564174ebd4ff8b357da6608873802f30572f6fc8c376cfd45c622d1"
+              },
+              "t0_check": {
+                "path": ".runtime/v21-qualification/q3/t0-run-a42d7397-fae5-4ba6-8b32-ab1b1b784992.log",
+                "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+              },
+              "inventory": {
+                "path": ".runtime/v21-qualification/q3/real/run-a42d7397-fae5-4ba6-8b32-ab1b1b784992/inventory.result.json",
+                "sha256": "8f01221a3e07bbd3a6c10476e788880dcbbb1411306f54a6e139b640be26e793"
+              },
+              "batch_log": {
+                "path": ".runtime/v21-qualification/q3/real/run-a42d7397-fae5-4ba6-8b32-ab1b1b784992/batch.log",
+                "sha256": "1f9b06f6be01b188e75a1a2c5dcb73d1b217c4210265ffb12f0cf6e5e9a55e46"
+              }
+            },
+            {
+              "verdict": "V21_XLINK_CONDITIONAL",
+              "electrical": "INCONCLUSIVE",
+              "geometry": "FAIL",
+              "batch": {
+                "finalized": false,
+                "log": "batch.log",
+                "log_sha256": "e451cb26fd7c693a04043e97186d6f00838de996d81aeee95fb0383743e2d4e7",
+                "reason": "Budget du processus dépassé",
+                "scheduled": 650,
+                "started": 211,
+                "timed_out": true
+              },
+              "counts": {
+                "FAIL": 5,
+                "INCONCLUSIVE": 151,
+                "NOT_RUN": 1507,
+                "PASS": 564
+              },
+              "pairs_examined": 103,
+              "pairs_not_run": 1506,
+              "resumed_tasks": 510,
+              "saved_pid": 14108,
+              "reopened_pid": 4620,
+              "report": {
+                "path": ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59/campaign.json",
+                "sha256": "ca89360910f841e9d5b93140f6764956ee35153c6d6c56e738f946a1d2f8de48"
+              },
+              "t0": {
+                "path": ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59/t0_run_manifest.json",
+                "sha256": "b56c77a71e20350c505625660b7bdf4d32a6fbf68557ff622f66a6f3b86f9610"
+              },
+              "t0_check": {
+                "path": ".runtime/v21-qualification/q3/t0-run-f1b80115-c404-45a5-8739-cd5493ad3d59.log",
+                "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+              },
+              "inventory": {
+                "path": ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59/inventory.result.json",
+                "sha256": "f4a95b5c993755ae24d223c9083ffdafe451c106263698ddd16c36f42ac24de9"
+              },
+              "batch_log": {
+                "path": ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59/batch.log",
+                "sha256": "e451cb26fd7c693a04043e97186d6f00838de996d81aeee95fb0383743e2d4e7"
+              }
+            }
+          ]
+        },
+        "Q3-05": {
+          "status": "PASS",
+          "observed": {
+            "originals_unchanged": true,
+            "native_files": 137,
+            "open_checks": [
+              {
+                "id": "installed-connector-mating",
+                "reason": "Révisions, datums d’accouplement et contacts physiques incomplets pour les interfaces.",
+                "requirement": "CAB-CARTO-001",
+                "status": "NOT_RUN"
+              },
+              {
+                "id": "extraction-and-tool-access",
+                "reason": "Course, outil et séquence de déverrouillage gelés manquants pour les fiches installées.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              {
+                "id": "retention-attachment",
+                "reason": "Appuis, contacts autorisés et stations à associer aux occurrences de cette fermeture.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              {
+                "id": "motion-envelope",
+                "reason": "Bornes des états mobiles et enveloppes continues absentes du référentiel de réception.",
+                "requirement": "MEC-INT-001",
+                "status": "NOT_RUN"
+              },
+              {
+                "id": "route-radius-and-terminal-tangency",
+                "reason": "Axe natif observable au nominal. Rayons applicables et tangentes des ports réels restent à établir.",
+                "requirement": "CAB-CARTO-001",
+                "status": "INCONCLUSIVE"
+              },
+              {
+                "id": "geometry-approximations",
+                "reason": "Solides OEM X650 simplifiés et gabarits de connectique candidats.",
+                "requirement": "MEC-INT-001",
+                "sources": [
+                  "docs/verification/cartographe_action3_x650.json",
+                  "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+                  "docs/verification/v21_connector_tests.json"
+                ],
+                "status": "INCONCLUSIVE"
+              }
+            ],
+            "limits": "La provenance de l’approximation OEM est déclarée dans le référentiel. Les mesures nominales et l’inventaire ne prouvent pas les interfaces ou gestes physiques."
+          }
+        },
+        "Q3-06": {
+          "status": "FAIL",
+          "false_favorable": 1,
+          "independent_t0_validation_exit_code": 0,
+          "observed": "Collision 7,652891819924148 mm³ et garde 0 transformées en 0 mm³ et garde 5 mm. Géométrie PASS au lieu de FAIL, 11 points de reprise, sources et fermeture inchangées, T0 formellement valide.",
+          "evidence": {
+            "path": ".runtime/v21-qualification/q3/checkpoint-probe/result.json",
+            "sha256": "7a803f6780eae14600bbe38484b4b060c1c681631840cd8a0f4285b6664cbcd6"
+          }
+        }
+      },
+      "commands": [
+        {
+          "args": [
+            "cmake",
+            "-S",
+            "validation_engine",
+            "-B",
+            ".runtime/v21-qualification/q3/build",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64"
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/configure.log",
+            "sha256": "f3cc06562c02e49be1ae312bc49d76db43117931828288a3d412dd19012676eb"
+          }
+        },
+        {
+          "args": [
+            "cmake",
+            "--build",
+            ".runtime/v21-qualification/q3/build",
+            "--parallel",
+            "4"
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/build.log",
+            "sha256": "1c6d055601031286200a24d69a9b06ecbe5261fb06fb4521a400be909c16669f"
+          }
+        },
+        {
+          "args": [
+            "ctest",
+            "--test-dir",
+            ".runtime/v21-qualification/q3/build",
+            "--output-on-failure"
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/ctest.log",
+            "sha256": "eb9be50765e654fda659fb14769c9fd5c1394953fc7373d274ce1fbde62b4e0e"
+          }
+        },
+        {
+          "args": [
+            "python",
+            "-B",
+            "-m",
+            "unittest",
+            "-v",
+            "electromechanical_engine.tests.test_l4_native.L4NativeAdapterTests.test_frozen_xlink_obstacle_enlarges_pair_scope_on_both_reopens",
+            "electromechanical_engine.tests.test_l4_native.L4NativeAdapterTests.test_saved_candidate_uses_native_bytes_and_ignores_builder_claims"
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/l4-native.log",
+            "sha256": "f46e12dc95294c495d678481f7f38e9a466e32bc38f15f32604f05809c9880be"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-qualification/q3/build/interconnection/interconnection_core.exe",
+            "inspect-cartographe",
+            "--root",
+            ".",
+            "--output",
+            ".runtime/v21-qualification/q3/electrical.json"
+          ],
+          "log": {
+            "path": ".runtime/v21-qualification/q3/l2-graph.log",
+            "sha256": "6410957eb3ae74605b3e256d591a7c37e2d33dda8aa3d57f90e928a3a12fc66d"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-qualification/q3/build/validation_core.exe",
+            "xlink",
+            "--configuration",
+            "validation_engine/fixtures/xlink_cartographe.json",
+            "--freecad-python",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "--electrical",
+            ".runtime/v21-qualification/q3/electrical.json",
+            "--output",
+            ".runtime/v21-qualification/q3/real",
+            "--native-timeout-ms",
+            "180000",
+            "--batch-timeout-ms",
+            "90000",
+            "--max-native-tasks",
+            "650"
+          ],
+          "exit_code": 3,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/real-run.log",
+            "sha256": "509f39115dc73ff024560a4c9511e9dd421ecf68b17adef1ec39592de0ee3a6c"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-qualification/q3/build/validation_core.exe",
+            "xlink",
+            "--configuration",
+            "validation_engine/fixtures/xlink_cartographe.json",
+            "--freecad-python",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "--electrical",
+            ".runtime/v21-qualification/q3/electrical.json",
+            "--output",
+            ".runtime/v21-qualification/q3/real",
+            "--native-timeout-ms",
+            "180000",
+            "--batch-timeout-ms",
+            "90000",
+            "--max-native-tasks",
+            "650"
+          ],
+          "exit_code": 3,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/real-resume.log",
+            "sha256": "2d377650d1aac25dda7a9e824777e645825bd823c2a675a10c0c2d83aae232f7"
+          }
+        },
+        {
+          "args": [
+            "python",
+            "-B",
+            "validation_engine/tests/probe_xlink_checkpoint.py",
+            ".runtime/v21-qualification/q3/build/validation_core.exe",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            ".runtime/v21-qualification/q3/checkpoint-probe"
+          ],
+          "exit_code": 1,
+          "result": {
+            "path": ".runtime/v21-qualification/q3/checkpoint-probe/result.json",
+            "sha256": "7a803f6780eae14600bbe38484b4b060c1c681631840cd8a0f4285b6664cbcd6"
+          },
+          "child_commands": [
+            {
+              "command": [
+                "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+                "-B",
+                "D:\\ProjetGuillaume\\DroneAgricole\\validation_engine\\tests\\test_xlink_cli.py",
+                "--worker",
+                "create",
+                "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q3\\checkpoint-probe\\source"
+              ],
+              "exit_code": 0,
+              "log": ".runtime/v21-qualification/q3/checkpoint-probe/create.log",
+              "log_sha256": "7ff256ef25cfc4119ac7249a4e65ac6392edd20c1bd1b64c98d9b2a29785f902"
+            },
+            {
+              "command": [
+                ".runtime/v21-qualification/q3/build/validation_core.exe",
+                "xlink",
+                "--configuration",
+                ".runtime/v21-qualification/q3/checkpoint-probe/settings.json",
+                "--output",
+                ".runtime/v21-qualification/q3/checkpoint-probe/campaign",
+                "--freecad-python",
+                "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+              ],
+              "exit_code": 3,
+              "log": ".runtime/v21-qualification/q3/checkpoint-probe/initial.log",
+              "log_sha256": "113bc94e51ebb94bea558b331290dc5ecd3939a32fced80a27bf5e7af182eac9"
+            },
+            {
+              "command": [
+                ".runtime/v21-qualification/q3/build/validation_core.exe",
+                "xlink",
+                "--configuration",
+                ".runtime/v21-qualification/q3/checkpoint-probe/settings.json",
+                "--output",
+                ".runtime/v21-qualification/q3/checkpoint-probe/campaign",
+                "--freecad-python",
+                "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+              ],
+              "exit_code": 3,
+              "log": ".runtime/v21-qualification/q3/checkpoint-probe/resumed.log",
+              "log_sha256": "e7cacbf611f65bf05b92a326aff54d51e4b460f0a8e0eb85f26795e66eda2007"
+            }
+          ]
+        },
+        {
+          "args": [
+            "python",
+            "-B",
+            "validation_engine/tests/verify_v21_xlink_replay.py",
+            ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59",
+            ".runtime/v21-qualification/q3/electrical.json",
+            ".runtime/v21-qualification/q3/cartographe-frozen-closure.json"
+          ],
+          "exit_code": 0,
+          "result": {
+            "path": ".runtime/v21-qualification/q3/independent-real-check.json",
+            "sha256": "ddddf4d272044241720f6a7851826391f4d77d1d958e2b3f8be1d420b82141de"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-regressions/simulation/cartographe-evidence.exe",
+            "validate",
+            ".runtime/v21-qualification/q3/real/run-a42d7397-fae5-4ba6-8b32-ab1b1b784992",
+            "."
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/t0-run-a42d7397-fae5-4ba6-8b32-ab1b1b784992.log",
+            "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-regressions/simulation/cartographe-evidence.exe",
+            "validate",
+            ".runtime/v21-qualification/q3/real/run-f1b80115-c404-45a5-8739-cd5493ad3d59",
+            "."
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/t0-run-f1b80115-c404-45a5-8739-cd5493ad3d59.log",
+            "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-regressions/simulation/cartographe-evidence.exe",
+            "validate",
+            ".runtime/v21-qualification/q3/checkpoint-probe/campaign/run-a416a085-4b5b-4ca6-a73b-066811645d8d",
+            "."
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/t0-run-a416a085-4b5b-4ca6-a73b-066811645d8d.log",
+            "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+          }
+        },
+        {
+          "args": [
+            ".runtime/v21-regressions/simulation/cartographe-evidence.exe",
+            "validate",
+            ".runtime/v21-qualification/q3/checkpoint-probe/campaign/run-909e563d-0ee1-4873-ac01-c0a4088d79dc",
+            "."
+          ],
+          "exit_code": 0,
+          "log": {
+            "path": ".runtime/v21-qualification/q3/t0-run-909e563d-0ee1-4873-ac01-c0a4088d79dc.log",
+            "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+          }
+        }
+      ],
+      "expected": "Occurrence répétée, fermeture réelle, 71 lignes / 53 axes / 56 associations, reprise bornée, dépendance altérée refusée, sorties OEM et NOT_RUN visibles.",
+      "real_verdict": "V21_XLINK_CONDITIONAL",
+      "tampered_bench_verdict": "V21_XLINK_CONDITIONAL"
+    },
+    "Q4": {
+      "status": "FAIL",
+      "report": {
+        "path": ".runtime/v21-qualification/q4/replay-confirmed/q4-results.json",
+        "sha256": "6b7a4c38d08a5886c41fc65d69ca455f7bda3bb5d5651b07b5ddd7eda9ca94c0"
+      },
+      "assumption": "Deux échecs mesurés, changement de famille, conflits de fusion refusés, mesure du consolidé, pause/reprise et verdict explicites. Démonstration distincte du raccordement V2.1.",
+      "cases": {
+        "service_failure": {
+          "status": "PASS",
+          "expected": "Deux échecs mesurés sur D1, puis changement de famille.",
+          "observed": {
+            "routes": {
+              "local-direct": {
+                "status": "FAIL",
+                "native_sha256": "0378afa4de8dd1e86c70770a5dcfa400c3ecd8df6f5b208d84f2192d01934476",
+                "l4": {
+                  "path": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-direct/cases/consolidated-bench.json",
+                  "sha256": "96aea7f7889611957f614bba0d6051d1ffe4c5d4e4312743d9637318da539e26"
+                },
+                "service": {
+                  "intersection_mm3": 31.415926535897928,
+                  "clearance_mm": 0
+                }
+              },
+              "local-offset-2": {
+                "status": "FAIL",
+                "native_sha256": "4bc17288cd9d67cc09507e00ed45481743408c7fd456e3db7472afc9c5aeb4e9",
+                "l4": {
+                  "path": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-offset-2/cases/consolidated-bench.json",
+                  "sha256": "af10530e40fbb9b5ae0370c58d9f2fd673fb2165b9a38f8eb292adc2d9c70895"
+                },
+                "service": {
+                  "intersection_mm3": 31.415926535897924,
+                  "clearance_mm": 0
+                }
+              },
+              "lateral": {
+                "status": "PASS",
+                "native_sha256": "19a9eb43ef2dbd215cc2862b447cfda12dc4f05d29128e3f6085c08a8ec110f3"
+              },
+              "upper": {
+                "status": "PASS",
+                "native_sha256": "5be22c66efccd45542f5bc3f277157bd2b6ff285a1e4c6b6094f5378a286b0a3"
+              },
+              "shared": {
+                "status": "PASS",
+                "native_sha256": "ce83df1ce964469c938a389a0107faa297dbccdf6e043b947726bf155781ad31"
+              },
+              "service-direct": {
+                "status": "PASS",
+                "native_sha256": "78f642f22e7593a900ea772967803ef5a10f3cb315fca29ed71a1a05e151a256"
+              },
+              "lateral-equivalent": {
+                "status": "DUPLICATE",
+                "native_sha256": null
+              }
+            },
+            "constraint": {
+              "code": "V3.EXTRACTION",
+              "subjects": [
+                "D1"
+              ],
+              "occurrences": 2,
+              "signature": "be02af46d9cfa6572825f31b5962e04825d587a43202b37cef0cc72234f6a5b4",
+              "transition": "CHANGE_FAMILY/REPEATED_CONSTRAINT"
+            }
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q4/replay-confirmed/q4-results.json",
+            "sha256": "6b7a4c38d08a5886c41fc65d69ca455f7bda3bb5d5651b07b5ddd7eda9ca94c0"
+          }
+        },
+        "fusion": {
+          "status": "PASS",
+          "expected": "Conflits de dépendances/affectations détectés, fusion incompatible refusée et copie gagnante remesurée.",
+          "observed": {
+            "portfolios": [
+              [
+                "conflicting-routes",
+                "REJECTED"
+              ],
+              [
+                "shared-service",
+                "FAIL"
+              ],
+              [
+                "lateral-service",
+                "PASS"
+              ],
+              [
+                "upper-service",
+                "SKIPPED"
+              ]
+            ],
+            "winner": "lateral-service",
+            "metrics_mm": {
+              "length": 221.41592653589794,
+              "max_height": 10.992708874098055,
+              "min_extraction_clearance": 4
+            },
+            "l4_pass": 14,
+            "verdict": "L5_PASS",
+            "candidate": {
+              "path": ".runtime/v21-qualification/q4/replay-confirmed/paused/consolidations/lateral-service/build-1/native/candidate.FCStd",
+              "sha256": "afe3c24c69871d2be49120b2c1f5d581178f892c0fac566cf174789da1fd50a6"
+            },
+            "independent": {
+              "report": ".runtime/v21-qualification/q4/replay-confirmed/independent/cases/consolidated-bench.json",
+              "report_sha256": "cffab90b1d8ae21c5d751623b7dc84a2020eb9f688e615034691ceeaee8f6996",
+              "worker_ids": [
+                "5a8e394d7e324ab3bd583d929085f077",
+                "4669abc51391495ba0916e27f15bfcfa"
+              ]
+            }
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q4/ctest-unit-l5.log",
+            "sha256": "244a04155065f5eaecc47ae3e4a22b37408cdab11acc032d577c1b1ad714a2f8"
+          }
+        },
+        "resume": {
+          "status": "PASS",
+          "expected": "Pause et reprise sans changer le gel. Même sélection, métriques et terminal avec parcours continu.",
+          "observed": {
+            "details_before": 1,
+            "consolidations_before": 0,
+            "details_after": 6,
+            "consolidations_after": 2,
+            "same_frozen_manifest": "b826efe0e98cd11a67ed43d5de49a74a6b3313453dde7850a5b230c9f1d9cc07",
+            "shared_lock_sha256": "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+            "replay_unchanged": true
+          },
+          "evidence": [
+            {
+              "path": ".runtime/v21-qualification/q4/replay-confirmed/paused/t0_run_manifest.json",
+              "sha256": "5268e14ffc715cc8affd5b29042e1985387a177f218da86ad06ff9a4034480e8"
+            },
+            {
+              "path": ".runtime/v21-qualification/q4/replay-confirmed/uninterrupted/t0_run_manifest.json",
+              "sha256": "0ccfc1ef101f2be762ab0fdea4f6d3c52d78e5aed2d498941134736b4f4bb4fd"
+            }
+          ]
+        },
+        "change_in_architecture": {
+          "status": "FAIL",
+          "expected": "Construire et mesurer une alternative d’orientation, de placement ou de diagnostic.",
+          "observed": {
+            "l3": {
+              "f31-over": {
+                "status": "FAIL",
+                "path": ".runtime/v21-qualification/q4/replay-confirmed/l3-service/candidates/f31-over.json",
+                "sha256": "aee52b00762db5a0b75c37a39c0c8080f539744d115523e0694fafb0b74d271c"
+              },
+              "f31-under": {
+                "status": "FAIL",
+                "path": ".runtime/v21-qualification/q4/replay-confirmed/l3-service/candidates/f31-under.json",
+                "sha256": "0be645f4c580f26de4c8441b61ea73ff4fc9b0b272f990a281cfe25cb4ab85a7"
+              },
+              "f31-lateral": {
+                "status": "INCONCLUSIVE",
+                "path": ".runtime/v21-qualification/q4/replay-confirmed/l3-service/candidates/f31-lateral.json",
+                "sha256": "37110151c922dc2d49a14171588bab4d2725caf998d4442d6b9390e314fca923"
+              },
+              "f31-shift": {
+                "status": "PASS",
+                "path": ".runtime/v21-qualification/q4/replay-confirmed/l3-service/candidates/f31-shift.json",
+                "sha256": "0185b4e3e3db0a46a899f87574c8eb967a4bc07e03ad257ee99b09e598022141"
+              },
+              "diag-passive": {
+                "status": "PASS",
+                "path": ".runtime/v21-qualification/q4/replay-confirmed/l3-service/candidates/diag-passive.json",
+                "sha256": "3f29beb7f7b02a0bd20abfe538f1fdce8c964a796330c4256c80b232c0937d51"
+              }
+            },
+            "actions": {
+              "rotate-diagnostic": {
+                "assignments": {
+                  "connector:D1": "90-degrees"
+                },
+                "family": "CONNECTOR",
+                "id": "rotate-diagnostic",
+                "missing_controls": [
+                  "connector:D1"
+                ],
+                "problem": "obstacle",
+                "reason": "Aucun contrôleur natif indépendant pour cette affectation",
+                "reference_sha256": "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+                "status": "CONDITIONAL"
+              },
+              "relocate-diagnostic": {
+                "assignments": {
+                  "equipment:diagnostic": "side-panel"
+                },
+                "family": "PLACEMENT",
+                "id": "relocate-diagnostic",
+                "missing_controls": [
+                  "equipment:diagnostic"
+                ],
+                "problem": "obstacle",
+                "reason": "Aucun contrôleur natif indépendant pour cette affectation",
+                "reference_sha256": "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+                "status": "CONDITIONAL"
+              }
+            },
+            "native_measurement": "NOT_RUN"
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q4/replay-confirmed/q4-results.json",
+            "sha256": "6b7a4c38d08a5886c41fc65d69ca455f7bda3bb5d5651b07b5ddd7eda9ca94c0"
+          }
+        },
+        "integrated_execution": {
+          "status": "FAIL",
+          "expected": "Exécuter le plan V2.1 jusqu’à la preuve sur la copie consolidée.",
+          "observed": {
+            "exit_code": 1,
+            "reason": "Les options de porte requièrent la commande preflight",
+            "integrated_xlink_and_electrical": "NOT_RUN"
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q4/replay-confirmed/commands.json",
+            "sha256": "f6826a5424d6488e498dc82fb939510ab2767faa044c65cb4cfeb39ca36d4342"
+          }
+        }
+      },
+      "command_receipt": {
+        "path": ".runtime/v21-qualification/q4/executed-recipe.txt",
+        "sha256": "902af3506424c622edcc7193a47a0bf6d85321532288d2d9c3632296cf6a6faf"
+      },
+      "commands": [
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "seal",
+            "--configuration",
+            ".runtime/v21-qualification/q4/replay-confirmed/reference.json",
+            "--lock",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\authority\\l4-lock.json",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/seal.log",
+          "sha256": "c2f6bcc11ad3b645f3721d466cf74d257f4cf033dfbe71e69f84959b6cfad282"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\architecture_decision_core.exe",
+            "--l1",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\research\\technical_research_core.exe",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\l3-service"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/l3-service.log",
+          "sha256": "b475e7484a7b536ea1c668dd8a1af2d9cb4840aa44d141c2599eb02fd8e7fb23"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\l3-service",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/l3-t0.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l5\\convergence_core.exe",
+            "run",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused",
+            "--config",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\campaign.json",
+            "--l1",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\research\\technical_research_core.exe",
+            "--l3",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\architecture_decision_core.exe",
+            "--l4",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+            "--steps",
+            "8"
+          ],
+          "exit": 4,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/pause.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l5\\convergence_core.exe",
+            "run",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused",
+            "--config",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\campaign.json",
+            "--l1",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\research\\technical_research_core.exe",
+            "--l3",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\architecture_decision_core.exe",
+            "--l4",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/resume.log",
+          "sha256": "3e90f86b7cef15c76ec5d15a72996254d9fa3ce399076fd48cc311ac2dedd1e6"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l5\\convergence_core.exe",
+            "run",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\uninterrupted",
+            "--config",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\campaign.json",
+            "--l1",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\research\\technical_research_core.exe",
+            "--l3",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\architecture_decision_core.exe",
+            "--l4",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/uninterrupted.log",
+          "sha256": "3e90f86b7cef15c76ec5d15a72996254d9fa3ce399076fd48cc311ac2dedd1e6"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/t0-paused.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\uninterrupted",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/t0-uninterrupted.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "validate",
+            "--lock",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\authority\\l4-lock.json",
+            "--lock-sha256",
+            "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+            "--case",
+            "consolidated-bench",
+            "--candidate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\attempts\\local-direct\\build-1\\native\\candidate.FCStd",
+            "--candidate-id",
+            "local-direct",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent-local-direct",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 2,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-direct.log",
+          "sha256": "ad0e3903cab85f9d7aaa7831745c7cd68a1f10605b4cde5a7cee96f2d9c54e49"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent-local-direct",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-direct-t0.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "validate",
+            "--lock",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\authority\\l4-lock.json",
+            "--lock-sha256",
+            "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+            "--case",
+            "consolidated-bench",
+            "--candidate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\attempts\\local-offset-2\\build-1\\native\\candidate.FCStd",
+            "--candidate-id",
+            "local-offset-2",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent-local-offset-2",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 2,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-offset-2.log",
+          "sha256": "ad0e3903cab85f9d7aaa7831745c7cd68a1f10605b4cde5a7cee96f2d9c54e49"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent-local-offset-2",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent-local-offset-2-t0.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "validate",
+            "--lock",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\authority\\l4-lock.json",
+            "--lock-sha256",
+            "87804405a36ebd564331806b7679be0f60364cc212a536b6301a77413279750c",
+            "--case",
+            "consolidated-bench",
+            "--candidate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused\\consolidations\\lateral-service\\build-1\\native\\candidate.FCStd",
+            "--candidate-id",
+            "lateral-service",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent.log",
+          "sha256": "f10b59e3068d7ca247631a5ccda7db8fcba1a3d442f4dfcc23628d28a1dbcc6a"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-t0\\cartographe-evidence.exe",
+            "validate",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\independent",
+            "D:\\ProjetGuillaume\\DroneAgricole"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/independent-t0.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l5\\convergence_core.exe",
+            "run",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\paused",
+            "--config",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\campaign.json",
+            "--l1",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\research\\technical_research_core.exe",
+            "--l3",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l3\\architecture_decision_core.exe",
+            "--l4",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l4\\validation_core.exe",
+            "--python",
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "--freecad-python",
+            "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+          ],
+          "exit": 0,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/settled-replay.log",
+          "sha256": "3e90f86b7cef15c76ec5d15a72996254d9fa3ce399076fd48cc311ac2dedd1e6"
+        },
+        {
+          "argv": [
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\build-l5\\convergence_core.exe",
+            "run",
+            "--plan",
+            "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\fixtures\\v21_h01_exploration.json",
+            "--output",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v21-qualification\\q4\\replay-confirmed\\admitted"
+          ],
+          "exit": 1,
+          "log": ".runtime/v21-qualification/q4/replay-confirmed/admission-to-run.log",
+          "sha256": "e2333eeb5cc1938253517262ed1364c725a7579f6283db6dd7a59578caf7f523"
+        }
+      ],
+      "initial_attempt": {
+        "commands": {
+          "path": ".runtime/v21-qualification/q4/replay/commands.json",
+          "sha256": "055a54a4cd5e29cef42c7d09e0a3554fe87af45c314c5a4cf5822d5039875e20"
+        },
+        "log": {
+          "path": ".runtime/v21-qualification/q4/replay.log",
+          "sha256": "d9d93f4a65456880bfe57bb376b6a3e2e22c54703a45901a4e7d3730a5996334"
+        },
+        "disposition": "Deux campagnes L5 et leurs T0 aboutis. Comparateur initial trop strict sur le chemin absolu et la date de scellement. Relance avec sceau partagé et comparaison du seul chemin normalisée, mêmes critères de décision et seuils."
+      }
+    },
+    "Q5": {
+      "status": "INCONCLUSIVE",
+      "description": "Témoins numériques reproduits et limites historiques conservées.",
+      "replay": {
+        "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+        "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+      },
+      "closures": {
+        "f16_targeted": {
+          "source": "hardware/mecanique/cartographe",
+          "pid": [
+            28144,
+            28400
+          ],
+          "report_sha256": [
+            "6925cafef569b5fff87b4a713dcf604ba4b29eb3a25b796972a196a1606af8e4",
+            "8b4ea69129bea689da93f12f970393e7bced9f4695c48a3707ef5018d06e6f71"
+          ],
+          "files": 141,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        },
+        "a": {
+          "source": "hardware/mecanique/cartographe_refonte_systeme/A",
+          "pid": [
+            28216,
+            2920
+          ],
+          "report_sha256": [
+            "21ae5777c9f4d1ab4991ed7a2d8d2f944661abe6fae7a236164824cef8d0ad6b",
+            "0974107ba03e441cdaaabd02090f24e18dc77eebf811d218135b216fb0ea9692"
+          ],
+          "files": 143,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        },
+        "faces": {
+          "source": "hardware/mecanique/cartographe_faces/Candidat",
+          "pid": [
+            9824,
+            12216
+          ],
+          "report_sha256": [
+            "2c328930c2c6c503e4955c853e56be857429f80cf8e14f90dbea17d657612689",
+            "1762df29771acf61cd070063eaada8ebf90ad9c8151e8a6bb6dc5beb0a2c7cbe"
+          ],
+          "files": 148,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        },
+        "a_reopen": {
+          "source": "hardware/mecanique/cartographe_refonte_systeme/A",
+          "pid": [
+            3220,
+            9364
+          ],
+          "report_sha256": [
+            "b3e8a005deede8ed456be2aa47bab0fa51cec4cab20e2197c19229bc4cad967e",
+            "104798f3bd59ed577acd61ca86c7fa4bfc9dc25608f9c96c3d957949e667bcb2"
+          ],
+          "files": 143,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        },
+        "monolithes": {
+          "source": "hardware/mecanique/cartographe_faisceaux_refonte",
+          "pid": [
+            29680,
+            13340
+          ],
+          "report_sha256": [
+            "27dc55d8d56ae16726070d273e3ef6820ad5df2b9c16ee5757b9261d80c1ae3d",
+            "3d9bc6c2864792dc07da54356493891db65892e7b095b0cc21d23f319a0a451e"
+          ],
+          "files": 143,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        },
+        "f16_cache": {
+          "source": "hardware/mecanique/cartographe",
+          "pid": [
+            12996,
+            26308
+          ],
+          "report_sha256": [
+            "af1b40e5d8f960603fb49f6a5b65b1bf6200716afe275c9eeff5f20155bd5460",
+            "a38a13213afe9436cba243fcc307df21bf5454de71500035853aad54b6fc9faf"
+          ],
+          "files": 3,
+          "repeat_exact": true,
+          "sources_unchanged": true,
+          "copies_unchanged": true
+        }
+      },
+      "cases": {
+        "f16_k": {
+          "status": "PASS",
+          "expected": "Rayon local inférieur au seuil diagnostique historique 22 mm. Gaine invalide après régénération.",
+          "observed": {
+            "radius_sampled_mm": 4.946828917356499e-8,
+            "regenerated_solid_valid": false,
+            "saved_cache_solid_valid": true
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+            "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+          }
+        },
+        "f16_p": {
+          "status": "PASS",
+          "expected": "Volume F16/P73 > 0,0001 mm³. Témoin initial sans intersection positive.",
+          "observed": {
+            "intersection_mm3": 704.6300070013599,
+            "initial_intersection_mm3": 0,
+            "initial_clearance_mm": 0.19999999999998863
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+            "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+          }
+        },
+        "f12": {
+          "status": "PASS",
+          "expected": "Projections historiques GPS2 (A) et TELEM1 (Faces), conformité physique ouverte.",
+          "observed": {
+            "endpoints_a_mm": [
+              [
+                -16,
+                41,
+                103
+              ],
+              [
+                59.825,
+                12,
+                135.5
+              ]
+            ],
+            "endpoints_faces_mm": [
+              [
+                -16,
+                41,
+                103
+              ],
+              [
+                59.825,
+                25,
+                137.35232
+              ]
+            ],
+            "a_projection": "GPS2",
+            "faces_projection": "TELEM1",
+            "mounted_compatibility": "INCONCLUSIVE"
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+            "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+          }
+        },
+        "f31_can1": {
+          "status": "PASS",
+          "expected": "Oracle outil +X, volume > 0,0001 mm³. Accouplement réel ouvert.",
+          "observed": {
+            "f31_tool_intersection_mm3": 73.52639020287748,
+            "can1_f35_approach_intersection_mm3": 0.051757621874788565,
+            "lower_route": {
+              "scope": 349,
+              "tested": 38,
+              "excluded_aabb": 311,
+              "unknown": [
+                {
+                  "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+                  "error": "Calcul OCC non résolu dans la limite de 5 s"
+                }
+              ]
+            },
+            "physical_tool_access": "INCONCLUSIVE"
+          },
+          "evidence": [
+            {
+              "path": ".runtime/v21-qualification/q5/targeted-measure-1.json",
+              "sha256": "47dea36625d27efb29320c438651031984cc0c1180684ce68aedab4320044be7"
+            },
+            {
+              "path": ".runtime/v21-qualification/q5/targeted-measure-2.json",
+              "sha256": "86339684c314257cf6c3f47401ba1c09c524dc0b2289f8e909d73d6ab4bbe112"
+            },
+            {
+              "path": ".runtime/v21-qualification/regressions/reception/cases/history-can1.json",
+              "sha256": "c7add0dd28db9e9d18bac6232e28d2df1a36dfe54a507cf781c052df7cf5f0f1"
+            }
+          ]
+        },
+        "f24a": {
+          "status": "INCONCLUSIVE",
+          "expected": "Port GPIO et révision de porteuse applicables.",
+          "observed": {
+            "endpoints_faces_mm": [
+              [
+                65,
+                4,
+                102
+              ],
+              [
+                -59.825,
+                15,
+                120.7
+              ]
+            ],
+            "projection_class": "hypothèse",
+            "physical_pinmux": null
+          },
+          "evidence": {
+            "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+            "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+          }
+        },
+        "f40_f41": {
+          "status": "INCONCLUSIVE",
+          "expected": "1180,9420885415452 mm et 340,40831309733625 mm, tolérance 0,01 mm. Réserve ouverte.",
+          "observed": {
+            "a_mm": 340.40831309733625,
+            "monolithes_mm": 1180.9420885415457,
+            "useful_reserve_mm": null,
+            "f40_joint_access_replay": "NOT_RUN",
+            "f40_source_class": "Défaut cité dans le rapport Action 3, au périmètre des gabarits candidats."
+          },
+          "evidence": [
+            {
+              "path": ".runtime/v21-qualification/q5/historical-supplement/native_replay.json",
+              "sha256": "ca1b568c3c6d5878ebaa4bc8dd0971310df7ffd07ea1547cb59d44c32c5232b0"
+            },
+            {
+              "path": "docs/verification/cartographe_action3_f41.json",
+              "sha256": "6ae0d0fa8cbb0cee524deec824f1846285ec7acd99044e2880ccd0b1cf97d52d"
+            }
+          ]
+        },
+        "p85": {
+          "status": "INCONCLUSIVE",
+          "expected": "Jeux historiques 0,05 mm / 0,307300762855553 mm avec tolérance du gel GO2 bis 0,00001 mm. Tenue ouverte.",
+          "observed": {
+            "p66_gap_mm": 0.04999999999999716,
+            "f25_gap_mm": 0.30730076285555374,
+            "load_test": "NOT_RUN",
+            "pids": [
+              12280,
+              1104
+            ]
+          },
+          "evidence": [
+            {
+              "path": ".runtime/v21-qualification/q5/targeted-measure-1.json",
+              "sha256": "47dea36625d27efb29320c438651031984cc0c1180684ce68aedab4320044be7"
+            },
+            {
+              "path": ".runtime/v21-qualification/q5/targeted-measure-2.json",
+              "sha256": "86339684c314257cf6c3f47401ba1c09c524dc0b2289f8e909d73d6ab4bbe112"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "false_results": {
+    "convention": "Faux favorable = défaut réel accepté. Faux défavorable = témoin déterminé conforme rejeté. Acceptation indue locale = preuve non établie créditée au niveau d’un contrôle.",
+    "false_favorable": [
+      {
+        "case": "Q2/matched-fictional-exit",
+        "severity": "critique pour le banc",
+        "level": "L2 et adaptateur natif",
+        "observed": "PASS",
+        "expected": [
+          "FAIL",
+          "INCONCLUSIVE"
+        ]
+      },
+      {
+        "case": "Q3-06",
+        "severity": "critique pour la reprise",
+        "level": "géométrie d’un banc XLink",
+        "observed": "PASS",
+        "expected": "FAIL"
+      }
+    ],
+    "local_undue_acceptance": [
+      {
+        "case": "Q2/cad-as-supplier-proof",
+        "level": "PART_PROVENANCE",
+        "observed": "PASS",
+        "expected": "INCONCLUSIVE",
+        "aggregate": "INCONCLUSIVE"
+      }
+    ],
+    "false_unfavorable_observed": 0,
+    "scope": "Témoins déterminés Q2, Q3 et Q4 exécutés. Q1 est un arrêt d’intégrité avant évaluation, et aucun verdict de réception finale n’a été produit."
+  },
+  "regressions": {
+    "l0_hashes": {
+      "checked": 108,
+      "changed": 3,
+      "closures": {
+        "REFERENCE_ACTIVE": {
+          "checked": 137,
+          "expected": 137,
+          "missing": [],
+          "extra": [],
+          "changed": []
+        },
+        "COPIE_CANDIDATE_LOCALE": {
+          "checked": 138,
+          "expected": 138,
+          "missing": [],
+          "extra": [],
+          "changed": []
+        }
+      },
+      "evidence": {
+        "path": ".runtime/v21-qualification/regressions/integrity.json",
+        "sha256": "fdb75c3ace2cf098fb76f33a7975fd126443d7be7973a30a596f1117f4f7e48f"
+      }
+    },
+    "electrical_and_native_tools": [
+      {
+        "scope": "Suite Python historique",
+        "pass": 77,
+        "total": 77,
+        "evidence": {
+          "path": ".runtime/v21-qualification/regressions/l0-python.log",
+          "sha256": "c9cc3002ec3bed92da840d31fcd8f7a27ecfa1bc8de39e3db39ddacef1a35949"
+        }
+      },
+      {
+        "scope": "Isolation",
+        "pass": 6,
+        "total": 6,
+        "evidence": {
+          "path": ".runtime/v21-qualification/regressions/isolation.log",
+          "sha256": "95f123a15b56b59cff8f028058f5949d1ebbfd6ec6a326a5054bee97163ec7c9"
+        }
+      },
+      {
+        "scope": "Cables",
+        "pass": 19,
+        "total": 19,
+        "evidence": {
+          "path": ".runtime/v21-qualification/regressions/cables.json",
+          "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea"
+        }
+      },
+      {
+        "scope": "Planificateur C++",
+        "pass": 1,
+        "total": 1,
+        "evidence": {
+          "path": ".runtime/v21-qualification/regressions/planner-ctest.log",
+          "sha256": "7fe7fa884fe5f48977c6e9fd5a60f80abe598b21f2c58d20a8c097bb4a488ebd"
+        }
+      }
+    ],
+    "v1": {
+      "verdict": "EQUIVALENT",
+      "validated_twice": true,
+      "compare": {
+        "path": ".runtime/v21-qualification/regressions/v1-compare.log",
+        "sha256": "65e62da34983453974b701334647c56bc9b1201394ca293a43c03c80c539f3f9"
+      },
+      "reports": [
+        {
+          "path": ".runtime/v21-qualification/regressions/v1-independent-1/candidate_report.json",
+          "sha256": "9b13579189d924f2a01aac3120d228b22278c02172a7fbd1dab3dff480191422"
+        },
+        {
+          "path": ".runtime/v21-qualification/regressions/v1-independent-2/candidate_report.json",
+          "sha256": "9b13579189d924f2a01aac3120d228b22278c02172a7fbd1dab3dff480191422"
+        }
+      ]
+    },
+    "l1_l3": {
+      "pass": 4,
+      "total": 4,
+      "evidence": {
+        "path": ".runtime/v21-qualification/regressions/l3-ctest.log",
+        "sha256": "42844706003698caa287f2a78acadb77b9eb111bb6c698d9408ce16956d3bbc8"
+      }
+    },
+    "l4": {
+      "pass": 7,
+      "total": 7,
+      "evidence": {
+        "path": ".runtime/v21-qualification/regressions/l4-ctest.log",
+        "sha256": "a9b04c4dc3da5d0ef1d031b85f14a43a9e7d9bbf505afb282c3ea16085067ae9"
+      },
+      "go2bis": {
+        "verdict": "L4_CONDITIONAL",
+        "cases": 29,
+        "acceptance": 100,
+        "acceptance_pass": 100,
+        "findings": {
+          "PASS": 39,
+          "FAIL": 21,
+          "INCONCLUSIVE": 11,
+          "NOT_RUN": 0
+        },
+        "finalized": true,
+        "t0_validation_exit_code": 0,
+        "execution_exit_code": 3,
+        "evidence": {
+          "path": ".runtime/v21-qualification/regressions/reception/campaign.json",
+          "sha256": "ade5998f2e80171661eedfaece9dae6cabdfdeff23066ebad0399cd55c3c815e"
+        },
+        "t0": {
+          "path": ".runtime/v21-qualification/regressions/reception/t0_run_manifest.json",
+          "sha256": "6afba56b4a126dbebc62731ab7a65764df979de902f5374d8e8d61b3b40f18bd"
+        },
+        "t0_validation": {
+          "path": ".runtime/v21-qualification/regressions/l4-t0.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        }
+      }
+    },
+    "l5": {
+      "pass": 3,
+      "total": 4,
+      "passing_native_cli_scenarios": 14,
+      "evidence": {
+        "path": ".runtime/v21-qualification/regressions/l5-ctest.log",
+        "sha256": "7ed6bf0caac07ff4c543e37781572b95d469229eef89393e56718a17ff1e37c6"
+      },
+      "failed_suite": "v21_gate",
+      "difference": "Gel du préflight incompatible avec le worker livré V2.1."
+    }
+  },
+  "executables": [
+    {
+      "path": ".runtime/v21-qualification/regressions/build-l3/research/technical_research_core.exe",
+      "sha256": "c11e4c9c1294f985a05099ecddf8764302fae242d9609328c00b366674038a0d"
+    },
+    {
+      "path": ".runtime/v21-qualification/regressions/build-l3/interconnection/interconnection_core.exe",
+      "sha256": "812b659e61f6f8f6d744832543fdb8c4f8e47c61ddca9e8f41e5a080d137bbdc"
+    },
+    {
+      "path": ".runtime/v21-qualification/regressions/build-l3/architecture_decision_core.exe",
+      "sha256": "61021b1183ae42c29695d7d7070248637656a4abdace4a32118529b199d51780"
+    },
+    {
+      "path": ".runtime/v21-qualification/regressions/build-l4/validation_core.exe",
+      "sha256": "7e0e9e3c5db6a99df0a8ccbaa83e2d9a2f1c28e7d4df6ce91cf1cca0a171903d"
+    },
+    {
+      "path": ".runtime/v21-qualification/regressions/build-l5/convergence_core.exe",
+      "sha256": "c1290acb56d467e42523f219238b7c065cb9f124a08b66d1460112c3e946811f"
+    },
+    {
+      "path": ".runtime/v21-qualification/regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "fb4f8ed1c7f76b3e2c654c8a89ac17de847b5732af5e04e9a57a03ecdb2587c2"
+    },
+    {
+      "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+    }
+  ],
+  "regression_test_sources": [
+    {
+      "path": "convergence_manager/tests/test_admission.py",
+      "sha256": "d47f7cfa22498c71ca48dcc6882d6b7deaa768a672fd87b0d4683093afc2e53e",
+      "observation": "Deux cas supplémentaires sur le budget en présence de défauts connus et sur l’isolation d’un PASS exploratoire. Le rejeu courant de la suite s’arrête sur l’empreinte H-01."
+    },
+    {
+      "path": "interconnection_engine/tests/qualify_v21_interfaces.py",
+      "sha256": "804f4e4a5427755f48d851759bcb5b3164b82b4baf500478c9769ef2fad681f3",
+      "observation": "Harnais indépendant L2 et FreeCAD. Code 1 sur les deux écarts établis."
+    },
+    {
+      "path": "validation_engine/tests/verify_v21_xlink_replay.py",
+      "sha256": "e8fe7a2801902f377836210bfbe3c93af5b67a99bdd22e4dccadd229cd0de97a",
+      "observation": "Vérification déterministe du rapprochement et du périmètre de mesures du modèle réel. Code 0."
+    },
+    {
+      "path": "validation_engine/tests/probe_xlink_checkpoint.py",
+      "sha256": "f021d797d6f681f83b23cd9d9e3d4c587d7e639d76540d31265e4f7bbabdb13d",
+      "observation": "Contre-épreuve de reprise XLink. Code 1 tant que la mesure falsifiée est créditée."
+    },
+    {
+      "path": "convergence_manager/tests/test_v21_service_campaign.py",
+      "sha256": "2ba2ee3c60feee24925828bbc7c782898c3b30be85740a19210de9e3b552c793",
+      "observation": "Exercice L5 de service et revalidation indépendante. Code 0 pour la réalisation du protocole, deux écarts d’intégration explicitement rapportés."
+    }
+  ],
+  "commands": {
+    "root": {
+      "path": ".runtime/v21-qualification/root-commands.json",
+      "sha256": "49d93ae3ccaf1c42253912ffb8b2d74a5a7ae6306cd6113b5b365b58cd7b3e7c"
+    },
+    "q2_report": {
+      "path": ".runtime/v21-qualification/q2/replay-02/reports/qualification.json",
+      "sha256": "2f58b1bd4e8322255588889056873c9a294557d68465d0689c769332aafef615"
+    },
+    "q3_report": {
+      "path": ".runtime/v21-qualification/q3/results.json",
+      "sha256": "65b76e4a16ce7e74ac0a35d449f15c6f31316be2fd991de953a0440ae596e004"
+    },
+    "q4_build_and_runner": {
+      "path": ".runtime/v21-qualification/q4/executed-recipe.txt",
+      "sha256": "902af3506424c622edcc7193a47a0bf6d85321532288d2d9c3632296cf6a6faf"
+    },
+    "q4_cli": {
+      "path": ".runtime/v21-qualification/q4/replay-confirmed/commands.json",
+      "sha256": "f6826a5424d6488e498dc82fb939510ab2767faa044c65cb4cfeb39ca36d4342"
+    }
+  },
+  "not_run": [
+    "GO3A/GO3B",
+    "Reconstruction du cartographe",
+    "Réception finale d’un candidat H-01",
+    "Essais physiques et autres plateformes",
+    "Mesures natives des alternatives de rotation/déport du banc Q4",
+    "Rejeu natif du cas d’accès F40 Action 3"
+  ]
+}

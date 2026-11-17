@@ -1,0 +1,759 @@
+{
+  "schema_version": "1.0.0",
+  "id": "T-EM-ENGINE-GO2BIS-L0-L2",
+  "date": "2026-11-14",
+  "scope": "Tests de réception et bancs logiciels Windows amd64. Cartographe réel contrôlé sur documents gelés.",
+  "git": {
+    "head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "branch_initial": "codex/sw0-consolidation",
+    "branch_correction": "codex/go2bis-corrections",
+    "workspace_dirty": true,
+    "initial_status": {
+      "path": ".runtime/go2bis-l1-l2/git-initial.txt",
+      "sha256": "79aa7944ed71fd88b67e64e60dea6bb4291c1816a850ead789f88ce3d1e45dfb"
+    }
+  },
+  "environment": {
+    "windows_nt": "10.0.26300.0",
+    "architecture": "amd64",
+    "compiler": "MSYS2 UCRT64 GCC 16.2.0",
+    "cxx": "C++17",
+    "cmake": "4.4.2",
+    "generator": "Ninja",
+    "qt6": "6.11.2",
+    "python": "3.14.4",
+    "freecad": "1.1.3",
+    "freecad_commit": "145529fe741292ff0b3977a01195bf0247425794",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "cables_modules_sha256": {
+      "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+      "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+      "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+      "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+      "archCableConnector.py": "5ff8db12bf9978046eb59c1a9e55edbe90759e80a145ebefaa68f1b9fb9fd7f7",
+      "archElectricalDevice.py": "28651fdc3c45e5f32477864254d7cecd905ed95396a084d92bf1cfcafa7335f0",
+      "cableTerminal.py": "46efde0b10c20ec906eafb59e58d16fa6c2ddd89794c3dbeb44f361540592a5f",
+      "cableutils.py": "f7faf61341b78f2874516b5786fda078622a25d55465a88851e787cf6bb129fa"
+    }
+  },
+  "identity": {
+    "contract_L0": "2.0.0",
+    "report_L1": "1.0.0",
+    "input_output_L2": "1.0.0",
+    "plan": {
+      "path": "docs/verification/go2bis_l1_l2_plan.json",
+      "sha256": "26247a3f3ff62543b1dc1ecff220d51a21ce066ba5772d87ab4adf70c0c1b30b"
+    },
+    "freeze_initial": {
+      "path": ".runtime/go2bis-l1-l2/freeze-initial.json",
+      "sha256": "072a7a56e68a6fd7008812dfb9dd99ffcc23b3dba870547e41ac09acb8c0ddf6"
+    },
+    "freeze_corrected": {
+      "path": ".runtime/go2bis-l1-l2/freeze.json",
+      "sha256": "391e509050228d426e48d9c58a420469adca4e875172f6db2ce50ff2121565b4"
+    },
+    "binaries": {
+      "L1": {
+        "path": ".runtime/go2bis-l1-l2/l1-build/technical_research_core.exe",
+        "sha256": "65378f7c713e3d2fee4187f1ccf3d4fe5d4b77995a20094b926b37abdcfb9b8c"
+      },
+      "L2_initial": {
+        "path": ".runtime/go2bis-l1-l2/l2-build/interconnection_core.exe",
+        "sha256": "bd80510520799fdd1770fc21aa2f1e2ad5edd4a2cd435872b42549744fd322fb"
+      },
+      "L2_corrected": {
+        "path": ".runtime/go2bis-l1-l2/l2-corrected-build/interconnection_core.exe",
+        "sha256": "642012e822b1e9299d73cf2e5e54cd74b423ae5276558746160763f0806f20a8"
+      }
+    }
+  },
+  "tests": [
+    {
+      "id": "L1-LOCAL",
+      "expected": "RESOLVED",
+      "initial": "RESOLVED",
+      "final": "RESOLVED",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-LOCAL.json",
+        "sha256": "81a6682615d8d7f5dffeab9ca3e0d0da31ea15a0a94a18596ef2db6f9b15d187"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-LOCAL.json",
+        "sha256": "81a6682615d8d7f5dffeab9ca3e0d0da31ea15a0a94a18596ef2db6f9b15d187"
+      },
+      "value": 425.17384217864503,
+      "value_status": "SOURCED",
+      "matches": [
+        "EXACT",
+        "REFERENCE_MISMATCH"
+      ],
+      "network": "DISABLED",
+      "diagnostic_codes": []
+    },
+    {
+      "id": "L1-REVISION",
+      "expected": "UNKNOWN",
+      "initial": "UNKNOWN",
+      "final": "UNKNOWN",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-REVISION.json",
+        "sha256": "f8161d374d24507c7dc1ae7baeef0e07a3b5fd1339cf26668052b53b9caa92ea"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-REVISION.json",
+        "sha256": "1c549d6995481b16863c0b71476ee1b6617d8e98a9b483462544e06d78528f29"
+      },
+      "value": null,
+      "value_status": "UNKNOWN",
+      "matches": [
+        "REVISION_MISMATCH"
+      ],
+      "network": "DISABLED",
+      "diagnostic_codes": []
+    },
+    {
+      "id": "L1-CONFLICT",
+      "expected": "INCONCLUSIVE",
+      "initial": "INCONCLUSIVE",
+      "final": "INCONCLUSIVE",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-CONFLICT.json",
+        "sha256": "d7bf566be87a3885cfd881308ec3629a98f5518db1cda14ee3f979d7a9f24fe3"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-CONFLICT.json",
+        "sha256": "22d2744bdb5b42916c77d6e1b04576c34d50e565fe5d2c12b8a0f0b7bfa7ffc6"
+      },
+      "value": null,
+      "value_status": "UNKNOWN",
+      "matches": [
+        "EXACT",
+        "EXACT"
+      ],
+      "network": "DISABLED",
+      "diagnostic_codes": []
+    },
+    {
+      "id": "L1-HTTPS-UNAVAILABLE",
+      "expected": "UNKNOWN",
+      "initial": "UNKNOWN",
+      "final": "UNKNOWN",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-HTTPS-UNAVAILABLE.json",
+        "sha256": "4d9caf49e6833d31cbf342dc3cac19fa6559f5a8e610a185bf2a90ddbdbb4294"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-HTTPS-UNAVAILABLE.json",
+        "sha256": "705bfadb1ea20c7915a82b596cdcb142be1a9d3655b71bdb5841c6d986dc3781"
+      },
+      "value": null,
+      "value_status": "UNKNOWN",
+      "matches": [],
+      "network": "ATTEMPTED",
+      "diagnostic_codes": [
+        "NETWORK_UNAVAILABLE"
+      ]
+    },
+    {
+      "id": "L1-UNDETERMINED",
+      "expected": "UNKNOWN",
+      "initial": "UNKNOWN",
+      "final": "UNKNOWN",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-UNDETERMINED.json",
+        "sha256": "a2764424dc58c5d85b122d95a91f451419c50d3505a8ab8f8f0266cdf018c42d"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-UNDETERMINED.json",
+        "sha256": "3282b075c99603b736be2a472d6160101faf3ef60561bc0b22add57ab9802049"
+      },
+      "value": null,
+      "value_status": "UNKNOWN",
+      "matches": [
+        "SCOPE_MISMATCH"
+      ],
+      "network": "DISABLED",
+      "diagnostic_codes": [
+        "LOCAL_CANDIDATE",
+        "LOCAL_CANDIDATE",
+        "LOCAL_SEARCH_BUDGET",
+        "NETWORK_DISABLED"
+      ]
+    },
+    {
+      "id": "L1-UNSUPPORTED-MPN",
+      "expected": "UNKNOWN",
+      "initial": "UNKNOWN",
+      "final": "UNKNOWN",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L1-UNSUPPORTED-MPN.json",
+        "sha256": "bd5be073c73e713f2ed68b8a7c4b43978be4f35bd21a4f0e1fa3767085fb937d"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L1-UNSUPPORTED-MPN.json",
+        "sha256": "1eb9a6a483abaed7584b05566284695e3f67b4d4220e60135fcd65c8e99d8217"
+      },
+      "value": null,
+      "value_status": "UNKNOWN",
+      "matches": [],
+      "network": "DISABLED",
+      "diagnostic_codes": [
+        "EXTRACTION_REJECTED"
+      ]
+    },
+    {
+      "id": "L2-ANGLE-CLEAR",
+      "expected": "PASS",
+      "initial": "PASS",
+      "final": "PASS",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-ANGLE-CLEAR.json",
+        "sha256": "33cb6b49fb14e77d844cd9798e964613ef56d2df6819f5550c023788ea36b152"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-ANGLE-CLEAR.json",
+        "sha256": "33cb6b49fb14e77d844cd9798e964613ef56d2df6819f5550c023788ea36b152"
+      },
+      "findings": 49,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "PASS",
+        "geometry": "PASS"
+      },
+      "negative_codes": [],
+      "route_length_mm": 96.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-ANGLE-UNKNOWN",
+      "expected": "INCONCLUSIVE",
+      "initial": "INCONCLUSIVE",
+      "final": "INCONCLUSIVE",
+      "returncode_final": 3,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-ANGLE-UNKNOWN.json",
+        "sha256": "d2455efc07479ac6a3a84e7724e56bf072f47f686723af1feaf82f0c8256b640"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-ANGLE-UNKNOWN.json",
+        "sha256": "d2455efc07479ac6a3a84e7724e56bf072f47f686723af1feaf82f0c8256b640"
+      },
+      "findings": 50,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE"
+      },
+      "negative_codes": [
+        "ASSEMBLY_REFERENCE",
+        "EXPLICIT_MATE",
+        "EXTRACTION_SWEEP",
+        "PART_PROVENANCE"
+      ],
+      "route_length_mm": 96.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-CORD-LENGTH",
+      "expected": "FAIL",
+      "initial": "PASS",
+      "final": "FAIL",
+      "returncode_final": 2,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-CORD-LENGTH.json",
+        "sha256": "32796eff1bc0425d4de032b886fadd0ace7da554c14b177aa53d832616d93193"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-CORD-LENGTH.json",
+        "sha256": "010a4fbb60b79de624c0b199e6a7254f7e1ade8ead577a743c13bfc522e9d5ff"
+      },
+      "findings": 50,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "PASS",
+        "geometry": "FAIL"
+      },
+      "negative_codes": [
+        "CORD_LENGTH"
+      ],
+      "route_length_mm": 112.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-MISSING-EXIT",
+      "expected": "INCONCLUSIVE",
+      "initial": "INCONCLUSIVE",
+      "final": "INCONCLUSIVE",
+      "returncode_final": 3,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-MISSING-EXIT.json",
+        "sha256": "a262a454bd2759b5d0cfcbcebbaeac0aaf31162a11829370bd4c41a766dfeb53"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-MISSING-EXIT.json",
+        "sha256": "a262a454bd2759b5d0cfcbcebbaeac0aaf31162a11829370bd4c41a766dfeb53"
+      },
+      "findings": 44,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "PASS",
+        "geometry": "INCONCLUSIVE"
+      },
+      "negative_codes": [
+        "MATING_FRAMES",
+        "WIRE_EXIT"
+      ],
+      "route_length_mm": 0,
+      "contact_count": 8,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-NOMINAL",
+      "expected": "PASS",
+      "initial": "PASS",
+      "final": "PASS",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-NOMINAL.json",
+        "sha256": "d9f12633ab9cf5c099682711b56f888871a651e25bc21a10b0cbcaef107ec57a"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-NOMINAL.json",
+        "sha256": "d9f12633ab9cf5c099682711b56f888871a651e25bc21a10b0cbcaef107ec57a"
+      },
+      "findings": 49,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "PASS",
+        "geometry": "PASS"
+      },
+      "negative_codes": [],
+      "route_length_mm": 72.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-POLARITY",
+      "expected": "FAIL",
+      "initial": "PASS",
+      "final": "FAIL",
+      "returncode_final": 2,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-POLARITY.json",
+        "sha256": "12b894ec094cb1724c31f765c16ca0f5e0998087cc303a3feea8018ba0c65c05"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-POLARITY.json",
+        "sha256": "86bc62f33db63bfa957a29d004004ad0b326e230120238dbac95354a4487c11b"
+      },
+      "findings": 51,
+      "verdict_by_domain": {
+        "electrical": "FAIL",
+        "compatibility": "PASS",
+        "geometry": "PASS"
+      },
+      "negative_codes": [
+        "SIGNAL_POLARITY"
+      ],
+      "route_length_mm": 72.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-STRAIGHT-BLOCKED",
+      "expected": "FAIL",
+      "initial": "FAIL",
+      "final": "FAIL",
+      "returncode_final": 2,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-STRAIGHT-BLOCKED.json",
+        "sha256": "1f35b5f94adb8ba66d19c3c9ca225b6eb18aced72338f64eefe633acabf0658b"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-STRAIGHT-BLOCKED.json",
+        "sha256": "1f35b5f94adb8ba66d19c3c9ca225b6eb18aced72338f64eefe633acabf0658b"
+      },
+      "findings": 49,
+      "verdict_by_domain": {
+        "electrical": "PASS",
+        "compatibility": "PASS",
+        "geometry": "FAIL"
+      },
+      "negative_codes": [
+        "EXTRACTION_ENVELOPE"
+      ],
+      "route_length_mm": 72.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-WRONG-PORT",
+      "expected": "FAIL",
+      "initial": "FAIL",
+      "final": "FAIL",
+      "returncode_final": 2,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-WRONG-PORT.json",
+        "sha256": "ec9eb64f78d15d46578abebf240c453b6a6a2c88cb51e03f280c08a9cdbae674"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-WRONG-PORT.json",
+        "sha256": "ec9eb64f78d15d46578abebf240c453b6a6a2c88cb51e03f280c08a9cdbae674"
+      },
+      "findings": 49,
+      "verdict_by_domain": {
+        "electrical": "FAIL",
+        "compatibility": "PASS",
+        "geometry": "PASS"
+      },
+      "negative_codes": [
+        "WRONG_PORT"
+      ],
+      "route_length_mm": 72.0,
+      "contact_count": 16,
+      "conductors_traced": 4
+    },
+    {
+      "id": "L2-RECONCILE",
+      "expected": "71 lignes, 50 embarquées, 53 axes, 56 associations bidirectionnelles et anomalie F12 distincte du contrôle de compatibilité.",
+      "initial": "RECONCILED",
+      "final": "RECONCILED",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L2-RECONCILE.json",
+        "sha256": "8c48c1e353acbebc322b868d4e31b0ea29d7bc53d0e74ec72d613ec8e0c05ec6"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L2-RECONCILE.json",
+        "sha256": "8c48c1e353acbebc322b868d4e31b0ea29d7bc53d0e74ec72d613ec8e0c05ec6"
+      },
+      "coverage": {
+        "lines": 71,
+        "axes": 53,
+        "pairs": 56,
+        "bidirectional": true,
+        "active_axes": 53,
+        "active_axis_hashes_differing_from_november_8_copy": [
+          "F16"
+        ],
+        "active_native_axes_verified": 53,
+        "bom_connection_ids_covered": 43,
+        "by_class": {
+          "BUS": 2,
+          "CONDUCTEUR": 4,
+          "CORDON": 7,
+          "FONCTION": 37,
+          "HORS_PERIMETRE": 21
+        },
+        "by_scope": {
+          "au_sol": 6,
+          "faisceau_embarque": 50,
+          "interface_directe": 1,
+          "interne_oem": 2,
+          "interne_pcb": 1,
+          "reserve_non_montee": 2,
+          "retire": 6,
+          "sans_fil": 2,
+          "transport_reutilise": 1
+        },
+        "ca01_schematic_sources_verified": 6,
+        "historical_wiring_ids_covered": 40,
+        "inventory_sources_verified": 43,
+        "line_axis_pairs": 56,
+        "matrix_sources_verified": 8,
+        "multi_axis_lines": [
+          "W05",
+          "W08",
+          "W10",
+          "W15",
+          "W23",
+          "W38"
+        ],
+        "shared_axes": [
+          "AIRY",
+          "F_M8"
+        ],
+        "unresolved_onboard_lines_in_november_8_copy": [
+          "W16",
+          "W20",
+          "W24.C",
+          "W25",
+          "W40",
+          "W-LED-KIT.1",
+          "W-LED-KIT.2",
+          "W-LED-KIT.3",
+          "W-LED-KIT.4"
+        ]
+      },
+      "w12": {
+        "geometry_status": "FAIL",
+        "compatibility_status": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "L0-HASH",
+      "expected": "Empreintes du référentiel et des fermetures natives conformes ou divergence explicite.",
+      "initial": "CHECKED",
+      "final": "CHECKED",
+      "returncode_final": 0,
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/initial/L0-HASH.json",
+        "sha256": "f9ed4e63e9dff7a15274c99b3820ab5691b9e876addf21ce4237bd0b1615fb55"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/corrected/L0-HASH.json",
+        "sha256": "f9ed4e63e9dff7a15274c99b3820ab5691b9e876addf21ce4237bd0b1615fb55"
+      },
+      "coverage": {
+        "hashes_checked": 383,
+        "divergences": 0,
+        "closures": {
+          "active": 137,
+          "consolidated_reference": 138
+        }
+      }
+    },
+    {
+      "id": "L0-SCHEMA",
+      "expected": "Exemples L0/L2 et rapports L1 compatibles avec leurs schémas.",
+      "initial": "NOT_RUN",
+      "final": "PASS",
+      "examples": 10,
+      "research_reports": 6,
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/schemas.log",
+        "sha256": "05b5cf05f02d05f16021f1e7807b9c67ef35144ff6a3f3cdf134b0342c87c042"
+      }
+    },
+    {
+      "id": "L2-NATIVE",
+      "expected": "PASS",
+      "initial": "PASS",
+      "final": "PASS",
+      "proof_initial": {
+        "path": ".runtime/go2bis-l1-l2/native-initial/native_l2.json",
+        "sha256": "1faa2055b39c50a1e1d002a0bf8dc9a921a34c44795105b3c148be7b65202f83"
+      },
+      "proof_final": {
+        "path": ".runtime/go2bis-l1-l2/native-corrected/native_l2.json",
+        "sha256": "fb37d43ab5a0e4b588efcd1406c155e7e8a5395693d2740ccba03c19a783f2ff"
+      },
+      "native_sha256": "9e4cf0b4d2d665d96ba173020441fecd05b61ca3876f6521062ccad523200ab8",
+      "build_pid": 34956,
+      "reopen_pid": 22648,
+      "coverage": {
+        "interfaces": 2,
+        "contacts": 16,
+        "conductors": 4,
+        "jacket_mm": 72.0,
+        "extraction_pair_checks": 12,
+        "tool_pair_checks": 2
+      },
+      "faults_detected": [
+        "extraction_blocked",
+        "generic_endpoint_same_position",
+        "rotated_equipment"
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "name": "Moteur FreeCAD v1 en support de L0 à L2",
+      "passed": 76,
+      "failed": 0,
+      "skipped": 0,
+      "command": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+      "env": {
+        "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+      },
+      "log": {
+        "path": ".runtime/go2bis-l1-l2/l0.log",
+        "sha256": "b606954c8feea9f02b386f1982c80432dcfb8b1e82ca2ea6eb6a043bcf33abe8"
+      }
+    },
+    {
+      "name": "L1 compilation neuve Release",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "command": "ctest --test-dir .runtime/go2bis-l1-l2/l1-build -V",
+      "log": {
+        "path": ".runtime/go2bis-l1-l2/l1.log",
+        "sha256": "5ce6bd7e9fa73714ccc85dd51b52dfa886e349daaadd90e855db8d37acac8c41"
+      }
+    },
+    {
+      "name": "L2 et rapprochement, compilation neuve Release après correction",
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "command": "ctest --test-dir .runtime/go2bis-l1-l2/l2-corrected-build -V",
+      "log": {
+        "path": ".runtime/go2bis-l1-l2/l2-corrected.log",
+        "sha256": "ab54b95ad28c3c55c5ffd2f2938fb6ba9985c3236932d65f395f11fb087ec9ca"
+      }
+    }
+  ],
+  "result_metrics": {
+    "population": "Huit cas logiciels L2 indépendants définis avant essais. Deux cas positifs, quatre cas avec défaut établi et deux cas volontairement indéterminés.",
+    "orientation": "Positif désigne le candidat accepté. Un faux PASS est un défaut manqué.",
+    "initial": {
+      "accepted_nominal": 2,
+      "rejected_known_fault": 2,
+      "accepted_known_fault": 2,
+      "rejected_nominal": 0,
+      "inconclusive_expected": 2,
+      "inconclusive_unexpected": 0,
+      "not_run": 0
+    },
+    "corrected": {
+      "accepted_nominal": 2,
+      "rejected_known_fault": 4,
+      "accepted_known_fault": 0,
+      "rejected_nominal": 0,
+      "inconclusive_expected": 2,
+      "inconclusive_unexpected": 0,
+      "not_run": 0
+    }
+  },
+  "corrections": [
+    {
+      "case": "L2-CORD-LENGTH",
+      "before": "PASS",
+      "after": "FAIL",
+      "code": "CORD_LENGTH",
+      "cause": "Comparaison à la distance directe entre sorties pour une polyligne à détours.",
+      "fix": "Somme des longueurs de tous les segments dans le repère global.",
+      "inputs": {
+        "available_mm": 72,
+        "end_to_end_mm": 72,
+        "axis_mm": 112
+      },
+      "regression": "test_length_checks_detour_between_unchanged_endpoints"
+    },
+    {
+      "case": "L2-POLARITY",
+      "before": "PASS",
+      "after": "FAIL",
+      "code": "SIGNAL_POLARITY",
+      "cause": "La vérification des identifiants de broches et des rôles ignorait une contradiction explicite de noms au sein de la paire.",
+      "fix": "Refus d’une broche déclarant le nom de fonction de l’autre potentiel de la paire. Les noms d’interface différents restent pris en charge.",
+      "regression": "test_reversed_differential_signal_labels"
+    }
+  ],
+  "correction_scope": [
+    {
+      "path": "interconnection_engine/src/Geometry.cpp",
+      "before_sha256": "0ac81d218cd950bc7c536b01d5e5259cec8c51b32885a8ab860a041fd8d27011",
+      "after_sha256": "348d6095c83835a74002e034532188ea46420fe487f79ec613619be5795ea5b8"
+    },
+    {
+      "path": "interconnection_engine/src/Interconnection.cpp",
+      "before_sha256": "9345aa8c58dee29af07a260a84838f1a9ba6de9668f67ead10773cf1ec8c2eaa",
+      "after_sha256": "727ce20a4b29ddc297586808b93c6973eb08fe8490e9384cabe08eb9a48b3b40"
+    },
+    {
+      "path": "interconnection_engine/tests/test_interconnection.py",
+      "before_sha256": "3c1ccfa729c9a37a98b1c85c57df006ba7f73f4f3476d7668a3b57cb9634866f",
+      "after_sha256": "f301247fb9dbfdf1fbb0c48471bf5d3bc07fffda9f1cc5a2657646f269fa891a"
+    }
+  ],
+  "regression_before": {
+    "path": ".runtime/go2bis-l1-l2/l2-red.log",
+    "sha256": "a9e6132fbbfdd71cb0236207d858919fb5a1d4d661111b76ec0512db19013b12"
+  },
+  "native_comparison": {
+    "results": [
+      {
+        "variant": "straight",
+        "fixture": ".runtime/go2bis-l1-l2/inputs/L2-STRAIGHT-BLOCKED.json",
+        "fixture_sha256": "33156707ccb5be6985e805b1f588189a10a77805f08f389020466b6d1dfd0982",
+        "size_mm": [
+          10,
+          6,
+          6
+        ],
+        "origin_mm": [
+          4,
+          -3,
+          -3
+        ],
+        "axial_extraction_travel_mm": 8,
+        "exit_angle_deg": 0,
+        "swept_obstacle_intersection_mm3": 3.999999999999999,
+        "swept_obstacle_clearance_mm": 0.0
+      },
+      {
+        "variant": "right_angle",
+        "fixture": ".runtime/go2bis-l1-l2/inputs/L2-ANGLE-CLEAR.json",
+        "fixture_sha256": "c9d103e409ff084f8d956f776c33b553c11ef2a6cc140cd763f1a8873a8a4299",
+        "size_mm": [
+          3,
+          7,
+          6
+        ],
+        "origin_mm": [
+          4,
+          -4,
+          -3
+        ],
+        "axial_extraction_travel_mm": 8,
+        "exit_angle_deg": 90,
+        "swept_obstacle_intersection_mm3": 0.0,
+        "swept_obstacle_clearance_mm": 3.0
+      }
+    ],
+    "proof": {
+      "path": ".runtime/go2bis-l1-l2/native-comparison.json",
+      "sha256": "a6ce79db7587d88e56f12cc7ac117eb03d935c6f9d9e12b128fe81845c542615"
+    },
+    "recipe": {
+      "path": ".runtime/go2bis-l1-l2/check_comparison_native.py",
+      "sha256": "28315121e574a62d33b9379d07f44f82e886eeebe684968faeaed5ff9764469f"
+    },
+    "predicate": "Intersection du corps balayé axialement avec le même obstacle. Gabarits synthétiques rigides, géométrie idéale et course axiale de 8 mm."
+  },
+  "cartographe_candidate": {
+    "status": "INCONCLUSIVE",
+    "returncode": 3,
+    "research": {
+      "F12-ACTIVE-GEOMETRY": "RESOLVED",
+      "F12-TELEM1-REVISION": "UNKNOWN",
+      "F16-MOUNTED-BEND-RADIUS": "UNKNOWN"
+    },
+    "proof": {
+      "path": ".runtime/go2bis-l1-l2/cartographe_candidats.json",
+      "sha256": "52cf57dc1401a8628da2bb14b7b93e8438e392bad88783653ddfc7f68761aa05"
+    }
+  },
+  "replay": {
+    "fixture_generator": {
+      "path": ".runtime/go2bis-l1-l2/evaluate.py",
+      "sha256": "e4170d9efbecb4c1853df576873d6f3aa9e141a58d9f9b8c9e2a25dad09ca633"
+    },
+    "inputs": ".runtime\\go2bis-l1-l2\\inputs",
+    "original_reports": ".runtime\\go2bis-l1-l2\\initial",
+    "corrected_reports": ".runtime\\go2bis-l1-l2\\corrected",
+    "command_L2": "cmake -S interconnection_engine -B .runtime/go2bis-l1-l2/l2-corrected-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+    "command_native": "python -B hardware/mecanique/banc_interconnexion/verification/freecad_adapter.py run .runtime/go2bis-l1-l2/corrected/L2-NOMINAL.json .runtime/go2bis-l1-l2/native-corrected --freecad <Python FreeCAD>"
+  },
+  "limits": [
+    "Les filiations électriques des 71 lignes couvrent leur rapprochement documentaire. La continuité physique de toutes les lignes n’est pas mesurée.",
+    "La comparaison droit/coudé est synthétique. La forme commerciale, la révision montée, le câble OEM, la manœuvre de déverrouillage et les efforts restent À valider.",
+    "Les vérifications de signal contrôlent la cohérence déclarée et les contradictions explicites dans les bancs. La preuve du brochage de la pièce montée vient de sources applicables ou de mesures.",
+    "Les 383 empreintes de L0 comprennent 275 fichiers natifs. Elles identifient les sources et indépendamment les deux fermetures répertoriées.",
+    "L’indisponibilité HTTPS est démontrée avec un hôte loopback, sans requête fournisseur. Aucun essai matériel ni contrôle interactif.",
+    "Le RPC FreeCAD est INCONCLUSIVE (WinError 10013). La réouverture et les mesures utilisent le Python embarqué."
+  ]
+}

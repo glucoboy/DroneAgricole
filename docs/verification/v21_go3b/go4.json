@@ -1,0 +1,141 @@
+{
+  "schema": "drone_agricole.go3b.go4.v1",
+  "status": "NOT_RUN",
+  "physical_trials_authorized": false,
+  "electrical_plan": "docs/verification/v21_go3b/electrical_go4.json",
+  "tests": [
+    {
+      "id": "GO4-L2-LOT",
+      "requirements": [
+        "G3A-01",
+        "G3A-02",
+        "G3A-03",
+        "G3A-05",
+        "G3A-07"
+      ],
+      "method": "Identifier les MPN et révisions montées. Photographier les détrompages et la cavité 1 de chaque couple fiche et embase, relever les faces et les sorties. Réconcilier les contacts, cordons, jonctions et inclusions avec les 142 côtés du registre.",
+      "result_expected": "Inventaire par lot avec référence, face orientée, statut de chaque contact et source applicable. Motif documenté pour chaque exception hors faisceau.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GO4-L2-POWER-CAN1",
+      "requirements": [
+        "G3A-01",
+        "G3A-02"
+      ],
+      "method": "Hors tension, caractériser continuité et polarité du pack 6S, des protections, du PM08, de la PDB et de POWER1/2. Associer les cavités PM08 à CAN1 H/L/GND, vérifier la broche CAN1/1 +5 V NC et la torsade. Mesurer la séquence de retrait et l’accès au verrou avec F31, F35 et l’isolateur montés.",
+      "result_expected": "Table de correspondance et de protections avec mesures, garde et tolérances applicables. Validation DroneCAN sur banc qualifié après réussite des contrôles hors tension.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GO4-L2-F12-F24",
+      "requirements": [
+        "G3A-01",
+        "G3A-03",
+        "G3A-07"
+      ],
+      "method": "Vérifier TELEM1 et ses cavités sur la porteuse réelle. Mesurer J402/1 vers TELEM1/6, J402/2 vers TELEM1/2, J402/3 vers TELEM1/3 et l’absence d’alimentation injectée. Identifier GPIO/DEBUG/CSI, mesurer J505 vers GPIO_07, J506 et J509. Contrôler la population effective de R530 à R533 et les niveaux PPS/GPRMC, AUX1/CAP1, retours et extinction.",
+      "result_expected": "Correspondances et population observées. Niveaux, synchronisation et latences mesurés sur le banc autorisé après fermeture hors tension.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GO4-L2-DIAG",
+      "requirements": [
+        "G3A-01",
+        "G3A-05",
+        "G3A-07"
+      ],
+      "method": "Identifier J2/J3 sur le BMS, le module SKU 15817 et son bornier TTL. Contrôler croisement RX/TX, référence B− brut isolée de P− et de la masse/blindage USB hôte, VDD et alimentation TTL laissés NC. Vérifier la séparation manuelle et les gestes TTL/USB/CAN1 avec F31/F35/PDB en place. Pour un déport, figer la sélection des raccords et la correspondance pin à pin avant les essais.",
+      "result_expected": "Mesures continuité, isolement, accès, traction et longueur utile. Vérifier l’intégrité USB et la lecture seule seulement après contrôles hors tension.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GO4-L2-SENSORS-PERIPHERALS",
+      "requirements": [
+        "G3A-01",
+        "G3A-04",
+        "G3A-06",
+        "G3A-07"
+      ],
+      "method": "Relever les cordons et sorties F16 USB3 et M8, F25 GPS1/USL, branches Airy et prises périphériques. Mesurer le rayon applicable, la réserve, la retenue, l’extraction et la protection au chant sur le domaine cinématique. Confirmer orientations RF, ventilation, LED réservées, CEM et continuité de blindage. Vérifier débit, pertes et datation caméra/Airy pendant les essais mécaniques prescrits.",
+      "result_expected": "Preuve par cordon monté, état et variante, avec cycles, tolérances, mesures thermiques/CEM et critères préalablement approuvés dans le plan de banc.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GO4-MEC-CONNECT",
+      "method": "Accouplement, retrait, verrouillage, outillage et séquence sur exemplaires identifiés",
+      "requirements": [
+        "G3A-02",
+        "G3A-05",
+        "G3A-06"
+      ],
+      "prerequisites": "Plans et contacts applicables, corrections des collisions et protocole hors tension",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-MEC-MOTION",
+      "method": "Balayage continu translation/rotation caméra, réserve, traction et abrasion F16/M8",
+      "requirements": [
+        "G3A-04",
+        "G3A-06"
+      ],
+      "prerequisites": "Courses, butées et rayons dynamiques constructeur mesurés",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-MASS",
+      "method": "Pesée par occurrence avec accessoires, gaines, retenues, bilan, centrage et inerties",
+      "requirements": [
+        "G3A-08"
+      ],
+      "prerequisites": "Périmètres massiques et inclusions réconciliés",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-VIBRATION",
+      "method": "Tenue fixations, connectique et fatigue des faisceaux sous vibrations",
+      "requirements": [
+        "G3A-04",
+        "G3A-06"
+      ],
+      "prerequisites": "Montage, niveaux, cycles et critères approuvés",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-THERMAL",
+      "method": "Températures, débit ventilateur et déclassement sous charge",
+      "requirements": [
+        "G3A-02",
+        "G3A-07"
+      ],
+      "prerequisites": "Montage clos, puissance et ambiance définies",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-EMC",
+      "method": "Blindages, retours, CEM et intégrité USB/CAN/GNSS pendant acquisition synchronisée",
+      "requirements": [
+        "G3A-03",
+        "G3A-07"
+      ],
+      "prerequisites": "Protocole et niveaux d’essai approuvés",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    },
+    {
+      "id": "GO4-FLIGHT",
+      "method": "Qualification progressive propulsion, énergie, structure et acquisition avant essais en vol",
+      "requirements": [
+        "G3A-08"
+      ],
+      "prerequisites": "Niveaux précédents satisfaits selon DOC-VAL §2, autorisation et protocole de vol",
+      "status": "NOT_RUN",
+      "acceptance_thresholds": null
+    }
+  ]
+}

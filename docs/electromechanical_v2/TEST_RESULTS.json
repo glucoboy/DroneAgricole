@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "id": "T-EM-ENGINE-L0",
+  "date": "2026-11-12",
+  "status": "L0_READY",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001",
+    "METH-001"
+  ],
+  "scope": "Audit et contrats. Bancs synthétiques en natif et vérification statique des références CAO du prototype.",
+  "baseline": {
+    "path": "docs/electromechanical_v2/BASELINE_MANIFEST.json",
+    "sha256": "1871302537a1d77bec5399c03bf5a055cb41112c6fae1e26a1074f558861ad0b"
+  },
+  "environment": {
+    "system": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.4",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "python_freecad": "3.11.14",
+    "cables_workbench": "0.3.7",
+    "freecad_mcp": "0.1.22",
+    "kicad_cli": "10.0.6",
+    "versions_proof": {
+      "path": ".runtime/electromechanical_l0/cao/freecad-versions.log",
+      "sha256": "62d87cc298732d362ef3986f6c010bf3fff517814d281b7b9d8c7d437e18a750"
+    }
+  },
+  "checks": {
+    "python_offline": {
+      "command": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+      "environment": {
+        "ELECTROMECHANICAL_FREECAD_PYTHON": ""
+      },
+      "exit": 0,
+      "passed": 63,
+      "failed": 0,
+      "skipped": 10,
+      "proof": {
+        "path": ".runtime/electromechanical_l0/python/unittest.log",
+        "sha256": "1c51d0be577e15b3f6ba7e8c3a73e7aa00994b3ccd63c8a420d33415ac45435b"
+      }
+    },
+    "engine_full": {
+      "command": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+      "environment": {
+        "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+      },
+      "exit": 0,
+      "passed": 73,
+      "failed": 0,
+      "skipped": 0,
+      "proof": {
+        "path": ".runtime/electromechanical_l0/engine-native/unittest.log",
+        "sha256": "b4dbe5dad9a3da8482883ee9f9b26da175683e5fbba898e94e845a5a48cb642d"
+      }
+    },
+    "part_probe": {
+      "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" probe",
+      "exit": 0,
+      "proof": {
+        "path": ".runtime/electromechanical_l0/cao/part-probe.log",
+        "sha256": "2e133c691e69ccd59d4d54ccfa43c611b3c07bbae98f671ff4a931fd85b8ea73"
+      }
+    },
+    "freecad_cables": {
+      "command": "\"C:/Program Files/FreeCAD 1.1/bin/python.exe\" -B .agents/skills/electromechanical-integration/scripts/tests_freecad.py --builder hardware/mecanique/cartographe/verification/cable_workbench_prototype.py --output .runtime\\electromechanical_l0\\cao/cables-tests.json",
+      "exit": 0,
+      "passed": 19,
+      "native": 4,
+      "failed": 0,
+      "skipped": 0,
+      "proof": {
+        "path": ".runtime/electromechanical_l0/cao/cables-tests.json",
+        "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea"
+      },
+      "log": {
+        "path": ".runtime/electromechanical_l0/cao/cables-tests.log",
+        "sha256": "d18f1d80adab5d734f3cc3fb0e40b702c2eec1b94d31b5ae919a95822a462217"
+      }
+    },
+    "workspace": {
+      "command": "python -B .agents/skills/electromechanical-integration/scripts/tests_workspace.py --temp-root .runtime\\electromechanical_l0\\cao/workspace",
+      "exit": 0,
+      "passed": 6,
+      "failed": 0,
+      "proof": {
+        "path": ".runtime/electromechanical_l0/cao/workspace-tests.log",
+        "sha256": "f4ffce8052077b82290c4bc98dadb93899d2f7f9ade3c670d9a70caa479535fd"
+      }
+    },
+    "planner": {
+      "commands": [
+        "cmake -S .agents/skills/electromechanical-integration/scripts -B .runtime\\electromechanical_l0\\cao/planner-build -G Ninja",
+        "cmake --build .runtime\\electromechanical_l0\\cao/planner-build",
+        "ctest --test-dir .runtime\\electromechanical_l0\\cao/planner-build --output-on-failure",
+        ".runtime\\electromechanical_l0\\cao/planner-build/harness-planner-tests.exe"
+      ],
+      "exits": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ctest_passed": 1,
+      "assertions_passed": 41,
+      "proofs": [
+        {
+          "path": ".runtime/electromechanical_l0/cao/planner-ctest.log",
+          "sha256": "8d2709aad5e1623e144190af47957292b2169d724f402c5dcb0ff6cf780333be"
+        },
+        {
+          "path": ".runtime/electromechanical_l0/cao/planner-tests.log",
+          "sha256": "375f031bd798dd6d49d0ebebca84bb00272c7e937a93b2ad6db10457b00b37ac"
+        }
+      ]
+    },
+    "static_bench": {
+      "steps": [
+        {
+          "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" --timeout 45 freeze --project electromechanical_engine/tests/fixtures/banc --output .runtime\\electromechanical_l0\\cao/banc-reference",
+          "exit": 0,
+          "proof": {
+            "path": ".runtime/electromechanical_l0/cao/banc-freeze.log",
+            "sha256": "72f0c9ecef6e901e6cd2958bf87f1cbd0b38d9be12b7558cdaa37979485026a6"
+          }
+        },
+        {
+          "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" --timeout 45 explore --project .runtime\\electromechanical_l0\\cao/banc-reference --space electromechanical_engine/tests/fixtures/banc/design_space.json --output .runtime\\electromechanical_l0\\cao/banc-explore",
+          "exit": 0,
+          "proof": {
+            "path": ".runtime/electromechanical_l0/cao/banc-explore.log",
+            "sha256": "d1aa2b646b6f5e8ac3c13659d7191c31b21a2ade701fc5235763cf71d16b1663"
+          }
+        },
+        {
+          "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" --timeout 45 run --project .runtime\\electromechanical_l0\\cao/banc-reference --space electromechanical_engine/tests/fixtures/banc/design_space.json --output .runtime\\electromechanical_l0\\cao/banc-run",
+          "exit": 0,
+          "proof": {
+            "path": ".runtime/electromechanical_l0/cao/banc-run.log",
+            "sha256": "92ddd735b465cae879f55e808d4d1a2850d075bacaf16fe9e06799c4228e0c09"
+          }
+        },
+        {
+          "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" --timeout 45 validate --project .runtime\\electromechanical_l0\\cao/banc-reference --candidate .runtime\\electromechanical_l0\\cao/banc-run/lateral --output .runtime\\electromechanical_l0\\cao/banc-revalidation",
+          "exit": 0,
+          "proof": {
+            "path": ".runtime/electromechanical_l0/cao/banc-validate.log",
+            "sha256": "291e28837bd729780afe288b11376d61df2368371d8bb53da6ccb97c05708fb1"
+          }
+        },
+        {
+          "command": "python -B -m electromechanical_engine --freecad-python \"C:/Program Files/FreeCAD 1.1/bin/python.exe\" --timeout 45 compare --project .runtime\\electromechanical_l0\\cao/banc-reference --baseline .runtime\\electromechanical_l0\\cao/banc-run/lateral-large/candidate_report.json --candidate .runtime\\electromechanical_l0\\cao/banc-revalidation/candidate_report.json",
+          "exit": 0,
+          "proof": {
+            "path": ".runtime/electromechanical_l0/cao/banc-compare.log",
+            "sha256": "2ca2ebc1d90b3aa7dba24c540e80b1de60c92a67820ab468974916933b1b2b5e"
+          }
+        }
+      ],
+      "attempt_verdicts": {
+        "direct": "NON_CONFORME",
+        "lateral": "VALIDE_GEOMETRIQUEMENT",
+        "lateral-large": "VALIDE_GEOMETRIQUEMENT",
+        "connectique-haute": "CANDIDAT_CONDITIONNEL",
+        "carte-intermediaire": "CANDIDAT_CONDITIONNEL"
+      },
+      "pareto": [
+        "lateral"
+      ],
+      "stop_reason": "ALTERNATIVES_EXHAUSTED",
+      "optimality_proven": false,
+      "length_delta_mm": -12.0,
+      "native": {
+        "path": ".runtime/electromechanical_l0/cao/banc-run/lateral/candidate.FCStd",
+        "sha256": "aa82200dd3e2942479ce9efe456d7fb6a56c1c820c4f0c44d908221ab1b89e95"
+      },
+      "worker_receipts": [
+        {
+          "path": ".runtime/electromechanical_l0/cao/banc-run/lateral/build-883c015e8b404d28b2c31fb16decbe5b.request.result.json",
+          "sha256": "46e6d5065875615d8467ba3867132396e3534cad956d872fdc7618c42601b9a1"
+        },
+        {
+          "path": ".runtime/electromechanical_l0/cao/banc-run/lateral/inspect-647017f4678c4debb06e58027be1bbf0.request.result.json",
+          "sha256": "e1f009893dfdcf25edb65b207c1c221efdc14b7b82b60b07765c491b478819ab"
+        },
+        {
+          "path": ".runtime/electromechanical_l0/cao/banc-run/lateral/inspect-e281000b16af4a668251a21919e09677.request.result.json",
+          "sha256": "3b7a6380d5f21602563d7be0b55c2c8148ae8687dd75b13a9587314f8ec435d2"
+        }
+      ],
+      "identical_reports": [
+        {
+          "path": ".runtime/electromechanical_l0/cao/banc-run/lateral/candidate_report.json",
+          "sha256": "34c7d693059329260c2b53413808824c2ba06e70eb5bfe0c64be35d6688d432f"
+        },
+        {
+          "path": ".runtime/electromechanical_l0/cao/banc-revalidation/candidate_report.json",
+          "sha256": "34c7d693059329260c2b53413808824c2ba06e70eb5bfe0c64be35d6688d432f"
+        }
+      ],
+      "campaign": {
+        "path": ".runtime/electromechanical_l0/cao/banc-run/campaign_report.json",
+        "sha256": "09a9b5548d9074e4944abd16ea2faf9dd9c6938629a057f43b9a53415b47818c"
+      }
+    },
+    "mcp": {
+      "launcher_exit": 103,
+      "launcher_proof": {
+        "path": ".runtime/electromechanical_l0/cao/mcp-launcher.log",
+        "sha256": "161eed46fb740d2d9c6f9b3f476d228204f120a327423ad604f414f936e96176"
+      },
+      "rpc_method": "FreeCADConnection(host=\"localhost\", port=9875, timeout=3).get_rpc_status()",
+      "client_exit": 1,
+      "client_error": "WinError 10013",
+      "client_proof": {
+        "path": ".runtime/electromechanical_l0/cao/mcp-client-rpc.log",
+        "sha256": "7728f5bd51006c3ee8d1b30251c37d2065213ea9c502e92412dc8a2e7a690ef3"
+      },
+      "outcome": "INCONCLUSIVE",
+      "fallback": "FreeCAD Python en processus distincts"
+    },
+    "references": {
+      "file_references_verified": 108,
+      "native_closure_files_verified": [
+        137,
+        138
+      ],
+      "axis_hashes_verified": 53,
+      "interconnection_rows": 71,
+      "bidirectional_line_axis_pairs": 56,
+      "historical_cross_checks": {
+        "code_et_entrees_concordants_go2": 30,
+        "sources_matrice_interconnexions_concordantes": 8,
+        "sources_registre_refonte_concordantes": 43,
+        "sources_kicad_concordantes": 6
+      }
+    },
+    "kicad_netlist": {
+      "command": "\"C:/Program Files/KiCad/10.0/bin/kicad-cli.exe\" sch export netlist --format kicadxml -o .runtime/electromechanical_l0/kicad/CA01.xml hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+      "environment": {
+        "KICAD_CONFIG_HOME": ".runtime\\electromechanical_l0/kicad/config"
+      },
+      "exit": 0,
+      "selected_references": 15,
+      "selected_pins": 43,
+      "differences": [],
+      "netlist": {
+        "path": ".runtime/electromechanical_l0/kicad/CA01.xml",
+        "sha256": "aa3d7391000de7691bac01368073343ea3f898a879802b73f8f11bfb0b8945ff"
+      },
+      "log": {
+        "path": ".runtime/electromechanical_l0/kicad/export.log",
+        "sha256": "7aa7de5a142d13a8735bb34f4875fefb0ca72dfcae172b08874a2fb7895acd66"
+      },
+      "note": "Accès registre HKCU refusé. XML produit et comparaison des broches réussie."
+    },
+    "contracts": {
+      "command": "Test-Json -Path docs/electromechanical_v2/EXAMPLE.json -SchemaFile docs/electromechanical_v2/DATA_CONTRACTS.schema.json",
+      "proof": {
+        "path": ".runtime/electromechanical_l0/contract-schema.log",
+        "sha256": "594432b2e048cfd46987efe64e7266a4f1660cf47aef7ed92a728c0f57490a81"
+      },
+      "matrix_capabilities": 21,
+      "matrix_test_references": 27,
+      "independent_review": {
+        "generic_typed_references_resolved": 139,
+        "circuits_reconstructed": 2,
+        "contextual_references": "Propriétaires et extrémités contrôlés lors de la reconstitution des circuits.",
+        "rejected_mutations": [
+          "PASS sans preuve",
+          "BUILT sans empreintes",
+          "CONDITIONAL_GO sans conditions"
+        ],
+        "closure_method": "Deuxième lecture, ZIP/XML et SHA-256 indépendants pour les deux fermetures."
+      }
+    }
+  },
+  "not_run": [
+    {
+      "check": "Rejeu complet et réouverture native du cartographe",
+      "reason": "L0 audite ses reçus et empreintes. Les contrôles natifs courants utilisent les bancs."
+    },
+    {
+      "check": "Contrôle interactif GUI et mutations MCP",
+      "reason": "Hors réception L0 et RPC indisponible depuis la session."
+    },
+    {
+      "check": "ERC, DRC, continuité, montage et autres essais physiques",
+      "reason": "L0 vérifie le rapprochement CA01 et les contrats. Aucun essai de qualification matériel dans ce lot."
+    }
+  ]
+}

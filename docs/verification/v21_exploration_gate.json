@@ -1,0 +1,166 @@
+{
+  "schema": "drone_agricole.v21_exploration_gate_evidence.v1",
+  "test_id": "T-CARTO-V21-GATE",
+  "date": "2026-11-15",
+  "verdict": "V21_GATE_PASS",
+  "scope": "Préflight logiciel de H-01 et ordonnancement des activités de preuve",
+  "platform": "Windows amd64, GCC 16.2, Qt 6, Ninja, Python 3.14, FreeCAD 1.1 pour les régressions natives",
+  "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "reference_sha256": "3fc4260910647d3ab5ccffdb1406847ffb310dfec6e45fb221186274fe8535b9",
+  "authority_sha256": {
+    "convergence_manager/fixtures/v21_evidence_plan.json": "0a86d3e65d9c711c66a747c456da48f255816c71dc082599e008e56cae850cdd",
+    "docs/verification/go3a/GO3A_DECISIONS.json": "78434f101d2dcfb658c31f188e658e54a66973e293cdcdf6c86548bf6ddac8f0",
+    "docs/verification/go3a/GO3A_MANIFEST.json": "f3788b3a0ac717871b3538970cc0635bfb81a346f1b2b2db0df372eb5f6092fc",
+    "docs/verification/go3a/GO3A_REQUIREMENTS.yaml": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+    "docs/verification/go3a/GO3A_SYSTEM_MODEL.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+    "docs/verification/go3b/GO3B_ADMISSION.json": "b5bb1d3ab901e300b12558ba9cd33558210a9dee343520a0f0085257a7d58521",
+    "docs/verification/go3b/GO3B_SOURCE_MANIFEST.json": "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d"
+  },
+  "core_sha256": "cbff5f119d78d84533480954b6ecde3e2f01e0643691d8730eaebd1b4b92b68e",
+  "sources": {
+    "verified_before_and_after": 180,
+    "mismatches": 0
+  },
+  "demonstration": [
+    {
+      "mode": "historical",
+      "command": "& .runtime/v21-gate-build/convergence_core.exe preflight --mode historical --output .runtime/v21-demonstration/history",
+      "exit_code": 2,
+      "verdict": "NO_GO_MOTIVE",
+      "campaign_state": null,
+      "report": ".runtime/v21-demonstration/history/preflight.json",
+      "sha256": "ed76b4b5eb55f16743a395afcb4f44b9e88aa23d87f1f59523d4649475ac7b46"
+    },
+    {
+      "mode": "explore",
+      "command": "& .runtime/v21-gate-build/convergence_core.exe preflight --mode explore --output .runtime/v21-demonstration/explore --steps 2",
+      "exit_code": 4,
+      "verdict": "EXPLORATION_ALLOWED",
+      "campaign_state": "PAUSED",
+      "report": ".runtime/v21-demonstration/paused.json",
+      "sha256": "bd92c3455759f447147efac45941a504eb15cb7a4948ec896395bc3db29bb449"
+    },
+    {
+      "mode": "explore",
+      "command": "& .runtime/v21-gate-build/convergence_core.exe preflight --mode explore --output .runtime/v21-demonstration/explore",
+      "exit_code": 0,
+      "verdict": "EXPLORATION_ALLOWED",
+      "campaign_state": "PLANNED",
+      "report": ".runtime/v21-demonstration/explore/preflight.json",
+      "sha256": "c2126b543ae3a6f4473e46e4700cc2893c8324c7e790cfe31c72940a7a59657d"
+    },
+    {
+      "mode": "final",
+      "command": "& .runtime/v21-gate-build/convergence_core.exe preflight --mode final --output .runtime/v21-demonstration/final",
+      "exit_code": 2,
+      "verdict": "FINAL_NO_GO",
+      "campaign_state": null,
+      "report": ".runtime/v21-demonstration/final/preflight.json",
+      "sha256": "1a00532a373bdf7a2da8c3a07c61565a961771ac8efce9c4aebc264ba1946337"
+    }
+  ],
+  "historical": {
+    "autorisation_go3b": false,
+    "build_limit": 12,
+    "built": 0,
+    "front_admissible_cartographe": [],
+    "status": "GO3A_CONDITIONNEL",
+    "verdict": "NO_GO_MOTIVE"
+  },
+  "requirements": [
+    "G3A-01",
+    "G3A-02",
+    "G3A-03",
+    "G3A-04",
+    "G3A-05",
+    "G3A-06",
+    "G3A-07",
+    "G3A-08"
+  ],
+  "requirement_status": "INCONCLUSIVE",
+  "variants_built": 0,
+  "resume": {
+    "planned_before_pause": 2,
+    "planned_after_resume": 8,
+    "spent_credits": 0,
+    "identical_on_replay": true
+  },
+  "tests": {
+    "configure": "cmake -S convergence_manager -B .runtime/v21-gate-build -G Ninja -DL5_V21_GO3A_TEST=ON",
+    "build": "cmake --build .runtime/v21-gate-build",
+    "command": "ctest --test-dir .runtime/v21-gate-build --output-on-failure",
+    "result": "3/3 suites PASS. V2.1 : 6 cas incluant les 4 états et 6 plans dangereux. L5 : unités Campaign et Selection.",
+    "log": ".runtime/v21-gate-build/Testing/Temporary/LastTest.log"
+  },
+  "regressions": [
+    {
+      "scope": "L0 et moteur V2",
+      "command": "ELECTROMECHANICAL_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe puis python -B -m unittest discover -s electromechanical_engine/tests -v",
+      "result": "76/76 PASS"
+    },
+    {
+      "scope": "Isolation",
+      "command": "python -B .agents/skills/electromechanical-integration/scripts/tests_workspace.py",
+      "result": "6/6 PASS"
+    },
+    {
+      "scope": "Cables",
+      "command": "& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' -B .agents/skills/electromechanical-integration/scripts/tests_freecad.py --builder hardware/mecanique/cartographe/verification/cable_workbench_prototype.py --output .runtime/v21-regressions/cables-full.json",
+      "result": "19/19 PASS",
+      "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea"
+    },
+    {
+      "scope": "Planificateur",
+      "command": "ctest --test-dir .runtime/v21-regressions/planner --output-on-failure",
+      "result": "1/1 PASS",
+      "log": ".runtime/v21-regressions/planner/Testing/Temporary/LastTest.log",
+      "sha256": "0cb6a6765361204737327bfbf81b117692de3e3e075c24c6a72bcee399707857"
+    },
+    {
+      "scope": "L1 à L3",
+      "command": "ctest --test-dir .runtime/v21-regressions/architecture_decision_engine --output-on-failure",
+      "result": "4/4 suites PASS",
+      "log": ".runtime/v21-regressions/architecture_decision_engine/Testing/Temporary/LastTest.log",
+      "sha256": "f6761a40ece72a2d0621a3699446b53a8b2a100cdff413cba08d9f73f07b8de6"
+    },
+    {
+      "scope": "L2 et L4",
+      "command": "ctest --test-dir .runtime/v21-regressions/validation_engine --output-on-failure",
+      "result": "4/4 suites PASS",
+      "log": ".runtime/v21-regressions/validation_engine/Testing/Temporary/LastTest.log",
+      "sha256": "46cb398123e0af504bee59e3237817c34eb908d1fca3272c4667e49668efafb4"
+    },
+    {
+      "scope": "L5 après intégration V2.1",
+      "command": "ctest --test-dir .runtime/v21-regressions/convergence_post --output-on-failure",
+      "result": "3/3 suites PASS, dont 14 tests CLI",
+      "log": ".runtime/v21-regressions/convergence_post/Testing/Temporary/LastTest.log",
+      "sha256": "18af0ec5edf2e7bb0fc4eefcb481b5eb6e394c60f2ec93a488f63744bc1b4f35"
+    },
+    {
+      "scope": "GO2bis L4 natif",
+      "recipe": "validation_engine/README.md, générer les candidats électriques puis seal et campaign",
+      "result": "L4_CONDITIONAL, 29 cas",
+      "report": ".runtime/v21-regressions/l4-reception/reception/campaign.json",
+      "sha256": "091d63c3f2be27f80bf90525f4015aba980b59b20ba24358363e1742389fc704",
+      "t0_command": "& .runtime/v21-regressions/simulation/cartographe-evidence.exe validate .runtime/v21-regressions/l4-reception/reception .",
+      "t0_result": "T0 valid"
+    },
+    {
+      "scope": "GO2bis T0 historique",
+      "command": "& .runtime/v21-regressions/simulation/cartographe-evidence.exe validate .runtime/go2bis/t0 .",
+      "result": "T0 valid"
+    }
+  ],
+  "review": [
+    "Empreintes historiques racines épinglées après revue.",
+    "Jonctions de sortie refusées après revue.",
+    "Un étiquetage L4 par identifiants G3A ne peut ouvrir la réception. Correspondance approuvée entre critères et contrôles requise."
+  ],
+  "not_run": [
+    "Construction H-01 et contrôle sur candidat H-01 intégré : hors mission.",
+    "Exécution des expériences ordonnancées : ce préflight planifie leur préparation.",
+    "Réception positive H-01 : correspondance de réception approuvée et preuve native intégrée indisponibles.",
+    "Essais physiques, nouvelles campagnes de vol et fabrication : hors mission."
+  ]
+}

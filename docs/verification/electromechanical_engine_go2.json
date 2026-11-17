@@ -1,0 +1,879 @@
+{
+  "version": 1,
+  "id": "T-EM-ENGINE-03",
+  "date": "2026-11-11",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "decision": "GO CONDITIONNEL",
+  "scope": "Bancs synthétiques sous Windows amd64 et constats natifs historiques explicitement mesurés. Aucune acceptation de l'intégration complète.",
+  "go1": {
+    "record": {
+      "path": "docs/verification/electromechanical_engine_go1.json",
+      "sha256": "04d68902f306353f952278bb8d56420669b2f10571b1612a17e22bb1edc7e336"
+    },
+    "repeat": {
+      "path": ".runtime/em-go2/baseline-tests.log",
+      "sha256": "449176ec2f370fbc6858603fb81a677866fdb81a77fe40e617f65f828ebf5092",
+      "executed": 66,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "environment": {
+    "git_base": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "engine_identity": "Empreintes des fichiers de travail ci-dessous. Le commit de base ne contient pas le moteur.",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ],
+    "python_freecad": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+    "occt": "7.8.1",
+    "cables": {
+      "api": {
+        "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+        "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)",
+        "make_compoundpath": "(plist=None)",
+        "make_wireflex_from_vectors": "(vectorlist)"
+      },
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "nom": "Cables Workbench",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+        "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc"
+      },
+      "version": "0.3.7"
+    },
+    "rpc": {
+      "host": "localhost",
+      "port": 9875,
+      "method": "get_rpc_status",
+      "status": "connexion refusée (WinError 10061)",
+      "log": {
+        "path": ".runtime/em-go2/rpc-local.log",
+        "sha256": "9a5ed65e7b43ce4381b6c4008cdb033ac52262eb3c49e841ec2d461d3809a74d"
+      },
+      "fallback": "Python FreeCAD avec Part et Cables dans des processus séparés"
+    }
+  },
+  "changes": [
+    {
+      "class": "faux négatif",
+      "before": "Obstacle lié dans le même document : recouvrement 12,566370614 mm³ ignoré, collision_complete=True.",
+      "fix": "Inventaire strict des solides du document et refus des candidats du banc à dépendances XLink.",
+      "tests": [
+        "test_linked_untagged_obstacle_cannot_be_hidden_from_pair_inventory",
+        "test_xlink_cannot_hide_an_obstacle_in_an_external_document"
+      ]
+    },
+    {
+      "class": "faux négatif",
+      "before": "Rapport amputé du constat de couverture classé admissible.",
+      "fix": "Cinq constats natifs obligatoires et favorables pour l'admission à Pareto, indépendamment des métriques.",
+      "test": "test_comparison_requires_native_findings_even_with_a_favorable_verdict",
+      "before_log": {
+        "path": ".runtime/em-go2/comparison-before.log",
+        "sha256": "6e5fd5cbcb4f1796f67bd25e88f0717378b6e6d52d140760a16b886c7f30aa27"
+      }
+    },
+    {
+      "class": "faux positif",
+      "before": "Arc analytique de 7,2 mm mesuré à 7,199999999999996 mm rejeté.",
+      "fix": "16 ULP d'arrondi flottant pour les arcs analytiques certifiés, marge exposée dans le constat. Seuils des fixtures conservés.",
+      "tests": [
+        "test_roundoff_at_the_exact_radius_does_not_mask_a_real_deficit",
+        "test_f16_observed_roundoff_is_not_a_deficit_at_the_diagnostic_threshold"
+      ]
+    }
+  ],
+  "test_results": {
+    "engine": {
+      "path": ".runtime/em-go2/verified-tests.log",
+      "sha256": "c52ebc3db801270f164d320e389e47638818cfca8990eab8254a1f4c6c010d8d",
+      "executed": 73,
+      "failed": 0,
+      "skipped": 0
+    },
+    "cables": {
+      "path": ".runtime/em-go2/cables-tests.log",
+      "sha256": "e5693cd57713ffad584aabe9eaa3852a876be6e552eb54ba74a894b005b4c695",
+      "executed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    "isolation": {
+      "path": ".runtime/em-go2/workspace-tests.log",
+      "sha256": "85443342313f23611ab741c8aea7555ed4b425dfeb85c39f398147ca53944535",
+      "executed": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "reproduction": {
+    "environment": "FREECAD_PYTHON et ELECTROMECHANICAL_FREECAD_PYTHON pointent vers le Python FreeCAD enregistré.",
+    "tests": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+    "bancs": "Recettes freeze, run et validate de electromechanical_engine/README.md, puis une seconde validation dans un répertoire neuf.",
+    "historical": "python -B -m electromechanical_engine.qualification.native_replay FREECAD_PYTHON NOUVEAU_DOSSIER"
+  },
+  "adversarial_matrix_definition": {
+    "path": "electromechanical_engine/qualification/adversarial_cases.json",
+    "sha256": "01cca39993e89a2a1afee725deb82e99d9ad737930c657ee5743664e16169cd2"
+  },
+  "adversarial_matrix_results": [
+    {
+      "id": 1,
+      "class": "destination électrique",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 2,
+      "class": "rayon local",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 3,
+      "class": "collision et inclusion",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 4,
+      "class": "volume d'extraction",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 5,
+      "class": "ancrage",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 6,
+      "class": "portée sans maintien",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 7,
+      "class": "passage à travers un obstacle",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 8,
+      "class": "connecteur coudé",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 9,
+      "class": "gain local et résultat global",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 10,
+      "class": "boucle mobile",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 11,
+      "class": "dominance",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 12,
+      "class": "provenance",
+      "tp": 0,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 13,
+      "class": "intégrité du solide",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 14,
+      "class": "disponibilité RPC",
+      "tp": 1,
+      "tn": 0,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    },
+    {
+      "id": 15,
+      "class": "altération des sources",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 0
+    },
+    {
+      "id": 16,
+      "class": "couverture du rapport",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "unverified": 1
+    }
+  ],
+  "historical_catalog": {
+    "path": "electromechanical_engine/qualification/historical_catalog.json",
+    "sha256": "6a20e85035482e1ae3ff0dd710f663845476dacdc41ba0e98f0e067ee7aa98f9"
+  },
+  "historical_source_integrity": {
+    "path": "electromechanical_engine/qualification/historical_source_integrity.json",
+    "sha256": "a63ea6ab9812e0205375e420ea33ebabacea86fc3e0ff2c9828705b6bf0d18af"
+  },
+  "historical_native_evidence": [
+    {
+      "path": "electromechanical_engine/qualification/native_evidence.json",
+      "sha256": "55fc48d07afb28abe5a53560338d7c2f8d98e6b1fe52b59fe6d973b0fc972ec7"
+    }
+  ],
+  "independent_review": {
+    "path": "electromechanical_engine/qualification/independent_review.json",
+    "sha256": "4cd971008bef17b7d1a3c19e68d8d1dddb9966f2f09258bc6fe09a11ed44285b"
+  },
+  "campaigns": {
+    "static": {
+      "report": {
+        "path": ".runtime/em-go2/verified-banc/run/campaign_report.json",
+        "sha256": "425c334170061d6b5c089948d00b98554f6b769e785892992432c76af1b66f89"
+      },
+      "reference_sha256": "b6d4acb2d2cd89967ebe1e3d009cb845edb36959159119b5a4a6c548cdd903ab",
+      "reference_files": {
+        "design_requirements.yaml": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38",
+        "system_model.json": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1"
+      },
+      "design_space_sha256": "1c38687d8dd321c23a7b55ba7dee4ca4761037ff66157a986865e2f0d65fbe96",
+      "attempts": {
+        "carte-intermediaire": {
+          "status": "CANDIDAT_CONDITIONNEL",
+          "native_sha256": "368fe850eab97ebe39bfc2e51bb67bf373972bf11f7d5817397d0c382a2f9614",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 0,
+            "attached_support_volume_mm3": 0,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 0,
+            "extraction_envelope_volume_mm3": 16.0,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": 7.0,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": null,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "connectique-haute": {
+          "status": "CANDIDAT_CONDITIONNEL",
+          "native_sha256": "fafd001634be796d74dd06eaae2c2b36884b4966ce2745dd9760b5f51b1c8735",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 0,
+            "attached_support_volume_mm3": 0,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 0,
+            "extraction_envelope_volume_mm3": 16.0,
+            "height_p95_mm": null,
+            "length_au_dessus_mm": 117.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 23.992708874098053,
+            "min_extraction_clearance_mm": 7.0,
+            "total_cable_volume_mm3": 368.8730122196158,
+            "total_length_mm": 117.41592653589794,
+            "unsupported_length_mm": null,
+            "volume_au_dessus_nominal_mm3": 368.8730122196158,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "direct": {
+          "status": "NON_CONFORME",
+          "native_sha256": "db6f58bba372867434d442e12212540aff52ac631e530225eef505e3d162a4d9",
+          "critical_findings": [
+            {
+              "code": "V2.PAIR",
+              "object": [
+                "L1",
+                "Obstacle"
+              ],
+              "reason": "forbidden_interference"
+            }
+          ],
+          "metrics": {
+            "attached_support_count": 0,
+            "attached_support_volume_mm3": 0,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 0,
+            "extraction_envelope_volume_mm3": 16.0,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 100.0,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": 7.0,
+            "total_cable_volume_mm3": 314.1592653589794,
+            "total_length_mm": 100.0,
+            "unsupported_length_mm": null,
+            "volume_au_dessus_nominal_mm3": 314.1592653589793,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "lateral": {
+          "status": "VALIDE_GEOMETRIQUEMENT",
+          "native_sha256": "1915b4fc68cbf676f237eb66683acf68fc345e1c766afd75d15aad7cef28b040",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 0,
+            "attached_support_volume_mm3": 0,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 0,
+            "extraction_envelope_volume_mm3": 16.0,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": 7.0,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": null,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "lateral-large": {
+          "status": "VALIDE_GEOMETRIQUEMENT",
+          "native_sha256": "cf8ba20e57e534210266a03b0a57094a810469f53fe2ed8a7c5996effb4a339b",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 0,
+            "attached_support_volume_mm3": 0,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 0,
+            "extraction_envelope_volume_mm3": 16.0,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 133.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": 7.0,
+            "total_cable_volume_mm3": 419.13849467705245,
+            "total_length_mm": 133.41592653589794,
+            "unsupported_length_mm": null,
+            "volume_au_dessus_nominal_mm3": 419.13849467705245,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        }
+      },
+      "pareto": [
+        "lateral"
+      ],
+      "skipped": [],
+      "reopens": [
+        {
+          "report": {
+            "path": ".runtime/em-go2/verified-banc/reopen-1/candidate_report.json",
+            "sha256": "c0934dde55c216b5404fa120a9ad671902644721de6b36218f8508cb359350ce"
+          },
+          "observations": {
+            "path": ".runtime/em-go2/verified-banc/reopen-1/observations.json",
+            "sha256": "8d709655aaf93c076d649fe40db31976fdc7c6b3eb428c74e92c9b7ffb2d21f2"
+          },
+          "worker_id": "b9663f7bedf046bb8898e20fd83595f4",
+          "native_sha256": "1915b4fc68cbf676f237eb66683acf68fc345e1c766afd75d15aad7cef28b040"
+        },
+        {
+          "report": {
+            "path": ".runtime/em-go2/verified-banc/reopen-2/candidate_report.json",
+            "sha256": "c0934dde55c216b5404fa120a9ad671902644721de6b36218f8508cb359350ce"
+          },
+          "observations": {
+            "path": ".runtime/em-go2/verified-banc/reopen-2/observations.json",
+            "sha256": "51681016ea20afd5a4e6861b00934f29443dcc1efc91c65ab494dbd90a2a1b1d"
+          },
+          "worker_id": "f576da2433e049b4a9ae7b3a965e23cd",
+          "native_sha256": "1915b4fc68cbf676f237eb66683acf68fc345e1c766afd75d15aad7cef28b040"
+        }
+      ],
+      "report_comparison": "Identité octet pour octet entre les deux réouvertures du même fichier.",
+      "collision_pairs": {
+        "expected": 3,
+        "boolean": 2,
+        "aabb": 1
+      },
+      "worker_logs": [
+        {
+          "path": ".runtime/em-go2/verified-banc/run/lateral/build-b80e816c6e314d6aab85914dee891af1.request.stderr.log",
+          "sha256": "1acdc49d9d90a5130767d9981b39363ea370156b867caa65d19bb66e494b3e7c"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc/run/lateral/inspect-2f5a914f0c3a43c9bd606cbde9971b31.request.stderr.log",
+          "sha256": "e50002b481141f462380364136030ad7cc0deb80f10aac2ca10ee4c854c0e5d5"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc/run/lateral/inspect-d7abc1a1a5544b45a86dae2164361f2e.request.stderr.log",
+          "sha256": "e50002b481141f462380364136030ad7cc0deb80f10aac2ca10ee4c854c0e5d5"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc/run/lateral/inspect-dcbe91302dde4733bb514b8780beb6df.request.stderr.log",
+          "sha256": "e50002b481141f462380364136030ad7cc0deb80f10aac2ca10ee4c854c0e5d5"
+        }
+      ]
+    },
+    "discrete_motion": {
+      "report": {
+        "path": ".runtime/em-go2/verified-banc_mobile/run/campaign_report.json",
+        "sha256": "4132568209c2127d55602b3204679ebde3c67f6e577ca95d4da061c914052f91"
+      },
+      "reference_sha256": "30a1e61b9d0e05a4af1f5f07c705597a9143cc7e6dad562aacc7861525a877fc",
+      "reference_files": {
+        "design_requirements.yaml": "3d4c5505a3ccd0b169e0c5cecf269152942fb0273cb1a63a9b958ccff8f19042",
+        "system_model.json": "e82928f653677ee029912e00d1f5bda7eaf2894a3f3f54ffb05965ac194d1b7f"
+      },
+      "design_space_sha256": "436a330685a289737731d0bb3c189aa37977c42e6aa5103bf0dd4ef8a8779f51",
+      "attempts": {
+        "allongement-etat": {
+          "status": "NON_CONFORME",
+          "native_sha256": "748a4b8de5f8614777ffa8ba60844dc5d4bd87b3036b15a2ea3e115d2675b36a",
+          "critical_findings": [
+            {
+              "code": "V4.LENGTH",
+              "object": "L1",
+              "reason": "developed_length_conservation"
+            }
+          ],
+          "metrics": {
+            "attached_support_count": 1,
+            "attached_support_volume_mm3": 51.43362938564081,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 1,
+            "extraction_envelope_volume_mm3": null,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": null,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": 121.41592653589794,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "collision-etat": {
+          "status": "NON_CONFORME",
+          "native_sha256": "1c77e4246c529e50c210280046ac6474d85f90fb412a8732b2f81ec6c59faae6",
+          "critical_findings": [
+            {
+              "code": "V4.CLEARANCE",
+              "object": "L1",
+              "reason": "clearance_at_motion_state"
+            }
+          ],
+          "metrics": {
+            "attached_support_count": 1,
+            "attached_support_volume_mm3": 51.43362938564081,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 1,
+            "extraction_envelope_volume_mm3": null,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": null,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": 121.41592653589794,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "corrige": {
+          "status": "VALIDE_GEOMETRIQUEMENT",
+          "native_sha256": "74c3860a10424f3a9d90040f297f2bbad57fb8b5fd827290a21932b152c0f030",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 1,
+            "attached_support_volume_mm3": 51.43362938564081,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 1,
+            "extraction_envelope_volume_mm3": null,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": null,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": 121.41592653589794,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "etat-manquant": {
+          "status": "CANDIDAT_CONDITIONNEL",
+          "native_sha256": "00ea9b5ef189e59b5e53875cd98ffbeffba7de269265fb1b260ad8145fc8f964",
+          "critical_findings": [],
+          "metrics": {
+            "attached_support_count": 1,
+            "attached_support_volume_mm3": 51.43362938564081,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 1,
+            "extraction_envelope_volume_mm3": null,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 121.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": null,
+            "total_cable_volume_mm3": 381.43938283397506,
+            "total_length_mm": 121.41592653589794,
+            "unsupported_length_mm": 121.41592653589794,
+            "volume_au_dessus_nominal_mm3": 381.43938283397495,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        },
+        "portee-excessive": {
+          "status": "NON_CONFORME",
+          "native_sha256": "851cbcac97a8b5260c527391109e33f935e5642c32f00a920e4e06cdc6132e4d",
+          "critical_findings": [
+            {
+              "code": "V3.UNSUPPORTED_SPAN",
+              "object": "L1",
+              "reason": "longest_unsupported_span"
+            }
+          ],
+          "metrics": {
+            "attached_support_count": 1,
+            "attached_support_volume_mm3": 51.43362938564081,
+            "blocked_extraction_count": 0,
+            "declared_support_count": 1,
+            "extraction_envelope_volume_mm3": null,
+            "height_p95_mm": 10.0,
+            "length_au_dessus_mm": 141.41592653589794,
+            "length_entre_mm": 0.0,
+            "length_sous_mm": 0.0,
+            "level_changes": 0,
+            "max_cable_z_mm": 10.992708874098055,
+            "min_extraction_clearance_mm": null,
+            "total_cable_volume_mm3": 444.27123590577105,
+            "total_length_mm": 141.41592653589794,
+            "unsupported_length_mm": 141.41592653589794,
+            "volume_au_dessus_nominal_mm3": 444.2712359057708,
+            "volume_entre_nominal_mm3": 0.0,
+            "volume_sous_nominal_mm3": 0.0
+          }
+        }
+      },
+      "pareto": [
+        "corrige"
+      ],
+      "skipped": [],
+      "reopens": [
+        {
+          "report": {
+            "path": ".runtime/em-go2/verified-banc_mobile/reopen-1/candidate_report.json",
+            "sha256": "82921f3d61e0f5fc54669ede9430a6a0c2152ac2964ce7f5deb98f445c30b0b7"
+          },
+          "observations": {
+            "path": ".runtime/em-go2/verified-banc_mobile/reopen-1/observations.json",
+            "sha256": "c4e52f2e94ce3384d9a27efb12ecc177093fe993516548e1e7005adcff7f41af"
+          },
+          "worker_id": "64cf4ac3822b46eeaf576b2ab57cbe6e",
+          "native_sha256": "74c3860a10424f3a9d90040f297f2bbad57fb8b5fd827290a21932b152c0f030"
+        },
+        {
+          "report": {
+            "path": ".runtime/em-go2/verified-banc_mobile/reopen-2/candidate_report.json",
+            "sha256": "82921f3d61e0f5fc54669ede9430a6a0c2152ac2964ce7f5deb98f445c30b0b7"
+          },
+          "observations": {
+            "path": ".runtime/em-go2/verified-banc_mobile/reopen-2/observations.json",
+            "sha256": "87ed381fb20d5ebc08570141ead57e55748d50b9d3a1fd288a960fec5925fe9c"
+          },
+          "worker_id": "c1d8346cc3cd4d888755538466ded9d8",
+          "native_sha256": "74c3860a10424f3a9d90040f297f2bbad57fb8b5fd827290a21932b152c0f030"
+        }
+      ],
+      "report_comparison": "Identité octet pour octet entre les deux réouvertures du même fichier.",
+      "collision_pairs": {
+        "expected": 6,
+        "boolean": 3,
+        "aabb": 3
+      },
+      "worker_logs": [
+        {
+          "path": ".runtime/em-go2/verified-banc_mobile/run/corrige/build-88a867e33434480d9c9d7433889d8df5.request.stderr.log",
+          "sha256": "c4bf027391b1ed45819ae2c749eb62fd56735b453976d711e73d2ed6cfff10ca"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc_mobile/run/corrige/inspect-9c1d3e0ccddd426580df7d191f86ea42.request.stderr.log",
+          "sha256": "58ff6f26f924a9c810634e6f76ae74590cc34f859f89282010820f5956fd52c3"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc_mobile/run/corrige/inspect-c819fa2e72124b879f4d1fc02036871e.request.stderr.log",
+          "sha256": "58ff6f26f924a9c810634e6f76ae74590cc34f859f89282010820f5956fd52c3"
+        },
+        {
+          "path": ".runtime/em-go2/verified-banc_mobile/run/corrige/inspect-e245a260505144fdbbea5f4a7e7ec84c.request.stderr.log",
+          "sha256": "58ff6f26f924a9c810634e6f76ae74590cc34f859f89282010820f5956fd52c3"
+        }
+      ]
+    },
+    "static_comparison": {
+      "comparable": true,
+      "admissible": true,
+      "dominance": "CANDIDATE",
+      "deltas": {
+        "total_length_mm": -12.0
+      },
+      "link_length_deltas_mm": {
+        "L1": -12.0
+      },
+      "missing_objectives": []
+    }
+  },
+  "code_and_inputs": [
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+      "sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+      "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    {
+      "path": "electromechanical_engine/__init__.py",
+      "sha256": "38659bf698ee284d7d2d5234a3c25a16ba50b081c63985a21817175fa6983086"
+    },
+    {
+      "path": "electromechanical_engine/__main__.py",
+      "sha256": "f3f15d80501929ade8959010f507c13a1bbeeeac8b9f7deb9ecef9d24f020065"
+    },
+    {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da"
+    },
+    {
+      "path": "electromechanical_engine/freecad.py",
+      "sha256": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0"
+    },
+    {
+      "path": "electromechanical_engine/freecad_worker.py",
+      "sha256": "768faab6b5ebec8f76a44397a9eae6cd6fe39777224e56529a22d975f181b50a"
+    },
+    {
+      "path": "electromechanical_engine/metrics.py",
+      "sha256": "15218cd72cdd6c98d3af4275753d4842a4040ee3ee6d99ffbc80426a172f43b2"
+    },
+    {
+      "path": "electromechanical_engine/native_motion.py",
+      "sha256": "f89b1b4f808cd0e93a517735f9e29254408c2407da14e5d29ca77aa7c4fa80d9"
+    },
+    {
+      "path": "electromechanical_engine/native_retention.py",
+      "sha256": "969354ad6acdc2e5fead9dbe5c4e6dbba2badc77d4264ba29b6ae7e78eee2595"
+    },
+    {
+      "path": "electromechanical_engine/qualification/native_replay.py",
+      "sha256": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190"
+    },
+    {
+      "path": "electromechanical_engine/search.py",
+      "sha256": "d853b7b2f0d1626489c03955d6f42dce85da9ab7c3cb32b5b0a0b34c42b4d81e"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_requirements.yaml",
+      "sha256": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_space.json",
+      "sha256": "02281be23142906e55d22302e1399c35395e5577f38a9d2b1c80f97bbaee1991"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/system_model.json",
+      "sha256": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_requirements.yaml",
+      "sha256": "3d4c5505a3ccd0b169e0c5cecf269152942fb0273cb1a63a9b958ccff8f19042"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_space.json",
+      "sha256": "4c79b6b6448017c5fb37c49f76cc6f6db27ef047a3ae5eedeb02972315360bc3"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/system_model.json",
+      "sha256": "e82928f653677ee029912e00d1f5bda7eaf2894a3f3f54ffb05965ac194d1b7f"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_contracts.py",
+      "sha256": "23dba29d2c1517da246f862e9fde378a5839935833070c98372883a24cce8c9f"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_freecad.py",
+      "sha256": "63b1425149198af7bea64a317bc3e9db2cb7b77f3ac620501c0f70d27df6c3cc"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_full_extraction.py",
+      "sha256": "95b41a8bf1163004ead6bec049d77ddc714f12106a28598b25e145455a85bc88"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_metrics.py",
+      "sha256": "d505df6a869a72bce97572dbae191043268be296d2304868af2f176343d34bdb"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_motion.py",
+      "sha256": "417822a0dabcbfb2f2a32f8a8426666eeac285fc96265ec0093bf5725139c93b"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_retention.py",
+      "sha256": "110aab7ada35d2ef7d6b09f3d5964a09bb4fcb3cb886d3966a9870638e8977ba"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_qualification_inventory.py",
+      "sha256": "1ace268c041f35c2b971e80f9553e3de067396a4d07f07573af88f3d23a64344"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_qualification_radius.py",
+      "sha256": "84058890cea743d1f884d74f910123fddee9b7385ad060d6f5ea9551d2effced"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_search.py",
+      "sha256": "1cc62095b7a1e96f9269037f2683b8e3da9e9a12ee3bf72f66ccdd90b0e68f6c"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_validation.py",
+      "sha256": "6b53a5c2e1e4c2e9d0f2aa302009d1a5001287dc7584d4d1aef6e59c4cb6bba1"
+    },
+    {
+      "path": "electromechanical_engine/validation.py",
+      "sha256": "f51f87f7345d4574c8d9e5a16514b8d3c40d49e5e6cd4d5b6f37076b62c9a3fe"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+      "sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061"
+    }
+  ],
+  "rules_go1": [
+    {
+      "path": "electromechanical_engine/freecad_worker.py",
+      "sha256": "8c96866c7c16a77cc40c393dac3a396ea86b9756da778d98b341be7bd4aff210"
+    },
+    {
+      "path": "electromechanical_engine/search.py",
+      "sha256": "6c4fb60057d5a7b6702c230d37b691980128c74ec49559e3db1c3549d895d9d4"
+    },
+    {
+      "path": "electromechanical_engine/validation.py",
+      "sha256": "01f5500ff48cea7a9ddbb00826e5d651cae8afab30f81486be75303200993ff2"
+    }
+  ],
+  "not_executed": [
+    "Validation CLI des modèles historiques sans mapping de campagne gelé ni reçu de construction.",
+    "Branche RPC positive réelle : connexion au service refusée.",
+    "Contrôle de la cinématique continue, accouplement électrique réel, accès de montage manuel, tenue et fatigue.",
+    "Aucune reconstruction des 53 liaisons et aucun essai physique."
+  ]
+}

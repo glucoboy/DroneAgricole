@@ -1,0 +1,517 @@
+{
+  "version": 1,
+  "id": "T-EM-ENGINE-02",
+  "date_cloture": "2026-11-11",
+  "execution_bancs": "2026-11-10 Europe/Paris",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "go_1": "Moteur développé",
+  "scope": "Développement sur bancs contrôlés et extraction de copies FreeCAD. Action 2 et essais physiques à valider.",
+  "environment": {
+    "os": "Windows amd64",
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ],
+    "python_freecad": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+    "occt": "7.8.1",
+    "cables": {
+      "api": {
+        "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+        "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)",
+        "make_compoundpath": "(plist=None)",
+        "make_wireflex_from_vectors": "(vectorlist)"
+      },
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "nom": "Cables Workbench",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+        "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc"
+      },
+      "version": "0.3.7"
+    },
+    "mcp": {
+      "result": "connexion refusée WinError 10061",
+      "fallback": "FreeCAD Python isolé"
+    }
+  },
+  "source_integrity": {
+    "files_checked": 941,
+    "native_fcstd_count": 938,
+    "changed": [],
+    "before": {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/sources-before.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    },
+    "after": {
+      "path": ".runtime/electromechanical-engine/go1-completion/sources-after.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    }
+  },
+  "tests": {
+    "passed": 66,
+    "native_passed": 6,
+    "skipped": 0,
+    "cables_passed": 19,
+    "coverage": {
+      "method": "Python trace, processus orchestrateur pendant les tests",
+      "modules": {
+        "contracts": {
+          "instrumented_lines": 412,
+          "covered_percent": 91.7
+        },
+        "freecad": {
+          "instrumented_lines": 123,
+          "covered_percent": 83.7
+        },
+        "metrics": {
+          "instrumented_lines": 279,
+          "covered_percent": 96.4
+        },
+        "search": {
+          "instrumented_lines": 384,
+          "covered_percent": 93.5
+        },
+        "validation": {
+          "instrumented_lines": 326,
+          "covered_percent": 94.5
+        }
+      },
+      "worker_external_instrumentation": false
+    }
+  },
+  "extraction": {
+    "perception": {
+      "inventory_complete": true,
+      "finalized": true,
+      "recompute_ok": true,
+      "save_performed": true,
+      "reopened": true,
+      "files_checked": 20,
+      "sources_unchanged": true,
+      "invalid_objects": [],
+      "shape_validation": {
+        "compound_checks": 287,
+        "exact_cache_hits": 0,
+        "native_checks": 504,
+        "occt": "7.8.1"
+      },
+      "native_sha256": "b6b4141c6bab307d6c91505733d3a05221d88959ad4b878d61d19444e8e6df97",
+      "pid": 13576,
+      "worker_id": "1383efcb39194c16ada4678ffff45cf8",
+      "exit_code": 0,
+      "entry": "sous_assemblages/SA04_Prototype_Perception.FCStd",
+      "objects": 285,
+      "links": 52,
+      "inventory": {
+        "path": ".runtime/electromechanical-engine/go1-extraction-sa04/extraction_report.json",
+        "sha256": "ea17ba5920200f0a2bece29f188407d26b002f7d78cf86183ee083d35dc1ccc1"
+      },
+      "saved_process": 35792,
+      "saved_worker_id": "cddc9db5845b4f5e85ee3336d50ebb76"
+    },
+    "prototype": {
+      "inventory_complete": true,
+      "finalized": true,
+      "recompute_ok": false,
+      "save_performed": false,
+      "reopened": false,
+      "files_checked": 137,
+      "sources_unchanged": true,
+      "invalid_objects": [
+        "pieces/commerce/EQ_Chassis_X650.FCStd#Part__Feature080",
+        "pieces/commerce/EQ_Chassis_X650.FCStd#Part__Feature081",
+        "pieces/commerce/EQ_Chassis_X650.FCStd#Part__Feature082",
+        "pieces/commerce/EQ_Chassis_X650.FCStd#Part__Feature083",
+        "pieces/commerce/EQ_Chassis_X650.FCStd#X650_FRAME_2024CHU_ASM_73_1_ASM_ASM"
+      ],
+      "shape_validation": {
+        "compound_checks": 3082,
+        "exact_cache_hits": 0,
+        "native_checks": 20484,
+        "occt": "7.8.1"
+      },
+      "native_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "pid": 35940,
+      "worker_id": "f5b0da4fd09141dd9582e42f9c87fac6",
+      "exit_code": 2,
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "objects": 3733,
+      "links": 375,
+      "inventory": {
+        "path": ".runtime/electromechanical-engine/go1-extraction-final/extraction_report.json",
+        "sha256": "7967e86b401b743247934637c8b74b838c43809d19a63a2d76da3ff485e60354"
+      },
+      "saved_process": null,
+      "saved_worker_id": null
+    }
+  },
+  "campaigns": {
+    "nominal": {
+      "reference_sha256": "b6d4acb2d2cd89967ebe1e3d009cb845edb36959159119b5a4a6c548cdd903ab",
+      "design_space_sha256": "1c38687d8dd321c23a7b55ba7dee4ca4761037ff66157a986865e2f0d65fbe96",
+      "pareto": [
+        "lateral"
+      ],
+      "revalidation_status": "VALIDE_GEOMETRIQUEMENT",
+      "comparison": {
+        "comparable": true,
+        "admissible": true,
+        "dominance": "CANDIDATE",
+        "deltas": {
+          "total_length_mm": -12.0
+        },
+        "link_length_deltas_mm": {
+          "L1": -12.0
+        },
+        "missing_objectives": []
+      }
+    },
+    "mobile": {
+      "reference_sha256": "30a1e61b9d0e05a4af1f5f07c705597a9143cc7e6dad562aacc7861525a877fc",
+      "design_space_sha256": "436a330685a289737731d0bb3c189aa37977c42e6aa5103bf0dd4ef8a8779f51",
+      "pareto": [
+        "corrige"
+      ],
+      "stop_reason": "ALTERNATIVES_EXHAUSTED",
+      "revalidation_status": "VALIDE_GEOMETRIQUEMENT",
+      "native_sha256": "d33fb802699a029e4394139a2c312ddb50dd9ead79caf8fe7033b2d63eff34c9",
+      "verdicts": {
+        "collision-etat": "NON_CONFORME",
+        "corrige": "VALIDE_GEOMETRIQUEMENT",
+        "portee-excessive": "NON_CONFORME",
+        "allongement-etat": "NON_CONFORME",
+        "etat-manquant": "CANDIDAT_CONDITIONNEL"
+      },
+      "correction": {
+        "code": "V4.CLEARANCE",
+        "link": "L1",
+        "state": "extreme",
+        "pair": [
+          "L1",
+          "Obstacle"
+        ],
+        "intersection_before_mm3": 31.415926535897928,
+        "intersection_after_mm3": 0.0,
+        "clearance_after_mm": 28.0
+      },
+      "retention": {
+        "maximum_mm": 115,
+        "observed_mm": 111.41592653589794,
+        "retention": {
+          "endpoints": [
+            "S",
+            "T"
+          ],
+          "gaps_mm": [
+            10.0,
+            111.41592653589794
+          ],
+          "method": "native_axis_distance_between_geometric_retention_stations",
+          "stations": [
+            {
+              "axis_offset_mm": 0.0,
+              "capture_area_mm2": 3.926990816987242,
+              "capture_area_tolerance_mm2": 3.926990816987241e-06,
+              "capture_uncovered_mm2": 0.0,
+              "capture_wall_mm": 0.5,
+              "enclosure_margin_mm": 0.5,
+              "object": "ClipSolid",
+              "reason": "verified_geometric_point_retention",
+              "section_support_distance_mm": 0.0,
+              "section_support_overlap_mm2": 0.0,
+              "source": "CAB-ENG-002, section fermée de retenue du montage de test",
+              "station_mm": 10.0,
+              "status": "pass",
+              "support": "Clip"
+            }
+          ],
+          "status": "pass"
+        }
+      },
+      "span_rejected_mm": 131.41592653589794,
+      "elongation_rejected_mm": 5.0,
+      "states": {
+        "extreme": {
+          "length_mm": 121.41592653589794,
+          "min_radius_mm": 5.0,
+          "reserve_mm": 21.29100456339401,
+          "axis_sha256": "44df682cb1b0164f1d48187c611a3af6a3a1b8284cc757e67fe98c4bebf259d7"
+        },
+        "intermediaire": {
+          "length_mm": 121.41592653589794,
+          "min_radius_mm": 5.0,
+          "reserve_mm": 21.38468141718515,
+          "axis_sha256": "32c6eab96bad4df13b5675524feed14e5abe1fc17eab068af7bdd1febbd768f5"
+        }
+      }
+    }
+  },
+  "commands": {
+    "tests": "python -B -m unittest discover -s electromechanical_engine/tests -v",
+    "cables": [
+      "-B",
+      ".agents/skills/electromechanical-integration/scripts/tests_freecad.py",
+      "--builder",
+      "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+      "--output",
+      ".runtime/electromechanical-engine/go1-completion/cables-api.json"
+    ],
+    "native_python": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "campaigns": [
+      {
+        "fixture": "electromechanical_engine/tests/fixtures/banc",
+        "output": ".runtime/electromechanical-engine/go1-completion/nominal-20261110-201409984",
+        "commands": [
+          "probe",
+          "freeze",
+          "explore",
+          "run",
+          "validate",
+          "compare"
+        ]
+      },
+      {
+        "fixture": "electromechanical_engine/tests/fixtures/banc_mobile",
+        "output": ".runtime/electromechanical-engine/go1-completion/mobile-20261110-201336519",
+        "commands": [
+          "freeze",
+          "run",
+          "validate"
+        ]
+      }
+    ],
+    "extract": [
+      [
+        "--timeout",
+        "180",
+        "extract",
+        "--project",
+        "hardware/mecanique/cartographe",
+        "--entry",
+        "sous_assemblages/SA04_Prototype_Perception.FCStd",
+        "--output",
+        ".runtime/electromechanical-engine/go1-extraction-sa04"
+      ],
+      [
+        "--timeout",
+        "600",
+        "extract",
+        "--project",
+        "hardware/mecanique/cartographe",
+        "--entry",
+        "assemblages/Prototype_Cartographe.FCStd",
+        "--output",
+        ".runtime/electromechanical-engine/go1-extraction-final"
+      ]
+    ]
+  },
+  "limits": [
+    "Les états V4 sont discrets. La réserve est la longueur développée moins la corde.",
+    "Les portées V3 reposent sur des stations fermées au nominal et des extrémités documentées.",
+    "Le mapping métier du cartographe, le regroupement physique, les métriques sans entrées et la qualification physique restent à valider."
+  ],
+  "independent_review": {
+    "V3": "La présence d’une couronne de matière est mesurée sur le solide natif. Le test rejette un support ouvert en contact.",
+    "V4": "Une liaison déplacée exige une pose gelée et un contrôle déclaré. Une route ajoutée hors des états requis est refusée. Les collisions restent attribuées à la liaison et à la pose mesurées.",
+    "extraction": "Les agrégats Compound d’OCCT 7.8.1 sont contrôlés par leurs enfants dans leur placement et orientation. La régression compare ce résultat au contrôle natif direct."
+  },
+  "inputs_and_code": [
+    {
+      "path": "electromechanical_engine/__init__.py",
+      "sha256": "38659bf698ee284d7d2d5234a3c25a16ba50b081c63985a21817175fa6983086"
+    },
+    {
+      "path": "electromechanical_engine/__main__.py",
+      "sha256": "f3f15d80501929ade8959010f507c13a1bbeeeac8b9f7deb9ecef9d24f020065"
+    },
+    {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da"
+    },
+    {
+      "path": "electromechanical_engine/freecad.py",
+      "sha256": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0"
+    },
+    {
+      "path": "electromechanical_engine/freecad_worker.py",
+      "sha256": "8c96866c7c16a77cc40c393dac3a396ea86b9756da778d98b341be7bd4aff210"
+    },
+    {
+      "path": "electromechanical_engine/metrics.py",
+      "sha256": "15218cd72cdd6c98d3af4275753d4842a4040ee3ee6d99ffbc80426a172f43b2"
+    },
+    {
+      "path": "electromechanical_engine/native_motion.py",
+      "sha256": "f89b1b4f808cd0e93a517735f9e29254408c2407da14e5d29ca77aa7c4fa80d9"
+    },
+    {
+      "path": "electromechanical_engine/native_retention.py",
+      "sha256": "969354ad6acdc2e5fead9dbe5c4e6dbba2badc77d4264ba29b6ae7e78eee2595"
+    },
+    {
+      "path": "electromechanical_engine/search.py",
+      "sha256": "6c4fb60057d5a7b6702c230d37b691980128c74ec49559e3db1c3549d895d9d4"
+    },
+    {
+      "path": "electromechanical_engine/validation.py",
+      "sha256": "01f5500ff48cea7a9ddbb00826e5d651cae8afab30f81486be75303200993ff2"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_contracts.py",
+      "sha256": "23dba29d2c1517da246f862e9fde378a5839935833070c98372883a24cce8c9f"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_freecad.py",
+      "sha256": "1ac80d11206f43c849158c49e215dd666d916452cde716161c508f8a6f05f3b8"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_full_extraction.py",
+      "sha256": "95b41a8bf1163004ead6bec049d77ddc714f12106a28598b25e145455a85bc88"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_metrics.py",
+      "sha256": "d505df6a869a72bce97572dbae191043268be296d2304868af2f176343d34bdb"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_motion.py",
+      "sha256": "417822a0dabcbfb2f2a32f8a8426666eeac285fc96265ec0093bf5725139c93b"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_native_retention.py",
+      "sha256": "110aab7ada35d2ef7d6b09f3d5964a09bb4fcb3cb886d3966a9870638e8977ba"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_search.py",
+      "sha256": "6dd799b65f92c2f90862ad6be6dfa3195d88704df9cfc3cd398eeefb3e45fbaa"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_validation.py",
+      "sha256": "6b53a5c2e1e4c2e9d0f2aa302009d1a5001287dc7584d4d1aef6e59c4cb6bba1"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_requirements.yaml",
+      "sha256": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_space.json",
+      "sha256": "02281be23142906e55d22302e1399c35395e5577f38a9d2b1c80f97bbaee1991"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/system_model.json",
+      "sha256": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_requirements.yaml",
+      "sha256": "3d4c5505a3ccd0b169e0c5cecf269152942fb0273cb1a63a9b958ccff8f19042"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/design_space.json",
+      "sha256": "4c79b6b6448017c5fb37c49f76cc6f6db27ef047a3ae5eedeb02972315360bc3"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc_mobile/system_model.json",
+      "sha256": "e82928f653677ee029912e00d1f5bda7eaf2894a3f3f54ffb05965ac194d1b7f"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+      "sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+      "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+      "sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/tests_freecad.py",
+      "sha256": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21"
+    }
+  ],
+  "artifacts_local": [
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/tests.stderr",
+      "sha256": "3c3d10294623e0e17c4243a88e1489ca04aecd10d5c5c7464d9150ed1f3c4da8"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/trace-tests.stderr",
+      "sha256": "ccf1ae0ab244f91d16677c2952f568f5115393b73aa56c1f253785bbb5b30639"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/coverage.stdout",
+      "sha256": "da59f271947a497255356c2b8859d4139614914a68f3d2062d9f33e2945b79bc"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/cables-api.json",
+      "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/sources-after.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-extraction-diagnostics/inventory-cli.exit",
+      "sha256": "76ec040565ba055bb8d93b9661873217b2f00cf2f562418057b692518531d110"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-extraction-diagnostics/sa04-cli.exit",
+      "sha256": "2f7a72533b41d353a4009332a58075f57782ec5f322c7bfb138fc4b68eca6717"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/sources-before.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/nominal-20261110-201409984/compare.json",
+      "sha256": "2ca2ebc1d90b3aa7dba24c540e80b1de60c92a67820ab468974916933b1b2b5e"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/mobile-20261110-201336519/run/campaign_report.json",
+      "sha256": "17020198a05466634bd4f9779237bdde2a7e84752abab5512cc31437c71071b1"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/mobile-20261110-201336519/revalidation/candidate_report.json",
+      "sha256": "e38597822868f20df469a560e0cdcb82358d0e49a984bf223c731315f0334041"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/mobile-20261110-201336519/revalidation/observations.json",
+      "sha256": "adf76268e371ff0023902e1961d3d0c6f2a4214e8bd7294117a8e819edf2256b"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/nominal-20261110-201409984/run/campaign_report.json",
+      "sha256": "06fa2a04005bb72bbafb5eb09d91671a4c3628b481c271e837bd8368dd3ae678"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/nominal-20261110-201409984/revalidation/candidate_report.json",
+      "sha256": "f6f684ccd554350bea7c02e556e67acdeb2d14c382a735549a9174d6be643519"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/go1-completion/nominal-20261110-201409984/revalidation/observations.json",
+      "sha256": "f478d3d833e402bc69aded3c8384cfa1b732b6d1fbce256ad3dbbfe36ae267a9"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "id": "banc-convergence-l5",
+  "milestone": "DIGITAL_BENCH",
+  "budgets": {
+    "max_detailed": 12,
+    "local_corrections": 3,
+    "alternative_families": 2,
+    "consolidation_attempts": 2,
+    "operation_retries": 1,
+    "by_problem": {"obstacle": 8, "service": 2},
+    "by_family": {"LOCAL": 3, "CONNECTOR": 2, "LATERAL_CORRIDOR": 3, "UPPER_CORRIDOR": 2, "SERVICE": 2}
+  },
+  "geometry_tolerance_mm": 0.001,
+  "objectives": [
+    {"id": "max_cable_z_mm", "direction": "MIN", "tolerance": 0.001},
+    {"id": "total_length_mm", "direction": "MIN", "tolerance": 0.001}
+  ],
+  "native": {
+    "system": "convergence_manager/fixtures/native/system.json",
+    "requirements": "convergence_manager/fixtures/native/requirements.json",
+    "routes": "convergence_manager/fixtures/native/routes.json",
+    "reference": "convergence_manager/fixtures/native/reference.json",
+    "case": "consolidated-bench"
+  },
+  "research": {
+    "catalog": "architecture_decision_engine/fixtures/f31_research.json",
+    "inputs": ["architecture_decision_engine/fixtures/f31_straight_observation.json"]
+  },
+  "exploration": {
+    "benches": "convergence_manager/fixtures/exploration.json",
+    "requirements": "convergence_manager/fixtures/exploration_requirements.json",
+    "acceptance": "convergence_manager/fixtures/exploration_acceptance.json"
+  },
+  "issues": {
+    "L3-F31-MATE-COMPATIBILITY": {
+      "impact": "ALTERNATIVE_ONLY",
+      "expected_value": true,
+      "searches": ["Interroger le catalogue gelé L1 pour la variante coudée."],
+      "sources": ["Transcription du témoin droit du banc L3, hors applicabilité pour la variante coudée."],
+      "calculations": ["Comparer course de retrait et volume disponible après identification de la fiche."],
+      "next_check": "Identifier la paire, le détrompage, le brochage et la course. Vérifier ensuite l’accouplement et le retrait sur gabarit."
+    }
+  },
+  "base": {"route:L1": "l1-direct", "route:L2": "l2-detour"},
+  "ownership": {"route:L1": ["L1", "L2"], "route:L2": ["L1", "L2"], "connector:T": ["L1", "L2"]},
+  "required_links": ["L1", "L2"],
+  "problems": [
+    {"id": "obstacle", "local_family": "LOCAL", "research": ["L3-F31-MATE-COMPATIBILITY"]},
+    {"id": "service", "research": []}
+  ],
+  "candidates": [
+    {"id": "local-direct", "problem": "obstacle", "family": "LOCAL", "assignments": {"route:L1": "l1-direct"}},
+    {"id": "local-offset-2", "problem": "obstacle", "family": "LOCAL", "assignments": {"route:L1": "l1-offset-2"}},
+    {"id": "local-offset-3", "problem": "obstacle", "family": "LOCAL", "assignments": {"route:L1": "l1-offset-3"}},
+    {"id": "connector-unknown", "problem": "obstacle", "family": "CONNECTOR", "assignments": {"connector:T": "sortie-coudee"}, "issues": ["L3-F31-MATE-COMPATIBILITY"], "proposal": "connector"},
+    {"id": "connector-repeat", "problem": "obstacle", "family": "CONNECTOR", "assignments": {"connector:T": "sortie-coudee"}, "issues": ["L3-F31-MATE-COMPATIBILITY"], "proposal": "connector"},
+    {"id": "shared", "problem": "obstacle", "family": "LATERAL_CORRIDOR", "assignments": {"route:L1": "l1-shared"}, "proposal": "lateral-screen"},
+    {"id": "lateral", "problem": "obstacle", "family": "LATERAL_CORRIDOR", "assignments": {"route:L1": "l1-lateral"}, "proposal": "lateral-screen"},
+    {"id": "lateral-equivalent", "problem": "obstacle", "family": "LATERAL_CORRIDOR", "assignments": {"route:L1": "l1-lateral"}, "proposal": "lateral-screen"},
+    {"id": "upper", "problem": "obstacle", "family": "UPPER_CORRIDOR", "assignments": {"route:L1": "l1-upper"}, "proposal": "upper-screen"},
+    {"id": "service-direct", "problem": "service", "family": "SERVICE", "context": {"route:L1": "l1-lateral"}, "assignments": {"route:L2": "l2-direct"}}
+  ],
+  "portfolios": [
+    {"id": "conflicting-routes", "members": ["lateral", "upper"]},
+    {"id": "shared-service", "members": ["shared", "service-direct"]},
+    {"id": "lateral-service", "members": ["lateral", "service-direct"]},
+    {"id": "upper-service", "members": ["upper", "service-direct"]}
+  ]
+}

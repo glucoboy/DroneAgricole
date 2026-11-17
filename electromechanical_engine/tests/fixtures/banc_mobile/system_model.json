@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "id": "banc-cable-mobile",
+  "revision": "1",
+  "frame": "banc XYZ, mm, Z vers le haut",
+  "provenance": {"status": "DOCUMENTEE", "source": "CAB-ENG-002, banc synthétique de retenue et translation"},
+  "equipment": [{"id": "fixed"}, {"id": "slider"}],
+  "ports": [
+    {"id": "S", "equipment": "fixed", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [0, 0, 10], "tangent": [1, 0, 0], "retained_endpoint": true},
+    {"id": "T", "equipment": "slider", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [100, 0, 10], "tangent": [-1, 0, 0], "retained_endpoint": true}
+  ],
+  "links": [{"id": "L1", "source": "S", "target": "T", "family": "signal", "mobile": true}],
+  "geometry": {
+    "boxes": [
+      {"id": "Deck", "origin_mm": [-5, -40, 0], "size_mm": [110, 80, 8]},
+      {"id": "ClipSolid", "origin_mm": [8, -2, 8], "size_mm": [4, 4, 4],
+        "through_bore_x": {"center_yz_mm": [0, 10], "radius_mm": 1}},
+      {"id": "Obstacle", "origin_mm": [45, -14, 8], "size_mm": [10, 3, 5]}
+    ],
+    "anchors": [{
+      "id": "Clip", "object": "ClipSolid", "anchor": "Deck",
+      "access_box": {"origin_mm": [8, -2, 13], "size_mm": [4, 4, 3], "ignore_ids": ["Deck", "ClipSolid"]},
+      "retentions": [{"link": "L1", "point_mm": [10, 0, 10],
+        "enclosure": {"origin_mm": [8, -2, 8.5], "size_mm": [4, 4, 3]}, "capture_wall_mm": 0.5,
+        "source": "CAB-ENG-002, section fermée de retenue du montage de test"}]
+    }],
+    "motion_states": {
+      "intermediaire": {
+        "provenance": {"status": "DOCUMENTEE", "source": "CAB-ENG-002, translation intermédiaire de 2,5 mm"},
+        "ports": {"T": {"position_mm": [100, 2.5, 10], "tangent": [-1, 0, 0]}}
+      },
+      "extreme": {
+        "provenance": {"status": "DOCUMENTEE", "source": "CAB-ENG-002, translation extrême de 5 mm et déplacement de l'obstacle"},
+        "ports": {"T": {"position_mm": [100, 5, 10], "tangent": [-1, 0, 0]}},
+        "boxes": {"Obstacle": {"translation_mm": [0, -0.5, 0]}}
+      }
+    }
+  },
+  "corridors": [
+    {"id": "lateral", "carrier": "Deck", "zone": "dessus", "width_mm": 8, "max_carrier_distance_mm": 5,
+      "points_mm": [[0, 0, 10], [20, 0, 10], [20, 15, 10], [80, 15, 10], [80, 0, 10], [100, 0, 10]]},
+    {"id": "lateral-large", "carrier": "Deck", "zone": "dessus", "width_mm": 8, "max_carrier_distance_mm": 5,
+      "points_mm": [[0, 0, 10], [20, 0, 10], [20, 25, 10], [80, 25, 10], [80, 0, 10], [100, 0, 10]]}
+  ]
+}

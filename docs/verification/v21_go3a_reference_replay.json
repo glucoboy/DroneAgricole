@@ -1,0 +1,672 @@
+{
+  "schema": "drone-agricole.v21.go3a.reference-replay.v1",
+  "test_id": "T-CARTO-V21-GO3A-REF",
+  "date": "2026-11-17",
+  "status": "PASS",
+  "scope": "Référentiel documentaire, netlist CA01 et fermeture du prototype cartographe actif sans dock sur copie privée.",
+  "platform": {
+    "windows": "10.0.26300.0",
+    "architecture": "X64",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "worktree_initially_modified": true,
+    "python": "Python 3.14.4",
+    "freecad": "1.1.3",
+    "freecad_python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "cables_modules_sha256": {
+      "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+      "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+      "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+      "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+      "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+      "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c"
+    },
+    "kicad": "Eeschema 10.0.6"
+  },
+  "freeze": {
+    "reference_sha256": "3fc4260910647d3ab5ccffdb1406847ffb310dfec6e45fb221186274fe8535b9",
+    "revision": "GO3A-1",
+    "versions": {
+      "freeze": 1,
+      "system_model": 1,
+      "requirements": 1,
+      "decisions": "cartographe.go3a.decisions.v1",
+      "research": "drone-agricole.go3a.recherches.v1",
+      "historical_receipt": "cartographe.go3a.receipt.v1",
+      "l2_reconciliation": "drone-agricole.l2.reconciliation.v1",
+      "l2_interfaces": "drone-agricole.l2.cartographe-interfaces.v1",
+      "xlink_copy_receipt": 1
+    },
+    "input_sha256": {
+      "design_requirements.yaml": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+      "system_model.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83"
+    },
+    "historical_receipt": {
+      "path": "docs/verification/go3a/GO3A_MANIFEST.json",
+      "sha256": "f3788b3a0ac717871b3538970cc0635bfb81a346f1b2b2db0df372eb5f6092fc"
+    },
+    "freeze_implementation": {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da"
+    },
+    "verified_historical_deliverables": 9,
+    "verified_historical_authorities": 2,
+    "verified_model_sources": 22,
+    "generated_locks": [
+      {
+        "path": ".runtime/go3a-ref/gel/reference_lock.json",
+        "sha256": "299844e7a7dc515a762d5103c3baa7ec3ae294db9c655c9264d70ac6ecba31bf"
+      },
+      {
+        "path": ".runtime/go3a-ref/gel-rejeu/reference_lock.json",
+        "sha256": "873aa4787e69b2e9b5bac2ca6bdb89f6d11e6ebf27334b1b8034a37f41d6e906"
+      }
+    ],
+    "commands": [
+      "Copier GO3A_SYSTEM_MODEL.json et GO3A_REQUIREMENTS.yaml de docs/verification/go3a dans .runtime/go3a-ref/entrees sous les noms system_model.json et design_requirements.yaml.",
+      "python -B -m electromechanical_engine freeze --project .runtime/go3a-ref/entrees --output .runtime/go3a-ref/gel",
+      "python -B -m electromechanical_engine freeze --project .runtime/go3a-ref/entrees --output .runtime/go3a-ref/gel-rejeu"
+    ],
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "electrical": {
+    "authority": [
+      {
+        "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+        "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+      },
+      {
+        "path": "hardware/electronique/cartographe/cablage_global.json",
+        "sha256": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f"
+      },
+      {
+        "path": "hardware/electronique/cartographe/contrat_uart_bms.json",
+        "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19"
+      },
+      {
+        "path": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+        "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0"
+      }
+    ],
+    "l2": {
+      "binary": {
+        "path": ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+        "sha256": "feeec904b2b96a215e58c29e048713571e2bc35e832323c1bea99bc3ee27e9d4"
+      },
+      "commands": [
+        ".runtime/v21-xlink-build/interconnection/interconnection_core.exe reconcile --root . --output .runtime/go3a-ref/l2-reconcile.json",
+        ".runtime/v21-xlink-build/interconnection/interconnection_core.exe inspect-cartographe --root . --output .runtime/go3a-ref/l2-interfaces.json"
+      ],
+      "exit_codes": [
+        0,
+        0
+      ],
+      "reconciliation": {
+        "path": ".runtime/go3a-ref/l2-reconcile.json",
+        "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb"
+      },
+      "reconciliation_byte_identical_to": {
+        "path": "docs/electromechanical_v2/L2_RECONCILIATION.json",
+        "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb"
+      },
+      "interfaces": {
+        "path": ".runtime/go3a-ref/l2-interfaces.json",
+        "sha256": "882cb4e46736568e01f7fc4fb0dc7e02e6f8fdf960b574039f1448348cc05a81"
+      },
+      "interfaces_byte_identical_to_electrical_digest_in": {
+        "path": "docs/verification/v21_xlink_coverage.json",
+        "sha256": "bf60aec66f65241170339493fd57a6693aa603a8330c6cf1dfee82ca096c9767"
+      },
+      "documentary_result": "PASS",
+      "interface_reception_status": "INCONCLUSIVE",
+      "lines": 71,
+      "onboard_lines": 50,
+      "active_axes": 53,
+      "bidirectional_associations": 56,
+      "endpoints_a_b": 142,
+      "off_axis_lines_with_reason": 21,
+      "scopes": {
+        "au_sol": 6,
+        "faisceau_embarque": 50,
+        "interface_directe": 1,
+        "interne_oem": 2,
+        "interne_pcb": 1,
+        "reserve_non_montee": 2,
+        "retire": 6,
+        "sans_fil": 2,
+        "transport_reutilise": 1
+      },
+      "multi_axis_line_ids": [
+        "W05",
+        "W08",
+        "W10",
+        "W15",
+        "W23",
+        "W38"
+      ],
+      "shared_axis_ids": [
+        "AIRY",
+        "F_M8"
+      ],
+      "matrix_for_each_line": {
+        "path": "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv",
+        "sha256": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696",
+        "id_column": "liaison_id",
+        "axes_column": "axes_cao",
+        "ordered_path_column": "parcours_axes_ordonnes"
+      },
+      "reasons_for_each_off_axis_line": {
+        "path": "docs/verification/go3b/GO3B_INTERCONNECTION_COVERAGE.csv",
+        "sha256": "5dd5243e2fc204e20dca7b3921d561941126294e3ec0256634bc60cead97f8e5",
+        "id_column": "liaison_id",
+        "reason_column": "motif_absence_axe"
+      },
+      "connector_endpoints": {
+        "path": "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv",
+        "sha256": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+        "id_column": "cle_interface"
+      },
+      "active_geometry_exception": {
+        "line_id": "W12",
+        "axis_id": "F12",
+        "geometry_status": "FAIL",
+        "compatibility_status": "INCONCLUSIVE",
+        "source": {
+          "path": "docs/verification/cartographe_action3_interconnexions.json",
+          "pointer": "/revue_ciblee/W12"
+        }
+      },
+      "confirmed_physical_revisions": 0,
+      "qualified_mating_volumes": 0,
+      "qualified_extraction_volumes": 0
+    },
+    "ca01": {
+      "command": "& 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe' sch export netlist --format kicadxml -o .runtime/go3a-ref/ca01.xml hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+      "environment": {
+        "KICAD_CONFIG_HOME": ".runtime/go3a-ref/kicad-config"
+      },
+      "note": "Accès au registre Windows refusé. Export XML produit avec code 0. Le XML contient la date de génération.",
+      "exit_code": 0,
+      "netlist": {
+        "path": ".runtime/go3a-ref/ca01.xml",
+        "sha256": "c08406ea534cb6801775083c96939146b2d885c8093bbc0d1a1cb5bd36cf2e88"
+      },
+      "reference": {
+        "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+        "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+      },
+      "sheet_sources": [
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch",
+          "sha256": "2e525e1632156264a1a6e36ccfe02aca29e04179d31d078a6cbea529e31ff3ac"
+        },
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/02_buck_12v_capteurs.kicad_sch",
+          "sha256": "42b28b09b5b978fc0c17fa399ecda6cc19baf3b82f7049c5ffb492978738ad36"
+        },
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/03_buck_5v_aux.kicad_sch",
+          "sha256": "c936e544768636172102b4d8027590eb29eb98dc7a937678cbf94265c4aa6de9"
+        },
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch",
+          "sha256": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c"
+        },
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch",
+          "sha256": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4"
+        },
+        {
+          "path": "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+          "sha256": "79c30f1de73e17d20f48c6bf17621a63b07d9341bf538faae4f9ab67ec87a26b"
+        }
+      ],
+      "sheet_count": 6,
+      "reference_count": 15,
+      "pin_count": 43,
+      "mismatches": 0,
+      "documented_dnp": [
+        "R530",
+        "R531",
+        "R532",
+        "R533"
+      ]
+    }
+  },
+  "native": {
+    "reference_id": "prototype_cartographe_actif",
+    "root": "hardware/mecanique/cartographe",
+    "entry": "assemblages/Prototype_Cartographe.FCStd",
+    "entry_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+    "native_manifest": {
+      "path": "docs/verification/go3a/GO3A_SYSTEM_MODEL.json",
+      "sha256": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+      "pointer": "/cad/native_sha256"
+    },
+    "native_files": 137,
+    "auxiliary_files": {
+      "manifest.json": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+      "nomenclature_prototype.json": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0",
+      "verification/refonte_faisceaux/inventaire.json": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe",
+      "verification/routes_prototype.json": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+    },
+    "checked_files": 141,
+    "copy_receipt": {
+      "path": ".runtime/go3a-ref/native-copy/experiment.json",
+      "sha256": "cdd0dd289e2229e7de3dd438b9fb61b2ef765929813a725265a0398a1ae4371d"
+    },
+    "source_and_copy_byte_identical_before_and_after": true,
+    "backend": [
+      {
+        "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+        "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+      },
+      {
+        "path": "electromechanical_engine/xlink_native.py",
+        "sha256": "910ebc8707e5e6b49974e9ce9e14a61aff347d5a9bbde467beb0af56b658a98f"
+      },
+      {
+        "path": "electromechanical_engine/freecad.py",
+        "sha256": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0"
+      },
+      {
+        "path": "electromechanical_engine/freecad_worker.py",
+        "sha256": "883fdec99d9bc1e6773e008a2cbac1a75a8fb16f73da57ba0292560d5283d8ff"
+      },
+      {
+        "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+      }
+    ],
+    "commands": [
+      "python -B .agents/skills/electromechanical-integration/scripts/workspace_guard.py stage --root hardware/mecanique/cartographe --entry assemblages/Prototype_Cartographe.FCStd --extra manifest.json --extra nomenclature_prototype.json --extra verification/routes_prototype.json --extra verification/refonte_faisceaux/inventaire.json --target .runtime/go3a-ref/native-copy",
+      "python -B .agents/skills/electromechanical-integration/scripts/workspace_guard.py verify .runtime/go3a-ref/native-copy/experiment.json",
+      "Écrire inventory.request.json avec action='inventory', copy='.runtime/go3a-ref/native-copy' et native_sha256=inputs_sha256 du reçu.",
+      "& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' -B -m electromechanical_engine.xlink_native .runtime/go3a-ref/inventory.request.json .runtime/go3a-ref/inventory.result.json"
+    ],
+    "environment": {
+      "QT_QPA_PLATFORM": "offscreen"
+    },
+    "exit_codes": [
+      0,
+      0,
+      0
+    ],
+    "inventory_request": {
+      "path": ".runtime/go3a-ref/inventory.request.json",
+      "sha256": "2471ae8b33c6fde4c920bdc085794659e950b0306c2368ca943f0e1cfa137cff"
+    },
+    "inventory": {
+      "path": ".runtime/go3a-ref/inventory.result.json",
+      "sha256": "ce8f674ef7278062b5103e2983c262b2b2bd114ebb3a82c4657744f648c96733"
+    },
+    "opened_documents": 137,
+    "completed_partial_documents": [
+      "pieces/commerce/EQ_Basler.FCStd",
+      "pieces/commerce/EQ_Chassis_X650.FCStd",
+      "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+      "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+      "pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd",
+      "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+      "pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd",
+      "pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd",
+      "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+      "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd"
+    ],
+    "occurrence_count": 2772,
+    "broken_links": [],
+    "invalid_objects": [],
+    "recompute_ok": true,
+    "finalized": true,
+    "save_performed": false,
+    "selected_occurrences": {
+      "PM08": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/PM08",
+        "object": "sous_assemblages/SA03_Prototype_Energie.FCStd#PM08",
+        "definition": "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd#Reference",
+        "matrix4x4_row_major": [
+          -1.0,
+          -1.2246467991473532E-16,
+          0.0,
+          5.5,
+          1.2246467991473532E-16,
+          -1.0,
+          0.0,
+          -39.0,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "UART_isole": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole",
+        "object": "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+        "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "UART_TTL": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_BornierTTL",
+        "object": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_BornierTTL",
+        "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_BornierTTL",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          2.799999999999997,
+          0.0,
+          1.0,
+          0.0,
+          5.5,
+          0.0,
+          0.0,
+          1.0,
+          44.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "UART_USB_B": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_USB_B",
+        "object": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_USB_B",
+        "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_USB_B",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          -68.8,
+          0.0,
+          1.0,
+          0.0,
+          -32.575,
+          0.0,
+          0.0,
+          1.0,
+          46.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F12": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F12/Cable",
+        "object": "pieces/commerce/W_F12_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F12_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F16": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F16/Cable",
+        "object": "pieces/commerce/W_F16_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F16_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F25": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F25/Cable",
+        "object": "pieces/commerce/W_F25_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F25_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F31": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F31/Cable",
+        "object": "pieces/commerce/W_F31_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F31_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F35": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F35/Cable",
+        "object": "pieces/commerce/W_F35_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F35_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F40": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40/Cable",
+        "object": "pieces/commerce/W_F40_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F40_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "F41": {
+        "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41/Cable",
+        "object": "pieces/commerce/W_F41_Prototype.FCStd#Cable",
+        "definition": "pieces/commerce/W_F41_Prototype.FCStd#Cable",
+        "matrix4x4_row_major": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "go3b_baseline": "Copie octet-identique du prototype actif avant mutation. Mesurer cette copie et chaque candidate avec le même calcul, les mêmes boîtes et le même périmètre.",
+    "zones": {
+      "path": "docs/verification/go3a/GO3A_SYSTEM_MODEL.json",
+      "sha256": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+      "pointer": "/zones_comparaison_mm"
+    },
+    "axis_metrics_mm": [
+      "longueur_totale",
+      "longueur_en_baie",
+      "longueur_au_dessus",
+      "longueur_sous_P66_emprise_stricte",
+      "hauteur_max_gaine"
+    ],
+    "historical_measurements": [
+      {
+        "id": "A_vs_par_faces",
+        "source": {
+          "path": "docs/verification/cartographe_action3_architectures.json",
+          "sha256": "0a5e9876fb05aa453012903ac441d7cf252c2bb35761f65172a7c97f5c8e77fd"
+        },
+        "axes": {
+          "A": 53,
+          "faces": 53
+        },
+        "A": [
+          10885.079164281875,
+          4221.879483656823,
+          2051.21306292215,
+          451.2019185726972,
+          170.27787476169587
+        ],
+        "par_faces": [
+          10788.378082402582,
+          3860.6428715948205,
+          1802.0432305282043,
+          451.2019185726972,
+          170.27787476169587
+        ]
+      },
+      {
+        "id": "actif_vs_copie_consolidee_action_3",
+        "source": {
+          "path": "docs/verification/cartographe_action3_integre.json",
+          "sha256": "9613040aff8fb117a51ed43aa3759cbbd20dad8d38aed0d6e67c629fb0782c60"
+        },
+        "historical_copy_receipt": {
+          "path": ".runtime/go3a-variants-l3/diagnostic-native/experiment.json",
+          "sha256": "63bdd19bc0981cb3137741d54084c1329080ca4454d16f153c8f679aefce8e2e"
+        },
+        "axes": 53,
+        "actif": [
+          12125.900339059066,
+          4341.485803011938,
+          2421.4209494962442,
+          451.2019185726972,
+          173.2778747616959
+        ],
+        "consolidee": [
+          12213.156067759872,
+          4257.243516019717,
+          2316.4299397307745,
+          451.2019185726972,
+          173.2778747616959
+        ],
+        "root_sha256_equal": true,
+        "active_native_count": 137,
+        "consolidated_native_count": 138,
+        "differing_dependencies": [
+          "pieces/commerce/EQ_Chassis_X650.FCStd",
+          "pieces/commerce/W_F12_Prototype.FCStd",
+          "pieces/commerce/W_F16_Prototype.FCStd",
+          "pieces/commerce/W_F25_Prototype.FCStd",
+          "pieces/commerce/W_F35_Prototype.FCStd",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd"
+        ],
+        "exclusive_to_consolidated_copy": [
+          "pieces/fabriquees/P85_Retenue_Chant_P66.FCStd"
+        ]
+      }
+    ],
+    "limits": "Les valeurs historiques se comparent à l'intérieur de leur couple. Le gabarit, les volumes de service et les longueurs des axes sont des mesures distinctes."
+  },
+  "limits": [
+    "Les 21 lignes hors axe portent un motif documenté et restent dans la matrice système.",
+    "Les placements et objets résolus sont des observations CAO. Les contacts, les cotes d'accouplement et de retrait, les révisions physiques et la tenue restent À valider.",
+    "La couverture de paires BRep, la reconstruction, la sauvegarde et le banc physique ne font pas partie de ce rejeu.",
+    "Les rapports détaillés de rejeu sous .runtime sont locaux et régénérables par les commandes consignées."
+  ]
+}

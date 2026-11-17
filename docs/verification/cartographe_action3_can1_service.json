@@ -1,0 +1,402 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "status": "À valider",
+  "scope": "Comparaison CAN1/F35 sur copies avec châssis X650 corrigé",
+  "route_proof": {
+    "path": "docs/verification/cartographe_action3_f35.json",
+    "sha256": "7153003fe96df823054faace492930af1173ab8836662d6e8d26f8d45ff93769"
+  },
+  "raw_reports": [
+    {
+      "path": ".runtime/cartographe-action3-can1-fiche/reference.json",
+      "sha256": "67e242629d0281eb86b2e7e952eb70a493304d043636a249e1f3e07a9d873d97"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-fiche/candidat.json",
+      "sha256": "6d6e092d786efb0585a6e9c51a73a17d162ca19f3fcb33da8fa55a9f71c477b5"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/siege.json",
+      "sha256": "94e197c3597400d6055a98aa1f4ceb91029b96a3fbd5b9a9bee8d8e3d500a5fe"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/siege-candidat.json",
+      "sha256": "3bc02d380584c2c763c8d15a00974574079a868255b0a0850dfd490702fe69da"
+    }
+  ],
+  "reproduction_scripts": [
+    {
+      "path": ".runtime/cartographe-action3-can1-fiche/mesurer.py",
+      "sha256": "19972bdba2a266e36da24dea3f7a416a3aa812e77bafaeb0147c4abc7614bc18"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/header.py",
+      "sha256": "03552548d8cc50525447b014c8c64b67e18a788fd71aa7d693af376b6ef29f9e"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/siege.py",
+      "sha256": "46a75e1d42a36a2bf56f8c72b0df066bd4e6369f527930f4a997a1ed9f06bb21"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/voisins.py",
+      "sha256": "e0aae5429866dc027ede892ff82069d102c7834578c029ab37381cbdcbbb19b9"
+    },
+    {
+      "path": ".runtime/cartographe-action3-can1-tool/f31.py",
+      "sha256": "8f00506b09263ada6df39262f2eb9a5733ae4cfbdbc2548e95eb59c7e89c2056"
+    }
+  ],
+  "authorities": {
+    "board": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+    "connector": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+    "handling": "https://www.jst-mfg.com/product/index.php?doc=11&filename=CHM-1-2149.pdf%7CCHM-1-2111.pdf&series=105&type=10",
+    "tool": "https://www.ideal-tek.com/public/upload/PDS/MPT2SV.IT.pdf"
+  },
+  "connector": {
+    "reference": "CAN1 JST GH 4 positions, fiche de référence GHR-04V-S",
+    "housing_xyz_mm": [
+      4.15,
+      6.25,
+      5.7
+    ],
+    "seated_height_above_pcb_mm": 7.3,
+    "pcb_z_mm": 130.05232,
+    "plug_base_z_mm": 131.65232,
+    "width_axis": "Y, déduit de la forme OEM BM04",
+    "x_centers_mm": [
+      52.85,
+      53.2
+    ],
+    "y_center_mm": -14.5,
+    "withdrawal_axis": "+Z",
+    "limits": "Référence catalogue et forme OEM de la porteuse. Course de déverrouillage réelle, fiche câblée du lot et réserve de F31 à mesurer.",
+    "baseline_sweeps": [
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 0,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.8267409919350404
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 2.65,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.9221736974211654
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 4.25,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.44868570792029483
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 5,
+        "intersection_mm3": 0.051757621874788565,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 6,
+        "intersection_mm3": 1.2106861018104693,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 7,
+        "intersection_mm3": 1.5220742392229982,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 8,
+        "intersection_mm3": 1.5220742392229982,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 12,
+        "intersection_mm3": 1.5220742392229982,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 20,
+        "intersection_mm3": 1.5220742392229982,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 0,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.171743199372077
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 2.65,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.9227728675650073
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 4.25,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.4489798004827514
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 5,
+        "intersection_mm3": 0.05175696009911725,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 6,
+        "intersection_mm3": 1.2106847877210853,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 7,
+        "intersection_mm3": 1.5220739334925297,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 8,
+        "intersection_mm3": 1.5220739334925297,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 12,
+        "intersection_mm3": 1.5220739334925297,
+        "clearance_mm": 0.0
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 20,
+        "intersection_mm3": 1.5220739334925297,
+        "clearance_mm": 0.0
+      }
+    ],
+    "candidate_sweeps": [
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 0,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.8267409919350404
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 2.65,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.7673415458099733
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 4.25,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 5,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.7921928430700804
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 6,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 7,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 8,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 12,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 52.85,
+        "sweep_mm": 20,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 3.750000000000007
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 0,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.171743199372077
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 2.65,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.116199961695365
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 4.25,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 5,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.139427814138897
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 6,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 7,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 8,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 12,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      },
+      {
+        "x_center_mm": 53.2,
+        "sweep_mm": 20,
+        "intersection_mm3": 0.0,
+        "clearance_mm": 4.1000000000000085
+      }
+    ]
+  },
+  "tool": {
+    "reference": "Ideal-Tek MPT2SV, sonde candidate. JST décrit la libération du verrou puis le retrait axial.",
+    "body_envelope_mm": [
+      150,
+      10,
+      4
+    ],
+    "fine_tip_mm": [
+      0.7,
+      0.5
+    ],
+    "flat_tip_mm": [
+      4.6,
+      0.5
+    ],
+    "limits": "Recul du corps, contact et poses hypothétiques. Prise opérateur et force de déverrouillage non vérifiées.",
+    "f35_before_intersecting_poses": 6,
+    "f35_after_intersecting_poses": 1,
+    "residual": [
+      {
+        "side_x": -1,
+        "inclination_deg": -30,
+        "assumed_setback_mm": 5,
+        "bounds_mm": [
+          -25.957050807568955,
+          -19.5,
+          137.17732,
+          50.99150635094611,
+          -9.5,
+          268.20613056766575
+        ],
+        "F35": {
+          "intersection_mm3": 27.87716110881804,
+          "clearance_mm": 0.0
+        },
+        "other_upper_aabb": [
+          "P75_Cadre",
+          "F04_3",
+          "F16",
+          "F32",
+          "F24B",
+          "F24C",
+          "F25",
+          "Holybro6XOrin",
+          "OrinFan"
+        ]
+      }
+    ],
+    "plus_x_vertical_screen": {
+      "bounds_mm": [
+        53.275000000000006,
+        -19.5,
+        137.35232,
+        57.275000000000006,
+        -9.5,
+        287.35231999999996
+      ],
+      "pairs": {
+        "P75_Cadre": {
+          "volume_mm3": 0.0,
+          "gap_mm": 2.7249999999999943
+        },
+        "F04_3": {
+          "volume_mm3": 0.0,
+          "gap_mm": 14.457903292117201
+        },
+        "F16": {
+          "volume_mm3": 0.0,
+          "gap_mm": 70.68641468901039
+        },
+        "F31": {
+          "volume_mm3": 50.76077861684696,
+          "gap_mm": 0.0
+        },
+        "F24B": {
+          "volume_mm3": 0.0,
+          "gap_mm": 36.56614925597733
+        },
+        "F24C": {
+          "volume_mm3": 0.0,
+          "gap_mm": 19.52499999999999
+        },
+        "F35": {
+          "volume_mm3": 0.0,
+          "gap_mm": 7.42816257278455
+        },
+        "F25": {
+          "volume_mm3": 0.0,
+          "gap_mm": 3.124999999999993
+        }
+      },
+      "holybro_solid_detail": []
+    },
+    "f31_all_plus_x_poses": {
+      "path": ".runtime/cartographe-action3-can1-tool/f31_candidat.json",
+      "sha256": "5ea7656c44bccf70f706a3f5462a523777a003c60972a75793a812c4d4ee22ea"
+    },
+    "f31_intersections": 9
+  },
+  "upper_obstacle_screen_reference": {
+    "path": ".runtime/cartographe-action3-can1-tool/voisins.json",
+    "sha256": "bd82c23a9987929a0fa80d29faf04e8a61659c04172f39660bf94d949ec1e6e3"
+  },
+  "upper_obstacle_screen_candidate": {
+    "path": ".runtime/cartographe-action3-can1-tool/voisins_candidat.json",
+    "sha256": "b7c3ff7f5c4667048deff5424fcdc5c5c0ff718833a1036a1c6dc3524bf846e8"
+  }
+}

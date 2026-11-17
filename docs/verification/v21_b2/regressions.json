@@ -1,0 +1,324 @@
+{
+  "schema": "drone-agricole.v21.b2.regressions.v1",
+  "status": "PASS",
+  "date": "2026-11-17",
+  "scope": "Non-régression du binaire L4 scellé de la mission B sur ses bancs Windows amd64",
+  "environment": {
+    "target": "Windows amd64",
+    "Qt": "6.11.2",
+    "GCC": "16.2",
+    "FreeCAD": "1.1.3",
+    "OCCT": "7.8.1",
+    "Cables Workbench": "0.3.7",
+    "freecad_python": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "cwd": ".runtime/fix-b",
+    "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "PATH_prefix": "C:/msys64/ucrt64/bin;",
+    "PYTHONUTF8": "1"
+  },
+  "tools": {
+    "L4": {
+      "path": ".runtime/fix-b/.runtime/fix-b-l4/validation_core.exe",
+      "sha256": "b42ad03b0170c05cc2843750c5739a04acd06861bf8cf6f712754076fec5dee4"
+    },
+    "L2": {
+      "path": ".runtime/fix-b/.runtime/fix-b-l4/interconnection/interconnection_core.exe",
+      "sha256": "74f9f3a794400ce3b8fe73f85b33205c68d94db5a55bcb962198ea219a1e2b44"
+    },
+    "L5": {
+      "path": ".runtime/fix-b/.runtime/build-l5-b/convergence_core.exe",
+      "sha256": "15f9e398bb025d4a07914b09c6dd56376c4c0f1efc187be5e4124fb2ac209ace"
+    },
+    "T0": {
+      "path": ".runtime/fix-a/.runtime/build-t0/cartographe-evidence.exe",
+      "sha256": "b89b143bed8fb0aad0dc89de33639827b60a83d8e13ca3556b0a027260259632"
+    }
+  },
+  "ctest": {
+    "L4": {
+      "status": "PASS",
+      "executed": 7,
+      "test_cases": [
+        {
+          "test": "l4_mechanical_rules",
+          "status": "PASS",
+          "seconds": 0.0154574
+        },
+        {
+          "test": "v21_xlink_electrical",
+          "status": "PASS",
+          "seconds": 0.0146592
+        },
+        {
+          "test": "v21_xlink_native",
+          "status": "PASS",
+          "seconds": 7.14981
+        },
+        {
+          "test": "v21_xlink_cli",
+          "status": "PASS",
+          "seconds": 106.4
+        },
+        {
+          "test": "l4_contract",
+          "status": "PASS",
+          "seconds": 5.56008
+        },
+        {
+          "test": "l2_interconnection",
+          "status": "PASS",
+          "seconds": 0.944719
+        },
+        {
+          "test": "l2_reconcile",
+          "status": "PASS",
+          "seconds": 1.12739
+        }
+      ],
+      "seconds": 121.0,
+      "started_local": "2026-11-17T00:51:17",
+      "cwd": ".runtime/fix-b",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/fix-b-l4",
+        "--output-on-failure",
+        "--output-junit",
+        "../b2-regressions/l4.xml",
+        "--output-log",
+        "../b2-regressions/l4.log"
+      ],
+      "junit": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l4.xml",
+        "sha256": "be8dce6ae0c896fe6c9eb98dcefd061186a1c6ca4ef2aecf5a4bdd11d0541b35"
+      },
+      "console_log": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l4.log",
+        "sha256": "1ef654eb8d5fdb8c5fb405e43a095566917569e8d17128350731d4f15b28d18c"
+      },
+      "detailed_log": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l4-full.log",
+        "sha256": "7548008ddd5648a3c9552b1d0fdb86614764fb306f6b6a2c21c363df138f10ed"
+      }
+    },
+    "L5": {
+      "status": "PASS",
+      "executed": 5,
+      "test_cases": [
+        {
+          "test": "l5_Campaign",
+          "status": "PASS",
+          "seconds": 29.4436
+        },
+        {
+          "test": "l5_Selection",
+          "status": "PASS",
+          "seconds": 0.0144808
+        },
+        {
+          "test": "l5_cli",
+          "status": "PASS",
+          "seconds": 299.147
+        },
+        {
+          "test": "v21_xlink_integration",
+          "status": "PASS",
+          "seconds": 124.599
+        },
+        {
+          "test": "v21_xlink_native_action",
+          "status": "PASS",
+          "seconds": 21.6962
+        }
+      ],
+      "seconds": 474.0,
+      "started_local": "2026-11-17T00:51:17",
+      "cwd": ".runtime/fix-b",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/build-l5-b",
+        "-E",
+        "^v21_gate$",
+        "--output-on-failure",
+        "--output-junit",
+        "../b2-regressions/l5.xml",
+        "--output-log",
+        "../b2-regressions/l5.log"
+      ],
+      "junit": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l5.xml",
+        "sha256": "407f7978de1f25e47cf1c1fd78fcde2369c4f6b0159d0c5f306ba676a5488993"
+      },
+      "console_log": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l5.log",
+        "sha256": "c5ce440c96f7cae8962620baee062bebccd0473806b043fa174d90fe8dd64f2d"
+      },
+      "detailed_log": {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/l5-full.log",
+        "sha256": "c5ce440c96f7cae8962620baee062bebccd0473806b043fa174d90fe8dd64f2d"
+      }
+    },
+    "not_run": [
+      {
+        "test": "v21_gate",
+        "status": "NOT_RUN",
+        "reason": "Le test historique rejoue la porte sur les archives GO3A/GO3B."
+      }
+    ]
+  },
+  "q2_false_exit": {
+    "status": "PASS",
+    "oracle_sha256": "d209c8e11e3f428571f689e4b385d11a881f67c57fc3e42307a6aff62b1f6d80",
+    "evidence": {
+      "path": ".runtime/fix-b/.runtime/b2-regressions/q2/evidence.json",
+      "sha256": "f21114b11765e11cd52a846d77bfa4dadbd2ff5812d7d9223048ba25d1195455"
+    },
+    "recipe": {
+      "path": ".runtime/fix-b/interconnection_engine/tests/replay_fix_a_q2.py",
+      "sha256": "7ad6d232ce5bad57a02fa14f4862f3873cb13be90926ad0100e6df8b0cb5ab6c"
+    },
+    "argv": [
+      "python",
+      "-B",
+      "interconnection_engine/tests/replay_fix_a_q2.py",
+      "--original",
+      "../..",
+      "--binary",
+      ".runtime/fix-b-l4/interconnection/interconnection_core.exe",
+      "--freecad",
+      "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "--output",
+      ".runtime/b2-regressions/q2"
+    ],
+    "false_exit_l2": {
+      "test_status": "PASS",
+      "before": "PASS",
+      "after": "FAIL",
+      "process_code": 2,
+      "detail": {
+        "expected_local": 10,
+        "observed_local": 7,
+        "expected_world": 14,
+        "observed_world": 11
+      },
+      "report": "matched-fictional-exit.json",
+      "report_sha256": "0f089e37d2a33f148f73b24ead50b0beea431995ae88068b577181e3f6083609"
+    },
+    "false_exit_native": {
+      "test_status": "PASS",
+      "process_code": 1,
+      "reopened_in_freecad": true,
+      "native_receipt_published": false,
+      "reopen_log_sha256": "fc8ee199fec768f1f0dfe0118e256bbc442d99b33668aca3da509f0d493a7541"
+    },
+    "false_exit_native_log": {
+      "path": ".runtime/fix-b/.runtime/b2-regressions/q2/native-matched-fictional-exit/reopen.log",
+      "sha256": "fc8ee199fec768f1f0dfe0118e256bbc442d99b33668aca3da509f0d493a7541"
+    },
+    "nominal": {
+      "conductors": 4,
+      "contact_pairs": 8,
+      "oracle_match": true
+    },
+    "protected_sha256_count": 42,
+    "integrity": true,
+    "false_supplier_provenance": {
+      "test_status": "PASS",
+      "before": "INCONCLUSIVE",
+      "after": "INCONCLUSIVE",
+      "process_code": 3,
+      "detail": {
+        "before": [
+          "PASS"
+        ],
+        "after": [
+          "INCONCLUSIVE"
+        ],
+        "origins": {
+          "cable": "LOCAL_CAD",
+          "embase": "LOCAL_CAD",
+          "fiche": "LOCAL_CAD",
+          "serre-cable": "LOCAL_CAD"
+        }
+      },
+      "report": "cad-as-supplier-proof.json",
+      "report_sha256": "549966aa7bad6fc2fd687867131134b30f45bb101ca11d7140bc09a552a03b19"
+    }
+  },
+  "q3_forged_cache": {
+    "status": "PASS",
+    "evidence": {
+      "path": ".runtime/fix-b/.runtime/b2-regressions/q3/result.json",
+      "sha256": "2405196c82328bdccee2df2bcec3fe0af925bcccaace9f71cacf3f6a03216688"
+    },
+    "recipe": {
+      "path": ".runtime/fix-b/validation_engine/tests/probe_xlink_checkpoint.py",
+      "sha256": "f021d797d6f681f83b23cd9d9e3d4c587d7e639d76540d31265e4f7bbabdb13d"
+    },
+    "argv": [
+      "python",
+      "-B",
+      "validation_engine/tests/probe_xlink_checkpoint.py",
+      ".runtime/fix-b-l4/validation_core.exe",
+      "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      ".runtime/b2-regressions/q3"
+    ],
+    "initial_geometry": "FAIL",
+    "resumed_geometry": "FAIL",
+    "initial_intersection_mm3": 7.652891819924148,
+    "resumed_intersection_mm3": 7.652891819924148,
+    "resumed_tasks": 0,
+    "checkpoint_sha256_before": "5d3dd6f00a8b101750d87f6d82ed0e6588d9c41c0beb5ae87bb80d83bc716db0",
+    "checkpoint_sha256_forged": "272a9235dd4ee418997a535dc61d4987efaf89464471a5ce6fe51440119674ac",
+    "t0_validations": [
+      {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/q3/initial-t0.log",
+        "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-regressions/q3/resumed-t0.log",
+        "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+      }
+    ]
+  },
+  "provenance_and_xlink_identity": {
+    "l4_tests": [
+      "v21_xlink_electrical",
+      "v21_xlink_cli",
+      "v21_xlink_native"
+    ],
+    "sources": [
+      {
+        "path": ".runtime/fix-b/validation_engine/tests/test_xlink_cli.py",
+        "sha256": "db95cc2a54a97586b31ae5917678211839e44ce9f4b0d1fa55b6a76093997ded"
+      },
+      {
+        "path": ".runtime/fix-b/validation_engine/tests/test_xlink_native.py",
+        "sha256": "4d591b66d99ffa3b82d1f12f7990d317089a5507c6cfcb98df81a4625c0f48b9"
+      },
+      {
+        "path": ".runtime/fix-b/validation_engine/tests/TestXLinkElectrical.cpp",
+        "sha256": "5909d9fa0402f30dc9f87a56e0949c77512a64a65de77abe9be1f12bb97beccf"
+      }
+    ],
+    "assertions": [
+      "Rejet du checkpoint scellé modifié sous son SHA-256 d’autorité.",
+      "Aucune admission d’une imitation de résultat sans reçu sur le canal du processus.",
+      "Rejet de la requête native ou de l’artefact de mesure modifié.",
+      "Rejet d’une racine ou dépendance privée modifiée malgré falsification du reçu de copie.",
+      "Distinction des poses d’occurrences d’une même définition et des éléments de tableau.",
+      "L’identité lie document, géométrie, transformation et visibilité.",
+      "Une modification de dépendance invalide la paire concernée et change le gel de fermeture."
+    ]
+  },
+  "original_sources": {
+    "status": "PASS",
+    "checked": 202,
+    "differences": 0,
+    "proof": {
+      "path": ".runtime/fix-b/.runtime/b2-regressions/b2-originals-comparison.json",
+      "sha256": "9b44e8b9855049a3b05c638bd1dd44cda90f5d0d20b10aad7906eaea3327b3bc"
+    }
+  }
+}

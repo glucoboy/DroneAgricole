@@ -1,0 +1,991 @@
+{
+  "schema_version": 1,
+  "campaign": "T-EM-ENGINE-03",
+  "units": {
+    "length": "mm",
+    "volume": "mm3"
+  },
+  "axis_method": {
+    "frame": "Repère global de l'assemblage, placements natifs cumulés par XLink.",
+    "length": "OCC Wire.Length sur BRep sauvés ; les points du registre servent à identifier les objets.",
+    "zones": "Somme des cordes tronquées aux boîtes du protocole historique, 96 puis 384 points uniformes en paramètre par arête courbe ; segments droits exacts.",
+    "height": "ZMax de la boîte englobante du solide de gaine, sur les 53 câbles.",
+    "historical_comparison_tolerance_mm": 0.05,
+    "tolerance_scope": "Comparaison numérique des métriques, sans exigence physique ni borne analytique sur les courbes.",
+    "historical_definition_source": "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json",
+    "zones_mm": {
+      "bay": [
+        [
+          -94,
+          -88,
+          85
+        ],
+        [
+          94,
+          88,
+          165
+        ]
+      ],
+      "above": [
+        [
+          -118,
+          -108,
+          130.052
+        ],
+        [
+          118,
+          108,
+          250
+        ]
+      ],
+      "interlayer": [
+        [
+          -78,
+          -62,
+          110.22
+        ],
+        [
+          78,
+          62,
+          123.72
+        ]
+      ],
+      "p66_below": [
+        [
+          -80,
+          -67,
+          66.4
+        ],
+        [
+          80,
+          67,
+          83
+        ]
+      ],
+      "p66_ca01": [
+        [
+          -63,
+          -40,
+          88
+        ],
+        [
+          63,
+          40,
+          96.12
+        ]
+      ],
+      "sous_P66_emprise_stricte": [
+        [
+          -70,
+          -47,
+          39
+        ],
+        [
+          70,
+          47,
+          85
+        ]
+      ],
+      "sous_porteuse_emprise_stricte": [
+        [
+          -63,
+          -41,
+          110.22
+        ],
+        [
+          63,
+          40.52,
+          123.72
+        ]
+      ]
+    }
+  },
+  "collision_method": {
+    "pair_scope": "Tous les objets physiques du registre réconcilié avec les liens du natif, sauf l'occurrence de la route substituée. Enveloppes d'extraction absentes de cette mesure.",
+    "aabb_margin_mm": 1e-07,
+    "volume_threshold_mm3": 0.0001,
+    "oracle": "Intersection OCC des sous-solides présélectionnés, volume cumulé et distance; chaque paire échouée ou hors délai reste inconnue.",
+    "countercheck": "P73 est contrôlé avec le volume du composé directement via inspect_pair; écart admis 0,05 mm³ entre les deux formulations."
+  },
+  "cases": {
+    "f16": {
+      "reference": "hardware/mecanique/cartographe",
+      "receipt": ".runtime/electromechanical-engine/go2-native-1/native_replay.json",
+      "receipt_sha256": "7a3640b24c6bed4b7a9bc301ac44a241537a584e580a332ae7940e7774766824",
+      "inputs": 141,
+      "sources_unchanged": true,
+      "copies_unchanged": null,
+      "repeat_exact": null,
+      "script_sha256_at_start": "068101ad219ada3a1fd1c188334b390e809ca22583d5e96a632b0261b06c80e5",
+      "criteria_sha256": "7d0c14072d1b0b58812d17402394a64eb63c68a4c589458e2bb9de9c305bc69e",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "f16/measure-1.log",
+          "exit_code": 0,
+          "report": "f16/measure-1.json",
+          "report_sha256": "ca083c771754dd1001ba5079ab00bf31629203bfed453ecaa7ef2acfdafddc80",
+          "pid": 18464
+        },
+        {
+          "iteration": 2,
+          "log": "f16/measure-2.log"
+        }
+      ],
+      "execution_error": "Command '['C:\\\\Program Files\\\\FreeCAD 1.1\\\\bin\\\\python.exe', '-B', '-m', 'electromechanical_engine.qualification.native_replay', '--worker', 'D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\.runtime\\\\electromechanical-engine\\\\go2-native-1\\\\f16', 'f16', 'D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\.runtime\\\\electromechanical-engine\\\\go2-native-1\\\\criteria.json', 'D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\.runtime\\\\electromechanical-engine\\\\go2-native-1\\\\f16\\\\measure-2.json']' timed out after 100 seconds",
+      "collisions": {
+        "initial": {
+          "scope": 360,
+          "excluded_aabb": 252,
+          "tested": 108,
+          "collisions": [],
+          "unknown": [
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ]
+        },
+        "P": {
+          "scope": 360,
+          "excluded_aabb": 251,
+          "tested": 109,
+          "collisions": [
+            {
+              "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+              "volume_mm3": 70.61617901769519,
+              "gap_mm": 2.0097183471152322e-14
+            },
+            {
+              "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+              "volume_mm3": 59.951906661443815,
+              "gap_mm": 1.0048591735576161e-14
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#EcrouGuideMilieu1",
+              "volume_mm3": 26.542498589403237,
+              "gap_mm": 0.0
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AMONT",
+              "volume_mm3": 46.661474295948985,
+              "gap_mm": 2.0097183471152322e-14
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+              "volume_mm3": 704.6272803571469,
+              "gap_mm": 0.0
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#RondelleGuideMilieu1",
+              "volume_mm3": 4.829698418766688,
+              "gap_mm": 1.4210854715202004e-14
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#VisGuideMilieu1",
+              "volume_mm3": 51.42503279200457,
+              "gap_mm": 7.105427357601002e-15
+            }
+          ],
+          "unknown": [
+            {
+              "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            },
+            {
+              "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            },
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            },
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            },
+            {
+              "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ]
+        }
+      },
+      "timeout_replay": "Le rejeu complet par paire n'a pas finalisé dans les 100 s. La contre-mesure ciblée P73 et la réouverture des trois F16 ont été répétées séparément."
+    },
+    "f16_cache": {
+      "reference": "hardware/mecanique/cartographe",
+      "receipt": ".runtime/electromechanical-engine/go2-native-2d/native_replay.json",
+      "receipt_sha256": "8528d84a6a85b67196db8360fb562d8f4c16af6b40da3ef0a6f70f80656c46fb",
+      "inputs": 3,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "162fb7bfb2444feba48c1bed94e49acb440586efc602151c6de15915fbce6bf1",
+      "criteria_sha256": "7d0c14072d1b0b58812d17402394a64eb63c68a4c589458e2bb9de9c305bc69e",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "f16_cache/measure-1.log",
+          "exit_code": 0,
+          "report": "f16_cache/measure-1.json",
+          "report_sha256": "a340628f39a8e55e692180c337283c3b4270427f267947a1e7530bd93f87674b",
+          "pid": 30836
+        },
+        {
+          "iteration": 2,
+          "log": "f16_cache/measure-2.log",
+          "exit_code": 0,
+          "report": "f16_cache/measure-2.json",
+          "report_sha256": "32b2e42e6c0a8c8a04802c1f106006e3b8ffd998110760fdfb9d13a448e2015f",
+          "pid": 15532
+        }
+      ],
+      "reopened": {
+        "initial": {
+          "axis": {
+            "stage": "geometry",
+            "failures": [],
+            "unknowns": [
+              "start_connector_position_missing",
+              "end_connector_position_missing",
+              "start_connector_axis_missing",
+              "end_connector_axis_missing"
+            ],
+            "minimum_radius_mm": 21.999999999999954,
+            "radius_evidence": "analytic_lines_circles",
+            "join_angles_deg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "waypoint_distances_mm": [],
+            "length_mm": 425.173842178645,
+            "shape_sha256": "3135c50cdebc74d089c09f0a55e2209b5d2fb3702b9e4f671d8d91f8627ab500",
+            "straight_radius_infinite": false,
+            "status": "unknown"
+          },
+          "solid": {
+            "stage": "solid",
+            "failures": [],
+            "null": false,
+            "valid": true,
+            "solid_count": 1,
+            "volume_mm3": 10101.405331845268,
+            "status": "pass"
+          },
+          "radius_uniform_2001_mm": 21.99999999999995,
+          "path_type": "Wire",
+          "shape_sha256": "99c725892970a3207def790fdf584bd9f92f172b510010c59c8fd10a0e3361ec",
+          "status_on_open": [
+            "Up-to-date"
+          ],
+          "solid_volume_mm3": 10101.405331845268
+        },
+        "K": {
+          "axis": {
+            "stage": "geometry",
+            "failures": [
+              "bend_radius_below_requirement"
+            ],
+            "unknowns": [
+              "curvature_subdivision_budget_reached",
+              "global_curvature_bound_not_proven",
+              "start_connector_position_missing",
+              "end_connector_position_missing",
+              "start_connector_axis_missing",
+              "end_connector_axis_missing"
+            ],
+            "minimum_radius_mm": 4.946828917356499e-08,
+            "radius_evidence": "sampled_upper_bound_on_true_minimum_radius",
+            "join_angles_deg": [],
+            "waypoint_distances_mm": [],
+            "length_mm": 456.9592355880553,
+            "shape_sha256": "009546027d811e5172fcf069655d0c68eea308324c4597fe81f2af4bd034f17e",
+            "straight_radius_infinite": false,
+            "status": "fail"
+          },
+          "solid": {
+            "stage": "solid",
+            "failures": [],
+            "null": false,
+            "valid": true,
+            "solid_count": 1,
+            "volume_mm3": 10101.405331845268,
+            "status": "pass"
+          },
+          "radius_uniform_2001_mm": 0.006141002109003422,
+          "path_type": "BSpline_K",
+          "shape_sha256": "6539fc609d208765d2ace3b731acfedbb81dd709c40005a00941f2e48db1f94f",
+          "status_on_open": [
+            "Up-to-date"
+          ],
+          "solid_volume_mm3": 10101.405331845268,
+          "forced_recompute": {
+            "count": 2,
+            "state": [
+              "Up-to-date"
+            ],
+            "status": "Valid",
+            "solid": {
+              "stage": "solid",
+              "failures": [],
+              "null": false,
+              "valid": true,
+              "solid_count": 1,
+              "volume_mm3": 10101.405331845268,
+              "status": "pass"
+            },
+            "retained_same_brep": true
+          },
+          "regeneration_after_cache_clear": {
+            "stage": "solid",
+            "failures": [
+              "solid_generation_invalid"
+            ],
+            "null": true,
+            "valid": false,
+            "solid_count": 0,
+            "volume_mm3": 0.0,
+            "status": "fail",
+            "recompute_return": true,
+            "path_before_sha256": "009546027d811e5172fcf069655d0c68eea308324c4597fe81f2af4bd034f17e",
+            "path_after_sha256": "ab984713e3ade9f9f27dcbeba326f0811c4c85f46ec8eada16f54160c08b454a",
+            "cache_cleared": true,
+            "object_states": {
+              "Cable": [
+                "Up-to-date"
+              ],
+              "Wire": [
+                "Up-to-date"
+              ]
+            }
+          }
+        },
+        "P": {
+          "axis": {
+            "stage": "geometry",
+            "failures": [],
+            "unknowns": [
+              "global_curvature_bound_not_proven",
+              "start_connector_position_missing",
+              "end_connector_position_missing",
+              "start_connector_axis_missing",
+              "end_connector_axis_missing"
+            ],
+            "minimum_radius_mm": 23.66333715758522,
+            "radius_evidence": "sampled_upper_bound_on_true_minimum_radius",
+            "join_angles_deg": [],
+            "waypoint_distances_mm": [],
+            "length_mm": 425.72510260219224,
+            "shape_sha256": "ac0b83427d878987558c0898056fe11171605179a378b6cf97b398b9b10f9b9d",
+            "straight_radius_infinite": false,
+            "status": "unknown"
+          },
+          "solid": {
+            "stage": "solid",
+            "failures": [],
+            "null": false,
+            "valid": true,
+            "solid_count": 1,
+            "volume_mm3": 10111.81751181356,
+            "status": "pass"
+          },
+          "radius_uniform_2001_mm": 23.66134889816617,
+          "path_type": "BSpline_P",
+          "shape_sha256": "1782c1625928ce0e994f640930ab2294569036110d1c408d6e5127cd522877d1",
+          "status_on_open": [
+            "Up-to-date"
+          ],
+          "solid_volume_mm3": 10111.81751181356
+        }
+      },
+      "environment": {
+        "freecad": [
+          "1",
+          "1",
+          "3",
+          "20260725 (Git shallow)",
+          "Unknown",
+          "2026/07/25 04:52:02",
+          "grafted,grafted",
+          "145529fe741292ff0b3977a01195bf0247425794"
+        ],
+        "occt": "7.8.1",
+        "python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+        "cables": {
+          "nom": "Cables Workbench",
+          "version": "0.3.7",
+          "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+          "sha256_modules": {
+            "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+            "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+            "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+            "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+            "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+            "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c"
+          },
+          "freecad": [
+            "1",
+            "1",
+            "3",
+            "20260725 (Git shallow)",
+            "Unknown",
+            "2026/07/25 04:52:02",
+            "grafted,grafted",
+            "145529fe741292ff0b3977a01195bf0247425794"
+          ],
+          "api": {
+            "make_wireflex_from_vectors": "(vectorlist)",
+            "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+            "make_compoundpath": "(plist=None)",
+            "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)"
+          }
+        }
+      },
+      "radius_scope": "22 mm est le seuil diagnostique du cas historique. Aucune spécification fournisseur applicable ou tenue en flexion continue déduite."
+    },
+    "f16_targeted": {
+      "reference": "hardware/mecanique/cartographe",
+      "receipt": ".runtime/electromechanical-engine/go2-native-3a/native_replay.json",
+      "receipt_sha256": "361cb5239818ae97dae71b15d64bd3bb461e3fbb806006719ebe4fc407c203a4",
+      "inputs": 141,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "5b1ac4093662f6513c07917e46d41ed843f719c56b393b743f857b4b4583a89e",
+      "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "f16_targeted/measure-1.log",
+          "exit_code": 0,
+          "report": "f16_targeted/measure-1.json",
+          "report_sha256": "e304b3f2beb38a2eb7d262cd2256d2e092452d3b39bb59513e57e29b2695752b",
+          "pid": 7876
+        },
+        {
+          "iteration": 2,
+          "log": "f16_targeted/measure-2.log",
+          "exit_code": 0,
+          "report": "f16_targeted/measure-2.json",
+          "report_sha256": "18dc06d5b472a9630fb12f00c98ee8fc51233f836baae0c484b0f32f72e9ba3e",
+          "pid": 11796
+        }
+      ],
+      "engine_pair_checks": {
+        "initial": {
+          "stage": "integration",
+          "pair": [
+            "initial",
+            "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+          ],
+          "failures": [],
+          "unknowns": [],
+          "authorized_relation": false,
+          "intersection_volume_mm3": 0.0,
+          "clearance_mm": 0.19999999999998863,
+          "status": "pass"
+        },
+        "P": {
+          "stage": "integration",
+          "pair": [
+            "P",
+            "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+          ],
+          "failures": [
+            "forbidden_interference"
+          ],
+          "unknowns": [],
+          "authorized_relation": false,
+          "intersection_volume_mm3": 704.6300070013599,
+          "clearance_mm": 0.0,
+          "status": "fail"
+        }
+      },
+      "p73_method_delta_mm3": 0.002726644212998508
+    },
+    "a": {
+      "reference": "hardware/mecanique/cartographe_refonte_systeme/A",
+      "receipt": ".runtime/electromechanical-engine/go2-native-2a/native_replay.json",
+      "receipt_sha256": "5603c94d64c54b4dbca409b277d1fb7405a88ba767bcea20c482a03bed3d521f",
+      "inputs": 143,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "718b94f07ac6985c95fd8bbed9f406558188de005c16258ed117affd6ea06bdc",
+      "criteria_sha256": "7d0c14072d1b0b58812d17402394a64eb63c68a4c589458e2bb9de9c305bc69e",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "a/measure-1.log",
+          "exit_code": 0,
+          "report": "a/measure-1.json",
+          "report_sha256": "5a57b30f23e80cc34db27e5151ca512fd839d46ca174a391473d8a2ec25ecd47",
+          "pid": 5364
+        },
+        {
+          "iteration": 2,
+          "log": "a/measure-2.log",
+          "exit_code": 0,
+          "report": "a/measure-2.json",
+          "report_sha256": "cfa83848e0a2976a9566b04f2480223fddab9979c1a396737ea8f7c73a236a5b",
+          "pid": 15884
+        }
+      ],
+      "axes": {
+        "count": 53,
+        "axis_sum_mm": 10885.079164281875,
+        "height_max_mm": 170.27787476169587,
+        "zones_mm": {
+          "bay": 4221.879483656824,
+          "above": 2051.21306292215,
+          "interlayer": 709.8342207008793,
+          "p66_below": 521.4741948144535,
+          "p66_ca01": 0.0,
+          "sous_P66_emprise_stricte": 451.2019185726972,
+          "sous_porteuse_emprise_stricte": 21.721053323074944
+        },
+        "zones_384_mm": {
+          "bay": 4221.886877128205,
+          "above": 2051.21955525123,
+          "interlayer": 709.8358111334356,
+          "p66_below": 521.4747698581104,
+          "p66_ca01": 0.0,
+          "sous_P66_emprise_stricte": 451.20294414402446,
+          "sous_porteuse_emprise_stricte": 21.721409861149567
+        }
+      },
+      "historical_max_delta_mm": 9.094947017729282e-13,
+      "sampling_max_delta_mm": 0.007393471380964911,
+      "axis_and_endpoint_repeat_exact": true,
+      "electrical_endpoints_mm": {
+        "F12": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            12.0,
+            135.5
+          ]
+        ],
+        "F24A": [
+          [
+            65.0,
+            4.0,
+            102.0
+          ],
+          [
+            -64.0,
+            15.0,
+            125.9
+          ]
+        ],
+        "F25": [
+          [
+            30.0,
+            -106.0,
+            97.5
+          ],
+          [
+            52.825,
+            9.5,
+            135.5
+          ]
+        ],
+        "F31": [
+          [
+            -18.0,
+            -76.0,
+            66.0
+          ],
+          [
+            52.849999999999994,
+            -14.5,
+            135.5
+          ]
+        ],
+        "F41": [
+          [
+            -79.0,
+            24.0,
+            54.0
+          ],
+          [
+            7.0,
+            -42.0,
+            131.5
+          ]
+        ]
+      },
+      "f12_assessment": {
+        "required": "TELEM1",
+        "independent_reference": "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json",
+        "geometric_destination": "GPS2",
+        "assignment": "NON_CONFORME",
+        "actual_mating": "NON_VERIFIE"
+      },
+      "f24a_assessment": "NON_VERIFIE : GPIO présumé ; identification et brochage non démontrés."
+    },
+    "faces": {
+      "reference": "hardware/mecanique/cartographe_faces/Candidat",
+      "receipt": ".runtime/electromechanical-engine/go2-native-2a/native_replay.json",
+      "receipt_sha256": "5603c94d64c54b4dbca409b277d1fb7405a88ba767bcea20c482a03bed3d521f",
+      "inputs": 148,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": false,
+      "script_sha256_at_start": "718b94f07ac6985c95fd8bbed9f406558188de005c16258ed117affd6ea06bdc",
+      "criteria_sha256": "7d0c14072d1b0b58812d17402394a64eb63c68a4c589458e2bb9de9c305bc69e",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "faces/measure-1.log",
+          "exit_code": 0,
+          "report": "faces/measure-1.json",
+          "report_sha256": "181e83579676d71fd14731336b03b8b84a5e5ef4196f04ec061f599967fed9c3",
+          "pid": 1908
+        },
+        {
+          "iteration": 2,
+          "log": "faces/measure-2.log",
+          "exit_code": 0,
+          "report": "faces/measure-2.json",
+          "report_sha256": "70e71bf8c4d6b6e434f17d8ca4f7a09226e3ee6a58099e30a244222d58ccdb18",
+          "pid": 17232
+        }
+      ],
+      "axes": {
+        "count": 53,
+        "axis_sum_mm": 10788.378082402585,
+        "height_max_mm": 170.27787476169587,
+        "zones_mm": {
+          "bay": 3860.64287159482,
+          "above": 1802.0432305282043,
+          "interlayer": 837.2885974892434,
+          "p66_below": 598.9814381076427,
+          "p66_ca01": 0.0,
+          "sous_P66_emprise_stricte": 451.2019185726972,
+          "sous_porteuse_emprise_stricte": 275.5080584322781
+        },
+        "zones_384_mm": {
+          "bay": 3860.6495473556474,
+          "above": 1802.0493099622645,
+          "interlayer": 837.2901827438478,
+          "p66_below": 598.9821968901589,
+          "p66_ca01": 0.0,
+          "sous_P66_emprise_stricte": 451.20294414402446,
+          "sous_porteuse_emprise_stricte": 275.5084989342221
+        }
+      },
+      "historical_max_delta_mm": 3.637978807091713e-12,
+      "sampling_max_delta_mm": 0.006675760827420163,
+      "axis_and_endpoint_repeat_exact": true,
+      "electrical_endpoints_mm": {
+        "F12": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "F24A": [
+          [
+            65.0,
+            4.0,
+            102.0
+          ],
+          [
+            -59.825,
+            15.0,
+            120.7
+          ]
+        ],
+        "F25": [
+          [
+            30.0,
+            -106.0,
+            97.5
+          ],
+          [
+            52.825,
+            9.5,
+            137.35232
+          ]
+        ],
+        "F31": [
+          [
+            -18.0,
+            -76.0,
+            66.0
+          ],
+          [
+            52.849999999999994,
+            -14.5,
+            135.5
+          ]
+        ],
+        "F41": [
+          [
+            -79.0,
+            24.0,
+            54.0
+          ],
+          [
+            7.0,
+            -42.0,
+            131.5
+          ]
+        ]
+      },
+      "f12_assessment": {
+        "required": "TELEM1",
+        "independent_reference": "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json",
+        "geometric_destination": "TELEM1",
+        "assignment": "CONFORME",
+        "actual_mating": "NON_VERIFIE"
+      },
+      "f24a_assessment": "NON_VERIFIE : GPIO présumé ; identification et brochage non démontrés.",
+      "f31_lower": [
+        {
+          "scope": 349,
+          "excluded_aabb": 311,
+          "tested": 38,
+          "collisions": [],
+          "unknown": [
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            },
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ]
+        },
+        {
+          "scope": 349,
+          "excluded_aabb": 311,
+          "tested": 38,
+          "collisions": [],
+          "unknown": [
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ]
+        }
+      ],
+      "f31_access": "NON_VERIFIE : gabarits d'accouplement/extraction CAN1 et scénarios de pose PM08 non remesurés."
+    },
+    "monolithes": {
+      "reference": "hardware/mecanique/cartographe_faisceaux_refonte",
+      "receipt": ".runtime/electromechanical-engine/go2-native-3b/native_replay.json",
+      "receipt_sha256": "20b4dbca60d10239647822042da3896fda2d067f16f9fc3ab71f1f6f80efab35",
+      "inputs": 143,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "5b1ac4093662f6513c07917e46d41ed843f719c56b393b743f857b4b4583a89e",
+      "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "monolithes/measure-1.log",
+          "exit_code": 0,
+          "report": "monolithes/measure-1.json",
+          "report_sha256": "7e4f8cccf75d4927bdc1cbd97c680cf65bdea08daaabe3b95de1a53641ba63db",
+          "pid": 6988
+        },
+        {
+          "iteration": 2,
+          "log": "monolithes/measure-2.log",
+          "exit_code": 0,
+          "report": "monolithes/measure-2.json",
+          "report_sha256": "3097eeb8d6fff6371256ea5c6dd9bea5afecc9853ef79c5829a97db2c219fbad",
+          "pid": 13156
+        }
+      ],
+      "registered_supports_count": 17,
+      "registered_supports_mm3": {
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide": 43853.79292817322,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide": 75746.47946095806,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre": 76223.79278143527,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P77_BerceauReserveUSB": 2130.8988886616266,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P78_RetenueCameraM8": 5732.979474258291,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras1_1": 1786.2193746418095,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras1_2": 1390.70868763397,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras1_3": 1390.7086876339692,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras2_1": 1786.2193746418095,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras2_2": 1390.70868763397,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras2_3": 1390.7086876339692,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras3_1": 1786.219374641809,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras3_2": 1390.708687633969,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras3_3": 1390.7086876339692,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras4_1": 1786.2193746418084,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras4_2": 1390.7086876339688,
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SelleBras4_3": 1390.708687633969
+      },
+      "registered_supports_total_mm3": 221958.49053312547,
+      "support_scope": "Sélection du registre historique volumes_supports.json, correspondance univoque aux natifs. Ancrage, accès, montage, matière et masse non vérifiés.",
+      "f41_length_mm": 1180.9420885415457,
+      "f41_service": "NON_VERIFIE : aucune exigence de longueur utile ou de manipulation gelée."
+    },
+    "modulaire": {
+      "reference": "hardware/mecanique/cartographe_faisceaux_modulaires",
+      "receipt": ".runtime/electromechanical-engine/go2-native-3b/native_replay.json",
+      "receipt_sha256": "20b4dbca60d10239647822042da3896fda2d067f16f9fc3ab71f1f6f80efab35",
+      "inputs": 143,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "5b1ac4093662f6513c07917e46d41ed843f719c56b393b743f857b4b4583a89e",
+      "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "modulaire/measure-1.log",
+          "exit_code": 0,
+          "report": "modulaire/measure-1.json",
+          "report_sha256": "fc77c19ba36398dc1001ec738b69079bc874d10d243f64583e2e0219e1d3acf1",
+          "pid": 27752
+        },
+        {
+          "iteration": 2,
+          "log": "modulaire/measure-2.log",
+          "exit_code": 0,
+          "report": "modulaire/measure-2.json",
+          "report_sha256": "6dc12a4494c10ac8984f5e7ce2e38ff131cbeda2f5b0348a78b6d0fad51da9a0",
+          "pid": 30964
+        }
+      ],
+      "registered_supports_count": 17,
+      "registered_supports_mm3": {
+        "ClipColonneF12": 465.5789683457162,
+        "PinceDepartF41": 1369.1726161409817,
+        "PinceF38_1": 1604.9645076059421,
+        "PinceF38_2": 1604.9645076059423,
+        "SelleBras1_1": 1786.2193746418095,
+        "SelleBras1_2": 1390.70868763397,
+        "SelleBras1_3": 1390.7086876339692,
+        "SelleBras2_1": 1786.2193746418095,
+        "SelleBras2_2": 1390.70868763397,
+        "SelleBras2_3": 1390.7086876339692,
+        "SelleBras3_1": 1786.219374641809,
+        "SelleBras3_2": 1390.708687633969,
+        "SelleBras3_3": 1390.7086876339692,
+        "SelleBras4_1": 1786.2193746418084,
+        "SelleBras4_2": 1390.7086876339688,
+        "SelleBras4_3": 1390.708687633969,
+        "SupportLocalMIDI": 7199.025136840861
+      },
+      "registered_supports_total_mm3": 30514.252736178434,
+      "support_scope": "Sélection du registre historique volumes_supports.json, correspondance univoque aux natifs. Ancrage, accès, montage, matière et masse non vérifiés.",
+      "f41_length_mm": 340.40831309733625,
+      "f41_service": "NON_VERIFIE : aucune exigence de longueur utile ou de manipulation gelée."
+    },
+    "a_reopen": {
+      "reference": "hardware/mecanique/cartographe_refonte_systeme/A",
+      "receipt": ".runtime/electromechanical-engine/go2-native-4a/native_replay.json",
+      "receipt_sha256": "d7aae2f2bae11ae5b612d3e8e7e0151d31ebb0dd43473ab23ce9e3574e82eab0",
+      "inputs": 143,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190",
+      "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "a_reopen/measure-1.log",
+          "exit_code": 0,
+          "report": "a_reopen/measure-1.json",
+          "report_sha256": "c14ebad7814adee1cd9a4f7ed22354b34283544126fb8c997abfc1a2eedcbe01",
+          "pid": 12884
+        },
+        {
+          "iteration": 2,
+          "log": "a_reopen/measure-2.log",
+          "exit_code": 0,
+          "report": "a_reopen/measure-2.json",
+          "report_sha256": "0057f558641895d3e300acc29e9c3badf254b1bae0974ee8571ce5dfa453468b",
+          "pid": 13916
+        }
+      ],
+      "closure": {
+        "opened": 141,
+        "expected": 141,
+        "missing": [],
+        "unexpected": [],
+        "partial": 24,
+        "root_objects": 16
+      },
+      "reopened_scope": "Ouverture App.openDocument sans recalcul ou sauvegarde ; les partiels XLink ne sont pas promus. Métriques sur BRep des dépendances sauvegardées lues séparément."
+    },
+    "faces_reopen": {
+      "reference": "hardware/mecanique/cartographe_faces/Candidat",
+      "receipt": ".runtime/electromechanical-engine/go2-native-4b/native_replay.json",
+      "receipt_sha256": "396c9aed5ce19ee7e29ae742a601ac78b01c73e8dd3909c65269985cfa95ffbf",
+      "inputs": 147,
+      "sources_unchanged": true,
+      "copies_unchanged": true,
+      "repeat_exact": true,
+      "script_sha256_at_start": "3139fe3fca4c656693fc61b8db06342a4e5cfe3afe052b889a5784c68b04f190",
+      "criteria_sha256": "f272d395e70702a49e2ebc6217239b812a8e15c2c7b2bb0c224a027ac82f6a30",
+      "attempts": [
+        {
+          "iteration": 1,
+          "log": "faces_reopen/measure-1.log",
+          "exit_code": 0,
+          "report": "faces_reopen/measure-1.json",
+          "report_sha256": "d272bb829a02db0f11a3e63066013529691b8de5ddd436188b55874c7ff71869",
+          "pid": 10088
+        },
+        {
+          "iteration": 2,
+          "log": "faces_reopen/measure-2.log",
+          "exit_code": 0,
+          "report": "faces_reopen/measure-2.json",
+          "report_sha256": "68c219c0a1fc53baa20b2ac00404b60c6d2f83641ba36f269324604257f20b97",
+          "pid": 29048
+        }
+      ],
+      "closure": {
+        "opened": 145,
+        "expected": 145,
+        "missing": [],
+        "unexpected": [],
+        "partial": 24,
+        "root_objects": 16
+      },
+      "reopened_scope": "Ouverture App.openDocument sans recalcul ou sauvegarde ; les partiels XLink ne sont pas promus. Métriques sur BRep des dépendances sauvegardées lues séparément."
+    }
+  },
+  "engine_cli": "validate ne peut établir un verdict historique global sans reçu ni mapping gelé des ports, enveloppes et exigences. Les contrôles natifs du moteur sont appelés directement.",
+  "out_of_scope": [
+    "Conformité fournisseur des rayons",
+    "Ancrage et montage des supports",
+    "Accouplement réel et brochage F12/F24A/F25",
+    "Enveloppe d'extraction F31/CAN1 et effet des poses PM08",
+    "Réserve utile F41",
+    "Revue visuelle IA",
+    "Essais matériels"
+  ]
+}

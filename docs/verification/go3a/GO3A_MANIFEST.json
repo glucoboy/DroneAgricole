@@ -1,0 +1,242 @@
+{
+  "schema": "cartographe.go3a.receipt.v1",
+  "test_id": "T-CARTO-GO3A",
+  "date": "2026-11-14",
+  "statut": "GO3A_CONDITIONNEL",
+  "conclusion": "préliminaire",
+  "configuration": "prototype_cartographe sans dock, cible d’instruction H-01",
+  "autorite": [
+    {
+      "path": ".codex-attachments/cd0f0891-9475-4742-85b1-d097c4665e52/eaa8d443-396b-4378-ae98-8e5e9fb1037c/07_GO3A_architecture_cartographe.md",
+      "sha256": "dbf7394657fd571996d381d213c7b61542447216b3e199f975868c87ba31bcec"
+    },
+    {
+      "path": "docs/verification/go2bis_results.json",
+      "sha256": "a1382452bfd37036d39d26ca9def5190c286cb47ca36e05769b9a7311f92ac32"
+    }
+  ],
+  "environnement": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "branche": "codex/go2bis-corrections",
+    "workspace_initial_modifie": true,
+    "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "freecad_mcp": "0.1.22, WinError 10013 avec Python système au test de disponibilité",
+    "kicad": "10.0.6"
+  },
+  "livrables": {
+    "GO3A_CONNECTOR_BOM.csv": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+    "GO3A_DECISIONS.json": "78434f101d2dcfb658c31f188e658e54a66973e293cdcdf6c86548bf6ddac8f0",
+    "GO3A_HANDOFF.md": "501e947b7b7b99ce0432ce6ab84a899afb871e51cb08924e9004ecf0bf6b8dc2",
+    "GO3A_INTERCONNECTION_MATRIX.csv": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696",
+    "GO3A_REQUIREMENTS.yaml": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+    "GO3A_RESEARCH.json": "5bbc6587a9c82d02ed4651a1270bd164360b7e4431d28f75f893e875ba0eeb80",
+    "GO3A_SYSTEM_MODEL.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+    "GO3A_VARIANT_EVIDENCE.json": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3",
+    "GO3A_VARIANTS.md": "cceb6d8636a5eaad7398ee6b3d051abdc54b21401f9452e04a34a8b47bd272a5"
+  },
+  "gel": {
+    "moteur": {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "bcbb98e74bf555c81d6cffdd9abb4f5db0dc232a6b796af6a1a314abafc0b2da"
+    },
+    "reference_sha256": "3fc4260910647d3ab5ccffdb1406847ffb310dfec6e45fb221186274fe8535b9",
+    "empreintes": {
+      "design_requirements.yaml": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+      "system_model.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83"
+    },
+    "premier_gel": {
+      "path": ".runtime/go3a-campagne/gel-final/reference_lock.json",
+      "sha256": "18ce688e841ed2698d6478cdf74efd005962aa048f6173efd00236461173e904"
+    },
+    "second_gel": {
+      "path": ".runtime/go3a-campagne/rejeu/gel-final/reference_lock.json",
+      "sha256": "ac18d2eaac395a0fa1b2ebe8b46cdabee7ca2375312883ebd25615d02318b368"
+    },
+    "resultat": "PASS, empreinte commune et deux fichiers identiques",
+    "recette": "GO3A_HANDOFF.md"
+  },
+  "couverture": {
+    "lignes": 71,
+    "axes": 53,
+    "couples": 56,
+    "sans_axe": 21,
+    "extremites": 142,
+    "maturite_par_ligne": {
+      "RAPPROCHE_DOCUMENTAIRE_A_VALIDER": 29,
+      "ANOMALIE_CAO_ACTIF": 1,
+      "CONDITIONNEL_INTERACTION": 2,
+      "HORS_AXE_A_VALIDER": 11,
+      "CONDITIONNEL_MOBILITE": 1,
+      "HORS_AXE_DOCUMENTE": 8,
+      "CONDITIONNEL_CORDON_PARTAGE": 2,
+      "NON_RESOLUE": 8,
+      "ANOMALIE_CAO_SANS_AXE": 1,
+      "CONDITIONNEL_PEUPLEMENT": 2,
+      "CONDITIONNEL_PORT_ET_PEUPLEMENT": 1,
+      "CONDITIONNEL_ACCES_ET_PROTECTIONS": 1,
+      "CONDITIONNEL_ALLOCATION_PORT": 1,
+      "CONDITIONNEL_RESERVE_SERVICE": 1,
+      "CONDITIONNEL_MAPPING_6S": 1,
+      "HORS_AXE_SOL_NON_RESOLUE": 1
+    },
+    "revisions_confirmees": 0
+  },
+  "controles": [
+    {
+      "id": "L2-CARTO",
+      "code": 0,
+      "statut": "PASS",
+      "commande": "& '.runtime/go2bis-l1-l2/l2-corrected-build/interconnection_core.exe' reconcile --root . --output .runtime/go3a-matrix/reconciliation.json",
+      "refs": [
+        {
+          "path": "docs/electromechanical_v2/L2_RECONCILIATION.json",
+          "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb"
+        },
+        {
+          "path": ".runtime/go2bis-l1-l2/l2-corrected-build/interconnection_core.exe",
+          "sha256": "642012e822b1e9299d73cf2e5e54cd74b423ae5276558746160763f0806f20a8"
+        },
+        {
+          "path": ".runtime/go3a-matrix/reconciliation.json",
+          "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb"
+        }
+      ],
+      "resultat": "Identité octet pour octet, 71 lignes et 56 relations bidirectionnelles."
+    },
+    {
+      "id": "CA01",
+      "code": 0,
+      "statut": "PASS",
+      "commande": "& 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe' sch export netlist --format kicadxml -o .runtime/go3a-netlist/ca01.xml hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+      "refs": [
+        {
+          "path": ".runtime/go3a-netlist/ca01.xml",
+          "sha256": "3d7ce5079c4698fe9a61176bf8c2792d26a814e022b147606e311f4b8946ce40"
+        },
+        {
+          "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+          "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+        }
+      ],
+      "resultat": {
+        "feuilles": 6,
+        "references": 15,
+        "broches": 43,
+        "ecarts": 0,
+        "dnp": [
+          "R530",
+          "R531",
+          "R532",
+          "R533"
+        ],
+        "limite": "Comparaison des broches et nets par identité dans l’export XML. Population documentaire."
+      }
+    },
+    {
+      "id": "XLink-XML",
+      "statut": "PASS",
+      "refs": [
+        {
+          "path": ".runtime/go3a-campagne/actif/experiment.json",
+          "sha256": "1f01c461ef8aa9a85b814a20175dfd54fa545f301da223935d5505c54ff982ba"
+        },
+        "GO3A_SYSTEM_MODEL.json#/cad/native_sha256"
+      ],
+      "resultat": "137 natifs et quatre auxiliaires contrôlés par empreinte. La copie correspond à la source."
+    },
+    {
+      "id": "XLink-FreeCAD",
+      "code": 0,
+      "statut": "PASS",
+      "commande": "Python embarqué FreeCAD, App.openDocument puis complete_dependencies de electromechanical_engine.freecad_worker, contrôle de guard.dependencies et guard.verify_sources. Répertoire actif isolé.",
+      "refs": [
+        {
+          "path": ".runtime/go3a-campagne/opening.json",
+          "sha256": "bcff207caac153161c8017168701e500b823a5386cf25b33db45a9fdd6aba915"
+        },
+        {
+          "path": ".runtime/go3a-campagne/closure.json",
+          "sha256": "7cb148248683c69e655d0274695520d97cf3bac75eccb4dd0568baa71ee42579"
+        },
+        {
+          "path": "electromechanical_engine/freecad_worker.py",
+          "sha256": "768faab6b5ebec8f76a44397a9eae6cd6fe39777224e56529a22d975f181b50a"
+        }
+      ],
+      "resultat": {
+        "scope": "fermeture native XLink en lecture seule après chargements complets",
+        "expected": 137,
+        "observed": 137,
+        "completed_partial": [
+          "pieces/commerce/EQ_Basler.FCStd",
+          "pieces/commerce/EQ_Chassis_X650.FCStd",
+          "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+          "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+          "pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd",
+          "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+          "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+          "pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd",
+          "pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd",
+          "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+          "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd"
+        ],
+        "partial_remaining": [],
+        "missing": [],
+        "unexpected": [],
+        "integrity": {
+          "sources_unchanged": true,
+          "files_checked": 141
+        },
+        "copy_matches_sources": true
+      }
+    },
+    {
+      "id": "EXTRACT",
+      "code": 1,
+      "statut": "TIMEOUT",
+      "commande": "python -B -m electromechanical_engine --timeout 120 extract --project hardware/mecanique/cartographe --entry assemblages/Prototype_Cartographe.FCStd --extra manifest.json --extra nomenclature_prototype.json --extra verification/routes_prototype.json --extra verification/refonte_faisceaux/inventaire.json --output .runtime/go3a-campagne/actif",
+      "refs": [
+        {
+          "path": ".runtime/go3a-campagne/extract.log",
+          "sha256": "adc6f0bc2947675d610c3dd388ea5d2785c51e5900f1e5691664d3a6a258751a"
+        }
+      ],
+      "resultat": "Délai atteint dans l’inventaire. Aucun résultat BRep exhaustif, sauvegarde ou réouverture finalisée."
+    },
+    {
+      "id": "L3 et gabarits",
+      "statut": "PASS_BANCS_CONDITIONNEL_CARTOGRAPHE",
+      "refs": [
+        {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        }
+      ],
+      "resultat": "Trois T0 validés et quinze constats sur quinze. Criblage séparé de douze gabarits sur le témoin historique, 36 084 paires dont 64 BRep, aucune indéterminée dans la portée des gabarits."
+    },
+    {
+      "id": "Revue indépendante",
+      "statut": "PASS_AVEC_CORRECTIONS",
+      "resultat": "Correspondances 71/53/56 et 142 extrémités, natifs de référence et témoin, portée des gabarits TTL, résultats CAN1 et verrous GO3B revus."
+    }
+  ],
+  "non_executes": {
+    "reconstruction_go3b": "Hors mandat GO3A",
+    "fermeture_electrique_native_sur_candidat": "Rattachement indépendant et interfaces critiques à démontrer",
+    "materiel_et_go4": "Références, seuils et protocole matériel à établir",
+    "compilation_logicielle": "Aucun code produit modifié. Rejeux sur binaires GO2bis à empreintes concordantes."
+  },
+  "portee_reproductible": {
+    "gel": "Rejoué depuis les livrables, empreinte déterministe hors horodatage.",
+    "preuves_locales": "Le rejeu natif exact du criblage diagnostic utilise un témoin et une recette sous .runtime. La preuve structurée expose les paramètres."
+  },
+  "etat_initial": {
+    "path": ".runtime/go3a-campagne/git-initial.txt",
+    "sha256": "3d06705fc649beffa84c03daaa4a8421ca398a7fb2bc2f26e998c96454447708"
+  }
+}

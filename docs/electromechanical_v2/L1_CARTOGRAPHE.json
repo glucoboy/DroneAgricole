@@ -1,0 +1,816 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "prototype_cartographe",
+  "questions": [
+    {
+      "issue_id": "F16-AXIS-ACTIVE",
+      "question": {
+        "id": "RQ.F16-AXIS-ACTIVE",
+        "subject_ids": [
+          "F16",
+          "ELEC-F16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle longueur d’axe nominale est enregistrée pour F16 dans la CAO active ?",
+        "hypothesis": "Le registre de route du 22 octobre identifie l’axe F16 actif et conserve la longueur de courbe calculée.",
+        "expected_evidence": "Registre actif gelé par L0, identifiant F16 et longueur de courbe en mm.",
+        "refutation": "Une empreinte différente, un identifiant différent ou une nouvelle mesure de l’axe actif réfute l’attribution.",
+        "dependent_decision": "Fixer l’entrée géométrique nominale du budget de gaine sur l’actif.",
+        "evidence_ids": []
+      },
+      "parameter": "axis_length",
+      "unit": "mm",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "cartographe",
+        "part_number": "F16",
+        "revision": "2026-10-22",
+        "attributes": {
+          "model": "Actif sans dock"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock",
+          "state": "nominal"
+        }
+      },
+      "expected_authority": "PROJECT",
+      "study": {
+        "strategy": "Comparer les longueurs de courbe entre les états CAO explicitement gelés.",
+        "variables": [
+          "configuration CAO",
+          "pose caméra",
+          "position des sorties de gaine"
+        ],
+        "next_observation": "Vérifier l’empreinte du registre actif et relire son axe associé."
+      }
+    },
+    {
+      "issue_id": "F16-CANDIDATE-AXIS",
+      "question": {
+        "id": "RQ.F16-CANDIDATE-AXIS",
+        "subject_ids": [
+          "F16",
+          "ELEC-F16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle longueur d’axe est enregistrée dans la copie candidate R50/R24 de F16 ?",
+        "hypothesis": "La copie R50/R24 a un axe distinct du prototype actif.",
+        "expected_evidence": "Preuve Action 3 avec l’empreinte du donneur et la longueur de la courbe candidate.",
+        "refutation": "Un donneur différent, une source modifiée ou un nouveau recalcul de la copie invalide l’attribution.",
+        "dependent_decision": "Calculer la longueur de gaine à prévoir pour la copie R50/R24.",
+        "evidence_ids": []
+      },
+      "parameter": "axis_length",
+      "unit": "mm",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "cartographe",
+        "part_number": "F16",
+        "revision": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+        "attributes": {
+          "model": "Copie candidate R50/R24"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "Copie Action 3 R50/R24",
+          "state": "nominal"
+        }
+      },
+      "expected_authority": "PROJECT",
+      "study": {
+        "strategy": "Comparer les longueurs pour chacune des copies et poses référencées.",
+        "variables": [
+          "longueur axe",
+          "pose caméra",
+          "réserve de montage"
+        ],
+        "next_observation": "Relire le rapport Action 3 et son donneur gelé."
+      }
+    },
+    {
+      "issue_id": "F16-MOUNTED-BEND-RADIUS",
+      "question": {
+        "id": "RQ.F16-MOUNTED-BEND-RADIUS",
+        "subject_ids": [
+          "F16",
+          "ELEC-F16"
+        ],
+        "status": "OPEN",
+        "question": "Quel rayon minimal de flexion continue est applicable au cordon F16 réellement monté ?",
+        "hypothesis": "Le cordon réel pourrait correspondre au RR-ASMUK-20GRHF du catalogue. Son identité et sa révision restent à établir.",
+        "expected_evidence": "MPN et définition du cordon effectivement monté, fiche applicable à sa révision et conditions de flexion et de température.",
+        "refutation": "Un marquage différent, une autre orientation ou des conditions d’essai incompatibles écartent l’hypothèse.",
+        "dependent_decision": "Établir la limite de courbure applicable à la course caméra.",
+        "evidence_ids": []
+      },
+      "parameter": "continuous_bend_radius",
+      "unit": "mm",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock",
+          "mode": "flexion continue sur suspension caméra"
+        }
+      },
+      "expected_authority": "MANUFACTURER",
+      "study": {
+        "strategy": "Balayer des rayons de route et des poses comme scénarios géométriques conditionnels.",
+        "variables": [
+          "rayon de route",
+          "pose",
+          "température",
+          "cycles"
+        ],
+        "next_observation": "Inventorier le cordon et son lot, puis rapprocher la définition fabricant et la course mesurée."
+      }
+    },
+    {
+      "issue_id": "F16-CANDIDATE-NET-MASS",
+      "question": {
+        "id": "RQ.F16-CANDIDATE-NET-MASS",
+        "subject_ids": [
+          "F16",
+          "ELEC-F16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle est la masse nette du cordon candidat RR-ASMUK-20GRHF complet ?",
+        "hypothesis": "Le fabricant pourrait publier une masse nette de la variante 508 mm. La nomenclature la laisse inconnue.",
+        "expected_evidence": "Masse nette explicitement attribuée au MPN exact, hors emballage, ou pesée du cordon inventorié.",
+        "refutation": "Une valeur d’expédition, un périmètre ambigu ou un autre MPN ne résout pas la question.",
+        "dependent_decision": "Compléter la ligne ELEC-F16 du bilan de masse de la configuration active.",
+        "evidence_ids": []
+      },
+      "parameter": "net_mass",
+      "unit": "g",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "definition": "Candidat de BOM ELEC-F16",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "definition": "masse nette du cordon complet avec les deux fiches et vis, hors emballage"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Étudier la sensibilité du bilan à une masse de cordon libre, sans affecter de masse nominale.",
+        "variables": [
+          "masse nette F16",
+          "marge massique disponible"
+        ],
+        "next_observation": "Obtenir une masse nette du fabricant ou peser le cordon avec ses fiches et vis."
+      }
+    },
+    {
+      "issue_id": "F16-PLAN-A1-LENGTH",
+      "question": {
+        "id": "RQ.F16-PLAN-A1-LENGTH",
+        "subject_ids": [
+          "F16",
+          "ELEC-F16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle cote L nominale le registre donne-t-il pour RR-ASMUK-20GRHF dans le plan A1 ?",
+        "hypothesis": "Le tableau P/N du plan A1 rattache 508 mm au cordon 20 pouces.",
+        "expected_evidence": "Plan A1 page 1, convention de cote L et transcription du registre local identifiant le MPN exact.",
+        "refutation": "Un plan applicable d’une autre révision ou une convention tip-to-tip change le budget de gaine.",
+        "dependent_decision": "Borner la gaine utile théorique de la référence candidate.",
+        "evidence_ids": []
+      },
+      "parameter": "catalogue_nominal_length",
+      "unit": "mm",
+      "criticality": "MEDIUM",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1",
+        "attributes": {
+          "definition": "Plan RR-ASMUK-XXGRHF, planche 1, ECN-180919",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Candidat catalogue 20 pouces",
+          "convention": "L selon A1, depuis épaulement Type A jusqu’au bord du corps Micro-B"
+        }
+      },
+      "expected_authority": "PROJECT",
+      "study": {
+        "strategy": "Propager les tolérances dimensionnelles de la planche et faire varier la convention de mesure.",
+        "variables": [
+          "cote L",
+          "corps des fiches",
+          "convention L"
+        ],
+        "next_observation": "Mesurer la gaine libre du cordon exact avant choix de routage."
+      }
+    },
+    {
+      "issue_id": "F16-LENGTH-BUDGET-A1",
+      "question": {
+        "id": "RQ.F16-LENGTH-BUDGET-A1",
+        "subject_ids": ["F16", "ELEC-F16"],
+        "status": "OPEN",
+        "question": "Quelle marge de longueur donne le budget géométrique du plan A1 sur la copie F16 R50/R24 ?",
+        "hypothesis": "La cote L et les enveloppes terminales du plan A1 bornent la gaine théorique dans la convention du dessin.",
+        "expected_evidence": "Cote et tolérances du plan A1, longueur nominale de l’axe copié et mesure de la gaine sur le cordon identifié.",
+        "refutation": "Un autre référentiel de cote, une autre pose, une réserve de montage ou la mesure d’un cordon reçu changent les entrées.",
+        "dependent_decision": "Décider si la longueur catalogue 20 pouces mérite une étude pour le trajet copié.",
+        "evidence_ids": []
+      },
+      "parameter": "length_difference",
+      "unit": "mm",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1",
+        "attributes": {
+          "definition": "Plan A1 et axe nominal R50/R24 de la copie Action 3",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "Copie Action 3 R50/R24",
+          "state": "nominal",
+          "convention": "L selon A1, corps des fiches déduits, sans réserve de pose"
+        }
+      },
+      "expected_authority": "PROJECT",
+      "study": {
+        "strategy": "Recalculer avec les autres conventions de cote et les réserves de pose explicites.",
+        "variables": ["gaine utile", "longueur d’axe", "réserve de montage"],
+        "next_observation": "Mesurer la gaine du cordon exact et vérifier l’orientation des fiches sur le montage visé."
+      },
+      "derivation": {
+        "operation": "LENGTH_DIFFERENCE",
+        "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+        "assumptions": [
+          "Plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf p. 1, A1 du 3 octobre 2018, SHA-256 f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab. L est entre 508 et 538 mm. Les corps mesurent 40,6 ± 0,2 et 26 ± 0,2 mm.",
+          "Gaine utile selon A1 = L − corps Type A − corps Micro-B, soit de 441 à 471,8 mm. L’entrée disponible est le milieu de cet intervalle, avec sa demi-largeur.",
+          "docs/verification/cartographe_action3_f16.json /geometry/candidate_length_mm. Le calcul utilise l’axe copié comme entrée fixe de CAO, avec zéro dispersion introduite dans ce scénario."
+        ],
+        "inputs": {
+          "available": { "value": 456.4, "unit": "mm", "uncertainty": 15.4 },
+          "required": { "value": 494.607764256343, "unit": "mm", "uncertainty": 0 }
+        }
+      }
+    },
+    {
+      "issue_id": "F16-CAMERA-MASS-BOUND-V135",
+      "question": {
+        "id": "RQ.F16-CAMERA-MASS-BOUND-V135",
+        "subject_ids": ["F16", "SEN-CAMERA"],
+        "status": "OPEN",
+        "question": "Quelle borne de masse stricte la version Basler AW001406 v135 indique-t-elle pour la caméra a2A4096-30ucBAS ?",
+        "hypothesis": "Le tableau de la variante exacte publie une borne supérieure stricte.",
+        "expected_evidence": "Archive fabricant AW001406 v135 et ligne Weight de la variante exacte.",
+        "refutation": "Une autre version, un autre MPN ou une convention différente empêchent l’attribution.",
+        "dependent_decision": "Borner la contribution de la caméra au budget massique dans le référentiel L0.",
+        "evidence_ids": []
+      },
+      "parameter": "camera_mass_strict_upper_bound",
+      "unit": "g",
+      "criticality": "MEDIUM",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 R USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": "AW001406-v135",
+        "attributes": {
+          "definition": "Documentation produit AW001406",
+          "interface": "USB 3.0"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Caméra seule a2A4096-30ucBAS",
+          "convention": "masse caméra strictement inférieure à la valeur"
+        }
+      },
+      "expected_authority": "MANUFACTURER",
+      "study": {
+        "strategy": "Vérifier séparément les masses de la caméra et de l’optique.",
+        "variables": ["masse caméra", "masse des accessoires"],
+        "next_observation": "Peser la caméra inventoriée pour obtenir une masse exacte."
+      }
+    },
+    {
+      "issue_id": "F16-CAMERA-MASS-BOUND-V138",
+      "question": {
+        "id": "RQ.F16-CAMERA-MASS-BOUND-V138",
+        "subject_ids": [
+          "F16",
+          "SEN-CAMERA"
+        ],
+        "status": "OPEN",
+        "question": "Quelle borne supérieure stricte de masse est documentée pour a2A4096-30ucBAS par AW001406 v138 ?",
+        "hypothesis": "La documentation v138 donne une borne de masse pour la variante exacte.",
+        "expected_evidence": "Tableau de spécifications de la référence exacte dans la documentation AW001406 v138.",
+        "refutation": "Une autre version ou une autre référence de caméra exige de refaire l’attribution.",
+        "dependent_decision": "Borner la contribution de la caméra au budget massique du prototype.",
+        "evidence_ids": []
+      },
+      "parameter": "camera_mass_strict_upper_bound",
+      "unit": "g",
+      "criticality": "MEDIUM",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 R USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": "AW001406-v138",
+        "attributes": {
+          "definition": "Documentation produit AW001406",
+          "interface": "USB 3.0"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Caméra seule a2A4096-30ucBAS",
+          "convention": "masse caméra strictement inférieure à la valeur"
+        }
+      },
+      "expected_authority": "MANUFACTURER",
+      "study": {
+        "strategy": "Séparer la borne de masse de la caméra et les masses distinctes de l’optique et des accessoires.",
+        "variables": [
+          "masse de la caméra",
+          "masses des accessoires"
+        ],
+        "next_observation": "Vérifier la révision de la fiche et peser la caméra inventoriée pour obtenir sa masse exacte."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "parameter": "axis_length",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "cartographe",
+        "part_number": "F16",
+        "revision": "2026-10-22",
+        "attributes": {
+          "model": "Actif sans dock"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock",
+          "state": "nominal"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "mm",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.AXIS.ACTIVE",
+        "kind": "SOURCE",
+        "domain": "CAD",
+        "artifact_path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+        "uri": null,
+        "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+        "locator": "/routes/35/longueur_courbe_mm",
+        "revision": "Registre du 22 octobre 2026",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "hypothetical": false,
+        "limits": "Longueur de courbe nominale de la CAO active. Terminaux, gaine utile physique et fatigue restent à vérifier."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/routes/35/longueur_courbe_mm",
+        "checks": {
+          "/date": "2026-10-22",
+          "/routes/35/id": "F16",
+          "/routes/35/fichier": "pieces/commerce/W_F16_Prototype.FCStd"
+        }
+      }
+    },
+    {
+      "parameter": "axis_length",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "cartographe",
+        "part_number": "F16",
+        "revision": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+        "attributes": {
+          "model": "Copie candidate R50/R24"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "Copie Action 3 R50/R24",
+          "state": "nominal"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "mm",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.AXIS.CANDIDATE",
+        "kind": "SOURCE",
+        "domain": "CAD",
+        "artifact_path": "docs/verification/cartographe_action3_f16.json",
+        "uri": null,
+        "sha256": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e",
+        "locator": "/geometry/candidate_length_mm",
+        "revision": "Action 3, rapport v1",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "hypothetical": false,
+        "limits": "Axe nominal de la copie R50/R24. La fermeture CAO active et les mesures physiques ont leurs propres périmètres."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/geometry/candidate_length_mm",
+        "checks": {
+          "/geometry/source_sha256": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+          "/geometry/native_link": "pieces/commerce/W_F16_Prototype.FCStd#Cable002"
+        },
+        "reference_check": {
+          "pointer": "/geometry/native_link",
+          "pattern": "pieces/commerce/W_(F16)_Prototype\\.FCStd#Cable002"
+        }
+      }
+    },
+    {
+      "parameter": "net_mass",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "definition": "Candidat de BOM ELEC-F16",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "definition": "masse nette du cordon complet avec les deux fiches et vis, hors emballage"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "g",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.MASS.BOM",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+        "uri": null,
+        "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0",
+        "locator": "/items/71/masse_unitaire_g",
+        "revision": "BOM du 26 octobre 2026",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "hypothetical": false,
+        "limits": "La nomenclature laisse la masse unitaire inconnue. La construction et le blindage restent insuffisamment décrits pour la calculer."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/items/71/masse_unitaire_g",
+        "checks": {
+          "/items/71/id": "ELEC-F16",
+          "/items/71/reference_fabricant": "USBFireWire RR-ASMUK-20GRHF, Micro-B coudé Up à vis / Type A droit, 508 mm"
+        },
+        "reference_check": {
+          "pointer": "/items/71/reference_fabricant",
+          "pattern": "USBFireWire (RR-ASMUK-20GRHF), Micro-B coudé Up à vis / Type A droit, 508 mm"
+        }
+      }
+    },
+    {
+      "parameter": "catalogue_nominal_length",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1",
+        "attributes": {
+          "definition": "Plan RR-ASMUK-XXGRHF, planche 1, ECN-180919",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Candidat catalogue 20 pouces",
+          "convention": "L selon A1, depuis épaulement Type A jusqu’au bord du corps Micro-B"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "mm",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.A1.LENGTH",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+        "uri": null,
+        "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+        "locator": "/usb/dimensions_plan_mm/longueur_catalogue (plan fabricant A1 p. 1, tableau P/N / LENGTH)",
+        "revision": "A1, ECN-180919, 2018-10-03",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "hypothetical": false,
+        "limits": "Transcription du plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf, p. 1, vérifiée sur son rendu. La cote L nominale a une tolérance de +30/−0 mm. La définition de gaine et la longueur d’un câble reçu restent à confirmer."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/usb/dimensions_plan_mm/longueur_catalogue",
+        "checks": {
+          "/usb/candidate": "USBFireWire RR-ASMUK-20GRHF",
+          "/sources/0/sha256": "f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab"
+        },
+        "reference_check": {
+          "pointer": "/usb/candidate",
+          "pattern": "USBFireWire (RR-ASMUK-20GRHF)"
+        }
+      }
+    },
+    {
+      "parameter": "continuous_bend_radius",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "RR-ASMUK-20GRHF au catalogue",
+          "mode": "flexion continue",
+          "temperature": "−30 à +80 °C, plage de service publiée"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "mm",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.RADIUS.LOCAL",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+        "uri": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+        "sha256": "d236d25d4e1323aeb1744fb5f239c4aecc02c7942b4c59b4ef1ad589df4c7e89",
+        "locator": "Available Part Numbers → RR-ASMUK-20GRHF / Specifications → Continuous Bend Radius",
+        "revision": null,
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Extraction dans la section associant les références du catalogue aux spécifications communes.",
+        "hypothetical": false,
+        "limits": "Le catalogue donne 48 mm en continu et 22 mm en statique. L’identité du cordon monté, les conditions de l’essai de fatigue et la tenue dans la suspension restent à établir."
+      },
+      "extraction": {
+        "format": "TEXT_REGEX",
+        "pattern": "PART#\\s*RR-ASMUK-20GRHF\\s*,[\\s\\S]{0,6000}?Continuous Bend Radius:\\s*([0-9]+(?:\\.[0-9]+)?)\\s*mm",
+        "markers": ["Straight Angle A Male Connector", "Up Angle Micro-B Male Screw-lock High-Flex Connector"],
+        "value_type": "NUMBER"
+      }
+    },
+    {
+      "parameter": "continuous_bend_radius",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "RR-ASMUK-20GRHF au catalogue",
+          "mode": "flexion continue",
+          "temperature": "−30 à +80 °C, plage de service publiée"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "mm",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.RADIUS.CATALOGUE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": null,
+        "uri": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+        "sha256": null,
+        "locator": "Available Part Numbers → RR-ASMUK-20GRHF / Specifications → Continuous Bend Radius",
+        "revision": null,
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture de la page fabricant et extraction bornée dans la section identifiée.",
+        "hypothetical": false,
+        "limits": "La page officielle consultée le 12 novembre 2026 indique 48 mm en continu et 22 mm en statique pour ce catalogue. La révision matérielle et les conditions d’un essai de fatigue applicables au montage restent inconnues. Le contenu en ligne peut évoluer."
+      },
+      "extraction": {
+        "format": "TEXT_REGEX",
+        "pattern": "PART#\\s*RR-ASMUK-20GRHF\\s*,[\\s\\S]{0,6000}?Continuous Bend Radius:\\s*([0-9]+(?:\\.[0-9]+)?)\\s*mm",
+        "markers": [
+          "Straight Angle A Male Connector",
+          "Up Angle Micro-B Male Screw-lock High-Flex Connector"
+        ],
+        "value_type": "NUMBER"
+      }
+    },
+    {
+      "parameter": "net_mass",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null,
+        "attributes": {
+          "definition": "Candidat de BOM ELEC-F16",
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "definition": "masse nette du cordon complet avec les deux fiches et vis, hors emballage"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "g",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F16.MASS.CATALOGUE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": null,
+        "uri": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+        "sha256": null,
+        "locator": "Available Part Numbers → RR-ASMUK-20GRHF / Specifications",
+        "revision": null,
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture de la page fabricant et extraction bornée dans la section identifiée.",
+        "hypothetical": false,
+        "limits": "La page officielle consultée le 12 novembre 2026 n’indiquait aucune masse nette. Le sélecteur exige une valeur de masse explicitement liée à la ligne du MPN exact. Le contenu en ligne peut évoluer."
+      },
+      "extraction": {
+        "format": "TEXT_REGEX",
+        "pattern": "RR-ASMUK-20GRHF\\s*</td>\\s*<td[^>]*>\\s*Net (?:Weight|Mass):\\s*([0-9]+(?:\\.[0-9]+)?)\\s*g\\s*</td>",
+        "markers": [
+          "Straight Angle A Male Connector",
+          "Up Angle Micro-B Male Screw-lock High-Flex Connector"
+        ],
+        "value_type": "NUMBER"
+      }
+    },
+    {
+      "parameter": "camera_mass_strict_upper_bound",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 R USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": "AW001406-v135",
+        "attributes": {
+          "definition": "Documentation produit AW001406",
+          "interface": "USB 3.0"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Caméra seule a2A4096-30ucBAS",
+          "convention": "masse caméra strictement inférieure à la valeur"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "g",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.BASLER.V135.MASS",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "hardware/electronique/cartographe/sources_fabricants/Basler_a2A4096_30ucBAS_documentation_20260929.html",
+        "uri": "https://docs.baslerweb.com/a2a4096-30ucbas#general-specifications",
+        "sha256": "81235447d78658200324637194318e4225355f81122596a60384c6073741e757",
+        "locator": "general-specifications / Weight",
+        "revision": "AW001406 v135, 2026-09-29",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Extraction de la ligne Weight et de son opérateur strict dans le tableau de la variante exacte.",
+        "hypothetical": false,
+        "limits": "Archive L0 v135. Le seuil de 85 g borne strictement la masse indiquée pour cette caméra. La masse unitaire du matériel réel reste à mesurer."
+      },
+      "extraction": {
+        "format": "TEXT_REGEX",
+        "pattern": "<th[^>]*>\\s*a2A4096-30ucBAS\\s*</th>[\\s\\S]{0,6000}?<td[^>]*>\\s*Weight\\s*</td>\\s*<td[^>]*>\\s*(?:&lt;|&#60;)\\s*([0-9]+(?:\\.[0-9]+)?)\\s+g\\s*</td>",
+        "markers": [
+          "Version: 135",
+          "Document number: AW001406"
+        ],
+        "value_type": "NUMBER"
+      }
+    },
+    {
+      "parameter": "camera_mass_strict_upper_bound",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 R USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": "AW001406-v138",
+        "attributes": {
+          "definition": "Documentation produit AW001406",
+          "interface": "USB 3.0"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "Caméra seule a2A4096-30ucBAS",
+          "convention": "masse caméra strictement inférieure à la valeur"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "g",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.BASLER.V138.MASS",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": null,
+        "uri": "https://docs.baslerweb.com/a2a4096-30ucbas#general-specifications",
+        "sha256": null,
+        "locator": "general-specifications / Weight",
+        "revision": "AW001406 v138, 2026-11-12",
+        "collected_at": "2026-11-12T16:12:09Z",
+        "method": "Lecture de la page fabricant et extraction bornée dans la section identifiée.",
+        "hypothetical": false,
+        "limits": "Documentation officielle consultée le 12 novembre 2026, sans copie locale v138. Le seuil de 85 g borne strictement la masse indiquée pour cette caméra. La masse unitaire du matériel réel reste à mesurer."
+      },
+      "extraction": {
+        "format": "TEXT_REGEX",
+        "pattern": "<th[^>]*>\\s*a2A4096-30ucBAS\\s*</th>[\\s\\S]{0,6000}?<td[^>]*>\\s*Weight\\s*</td>\\s*<td[^>]*>\\s*(?:&lt;|&#60;)\\s*([0-9]+(?:\\.[0-9]+)?)\\s+g\\s*</td>",
+        "markers": [
+          "Version: 138",
+          "Document number: AW001406"
+        ],
+        "value_type": "NUMBER"
+      }
+    }
+  ]
+}

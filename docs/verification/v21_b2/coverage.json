@@ -1,0 +1,261 @@
+{
+  "schema": "drone-agricole.v21.b2.coverage.v1",
+  "scope": "prototype_cartographe_actif",
+  "criteria": {
+    "clearance_mm": 0,
+    "contacts": [],
+    "distance_tolerance_mm": 1e-06,
+    "requirements": [
+      "CAB-CARTO-001",
+      "MEC-ARC-001",
+      "MEC-INT-001",
+      "G3A-01",
+      "G3A-08"
+    ],
+    "screening_only": true,
+    "source": "docs/verification/go3a/GO3A_REQUIREMENTS.yaml",
+    "state": "nominal_sauvegarde",
+    "volume_tolerance_mm3": 0
+  },
+  "verdicts": {
+    "validator": "GO_B",
+    "prototype_nominal_xlink_geometry": "NON_CONFORME_GEOMETRIQUEMENT"
+  },
+  "coverage": {
+    "expected": 1609,
+    "status_counts": {
+      "PASS": 1602,
+      "FAIL": 7,
+      "INCONCLUSIVE": 0,
+      "NOT_RUN": 0
+    },
+    "nominal_admission_counts": {
+      "INCONCLUSIVE": 1602,
+      "FAIL": 7
+    },
+    "terminal_pairs": 1609,
+    "conclusive_measurements": 1609,
+    "original_measurements_reused": 267,
+    "all_pairs": 28514,
+    "screened_out": 26905,
+    "aabb_audit": {
+      "expected": 28514,
+      "candidate_pairs": 1609,
+      "exclusions": 26905,
+      "method": "Énumération indépendante des combinaisons et recalcul math.hypot des écarts entre AABB mondiales",
+      "cutoff_mm": 1e-06,
+      "minimum_excluded_margin_mm": 0.009353601173278618,
+      "proof_sha256": "52a39dc6ef0e1af0656bb2c6f39b3405e6e4e5b40d5c6ca17b4cefe1019b9c78"
+    }
+  },
+  "performance": {
+    "lots": 52,
+    "lots_in_error": 19,
+    "mean_seconds_per_pair_in_successful_lots": 1.1380142062499934,
+    "max_seconds_per_pair_in_successful_lots": 165.3536718999967,
+    "mean_seconds_before_first_pair": 36.698229439391675,
+    "sum_successful_batch_seconds": 2745.2241220998694,
+    "max_worker_peak_working_set_bytes": 2366418944
+  },
+  "failure_pairs": [
+    {
+      "id": "6e87855e86a4bcb3f219933d22f52acfa80e444eb2feb06d2dbeb5d41aa07bf2",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 22.56622964394539,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "point initial authentifié",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "a44e534498c191fff3bd59c6f00f84c0444a3c005d9eb9a73249e37f2835d332",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 16.00606354388959,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "point initial authentifié",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "9c1a926f5473839427c0736a3d375227176e2e430226d85471dd70db69a9ec37",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 1.0850694439200599,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "point initial authentifié",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "595cdccbe1dcf9bc9caccc5674862cc0c57fb8e2bb12a9875802afe670595484",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 17.2682862384885,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "lot parallèle",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "bc80fb9b8573b034dc4c39ec824395e4b80fc0c23ef63bfe65b2a218d2c9f637",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 6.570377899808104,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "lot parallèle",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "aaf3e668dcbe8e056eeb25948bda0d7c0a0c027da65cb8cf9ccb528657c3da90",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 1.572718060041036,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "lot parallèle",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    },
+    {
+      "id": "327401a6f449581387a79b855d15c075eeb4e1cefc9a5427589609a5bbafecd7",
+      "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F37_POS/Cable",
+      "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide/ResultatPassagesReprise",
+      "status": "FAIL",
+      "prototype_admission_status": "FAIL",
+      "intersection_mm3": 2.837338912059994e-08,
+      "clearance_mm": 0,
+      "reason": null,
+      "source": "lot parallèle",
+      "failures": [
+        "forbidden_interference"
+      ],
+      "authorized_relation": false
+    }
+  ],
+  "complementary_native_checks": {
+    "non_pair_status_counts": {
+      "PASS": 1,
+      "NOT_RUN": 564,
+      "INCONCLUSIVE": 53
+    },
+    "unavailable_occurrences": [
+      {
+        "id": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/CA01/ReserveTVS",
+        "reason": "Forme partielle ou sans solide fermé."
+      }
+    ]
+  },
+  "original_files_checked": 202,
+  "changed_originals": [],
+  "baseline_validator_and_inputs_sha256": {
+    ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py": "976e71cfa3a143b658adb6cf202dec5af99460270bad1da7de0f42956cc78aeb",
+    ".agents/skills/electromechanical-integration/scripts/workspace_guard.py": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358",
+    "configuration": "24bf0cd8e94f00dd2424933e6f670afca9bf682172729fd8ac0c6a4752ef53f1",
+    "criteria": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad",
+    "electrical": "882cb4e46736568e01f7fc4fb0dc7e02e6f8fdf960b574039f1448348cc05a81",
+    "electromechanical_engine/freecad.py": "df5465b9f1d133a2783c9ba653aa8b9ff15470558a2d751efeebae5e4cb119f0",
+    "electromechanical_engine/freecad_worker.py": "883fdec99d9bc1e6773e008a2cbac1a75a8fb16f73da57ba0292560d5283d8ff",
+    "electromechanical_engine/xlink_native.py": "cdad7d6961388c756649a6102546c2d187557829f3a113c3ef0a37c5fb5f7863",
+    "equipment_register": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+    "freecad_python": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+    "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+    "validator": "b42ad03b0170c05cc2843750c5739a04acd06861bf8cf6f712754076fec5dee4"
+  },
+  "measurement_identity_sha256": "e29b32ee1e7d56d1bcca67853ca4118c63678326bd68dc278b1f008efb58a496",
+  "independent_repeat_count": 14,
+  "independent_agreement_count": 14,
+  "campaigns": {
+    "GO_3A": "NOT_RUN",
+    "GO_3B": "NOT_RUN"
+  },
+  "artifacts": {
+    "candidate_pairs": {
+      "path": "docs/verification/v21_b2/pairs.json",
+      "sha256": "0b3e122d35e07ff743e0bf7e574a3d9cf7a3b7d8376e5d0a50aa4e3ac691f141"
+    },
+    "historical_interferences": {
+      "path": "docs/verification/v21_b2/interferences.json",
+      "sha256": "e413882d0028ef9da2d96ff7f21d2483e51a71c6ebcf612d8709511b92da37b3"
+    },
+    "batches": {
+      "path": "docs/verification/v21_b2/lots.json",
+      "sha256": "0fd29434a11fd9d4e8db1a7f83421c606360a95d9bb138a2314d7d657ddd8a8f"
+    },
+    "inconclusive": {
+      "path": "docs/verification/v21_b2/inconclusive.json",
+      "sha256": "b7cd61298a4a0b5b3ff576d11186728ec25924f23ab42459d89ea3305cf62838"
+    },
+    "regressions": {
+      "path": "docs/verification/v21_b2/regressions.json",
+      "sha256": "c380a51b95c2959735a4e452c9c6d604460181cf8e666e40aacff55c69298f46"
+    },
+    "baseline_audit": {
+      "path": ".runtime/fix-b/.runtime/b2-audit/baseline.json",
+      "sha256": "a34497f735d89326049b2cbee3edcbd8aeb1fdf9591a836f350af36f3f9630f6"
+    },
+    "restart_test": {
+      "path": ".runtime/fix-b/.runtime/b2-execution/restart-test.json",
+      "sha256": "91ca0da74534678222d17295267cdb5d7cb7fb64b40085dc6377bf22c960437a"
+    },
+    "final_checkpoint": {
+      "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/checkpoint.json",
+      "sha256": "10542a143132b2085696da19d80bb9f52886949204138574ae536a22c0c8e953"
+    },
+    "final_campaign": {
+      "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/campaign.json",
+      "sha256": "c4f7a9bd903aeee8b744429d78a0699b75728b71f17384135f3b6fa0ad523364"
+    },
+    "aabb_exclusions": {
+      "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/aabb_exclusions.json",
+      "sha256": "52a39dc6ef0e1af0656bb2c6f39b3405e6e4e5b40d5c6ca17b4cefe1019b9c78"
+    },
+    "t0": {
+      "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/t0_run_manifest.json",
+      "sha256": "d42aed587e5a0ff752a1d76475c495024debbd9e96998856a8e4e17e70611666"
+    },
+    "independent_reopening": {
+      "path": ".runtime/fix-b/.runtime/b2-audit/independent-reopening.json",
+      "sha256": "f21b256ca59e9aeac03da06f8614d483089acd3d3b3c63dbc311970d83e4e571"
+    },
+    "final_provenance": {
+      "path": ".runtime/fix-b/.runtime/b2-audit/final-provenance.json",
+      "sha256": "0811f129a847c04cb829a848e564322fd463fcfbb24877e5f1dc7629bcdcde42"
+    },
+    "assembly_authority": {
+      "path": ".runtime/fix-b/.runtime/b2-audit/assembly.json",
+      "sha256": "466c6df14e599262b835e7b2c19200c6b1408c0092b7659d3f40077cdf6e0efa"
+    }
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "cache": {
+    "hit": false,
+    "key": "2fd440515aa54702774e10a7345af556cbd1732937c813e1d29d06eac70d4535"
+  },
+  "configuration_id": "prototype_cartographe",
+  "conflicts": [],
+  "derivation": {
+    "assumptions": [
+      "Plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf p. 1, A1 du 3 octobre 2018, SHA-256 f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab. L est entre 508 et 538 mm. Les corps mesurent 40,6 ± 0,2 et 26 ± 0,2 mm.",
+      "Gaine utile selon A1 = L − corps Type A − corps Micro-B, soit de 441 à 471,8 mm. L’entrée disponible est le milieu de cet intervalle, avec sa demi-largeur.",
+      "docs/verification/cartographe_action3_f16.json /geometry/candidate_length_mm. Le calcul utilise l’axe copié comme entrée fixe de CAO, avec zéro dispersion introduite dans ce scénario."
+    ],
+    "bounds": {
+      "lower": -53.60776425634299,
+      "upper": -22.807764256343035
+    },
+    "equation": "L_disponible - L_requise",
+    "inputs": {
+      "available": {
+        "collected_at": "2026-11-12T16:23:55Z",
+        "evidence_ids": [],
+        "input_value_refs": [],
+        "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+        "method": "Entrée conditionnelle déclarée dans la demande",
+        "precision": null,
+        "revision": null,
+        "status": "ASSUMED",
+        "uncertainty": 15.4,
+        "unit": "mm",
+        "value": 456.4
+      },
+      "required": {
+        "collected_at": "2026-11-12T16:23:55Z",
+        "evidence_ids": [],
+        "input_value_refs": [],
+        "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+        "method": "Entrée conditionnelle déclarée dans la demande",
+        "precision": null,
+        "revision": null,
+        "status": "ASSUMED",
+        "uncertainty": 0,
+        "unit": "mm",
+        "value": 494.607764256343
+      }
+    },
+    "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+    "operation": "LENGTH_DIFFERENCE"
+  },
+  "diagnostics": [
+    {
+      "code": "LOCAL_CANDIDATE",
+      "message": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "LOCAL_CANDIDATE",
+      "message": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "LOCAL_CANDIDATE",
+      "message": "hardware/mecanique/cartographe/verification/definition_bom_electrique.json",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "LOCAL_SEARCH_BUDGET",
+      "message": "Inventaire local borné",
+      "source_id": "DISCOVERY"
+    }
+  ],
+  "evidence_details": [],
+  "issue_id": "F16-LENGTH-BUDGET-A1",
+  "local_inputs": [
+    {
+      "path": "docs/electromechanical_v2/L1_CARTOGRAPHE.json",
+      "sha256": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b"
+    }
+  ],
+  "network": "DISABLED",
+  "outcome": "CONDITIONAL",
+  "question": {
+    "dependent_decision": "Décider si la longueur catalogue 20 pouces mérite une étude pour le trajet copié.",
+    "evidence_ids": [],
+    "expected_evidence": "Cote et tolérances du plan A1, longueur nominale de l’axe copié et mesure de la gaine sur le cordon identifié.",
+    "hypothesis": "La cote L et les enveloppes terminales du plan A1 bornent la gaine théorique dans la convention du dessin.",
+    "id": "RQ.F16-LENGTH-BUDGET-A1",
+    "question": "Quelle marge de longueur donne le budget géométrique du plan A1 sur la copie F16 R50/R24 ?",
+    "refutation": "Un autre référentiel de cote, une autre pose, une réserve de montage ou la mesure d’un cordon reçu changent les entrées.",
+    "status": "OPEN",
+    "subject_ids": [
+      "F16",
+      "ELEC-F16"
+    ]
+  },
+  "request": {
+    "applicability": {
+      "conditions": {
+        "configuration": "Copie Action 3 R50/R24",
+        "convention": "L selon A1, corps des fiches déduits, sans réserve de pose",
+        "state": "nominal"
+      },
+      "domain": "CAD"
+    },
+    "criticality": "HIGH",
+    "derivation": {
+      "assumptions": [
+        "Plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf p. 1, A1 du 3 octobre 2018, SHA-256 f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab. L est entre 508 et 538 mm. Les corps mesurent 40,6 ± 0,2 et 26 ± 0,2 mm.",
+        "Gaine utile selon A1 = L − corps Type A − corps Micro-B, soit de 441 à 471,8 mm. L’entrée disponible est le milieu de cet intervalle, avec sa demi-largeur.",
+        "docs/verification/cartographe_action3_f16.json /geometry/candidate_length_mm. Le calcul utilise l’axe copié comme entrée fixe de CAO, avec zéro dispersion introduite dans ce scénario."
+      ],
+      "inputs": {
+        "available": {
+          "uncertainty": 15.4,
+          "unit": "mm",
+          "value": 456.4
+        },
+        "required": {
+          "uncertainty": 0,
+          "unit": "mm",
+          "value": 494.607764256343
+        }
+      },
+      "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+      "operation": "LENGTH_DIFFERENCE"
+    },
+    "expected_authority": "PROJECT",
+    "issue_id": "F16-LENGTH-BUDGET-A1",
+    "parameter": "length_difference",
+    "question": {
+      "dependent_decision": "Décider si la longueur catalogue 20 pouces mérite une étude pour le trajet copié.",
+      "evidence_ids": [],
+      "expected_evidence": "Cote et tolérances du plan A1, longueur nominale de l’axe copié et mesure de la gaine sur le cordon identifié.",
+      "hypothesis": "La cote L et les enveloppes terminales du plan A1 bornent la gaine théorique dans la convention du dessin.",
+      "id": "RQ.F16-LENGTH-BUDGET-A1",
+      "question": "Quelle marge de longueur donne le budget géométrique du plan A1 sur la copie F16 R50/R24 ?",
+      "refutation": "Un autre référentiel de cote, une autre pose, une réserve de montage ou la mesure d’un cordon reçu changent les entrées.",
+      "status": "OPEN",
+      "subject_ids": [
+        "F16",
+        "ELEC-F16"
+      ]
+    },
+    "reference": {
+      "attributes": {
+        "connector_a": "USB-A mâle droit",
+        "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2",
+        "definition": "Plan A1 et axe nominal R50/R24 de la copie Action 3"
+      },
+      "family": "RR-ASMUK-XXGRHF",
+      "manufacturer": "USBFireWire",
+      "part_number": "RR-ASMUK-20GRHF",
+      "revision": "A1"
+    },
+    "study": {
+      "next_observation": "Mesurer la gaine du cordon exact et vérifier l’orientation des fiches sur le montage visé.",
+      "strategy": "Recalculer avec les autres conventions de cote et les réserves de pose explicites.",
+      "variables": [
+        "gaine utile",
+        "longueur d’axe",
+        "réserve de montage"
+      ]
+    },
+    "unit": "mm"
+  },
+  "schema_version": "1.0.0",
+  "technical_evidence": [],
+  "unknown_register": [
+    {
+      "issue_id": "F16-LENGTH-BUDGET-A1",
+      "question_id": "RQ.F16-LENGTH-BUDGET-A1",
+      "reason": "Résultat de calcul conditionné par les entrées supposées",
+      "study": {
+        "next_observation": "Mesurer la gaine du cordon exact et vérifier l’orientation des fiches sur le montage visé.",
+        "strategy": "Recalculer avec les autres conventions de cote et les réserves de pose explicites.",
+        "variables": [
+          "gaine utile",
+          "longueur d’axe",
+          "réserve de montage"
+        ]
+      }
+    }
+  ],
+  "value": {
+    "collected_at": "2026-11-12T16:23:55Z",
+    "evidence_ids": [],
+    "input_value_refs": [
+      "/derivation/inputs/available",
+      "/derivation/inputs/required"
+    ],
+    "limits": "Budget linéaire selon le plan A1 et l’axe nominal copié. Les bornes couvrent les cotes du plan. Course, montage et réserve physique restent à vérifier.",
+    "method": "L_disponible - L_requise ; propagation des bornes extrêmes des entrées",
+    "precision": null,
+    "revision": "A1",
+    "status": "CALCULATED",
+    "uncertainty": 15.399999999999977,
+    "unit": "mm",
+    "value": -38.20776425634301
+  }
+}

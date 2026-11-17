@@ -1,0 +1,932 @@
+{
+  "schema": "drone-agricole.v21.fix-c.qualification.v1",
+  "test_id": "T-CARTO-V21-FIX-C",
+  "date": "2026-11-17",
+  "platform": {
+    "os": "Windows",
+    "arch": "amd64",
+    "qt": "6.11.2",
+    "gcc": "16.2",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7"
+  },
+  "verdict": "GO_CONDITIONNEL_V21_CORRECTIF",
+  "historic_verdict": "V21_EXPLORATION_NO_GO",
+  "status_semantics": "Le statut du test mesure la concordance avec son oracle. Le statut du moteur peut être un refus attendu.",
+  "admission": {
+    "status": "PASS",
+    "mission_a": {
+      "verdict": "GO_A",
+      "revision": "d5706a0fc4b516eb767cc671ad90c0472d4fcd7d",
+      "report": {
+        "path": ".runtime/fix-a/docs/verification/V21_FIX_A_REPORT.md",
+        "sha256": "99e872027af215c90e8253d7feb72a2bcf1a6d8c564eb41b9a606a4f569c16c1"
+      },
+      "h01_release": {
+        "path": ".runtime/fix-a/convergence_manager/fixtures/h01_releases/manifest.json",
+        "sha256": "00e91cb582195bfbb792134d895d42d9361bc18c39312feadd91c4765b538495"
+      }
+    },
+    "mission_b": {
+      "initial_verdict": "NO_GO_B",
+      "coverage_verdict": "GO_B",
+      "revision": "b17a9151b9a04d8e5fe487165e7839c364a14fc4",
+      "initial": {
+        "path": ".runtime/fix-b/docs/verification/V21_FIX_B_REPORT.md",
+        "sha256": "4fb0491e1b93d5e793ed0180b05afc0047c8b746d8850d8dad904986510e200e"
+      },
+      "closure": {
+        "path": "docs/verification/v21_b2/coverage.json",
+        "sha256": "dbadbac0d99efd37dd800c224060ec1c29440e1153cd16fae50dc8424c3275fa"
+      }
+    },
+    "mission_c": {
+      "code_revision": "71f72187e21df59b5d5a3db33ef10a958245bf5f",
+      "l5": {
+        "path": ".runtime/fix-c/.runtime/build-l5-c2/convergence_core.exe",
+        "sha256": "1998df3fde976df034d21f94b1debe043010a44ae01f5422af1650e2f5c74b75"
+      },
+      "sources": [
+        {
+          "path": ".runtime/fix-c/convergence_manager/src/Integration.cpp",
+          "sha256": "6a12cf42cac953f571dccbe737a62f26467cee8acfc18842a13c902a6f29262f"
+        },
+        {
+          "path": ".runtime/fix-c/convergence_manager/native/xlink_relocation.py",
+          "sha256": "ce159dca14dcd8e82ef954e3e03ff70fcdfccabb0509cddb9de49822f8038b16"
+        },
+        {
+          "path": ".runtime/fix-c/convergence_manager/tests/test_xlink_relocation.py",
+          "sha256": "814dad0388fa4aefb63703e49fc60ff768f1df03830c0ae1068390882a90e57c"
+        }
+      ]
+    },
+    "plan_before_candidates": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/c0-matrix.json",
+      "sha256": "fd6a7dde644f985b45f50ced1d67181b8c170acf0c4acd6c4b9e499c34ff0048"
+    },
+    "frozen_history": {
+      "historical_receipts": {
+        "checked": 98,
+        "mismatches": []
+      },
+      "frozen_transverse": {
+        "checked": 27,
+        "mismatches": []
+      },
+      "q1_plans": {
+        "checked": 5,
+        "mismatches": []
+      },
+      "q2_inputs": {
+        "checked": 13,
+        "mismatches": []
+      },
+      "q2_fixtures": {
+        "checked": 12,
+        "mismatches": []
+      },
+      "q3_frozen_plan": {
+        "checked": 91,
+        "mismatches": []
+      },
+      "q4_inputs": {
+        "checked": 54,
+        "mismatches": []
+      },
+      "q5_inputs": {
+        "checked": 11,
+        "mismatches": []
+      },
+      "l0_native_closure": {
+        "REFERENCE_ACTIVE": {
+          "checked": 137,
+          "mismatches": []
+        },
+        "COPIE_CANDIDATE_LOCALE": {
+          "checked": 138,
+          "mismatches": []
+        }
+      }
+    },
+    "historical_result": {
+      "path": "docs/verification/v21_qualification_results.json",
+      "sha256": "ecb958c3696d8bf70ffa2920ab45ab2f42d1ffcb7e5ba1f223b76e89ad95dc4f"
+    },
+    "historical_freeze": {
+      "path": ".runtime/v21-qualification/freeze.json",
+      "sha256": "99ed38c55b3b5b8e1e5c2a6b919c436bee046c295bcee34679bc6a2635f37b2b"
+    },
+    "historic_receipt_check": {
+      "argv": [
+        "python",
+        "-B",
+        ".runtime/v21-qualification/verify-delivery.py"
+      ],
+      "exit_code": 0,
+      "count": 98
+    },
+    "b2_baseline": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/c0-b2/baseline.json",
+      "sha256": "3b1f03335f71bfb18498efb2228653b134a885a1ef793219cecc222b19bf0ea1"
+    },
+    "b2_artifact_hashes": {
+      "candidate_pairs": {
+        "path": "docs/verification/v21_b2/pairs.json",
+        "sha256": "0b3e122d35e07ff743e0bf7e574a3d9cf7a3b7d8376e5d0a50aa4e3ac691f141"
+      },
+      "historical_interferences": {
+        "path": "docs/verification/v21_b2/interferences.json",
+        "sha256": "e413882d0028ef9da2d96ff7f21d2483e51a71c6ebcf612d8709511b92da37b3"
+      },
+      "batches": {
+        "path": "docs/verification/v21_b2/lots.json",
+        "sha256": "0fd29434a11fd9d4e8db1a7f83421c606360a95d9bb138a2314d7d657ddd8a8f"
+      },
+      "inconclusive": {
+        "path": "docs/verification/v21_b2/inconclusive.json",
+        "sha256": "b7cd61298a4a0b5b3ff576d11186728ec25924f23ab42459d89ea3305cf62838"
+      },
+      "regressions": {
+        "path": "docs/verification/v21_b2/regressions.json",
+        "sha256": "c380a51b95c2959735a4e452c9c6d604460181cf8e666e40aacff55c69298f46"
+      },
+      "baseline_audit": {
+        "path": ".runtime/fix-b/.runtime/b2-audit/baseline.json",
+        "sha256": "a34497f735d89326049b2cbee3edcbd8aeb1fdf9591a836f350af36f3f9630f6"
+      },
+      "restart_test": {
+        "path": ".runtime/fix-b/.runtime/b2-execution/restart-test.json",
+        "sha256": "91ca0da74534678222d17295267cdb5d7cb7fb64b40085dc6377bf22c960437a"
+      },
+      "final_checkpoint": {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/checkpoint.json",
+        "sha256": "10542a143132b2085696da19d80bb9f52886949204138574ae536a22c0c8e953"
+      },
+      "final_campaign": {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/campaign.json",
+        "sha256": "c4f7a9bd903aeee8b744429d78a0699b75728b71f17384135f3b6fa0ad523364"
+      },
+      "aabb_exclusions": {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/aabb_exclusions.json",
+        "sha256": "52a39dc6ef0e1af0656bb2c6f39b3405e6e4e5b40d5c6ca17b4cefe1019b9c78"
+      },
+      "t0": {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/t0_run_manifest.json",
+        "sha256": "d42aed587e5a0ff752a1d76475c495024debbd9e96998856a8e4e17e70611666"
+      },
+      "independent_reopening": {
+        "path": ".runtime/fix-b/.runtime/b2-audit/independent-reopening.json",
+        "sha256": "f21b256ca59e9aeac03da06f8614d483089acd3d3b3c63dbc311970d83e4e571"
+      },
+      "final_provenance": {
+        "path": ".runtime/fix-b/.runtime/b2-audit/final-provenance.json",
+        "sha256": "0811f129a847c04cb829a848e564322fd463fcfbb24877e5f1dc7629bcdcde42"
+      },
+      "assembly_authority": {
+        "path": ".runtime/fix-b/.runtime/b2-audit/assembly.json",
+        "sha256": "466c6df14e599262b835e7b2c19200c6b1408c0092b7659d3f40077cdf6e0efa"
+      }
+    },
+    "sealed_tools": {
+      "L4": {
+        "path": ".runtime/fix-b/.runtime/fix-b-l4/validation_core.exe",
+        "sha256": "b42ad03b0170c05cc2843750c5739a04acd06861bf8cf6f712754076fec5dee4"
+      },
+      "L2": {
+        "path": ".runtime/fix-b/.runtime/fix-b-l4/interconnection/interconnection_core.exe",
+        "sha256": "74f9f3a794400ce3b8fe73f85b33205c68d94db5a55bcb962198ea219a1e2b44"
+      },
+      "L5": {
+        "path": ".runtime/fix-b/.runtime/build-l5-b/convergence_core.exe",
+        "sha256": "15f9e398bb025d4a07914b09c6dd56376c4c0f1efc187be5e4124fb2ac209ace"
+      },
+      "T0": {
+        "path": ".runtime/fix-a/.runtime/build-t0/cartographe-evidence.exe",
+        "sha256": "b89b143bed8fb0aad0dc89de33639827b60a83d8e13ca3556b0a027260259632"
+      }
+    },
+    "originals_checked": 202
+  },
+  "q1": {
+    "status": "PASS",
+    "cases": {
+      "Q1-01": {
+        "before": "FAIL avant verdict",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "NO_GO_MOTIVE",
+        "report_sha256": "3ee25bd3f02f2ac55facdcd0e770bd9d35ead6825e6ecfd0943ad7b129450344"
+      },
+      "Q1-02": {
+        "before": "FAIL avant verdict",
+        "after": "PASS",
+        "code": 0,
+        "verdict": "EXPLORATION_ALLOWED",
+        "report_sha256": "6297fa06472818d83070f0c26c875675c09eb29c584f6c53af5eb05a95f83108"
+      },
+      "Q1-03": {
+        "before": "FAIL avant verdict",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "FINAL_NO_GO",
+        "report_sha256": "faeb3095ae7ec41f555335db5013b50be4f4b0c7fd807575cef74007fe4d4741"
+      },
+      "Q1-04": {
+        "before": "PASS garde isolée, NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "EXPLORATION_BLOCKED",
+        "report_sha256": "25910cd35dc79c20f22ae701e59c4706b131a7490827111cc3d81d87ff35af8b"
+      },
+      "Q1-05": {
+        "before": "PASS garde isolée, NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "EXPLORATION_BLOCKED",
+        "report_sha256": "d26239f7fb808da7e140e4ddb6896a9ac88524aab99b4613c0fe596cd65ba812"
+      },
+      "Q1-06": {
+        "before": "PASS garde isolée, NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "EXPLORATION_BLOCKED",
+        "report_sha256": "f392f50275dcfe37cfea38922fe6b10e364ddd2c9922938d2654da4254ce44fc"
+      },
+      "Q1-07": {
+        "before": "PASS garde isolée, NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "EXPLORATION_BLOCKED",
+        "report_sha256": "72fce4c579d590c9c4b435fbc2003e4f1d750592ce60e3aeedd4059161e2ba51"
+      },
+      "Q1-08": {
+        "before": "FAIL garde isolée, NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "EXPLORATION_BLOCKED",
+        "report_sha256": "ab244641e82ac86712e9fcb7a21f4d141ea7c721809f031a7c2bec9266b9d688"
+      },
+      "Q1-09": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 1,
+        "verdict": null,
+        "report_sha256": null
+      },
+      "Q1-10a": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 4,
+        "verdict": "EXPLORATION_ALLOWED",
+        "report_sha256": "321774ee95cba4cce1730ff9ef3156796f66d774ba0d801eddac36704265677e"
+      },
+      "Q1-10b": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 0,
+        "verdict": "EXPLORATION_ALLOWED",
+        "report_sha256": "6297fa06472818d83070f0c26c875675c09eb29c584f6c53af5eb05a95f83108"
+      },
+      "Q1-10c": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 0,
+        "verdict": "EXPLORATION_ALLOWED",
+        "report_sha256": "6297fa06472818d83070f0c26c875675c09eb29c584f6c53af5eb05a95f83108"
+      },
+      "Q1-worker-altered": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 1,
+        "verdict": null,
+        "report_sha256": null
+      },
+      "Q1-v2": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 2,
+        "verdict": "NO_GO_MOTIVE",
+        "report_sha256": "287a01c5b19997924cd9396dd59ddf8e609b4dc4727b48738770f741685f6aae"
+      },
+      "Q1-input-altered": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 1,
+        "verdict": null,
+        "report_sha256": null
+      },
+      "Q1-manifest-altered": {
+        "before": "NOT_RUN de bout en bout",
+        "after": "PASS",
+        "code": 1,
+        "verdict": null,
+        "report_sha256": null
+      }
+    },
+    "receipt": {
+      "path": ".runtime/fix-c/.runtime/q1-final/frozen-replay/evidence.json",
+      "sha256": "ce512a9b2ec5641c3c17588e81ecfebe097e5a9efd363213ee61747faedbc5a1"
+    },
+    "replay": {
+      "path": ".runtime/fix-c/.runtime/q1-final/frozen-replay/replay_c1.py",
+      "sha256": "8b737dd61989b7a9133b8d716d0aadaf27e9db521e9d3b16d541762a72421a4d"
+    },
+    "comparison_with_b": {
+      "path": ".runtime/fix-c/.runtime/q1-final/frozen-replay/receipt-comparison.json",
+      "sha256": "33c432bf84abaf40d5adbdf446da58a797dbe46555451e638653eb55ed545c90"
+    }
+  },
+  "q2": {
+    "status": "PASS",
+    "cases": {
+      "nominal": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "PASS",
+        "after_l2": "PASS",
+        "exit_code": 0,
+        "report": "nominal.json",
+        "sha256": "dbdc57b5d75de5c8c9c54f752bb643ca9b51a0dd436c48abf592eb6dca7f404c"
+      },
+      "f12-bad-port": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "FAIL",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "f12-bad-port.json",
+        "sha256": "522c59bcdc481c4cb73c9e2c6dcf6f125007d35b73117ad4583789652c54daca"
+      },
+      "swapped-conductors": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "FAIL",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "swapped-conductors.json",
+        "sha256": "9ad2c78c44c92138f5af7b96758d52fc5ddb4a2f3b850093d210e110c9c2f422"
+      },
+      "bad-key": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "FAIL",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "bad-key.json",
+        "sha256": "269e055e8636311b874aea25d96081d58d0650a22f30b8efd20b957a24583ff3"
+      },
+      "unmatched-exit": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "FAIL",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "unmatched-exit.json",
+        "sha256": "969b34767dc85b4ae5b80ab44c820f5646bfaaa93c4a8d530aa130b3542420eb"
+      },
+      "matched-fictional-exit": {
+        "before_test": "FAIL",
+        "after_test": "PASS",
+        "before_l2": "PASS",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "matched-fictional-exit.json",
+        "sha256": "0f089e37d2a33f148f73b24ead50b0beea431995ae88068b577181e3f6083609"
+      },
+      "blocked-withdrawal": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "FAIL",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "blocked-withdrawal.json",
+        "sha256": "ab77cb59be9a97c08a9a75dec3c2076702ed8cfb708fa1c1d2a5d0897ddb73e0"
+      },
+      "unverified-mpn": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "INCONCLUSIVE",
+        "after_l2": "INCONCLUSIVE",
+        "exit_code": 3,
+        "report": "unverified-mpn.json",
+        "sha256": "476e4d144bdfd75c812c322c6d7cc045702917d463d20a61fe2bb451e3ef2152"
+      },
+      "hardware-revision-conflict": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "INCONCLUSIVE",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "hardware-revision-conflict.json",
+        "sha256": "6f4f4ca91a0c11546f380c530e27136ade853962cdc2e13fe4281f115d5c000b"
+      },
+      "missing-contact": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "INCONCLUSIVE",
+        "after_l2": "FAIL",
+        "exit_code": 2,
+        "report": "missing-contact.json",
+        "sha256": "6eb0d7e22c54946fc6cf92c016da087e2314036b45a8040dbe4670f95ba0b3f1"
+      },
+      "approximate-model": {
+        "before_test": "PASS",
+        "after_test": "PASS",
+        "before_l2": "INCONCLUSIVE",
+        "after_l2": "INCONCLUSIVE",
+        "exit_code": 3,
+        "report": "approximate-model.json",
+        "sha256": "b45f865c68f21e1d01877ed2ae1644018376aee1c1e2fb6bdec715202ce26833"
+      },
+      "cad-as-supplier-proof": {
+        "before_test": "FAIL",
+        "after_test": "PASS",
+        "before_l2": "INCONCLUSIVE",
+        "after_l2": "INCONCLUSIVE",
+        "exit_code": 3,
+        "report": "cad-as-supplier-proof.json",
+        "sha256": "549966aa7bad6fc2fd687867131134b30f45bb101ca11d7140bc09a552a03b19"
+      }
+    },
+    "receipt": {
+      "path": ".runtime/fix-c/.runtime/q2-final/evidence.json",
+      "sha256": "0430630741f0a983fd9d6ea74fd5682e071bf5c01271e8ebb9245b3cde165bc8"
+    },
+    "native": {
+      "nominal": {
+        "test_status": "PASS",
+        "process_code": 0,
+        "measurements": {
+          "tolerances": {
+            "position_mm": 1e-06,
+            "volume_mm3": 1e-06,
+            "pose_matrix_components": 1e-08
+          },
+          "pids": {
+            "build": 14564,
+            "reopen": 30744
+          },
+          "fcstd_sha256": "13d423af26c160a4f7096d43056a140304780f3875f28d7601526b8755aa31c8",
+          "interfaces": [
+            {
+              "end": "a",
+              "port": "port-a",
+              "exit_mm": [
+                14.0,
+                0.0,
+                8.624468950438427e-18
+              ],
+              "contact_pair_count": 4,
+              "max_contact_gap_mm": 0.0,
+              "pull_status": "PASS",
+              "extraction_status": "PASS"
+            },
+            {
+              "end": "b",
+              "port": "port-b",
+              "exit_mm": [
+                86.0,
+                0.0,
+                8.624468950437244e-18
+              ],
+              "contact_pair_count": 4,
+              "max_contact_gap_mm": 0.0,
+              "pull_status": "PASS",
+              "extraction_status": "PASS"
+            }
+          ],
+          "conductors": 4,
+          "card_count": 2,
+          "receptacle_count": 2,
+          "plug_count": 2,
+          "contact_pairs": 8,
+          "obstructed_retraction": "FAIL",
+          "obstruction_volume_mm3": 0.9999999999999998,
+          "generic_terminal": "FAIL",
+          "generic_terminal_endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "provenance_same_native": true,
+          "oracle_match": true,
+          "withdrawal_same_bounds_missing_volume": {
+            "status": "FAIL",
+            "bounds_cover_required": true,
+            "missing_volume_mm3": 0.9999999999999998
+          }
+        },
+        "receipt_sha256": "b16293b853905d93b0e6d79ac866711ec30d7a5404432a6b4a19a15808816239"
+      },
+      "matched-fictional-exit": {
+        "test_status": "PASS",
+        "process_code": 1,
+        "reopened_in_freecad": true,
+        "native_receipt_published": false,
+        "reopen_log_sha256": "d5efc22d9a1f5985eab59ad9cb8efa2aa7d0b169a7c0b8f222b69fb59b2467fd"
+      }
+    },
+    "historical_oracle": {
+      "path": ".runtime/v21-qualification/q2/replay-02/oracles.json",
+      "sha256": "d209c8e11e3f428571f689e4b385d11a881f67c57fc3e42307a6aff62b1f6d80"
+    }
+  },
+  "q3": {
+    "status": "PASS",
+    "cases": {
+      "Q3-01": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Sélection par occurrence et réouverture des instances liées."
+      },
+      "Q3-02": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Dépendance déplacée à racine identique, observations antérieures invalidées. Banc repris après interruption."
+      },
+      "Q3-03": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "137 documents et 2 772 occurrences sur le même gel. 71 lignes, 53 axes et 56 associations. Contacts du montage ouverts."
+      },
+      "Q3-04": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Couverture B.2 authentifiée, 14/14 remesures et deux paires reprises depuis l'état B partiel."
+      },
+      "Q3-05": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "X650 OEM maintenu INCONCLUSIVE. Aucun gain de maturité physique."
+      },
+      "Q3-06": {
+        "before": "FAIL",
+        "after": "PASS",
+        "finding": "Cache à 0 mm³ et 5 mm écarté. FAIL remesuré à 7,652891819924148 mm³."
+      }
+    },
+    "receipt": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q3-second/summary.json",
+      "sha256": "38a8037b40ac0d3b02bfee787ddae75ee4d753c74b1e25aee6756a7074a97d45"
+    },
+    "first_cycle": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q3-summary.json",
+      "sha256": "ac7e9f322e0ca0ceafd97fd041ff4da490ea087b9b574de6d36e879ac94bfeb4"
+    },
+    "reopened": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q3-b2-second/independent-reopening.json",
+      "sha256": "52f147f9c0f8dc1c00e6dd9af0fe0beff08a6bde8dafabca504cc23353ed2156"
+    },
+    "reopened_agreements": 14,
+    "prototype_nominal": {
+      "same_frozen_closure": true,
+      "native_documents": 137,
+      "total_pairs": 28514,
+      "aabb_exclusions": 26905,
+      "candidates": 1609,
+      "measured": 1609,
+      "collision": 7,
+      "unmeasurable_occ": 0,
+      "not_run_pairs": 0,
+      "standalone_checks_not_run": 564,
+      "screening_clear_admission_inconclusive": 1602,
+      "per_pair": {
+        "path": "docs/verification/v21_b2/pairs.json",
+        "sha256": "0b3e122d35e07ff743e0bf7e574a3d9cf7a3b7d8376e5d0a50aa4e3ac691f141"
+      }
+    },
+    "protocol": "Authentification du lot B.2, 14 nouvelles mesures dans des processus FreeCAD indépendants et deux reprises ciblées. La campagne C ne refait pas les 1 609 mesures."
+  },
+  "q4": {
+    "status": "PASS sur le banc synthétique lié",
+    "cases": {
+      "service_failure": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Deux échecs locaux du service D1 et changement de famille."
+      },
+      "fusion": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Affectations incompatibles refusées, fusion en échec annulée, puis 14 constats L4 vérifiés."
+      },
+      "resume": {
+        "before": "PASS",
+        "after": "PASS",
+        "finding": "Un détail avant pause, six détails et deux fusions au terminal. Résultat continu et reprise concordants."
+      },
+      "change_in_architecture": {
+        "before": "FAIL",
+        "after": "PASS sur banc XLink C",
+        "finding": "Équipement B +Y 12 mm, repères, gaine et volumes matérialisés. Les affectations D1 de l'ancienne CLI restent conditionnelles."
+      },
+      "integrated_execution": {
+        "before": "FAIL",
+        "after": "PASS via integrate",
+        "finding": "Préflight → L3 → copie FreeCAD → réouverture L2 et L4/T0. L'appel historique run --plan reste inconnu."
+      },
+      "unsupported_connector_action": {
+        "before": "NOT_RUN historique",
+        "after": "PASS",
+        "finding": "UNSUPPORTED_ACTION, zéro budget et aucun natif construit."
+      },
+      "weakened_l4_criteria": {
+        "before": "NOT_RUN historique",
+        "after": "PASS",
+        "finding": "Abaissement du rayon minimal refusé avant construction, malgré le nouveau SHA de la configuration. Code 2 et T0 valide."
+      }
+    },
+    "historic_l5_replay": {
+      "path": ".runtime/fix-c/.runtime/q4-service-final/q4-results.json",
+      "sha256": "060a351f2ef847ea1b3b1507d0d87fe4d7a7e9fc079c5c5ec91dd80d09b66ae3"
+    },
+    "relocation_receipt": {
+      "path": ".runtime/fix-c/.runtime/q4-relocation-final/evidence.json",
+      "sha256": "9f85607ce91e963f7c02a2b0e05d0dad6dc37d1ef5489e4550126b8b9bb7e8c6"
+    },
+    "h01_byte_exact_chain": {
+      "path": ".runtime/fix-c/.runtime/q4-h01-original-receipt.json",
+      "sha256": "773ed5e9d9e4ac0910a74f26b28bbe6aaa5a8e862e3010ae0aa0b5f27806bfe8"
+    },
+    "native_bench": {
+      "path": ".runtime/fix-c/.runtime/q4-h01-original/candidate-etcpWL/candidate/Banc_Interconnexion.FCStd",
+      "sha256": "23951347c6edf0a2964709f2458e5efb7cf558382a466996e2eae48130c9e656"
+    },
+    "independent_native_observations": {
+      "path": ".runtime/fix-c/.runtime/q4-h01-original/candidate-etcpWL/reopened.json",
+      "sha256": "088636227e951e0e476fcf6c5d8476db4cc513e098f2bfba586dd5b1c56d42c4"
+    },
+    "companion_native": {
+      "path": ".runtime/fix-c/.runtime/q4-h01-original/candidate-etcpWL/candidate/parts/Obstacle.FCStd",
+      "sha256": "dcd305625cf1426229cad6320f66692489e769a0c844bfd31c85a27783fdb93b"
+    },
+    "independent_t0": [
+      {
+        "exit_code": 0,
+        "sha256": "f4c8d59081d9c698b78109d2ccf67ef3269ac9c7f51315dc4cd82a5d4e12d31a",
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\fix-a\\.runtime\\build-t0\\cartographe-evidence.exe",
+          "validate",
+          ".runtime/q4-h01-original",
+          "."
+        ],
+        "terminal": ".runtime/q4-h01-original/t0_run_manifest.json"
+      },
+      {
+        "exit_code": 0,
+        "sha256": "acc9bf2ec5bc54add115b53ae1a4c0fc6cd0382e6b716034f8bc3520fa59cdb9",
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\fix-a\\.runtime\\build-t0\\cartographe-evidence.exe",
+          "validate",
+          ".runtime\\q4-h01-original\\setup-OBNOgS\\l4\\run-00d90412-45c9-4a91-bdad-5ce7fbcae955",
+          "."
+        ],
+        "terminal": ".runtime\\q4-h01-original\\setup-OBNOgS\\l4\\run-00d90412-45c9-4a91-bdad-5ce7fbcae955/t0_run_manifest.json"
+      },
+      {
+        "exit_code": 0,
+        "sha256": "cb0f323c6f8eaaf392c349d44afa40191725b18cdcd05e98a8b41fbea36288d0",
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\fix-a\\.runtime\\build-t0\\cartographe-evidence.exe",
+          "validate",
+          ".runtime\\q4-h01-original\\candidate-etcpWL\\l4\\run-026058b7-55c1-4eeb-9449-0d17794009e6",
+          "."
+        ],
+        "terminal": ".runtime\\q4-h01-original\\candidate-etcpWL\\l4\\run-026058b7-55c1-4eeb-9449-0d17794009e6/t0_run_manifest.json"
+      }
+    ],
+    "legacy_integration": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q4-integration/normalized.json",
+      "sha256": "b4b9b8fc4ba2890025128b7353d137c29d3d58e127d0fe653446657cfcb0059d"
+    },
+    "displacement_mm": [
+      0,
+      12,
+      0
+    ],
+    "minimum_service_clearance_mm": 22.360679774997898,
+    "synthetic_clearance_threshold_mm": 2,
+    "limitations": [
+      "Action latérale sur le contrat synthétique. Remplacement de fiche non supporté.",
+      "Concepts de diagnostic et de PCB sans matérialisation ni preuve dans ce périmètre."
+    ]
+  },
+  "q5": {
+    "status": "Observations reproduites, réserves physiques ouvertes",
+    "cases": {
+      "F16-BSpline_K": {
+        "before": "PASS",
+        "after": "PASS",
+        "measurement": {
+          "test": "PASS",
+          "radius_sampled_mm": 4.946828917356499e-08,
+          "cached_solid_valid": true,
+          "after_cache_clear_solid_valid": false
+        }
+      },
+      "F16-BSpline_P-P73": {
+        "before": "PASS",
+        "after": "PASS",
+        "measurement": {
+          "test": "PASS",
+          "overlap_mm3": 704.6300070013599,
+          "baseline_overlap_mm3": 0.0,
+          "baseline_clearance_mm": 0.19999999999998863
+        }
+      },
+      "F12": {
+        "before": "PASS",
+        "after": "PASS",
+        "measurement": {
+          "test": "PASS",
+          "observed_endpoints_mm": {
+            "a": [
+              59.825,
+              12.0,
+              135.5
+            ],
+            "faces": [
+              59.825,
+              25.0,
+              137.35232
+            ]
+          },
+          "projected_ports": {
+            "a": "GPS2",
+            "faces": "TELEM1"
+          },
+          "A_destination": "FAIL",
+          "Faces_projection": "PASS",
+          "mounted_hardware": "INCONCLUSIVE"
+        }
+      },
+      "F31-CAN1": {
+        "before": "PASS",
+        "after": "PASS",
+        "measurement": {
+          "test": "PASS",
+          "tool_overlap_mm3": 73.52639020287748,
+          "can1_f35_sweep_overlap_mm3": 0.051757621874788565,
+          "lower_route_unresolved": [
+            {
+              "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ],
+          "mounted_access_and_withdrawal": "INCONCLUSIVE"
+        }
+      },
+      "F24A": {
+        "before": "INCONCLUSIVE",
+        "after": "INCONCLUSIVE",
+        "measurement": {
+          "test": "INCONCLUSIVE",
+          "endpoint_mm": [
+            -59.825,
+            15.0,
+            120.7
+          ],
+          "physical_pinmux_proven": false
+        }
+      },
+      "F40-F41": {
+        "before": "INCONCLUSIVE",
+        "after": "INCONCLUSIVE",
+        "measurement": {
+          "test": "INCONCLUSIVE",
+          "archived_f40_trial_state": "finished",
+          "f40_current_cycle": "ARCHIVE_EVIDENCE_FROM_FIRST_CYCLE",
+          "gabarit_trials": 24,
+          "nominally_clear_trials": 0,
+          "indeterminate_trial_count": 0,
+          "axis_monolithes_mm": 1180.9420885415457,
+          "axis_A_mm": 340.40831309733625,
+          "physical_service_reserve_and_ttl_usb_access": "INCONCLUSIVE"
+        }
+      },
+      "P85": {
+        "before": "INCONCLUSIVE",
+        "after": "INCONCLUSIVE",
+        "measurement": {
+          "test": "INCONCLUSIVE",
+          "p66_clearance_mm": 0.04999999999999716,
+          "f25_clearance_mm": 0.30730076285555374,
+          "physical_retention": "INCONCLUSIVE"
+        }
+      }
+    },
+    "receipt": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q5-second/summary.json",
+      "sha256": "ba3b2bc3f7fe799ae088e20fa8c8f829e360a11ebf030f2df3a773a156b59e53"
+    },
+    "legacy_f40_replay": {
+      "path": ".runtime/fix-b/.runtime/fix-c-20261117/q5/summary.json",
+      "sha256": "552165b2c4937cbb2ad42a952372b444771e946f8a0e19d3f6e7588410fda310"
+    }
+  },
+  "regression": {
+    "L0": {
+      "count": 77,
+      "isolation": 6,
+      "cables": 19,
+      "receipt": {
+        "path": ".runtime/fix-b/.runtime/fix-c-20261117/reg-l0-l3-second/l0-receipt.json",
+        "sha256": "d53ae9b07a2dcff65be453097418a15ec308d87a4ec6e59802df0f277bbcfe4b"
+      },
+      "planner": 1,
+      "static_native_bench": {
+        "path": ".runtime/fix-b/.runtime/fix-c-20261117/reg-l0-l3-second/v1-receipt.json",
+        "sha256": "9785d290735b416f3dd2c8489432d5f8d32b4e8118a06aae2b56e0796b1ddc9c"
+      }
+    },
+    "L1_L3": {
+      "ctest_pass": 4,
+      "fresh_build": true,
+      "receipt": {
+        "path": ".runtime/fix-b/.runtime/fix-c-20261117/reg-l0-l3-second/build-receipt.json",
+        "sha256": "dcb67e15dcc673ac0f28dc7603288ba7c2a2878cc7fb316d7051ddf56da5e332"
+      },
+      "source_equivalence": {
+        "path": ".runtime/fix-b/.runtime/fix-c-20261117/reg-l0-l3-second/code-equivalence.json",
+        "sha256": "14bd9da2cc985f1957ef56cc0a3b57328ea574854cbd84fea2747918874b96fb"
+      }
+    },
+    "L4": {
+      "ctest_pass": 7,
+      "log": {
+        "path": ".runtime/fix-b/.runtime/fix-c-20261117/reg-l4.log",
+        "sha256": "ef8efea3ee260fcdda0a1e17dd3d39b9aa18798c2ed742dc00a79aaba2ed7bc9"
+      },
+      "cwd": ".runtime/fix-b",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/fix-b-l4",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "same_sealed_validator_retested_in_second_q3_cycle": true
+    },
+    "L5": {
+      "ctest_pass": 6,
+      "log": {
+        "path": ".runtime/fix-c/.runtime/ctest-l5-final.log",
+        "sha256": "1deac363cf2a4203a60a64de7a6e0c0fd85e7369c93acc4770bbd0edd93c8a33"
+      },
+      "cwd": ".runtime/fix-c",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/build-l5-c2",
+        "--output-on-failure",
+        "-j",
+        "2"
+      ],
+      "exit_code": 0,
+      "native_l5_service": {
+        "path": ".runtime/fix-c/.runtime/q4-service-final/q4-results.json",
+        "sha256": "060a351f2ef847ea1b3b1507d0d87fe4d7a7e9fc079c5c5ec91dd80d09b66ae3"
+      }
+    },
+    "mission_a": "Oracles Q1–Q3, 16 appels, 12 cas L2 et 2 preuves FreeCAD, reprise et cache hostile rejoués.",
+    "mission_b": "Banc historique de reroutage relancé sur L5 final. Couverture B.2 scellée et observations indépendantes recontrôlées deux fois."
+  },
+  "acceptance": {
+    "engine_quality": "PASS sur les contre-épreuves critiques Q1–Q4",
+    "exploration": "PASS pour H-01 en préflight et études numériques sur copie sous huit écarts",
+    "construction": "PASS pour la réimplantation synthétique sur XLink avec L2/L4/T0. Cartographe À valider.",
+    "validation_coverage": "PASS pour toutes les paires du gel XLink nominal. Contrôles fonctionnels hors paires À valider."
+  },
+  "allowed": [
+    "Préflight et étude numérique H-01 sur copie sous les gardes gelées.",
+    "Réimplantation latérale via le contrat du banc synthétique lié.",
+    "Utilisation des mesures nominales XLink du même gel cartographe."
+  ],
+  "out_of_scope": {
+    "GO_3A": "NOT_RUN",
+    "GO_3B": "NOT_RUN",
+    "prototype_rebuild": "NOT_RUN",
+    "physical_tests": "NOT_RUN",
+    "other_platforms": "NOT_RUN"
+  },
+  "reproduction": {
+    "output_paths": "Les reçus indiquent les chemins de cette exécution. Rejouer dans des dossiers neufs, avec des outils aux mêmes SHA.",
+    "l5_build_configure": {
+      "path": ".runtime/fix-c/.runtime/configure-l5-c2.log",
+      "sha256": "d85f8fec08b922ae60385594e9a8fc91de56c14f5878e8d37524bb1e0a7330da"
+    },
+    "l5_build": {
+      "path": ".runtime/fix-c/.runtime/build-l5-c2.log",
+      "sha256": "a938c61723a44aaf4b7377cea0bbed42ccbf925e210ae4565efdf28d95032d83"
+    },
+    "l5_rebuild": {
+      "path": ".runtime/fix-c/.runtime/build-l5-c2-final.log",
+      "sha256": "35887bcc80ad4af8055f4bb55ad2c22c930f4b024d69e9c7e7db49091fff9c2f"
+    },
+    "q4_relocation_recipe": {
+      "path": ".runtime/fix-c/convergence_manager/tests/test_xlink_relocation.py",
+      "sha256": "814dad0388fa4aefb63703e49fc60ff768f1df03830c0ae1068390882a90e57c"
+    }
+  }
+}

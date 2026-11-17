@@ -1,0 +1,916 @@
+{
+  "schema": "drone-agricole.v21.connector-tests.v1",
+  "test_id": "T-CARTO-V21-CONNECTORS",
+  "date": "2026-11-15",
+  "configuration": "prototype_cartographe_sans_dock",
+  "scope": "H-01, documents, copie XLink et banc numérique",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "verdict": "V21_CONNECTORS_CONDITIONAL",
+  "conclusion": "À valider",
+  "environment": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.4",
+    "compiler": "GNU 16.2.0 / MSYS2 UCRT64",
+    "cxx": "C++17",
+    "cmake": "4.4.2",
+    "qt": "6.11.2",
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ],
+    "cables": "0.3.7",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "working_tree": "contenu local incluant les modifications préexistantes"
+  },
+  "verification": {
+    "l1": {
+      "status": "PASS",
+      "cases": 24,
+      "catalogue": {
+        "sources": 39,
+        "local_sources_verified": 29,
+        "physical_questions": 13,
+        "outcomes": {
+          "UNKNOWN": 13,
+          "RESOLVED": 6
+        },
+        "receipts": {
+          "V21-F12-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "6c637eaa4e2f21db5b13ed31dac9b88e7db1ed6afb908cdb710ae8034cfd26d2"
+          },
+          "V21-F24A-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "af0eb0ad77809b8f4ae6878b5c90d37162e569de4dfbd959df193f294dbf1a84"
+          },
+          "V21-F31-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "3ba70bb176aa5dddfbfe22f09bc17765303c4a52ecb9c46e86e6b34ce5273738"
+          },
+          "V21-F16-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "7fe1e228e0505f4e6e81173dbe7b9641873eb44d24c64566f094577540998986"
+          },
+          "V21-DIAG-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "459a270ce17e5b0abd33256164fef79488910f394bbec0dac7d0bddedfc1a2bd"
+          },
+          "V21-CSI-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "1b27e005a61b7399fcc2e1fb9fe395e4f80421e2cca98af3069e9cafe4d9b40d"
+          },
+          "V21-RF-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "73d5d80599ad2c056dd081937374e7bc675aaf3f45a3645a5ee5f008378d20f5"
+          },
+          "V21-BMS-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "fde8d7927f4d04da7a0e33b0f60db9e73d2fa3b8f249f45d1b958f33e483cd95"
+          },
+          "V21-FAN-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "01ea87ec5d17ef3f89a5f2b3940d321ba6b741b376f1fb82680fd9d4a39ec1c8"
+          },
+          "V21-LED-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "842681ab35043045acdaad98412bdca8eb8783e70b088909af07641b5ddeb7c8"
+          },
+          "V21-X650-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "b3f5231621e216421cf3b23f96098819ee98ef0e08c3efb84d43e8a72dfbc6fa"
+          },
+          "V21-INTERFACES-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "1d220ca8cd42c266c400e508e6d4010fc515057edf75090ee83fcb19ae54f851"
+          },
+          "V21-HORS-AXE-PHYSICAL": {
+            "outcome": "UNKNOWN",
+            "sha256": "32f9321edf9d856d9b531cbabc6fbbc12663dd482170a546cd790a362f3210d6"
+          },
+          "V21-F12-PINOUT": {
+            "outcome": "RESOLVED",
+            "sha256": "35f7a0162205d2139c8e0154ff2c9a5aaf01188b3c0f7bc3fe03ed6e0569cf5a"
+          },
+          "V21-F31-PM08-FACE": {
+            "outcome": "RESOLVED",
+            "sha256": "aae4297b75e3e914aaf8b411c54d677b03caa6ba9b1b65fd103e9c7c5d2cc125"
+          },
+          "V21-F16-PROFILE": {
+            "outcome": "RESOLVED",
+            "sha256": "e18b759ebfc6d04b29b6ffa700c484780e18261da2450b14cea06366e1ef6243"
+          },
+          "V21-F16-STRAIGHT": {
+            "outcome": "RESOLVED",
+            "sha256": "0c8e9aa4bcc5bcb0793eb8f87926b15b6a80153d00a3b59810f2d8b865b2965e"
+          },
+          "V21-F16-ANGLED": {
+            "outcome": "RESOLVED",
+            "sha256": "4b77c5adb70651d82505182c6f6d6134d2c9e15d13a094b989aa2add8c370912"
+          },
+          "V21-F40-JBD": {
+            "outcome": "RESOLVED",
+            "sha256": "5a4caae66ec055d2d7f56abdfb2b35bc3153bc81c310160dde0f2e72dc6f9263"
+          }
+        }
+      },
+      "schema_validation": {
+        "reports": 19,
+        "values": 43,
+        "cached_sources": 29,
+        "schemas": [
+          "docs/electromechanical_v2/DATA_CONTRACTS.schema.json",
+          "docs/electromechanical_v2/RESEARCH_REPORT.schema.json"
+        ]
+      }
+    },
+    "l2": {
+      "status": "PASS",
+      "cases": 36,
+      "checks": [
+        "port et clé",
+        "cavité et numéro de broche",
+        "permutation et inversion de signal",
+        "corps accouplés, balayage et accès verrou",
+        "retrait droit/coudé sur banc",
+        "ancrages et suivi des poses",
+        "géométrie approximative indécidable",
+        "réconciliation GO3A/GO3B"
+      ]
+    },
+    "native_history": {
+      "status": "PASS",
+      "interfaces": 2,
+      "conductors": 4,
+      "faults": {
+        "extraction_blocked": {
+          "status": "FAIL",
+          "bounds_mm": [
+            4.0,
+            -4.0,
+            -4.0,
+            24.0,
+            4.0,
+            4.0
+          ],
+          "pairs": [
+            {
+              "obstacle": "BlockerTest",
+              "volume_mm3": 0.9999999999999998,
+              "distance_mm": 0.0
+            }
+          ]
+        },
+        "generic_endpoint_same_position": {
+          "status": "FAIL",
+          "wire": "Line001",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "GenericVertex",
+            "CableTerminal009"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            null,
+            "mb1"
+          ],
+          "terminal_types": [
+            false,
+            true
+          ],
+          "reciprocal_terminal_links": false
+        },
+        "rotated_equipment": {
+          "frozen_pose": {
+            "status": "FAIL",
+            "matrix": [
+              2.220446049250313e-16,
+              -0.25881904510252074,
+              0.9659258262890681,
+              0.0,
+              2.7755575615628914e-17,
+              0.9659258262890683,
+              0.25881904510252074,
+              0.0,
+              -0.9999999999999999,
+              -2.7755575615628914e-17,
+              2.220446049250313e-16,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "object": "Mount1"
+          },
+          "wire": {
+            "status": "PASS",
+            "wire": "Line001",
+            "endpoint_errors_mm": [
+              0.0,
+              3.3306690738754696e-16
+            ],
+            "targets": [
+              "CableTerminal001",
+              "CableTerminal009"
+            ],
+            "subelements": [
+              "Vertex1",
+              "Vertex1"
+            ],
+            "contact_ids": [
+              "ma1",
+              "mb1"
+            ],
+            "terminal_types": [
+              true,
+              true
+            ],
+            "reciprocal_terminal_links": true
+          },
+          "terminal_displacement_mm": 1.0579065344044114
+        }
+      },
+      "step_import": "PASS"
+    },
+    "native_cartographe": {
+      "status": "INCONCLUSIVE",
+      "files_unchanged": 139,
+      "native_documents_opened": 137,
+      "installed_api": {
+        "make_wireflex_from_vectors": "(vectorlist)",
+        "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+        "make_compoundpath": "(plist=None)",
+        "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)",
+        "makeCableConnector": "(baseobj=None, nrofholes=0, holesize=0, thickness=0, height=0, preset=None, placement=None, name=None)",
+        "makeElectricalDevice": "(baseobj=None, preset=None, placement=None, name=None)",
+        "makeCableTerminal": "()",
+        "attach_in_place": "(obj_list)"
+      },
+      "modules_sha256": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+        "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+        "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c",
+        "archCableConnector.py": "5ff8db12bf9978046eb59c1a9e55edbe90759e80a145ebefaa68f1b9fb9fd7f7",
+        "archElectricalDevice.py": "28651fdc3c45e5f32477864254d7cecd905ed95396a084d92bf1cfcafa7335f0",
+        "cableTerminal.py": "46efde0b10c20ec906eafb59e58d16fa6c2ddd89794c3dbeb44f361540592a5f",
+        "cableutils.py": "f7faf61341b78f2874516b5786fda078622a25d55465a88851e787cf6bb129fa"
+      },
+      "f12_axis_end_mm": [
+        59.825,
+        12.0,
+        135.5
+      ],
+      "usb_microb_candidate": {
+        "candidate_mpn": "USBFireWire RR-ASMUK-20GRHF",
+        "step_sha256": "cfa92d8044781703fa24208723d4f4348754537516025f3f089832035e9f52c5",
+        "status": "INCONCLUSIVE",
+        "solids_imported": 7,
+        "native_attachment_probe": {
+          "status": "PASS",
+          "scope": "attachement mécanique en mémoire du corps moulé",
+          "source_solids_imported_through_cables": 7,
+          "device_proxy": "ArchElectricalDevice",
+          "plug_proxy": "ArchCableConnector",
+          "equipment_delta": [
+            0.9781476007338057,
+            -0.20791169081775937,
+            0.0,
+            1.0,
+            0.20791169081775937,
+            0.9781476007338057,
+            0.0,
+            2.0,
+            0.0,
+            0.0,
+            1.0,
+            3.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "observed_plug_matrix": [
+            -4.440892098500626e-16,
+            0.9781476007338057,
+            0.2079116908177593,
+            246.02264064741328,
+            1.1102230246251565e-16,
+            0.20791169081775918,
+            -0.9781476007338057,
+            53.54444121501943,
+            -1.0,
+            -2.7755575615628914e-16,
+            -2.220446049250313e-16,
+            -93.81999999999996,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "finalized_native_file": null
+        },
+        "checks": {
+          "mated_body": [
+            {
+              "stage": "integration",
+              "pair": [
+                "mated_body",
+                "EQ_Basler_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 0.0002589936888170996,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "mated_body",
+                "Pack6S20Ah"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 6.819999999733973,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "mated_body",
+                "P10_Retenue_cable_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 148.62656437061463,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "mated_body",
+                "P10_Retenue_cable_Occurrence001"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 19.09191223455099,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "mated_body",
+                "F_M8"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 20.468698575931775,
+              "status": "pass"
+            }
+          ],
+          "extraction_sweep": [
+            {
+              "stage": "integration",
+              "pair": [
+                "extraction_sweep",
+                "EQ_Basler_Occurrence"
+              ],
+              "failures": [
+                "forbidden_interference"
+              ],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 3.2829995902049793,
+              "clearance_mm": 0.0,
+              "status": "fail"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "extraction_sweep",
+                "Pack6S20Ah"
+              ],
+              "failures": [
+                "forbidden_interference"
+              ],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 1115.2854346510826,
+              "clearance_mm": 0.0,
+              "status": "fail"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "extraction_sweep",
+                "P10_Retenue_cable_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 147.65265731342808,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "extraction_sweep",
+                "P10_Retenue_cable_Occurrence001"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 18.840162473858054,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "extraction_sweep",
+                "F_M8"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 18.917637109994917,
+              "status": "pass"
+            }
+          ],
+          "tool_access_1": [
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_1",
+                "EQ_Basler_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 15.867499080176074,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_1",
+                "Pack6S20Ah"
+              ],
+              "failures": [
+                "forbidden_interference"
+              ],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 542.6158831280301,
+              "clearance_mm": 3.552713678800501e-15,
+              "status": "fail"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_1",
+                "P10_Retenue_cable_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 158.86755787014752,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_1",
+                "P10_Retenue_cable_Occurrence001"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 35.28835537397573,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_1",
+                "F_M8"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 23.37313244359076,
+              "status": "pass"
+            }
+          ],
+          "tool_access_2": [
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_2",
+                "EQ_Basler_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 18.000258993911928,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_2",
+                "Pack6S20Ah"
+              ],
+              "failures": [
+                "forbidden_interference"
+              ],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 542.6158831280299,
+              "clearance_mm": 0.0,
+              "status": "fail"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_2",
+                "P10_Retenue_cable_Occurrence"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 153.69736041141024,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_2",
+                "P10_Retenue_cable_Occurrence001"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 46.52061935314276,
+              "status": "pass"
+            },
+            {
+              "stage": "integration",
+              "pair": [
+                "tool_access_2",
+                "F_M8"
+              ],
+              "failures": [],
+              "unknowns": [],
+              "authorized_relation": false,
+              "intersection_volume_mm3": 0.0,
+              "clearance_mm": 40.21724588364331,
+              "status": "pass"
+            }
+          ]
+        },
+        "extraction": {
+          "translation_mm": [
+            1.2878587085651815e-15,
+            -1.2878587085651815e-15,
+            5.800000000000001
+          ],
+          "method": "continuous_bounding_box_of_molded_body",
+          "course_source": "verification/connecteurs_coudes_camera_prototype.json#/usb/dimensions_plan_mm/nez_microB"
+        },
+        "tool": {
+          "radius_mm": 2.0,
+          "length_mm": 50.0,
+          "class": "ASSUMPTION",
+          "scope": "two screw axes and a cylindrical tool envelope"
+        },
+        "limits": [
+          "Pose nominale. Choix de l’outil et séquence de déverrouillage inconnus.",
+          "Mesure du corps moulé, de la caméra modélisée et des obstacles indiqués.",
+          "Nez, vis engagées, contacts, cinématique réelle et montage complet à valider."
+        ]
+      }
+    },
+    "cross_check": {
+      "status": "PASS",
+      "lines": 71,
+      "axes": 53,
+      "endpoints": 142,
+      "off_axis_lines": 21,
+      "line_axis_pairs": 56,
+      "native_equipment_poses": 108,
+      "native_cable_end_attachments": 0,
+      "l1_cached_reports_verified": 19,
+      "altered_cache_rejected": true
+    },
+    "interactive_freecad": "NOT_EXECUTED",
+    "physical": "NOT_EXECUTED",
+    "other_platforms": "NOT_EXECUTED",
+    "t0_contract_validation": {
+      "status": "PASS",
+      "schema_draft": "2020-12",
+      "checked": {
+        "run_request.json": 1,
+        "t0_run_manifest.json": 1,
+        "t0_metrics.json": 1,
+        "artifacts.json": 1,
+        "events.jsonl": 3
+      },
+      "input_digests": 7,
+      "artifact_digests": 5,
+      "path": ".runtime/v21-connecteurs/t0/validation.json",
+      "sha256": "62bc7164344e0908cc3df3e24f1d57fe3fa75b493b22675b06290db3d1d15c60"
+    }
+  },
+  "inventory_coverage": {
+    "port_fonctionnel": 142,
+    "reference_appareil_candidate": 134,
+    "revision_reference_documentaire": 54,
+    "mpn_embase_definition": 15,
+    "mpn_fiche_candidate": 30,
+    "mpn_contact_candidat": 25,
+    "contacts_documentaires": 125,
+    "device_mount_frame": 108,
+    "reservation_face_port_global": 39,
+    "reservation_bout_axe_global": 100,
+    "gabarit_accouplement_partiel": 5,
+    "etude_extraction_partielle": 2,
+    "revision_physique": 0,
+    "lot_physique": 0,
+    "receptacle_frame": 0,
+    "mating_frame": 0,
+    "plug_frame": 0,
+    "wire_exit_frame": 0,
+    "volume_accouplement": 0,
+    "extraction_sweep": 0,
+    "tool_access_envelope": 0
+  },
+  "inventory_status": {
+    "INCONCLUSIVE": 120,
+    "OUT_OF_SCOPE": 22
+  },
+  "artifacts": {
+    "inventory": {
+      "path": "docs/verification/v21_connector_inventory.csv",
+      "sha256": "f62407b8c6f70aeea78f4102f7f2f7ae2d5d05a8baa4429fc5a007129f38f621"
+    },
+    "sources": {
+      "path": "docs/verification/v21_connector_sources.json",
+      "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47"
+    },
+    "catalog": {
+      "path": "docs/verification/v21_connector_research_catalog.json",
+      "sha256": "4feac5a4773dd52a0e0d58ce3f3e45ed319b92d10a874fdec4c62161e2545ec4"
+    },
+    "l2_cartographe": {
+      "path": ".runtime/v21-connecteurs/interconnections.json",
+      "sha256": "882cb4e46736568e01f7fc4fb0dc7e02e6f8fdf960b574039f1448348cc05a81"
+    },
+    "l1_schema_checks": {
+      "path": ".runtime/v21-connectors/l1-research-schema-check.json",
+      "sha256": "faf90dd01438ba13978d53a51efce386df4e49ae663444a3f84cfd27b143dd63"
+    },
+    "native_cartographe": {
+      "path": ".runtime/v21-connector-native/active-05/connector_native.json",
+      "sha256": "195268b0213448003388dd56d6596fdc79ba9ef81fe59ed32cc4f99c9fed75af"
+    },
+    "native_history": {
+      "path": ".runtime/v21-connecteurs/native-historique/native_l2.json",
+      "sha256": "db590a4c97218abf18919611f840e786bacd2a5e4586df1384ca06bdc29ffa83"
+    },
+    "native_seal": {
+      "path": ".runtime/v21-connector-native/active-05/copie/experiment.json",
+      "sha256": "be86c20028f7ddc407a8490a85abb7938bd09fab1d14a8077b751548c405dab9"
+    },
+    "cross_check": {
+      "path": ".runtime/v21-connecteurs/controle-croise.json",
+      "sha256": "a1eed54918bac233e093e75f8990e8a7c71f8cceed80feef85d6e222e100e2ee"
+    },
+    "ctest_l1": {
+      "path": ".runtime/v21-connecteurs/ctest-l1.xml",
+      "sha256": "55996092c6fbf836030747f97419a8a06e5c9225c2971fe2f3deeee73bb49b05"
+    },
+    "ctest_l2": {
+      "path": ".runtime/v21-connecteurs/ctest-l2.xml",
+      "sha256": "57ce6a03ad58938a90fd5a1d284ebab80e6d7bf1e893bad49c3ae8524f39ee42"
+    },
+    "banc_l2_plan": {
+      "path": ".runtime/v21-connecteurs/banc-l2-plan.json",
+      "sha256": "905782c2a78788ba5f947e47521364ff90dbeb57ea846698c716f00734367c9e"
+    }
+  },
+  "inputs": {
+    "l1_binary": {
+      "path": ".runtime/v21-connecteurs/l1/technical_research_core.exe",
+      "sha256": "808811b4e6dcf31684d4f479f5ff5b98a041cd31df9c74b174c826ddd5024c42"
+    },
+    "l2_binary": {
+      "path": ".runtime/v21-connecteurs/l2/interconnection_core.exe",
+      "sha256": "6296157d5360a19715153e4bb3a78264c3e4d939a30bff2b034c5143d2c11334"
+    },
+    "native_adapter": {
+      "path": "electromechanical_engine/connector_native.py",
+      "sha256": "3957aa2fcb943846e03489e493e695846678085d85794a49442f13fb3f796abe"
+    },
+    "cross_check": {
+      "path": "interconnection_engine/tests/check_cartographe_receipts.py",
+      "sha256": "ea9576e92afa6c054a833f330d6970e8db393e6f86b79ad1ed6175513880b004"
+    },
+    "synthetic_fixture": {
+      "path": "interconnection_engine/examples/banc_l2.json",
+      "sha256": "a9ad9a8335c5997265362ce1d44cae121f652895f101919000130fc22d2962a0"
+    }
+  },
+  "go3a_go3b_l0_sources_sha256": {
+    "docs/electromechanical_v2/BASELINE_MANIFEST.json": "1871302537a1d77bec5399c03bf5a055cb41112c6fae1e26a1074f558861ad0b",
+    "docs/verification/cartographe_action3_interconnexions.json": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d",
+    "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+    "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696",
+    "docs/verification/go3a/GO3A_SYSTEM_MODEL.json": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83",
+    "docs/verification/go3b/GO3B_ADMISSION.json": "b5bb1d3ab901e300b12558ba9cd33558210a9dee343520a0f0085257a7d58521",
+    "docs/verification/go3b/GO3B_INTERCONNECTION_COVERAGE.csv": "5dd5243e2fc204e20dca7b3921d561941126294e3ec0256634bc60cead97f8e5",
+    "docs/verification/go3b/GO3B_SOURCE_MANIFEST.json": "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d",
+    "electromechanical_engine/qualification/historical_catalog.json": "6a20e85035482e1ae3ff0dd710f663845476dacdc41ba0e98f0e067ee7aa98f9",
+    "electromechanical_engine/qualification/native_evidence.json": "55fc48d07afb28abe5a53560338d7c2f8d98e6b1fe52b59fe6d973b0fc972ec7",
+    "hardware/electronique/cartographe/cablage_global.json": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f",
+    "hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch": "2e525e1632156264a1a6e36ccfe02aca29e04179d31d078a6cbea529e31ff3ac",
+    "hardware/electronique/cartographe/carte_avionique/02_buck_12v_capteurs.kicad_sch": "42b28b09b5b978fc0c17fa399ecda6cc19baf3b82f7049c5ffb492978738ad36",
+    "hardware/electronique/cartographe/carte_avionique/03_buck_5v_aux.kicad_sch": "c936e544768636172102b4d8027590eb29eb98dc7a937678cbf94265c4aa6de9",
+    "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c",
+    "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4",
+    "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch": "79c30f1de73e17d20f48c6bf17621a63b07d9341bf538faae4f9ab67ec87a26b",
+    "hardware/electronique/cartographe/carte_avionique/bom_candidate.json": "0b357f66377ec467144a8feb30361e88fa3cd4aab01c5720de80ec02ab5d680f",
+    "hardware/electronique/cartographe/carte_avionique/verification/connectivity_rules.json": "b0d2583fc7a74b1cf64528adec7830f90f3c74910864869a4949808843db4370",
+    "hardware/electronique/cartographe/carte_avionique/verification/netlist.xml": "8833c3860c56247ad7ed2bc6b826cfc655343c9688ea23d7b89844ab58674501",
+    "hardware/electronique/cartographe/contrat_uart_bms.json": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19",
+    "hardware/electronique/cartographe/faisceau_systeme_cible_20261003.json": "4ee3418d944224a83a098cf78d200a2a8614d9f0af2930e2ba773112e7e5096a",
+    "hardware/electronique/cartographe/verification/controle_connecteur_ventilateur_jetson.json": "5d288a7fb9583bfdeefeefbbe979ee5f4db2a3ffaff6cd11ec0b1f396d0b06b6",
+    "hardware/electronique/cartographe/verification/controle_recharge_bms_prototype.json": "89f997ece5f0e955b0677bda10b02568ada6e9ba38af1dbec08dd653f702ce73",
+    "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+    "hardware/mecanique/cartographe/manifest.json": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+    "hardware/mecanique/cartographe/nomenclature_prototype.json": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0",
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro11072_Prototype.FCStd": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032",
+    "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_ETH_Prototype.FCStd": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+    "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_PWR_Prototype.FCStd": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+    "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_Prototype.FCStd": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+    "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_SYNC_Prototype.FCStd": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+    "hardware/mecanique/cartographe/pieces/commerce/W_BALANCE_Prototype.FCStd": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F01_NEG_Prototype.FCStd": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F01_POS_Prototype.FCStd": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F02_1_Prototype.FCStd": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F02_2_Prototype.FCStd": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F02_3_Prototype.FCStd": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F02_4_Prototype.FCStd": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F03_1_Prototype.FCStd": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F03_2_Prototype.FCStd": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F03_3_Prototype.FCStd": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F03_4_Prototype.FCStd": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F04_1_Prototype.FCStd": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F04_2_Prototype.FCStd": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F04_3_Prototype.FCStd": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F04_4_Prototype.FCStd": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F05_NEG_Prototype.FCStd": "5dd08e292c667809ea77380b52f64d36e91b76af42d54a7c09b643f3c998a2d4",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F05_POS_Prototype.FCStd": "dd77218504683b15fe2ee248eb8ddac7c523a5f543c999cb73e8114defac181a",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F06_Prototype.FCStd": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F08_AMONT_Prototype.FCStd": "13248417829f677e540356c19207148ea49521a35dd2a475714c5aad60238740",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F08_AVAL_Prototype.FCStd": "48dd341fd8f2104ba5fcaf833c16e398330f6a57a3bd0c6f8cfd1f2ae58985e7",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F09_Prototype.FCStd": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F12_Prototype.FCStd": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F13A_Prototype.FCStd": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F13B_Prototype.FCStd": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F20_Prototype.FCStd": "50cf55d0a8be88cbd1c463136aeacbaf0a397278823a1aeaf392ffbe3e3dc8c1",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F21_Prototype.FCStd": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F24A_Prototype.FCStd": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F24B_Prototype.FCStd": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F24C_Prototype.FCStd": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F25_Prototype.FCStd": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F31_Prototype.FCStd": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F32_Prototype.FCStd": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F33_Prototype.FCStd": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F35_Prototype.FCStd": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F36_Prototype.FCStd": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F37_NEG_Prototype.FCStd": "c9b12c941e6bf6905a5355731f68afb35b0bc03f418aa300121c512f59f1cbb8",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F37_POS_Prototype.FCStd": "44910ae45b6cb4af070d32ba25866f546e09196ae1e5e209b7d7408702440d6b",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F38_NEG_Prototype.FCStd": "28153e3272c66aeec6be06f9ded7da6deebe6adc88b96ebddadd7f54509fc092",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F38_POS_Prototype.FCStd": "064ea815edb8cc41a65ae03cf5b5b39ae1ca0d2af225d51123f0af49ffe0903e",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F40_Prototype.FCStd": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F41_Prototype.FCStd": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+    "hardware/mecanique/cartographe/pieces/commerce/W_F_M8_Prototype.FCStd": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+    "hardware/mecanique/cartographe/pieces/commerce/W_LED_1_Prototype.FCStd": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+    "hardware/mecanique/cartographe/pieces/commerce/W_LED_2_Prototype.FCStd": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+    "hardware/mecanique/cartographe/pieces/commerce/W_LED_3_Prototype.FCStd": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+    "hardware/mecanique/cartographe/pieces/commerce/W_LED_4_Prototype.FCStd": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+    "hardware/mecanique/cartographe/pieces/commerce/W_NTC1_Prototype.FCStd": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+    "hardware/mecanique/cartographe/pieces/commerce/W_NTC2_Prototype.FCStd": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+    "hardware/mecanique/cartographe/sous_assemblages/SA07_Prototype_Faisceaux.FCStd": "96d1d056df6490223d8dc6448006bee3372d14ea66c59e17aa2964fedc8b7902",
+    "hardware/mecanique/cartographe/verification/build_prototype.py": "9fcce1ec25003af6d9d9aaf3504667e0c6b4d462b06f51b603db388a1e9ccae6",
+    "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+    "hardware/mecanique/cartographe/verification/configuration_faisceau_haut_prototype.json": "5548f7e7f803f12b792b77d28c911affcab650f89739d3142d188fb8fc7752a2",
+    "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+    "hardware/mecanique/cartographe/verification/construction_prototype.json": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9",
+    "hardware/mecanique/cartographe/verification/controle_faisceaux_prototype.json": "81f2d392e9144a126b1bc34bfe6c1484eb0441e50426620ac1484a8537bd2eff",
+    "hardware/mecanique/cartographe/verification/controle_orch_cao_masse_1.json": "3985c4f856eef4fae5da85a93c99db09dcd306e2fcb1fe88b1a4052c6284f353",
+    "hardware/mecanique/cartographe/verification/controle_registres_prototype.json": "8cd0305cfdc11d2300cc757fb86d744b9ae5f76626c92c853b4b7545876bc20e",
+    "hardware/mecanique/cartographe/verification/couverture_bom_cao_prototype.json": "aac38d028aae49226e2c9c75a3568544eae8a29e10ca9926d8dce1f487120ac0",
+    "hardware/mecanique/cartographe/verification/definition_bom_electrique.json": "1e721d0359518fb65164097727b9dedbaa3a8941e45748fa716f9b655de5b502",
+    "hardware/mecanique/cartographe/verification/interfaces_capteurs_prototype.json": "9880fba67ec19d285af551a502f3828b97b055b0a5be3f454932345acb36de3b",
+    "hardware/mecanique/cartographe/verification/orch_interfaces_equipements.json": "d5a662c3a5872adf76a68f2f9163beade81d1ab4c560590cfa1a612956ed7d55",
+    "hardware/mecanique/cartographe/verification/orch_reprise_f20.json": "b7e9113753e41665a0270759731270c7c5262d4d039e044c517f76e6cd976092",
+    "hardware/mecanique/cartographe/verification/prototype_routage.py": "8e289a14792c3958bf57884c20295928d11aab3c499dead7a5ecf110466fe145",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/analyse_connectivite.json": "ec4c5fc63fade751a5259fcc801e28e563cdce3dc7c1e55b5201df48afd92950",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/bilan_autonomie.json": "ca9e6842ac8e64092c79baf5f8785b15e41836e6f8c1000b83d592e800bfdc39",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/bilan_faisceau_complet.json": "ad01285f3951ab6346c587b694e0e9123b2650cb9f8dce75dacf490c10b850d7",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/mouvement_retenues_completes.json": "810a13d30b89bdb85dc1c9248a44bdb62bcc7cec8884fc25791b2ac3bd647f10",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/reouverture_faisceau_complet.json": "29c12b0452304ff46c10faa754f97afa2a8705494501ed0bb66b0dfcdcad1d8f",
+    "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/stations_faisceau_complet.json": "4d081fc09a3a7f14d4367af0d17d44dc3e2908e912fde810f0de4e65708828c6",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_correspondances.json": "4df292278ed27ed5f869ba2885f26d3313ac7e997c57176ca3ab3e1c8c839edc",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_extract.py": "f4a2d42f5d50b9c4b15984518c68247110858a73bb7c475bcf3aefee3aabb52d",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75",
+    "hardware/mecanique/cartographe/verification/retenues_faisceaux_prototype.json": "bd524fb4656fd8b920b1bf18a154e5409b68ac376c2c108c1964ca5e68c7617f",
+    "hardware/mecanique/cartographe/verification/routes_prototype.json": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+    "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F12_Prototype.FCStd": "7c033e4ec954a0f6a45fd13c3bb66fac4dfd6cce2845a553168535afec587341",
+    "hardware/mecanique/cartographe_faisceaux_autonome/assemblages/Prototype_Cartographe.FCStd": "45245bf5ccdeaf3b5328f52d23b365105c8e259270d335e76c21cc3bc536b259",
+    "hardware/mecanique/cartographe_faisceaux_autonome/sous_assemblages/SA07_Prototype_Faisceaux.FCStd": "d77406a817322f01e79effde432573499a4b934d8c3e3546825fdef80f165227",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_Holybro11072_Prototype.FCStd": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F12_Prototype.FCStd": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+    "hardware/mecanique/cartographe_refonte_systeme/A/verification/construction_prototype.json": "439bf5ecc2138b09c689e2ec4a1e49d253ce97c005e0fd26e65ef67a3400c89f"
+  },
+  "t0": {
+    "run_request.json": {
+      "path": ".runtime/v21-connecteurs/t0/run_request.json",
+      "sha256": "620fd73ea270c9135efe0da9fb3b3ce2243387c870d7683f8b9d60f900e886ce"
+    },
+    "t0_run_manifest.json": {
+      "path": ".runtime/v21-connecteurs/t0/t0_run_manifest.json",
+      "sha256": "6b4b171b7e19110f604e0f5da168e81f7c924aaa347d03b73e7713b2a1e249cf"
+    },
+    "t0_metrics.json": {
+      "path": ".runtime/v21-connecteurs/t0/t0_metrics.json",
+      "sha256": "6d5ce3cb19d7b8d087008926b3b3998ef216f72143c3b214d703f459621f04ab"
+    },
+    "artifacts.json": {
+      "path": ".runtime/v21-connecteurs/t0/artifacts.json",
+      "sha256": "82da94b8d3a229fb1db167b25d26d2a3e8151e1de7dcb99f61a6b23af66f4817"
+    },
+    "events.jsonl": {
+      "path": ".runtime/v21-connecteurs/t0/events.jsonl",
+      "sha256": "c16816f1340542e46f281ac239fa3b4cfb2c37113304f2226f0248fdbc93ab91"
+    }
+  },
+  "independent_review": {
+    "status": "PASS",
+    "scope": "Reconstruction et 36 cas L2, régression L1 et contrôle des projections",
+    "corrected_faults": [
+      "corps détaché",
+      "outil éloigné du verrou",
+      "permutation des numéros physiques",
+      "reçu L1 modifié avec empreinte interne inchangée"
+    ]
+  },
+  "limits": [
+    "Révisions, lots et plan de contacts effectivement montés ouverts",
+    "Gabarits USBFireWire exploratoires et mouvement continu de la suspension ouvert",
+    "Contrôles de réception GO3B ouverts",
+    "Aucun raccordement, alimentation ni essai physique"
+  ],
+  "recipe": "docs/electromechanical_v2_1/02_CONNECTOR_RESOLUTION.md"
+}

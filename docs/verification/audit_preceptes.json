@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "objet": "Audit transversal des préceptes et contrôle de leur intégration documentaire",
+  "date_locale": "2026-10-08",
+  "timezone": "Europe/Paris",
+  "exigence": "METH-001",
+  "controle": "T-METH-01",
+  "reference_canonique": "docs/architecture/HLD.md#preceptes",
+  "registre_constats": "docs/VALIDATION_QUALIFICATION.md#audit-preceptes",
+  "priorite_utilisateur": "Valider la faisabilité physique du drone cartographe et ses contraintes critiques ; choix du 7 octobre 2026",
+  "source_preceptes": {
+    "nom": "Texte collé.txt",
+    "version": 2,
+    "sha256": "49872e3caadea148a8ecb2f1edd9953bdd95c1debe26b63b7edb21069aed5bf5",
+    "conservation": "Texte intégral dans DOC-HLD §11, métadonnées et hiérarchie de titres adaptées"
+  },
+  "etat_initial": {
+    "head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "branche": "codex/sw0-consolidation",
+    "workspace_sale": true,
+    "entrees_statut_git": 128,
+    "fichiers_empreintes": 869,
+    "ecarts_a_la_reprise": 0,
+    "limite": "Le commit seul ne reproduit pas les modifications préexistantes ; les empreintes identifient les sources inspectées."
+  },
+  "repartition_audit": [
+    "logiciel, contrats et CI : audit_logiciel",
+    "matériel, registres et preuves : audit_materiel",
+    "validation et instructions : audit_preuves",
+    "cadrage système et consolidation : agent principal"
+  ],
+  "constats": [
+    {
+      "id": "AUD-001",
+      "titre": "Référentiel de décision incomplet",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-001"
+    },
+    {
+      "id": "AUD-002",
+      "titre": "Chantiers sans borne commune ni ordre de décision",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-002"
+    },
+    {
+      "id": "AUD-003",
+      "titre": "Pas de bilan de faisabilité du cartographe complet",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-003"
+    },
+    {
+      "id": "AUD-004",
+      "titre": "Critères physiques discriminants encore à définir",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-004"
+    },
+    {
+      "id": "AUD-005",
+      "titre": "Succès de l'acquisition minimale non relié au besoin",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-005"
+    },
+    {
+      "id": "AUD-006",
+      "titre": "Synthèses électriques actives périmées",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-006"
+    },
+    {
+      "id": "AUD-007",
+      "titre": "Empreinte de l'assemblage différente de la revue",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-007"
+    },
+    {
+      "id": "AUD-008",
+      "titre": "Contraintes de configuration historiques encore actives",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-008"
+    },
+    {
+      "id": "AUD-009",
+      "titre": "Autorité ambiguë et empreinte FriûlBot mal recopiée",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-009"
+    },
+    {
+      "id": "AUD-010",
+      "titre": "Garantie T0 supérieure aux validations effectives",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-010"
+    },
+    {
+      "id": "AUD-011",
+      "titre": "Tests ordinaires dépendants de résultats locaux",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-011"
+    },
+    {
+      "id": "AUD-012",
+      "titre": "Rejeu LIO sans échéance totale",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-012"
+    },
+    {
+      "id": "AUD-013",
+      "titre": "Abstractions compilées sans consommateur actuel trouvé",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-013"
+    },
+    {
+      "id": "AUD-014",
+      "titre": "Identité du rejeu insuffisamment garantie",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-014"
+    },
+    {
+      "id": "AUD-015",
+      "titre": "Résultats historiques insuffisamment reliés à leurs preuves",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-015"
+    },
+    {
+      "id": "AUD-016",
+      "titre": "Hypothèse de calibration non bornée par sa réfutation",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-016"
+    },
+    {
+      "id": "AUD-017",
+      "titre": "Consigne locale encourageant des notes dispersées",
+      "section": "DOC-VAL §15.2",
+      "ancre": "aud-017"
+    }
+  ],
+  "sources_inspectees_empreintees": [
+    {
+      "path": "software/cpp/src/application/ContractRegistry.cpp",
+      "sha256": "22fec81f25baab103a90cdea09052c1b78e22ecc0cd20c9799006478e00c3926"
+    },
+    {
+      "path": "software/cpp/src/composition/StationComposition.cpp",
+      "sha256": "c193b6843786538f678117f5ff862040bd4ffc3245ba84f3ac0199960008777f"
+    },
+    {
+      "path": "software/cpp/src/adapters/storage/ResultAdapter.cpp",
+      "sha256": "c08b0da44dce7405b7225948cc8284e3470be28b9a56c1fec139d724203ac055"
+    },
+    {
+      "path": "software/cpp/src/application/RunService.cpp",
+      "sha256": "46db36937f017b41614755cfb9724f3d9b96159abd64b00d5ad6ba4b3801b715"
+    },
+    {
+      "path": "software/cpp/tests/TestResultRepository.cpp",
+      "sha256": "006c9a67c0e8c5ac9a4885614b287d1aa678e73e5426be1f005bb3605f184f08"
+    },
+    {
+      "path": "software/cpp/tests/TestComparisonService.cpp",
+      "sha256": "ebaf82d46cf53b5fa961be3f98d89b151e8bb8733fb4ade01c471d3395479bec"
+    },
+    {
+      "path": "software/cpp/tests/TestContractRegistry.cpp",
+      "sha256": "4932100e9c53af7a36201f63658bfb271e5212b52a0a4375e8ccde72973d463a"
+    },
+    {
+      "path": ".github/workflows/sw0-ci.yml",
+      "sha256": "44a4ed83625dddaa9e38976110c08441ccaef6730c852df9e81ca3fd01294cde"
+    },
+    {
+      "path": "software/cpp/src/adapters/runtime/LioOrchestrator.cpp",
+      "sha256": "66763f89aafbf55c836f54df7c240a4b52a4e6d8adc729578dcf081b21a2c2c6"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/station/IStationModule.hpp",
+      "sha256": "9e522f8851f9af7695deecd30ccc17aa7d0e0efdba0dffed11af751e023450f0"
+    },
+    {
+      "path": "software/cpp/src/station/StationArchitecture.cpp",
+      "sha256": "f9554e71ecd2686a447226450053f8978da69ecee6e3b156a115cc038afbb8b0"
+    },
+    {
+      "path": "software/cpp/tests/TestStationArchitecture.cpp",
+      "sha256": "8d94011a04020edb0ee07ee493cf9b486a486e1e8164c760ce94beea02a8e30a"
+    },
+    {
+      "path": "software/cpp/src/adapters/mapping/FriulBotMap.cpp",
+      "sha256": "8a9b634c6a7003549821c74f26ce41347b9f7d3c8a1c41c85763efa369bf6943"
+    },
+    {
+      "path": "software/cpp/src/adapters/mapping/FriulBotReconstruction.cpp",
+      "sha256": "dc454118c3c1bcae3009033d0a9096e5d3b1122b778be622afca0ace597ca08a"
+    },
+    {
+      "path": "software/docker/Dockerfile",
+      "sha256": "956a1da26fbe6c244a47a764a1516cc6d462343583b00830d748a7d0a44139dd"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "ede4d6cd78305146a22264a9887bc472734b143ecdb18df92dba29ffbe8dfc32"
+    },
+    {
+      "path": "datasets/manifests/catalogue_datasets.yaml",
+      "sha256": "c18b451ac4deee14824ef39f53d92a94a35441914b9c27745248bbd78707a5d9"
+    },
+    {
+      "path": "tools/download_friulbot.cmake",
+      "sha256": "90786656d614300ebca24f4ce17cd3c832d4c0827f8585bac56affb3705693f1"
+    },
+    {
+      "path": "configs/datasets/friulbot/test2-2024-07-22.yaml",
+      "sha256": "7976aab622e89a24e3dadd2df7a7cca1d391c169310492625af2f530887d2379"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/configuration_cible_20261003.json",
+      "sha256": "9c273b45840eb16b84d72531b74875f2a789e5aaa0c46f6418929c485a0cd5da"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/manifest.json",
+      "sha256": "f8434f329aa2c91ce3b69bda04f47f22805566c4de3dae165336c47b95201176"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/revue_hierarchie_batterie.json",
+      "sha256": "20c422b413432feddaa494dc75dd56aeb927b63e46b7b44b1b72303ed0137623"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/controle_hierarchie_batterie.json",
+      "sha256": "8d2dbab7253eb7066a7cc21b31e4edbc6ea31b87a9de02c654c6723332cbaf89"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/manifest.json",
+      "sha256": "7e7ce7ee2dd29b4b305e381ff473983d19ef1e39df0668797b095a06a773318d"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/validation_electrique_thermique_cem.json",
+      "sha256": "fe1a816743d3bae6a9a58578a5395550d1ad0a1003ef0b36f785874790f5fe3a"
+    },
+    {
+      "path": "results/benchmarks/comparison/botanicgarden_1006-03/full_1x_qos_harmonized_20260819.json",
+      "sha256": "4fbfdf189f63478688fc52e74a3c72330de4ecb8de30719f5a10365893286d90"
+    }
+  ],
+  "documents_modifies": [
+    {
+      "path": "AGENTS.md",
+      "sha256_avant": "3fd4d99e1201513fbde73c579512a60420a4fc967bbad135e421e578c2d13c19",
+      "sha256_apres": "ee9db0207a81fef0ccfbf46e403583a1d259e1023185a3cabfe932a53414ce15"
+    },
+    {
+      "path": "README.md",
+      "sha256_avant": "86abc4686f82eafd54d570357af4d4a4c30df7a70a3711c302f4d02dad1effe8",
+      "sha256_apres": "e7e6f874a52d72ebbd7dd0f2de76f884e67b1403925eaa8bb8dbd45cee35e2fa"
+    },
+    {
+      "path": "research/README.md",
+      "sha256_avant": "ea5f627b6cabf75a6c971d2a16b0f041f11058d8bde5bfd2754089d27b540d31",
+      "sha256_apres": "d2401d4c4b39562bd57e1b34fb299777c8e251ed5a839ab66733a660501c4f0b"
+    },
+    {
+      "path": "docs/INDEX.md",
+      "sha256_avant": "f06c1ad4ba3cdfe0884892c52973403fe62643f623a11dc5c346220bb9a33064",
+      "sha256_apres": "0437b059190cccd1d6e6f5eabe001016656cf64d00a7964d7957eaaeb9311e53"
+    },
+    {
+      "path": "docs/architecture/HLD.md",
+      "sha256_avant": "f517f04e0aa21d86504f832860c02bffeb0047a5b4e70d6385d958764d4cd87d",
+      "sha256_apres": "5d3cea6ee37cb9d10189b85229c6c3b3cf25033de8aafcf5198bfe5b708a0fe6"
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+      "sha256_avant": "88f2324086b605e0739b3ab03eb7d36ff5b2baa92f8c160c748799d81940451e",
+      "sha256_apres": "3647abbdd0befb1878db04fe2586e6242ab3ecb8823e5f41720315aabb609269"
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+      "sha256_avant": "7a0c2d1cb3285df641cb0ff4969264e4f01297d45391e75f3e90ae803c67801b",
+      "sha256_apres": "671a005f4f878877f5dfcb4c58af1c77fa1d9f786d3be7f276af9132ccc32b68"
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md",
+      "sha256_avant": "ee6bdf6b20a992eed83f87a650c8b6a0a5d502cf98d167bc0c13d1596d4e3c7f",
+      "sha256_apres": "42bcff78aae626facedd0bdaf05fde848254af909f036764900cd1154f683f60"
+    },
+    {
+      "path": "docs/VALIDATION_QUALIFICATION.md",
+      "sha256_avant": "85240ba18e1e97bb0729a9b6182baddd826e23d64cea2cb817726b809e36edcc",
+      "sha256_apres": "b6c67c264aecc8fbf24de433d55429694e6aad689d933cb18685b3f21c8a78cc"
+    }
+  ],
+  "controles_documentaires": {
+    "fidelite_texte_integral": true,
+    "preceptes_uniques_01_22": true,
+    "couverture_preceptes_01_22": true,
+    "constats_uniques_001_017": true,
+    "liens_locaux_ajoutes": true,
+    "dates_journaux": true,
+    "preservation_hors_perimetre": true,
+    "espaces_diff_cible": true
+  },
+  "details_controles": {
+    "liens_verifies": 52,
+    "liens_en_erreur": [],
+    "ecarts_preservation": [],
+    "espaces_en_erreur": [],
+    "dates": [
+      {
+        "path": "docs/INDEX.md",
+        "date_et_journal": true
+      },
+      {
+        "path": "docs/architecture/HLD.md",
+        "date_et_journal": true
+      },
+      {
+        "path": "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+        "date_et_journal": true
+      },
+      {
+        "path": "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+        "date_et_journal": true
+      },
+      {
+        "path": "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md",
+        "date_et_journal": true
+      },
+      {
+        "path": "docs/VALIDATION_QUALIFICATION.md",
+        "date_et_journal": true
+      }
+    ]
+  },
+  "controles_empreintes_cao": [
+    {
+      "source": "hardware/mecanique/cartographe/verification/revue_hierarchie_batterie.json",
+      "champ": "sources_natives_revalidees_sha256",
+      "etat_compare": "Empreintes relevées avant intégration et retrouvées identiques à la reprise ; les cinq documents vivants sont ensuite modifiés comme indiqué dans documents_modifies.",
+      "verifies": 147,
+      "concordants": 146,
+      "ecarts": [
+        {
+          "path": "hardware/mecanique/cartographe/assemblages/Integration_Stack_Revue_20261003.FCStd",
+          "attendu": "a418dad3701a6ca6ece86a26167cf8be73c80c731c11a5005323e6f5f72a32a8",
+          "observe": "b03b8588f5b2b64ecfe4114ed1ecd9500e589e623c4898f6d7e17319d26d93e5"
+        }
+      ]
+    },
+    {
+      "source": "hardware/mecanique/cartographe/verification/revue_hierarchie_batterie.json",
+      "champ": "fichiers_revus_sha256",
+      "etat_compare": "Empreintes relevées avant intégration et retrouvées identiques à la reprise ; les cinq documents vivants sont ensuite modifiés comme indiqué dans documents_modifies.",
+      "verifies": 66,
+      "concordants": 66,
+      "ecarts": []
+    }
+  ],
+  "protocole_relecture": [
+    "Comparer DOC-HLD §11 au texte fourni après neutralisation des seules métadonnées, ancres et niveaux de titres.",
+    "Rechercher P01 à P22 une seule fois et AUD-001 à AUD-017 une seule fois, puis contrôler les renvois locaux ajoutés.",
+    "Comparer les SHA-256 courants aux champs sources_natives_revalidees_sha256 et fichiers_revus_sha256 de revue_hierarchie_batterie.json ; ne pas réécrire la preuve source.",
+    "Contrôler les références de code et de configurations citées dans DOC-VAL §15.2 sur les empreintes de ce manifeste ; les conclusions de lecture ne remplacent pas des tests exécutés.",
+    "Comparer les fichiers hors périmètre aux empreintes relevées avant la tâche ; cet instantané local est sous .runtime/audit-preceptes/baseline.json, hors Git."
+  ],
+  "revue_independante": {
+    "agent": "audit_preuves",
+    "date_locale": "2026-10-08",
+    "etat": "Terminée",
+    "conclusion": "Favorable sur le périmètre documentaire ; aucune qualification technique nouvelle.",
+    "controles": [
+      "Différences propres à la tâche comparées aux copies initiales, sans confondre les modifications préexistantes.",
+      "Fidélité intégrale des préceptes confirmée indépendamment après normalisation des titres et identifiants.",
+      "22 préceptes et 17 constats, priorité physique et limites de qualification cohérentes.",
+      "293 liens locaux inspectés : seules absences lors de la revue, les trois liens au manifeste alors en cours de rédaction ; leur existence est contrôlée après sa création."
+    ],
+    "remarques_traitees": [
+      "Nombre de lots corrigé : onze après T0, douze au total.",
+      "Preuve structurée produite et ses références résolues après la revue."
+    ]
+  },
+  "validations_non_executees": [
+    "Compilation/CTest/CI distante : code non modifié, constats statiques seulement.",
+    "Rejeux LIO/PX4/SITL et ROS/arm64 : aucune campagne demandée par cette intégration.",
+    "FreeCAD/KiCad/ERC/DRC/mesures physiques : aucun modèle ni circuit modifié.",
+    "Recalcul intégral des datasets : contradiction documentaire établie par comparaison des sources canoniques.",
+    "Vérification externe de notices, prix et règles : périmètre limité au dossier local, sans nouvelle affirmation produit."
+  ],
+  "conclusion_integration": "conforme aux contrôles documentaires exécutés ; revue indépendante favorable",
+  "conclusion_projet": "Écarts techniques et critères physiques ouverts ; faisabilité physique À valider. Audit borné, pas de certification exhaustive."
+}

@@ -1,0 +1,90 @@
+{
+  "native-nominal": [
+    {"key":"integrity","family":"V2","method":"native-integrity","subjects":["assembly"],"parameters":{}},
+    {"key":"geometry","family":"V2","method":"route-geometry","subjects":["L1"],"parameters":{"required_diameter_mm":2},"tolerance":0.00001},
+    {"key":"radius","family":"V2","method":"bend-radius","subjects":["L1"],"parameters":{"minimum_mm":4},"tolerance":1e-12},
+    {"key":"all-pairs","family":"V2","method":"pair-coverage","subjects":["assembly"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"inventory_ids":["Deck","L1","Obstacle"],"contacts":[{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle fixé au plateau dans CAB-ENG-001."}]},"tolerance":0.000001},
+    {"key":"extraction","family":"V3","method":"extraction","subjects":["S"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","Obstacle"],"ignored_ids":["L1"]},"tolerance":0.000001},
+    {"key":"total-length","family":"V5","method":"architecture-metric","subjects":["L1"],"parameters":{"metric":"total_length_mm","unit":"mm","maximum":150,"metric_scope":{"route_ids":["L1"]}},"tolerance":0.000001,"requirement_id":"L4-V5-length"},
+    {"key":"upper-congestion","family":"V5","method":"architecture-metric","subjects":["L1"],"parameters":{"metric":"upper_zone_axis_length_mm","unit":"mm","maximum":0,"metric_scope":{"minimum_z_mm":16,"route_ids":["L1"]}},"tolerance":0.000001,"requirement_id":"L4-V5-upper-zone"},
+    {"key":"review","family":"V6","method":"critical-review","subjects":["L1","Obstacle"],"parameters":{"required_views":["dessus","dessous","profil-x","profil-y"],"frame_id":"banc-cable-xyz","hypothesis":"Le câble L1 touche ou traverse l’obstacle au droit du plateau.","inspection":{"key":"review-pair","family":"V2","method":"pair","subjects":["L1","Obstacle"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001},"tolerance":0.000001}}},
+    {"key":"review-extraction","family":"V6","method":"critical-review","subjects":["S"],"parameters":{"frame_id":"banc-cable-xyz","required_views":["extraction"],"hypothesis":"Le volume d’extraction de S pourrait recouper un obstacle du banc.","inspection":{"key":"extraction","family":"V3","method":"extraction","subjects":["S"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","Obstacle"],"ignored_ids":["L1"]},"tolerance":0.000001}}}
+  ],
+  "native-collision": [
+    {"key":"integrity","family":"V2","method":"native-integrity","subjects":["assembly"],"parameters":{}},
+    {"key":"all-pairs","family":"V2","method":"pair-coverage","subjects":["assembly"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"inventory_ids":["Deck","L1","Obstacle"],"contacts":[{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle fixé au plateau dans CAB-ENG-001."}]},"tolerance":0.000001},
+    {"key":"direct-obstacle","family":"V2","method":"pair","subjects":["L1","Obstacle"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001},"tolerance":0.000001},
+    {"key":"review","family":"V6","method":"critical-review","subjects":["L1","Obstacle"],"parameters":{"required_views":["dessus","dessous","profil-x","profil-y"],"frame_id":"banc-cable-xyz","hypothesis":"Le câble L1 touche ou traverse l’obstacle au droit du plateau.","inspection":{"key":"review-pair","family":"V2","method":"pair","subjects":["L1","Obstacle"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001},"tolerance":0.000001}}}
+  ],
+  "native-outside-selection": [
+    {"key":"all-pairs","family":"V2","method":"pair-coverage","subjects":["assembly"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"inventory_ids":["Deck","L1","Obstacle","LateObstacle"],"contacts":[{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle fixé au plateau dans CAB-ENG-001."}]},"tolerance":0.000001},
+    {"key":"outside-selection","family":"V2","method":"pair","subjects":["L1","LateObstacle"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001},"tolerance":0.000001}
+  ],
+  "native-can1-clear": [
+    {"key":"extraction","family":"V3","method":"extraction","subjects":["CAN1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L1","Obstacle"],"ignored_ids":[]},"tolerance":0.000001}
+  ],
+  "native-can1-blocked": [
+    {"key":"extraction","family":"V3","method":"extraction","subjects":["CAN1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"obstacle_ids":["Deck","L1","Obstacle"],"ignored_ids":[]},"tolerance":0.000001}
+  ],
+  "native-mobile": [
+    {"key":"integrity","family":"V2","method":"native-integrity","subjects":["assembly"],"parameters":{}},
+    {"key":"anchor","family":"V3","method":"anchor","subjects":["Clip","ClipSolid","Deck"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"anchor_id":"Deck","support_object_id":"ClipSolid","obstacle_ids":["L1","Obstacle"],"ignored_ids":["Deck","ClipSolid"]},"tolerance":0.000001},
+    {"key":"intermediaire","family":"V4","method":"motion-state","subjects":["L1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"required_diameter_mm":2,"minimum_mm":4,"min_reserve_mm":15,"length_tolerance_mm":0.001,"pairs":[["L1","ClipSolid"],["L1","Deck"],["L1","Obstacle"]],"contacts":[{"a":"Deck","b":"ClipSolid","relation":"functional_contact","justification":"Retenue en appui sur le plateau dans CAB-ENG-002."},{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle en appui sur le plateau dans CAB-ENG-002."},{"a":"L1","b":"ClipSolid","relation":"functional_contact","justification":"Gaine en appui nominal dans la retenue de CAB-ENG-002."}]},"tolerance":0.000001,"state_id":"intermediaire"},
+    {"key":"extreme","family":"V4","method":"motion-state","subjects":["L1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"required_diameter_mm":2,"minimum_mm":4,"min_reserve_mm":15,"length_tolerance_mm":0.001,"pairs":[["L1","ClipSolid"],["L1","Deck"],["L1","Obstacle"],["ClipSolid","Obstacle"],["Deck","Obstacle"]],"contacts":[{"a":"Deck","b":"ClipSolid","relation":"functional_contact","justification":"Retenue en appui sur le plateau dans CAB-ENG-002."},{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle en appui sur le plateau dans CAB-ENG-002."},{"a":"L1","b":"ClipSolid","relation":"functional_contact","justification":"Gaine en appui nominal dans la retenue de CAB-ENG-002."}]},"tolerance":0.000001,"state_id":"extreme"},
+    {"key":"continuous-envelope","family":"V4","method":"motion-envelope","subjects":["L1"],"parameters":{"minimum_clearance_mm":1,"bound_method":"conservative_kinematic_clearance_bound","interval_ids":["nominal-to-intermediaire","intermediaire-to-extreme"]},"mandatory":false},
+    {"key":"review-support","family":"V6","method":"critical-review","subjects":["Clip","ClipSolid","Deck"],"parameters":{"frame_id":"banc-mobile-xyz","required_views":["supports"],"hypothesis":"La retenue Clip pourrait être flottante ou inaccessible.","inspection":{"key":"anchor","family":"V3","method":"anchor","subjects":["Clip","ClipSolid","Deck"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"anchor_id":"Deck","support_object_id":"ClipSolid","obstacle_ids":["L1","Obstacle"],"ignored_ids":["Deck","ClipSolid"]},"tolerance":0.000001}}}
+  ],
+  "native-mobile-collision": [
+    {"key":"extreme","family":"V4","method":"motion-state","subjects":["L1"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"required_diameter_mm":2,"minimum_mm":4,"min_reserve_mm":15,"length_tolerance_mm":0.001,"pairs":[["L1","ClipSolid"],["L1","Deck"],["L1","Obstacle"],["ClipSolid","Obstacle"],["Deck","Obstacle"]],"contacts":[{"a":"Deck","b":"ClipSolid","relation":"functional_contact","justification":"Retenue en appui sur le plateau dans CAB-ENG-002."},{"a":"Deck","b":"Obstacle","relation":"functional_contact","justification":"Obstacle en appui sur le plateau dans CAB-ENG-002."},{"a":"L1","b":"ClipSolid","relation":"functional_contact","justification":"Gaine en appui nominal dans la retenue de CAB-ENG-002."}]},"tolerance":0.000001,"state_id":"extreme"},
+    {"key":"continuous-envelope","family":"V4","method":"motion-envelope","subjects":["L1"],"parameters":{"minimum_clearance_mm":1,"bound_method":"conservative_kinematic_clearance_bound","interval_ids":["nominal-to-intermediaire","intermediaire-to-extreme"]},"mandatory":false}
+  ],
+  "native-floating": [
+    {"key":"anchor","family":"V3","method":"anchor","subjects":["Clip","ClipSolid","Deck"],"parameters":{"clearance_mm":1,"volume_tolerance_mm3":0.000001,"anchor_id":"Deck","support_object_id":"ClipSolid","obstacle_ids":["L1","Obstacle"],"ignored_ids":["Deck","ClipSolid"]},"tolerance":0.000001}
+  ],
+  "native-congested": [
+    {"key":"total-length","family":"V5","method":"architecture-metric","subjects":["L1"],"parameters":{"metric":"total_length_mm","unit":"mm","maximum":150,"metric_scope":{"route_ids":["L1"]}},"tolerance":0.000001,"requirement_id":"L4-V5-length"},
+    {"key":"upper-congestion","family":"V5","method":"architecture-metric","subjects":["L1"],"parameters":{"metric":"upper_zone_axis_length_mm","unit":"mm","maximum":0,"metric_scope":{"minimum_z_mm":16,"route_ids":["L1"]}},"tolerance":0.000001,"requirement_id":"L4-V5-upper-zone"}
+  ],
+  "native-partial": [
+    {"key":"integrity","family":"V2","method":"native-integrity","subjects":["assembly"],"parameters":{}}
+  ],
+  "native-l2": [
+    {"key":"mate-port-a","family":"V3","method":"mate-pose","subjects":["port-a"],"parameters":{"frames":{"mount":[0,0,1,0,0,1,0,0,-1,0,0,0,0,0,0,1],"receptacle_mating":[0,0,1,4,0,1,0,0,-1,0,0,0,0,0,0,1],"mate_mating":[0,0,1,4,0,1,0,0,-1,0,0,0,0,0,0,1],"exit":[0,0,1,14,0,1,0,0,-1,0,0,0,0,0,0,1]}},"tolerance":1e-8},
+    {"key":"mate-port-b","family":"V3","method":"mate-pose","subjects":["port-b"],"parameters":{"frames":{"mount":[0,0,-1,100,0,1,0,0,1,0,0,0,0,0,0,1],"receptacle_mating":[0,0,-1,96,0,1,0,0,1,0,0,0,0,0,0,1],"mate_mating":[0,0,-1,96,0,1,0,0,1,0,0,0,0,0,0,1],"exit":[0,0,-1,86,0,1,0,0,1,0,0,0,0,0,0,1]}},"tolerance":1e-8},
+    {"key":"review-connectors","family":"V6","method":"critical-review","subjects":["port-a"],"parameters":{"frame_id":"banc-l2-xyz","required_views":["connecteurs"],"hypothesis":"La fiche de port-a pourrait être décalée par rapport aux repères d’accouplement ou de sortie.","inspection":{"key":"mate-port-a","family":"V3","method":"mate-pose","subjects":["port-a"],"parameters":{"frames":{"mount":[0,0,1,0,0,1,0,0,-1,0,0,0,0,0,0,1],"receptacle_mating":[0,0,1,4,0,1,0,0,-1,0,0,0,0,0,0,1],"mate_mating":[0,0,1,4,0,1,0,0,-1,0,0,0,0,0,0,1],"exit":[0,0,1,14,0,1,0,0,-1,0,0,0,0,0,0,1]}},"tolerance":1e-8}}}
+  ],
+  "history-f16-k": [
+    {"key":"radius","family":"V2","method":"bend-radius","subjects":["F16"],"parameters":{"minimum_mm":22},"tolerance":1e-12},
+    {"key":"gaine","family":"V2","method":"solid","subjects":["F16"],"parameters":{}}
+  ],
+  "history-f16-initial": [
+    {"key":"radius","family":"V2","method":"bend-radius","subjects":["F16"],"parameters":{"minimum_mm":22},"tolerance":1e-12},
+    {"key":"dynamic-limit-unproven","family":"V4","method":"bend-radius","subjects":["F16"],"parameters":{"minimum_mm":null},"tolerance":1e-12}
+  ],
+  "history-f16-p": [
+    {"key":"f16-p73","family":"V2","method":"pair","subjects":["F16","P73"],"parameters":{"clearance_mm":0,"volume_tolerance_mm3":0.000001},"tolerance":0.000001},
+    {"key":"dynamic-limit-unproven","family":"V4","method":"bend-radius","subjects":["F16"],"parameters":{"minimum_mm":null},"tolerance":1e-12}
+  ],
+  "history-f16-p73-clear": [
+    {"key":"f16-p73","family":"V2","method":"pair","subjects":["F16","P73"],"parameters":{"clearance_mm":0,"volume_tolerance_mm3":0.000001},"tolerance":0.000001}
+  ],
+  "history-f16-chassis": [
+    {"key":"f16-chassis","family":"V2","method":"pair","subjects":["F16","Chassis"],"parameters":{"clearance_mm":0,"volume_tolerance_mm3":0.000001},"tolerance":0.000001}
+  ],
+  "history-can1": [
+    {"key":"extraction","family":"V3","method":"extraction","subjects":["CAN1"],"parameters":{"clearance_mm":0,"volume_tolerance_mm3":0.000001,"obstacle_ids":["F35"],"ignored_ids":[]},"tolerance":0.000001},
+    {"key":"full-assembled-can1","family":"V3","method":"extraction","subjects":["CAN1","F35","PM08"],"parameters":{}}
+  ],
+  "history-a": [
+    {"key":"historical-length","family":"V5","method":"architecture-metric","subjects":["assembly"],"parameters":{"metric":"total_length_mm","unit":"mm","axis_count":53,"minimum":10885.079164281875,"maximum":10885.079164281875,"replay_method":"Somme des longueurs OCC des axes sauvegardés"},"tolerance":0.01,"requirement_id":"L4-V5-historical-length-replay"},
+    {"key":"historical-height","family":"V5","method":"architecture-metric","subjects":["assembly"],"parameters":{"metric":"max_cable_z_mm","unit":"mm","axis_count":53,"minimum":170.27787476169587,"maximum":170.27787476169587,"replay_method":"Z maximal des boîtes englobantes des gaines"},"tolerance":0.01,"requirement_id":"L4-V5-historical-height-replay"},
+    {"key":"upper-zone-replay","family":"V5","method":"architecture-metric","subjects":["upper-zone"],"parameters":{"metric":"zone_above_mm","unit":"mm","axis_count":53,"minimum":2051.21955525123,"maximum":2051.21955525123,"replay_method":"Discrétisation de 384 points par courbe et découpe par zone"},"tolerance":0.01,"requirement_id":"L4-V5-historical-upper-replay"},
+    {"key":"upper-zone-qualification","family":"V5","method":"architecture-metric","subjects":["upper-zone"],"parameters":{"metric":"zone_above_mm","unit":"mm","axis_count":53,"maximum":null},"mandatory":false}
+  ],
+  "history-faces": [
+    {"key":"historical-length","family":"V5","method":"architecture-metric","subjects":["assembly"],"parameters":{"metric":"total_length_mm","unit":"mm","axis_count":53,"minimum":10788.378082402585,"maximum":10788.378082402585,"replay_method":"Somme des longueurs OCC des axes sauvegardés"},"tolerance":0.01,"requirement_id":"L4-V5-historical-length-replay"},
+    {"key":"historical-height","family":"V5","method":"architecture-metric","subjects":["assembly"],"parameters":{"metric":"max_cable_z_mm","unit":"mm","axis_count":53,"minimum":170.27787476169587,"maximum":170.27787476169587,"replay_method":"Z maximal des boîtes englobantes des gaines"},"tolerance":0.01,"requirement_id":"L4-V5-historical-height-replay"},
+    {"key":"upper-zone-replay","family":"V5","method":"architecture-metric","subjects":["upper-zone"],"parameters":{"metric":"zone_above_mm","unit":"mm","axis_count":53,"minimum":1802.0493099622645,"maximum":1802.0493099622645,"replay_method":"Discrétisation de 384 points par courbe et découpe par zone"},"tolerance":0.01,"requirement_id":"L4-V5-historical-upper-replay"},
+    {"key":"upper-zone-qualification","family":"V5","method":"architecture-metric","subjects":["upper-zone"],"parameters":{"metric":"zone_above_mm","unit":"mm","axis_count":53,"maximum":null},"mandatory":false}
+  ]
+}

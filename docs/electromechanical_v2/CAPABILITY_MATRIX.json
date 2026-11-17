@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "scope": "Moteur v1 et planificateur C++17 voisin, état du workspace et tests de L0.",
+  "test_locations": {
+    "test_*.py": "electromechanical_engine/tests/",
+    "Cables": ".agents/skills/electromechanical-integration/scripts/tests_freecad.py",
+    "CTest": ".agents/skills/electromechanical-integration/scripts/CMakeLists.txt"
+  },
+  "status_values": [
+    "implémentée et exercée",
+    "partielle",
+    "simple stub",
+    "absente"
+  ],
+  "capabilities": [
+    {
+      "id": "EXTRACT",
+      "capacity": "Extraction XLink et intégrité des sources",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/freecad.py",
+        "electromechanical_engine/freecad_worker.py",
+        ".agents/skills/electromechanical-integration/scripts/workspace_guard.py"
+      ],
+      "tests": [
+        "test_freecad.py::test_native_xlink_extraction_preserves_the_two_sources",
+        "test_freecad.py::test_invalid_native_feature_or_solid_blocks_extraction"
+      ],
+      "limits": "Sauvegarde/réouverture d’une copie synthétique. Inventaire complet possible même si un natif invalide empêche la sauvegarde."
+    },
+    {
+      "id": "FREEZE",
+      "capacity": "Gel du modèle et des exigences v1",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/contracts.py"
+      ],
+      "tests": [
+        "test_contracts.py::test_detects_reference_mutation_even_if_json_equivalent",
+        "test_contracts.py::test_candidate_cannot_change_reference_or_requirements"
+      ],
+      "limits": "Empreintes des octets. L’ancrage indépendant du reçu reste nécessaire."
+    },
+    {
+      "id": "SYSTEM",
+      "capacity": "Modèle métier d’équipement, port et liaison",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/contracts.py"
+      ],
+      "tests": [
+        "test_contracts.py::test_system_rejects_dangling_port_and_requires_explicit_unknown"
+      ],
+      "limits": "Liaison v1 point à point et listes de cavités. Modèle de circuits, contacts, conducteurs et mapping CAO vers le métier à réaliser."
+    },
+    {
+      "id": "CONNECTIVITY",
+      "capacity": "Identité de port et compatibilité d’interface déclarées",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/validation.py",
+        "electromechanical_engine/search.py"
+      ],
+      "tests": [
+        "test_validation.py::test_port_identity_even_if_interfaces_match",
+        "test_validation.py::test_incompatible_connector_or_cavity",
+        "test_validation.py::test_elbow_uses_the_frozen_mating_catalogue"
+      ],
+      "limits": "Contrôle de valeurs déclarées et options gelées. Aucun relevé de brochage ou de continuité du cordon réel."
+    },
+    {
+      "id": "ELECTRICAL",
+      "capacity": "Contrôles électriques par circuit et mesures de banc",
+      "status": "absente",
+      "code": [],
+      "tests": [],
+      "limits": "Aucun contrôle pin à pin des conducteurs réels, continuité, isolement, courant ou CEM dans ce moteur."
+    },
+    {
+      "id": "CORRIDOR",
+      "capacity": "Planification topologique de corridors déclarés",
+      "status": "implémentée et exercée",
+      "code": [
+        ".agents/skills/electromechanical-integration/scripts/harness_planner.cpp",
+        ".agents/skills/electromechanical-integration/scripts/harness_planner.hpp"
+      ],
+      "tests": [
+        "CTest::planner_properties"
+      ],
+      "limits": "Outil C++17 séparé. Recherche bornée, compatibilité par paire et largeur préliminaire, conservation des liaisons."
+    },
+    {
+      "id": "ROUTE_NATIVE",
+      "capacity": "Construction de routes déclarées dans FreeCAD/Cables",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/freecad_worker.py",
+        "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py"
+      ],
+      "tests": [
+        "test_freecad.py::test_native_collision_and_correction_after_independent_reopen"
+      ],
+      "limits": "WireFlex/ArchCable sur géométrie de banc. Les constructeurs historiques de projet sont des adaptateurs distincts."
+    },
+    {
+      "id": "ROUTE_AUTOMATIC",
+      "capacity": "Découverte des espaces libres et rangement volumique des câbles",
+      "status": "absente",
+      "code": [],
+      "tests": [],
+      "limits": "La limite d’aire du planificateur et les corridors déclarés sont des données de présélection."
+    },
+    {
+      "id": "BREP",
+      "capacity": "BRep, fraîcheur native et couverture des collisions",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/freecad_worker.py",
+        "electromechanical_engine/validation.py",
+        ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py"
+      ],
+      "tests": [
+        "test_qualification_inventory.py::test_linked_untagged_obstacle_cannot_be_hidden_from_pair_inventory",
+        "test_qualification_inventory.py::test_xlink_cannot_hide_an_obstacle_in_an_external_document",
+        "test_validation.py::test_collision_coverage_rejects_missing_duplicate_and_unexpected_pairs"
+      ],
+      "limits": "Validation d’un banc monodocument. Extraction XLink et contre-mesures historiques ciblées ont un parcours distinct."
+    },
+    {
+      "id": "RADIUS",
+      "capacity": "Rayon, tangences et validité de l’axe",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/validation.py",
+        ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py"
+      ],
+      "tests": [
+        "test_qualification_radius.py::test_roundoff_at_the_exact_radius_does_not_mask_a_real_deficit",
+        "Cables::test_spline_samples_never_certify_global_radius"
+      ],
+      "limits": "Lignes et arcs contrôlables analytiquement. Échantillons de spline sans borne globale certifiée."
+    },
+    {
+      "id": "ASSEMBLY",
+      "capacity": "Montage, retrait et retenue",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/native_retention.py",
+        "electromechanical_engine/validation.py"
+      ],
+      "tests": [
+        "test_freecad.py::test_native_clear_route_can_still_block_connector_extraction",
+        "test_native_retention.py::test_saved_arc_retention_observes_both_end_gaps_and_threshold"
+      ],
+      "limits": "Boîtes d’accès et couronnes nominales. Gestes, flexibilité, couples et tenue physique ouverts."
+    },
+    {
+      "id": "MOTION",
+      "capacity": "Contrôles aux poses discrètes et conservation de longueur",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/native_motion.py",
+        "electromechanical_engine/validation.py"
+      ],
+      "tests": [
+        "test_native_motion.py::test_native_discrete_states_pass_fail_and_remain_unknown"
+      ],
+      "limits": "Translations et axes imposés sur le banc. Enveloppe continue, rotations, fatigue et réserve utilisable ouvertes."
+    },
+    {
+      "id": "EXPLORE",
+      "capacity": "Exploration bornée des variantes déclarées",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/search.py"
+      ],
+      "tests": [
+        "test_search.py::test_rejects_floating_and_narrow_corridors_and_deduplicates_physical_geometry"
+      ],
+      "limits": "Préfiltrage, dédoublonnage, budget. Les alternatives sont déclarées."
+    },
+    {
+      "id": "HARDWARE_VARIANT",
+      "capacity": "Réimplantation, connectique et électronique",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/search.py"
+      ],
+      "tests": [
+        "test_search.py::test_preserves_hardware_variant_families_and_marks_unproven_changes"
+      ],
+      "limits": "Familles et hypothèses sont représentées. La conception de nouvelles références matérielles reste à démontrer."
+    },
+    {
+      "id": "METRICS",
+      "capacity": "Comparaison métrique et vues communes",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/metrics.py"
+      ],
+      "tests": [
+        "test_metrics.py::test_curve_crossing_a_plateau_has_unknown_zone_totals",
+        "test_search.py::test_visuals_share_frame_and_report_missing_supports"
+      ],
+      "limits": "Projections SVG, longueurs et hauteurs. Couverture variable pour les courbes et valeurs absentes. V6 de revue reste distinct."
+    },
+    {
+      "id": "PARETO",
+      "capacity": "Admission numérique, comparaison et Pareto",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/search.py"
+      ],
+      "tests": [
+        "test_search.py::test_comparison_requires_native_findings_even_with_a_favorable_verdict",
+        "test_search.py::test_pareto_keeps_tradeoff_and_rejects_dominated"
+      ],
+      "limits": "Rapports à référence commune avec cinq constats natifs favorables. Le Pareto porte sur les candidats évalués."
+    },
+    {
+      "id": "DECISION",
+      "capacity": "Décision d’ingénierie GO, GO conditionnel ou NO-GO en contrat",
+      "status": "absente",
+      "code": [],
+      "tests": [],
+      "limits": "Verdict v1 calculé et décisions humaines consignées dans les preuves GO 1–3. Contrat V2 proposé."
+    },
+    {
+      "id": "FEEDBACK",
+      "capacity": "Boucle bornée et convergence par défaut observé",
+      "status": "implémentée et exercée",
+      "code": [
+        "electromechanical_engine/search.py",
+        "electromechanical_engine/__main__.py"
+      ],
+      "tests": [
+        "test_search.py::test_other_pair_motion_state_or_criterion_cannot_close_a_finding",
+        "test_search.py::test_passed_finding_does_not_trigger_and_dominated_repeat_stops"
+      ],
+      "limits": "Corrections prédéclarées et arrêt sur le budget, épuisement ou absence de progrès."
+    },
+    {
+      "id": "RECOVERY",
+      "capacity": "Finalisation et reprise de campagne",
+      "status": "partielle",
+      "code": [
+        "electromechanical_engine/__main__.py"
+      ],
+      "tests": [
+        "test_search.py::test_campaign_persists_completed_attempts_before_interruption"
+      ],
+      "limits": "Contexte et tentatives finalisées conservés. Rejeu dans un dossier neuf, reprise native en place absente."
+    },
+    {
+      "id": "FULL_ADMISSION",
+      "capacity": "Admission par le moteur du prototype cartographe complet",
+      "status": "absente",
+      "code": [],
+      "tests": [],
+      "limits": "Des scripts ciblés et des mesures historiques existent. La validation v1 du banc exige un candidat monodocument et son modèle gelé."
+    },
+    {
+      "id": "RPC",
+      "capacity": "Backend RPC dans le moteur",
+      "status": "absente",
+      "code": [],
+      "tests": [],
+      "limits": "Client MCP externe 0.1.22 local, inaccessible pendant L0. Repli natif par processus éprouvé."
+    }
+  ]
+}

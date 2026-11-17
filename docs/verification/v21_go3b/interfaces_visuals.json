@@ -1,0 +1,80 @@
+{
+  "schema": "drone_agricole.go3b_visual_review.v1",
+  "date": "2026-11-17",
+  "test_id": "T-CARTO-V21-GO3B-VIEWS",
+  "render_status": "PASS",
+  "engineering_status": "INCONCLUSIVE",
+  "freecad": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "baseline": "D:/ProjetGuillaume/DroneAgricole/.runtime/v21-go3b/baseline/cad",
+  "candidate": "D:/ProjetGuillaume/DroneAgricole/.runtime/v21-go3b/consolidee/cad",
+  "candidate_root_sha256": "8bede4b337231f1b9be1374afeb3f7bb17037b6aebe9b2ec81fb86e5cb0f8982",
+  "scope": "Tessellation des BRep sauvegardés de la fermeture XLink et des neuf sondes ASSUMED dans leur repère XYZ natif. Aucun fichier CAO modifié.",
+  "image_count": 3,
+  "images_and_manifests": [
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/vues/01_dessus_dessous_profil.png",
+      "sha256": "74a63395898b3c5c587e4488d3d6fc4614ed06f234030a96b634a77534cc95e1"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/vues/02_service_et_camera.png",
+      "sha256": "cd2916384ac9823a7299541ab1ff81de5edb89a18f5e5cd0cde94ab850f2010d"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/vues/03_interfaces_supposees.png",
+      "sha256": "a91e057c2f61afff13ebc4566b705936a654abf77a9311d8162c5be5d6bfe095"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/vues/vues.json",
+      "sha256": "030116191d541341558ddad1845342d0ceccb44a7a5ec10c5fc5b2a71465c3e7"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/vues/03_interfaces_supposees.json",
+      "sha256": "1631c619fb60b3913ab55bb29c4bb371d003b6c329412aa7d386f192c2590891"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/interfaces_render.py",
+      "sha256": "3edd254bafab8b833deacd80d65ec50e4de50d4eff7a665994baf02bb510cf9a"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/go3b/interfaces_detail.py",
+      "sha256": "30c51f4c3a7a5e4b44c43ceef96a0ea0276a7ef4bbeb18539cdfebb1f0c98ade"
+    }
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "visual_qa": {
+    "status": "PASS",
+    "images_inspected": 3,
+    "checks": [
+      "Comparaison à échelle commune sur les vues de baie",
+      "Titres, légendes, barres et annotations lisibles",
+      "Repères service dessinés depuis les volumes natifs",
+      "Dessus, dessous, profil, baie transparente, détails TTL/USB/CAN1"
+    ],
+    "known_limits": [
+      "Projections partielles de la baie, sans calcul de jeu depuis les pixels",
+      "Sondes de corps/retrait hypothétiques, sans preuve de course constructeur",
+      "Volumes ASSUMED représentés en violet et hors BOM physique"
+    ]
+  },
+  "saved_can1_nominal_section_xyz_mm": [
+    4.15,
+    6.25,
+    5.7
+  ],
+  "mating_shape_qualification": "INCONCLUSIVE",
+  "full_native_validation": "docs/verification/v21_go3b_validation.json"
+}

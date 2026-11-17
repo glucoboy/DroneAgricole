@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "purpose": "Synthetic fixture only; no supplier specification",
+  "connectors": [
+    {"id":"A","position_mm":[0,0,0],"exit_axis":[1,0,0]},
+    {"id":"B","position_mm":[0,20,0],"exit_axis":[1,0,0]},
+    {"id":"D","position_mm":[120,0,0],"exit_axis":[-1,0,0]},
+    {"id":"E","position_mm":[120,20,0],"exit_axis":[-1,0,0]}
+  ],
+  "nodes": [
+    {"id":"a","connector_id":"A","accessible":true},
+    {"id":"b","connector_id":"B","accessible":true},
+    {"id":"p","accessible":true},
+    {"id":"q","accessible":true},
+    {"id":"d","connector_id":"D","accessible":true},
+    {"id":"e","connector_id":"E","accessible":true}
+  ],
+  "edges": [
+    {"id":"ap","from":"a","to":"p","length_mm":10,"usable_width_mm":20},
+    {"id":"bp","from":"b","to":"p","length_mm":10,"usable_width_mm":20},
+    {"id":"pq","from":"p","to":"q","length_mm":100,"usable_width_mm":20},
+    {"id":"qd","from":"q","to":"d","length_mm":10,"usable_width_mm":20},
+    {"id":"qe","from":"q","to":"e","length_mm":10,"usable_width_mm":20}
+  ],
+  "links": [
+    {"id":"L1","from":"A","to":"D","category":"digital-test","outer_diameter_mm":{"value":3,"source":"synthetic fixture","confidence":"candidate"},"min_bend_radius_mm":{"value":20,"source":"synthetic fixture","confidence":"candidate"}},
+    {"id":"L2","from":"B","to":"E","category":"digital-test","outer_diameter_mm":{"value":3,"source":"synthetic fixture","confidence":"candidate"},"min_bend_radius_mm":{"value":20,"source":"synthetic fixture","confidence":"candidate"}}
+  ],
+  "compatibility": [
+    {"categories":["digital-test","digital-test"],"decision":"allow","source":"synthetic fixture","reason":"Declared compatibility for this synthetic routing case only"}
+  ],
+  "settings": {"fill_ratio":0.4,"max_paths_per_link":8,"max_expansions":10000,"max_candidates":3,"objective_order":["bundle_segments","support_sites","envelope_mm3","cable_length_mm"]}
+}

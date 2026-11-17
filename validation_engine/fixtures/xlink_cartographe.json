@@ -1,0 +1,60 @@
+{
+  "scope": "prototype_cartographe_actif",
+  "source": "hardware/mecanique/cartographe",
+  "entry": "assemblages/Prototype_Cartographe.FCStd",
+  "native_count": 137,
+  "equipment_register": "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv",
+  "criteria": {
+    "requirements": ["CAB-CARTO-001", "MEC-ARC-001", "MEC-INT-001", "G3A-01", "G3A-08"],
+    "state": "nominal_sauvegarde",
+    "source": "docs/verification/go3a/GO3A_REQUIREMENTS.yaml",
+    "screening_only": true,
+    "clearance_mm": 0.0,
+    "distance_tolerance_mm": 0.000001,
+    "volume_tolerance_mm3": 0.0,
+    "contacts": []
+  },
+  "open_checks": [
+    {
+      "id": "installed-connector-mating",
+      "requirement": "CAB-CARTO-001",
+      "status": "NOT_RUN",
+      "reason": "Révisions, datums d’accouplement et contacts physiques incomplets pour les interfaces."
+    },
+    {
+      "id": "extraction-and-tool-access",
+      "requirement": "MEC-INT-001",
+      "status": "NOT_RUN",
+      "reason": "Course, outil et séquence de déverrouillage gelés manquants pour les fiches installées."
+    },
+    {
+      "id": "retention-attachment",
+      "requirement": "MEC-INT-001",
+      "status": "NOT_RUN",
+      "reason": "Appuis, contacts autorisés et stations à associer aux occurrences de cette fermeture."
+    },
+    {
+      "id": "motion-envelope",
+      "requirement": "MEC-INT-001",
+      "status": "NOT_RUN",
+      "reason": "Bornes des états mobiles et enveloppes continues absentes du référentiel de réception."
+    },
+    {
+      "id": "route-radius-and-terminal-tangency",
+      "requirement": "CAB-CARTO-001",
+      "status": "INCONCLUSIVE",
+      "reason": "Axe natif observable au nominal. Rayons applicables et tangentes des ports réels restent à établir."
+    },
+    {
+      "id": "geometry-approximations",
+      "requirement": "MEC-INT-001",
+      "status": "INCONCLUSIVE",
+      "reason": "Solides OEM X650 simplifiés et gabarits de connectique candidats.",
+      "sources": [
+        "docs/verification/cartographe_action3_x650.json",
+        "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+        "docs/verification/v21_connector_tests.json"
+      ]
+    }
+  ]
+}

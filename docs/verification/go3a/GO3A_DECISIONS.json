@@ -1,0 +1,60 @@
+{
+  "schema": "cartographe.go3a.decisions.v1",
+  "revision": "GO3A-1",
+  "date": "2026-11-14",
+  "statut": "GO3A_CONDITIONNEL",
+  "maturite": "À valider",
+  "cible_unique": "H-01",
+  "autorisation_go3b": false,
+  "configuration": "prototype_cartographe sans dock, nomenclature et poses du prototype actif comme référence de départ",
+  "comparaison": "GO3A_VARIANT_EVIDENCE.json",
+  "exigences": "GO3A_REQUIREMENTS.yaml",
+  "regles_de_compatibilite": [
+    "Un seul exemplaire logique de chaque liaison. Les regroupements mécaniques conservent le détail électrique et les retours.",
+    "Rejouer les interactions dans la même copie. Les mesures des branches Action 3 portent sur des versions et des poses distinctes.",
+    "Les masses restent inconnues pour les variantes de cordons, les accès du diagnostic et leurs retenues. La nomenclature active porte les inclusions.",
+    "Le contrôle de la fermeture XML ou des chargements FreeCAD ne suffit pas à rattacher un graphe électrique indépendant aux natifs."
+  ],
+  "decisions": [
+    {
+      "id": "G3A-D01", "familles": ["A", "H-01"], "exigences": ["G3A-01", "G3A-02", "G3A-07", "G3A-08"],
+      "choix": "Réemployer les équipements de la BOM, conserver les protections et regrouper les passages par fonction. Retours puissance protégés, branches temporelles et RF distinctes, faisceau Airy OEM et branches de bras conservés.",
+      "modifications": ["Corridors de chant ou de dessous à valider par paire", "Départs courts au port et protection aux franchissements"],
+      "alternatives_ecartees": ["Un seul tronc pour puissance, temps et RF sans étude de cohabitation", "Déplacement global de PDB ou remplacement global de CA01"],
+      "preuve": "GO3A_VARIANTS.md#mesures-comparables", "statut": "À valider"
+    },
+    {
+      "id": "G3A-D02", "familles": ["B", "H-01"], "exigences": ["G3A-01", "G3A-03", "G3A-06"], "liaisons": ["W12", "W23", "W24.A", "W24.B", "W24.C", "W33", "W13.A"],
+      "choix": "F12 de CA01 J402 vers TELEM1. Conserver F24B sur Orin Debug et réserver F24A à Orin GPIO_07 candidat. Garder P75 porteur et poursuivre l'identification de la référence IO CSI F24C. Ne peupler les interfaces de synchronisation qu'après validation du contrat, y compris R530 à R533.",
+      "alternatives_ecartees": ["GPS2 vu dans l'actif pour F12", "Entaille P75 et rapprochement de F13A avant preuve d'embase", "Réaffectation d'AUX1 pour LED"],
+      "preuve": "GO3A_INTERCONNECTION_MATRIX.csv", "statut": "À valider"
+    },
+    {
+      "id": "G3A-D03", "familles": ["B", "H-01"], "exigences": ["G3A-02", "G3A-05", "G3A-06"], "liaisons": ["W31", "W35", "W05", "W06", "W32", "W38", "W40", "W41"],
+      "choix": "Conserver le PM08 dans sa pose ORCH, étudier l'approche CAN1 depuis +Z avec la fiche droite GH4 candidate et le contournement F35 au sud. Geler la fonction H/L/GND, +5 V CAN1 non connecté. Préserver la paire de puissance, les deux POWER et l'accès sonde.",
+      "alternatives_ecartees": ["Déplacement PM08 −10 mm extrapolé du banc", "Valider le geste avec 0,120 mm de proximité nominale sans tolérances"],
+      "preuve": "../cartographe_action3_can1_integre.json", "statut": "À valider"
+    },
+    {
+      "id": "G3A-D04", "familles": ["B", "H-01"], "exigences": ["G3A-04", "G3A-06", "G3A-07"], "liaisons": ["W16", "W18", "W34", "W25"],
+      "choix": "Utiliser F16_R50_X200_Z10 comme témoin géométrique, avec réserve mobile autonome et M8 contrôlé conjointement. Maintenir GPS1 avec F25 au chant est de P66 et l'appui P85 candidat. Conserver P75 et le châssis comme références d'efforts.",
+      "alternatives_ecartees": ["508 mm de catalogue comme longueur suffisante pour le témoin", "Fusion des réserves M8 et F16", "Géométrie simplifiée des colonnes X650 comme définition OEM"],
+      "preuve": "../cartographe_action3_integre.json#/optical_z10", "statut": "À valider"
+    },
+    {
+      "id": "G3A-D05", "familles": ["C", "H-01"], "exigences": ["G3A-02", "G3A-05", "G3A-07"], "liaisons": ["W40", "W41"],
+      "choix": "Instruire le déport passif sur chant ouest avec isolateur existant et emplacements ORCH comme base. Déporter la coupure manuelle TTL RX/TX/GND brut du côté isolé BMS et l'accès USB du côté hôte. Sortie 5 V du bornier TTL et broche VDD BMS non raccordées selon contrat. Préserver la continuité du blindage USB côté hôte. Réserver une préconnexion locale vérifiable.",
+      "delimitation": "Le gabarit droit TTL rencontre la PDB dans le témoin Action 3 à la position de référence et quand la sonde est translatée de +8 mm selon Y. Le corps de l’isolateur et les deux cordons sont exclus du criblage. La géométrie réelle du bornier et l’ordre de pose devront réfuter cette obstruction ou conduire à une nouvelle décision d’implantation.",
+      "alternatives_ecartees": ["Isolateur à +Y8 et fiches droites comme solution complète", "Nouvelle carte active", "Pont de masse BMS et USB"],
+      "preuve": "GO3A_VARIANT_EVIDENCE.json", "statut": "À valider"
+    },
+    {
+      "id": "G3A-D06", "familles": ["H-01"], "exigences": ["G3A-01", "G3A-06", "G3A-07", "G3A-08"], "liaisons": ["W19", "W20", "W21", "W22", "W36", "W-LED-KIT.1", "W-LED-KIT.2", "W-LED-KIT.3", "W-LED-KIT.4"],
+      "choix": "Conserver le GNSS 12037 dans la variante G4 attendue, sous réserve de preuve de variante et d'accouplement SMA. Garder réservations FAN/SSD/CSI et les quatre LED sans allouer de sorties ni de rail aux LED. Préserver les interfaces et accès périphériques dans les verrous de réception.",
+      "alternatives_ecartees": ["Option S32K1 sans révision de l'affectation PPS", "Connecteur SMA en butée verticale selon la réservation actuelle", "Affectation LED AUX1–4 reprise d'ArduPilot"],
+      "preuve": "GO3A_RESEARCH.json", "statut": "À valider"
+    }
+  ],
+  "front_admissible_cartographe": [],
+  "critere_arret": "Un rejeu exhaustif du registre, quatre profils d'architecture et un criblage discriminant borné sur les interfaces de service. Clôturer GO3A en conditionnel tant que les incompatibilités et données critiques détaillées dans GO3A_HANDOFF.md persistent."
+}

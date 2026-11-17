@@ -1,0 +1,438 @@
+{
+  "schema": "drone_agricole.station_ui_verification.v1",
+  "date": "2026-10-23",
+  "conclusion": "preliminaire",
+  "maturity": "Implémenté",
+  "requirements": [
+    "UI-V3-001",
+    "UI-V3-002",
+    "UI-V3-003"
+  ],
+  "git_base": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "working_tree_dirty": true,
+  "environment": {
+    "os": "Windows 11",
+    "architecture": "x86_64",
+    "compiler": "GCC 16.2.0 / MSYS2 UCRT64",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "preset": "ci-windows",
+    "dashboard_ros2": false,
+    "temporary_directory": ".runtime/station-v3/tmp",
+    "platform": "offscreen"
+  },
+  "reference_manifest": "configs/station/magicpath_reference.json",
+  "hardware": {
+    "source": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "sha256": "c0fb2115a3deb329d389023cb414175e43ec60891eef407a2a715b6369d052c9",
+    "row_count": 134,
+    "interpretation": "Définition documentaire, aucune connexion ou qualification inférée"
+  },
+  "commands": [
+    "cmake --preset ci-windows",
+    "cmake --build --preset ci-windows -j 4",
+    "TEMP et TMP définis au chemin absolu .runtime/station-v3/tmp",
+    "ctest --preset ci-windows --output-on-failure",
+    "ctest --preset ci-windows -R test_(workspace_pages|workbench_pages|station_navigation|trajectory_view|dashboard_smoke)$ --output-on-failure",
+    "QT_QPA_PLATFORM=offscreen et DRONE_AGRICOLE_NAVIGATION_SCREENSHOTS=.runtime/station-v3/screenshots : test_station_navigation.exe -o .runtime/station-v3/navigation-final.txt,txt",
+    "drone-agricole-tools.exe station-workspace --action diagnostics --workspace D:/ProjetGuillaume/DroneAgricole"
+  ],
+  "results": {
+    "configure": "passed",
+    "build": "passed",
+    "complete_ctest": {
+      "passed": 23,
+      "failed": 0,
+      "elapsed_seconds": 92.09,
+      "log": ".runtime/station-v3/ctest-final.log",
+      "mapping_elapsed_seconds": 71.26,
+      "scope": "Suite complète avant les seules retouches finales de disposition"
+    },
+    "final_ui_ctest": {
+      "passed": 5,
+      "failed": 0,
+      "elapsed_seconds": 3.76,
+      "log": ".runtime/station-v3/ctest-ui-final.log",
+      "scope": "Après les retouches finales .ui, largeurs et styles"
+    },
+    "navigation": {
+      "routes": 21,
+      "themes": [
+        "professional",
+        "premium"
+      ],
+      "compact_size": [
+        1200,
+        760
+      ],
+      "passed": true,
+      "log": ".runtime/station-v3/navigation-final.txt"
+    },
+    "cli": {
+      "exit_code": 0,
+      "log": ".runtime/station-v3/cli-diagnostics.json"
+    },
+    "visual_review": {
+      "inspected": [
+        "professional-overview",
+        "premium-overview",
+        "mission-preparation",
+        "system-hardware",
+        "mission-compact",
+        "bench-compact",
+        "system-settings",
+        "data-catalogue",
+        "results",
+        "tests",
+        "analysis-metrics"
+      ],
+      "result": "conforme au périmètre desktop observé ; listes et formulaires défilants sur format compact"
+    },
+    "baseline": {
+      "default_temp_failures": 5,
+      "reason": "Écritures de fixtures refusées dans le TEMP du sandbox Windows",
+      "resolution": "TEMP/TMP dans le workspace ; les 5 suites passent sans modification de leurs assertions"
+    },
+    "independent_reviews": [
+      "workspace_services : shell, UIC, navigation, CMake et documents",
+      "bench_analysis : services, stockage, BOM et pages nouvelles",
+      "workspace_pages : résultats, comparaison et analyse"
+    ],
+    "limits": [
+      "PX4 SITL, Linux, arm64, banc matériel et vol non exécutés : refonte desktop Windows",
+      "Brouillons locaux non exécutables, sans transfert vers PX4",
+      "Validation station codée, pas moteur JSON Schema général ; AUD-010 non fermé",
+      "Approbation de carte, transfert réel, pilotes et maintenance opérationnelle Planifiés / À valider"
+    ]
+  },
+  "binaries": [
+    {
+      "path": "build/ci-windows/software/cpp/drone-agricole-dashboard.exe",
+      "sha256": "609043c1554e2945e88425bf8fce3d84ef14cf01919dcc18a6b8278e9eb821a6"
+    },
+    {
+      "path": "build/ci-windows/software/cpp/drone-agricole-tools.exe",
+      "sha256": "196f187f2e6be725321cb7c1623586aaca924f92110c8334bd6d909f56713ece"
+    }
+  ],
+  "sources": [
+    {
+      "path": "configs/station/magicpath_reference.json",
+      "sha256": "d625e54210c93417983ee2494323338275b52b528efa70aa8cb9492abf168e4e"
+    },
+    {
+      "path": "configs/station/schemas/mission_draft.schema.json",
+      "sha256": "55702a1041e8551c3ab31ae9ec78f92224f3367069e9c5f93bcec3798e6fc01f"
+    },
+    {
+      "path": "configs/station/schemas/station_workspace.schema.json",
+      "sha256": "f67a71cae328a51fda346359219532ae965ade82f4432080f70efb2886ff0f5c"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/adapters/BomHardwareInventory.hpp",
+      "sha256": "fa4032cf600719328ac354db5eeb39f674c4b254bd79d51c1d701c77680ccf3b"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/adapters/JsonWorkspaceStore.hpp",
+      "sha256": "5aa1edd9312dc8d8e0685721f173f0592f655e51a81eb9f8e0b2e09c8f75bc20"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/application/WorkspacePorts.hpp",
+      "sha256": "d040e96d64162db8d3a7bb3385db6a3c079026dca96a2b785e121e42a561d1b1"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/application/WorkspaceService.hpp",
+      "sha256": "c08200ae63723234374eaea46eb12d826059980a02aef6c2e82f007d23862ccc"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/domain/WorkspaceTypes.hpp",
+      "sha256": "f8115db6aac28e34d2438d79b6dcc2a4632e07f859ee5155d4330b4199bd8246"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/AnalysisPage.hpp",
+      "sha256": "f77c56179cddd3f1cdaf06bf9b31b7f3e20ee91180807ead8fae98ccebc37753"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/DataPage.hpp",
+      "sha256": "66bda3c92419f293d9246f273288c6d302da82a8018719e70919b00a9d63728a"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/MissionsPage.hpp",
+      "sha256": "4ec4cd7613244323681afd3c519ace3e97135aacef713784d76532be4eebec89"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/SystemPage.hpp",
+      "sha256": "0a11e465a51a92e1c3940dfcbadab5d216ccce3f2d6ffc08c52c993a7eb1ac4b"
+    },
+    {
+      "path": "software/cpp/src/adapters/storage/BomHardwareInventory.cpp",
+      "sha256": "9ffdc37fd711825f14a0bef6d0f916f3b213b8590d1d0b6e887a18c62cdc1b1e"
+    },
+    {
+      "path": "software/cpp/src/adapters/storage/JsonWorkspaceStore.cpp",
+      "sha256": "a726d83ad3f0e1230403e8f6ea618e5bbd999d31e039c4b38adb8cdd2609d403"
+    },
+    {
+      "path": "software/cpp/src/application/WorkspaceService.cpp",
+      "sha256": "83fe73752a285578be32f07eec8fac7288666dc6eb067b5a5c21ed67df550f23"
+    },
+    {
+      "path": "software/cpp/src/ui/AnalysisPage.cpp",
+      "sha256": "e102919c3f71f820963a466c75850ad758a12cd7378dc599151f671ff23bec1a"
+    },
+    {
+      "path": "software/cpp/src/ui/DataPage.cpp",
+      "sha256": "10554720e9d2209f0fc1fea42ed3f960d0ed3db7a60fd6282877ee6a7c934bf6"
+    },
+    {
+      "path": "software/cpp/src/ui/MissionsPage.cpp",
+      "sha256": "802478d9d776fa2457aaec79ee05e4ec2cca9940c425bd4722409770056b822d"
+    },
+    {
+      "path": "software/cpp/src/ui/SystemPage.cpp",
+      "sha256": "2c2df97b7c447117708c5cf952936955f9ae767b26b5d7da4c406b425f3497d7"
+    },
+    {
+      "path": "software/cpp/tests/TestWorkbenchPages.cpp",
+      "sha256": "274508d6b520fcb743443437b3d402ed169747d7bd0dd31c6756f89e6663593d"
+    },
+    {
+      "path": "software/cpp/tests/TestWorkspacePages.cpp",
+      "sha256": "6f9a833be213e692de7700e218fd748f3baa882acd10c523c9c5e1fab71ede1f"
+    },
+    {
+      "path": "software/cpp/tests/TestWorkspaceService.cpp",
+      "sha256": "5ad88bfa6eedd843388a980c07befcb9e71a89cc2ae1bf7f4b6f71a5d4f5e6af"
+    },
+    {
+      "path": "software/cpp/ui/analysis_page.ui",
+      "sha256": "3d95809157c51c31ed049c9ba4eec29377311618bb2bca445c97469d156d27c7"
+    },
+    {
+      "path": "software/cpp/ui/data_page.ui",
+      "sha256": "e532ef1f98044da1e869470b2913394da3c43fe626a8ea33d9e5edff3a2368bf"
+    },
+    {
+      "path": "software/cpp/ui/missions_page.ui",
+      "sha256": "9c8c3cbe2fbc636d59f664e3dd5fc70b6780d90e7fdbdb17cc261ce7f9ad0be3"
+    },
+    {
+      "path": "software/cpp/ui/system_page.ui",
+      "sha256": "bc6b95e3b77064e76a53f89b107a8b05da32e1a1a2d3543df206ea90e650dfa5"
+    },
+    {
+      "path": "software/README.md",
+      "sha256": "480fb8a4c6cc4bf0648bd0221adce88882d9cbf498441c6858a798e3014c3f2c"
+    },
+    {
+      "path": "software/cpp/CMakeLists.txt",
+      "sha256": "2b79285dea9a57313ae5ee163dd635b131ab45afe87eff3a6de1363a1611e273"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/application/IStationServices.hpp",
+      "sha256": "a8af25cb4c9dc0912ae694d41d791dde88257044bcc7cc28db7ddbb9400b1643"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/composition/StationCommand.hpp",
+      "sha256": "d754bff15817e6d230abab103819d1d4885d37a7d8e558f37f68c9b4a086b4dc"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/composition/StationComposition.hpp",
+      "sha256": "18f7d2172181ab4caddadade6c3deb2bf810faf85c71f8d9636dcda6da009cfd"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/ComparisonPage.hpp",
+      "sha256": "4ec6f151b37efc009d24552a6e08cc97e45b57b659bcd5565faaed50ceed18f9"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/ExecutionPage.hpp",
+      "sha256": "1fbafac575a4c5c82a7e2d5a91631c63a184b44e82126a28ababaf66e6470e98"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/MainWindow.hpp",
+      "sha256": "7e7cb1d5de32c3872855abc3cc9422d0c6835c9ebd37094ada3bb855079563d7"
+    },
+    {
+      "path": "software/cpp/include/drone_agricole/ui/ResultsPage.hpp",
+      "sha256": "24ccb0da135de3df9b616b7150bb1db356c0110ad15ac575a99e004300e81d7a"
+    },
+    {
+      "path": "software/cpp/resources/station.qss",
+      "sha256": "6694960c52da20e9c9d04ecdb4035c1ef974f1fe7c0e6a25aea738672ba259db"
+    },
+    {
+      "path": "software/cpp/src/app/main.cpp",
+      "sha256": "0c367197c62a3be6aa80d60ebda43e8278f1d0215e4ccb6e090c9bde817d11ad"
+    },
+    {
+      "path": "software/cpp/src/cli/ProjectTools.cpp",
+      "sha256": "0a37f31fd48eb406daa9123dd6dbfd7589554afcfb5bdc37df523c4b23ac5821"
+    },
+    {
+      "path": "software/cpp/src/composition/StationCommand.cpp",
+      "sha256": "44fc165d12b432b736f1a5d77478363ad9f64f3ff6b429a243c693259048c042"
+    },
+    {
+      "path": "software/cpp/src/composition/StationComposition.cpp",
+      "sha256": "2b91ea839c620f05ad483d068c1463862bb6c0fd7655c3058e400239511e48aa"
+    },
+    {
+      "path": "software/cpp/src/ui/ComparisonPage.cpp",
+      "sha256": "1de8e15c156505678b87c03288cc1d6e71ec4fd95003caac9a78f611c7c51d03"
+    },
+    {
+      "path": "software/cpp/src/ui/ExecutionPage.cpp",
+      "sha256": "35ce1c855f4fd2166628d46fc35d8ed0030fd4ac7e0111468c77008e6dfba7aa"
+    },
+    {
+      "path": "software/cpp/src/ui/MainWindow.cpp",
+      "sha256": "70773e6b2dbf524a630e5436ed5ff499d522faa33cdc8c6d99b1ae575b306513"
+    },
+    {
+      "path": "software/cpp/src/ui/MetricsPlotWidget.cpp",
+      "sha256": "09ad89e0662918a5c99b931eae1391f7a5993a8e6b0039f0bef146c6e9f8c9b6"
+    },
+    {
+      "path": "software/cpp/src/ui/ResultViewPage.cpp",
+      "sha256": "7c96e0327bd1a8c7902faeac69ffdd1543a83b2ce8f34b70e352c41e47ac8210"
+    },
+    {
+      "path": "software/cpp/src/ui/ResultsPage.cpp",
+      "sha256": "c5c982830dd567e39bb3c64dd58d600a345cacbcfdbf2ee9c51f321cf9b48fa2"
+    },
+    {
+      "path": "software/cpp/src/ui/TrajectoryView.cpp",
+      "sha256": "8985ef0918ed8a09720c238d001a03342cdeb1026e33576ed499adb6a8c009b9"
+    },
+    {
+      "path": "software/cpp/tests/TestDashboardMapping.cpp",
+      "sha256": "ba9674115e3fb68722c0eb273b7e040ff5ef1c13ea6b1ea5495ba67025c75855"
+    },
+    {
+      "path": "software/cpp/tests/TestStationNavigation.cpp",
+      "sha256": "3380843221d248e3c7f4a5f959c3474e25002486fa21d09bdf9dc8935d3b2600"
+    },
+    {
+      "path": "software/cpp/ui/comparison_page.ui",
+      "sha256": "49a60653dd20cabd35be2d1ec816090d7d7e1a5369f3b3b3ea653cb83b3dbc90"
+    },
+    {
+      "path": "software/cpp/ui/execution_page.ui",
+      "sha256": "b2d89eb39cdee2faee437beed4cc9a1c019725ca221fe161aee443c2de974765"
+    },
+    {
+      "path": "software/cpp/ui/main_window.ui",
+      "sha256": "74ddae49fe1a61fff8a6009c010fabe8da35d46ad37ce4ded9a9f6b2ee3f7116"
+    },
+    {
+      "path": "software/cpp/ui/result_view_page.ui",
+      "sha256": "69ec46c859c97682bccfeeb98944b5a35a3eb09089b24d83b641741a29817c03"
+    },
+    {
+      "path": "software/cpp/ui/results_page.ui",
+      "sha256": "9f18655644e31ed42c361551364f1c99532b87a524832adb7a8705f0b4fb234a"
+    }
+  ],
+  "captures": [
+    {
+      "path": ".runtime/station-v3/screenshots/acquisitions.png",
+      "sha256": "49b108dbf5c15de093ecbe88ef6cb0baea220ad522a74062bdd78cda09eef7f6"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/analysis-maps.png",
+      "sha256": "bcec23d74e6575efebfd677db7ac6c4573625e85b3c1902942ee6bfe833a6e6e"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/analysis-metrics.png",
+      "sha256": "5579875ea9a679d689f9e23d57bc71048a99d6669b172bd717a108429697fa14"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/analysis-reports.png",
+      "sha256": "3e342003616380ad547797fc433d30ba1daf55463a863a784d41a256dab47dd8"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/analysis-trajectories.png",
+      "sha256": "e1c69319c7dfb346666e0789182d6800bd1cbbb8965e972dac9b48f0b755dc61"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/bench-compact.png",
+      "sha256": "3d2801ddd3c92444bc25cbddae4e740badd5a49d6ee9bd35533914ee6141e5b2"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/bench-configuration.png",
+      "sha256": "44c35cc4c33f61832f40dc083bdd06f3b4e6b4bd80ef271522d86ff8759026af"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/comparison.png",
+      "sha256": "febee5fbe78b4eae312aff5aa5100d941bc766080e05bf4c03e4653ce14b2ee1"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/data-catalogue.png",
+      "sha256": "cb053de0c1ee50d32fb7088303308e5c4930ba0289787b0cc1a23cd0a4857011"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/data-transfer.png",
+      "sha256": "e7c2d96856aff5cb5b072a3404f2e065ab26be3411bc062168c8357288722aaa"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/favorites.png",
+      "sha256": "d5ee3efab795b58103c177d534822117d0dfa319c77cb2db14920032aacdea1f"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/mission-compact.png",
+      "sha256": "bd583e73ce72563fda1f4bad0b408bbc2fc83f5981e3870688428af02aec58c0"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/mission-journal.png",
+      "sha256": "c55fe59857396b24647ea5eec2dc1f2b9fe0549da3425553a39ffaa5a51053fa"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/mission-preparation.png",
+      "sha256": "d5a0108aabbb4d2c9614faa17a92d91d4b092a714d8af6f62067b0e742fd19ed"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/mission-supervision.png",
+      "sha256": "6c53160044e93d040f46aaec259d99a337f6fdf0879a798cc90d700afe6dcb34"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/overview.png",
+      "sha256": "38339a2159bc4aac81c0d09e7b44389de1bb8a23489d64b0371e3a23197ab31d"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/premium-overview.png",
+      "sha256": "3473701c6028aedcb5e69d684497d9d7868c7c41b573ccb91ba26f6600407323"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/professional-overview.png",
+      "sha256": "38339a2159bc4aac81c0d09e7b44389de1bb8a23489d64b0371e3a23197ab31d"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/recent.png",
+      "sha256": "df2ba8ee2a4e6a01d4e2b3f6adf7c67a25ce114afa5c8affaf815ed57f180c94"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/results.png",
+      "sha256": "d70099683db5150bcdcc10e4777ea5671db004eee3591f439958690bf8d363e4"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/system-diagnostics.png",
+      "sha256": "1291b33ceffe542e69633e765bec4a0c565bcdd804f0ba836543376e46341e94"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/system-hardware.png",
+      "sha256": "baffad733c3569d98900f32268a42475faca6d85a56f6261ba4064d101cac2e6"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/system-maintenance.png",
+      "sha256": "fe2b9fbd6520423b3af67eef0b38774bbe6d561c59d0bb0d4f75688136d926cd"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/system-settings.png",
+      "sha256": "7d39260132d5106d085cd03fa273acbcc96456ec7ab5da46c02e24bb417af58e"
+    },
+    {
+      "path": ".runtime/station-v3/screenshots/tests.png",
+      "sha256": "ad2a69938e6b9e3181a445134e70e13bc4824158fd5f9e5e5b1532b0c0a1bd56"
+    }
+  ]
+}

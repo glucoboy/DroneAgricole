@@ -1,0 +1,161 @@
+{
+  "cache": {
+    "hit": false,
+    "key": "d032774c0bad83a5b59214a205f98c6f593f50803cf519c051b2af23b312c25c"
+  },
+  "configuration_id": "prototype_cartographe",
+  "conflicts": [],
+  "derivation": null,
+  "diagnostics": [],
+  "evidence_details": [
+    {
+      "applicability": {
+        "conditions": {
+          "configuration": "Candidat catalogue 20 pouces",
+          "convention": "L selon A1, depuis épaulement Type A jusqu’au bord du corps Micro-B"
+        },
+        "domain": "DOCUMENT"
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "evidence_id": "E.F16.A1.LENGTH",
+      "match": "EXACT",
+      "reference": {
+        "attributes": {
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2",
+          "definition": "Plan RR-ASMUK-XXGRHF, planche 1, ECN-180919"
+        },
+        "family": "RR-ASMUK-XXGRHF",
+        "manufacturer": "USBFireWire",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1"
+      },
+      "value": {
+        "collected_at": "2026-11-12T16:12:09Z",
+        "evidence_ids": [
+          "E.F16.A1.LENGTH"
+        ],
+        "input_value_refs": [],
+        "limits": "Transcription du plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf, p. 1, vérifiée sur son rendu. La cote L nominale a une tolérance de +30/−0 mm. La définition de gaine et la longueur d’un câble reçu restent à confirmer.",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "precision": null,
+        "revision": "A1",
+        "status": "SOURCED",
+        "uncertainty": null,
+        "unit": "mm",
+        "value": 508
+      }
+    }
+  ],
+  "issue_id": "F16-PLAN-A1-LENGTH",
+  "local_inputs": [
+    {
+      "path": "docs/electromechanical_v2/L1_CARTOGRAPHE.json",
+      "sha256": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb"
+    }
+  ],
+  "network": "DISABLED",
+  "outcome": "RESOLVED",
+  "question": {
+    "dependent_decision": "Borner la gaine utile théorique de la référence candidate.",
+    "evidence_ids": [
+      "E.F16.A1.LENGTH"
+    ],
+    "expected_evidence": "Plan A1 page 1, convention de cote L et transcription du registre local identifiant le MPN exact.",
+    "hypothesis": "Le tableau P/N du plan A1 rattache 508 mm au cordon 20 pouces.",
+    "id": "RQ.F16-PLAN-A1-LENGTH",
+    "question": "Quelle cote L nominale le registre donne-t-il pour RR-ASMUK-20GRHF dans le plan A1 ?",
+    "refutation": "Un plan applicable d’une autre révision ou une convention tip-to-tip change le budget de gaine.",
+    "status": "CLOSED",
+    "subject_ids": [
+      "F16",
+      "ELEC-F16"
+    ]
+  },
+  "request": {
+    "applicability": {
+      "conditions": {
+        "configuration": "Candidat catalogue 20 pouces",
+        "convention": "L selon A1, depuis épaulement Type A jusqu’au bord du corps Micro-B"
+      },
+      "domain": "DOCUMENT"
+    },
+    "criticality": "MEDIUM",
+    "expected_authority": "PROJECT",
+    "issue_id": "F16-PLAN-A1-LENGTH",
+    "parameter": "catalogue_nominal_length",
+    "question": {
+      "dependent_decision": "Borner la gaine utile théorique de la référence candidate.",
+      "evidence_ids": [],
+      "expected_evidence": "Plan A1 page 1, convention de cote L et transcription du registre local identifiant le MPN exact.",
+      "hypothesis": "Le tableau P/N du plan A1 rattache 508 mm au cordon 20 pouces.",
+      "id": "RQ.F16-PLAN-A1-LENGTH",
+      "question": "Quelle cote L nominale le registre donne-t-il pour RR-ASMUK-20GRHF dans le plan A1 ?",
+      "refutation": "Un plan applicable d’une autre révision ou une convention tip-to-tip change le budget de gaine.",
+      "status": "OPEN",
+      "subject_ids": [
+        "F16",
+        "ELEC-F16"
+      ]
+    },
+    "reference": {
+      "attributes": {
+        "connector_a": "USB-A mâle droit",
+        "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2",
+        "definition": "Plan RR-ASMUK-XXGRHF, planche 1, ECN-180919"
+      },
+      "family": "RR-ASMUK-XXGRHF",
+      "manufacturer": "USBFireWire",
+      "part_number": "RR-ASMUK-20GRHF",
+      "revision": "A1"
+    },
+    "study": {
+      "next_observation": "Mesurer la gaine libre du cordon exact avant choix de routage.",
+      "strategy": "Propager les tolérances dimensionnelles de la planche et faire varier la convention de mesure.",
+      "variables": [
+        "cote L",
+        "corps des fiches",
+        "convention L"
+      ]
+    },
+    "unit": "mm"
+  },
+  "schema_version": "1.0.0",
+  "technical_evidence": [
+    {
+      "artifact_path": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "collected_at": "2026-11-12T16:12:09Z",
+      "domain": "DOCUMENT",
+      "hypothetical": false,
+      "id": "E.F16.A1.LENGTH",
+      "kind": "SOURCE",
+      "limits": "Transcription du plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf, p. 1, vérifiée sur son rendu. La cote L nominale a une tolérance de +30/−0 mm. La définition de gaine et la longueur d’un câble reçu restent à confirmer.",
+      "locator": "/usb/dimensions_plan_mm/longueur_catalogue (plan fabricant A1 p. 1, tableau P/N / LENGTH)",
+      "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+      "revision": "A1, ECN-180919, 2018-10-03",
+      "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+      "uri": null
+    }
+  ],
+  "unknown_register": [],
+  "value": {
+    "collected_at": "2026-11-12T16:12:09Z",
+    "evidence_ids": [
+      "E.F16.A1.LENGTH"
+    ],
+    "input_value_refs": [],
+    "limits": "Transcription du plan local RR-ASMUK-XXGRHF_TechnicalDrawing.pdf, p. 1, vérifiée sur son rendu. La cote L nominale a une tolérance de +30/−0 mm. La définition de gaine et la longueur d’un câble reçu restent à confirmer.",
+    "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+    "precision": null,
+    "revision": "A1",
+    "status": "SOURCED",
+    "uncertainty": null,
+    "unit": "mm",
+    "value": 508
+  }
+}

@@ -1,0 +1,950 @@
+{
+  "schema": "drone-agricole.v21.connector-sources.v1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "consulted_at": "2026-11-15",
+  "scope": "Sources et constats de recherche. Une référence fabricant de catalogue ou une CAO mesurée demeure candidate sans rattachement matériel par révision ou lot.",
+  "cascade": [
+    "Dépôt, schémas, BOM, manifeste et registres GO3A/GO3B",
+    "PDF, plans, photos et STEP locaux en lecture seule",
+    "Documentation publique du fabricant",
+    "Catalogues fabricant et distributeurs pour les plans manquants",
+    "Inspection CAO, comparaison d’interface et enveloppes alternatives documentées"
+  ],
+  "cache_policy": {
+    "directory": ".runtime/v21-connectors/cache",
+    "local_documents": "Réutiliser les caches locaux existants par chemin et SHA-256, sans dupliquer les sources lourdes.",
+    "remote_only": "Le web de recherche permet de lire des pages mais ne fournit pas leurs fichiers bruts à l’espace de travail. Le transfert HTTP direct de JST a échoué par résolution DNS. URL, section et constat paraphrasé sont conservés. Un document non téléchargé garde un SHA-256 null.",
+    "diagnostics": [
+      "Vérification en ligne directe de la variante Holybro 15029 non accessible à l’outil web. Cache produit local consulté.",
+      "Page SKU Waveshare indexée, accès direct de recherche 403. Notice et snapshot locaux exploités.",
+      "Plans SVG Basler non restitués par l’outil web. Documentation des cordons et plan PDF du 2000035316 consultés."
+    ]
+  },
+  "sources": [
+    {
+      "id": "GO3A-MATRIX",
+      "authority": "PROJECT",
+      "reference": "GO3A",
+      "revision": "14 novembre 2026",
+      "url": null,
+      "local_path": "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv",
+      "sha256": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696",
+      "locator": "liaison_id, axes_cao et parcours_axes_ordonnes",
+      "observation": "Autorité documentaire des classes, connexions, topologies et conditions de clôture.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "GO3A-BOM",
+      "authority": "PROJECT",
+      "reference": "GO3A",
+      "revision": "14 novembre 2026",
+      "url": null,
+      "local_path": "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv",
+      "sha256": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+      "locator": "cle_interface A/B",
+      "observation": "Identification de définition et réservations CAO. Un repère de montage ou un point d’axe ne donne aucun repère d’accouplement.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "GO3B-COVERAGE",
+      "authority": "PROJECT",
+      "reference": "GO3B",
+      "revision": null,
+      "url": null,
+      "local_path": "docs/verification/go3b/GO3B_INTERCONNECTION_COVERAGE.csv",
+      "sha256": "5dd5243e2fc204e20dca7b3921d561941126294e3ec0256634bc60cead97f8e5",
+      "locator": "liaison_id et motif_absence_axe",
+      "observation": "Justifications hors axe et couverture documentaire, verdict physique NOT_RUN.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "GO3A-L1",
+      "authority": "PROJECT",
+      "reference": "GO3A",
+      "revision": "14 novembre 2026",
+      "url": null,
+      "local_path": "docs/verification/go3a/GO3A_RESEARCH.json",
+      "sha256": "5bbc6587a9c82d02ed4651a1270bd164360b7e4431d28f75f893e875ba0eeb80",
+      "locator": "recherches_priorisees",
+      "observation": "Historique de recherche, preuves de copies isolées et inconnues. Les fiches sont reprises par référence.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "L2-NATIVE",
+      "authority": "PROJECT",
+      "reference": "prototype_cartographe",
+      "revision": null,
+      "url": null,
+      "local_path": "docs/electromechanical_v2/L2_RECONCILIATION.json",
+      "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb",
+      "locator": "lines et sources",
+      "observation": "Rapprochement L2 des chemins existants et de leurs limites.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "MEC-MANIFEST",
+      "authority": "PROJECT",
+      "reference": "prototype_cartographe",
+      "revision": null,
+      "url": null,
+      "local_path": "hardware/mecanique/cartographe/manifest.json",
+      "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+      "locator": "prototype_cartographe/occurrences",
+      "observation": "Occurrences et placements de l’équipement en CAO.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "MEC-BOM",
+      "authority": "PROJECT",
+      "reference": "prototype_cartographe",
+      "revision": null,
+      "url": null,
+      "local_path": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0",
+      "locator": "items et liaisons",
+      "observation": "Sélection documentaire de l’équipement. Le champ candidat ne constitue pas une preuve du lot monté.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "CA01-FOOTPRINT",
+      "authority": "PROJECT",
+      "reference": "CA01",
+      "revision": "préplacement du 1 octobre 2026",
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/carte_avionique/empreintes_connecteurs.json",
+      "sha256": "5d903a2e70ef2ea7a5b5cca2661e5a85186e6e893d9a197d8d14e6c322d8af29",
+      "locator": "connectors, ref, mpn, mating_candidate et pinmap",
+      "observation": "Références de PCB de définition et fiches candidates, population et carte physique non attestées.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "CA01-RADIO",
+      "authority": "PROJECT",
+      "reference": "CA01 J402",
+      "revision": "V0.5-pre",
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch",
+      "sha256": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c",
+      "locator": "J402 et UART7",
+      "observation": "Couplage UART et cavités fonctionnelles du schéma de définition.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "CA01-SYNC",
+      "authority": "PROJECT",
+      "reference": "CA01 J505, J506, J507, J509",
+      "revision": "V0.5-pre",
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch",
+      "sha256": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4",
+      "locator": "J505, J506, J507, J509 et résistances DNP R530–R533",
+      "observation": "Affectations du schéma et configuration à confronter à la population du lot.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "CA01-NETLIST",
+      "authority": "PROJECT",
+      "reference": "CA01",
+      "revision": "capture documentaire",
+      "url": null,
+      "local_path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+      "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75",
+      "locator": "pads et liaisons",
+      "observation": "Contre-vérification numérique des liaisons définies.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "HOLYBRO-PINOUT",
+      "authority": "MANUFACTURER",
+      "reference": "Pixhawk Jetson Baseboard 11072",
+      "revision": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Ports_20261010.md",
+      "sha256": "99ce5f23bce055a8c010631569027918f91c4ea9147ccd0679ae98abb57cfc35",
+      "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+      "observation": "TELEM1 TX7/RX7 aux cavités 2/3 et GND en 6. GPS2 TX8/RX8 et I²C 4/5. CAN1 +5 V sortie en 1, H/L en 2/3 et GND en 4. GPIO_07 en 2 et masse en 6. Debug 1 mm SH. CSI VDD en 22 et masse en 1, 4, 7, 10, 13, 16, 19.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "HOLYBRO-BASE",
+      "authority": "MANUFACTURER",
+      "reference": "Pixhawk Jetson Baseboard 11072",
+      "revision": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Overview_20261010.md",
+      "sha256": "8d0e7c08eb49ab65cd5dc8b8766d041fe26bbfd53dd5ece6ea0c37566526fb84",
+      "locator": "Jetson Orin NX/Nano Connectors, Flight Controller Connectors",
+      "observation": "TELEM et GPIO GH6, CAN GH4, CSI FFC 22 positions, ports USB hôte type A et limite FAN de 0,35 A. Orientation et références d’assemblage non publiées ici.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "HOLYBRO-STEP",
+      "authority": "MANUFACTURER",
+      "reference": "Pixhawk Jetson Baseboard",
+      "revision": "modèle compatible avec le rapprochement RC02",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/download",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+      "sha256": "dfee72717b735c4b10089435ae1019482878f6607051f1a3b8397da7721ed6ee",
+      "locator": "Pixhawk-Jetson-Baseboard-3D.stp et entité #89692",
+      "observation": "Géométrie fournisseur de la porteuse avec étiquettes internes de composants. L’association à un port et au lot doit être établie.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "JST-GH",
+      "authority": "MANUFACTURER",
+      "reference": "GH 1,25 mm, SM02B/03B/04B/06B, BM06B, GHR-0nV-S, SSHL-002T-P0.2",
+      "revision": null,
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+      "local_path": null,
+      "sha256": null,
+      "locator": "p. 1–3, crimp contact / housing / header",
+      "observation": "Contacts et couples de catalogue GH. BM et SM changent le sens de pose PCB. Le couple catalogue ne permet pas d’identifier l’embase d’un appareil.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "NVIDIA-MUX",
+      "authority": "MANUFACTURER",
+      "reference": "Jetson Orin NX et Nano",
+      "revision": "Jetson Linux r36.5",
+      "url": "https://docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html",
+      "local_path": null,
+      "sha256": null,
+      "locator": "Pinmux Changes / Generating the Pinmux dtsi Files",
+      "observation": "Le pinmux et la configuration d’amorçage dépendent du SOM et de la porteuse. GPIO disponible au tableau Holybro sans preuve qu’il est configuré comme entrée sur la cible.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "HOLYBRO-PM08",
+      "authority": "MANUFACTURER",
+      "reference": "PM08-CAN 15029, fils étamés et 15028 XT90",
+      "revision": null,
+      "url": "https://docs.holybro.com/power-module-and-pdb/power-module-comparison",
+      "local_path": "hardware/electronique/cartographe/sources_fabricants/Holybro_PM08_CAN_20260929.html",
+      "sha256": "fc37b312ba8980d4b111a771cf5e9ad0167a9f7d6212eb99642c6a2d670e6744",
+      "locator": "PM08-CAN et variant 44052276641981 / 15029 dans snapshot",
+      "observation": "CLIK-Mate 2 mm 6 positions documenté pour la famille. Le cache produit identifie le SKU 15029 fils étamés. Référence de réceptacle et lot matériel ouverts.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE",
+      "url_cache_locale": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a?variant=44052276641981"
+    },
+    {
+      "id": "HOLYBRO-PM08-FACE",
+      "authority": "MANUFACTURER",
+      "reference": "PM08-CAN POWER1/POWER2",
+      "revision": null,
+      "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PM08_pinout.jpg",
+      "sha256": "19143ca3288412a5de41b9f9d416a06c8fa5a9bf0bad58db1c68beeb15f1ae90",
+      "locator": "illustration face des ports POWER1 et POWER2",
+      "observation": "Vue en face, suite gauche à droite 5V, 5V, CAN-H, CAN-L, GND, GND pour chacun. Cette vue ne donne ni numéro de cavité ni révision, et le port utilisé par W31 est à identifier.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "MOLEX-CLIK2",
+      "authority": "MANUFACTURER",
+      "reference": "502439-0600, 502438-0000, 502443-0670 et 502494-0670",
+      "revision": "987650-3302",
+      "url": "https://www.content.molex.com/dxdam/literature/987650-3302.pdf",
+      "local_path": null,
+      "sha256": null,
+      "locator": "2.00mm Pitch, Order No.",
+      "observation": "Boîtier six positions, contact 22–26 AWG et embases catalogue verticale ou latérale. 502578 concerne le pas 1,50 mm et est exclu.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "BASLER-MODEL",
+      "authority": "MANUFACTURER",
+      "reference": "a2A4096-30ucBAS",
+      "revision": "AW001406 v138, 12 novembre 2026",
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Basler_a2A4096_30ucBAS_20261010.html",
+      "sha256": "5aff478e4d0b2ceb6e11cd12f974ac679f4e70e626d8e2ad18acbfc3dca5cc58",
+      "locator": "Physical Interface / USB 3.0 Micro-B Connector et Cable Requirements",
+      "observation": "Micro-B USB3 à vis et blindage. Le fichier local est la consultation historique du même modèle, sa révision ne vaut pas v138 sans lecture du cartouche.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE",
+      "revision_cache_locale": "capture historique du 10 octobre 2026"
+    },
+    {
+      "id": "USB-UP-PLAN",
+      "authority": "MANUFACTURER",
+      "reference": "RR-ASMUK-20GRHF",
+      "revision": "A1, ECN-180919, 3 octobre 2018",
+      "url": "https://www.usbfirewire.com/wp-content/uploads/pdfs/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf",
+      "sha256": "f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab",
+      "locator": "p. 1, P/N, profil corps, vis et câblage",
+      "observation": "Candidat Up à vis M2, A droit, 508 mm sous convention A1. Projection corps 18 ± 0,2 mm, largeur 28 ± 0,2 mm, entraxe de vis 18 ± 0,2 mm.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "USB-UP-STEP",
+      "authority": "MANUFACTURER",
+      "reference": "RR-ASMUK-XXGRHF",
+      "revision": "STEP fabricant, révision explicite absente",
+      "url": "https://www.usbfirewire.com/download?file=RR-ASMUK-XXGRHF_3dConn1.stp",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_3dConn1.stp",
+      "sha256": "cfa92d8044781703fa24208723d4f4348754537516025f3f089832035e9f52c5",
+      "locator": "sept solides, indices 0/1 type A, 3/4/5/6 Micro-B",
+      "observation": "Géométrie fournisseur du candidat. Le segment illustratif indice 2 est exclu.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "USB-UP-CATALOG",
+      "authority": "MANUFACTURER",
+      "reference": "RR-ASMUK-20GRHF",
+      "revision": null,
+      "url": "https://www.usbfirewire.com/locking.html",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+      "sha256": "d236d25d4e1323aeb1744fb5f239c4aecc02c7942b4c59b4ef1ad589df4c7e89",
+      "locator": "USB 3 Up Micro-B to A High-Flex et Specifications",
+      "observation": "Catalogue candidat. 22 mm en statique et 48 mm en flexion continue d’après la source de détail locale. Les conditions détaillées et l’application à la suspension restent ouvertes.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE",
+      "url_cache_locale": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+    },
+    {
+      "id": "USB-UP-CAO",
+      "authority": "PROJECT",
+      "reference": "RR-ASMUK-20GRHF vs RR-ASMRK-20GRHF",
+      "revision": "essai numérique du 16 octobre 2026",
+      "url": null,
+      "local_path": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+      "locator": "camera, usb/dimensions_plan_mm et usb/source_step/pose_recommandee_alignee_vis",
+      "observation": "Alignement des deux vis et origine de gaine dans une pose fixe historique. Jeu nominal du corps Up sous P60 1,82 mm. Right dépasse le plan P60 de 1,18 mm en nominal. Appairage/contact et extraction du candidat Up ouverts.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "BASLER-DROIT",
+      "authority": "MANUFACTURER",
+      "reference": "2200000620",
+      "revision": "AW001406",
+      "url": "https://docs.baslerweb.com/basler-cable-usb3-microb-sl-a-s",
+      "local_path": null,
+      "sha256": null,
+      "locator": "Cable Drawing et Physical Specifications",
+      "observation": "Droit 1 m, Micro-B à vis ↔ Type A, rayons ≥ 28 mm en montage fixe. Admissibilité au mouvement non démontrée.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "BASLER-COUDE",
+      "authority": "MANUFACTURER",
+      "reference": "2000036369",
+      "revision": "AW001406",
+      "url": "https://docs.baslerweb.com/basler-cable-usb3-microb-90-a1-sl-a-angled-downwards-p",
+      "local_path": null,
+      "sha256": null,
+      "locator": "Cable Drawing / Cable Connected to ace 2 Camera et Physical Specifications",
+      "observation": "Coudé 90° Down 1 m, Micro-B à vis ↔ Type A, rayon ≥ 125 mm en montage fixe. Ce sens n’identifie pas la sortie Up USBFireWire.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "BASLER-DRC",
+      "authority": "MANUFACTURER",
+      "reference": "2000035316",
+      "revision": "DG00151106000",
+      "url": "https://www2.baslerweb.com/media/downloads/documents/accessories_datasheets/cable/DG00151106000_Tech_Spec_for_SAP_2000035316.pdf",
+      "local_path": null,
+      "sha256": null,
+      "locator": "p. 1 fig. 1 et table 3",
+      "observation": "Droit 5 m, rayon 50 mm, cycles évalués à 75 mm. Usage robotique exclu dans sa fiche.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "JBD-A01",
+      "authority": "MANUFACTURER",
+      "reference": "JBD-SP22S003 Li-ion",
+      "revision": "A01 du 19 avril 2022",
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7",
+      "locator": "§7.1 p. 14 à 16",
+      "observation": "J2 HY2.0-4P à verrou, 1 GND, 2 RX, 3 TX, 4 VDD issu de la table. La remarque p. 16 nomme J3-UART, référence B− non isolée. J4/J5 non réinterprétés pour le 6S sans relevé du lot.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "BMS-CONTRAT",
+      "authority": "PROJECT",
+      "reference": "W40, W41, B− brut",
+      "revision": null,
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/contrat_uart_bms.json",
+      "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19",
+      "locator": "contrat UART diagnostic isolé",
+      "observation": "Frontière galvanique brut/protégé, sens TX/RX, interdiction de ponter les références et de transporter VDD par le cordon W40.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "WAVESHARE-BASE",
+      "authority": "MANUFACTURER",
+      "reference": "USB TO RS232/485/TTL SKU 15817",
+      "revision": null,
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_15817.html",
+      "sha256": "c0cb168a78f044326e7cfb9ec276edd6bd2118df10f759a17ae9699b70479326",
+      "locator": "SKU 15817, interface, ressources",
+      "observation": "La page produit indexée annonce FT232RNL/CH343G. Cela ne démontre pas quel circuit ni quelle population figure sur le lot retenu.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_CACHE_ET_INDEX"
+    },
+    {
+      "id": "WAVESHARE-MANUAL",
+      "authority": "MANUFACTURER",
+      "reference": "USB TO RS232/485/TTL",
+      "revision": "manuel initial FT232RL",
+      "url": "https://files.waveshare.com/wiki/USB-TO-RS232-485-TTL/manual/USB_TO_RS232_485_TTL_-user-manual-en.pdf",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/waveshare_uart_iso/USB_TO_RS232_485_TTL_manuel_original.pdf",
+      "sha256": "1790424bcad3d318cdbd27b6762cc0802ef72e861c3f567a15e2be52f2f18bfa",
+      "locator": "Overview / interface et isolation, p. 2–4",
+      "observation": "Ancienne génération avec isolation. USB-B et bornier TTL à identifier sur le lot, sans déduire la révision du SKU seul.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "HOLYBRO-CSI",
+      "authority": "MANUFACTURER",
+      "reference": "Pixhawk Jetson Baseboard 11072",
+      "revision": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/csi-camera-setup",
+      "local_path": null,
+      "sha256": null,
+      "locator": "CSI Camera setup",
+      "observation": "Deux raccordements pour modules caméra. Aucun MPN d’extracteur ni verrou de W24.C trouvé dans ce guide.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "HEL-F9P",
+      "authority": "MANUFACTURER",
+      "reference": "DroneCAN H-RTK F9P Helical SKU 12037",
+      "revision": "STM32G4 annoncé, ancienne variante à vérifier",
+      "url": "https://holybro.com/collections/all-product/products/dronecan-h-rtk-f9p-helical",
+      "local_path": null,
+      "sha256": null,
+      "locator": "Overview / SKU / description processeur et antenne",
+      "observation": "Antenne hélicoïdale raccordable directement ou par SMA. La documentation de la variante UART 12018 ne suffit pas à établir la polarité et le sexe du module/antenne 12037.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "RADIO-RP4TD",
+      "authority": "MANUFACTURER",
+      "reference": "RadioMaster RP4TD",
+      "revision": "notice 5 novembre 2024",
+      "url": "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "local_path": "hardware/electronique/cartographe/sources_fabricants/RadioMaster_RP4TD_User_Manual_20241105.pdf",
+      "sha256": "543aeb69bfb1c90c667504c1954bbba5ba00629f60f68f031e0eb0d99d36e41e",
+      "locator": "antenna connectors et package",
+      "observation": "U.FL des coaxiaux doublés. Indice de révision et cycle de déconnexion de l’ensemble installé ouverts.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "FAN-LOCAL",
+      "authority": "PROJECT",
+      "reference": "Holybro 11072, Waveshare Orin-FAN-PWM 24076",
+      "revision": "T-CARTO-FAN-CONN-01",
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/verification/controle_connecteur_ventilateur_jetson.json",
+      "sha256": "5d288a7fb9583bfdeefeefbbe979ee5f4db2a3ffaff6cd11ec0b1f396d0b06b6",
+      "locator": "observations et repères_step",
+      "observation": "STEP/photographie: DF13-4P-1.25DSA côté FAN est un candidat, DF13-4S-1.25C est son complément documentaire. 5 V et 0,13 A nominal côté ventilateur. Brochages, référence du cordon et courant de démarrage inconnus.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "AUTORITE_DEFINITION"
+    },
+    {
+      "id": "WAVESHARE-FAN",
+      "authority": "MANUFACTURER",
+      "reference": "Orin-FAN-PWM SKU 24076",
+      "revision": null,
+      "url": "https://www.waveshare.com/product/ai/accessories/orin-fan-pwm.htm",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Waveshare_Orin_FAN_PWM.html",
+      "sha256": "51618ea093fac8e62612b664d20bc729ebd9b2df4cd2b91202ae99240138b299",
+      "locator": "Specifications et photos",
+      "observation": "Documente le ventilateur 5 V à quatre fils, sans numérotation du connecteur côté câble.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "LED-X650",
+      "authority": "MANUFACTURER",
+      "reference": "X650 V2 ARF, NeoPixel WS2812",
+      "revision": null,
+      "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/neopixel-ws2812-led-setup-instruction-1",
+      "local_path": null,
+      "sha256": null,
+      "locator": "point exemple AUX/FMU PWM 1–4",
+      "observation": "Affectation d’exemple ArduPilot, ni preuve de configuration PX4 ni plan des terminaisons des quatre LED OEM.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "X650-ARF",
+      "authority": "MANUFACTURER",
+      "reference": "X650 V2 ARF",
+      "revision": null,
+      "url": "https://holybro.com/products/x650-kits",
+      "local_path": null,
+      "sha256": null,
+      "locator": "X650 ARF Kit Includes et variantes",
+      "observation": "Le fabricant liste moteurs/ESC/LED et PDB XT60/XT30 du kit. Ne substitue pas cette révision au PDB 300 A du prototype.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    },
+    {
+      "id": "ROBO-AIRY",
+      "authority": "MANUFACTURER",
+      "reference": "RoboSense Airy",
+      "revision": "guide v1.3, 5 novembre 2025",
+      "url": null,
+      "local_path": "hardware/electronique/cartographe/sources_fabricants/RoboSense_Airy_User_Guide_v1.3_20251105.pdf",
+      "sha256": "6ca9616fe8a0f8c0fc5a090a8b0c76ee6f9ae3767ee23aaf82fa91c4fb29ad2d",
+      "locator": "interface aviation et faisceau",
+      "observation": "Branches alimentation et données/temps du cordon OEM. Le lot et le plan complet des terminaisons du cas restent à confirmer.",
+      "date_consultation": "2026-11-15",
+      "fiabilite": "FABRICANT_DOCUMENTAIRE"
+    }
+  ],
+  "investigations": [
+    {
+      "issue_id": "V21-F12-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "11072 RC02 TELEM1 GPS2 TX7 RX7 GH 6 SM06B et J402 SM03B",
+      "hardware_reference": "11072",
+      "physical_revision": null,
+      "decision": "Corriger la destination radio avant l’implantation et exclure le +5 V du cordon.",
+      "liaisons": [
+        "W12"
+      ],
+      "sources": [
+        "HOLYBRO-PINOUT",
+        "HOLYBRO-BASE",
+        "JST-GH",
+        "CA01-RADIO",
+        "CA01-FOOTPRINT"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Identifier porteuse et sérigraphie, vue d’accouplement et trajet RX/TX/GND. Vérifier le verrou et la course de retrait après contrôle hors tension."
+    },
+    {
+      "issue_id": "V21-F24A-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "11072 Orin GPIO_07 GH 6 Orin Debug SH 6 pinmux r36.5 J505 et P75 F13A",
+      "hardware_reference": "11072",
+      "physical_revision": null,
+      "decision": "Fixer le véritable port PPS et établir l’accès sans créer de faiblesse P75 ni gêner F13A.",
+      "liaisons": [
+        "W13.A",
+        "W24.A"
+      ],
+      "sources": [
+        "HOLYBRO-PINOUT",
+        "HOLYBRO-BASE",
+        "HOLYBRO-STEP",
+        "NVIDIA-MUX",
+        "CA01-SYNC",
+        "CA01-FOOTPRINT"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Observer révision et broche 1. Relire DTB et pinmux déployés et le peuplement R532. Vérifier la polarité, la tension et la garde à P75 et F13A."
+    },
+    {
+      "issue_id": "V21-F31-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "PM08-CAN 15029 POWER1 POWER2 CANH CANL CLIK-Mate 2.00 5024390600 CAN1 GH4 F35",
+      "hardware_reference": "15029",
+      "physical_revision": null,
+      "decision": "Fermer la réception CAN1 et permettre le retrait et l’accès au verrou avec F35 et la puissance en place.",
+      "liaisons": [
+        "W25",
+        "W31",
+        "W35"
+      ],
+      "sources": [
+        "HOLYBRO-PM08",
+        "HOLYBRO-PM08-FACE",
+        "HOLYBRO-PINOUT",
+        "MOLEX-CLIK2",
+        "JST-GH",
+        "CA01-SYNC"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Associer la vue fabricant au lot et numéroter les cavités. Identifier le port PM08 utilisé et le cordon. Vérifier H/L/GND et +5 V NC côté CAN1, puis mesurer retrait et accès avec F35."
+    },
+    {
+      "issue_id": "V21-F16-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "Basler a2A4096-30ucBAS Micro-B vis, RR-ASMUK-20GRHF A1 STEP rayon, 2200000620 et 2000036369",
+      "hardware_reference": "a2A4096-30ucBAS",
+      "physical_revision": null,
+      "decision": "Choisir une fiche montable et utilisable sur la suspension avant de dimensionner le cordon USB3.",
+      "liaisons": [
+        "W16",
+        "W18",
+        "W34"
+      ],
+      "sources": [
+        "BASLER-MODEL",
+        "BASLER-DROIT",
+        "BASLER-COUDE",
+        "BASLER-DRC",
+        "USB-UP-PLAN",
+        "USB-UP-STEP",
+        "USB-UP-CATALOG",
+        "USB-UP-CAO",
+        "HOLYBRO-BASE",
+        "CA01-FOOTPRINT"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Identifier le cordon retenu, les deux sorties réelles et le sens de détrompage. Mesurer course des vis et de retrait, garde, réserve de longueur et déformation continue."
+    },
+    {
+      "issue_id": "V21-DIAG-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "Waveshare 15817 USB B TTL FT232RL FT232RNL CH343G JBD-SP22S003 A01 J2 J3 HY2.0",
+      "hardware_reference": "15817",
+      "physical_revision": null,
+      "decision": "Rendre les deux prises diagnostic accessibles en conservant l’isolation B− et les protections.",
+      "liaisons": [
+        "W40",
+        "W41"
+      ],
+      "sources": [
+        "JBD-A01",
+        "BMS-CONTRAT",
+        "WAVESHARE-BASE",
+        "WAVESHARE-MANUAL",
+        "HOLYBRO-BASE"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Lire les références et marquages du lot JBD et Waveshare. Établir J2/J3, niveaux TTL, repères, retrait USB-B et accès au bornier. Le déport passif reste un candidat."
+    },
+    {
+      "issue_id": "V21-CSI-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "11072 Orin Camera0 Camera1 CSI RPi 22 FFC 0.5 orientation 22 VDD 1 GND J509",
+      "hardware_reference": "11072",
+      "physical_revision": null,
+      "decision": "Protéger référence temporelle et alimentation de l’adaptation CA01 sans court-circuit ni dommage FFC.",
+      "liaisons": [
+        "W23",
+        "W24.B",
+        "W24.C"
+      ],
+      "sources": [
+        "HOLYBRO-CSI",
+        "HOLYBRO-PINOUT",
+        "HOLYBRO-BASE",
+        "HOLYBRO-STEP",
+        "CA01-SYNC",
+        "CA01-FOOTPRINT"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Obtenir le modèle exact du verrou et sa vue, choisir Camera0/1 et un extracteur documenté, puis vérifier l’orientation et la revue courant utile avec l’état DNP."
+    },
+    {
+      "issue_id": "V21-RF-PHYSICAL",
+      "priority": "P1",
+      "search_terms": "Holybro 12037 STM32G4 H-RTK Helical SMA ou RadioMaster RP4TD U.FL direction et verrouillage",
+      "hardware_reference": "12037",
+      "physical_revision": null,
+      "decision": "Vérifier l’accord physique antenne et GNSS et éviter une confusion SMA/RP-SMA ou pose coaxiale défavorable.",
+      "liaisons": [
+        "W13.B",
+        "W22",
+        "SOL-RTK-ANT"
+      ],
+      "sources": [
+        "HEL-F9P",
+        "RADIO-RP4TD",
+        "MEC-MANIFEST",
+        "GO3A-L1"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Identifier sexe mécanique, conducteur central et nomenclature du lot. Vérifier axe, serrage, 50 Ω applicable et accessibilité du SMA. Relever les embases U.FL réellement montées."
+    },
+    {
+      "issue_id": "V21-BMS-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "JBD-SP22S003 A01 HY2.0 J4 J5 J7 6S BC0 BC6 QS8-S B9310 MIDI C− B−",
+      "hardware_reference": "JBD-SP22S003",
+      "physical_revision": null,
+      "decision": "Maintenir polarité, protection principale et séparation des références brutes et protégées.",
+      "liaisons": [
+        "W01.NEG",
+        "W01.POS",
+        "W05",
+        "W06",
+        "W08",
+        "W09",
+        "W32",
+        "W37.POS",
+        "W37.NEG",
+        "W38",
+        "W-CELLULES",
+        "W-NTC.1",
+        "W-NTC.2"
+      ],
+      "sources": [
+        "JBD-A01",
+        "BMS-CONTRAT",
+        "HOLYBRO-PM08",
+        "MEC-BOM",
+        "GO3A-L1"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Relever lot Li-ion, table brochée 6S, sections, cosses, couple, QS8 et températures admissibles. Contrôler l’absence de chemin contournant C−."
+    },
+    {
+      "issue_id": "V21-FAN-PHYSICAL",
+      "priority": "P1",
+      "search_terms": "Orin FAN 11072 DF13-4P-1.25DSA DF13-4S-1.25C Waveshare 24076 PWM",
+      "hardware_reference": "24076",
+      "physical_revision": null,
+      "decision": "Vérifier l’accouplement et le courant de démarrage afin de conserver le refroidissement du calculateur.",
+      "liaisons": [
+        "W20"
+      ],
+      "sources": [
+        "HOLYBRO-BASE",
+        "HOLYBRO-STEP",
+        "WAVESHARE-FAN",
+        "FAN-LOCAL"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Relever marquages des deux parties et pinmap alim/PWM/tachymètre, dimensions et détrompage. Confirmer tension, courant de démarrage et chemin avec retenue."
+    },
+    {
+      "issue_id": "V21-LED-PHYSICAL",
+      "priority": "P1",
+      "search_terms": "Holybro X650 V2 ARF WS2812 connecteurs AUX FMU niveaux LED J507",
+      "hardware_reference": "WS2812",
+      "physical_revision": null,
+      "decision": "Attribuer ports, courant et niveaux des LED de chaque bras avant toute évolution d’implantation.",
+      "liaisons": [
+        "W33",
+        "W-LED-KIT.1",
+        "W-LED-KIT.2",
+        "W-LED-KIT.3",
+        "W-LED-KIT.4"
+      ],
+      "sources": [
+        "LED-X650",
+        "X650-ARF",
+        "HOLYBRO-PINOUT",
+        "CA01-SYNC",
+        "CA01-FOOTPRINT",
+        "GO3A-L1"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Identifier contrôleur, rail et terminaisons des quatre branches, et vérifier l’affectation J507/AUX sur le lot et le firmware PX4."
+    },
+    {
+      "issue_id": "V21-X650-PHYSICAL",
+      "priority": "P0",
+      "search_terms": "X650 V2 ARF MN4014 KV330 Tekko32 F4 45A PDB 300 A XT90 XT30 phases",
+      "hardware_reference": "X650",
+      "physical_revision": null,
+      "decision": "Préserver alimentation et sens des phases de propulsion pendant l’intégration du kit.",
+      "liaisons": [
+        "W02.1",
+        "W02.2",
+        "W02.3",
+        "W02.4",
+        "W03.1",
+        "W03.2",
+        "W03.3",
+        "W03.4",
+        "W04.1",
+        "W04.2",
+        "W04.3",
+        "W04.4"
+      ],
+      "sources": [
+        "X650-ARF",
+        "MEC-BOM",
+        "MEC-MANIFEST",
+        "GO3A-L1"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Identifier variante du kit et du PDB, genres et polarité des prises, ordre des phases, retenue et conditions de courant et de température."
+    },
+    {
+      "issue_id": "V21-INTERFACES-PHYSICAL",
+      "priority": "P1",
+      "search_terms": "Cartographe Airy aviation, CA01, GNSS GPS1, M.2, USB, cordons sol et interfaces OEM",
+      "hardware_reference": "prototype_cartographe",
+      "physical_revision": null,
+      "decision": "Confirmer les autres contacts et conditions de montage de la BOM sans changer périmètre ou topologie.",
+      "liaisons": [
+        "W10",
+        "W14",
+        "W15",
+        "W19",
+        "W21",
+        "W27",
+        "W28",
+        "W29",
+        "W36",
+        "W43",
+        "CA01-MOD401",
+        "SOL-RTK-USB",
+        "SOL-RADIO-USB",
+        "SOL-POWER.TERMINAL",
+        "SOL-POWER.S100NEO"
+      ],
+      "sources": [
+        "GO3A-L1",
+        "MEC-BOM",
+        "MEC-MANIFEST",
+        "CA01-FOOTPRINT",
+        "ROBO-AIRY",
+        "HOLYBRO-PINOUT"
+      ],
+      "result": "UNKNOWN",
+      "reception": "INCONCLUSIVE",
+      "next_observation": "Appliquer la condition propre à chaque ligne GO3A. Présenter le MPN et le plan du lot lorsque la continuité, la masse ou le service dépendent de l’interface."
+    },
+    {
+      "issue_id": "V21-HORS-AXE-PHYSICAL",
+      "priority": "P2",
+      "search_terms": "GO3B lignes retirées ou non montées hors axe nouvelle sélection",
+      "hardware_reference": "prototype_cartographe",
+      "physical_revision": null,
+      "decision": "Préserver la décision de périmètre des réserves et lignes retirées.",
+      "liaisons": [
+        "W17",
+        "W26",
+        "W39",
+        "W42",
+        "W-JETI-COMMANDE",
+        "W07",
+        "W11",
+        "W30"
+      ],
+      "sources": [
+        "GO3A-MATRIX",
+        "GO3B-COVERAGE"
+      ],
+      "result": "OUT_OF_SCOPE",
+      "reception": "OUT_OF_SCOPE",
+      "next_observation": "Conserver le motif GO3B. Si le périmètre évolue, obtenir la référence, les contacts, les repères et une preuve d’accès avant réintroduction."
+    }
+  ],
+  "candidate_alternatives": [
+    {
+      "case": "W12/B et W24.A/B",
+      "parts": [
+        "GHR-06V-S",
+        "SSHL-002T-P0.2",
+        "SM06B-GHS-TB",
+        "BM06B-GHS-TBT"
+      ],
+      "source": "JST-GH",
+      "status": "CATALOGUE_ONLY",
+      "limit": "Accouplement de catalogue GH. Le MPN embase, l’orientation et l’applicabilité au lot 11072 restent ouverts."
+    },
+    {
+      "case": "W31/B",
+      "parts": [
+        "GHR-04V-S",
+        "SSHL-002T-P0.2"
+      ],
+      "source": "JST-GH",
+      "status": "CATALOGUE_ONLY",
+      "limit": "Fiche GH4 de catalogue, embase du lot non identifiée."
+    },
+    {
+      "case": "W31/A",
+      "parts": [
+        "502439-0600",
+        "502438-0000",
+        "502443-0670",
+        "502494-0670"
+      ],
+      "source": "MOLEX-CLIK2",
+      "status": "CATALOGUE_ONLY",
+      "limit": "Cheminement droit/coudé de PCB, même famille de fiche. Aucune preuve des références du lot PM08."
+    },
+    {
+      "case": "W16",
+      "parts": [
+        "2200000620",
+        "2000036369",
+        "RR-ASMUK-20GRHF",
+        "2000035316"
+      ],
+      "sources": [
+        "BASLER-DROIT",
+        "BASLER-COUDE",
+        "USB-UP-PLAN",
+        "USB-UP-STEP",
+        "BASLER-DRC"
+      ],
+      "status": "CANDIDATE_ONLY",
+      "limit": "Variantes droites et coudées avec verrou. Le sens, la longueur disponible, la tenue dynamique et le geste de retrait exigent une vérification propre à chaque variante."
+    },
+    {
+      "case": "W20/A",
+      "parts": [
+        "DF13-4P-1.25DSA",
+        "DF13-4S-1.25C"
+      ],
+      "source": "FAN-LOCAL",
+      "status": "CAD_CANDIDATE",
+      "limit": "Enveloppe et famille candidat déduites du STEP et de la photo. Brochages FAN et Waveshare à établir."
+    }
+  ],
+  "geometry_classes": {
+    "supplier_geometry": "Géométrie fournisseur d’une référence précise. L’applicabilité au lot reste indépendante.",
+    "measured_geometry": "Géométrie mesurée sur un support explicite, dossier numérique ou pièce réelle. Les deux portées sont distinctes.",
+    "conservative_envelope": "Gabarit qui couvre des dimensions ou trajectoires explicitement bornées.",
+    "approximation": "Forme ou réservation exploratoire sans borne de couverture.",
+    "unknown": "Donnée absente. Cas OUT_OF_SCOPE lorsque la catégorie de liaison exclut le contrôle du montage embarqué."
+  },
+  "geometry_field_conventions": {
+    "device_mount_frame": "Matrice globale de montage du modèle, classe et source GO3A. Non assimilable à une pose du lot.",
+    "reservation_face_port_global": "Point de réservation de face et origine candidate locale GO3A, sans rotation d’accouplement.",
+    "reservation_bout_axe_global": "Portion ou fin d’axe FreeCAD de réservation avec empreinte historique.",
+    "typed_actual_frames": "receptacle_frame, mating_frame, plug_frame, wire_exit_frame, volume_accouplement, extraction_sweep et tool_access_envelope vides tant que l’application à l’extrémité active n’est pas démontrée.",
+    "candidates": "Les gabarits et gestes partiels historiques ou les occurrences CAO candidates restent des preuves distinctes."
+  }
+}

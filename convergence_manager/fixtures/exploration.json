@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "SYNTHETIC_BENCH",
+  "seed": null,
+  "enumeration": "DETERMINISTIC_DECLARATION_ORDER",
+  "benches": [
+    {
+      "id": "l5-obstacle",
+      "objective": "Dégager le passage nominal et explorer la connectique et les corridors.",
+      "baseline_topology": "DIRECT",
+      "interconnection": false,
+      "local_budget": 1,
+      "candidate_budget": 4,
+      "parameters": {
+        "offset_mm": 0
+      },
+      "links": [
+        {
+          "id": "L1",
+          "subjects": [
+            "L1",
+            "Obstacle"
+          ]
+        }
+      ],
+      "parameter_subjects": {
+        "offset_mm": [
+          "L1"
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "connector",
+          "family": "CONNECTOR",
+          "topology": "CONNECTEUR_COUDE",
+          "changes": {
+            "offset_mm": null
+          },
+          "triggers": [
+            "obstacle-clearance"
+          ],
+          "tradeoffs": [
+            "Criblage analytique sur le seul obstacle synthétique."
+          ],
+          "validation_actions": [
+            "Mesurer la copie sauvegardée et toutes les interactions."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "lateral-screen",
+          "family": "PLACEMENT",
+          "topology": "CORRIDOR_LATERAL",
+          "changes": {
+            "offset_mm": 15
+          },
+          "triggers": [
+            "obstacle-clearance"
+          ],
+          "tradeoffs": [
+            "Criblage analytique sur le seul obstacle synthétique."
+          ],
+          "validation_actions": [
+            "Mesurer la copie sauvegardée et toutes les interactions."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "upper-screen",
+          "family": "PLACEMENT",
+          "topology": "CORRIDOR_HAUT",
+          "changes": {
+            "offset_mm": 13
+          },
+          "triggers": [
+            "obstacle-clearance"
+          ],
+          "tradeoffs": [
+            "Criblage analytique sur le seul obstacle synthétique."
+          ],
+          "validation_actions": [
+            "Mesurer la copie sauvegardée et toutes les interactions."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        }
+      ]
+    }
+  ]
+}

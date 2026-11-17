@@ -1,0 +1,685 @@
+{
+  "schema": "droneagricole.electromecanique.catalogue-historique.v1",
+  "date": "2026-11-11",
+  "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "provenance": "Inventaire du workspace, y compris natifs locaux hors Git. Les constats historiques sont distincts des résultats exécutés de GO 2.",
+  "recherche": [
+    "rg --files --hidden --no-ignore sous hardware/mecanique",
+    "git ls-files et git log de contrôle sur chemins historiques",
+    "Recherche textuelle des identifiants, rapports, scripts d’essai et figures",
+    "Comparaison SHA-256 avec les rapports qui publient les empreintes",
+    "Vérification ciblée des caches locaux .runtime/cartographe_faces_ports, .runtime/faces-natifs-cache et .runtime/refonte-systeme-brouillons : journaux et sauvegardes antérieures, aucun assemblage identifié pour les états complets des rotations PM08."
+  ],
+  "nombres": {
+    "cas": 12,
+    "fichiers_empreintés": 1998,
+    "références_historiques_avec_SHA": 437,
+    "références_historiques_divergentes": 0,
+    "références_modulaires_avec_SHA": 143,
+    "références_modulaires_absentes": 0,
+    "références_modulaires_divergentes_ou_absentes": 0,
+    "références_avec_SHA_correspondantes_total": 582
+  },
+  "cas": {
+    "F16_initial": {
+      "natifs": [
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd",
+        "hardware/mecanique/cartographe/verification/essai_wireflex/F16_copie.20261022-123829.FCBak",
+        "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/mesures.json": "191232405d67105b59cd6ea9fd522919488b72e90e9dc17f7c36bb28ff375eda",
+        "hardware/mecanique/cartographe/verification/essai_wireflex/comparaison.json": "ed7f9dc210c00058ec5c4f7f9766c7286a19f28103b6868c55b323f6e85c8e05",
+        "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/comparaison_f16.json": "4cac0e3de0812812e30b8cce5fb2b9b8446bfe473a7be0a9ebdadb6d61c4b25b"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/axes_3d.png": "379490d301c00f2626a8108bb393dea93c6dfff98d49e98cedfb111751564542"
+      },
+      "périmètre": "Axe et câble F16, 360 obstacles du contrôle historique.",
+      "constats_historiques": {
+        "longueur_mm": 425.173842178645,
+        "rayon_min_mm": 22,
+        "intersections_positives": 0
+      },
+      "inconnues": [
+        "Référence du cordon effectivement monté, mouvement de la caméra, applicabilité du rayon dynamique, maintien et réserve."
+      ],
+      "critère_de_contre_validation": "La famille RR-ASMUK-xxGRHF documente R22 statique et R48 continu. La valeur géométrique R22 de cette copie ne démontre pas la flexion continue.",
+      "références_indépendantes": {},
+      "sources_fabricant": [
+        "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd": {
+          "sha256_initial": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "sha256_historique_attendu": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe/verification/essai_wireflex/F16_copie.20261022-123829.FCBak": {
+          "sha256_initial": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "sha256_historique_attendu": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+          "sha256_historique_attendu": null,
+          "statut": "PRESENT_IDENTITE_HISTORIQUE_NON_ATTESTEE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F16_BSpline_K": {
+      "natifs": [
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/F16_copie.FCStd",
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/mesures.json": "191232405d67105b59cd6ea9fd522919488b72e90e9dc17f7c36bb28ff375eda",
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/statut.json": "ca2e7af4c2fc2bfea09542354e27aa6b5c8094fe8b923a9a36ab9540ed18d67d"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/axes_3d.png": "379490d301c00f2626a8108bb393dea93c6dfff98d49e98cedfb111751564542"
+      },
+      "périmètre": "Axe du candidat sauvegardé et gaine. Vérification de collision historique interrompue à 280/360.",
+      "constats_historiques": {
+        "longueur_mm_arrondie": 456.959,
+        "rayon_min_echantillonne_mm_arrondi": 0.006,
+        "défaut": "MakePipeShell::MakeSolid a échoué. Un solide antérieur peut subsister en cache."
+      },
+      "inconnues": [
+        "Collisions du nouveau parcours, minimum global certifié et validité du lien axe/gaine."
+      ],
+      "critère_de_contre_validation": "Rechercher un témoin local de rayon inférieur au seuil exploratoire et l’incohérence axe/gaine. La validité topologique seule ne suffit pas.",
+      "références_indépendantes": {},
+      "sources_fabricant": [
+        "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe/verification/essai_routage_f16/F16_copie.FCStd": {
+          "sha256_initial": "a5cfec750a8e93a3c0cf6cfe59f1035f2bd1b06dfa5a98ef9a8b31ae90bc0c07",
+          "sha256_historique_attendu": "a5cfec750a8e93a3c0cf6cfe59f1035f2bd1b06dfa5a98ef9a8b31ae90bc0c07",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd": {
+          "sha256_initial": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "sha256_historique_attendu": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F16_BSpline_P": {
+      "natifs": [
+        "hardware/mecanique/cartographe/verification/essai_wireflex/F16_copie.FCStd",
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd",
+        "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe/verification/essai_wireflex/mesures.json": "53f81b490fb76d09362f4e7b43177cbd1302816d312b339afd67cd09ed98e754",
+        "hardware/mecanique/cartographe/verification/essai_wireflex/comparaison.json": "ed7f9dc210c00058ec5c4f7f9766c7286a19f28103b6868c55b323f6e85c8e05"
+      },
+      "vues": {},
+      "périmètre": "Axe du candidat sauvegardé et gaine, 360 obstacles historiques.",
+      "constats_historiques": {
+        "rayon_min_echantillonne_mm_arrondi": 23.663,
+        "intersections_positives": 8,
+        "seuil_volume_mm3": 0.0001
+      },
+      "inconnues": [
+        "Rayon global certifié, tolérances et montage."
+      ],
+      "critère_de_contre_validation": "Un meilleur rayon échantillonné ne neutralise aucune intersection interdite. Comparer les paires et les volumes.",
+      "références_indépendantes": {},
+      "sources_fabricant": [
+        "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe/verification/essai_wireflex/F16_copie.FCStd": {
+          "sha256_initial": "346b77b1a0973571e3e1adc8b86f8b886dbd34043b91b19bbc6d2a4a191578a8",
+          "sha256_historique_attendu": "346b77b1a0973571e3e1adc8b86f8b886dbd34043b91b19bbc6d2a4a191578a8",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd": {
+          "sha256_initial": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "sha256_historique_attendu": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+          "sha256_historique_attendu": null,
+          "statut": "PRESENT_IDENTITE_HISTORIQUE_NON_ATTESTEE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "guides_orange": {
+      "natifs": [
+        "hardware/mecanique/cartographe_faisceaux_refonte/assemblages/Prototype_Cartographe.FCStd",
+        "hardware/mecanique/cartographe_faisceaux_refonte/sous_assemblages/SA07_Prototype_Faisceaux.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/audit_baseline.json": "b251d8ce26450b61730c3635275fd1b29b67c06f2163fec2fe9f7378bf99c6d0",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/corridors_structure.json": "e620ee5c16cc25255bd6a03b9b0fa1833c454e6c21b7b309b3955e3400d20aa9"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/audit_baseline_supports.png": "e48193531f17dec65a37cc951d62125c83527807ecc03849066fa6878e17def2",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/audit_baseline_structure.png": "0e07499fe0dbb74b93354d63f99a3d5a011ca55eb67c8ff4677f3c0769e26968"
+      },
+      "périmètre": "P72/P73/P75 guident et lient des étages, P77 porte la réserve F41, P78 porte la remontée M8.",
+      "constats_historiques": {
+        "occurrences_citées": [
+          "P72",
+          "P73",
+          "P75",
+          "P77",
+          "P78"
+        ],
+        "statut": "pièces modélisées comme supports physiques; axes WireFlex de construction",
+        "supports_fabriqués_SA07": 17,
+        "volume_matière_SA07_cm3_arrondi": 222.0,
+        "occurrences_tous_sous_assemblages": 75
+      },
+      "inconnues": [
+        "Masse complète, résistance mécanique, accès, dépose et ordre réel de montage, nécessité de chaque retenue."
+      ],
+      "critère_de_contre_validation": "La diminution de matière de la variante modulaire permet de contester la nécessité des grands guides. La qualification mécanique demande des critères indépendants de tenue et montage.",
+      "références_indépendantes": {},
+      "sources_fabricant": [],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_faisceaux_refonte/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "5f4503e05027388c48c5d0607671ebe6a851ed4ac9aae9f7b9bca917e01c0643",
+          "sha256_historique_attendu": "5f4503e05027388c48c5d0607671ebe6a851ed4ac9aae9f7b9bca917e01c0643",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faisceaux_refonte/sous_assemblages/SA07_Prototype_Faisceaux.FCStd": {
+          "sha256_initial": "66496e1c9e83dbfa8e6697225c1760ef08278464a7bb9e9a35bc90428dea8584",
+          "sha256_historique_attendu": "66496e1c9e83dbfa8e6697225c1760ef08278464a7bb9e9a35bc90428dea8584",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "modulaire": {
+      "natifs": [
+        "hardware/mecanique/cartographe_faisceaux_modulaires/assemblages/Prototype_Cartographe.FCStd",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/sous_assemblages/SA07_Prototype_Faisceaux.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/volumes_supports.json": "c75fe960697ed4c93c0fb607e421d84b780b6488a4879b94a2e5176bb31db33a",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/validation_retenues.json": "7d0a935582dcf4d2465d8eaa3004f9b223cbf330d786d8afb6c4cf751b6208fc",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/modules_electriques.json": "bb5d03d67b850c0d8a2f544cafbe8ed2125789364cd663c76fedf4d702a5673e",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/revue_reprise_modulaire.json": "c937aa8558b930b98fffbcd5374aceaf5898fc119aa72854fdef2470db9ac390"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/vues/03_retenues.png": "9d3618bdddd0669fac66844d47da5e231d136e371104f0aaca461fddfe92f2c7",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/vues/comparatif/02_retenues_avant_apres.png": "744e4c4fde6959efb30f05b3dd205dd0b500b44fb5f5c1bcbe77aee3a31e272d"
+      },
+      "périmètre": "Onze modules, 53 axes. Comparatif SA07 et occurrences sur tous les sous-assemblages.",
+      "constats_historiques": {
+        "supports_fabriqués_SA07": 17,
+        "volume_matière_SA07_cm3_arrondi": 30.5,
+        "occurrences_tous_sous_assemblages": 58,
+        "grandes_structures_P72_P73_P75": 0,
+        "exemples_ancrages": [
+          "P81 dans deux trous M3 de P60",
+          "P82 au chant de P64",
+          "P83 sur P68",
+          "P84 au chant de P64"
+        ]
+      },
+      "inconnues": [
+        "Tenue, accès, assemblage, vérification du maintien restant et masse réelle."
+      ],
+      "critère_de_contre_validation": "Évaluer séparément volume, nombre d’occurrences, maintien et accès.",
+      "références_indépendantes": {},
+      "sources_fabricant": [],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_faisceaux_modulaires/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "d9717d9f5a31cf1c5b11d554860024a188fe9a0f34bb150d1baae0906444445e",
+          "sha256_historique_attendu": "d9717d9f5a31cf1c5b11d554860024a188fe9a0f34bb150d1baae0906444445e",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faisceaux_modulaires/sous_assemblages/SA07_Prototype_Faisceaux.FCStd": {
+          "sha256_initial": "5af055bfee87445c37525464ea11e90f2ab1a08293d8b68401f4160709881f59",
+          "sha256_historique_attendu": "5af055bfee87445c37525464ea11e90f2ab1a08293d8b68401f4160709881f59",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "variante_A": {
+      "natifs": [
+        "hardware/mecanique/cartographe_refonte_systeme/A/assemblages/Prototype_Cartographe.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json": "3bcf668782edab1530b5aed294f7643b2a98cb9587d0b51c00adddac6533c6a2",
+        "hardware/mecanique/cartographe_refonte_systeme/verification/validation_A.json": "5922ad23bae93cd5e709d2fdcf9853e0c963a4756476b18696241af11c4736ce",
+        "hardware/mecanique/cartographe_refonte_systeme/verification/comparaison_systeme.json": "f0647bf3f59608ed897d6081cece6a7adc32e01e547d56d2fb0438529de7420d"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe_refonte_systeme/exports/vues/cartographe_variante_A.png": "28f1298ad25970021ee40becb673e3394c4ad853e58f9397eb764e8442b95813"
+      },
+      "périmètre": "53 axes dans les mêmes zones que la copie par faces.",
+      "constats_historiques": {
+        "champ_historique": "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json#before"
+      },
+      "inconnues": [
+        "Connectique, montage, masse et qualification physique."
+      ],
+      "critère_de_contre_validation": "Recalculer les indicateurs par zone à partir du natif et conserver l’altitude comme mesure distincte.",
+      "références_indépendantes": {},
+      "sources_fabricant": [],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_refonte_systeme/A/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+          "sha256_historique_attendu": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "copie_par_faces": {
+      "natifs": [
+        "hardware/mecanique/cartographe_faces/Candidat/assemblages/Prototype_Cartographe.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json": "3bcf668782edab1530b5aed294f7643b2a98cb9587d0b51c00adddac6533c6a2",
+        "hardware/mecanique/cartographe_faces/verification/controle_apres_sauvegarde.json": "36ff54a8022eddc1bc15cd44a013b03e1e767c3225361fecd1a40f90cb77f4e1",
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe_faces/exports/vues/01_dessus_dessous_profil.png": "d78922a833cd251908e04fbe5ecdc1d1f304b091b7e2e7551a14490639b06ef4",
+        "hardware/mecanique/cartographe_faces/exports/vues/02_baie_cables_retenues.png": "3898e2b08473c489110fdd225407b0f90d454507b340f73511ce972ae005a9a2"
+      },
+      "périmètre": "53 axes, réservations sous la porteuse, gabarits accouplés et retenue locale.",
+      "constats_historiques": {
+        "champ_historique": "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json#after",
+        "constat": "Réduction locale dans la baie et au-dessus; altitude maximale inchangée et report sous l’emprise stricte de la porteuse."
+      },
+      "inconnues": [
+        "Congestion au montage, géométrie précise des connecteurs, F31 conservé en haut dans le natif assemblé, maintien et rayon des cordons réels."
+      ],
+      "critère_de_contre_validation": "Un gain mesuré au-dessus de la porteuse ne justifie pas un verdict global.",
+      "références_indépendantes": {},
+      "sources_fabricant": [],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_faces/Candidat/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "47f9e9adac8cd0fee65253dfe1936a19f1a98c5a27e3a91c5f9d215ccaf21ed2",
+          "sha256_historique_attendu": "47f9e9adac8cd0fee65253dfe1936a19f1a98c5a27e3a91c5f9d215ccaf21ed2",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F31_sous_P66": {
+      "natifs": [
+        "hardware/mecanique/cartographe_faces/Candidat/verification/candidats/F31_Sous_P66.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/assemblages/Prototype_Cartographe.FCStd",
+        "hardware/mecanique/cartographe_refonte_systeme/A/assemblages/Prototype_Cartographe.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840",
+        "hardware/mecanique/cartographe_faces/verification/essais_combinaison.json": "10075f66a1735812891153e94b1bee2f8caa8be6bd7fd215748c6df73b9b7354",
+        "hardware/mecanique/cartographe_faces/verification/essais_reimplantation.json": "f47a04f003e4430d38bc95c0435f84e99f147fdd5518ec690c02dd1d3d550a60",
+        "hardware/mecanique/cartographe_faces/verification/essais_faces.json": "bf8bee5b1121c8f9f746ce89fe774f849839568f3d3583291e43b7d410cb378e",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583"
+      },
+      "vues": {
+        "hardware/mecanique/cartographe_faces/exports/vues/02_baie_cables_retenues.png": "3898e2b08473c489110fdd225407b0f90d454507b340f73511ce972ae005a9a2"
+      },
+      "périmètre": "Parcours bas sauvegardé séparément. Distinguer solide installé PM08/isolateur/fiches, enveloppe de protection et accès CAN1 face à F35.",
+      "constats_historiques": {
+        "défauts": [
+          "Gabarit de la fiche d’origine en intersection avec l’isolateur selon l’étude.",
+          "Après demi-tour PM08, gabarits en conflit avec la gaine ou le maintien F38 selon l’étude.",
+          "Accès CAN1 et F35 à résoudre avant intégration."
+        ],
+        "géométrie": "Gabarits d’étude et départ hérité."
+      },
+      "inconnues": [
+        "Course réelle de verrou/dépose, outil, géométrie du lot, modèle complet de chaque orientation."
+      ],
+      "critère_de_contre_validation": "Une obstruction du volume d’extraction confirmé invalide l’accès même si le nominal est dégagé. Un gabarit approximatif borne le verdict.",
+      "références_indépendantes": {
+        "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757"
+      },
+      "sources_fabricant": [
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+        "https://docs.holybro.com/power-module-and-pdb/power-module/digital-power-module-pm-setup"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [
+        "Les états complets sauvegardés correspondant aux essais de réorientation en mémoire et à toutes les combinaisons ne sont pas identifiés. Leurs rapports ne permettent pas un rejeu identique à partir d’un natif."
+      ],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_faces/Candidat/verification/candidats/F31_Sous_P66.FCStd": {
+          "sha256_initial": "6d63b2867e35e66305cd6aac5cba1c0abc2a6f99deb4d7e718d61acb5bc7e856",
+          "sha256_historique_attendu": null,
+          "statut": "PRESENT_IDENTITE_HISTORIQUE_NON_ATTESTEE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "47f9e9adac8cd0fee65253dfe1936a19f1a98c5a27e3a91c5f9d215ccaf21ed2",
+          "sha256_historique_attendu": "47f9e9adac8cd0fee65253dfe1936a19f1a98c5a27e3a91c5f9d215ccaf21ed2",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_refonte_systeme/A/assemblages/Prototype_Cartographe.FCStd": {
+          "sha256_initial": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+          "sha256_historique_attendu": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F12": {
+      "natifs": [
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F12_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F12_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF12_GH6.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583",
+        "hardware/mecanique/cartographe_faces/verification/controle_apres_sauvegarde.json": "36ff54a8022eddc1bc15cd44a013b03e1e767c3225361fecd1a40f90cb77f4e1"
+      },
+      "vues": {},
+      "périmètre": "Destination radio et position terminale près de GPS2 en A, reprise TELEM1 sur la copie par faces.",
+      "constats_historiques": {
+        "constat": "TELEM1 et GPS2 sont des ports distincts. Le contrat F12 affecte TELEM1, avec TELEM3 comme alternative conditionnelle. GPS2 confirmé comme destination serait NON_CONFORME.",
+        "terminal_variante_A_registre_mm": [
+          59.825,
+          12,
+          135.5
+        ],
+        "ports_STEP_RC02": {
+          "GPS2": {
+            "centre_face_mm": [
+              59.825,
+              12,
+              134.30232
+            ],
+            "bbox_receptacle_mm": [
+              57.35,
+              6.625,
+              130.05232,
+              62.3,
+              17.375,
+              134.30232
+            ],
+            "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02"
+          },
+          "TELEM1": {
+            "centre_face_mm": [
+              59.825,
+              25,
+              134.30232
+            ],
+            "bbox_receptacle_mm": [
+              57.35,
+              19.625,
+              130.05232,
+              62.3,
+              30.375,
+              134.30232
+            ],
+            "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02"
+          }
+        },
+        "constat_géométrique_documentaire": "La projection XY du terminal historique A est au centre de GPS2, hors emprise TELEM1. Le défaut concerne la destination représentée en CAO sous réserve de la révision RC02."
+      },
+      "inconnues": [
+        "Le BRep près de GPS2 ne suffit pas seul à prouver l’accouplement. Brochage et assignation UART du lot pour le candidat TELEM1."
+      ],
+      "critère_de_contre_validation": "Comparer la terminaison géométrique à un port localisé indépendamment et vérifier le contrat radio.",
+      "références_indépendantes": {
+        "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757",
+        "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c"
+      },
+      "sources_fabricant": [
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F12_Prototype.FCStd": {
+          "sha256_initial": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+          "sha256_historique_attendu": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F12_Prototype.FCStd": {
+          "sha256_initial": "7c033e4ec954a0f6a45fd13c3bb66fac4dfd6cce2845a553168535afec587341",
+          "sha256_historique_attendu": "7c033e4ec954a0f6a45fd13c3bb66fac4dfd6cce2845a553168535afec587341",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF12_GH6.FCStd": {
+          "sha256_initial": "c7fb3158c42a3d509170088891504d5cd1d09fde1aa07016c87f445252f11004",
+          "sha256_historique_attendu": "c7fb3158c42a3d509170088891504d5cd1d09fde1aa07016c87f445252f11004",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F24A": {
+      "natifs": [
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F24A_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F24A_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF24A_GH6.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583",
+        "hardware/mecanique/cartographe_faces/verification/controle_apres_sauvegarde.json": "36ff54a8022eddc1bc15cd44a013b03e1e767c3225361fecd1a40f90cb77f4e1"
+      },
+      "vues": {},
+      "périmètre": "PPS de CA01 J505 vers Orin GPIO.",
+      "constats_historiques": {
+        "constat": "Le fabricant confirme GPIO_07 sur broche 2 et masse sur 6. Cette documentation ne rattache pas à elle seule le gabarit CAO présumé au port du lot."
+      },
+      "inconnues": [
+        "Identification et face de la prise physique, brochage réellement monté, pinmux et activation du PPS."
+      ],
+      "critère_de_contre_validation": "Réservation GPIO présumée → NON_VERIFIE.",
+      "références_indépendantes": {
+        "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757",
+        "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4"
+      },
+      "sources_fabricant": [
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F24A_Prototype.FCStd": {
+          "sha256_initial": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+          "sha256_historique_attendu": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F24A_Prototype.FCStd": {
+          "sha256_initial": "34533ce4184925aa377d98b4ca5680fde58343f78e287d9f67eed88a1acf1761",
+          "sha256_historique_attendu": "34533ce4184925aa377d98b4ca5680fde58343f78e287d9f67eed88a1acf1761",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF24A_GH6.FCStd": {
+          "sha256_initial": "a5f5d5c525b67a8778673bee1e65cb1689f7eb832bfc86639abd2a3e09450ef4",
+          "sha256_historique_attendu": "a5f5d5c525b67a8778673bee1e65cb1689f7eb832bfc86639abd2a3e09450ef4",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F25": {
+      "natifs": [
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F25_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F25_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF25_GH10.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/fabriquees/P85_Retenue_Chant_P66.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840",
+        "hardware/mecanique/cartographe_faces/verification/interfaces_porteuse.json": "65bd8dfc06bc2bac34fb65545cb390bed33377d24a3c19bde0c1a1fc794de583",
+        "hardware/mecanique/cartographe_faces/verification/controle_apres_sauvegarde.json": "36ff54a8022eddc1bc15cd44a013b03e1e767c3225361fecd1a40f90cb77f4e1",
+        "hardware/mecanique/cartographe_faces/verification/retenue_finale.json": "bd2e15106af43d0200adabe2ce35c82604f102082204983b5ce6505274eb980d"
+      },
+      "vues": {},
+      "périmètre": "Chemin sous P66 sur flanc est, remontée GPS1 et clip local P85.",
+      "constats_historiques": {
+        "constat": "La route C préserve GPS1; le scénario D améliore le passage local au prix d’une gêne d’accès F16."
+      },
+      "inconnues": [
+        "Brochage CUAV, corps et course de fiche, abrasion, fatigue et tenue de P85."
+      ],
+      "critère_de_contre_validation": "Accepter le gain sur la géométrie du chemin seulement; garder fonction et tenue NON_VERIFIE.",
+      "références_indépendantes": {
+        "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757"
+      },
+      "sources_fabricant": [
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+        "https://store.cuav.net/shop/c-rtk-usl-expansion-module/"
+      ],
+      "natifs_non_retrouvés_ou_non_identifiés": [],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F25_Prototype.FCStd": {
+          "sha256_initial": "88f64717c742f403dc5edbfe69971f337366f84a5cdeb4d8a7c4f658b619213a",
+          "sha256_historique_attendu": "88f64717c742f403dc5edbfe69971f337366f84a5cdeb4d8a7c4f658b619213a",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F25_Prototype.FCStd": {
+          "sha256_initial": "1fe5be9df696c4b0bdb3c3c70d9e9492cbaae1c542c11fe01ed36f9c6b85d000",
+          "sha256_historique_attendu": "1fe5be9df696c4b0bdb3c3c70d9e9492cbaae1c542c11fe01ed36f9c6b85d000",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/GabaritF25_GH10.FCStd": {
+          "sha256_initial": "4db264fce010f040f02bc844a5d215a29a3fda3af91b998906826a9c78e68780",
+          "sha256_historique_attendu": "4db264fce010f040f02bc844a5d215a29a3fda3af91b998906826a9c78e68780",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/fabriquees/P85_Retenue_Chant_P66.FCStd": {
+          "sha256_initial": "c42a05c6f95df5fa73e4dad792a914ee3759f6f1d87c859752d8f06f7b8c8760",
+          "sha256_historique_attendu": "c42a05c6f95df5fa73e4dad792a914ee3759f6f1d87c859752d8f06f7b8c8760",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    },
+    "F41": {
+      "natifs": [
+        "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F41_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/pieces/commerce/W_F41_Prototype.FCStd",
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F41_Prototype.FCStd",
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F41_Prototype.FCStd"
+      ],
+      "preuves_historiques": {
+        "hardware/mecanique/cartographe_faisceaux_refonte/verification/routes_prototype.json": "75a047c82b075e7c48040bbf1d2efc279ff47da4f8e3b4bffc213a390e742bb3",
+        "hardware/mecanique/cartographe_faisceaux_modulaires/verification/generation.json": "51d7a634ec6bb6a936bb5d0105edf50589e9ad1efbf531f8806525dc8b8595d5",
+        "hardware/mecanique/cartographe_refonte_systeme/verification/essais_diagnostic.json": "afc800f658679ef645d19fb625bccdf4f79208ebb1fbac829873726fd8ad3b3e",
+        "hardware/mecanique/cartographe_refonte_systeme/verification/comparaison_systeme.json": "f0647bf3f59608ed897d6081cece6a7adc32e01e547d56d2fb0438529de7420d",
+        "hardware/mecanique/cartographe_faces/verification/decision_faces.json": "930f58dd9273192a4845abceeae537e614e0bb7f39575304ed45b8f189ca6840"
+      },
+      "vues": {},
+      "périmètre": "Réduction de l’axe de diagnostic et réserve de service.",
+      "constats_historiques": {
+        "axe_initial_mm": 1180.9420885415452,
+        "axe_variante_A_mm": 340.40831309733625
+      },
+      "inconnues": [
+        "Course de manipulation, longueur utile installée, ergonomie du branchement, limite de traction."
+      ],
+      "critère_de_contre_validation": "Mesurer le gain de longueur, conserver la fonction de service NON_VERIFIE faute de critère applicable.",
+      "références_indépendantes": {
+        "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757"
+      },
+      "sources_fabricant": [],
+      "natifs_non_retrouvés_ou_non_identifiés": [
+        "Natifs complets des essais non retenus de diagnostic non identifiés."
+      ],
+      "statut_des_natifs": {
+        "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F41_Prototype.FCStd": {
+          "sha256_initial": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+          "sha256_historique_attendu": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faisceaux_modulaires/pieces/commerce/W_F41_Prototype.FCStd": {
+          "sha256_initial": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "sha256_historique_attendu": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F41_Prototype.FCStd": {
+          "sha256_initial": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "sha256_historique_attendu": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        },
+        "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F41_Prototype.FCStd": {
+          "sha256_initial": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "sha256_historique_attendu": "b58922353cb15fe3995cc194042a9827659c5fa463938f09b8e5b85f714c6a96",
+          "statut": "IDENTIQUE_A_LA_PREUVE_HISTORIQUE",
+          "suivi_dans_git": false
+        }
+      }
+    }
+  },
+  "divergences": {},
+  "preuve_intégrité": "historical_source_integrity.json",
+  "contrôle_complémentaire_registres_modulaires": {
+    "hardware/mecanique/cartographe_faisceaux_modulaires/verification/construction_prototype.json": {
+      "actuel": "9fab152f20a8b6c69c3f0cc62baf3ad726dfdebc3eb794174d3f5f7f2b9fd6d4",
+      "historique": "9fab152f20a8b6c69c3f0cc62baf3ad726dfdebc3eb794174d3f5f7f2b9fd6d4",
+      "identique": true
+    },
+    "hardware/mecanique/cartographe_faisceaux_modulaires/verification/routes_prototype.json": {
+      "actuel": "acc6fe121d2f1075ffa9ef29bc7974536c6565ea125ffb6c102ef6780a7a5ee3",
+      "historique": "acc6fe121d2f1075ffa9ef29bc7974536c6565ea125ffb6c102ef6780a7a5ee3",
+      "identique": true
+    }
+  },
+  "consultation_constructeurs": {
+    "date": "2026-11-11",
+    "résultats": [
+      {
+        "constructeur": "USBFireWire",
+        "référence": "RR-ASMUK-xxGRHF, dont RR-ASMUK-20GRHF",
+        "rayon_statique_mm": 22,
+        "rayon_flexion_continue_mm": 48
+      },
+      {
+        "constructeur": "Holybro",
+        "référence": "Pixhawk Jetson Baseboard",
+        "constat": "GPS2 distinct des ports de télémétrie; Orin GPIO broche 2 = GPIO_07 et broche 6 = GND."
+      }
+    ]
+  },
+  "contrôle_complémentaire_registres_F16": {
+    "hardware/mecanique/cartographe/verification/construction_prototype.json": {
+      "actuel": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9",
+      "historique": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9",
+      "identique": true
+    },
+    "hardware/mecanique/cartographe/verification/routes_prototype.json": {
+      "actuel": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+      "historique": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+      "identique": true
+    }
+  }
+}

@@ -1,0 +1,1219 @@
+{
+  "schema_version": "1.0.0",
+  "id": "T-EM-ENGINE-L4",
+  "date": "2026-11-13",
+  "scope": "Bancs numériques et observations historiques ciblées, Windows amd64",
+  "verdict": "L4_CONDITIONAL",
+  "conclusion": "préliminaire",
+  "finalized": true,
+  "environment": {
+    "architecture": "x86_64",
+    "os": "Windows 11 Version 26H2",
+    "qt_version": "6.11.2",
+    "validator_sha256": "93f5ee532879ddc943f9ea7db0375aff7b63a317f340764069d82cc48948b6f1",
+    "validator_version": "2.0.0",
+    "compiler": "GNU 16.2.0",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "workspace_dirty": true
+  },
+  "fingerprints": {
+    "acceptance_sha256": "e04fa746dfefa618ed7c567ed9f1408d81d048073ee3dba27bc278ea30281cc0",
+    "reference_sha256": "04b2ece04c8dcb5865a9349a6ef5c3c16bd863d22990ae52a17e21d870d1b098",
+    "requirement_files": {
+      "connectivity": "c8503dd4a3d9f119b0c87bc4b8e79d0c8688654ba3c2164d9363d685e4207827",
+      "l2": "a9ad9a8335c5997265362ce1d44cae121f652895f101919000130fc22d2962a0",
+      "l3": "a6d12f406149358fba69bedd358eca01034108f40e22bd0b1a06661bde0440e2",
+      "mechanical": "e4dc84c968979cd5cd1ad88031a233a11bd83d132160f5b5fe04a810869cd33e",
+      "native": "e1f0301989b0ac5f35a9ca441684ec1cb0d1e79b511fac27edab6c05e2627a71"
+    },
+    "requirements_sha256": "a8fd4e9a58152a2fa73e30b2668486b9afe4d28f9af3b0864da44286a5145490",
+    "validator_sha256": "93f5ee532879ddc943f9ea7db0375aff7b63a317f340764069d82cc48948b6f1",
+    "validator_version": "2.0.0"
+  },
+  "frozen_at_utc": "2026-11-13T18:06:56.268Z",
+  "started_at_utc": "2026-11-13T18:06:56.834Z",
+  "finished_at_utc": "2026-11-13T18:11:28.502Z",
+  "sources": [
+    {
+      "path": "architecture_decision_engine/src/Evidence.cpp",
+      "sha256": "a87ffe8d3f7a0a8f907c6b08503f1391946013eca99f28269eb6aed3c7a122a6"
+    },
+    {
+      "path": "architecture_decision_engine/src/Evidence.hpp",
+      "sha256": "d382735af6606657a524ad5e14c98b09e9aa42871bfaa35926a680809c795fc6"
+    },
+    {
+      "path": "electromechanical_engine/qualification/l4_native.py",
+      "sha256": "11d131482402d987c1cae97219adb3f10f820cbe53f2d9a022e3211649bc6322"
+    },
+    {
+      "path": "electromechanical_engine/qualification/l4_native_worker.py",
+      "sha256": "a70cf12af16777cc2c3c54d89a281dded09812224fd33d249407c75332e9baea"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_l4_native.py",
+      "sha256": "32463a96c511f54d3013d69178e9ab6a4cc473ff779606ca1e0efa10df3f0aa7"
+    },
+    {
+      "path": "validation_engine/CMakeLists.txt",
+      "sha256": "cf05eeaf05db474d946324b10fbd9802b8199b3ebd3e39aa3860173a36c28284"
+    },
+    {
+      "path": "validation_engine/fixtures/acceptance.json",
+      "sha256": "e04fa746dfefa618ed7c567ed9f1408d81d048073ee3dba27bc278ea30281cc0"
+    },
+    {
+      "path": "validation_engine/fixtures/connectivity.json",
+      "sha256": "c8503dd4a3d9f119b0c87bc4b8e79d0c8688654ba3c2164d9363d685e4207827"
+    },
+    {
+      "path": "validation_engine/fixtures/mechanical.json",
+      "sha256": "e4dc84c968979cd5cd1ad88031a233a11bd83d132160f5b5fe04a810869cd33e"
+    },
+    {
+      "path": "validation_engine/fixtures/native.json",
+      "sha256": "e1f0301989b0ac5f35a9ca441684ec1cb0d1e79b511fac27edab6c05e2627a71"
+    },
+    {
+      "path": "validation_engine/fixtures/reference.json",
+      "sha256": "e851e42174d7554cf2b17d98adacf837ebc8ad37064a5c1c5d91946ca48e7f93"
+    },
+    {
+      "path": "validation_engine/README.md",
+      "sha256": "9111cbc7b17ea44f8fc2117609d77e7d7ce6c571e542ed190d6b7e2d15bdd569"
+    },
+    {
+      "path": "validation_engine/src/Connectivity.cpp",
+      "sha256": "000eafdbb3e9b93982d5c5cbcf12e04c53d9205700cefc39926ad2c9019c3171"
+    },
+    {
+      "path": "validation_engine/src/Connectivity.hpp",
+      "sha256": "3b5d0a37bf1d6b2751c7c467dc10e8889c56cb6c88dd071f065674f487dcdcf7"
+    },
+    {
+      "path": "validation_engine/src/Finding.hpp",
+      "sha256": "c8c5994c097635cf804ebefb95f0cbf9928a76931cde27fc786c3f7165ab3bc2"
+    },
+    {
+      "path": "validation_engine/src/Main.cpp",
+      "sha256": "546b10659170d5df9c3a58b599b8b4e4eb147cae7cf45d8a8c47d25cd79b2025"
+    },
+    {
+      "path": "validation_engine/src/Mechanical.cpp",
+      "sha256": "9dac89d50a46341a7a2edbc7ce847af13ce92c6f01f32aee2ac55d8fcec731b5"
+    },
+    {
+      "path": "validation_engine/src/Mechanical.hpp",
+      "sha256": "704733bda9077c94da92270a457999700b9653a87e48859737a4b02a1785a4e2"
+    },
+    {
+      "path": "validation_engine/src/Reference.cpp",
+      "sha256": "5cf82734a599f9d89c35e8bb690f8384f4fec64ffb846eae28f5a11ef76533ba"
+    },
+    {
+      "path": "validation_engine/src/Reference.hpp",
+      "sha256": "2fcdc68867ef12c06a30c16c5fb2c805c32f642108d306386666b73d3718b131"
+    },
+    {
+      "path": "validation_engine/src/Report.cpp",
+      "sha256": "61136c3ddb32221fb645218c3067e803515b2d4eedae4c44a7f2684235717f17"
+    },
+    {
+      "path": "validation_engine/src/Report.hpp",
+      "sha256": "b7512fe50ffe742331c2ad45ef984b997f114ed0977ed7cfa4005b46a08fa052"
+    },
+    {
+      "path": "validation_engine/tests/connectivity_cases.py",
+      "sha256": "d4dfa1c4cad4d31a696c491236ddc6983c5a4c71cb6460dc9d20c82d6ad8a166"
+    },
+    {
+      "path": "validation_engine/tests/test_contract.py",
+      "sha256": "2983c43405bb1ad1d54cf3732c0009173d3fc16639e06ae9c7f73a52627b6706"
+    },
+    {
+      "path": "validation_engine/tests/TestMechanical.cpp",
+      "sha256": "3a3c7564df94a2b1c1e56327fd269f2572c6cb39c4fd65d6584de11513f8696b"
+    },
+    {
+      "path": "validation_engine/tests/verify_reports.py",
+      "sha256": "9b9027eb2696b2ffaaab968bd5baebbb8b36d3766533632d284cc7933a87f795"
+    }
+  ],
+  "artifacts": {
+    "reference_lock": {
+      "path": ".runtime/l4-reception-20261113-190656054/reference_lock.json",
+      "sha256": "04b2ece04c8dcb5865a9349a6ef5c3c16bd863d22990ae52a17e21d870d1b098"
+    },
+    "campaign": {
+      "path": ".runtime/l4-reception-20261113-190656054/result/campaign.json",
+      "sha256": "061c5e4471158728ba2c8806f03899e08c096fd724f35605fbc3cdd13e3e7db7"
+    },
+    "summary": {
+      "path": ".runtime/l4-reception-20261113-190656054/result/SUMMARY.md",
+      "sha256": "42964b34dae7272ba12fa9e76b7bc18c8b4a35bb24518c44027db76b57a2167e"
+    },
+    "traceability": {
+      "path": ".runtime/l4-reception-20261113-190656054/result/traceability.json",
+      "sha256": "b97a81b654d8115e74d6086990691325eb7f8bb0e09582dd7eeb2312a41489bc"
+    },
+    "original_sources": {
+      "path": ".runtime/l4-reception-20261113-190656054/result/original_sources.json",
+      "sha256": "159919978d0a617d36d31b100ade2d04a88d46c4378cd00ce91a1c758293d02a"
+    },
+    "t0_manifest": {
+      "path": ".runtime/l4-reception-20261113-190656054/result/t0_run_manifest.json",
+      "sha256": "ac0725a00b56efdef8c3782f5848bc849247e133fbb46767523e384a55d884a1"
+    },
+    "regression_log": {
+      "path": ".runtime/l4-reception-20261113-190656054/python-regression.log",
+      "sha256": "234ab972a8e5f518452da961f19b532b7fc683e0fff8786bea0f6c26569885d8"
+    }
+  },
+  "coverage": {
+    "cases": 29,
+    "native_cases": 19,
+    "native_process_measurements": 38,
+    "acceptance": {
+      "PASS": 100
+    },
+    "findings": {
+      "FAIL": 21,
+      "PASS": 39,
+      "INCONCLUSIVE": 11
+    },
+    "findings_by_family": {
+      "V1": {
+        "FAIL": 6,
+        "PASS": 11,
+        "INCONCLUSIVE": 4
+      },
+      "V5": {
+        "PASS": 9,
+        "INCONCLUSIVE": 2,
+        "FAIL": 1
+      },
+      "V3": {
+        "FAIL": 3,
+        "INCONCLUSIVE": 1,
+        "PASS": 5
+      },
+      "V2": {
+        "FAIL": 9,
+        "PASS": 8
+      },
+      "V4": {
+        "INCONCLUSIVE": 4,
+        "PASS": 2,
+        "FAIL": 1
+      },
+      "V6": {
+        "FAIL": 1,
+        "PASS": 4
+      }
+    }
+  },
+  "source_integrity": {
+    "active_closure_sha256_identical_to_l0_before_and_after": 137,
+    "other_closures": "Les entrées de chaque banc et de chaque historique utilisé ont conservé leurs SHA-256.",
+    "staged_source_path_count": 718
+  },
+  "cases": {
+    "angled-incompatible": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/angled-incompatible.json",
+        "sha256": "b99cca6235f131142cf13e00ea66796156df33d54165bccc100c247abd68db1d"
+      },
+      "findings": {
+        "angled-compatibility": "FAIL"
+      }
+    },
+    "diagnostic-missing-return": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/diagnostic-missing-return.json",
+        "sha256": "c5fae131f4b1738c5fb9fdcdf37304ddee179893eb9251cafbc7182aeb513df0"
+      },
+      "findings": {
+        "f40-debug": "PASS",
+        "f41-return": "FAIL"
+      }
+    },
+    "diagnostic-nominal": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/diagnostic-nominal.json",
+        "sha256": "e73f40a9a7c42667d886347a8547fb0f47adc3c4b65dad460220c86160ec1781"
+      },
+      "findings": {
+        "f40-debug": "PASS",
+        "f41-return": "PASS"
+      }
+    },
+    "electrical-historical-documentary": {
+      "scope": "DOCUMENT",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/electrical-historical-documentary.json",
+        "sha256": "1b971d880d436bd5cdab529bf71a64625950a8247bb20aa8f9ea5962c85bc4ed"
+      },
+      "findings": {
+        "f12-recorded-geometry": "FAIL",
+        "f12-mounted-revision": "INCONCLUSIVE",
+        "f24a-mounted-port": "INCONCLUSIVE"
+      }
+    },
+    "electrical-matrix-tampered": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/electrical-matrix-tampered.json",
+        "sha256": "d56b50c6026fcee47228fe91463381c4bb11456855533fdd32754455746b6f73"
+      },
+      "findings": {
+        "continuity": "FAIL"
+      }
+    },
+    "electrical-missing-data": {
+      "scope": "BENCH",
+      "verdict": "INCONCLUSIVE",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/electrical-missing-data.json",
+        "sha256": "60a6fa6365bbe72ae017f18be346cdb80c668d0b253d4ba80b23151fd030614f"
+      },
+      "findings": {
+        "continuity": "INCONCLUSIVE"
+      }
+    },
+    "electrical-nominal": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/electrical-nominal.json",
+        "sha256": "8251577a858e5effb9757a90b2b61e3e70572d2c1106bfeed3a4c52de6ebcd01"
+      },
+      "findings": {
+        "continuity": "PASS",
+        "compatibility": "PASS",
+        "port-a": "PASS",
+        "revision": "PASS"
+      }
+    },
+    "f12-wrong-port": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/f12-wrong-port.json",
+        "sha256": "08561faff72d040170ac8bacd8b1dc476349075916a2fc585e06da0ea1146525"
+      },
+      "findings": {
+        "f12-port": "FAIL"
+      }
+    },
+    "f24a-unidentified": {
+      "scope": "BENCH",
+      "verdict": "INCONCLUSIVE",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/f24a-unidentified.json",
+        "sha256": "52113561cab7ff8bb1cbf0fb370a7a3cf03d8e3340a43bed7bd9db3b862f5dc7"
+      },
+      "findings": {
+        "f24a-port": "INCONCLUSIVE"
+      }
+    },
+    "history-a": {
+      "scope": "CAD",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-a.json",
+        "sha256": "0909b32a7c665a7de2b9862891e01b56676a094e7a8910fa9f1c793fb0f16745"
+      },
+      "findings": {
+        "historical-length": "PASS",
+        "historical-height": "PASS",
+        "upper-zone-replay": "PASS",
+        "upper-zone-qualification": "INCONCLUSIVE"
+      }
+    },
+    "history-can1": {
+      "scope": "CAD",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-can1.json",
+        "sha256": "0c6950ced5c0c69a77df8d86e2f7e8d753b9d76dfb08a464fda1d1f9c85b41b0"
+      },
+      "findings": {
+        "extraction": "FAIL",
+        "full-assembled-can1": "INCONCLUSIVE"
+      }
+    },
+    "history-f16-chassis": {
+      "scope": "CAD",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-f16-chassis.json",
+        "sha256": "d8df2b3eda4031aaa85ef464ff3ef32440366c2f73872f2b19d3dfbddf130711"
+      },
+      "findings": {
+        "f16-chassis": "FAIL"
+      }
+    },
+    "history-f16-initial": {
+      "scope": "CAD",
+      "verdict": "INCONCLUSIVE",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-f16-initial.json",
+        "sha256": "fd12a3b510b20656a55326e47f916d71634f620cee1ffc0e27d3f86d13db4351"
+      },
+      "findings": {
+        "radius": "PASS",
+        "dynamic-limit-unproven": "INCONCLUSIVE"
+      }
+    },
+    "history-f16-k": {
+      "scope": "CAD",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-f16-k.json",
+        "sha256": "016ff8d51f3208adefd1fa8931cd53acb2656546858a2057c9142ee1246ca9ca"
+      },
+      "findings": {
+        "radius": "FAIL",
+        "gaine": "FAIL"
+      }
+    },
+    "history-f16-p": {
+      "scope": "CAD",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-f16-p.json",
+        "sha256": "d59a1f21d00d96237a045f9f14cd96f7041367e957cd10b77afba665485e0cc1"
+      },
+      "findings": {
+        "f16-p73": "FAIL",
+        "dynamic-limit-unproven": "INCONCLUSIVE"
+      }
+    },
+    "history-f16-p73-clear": {
+      "scope": "CAD",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-f16-p73-clear.json",
+        "sha256": "ee5c13dbfbe70ec0cacf3af5a986a7dae6209ee1d4263dffad573901b67a2eed"
+      },
+      "findings": {
+        "f16-p73": "PASS"
+      }
+    },
+    "history-faces": {
+      "scope": "CAD",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/history-faces.json",
+        "sha256": "f82ddb43975d74e0d1238250a8375801110f50711a9d145e0eea3bd8096a34e0"
+      },
+      "findings": {
+        "historical-length": "PASS",
+        "historical-height": "PASS",
+        "upper-zone-replay": "PASS",
+        "upper-zone-qualification": "INCONCLUSIVE"
+      }
+    },
+    "manufacturer-revision-conflict": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/manufacturer-revision-conflict.json",
+        "sha256": "2d2319ecffacf749320ec71dff4d0e4a9fa244c6791178a566eeedd9a76d9e22"
+      },
+      "findings": {
+        "manufacturer-revision": "FAIL"
+      }
+    },
+    "native-can1-blocked": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-can1-blocked.json",
+        "sha256": "57e7868cc9a612c046304eafd7330111c090cf5d6a5b59cbc89d08177ec5d4c6"
+      },
+      "findings": {
+        "extraction": "FAIL"
+      }
+    },
+    "native-can1-clear": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-can1-clear.json",
+        "sha256": "6672b2145c7d3b9959d26548abc8ca9065f6038830ff206c9841dcd8dea7aba3"
+      },
+      "findings": {
+        "extraction": "PASS"
+      }
+    },
+    "native-collision": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-collision.json",
+        "sha256": "827d8dbaa311befe484971d5fd22102227c2685046a2aed00c4689f89f674848"
+      },
+      "findings": {
+        "integrity": "PASS",
+        "all-pairs": "FAIL",
+        "direct-obstacle": "FAIL",
+        "review": "FAIL"
+      }
+    },
+    "native-congested": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-congested.json",
+        "sha256": "7341277d266be290418cfd97d3f1b1861910e621c2e4a6289659a6c377615fa8"
+      },
+      "findings": {
+        "total-length": "PASS",
+        "upper-congestion": "FAIL"
+      }
+    },
+    "native-floating": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-floating.json",
+        "sha256": "b0016e432c3258fe868cafc6989ce3bbbb7e8405b870a1dc0d65b5a8dd8a5128"
+      },
+      "findings": {
+        "anchor": "FAIL"
+      }
+    },
+    "native-l2": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-l2.json",
+        "sha256": "77c0bb3f1c99a03a65b4c2fae15b2fed4845d1ff148b01988f098fc1ce12cd35"
+      },
+      "findings": {
+        "mate-port-a": "PASS",
+        "mate-port-b": "PASS",
+        "review-connectors": "PASS",
+        "continuity": "PASS",
+        "compatibility": "PASS",
+        "port-a": "PASS",
+        "revision": "PASS"
+      }
+    },
+    "native-mobile": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-mobile.json",
+        "sha256": "95417446fe6e8876a25a1aa9f7a6ac610f85c9f963a10d4dcc659444c09eb269"
+      },
+      "findings": {
+        "integrity": "PASS",
+        "anchor": "PASS",
+        "intermediaire": "PASS",
+        "extreme": "PASS",
+        "continuous-envelope": "INCONCLUSIVE",
+        "review-support": "PASS"
+      }
+    },
+    "native-mobile-collision": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-mobile-collision.json",
+        "sha256": "fc498d8922ad602ff48cd8092e31f5d44db116c05a294642e4ca25c3b469a69e"
+      },
+      "findings": {
+        "extreme": "FAIL",
+        "continuous-envelope": "INCONCLUSIVE"
+      }
+    },
+    "native-nominal": {
+      "scope": "BENCH",
+      "verdict": "PASS",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-nominal.json",
+        "sha256": "249a7b144edcacc0c1651be018b0f74b315e347f228846392451bf3cb92a7a7a"
+      },
+      "findings": {
+        "integrity": "PASS",
+        "geometry": "PASS",
+        "radius": "PASS",
+        "all-pairs": "PASS",
+        "extraction": "PASS",
+        "total-length": "PASS",
+        "upper-congestion": "PASS",
+        "review": "PASS",
+        "review-extraction": "PASS"
+      }
+    },
+    "native-outside-selection": {
+      "scope": "BENCH",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-outside-selection.json",
+        "sha256": "fe527906421d7f5e291f118e0efb744b0b9ff8e45d77afcfa425a73ab5364d7d"
+      },
+      "findings": {
+        "all-pairs": "FAIL",
+        "outside-selection": "FAIL"
+      }
+    },
+    "native-partial": {
+      "scope": "CAD",
+      "verdict": "FAIL",
+      "report": {
+        "path": ".runtime/l4-reception-20261113-190656054/result/cases/native-partial.json",
+        "sha256": "94dd9ab0af3984cdc296fed802d151e9350466f837b78c22baadeb0ab7944334"
+      },
+      "findings": {
+        "integrity": "FAIL"
+      }
+    }
+  },
+  "native_reopenings": {
+    "history-a": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+      "source_count": 143,
+      "scope": "53 axes BRep de l’architecture A, mesures de zones et coordonnées d’extrémités ciblées",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-a/measurement-1.json",
+          "pid": 32520,
+          "sha256": "f5ecadc82a663ee1c32bea2629de38965586b56f41a2dd25245cd735cb21410f",
+          "worker_id": "e8c0829169374ec5ada7d05a3724d123"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-a/measurement-2.json",
+          "pid": 33752,
+          "sha256": "d873c7babf472050923047882b3e2ea9830054833a8e6a99aa97445214f1e1f7",
+          "worker_id": "f60e1879153442618984c19a4a82ae98"
+        }
+      ]
+    },
+    "history-can1": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "1c88f22129f330886adf0ba1a5fdcaa98ad75923ea36d57360c42b47e444b08b",
+      "source_count": 137,
+      "scope": "Gabarit nominal JST GH4 +Z à 5 mm et un obstacle F35, course physique et obstacles restants à valider",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-can1/measurement-1.json",
+          "pid": 24608,
+          "sha256": "ce906a49578162bef09bf8150346c99452429b98a89df6f584930dd243d37b35",
+          "worker_id": "ef6a90201c6a42d0bca442f218982f27"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-can1/measurement-2.json",
+          "pid": 25036,
+          "sha256": "dc2e58b28f79f7dc9f5993b59bdc0211c51b70a309c2d66330f695ad34f253a9",
+          "worker_id": "7764e90c88c04b228905d32ede0d4959"
+        }
+      ]
+    },
+    "history-f16-chassis": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "source_count": 140,
+      "scope": "Contact F16/châssis, solide OEM index 11, pose nominale de la copie consolidée",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-chassis/measurement-1.json",
+          "pid": 10208,
+          "sha256": "cce913646a53de187561586065ef400a861f3ffb422abcde9ac85ba0089bdf10",
+          "worker_id": "aed3f3cc7106426e80b57178be93e476"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-chassis/measurement-2.json",
+          "pid": 16844,
+          "sha256": "ec56bc5f5bc9c2834a339af524dd3c7152d1bb1ca3e93476e0a6f0da649da1ee",
+          "worker_id": "24a1baebc4544b898ab08a67b7d261b2"
+        }
+      ]
+    },
+    "history-f16-initial": {
+      "entry": "pieces/commerce/W_F16_Prototype.FCStd",
+      "sha256": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+      "source_count": 3,
+      "scope": "Axe initial F16, rayon statique diagnostique propre à l’historique",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-initial/measurement-1.json",
+          "pid": 28020,
+          "sha256": "23b2bb653b92353dbdc90d0778c70172428c1920cf63d7bfec0b0c8c2b17db2d",
+          "worker_id": "2f73a07c24be4736bfa638c04774f319"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-initial/measurement-2.json",
+          "pid": 7968,
+          "sha256": "3ab63aebe279f578ff029b658a7a6d20d25b158e969328ac42375c5613ae8b19",
+          "worker_id": "87aac9290d88405e843a0fe0b68d8c71"
+        }
+      ]
+    },
+    "history-f16-k": {
+      "entry": "verification/essai_routage_f16/F16_copie.FCStd",
+      "sha256": "a5cfec750a8e93a3c0cf6cfe59f1035f2bd1b06dfa5a98ef9a8b31ae90bc0c07",
+      "source_count": 3,
+      "scope": "Courbure F16 B-spline K et régénération de la gaine après effacement du cache sur copie",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-k/measurement-1.json",
+          "pid": 28784,
+          "sha256": "cedf6ba3fbf637fba7352e6b80c118346d40876f06038f7cbd9841c340bff56e",
+          "worker_id": "3a4dc971dabe412bb1ec5b51f7f19f41"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-k/measurement-2.json",
+          "pid": 24468,
+          "sha256": "66fb920ae38a6df1397c99c40866ec2fdf5669ab569adb3113a061469a866f25",
+          "worker_id": "052b05caf6ea497d924e38fb4f532635"
+        }
+      ]
+    },
+    "history-f16-p": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "source_count": 141,
+      "scope": "Interférence BRep ciblée entre la variante F16 B-spline P et le guide P73 sauvegardé",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-p/measurement-1.json",
+          "pid": 20828,
+          "sha256": "2d3453254cab421208db6e9118c8159bd7a1d692bbfe6772f423d74d8fdadefe",
+          "worker_id": "9adfc0dccbc54381b3b5a518b45e089e"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-p/measurement-2.json",
+          "pid": 5344,
+          "sha256": "a9a5a5d68c8de790079778b97b97be5c464ca6b955cf9507a544fb4d59118272",
+          "worker_id": "3226defd6a264a4d8f3af25585d8efea"
+        }
+      ]
+    },
+    "history-f16-p73-clear": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "source_count": 141,
+      "scope": "Dégagement BRep ciblé entre l’axe initial F16 et P73, sans admission globale",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-p73-clear/measurement-1.json",
+          "pid": 6428,
+          "sha256": "9deb7203f55f4fd57a7df3e018e8cbd5d655cdcf9cbb40cef2843694514b73ef",
+          "worker_id": "29eb4fc8bd2b446cb8d7918b7eeefee7"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-f16-p73-clear/measurement-2.json",
+          "pid": 24952,
+          "sha256": "deedce696baeeea1dc01aad54bee85de7f4037149b1076ab52410991e5ed0757",
+          "worker_id": "cb3b45f2769d43ffb6dba094bd1983e9"
+        }
+      ]
+    },
+    "history-faces": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "47f9e9adac8cd0fee65253dfe1936a19f1a98c5a27e3a91c5f9d215ccaf21ed2",
+      "source_count": 147,
+      "scope": "53 axes BRep de l’architecture Faces, mesures de zones et coordonnées d’extrémités ciblées",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-faces/measurement-1.json",
+          "pid": 30856,
+          "sha256": "e4f3102ee791427ab347842f2be6b48e8dde92c394c0763c4c64fae2147cfc45",
+          "worker_id": "a5bc4c46182f4fcc8723cab66cfb9bd9"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/history-faces/measurement-2.json",
+          "pid": 30144,
+          "sha256": "2393f7dbd7ad30c2f71e4762e0f98424f8b2d60bda29a48191a3f20411505110",
+          "worker_id": "3bd36538f87a4068b37a922cf9925daf"
+        }
+      ]
+    },
+    "native-can1-blocked": {
+      "entry": "candidate.FCStd",
+      "sha256": "01fd2831080136424f951a86ac463d760ccab92f3c0f52f70ee2cb24093ce883",
+      "source_count": 1,
+      "scope": "Réservation de retrait rectangulaire synthétique CAN1 obstruée par L1",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-can1-blocked/measurement-1.json",
+          "pid": 7872,
+          "sha256": "0f31e4467c4e0bd93b01c21c4f08344d6d2acd5f5886bb9b2b8b34fd580474dd",
+          "worker_id": "c7ffd3a0af14407b95a098c886654e0c"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-can1-blocked/measurement-2.json",
+          "pid": 28692,
+          "sha256": "c727ec15696506664811347dc1b866f994ad0d29dc225cf2036ad05374735253",
+          "worker_id": "ff3f80ed8cad44d582e3eeae754e82d4"
+        }
+      ]
+    },
+    "native-can1-clear": {
+      "entry": "candidate.FCStd",
+      "sha256": "65b4e3ff102c6cb396d9f04639c2c58a4d1db250979266cc8e3f81106c9ebe0d",
+      "source_count": 1,
+      "scope": "Réservation de retrait rectangulaire synthétique CAN1 et trois obstacles du banc",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-can1-clear/measurement-1.json",
+          "pid": 12620,
+          "sha256": "bb7b670533f24300c004862f5d5b755d418cb9fd36c9fa101819621abdaa44b5",
+          "worker_id": "e639676daa894953b98b4220ee72a1e8"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-can1-clear/measurement-2.json",
+          "pid": 33216,
+          "sha256": "f622e34e971026150eee5c04bb4510fe29d2120e5f24fb16178bbae2e4a08641",
+          "worker_id": "27d8c3ccd0b04adb871e37c0fc9a60f7"
+        }
+      ]
+    },
+    "native-collision": {
+      "entry": "candidate.FCStd",
+      "sha256": "d7914de2670b4327fcc7d080374b0ac6f4068cbc6a8d432ad043a139a6045837",
+      "source_count": 1,
+      "scope": "Câble droit dans l’obstacle du banc statique",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-collision/measurement-1.json",
+          "pid": 28020,
+          "sha256": "2a266304677aa2885cbc71ade2ad357338b45286cf41d46648d11a2d7b203ef5",
+          "worker_id": "193921da344c46ca968d93a5a4bd97eb"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-collision/measurement-2.json",
+          "pid": 5672,
+          "sha256": "aee2fdbaf0032c3f26ab69584bba7024c85916ccc955dbc010008cf9c86d2c99",
+          "worker_id": "0e8ddf9eb5924839b1767b576a9e0cb8"
+        }
+      ]
+    },
+    "native-congested": {
+      "entry": "candidate.FCStd",
+      "sha256": "dddfce1eb2713ebd66255f9a018f1144892d622a4cb1a082ee67a14cf088bc60",
+      "source_count": 1,
+      "scope": "Parcours haut du banc, plus court que le latéral avec une occupation de zone Z≥16 mm",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-congested/measurement-1.json",
+          "pid": 15752,
+          "sha256": "38754d32738907182ac8a4266f280d5cd188fa3c19648ddf77ef066c9f7f693c",
+          "worker_id": "aae53f54d5134c0d8a21c5b5c2a3cf55"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-congested/measurement-2.json",
+          "pid": 33712,
+          "sha256": "a42d9ec3a31b9b21d5e5e2295c90c47f168536fa3a34803b2012f37fa9b2301c",
+          "worker_id": "d6473d1ccffc48d5b7d36410960af9ff"
+        }
+      ]
+    },
+    "native-floating": {
+      "entry": "candidate.FCStd",
+      "sha256": "d5ed54e02fc9f238f154b4cb8df527d96be84f0fe591c15bf310a082123f8286",
+      "source_count": 1,
+      "scope": "Retenue de câble à 0,5 mm du porteur Deck, axe nominal inchangé",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-floating/measurement-1.json",
+          "pid": 6480,
+          "sha256": "1ceb578b618e66e6bb0bbdc128d46055ad355db3f98c883ba3c6033634adab29",
+          "worker_id": "fc4c0d47558e4a7f98fce77d5821bbad"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-floating/measurement-2.json",
+          "pid": 25056,
+          "sha256": "dc966c07936fa546f3a363a134167e5eaeb77d4a435c878a3eadf2096334ea5f",
+          "worker_id": "2b64ecb8d57b4682b6fd35c7e49fda83"
+        }
+      ]
+    },
+    "native-l2": {
+      "entry": "Banc_Interconnexion.FCStd",
+      "sha256": "74c8530132fd379e4ae6e7fd8683b666c1ae1b5d6782f47875cdd7042c45b309",
+      "source_count": 1,
+      "scope": "Banc L2 sauvegardé, deux connecteurs et quatre conducteurs, retrait axial et outillage synthétiques",
+      "environment": {
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-l2/measurement-1.json",
+          "pid": 20736,
+          "sha256": "68ac9a9724e3397f6416fd9b9bad1dfaae13abd8e712a237ce10113a2c51770f",
+          "worker_id": "eee3112d844d49e3bf3f9ccfd8b74120"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-l2/measurement-2.json",
+          "pid": 29892,
+          "sha256": "8802f0b005752b3c0b7eaa274c8d6f5a70201a919c4de5bd7b60370836049fd7",
+          "worker_id": "1027df9ec28b4bd395109e69b2d1cf38"
+        }
+      ]
+    },
+    "native-mobile": {
+      "entry": "candidate.FCStd",
+      "sha256": "4e4ef2777f1ea639ba55c2012998b496cfb310c5a8f858187e34d345ee8974dc",
+      "source_count": 1,
+      "scope": "Retenue fermée Clip sur Deck et poses mobile intermédiaire/extrême du banc",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-mobile/measurement-1.json",
+          "pid": 23924,
+          "sha256": "0b41c83001258a05ff71ab7b509cc4a72d3fff977bc782a9ceeea23545644f62",
+          "worker_id": "bc6ce44054bb4b6d8ca9d415ca196d26"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-mobile/measurement-2.json",
+          "pid": 24608,
+          "sha256": "6bedd719f7c867e94dacf75e8d15cc1c9c5b964dc858abad37033b6fbf51896e",
+          "worker_id": "e4a40a310195422ca5335aaa1b265a87"
+        }
+      ]
+    },
+    "native-mobile-collision": {
+      "entry": "candidate.FCStd",
+      "sha256": "09c6130a2abe9e3f77ce03f0e49129a4373304e4ad405696435aca4d18191723",
+      "source_count": 1,
+      "scope": "Collision reproduite à la pose extrême, géométrie du banc mobile",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-mobile-collision/measurement-1.json",
+          "pid": 17688,
+          "sha256": "a46d674f3e833b86e7df0e3fb2914ba70e5f5f42be2981af3224c999f59f5876",
+          "worker_id": "8a5153dda1de4e6885fd9095b44353d3"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-mobile-collision/measurement-2.json",
+          "pid": 512,
+          "sha256": "f3b0140a1df45e2b4299d31fbce692fbb08501e9a058aa5b1964b39f2988c721",
+          "worker_id": "99a0d10f04a34d7ca1174194fa1171a4"
+        }
+      ]
+    },
+    "native-nominal": {
+      "entry": "candidate.FCStd",
+      "sha256": "a95f36b6d06eaa34bfc2c294963da904af60ca1d8df727cb0839f81321a9be5b",
+      "source_count": 1,
+      "scope": "Banc statique complet de boîtes et câble Cables, contact Deck/Obstacle autorisé",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-nominal/measurement-1.json",
+          "pid": 22408,
+          "sha256": "2f5d4b3eb8d7dd57d332f68e1ea3bd56ade01537b744c17cb156cd3a7b4fb759",
+          "worker_id": "2961dfc28b494e459ac94c3b57826c02"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-nominal/measurement-2.json",
+          "pid": 5692,
+          "sha256": "e5e1ef9fce15bbd554735358120e9cf47fc631ef1606a774d5f63d9b1b1d683e",
+          "worker_id": "ae7f761910f0470f939bd8e9133c0fe3"
+        }
+      ]
+    },
+    "native-outside-selection": {
+      "entry": "candidate.FCStd",
+      "sha256": "8f2f54bf5168d5c4aeeda5e4e880feb774d326e5023d09e17f3314554e0b6eb6",
+      "source_count": 1,
+      "scope": "Banc statique avec une paire L1/LateObstacle extérieure à la sélection nominale du banc d’origine",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-outside-selection/measurement-1.json",
+          "pid": 14788,
+          "sha256": "746fc5e67322f42976d44c653d073c64ba404f98ceb6efc75bdb0891db8bee36",
+          "worker_id": "63a65b389dc244f885f6484a4059a0a0"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-outside-selection/measurement-2.json",
+          "pid": 11352,
+          "sha256": "8215c0f43ff79396eb9863c6b9025ab7346e2f11fcb56859220b742510f630cf",
+          "worker_id": "1ef9f65067fb493590e4e73748a7fd3e"
+        }
+      ]
+    },
+    "native-partial": {
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "04cade8a6fdfe9179898f17bf3bdb320c86112410cb023b1c7475082a07f6f13",
+      "source_count": 141,
+      "scope": "Témoin d’ouverture avec chargement XLink partiel, sans promotion ni recalcul global",
+      "environment": {
+        "Cables Workbench": "0.3.7",
+        "FreeCAD": "1.1.3",
+        "OCCT": "7.8.1",
+        "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+      },
+      "attempts": [
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-partial/measurement-1.json",
+          "pid": 33032,
+          "sha256": "9fd2850a8b8287edcea0a322dc792766be26a32c81ef1eb1ed3b24dc29ce2fba",
+          "worker_id": "838cbabc12ff49db801d6afba636212c"
+        },
+        {
+          "artifact_path": ".runtime/l4-reception-20261113-190656054/result/native/native-partial/measurement-2.json",
+          "pid": 5696,
+          "sha256": "378c047d95f1210233646164bc9f07d7ba5fd0c610a502db2a8e75d2f426e9d6",
+          "worker_id": "641d3d3868a643708210f182af01648b"
+        }
+      ]
+    }
+  },
+  "metrics": {
+    "f16_k_local_radius_mm": {
+      "finding_id": "finding-history-f16-k-radius",
+      "value": 4.946828917356499e-08,
+      "unit": "mm"
+    },
+    "f16_p_p73_intersection_mm3": {
+      "finding_id": "finding-history-f16-p-f16-p73",
+      "value": 704.6300070013599,
+      "unit": "mm3"
+    },
+    "f16_initial_p73_clearance_mm": {
+      "finding_id": "finding-history-f16-p73-clear-f16-p73",
+      "value": 0.19999999999998863,
+      "unit": "mm"
+    },
+    "f16_chassis_clearance_mm": {
+      "finding_id": "finding-history-f16-chassis-f16-chassis",
+      "value": 0,
+      "unit": "mm"
+    },
+    "f16_chassis_intersection_mm3": {
+      "finding_id": "finding-history-f16-chassis-f16-chassis",
+      "value": 0,
+      "unit": "mm3"
+    },
+    "can1_sweep_intersection_mm3": {
+      "finding_id": "finding-history-can1-extraction",
+      "value": 0.051757621874788565,
+      "unit": "mm3"
+    },
+    "late_obstacle_intersection_mm3": {
+      "finding_id": "finding-native-outside-selection-outside-selection",
+      "value": 12.566370614359172,
+      "unit": "mm3"
+    },
+    "floating_support_gap_mm": {
+      "finding_id": "finding-native-floating-anchor",
+      "value": 0.5,
+      "unit": "mm"
+    },
+    "nominal_total_length_mm": {
+      "finding_id": "finding-native-nominal-total-length",
+      "value": 121.41592653589794,
+      "unit": "mm"
+    },
+    "congested_total_length_mm": {
+      "finding_id": "finding-native-congested-total-length",
+      "value": 117.41592653589794,
+      "unit": "mm"
+    },
+    "congested_upper_zone_length_mm": {
+      "finding_id": "finding-native-congested-upper-congestion",
+      "value": {
+        "lower_bound": 65.70796326794897,
+        "upper_bound": 71.70796326794897
+      },
+      "unit": "mm"
+    },
+    "partial_documents": {
+      "finding_id": "finding-native-partial-integrity",
+      "value": 24,
+      "unit": "1"
+    }
+  },
+  "checks": {
+    "l4_ctest": {
+      "passed": 4,
+      "total": 4,
+      "includes": [
+        "l4_mechanical_rules",
+        "l4_contract",
+        "l2_interconnection",
+        "l2_reconcile"
+      ]
+    },
+    "l1_l2_l3_ctest": {
+      "passed": 4,
+      "total": 4,
+      "python_checks": 62
+    },
+    "freecad_engine_regression": {
+      "passed": 76,
+      "total": 76
+    },
+    "l0_projection": {
+      "reports": 29,
+      "findings": 71,
+      "valid": true
+    },
+    "t0_manifest": {
+      "valid": true,
+      "tampered_artifact_rejected": true
+    },
+    "without_freecad": {
+      "verdict": "L4_CONDITIONAL",
+      "acceptance": {
+        "PASS": 31,
+        "NOT_RUN": 69
+      },
+      "campaign": {
+        "path": ".runtime/l4-reception-20261113-190656054/sans-freecad/campaign.json",
+        "sha256": "1ee3af58e67bc168c75c6e13dc70544a2af6fcd31e62b896ae44a3a0fa4f0b28"
+      }
+    },
+    "saved_candidates": {
+      "revalidation-nominale-finale": {
+        "verdict": "L4_PASS",
+        "campaign": {
+          "path": ".runtime/l4-reception-20261113-190656054/revalidation-nominale-finale/campaign.json",
+          "sha256": "f264502157bc9ae981d32e16466f4628816bc7911f4ef3228d4189bf7d57c59b"
+        },
+        "report": {
+          "path": ".runtime/l4-reception-20261113-190656054/revalidation-nominale-finale/cases/saved-bench.json",
+          "sha256": "38557cebae96f3e7dbc530550a78f55ef2db89a468caac47fe1996267a933445"
+        }
+      },
+      "revalidation-directe-finale": {
+        "verdict": "L4_FAIL",
+        "campaign": {
+          "path": ".runtime/l4-reception-20261113-190656054/revalidation-directe-finale/campaign.json",
+          "sha256": "5f6a0ce01e505c765060aa5758e17559903c7e78c603ec0ce12b3ba8416d4451"
+        },
+        "report": {
+          "path": ".runtime/l4-reception-20261113-190656054/revalidation-directe-finale/cases/saved-bench.json",
+          "sha256": "f8209840d060f543710ee98e81d347e4ae02175b6ea375ae98dfcc72d840d475"
+        }
+      }
+    },
+    "alternate_interpreter_rejected_without_finalization": true
+  },
+  "independent_review": {
+    "finding": "Le premier contrôle de reçu acceptait un interpréteur substitué et ne rapprochait pas les fichiers de mesure bruts.",
+    "correction": "Deux interpréteurs gelés, contrôle du SHA de l’adaptateur, des identités de processus et de l’égalité des mesures brutes avec le reçu.",
+    "verification": "Interpréteur divergent refusé. Candidats témoins positif et négatif rejoués à partir des natifs de réception.",
+    "integration_fix": "La paire CAN1/F35 a été normalisée sur le nom du volume balayé déjà utilisé par le moteur, sans modification des attentes. Aucun écart aux attentes sur la campagne finale.",
+    "scope": "Revue croisée du contrat d’indépendance et contrôles d’intégration ciblés."
+  },
+  "open_scope": [
+    "Identification et compatibilité des références réellement montées, graphe du prototype par contact et applicabilité fabricant.",
+    "Trajectoire continue, flexion dynamique, traction, pincement et maintien sous tolérances sur le cartographe.",
+    "Courses et gestes physiques de verrouillage, montage, retrait et outillage, ainsi que fatigue, CEM et sûreté du vol.",
+    "Validation native d’une architecture complète du cartographe et comparaison de sa masse et de sa maintenabilité."
+  ]
+}

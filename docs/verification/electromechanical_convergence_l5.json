@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "test_id": "T-EM-ENGINE-L5",
+  "date": "2026-11-14",
+  "git_base": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "source_state": "workspace",
+  "environment": {
+    "os": "Windows 11 Version 26H2",
+    "architecture": "x86_64",
+    "compiler": "GCC 16.2.0",
+    "qt": "6.11.2",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7"
+  },
+  "sources_sha256": {
+    "convergence_manager/fixtures/campaign.json": "0b87cdd70c0a3208639aa6d89c9a8e5bfe88cfb7cc621ff31f680bb78ceff438",
+    "convergence_manager/fixtures/native/system.json": "b3294cd1bb784c2902279333c91edf7f457dc1788bd9e72d553a60ff3fcacea1",
+    "convergence_manager/fixtures/native/requirements.json": "6f0ca169a86363b2f534f76556bd58bc2e4f44451ebdf6141872b59ae70b299e",
+    "convergence_manager/fixtures/native/mechanical.json": "c9bbdbdb7246a6c720932435df88c2b1854cb3c121223e040ca93761f038ab36",
+    "docs/electromechanical_v2/BASELINE_MANIFEST.json": "1871302537a1d77bec5399c03bf5a055cb41112c6fae1e26a1074f558861ad0b"
+  },
+  "tools_sha256": {
+    "freecad": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+    "l1": "14a96195315f8a807528767ba0b51fa8b36911b23af0f94591923bd1f904484a",
+    "l3": "764734b7661d65b932371f51d28e566598ba65ff9ecfec7c06c356807692a70a",
+    "l4": "c255cd442fd61504bb32f461b61790d9e9a61b8e4c81629f95f8cd703ee69476",
+    "l5": "b1a5253c67ec68be0d70244739b2ebcf717574bfa5debbe885953c4cf2fb737e",
+    "python": "7ca24f26d6e3f463419ee4f537ddd3acd312c38fe45e678cce08572f26a8bd1a"
+  },
+  "local_campaign": ".runtime/l5-verifie-20261114-081343254",
+  "artifacts_sha256": {
+    "manifest.json": "584ec4e97773fb94ad462198a90640919e3b147086e8c583b107025c37a67d16",
+    "checkpoint.json": "c3aee98481e60bb153c3ffca414ef7bfabf32e11239eba9aedb1488d51d0112c",
+    "campaign.json": "d026c71078905716eba5a4c76afddb223c488585755b74486059ae3fa023c444",
+    "selection.json": "d2f8bfd57560bd4bbca74817f2cd02093baa8dd281d94aaa7ab0581bdf61569f",
+    "t0_run_manifest.json": "fc2db8612d917ebf35f65caf4bc3daa028fd0e5474e89f928a5dae46a7b0fde7",
+    "artifacts.json": "94c5ab8690994371bf05959c4d2ed7bb8fb71db15cccbb4d4f9088d168ca4060",
+    "authority/l4-lock.json": "077a2d53f287cb9a67aa792f5f424166a2c6db69fdddfbd88d413c3b11216fd1",
+    "consolidations/lateral-service/build-1/native/candidate.FCStd": "243727c7dbab2948572a5e35163bbc4413d6a1bdcb1b041d1dae00aa3cf0fc99",
+    "consolidations/lateral-service/validate-1/l4/cases/consolidated-bench.json": "95bde8f4e54194cd3867005501399dbd01b5b58b50c846ddac4e9371d53a2f0f",
+    "consolidations/lateral-service/validate-1/l4/t0_run_manifest.json": "c14d18342e64f00b16a92d26748f9fc130b1c5777b9d5fe848589a1b94961ced"
+  },
+  "verdict": "L5_PASS",
+  "decision": "GO",
+  "milestone": "DIGITAL_BENCH",
+  "physical_go": false,
+  "resume": {
+    "paused_after_steps": 8,
+    "paused_exit_code": 4,
+    "resumed_exit_code": 0,
+    "manifest_unchanged": true,
+    "t0": "PASS"
+  },
+  "consumption": {
+    "detailed": 7,
+    "local": 3,
+    "alternative_families": [
+      "CONNECTOR",
+      "LATERAL_CORRIDOR",
+      "UPPER_CORRIDOR"
+    ],
+    "consolidation": 2
+  },
+  "attempts": [
+    {
+      "id": "local-direct",
+      "status": "FAIL"
+    },
+    {
+      "id": "local-offset-2",
+      "status": "FAIL"
+    },
+    {
+      "id": "local-offset-3",
+      "status": "FAIL"
+    },
+    {
+      "id": "connector-unknown",
+      "status": "CONDITIONAL"
+    },
+    {
+      "id": "connector-repeat",
+      "status": "CONDITIONAL"
+    },
+    {
+      "id": "shared",
+      "status": "PASS"
+    },
+    {
+      "id": "lateral",
+      "status": "PASS"
+    },
+    {
+      "id": "lateral-equivalent",
+      "status": "DUPLICATE"
+    },
+    {
+      "id": "upper",
+      "status": "PASS"
+    },
+    {
+      "id": "service-direct",
+      "status": "PASS"
+    }
+  ],
+  "portfolios": [
+    {
+      "id": "conflicting-routes",
+      "status": "REJECTED"
+    },
+    {
+      "id": "shared-service",
+      "status": "FAIL"
+    },
+    {
+      "id": "lateral-service",
+      "status": "PASS"
+    },
+    {
+      "id": "upper-service",
+      "status": "SKIPPED"
+    }
+  ],
+  "consolidated": {
+    "id": "lateral-service",
+    "members": [
+      "lateral",
+      "service-direct"
+    ],
+    "links": [
+      "L1",
+      "L2"
+    ],
+    "reference_sha256": "077a2d53f287cb9a67aa792f5f424166a2c6db69fdddfbd88d413c3b11216fd1",
+    "findings": {
+      "FAIL": 0,
+      "INCONCLUSIVE": 0,
+      "NOT_RUN": 0,
+      "PASS": 13
+    },
+    "total_length_mm": 221.41592653589794,
+    "max_cable_z_mm": 10.992708874098055,
+    "min_extraction_clearance_mm": 7
+  },
+  "preserved_active_native_closure": {
+    "baseline_entries": 137,
+    "different_hashes": 0
+  },
+  "regressions": {
+    "l5_ctest_passed": 3,
+    "l5_cli_tests_passed": 11,
+    "l5_ctest_log": ".runtime/l5-verified-build/Testing/Temporary/LastTest.log",
+    "supplier_conflict_evidence": "Deux transcriptions synthétiques applicables à la même référence et révision, issues d'un scénario de fiches fabricant. L1 renvoie INCONCLUSIVE avec deux preuves et sans valeur de compatibilité.",
+    "l1_l2_l3_ctest_passed": 4,
+    "l2_l4_ctest_passed": 4,
+    "electromechanical_python_passed": 76,
+    "l0_positive_case_findings": 13,
+    "l0_negative_case_findings": 13
+  },
+  "not_run": [
+    "GO2bis",
+    "GO3A",
+    "GO3B",
+    "Essais matériels et de vol",
+    "Rejeu natif sur Linux ou arm64",
+    "Session FreeCAD RPC active"
+  ],
+  "implementation_sha256": {
+    "architecture_decision_engine/src/Evidence.cpp": "d065fa365a468cc579436043eb49adb5fc63350de0e176a35c8df2e8927bf878",
+    "convergence_manager/CMakeLists.txt": "7753f597630c01aee65bb0ab689190cfd6699321f583f5d3989dbe50befe6f14",
+    "convergence_manager/native/build_candidate.py": "db2774115f137797cfb40eb02ce8afa6755e71444b29e912a6f74083946fb8ea",
+    "convergence_manager/src/Campaign.cpp": "4a20b53c8df912943f407515257ebc00b6e26ea3c2d07d85aa63ef1897bdfa59",
+    "convergence_manager/src/Campaign.hpp": "225bb2e3b2d1c367b1f209b64a2ef274daad81e49f6cfeabd307c9a432cf6300",
+    "convergence_manager/src/Files.cpp": "c3dcfe67ea2d7aa2dd8d6b5214e71d1b6e64389c97815311d6cb674b1650a07c",
+    "convergence_manager/src/Files.hpp": "173aa255c08b5437b320369e0839d21d894c4936ab0a1a0694f1e05f6cbe845f",
+    "convergence_manager/src/Main.cpp": "c2c6e45cc86d58b40e42bb568c4747d4f747409444195ba1c6ca247356ae97aa",
+    "convergence_manager/src/ProcessBackend.cpp": "8396bbf42aa374de27fc7e618ccd004a3f035609f51b6ddf7e1843e9e8d19475",
+    "convergence_manager/src/ProcessBackend.hpp": "c1fb807c375d87822613add56e1844b51721e2d796cdbead949a2a6414bf143b",
+    "convergence_manager/src/Selection.cpp": "0b47454f2c3fb0f1f000ae404c9709564793271015dbc3b06dee9c8c8be26ec3",
+    "convergence_manager/src/Selection.hpp": "0ea6266271eb522fc550d4c835feb13970e19f734a824321cd44a92ed0753be7",
+    "electromechanical_engine/qualification/l4_native.py": "915ddd806dc52990fdd47d1d300fee913825a63ad6094251c3bd9971675d4736",
+    "validation_engine/src/Reference.cpp": "2701331bc7e6d83d30dc6aeea0e15b74df9d9df28f6af93395dc052af92f0e38"
+  }
+}

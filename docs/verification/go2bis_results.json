@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "test_id": "T-EM-ENGINE-GO2BIS",
+  "date": "2026-11-14",
+  "decision": "CONDITIONAL_GO",
+  "conclusion": "préliminaire",
+  "state": "finalized",
+  "initial_disposition": "NO_GO avant correction : défauts électriques acceptés et reprise sans preuve de consolidation.",
+  "scope": "Moteur V2 L0–L5, bancs numériques et historiques locaux en lecture seule",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001",
+    "METH-001"
+  ],
+  "environment": {
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "git_branch": "codex/go2bis-corrections",
+    "workspace_dirty": true,
+    "os": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+    "qt": "6.11.2",
+    "compiler": "g++ (Rev3, Built by MSYS2 project) 16.2.0",
+    "cmake": "cmake version 4.4.2",
+    "module_versions": {
+      "contracts_l0": "2.0.0",
+      "legacy_freecad": "v1",
+      "technical_research": "sources SHA-256 et contrat 1.0.0",
+      "interconnection": "sources SHA-256 et contrat 1.0.0",
+      "architecture_decision": "sources SHA-256",
+      "validation_engine": "2.0.0",
+      "convergence_manager": "1.0.0"
+    },
+    "freecad": "1.1.3",
+    "freecad_python": "3.11.14",
+    "occt": "7.8.1",
+    "cables": "0.3.7"
+  },
+  "authority": {
+    "protocol": {
+      "path": ".codex-attachments/bad3a6aa-ab7e-4910-bcae-51a7a52e4c2f/2dc06452-2905-4f3c-ad0c-7090643495be/06_GO2bis_qualification_moteur_V2.md",
+      "sha256": "4d46559ce18d4320f4c75116d80e7a64a4487527d96d1cae145a610a3e1411ea"
+    },
+    "initial": {
+      "path": ".runtime/go2bis/manifest-initial.json",
+      "sha256": "972fcbf27b81862f0b9145f03b99a4919ca1250a27b179a63901c98c3f4731e2"
+    },
+    "final": {
+      "path": ".runtime/go2bis/manifest-final.json",
+      "sha256": "118171ec719ce4ca271f8b00c47d7b0067f071b5128838d5ca636b0341164be6"
+    },
+    "git_status_before": {
+      "path": ".runtime/go2bis/git-initial.txt",
+      "sha256": "79aa7944ed71fd88b67e64e60dea6bb4291c1816a850ead789f88ce3d1e45dfb"
+    },
+    "l4_initial_receipt": {
+      "path": ".runtime/go2bis-l4/reference_lock.json",
+      "sha256": "9eaf047aeaa2656f4163394d7cdfc64a52e9fe8b61dc5de766cb4f8017ef6fc7"
+    },
+    "l4_final_receipt": {
+      "path": ".runtime/go2bis-l4/reference_lock_corrected.json",
+      "sha256": "3004472b102bffbedfdc7bf20938673ba441650696bcfd04a1f0b76b0338a21f"
+    },
+    "l5_final_receipt": {
+      "path": ".runtime/go2bis-l3-l5/l5-final-reprise/authority/l4-lock.json",
+      "sha256": "8b0a750e80cdaecc574b583d0eab8cb3b88ccfe2b3deb0f7821e395adfa06401"
+    }
+  },
+  "matrix": [
+    {
+      "requirement": "G2B-00",
+      "component": "L0",
+      "result": "PASS",
+      "observation": "383 empreintes, fermetures XLink 137 et 138, régressions natives et outillage",
+      "proofs": [
+        {
+          "path": ".runtime/go2bis/l0-baseline-reopen.json",
+          "sha256": "390933d98a64fc4aaa5f3dbb37cf034631f3bd4199b091fee4c1a8a8681c3e53"
+        },
+        {
+          "path": ".runtime/go2bis/l0-python.log",
+          "sha256": "31d41c2528041f94cbf18e4e4dcf0164d1b8bab56abf6d8b4aab233158fc4894"
+        },
+        {
+          "path": ".runtime/go2bis/l0-tools/exits.json",
+          "sha256": "432837590e856a137403426f4e53b72b26d00fa88de7b9b286c6da25af7372f5"
+        },
+        {
+          "path": ".runtime/go2bis/consolidated-history-full-closure.json",
+          "sha256": "790235677b625a5ffd294aa9d30e19d1ecbfa5f79dabbbe4f34e00f81a50c23d"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-01",
+      "component": "L1",
+      "result": "PASS",
+      "observation": "6 oracles indépendants concordants et 24 tests L1 réussis",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l1_l2.json",
+          "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-02",
+      "component": "L2",
+      "result": "PASS_BANC",
+      "observation": "2 PASS, 4 FAIL, 2 INCONCLUSIVE attendus après correction ; candidat réel ouvert",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l1_l2.json",
+          "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+        },
+        {
+          "path": "docs/verification/go2bis_l4.json",
+          "sha256": "cc69655e177ecddc10be75f42569fbdb093555032b5856933168cfffd46c0579"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-03",
+      "component": "L3",
+      "result": "PASS_BANC",
+      "observation": "15 verdicts concordent, avec conflits et escalade vers autre famille",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l3_l5.json",
+          "sha256": "d687137b183a4f653771aba0a8d4a1fd5225f64875fa12e31a7659ca7ab11e52"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-04",
+      "component": "L4",
+      "result": "L4_CONDITIONAL",
+      "observation": "100 oracles concordent ; mesures historiques et dépendances attestées dans leurs périmètres",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l4.json",
+          "sha256": "cc69655e177ecddc10be75f42569fbdb093555032b5856933168cfffd46c0579"
+        },
+        {
+          "path": ".runtime/go2bis/historical-full-closures.json",
+          "sha256": "bd3c570f31d142752ae37fd9ef6317688100bab7ef003f7323f0d74a4d721a3d"
+        },
+        {
+          "path": ".runtime/go2bis/consolidated-history-full-closure.json",
+          "sha256": "790235677b625a5ffd294aa9d30e19d1ecbfa5f79dabbbe4f34e00f81a50c23d"
+        },
+        {
+          "path": ".runtime/go2bis/l0-reopen.log",
+          "sha256": "650ce89c3e92095e3c37dc8817b0c064074088b1bbbcc8ce5abb9723c6a5b338"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-05",
+      "component": "L5",
+      "result": "L5_PASS",
+      "observation": "Pause 4, reprise 0, budget et rollback démontrés ; fusion statique distincte relue",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l3_l5.json",
+          "sha256": "d687137b183a4f653771aba0a8d4a1fd5225f64875fa12e31a7659ca7ab11e52"
+        },
+        {
+          "path": ".runtime/go2bis-l3-l5/l5-final-reprise/campaign.json",
+          "sha256": "e73c66cf64b607dc1df0549e6d91d0267478d90bd5d5bc80ceec36e03b87efd5"
+        },
+        {
+          "path": ".runtime/go2bis/authority-initial.log",
+          "sha256": "5a91fd522c5280525b37dae1a06a111ed86adda7f62f025dda150f80859fb48d"
+        },
+        {
+          "path": ".runtime/go2bis/authority-final.log",
+          "sha256": "0e8d4007751ac65307a3635758a6d23770dd15c6f4e94a4aa167a96d8a3237bb"
+        },
+        {
+          "path": ".runtime/go2bis/authority-final-control.log",
+          "sha256": "1288a01e3e9b59a15e621dd424d67d78eb0a6557114051ecfddfd5cbe7f23480"
+        },
+        {
+          "path": ".runtime/go2bis-l3-l5/l5-final-ctest.log",
+          "sha256": "e2f43a03d462ab1588faac625ab139f5833d7cfcd63d001bafe8cbc35d258803"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-06",
+      "component": "L2/L4/L5",
+      "result": "PASS_BANC",
+      "observation": "Lignes, paires et constats tracés ; non-exécutés conservés ; matrice de confusion par lot",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l1_l2.json",
+          "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+        },
+        {
+          "path": "docs/verification/go2bis_l4.json",
+          "sha256": "cc69655e177ecddc10be75f42569fbdb093555032b5856933168cfffd46c0579"
+        },
+        {
+          "path": "docs/verification/go2bis_l3_l5.json",
+          "sha256": "d687137b183a4f653771aba0a8d4a1fd5225f64875fa12e31a7659ca7ab11e52"
+        },
+        {
+          "path": ".runtime/go2bis-l4/reception-corrected/traceability.json",
+          "sha256": "b97a81b654d8115e74d6086990691325eb7f8bb0e09582dd7eeb2312a41489bc"
+        }
+      ]
+    },
+    {
+      "requirement": "G2B-07",
+      "component": "L4/L5",
+      "result": "INCONCLUSIVE",
+      "observation": "Co-évaluation réussie ; admission de la fusion XLink et correspondance broches/CAO ouvertes",
+      "proofs": [
+        {
+          "path": "docs/verification/go2bis_l3_l5.json",
+          "sha256": "d687137b183a4f653771aba0a8d4a1fd5225f64875fa12e31a7659ca7ab11e52"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "l0_hashes": 383,
+    "l0_native_hashes": 275,
+    "l1_independent_cases": 6,
+    "l2_independent_cases": 8,
+    "l3_independent_verdicts": 15,
+    "l4_findings": 71,
+    "l4_case_verdicts": 29,
+    "l4_control_counts": {
+      "PASS": 39,
+      "FAIL": 21,
+      "INCONCLUSIVE": 11,
+      "NOT_RUN": 0
+    },
+    "l4_oracle_checks": 100,
+    "l4_not_run_without_freecad": 69,
+    "system_lines": 71,
+    "embedded_lines": 50,
+    "native_axes": 53,
+    "line_axis_associations": 56,
+    "l5_detailed_used": 7,
+    "l5_consolidation_used": 2,
+    "l5_consolidated_candidate": "lateral-service",
+    "l5_covered_links": [
+      "L1",
+      "L2"
+    ],
+    "l5_controls": {
+      "PASS": 13
+    },
+    "l5_geometry": {
+      "attached_support_count": 0,
+      "attached_support_volume_mm3": 0,
+      "blocked_extraction_count": 0,
+      "declared_support_count": 0,
+      "extraction_envelope_volume_mm3": 64,
+      "height_p95_mm": 10,
+      "length_au_dessus_mm": 221.41592653589794,
+      "length_entre_mm": 0,
+      "length_sous_mm": 0,
+      "level_changes": 0,
+      "max_cable_z_mm": 10.992708874098055,
+      "min_extraction_clearance_mm": 7,
+      "total_cable_volume_mm3": 695.5986481929542,
+      "total_length_mm": 221.41592653589794,
+      "unsupported_length_mm": null,
+      "volume_au_dessus_nominal_mm3": 695.5986481929543,
+      "volume_entre_nominal_mm3": 0,
+      "volume_sous_nominal_mm3": 0
+    }
+  },
+  "false_results": {
+    "convention": "Défaut = positif à détecter. Un défaut réel accepté est un faux négatif. Une preuve ouverte acceptée est comptée séparément.",
+    "targeted_negative_l2_l4": {
+      "expected_fail": 5,
+      "false_negative_initial": 3,
+      "false_negative_final": 0
+    },
+    "targeted_unknown_l2_l4": {
+      "expected_inconclusive": 4,
+      "undue_acceptance_initial": 2,
+      "undue_acceptance_final": 0
+    },
+    "observed_false_positive": 0,
+    "integrity_l5": {
+      "initial_unproven_publication": 1,
+      "initial_untrusted_authority_accepted": 1,
+      "final_unproven_publication": 0,
+      "final_untrusted_authority_accepted": 0
+    }
+  },
+  "corrections": {
+    "branch": "codex/go2bis-corrections",
+    "changed_files": [
+      {
+        "path": "convergence_manager/src/Campaign.cpp",
+        "sha256": "b8edde9ee851ef8ac7a3ede30b916d9da76880ff71542cd12f082257de83f576"
+      },
+      {
+        "path": "convergence_manager/src/Campaign.hpp",
+        "sha256": "d41b8ec568a2423ada2a20efb44ca22fface2c35c6e1948e4f6765b6d2c1ca95"
+      },
+      {
+        "path": "convergence_manager/src/Main.cpp",
+        "sha256": "036047fb3234963ed3c6f09dbfbe7876fe852acbe748eedf794d8fbae68dc62f"
+      },
+      {
+        "path": "convergence_manager/src/ProcessBackend.cpp",
+        "sha256": "49918ddf5a011317c0a4c14950027540ce033213c8ab411967df758176b26baf"
+      },
+      {
+        "path": "convergence_manager/src/ProcessBackend.hpp",
+        "sha256": "358dc13dc601df2e18d65c6ac9fed209fd92e68acc3bfbce308ba798ee0b3769"
+      },
+      {
+        "path": "convergence_manager/tests/test_campaign.py",
+        "sha256": "dce9c05e80067b5c77d3aeeaee0b904ea29c19a22082310a984eb9bccfb4f0ae"
+      },
+      {
+        "path": "interconnection_engine/src/Geometry.cpp",
+        "sha256": "348d6095c83835a74002e034532188ea46420fe487f79ec613619be5795ea5b8"
+      },
+      {
+        "path": "interconnection_engine/src/Interconnection.cpp",
+        "sha256": "727ce20a4b29ddc297586808b93c6973eb08fe8490e9384cabe08eb9a48b3b40"
+      },
+      {
+        "path": "interconnection_engine/tests/test_interconnection.py",
+        "sha256": "f301247fb9dbfdf1fbb0c48471bf5d3bc07fffda9f1cc5a2657646f269fa891a"
+      },
+      {
+        "path": "validation_engine/src/Connectivity.cpp",
+        "sha256": "038f64526d1b3e781678ad23a807de102fd971a2ce9e21c3b159ef4c7607edde"
+      },
+      {
+        "path": "validation_engine/tests/test_contract.py",
+        "sha256": "d16e0e05e8b75cc1253ccc67fa1f4ad5ff1697679722fca812cc646d12e26c14"
+      }
+    ],
+    "before_and_after": [
+      {
+        "path": "docs/verification/go2bis_l1_l2.json",
+        "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+      },
+      {
+        "path": "docs/verification/go2bis_l4.json",
+        "sha256": "cc69655e177ecddc10be75f42569fbdb093555032b5856933168cfffd46c0579"
+      },
+      {
+        "path": "docs/verification/go2bis_l3_l5.json",
+        "sha256": "d687137b183a4f653771aba0a8d4a1fd5225f64875fa12e31a7659ca7ab11e52"
+      },
+      {
+        "path": ".runtime/go2bis/authority-initial.log",
+        "sha256": "5a91fd522c5280525b37dae1a06a111ed86adda7f62f025dda150f80859fb48d"
+      },
+      {
+        "path": ".runtime/go2bis/authority-final.log",
+        "sha256": "0e8d4007751ac65307a3635758a6d23770dd15c6f4e94a4aa167a96d8a3237bb"
+      }
+    ]
+  },
+  "native_reopening": {
+    "a_faces": {
+      "path": ".runtime/go2bis/historical-full-closures.json",
+      "sha256": "bd3c570f31d142752ae37fd9ef6317688100bab7ef003f7323f0d74a4d721a3d"
+    },
+    "consolidated": {
+      "path": ".runtime/go2bis/consolidated-history-full-closure.json",
+      "sha256": "790235677b625a5ffd294aa9d30e19d1ecbfa5f79dabbbe4f34e00f81a50c23d"
+    },
+    "full_brep_inventory_timeout": {
+      "path": ".runtime/go2bis/l0-reopen.log",
+      "sha256": "650ce89c3e92095e3c37dc8817b0c064074088b1bbbcc8ce5abb9723c6a5b338"
+    },
+    "reopen_recipe": {
+      "path": ".runtime/go2bis/open_full_closure.py",
+      "sha256": "78a076e876fccca318bf385ce0ae7d02ffbc97b4e4a6a50bcce738a1bd5cc736"
+    }
+  },
+  "logs": [
+    {
+      "path": ".runtime/go2bis/l0-python.log",
+      "sha256": "31d41c2528041f94cbf18e4e4dcf0164d1b8bab56abf6d8b4aab233158fc4894"
+    },
+    {
+      "path": ".runtime/go2bis/l0-tools/cables.log",
+      "sha256": "e429a0e0e2675313a0e0e0691143b4a259185d766c48814185a4a293e51ab048"
+    },
+    {
+      "path": ".runtime/go2bis/l0-tools/workspace.log",
+      "sha256": "4a619b0a945e5024411375e93f7ef16ffcbc48a678b192826190f984e4ad9de0"
+    },
+    {
+      "path": ".runtime/go2bis/l0-tools/ctest.log",
+      "sha256": "4b269c31d6baff9484ea66ef0c2e452c6343abd8f2efab3132340f7e3ef5e309"
+    },
+    {
+      "path": ".runtime/go2bis/l0-tools/planner.log",
+      "sha256": "375f031bd798dd6d49d0ebebca84bb00272c7e937a93b2ad6db10457b00b37ac"
+    },
+    {
+      "path": ".runtime/go2bis/v1/exits.json",
+      "sha256": "e0cca13946d846c373157a8a431c0e6bb386c9cc7bf678136a8814d23633e275"
+    },
+    {
+      "path": ".runtime/go2bis-l3-l5/l3-corrected-ctest.log",
+      "sha256": "67d471bf4d77746a96b8ab2f7174b90f97e82eb9a051b34978e6202f41f23925"
+    },
+    {
+      "path": ".runtime/go2bis-l3-l5/l5-final-ctest.log",
+      "sha256": "e2f43a03d462ab1588faac625ab139f5833d7cfcd63d001bafe8cbc35d258803"
+    },
+    {
+      "path": ".runtime/go2bis-l3-l5/l5-adversarial-final.log",
+      "sha256": "c9d5bf7b716fc0b2e4e6713d893edbaf8dac0f91aa3830fff315ff2fbc0b8c03"
+    },
+    {
+      "path": ".runtime/go2bis-l4/t0-corrected.log",
+      "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+    }
+  ],
+  "go3a": "Réconciliation, gel des critères, investigation et criblage sur copies isolées seulement, sur engagement séparé.",
+  "go3b": "Aucune admission au banc matériel. Prérequis DOC-VAL §2 et §14, références montées et protocole à établir.",
+  "not_demonstrated": [
+    "Fusion L5 à fermeture XLink et validation métier de son inventaire externe.",
+    "Correspondance indépendante entre contacts, circuits et conducteurs observés dans le natif.",
+    "Inventaire BRep exhaustif de la copie consolidée : deux délais 180 s dépassés.",
+    "Cinématique continue, montages OEM, efforts de retenue, banc physique et vol ; hors campagne numérique.",
+    "Linux et arm64 non exécutés : cible de cette recette Windows amd64.",
+    "Accès réseau synthétique sur loopback ; aucun accès fabricant nécessaire pour les oracles.",
+    "Dossier de validation et reçus d’opération sous contrôle d’un environnement de confiance."
+  ],
+  "go3_launched": false
+}

@@ -1,0 +1,2778 @@
+{
+  "schema": "drone_agricole.go3b_interface_review.v1",
+  "date": "2026-11-17",
+  "test_id": "T-CARTO-V21-GO3B-INTERFACES",
+  "requirements": [
+    "G3A-02",
+    "G3A-04",
+    "G3A-05",
+    "G3A-06",
+    "G3A-07",
+    "G3A-08"
+  ],
+  "scope": "Revue indépendante sur le gel réel cartographe et copies GO3B sauvegardées. Windows amd64.",
+  "freecad": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "reference": {
+    "path": "docs/verification/go3a/GO3A_SYSTEM_MODEL.json",
+    "sha256": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83"
+  },
+  "builder_independence": "Faces déduites des objets ORCH_BornierTTL et ORCH_USB_B, transformées par le placement natif du lien UART_isole. Axes déduits des BRep sauvegardés.",
+  "overall_status": "FAIL",
+  "project_maturity": "À valider",
+  "checks": [
+    {
+      "id": "IF-01",
+      "status": "PASS",
+      "scope": "137 natifs du gel, 139 entrées vérifiées",
+      "result": {
+        "file_count": 137,
+        "copy_unchanged": true,
+        "sources_unchanged": true,
+        "files_checked": 139
+      }
+    },
+    {
+      "id": "IF-02",
+      "status": "PASS",
+      "scope": "Axes F40/F41 des six variantes finales sauvegardées",
+      "result": "Extrémités mobiles alignées sur les deux proxies de face à moins de 1e-7 mm. Les faces ne définissent pas les contacts montés."
+    },
+    {
+      "id": "IF-03",
+      "status": "FAIL",
+      "scope": "H03-A et H03-B",
+      "result": "Appui isolateur non jointif au module, jeu 0,300 mm, intersection P72 109,73357 mm³ et distance à P66 28,01785 mm. Ancrages absents."
+    },
+    {
+      "id": "IF-04",
+      "status": "FAIL",
+      "scope": "Isolateur fixe, port TTL",
+      "result": "Neuf gabarits géométriques avec portées 3/5/15 mm et décalages transversaux -6/0/+6 mm recoupent la PDB. La plus petite portée ne permet pas un service dégagé."
+    },
+    {
+      "id": "IF-05",
+      "status": "INCONCLUSIVE",
+      "scope": "Corps USB-B et ferrite",
+      "result": "Les profils locaux de portée 5/15 mm dépendent de l'orientation. À 50 mm le guide P72 recoupe toutes les orientations testées. Dimensions utiles, ferrite et retrait réels inconnus."
+    },
+    {
+      "id": "IF-06",
+      "status": "FAIL",
+      "scope": "Douze routes USB de criblage en mémoire",
+      "result": "Toutes les routes testées recoupent au moins deux obstacles, avec longueur 326,79 à 629,35 mm. Les sorties Nord dépassent 500 mm avant allocation des fiches. Ces calculs restent hors budget de natifs sauvegardés."
+    },
+    {
+      "id": "IF-07",
+      "status": "FAIL",
+      "scope": "Consolidée",
+      "result": "Axes F40/F41 historiques à 98,871128 et 53,639264 mm des proxies TTL/USB les plus proches, conservés et signalés après rejet des familles."
+    },
+    {
+      "id": "IF-08",
+      "status": "INCONCLUSIVE",
+      "scope": "F16 et F_M8",
+      "result": "Reprise du témoin R50/R24 Z10 seulement dans H01/H02. Les domaines de mouvement, longueur utile, retenues et efforts des connecteurs nécessitent les données et essais du lot."
+    },
+    {
+      "id": "IF-09",
+      "status": "NOT_RUN",
+      "scope": "Fabrication, montage réel, vibration, CEM, thermique, alimentation et vol",
+      "result": "Campagne CAO sur copies privées hors tension."
+    }
+  ],
+  "native_reviews": {
+    "H03-A": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H03-A.json",
+        "sha256": "eb94d218efc0377a439b20b84889d794721736236b989c7aa08f0bc11418c083"
+      },
+      "native_files": 139,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -159.39999999999998,
+          -41.25,
+          57.3,
+          -78.60000000000001,
+          45.25,
+          84.69999999999999
+        ],
+        "placement": [
+          -1.0,
+          -2e-16,
+          0.0,
+          -69.4,
+          2e-16,
+          -1.0,
+          0.0,
+          42.0,
+          0.0,
+          0.0,
+          1.0,
+          57.3,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            -159.40000000000003,
+            -10.999999999999979,
+            68.8
+          ],
+          "nearest_axis_end_mm": [
+            -159.4,
+            -10.999999999999996,
+            68.8
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -159.4,
+              -10.999999999999996,
+              68.8
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 3.351623381340333e-14,
+          "axis_tangent_unsigned": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -78.60000000000001,
+            36.075,
+            69.3
+          ],
+          "nearest_axis_end_mm": [
+            -78.60000000000001,
+            36.074999999999996,
+            69.3
+          ],
+          "axis_endpoints_mm": [
+            [
+              -78.60000000000001,
+              36.074999999999996,
+              69.3
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 7.105427357601002e-15,
+          "axis_tangent_unsigned": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {
+        "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#ASSUMED_ServiceGO3B",
+        "pairs": {
+          "UART_isole": {
+            "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+            "gap_mm": 0.29999999999999716,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -159.39999999999998,
+              -41.25,
+              57.3,
+              -78.60000000000001,
+              45.25,
+              84.69999999999999
+            ]
+          },
+          "Interface": {
+            "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface",
+            "gap_mm": 28.0178514522438,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -70.0,
+              -47.0,
+              85.0,
+              70.0,
+              47.0,
+              88.0
+            ]
+          },
+          "P72_Guide": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "gap_mm": 0.0,
+            "overlap_mm3": 109.73356956019354,
+            "bbox_mm": [
+              -124.0,
+              -106.0,
+              -103.0,
+              -40.0,
+              77.0,
+              98.0
+            ]
+          },
+          "P73_Guide": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "gap_mm": 23.102813681454474,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -98.20744520235472,
+              -106.00000000000001,
+              -87.0,
+              124.50000000000003,
+              104.85556807260092,
+              98.0
+            ]
+          },
+          "P75_Cadre": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "gap_mm": 32.26840560052511,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -131.5,
+              -117.93812620449697,
+              27.676526306045552,
+              131.5,
+              117.93812620449697,
+              173.8137084989848
+            ]
+          },
+          "Isolation": {
+            "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+            "gap_mm": 16.0,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -94.0,
+              -88.0,
+              36.2,
+              94.0,
+              88.0,
+              39.0
+            ]
+          }
+        },
+        "volume_mm3": 5775.999999999998,
+        "bbox_mm": [
+          -147.0,
+          -17.0,
+          55.0,
+          -71.0,
+          21.0,
+          57.0
+        ],
+        "mass_g": null,
+        "status": "FAIL",
+        "meaning": "Un appui exige contact avec le module et fixation identifiée. L'ancrage au porteur et la tenue restent ouverts."
+      },
+      "native_unchanged_during_measurement": true
+    },
+    "H03-B": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H03-B.json",
+        "sha256": "f4a22c098f86accd67f79da90382803d11086267d220ddf4e45fe24978801e00"
+      },
+      "native_files": 139,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -162.25,
+          -38.39999999999998,
+          57.3,
+          -75.74999999999997,
+          42.400000000000034,
+          84.69999999999999
+        ],
+        "placement": [
+          -2.220446049250313e-16,
+          1.0,
+          0.0,
+          -159.0,
+          -1.0,
+          -2.220446049250313e-16,
+          0.0,
+          51.600000000000016,
+          0.0,
+          0.0,
+          1.0,
+          57.3,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            -106.00000000000003,
+            -38.4,
+            68.8
+          ],
+          "nearest_axis_end_mm": [
+            -106.0,
+            -38.400000000000006,
+            68.8
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -106.0,
+              -38.400000000000006,
+              68.8
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 2.929642751054232e-14,
+          "axis_tangent_unsigned": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -153.075,
+            42.40000000000001,
+            69.3
+          ],
+          "nearest_axis_end_mm": [
+            -153.075,
+            42.4,
+            69.3
+          ],
+          "axis_endpoints_mm": [
+            [
+              -153.075,
+              42.4,
+              69.3
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 1.4210854715202004e-14,
+          "axis_tangent_unsigned": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {
+        "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#ASSUMED_ServiceGO3B",
+        "pairs": {
+          "UART_isole": {
+            "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+            "gap_mm": 0.29999999999999716,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -162.25,
+              -38.39999999999998,
+              57.3,
+              -75.74999999999997,
+              42.400000000000034,
+              84.69999999999999
+            ]
+          },
+          "Interface": {
+            "occurrence": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface",
+            "gap_mm": 28.0178514522438,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -70.0,
+              -47.0,
+              85.0,
+              70.0,
+              47.0,
+              88.0
+            ]
+          },
+          "P72_Guide": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "gap_mm": 0.0,
+            "overlap_mm3": 109.73356956019354,
+            "bbox_mm": [
+              -124.0,
+              -106.0,
+              -103.0,
+              -40.0,
+              77.0,
+              98.0
+            ]
+          },
+          "P73_Guide": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "gap_mm": 23.102813681454474,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -98.20744520235472,
+              -106.00000000000001,
+              -87.0,
+              124.50000000000003,
+              104.85556807260092,
+              98.0
+            ]
+          },
+          "P75_Cadre": {
+            "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "gap_mm": 32.26840560052511,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -131.5,
+              -117.93812620449697,
+              27.676526306045552,
+              131.5,
+              117.93812620449697,
+              173.8137084989848
+            ]
+          },
+          "Isolation": {
+            "occurrence": "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+            "gap_mm": 16.0,
+            "overlap_mm3": 0,
+            "bbox_mm": [
+              -94.0,
+              -88.0,
+              36.2,
+              94.0,
+              88.0,
+              39.0
+            ]
+          }
+        },
+        "volume_mm3": 5775.999999999998,
+        "bbox_mm": [
+          -147.0,
+          -17.0,
+          55.0,
+          -71.0,
+          21.0,
+          57.0
+        ],
+        "mass_g": null,
+        "status": "FAIL",
+        "meaning": "Un appui exige contact avec le module et fixation identifiée. L'ancrage au porteur et la tenue restent ouverts."
+      },
+      "native_unchanged_during_measurement": true
+    },
+    "H02-A": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H02-A.json",
+        "sha256": "992ca85516728a32bb14865918051e38c07e6dd52111bb5e45e2c0f090eb954d"
+      },
+      "native_files": 138,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -68.8,
+          -37.75,
+          39.0,
+          11.999999999999996,
+          48.75,
+          66.4
+        ],
+        "placement": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "nearest_axis_end_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              12.0,
+              18.5,
+              50.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 0.0,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -68.8,
+            -28.575,
+            51.0
+          ],
+          "nearest_axis_end_mm": [
+            -68.8,
+            -28.575000000000003,
+            51.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 3.552713678800501e-15,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {},
+      "native_unchanged_during_measurement": true
+    },
+    "H02-B": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H02-B.json",
+        "sha256": "8af27aed17cd71b65263e41e65a985deadafb72fe6081a3d07aafbb4459864b4"
+      },
+      "native_files": 138,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -68.8,
+          -37.75,
+          39.0,
+          11.999999999999996,
+          48.75,
+          66.4
+        ],
+        "placement": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "nearest_axis_end_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              12.0,
+              18.5,
+              50.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 0.0,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -68.8,
+            -28.575,
+            51.0
+          ],
+          "nearest_axis_end_mm": [
+            -68.8,
+            -28.575000000000003,
+            51.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 3.552713678800501e-15,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {},
+      "native_unchanged_during_measurement": true
+    },
+    "H01-A-reprise": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H01-A-reprise.json",
+        "sha256": "4d2d9e27c24abadf0ced542966032ade535359b1f39b70e384feee6114a7e71d"
+      },
+      "native_files": 138,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -68.8,
+          -37.75,
+          39.0,
+          11.999999999999996,
+          48.75,
+          66.4
+        ],
+        "placement": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "nearest_axis_end_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              12.0,
+              18.5,
+              50.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 0.0,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -68.8,
+            -28.575,
+            51.0
+          ],
+          "nearest_axis_end_mm": [
+            -68.8,
+            -28.575000000000003,
+            51.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 3.552713678800501e-15,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {},
+      "native_unchanged_during_measurement": true
+    },
+    "H01-B-reprise": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-H01-B-reprise.json",
+        "sha256": "a21d616f891ceca4a017c18459b94cfa382191433cb9fc6092155a2882a1e6db"
+      },
+      "native_files": 138,
+      "root_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "isolator": {
+        "bbox_mm": [
+          -68.8,
+          -37.75,
+          39.0,
+          11.999999999999996,
+          48.75,
+          66.4
+        ],
+        "placement": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "nearest_axis_end_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              12.0,
+              18.5,
+              50.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 0.0,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -68.8,
+            -28.575,
+            51.0
+          ],
+          "nearest_axis_end_mm": [
+            -68.8,
+            -28.575000000000003,
+            51.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 3.552713678800501e-15,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "PASS",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {},
+      "native_unchanged_during_measurement": true
+    },
+    "consolidee": {
+      "raw": {
+        "path": ".runtime/v21-go3b-interfaces/review-consolidee.json",
+        "sha256": "dfa29986231de69ed5452f50287559f5eacbb417dd00471df6d672f01b24dbd5"
+      },
+      "native_files": 138,
+      "root_sha256": "8bede4b337231f1b9be1374afeb3f7bb17037b6aebe9b2ec81fb86e5cb0f8982",
+      "isolator": {
+        "bbox_mm": [
+          -68.8,
+          -37.75,
+          39.0,
+          11.999999999999996,
+          48.75,
+          66.4
+        ],
+        "placement": [
+          1.0,
+          0.0,
+          0.0,
+          -78.0,
+          0.0,
+          1.0,
+          0.0,
+          -34.5,
+          0.0,
+          0.0,
+          1.0,
+          39.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "ports": {
+        "TTL": {
+          "cae_feature": "ORCH_BornierTTL",
+          "face_bound": "XMax",
+          "face_local_mm": [
+            90.0,
+            53.0,
+            11.5
+          ],
+          "face_global_mm": [
+            12.0,
+            18.5,
+            50.5
+          ],
+          "nearest_axis_end_mm": [
+            -79.0,
+            -20.0,
+            54.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -79.0,
+              -20.0,
+              54.0
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 98.87112824277874,
+          "axis_tangent_unsigned": [
+            0.9429903335828894,
+            0.0,
+            -0.3328201177351379
+          ],
+          "status": "INCONCLUSIVE",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        },
+        "USB": {
+          "cae_feature": "ORCH_USB_B",
+          "face_bound": "XMin",
+          "face_local_mm": [
+            9.2,
+            5.925000000000001,
+            12.0
+          ],
+          "face_global_mm": [
+            -68.8,
+            -28.575,
+            51.0
+          ],
+          "nearest_axis_end_mm": [
+            -79.0,
+            24.0,
+            54.0
+          ],
+          "axis_endpoints_mm": [
+            [
+              -79.0,
+              24.0,
+              54.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_end_gap_mm": 53.63926383723028,
+          "axis_tangent_unsigned": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "status": "INCONCLUSIVE",
+          "scope": "Correspondance géométrique au proxy de face uniquement. Contacts et longueur d'embout INCONCLUSIVE."
+        }
+      },
+      "support": {},
+      "native_unchanged_during_measurement": true
+    }
+  },
+  "local_probe_evidence": {
+    "raw": {
+      "path": ".runtime/v21-go3b-interfaces/screen.json",
+      "sha256": "ee90a7868262b49a011c7a342d693505839621d2a28473fe010096be070bdeba"
+    },
+    "parameters": {
+      "units": "mm",
+      "usb_reach": [
+        5,
+        15,
+        50
+      ],
+      "ttl_reach": [
+        3,
+        5,
+        15
+      ],
+      "ttl_y_shift": [
+        -6,
+        0,
+        6
+      ],
+      "assumed_elbow_departure_reach": 20,
+      "usb_ferrite_geometry": null
+    },
+    "exclusions": [
+      "UART_isole : équipement portant les interfaces ; contrôle interne à faire",
+      "F40/F41 : parcours à reconstituer, contrôler ensuite simultanément"
+    ],
+    "scope_limit": "Volumes ASSUMED, aucune qualification d'interface ou de retrait; le balayage n'est pas une cinématique physique.",
+    "probes": {
+      "TTL-l3-y-6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          6.5,
+          46.5,
+          15.0,
+          18.5,
+          54.5
+        ],
+        "volume_mm3": 288.0,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 8.490514076837439,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l3-y+0": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          12.5,
+          46.5,
+          15.0,
+          24.5,
+          54.5
+        ],
+        "volume_mm3": 288.0,
+        "obstacles": 2999,
+        "pairs_brep": 6,
+        "excluded_aabb": 2993,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 6.848104897407766,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l3-y+6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          18.5,
+          46.5,
+          15.0,
+          30.5,
+          54.5
+        ],
+        "volume_mm3": 288.0,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 6.826041853658778,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l5-y-6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          6.5,
+          46.5,
+          17.0,
+          18.5,
+          54.5
+        ],
+        "volume_mm3": 480.0,
+        "obstacles": 2999,
+        "pairs_brep": 6,
+        "excluded_aabb": 2993,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 83.19560627589485,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.702058432609967,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l5-y+0": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          12.5,
+          46.5,
+          17.0,
+          24.5,
+          54.5
+        ],
+        "volume_mm3": 480.0,
+        "obstacles": 2999,
+        "pairs_brep": 7,
+        "excluded_aabb": 2992,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 59.54368286180433,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.70205843260996,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l5-y+6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          18.5,
+          46.5,
+          17.0,
+          30.5,
+          54.5
+        ],
+        "volume_mm3": 480.0,
+        "obstacles": 2999,
+        "pairs_brep": 6,
+        "excluded_aabb": 2993,
+        "collisions": [
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 59.37004660668263,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/23/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.702058432610095,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l15-y-6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          6.5,
+          46.5,
+          27.0,
+          18.5,
+          54.5
+        ],
+        "volume_mm3": 1440.0,
+        "obstacles": 2999,
+        "pairs_brep": 6,
+        "excluded_aabb": 2993,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 438.45464801073615,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 52.97981851013828,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l15-y+0": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          12.5,
+          46.5,
+          27.0,
+          24.5,
+          54.5
+        ],
+        "volume_mm3": 1440.0,
+        "obstacles": 2999,
+        "pairs_brep": 7,
+        "excluded_aabb": 2992,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 283.48104467355296,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 36.75801013790086,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 17.3619763268142,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "TTL-l15-y+6": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          12.0,
+          18.5,
+          46.5,
+          27.0,
+          30.5,
+          54.5
+        ],
+        "volume_mm3": 1440.0,
+        "obstacles": 2999,
+        "pairs_brep": 6,
+        "excluded_aabb": 2993,
+        "collisions": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 17.59955709471261,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 283.193498311739,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/23/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 36.65840807695133,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-droit-l5": {
+        "scenario_result": "PASS",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -73.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 601.8000000000004,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Sud-l5": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -73.8,
+          -48.575,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 1320.9000000000005,
+        "obstacles": 2999,
+        "pairs_brep": 8,
+        "excluded_aabb": 2991,
+        "collisions": [
+          {
+            "occurrence": "F38_NEG/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F38_NEG",
+            "volume_mm3": 71.49565650462421,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Nord-l5": {
+        "scenario_result": "PASS",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -73.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -8.575,
+          56.1
+        ],
+        "volume_mm3": 1320.9000000000005,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Bas-l5": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -73.8,
+          -34.475,
+          31.0,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 1480.9000000000005,
+        "obstacles": 2999,
+        "pairs_brep": 7,
+        "excluded_aabb": 2992,
+        "collisions": [
+          {
+            "occurrence": "Isolation/1/sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+            "volume_mm3": 165.19999999999987,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "OEM__07190001_ASM/1/sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+            "volume_mm3": 117.99999999999422,
+            "gap_mm": 4.4938668397781776e-14
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Haut-l5": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -73.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          71.0
+        ],
+        "volume_mm3": 1480.9000000000005,
+        "obstacles": 2999,
+        "pairs_brep": 9,
+        "excluded_aabb": 2990,
+        "collisions": [
+          {
+            "occurrence": "F08_AVAL/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AVAL",
+            "volume_mm3": 0.4168216380790333,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-droit-l15": {
+        "scenario_result": "PASS",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -83.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 1805.400000000001,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Sud-l15": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -83.8,
+          -48.575,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 3962.7000000000016,
+        "obstacles": 2999,
+        "pairs_brep": 8,
+        "excluded_aabb": 2991,
+        "collisions": [
+          {
+            "occurrence": "F38_NEG/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F38_NEG",
+            "volume_mm3": 76.94473803435106,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Nord-l15": {
+        "scenario_result": "PASS",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -83.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -8.575,
+          56.1
+        ],
+        "volume_mm3": 3962.7000000000007,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Bas-l15": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -83.8,
+          -34.475,
+          31.0,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 4442.700000000002,
+        "obstacles": 2999,
+        "pairs_brep": 7,
+        "excluded_aabb": 2992,
+        "collisions": [
+          {
+            "occurrence": "Isolation/1/sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+            "volume_mm3": 495.5999999999997,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "OEM__07190001_ASM/1/sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+            "volume_mm3": 264.3200000078541,
+            "gap_mm": 1.4210854715202004e-14
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Haut-l15": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -83.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          71.0
+        ],
+        "volume_mm3": 4442.700000000002,
+        "obstacles": 2999,
+        "pairs_brep": 9,
+        "excluded_aabb": 2990,
+        "collisions": [
+          {
+            "occurrence": "F08_AVAL/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AVAL",
+            "volume_mm3": 1.2504649142370996,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-droit-l50": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -118.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 6018.000000000004,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 131.27400000000014,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Sud-l50": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -118.8,
+          -48.575,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 13209.000000000004,
+        "obstacles": 2999,
+        "pairs_brep": 8,
+        "excluded_aabb": 2991,
+        "collisions": [
+          {
+            "occurrence": "F38_NEG/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F38_NEG",
+            "volume_mm3": 76.94473803367609,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 212.16000000000017,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Nord-l50": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -118.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -8.575,
+          56.1
+        ],
+        "volume_mm3": 13209.000000000004,
+        "obstacles": 2999,
+        "pairs_brep": 5,
+        "excluded_aabb": 2994,
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 131.27400000000014,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Bas-l50": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -118.8,
+          -34.475,
+          31.0,
+          -68.8,
+          -22.674999999999997,
+          56.1
+        ],
+        "volume_mm3": 14809.000000000007,
+        "obstacles": 2999,
+        "pairs_brep": 7,
+        "excluded_aabb": 2992,
+        "collisions": [
+          {
+            "occurrence": "Isolation/1/sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+            "volume_mm3": 832.6079999999997,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "OEM__07190001_ASM/1/sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+            "volume_mm3": 264.3200000078541,
+            "gap_mm": 1.4210854715202004e-14
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 323.0370000000004,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "USB-B-ASSUMED-Haut-l50": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "bbox_mm": [
+          -118.8,
+          -34.475,
+          45.9,
+          -68.8,
+          -22.674999999999997,
+          71.0
+        ],
+        "volume_mm3": 14809.000000000007,
+        "obstacles": 2999,
+        "pairs_brep": 9,
+        "excluded_aabb": 2990,
+        "collisions": [
+          {
+            "occurrence": "F08_AVAL/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AVAL",
+            "volume_mm3": 1.6919161776927893,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 588.482646999807,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      }
+    },
+    "routes": {
+      "-1-edge--112": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -112,
+            -112,
+            51
+          ],
+          [
+            -112,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 335.3727796076938,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 6580.558257345159,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "a38b4f8980e7c4a1d6c666364368ec2935f72e834b93250eee3a2f1ea561fb1d",
+          "path_after_sha256": "ab3d702ee69062916277174649b9866f7821b5ab762b72e33e5c98be8b060367",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 13.40538945286298,
+            "gap_mm": 7.105427357601002e-15
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "-1-edge--130": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -130,
+            -112,
+            51
+          ],
+          [
+            -130,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 362.78870614359175,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 7123.339587662834,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "ab3d702ee69062916277174649b9866f7821b5ab762b72e33e5c98be8b060367",
+          "path_after_sha256": "a495cc1f24c02dbd00e6417fe5a34b25dc4ed12f0c0b22589358ad05b758f6d8",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 47.088853647109204,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "-1-edge--145": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -145,
+            -112,
+            51
+          ],
+          [
+            -145,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 392.78870614359175,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 7712.388210210918,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "a495cc1f24c02dbd00e6417fe5a34b25dc4ed12f0c0b22589358ad05b758f6d8",
+          "path_after_sha256": "2a3880fe7b53d6e62ed6a628cc8ebe8556a2afa03bc7748d280b0a57123f529b",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 13.40538945286298,
+            "gap_mm": 7.105427357601002e-15
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "-1-below--112": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            78
+          ],
+          [
+            -112,
+            -112,
+            78
+          ],
+          [
+            -112,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 326.7887061435917,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 6412.010369010608,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "2a3880fe7b53d6e62ed6a628cc8ebe8556a2afa03bc7748d280b0a57123f529b",
+          "path_after_sha256": "7300b233dc079e025a223cf25d1208b776dd9e5ca1957695420fff8efc2933ee",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 43.085031720174165,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 13.40538945286298,
+            "gap_mm": 7.105427357601002e-15
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "-1-below--130": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            78
+          ],
+          [
+            -130,
+            -112,
+            78
+          ],
+          [
+            -130,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 362.78870614359175,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 7118.868716068059,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "7300b233dc079e025a223cf25d1208b776dd9e5ca1957695420fff8efc2933ee",
+          "path_after_sha256": "31b2cc62d6835505b5865d0afe124ea960d35cfa5ea8fe0826cc7f64e7ebb789",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 43.085031720174165,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 13.40538945286298,
+            "gap_mm": 7.105427357601002e-15
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "-1-below--145": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -48.575,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            51
+          ],
+          [
+            -83.8,
+            -112,
+            78
+          ],
+          [
+            -145,
+            -112,
+            78
+          ],
+          [
+            -145,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -112,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 392.78870614359175,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 7707.917338615927,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "31b2cc62d6835505b5865d0afe124ea960d35cfa5ea8fe0826cc7f64e7ebb789",
+          "path_after_sha256": "9f6e72e010c7c5406007a19cb6b0d6969f791b7f16581f4810e09bddd94b4062",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "F04_1/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1",
+            "volume_mm3": 9.88922076590516,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 249.98535094243204,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 43.085031720174165,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 13.40538945286298,
+            "gap_mm": 7.105427357601002e-15
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-edge--112": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -112,
+            100,
+            51
+          ],
+          [
+            -112,
+            100,
+            131.5
+          ],
+          [
+            -112,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 571.9387061435917,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 11225.519362937554,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "9f6e72e010c7c5406007a19cb6b0d6969f791b7f16581f4810e09bddd94b4062",
+          "path_after_sha256": "c02b1ce85679d384848f1578a5704680b122b260e06cd1ae9a5841025ad0c1af",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-edge--130": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -130,
+            100,
+            51
+          ],
+          [
+            -130,
+            100,
+            131.5
+          ],
+          [
+            -130,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 599.3546326794897,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 11768.300693255575,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "c02b1ce85679d384848f1578a5704680b122b260e06cd1ae9a5841025ad0c1af",
+          "path_after_sha256": "a04545bc271e8252861b71c3b7ac1ca148d8f20bdd765affd61a941e4388b66e",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+            "volume_mm3": 33.67134356629141,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-edge--145": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -145,
+            100,
+            51
+          ],
+          [
+            -145,
+            100,
+            131.5
+          ],
+          [
+            -145,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 629.3546326794897,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 12357.349315803658,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "a04545bc271e8252861b71c3b7ac1ca148d8f20bdd765affd61a941e4388b66e",
+          "path_after_sha256": "9ea7c72be105bc0ce1287ac1ae71944394ba9666a641e7ac7a6a97edf24bca57",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-below--112": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            78
+          ],
+          [
+            -112,
+            100,
+            78
+          ],
+          [
+            -112,
+            100,
+            131.5
+          ],
+          [
+            -112,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 563.3546326794897,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 11056.971474597973,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "9ea7c72be105bc0ce1287ac1ae71944394ba9666a641e7ac7a6a97edf24bca57",
+          "path_after_sha256": "e9e1e83ee5621986f5838416c193648d78ff58d700f604906754109f443b8372",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-below--130": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            78
+          ],
+          [
+            -130,
+            100,
+            78
+          ],
+          [
+            -130,
+            100,
+            131.5
+          ],
+          [
+            -130,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 599.3546326794897,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 11763.829821656378,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "e9e1e83ee5621986f5838416c193648d78ff58d700f604906754109f443b8372",
+          "path_after_sha256": "151d5ebe1552ea0f990156695c3f31b3adf4082c594d8012399e41e0faf243b7",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      },
+      "+1-below--145": {
+        "scenario_result": "FAIL",
+        "hypothesis_status": "INCONCLUSIVE",
+        "saved_as_native": false,
+        "budget_credit": false,
+        "points_mm": [
+          [
+            -83.8,
+            -8.575,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            51
+          ],
+          [
+            -83.8,
+            100,
+            78
+          ],
+          [
+            -145,
+            100,
+            78
+          ],
+          [
+            -145,
+            100,
+            131.5
+          ],
+          [
+            -145,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -106,
+            131.5
+          ],
+          [
+            7,
+            -42,
+            131.5
+          ]
+        ],
+        "length_mm": 629.3546326794897,
+        "fresh": {
+          "stage": "solid",
+          "failures": [],
+          "null": false,
+          "valid": true,
+          "solid_count": 1,
+          "volume_mm3": 12352.878444205038,
+          "status": "pass",
+          "recompute_return": true,
+          "path_before_sha256": "151d5ebe1552ea0f990156695c3f31b3adf4082c594d8012399e41e0faf243b7",
+          "path_after_sha256": "e891aa98326d0dcb084ee095a123bab471ec44d8dc5d1622318c0ab7aba774ab",
+          "cache_cleared": true,
+          "object_states": {
+            "Cable": [
+              "Up-to-date"
+            ],
+            "Wire": [
+              "Up-to-date"
+            ]
+          }
+        },
+        "collisions": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 26.966363335593687,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "P73_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+            "volume_mm3": 3.065645789874063,
+            "gap_mm": 0.0
+          }
+        ],
+        "unresolved_pairs": []
+      }
+    }
+  },
+  "reproduction_scripts": {
+    "review_native.py": {
+      "path": "hardware/mecanique/cartographe/verification/go3b/interfaces_native_review.py",
+      "sha256": "a65d2495daca4e5db7f2c1db6d5020fdd9a1e26e9d7a0e570424bf9d3b958618"
+    },
+    "render.py": {
+      "path": "hardware/mecanique/cartographe/verification/go3b/interfaces_render.py",
+      "sha256": "3edd254bafab8b833deacd80d65ec50e4de50d4eff7a665994baf02bb510cf9a"
+    },
+    "screen.py": {
+      "path": "hardware/mecanique/cartographe/verification/go3b/interfaces_screen.py",
+      "sha256": "c4136aed87baa9ad8b948ba5d08d043bdb6fb724df52067153c11b2b325ab7f5"
+    }
+  },
+  "reproduction_commands": [
+    "$env:PYTHONPATH=(Get-Location).Path",
+    "& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' -B hardware/mecanique/cartographe/verification/go3b/interfaces_native_review.py .runtime/v21-go3b/consolidee/cad .runtime/review-consolidee.json",
+    "& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' -B hardware/mecanique/cartographe/verification/go3b/interfaces_render.py .runtime/v21-go3b/baseline/cad .runtime/v21-go3b/consolidee/cad .runtime/vues-go3b Consolidée",
+    "& 'C:/Program Files/FreeCAD 1.1/bin/python.exe' -B hardware/mecanique/cartographe/verification/go3b/interfaces_screen.py .runtime/v21-go3b-interfaces/gel .runtime/criblage-go3b.json --routes"
+  ],
+  "limitations": [
+    "Les sondes et les faces CAO sont des hypothèses de criblage. Les coordonnées ne qualifient ni les contacts ni le brochage.",
+    "La reprise des axes sur les faces ne remplace pas la géométrie complète des fiches et de leur accouplement.",
+    "Les six configurations H01/H02/H03 ne constituent pas une preuve globale de faisabilité des familles.",
+    "Les arcs de certains criblages F41 ont produit un message de rayon trop grand. Le solide a été régénéré, mais le rayon applicable et les tangentes de ces routes restent INCONCLUSIVE.",
+    "Les essais de service exécutés avant la correction de section CAN1 conservent leur orientation de sonde originale. La correction du script courant ne réécrit pas leur preuve."
+  ]
+}

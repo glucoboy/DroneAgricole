@@ -1,0 +1,3431 @@
+{
+  "schema": "cartographe.action3.interconnexions.v1",
+  "date": "2026-11-11",
+  "configuration": "prototype_cartographe_sans_dock",
+  "exigences": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "sources": {
+    "autorite_interconnexion": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+      "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+    },
+    "autorite_configuration": {
+      "path": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0"
+    },
+    "registre_axes_actif": {
+      "path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+      "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+    },
+    "netlist_ca01_verifiee_empreintes": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+      "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+    },
+    "contrat_uart_isole": {
+      "path": "hardware/electronique/cartographe/contrat_uart_bms.json",
+      "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19"
+    },
+    "registre_electrique_historique": {
+      "path": "hardware/electronique/cartographe/cablage_global.json",
+      "sha256": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f"
+    },
+    "catalogue_go2": {
+      "path": "electromechanical_engine/qualification/historical_catalog.json",
+      "sha256": "6a20e85035482e1ae3ff0dd710f663845476dacdc41ba0e98f0e067ee7aa98f9"
+    },
+    "preuve_native_go2": {
+      "path": "electromechanical_engine/qualification/native_evidence.json",
+      "sha256": "55fc48d07afb28abe5a53560338d7c2f8d98e6b1fe52b59fe6d973b0fc972ec7"
+    }
+  },
+  "regles": [
+    "La nomenclature décide la configuration et le schéma décide les fonctions et broches de CA01. Le registre de refonte possède les correspondances par liaison, les jonctions et les cordons mutualisés. Les champs authority_index et registry_index sont les indices de tableau à partir de zéro.",
+    "La couverture déclarée porte sur les autorités vérifiées et les liaisons système identifiées. Les pistes internes des cartes restent décrites par leurs schémas. Les ports, références de lot, broches et montages physiquement non observés restent à valider.",
+    "Chaque axe peut couvrir plusieurs fonctions ou une fraction de liaison. Les 53 occurrences du registre actif n’établissent aucune qualification électrique.",
+    "Le rapprochement natif de cette preuve utilise les empreintes des fichiers d’axe et les coordonnées du registre actif. Le recalcul natif et le contrôle de l’assemblage complet ont leur propre preuve."
+  ],
+  "controles": {
+    "sources_du_registre_verifiees_sha256": 43,
+    "sources_schematiques_de_la_netlist_verifiees_sha256": 6,
+    "ecarts_broches_netlist_vs_inventaire": [],
+    "identifiants_bom": 43,
+    "identifiants_bom_couverts": 43,
+    "lignes_systeme": 71,
+    "lignes_par_perimetre": {
+      "faisceau_embarque": 50,
+      "interne_oem": 2,
+      "reserve_non_montee": 2,
+      "interface_directe": 1,
+      "sans_fil": 2,
+      "transport_reutilise": 1,
+      "retire": 6,
+      "au_sol": 6,
+      "interne_pcb": 1
+    },
+    "liaisons_embarquees_non_resolues_copie_8_novembre": [
+      "W16",
+      "W20",
+      "W24.C",
+      "W25",
+      "W40",
+      "W-LED-KIT.1",
+      "W-LED-KIT.2",
+      "W-LED-KIT.3",
+      "W-LED-KIT.4"
+    ],
+    "axes_registre_actif_associes": 53,
+    "axes_actifs_identiques_copie_8_novembre": 52,
+    "axes_actifs_differents_copie_8_novembre": [
+      "F16"
+    ],
+    "etats_action3": {
+      "NON_VERIFIE_PHYSIQUEMENT": 49,
+      "NON_CONFORME_GEOMETRIE_RC02": 1,
+      "NON_VERIFIE_INTERFACE_ET_MOBILITE": 1,
+      "HORS_RECETTE_DE_CABLAGE": 8,
+      "NON_RESOLUE": 9,
+      "NON_VERIFIE_INTERFACE": 1,
+      "NON_VERIFIE_ACCES_ET_PROTECTIONS": 1,
+      "NON_VERIFIE_RESERVE_DE_SERVICE": 1
+    },
+    "v1": "ECHEC_CIBLE_W12_ET_INTERFACES_OUVERTES"
+  },
+  "revue_ciblee": {
+    "W12": {
+      "etat_action3": "NON_CONFORME_GEOMETRIE_RC02",
+      "constat": "Le registre étiquette TELEM1. Le natif actif a exactement les mêmes octets que la variante A contre-validée. La sortie [59.825, 12, 135.5] tombe dans la projection de GPS2 sur RC02 (centre y=12 mm), tandis que TELEM1 est centré à y=25 mm. La copie par faces atteint TELEM1 et conserve le brochage et l’accouplement à vérifier.",
+      "a_verifier": "Rapprocher le réceptacle de la révision réellement montée, reprendre la destination CAO et contrôler continuité TX/RX/GND, absence d’alimentation inattendue, et verrouillage.",
+      "sources": [
+        "electromechanical_engine/qualification/native_evidence.json",
+        "electromechanical_engine/qualification/historical_catalog.json#/cas/F12",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ],
+      "natif_A": {
+        "path": "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/W_F12_Prototype.FCStd",
+        "sha256": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906"
+      },
+      "natif_faces": {
+        "path": "hardware/mecanique/cartographe_faces/Candidat/pieces/commerce/W_F12_Prototype.FCStd",
+        "sha256": "7c033e4ec954a0f6a45fd13c3bb66fac4dfd6cce2845a553168535afec587341"
+      },
+      "corroboration_repere_rc02": {
+        "comparaison": {
+          "actif": {
+            "registre_construction": {
+              "path": "hardware/mecanique/cartographe/verification/construction_prototype.json",
+              "sha256": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9"
+            },
+            "natif_porteuse": {
+              "path": "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+              "sha256": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032"
+            },
+            "poses": {
+              "Holybro6XOrin": {
+                "index": 184,
+                "parent": "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+                "source": "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  -63.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  -40.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  128.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "F12": {
+                "index": 327,
+                "parent": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+                "source": "pieces/commerce/W_F12_Prototype.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "SA05_Prototype_Avionique": {
+                "index": 343,
+                "parent": "assemblages/Prototype_Cartographe.FCStd",
+                "source": "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "SA07_Prototype_Faisceaux": {
+                "index": 345,
+                "parent": "assemblages/Prototype_Cartographe.FCStd",
+                "source": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            }
+          },
+          "variante_A": {
+            "registre_construction": {
+              "path": "hardware/mecanique/cartographe_refonte_systeme/A/verification/construction_prototype.json",
+              "sha256": "439bf5ecc2138b09c689e2ec4a1e49d253ce97c005e0fd26e65ef67a3400c89f"
+            },
+            "natif_porteuse": {
+              "path": "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+              "sha256": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032"
+            },
+            "poses": {
+              "Holybro6XOrin": {
+                "index": 184,
+                "parent": "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+                "source": "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  -63.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  -40.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  128.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "F12": {
+                "index": 294,
+                "parent": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+                "source": "pieces/commerce/W_F12_Prototype.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "SA05_Prototype_Avionique": {
+                "index": 310,
+                "parent": "assemblages/Prototype_Cartographe.FCStd",
+                "source": "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "SA07_Prototype_Faisceaux": {
+                "index": 312,
+                "parent": "assemblages/Prototype_Cartographe.FCStd",
+                "source": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+                "matrice": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            }
+          }
+        },
+        "empreintes_natifs_porteuse_identiques": true,
+        "matrices_occurrences_identiques": true,
+        "portee": "Les axes F12 et les natifs de porteuse sont identiques. Les registres de construction donnent des poses locales identiques pour ces objets ainsi que pour les deux sous-assemblages dans le drone. Le constat GO 2 de destination géométrique en RC02 s’applique à cette configuration documentaire. La révision et la connexion de l’exemplaire physique restent à vérifier."
+      }
+    },
+    "W24.A": {
+      "etat_action3": "NON_VERIFIE_INTERFACE",
+      "constat": "La destination fonctionnelle est Orin GPIO pour PPS et retour. Le catalogue GO 2 rapporte GPIO_07 en broche 2 et masse en 6. Le gabarit présumé ne démontre pas l’identification physique. Les R530–R533 sont DNP dans la définition CA01 candidate et la référence 3,3 V CSI est ouverte.",
+      "a_verifier": "Identifier face, pas, polarisation et révision du port sur le plan de lot, puis contrôler continuité et pinmux avec la variante réellement peuplée.",
+      "sources": [
+        "electromechanical_engine/qualification/historical_catalog.json#/cas/F24A",
+        "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ]
+    },
+    "W16": {
+      "etat_action3": "NON_VERIFIE_INTERFACE_ET_MOBILITE",
+      "constat": "La copie de rapprochement du 8 novembre porte un autre axe F16. Le natif actif correspond à la route de 425,174 mm du registre actif, le candidat F16_R50 du rapprochement à 494,608 mm. La référence RR-ASMUK-20GRHF de 508 mm possède un Type A droit, alors que la copie de rapprochement représente un Type A coudé. La limite de 428,5 mm est une estimation prudente de gaine utile, marge nominale active de 3,326 mm. Les arcs de 22 mm de l’actif correspondent au seuil statique du cordon documenté. Le seuil de flexion continue publié est de 48 mm.",
+      "a_verifier": "Identifier les portions effectivement mobiles et les poses de caméra, contrôler rayon, conservation de longueur, dégagement, efforts, enveloppes d’accouplement, débit et fatigue. Confirmer la longueur utile et les deux fiches du lot.",
+      "sources": [
+        "hardware/mecanique/cartographe/verification/routes_prototype.json#/routes/F16",
+        "electromechanical_engine/qualification/historical_catalog.json#/cas/F16_initial",
+        "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      ],
+      "reference_fabricant": {
+        "reference": "RR-ASMUK-20GRHF",
+        "longueur_totale_mm": 508,
+        "rayon_statique_mm": 22,
+        "rayon_flexion_continue_mm": 48,
+        "classe": "DOCUMENTEE",
+        "source": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      },
+      "budget_gaine_utile_mm": {
+        "value": 428.5,
+        "classe": "ESTIMEE"
+      },
+      "marge_nominale_active_mm": {
+        "value": 3.3261578213549683,
+        "classe": "CALCULEE"
+      }
+    },
+    "W31": {
+      "etat_action3": "NON_VERIFIE_ACCES_ET_PROTECTIONS",
+      "constat": "Port CAN1 désigné. La contre-validation GO 2 du parcours bas laisse des paires ouvertes. Les enveloppes installées de l’isolateur, des fiches PM08 et des protections de puissance ainsi que le volume balayé CAN1 face à F35 conditionnent le choix de l’implantation.",
+      "a_verifier": "Relever les fiches du lot et leurs courses. Contrôler le volume de manœuvre réel CAN1 avec F35 en place et les accès PM08, UART isolé et protections.",
+      "sources": [
+        "electromechanical_engine/qualification/historical_catalog.json#/cas/F31_sous_P66",
+        "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout"
+      ]
+    },
+    "W41": {
+      "etat_action3": "NON_VERIFIE_RESERVE_DE_SERVICE",
+      "constat": "L’axe actif reste à 1180,942 mm. GO 2 donne 340,408 mm pour A. Le gain historique de longueur ne démontre pas la course utile, le mou et l’ergonomie de branchement. La BOM conserve le cordon fourni entier sous ELEC-ISO avec masse nette du périmètre inconnue.",
+      "a_verifier": "Définir la manœuvre de diagnostic, mesurer la course minimale, le rangement de l’excédent, le rayon et la traction admissible du cordon Type A–Type B.",
+      "sources": [
+        "electromechanical_engine/qualification/historical_catalog.json#/cas/F41",
+        "hardware/mecanique/cartographe/nomenclature_prototype.json"
+      ]
+    }
+  },
+  "interconnexions": [
+    {
+      "id": "W01.NEG",
+      "source_ids": [
+        "W01"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W01",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W01"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BAT B− brut",
+      "destination": "BMS B− brut",
+      "function": "Retour batterie brut",
+      "conductors_or_pins": "B− uniquement",
+      "cable_ids": [
+        "ELEC-F01"
+      ],
+      "route_ids": [
+        "F01_NEG"
+      ],
+      "path": [
+        {
+          "route_id": "F01_NEG",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "La référence brute reste confinée au pack et au côté UART isolé.",
+      "authority_index": 0,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W01.POS",
+      "source_ids": [
+        "W01"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W01",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W01"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BAT B+",
+      "destination": "MIDI entrée",
+      "function": "Départ batterie + vers fusible principal",
+      "conductors_or_pins": "B+ uniquement",
+      "cable_ids": [
+        "ELEC-F01"
+      ],
+      "route_ids": [
+        "F01_POS"
+      ],
+      "path": [
+        {
+          "route_id": "F01_POS",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-MIDI"
+      ],
+      "path_kind": "serie",
+      "reason": "Le conducteur atteint le fusible principal, sans passage dans le BMS.",
+      "authority_index": 1,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W02.1",
+      "source_ids": [
+        "W02"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W02",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W02"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PDB XT90 départ 1",
+      "destination": "ESC1 XT30",
+      "function": "Énergie",
+      "conductors_or_pins": "+/−, sexes et terminaisons à relever",
+      "cable_ids": [
+        "ELEC-F02"
+      ],
+      "route_ids": [
+        "F02_1"
+      ],
+      "path": [
+        {
+          "route_id": "F02_1",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 2,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W02.2",
+      "source_ids": [
+        "W02"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W02",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W02"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PDB XT90 départ 2",
+      "destination": "ESC2 XT30",
+      "function": "Énergie",
+      "conductors_or_pins": "+/−, sexes et terminaisons à relever",
+      "cable_ids": [
+        "ELEC-F02"
+      ],
+      "route_ids": [
+        "F02_2"
+      ],
+      "path": [
+        {
+          "route_id": "F02_2",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 3,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W02.3",
+      "source_ids": [
+        "W02"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W02",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W02"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PDB XT90 départ 3",
+      "destination": "ESC3 XT30",
+      "function": "Énergie",
+      "conductors_or_pins": "+/−, sexes et terminaisons à relever",
+      "cable_ids": [
+        "ELEC-F02"
+      ],
+      "route_ids": [
+        "F02_3"
+      ],
+      "path": [
+        {
+          "route_id": "F02_3",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 4,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W02.4",
+      "source_ids": [
+        "W02"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W02",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W02"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PDB XT90 départ 4",
+      "destination": "ESC4 XT30",
+      "function": "Énergie",
+      "conductors_or_pins": "+/−, sexes et terminaisons à relever",
+      "cable_ids": [
+        "ELEC-F02"
+      ],
+      "route_ids": [
+        "F02_4"
+      ],
+      "path": [
+        {
+          "route_id": "F02_4",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 5,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W03.1",
+      "source_ids": [
+        "W03"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W03",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W03"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "ESC1 U/V/W",
+      "destination": "M1 U/V/W",
+      "function": "Puissance triphasée",
+      "conductors_or_pins": "U/V/W logiques, ordre à vérifier",
+      "cable_ids": [
+        "ELEC-F03"
+      ],
+      "route_ids": [
+        "F03_1"
+      ],
+      "path": [
+        {
+          "route_id": "F03_1",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Enveloppe commune des trois phases. Ordre et connecteurs OEM ouverts.",
+      "authority_index": 6,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W03.2",
+      "source_ids": [
+        "W03"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W03",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W03"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "ESC2 U/V/W",
+      "destination": "M2 U/V/W",
+      "function": "Puissance triphasée",
+      "conductors_or_pins": "U/V/W logiques, ordre à vérifier",
+      "cable_ids": [
+        "ELEC-F03"
+      ],
+      "route_ids": [
+        "F03_2"
+      ],
+      "path": [
+        {
+          "route_id": "F03_2",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Enveloppe commune des trois phases. Ordre et connecteurs OEM ouverts.",
+      "authority_index": 7,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W03.3",
+      "source_ids": [
+        "W03"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W03",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W03"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "ESC3 U/V/W",
+      "destination": "M3 U/V/W",
+      "function": "Puissance triphasée",
+      "conductors_or_pins": "U/V/W logiques, ordre à vérifier",
+      "cable_ids": [
+        "ELEC-F03"
+      ],
+      "route_ids": [
+        "F03_3"
+      ],
+      "path": [
+        {
+          "route_id": "F03_3",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Enveloppe commune des trois phases. Ordre et connecteurs OEM ouverts.",
+      "authority_index": 8,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W03.4",
+      "source_ids": [
+        "W03"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W03",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W03"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "ESC4 U/V/W",
+      "destination": "M4 U/V/W",
+      "function": "Puissance triphasée",
+      "conductors_or_pins": "U/V/W logiques, ordre à vérifier",
+      "cable_ids": [
+        "ELEC-F03"
+      ],
+      "route_ids": [
+        "F03_4"
+      ],
+      "path": [
+        {
+          "route_id": "F03_4",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Enveloppe commune des trois phases. Ordre et connecteurs OEM ouverts.",
+      "authority_index": 9,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W04.1",
+      "source_ids": [
+        "W04"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W04",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W04"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk MAIN1",
+      "destination": "ESC1 signal/retour",
+      "function": "Commande",
+      "conductors_or_pins": "signal/retour ; PWM/DShot/autre à choisir",
+      "cable_ids": [
+        "ELEC-F04"
+      ],
+      "route_ids": [
+        "F04_1"
+      ],
+      "path": [
+        {
+          "route_id": "F04_1",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 10,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W04.2",
+      "source_ids": [
+        "W04"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W04",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W04"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk MAIN2",
+      "destination": "ESC2 signal/retour",
+      "function": "Commande",
+      "conductors_or_pins": "signal/retour ; PWM/DShot/autre à choisir",
+      "cable_ids": [
+        "ELEC-F04"
+      ],
+      "route_ids": [
+        "F04_2"
+      ],
+      "path": [
+        {
+          "route_id": "F04_2",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 11,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W04.3",
+      "source_ids": [
+        "W04"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W04",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W04"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk MAIN3",
+      "destination": "ESC3 signal/retour",
+      "function": "Commande",
+      "conductors_or_pins": "signal/retour ; PWM/DShot/autre à choisir",
+      "cable_ids": [
+        "ELEC-F04"
+      ],
+      "route_ids": [
+        "F04_3"
+      ],
+      "path": [
+        {
+          "route_id": "F04_3",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 12,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W04.4",
+      "source_ids": [
+        "W04"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W04",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W04"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk MAIN4",
+      "destination": "ESC4 signal/retour",
+      "function": "Commande",
+      "conductors_or_pins": "signal/retour ; PWM/DShot/autre à choisir",
+      "cable_ids": [
+        "ELEC-F04"
+      ],
+      "route_ids": [
+        "F04_4"
+      ],
+      "path": [
+        {
+          "route_id": "F04_4",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 13,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W05",
+      "source_ids": [
+        "W05"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W05",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W05"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PM08 OUT+/−",
+      "destination": "PDB +/−",
+      "function": "Énergie",
+      "conductors_or_pins": "F05-PROT : fils OEM PM08 OUT + deux cosses cuivre étamé 8 AWG / vis PDB",
+      "cable_ids": [
+        "ELEC-F05"
+      ],
+      "route_ids": [
+        "F05_POS",
+        "F05_NEG"
+      ],
+      "path": [
+        {
+          "route_id": "F05_POS",
+          "sense": "direct"
+        },
+        {
+          "route_id": "F05_NEG",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "conducteurs_paralleles",
+      "reason": "Un départ positif et un négatif vers bornes de la PDB 18138 ; diamètre oeillet conforme à la borne réelle, aucun choix M5 repris du TE. Contrôles : Relever goujons PDB et section OEM ; sélectionner cosse exacte puis contrôler compression, couple constructeur et isolement.",
+      "authority_index": 14,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W06",
+      "source_ids": [
+        "W06"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W06",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W06"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PM08 BEC1",
+      "destination": "Pixhawk POWER1",
+      "function": "Énergie vol",
+      "conductors_or_pins": "côté porteuse : +5V contacts 1/2, GND 5/6 ; SCL/SDA 3/4 non raccordés au PM",
+      "cable_ids": [
+        "ELEC-F06"
+      ],
+      "route_ids": [
+        "F06"
+      ],
+      "path": [
+        {
+          "route_id": "F06",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "BEC1 distinct du BEC2. Les deux partagent un PM08 et une source amont.",
+      "authority_index": 15,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W08",
+      "source_ids": [
+        "W08"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W08",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W08"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PDB XT30 départ CA01",
+      "destination": "CA01 J103",
+      "function": "Énergie charge utile",
+      "conductors_or_pins": "J103/1 VBAT_PAYLOAD avec fusible série, J103/2 GND hors fusible",
+      "cable_ids": [
+        "ELEC-F08"
+      ],
+      "route_ids": [
+        "F08_AMONT",
+        "F08_AVAL"
+      ],
+      "path": [
+        {
+          "route_id": "F08_AMONT",
+          "sense": "direct"
+        },
+        {
+          "route_id": "F08_AVAL",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-FUSE-CA01"
+      ],
+      "path_kind": "serie",
+      "reason": "Les deux enveloppes passent par la réservation du porte-fusible. Acheminement du retour et terminaisons ouverts.",
+      "authority_index": 16,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W09",
+      "source_ids": [
+        "W09"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W09",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W09"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J104",
+      "destination": "Porteuse Jetson XT30",
+      "function": "Énergie",
+      "conductors_or_pins": "J104:1 = 12V_COMPUTE ; :2 = GND",
+      "cable_ids": [
+        "ELEC-F09"
+      ],
+      "route_ids": [
+        "F09"
+      ],
+      "path": [
+        {
+          "route_id": "F09",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 17,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W10",
+      "source_ids": [
+        "W10"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W10",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W10"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J201",
+      "destination": "Airy aviation",
+      "function": "Énergie",
+      "conductors_or_pins": "J201:1 12V_LIDAR ; :2 GND ; Airy faisceau optionnel B1/B2 ou aviation 6/7 VIN, 5/8 GND",
+      "cable_ids": [
+        "ELEC-F-AIRY"
+      ],
+      "route_ids": [
+        "AIRY_PWR",
+        "AIRY"
+      ],
+      "path": [
+        {
+          "route_id": "AIRY_PWR",
+          "sense": "inverse"
+        },
+        {
+          "route_id": "AIRY",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [
+        "J-AIRY"
+      ],
+      "path_kind": "serie",
+      "reason": "Cordon Airy unique à éclatement OEM candidat. Constitution interne de jonction ouverte.",
+      "authority_index": 18,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W12",
+      "source_ids": [
+        "W12"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W12",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W12"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J402",
+      "destination": "Pixhawk TELEM1 (TELEM3 candidat alternatif)",
+      "function": "UART bidirectionnel",
+      "conductors_or_pins": "J402:1 = GND ; :2 = FC_RX_RF ; :3 = FC_TX_RF",
+      "cable_ids": [
+        "ELEC-F12"
+      ],
+      "route_ids": [
+        "F12"
+      ],
+      "path": [
+        {
+          "route_id": "F12",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 19,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_CONFORME_GEOMETRIE_RC02",
+      "limite_raisonnement_source": "Lire la revue ciblée action 3 pour la portée et les écarts de l’actif."
+    },
+    {
+      "id": "W13.A",
+      "source_ids": [
+        "W13"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W13",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W13"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "RP4TD U.FL A",
+      "destination": "Antenne ELRS A",
+      "function": "RF",
+      "conductors_or_pins": "Coaxiaux U.FL intégrés aux deux antennes RadioMaster T 65 mm",
+      "cable_ids": [
+        "ELEC-F13"
+      ],
+      "route_ids": [
+        "F13A"
+      ],
+      "path": [
+        {
+          "route_id": "F13A",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Coaxial fourni avec l'antenne A. Longueur utile et pertes à vérifier.",
+      "authority_index": 20,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W13.B",
+      "source_ids": [
+        "W13"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W13",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W13"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "RP4TD U.FL B",
+      "destination": "Antenne ELRS B",
+      "function": "RF",
+      "conductors_or_pins": "Coaxiaux U.FL intégrés aux deux antennes RadioMaster T 65 mm",
+      "cable_ids": [
+        "ELEC-F13"
+      ],
+      "route_ids": [
+        "F13B"
+      ],
+      "path": [
+        {
+          "route_id": "F13B",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Coaxial fourni avec l'antenne B. Longueur utile et pertes à vérifier.",
+      "authority_index": 21,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W14",
+      "source_ids": [
+        "W14"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W14",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W14"
+      ],
+      "scope": "interne_oem",
+      "origin": "Pixhawk TELEM2",
+      "destination": "Orin UART1",
+      "function": "Données bidirectionnelles",
+      "conductors_or_pins": "MAVLink 2 événements CAMERA_TRIGGER/CAMERA_IMAGE_CAPTURED, état GNSS et synchronisation d'horloges ; uXRCE-DDS via autre port si requis",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-PORTEUSE-W14"
+      ],
+      "path_kind": "serie",
+      "reason": "UART intégré à la porteuse Holybro. L'affectation de transport et le firmware restent à valider.",
+      "authority_index": 22,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W15",
+      "source_ids": [
+        "W15"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W15",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W15"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Airy aviation",
+      "destination": "Porteuse Jetson RJ45",
+      "function": "Données bidirectionnelles",
+      "conductors_or_pins": "interface/câble Ethernet du faisceau Airy",
+      "cable_ids": [
+        "ELEC-F-AIRY"
+      ],
+      "route_ids": [
+        "AIRY",
+        "AIRY_ETH"
+      ],
+      "path": [
+        {
+          "route_id": "AIRY",
+          "sense": "direct"
+        },
+        {
+          "route_id": "AIRY_ETH",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-AIRY"
+      ],
+      "path_kind": "serie",
+      "reason": "Branche Ethernet du même cordon Airy.",
+      "authority_index": 23,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W16",
+      "source_ids": [
+        "W16"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W16",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W16",
+        "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Porteuse Jetson USB3 Type A",
+      "destination": "Basler USB3 Micro-B",
+      "function": "Énergie + données",
+      "conductors_or_pins": "USBFireWire RR-ASMUK-20GRHF, Micro-B coudé Up à vis / Type A coudé, 508 mm",
+      "cable_ids": [
+        "ELEC-F16"
+      ],
+      "route_ids": [
+        "F16"
+      ],
+      "path": [
+        {
+          "route_id": "F16",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "CAO conservable sur copie. Tracé baseline 494,608 mm, gaine utile conservative 428,5 mm, longueur totale catalogue 508 mm. Type A droit dans la ligne BOM, coudé dans l'adaptation et en CAO. Référence compatible, réserve de pose et fatigue ouvertes.",
+      "authority_index": 24,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_INTERFACE_ET_MOBILITE",
+      "limite_raisonnement_source": "Lire la revue ciblée action 3 pour la portée et les écarts de l’actif."
+    },
+    {
+      "id": "W17",
+      "source_ids": [
+        "W17"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W17",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W17"
+      ],
+      "scope": "reserve_non_montee",
+      "origin": "Airy SYNC_OUT1 aviation 10/D2",
+      "destination": "CA01 J501",
+      "function": "Synchronisation",
+      "conductors_or_pins": "Airy aviation 10 / D2 bleu → J501:1 ; D4 noir retour → :2",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-AIRY"
+      ],
+      "path_kind": "serie",
+      "reason": "Branche de retour SYNC_OUT1 écartée du montage. Le port reste documenté.",
+      "authority_index": 25,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W18",
+      "source_ids": [
+        "W18"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W18",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W18"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J502",
+      "destination": "Basler M8",
+      "function": "Commande trigger optocouplée",
+      "conductors_or_pins": "M8 2 Line1/5V_SYNC, 3 retour opto commuté",
+      "cable_ids": [
+        "ELEC-F-M8"
+      ],
+      "route_ids": [
+        "F_M8"
+      ],
+      "path": [
+        {
+          "route_id": "F_M8",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Même cordon M8 que W34. Pins 2/3 pour le trigger, retour opto séparé.",
+      "authority_index": 26,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W19",
+      "source_ids": [
+        "W19"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W19",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W19"
+      ],
+      "scope": "interne_oem",
+      "origin": "Jetson / porteuse",
+      "destination": "SSD Samsung M.2",
+      "function": "Énergie + données",
+      "conductors_or_pins": "PCIe / alimentation interne porteuse",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-SSD"
+      ],
+      "path_kind": "serie",
+      "reason": "M.2 PCIe/alimentation sur la porteuse.",
+      "authority_index": 27,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W20",
+      "source_ids": [
+        "W20"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W20",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W20"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Porteuse Jetson FAN",
+      "destination": "Ventilateur Orin",
+      "function": "Refroidissement",
+      "conductors_or_pins": "Cordon quatre positions inclus Waveshare 24076 ; adaptation F20-PROT conditionnelle",
+      "cable_ids": [
+        "ELEC-F20"
+      ],
+      "route_ids": [
+        "F20"
+      ],
+      "path": [
+        {
+          "route_id": "F20",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Enveloppe OEM réservée. V+/GND/PWM/TACH, sens, pas et longueur utile ouverts. Rallonge conditionnelle.",
+      "authority_index": 28,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W21",
+      "source_ids": [
+        "W21"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W21",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W21"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk CAN2",
+      "destination": "GNSS G4 CAN",
+      "function": "Énergie + navigation",
+      "conductors_or_pins": "CAN H/L, GND, 5 V 4,75–5,25 V selon brochage exact",
+      "cable_ids": [
+        "ELEC-F21"
+      ],
+      "route_ids": [
+        "F21"
+      ],
+      "path": [
+        {
+          "route_id": "F21",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 29,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W22",
+      "source_ids": [
+        "W22"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W22",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W22"
+      ],
+      "scope": "interface_directe",
+      "origin": "GNSS G4 port RF",
+      "destination": "Antenne hélicoïdale embarquée",
+      "function": "RF GNSS",
+      "conductors_or_pins": "Antenne Helical directement montée sur SEN-GNSS ; aucune rallonge",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-GNSS-SMA"
+      ],
+      "path_kind": "serie",
+      "reason": "Montage direct GNSS. Rallonge ELEC-F22 retirée.",
+      "authority_index": 30,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W23",
+      "source_ids": [
+        "W23"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W23",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W23"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J504",
+      "destination": "Airy aviation",
+      "function": "Temps candidat",
+      "conductors_or_pins": "Airy aviation pin9 PPS/D3, pin11 GPRMC/D1, pin5/8 GND/D4 ; GPRMC 9600 8N1",
+      "cable_ids": [
+        "ELEC-F-AIRY"
+      ],
+      "route_ids": [
+        "AIRY_SYNC",
+        "AIRY"
+      ],
+      "path": [
+        {
+          "route_id": "AIRY_SYNC",
+          "sense": "inverse"
+        },
+        {
+          "route_id": "AIRY",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [
+        "J-AIRY"
+      ],
+      "path_kind": "serie",
+      "reason": "PPS/GPRMC sur le cordon Airy commun. R530–R533 DNP dans CA01.",
+      "authority_index": 31,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W24.A",
+      "source_ids": [
+        "W24"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W24",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W24"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J505",
+      "destination": "Jetson GPIO",
+      "function": "PPS CA01 vers Jetson",
+      "conductors_or_pins": "J505/1 PPS, /2 GND vers GPIO/2 GPIO_07, /6 GND",
+      "cable_ids": [
+        "ELEC-F24A"
+      ],
+      "route_ids": [
+        "F24A"
+      ],
+      "path": [
+        {
+          "route_id": "F24A",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Activation sorties et fonction pinmux ouvertes.",
+      "authority_index": 32,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_INTERFACE",
+      "limite_raisonnement_source": "Lire la revue ciblée action 3 pour la portée et les écarts de l’actif."
+    },
+    {
+      "id": "W24.B",
+      "source_ids": [
+        "W24"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W24",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W24"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J506",
+      "destination": "Jetson DEBUG",
+      "function": "GPRMC CA01 vers Jetson",
+      "conductors_or_pins": "J506/1 GPRMC, /2 GND vers DEBUG/3 UART2_RX, /6 GND",
+      "cable_ids": [
+        "ELEC-F24B"
+      ],
+      "route_ids": [
+        "F24B"
+      ],
+      "path": [
+        {
+          "route_id": "F24B",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Activation sorties et fonction console ouvertes.",
+      "authority_index": 33,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W24.C",
+      "source_ids": [
+        "W24"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W24",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W24"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Jetson CSI via extracteur FFC",
+      "destination": "CA01 J509",
+      "function": "Référence électrique 3,3 V",
+      "conductors_or_pins": "CSI/22 VDD, /1 GND vers J509/1 3V3_ORIN_IO_REF, /2 GND",
+      "cable_ids": [
+        "ELEC-F24C"
+      ],
+      "route_ids": [
+        "F24C"
+      ],
+      "path": [
+        {
+          "route_id": "F24C",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Extracteur FFC et maintien absents. Camera0/1, extinction et domaine IO à vérifier.",
+      "authority_index": 34,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W25",
+      "source_ids": [
+        "W25"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W25",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W25"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk GPS1",
+      "destination": "CUAV USL",
+      "function": "Sécurité / indication",
+      "conductors_or_pins": "F25-PROT : adaptateur GPS1 Holybro GH10 vers module CUAV USL",
+      "cable_ids": [
+        "ELEC-F25"
+      ],
+      "route_ids": [
+        "F25"
+      ],
+      "path": [
+        {
+          "route_id": "F25",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "GPS1 6/7/8/9/10 documentés côté porteuse. Brochage, alimentation, retour LED/buzzer et terminaison USL ouverts.",
+      "authority_index": 35,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W26",
+      "source_ids": [
+        "W26"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W26",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W26"
+      ],
+      "scope": "reserve_non_montee",
+      "origin": "CA01 J301",
+      "destination": "Auxiliaire 5 V réservé",
+      "function": "Énergie réservée",
+      "conductors_or_pins": "J301:1 = 5V_AUX ; :2 = GND, confirmés par netlist V0.5-pre",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Réserve non montée, aucun achat ni masse de cordon.",
+      "authority_index": 36,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W27",
+      "source_ids": [
+        "W27"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W27",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W27"
+      ],
+      "scope": "sans_fil",
+      "origin": "Pocket ELRS",
+      "destination": "RP4TD",
+      "function": "RF bidirectionnel",
+      "conductors_or_pins": "liaison sans fil ; Pocket alimentée séparément",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Transport sans cordon embarqué additionnel ; parcours sol et W21 comptés séparément.",
+      "authority_index": 37,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W28",
+      "source_ids": [
+        "W28"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W28",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W28"
+      ],
+      "scope": "sans_fil",
+      "origin": "Terminal terrain",
+      "destination": "Pocket Backpack",
+      "function": "Supervision bidirectionnelle",
+      "conductors_or_pins": "MAVLink/UDP candidat avec GPS_RTCM_DATA",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Wi-Fi candidat pour les données. Le cordon de recharge USB Pocket au sol est distinct.",
+      "authority_index": 38,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W29",
+      "source_ids": [
+        "W29"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W29",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W29"
+      ],
+      "scope": "transport_reutilise",
+      "origin": "Base RTK",
+      "destination": "GNSS embarqué",
+      "function": "Corrections RTCM",
+      "conductors_or_pins": "GPS_RTCM_DATA en MAVLink 2 ; RTCMStream DroneCAN",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-RTCM"
+      ],
+      "path_kind": "serie",
+      "reason": "Chemin par USB sol puis W28, W27, W21. Aucun cordon supplémentaire.",
+      "authority_index": 39,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W31",
+      "source_ids": [
+        "W31"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W31",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W31"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PM08 CAN",
+      "destination": "Pixhawk CAN1",
+      "function": "Données DroneCAN",
+      "conductors_or_pins": "côté porteuse : CAN1 2 H, 3 L, 4 GND ; contact 1 +5V OUT non raccordé au PM",
+      "cable_ids": [
+        "ELEC-F31"
+      ],
+      "route_ids": [
+        "F31"
+      ],
+      "path": [
+        {
+          "route_id": "F31",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Cordon CAN distinct des BEC. +5 V CAN1 NC côté PM. Séparation de puissance à contrôler en CEM.",
+      "authority_index": 40,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_ACCES_ET_PROTECTIONS",
+      "limite_raisonnement_source": "Lire la revue ciblée action 3 pour la portée et les écarts de l’actif."
+    },
+    {
+      "id": "W32",
+      "source_ids": [
+        "W32"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W32",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W32"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "PM08 BEC2",
+      "destination": "Pixhawk POWER2",
+      "function": "Énergie vol secondaire",
+      "conductors_or_pins": "côté porteuse : +5V contacts 1/2, GND 5/6 ; SCL/SDA 3/4 non raccordés au PM",
+      "cable_ids": [
+        "ELEC-F32"
+      ],
+      "route_ids": [
+        "F32"
+      ],
+      "path": [
+        {
+          "route_id": "F32",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "BEC2 distinct de BEC1. Les deux partagent un PM08 et une source amont.",
+      "authority_index": 41,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W33",
+      "source_ids": [
+        "W33"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W33",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W33"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Pixhawk AUX1",
+      "destination": "CA01 J507",
+      "function": "Commande caméra",
+      "conductors_or_pins": "baseboard FMU PWM OUT pin2 = FMU_CH1 (3,3V), pin10 = GND ; sortie moteur MAIN1..4 à réserver propulsion",
+      "cable_ids": [
+        "ELEC-F33"
+      ],
+      "route_ids": [
+        "F33"
+      ],
+      "path": [
+        {
+          "route_id": "F33",
+          "sense": "inverse"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "AUX1 dédié à la caméra, MAIN1…4 réservés à la propulsion.",
+      "authority_index": 42,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W34",
+      "source_ids": [
+        "W34"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W34",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W34"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Basler M8",
+      "destination": "CA01 J502",
+      "function": "Retour exposition",
+      "conductors_or_pins": "M8 4 Line2 ExposureActive, 6 GND GPIO",
+      "cable_ids": [
+        "ELEC-F-M8"
+      ],
+      "route_ids": [
+        "F_M8"
+      ],
+      "path": [
+        {
+          "route_id": "F_M8",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Même cordon M8 que W18. Retour opto du pin 3 séparé du GND GPIO.",
+      "authority_index": 43,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W35",
+      "source_ids": [
+        "W35"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W35",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W35"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "CA01 J508",
+      "destination": "Pixhawk AD&IO CAP1",
+      "function": "Capture exposition",
+      "conductors_or_pins": "baseboard AD&IO pin2 = FMU_CAP1, pin8 = GND ; CAP1 dédié exposition",
+      "cable_ids": [
+        "ELEC-F35"
+      ],
+      "route_ids": [
+        "F35"
+      ],
+      "path": [
+        {
+          "route_id": "F35",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 44,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W36",
+      "source_ids": [
+        "W36"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W36",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W36"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "GNSS G4 UART2",
+      "destination": "CA01 J503",
+      "function": "Entrée temps candidate",
+      "conductors_or_pins": "G4 UART2 pin3 TX/GPRMC, pin5 PPS, pin6 GND ; pin1 +5 V non raccordé à CA01",
+      "cable_ids": [
+        "ELEC-F36"
+      ],
+      "route_ids": [
+        "F36"
+      ],
+      "path": [
+        {
+          "route_id": "F36",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Fonction conservée ; reprendre implantation, longueurs, terminaisons et inclusions pour le prototype sans dock.",
+      "authority_index": 45,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W37.POS",
+      "source_ids": [
+        "W37"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W37",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W37"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "MIDI sortie",
+      "destination": "QS8 pack +",
+      "function": "B+ après fusible principal",
+      "conductors_or_pins": "B+",
+      "cable_ids": [
+        "ELEC-F37"
+      ],
+      "route_ids": [
+        "F37_POS"
+      ],
+      "path": [
+        {
+          "route_id": "F37_POS",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-MIDI",
+        "J-QS8"
+      ],
+      "path_kind": "serie",
+      "reason": "B+ seulement, terminaison demi-QS8 côté pack.",
+      "authority_index": 46,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W37.NEG",
+      "source_ids": [
+        "W37"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W37",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W37"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BMS C− (P− protégé)",
+      "destination": "QS8 pack −",
+      "function": "Retour C− protégé",
+      "conductors_or_pins": "C−",
+      "cable_ids": [
+        "ELEC-F37"
+      ],
+      "route_ids": [
+        "F37_NEG"
+      ],
+      "path": [
+        {
+          "route_id": "F37_NEG",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-QS8"
+      ],
+      "path_kind": "serie",
+      "reason": "C− seulement, aucun passage dans MIDI ni contournement B− brut.",
+      "authority_index": 47,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W38",
+      "source_ids": [
+        "W38"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W38",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W38"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "QS8 drone +/−",
+      "destination": "PM08 IN+/−",
+      "function": "Énergie protégée avec maîtrise de l’appel",
+      "conductors_or_pins": "F38-PROT : fils 8 AWG OEM PM08 IN + demi-QS8-S B9310 côté drone",
+      "cable_ids": [
+        "ELEC-F38"
+      ],
+      "route_ids": [
+        "F38_POS",
+        "F38_NEG"
+      ],
+      "path": [
+        {
+          "route_id": "F38_POS",
+          "sense": "direct"
+        },
+        {
+          "route_id": "F38_NEG",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-QS8"
+      ],
+      "path_kind": "conducteurs_paralleles",
+      "reason": "Fils IN OEM candidats. La source prototype remplace TE et JETI.",
+      "authority_index": 48,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W39",
+      "source_ids": [
+        "W39"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W39",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W39"
+      ],
+      "scope": "retire",
+      "origin": "JETI OUT",
+      "destination": "PM08 IN",
+      "function": "Énergie commutée",
+      "conductors_or_pins": "+ continu, − commuté JETI",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Exclu du prototype avec JETI/commande ; identifiant source conservé pour traçabilité, aucun cordon à monter.",
+      "authority_index": 49,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W40",
+      "source_ids": [
+        "W40"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W40",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W40",
+        "hardware/electronique/cartographe/contrat_uart_bms.json"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BMS J2 UART",
+      "destination": "BMS_ISO TTL isolé",
+      "function": "UART isolé",
+      "conductors_or_pins": "3 fils RX/TX/GND brut, prise signal manuelle à choisir ; HY2.0-4P JBD candidat pin4VDD NC",
+      "cable_ids": [
+        "ELEC-F40"
+      ],
+      "route_ids": [
+        "F40"
+      ],
+      "path": [
+        {
+          "route_id": "F40",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [
+        "J-UART-DECONNEXION"
+      ],
+      "path_kind": "serie",
+      "reason": "Enveloppe continue. La prise manuelle de séparation n'a ni référence ni position établie. Masse brute confinée au côté TTL isolé, 5 V NC.",
+      "authority_index": 50,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W41",
+      "source_ids": [
+        "W41"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W41",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W41"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BMS_ISO USB Type B",
+      "destination": "Porteuse Jetson USB Type A",
+      "function": "USB diagnostic isolé",
+      "conductors_or_pins": "USB 2 Type A / Type B inclus Waveshare 15817, environ 1,2 m",
+      "cable_ids": [
+        "ELEC-F41"
+      ],
+      "route_ids": [
+        "F41"
+      ],
+      "path": [
+        {
+          "route_id": "F41",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Cordon USB 2 entier d'environ 1,2 m avec réserve fixée. Aucun retour brut côté USB.",
+      "authority_index": 51,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_RESERVE_DE_SERVICE",
+      "limite_raisonnement_source": "Lire la revue ciblée action 3 pour la portée et les écarts de l’actif."
+    },
+    {
+      "id": "W42",
+      "source_ids": [
+        "W42"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W42",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W42"
+      ],
+      "scope": "retire",
+      "origin": "TE présence A",
+      "destination": "TE présence B",
+      "function": "Boucle passive historique",
+      "conductors_or_pins": "Non montée",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Boucle présence deux contacts TE retirée du prototype ; aucune fonction de sûreté opérationnelle n'en dépendait.",
+      "authority_index": 52,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W43",
+      "source_ids": [
+        "W43"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W43",
+        "hardware/electronique/cartographe/cablage_global.json#/connections/W43"
+      ],
+      "scope": "au_sol",
+      "origin": "SkyRC S100neo XT60",
+      "destination": "Demi-QS8 pack B+/C−",
+      "function": "Charge externe protégée",
+      "conductors_or_pins": "Cordon Logic RC O-LGL-CLQS8 : sortie de charge XT60 → QS8-S du pack (B+ / P− protégés)",
+      "cable_ids": [
+        "SOL-CHARGE-ADAPTER"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-MIDI"
+      ],
+      "path_kind": "serie",
+      "reason": "Charge batterie débranchée du drone. Deux fils protégés, aucun équilibrage externe.",
+      "authority_index": 53,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W-CELLULES",
+      "source_ids": [
+        "W-CELLULES",
+        "BMS-CELLULES",
+        "I-BMS-BALANCE-6S"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-CELLULES",
+        "hardware/electronique/cartographe/cablage_global.json#/internal_connections/BMS-CELLULES",
+        "hardware/electronique/cartographe/contrat_uart_bms.json"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "BAT JST-XHR-7P B0…B6",
+      "destination": "BMS prises cellules",
+      "function": "Mesure/équilibrage interne batterie",
+      "conductors_or_pins": "Adaptateur6S vers22S, mapping lot à valider",
+      "cable_ids": [
+        "ELEC-F-BALANCE"
+      ],
+      "route_ids": [
+        "BALANCE"
+      ],
+      "path": [
+        {
+          "route_id": "BALANCE",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Adaptation 6S à l'intérieur du sous-ensemble batterie. Carte exacte du lot et correspondance B0…B6 à relever.",
+      "authority_index": 54,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W-JETI-COMMANDE",
+      "source_ids": [
+        "W-JETI-COMMANDE"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-JETI-COMMANDE"
+      ],
+      "scope": "retire",
+      "origin": "Commande magnétique",
+      "destination": "JETI Main Switch 100",
+      "function": "Commande magnétique ON/OFF",
+      "conductors_or_pins": "Cordon livré à vérifier",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Exclu du prototype avec JETI/commande ; identifiant source conservé pour traçabilité, aucun cordon à monter.",
+      "authority_index": 55,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W-LED-KIT.1",
+      "source_ids": [
+        "W-LED-KIT",
+        "F-LED-KIT"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-LED-KIT"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": null,
+      "destination": "LED1 WS2812",
+      "function": "Alimentation et données LED",
+      "conductors_or_pins": "F-LED-PROT : faisceau OEM des quatre WS2812 X650",
+      "cable_ids": [
+        "ELEC-F-LED"
+      ],
+      "route_ids": [
+        "LED_1"
+      ],
+      "path": [
+        {
+          "route_id": "LED_1",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "AUX1 est réservé à W33. Port PX4, alimentation et terminaisons du lot restent ouverts.",
+      "authority_index": 56,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "INCONNUE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W-LED-KIT.2",
+      "source_ids": [
+        "W-LED-KIT",
+        "F-LED-KIT"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-LED-KIT"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": null,
+      "destination": "LED2 WS2812",
+      "function": "Alimentation et données LED",
+      "conductors_or_pins": "F-LED-PROT : faisceau OEM des quatre WS2812 X650",
+      "cable_ids": [
+        "ELEC-F-LED"
+      ],
+      "route_ids": [
+        "LED_2"
+      ],
+      "path": [
+        {
+          "route_id": "LED_2",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Affectation PX4, rail et terminaisons OEM ouverts. Enveloppe de branche seulement.",
+      "authority_index": 57,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "INCONNUE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W-LED-KIT.3",
+      "source_ids": [
+        "W-LED-KIT",
+        "F-LED-KIT"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-LED-KIT"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": null,
+      "destination": "LED3 WS2812",
+      "function": "Alimentation et données LED",
+      "conductors_or_pins": "F-LED-PROT : faisceau OEM des quatre WS2812 X650",
+      "cable_ids": [
+        "ELEC-F-LED"
+      ],
+      "route_ids": [
+        "LED_3"
+      ],
+      "path": [
+        {
+          "route_id": "LED_3",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Affectation PX4, rail et terminaisons OEM ouverts. Enveloppe de branche seulement.",
+      "authority_index": 58,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "INCONNUE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W-LED-KIT.4",
+      "source_ids": [
+        "W-LED-KIT",
+        "F-LED-KIT"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/liaisons/W-LED-KIT"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": null,
+      "destination": "LED4 WS2812",
+      "function": "Alimentation et données LED",
+      "conductors_or_pins": "F-LED-PROT : faisceau OEM des quatre WS2812 X650",
+      "cable_ids": [
+        "ELEC-F-LED"
+      ],
+      "route_ids": [
+        "LED_4"
+      ],
+      "path": [
+        {
+          "route_id": "LED_4",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Affectation PX4, rail et terminaisons OEM ouverts. Enveloppe de branche seulement.",
+      "authority_index": 59,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "INCONNUE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "W-NTC.1",
+      "source_ids": [
+        "ELEC-NTC"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/ELEC-NTC"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Sonde externe 1",
+      "destination": "BMS J7 voie à identifier",
+      "function": "Mesure température batterie",
+      "conductors_or_pins": "Voie NTC 10 kΩ B3950 candidate, deux fils",
+      "cable_ids": [
+        "ELEC-NTC"
+      ],
+      "route_ids": [
+        "NTC1"
+      ],
+      "path": [
+        {
+          "route_id": "NTC1",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Première branche du faisceau OEM double JBD, séparation de puissance et des prises cellules.",
+      "authority_index": 60,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W-NTC.2",
+      "source_ids": [
+        "ELEC-NTC"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/ELEC-NTC"
+      ],
+      "scope": "faisceau_embarque",
+      "origin": "Sonde externe 2",
+      "destination": "BMS J7 voie à identifier",
+      "function": "Mesure température batterie",
+      "conductors_or_pins": "Voie NTC 10 kΩ B3950 candidate, deux fils",
+      "cable_ids": [
+        "ELEC-NTC"
+      ],
+      "route_ids": [
+        "NTC2"
+      ],
+      "path": [
+        {
+          "route_id": "NTC2",
+          "sense": "direct"
+        }
+      ],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Deuxième branche du faisceau OEM double JBD. Composition et brochage du lot ouverts.",
+      "authority_index": 61,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "CA01-MOD401",
+      "source_ids": [
+        "CA01-MOD401"
+      ],
+      "sources": [
+        "hardware/electronique/cartographe/cablage_global.json#/internal_connections/CA01-MOD401"
+      ],
+      "scope": "interne_pcb",
+      "origin": "CA01 MOD401",
+      "destination": "RadioMaster RP4TD",
+      "function": "Alimentation radio et UART",
+      "conductors_or_pins": "1 5V_RADIO, 2 GND, 3 RP_TX, 4 RP_RX",
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [
+        "J-MOD401"
+      ],
+      "path_kind": "serie",
+      "reason": "Contacts directs du PCB candidat, sans cordon W11.",
+      "authority_index": 62,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "W07",
+      "source_ids": [
+        "W07"
+      ],
+      "sources": [
+        "hardware/electronique/cartographe/cablage_global.json#/retired_connections/W07"
+      ],
+      "scope": "retire",
+      "origin": "PM BEC1",
+      "destination": "Radio",
+      "function": "Ancienne dérivation radio",
+      "conductors_or_pins": null,
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Remplacée par alimentation radio depuis CA01.",
+      "authority_index": 63,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W11",
+      "source_ids": [
+        "W11"
+      ],
+      "sources": [
+        "hardware/electronique/cartographe/cablage_global.json#/retired_connections/W11"
+      ],
+      "scope": "retire",
+      "origin": "CA01 J401",
+      "destination": "RP4TD",
+      "function": "Ancien UART/alimentation radio",
+      "conductors_or_pins": null,
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Remplacée par MOD401 intégré au PCB.",
+      "authority_index": 64,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "W30",
+      "source_ids": [
+        "W30"
+      ],
+      "sources": [
+        "hardware/electronique/cartographe/cablage_global.json#/retired_connections/W30"
+      ],
+      "scope": "retire",
+      "origin": "Capteur MEAS",
+      "destination": "Pixhawk",
+      "function": "Ancienne mesure électrique",
+      "conductors_or_pins": null,
+      "cable_ids": [],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Mesure globale PM08-CAN via W31.",
+      "authority_index": 65,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "HORS_RECETTE_DE_CABLAGE"
+    },
+    {
+      "id": "SOL-RTK-ANT",
+      "source_ids": [
+        "SOL-RTK-ANT"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/SOL-RTK-ANT"
+      ],
+      "scope": "au_sol",
+      "origin": "Base RTK 12022 SMA",
+      "destination": "HANT-X627A TNC",
+      "function": "RF GNSS de référence",
+      "conductors_or_pins": null,
+      "cable_ids": [
+        "SOL-RTK-ANT"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Coaxial SMA–TNC 5 m inclus dans la base.",
+      "authority_index": 66,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "SOL-RTK-USB",
+      "source_ids": [
+        "SOL-RTK-USB"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/SOL-RTK-USB"
+      ],
+      "scope": "au_sol",
+      "origin": "Base RTK 12022 USB-C",
+      "destination": "Terminal terrain",
+      "function": "Alimentation et données RTCM",
+      "conductors_or_pins": null,
+      "cable_ids": [
+        "SOL-RTK-USB"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Câble USB de données inclus dans la base.",
+      "authority_index": 67,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "SOL-RADIO-USB",
+      "source_ids": [
+        "SOL-RADIO-USB"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/SOL-RADIO-USB"
+      ],
+      "scope": "au_sol",
+      "origin": "Terminal terrain USB",
+      "destination": "Pocket USB-C charge",
+      "function": "Recharge 5 V Pocket",
+      "conductors_or_pins": null,
+      "cable_ids": [
+        "SOL-RADIO-USB"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Câble de charge fourni avec Pocket.",
+      "authority_index": 68,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    },
+    {
+      "id": "SOL-POWER.TERMINAL",
+      "source_ids": [
+        "SOL-POWER"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/SOL-POWER"
+      ],
+      "scope": "au_sol",
+      "origin": "Secteur terrain",
+      "destination": "Terminal terrain",
+      "function": "Recharge du terminal",
+      "conductors_or_pins": null,
+      "cable_ids": [
+        "SOL-POWER"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Chargeur hypothétique de 60 W selon le terminal, interface à choisir.",
+      "authority_index": 69,
+      "integration_copie_8_novembre": "non_resolue",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_RESOLUE"
+    },
+    {
+      "id": "SOL-POWER.S100NEO",
+      "source_ids": [
+        "SOL-POWER"
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json#/items/SOL-POWER"
+      ],
+      "scope": "au_sol",
+      "origin": "Secteur terrain",
+      "destination": "SkyRC S100neo",
+      "function": "Alimentation du chargeur batterie",
+      "conductors_or_pins": null,
+      "cable_ids": [
+        "SOL-POWER"
+      ],
+      "route_ids": [],
+      "path": [],
+      "junctions": [],
+      "path_kind": "serie",
+      "reason": "Cordon secteur compris dans le chargeur, variante à vérifier.",
+      "authority_index": 70,
+      "integration_copie_8_novembre": "conservee",
+      "etat_fonctionnel": "DOCUMENTEE",
+      "etat_action3": "NON_VERIFIE_PHYSIQUEMENT"
+    }
+  ],
+  "axes_actifs": [
+    {
+      "id": "F01_NEG",
+      "registry_index": 0,
+      "connection_ids": [
+        "W01.NEG"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F01_NEG_Prototype.FCStd",
+        "sha256": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F01_POS",
+      "registry_index": 1,
+      "connection_ids": [
+        "W01.POS"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F01_POS_Prototype.FCStd",
+        "sha256": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F37_POS",
+      "registry_index": 2,
+      "connection_ids": [
+        "W37.POS"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F37_POS_Prototype.FCStd",
+        "sha256": "44910ae45b6cb4af070d32ba25866f546e09196ae1e5e209b7d7408702440d6b"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "44910ae45b6cb4af070d32ba25866f546e09196ae1e5e209b7d7408702440d6b",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F37_NEG",
+      "registry_index": 3,
+      "connection_ids": [
+        "W37.NEG"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F37_NEG_Prototype.FCStd",
+        "sha256": "c9b12c941e6bf6905a5355731f68afb35b0bc03f418aa300121c512f59f1cbb8"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "c9b12c941e6bf6905a5355731f68afb35b0bc03f418aa300121c512f59f1cbb8",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F38_POS",
+      "registry_index": 4,
+      "connection_ids": [
+        "W38"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F38_POS_Prototype.FCStd",
+        "sha256": "064ea815edb8cc41a65ae03cf5b5b39ae1ca0d2af225d51123f0af49ffe0903e"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "064ea815edb8cc41a65ae03cf5b5b39ae1ca0d2af225d51123f0af49ffe0903e",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F05_POS",
+      "registry_index": 5,
+      "connection_ids": [
+        "W05"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F05_POS_Prototype.FCStd",
+        "sha256": "dd77218504683b15fe2ee248eb8ddac7c523a5f543c999cb73e8114defac181a"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "dd77218504683b15fe2ee248eb8ddac7c523a5f543c999cb73e8114defac181a",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F38_NEG",
+      "registry_index": 6,
+      "connection_ids": [
+        "W38"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F38_NEG_Prototype.FCStd",
+        "sha256": "28153e3272c66aeec6be06f9ded7da6deebe6adc88b96ebddadd7f54509fc092"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "28153e3272c66aeec6be06f9ded7da6deebe6adc88b96ebddadd7f54509fc092",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F05_NEG",
+      "registry_index": 7,
+      "connection_ids": [
+        "W05"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F05_NEG_Prototype.FCStd",
+        "sha256": "5dd08e292c667809ea77380b52f64d36e91b76af42d54a7c09b643f3c998a2d4"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "5dd08e292c667809ea77380b52f64d36e91b76af42d54a7c09b643f3c998a2d4",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F08_AMONT",
+      "registry_index": 8,
+      "connection_ids": [
+        "W08"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F08_AMONT_Prototype.FCStd",
+        "sha256": "13248417829f677e540356c19207148ea49521a35dd2a475714c5aad60238740"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "13248417829f677e540356c19207148ea49521a35dd2a475714c5aad60238740",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F08_AVAL",
+      "registry_index": 9,
+      "connection_ids": [
+        "W08"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F08_AVAL_Prototype.FCStd",
+        "sha256": "48dd341fd8f2104ba5fcaf833c16e398330f6a57a3bd0c6f8cfd1f2ae58985e7"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "48dd341fd8f2104ba5fcaf833c16e398330f6a57a3bd0c6f8cfd1f2ae58985e7",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F40",
+      "registry_index": 10,
+      "connection_ids": [
+        "W40"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F40_Prototype.FCStd",
+        "sha256": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "BALANCE",
+      "registry_index": 11,
+      "connection_ids": [
+        "W-CELLULES"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_BALANCE_Prototype.FCStd",
+        "sha256": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "NTC1",
+      "registry_index": 12,
+      "connection_ids": [
+        "W-NTC.1"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_NTC1_Prototype.FCStd",
+        "sha256": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "NTC2",
+      "registry_index": 13,
+      "connection_ids": [
+        "W-NTC.2"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_NTC2_Prototype.FCStd",
+        "sha256": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F02_1",
+      "registry_index": 14,
+      "connection_ids": [
+        "W02.1"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F02_1_Prototype.FCStd",
+        "sha256": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F03_1",
+      "registry_index": 15,
+      "connection_ids": [
+        "W03.1"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F03_1_Prototype.FCStd",
+        "sha256": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F04_1",
+      "registry_index": 16,
+      "connection_ids": [
+        "W04.1"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F04_1_Prototype.FCStd",
+        "sha256": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "LED_1",
+      "registry_index": 17,
+      "connection_ids": [
+        "W-LED-KIT.1"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_LED_1_Prototype.FCStd",
+        "sha256": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F02_2",
+      "registry_index": 18,
+      "connection_ids": [
+        "W02.2"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F02_2_Prototype.FCStd",
+        "sha256": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F03_2",
+      "registry_index": 19,
+      "connection_ids": [
+        "W03.2"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F03_2_Prototype.FCStd",
+        "sha256": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F04_2",
+      "registry_index": 20,
+      "connection_ids": [
+        "W04.2"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F04_2_Prototype.FCStd",
+        "sha256": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "LED_2",
+      "registry_index": 21,
+      "connection_ids": [
+        "W-LED-KIT.2"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_LED_2_Prototype.FCStd",
+        "sha256": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F02_3",
+      "registry_index": 22,
+      "connection_ids": [
+        "W02.3"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F02_3_Prototype.FCStd",
+        "sha256": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F03_3",
+      "registry_index": 23,
+      "connection_ids": [
+        "W03.3"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F03_3_Prototype.FCStd",
+        "sha256": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F04_3",
+      "registry_index": 24,
+      "connection_ids": [
+        "W04.3"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F04_3_Prototype.FCStd",
+        "sha256": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "LED_3",
+      "registry_index": 25,
+      "connection_ids": [
+        "W-LED-KIT.3"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_LED_3_Prototype.FCStd",
+        "sha256": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F02_4",
+      "registry_index": 26,
+      "connection_ids": [
+        "W02.4"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F02_4_Prototype.FCStd",
+        "sha256": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F03_4",
+      "registry_index": 27,
+      "connection_ids": [
+        "W03.4"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F03_4_Prototype.FCStd",
+        "sha256": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F04_4",
+      "registry_index": 28,
+      "connection_ids": [
+        "W04.4"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F04_4_Prototype.FCStd",
+        "sha256": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "LED_4",
+      "registry_index": 29,
+      "connection_ids": [
+        "W-LED-KIT.4"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_LED_4_Prototype.FCStd",
+        "sha256": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "AIRY",
+      "registry_index": 30,
+      "connection_ids": [
+        "W10",
+        "W15",
+        "W23"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_Prototype.FCStd",
+        "sha256": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "AIRY_ETH",
+      "registry_index": 31,
+      "connection_ids": [
+        "W15"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_ETH_Prototype.FCStd",
+        "sha256": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "AIRY_PWR",
+      "registry_index": 32,
+      "connection_ids": [
+        "W10"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_PWR_Prototype.FCStd",
+        "sha256": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "AIRY_SYNC",
+      "registry_index": 33,
+      "connection_ids": [
+        "W23"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_AIRY_SYNC_Prototype.FCStd",
+        "sha256": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F_M8",
+      "registry_index": 34,
+      "connection_ids": [
+        "W18",
+        "W34"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F_M8_Prototype.FCStd",
+        "sha256": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F16",
+      "registry_index": 35,
+      "connection_ids": [
+        "W16"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd",
+        "sha256": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+      "natif_identique_copie_8_novembre": false
+    },
+    {
+      "id": "F41",
+      "registry_index": 36,
+      "connection_ids": [
+        "W41"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F41_Prototype.FCStd",
+        "sha256": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F09",
+      "registry_index": 37,
+      "connection_ids": [
+        "W09"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F09_Prototype.FCStd",
+        "sha256": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F06",
+      "registry_index": 38,
+      "connection_ids": [
+        "W06"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F06_Prototype.FCStd",
+        "sha256": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F32",
+      "registry_index": 39,
+      "connection_ids": [
+        "W32"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F32_Prototype.FCStd",
+        "sha256": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F31",
+      "registry_index": 40,
+      "connection_ids": [
+        "W31"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F31_Prototype.FCStd",
+        "sha256": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F12",
+      "registry_index": 41,
+      "connection_ids": [
+        "W12"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F12_Prototype.FCStd",
+        "sha256": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F21",
+      "registry_index": 42,
+      "connection_ids": [
+        "W21"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F21_Prototype.FCStd",
+        "sha256": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F36",
+      "registry_index": 43,
+      "connection_ids": [
+        "W36"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F36_Prototype.FCStd",
+        "sha256": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F24A",
+      "registry_index": 44,
+      "connection_ids": [
+        "W24.A"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F24A_Prototype.FCStd",
+        "sha256": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F24B",
+      "registry_index": 45,
+      "connection_ids": [
+        "W24.B"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F24B_Prototype.FCStd",
+        "sha256": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F24C",
+      "registry_index": 46,
+      "connection_ids": [
+        "W24.C"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F24C_Prototype.FCStd",
+        "sha256": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F33",
+      "registry_index": 47,
+      "connection_ids": [
+        "W33"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F33_Prototype.FCStd",
+        "sha256": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F35",
+      "registry_index": 48,
+      "connection_ids": [
+        "W35"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F35_Prototype.FCStd",
+        "sha256": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F25",
+      "registry_index": 49,
+      "connection_ids": [
+        "W25"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F25_Prototype.FCStd",
+        "sha256": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F20",
+      "registry_index": 50,
+      "connection_ids": [
+        "W20"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F20_Prototype.FCStd",
+        "sha256": "50cf55d0a8be88cbd1c463136aeacbaf0a397278823a1aeaf392ffbe3e3dc8c1"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "50cf55d0a8be88cbd1c463136aeacbaf0a397278823a1aeaf392ffbe3e3dc8c1",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F13A",
+      "registry_index": 51,
+      "connection_ids": [
+        "W13.A"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F13A_Prototype.FCStd",
+        "sha256": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+      "natif_identique_copie_8_novembre": true
+    },
+    {
+      "id": "F13B",
+      "registry_index": 52,
+      "connection_ids": [
+        "W13.B"
+      ],
+      "natif_actif": {
+        "path": "hardware/mecanique/cartographe/pieces/commerce/W_F13B_Prototype.FCStd",
+        "sha256": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54"
+      },
+      "objet": "Cable",
+      "empreinte_copie_8_novembre": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54",
+      "natif_identique_copie_8_novembre": true
+    }
+  ]
+}

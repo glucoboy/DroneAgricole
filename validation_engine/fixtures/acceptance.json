@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "open_scope": [
+    "Identification et compatibilité des références réellement montées, graphe du prototype par contact et applicabilité fabricant.",
+    "Trajectoire continue, flexion dynamique, traction, pincement et maintien sous tolérances sur le cartographe.",
+    "Courses et gestes physiques de verrouillage, montage, retrait et outillage, ainsi que fatigue, CEM et sûreté du vol.",
+    "Validation native d’une architecture complète du cartographe et comparaison de sa masse et de sa maintenabilité."
+  ],
+  "cases": {
+    "angled-incompatible": {"verdict":"FAIL","findings":{"angled-compatibility":"FAIL"}},
+    "diagnostic-missing-return": {"verdict":"FAIL","findings":{"f40-debug":"PASS","f41-return":"FAIL"}},
+    "diagnostic-nominal": {"verdict":"PASS","findings":{"f40-debug":"PASS","f41-return":"PASS"}},
+    "electrical-historical-documentary": {"verdict":"FAIL","findings":{"f12-recorded-geometry":"FAIL","f12-mounted-revision":"INCONCLUSIVE","f24a-mounted-port":"INCONCLUSIVE"}},
+    "electrical-matrix-tampered": {"verdict":"FAIL","findings":{"continuity":"FAIL"}},
+    "electrical-missing-data": {"verdict":"INCONCLUSIVE","findings":{"continuity":"INCONCLUSIVE"}},
+    "electrical-nominal": {"verdict":"PASS","findings":{"continuity":"PASS","compatibility":"PASS","port-a":"PASS","revision":"PASS"}},
+    "f12-wrong-port": {"verdict":"FAIL","findings":{"f12-port":"FAIL"}},
+    "f24a-unidentified": {"verdict":"INCONCLUSIVE","findings":{"f24a-port":"INCONCLUSIVE"}},
+    "manufacturer-revision-conflict": {"verdict":"FAIL","findings":{"manufacturer-revision":"FAIL"}},
+    "native-nominal": {"verdict":"PASS","findings":{"integrity":"PASS","geometry":"PASS","radius":"PASS","all-pairs":"PASS","extraction":"PASS","total-length":"PASS","upper-congestion":"PASS","review":"PASS","review-extraction":"PASS"}},
+    "native-collision": {"verdict":"FAIL","findings":{"integrity":"PASS","all-pairs":"FAIL","direct-obstacle":"FAIL","review":"FAIL"}},
+    "native-outside-selection": {"verdict":"FAIL","findings":{"all-pairs":"FAIL","outside-selection":"FAIL"}},
+    "native-can1-clear": {"verdict":"PASS","findings":{"extraction":"PASS"}},
+    "native-can1-blocked": {"verdict":"FAIL","findings":{"extraction":"FAIL"}},
+    "native-mobile": {"verdict":"PASS","findings":{"integrity":"PASS","anchor":"PASS","intermediaire":"PASS","extreme":"PASS","continuous-envelope":"INCONCLUSIVE","review-support":"PASS"}},
+    "native-mobile-collision": {"verdict":"FAIL","findings":{"extreme":"FAIL","continuous-envelope":"INCONCLUSIVE"}},
+    "native-floating": {"verdict":"FAIL","findings":{"anchor":"FAIL"}},
+    "native-congested": {"verdict":"FAIL","findings":{"total-length":"PASS","upper-congestion":"FAIL"}},
+    "native-partial": {"verdict":"FAIL","findings":{"integrity":"FAIL"}},
+    "native-l2": {"verdict":"PASS","findings":{"mate-port-a":"PASS","mate-port-b":"PASS","review-connectors":"PASS","continuity":"PASS","compatibility":"PASS","port-a":"PASS","revision":"PASS"}},
+    "history-f16-k": {"verdict":"FAIL","findings":{"radius":"FAIL","gaine":"FAIL"}},
+    "history-f16-initial": {"verdict":"INCONCLUSIVE","findings":{"radius":"PASS","dynamic-limit-unproven":"INCONCLUSIVE"}},
+    "history-f16-p": {"verdict":"FAIL","findings":{"f16-p73":"FAIL","dynamic-limit-unproven":"INCONCLUSIVE"}},
+    "history-f16-p73-clear": {"verdict":"PASS","findings":{"f16-p73":"PASS"}},
+    "history-f16-chassis": {"verdict":"FAIL","findings":{"f16-chassis":"FAIL"}},
+    "history-can1": {"verdict":"FAIL","findings":{"extraction":"FAIL","full-assembled-can1":"INCONCLUSIVE"}},
+    "history-a": {"verdict":"PASS","findings":{"historical-length":"PASS","historical-height":"PASS","upper-zone-replay":"PASS","upper-zone-qualification":"INCONCLUSIVE"}},
+    "history-faces": {"verdict":"PASS","findings":{"historical-length":"PASS","historical-height":"PASS","upper-zone-replay":"PASS","upper-zone-qualification":"INCONCLUSIVE"}}
+  }
+}

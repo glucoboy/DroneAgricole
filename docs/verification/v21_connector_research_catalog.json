@@ -1,0 +1,2061 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "prototype_cartographe",
+  "questions": [
+    {
+      "issue_id": "V21-F12-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-F12-PHYSICAL",
+        "subject_ids": [
+          "W12"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe F12 ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche 11072 RC02 TELEM1 GPS2 TX7 RX7 GH 6 SM06B et J402 SM03B.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Corriger la destination radio avant l’implantation et exclure le +5 V du cordon.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_f12",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F12"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Identifier porteuse et sérigraphie, vue d’accouplement et trajet RX/TX/GND. Vérifier le verrou et la course de retrait après contrôle hors tension."
+      }
+    },
+    {
+      "issue_id": "V21-F24A-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-F24A-PHYSICAL",
+        "subject_ids": [
+          "W13.A",
+          "W24.A"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe F24A ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche 11072 Orin GPIO_07 GH 6 Orin Debug SH 6 pinmux r36.5 J505 et P75 F13A.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Fixer le véritable port PPS et établir l’accès sans créer de faiblesse P75 ni gêner F13A.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_f24a",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F24A"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Observer révision et broche 1. Relire DTB et pinmux déployés et le peuplement R532. Vérifier la polarité, la tension et la garde à P75 et F13A."
+      }
+    },
+    {
+      "issue_id": "V21-F31-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-F31-PHYSICAL",
+        "subject_ids": [
+          "W25",
+          "W31",
+          "W35"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe F31 ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche PM08-CAN 15029 POWER1 POWER2 CANH CANL CLIK-Mate 2.00 5024390600 CAN1 GH4 F35.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Fermer la réception CAN1 et permettre le retrait et l’accès au verrou avec F35 et la puissance en place.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_f31",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "PM08-CAN",
+        "part_number": "15029",
+        "revision": null,
+        "attributes": {
+          "groupe": "F31"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Associer la vue fabricant au lot et numéroter les cavités. Identifier le port PM08 utilisé et le cordon. Vérifier H/L/GND et +5 V NC côté CAN1, puis mesurer retrait et accès avec F35."
+      }
+    },
+    {
+      "issue_id": "V21-F16-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-F16-PHYSICAL",
+        "subject_ids": [
+          "W16",
+          "W18",
+          "W34"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe F16 ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Basler a2A4096-30ucBAS Micro-B vis, RR-ASMUK-20GRHF A1 STEP rayon, 2200000620 et 2000036369.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Choisir une fiche montable et utilisable sur la suspension avant de dimensionner le cordon USB3.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_f16",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": null,
+        "attributes": {
+          "groupe": "F16"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Identifier le cordon retenu, les deux sorties réelles et le sens de détrompage. Mesurer course des vis et de retrait, garde, réserve de longueur et déformation continue."
+      }
+    },
+    {
+      "issue_id": "V21-DIAG-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-DIAG-PHYSICAL",
+        "subject_ids": [
+          "W40",
+          "W41"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe DIAG ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Waveshare 15817 USB B TTL FT232RL FT232RNL CH343G JBD-SP22S003 A01 J2 J3 HY2.0.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Rendre les deux prises diagnostic accessibles en conservant l’isolation B− et les protections.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_diag",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Waveshare",
+        "family": "USB TO RS232/485/TTL",
+        "part_number": "15817",
+        "revision": null,
+        "attributes": {
+          "groupe": "DIAG"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Lire les références et marquages du lot JBD et Waveshare. Établir J2/J3, niveaux TTL, repères, retrait USB-B et accès au bornier. Le déport passif reste un candidat."
+      }
+    },
+    {
+      "issue_id": "V21-CSI-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-CSI-PHYSICAL",
+        "subject_ids": [
+          "W23",
+          "W24.B",
+          "W24.C"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe CSI ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche 11072 Orin Camera0 Camera1 CSI RPi 22 FFC 0.5 orientation 22 VDD 1 GND J509.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Protéger référence temporelle et alimentation de l’adaptation CA01 sans court-circuit ni dommage FFC.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_csi",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "CSI"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Obtenir le modèle exact du verrou et sa vue, choisir Camera0/1 et un extracteur documenté, puis vérifier l’orientation et la revue courant utile avec l’état DNP."
+      }
+    },
+    {
+      "issue_id": "V21-RF-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-RF-PHYSICAL",
+        "subject_ids": [
+          "W13.B",
+          "W22",
+          "SOL-RTK-ANT"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe RF ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Holybro 12037 STM32G4 H-RTK Helical SMA ou RadioMaster RP4TD U.FL direction et verrouillage.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Vérifier l’accord physique antenne et GNSS et éviter une confusion SMA/RP-SMA ou pose coaxiale défavorable.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_rf",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "DroneCAN H-RTK F9P Helical",
+        "part_number": "12037",
+        "revision": null,
+        "attributes": {
+          "groupe": "RF"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Identifier sexe mécanique, conducteur central et nomenclature du lot. Vérifier axe, serrage, 50 Ω applicable et accessibilité du SMA. Relever les embases U.FL réellement montées."
+      }
+    },
+    {
+      "issue_id": "V21-BMS-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-BMS-PHYSICAL",
+        "subject_ids": [
+          "W01.NEG",
+          "W01.POS",
+          "W05",
+          "W06",
+          "W08",
+          "W09",
+          "W32",
+          "W37.POS",
+          "W37.NEG",
+          "W38",
+          "W-CELLULES",
+          "W-NTC.1",
+          "W-NTC.2"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe BMS ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche JBD-SP22S003 A01 HY2.0 J4 J5 J7 6S BC0 BC6 QS8-S B9310 MIDI C− B−.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Maintenir polarité, protection principale et séparation des références brutes et protégées.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_bms",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "JBD",
+        "family": "SP22S003 Li-ion A01",
+        "part_number": "JBD-SP22S003",
+        "revision": null,
+        "attributes": {
+          "groupe": "BMS"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Relever lot Li-ion, table brochée 6S, sections, cosses, couple, QS8 et températures admissibles. Contrôler l’absence de chemin contournant C−."
+      }
+    },
+    {
+      "issue_id": "V21-FAN-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-FAN-PHYSICAL",
+        "subject_ids": [
+          "W20"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe FAN ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Orin FAN 11072 DF13-4P-1.25DSA DF13-4S-1.25C Waveshare 24076 PWM.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Vérifier l’accouplement et le courant de démarrage afin de conserver le refroidissement du calculateur.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_fan",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Waveshare",
+        "family": "Orin-FAN-PWM",
+        "part_number": "24076",
+        "revision": null,
+        "attributes": {
+          "groupe": "FAN"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Relever marquages des deux parties et pinmap alim/PWM/tachymètre, dimensions et détrompage. Confirmer tension, courant de démarrage et chemin avec retenue."
+      }
+    },
+    {
+      "issue_id": "V21-LED-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-LED-PHYSICAL",
+        "subject_ids": [
+          "W33",
+          "W-LED-KIT.1",
+          "W-LED-KIT.2",
+          "W-LED-KIT.3",
+          "W-LED-KIT.4"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe LED ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Holybro X650 V2 ARF WS2812 connecteurs AUX FMU niveaux LED J507.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Attribuer ports, courant et niveaux des LED de chaque bras avant toute évolution d’implantation.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_led",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "X650 V2 ARF NeoPixel",
+        "part_number": "WS2812",
+        "revision": null,
+        "attributes": {
+          "groupe": "LED"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Identifier contrôleur, rail et terminaisons des quatre branches, et vérifier l’affectation J507/AUX sur le lot et le firmware PX4."
+      }
+    },
+    {
+      "issue_id": "V21-X650-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-X650-PHYSICAL",
+        "subject_ids": [
+          "W02.1",
+          "W02.2",
+          "W02.3",
+          "W02.4",
+          "W03.1",
+          "W03.2",
+          "W03.3",
+          "W03.4",
+          "W04.1",
+          "W04.2",
+          "W04.3",
+          "W04.4"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe X650 ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche X650 V2 ARF MN4014 KV330 Tekko32 F4 45A PDB 300 A XT90 XT30 phases.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Préserver alimentation et sens des phases de propulsion pendant l’intégration du kit.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_x650",
+      "unit": "1",
+      "criticality": "CRITICAL",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "X650 V2 ARF",
+        "part_number": "X650",
+        "revision": null,
+        "attributes": {
+          "groupe": "X650"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Identifier variante du kit et du PDB, genres et polarité des prises, ordre des phases, retenue et conditions de courant et de température."
+      }
+    },
+    {
+      "issue_id": "V21-INTERFACES-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-INTERFACES-PHYSICAL",
+        "subject_ids": [
+          "W10",
+          "W14",
+          "W15",
+          "W19",
+          "W21",
+          "W27",
+          "W28",
+          "W29",
+          "W36",
+          "W43",
+          "CA01-MOD401",
+          "SOL-RTK-USB",
+          "SOL-RADIO-USB",
+          "SOL-POWER.TERMINAL",
+          "SOL-POWER.S100NEO"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe INTERFACES ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche Cartographe Airy aviation, CA01, GNSS GPS1, M.2, USB, cordons sol et interfaces OEM.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Confirmer les autres contacts et conditions de montage de la BOM sans changer périmètre ou topologie.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_interfaces",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe sans dock",
+        "part_number": "prototype_cartographe",
+        "revision": null,
+        "attributes": {
+          "groupe": "INTERFACES"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Appliquer la condition propre à chaque ligne GO3A. Présenter le MPN et le plan du lot lorsque la continuité, la masse ou le service dépendent de l’interface."
+      }
+    },
+    {
+      "issue_id": "V21-HORS-AXE-PHYSICAL",
+      "question": {
+        "id": "RQ.V21-HORS-AXE-PHYSICAL",
+        "subject_ids": [
+          "W17",
+          "W26",
+          "W39",
+          "W42",
+          "W-JETI-COMMANDE",
+          "W07",
+          "W11",
+          "W30"
+        ],
+        "status": "OPEN",
+        "question": "Quelles interfaces physiques sont applicables aux liaisons du groupe HORS-AXE ?",
+        "hypothesis": "Le lot pourrait correspondre à la définition ou à une variante de catalogue. Recherche GO3B lignes retirées ou non montées hors axe nouvelle sélection.",
+        "expected_evidence": "Révision et lot identifiés, vue de contacts et MPN, pose, plan de fiche et gestes documentés.",
+        "refutation": "Un lot distinct, un port incompatible, une insertion impossible ou une cavité incorrecte réfute l’applicabilité.",
+        "dependent_decision": "Préserver la décision de périmètre des réserves et lignes retirées.",
+        "evidence_ids": []
+      },
+      "parameter": "physical_interface_hors-axe",
+      "unit": "1",
+      "criticality": "LOW",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe sans dock",
+        "part_number": "prototype_cartographe",
+        "revision": null,
+        "attributes": {
+          "groupe": "HORS-AXE"
+        }
+      },
+      "applicability": {
+        "domain": "PHYSICAL",
+        "conditions": {
+          "configuration": "prototype_cartographe sans dock",
+          "lot": "inconnu"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Relire les éléments du registre v21_connector_sources avant de demander l’observation du lot.",
+        "variables": [
+          "Révision et lot",
+          "Ports et contacts",
+          "Accouplement, retrait et accès outil"
+        ],
+        "next_observation": "Conserver le motif GO3B. Si le périmètre évolue, obtenir la référence, les contacts, les repères et une preuve d’accès avant réintroduction."
+      }
+    },
+    {
+      "issue_id": "V21-F12-PINOUT",
+      "question": {
+        "id": "RQ.V21-F12-PINOUT",
+        "subject_ids": [
+          "W12"
+        ],
+        "status": "OPEN",
+        "question": "Quels signaux distinguent TELEM1, GPS2, CAN1 et le GPIO sur le tableau de la porteuse ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_telem1",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": "capture documentaire du 10 octobre 2026",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    },
+    {
+      "issue_id": "V21-F31-PM08-FACE",
+      "question": {
+        "id": "RQ.V21-F31-PM08-FACE",
+        "subject_ids": [
+          "W31"
+        ],
+        "status": "OPEN",
+        "question": "Quel est l’ordre visuel des contacts sur l’illustration du PM08-CAN ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_pm08_face",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "PM08-CAN",
+        "part_number": "PM08-CAN",
+        "revision": "illustration OEM POWER1/POWER2 du cache local",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    },
+    {
+      "issue_id": "V21-F16-PROFILE",
+      "question": {
+        "id": "RQ.V21-F16-PROFILE",
+        "subject_ids": [
+          "W16"
+        ],
+        "status": "OPEN",
+        "question": "Quel profil le plan A1 décrit-il pour le cordon candidat F16 ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_f16_profile",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1, ECN-180919, 3 octobre 2018",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    },
+    {
+      "issue_id": "V21-F16-STRAIGHT",
+      "question": {
+        "id": "RQ.V21-F16-STRAIGHT",
+        "subject_ids": [
+          "W16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle variante droite à vis le fabricant documente-t-il ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_f16_straight",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "Micro B sl/A, S",
+        "part_number": "2200000620",
+        "revision": "AW001406",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    },
+    {
+      "issue_id": "V21-F16-ANGLED",
+      "question": {
+        "id": "RQ.V21-F16-ANGLED",
+        "subject_ids": [
+          "W16"
+        ],
+        "status": "OPEN",
+        "question": "Quelle variante coudée à vis le fabricant documente-t-il ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_f16_angled",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "Micro B 90° A1 sl/A, P",
+        "part_number": "2000036369",
+        "revision": "AW001406",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    },
+    {
+      "issue_id": "V21-F40-JBD",
+      "question": {
+        "id": "RQ.V21-F40-JBD",
+        "subject_ids": [
+          "W40"
+        ],
+        "status": "OPEN",
+        "question": "Que porte la notice A01 sur les ports J2/J3 ?",
+        "hypothesis": "La source identifiée contient une réponse de portée limitée.",
+        "expected_evidence": "Lexique, profil ou rang de contacts dans le document désigné et provenance versionnée.",
+        "refutation": "Une révision différente ou un écart entre source originale et transcription invalide ce résultat.",
+        "dependent_decision": "Tester la variante dans son périmètre documentaire.",
+        "evidence_ids": []
+      },
+      "parameter": "document_f40_jbd",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "JBD",
+        "family": "SP22S003 Li-ion A01",
+        "part_number": "JBD-SP22S003",
+        "revision": "A01 du 19 avril 2022",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "expected_authority": "ANY",
+      "study": {
+        "strategy": "Lire le document fabricant et sa transcription de lecture.",
+        "variables": [
+          "Référence documentaire",
+          "Révision documentaire"
+        ],
+        "next_observation": "Comparer avec la version du lot et ses propres paramètres de montage."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "parameter": "physical_interface_f12",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F12"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f12.HOLYBRO-PINOUT",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/11/observation",
+        "checks": {
+          "/sources/11/id": "HOLYBRO-PINOUT",
+          "/sources/11/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/11/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_f12",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F12"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f12.HOLYBRO-BASE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Jetson Orin NX/Nano Connectors, Flight Controller Connectors",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/12/observation",
+        "checks": {
+          "/sources/12/id": "HOLYBRO-BASE",
+          "/sources/12/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/12/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_f24a",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F24A"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f24a.HOLYBRO-PINOUT",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/11/observation",
+        "checks": {
+          "/sources/11/id": "HOLYBRO-PINOUT",
+          "/sources/11/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/11/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_f24a",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "F24A"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f24a.HOLYBRO-BASE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Jetson Orin NX/Nano Connectors, Flight Controller Connectors",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/12/observation",
+        "checks": {
+          "/sources/12/id": "HOLYBRO-BASE",
+          "/sources/12/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/12/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_f31",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "PM08-CAN",
+        "part_number": "15029",
+        "revision": null,
+        "attributes": {
+          "groupe": "F31"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f31.HOLYBRO-PM08",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "PM08-CAN et variant 44052276641981 / 15029 dans snapshot",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/16/observation",
+        "checks": {
+          "/sources/16/id": "HOLYBRO-PM08",
+          "/sources/16/reference": "PM08-CAN 15029, fils étamés et 15028 XT90"
+        },
+        "reference_check": {
+          "pointer": "/sources/16/reference",
+          "pattern": ".*(15029).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_f16",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "ace 2 USB",
+        "part_number": "a2A4096-30ucBAS",
+        "revision": "AW001406 v138, 12 novembre 2026",
+        "attributes": {
+          "groupe": "F16"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_f16.BASLER-MODEL",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Physical Interface / USB 3.0 Micro-B Connector et Cable Requirements",
+        "revision": "AW001406 v138, 12 novembre 2026",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/19/observation",
+        "checks": {
+          "/sources/19/id": "BASLER-MODEL",
+          "/sources/19/reference": "a2A4096-30ucBAS"
+        },
+        "reference_check": {
+          "pointer": "/sources/19/reference",
+          "pattern": ".*(a2A4096\\-30ucBAS).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_diag",
+      "reference": {
+        "manufacturer": "Waveshare",
+        "family": "USB TO RS232/485/TTL",
+        "part_number": "15817",
+        "revision": null,
+        "attributes": {
+          "groupe": "DIAG"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_diag.WAVESHARE-BASE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "SKU 15817, interface, ressources",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/29/observation",
+        "checks": {
+          "/sources/29/id": "WAVESHARE-BASE",
+          "/sources/29/reference": "USB TO RS232/485/TTL SKU 15817"
+        },
+        "reference_check": {
+          "pointer": "/sources/29/reference",
+          "pattern": ".*(15817).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_csi",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "CSI"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_csi.HOLYBRO-CSI",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "CSI Camera setup",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/31/observation",
+        "checks": {
+          "/sources/31/id": "HOLYBRO-CSI",
+          "/sources/31/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/31/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_csi",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "CSI"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_csi.HOLYBRO-PINOUT",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/11/observation",
+        "checks": {
+          "/sources/11/id": "HOLYBRO-PINOUT",
+          "/sources/11/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/11/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_csi",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": null,
+        "attributes": {
+          "groupe": "CSI"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_csi.HOLYBRO-BASE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Jetson Orin NX/Nano Connectors, Flight Controller Connectors",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/12/observation",
+        "checks": {
+          "/sources/12/id": "HOLYBRO-BASE",
+          "/sources/12/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/12/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_rf",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "DroneCAN H-RTK F9P Helical",
+        "part_number": "12037",
+        "revision": "STM32G4 annoncé, ancienne variante à vérifier",
+        "attributes": {
+          "groupe": "RF"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_rf.HEL-F9P",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Overview / SKU / description processeur et antenne",
+        "revision": "STM32G4 annoncé, ancienne variante à vérifier",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/32/observation",
+        "checks": {
+          "/sources/32/id": "HEL-F9P",
+          "/sources/32/reference": "DroneCAN H-RTK F9P Helical SKU 12037"
+        },
+        "reference_check": {
+          "pointer": "/sources/32/reference",
+          "pattern": ".*(12037).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_bms",
+      "reference": {
+        "manufacturer": "JBD",
+        "family": "SP22S003 Li-ion A01",
+        "part_number": "JBD-SP22S003",
+        "revision": "A01 du 19 avril 2022",
+        "attributes": {
+          "groupe": "BMS"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_bms.JBD-A01",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "§7.1 p. 14 à 16",
+        "revision": "A01 du 19 avril 2022",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/27/observation",
+        "checks": {
+          "/sources/27/id": "JBD-A01",
+          "/sources/27/reference": "JBD-SP22S003 Li-ion"
+        },
+        "reference_check": {
+          "pointer": "/sources/27/reference",
+          "pattern": ".*(JBD\\-SP22S003).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_fan",
+      "reference": {
+        "manufacturer": "Waveshare",
+        "family": "Orin-FAN-PWM",
+        "part_number": "24076",
+        "revision": null,
+        "attributes": {
+          "groupe": "FAN"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_fan.WAVESHARE-FAN",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Specifications et photos",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/35/observation",
+        "checks": {
+          "/sources/35/id": "WAVESHARE-FAN",
+          "/sources/35/reference": "Orin-FAN-PWM SKU 24076"
+        },
+        "reference_check": {
+          "pointer": "/sources/35/reference",
+          "pattern": ".*(24076).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_fan",
+      "reference": {
+        "manufacturer": "Waveshare",
+        "family": "Orin-FAN-PWM",
+        "part_number": "24076",
+        "revision": "T-CARTO-FAN-CONN-01",
+        "attributes": {
+          "groupe": "FAN"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_fan.FAN-LOCAL",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "observations et repères_step",
+        "revision": "T-CARTO-FAN-CONN-01",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/34/observation",
+        "checks": {
+          "/sources/34/id": "FAN-LOCAL",
+          "/sources/34/reference": "Holybro 11072, Waveshare Orin-FAN-PWM 24076"
+        },
+        "reference_check": {
+          "pointer": "/sources/34/reference",
+          "pattern": ".*(24076).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_led",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "X650 V2 ARF NeoPixel",
+        "part_number": "WS2812",
+        "revision": null,
+        "attributes": {
+          "groupe": "LED"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_led.LED-X650",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "point exemple AUX/FMU PWM 1–4",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/36/observation",
+        "checks": {
+          "/sources/36/id": "LED-X650",
+          "/sources/36/reference": "X650 V2 ARF, NeoPixel WS2812"
+        },
+        "reference_check": {
+          "pointer": "/sources/36/reference",
+          "pattern": ".*(WS2812).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_x650",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "X650 V2 ARF",
+        "part_number": "X650",
+        "revision": null,
+        "attributes": {
+          "groupe": "X650"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_x650.X650-ARF",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "X650 ARF Kit Includes et variantes",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/37/observation",
+        "checks": {
+          "/sources/37/id": "X650-ARF",
+          "/sources/37/reference": "X650 V2 ARF"
+        },
+        "reference_check": {
+          "pointer": "/sources/37/reference",
+          "pattern": ".*(X650).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_interfaces",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe sans dock",
+        "part_number": "prototype_cartographe",
+        "revision": null,
+        "attributes": {
+          "groupe": "INTERFACES"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_interfaces.MEC-BOM",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "items et liaisons",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/6/observation",
+        "checks": {
+          "/sources/6/id": "MEC-BOM",
+          "/sources/6/reference": "prototype_cartographe"
+        },
+        "reference_check": {
+          "pointer": "/sources/6/reference",
+          "pattern": ".*(prototype_cartographe).*"
+        }
+      }
+    },
+    {
+      "parameter": "physical_interface_interfaces",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe sans dock",
+        "part_number": "prototype_cartographe",
+        "revision": null,
+        "attributes": {
+          "groupe": "INTERFACES"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.physical_interface_interfaces.MEC-MANIFEST",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "prototype_cartographe/occurrences",
+        "revision": null,
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/5/observation",
+        "checks": {
+          "/sources/5/id": "MEC-MANIFEST",
+          "/sources/5/reference": "prototype_cartographe"
+        },
+        "reference_check": {
+          "pointer": "/sources/5/reference",
+          "pattern": ".*(prototype_cartographe).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_telem1",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Jetson Baseboard",
+        "part_number": "11072",
+        "revision": "capture documentaire du 10 octobre 2026",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_telem1.HOLYBRO-PINOUT",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+        "revision": "capture documentaire du 10 octobre 2026",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/11/observation",
+        "checks": {
+          "/sources/11/id": "HOLYBRO-PINOUT",
+          "/sources/11/reference": "Pixhawk Jetson Baseboard 11072"
+        },
+        "reference_check": {
+          "pointer": "/sources/11/reference",
+          "pattern": ".*(11072).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_pm08_face",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "PM08-CAN",
+        "part_number": "PM08-CAN",
+        "revision": "illustration OEM POWER1/POWER2 du cache local",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_pm08_face.HOLYBRO-PM08-FACE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "illustration face des ports POWER1 et POWER2",
+        "revision": "illustration OEM POWER1/POWER2 du cache local",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/17/observation",
+        "checks": {
+          "/sources/17/id": "HOLYBRO-PM08-FACE",
+          "/sources/17/reference": "PM08-CAN POWER1/POWER2"
+        },
+        "reference_check": {
+          "pointer": "/sources/17/reference",
+          "pattern": ".*(PM08\\-CAN).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_f16_profile",
+      "reference": {
+        "manufacturer": "USBFireWire",
+        "family": "RR-ASMUK-XXGRHF",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": "A1, ECN-180919, 3 octobre 2018",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_f16_profile.USB-UP-PLAN",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "p. 1, P/N, profil corps, vis et câblage",
+        "revision": "A1, ECN-180919, 3 octobre 2018",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/20/observation",
+        "checks": {
+          "/sources/20/id": "USB-UP-PLAN",
+          "/sources/20/reference": "RR-ASMUK-20GRHF"
+        },
+        "reference_check": {
+          "pointer": "/sources/20/reference",
+          "pattern": ".*(RR\\-ASMUK\\-20GRHF).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_f16_straight",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "Micro B sl/A, S",
+        "part_number": "2200000620",
+        "revision": "AW001406",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_f16_straight.BASLER-DROIT",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Cable Drawing et Physical Specifications",
+        "revision": "AW001406",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/24/observation",
+        "checks": {
+          "/sources/24/id": "BASLER-DROIT",
+          "/sources/24/reference": "2200000620"
+        },
+        "reference_check": {
+          "pointer": "/sources/24/reference",
+          "pattern": ".*(2200000620).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_f16_angled",
+      "reference": {
+        "manufacturer": "Basler",
+        "family": "Micro B 90° A1 sl/A, P",
+        "part_number": "2000036369",
+        "revision": "AW001406",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_f16_angled.BASLER-COUDE",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "Cable Drawing / Cable Connected to ace 2 Camera et Physical Specifications",
+        "revision": "AW001406",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/25/observation",
+        "checks": {
+          "/sources/25/id": "BASLER-COUDE",
+          "/sources/25/reference": "2000036369"
+        },
+        "reference_check": {
+          "pointer": "/sources/25/reference",
+          "pattern": ".*(2000036369).*"
+        }
+      }
+    },
+    {
+      "parameter": "document_f40_jbd",
+      "reference": {
+        "manufacturer": "JBD",
+        "family": "SP22S003 Li-ion A01",
+        "part_number": "JBD-SP22S003",
+        "revision": "A01 du 19 avril 2022",
+        "attributes": {
+          "objet": "documentation et variante définies"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "candidat ou définition OEM"
+        }
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.V21.document_f40_jbd.JBD-A01",
+        "kind": "SOURCE",
+        "domain": "DOCUMENT",
+        "artifact_path": "docs/verification/v21_connector_sources.json",
+        "uri": null,
+        "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47",
+        "locator": "§7.1 p. 14 à 16",
+        "revision": "A01 du 19 avril 2022",
+        "collected_at": "2026-11-15T12:00:00Z",
+        "method": "Lecture de la transcription versionnée et contrôle de l’identité et de l’empreinte.",
+        "hypothetical": false,
+        "limits": "La publication ou transcription décrit un produit de référence. Le lot et l’application physique sur le cartographe ne sont pas établis."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/sources/27/observation",
+        "checks": {
+          "/sources/27/id": "JBD-A01",
+          "/sources/27/reference": "JBD-SP22S003 Li-ion"
+        },
+        "reference_check": {
+          "pointer": "/sources/27/reference",
+          "pattern": ".*(JBD\\-SP22S003).*"
+        }
+      }
+    }
+  ]
+}

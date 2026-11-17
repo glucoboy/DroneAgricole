@@ -1,0 +1,196 @@
+{
+  "cache": {
+    "hit": false,
+    "key": "d604343fb9857d17fc5f909497626776ed1f09e9a946de310159e1461753250f"
+  },
+  "configuration_id": "prototype_cartographe",
+  "conflicts": [],
+  "derivation": null,
+  "diagnostics": [
+    {
+      "code": "LOCAL_CANDIDATE",
+      "message": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "LOCAL_CANDIDATE",
+      "message": "hardware/mecanique/cartographe/verification/definition_bom_electrique.json",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "LOCAL_SEARCH_BUDGET",
+      "message": "Inventaire local borné",
+      "source_id": "DISCOVERY"
+    },
+    {
+      "code": "NETWORK_DISABLED",
+      "message": "Source HTTPS non consultée",
+      "source_id": "E.F16.RADIUS.CATALOGUE"
+    }
+  ],
+  "evidence_details": [
+    {
+      "applicability": {
+        "conditions": {
+          "configuration": "RR-ASMUK-20GRHF au catalogue",
+          "mode": "flexion continue",
+          "temperature": "−30 à +80 °C, plage de service publiée"
+        },
+        "domain": "DOCUMENT"
+      },
+      "authority": "MANUFACTURER",
+      "confidence": "HIGH",
+      "evidence_id": "E.F16.RADIUS.LOCAL",
+      "match": "SCOPE_MISMATCH",
+      "reference": {
+        "attributes": {
+          "connector_a": "USB-A mâle droit",
+          "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+        },
+        "family": "RR-ASMUK-XXGRHF",
+        "manufacturer": "USBFireWire",
+        "part_number": "RR-ASMUK-20GRHF",
+        "revision": null
+      },
+      "value": {
+        "collected_at": "2026-11-12T16:12:09Z",
+        "evidence_ids": [
+          "E.F16.RADIUS.LOCAL"
+        ],
+        "input_value_refs": [],
+        "limits": "Le catalogue donne 48 mm en continu et 22 mm en statique. L’identité du cordon monté, les conditions de l’essai de fatigue et la tenue dans la suspension restent à établir.",
+        "method": "Extraction dans la section associant les références du catalogue aux spécifications communes.",
+        "precision": null,
+        "revision": null,
+        "status": "SOURCED",
+        "uncertainty": null,
+        "unit": "mm",
+        "value": 48
+      }
+    }
+  ],
+  "issue_id": "F16-MOUNTED-BEND-RADIUS",
+  "local_inputs": [
+    {
+      "path": "docs/electromechanical_v2/L1_CARTOGRAPHE.json",
+      "sha256": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+      "sha256": "d236d25d4e1323aeb1744fb5f239c4aecc02c7942b4c59b4ef1ad589df4c7e89"
+    }
+  ],
+  "network": "DISABLED",
+  "outcome": "UNKNOWN",
+  "question": {
+    "dependent_decision": "Établir la limite de courbure applicable à la course caméra.",
+    "evidence_ids": [
+      "E.F16.RADIUS.LOCAL"
+    ],
+    "expected_evidence": "MPN et définition du cordon effectivement monté, fiche applicable à sa révision et conditions de flexion et de température.",
+    "hypothesis": "Le cordon réel pourrait correspondre au RR-ASMUK-20GRHF du catalogue. Son identité et sa révision restent à établir.",
+    "id": "RQ.F16-MOUNTED-BEND-RADIUS",
+    "question": "Quel rayon minimal de flexion continue est applicable au cordon F16 réellement monté ?",
+    "refutation": "Un marquage différent, une autre orientation ou des conditions d’essai incompatibles écartent l’hypothèse.",
+    "status": "OPEN",
+    "subject_ids": [
+      "F16",
+      "ELEC-F16"
+    ]
+  },
+  "request": {
+    "applicability": {
+      "conditions": {
+        "configuration": "prototype_cartographe actif sans dock",
+        "mode": "flexion continue sur suspension caméra"
+      },
+      "domain": "PHYSICAL"
+    },
+    "criticality": "HIGH",
+    "expected_authority": "MANUFACTURER",
+    "issue_id": "F16-MOUNTED-BEND-RADIUS",
+    "parameter": "continuous_bend_radius",
+    "question": {
+      "dependent_decision": "Établir la limite de courbure applicable à la course caméra.",
+      "evidence_ids": [],
+      "expected_evidence": "MPN et définition du cordon effectivement monté, fiche applicable à sa révision et conditions de flexion et de température.",
+      "hypothesis": "Le cordon réel pourrait correspondre au RR-ASMUK-20GRHF du catalogue. Son identité et sa révision restent à établir.",
+      "id": "RQ.F16-MOUNTED-BEND-RADIUS",
+      "question": "Quel rayon minimal de flexion continue est applicable au cordon F16 réellement monté ?",
+      "refutation": "Un marquage différent, une autre orientation ou des conditions d’essai incompatibles écartent l’hypothèse.",
+      "status": "OPEN",
+      "subject_ids": [
+        "F16",
+        "ELEC-F16"
+      ]
+    },
+    "reference": {
+      "attributes": {
+        "connector_a": "USB-A mâle droit",
+        "connector_b": "USB 3 Micro-B mâle coudé Up, vis M2"
+      },
+      "family": "RR-ASMUK-XXGRHF",
+      "manufacturer": "USBFireWire",
+      "part_number": "RR-ASMUK-20GRHF",
+      "revision": null
+    },
+    "study": {
+      "next_observation": "Inventorier le cordon et son lot, puis rapprocher la définition fabricant et la course mesurée.",
+      "strategy": "Balayer des rayons de route et des poses comme scénarios géométriques conditionnels.",
+      "variables": [
+        "rayon de route",
+        "pose",
+        "température",
+        "cycles"
+      ]
+    },
+    "unit": "mm"
+  },
+  "schema_version": "1.0.0",
+  "technical_evidence": [
+    {
+      "artifact_path": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+      "collected_at": "2026-11-12T16:12:09Z",
+      "domain": "DOCUMENT",
+      "hypothetical": false,
+      "id": "E.F16.RADIUS.LOCAL",
+      "kind": "SOURCE",
+      "limits": "Le catalogue donne 48 mm en continu et 22 mm en statique. L’identité du cordon monté, les conditions de l’essai de fatigue et la tenue dans la suspension restent à établir.",
+      "locator": "Available Part Numbers → RR-ASMUK-20GRHF / Specifications → Continuous Bend Radius",
+      "method": "Extraction dans la section associant les références du catalogue aux spécifications communes.",
+      "revision": null,
+      "sha256": "d236d25d4e1323aeb1744fb5f239c4aecc02c7942b4c59b4ef1ad589df4c7e89",
+      "uri": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html"
+    }
+  ],
+  "unknown_register": [
+    {
+      "issue_id": "F16-MOUNTED-BEND-RADIUS",
+      "question_id": "RQ.F16-MOUNTED-BEND-RADIUS",
+      "reason": "Aucune preuve applicable à la référence, à la révision et aux conditions demandées",
+      "study": {
+        "next_observation": "Inventorier le cordon et son lot, puis rapprocher la définition fabricant et la course mesurée.",
+        "strategy": "Balayer des rayons de route et des poses comme scénarios géométriques conditionnels.",
+        "variables": [
+          "rayon de route",
+          "pose",
+          "température",
+          "cycles"
+        ]
+      }
+    }
+  ],
+  "value": {
+    "collected_at": "2026-11-12T16:23:51Z",
+    "evidence_ids": [],
+    "input_value_refs": [],
+    "limits": "Aucune preuve applicable à la référence, à la révision et aux conditions demandées",
+    "method": null,
+    "precision": null,
+    "revision": null,
+    "status": "UNKNOWN",
+    "uncertainty": null,
+    "unit": "mm",
+    "value": null
+  }
+}

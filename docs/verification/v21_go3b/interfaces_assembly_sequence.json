@@ -1,0 +1,61 @@
+{
+  "schema": "drone_agricole.go3b_candidate_assembly_sequence.v1",
+  "date": "2026-11-17",
+  "candidate": ".runtime/v21-go3b/consolidee/cad/assemblages/Prototype_Cartographe.FCStd",
+  "scope": "Ordre candidat d'instruction du montage hors tension de la copie consolidée",
+  "project_maturity": "Planifié",
+  "status": "NOT_RUN",
+  "evidence": "docs/verification/v21_go3b/interfaces_review.json",
+  "basis": "Hiérarchie des sous-assemblages, connectivité documentaire et accès réservés GO3A. Aucun essai physique de cette séquence.",
+  "steps": [
+    {
+      "id": "ASM-01",
+      "predecessors": [],
+      "status": "NOT_RUN",
+      "operation": "Identifier configuration et références, contrôler la fermeture XLink et rapprocher les 71 lignes et 142 côtés de leur matériel identifié.",
+      "required_evidence": ["Manifeste de la configuration", "BOM électrique et physique", "Révisions et contacts du lot"]
+    },
+    {
+      "id": "ASM-02",
+      "predecessors": ["ASM-01"],
+      "status": "NOT_RUN",
+      "operation": "Préparer structure et supports, puis positionner les sous-assemblages d'énergie et d'avionique selon la définition reçue, en conservant les accès aux fixations et protections.",
+      "open_points": ["Interférences héritées encore ouvertes", "Appuis et retenues spécifiques non reçus"]
+    },
+    {
+      "id": "ASM-03",
+      "predecessors": ["ASM-02"],
+      "status": "NOT_RUN",
+      "operation": "Présenter P85 et F25 au chant est, conserver les deux repères USL/GPS1, vérifier passage de la fiche et accès aux vis avant verrouillage du maintien.",
+      "open_points": ["Passage de fiche et tolérances réelles", "Tenue de P85 et fixation applicable"]
+    },
+    {
+      "id": "ASM-04",
+      "predecessors": ["ASM-02"],
+      "status": "NOT_RUN",
+      "operation": "Préparer F12 sur TELEM1 et F35 au sud, puis contrôler la présentation de F31 sur CAN1 avec fiche, verrou, outil et volume de retrait dans le même état de montage.",
+      "open_points": ["Contacts et lot TELEM1", "Orientation et course réelle du verrou CAN1", "Retenues après modification de trajet"]
+    },
+    {
+      "id": "ASM-05",
+      "predecessors": ["ASM-03", "ASM-04"],
+      "status": "NOT_RUN",
+      "operation": "Instruire le montage de l'isolateur et des deux cordons de diagnostic avec PDB, PM08, protections et CAN1 en place. Contrôler la déconnexion manuelle et le service simultané.",
+      "open_points": ["F40/F41 de la consolidée conservent des extrémités historiques décalées", "TTL/PDB en conflit sur les sondes à isolateur fixe", "Réimplantations H03 écartées sur leur support et leurs interférences"]
+    },
+    {
+      "id": "ASM-06",
+      "predecessors": ["ASM-02"],
+      "status": "NOT_RUN",
+      "operation": "Présenter F16 et F_M8 sur la caméra avec les ancrages fixes et mobiles distincts, vérifier tangentes, longueurs utiles, réserve et cinématique commune avant fermeture de la baie.",
+      "open_points": ["Mouvement réel caméra", "Cordon et longueur utile reçus", "Retenue hors portion mobile et effort sur les prises"]
+    },
+    {
+      "id": "ASM-07",
+      "predecessors": ["ASM-05", "ASM-06"],
+      "status": "NOT_RUN",
+      "operation": "Compléter l'ensemble des retenues et protections, relever chaque connexion, contrôler toutes les lignes et masses et exécuter une dépose/repose de service hors tension.",
+      "open_points": ["Bilan massique complet", "Résolution des interférences", "Pin à pin et tenue physique de chaque interface"]
+    }
+  ]
+}

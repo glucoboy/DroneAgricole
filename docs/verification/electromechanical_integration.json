@@ -1,0 +1,926 @@
+{
+  "schema_version": 1,
+  "test_id": "T-SKILL-EMI-01",
+  "date": "2026-10-27",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "scope": "Reusable skill and synthetic tests only; no drone harness reconstruction",
+  "environment": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python_runner": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+    "freecad": {
+      "nom": "Cables Workbench",
+      "version": "0.3.7",
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb"
+      },
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ]
+    },
+    "planner": "GCC 16.2.0; Qt6 Core 6.11.2; C++17",
+    "mcp": {
+      "installed_version": "0.1.22",
+      "observed_rpc": "WinError 10061: connection refused",
+      "geometry_executed_via_mcp": false
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-final-build"
+      ],
+      "returncode": 0,
+      "stdout": "ninja: no work to do.\r\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-final-build",
+        "--output-on-failure"
+      ],
+      "returncode": 0,
+      "stdout": "Test project D:/ProjetGuillaume/DroneAgricole/.runtime/electromechanical-integration/planner-final-build\n    Start 1: planner_properties\n1/1 Test #1: planner_properties ...............   Passed    0.02 sec\n\n100% tests passed out of 1\n\nTotal Test time (real) =   0.03 sec\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-final-build\\harness-planner-tests.exe"
+      ],
+      "returncode": 0,
+      "stdout": "PASS 41 assertions; compatible, branch, deny, unknown, conservation, continuity, capacity, accessibility, determinism, budget\r\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\scripts\\tests_workspace.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "......\r\n----------------------------------------------------------------------\r\nRan 6 tests in 0.063s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\scripts\\tests_freecad.py",
+        "--builder",
+        "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\freecad-tests.json"
+      ],
+      "returncode": 0,
+      "stdout": "DraftGeomUtils.fillet: Warning: edges have same direction. Did nothing\n{\"tests_run\": 19, \"successful\": true, \"report\": \"D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\.runtime\\\\electromechanical-integration\\\\freecad-tests.json\"}\n",
+      "stderr": "test_clearance_and_uncompleted_boolean (__main__.GeometryTests.test_clearance_and_uncompleted_boolean) ... ok\r\ntest_conduit_material_not_exempted (__main__.GeometryTests.test_conduit_material_not_exempted) ... ok\r\ntest_explicit_conduit_envelope_inclusion (__main__.GeometryTests.test_explicit_conduit_envelope_inclusion) ... ok\r\ntest_join_tangency_and_waypoint (__main__.GeometryTests.test_join_tangency_and_waypoint) ... ok\r\ntest_missing_supplier_radius (__main__.GeometryTests.test_missing_supplier_radius) ... ok\r\ntest_nonfinite_connector_vectors_never_pass (__main__.GeometryTests.test_nonfinite_connector_vectors_never_pass) ... ok\r\ntest_nonfinite_kernel_measurements_never_pass (__main__.GeometryTests.test_nonfinite_kernel_measurements_never_pass) ... ok\r\ntest_null_and_non_solid_generation (__main__.GeometryTests.test_null_and_non_solid_generation) ... ok\r\ntest_radius_below_requirement (__main__.GeometryTests.test_radius_below_requirement) ... ok\r\ntest_real_obstacle_collision (__main__.GeometryTests.test_real_obstacle_collision) ... ok\r\ntest_reversed_edge_direction (__main__.GeometryTests.test_reversed_edge_direction) ... ok\r\ntest_spline_samples_never_certify_global_radius (__main__.GeometryTests.test_spline_samples_never_certify_global_radius) ... ok\r\ntest_straight_route_and_connector_directions (__main__.GeometryTests.test_straight_route_and_connector_directions) ... ok\r\ntest_subdivision_budget_requires_integers (__main__.GeometryTests.test_subdivision_budget_requires_integers) ... ok\r\ntest_terminal_positions (__main__.GeometryTests.test_terminal_positions) ... ok\r\ntest_failed_native_generation_does_not_reuse_old_solid (__main__.NativeTests.test_failed_native_generation_does_not_reuse_old_solid) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_native_compoundpath_and_conduit (__main__.NativeTests.test_native_compoundpath_and_conduit) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_native_wireflex_archcable_rebuild (__main__.NativeTests.test_native_wireflex_archcable_rebuild) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_recompute_false_never_passes (__main__.NativeTests.test_recompute_false_never_passes) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\n\r\n----------------------------------------------------------------------\r\nRan 19 tests in 2.972s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\Users\\Utilisateur\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration"
+      ],
+      "returncode": 0,
+      "stdout": "Skill is valid!\r\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-final-build\\harness-planner.exe",
+        "plan",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\synthetic-network.json",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-report.json",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\electromechanical-integration\\planner-report.md"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "-X",
+        "utf8",
+        "-c",
+        "import yaml,pathlib; p=pathlib.Path(\".agents/skills/electromechanical-integration/agents/openai.yaml\"); v=yaml.safe_load(p.read_text(encoding=\"utf-8\")); assert 25<=len(v[\"interface\"][\"short_description\"])<=64; assert \"$electromechanical-integration\" in v[\"interface\"][\"default_prompt\"]; print(\"Metadata UTF-8 valide\")"
+      ],
+      "returncode": 0,
+      "stdout": "Metadata UTF-8 valide\r\n",
+      "stderr": ""
+    }
+  ],
+  "counts": {
+    "planner_assertions": 41,
+    "ctest_passed": 1,
+    "ctest_total": 1,
+    "freecad_tests_passed": 19,
+    "native_tests_included": 4,
+    "workspace_tests_passed": 6,
+    "official_skill_validator_passed": true
+  },
+  "skill_files_sha256": {
+    "agents\\openai.yaml": "51bfd9cd405a304ee208dd10d056157f40f79455177ac04663b260ffed9c4da4",
+    "references\\execution.md": "041e94d8fe6e717afba43a7944efae0f17af05c6cf94806392fe9444535e72d7",
+    "references\\freecad-api.md": "8e276b25c8ee020bcc053b510796f2fc2677901d53f6bf2c92183d0fb6b598eb",
+    "references\\integration-contract.md": "9af6967d6a469ff1e892fb610b3f9e0a53c6c42dbc7be9e3a4c6dd3bc398a974",
+    "references\\planner-contract.md": "370eb813350b5cb0822e7e554c7857e75e38eb946324a189dac2ee95766817fd",
+    "references\\synthetic-network.json": "145a215222e4fe5154f13a0e41bc5182cdd3d5ff74ef3e7f6fd5829987d76cc9",
+    "references\\validation.md": "d322a4a2b1d3055b52ac1de3a184557386ecaa990deb30cc4713c627c9a6c7f8",
+    "scripts\\CMakeLists.txt": "ad1111fa16fa8f67f5096a745af3adb65dc7fe4651eababf527eee41194c9e30",
+    "scripts\\freecad_geometry.py": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+    "scripts\\harness_planner.cpp": "b352c3f8f97164dc45812737643b668002c80249d029b8414ff04376ce3ebaa9",
+    "scripts\\harness_planner.hpp": "d6642af2da75e266a309b75e25e557472a436dd3af21445e0ea13666cd101ab4",
+    "scripts\\tests_freecad.py": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21",
+    "scripts\\tests_planner.cpp": "30234fb967aafd305ddebf9605c7b518661c4d8b47161e84a7f191f399386d89",
+    "scripts\\tests_workspace.py": "378334371277fc4dbe59d7a891001ee17b2f73e5b27d81bd3e43c098475c2005",
+    "scripts\\workspace_guard.py": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358",
+    "SKILL.md": "0ae5153ffb875078a4cbbee18070cf4797be5675ed44023a6ac43f5e47c4b7b8"
+  },
+  "validator_sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+  "planner_binary_sha256": "889e3debf71fd5367169740e92612bc5e476898fb64324bc42fe5bec3575e5ac",
+  "protected_inputs_sha256": {
+    "hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+    "hardware\\mecanique\\cartographe\\assemblages\\Prototype_Cartographe.FCStd": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA01_Prototype_Structure.FCStd": "f9f64de99359ad04d78ae0d57bb0e29a2a675e96d07bc0d5b6841c59260113b3",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA02_Prototype_Batterie.FCStd": "9da6af49a9a3eecbad7668adee10975d0952ddc86cb2bc8d5cb5ba76a34ec1e6",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA03_Prototype_Energie.FCStd": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA04_Prototype_Perception.FCStd": "29352756eac3f97e6bd0aa7dff70e64bf31ae8bda113ddd66ce6d479a6edf00d",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA05_Prototype_Avionique.FCStd": "303dd7b6d4a76f4e69e53ef90bc9b58a455f656e28501c84d648b3e092642c4e",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA06_Prototype_Navigation.FCStd": "9e03f23ade27bf4ef15cd6c90205d59a008cef0e4c372de19e7a88f4d71967d1",
+    "hardware\\mecanique\\cartographe\\sous_assemblages\\SA07_Prototype_Faisceaux.FCStd": "96d1d056df6490223d8dc6448006bee3372d14ea66c59e17aa2964fedc8b7902"
+  },
+  "protected_inputs_unchanged_during_final_validation": true,
+  "markdown_links_checked": [
+    {
+      "from": "references\\execution.md",
+      "to": "freecad-api.md"
+    },
+    {
+      "from": "references\\execution.md",
+      "to": "planner-contract.md"
+    },
+    {
+      "from": "references\\integration-contract.md",
+      "to": "planner-contract.md"
+    },
+    {
+      "from": "references\\planner-contract.md",
+      "to": "synthetic-network.json"
+    },
+    {
+      "from": "SKILL.md",
+      "to": "references/execution.md"
+    },
+    {
+      "from": "SKILL.md",
+      "to": "references/integration-contract.md"
+    },
+    {
+      "from": "SKILL.md",
+      "to": "references/planner-contract.md"
+    },
+    {
+      "from": "SKILL.md",
+      "to": "references/freecad-api.md"
+    },
+    {
+      "from": "SKILL.md",
+      "to": "references/validation.md"
+    }
+  ],
+  "freecad_measurements": {
+    "intentional_envelope_inclusion": {
+      "stage": "integration",
+      "pair": [
+        "C1",
+        "G1"
+      ],
+      "failures": [],
+      "unknowns": [],
+      "authorized_relation": true,
+      "intersection_volume_mm3": 1256.6370614359173,
+      "clearance_mm": 0.0,
+      "outside_envelope_volume_mm3": 0.0,
+      "status": "pass"
+    },
+    "radius_nonconforming": {
+      "stage": "geometry",
+      "failures": [
+        "bend_radius_below_requirement"
+      ],
+      "unknowns": [
+        "start_connector_position_missing",
+        "end_connector_position_missing"
+      ],
+      "minimum_radius_mm": 10.0,
+      "radius_evidence": "analytic_lines_circles",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomCircle",
+          "length_mm": 15.707963267948966,
+          "method": "analytic_circle",
+          "samples": 0,
+          "minimum_radius_mm": 10.0
+        }
+      ],
+      "join_angles_deg": [],
+      "waypoint_distances_mm": [],
+      "length_mm": 15.707963267948966,
+      "shape_sha256": "11843dbf87390cc63c3b4fea59b76a052a50bb51a234af648b0fa11bf3175c20",
+      "straight_radius_infinite": false,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "fail"
+    },
+    "obstacle_collision": {
+      "stage": "integration",
+      "pair": [
+        "C1",
+        "OB1"
+      ],
+      "failures": [
+        "forbidden_interference"
+      ],
+      "unknowns": [],
+      "authorized_relation": false,
+      "intersection_volume_mm3": 125.6637061435917,
+      "clearance_mm": 3.9831970004118395e-16,
+      "status": "fail"
+    },
+    "adaptive_spline": {
+      "stage": "geometry",
+      "failures": [],
+      "unknowns": [
+        "curvature_subdivision_budget_reached",
+        "global_curvature_bound_not_proven",
+        "start_connector_position_missing",
+        "end_connector_position_missing"
+      ],
+      "minimum_radius_mm": 31.275033687967326,
+      "radius_evidence": "sampled_upper_bound_on_true_minimum_radius",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomBSplineCurve",
+          "length_mm": 69.33086331438179,
+          "method": "adaptive_curvature_samples",
+          "samples": 905,
+          "knot_spans": 1,
+          "depth_budget_exhausted": true,
+          "min_depth": 3,
+          "max_depth": 8,
+          "curvature_relative_tolerance": 0.01,
+          "minimum_radius_mm": 31.275033687967326
+        }
+      ],
+      "join_angles_deg": [],
+      "waypoint_distances_mm": [],
+      "length_mm": 69.33092746276091,
+      "shape_sha256": "147cad06af61f5274000163f4665c792537e24ea784860969c42675ab2866be0",
+      "straight_radius_infinite": false,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "unknown"
+    },
+    "environment": {
+      "nom": "Cables Workbench",
+      "version": "0.3.7",
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb"
+      },
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ]
+    },
+    "native_failed_generation_injected": {
+      "stage": "solid",
+      "failures": [
+        "solid_generation_invalid"
+      ],
+      "null": true,
+      "valid": false,
+      "solid_count": 0,
+      "volume_mm3": 0.0,
+      "status": "fail",
+      "recompute_return": true,
+      "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Line": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "native_compoundpath_conduit": {
+      "path_type": "Complex",
+      "length_mm": 100.0,
+      "conduit": {
+        "stage": "solid",
+        "failures": [],
+        "null": false,
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 2827.4333882308138,
+        "status": "pass"
+      },
+      "subconduits": 0
+    },
+    "native_archcable": {
+      "stage": "solid",
+      "failures": [],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 1454.0291494577045,
+      "status": "pass",
+      "recompute_return": true,
+      "path_before_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "path_after_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Wire": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "native_route": {
+      "stage": "geometry",
+      "failures": [],
+      "unknowns": [],
+      "minimum_radius_mm": 10.0,
+      "radius_evidence": "analytic_lines_circles",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomLine",
+          "length_mm": 50.0,
+          "method": "analytic_line",
+          "samples": 0,
+          "minimum_radius_mm": null
+        },
+        {
+          "curve_type": "Part::GeomCircle",
+          "length_mm": 15.707963267948964,
+          "method": "analytic_circle",
+          "samples": 0,
+          "minimum_radius_mm": 10.0
+        },
+        {
+          "curve_type": "Part::GeomLine",
+          "length_mm": 50.0,
+          "method": "analytic_line",
+          "samples": 0,
+          "minimum_radius_mm": null
+        }
+      ],
+      "join_angles_deg": [
+        0.0,
+        0.0
+      ],
+      "waypoint_distances_mm": [],
+      "length_mm": 115.70796326794897,
+      "shape_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "straight_radius_infinite": false,
+      "start_position_error_mm": 0.0,
+      "end_position_error_mm": 0.0,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "pass"
+    },
+    "recompute_false_injected": {
+      "stage": "solid",
+      "failures": [
+        "freecad_recompute_failed"
+      ],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 628.3185307179585,
+      "status": "fail",
+      "recompute_return": false,
+      "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Line": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "tests_run": 19,
+    "failures": 0,
+    "errors": 0,
+    "skipped": [],
+    "geometry_stage": "executed",
+    "interactive_stage": "not_executed",
+    "physical_stage": "not_executed"
+  },
+  "planner_fixture_report": {
+    "candidates": [
+      {
+        "branches": [
+          "p",
+          "q"
+        ],
+        "decision": "unresolved",
+        "errors": [],
+        "grouping": "separate",
+        "id": "baseline_separate",
+        "metrics": {
+          "branch_count": 2,
+          "bundle_segments": 6,
+          "cable_length_mm": 240,
+          "envelope_mm3": 1696.460032938488,
+          "mass_g": null,
+          "shared_length_mm": 0,
+          "shared_segments": 0,
+          "support_sites": 6
+        },
+        "routes": [
+          {
+            "edge_ids": [
+              "ap",
+              "pq",
+              "qd"
+            ],
+            "link_id": "L1"
+          },
+          {
+            "edge_ids": [
+              "bp",
+              "pq",
+              "qe"
+            ],
+            "link_id": "L2"
+          }
+        ],
+        "segments": [
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "ap"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "bp"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "pq"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 100,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "pq"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 100,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qd"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qe"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          }
+        ],
+        "unknowns": [
+          "unconfirmed_parameter:L1:outer_diameter_mm",
+          "unconfirmed_parameter:L1:min_bend_radius_mm",
+          "unconfirmed_parameter:L2:outer_diameter_mm",
+          "unconfirmed_parameter:L2:min_bend_radius_mm"
+        ]
+      },
+      {
+        "branches": [
+          "p",
+          "q"
+        ],
+        "decision": "unresolved",
+        "errors": [],
+        "grouping": "compatible",
+        "id": "pooled_forward",
+        "metrics": {
+          "branch_count": 2,
+          "bundle_segments": 5,
+          "cable_length_mm": 240,
+          "envelope_mm3": 3817.035074111599,
+          "mass_g": null,
+          "shared_length_mm": 100,
+          "shared_segments": 1,
+          "support_sites": 6
+        },
+        "routes": [
+          {
+            "edge_ids": [
+              "ap",
+              "pq",
+              "qd"
+            ],
+            "link_id": "L1"
+          },
+          {
+            "edge_ids": [
+              "bp",
+              "pq",
+              "qe"
+            ],
+            "link_id": "L2"
+          }
+        ],
+        "segments": [
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "ap"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "bp"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "preliminary_area_bound",
+            "edge_ids": [
+              "pq"
+            ],
+            "inner_diameter_estimate_mm": 6.708203932499369,
+            "length_mm": 100,
+            "link_ids": [
+              "L1",
+              "L2"
+            ],
+            "required_width_mm": 6.708203932499369
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qd"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qe"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          }
+        ],
+        "unknowns": [
+          "unconfirmed_parameter:L1:outer_diameter_mm",
+          "unconfirmed_parameter:L1:min_bend_radius_mm",
+          "unconfirmed_parameter:L2:outer_diameter_mm",
+          "unconfirmed_parameter:L2:min_bend_radius_mm"
+        ]
+      },
+      {
+        "branches": [
+          "p",
+          "q"
+        ],
+        "decision": "unresolved",
+        "errors": [],
+        "grouping": "compatible",
+        "id": "pooled_reverse",
+        "metrics": {
+          "branch_count": 2,
+          "bundle_segments": 5,
+          "cable_length_mm": 240,
+          "envelope_mm3": 3817.035074111599,
+          "mass_g": null,
+          "shared_length_mm": 100,
+          "shared_segments": 1,
+          "support_sites": 6
+        },
+        "routes": [
+          {
+            "edge_ids": [
+              "ap",
+              "pq",
+              "qd"
+            ],
+            "link_id": "L1"
+          },
+          {
+            "edge_ids": [
+              "bp",
+              "pq",
+              "qe"
+            ],
+            "link_id": "L2"
+          }
+        ],
+        "segments": [
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "ap"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "bp"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "preliminary_area_bound",
+            "edge_ids": [
+              "pq"
+            ],
+            "inner_diameter_estimate_mm": 6.708203932499369,
+            "length_mm": 100,
+            "link_ids": [
+              "L1",
+              "L2"
+            ],
+            "required_width_mm": 6.708203932499369
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qd"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L1"
+            ],
+            "required_width_mm": 3
+          },
+          {
+            "dimensioning_status": "individual_cable",
+            "edge_ids": [
+              "qe"
+            ],
+            "inner_diameter_estimate_mm": null,
+            "length_mm": 10,
+            "link_ids": [
+              "L2"
+            ],
+            "required_width_mm": 3
+          }
+        ],
+        "unknowns": [
+          "unconfirmed_parameter:L1:outer_diameter_mm",
+          "unconfirmed_parameter:L1:min_bend_radius_mm",
+          "unconfirmed_parameter:L2:outer_diameter_mm",
+          "unconfirmed_parameter:L2:min_bend_radius_mm"
+        ]
+      }
+    ],
+    "execution": {
+      "freecad_recompute": "not_executed",
+      "geometry": "not_executed",
+      "interactive": "not_executed",
+      "offline": "executed",
+      "physical": "not_executed"
+    },
+    "hash_scope": "Qt canonical compact parsed JSON; input file SHA256 recorded separately by CLI",
+    "input_file_sha256": "145a215222e4fe5154f13a0e41bc5182cdd3d5ff74ef3e7f6fd5829987d76cc9",
+    "input_sha256": "ed725316bca2a02e5170235864f85de9b13ad77a33159e52aac0e4012ccd1da9",
+    "objective_order": [
+      "bundle_segments",
+      "support_sites",
+      "envelope_mm3",
+      "cable_length_mm"
+    ],
+    "optimality_proven": false,
+    "qualification": "not_assessed",
+    "schema_version": 1,
+    "search_budget": {
+      "max_candidates": 3,
+      "max_expansions_per_link": 10000,
+      "max_paths_per_link": 8
+    },
+    "search_truncated": false,
+    "selected_candidate_id": "pooled_forward",
+    "selection_scope": "preliminary_topology_only"
+  },
+  "independent_review": {
+    "three_links": {
+      "rc": 0,
+      "selected": "pooled_forward",
+      "decision": "unresolved",
+      "branches": [
+        "p",
+        "q"
+      ],
+      "shared_length_mm": 120
+    },
+    "deterministic": true,
+    "lost_link_rejected": true,
+    "backend": {
+      "backend": "freecad_python",
+      "geometry_executed": false,
+      "requires_cables_probe": true
+    },
+    "probe": {
+      "verified": true,
+      "executable": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "returncode": 0,
+      "result": {
+        "freecad": [
+          "1",
+          "1",
+          "3",
+          "20260725 (Git shallow)",
+          "Unknown",
+          "2026/07/25 04:52:02",
+          "grafted,grafted",
+          "145529fe741292ff0b3977a01195bf0247425794"
+        ],
+        "shape_valid": true,
+        "volume": 6.0,
+        "solids": 1
+      },
+      "stderr": "",
+      "scope": "Part_only_no_Cables_GUI"
+    },
+    "geometry_review": {
+      "finding_P1": "closed",
+      "hostile_cases": 15,
+      "all_rejected": true,
+      "strict_json_serializable": true,
+      "original_probe_reexecuted": true,
+      "source_sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39"
+    },
+    "workspace_tests_final": {
+      "executed": 6,
+      "success": true,
+      "temp_root": ".runtime/electromechanical-integration/review/workspace-tests"
+    },
+    "singleton_regression": {
+      "4": {
+        "exit_code": 0,
+        "decision": "candidate",
+        "required_width_mm": 3,
+        "sleeve_added": false
+      },
+      "2": {
+        "exit_code": 1,
+        "decision": "rejected",
+        "required_width_mm": 3,
+        "sleeve_added": false
+      }
+    },
+    "final_source_sha256": {
+      "harness_planner.cpp": "b352c3f8f97164dc45812737643b668002c80249d029b8414ff04376ce3ebaa9",
+      "freecad_geometry.py": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      "workspace_guard.py": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358",
+      "tests_workspace.py": "378334371277fc4dbe59d7a891001ee17b2f73e5b27d81bd3e43c098475c2005"
+    },
+    "review_conclusion": "No remaining blocking finding in reviewed scope; numerical/offline validation only."
+  },
+  "coverage": {
+    "1_compatible_corridor": "C++ shared_length_mm=100, links preserved",
+    "2_three_links_branch": "C++ and independent forward-test",
+    "3_incompatible": "C++ no shared segment, separation unknown retained",
+    "4_radius": "Real Part arc R10 rejected against synthetic R22",
+    "5_collision": "Positive BRep intersection rejected",
+    "6_authorized_contact": "Specific justified envelope inclusion accepted, material interference rejected",
+    "7_solid_failure": "Null shape and injected native failure with old cache rejected",
+    "8_missing_supplier": "null radius remains unresolved",
+    "9_mcp_unavailable": "Offline branch test and actual FreeCAD Python probes; live RPC unavailable",
+    "10_lost_connection": "Missing link rejected in C++ and independent CLI test"
+  },
+  "phases": {
+    "offline": "passed",
+    "synthetic_generation": "passed",
+    "synthetic_recompute": "passed",
+    "real_harness_generation": "not_executed",
+    "saved_assembly_reopen": "not_executed",
+    "interactive": "not_executed",
+    "physical": "not_executed"
+  },
+  "limits": [
+    "Graph corridors supplied by caller; no automatic 3D routing",
+    "Spline sampling is not a certified global curvature bound",
+    "Area bound does not prove packing or commercial sleeve availability",
+    "No physical, CEM, thermal, vibration or maintenance qualification",
+    "XLink closure requires explicit auxiliary dependencies and runtime link verification",
+    "Initial sandbox temp errors and missing PyYAML in system Python resolved by runtime temp directory and FreeCAD Python"
+  ],
+  "conclusion": "Implémenté; synthetic validation passed; real integration À valider"
+}

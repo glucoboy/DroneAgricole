@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "historical_integrity": "electromechanical_engine/qualification/historical_source_integrity.json",
+  "baseline_manifest": "docs/electromechanical_v2/BASELINE_MANIFEST.json",
+  "zones": "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json",
+  "source_files": [
+    "electromechanical_engine/__init__.py",
+    "electromechanical_engine/qualification/l4_native.py",
+    "electromechanical_engine/qualification/l4_native_worker.py",
+    "electromechanical_engine/qualification/native_replay.py",
+    "electromechanical_engine/qualification/historical_source_integrity.json",
+    "electromechanical_engine/contracts.py",
+    "electromechanical_engine/freecad.py",
+    "electromechanical_engine/freecad_worker.py",
+    "electromechanical_engine/metrics.py",
+    "electromechanical_engine/native_motion.py",
+    "electromechanical_engine/native_retention.py",
+    "electromechanical_engine/search.py",
+    "electromechanical_engine/tests/fixtures/banc/design_space.json",
+    "electromechanical_engine/tests/fixtures/banc/design_requirements.yaml",
+    "electromechanical_engine/tests/fixtures/banc/system_model.json",
+    "electromechanical_engine/tests/fixtures/banc_mobile/design_space.json",
+    "electromechanical_engine/tests/fixtures/banc_mobile/design_requirements.yaml",
+    "electromechanical_engine/tests/fixtures/banc_mobile/system_model.json",
+    ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+    ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+    "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+    "hardware/mecanique/cartographe/verification/read_brep_prototype.py",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_geometrie.py",
+    "hardware/mecanique/cartographe/verification/refonte_faisceaux/adapter_freecad.py",
+    "hardware/mecanique/cartographe_refonte_systeme/verification/adapter_implantation.py",
+    "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json",
+    "hardware/mecanique/banc_interconnexion/manifest.json",
+    "hardware/mecanique/banc_interconnexion/assemblages/Banc_Interconnexion.FCStd",
+    "hardware/mecanique/banc_interconnexion/verification/freecad_adapter.py",
+    "docs/electromechanical_v2/BASELINE_MANIFEST.json",
+    "docs/electromechanical_v2/proofs_l2/banc_cpp.json",
+    "docs/verification/cartographe_action3_x650.json",
+    "docs/verification/cartographe_action3_integre.json",
+    "docs/verification/cartographe_action3_can1_service.json"
+  ],
+  "cases": {
+    "native-nominal": {
+      "mode": "bench", "fixture": "banc", "alternative": "lateral",
+      "scope": "Banc statique complet de boîtes et câble Cables, contact Deck/Obstacle autorisé",
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]],
+      "upper_zone": [[-6, -31, 16], [106, 31, 30]]
+    },
+    "native-collision": {
+      "mode": "bench", "fixture": "banc", "alternative": "direct",
+      "scope": "Câble droit dans l’obstacle du banc statique",
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]],
+      "upper_zone": [[-6, -31, 16], [106, 31, 30]]
+    },
+    "native-outside-selection": {
+      "mode": "bench", "fixture": "banc", "alternative": "lateral",
+      "scope": "Banc statique avec une paire L1/LateObstacle extérieure à la sélection nominale du banc d’origine",
+      "geometry_additions": {"boxes": [{"id": "LateObstacle", "origin_mm": [48, 13, 8], "size_mm": [4, 4, 4]}]},
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]]
+    },
+    "native-can1-clear": {
+      "mode": "bench", "fixture": "banc", "alternative": "lateral-large",
+      "scope": "Réservation de retrait rectangulaire synthétique CAN1 et trois obstacles du banc",
+      "geometry_additions": {"extraction": [{"port": "CAN1", "origin_mm": [45, 13, 8], "size_mm": [10, 4, 4], "ignore_ids": []}]},
+      "requirements": {"extraction_ports": ["S", "CAN1"]},
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]]
+    },
+    "native-can1-blocked": {
+      "mode": "bench", "fixture": "banc", "alternative": "lateral",
+      "scope": "Réservation de retrait rectangulaire synthétique CAN1 obstruée par L1",
+      "geometry_additions": {"extraction": [{"port": "CAN1", "origin_mm": [45, 13, 8], "size_mm": [10, 4, 4], "ignore_ids": []}]},
+      "requirements": {"extraction_ports": ["S", "CAN1"]},
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]]
+    },
+    "native-mobile": {
+      "mode": "bench", "fixture": "banc_mobile", "alternative": "corrige",
+      "scope": "Retenue fermée Clip sur Deck et poses mobile intermédiaire/extrême du banc",
+      "view_frame_id": "banc-mobile-xyz", "view_frame_mm": [[-6, -41, -1], [106, 41, 30]]
+    },
+    "native-mobile-collision": {
+      "mode": "bench", "fixture": "banc_mobile", "alternative": "collision-etat",
+      "scope": "Collision reproduite à la pose extrême, géométrie du banc mobile",
+      "view_frame_id": "banc-mobile-xyz", "view_frame_mm": [[-6, -41, -1], [106, 41, 30]]
+    },
+    "native-floating": {
+      "mode": "bench", "fixture": "banc_mobile", "alternative": "corrige",
+      "scope": "Retenue de câble à 0,5 mm du porteur Deck, axe nominal inchangé",
+      "translated_boxes": {"Deck": [0, 0, -0.5]},
+      "view_frame_id": "banc-mobile-xyz", "view_frame_mm": [[-6, -41, -1], [106, 41, 30]]
+    },
+    "native-congested": {
+      "mode": "bench", "fixture": "banc", "alternative": "connectique-haute",
+      "scope": "Parcours haut du banc, plus court que le latéral avec une occupation de zone Z≥16 mm",
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]],
+      "upper_zone": [[-6, -31, 16], [106, 31, 30]]
+    },
+    "native-partial": {
+      "mode": "historical", "operation": "partial", "source": "hardware/mecanique/cartographe_refonte_systeme/A",
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "scope": "Témoin d’ouverture avec chargement XLink partiel, sans promotion ni recalcul global"
+    },
+    "native-l2": {
+      "mode": "l2", "operation": "l2",
+      "scope": "Banc L2 sauvegardé, deux connecteurs et quatre conducteurs, retrait axial et outillage synthétiques",
+      "native": "hardware/mecanique/banc_interconnexion/assemblages/Banc_Interconnexion.FCStd",
+      "manifest": "hardware/mecanique/banc_interconnexion/manifest.json",
+      "projection": "docs/electromechanical_v2/proofs_l2/banc_cpp.json",
+      "adapter": "hardware/mecanique/banc_interconnexion/verification/freecad_adapter.py",
+      "view_frame_id": "banc-l2-xyz", "view_frame_mm": [[-25, -35, -35], [125, 35, 35]]
+    },
+    "history-f16-initial": {
+      "mode": "historical", "operation": "radius", "variant": "initial",
+      "source": "hardware/mecanique/cartographe",
+      "entry": "pieces/commerce/W_F16_Prototype.FCStd",
+      "extra": ["verification/essai_routage_f16/F16_copie.FCStd", "verification/essai_wireflex/F16_copie.FCStd"],
+      "scope": "Axe initial F16, rayon statique diagnostique propre à l’historique"
+    },
+    "history-f16-k": {
+      "mode": "historical", "operation": "radius", "variant": "K",
+      "source": "hardware/mecanique/cartographe",
+      "entry": "verification/essai_routage_f16/F16_copie.FCStd",
+      "extra": ["pieces/commerce/W_F16_Prototype.FCStd", "verification/essai_wireflex/F16_copie.FCStd"],
+      "scope": "Courbure F16 B-spline K et régénération de la gaine après effacement du cache sur copie"
+    },
+    "history-f16-p": {
+      "mode": "historical", "operation": "pair", "variant": "P",
+      "source": "hardware/mecanique/cartographe", "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "extra": ["verification/construction_prototype.json", "verification/routes_prototype.json", "verification/essai_routage_f16/F16_copie.FCStd", "verification/essai_wireflex/F16_copie.FCStd"],
+      "scope": "Interférence BRep ciblée entre la variante F16 B-spline P et le guide P73 sauvegardé"
+    },
+    "history-f16-p73-clear": {
+      "mode": "historical", "operation": "pair", "variant": "initial",
+      "source": "hardware/mecanique/cartographe", "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "extra": ["verification/construction_prototype.json", "verification/routes_prototype.json", "verification/essai_routage_f16/F16_copie.FCStd", "verification/essai_wireflex/F16_copie.FCStd"],
+      "scope": "Dégagement BRep ciblé entre l’axe initial F16 et P73, sans admission globale"
+    },
+    "history-f16-chassis": {
+      "mode": "historical", "operation": "chassis", "source": ".runtime/cartographe-action3-integre/candidat",
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "extra": ["verification/construction_prototype.json", "verification/routes_prototype.json"],
+      "obstacle": "OEM_X650_ZHEDIE_JIBI_2024_ASM", "solid_index": 11,
+      "historical_receipt": {"path": ".runtime/cartographe-action3-integre/revalidation/extraction_report.json", "sha256": "204012d9aed2b92dcfd002bea12b0172406458587445b69bc8b616f362deb102", "table": ["source_receipt", "inputs_sha256"]},
+      "scope": "Contact F16/châssis, solide OEM index 11, pose nominale de la copie consolidée"
+    },
+    "history-can1": {
+      "mode": "historical", "operation": "can1", "source": ".runtime/cartographe-action3-x650",
+      "entry": "assemblages/Prototype_Cartographe.FCStd",
+      "assembly": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+      "sweep_mm": 5, "sweep_size_mm": [4.15, 6.25, 10.7], "sweep_origin_mm": [50.775, -17.625, 131.65232],
+      "historical_receipt": {"path": ".runtime/cartographe-action3-x650/assembly_roundtrip.json", "sha256": "c5091a3f08fcb2982d5210b135016a682e73ec6db9be4c99c22f90f9248f4231"},
+      "scope": "Gabarit nominal JST GH4 +Z à 5 mm et un obstacle F35, course physique et obstacles restants à valider"
+    },
+    "history-a": {
+      "mode": "historical", "operation": "architecture", "source": "hardware/mecanique/cartographe_refonte_systeme/A",
+      "entry": "assemblages/Prototype_Cartographe.FCStd", "extra": ["verification/construction_prototype.json", "verification/routes_prototype.json"],
+      "scope": "53 axes BRep de l’architecture A, mesures de zones et coordonnées d’extrémités ciblées"
+    },
+    "history-faces": {
+      "mode": "historical", "operation": "architecture", "source": "hardware/mecanique/cartographe_faces/Candidat",
+      "entry": "assemblages/Prototype_Cartographe.FCStd", "extra": ["verification/construction_prototype.json", "verification/routes_prototype.json"],
+      "scope": "53 axes BRep de l’architecture Faces, mesures de zones et coordonnées d’extrémités ciblées"
+    },
+    "saved-bench": {
+      "mode": "candidate", "fixture": "banc", "alternative": "lateral",
+      "scope": "Candidat natif monodocument compatible avec le référentiel statique du banc",
+      "view_frame_id": "banc-cable-xyz", "view_frame_mm": [[-6, -31, -1], [106, 31, 30]],
+      "upper_zone": [[-6, -31, 16], [106, 31, 30]]
+    }
+  }
+}

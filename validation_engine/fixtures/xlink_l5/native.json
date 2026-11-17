@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source_files": [
+    "electromechanical_engine/__init__.py",
+    "electromechanical_engine/qualification/l4_native.py",
+    "electromechanical_engine/qualification/native_replay.py",
+    "electromechanical_engine/contracts.py",
+    "electromechanical_engine/freecad.py",
+    "electromechanical_engine/freecad_worker.py",
+    "electromechanical_engine/metrics.py",
+    "electromechanical_engine/native_motion.py",
+    "electromechanical_engine/native_retention.py",
+    "electromechanical_engine/search.py",
+    ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+    ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+    "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py"
+  ],
+  "cases": {
+    "consolidated-bench": {
+      "mode": "candidate",
+      "frozen_model": {
+        "system": "convergence_manager/fixtures/native/system.json",
+        "requirements": "convergence_manager/fixtures/native/requirements.json"
+      },
+      "scope": "Banc synthétique L5 statique à deux liaisons et un obstacle lié, témoin GO 2 bis",
+      "view_frame_id": "banc-consolidation-l5-xyz",
+      "view_frame_mm": [
+        [
+          -6,
+          -26,
+          -1
+        ],
+        [
+          106,
+          41,
+          30
+        ]
+      ],
+      "xlink_obstacles": [
+        {
+          "box": {
+            "id": "ExternalReference",
+            "origin_mm": [
+              150,
+              50,
+              10
+            ],
+            "size_mm": [
+              5,
+              5,
+              5
+            ]
+          },
+          "occurrence": "assembly.FCStd#ExternalReferenceLink",
+          "definition": "reference.FCStd#ExternalReference"
+        }
+      ]
+    }
+  }
+}

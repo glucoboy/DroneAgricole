@@ -1,0 +1,78 @@
+{
+  "schema": "drone_agricole.evidence_plan.v2.1",
+  "budget_unit": "Créneau numérique de planification, sans consommation de variante",
+  "evidence_gap": {
+    "G3A-01": {
+      "risk": "CRITIQUE",
+      "required_before_trial": false,
+      "authorized_trials": ["Jointure numérique sur témoin avec hypothèse d'embase identifiée"],
+      "next_experiment": "Relier port/contact, conducteur et occurrence XLink sur un témoin puis injecter une erreur de jointure.",
+      "budget": 1,
+      "source_sought": "Révision TELEM1 et terminaisons CA01 réellement montées",
+      "impact": ["G3A-03", "G3A-08"]
+    },
+    "G3A-02": {
+      "risk": "CRITIQUE",
+      "required_before_trial": false,
+      "authorized_trials": ["Enveloppes paramétriques CAN1/PM08 hors tension"],
+      "next_experiment": "Comparer le passage de la fiche et de l'outil de dépose sur deux corridors dans une baie commune.",
+      "budget": 2,
+      "source_sought": "Dimensions de fiche, outil et tolérances CAN1/PM08",
+      "impact": ["G3A-05", "G3A-06"]
+    },
+    "G3A-03": {
+      "risk": "CRITIQUE",
+      "required_before_trial": true,
+      "authorized_trials": ["Réservation GPIO/CSI hors tension avec contacts et peuplement inchangés"],
+      "next_experiment": "Rechercher l'instance Orin et son plan de connexions avant tout essai de continuité ou changement de peuplement.",
+      "budget": 1,
+      "source_sought": "Révision Orin, GPIO/CSI et population CA01 R530–R533",
+      "impact": ["G3A-01", "G3A-07"]
+    },
+    "G3A-04": {
+      "risk": "ÉLEVÉ",
+      "required_before_trial": false,
+      "authorized_trials": ["Sensibilité aux rayons candidats et enveloppes de mouvement F16/M8"],
+      "next_experiment": "Balayer des enveloppes hypothétiques de F16/M8 et rechercher les poses discriminantes.",
+      "budget": 2,
+      "source_sought": "Fiches et cordons exacts, domaine cinématique, rayons et critères de fatigue",
+      "impact": ["G3A-06", "G3A-07"]
+    },
+    "G3A-05": {
+      "risk": "CRITIQUE",
+      "required_before_trial": false,
+      "authorized_trials": ["Autre corridor TTL/USB et volumes de manipulation hors tension"],
+      "next_experiment": "Écarter les poses TTL/PDB en collision du témoin et cribler un autre corridor de diagnostic.",
+      "budget": 2,
+      "source_sought": "Plan BMS J2/J3, outil et fiche de diagnostic, isolement brut",
+      "impact": ["G3A-02", "G3A-07"]
+    },
+    "G3A-06": {
+      "risk": "ÉLEVÉ",
+      "required_before_trial": false,
+      "authorized_trials": ["Enveloppes de montage et de service sans usinage de structure"],
+      "next_experiment": "Comparer accès et réservation aux ancrages et zones RF sur la copie de référence.",
+      "budget": 1,
+      "source_sought": "Dessins OEM X650 et SMA G4, géométrie d'appui P75/P85 et efforts",
+      "impact": ["G3A-04", "G3A-07", "G3A-08"]
+    },
+    "G3A-07": {
+      "risk": "ÉLEVÉ",
+      "required_before_trial": false,
+      "authorized_trials": ["Réservations FAN/SSD/CSI/NTC sans réallocation des ports"],
+      "next_experiment": "Comparer le packing de corridors séparés et les volumes conservés par les périphériques.",
+      "budget": 1,
+      "source_sought": "Interfaces OEM, allocations, ventilation, masse et critères CEM",
+      "impact": ["G3A-02", "G3A-05", "G3A-06", "G3A-08"]
+    },
+    "G3A-08": {
+      "risk": "CRITIQUE",
+      "required_before_trial": false,
+      "authorized_trials": ["Réouverture indépendante du témoin lié et contrôle de couverture"],
+      "next_experiment": "Comparer la fermeture XLink et le rapprochement BOM/occurrences sur un témoin sauvegardé puis rouvert.",
+      "budget": 2,
+      "source_sought": "Seuils approuvés et règles de masse, centrage, inclusions et tolérances",
+      "impact": ["G3A-01", "G3A-02", "G3A-03", "G3A-04", "G3A-05", "G3A-06", "G3A-07"]
+    }
+  }
+}

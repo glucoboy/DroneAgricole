@@ -1,0 +1,552 @@
+{
+  "version": 1,
+  "system_id": "GO3A-CARTOGRAPHE",
+  "revision": "GO3A-1",
+  "provenance": {
+    "status": "DOCUMENTEE",
+    "source": "Mandat GO3A §1–4, DOC-MEC MEC-INT-001, DOC-ELEC CAB-CARTO-001, DOC-VAL GO2bis et §14"
+  },
+  "clearance_mm": 0,
+  "collision_tolerance_mm3": 0,
+  "plateaux_mm": [
+    85.0,
+    130.052
+  ],
+  "objectives": [
+    "axis_count",
+    "bay_axis_mm",
+    "above_axis_mm",
+    "height_mm",
+    "access_status",
+    "total_length_mm",
+    "harness_mass_g",
+    "support_count",
+    "development_cost",
+    "risk_status"
+  ],
+  "compatibilite_gel_v1": {
+    "portee": "Le moteur v1 valide et gèle les champs de son contrat. Les liaisons de ce dossier représentent des identités fonctionnelles et les axes sont conservés séparément. Cette projection ne sert pas à construire ou à valider des solides.",
+    "zeros": "Seuils de criblage purement nominal pour le contrat v1. Aucune tolérance physique ou numérique OCC approuvée. Tout résultat tangent ou indéterminé reste à instruire.",
+    "plateaux": "Plans de comparaison historiques à Z85 et Z130,052 dans le repère assemblage, issus de cartographe_action3_rejeu.json. Les boîtes de comparaison proviennent de la même preuve. Ces cotes ne fixent pas un dégagement minimal."
+  },
+  "exigences_imperatives": [
+    {
+      "id": "G3A-01",
+      "refs": [
+        "CAB-CARTO-001",
+        "METH-001"
+      ],
+      "critere": "Réconcilier 71 lignes, 53 axes et 56 associations à double sens. Justifier individuellement les 21 lignes sans axe. Conserver signaux, retours, polarités, détrompages, terminaisons et statuts de périmètre. Une ligne ou un port inconclusif empêche la clôture du domaine concerné.",
+      "controle": "Rejeu L2, export netlist KiCad et rapprochement de la BOM connecteur aux identités logiques. Démontrer le mécanisme sur témoin avant ouverture de GO3B puis comparer le candidat GO3B complet à un graphe électrique indépendant rattaché aux natifs."
+    },
+    {
+      "id": "G3A-02",
+      "refs": [
+        "CAB-CARTO-001"
+      ],
+      "critere": "Conserver chaîne 6S, protections série, commande PX4, buses et chemins de retour. F31 : CAN1 H/L/GND et aucune injection depuis la broche +5 V de CAN1. Préserver ancrage et extraction PM08 ainsi que l'accès aux points de test.",
+      "controle": "Vérifier schéma, continuité, polarité, isolement, courant nominal/crête et déclassement avec les références identifiées. Simuler séquence de montage/dépose CAN1, fiche et outil avec F31/F35/PM08/isolateur en place et chaîne de tolérances."
+    },
+    {
+      "id": "G3A-03",
+      "refs": [
+        "CAB-CARTO-001",
+        "MEC-INT-001"
+      ],
+      "critere": "F24A doit joindre la bonne embase GPIO et le PPS/retour, avec niveau et référence IO conformes et synchronisation conservée. Vérifier W23 (AIRY/AIRY_SYNC), F24B et F24C avec la population réelle de CA01 et ne pas déduire la continuité des seules étiquettes de nets.",
+      "controle": "Identifier révision et instance Holybro, faces et cavités, puis allouer les résistances DNP avant nouveau gel. Démontrer la chaîne temporelle sur le périmètre réceptionné."
+    },
+    {
+      "id": "G3A-04",
+      "refs": [
+        "CAB-CARTO-001",
+        "MEC-INT-001"
+      ],
+      "critere": "F16 et branche M8 : couvrir le domaine composé de translation/rotation, les jeux et butées, la tenue des prises, le volume balayé et la réserve utile. Préserver champs caméra/LiDAR, géométrie relative, datation et remontée capteurs.",
+      "controle": "Comparer poses nominales, extrêmes et intermédiaires justifiées, enveloppe continue, sorties, longueur de cordon et rayons statique/dynamique applicables. Vérifier l'absence d'effet sur P10/P17/P73, F25 et F35. Confirmer cycles et transmission au banc."
+    },
+    {
+      "id": "G3A-05",
+      "refs": [
+        "CAB-CARTO-001",
+        "MEC-INT-001"
+      ],
+      "critere": "Maintenir l'accès simultané USB et TTL de diagnostic BMS, avec la séparation B− brut/P− et les références de l’isolateur (TTL côté BMS/B− brut, USB côté hôte). L'accès doit être utilisable avec prises, verrou, outil et réserve, sans dépose de la distribution pour l'opération courante.",
+      "controle": "Comparer un contrat passif pin à pin au schéma et au côté réellement isolé. Vérifier continuité/isolement et intégrité USB, longueur utile, extraction et ordre de service en présence de F31/F35 et du reste de la baie."
+    },
+    {
+      "id": "G3A-06",
+      "refs": [
+        "MEC-INT-001"
+      ],
+      "critere": "Assurer ancrage P75/P85, supports P70/P72/P73, protection des chants et accès aux vis. Préserver structure et zones de propulsion X650, mouvements, champ GNSS/RF, polarisation et dégagement des antennes.",
+      "controle": "Relire les natifs et leurs preuves de substitution, identifier la géométrie OEM critique, contrôler appuis et séquence outil, retenue et relâchement sans abrasion. Réserver rigidité, traction et vibration à une démonstration applicable."
+    },
+    {
+      "id": "G3A-07",
+      "refs": [
+        "MEC-INT-001",
+        "CAB-CARTO-001"
+      ],
+      "critere": "Ne pas créer d'interférence globale par une correction locale. Conserver l'air au ventilateur et ses accès, les branches périphériques, l'accès SSD/CSI, les fonctions batterie, NTC et armement. Garder puissance, signaux sensibles et RF en corridors séparés lorsque le partage n'est pas justifié.",
+      "controle": "Contrôler cheminement et enveloppes des groupes, packing, chemin de retour, blindage/CEM, débit de ventilation et dissipation. Justifier explicitement la réservation ou l'exclusion des LED et vérifier qu'aucun port déjà attribué ne soit repris."
+    },
+    {
+      "id": "G3A-08",
+      "refs": [
+        "MEC-INT-001",
+        "METH-001"
+      ],
+      "critere": "Une cible doit être comparable avec le même périmètre et relier toutes les occurrences affectées à une preuve native fraîche. Aucune violation démontrée ni inconnue critique ouverte pour l'admission GO3B. Masses et inclusions traçables sans doubler câbles, gaines ni agrégats OEM.",
+      "controle": "Relire la fermeture XLink sur copie, sauvegarder et rouvrir en contexte indépendant, vérifier l'identité de chaque dépendance, la géométrie et les preuves A–D. Recalculer bilan de masse, centrage, charges et marges à partir des références applicables."
+    }
+  ],
+  "mesures_comparables": {
+    "ordre": "Éliminer les violations impératives. Publier séparément les inconnues. Sur périmètre identique, présenter le front des solutions documentées sur chaque objectif comparable et préciser sa couverture avant toute préférence.",
+    "couverture": "Nombre de lignes, axes et associations, couverture des broches et des paires de contrôle, inconnues explicites.",
+    "encombrement": "Axes cumulés dans la boîte baie, dessus et sous P66, cote haute d'enveloppe, L × l × H de la baie connectée et volume de service, en mm et mm³.",
+    "montage": "Sortie et rayon effectif, distance minimale par paire, passage de chaque prise préterminée, outil et réserve utile, quantité de supports et dérivations réellement utilisés.",
+    "couts": "Longueur d'axe et quantité de cordons séparées. Masse câbles/protections/fixations, charge CAO/électronique/essais, coût et risque tracés. L'inconnu est null."
+  },
+  "seuils_physiques_a_valider": {
+    "tol_cumul_connecteurs_mm": null,
+    "distance_min_avec_tolerance_mm": null,
+    "rayon_dynamique_f16_mm": null,
+    "domaine_cinematique_f16": null,
+    "effort_retenue_n": null,
+    "longueur_diagnostic_utile_mm": null,
+    "budget_masse_g": null,
+    "centre_gravite_admissible_mm": null,
+    "critere_thermique_cem": null
+  },
+  "supports": [],
+  "extraction_ports": [],
+  "links": {
+    "W01.NEG": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W01.POS": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W02.1": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier polarité, courant, retour, retenue et insertions sur le départ concerné.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W02.2": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier polarité, courant, retour, retenue et insertions sur le départ concerné.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W02.3": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier polarité, courant, retour, retenue et insertions sur le départ concerné.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W02.4": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier polarité, courant, retour, retenue et insertions sur le départ concerné.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W03.1": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier connecteurs et sens des phases sur cette branche, course et retenue au bras.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W03.2": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier connecteurs et sens des phases sur cette branche, course et retenue au bras.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W03.3": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier connecteurs et sens des phases sur cette branche, course et retenue au bras.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W03.4": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier connecteurs et sens des phases sur cette branche, course et retenue au bras.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W04.1": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer affectation et protocole de la sortie, retour, dégagement et indépendance de la branche par rapport aux fonctions auxiliaires.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W04.2": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer affectation et protocole de la sortie, retour, dégagement et indépendance de la branche par rapport aux fonctions auxiliaires.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W04.3": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer affectation et protocole de la sortie, retour, dégagement et indépendance de la branche par rapport aux fonctions auxiliaires.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W04.4": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer affectation et protocole de la sortie, retour, dégagement et indépendance de la branche par rapport aux fonctions auxiliaires.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W05": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W06": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W08": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W09": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W10": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, continuité électrique, blindage ou retour applicable, dégagement et rétention.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W12": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier la révision et les contacts réellement montés, reprendre la cible TELEM1, vérifier continuité, retour GND, absence de +5 V et manœuvre du verrou.",
+      "statut": "ANOMALIE_CAO_ACTIF"
+    },
+    "W13.A": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Recontrôler le coaxial U.FL, sa courbure, la retenue et le dégagement après décision F24A.",
+      "statut": "CONDITIONNEL_INTERACTION"
+    },
+    "W13.B": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, continuité électrique, blindage ou retour applicable, dégagement et rétention.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W14": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W15": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, continuité électrique, blindage ou retour applicable, dégagement et rétention.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W16": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Sélectionner sur preuve le cordon USB3 exact et ses deux fiches, mesurer la longueur libre, vérifier débattement continu, torsion, traction, blindage, débit et fatigue.",
+      "statut": "CONDITIONNEL_MOBILITE"
+    },
+    "W17": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W18": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier M8 mâle A, deux paires et blindage, courant de déclenchement, retour séparé et flexion avec F16.",
+      "statut": "CONDITIONNEL_CORDON_PARTAGE"
+    },
+    "W19": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Relever variante, connecteur Key M, profil et épaisseur PCB et vérifier rétention et échange thermique.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W20": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Relever les contacts des deux pièces et comparer régime/démarrage à la capacité du port. Vérifier chemin, débit de refroidissement et montage avant alimentation.",
+      "statut": "NON_RESOLUE"
+    },
+    "W21": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, continuité électrique, blindage ou retour applicable, dégagement et rétention.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W22": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer genres des interfaces RF, polarité/contact, 50 Ω si applicable et accès de serrage avec la pose et l’environnement GNSS.",
+      "statut": "ANOMALIE_CAO_SANS_AXE"
+    },
+    "W23": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier le cordon Airy, qualifier variante de peuplement et niveaux/retour, puis établir PPS/GPRMC actifs et acquisition synchronisée.",
+      "statut": "CONDITIONNEL_PEUPLEMENT"
+    },
+    "W24.A": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier le port de la révision, son pinmux, le connecteur et la polarisation. Vérifier adaptation J505 et peuplement R532, aucun +5 V incident, et accès sans affaiblir P75.",
+      "statut": "CONDITIONNEL_PORT_ET_PEUPLEMENT"
+    },
+    "W24.B": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier port, connecteur JST-SH candidat de la famille documentée, état console, niveau logique et variante de peuplement R533.",
+      "statut": "CONDITIONNEL_PEUPLEMENT"
+    },
+    "W24.C": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier le port et la nappe (pas, sens des contacts, sortie et masse). Confirmer capacité, séquencement et extinction 3V3_ORIN_IO_REF avant sélection.",
+      "statut": "NON_RESOLUE"
+    },
+    "W25": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer pinout adaptateur, alimentation et retour sécurité/buzzer/LED. Vérifier passage de fiche, chaîne de tolérances P85, tenue et accessibilité.",
+      "statut": "NON_RESOLUE"
+    },
+    "W26": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W27": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W28": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W29": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W31": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier cordon et terminaison CAN, isolement avec puissance et isolateur, retrait complet avec F35, accès sonde/PM08 et marge de pire cas sur la même configuration.",
+      "statut": "CONDITIONNEL_ACCES_ET_PROTECTIONS"
+    },
+    "W32": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W33": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Préserver AUX1 et MAIN1–4. Vérifier niveaux sur J507 et scénario d’acquisition avant éventuelle nouvelle affectation LED.",
+      "statut": "CONDITIONNEL_ALLOCATION_PORT"
+    },
+    "W34": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Vérifier réglage caméra, niveaux du signal, retour/blindage et comportement du cordon sur toutes les poses avec W18/F16.",
+      "statut": "CONDITIONNEL_CORDON_PARTAGE"
+    },
+    "W35": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Conserver FMU_CAP1 depuis J508 et retour GND. Réévaluer F25/P75, CAN1, optique et dérivation dans la même copie avec la fiche réelle.",
+      "statut": "CONDITIONNEL_INTERACTION"
+    },
+    "W36": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, continuité électrique, blindage ou retour applicable, dégagement et rétention.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W37.POS": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W37.NEG": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W38": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W39": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W40": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer port J2/J3, niveau TTL et référence, maintenir la frontière brute, rendre possible déconnexion et accès TTL/USB avec protections et F31/F35.",
+      "statut": "NON_RESOLUE"
+    },
+    "W41": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Définir geste de diagnostic, USB Type B accessible, verrouillage/rangement de la réserve et passage des prises. Vérifier isolement brut, courant USB, chaîne de tolérances et durée d’opération.",
+      "statut": "CONDITIONNEL_RESERVE_SERVICE"
+    },
+    "W42": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W43": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W-CELLULES": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Relever l’ordre physique B0…B6 et la révision du BMS avant adaptation. Vérifier sans mise sous puissance la continuité et la polarité des prises cellules.",
+      "statut": "CONDITIONNEL_MAPPING_6S"
+    },
+    "W-JETI-COMMANDE": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W-LED-KIT.1": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier la fiche et les contacts LED1, la tension et le protocole réels. Démontrer une allocation PX4 indépendante de W33 et un dimensionnement partagé des retours et du rail.",
+      "statut": "NON_RESOLUE"
+    },
+    "W-LED-KIT.2": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier la fiche et les contacts LED2, la tension et le protocole réels. Démontrer une allocation PX4 indépendante de W33 et un dimensionnement partagé des retours et du rail.",
+      "statut": "NON_RESOLUE"
+    },
+    "W-LED-KIT.3": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier la fiche et les contacts LED3, la tension et le protocole réels. Démontrer une allocation PX4 indépendante de W33 et un dimensionnement partagé des retours et du rail.",
+      "statut": "NON_RESOLUE"
+    },
+    "W-LED-KIT.4": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier la fiche et les contacts LED4, la tension et le protocole réels. Démontrer une allocation PX4 indépendante de W33 et un dimensionnement partagé des retours et du rail.",
+      "statut": "NON_RESOLUE"
+    },
+    "W-NTC.1": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "W-NTC.2": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer référence/révision, polarité ou fonction, conditions courant/thermique, isolation, retenue et raccordement sur cette branche.",
+      "statut": "RAPPROCHE_DOCUMENTAIRE_A_VALIDER"
+    },
+    "CA01-MOD401": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "W07": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W11": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "W30": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "",
+      "statut": "HORS_AXE_DOCUMENTE"
+    },
+    "SOL-RTK-ANT": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "SOL-RTK-USB": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "SOL-RADIO-USB": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    },
+    "SOL-POWER.TERMINAL": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Identifier terminal, connecteur et chargeur applicable au sol.",
+      "statut": "HORS_AXE_SOL_NON_RESOLUE"
+    },
+    "SOL-POWER.S100NEO": {
+      "diameter_mm": null,
+      "min_radius_mm": null,
+      "acceptation": "Confirmer l’interface, sa référence ou son affectation selon le périmètre déclaré.",
+      "statut": "HORS_AXE_A_VALIDER"
+    }
+  }
+}

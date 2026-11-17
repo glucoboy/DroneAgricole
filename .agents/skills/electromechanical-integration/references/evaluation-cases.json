@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "Fixtures entièrement synthétiques ; aucune spécification de matériel réel",
+  "cases": [
+    {
+      "id": "D1",
+      "request": "Prépare le choix des contraintes de courbure de ce cordon pour un équipement mobile. La configuration ne renseigne pas les rayons ; fais progresser la conception à partir des ressources disponibles.",
+      "data": {"part": "FLEX-A", "revision": "B", "source_directory": "evaluation-sources", "temperature_C": 20, "outer_diameter_mm": 4, "static_radius_mm": null, "dynamic_radius_mm": null, "motion": "flexion répétitive sans torsion", "target_cycles": 5000}
+    },
+    {
+      "id": "K1",
+      "request": "Détermine le déplacement accessible du port et ce qui en découle pour l'étude du cordon mobile.",
+      "data": {"frame": "global mm", "joint": "pivot parfait autour de z à l'origine", "port_at_nominal_mm": [100, 0, 0], "mechanical_stops_deg": [-15, 15], "other_dof": 0, "geometry_source": "plan synthétique PIVOT-1 rév C, cotes nominales exactes pour ce modèle", "actual_vibration_amplitude": null, "cable_length_mm": null}
+    },
+    {
+      "id": "P1",
+      "request": "Étudie le raccordement de ce module suspendu ; l'amplitude de service n'a pas été mesurée. Avance autant que le dossier le permet.",
+      "data": {"fixed_port_mm": [0, 0, 0], "mobile_port_nominal_mm": [100, 0, 0], "kinematics": "translations : disque dx²+dy² <= 9 mm², dz dans [-8,8] mm ; rotations bloquées", "stop_source": "plan synthétique LIMIT-2 rév A, butées rigides idéales", "suspension_stiffness_N_mm": null, "damping": null, "actual_vibration_amplitude": null, "cable_dynamic_radius_mm": null, "cable_od_mm": 4}
+    },
+    {
+      "id": "L1",
+      "request": "Le cordon historique ne rejoint pas les ports via le corridor. Propose et compare les longueurs candidates, avec leurs conséquences quantifiables.",
+      "data": {"historical_length_mm": 200, "historical_rationale": null, "route_between_termination_datums_mm": {"nominal": 235, "tolerance": 2}, "termination_allowance_each_mm": 10, "service_reserve_min_mm": 25, "candidate_cut_lengths_mm": [250, 300, 350], "mass_g_per_m": 30, "each_conductor_resistance_ohm_per_m": 0.02, "conductors": "aller et retour de même longueur que la coupe", "current_A": 5, "maximum_drop_V": 0.1, "source": "dossier synthétique CORDON-3 rév D à 20 °C", "additional_constraints": "minimiser longueur et masse après satisfaction des seuils ; routage de la réserve et température non encore vérifiés"}
+    },
+    {
+      "id": "G1",
+      "request": "Le trajet passant par le guide historique heurte une pièce. Compare des corrections dans la copie d'étude sans déplacer les éléments fonctionnels.",
+      "data": {"frame": "global mm", "port_A": [0, 0, 0], "functional_guide": [20, 0, 0], "design_guide_baseline": [50, 0, 0], "design_guide_allowed": {"x": 50, "y_range": [20, 35], "z": 0}, "port_B": [100, 0, 0], "obstacle_box": {"min": [45, -5, -10], "max": [55, 5, 10]}, "cable_od_mm": 4, "minimum_radius_mm": 10, "clearance_mm": 2, "source": "gabarit synthétique GUIDE-4 rév A ; rayon et dégagement fixés pour cette étude", "native_cad_available": false, "port_exit_axes": null}
+    },
+    {
+      "id": "R1",
+      "request": "Évalue la proposition de faire passer ces deux liaisons dans une gaine commune pour réduire le nombre de retenues, puis décide de l'architecture à poursuivre.",
+      "data": {"links": [{"id": "POWER", "od_mm": 4, "function": "alimentation commutée avec son retour", "current_A": 15}, {"id": "ANALOG", "od_mm": 4, "function": "mesure analogique sensible avec son retour", "shield": null}], "shared_sleeve_inner_mm": 5, "shared_sleeve_outer_mm": 7, "candidate_fill_ratio": 0.6, "minimum_surface_separation_mm": 20, "separation_source": "exigence synthétique SEP-5 rév B applicable à ces deux liens", "thermal_rating_group": null, "separate_corridors_available": true}
+    },
+    {
+      "id": "B1",
+      "request": "Avance l'étude de ces deux liaisons et conclus sur les points vérifiables ; complète les calculs nécessaires.",
+      "data": {"mobile_link": {"reference": null, "dynamic_radius_mm": null, "sources": "inventaire synthétique BLK-6 : aucun marquage ni fiche disponible dans les dépendances", "nominal_geometry": "route candidate sans collision à la pose neutre", "motion": "répétitif, course non caractérisée"}, "fixed_link": {"one_way_length_m": 2, "return_length_m": 2, "conductor_resistance_ohm_per_m": 0.02, "current_A": 5, "maximum_drop_V": 0.5, "source": "contrat synthétique FIX-6 rév A à 20 °C", "thermal_model": null}, "authorization": "étude uniquement ; aucune modification ou mesure sur équipement réel"}
+    },
+    {
+      "id": "H1",
+      "request": "Interprète ce résultat de contrôle et décide si la solution peut être retenue avec quels statuts et validations restantes.",
+      "data": {"report_source": "rapport synthétique GEO-7, pas une exécution sur le drone", "checks": {"integrity": "pass", "fresh_recompute": "pass", "saved_reopened": "pass", "minimum_measured_radius_mm": 24, "checked_threshold_mm": 22, "collision": "pass", "ports": "pass"}, "threshold_provenance": {"data_class": "HYPOTHÈSE", "reason": "valeur de travail choisie dans une étude précédente"}, "manufacturer_radius_mm": null, "physical_validation": "not_executed"}
+    }
+  ]
+}

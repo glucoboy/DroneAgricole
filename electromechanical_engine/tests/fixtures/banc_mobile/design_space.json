@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "max_candidates": 5,
+  "alternatives": [
+    {"id": "collision-etat", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}},
+      "supports": [{"id": "Clip", "anchor": "Deck"}], "motion_routes": {
+        "intermediaire": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 16.25, 10], [80, 16.25, 10], [80, 2.5, 10], [100, 2.5, 10]], "bend_radius_mm": 5}},
+        "extreme": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, -12.5, 10], [80, -12.5, 10], [80, 5, 10], [100, 5, 10]], "bend_radius_mm": 5}}
+      }},
+    {"id": "corrige", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}},
+      "corrects": {"candidate_id": "collision-etat", "codes": ["V4.CLEARANCE"]},
+      "supports": [{"id": "Clip", "anchor": "Deck"}], "motion_routes": {
+        "intermediaire": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 16.25, 10], [80, 16.25, 10], [80, 2.5, 10], [100, 2.5, 10]], "bend_radius_mm": 5}},
+        "extreme": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 17.5, 10], [80, 17.5, 10], [80, 5, 10], [100, 5, 10]], "bend_radius_mm": 5}}
+      }},
+    {"id": "portee-excessive", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral-large", "bend_radius_mm": 5}},
+      "supports": [{"id": "Clip", "anchor": "Deck"}], "motion_routes": {
+        "intermediaire": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 26.25, 10], [80, 26.25, 10], [80, 2.5, 10], [100, 2.5, 10]], "bend_radius_mm": 5}},
+        "extreme": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 27.5, 10], [80, 27.5, 10], [80, 5, 10], [100, 5, 10]], "bend_radius_mm": 5}}
+      }},
+    {"id": "allongement-etat", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}},
+      "supports": [{"id": "Clip", "anchor": "Deck"}], "motion_routes": {
+        "intermediaire": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 16.25, 10], [80, 16.25, 10], [80, 2.5, 10], [100, 2.5, 10]], "bend_radius_mm": 5}},
+        "extreme": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 20, 10], [80, 20, 10], [80, 5, 10], [100, 5, 10]], "bend_radius_mm": 5}}
+      }},
+    {"id": "etat-manquant", "family": "MATERIEL_CONSTANT", "routes": {"L1": {"corridor": "lateral", "bend_radius_mm": 5}},
+      "supports": [{"id": "Clip", "anchor": "Deck"}], "motion_routes": {
+        "intermediaire": {"L1": {"points_mm": [[0, 0, 10], [20, 0, 10], [20, 16.25, 10], [80, 16.25, 10], [80, 2.5, 10], [100, 2.5, 10]], "bend_radius_mm": 5}}
+      }}
+  ]
+}

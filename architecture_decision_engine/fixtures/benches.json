@@ -1,0 +1,483 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "SYNTHETIC_BENCH",
+  "seed": null,
+  "enumeration": "DETERMINISTIC_DECLARATION_ORDER",
+  "benches": [
+    {
+      "id": "f31",
+      "objective": "Rétablir le retrait et le déverrouillage de CAN1 en conservant les circuits.",
+      "baseline_topology": "DIRECT_STRAIGHT",
+      "interconnection": true,
+      "local_budget": 2,
+      "candidate_budget": 5,
+      "parameters": {
+        "pm08_y_mm": 0,
+        "f31_route_z_mm": 0,
+        "f35_y_mm": 0,
+        "can1_plug": "STRAIGHT",
+        "lateral_exit_mm": null,
+        "extra_fasteners": 0,
+        "profile_height_mm": 0
+      },
+      "links": [
+        {
+          "id": "F31",
+          "subjects": [
+            "PM08",
+            "CAN1",
+            "ISOLATEUR"
+          ]
+        },
+        {
+          "id": "F35",
+          "subjects": [
+            "PM08",
+            "F35-VOISIN"
+          ]
+        },
+        {
+          "id": "PWR1",
+          "subjects": [
+            "PM08",
+            "POWER1"
+          ]
+        },
+        {
+          "id": "PWR2",
+          "subjects": [
+            "PM08",
+            "POWER2"
+          ]
+        }
+      ],
+      "parameter_subjects": {
+        "pm08_y_mm": [
+          "PM08"
+        ],
+        "f31_route_z_mm": [
+          "F31"
+        ],
+        "f35_y_mm": [
+          "F35-VOISIN"
+        ],
+        "can1_plug": [
+          "CAN1"
+        ],
+        "lateral_exit_mm": [
+          "CAN1"
+        ],
+        "extra_fasteners": [
+          "PM08"
+        ],
+        "profile_height_mm": [
+          "PM08"
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "f31-over",
+          "family": "ROUTING",
+          "topology": "UPPER_CORRIDOR",
+          "changes": {
+            "f31_route_z_mm": 8
+          },
+          "triggers": [
+            "f31-route",
+            "f31-extraction",
+            "f31-tool"
+          ],
+          "tradeoffs": [
+            "Contour supérieur avec fiche droite."
+          ],
+          "validation_actions": [
+            "Contrôler le passage du cordon et le retrait."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "f31-under",
+          "family": "ROUTING",
+          "topology": "LOWER_CORRIDOR",
+          "changes": {
+            "f31_route_z_mm": -8
+          },
+          "triggers": [
+            "f31-route",
+            "f31-extraction",
+            "f31-tool"
+          ],
+          "tradeoffs": [
+            "Contour inférieur avec fiche droite."
+          ],
+          "validation_actions": [
+            "Contrôler le passage du cordon et le retrait."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "f31-lateral",
+          "family": "CONNECTOR",
+          "topology": "LATERAL_EXIT",
+          "changes": {
+            "can1_plug": "LATERAL_UNKNOWN"
+          },
+          "triggers": [
+            "f31-extraction",
+            "f31-tool"
+          ],
+          "tradeoffs": [
+            "Sortie latérale hypothétique ; identité de la fiche ouverte."
+          ],
+          "validation_actions": [
+            "Obtenir référence, révision, compatibilité et course applicables."
+          ],
+          "dependencies": [],
+          "incompatibilities": [],
+          "research": {
+            "issue_id": "L3-F31-MATE-COMPATIBILITY",
+            "sensitivity": {
+              "parameter": "lateral_exit_mm",
+              "range": [
+                8,
+                16
+              ],
+              "l2_service": "extraction"
+            }
+          }
+        },
+        {
+          "id": "f31-shift",
+          "family": "PLACEMENT",
+          "topology": "PM08_TRANSLATED",
+          "changes": {
+            "pm08_y_mm": -10,
+            "extra_fasteners": 2,
+            "profile_height_mm": 2
+          },
+          "triggers": [
+            "f31-extraction",
+            "f31-tool"
+          ],
+          "tradeoffs": [
+            "Le déplacement libère le service et demande deux fixations de banc."
+          ],
+          "validation_actions": [
+            "Réexaminer F31, F35, POWER1 et POWER2 ; vérifier capteur, thermique, vibrations et centrage sur la cible."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        }
+      ]
+    },
+    {
+      "id": "diagnostic",
+      "objective": "Conserver F40/F41 et les signaux de diagnostic avec accès simultané.",
+      "baseline_topology": "DIRECT_DIAGNOSTIC",
+      "interconnection": false,
+      "local_budget": 2,
+      "candidate_budget": 7,
+      "parameters": {
+        "route_offset_mm": 0,
+        "diag_shift_mm": 0,
+        "remote_offset_mm": 0,
+        "profile_penalty_mm": 0,
+        "interface_kind": "DIRECT",
+        "connection_graph": [
+          {
+            "from": "controller",
+            "to": "service",
+            "signal": "DEBUG"
+          },
+          {
+            "from": "controller",
+            "to": "service",
+            "signal": "RETURN"
+          }
+        ],
+        "extra_junctions": 0,
+        "brace_count": 0,
+        "occupancy_penalty_mm": 0
+      },
+      "links": [
+        {
+          "id": "F40",
+          "subjects": [
+            "DIAG",
+            "P75",
+            "DEBUG"
+          ]
+        },
+        {
+          "id": "F41",
+          "subjects": [
+            "DIAG",
+            "P75",
+            "RETURN"
+          ]
+        },
+        {
+          "id": "F24A",
+          "subjects": [
+            "P75",
+            "GPIO"
+          ]
+        },
+        {
+          "id": "COAX",
+          "subjects": [
+            "P75",
+            "RF"
+          ]
+        }
+      ],
+      "parameter_subjects": {
+        "route_offset_mm": [
+          "F40",
+          "F41"
+        ],
+        "diag_shift_mm": [
+          "DIAG",
+          "P75"
+        ],
+        "remote_offset_mm": [
+          "DIAG"
+        ],
+        "profile_penalty_mm": [
+          "DIAG"
+        ],
+        "interface_kind": [
+          "DIAG"
+        ],
+        "connection_graph": [
+          "DIAG"
+        ],
+        "extra_junctions": [
+          "DIAG"
+        ],
+        "brace_count": [
+          "P75"
+        ],
+        "occupancy_penalty_mm": [
+          "DIAG"
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "diag-route-1",
+          "family": "ROUTING",
+          "topology": "UPPER_PASSAGE",
+          "changes": {
+            "route_offset_mm": 2
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Conserve l’interface de service."
+          ],
+          "validation_actions": [
+            "Recalculer l’accès simultané."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "diag-route-2",
+          "family": "ROUTING",
+          "topology": "LOWER_PASSAGE",
+          "changes": {
+            "route_offset_mm": 3
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Conserve l’interface de service."
+          ],
+          "validation_actions": [
+            "Recalculer l’accès simultané."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "diag-placement",
+          "family": "PLACEMENT",
+          "topology": "P75_TRANSLATED",
+          "changes": {
+            "diag_shift_mm": 5
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Libère le service en déplaçant P75, garde la continuité de référence."
+          ],
+          "validation_actions": [
+            "Contrôler F40, F41, F24A et coaxial."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "diag-passive",
+          "family": "FUNCTIONAL_ARCHITECTURE",
+          "topology": "REMOTE_PASSIVE_INTERFACE",
+          "changes": {
+            "remote_offset_mm": 6,
+            "interface_kind": "REMOTE_PASSIVE",
+            "connection_graph": [
+              {
+                "from": "controller",
+                "to": "remote",
+                "signal": "DEBUG"
+              },
+              {
+                "from": "remote",
+                "to": "service",
+                "signal": "DEBUG"
+              },
+              {
+                "from": "controller",
+                "to": "remote",
+                "signal": "RETURN"
+              },
+              {
+                "from": "remote",
+                "to": "service",
+                "signal": "RETURN"
+              }
+            ],
+            "extra_junctions": 2
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Ajoute une interface démontable et deux raccordements.",
+            "Marge de maintenance accrue."
+          ],
+          "validation_actions": [
+            "Vérifier contrat électrique et raccordements."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "diag-active",
+          "family": "FUNCTIONAL_ARCHITECTURE",
+          "topology": "REMOTE_ACTIVE_INTERFACE",
+          "changes": {
+            "remote_offset_mm": 6,
+            "interface_kind": "REMOTE_ACTIVE",
+            "connection_graph": [
+              {
+                "from": "controller",
+                "to": "active",
+                "signal": "DEBUG"
+              },
+              {
+                "from": "active",
+                "to": "service",
+                "signal": "DEBUG"
+              },
+              {
+                "from": "controller",
+                "to": "active",
+                "signal": "RETURN"
+              },
+              {
+                "from": "active",
+                "to": "service",
+                "signal": "RETURN"
+              }
+            ],
+            "extra_junctions": 2
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Ajoute une conversion active non évaluée."
+          ],
+          "validation_actions": [
+            "Définir alimentation, états de panne et contrat électrique."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        },
+        {
+          "id": "diag-placement-braced",
+          "family": "PLACEMENT",
+          "topology": "P75_TRANSLATED_WITH_BRACE",
+          "changes": {
+            "diag_shift_mm": 5,
+            "brace_count": 1,
+            "profile_penalty_mm": 1
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Une fixation de plus sans gain d’accès sur le banc."
+          ],
+          "validation_actions": [
+            "Contrôler F24A et coaxial."
+          ],
+          "dependencies": [],
+          "incompatibilities": [],
+          "superseded_by": "diag-placement"
+        },
+        {
+          "id": "diag-compact",
+          "family": "PLACEMENT",
+          "topology": "P75_TRANSLATED_COMPACT",
+          "changes": {
+            "diag_shift_mm": 5,
+            "profile_penalty_mm": -1,
+            "brace_count": 2,
+            "occupancy_penalty_mm": -1
+          },
+          "triggers": [
+            "diag-tool"
+          ],
+          "tradeoffs": [
+            "Réduit le profil avec deux fixations."
+          ],
+          "validation_actions": [
+            "Contrôler les quatre liaisons."
+          ],
+          "dependencies": [],
+          "incompatibilities": []
+        }
+      ],
+      "portfolios": [
+        {
+          "id": "diag-incompatible",
+          "members": [
+            "diag-placement",
+            "diag-passive"
+          ]
+        },
+        {
+          "id": "diag-compatible",
+          "members": [
+            "diag-placement",
+            "diag-compact"
+          ]
+        },
+        {
+          "id": "diag-assignment-conflict",
+          "members": [
+            "diag-placement-braced",
+            "diag-compact"
+          ]
+        }
+      ],
+      "require_local_exhaustion": true
+    }
+  ]
+}

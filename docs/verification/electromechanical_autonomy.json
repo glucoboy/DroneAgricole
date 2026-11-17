@@ -1,0 +1,1813 @@
+{
+  "schema_version": 1,
+  "test_id": "T-SKILL-EMI-02",
+  "date": "2026-10-28",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "scope": "Evolution de la skill existante et tests synthetiques uniquement ; aucun modele drone modifie",
+  "skill_changed_files": [
+    {
+      "path": ".agents/skills/electromechanical-integration/agents/openai.yaml",
+      "before_sha256": "51bfd9cd405a304ee208dd10d056157f40f79455177ac04663b260ffed9c4da4",
+      "after_sha256": "4bf3e7bbdfec639e482351d39ebb855c3c8b029658111cb1740f05ed832e8cfb"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/engineering-autonomy.md",
+      "before_sha256": null,
+      "after_sha256": "3be263df3893e3d0b8b21e4f7559b881acb162ff24955e611f52d5854943b738"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-cases.json",
+      "before_sha256": null,
+      "after_sha256": "59217104360970e8e9737c9d257aace583d380aadb1ab2a6d0cf9b861aef851b"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-a.md",
+      "before_sha256": null,
+      "after_sha256": "46c0855095db88a7c03b262169b1ea99299b08f159e01ac21cdedff20cd28864"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-b.md",
+      "before_sha256": null,
+      "after_sha256": "96909aaf236c2af0a87f87ac83d9888c90f6899e1453f2d22b8942380fd3213d"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation.md",
+      "before_sha256": null,
+      "after_sha256": "cd143dfd398c357e5a58d47105d15aa3fa70be2eeedcced77f67522a9d20f4a4"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/execution.md",
+      "before_sha256": "041e94d8fe6e717afba43a7944efae0f17af05c6cf94806392fe9444535e72d7",
+      "after_sha256": "a921cb6f84533fdd87a92cecd906968bb8c126ac1aeabf77dde9cd1c09327b74"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/integration-contract.md",
+      "before_sha256": "9af6967d6a469ff1e892fb610b3f9e0a53c6c42dbc7be9e3a4c6dd3bc398a974",
+      "after_sha256": "8b778d49cd2232da11841314591a49909bae8c6a9236e6e41435bc7a9630e893"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/planner-contract.md",
+      "before_sha256": "370eb813350b5cb0822e7e554c7857e75e38eb946324a189dac2ee95766817fd",
+      "after_sha256": "135b862720b4420087ff3dcd8cae610f34a479250cf59d0a5e5118b671985a4d"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/validation.md",
+      "before_sha256": "d322a4a2b1d3055b52ac1de3a184557386ecaa990deb30cc4713c627c9a6c7f8",
+      "after_sha256": "1e405ae704657f790bd6157cb183e581eda163976810e9b9b8fbd1f81b2eafa6"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/SKILL.md",
+      "before_sha256": "0ae5153ffb875078a4cbbee18070cf4797be5675ed44023a6ac43f5e47c4b7b8",
+      "after_sha256": "3b29587afb013d256c1f0d89b0c661396ff1cd4de226ff4a15e776ef8d3c03b8"
+    }
+  ],
+  "skill_hashes": [
+    {
+      "path": ".agents/skills/electromechanical-integration/agents/openai.yaml",
+      "sha256": "4bf3e7bbdfec639e482351d39ebb855c3c8b029658111cb1740f05ed832e8cfb"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/engineering-autonomy.md",
+      "sha256": "3be263df3893e3d0b8b21e4f7559b881acb162ff24955e611f52d5854943b738"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-cases.json",
+      "sha256": "59217104360970e8e9737c9d257aace583d380aadb1ab2a6d0cf9b861aef851b"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-a.md",
+      "sha256": "46c0855095db88a7c03b262169b1ea99299b08f159e01ac21cdedff20cd28864"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-b.md",
+      "sha256": "96909aaf236c2af0a87f87ac83d9888c90f6899e1453f2d22b8942380fd3213d"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/evaluation.md",
+      "sha256": "cd143dfd398c357e5a58d47105d15aa3fa70be2eeedcced77f67522a9d20f4a4"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/execution.md",
+      "sha256": "a921cb6f84533fdd87a92cecd906968bb8c126ac1aeabf77dde9cd1c09327b74"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/freecad-api.md",
+      "sha256": "8e276b25c8ee020bcc053b510796f2fc2677901d53f6bf2c92183d0fb6b598eb"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/integration-contract.md",
+      "sha256": "8b778d49cd2232da11841314591a49909bae8c6a9236e6e41435bc7a9630e893"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/planner-contract.md",
+      "sha256": "135b862720b4420087ff3dcd8cae610f34a479250cf59d0a5e5118b671985a4d"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/synthetic-network.json",
+      "sha256": "145a215222e4fe5154f13a0e41bc5182cdd3d5ff74ef3e7f6fd5829987d76cc9"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/references/validation.md",
+      "sha256": "1e405ae704657f790bd6157cb183e581eda163976810e9b9b8fbd1f81b2eafa6"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/CMakeLists.txt",
+      "sha256": "ad1111fa16fa8f67f5096a745af3adb65dc7fe4651eababf527eee41194c9e30"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+      "sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/harness_planner.cpp",
+      "sha256": "b352c3f8f97164dc45812737643b668002c80249d029b8414ff04376ce3ebaa9"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/harness_planner.hpp",
+      "sha256": "d6642af2da75e266a309b75e25e557472a436dd3af21445e0ea13666cd101ab4"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/tests_freecad.py",
+      "sha256": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/tests_planner.cpp",
+      "sha256": "30234fb967aafd305ddebf9605c7b518661c4d8b47161e84a7f191f399386d89"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/tests_workspace.py",
+      "sha256": "378334371277fc4dbe59d7a891001ee17b2f73e5b27d81bd3e43c098475c2005"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+      "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/SKILL.md",
+      "sha256": "3b29587afb013d256c1f0d89b0c661396ff1cd4de226ff4a15e776ef8d3c03b8"
+    }
+  ],
+  "regression": {
+    "started_utc": "2026-10-28T22:22:24.412013+00:00",
+    "scope": "synthetic_existing_regressions_only",
+    "commands": [
+      {
+        "id": "cmake_configure",
+        "command": [
+          "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+          "-S",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\scripts",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\planner-build",
+          "-G",
+          "Ninja",
+          "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\c++.exe",
+          "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+          "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "-- The CXX compiler identification is GNU 16.2.0\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: C:/msys64/ucrt64/bin/c++.exe - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n-- Found Threads: TRUE\n-- Performing Test HAVE_STDATOMIC\n-- Performing Test HAVE_STDATOMIC - Success\n-- Found WrapAtomic: TRUE\n-- Configuring done (3.5s)\n-- Generating done (0.0s)\n-- Build files have been written to: D:/ProjetGuillaume/DroneAgricole/.runtime/emi-autonomy/planner-build\n",
+        "stderr": ""
+      },
+      {
+        "id": "cmake_build",
+        "command": [
+          "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+          "--build",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\planner-build"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "[1/6] Building CXX object CMakeFiles/harness-planner-tests.dir/tests_planner.cpp.obj\r\n[2/6] Building CXX object CMakeFiles/harness_planner_core.dir/harness_planner.cpp.obj\r\n[3/6] Building CXX object CMakeFiles/harness-planner.dir/harness_planner.cpp.obj\r\n[4/6] Linking CXX static library libharness_planner_core.a\r\n[5/6] Linking CXX executable harness-planner.exe\r\n[6/6] Linking CXX executable harness-planner-tests.exe\r\n",
+        "stderr": ""
+      },
+      {
+        "id": "ctest",
+        "command": [
+          "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\planner-build",
+          "--output-on-failure"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "Test project D:/ProjetGuillaume/DroneAgricole/.runtime/emi-autonomy/planner-build\n    Start 1: planner_properties\n1/1 Test #1: planner_properties ...............   Passed    0.16 sec\n\n100% tests passed out of 1\n\nTotal Test time (real) =   0.18 sec\n",
+        "stderr": ""
+      },
+      {
+        "id": "planner_assertions",
+        "command": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\planner-build\\harness-planner-tests.exe"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "PASS 41 assertions; compatible, branch, deny, unknown, conservation, continuity, capacity, accessibility, determinism, budget\r\n",
+        "stderr": ""
+      },
+      {
+        "id": "workspace",
+        "command": [
+          "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\scripts\\tests_workspace.py",
+          "--temp-root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\regression\\workspace-tests"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "......\r\n----------------------------------------------------------------------\r\nRan 6 tests in 0.098s\r\n\r\nOK\r\n"
+      },
+      {
+        "id": "freecad",
+        "command": [
+          "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\scripts\\tests_freecad.py",
+          "--builder",
+          "D:\\ProjetGuillaume\\DroneAgricole\\hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\regression\\freecad-tests.json"
+        ],
+        "timeout_s": 60,
+        "returncode": 0,
+        "stdout": "DraftGeomUtils.fillet: Warning: edges have same direction. Did nothing\n{\"tests_run\": 19, \"successful\": true, \"report\": \"D:\\\\ProjetGuillaume\\\\DroneAgricole\\\\.runtime\\\\emi-autonomy\\\\regression\\\\freecad-tests.json\"}\n",
+        "stderr": "test_clearance_and_uncompleted_boolean (__main__.GeometryTests.test_clearance_and_uncompleted_boolean) ... ok\r\ntest_conduit_material_not_exempted (__main__.GeometryTests.test_conduit_material_not_exempted) ... ok\r\ntest_explicit_conduit_envelope_inclusion (__main__.GeometryTests.test_explicit_conduit_envelope_inclusion) ... ok\r\ntest_join_tangency_and_waypoint (__main__.GeometryTests.test_join_tangency_and_waypoint) ... ok\r\ntest_missing_supplier_radius (__main__.GeometryTests.test_missing_supplier_radius) ... ok\r\ntest_nonfinite_connector_vectors_never_pass (__main__.GeometryTests.test_nonfinite_connector_vectors_never_pass) ... ok\r\ntest_nonfinite_kernel_measurements_never_pass (__main__.GeometryTests.test_nonfinite_kernel_measurements_never_pass) ... ok\r\ntest_null_and_non_solid_generation (__main__.GeometryTests.test_null_and_non_solid_generation) ... ok\r\ntest_radius_below_requirement (__main__.GeometryTests.test_radius_below_requirement) ... ok\r\ntest_real_obstacle_collision (__main__.GeometryTests.test_real_obstacle_collision) ... ok\r\ntest_reversed_edge_direction (__main__.GeometryTests.test_reversed_edge_direction) ... ok\r\ntest_spline_samples_never_certify_global_radius (__main__.GeometryTests.test_spline_samples_never_certify_global_radius) ... ok\r\ntest_straight_route_and_connector_directions (__main__.GeometryTests.test_straight_route_and_connector_directions) ... ok\r\ntest_subdivision_budget_requires_integers (__main__.GeometryTests.test_subdivision_budget_requires_integers) ... ok\r\ntest_terminal_positions (__main__.GeometryTests.test_terminal_positions) ... ok\r\ntest_failed_native_generation_does_not_reuse_old_solid (__main__.NativeTests.test_failed_native_generation_does_not_reuse_old_solid) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_native_compoundpath_and_conduit (__main__.NativeTests.test_native_compoundpath_and_conduit) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_native_wireflex_archcable_rebuild (__main__.NativeTests.test_native_wireflex_archcable_rebuild) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\ntest_recompute_false_never_passes (__main__.NativeTests.test_recompute_false_never_passes) ... QOpenGLWidget is not supported on this platform.\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nThis plugin does not support grabbing the keyboard\nok\r\n\r\n----------------------------------------------------------------------\r\nRan 19 tests in 7.470s\r\n\r\nOK\r\n"
+      }
+    ],
+    "drone_model_opened": false,
+    "quick_validate": "left_to_parent",
+    "source_hashes_before": {
+      "hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+      ".agents\\skills\\electromechanical-integration\\scripts\\CMakeLists.txt": "ad1111fa16fa8f67f5096a745af3adb65dc7fe4651eababf527eee41194c9e30",
+      ".agents\\skills\\electromechanical-integration\\scripts\\freecad_geometry.py": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      ".agents\\skills\\electromechanical-integration\\scripts\\harness_planner.cpp": "b352c3f8f97164dc45812737643b668002c80249d029b8414ff04376ce3ebaa9",
+      ".agents\\skills\\electromechanical-integration\\scripts\\harness_planner.hpp": "d6642af2da75e266a309b75e25e557472a436dd3af21445e0ea13666cd101ab4",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_freecad.py": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_planner.cpp": "30234fb967aafd305ddebf9605c7b518661c4d8b47161e84a7f191f399386d89",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_workspace.py": "378334371277fc4dbe59d7a891001ee17b2f73e5b27d81bd3e43c098475c2005",
+      ".agents\\skills\\electromechanical-integration\\scripts\\workspace_guard.py": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    "freecad_finalization": {
+      "exists": true,
+      "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea",
+      "tests_run": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": [],
+      "accepted": true
+    },
+    "source_hashes_after": {
+      "hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+      ".agents\\skills\\electromechanical-integration\\scripts\\CMakeLists.txt": "ad1111fa16fa8f67f5096a745af3adb65dc7fe4651eababf527eee41194c9e30",
+      ".agents\\skills\\electromechanical-integration\\scripts\\freecad_geometry.py": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      ".agents\\skills\\electromechanical-integration\\scripts\\harness_planner.cpp": "b352c3f8f97164dc45812737643b668002c80249d029b8414ff04376ce3ebaa9",
+      ".agents\\skills\\electromechanical-integration\\scripts\\harness_planner.hpp": "d6642af2da75e266a309b75e25e557472a436dd3af21445e0ea13666cd101ab4",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_freecad.py": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_planner.cpp": "30234fb967aafd305ddebf9605c7b518661c4d8b47161e84a7f191f399386d89",
+      ".agents\\skills\\electromechanical-integration\\scripts\\tests_workspace.py": "378334371277fc4dbe59d7a891001ee17b2f73e5b27d81bd3e43c098475c2005",
+      ".agents\\skills\\electromechanical-integration\\scripts\\workspace_guard.py": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    "sources_preserved": true,
+    "completed_utc": "2026-10-28T22:22:42.973376+00:00",
+    "passed": true
+  },
+  "freecad_report": {
+    "intentional_envelope_inclusion": {
+      "stage": "integration",
+      "pair": [
+        "C1",
+        "G1"
+      ],
+      "failures": [],
+      "unknowns": [],
+      "authorized_relation": true,
+      "intersection_volume_mm3": 1256.6370614359173,
+      "clearance_mm": 0.0,
+      "outside_envelope_volume_mm3": 0.0,
+      "status": "pass"
+    },
+    "radius_nonconforming": {
+      "stage": "geometry",
+      "failures": [
+        "bend_radius_below_requirement"
+      ],
+      "unknowns": [
+        "start_connector_position_missing",
+        "end_connector_position_missing"
+      ],
+      "minimum_radius_mm": 10.0,
+      "radius_evidence": "analytic_lines_circles",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomCircle",
+          "length_mm": 15.707963267948966,
+          "method": "analytic_circle",
+          "samples": 0,
+          "minimum_radius_mm": 10.0
+        }
+      ],
+      "join_angles_deg": [],
+      "waypoint_distances_mm": [],
+      "length_mm": 15.707963267948966,
+      "shape_sha256": "11843dbf87390cc63c3b4fea59b76a052a50bb51a234af648b0fa11bf3175c20",
+      "straight_radius_infinite": false,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "fail"
+    },
+    "obstacle_collision": {
+      "stage": "integration",
+      "pair": [
+        "C1",
+        "OB1"
+      ],
+      "failures": [
+        "forbidden_interference"
+      ],
+      "unknowns": [],
+      "authorized_relation": false,
+      "intersection_volume_mm3": 125.6637061435917,
+      "clearance_mm": 3.9831970004118395e-16,
+      "status": "fail"
+    },
+    "adaptive_spline": {
+      "stage": "geometry",
+      "failures": [],
+      "unknowns": [
+        "curvature_subdivision_budget_reached",
+        "global_curvature_bound_not_proven",
+        "start_connector_position_missing",
+        "end_connector_position_missing"
+      ],
+      "minimum_radius_mm": 31.275033687967326,
+      "radius_evidence": "sampled_upper_bound_on_true_minimum_radius",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomBSplineCurve",
+          "length_mm": 69.33086331438179,
+          "method": "adaptive_curvature_samples",
+          "samples": 905,
+          "knot_spans": 1,
+          "depth_budget_exhausted": true,
+          "min_depth": 3,
+          "max_depth": 8,
+          "curvature_relative_tolerance": 0.01,
+          "minimum_radius_mm": 31.275033687967326
+        }
+      ],
+      "join_angles_deg": [],
+      "waypoint_distances_mm": [],
+      "length_mm": 69.33092746276091,
+      "shape_sha256": "147cad06af61f5274000163f4665c792537e24ea784860969c42675ab2866be0",
+      "straight_radius_infinite": false,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "unknown"
+    },
+    "environment": {
+      "nom": "Cables Workbench",
+      "version": "0.3.7",
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb"
+      },
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ]
+    },
+    "native_failed_generation_injected": {
+      "stage": "solid",
+      "failures": [
+        "solid_generation_invalid"
+      ],
+      "null": true,
+      "valid": false,
+      "solid_count": 0,
+      "volume_mm3": 0.0,
+      "status": "fail",
+      "recompute_return": true,
+      "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Line": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "native_compoundpath_conduit": {
+      "path_type": "Complex",
+      "length_mm": 100.0,
+      "conduit": {
+        "stage": "solid",
+        "failures": [],
+        "null": false,
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 2827.4333882308138,
+        "status": "pass"
+      },
+      "subconduits": 0
+    },
+    "native_archcable": {
+      "stage": "solid",
+      "failures": [],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 1454.0291494577045,
+      "status": "pass",
+      "recompute_return": true,
+      "path_before_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "path_after_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Wire": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "native_route": {
+      "stage": "geometry",
+      "failures": [],
+      "unknowns": [],
+      "minimum_radius_mm": 10.0,
+      "radius_evidence": "analytic_lines_circles",
+      "edge_measurements": [
+        {
+          "curve_type": "Part::GeomLine",
+          "length_mm": 50.0,
+          "method": "analytic_line",
+          "samples": 0,
+          "minimum_radius_mm": null
+        },
+        {
+          "curve_type": "Part::GeomCircle",
+          "length_mm": 15.707963267948964,
+          "method": "analytic_circle",
+          "samples": 0,
+          "minimum_radius_mm": 10.0
+        },
+        {
+          "curve_type": "Part::GeomLine",
+          "length_mm": 50.0,
+          "method": "analytic_line",
+          "samples": 0,
+          "minimum_radius_mm": null
+        }
+      ],
+      "join_angles_deg": [
+        0.0,
+        0.0
+      ],
+      "waypoint_distances_mm": [],
+      "length_mm": 115.70796326794897,
+      "shape_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+      "straight_radius_infinite": false,
+      "start_position_error_mm": 0.0,
+      "end_position_error_mm": 0.0,
+      "start_axis_error_deg": 0.0,
+      "end_axis_error_deg": 0.0,
+      "status": "pass"
+    },
+    "recompute_false_injected": {
+      "stage": "solid",
+      "failures": [
+        "freecad_recompute_failed"
+      ],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 628.3185307179585,
+      "status": "fail",
+      "recompute_return": false,
+      "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+      "cache_cleared": true,
+      "object_states": {
+        "Cable": [
+          "Up-to-date"
+        ],
+        "Line": [
+          "Up-to-date"
+        ]
+      }
+    },
+    "tests_run": 19,
+    "failures": 0,
+    "errors": 0,
+    "skipped": [],
+    "geometry_stage": "executed",
+    "interactive_stage": "not_executed",
+    "physical_stage": "not_executed"
+  },
+  "structural_validation": {
+    "command": [
+      "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "-X",
+      "utf8",
+      "C:/Users/Utilisateur/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration"
+    ],
+    "returncode": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": "",
+    "skill_links": [
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/execution.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/engineering-autonomy.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/integration-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/integration-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/planner-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/freecad-api.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/validation.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/validation.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/SKILL.md",
+        "target": "references/evaluation.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/engineering-autonomy.md",
+        "target": "integration-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/engineering-autonomy.md",
+        "target": "validation.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/evaluation.md",
+        "target": "execution.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/evaluation.md",
+        "target": "evaluation-cases.json",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/evaluation.md",
+        "target": "evaluation-sources/",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/execution.md",
+        "target": "freecad-api.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/execution.md",
+        "target": "planner-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/execution.md",
+        "target": "evaluation.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/integration-contract.md",
+        "target": "planner-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/planner-contract.md",
+        "target": "synthetic-network.json",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/planner-contract.md",
+        "target": "integration-contract.md",
+        "exists": true
+      },
+      {
+        "file": ".agents/skills/electromechanical-integration/references/validation.md",
+        "target": "engineering-autonomy.md#journal-structuré-de-conception",
+        "exists": true
+      }
+    ],
+    "new_document_links": [
+      {
+        "file": "docs/VALIDATION_QUALIFICATION.md",
+        "target": "architecture/ARCHITECTURE_MECANIQUE.md#integration-electromecanique",
+        "exists_after_finalization": true
+      },
+      {
+        "file": "docs/VALIDATION_QUALIFICATION.md",
+        "target": "../.agents/skills/electromechanical-integration/references/evaluation.md",
+        "exists_after_finalization": true
+      },
+      {
+        "file": "docs/VALIDATION_QUALIFICATION.md",
+        "target": "verification/electromechanical_autonomy.json",
+        "exists_after_finalization": true
+      }
+    ],
+    "scripts_unchanged": true
+  },
+  "behavioral_protocol": {
+    "independent_batches": [
+      "D1,K1,P1,L1",
+      "G1,R1,B1,H1"
+    ],
+    "rubric_withheld": true,
+    "fixtures_fictitious": true,
+    "reviewer": "parent agent reviewing executed artifacts against references/evaluation.md"
+  },
+  "behavioral_evaluations": [
+    {
+      "batch": "forward-mobile",
+      "raw_result": {
+        "schema_version": 1,
+        "scope": "Études synthétiques indépendantes D1, K1, P1, L1 ; aucune applicabilité au drone ou à un matériel réel.",
+        "author_role": "Investigation indépendante forward-mobile",
+        "framing": {
+          "problem": "Résoudre les propriétés documentables, déduire les enveloppes accessibles et comparer les longueurs sans transformer les inconnues physiques en valeurs acquises.",
+          "priority_relation": "Exercice réversible explicitement demandé ; aucune reprise des campagnes du projet ni changement de priorité DOC-VAL §14.",
+          "impact": "Qualité de décision de conception sur cas fictifs, sans engagement matériel.",
+          "urgency": "Budget demandé de 8 minutes.",
+          "reversibility": "Type 2 : calculs et preuves isolés ; aucune modification de modèle ni de documentation vivante.",
+          "downside": "Erreur de calcul détectable par comparaison analytique et répétition ; aucune dépense ou action matérielle autorisée.",
+          "budget_minutes": 8,
+          "stop_criterion": "Sources de révision comparées, bornes analytiques calculées, variantes chiffrées et limites distinguées ; arrêt avant inventer paramètres de câble ou modèle vibratoire.",
+          "project_status": "Implémenté pour cette preuve hors ligne ; intégrations physiques À valider.",
+          "hypothesis_falsification": "Revoir la sélection dès qu'une donnée applicable ou un routage démontre une violation ; les conditions inconnues ne sont pas présumées satisfaites."
+        },
+        "source_registry": [
+          {
+            "id": "cases",
+            "path": ".agents/skills/electromechanical-integration/references/evaluation-cases.json",
+            "data_class": "DOCUMENTÉE",
+            "scope": "fixtures synthétiques exclusivement"
+          },
+          {
+            "id": "SYN-B",
+            "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-b.md",
+            "revision": "B",
+            "page": 1,
+            "data_class": "DOCUMENTÉE",
+            "applicability": "FLEX-A constitution B, montage de banc BEND-B, 20 °C, 5000 cycles, sans torsion"
+          },
+          {
+            "id": "SYN-A",
+            "path": ".agents/skills/electromechanical-integration/references/evaluation-sources/flex-a-rev-a.md",
+            "revision": "A",
+            "page": 1,
+            "data_class": "DOCUMENTÉE",
+            "applicability": "Exclue pour constitution B ; consultation pour arbitrage de révision"
+          },
+          {
+            "id": "PIVOT-1",
+            "revision": "C",
+            "location": "cases#/cases/1/data",
+            "data_class": "DOCUMENTÉE",
+            "scope": "cinématique nominale exacte du modèle fictif"
+          },
+          {
+            "id": "LIMIT-2",
+            "revision": "A",
+            "location": "cases#/cases/2/data",
+            "data_class": "DOCUMENTÉE",
+            "scope": "butées rigides idéales du modèle fictif"
+          },
+          {
+            "id": "CORDON-3",
+            "revision": "D",
+            "location": "cases#/cases/3/data",
+            "data_class": "DOCUMENTÉE",
+            "scope": "20 °C, modèle fictif fourni"
+          }
+        ],
+        "actions_executed": [
+          {
+            "tool": "exec_command / git status --short",
+            "result": "État modifié préexistant observé ; toutes les écritures de cette branche limitées à .runtime/emi-autonomy/forward-mobile/."
+          },
+          {
+            "tool": "exec_command / Get-Content et rg",
+            "result": "Lecture skill, engineering-autonomy, integration-contract, validation, cadrage HLD, préceptes pertinents, priorité DOC-VAL §14 et audit §15."
+          },
+          {
+            "tool": "exec_command / Get-ChildItem puis Get-Content",
+            "result": "Inventaire effectif du répertoire evaluation-sources : deux notices ; lecture intégrale des révisions A et B. Aucun barème ni preuve externe d'évaluation consulté."
+          },
+          {
+            "tool": "exec_command / Get-Command et g++ --version",
+            "result": "Compilateur disponible : MSYS2 UCRT64 g++ Rev3 16.2.0."
+          },
+          {
+            "tool": "exec_command / g++",
+            "command": "g++ -std=c++17 -O2 -Wall -Wextra -pedantic .runtime/emi-autonomy/forward-mobile/calculate.cpp -o .runtime/emi-autonomy/forward-mobile/calculate.exe",
+            "result": "Compilation réussie, aucun diagnostic émis."
+          },
+          {
+            "tool": "exec_command / calculate.exe",
+            "result": "Exécution réussie, calculs JSON produits, 1001 poses K1 et 218160 poses P1 contrôlées en complément des bornes analytiques."
+          }
+        ],
+        "research_limits": {
+          "web": "Non exécuté : références explicitement fictives, notices exactes disponibles localement ; une notice commerciale réelle n'est pas applicable aux fixtures.",
+          "cad": "Non exécuté : aucun natif nécessaire aux calculs cinématiques exacts fournis ; ouverture des modèles du drone interdite dans ce périmètre.",
+          "physical": "Non exécuté : aucune autorisation ni matériel de test dans l'étude.",
+          "external_contact_or_purchase": "Non exécuté, hors périmètre."
+        },
+        "calculation_artifact": "calculations.json",
+        "calculation_source": "calculate.cpp",
+        "design_decisions": [
+          {
+            "id": "D1",
+            "problem": "Rayons absents de la configuration FLEX-A B pour flexion répétitive sans torsion à 20 °C et 5000 cycles.",
+            "data_refs": [
+              "cases#/cases/0/data",
+              "SYN-B",
+              "SYN-A"
+            ],
+            "constraints": [
+              {
+                "id": "D1-static",
+                "constraint_class": "IMPÉRATIVE",
+                "value": 12,
+                "unit": "mm",
+                "data_class": "DOCUMENTÉE",
+                "source": "SYN-B p1",
+                "scope": "rayon statique minimal"
+              },
+              {
+                "id": "D1-dynamic",
+                "constraint_class": "IMPÉRATIVE",
+                "value": 40,
+                "unit": "mm",
+                "data_class": "DOCUMENTÉE",
+                "source": "SYN-B p1",
+                "scope": "flexion répétitive à 20 °C, 5000 cycles, sans torsion, banc BEND-B"
+              }
+            ],
+            "variants": [
+              {
+                "id": "revision-A",
+                "static_radius_mm": 16,
+                "dynamic_radius_mm": 60,
+                "decision": "Non retenue : constitution A explicitement distincte ; aucune extrapolation à B, même si valeur plus conservatrice."
+              },
+              {
+                "id": "revision-B",
+                "static_radius_mm": 12,
+                "dynamic_radius_mm": 40,
+                "decision": "Source exacte retenue pour les seuils de conception."
+              }
+            ],
+            "decision": "Préparer la configuration de conception avec Rstatique >= 12 mm et Rdynamique >= 40 mm dans le domaine documentaire exact. Aucun rayon générique inventé ; aucune correction du fichier source des fixtures.",
+            "selected_candidate_id": "revision-B",
+            "results": "L'inconnue documentaire est résolue ; aucun tracé ni rayon réalisé n'a été fourni ou vérifié.",
+            "statuses": {
+              "source_applicability": "pass",
+              "route_geometry": "NON_VÉRIFIÉ",
+              "integration": "CANDIDAT_CONDITIONNEL",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE"
+            },
+            "remaining_checks": [
+              "Contrôler sur le tracé effectif les rayons, torsion, sorties et montage client.",
+              "Vérifier endurance de l'intégration client ; la notice n'en fournit pas la tenue.",
+              "Revoir la référence ou obtenir une preuve dédiée si température, montage, torsion ou cycles sortent du domaine de BEND-B."
+            ],
+            "questions": [],
+            "confidence": "Élevée sur les valeurs documentées fictives ; tenue de l'intégration non démontrée.",
+            "stop_reason": "Référence exacte retrouvée et conditions discriminantes établies."
+          },
+          {
+            "id": "K1",
+            "problem": "Déduire la course du port lié au pivot et son incidence sur le câble.",
+            "data_refs": [
+              "PIVOT-1"
+            ],
+            "constraints": [
+              {
+                "constraint_class": "IMPÉRATIVE",
+                "description": "Un unique pivot parfait global z à l'origine, rayon 100 mm, angle entre -15° et +15°, aucun autre degré de liberté."
+              }
+            ],
+            "calculations": [
+              {
+                "data_class": "CALCULÉE",
+                "model": "p(theta)=(100 cos(theta),100 sin(theta),0), theta dans [-pi/12,pi/12] ; orientation liée au corps Rz(theta).",
+                "continuous_coverage": "Cosinus maximal à 0, minimal aux butées ; sinus monotone dans l'intervalle. La distance au nominal est 200 sin(|theta|/2), croissante jusqu'aux butées.",
+                "results_ref": "calculations.json#/K1"
+              },
+              {
+                "model": "Corde butée à butée = 2r sin(15°). Arc parcouru entre butées = r * 30° * pi/180. Départ maximal du nominal = 2r sin(7.5°).",
+                "unit": "mm"
+              }
+            ],
+            "decision": "Dimensionner l'étude de boucle pour l'ensemble de l'arc de port et la rotation du connecteur ; conserver les tronçons fixes retenus hors zone mobile. La course connue permet de poursuivre sans amplitude vibratoire mesurée.",
+            "results": "Écart maximal au nominal 26.105238444 mm ; corde totale 51.7638090205 mm ; arc total 52.3598775598 mm. Ces valeurs décrivent le port et ne sont pas une longueur de cordon requise.",
+            "source_unknowns": [
+              {
+                "name": "actual_vibration_amplitude",
+                "value": null,
+                "data_class": "INCONNUE"
+              },
+              {
+                "name": "cable_length",
+                "value": null,
+                "data_class": "INCONNUE"
+              }
+            ],
+            "statuses": {
+              "kinematic_envelope": "pass",
+              "cable_geometry": "NON_VÉRIFIÉ",
+              "integration": "CANDIDAT_CONDITIONNEL",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE"
+            },
+            "remaining_checks": [
+              "Identifier le port fixe, les axes de sortie, la référence et les rayons applicables, les obstacles et les retenues.",
+              "Concevoir puis vérifier longueur, rayon, tangence, torsion et volume balayé du câble sur tout theta, pas seulement aux butées.",
+              "Mesurer amplitude/fréquence et cycles de service pour forces et fatigue ; aucune amplitude de vibration n'est déduite des butées."
+            ],
+            "questions": [
+              "Pour définir une longueur de cordon : position et orientation du port fixe, axes de sortie et référence du câble restent nécessaires."
+            ],
+            "confidence": "Élevée pour la cinématique du modèle nominal exact ; aucune propriété dynamique réelle déduite.",
+            "stop_reason": "Enveloppe continue du port résolue ; données de tracé de câble absentes."
+          },
+          {
+            "id": "P1",
+            "problem": "Poursuivre le raccordement suspendu malgré amplitude de service inconnue.",
+            "data_refs": [
+              "LIMIT-2"
+            ],
+            "constraints": [
+              {
+                "constraint_class": "IMPÉRATIVE",
+                "description": "Disque de translation xy de rayon 3 mm, z entre -8 et +8 mm, rotations bloquées ; ne pas remplacer le disque par la combinaison impossible dx=dy=3."
+              }
+            ],
+            "calculations": [
+              {
+                "data_class": "CALCULÉE",
+                "model": "Enveloppe exacte du port : cylindre fermé (x-100)^2+y^2<=9, |z|<=8. Départ max=sqrt(3^2+8^2). Diamètre=2sqrt(73).",
+                "results_ref": "calculations.json#/P1"
+              },
+              {
+                "data_class": "CALCULÉE",
+                "model": "Distance minimale au port fixe =100-3=97, atteinte en dx=-3,dy=dz=0. Distance maximale=sqrt((100+3)^2+8^2), atteinte en dx=3,dy=0,dz=±8.",
+                "proof": "À rayon xy fixé, la norme est maximale pour dx positif aligné sur x ; maximiser ensuite rayon disque et |z|. Le minimum est la projection la plus proche avec z=0.",
+                "continuous_coverage": "Bornes analytiques sur le produit disque × intervalle ; échantillonnage uniquement contrôle de cohérence."
+              }
+            ],
+            "variants": [
+              {
+                "id": "straight-100",
+                "data_class": "HYPOTHÈSE",
+                "free_length_mm": 100,
+                "decision": "NON_CONFORME au critère nécessaire de portée : déficit 3.310212467 mm en butée combinée, même sans réserve ni courbure."
+              },
+              {
+                "id": "free-105",
+                "data_class": "HYPOTHÈSE",
+                "free_length_mm": 105,
+                "decision": "Condition nécessaire de portée satisfaite, excédent minimal 1.689787533 mm ; courbure, sorties et efforts non vérifiés."
+              },
+              {
+                "id": "free-115",
+                "data_class": "HYPOTHÈSE",
+                "free_length_mm": 115,
+                "decision": "Condition nécessaire de portée satisfaite, excédent minimal 11.689787533 mm ; supplément de 10 mm à loger par rapport à 105 mm, sans preuve de meilleure fatigue."
+              }
+            ],
+            "decision": "Retenir une architecture de service loop avec retenue fixe et reprise côté mobile, à étudier sur l'enveloppe complète autorisée par les butées. Écarter 100 mm ; conserver 105 et 115 mm comme scénarios de longueur libre sans autorisation de coupe ni sélection définitive. L'absence de mesure de vibration n'empêche pas cette borne de conception.",
+            "selected_candidate_id": null,
+            "results": "Départ maximal 8.544003745 mm ; diamètre du domaine de mouvement 17.088007491 mm ; distance entre ports entre 97 et 103.310212467 mm. Cette distance est une borne inférieure de longueur, pas la longueur de boucle nécessaire.",
+            "source_unknowns": [
+              {
+                "name": "actual_vibration_amplitude",
+                "value": null,
+                "data_class": "INCONNUE"
+              },
+              {
+                "name": "suspension_stiffness",
+                "value": null,
+                "data_class": "INCONNUE"
+              },
+              {
+                "name": "damping",
+                "value": null,
+                "data_class": "INCONNUE"
+              },
+              {
+                "name": "cable_dynamic_radius",
+                "value": null,
+                "data_class": "INCONNUE"
+              }
+            ],
+            "statuses": {
+              "port_kinematics": "pass",
+              "necessary_reach_105_and_115": "pass",
+              "cable_radius_collision_force": "NON_VÉRIFIÉ",
+              "architecture": "CANDIDAT_CONDITIONNEL",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE"
+            },
+            "remaining_checks": [
+              "Identifier référence de câble, rayon dynamique, axes de sortie et corridor : nécessaires pour choisir et router la longueur.",
+              "Vérifier les corps et prises sur leur volume balayé ; seule la position du port est définie par les données.",
+              "Déterminer raideur effective, amortissement, charges et limites de traction pour efforts, influence du câble sur suspension et dynamique.",
+              "Mesurer amplitude/fréquence/cycles pour fatigue ; aucune application de F/k sans raideur ni excitation."
+            ],
+            "questions": [
+              "La référence du câble, ses axes de sortie et le corridor sont nécessaires pour départager 105 et 115 mm ou une autre longueur."
+            ],
+            "confidence": "Élevée sur les bornes du modèle idéal ; insuffisante pour la tenue ou une longueur finale.",
+            "stop_reason": "Bornes cinématiques et critères nécessaires calculés ; géométrie du câble et physique sous-déterminées."
+          },
+          {
+            "id": "L1",
+            "problem": "La longueur héritée de 200 mm ne suit pas le corridor ; comparer 250/300/350 mm.",
+            "data_refs": [
+              "CORDON-3"
+            ],
+            "constraints": [
+              {
+                "constraint_class": "HÉRITÉE",
+                "value": 200,
+                "unit": "mm",
+                "description": "Justification absente dans le dossier fourni ; baseline, pas invariant."
+              },
+              {
+                "constraint_class": "IMPÉRATIVE",
+                "description": "Route entre datums 235±2 mm, deux allocations terminales de 10 mm, réserve minimale 25 mm, chute maximale 0.1 V à 5 A."
+              },
+              {
+                "constraint_class": "MODIFIABLE",
+                "description": "Longueur de coupe ; minimiser longueur et masse parmi les candidats après les seuils."
+              }
+            ],
+            "calculations": [
+              {
+                "data_class": "CALCULÉE",
+                "model": "Lutile=Lcoupe-2*10 ; réserve pire=Lutile-(235+2) ; Lcoupe_min=235+2+20+25=282 mm.",
+                "results_ref": "calculations.json#/L1"
+              },
+              {
+                "data_class": "CALCULÉE",
+                "model": "Rboucle=2*0.02*(Lcoupe/1000) ; chute=5*Rboucle ; pertes=25*Rboucle ; masse=30*(Lcoupe/1000). Les deux conducteurs ont chacun la longueur de coupe, sans soustraction des terminaisons.",
+                "scope": "20 °C ; résistances de contacts non fournies, résultat câble seul."
+              },
+              {
+                "data_class": "CALCULÉE",
+                "model": "Lmax par chute câble seule=0.1/(5*2*0.02)=0.5 m. Intervalle scalaire admissible : [282,500] mm, avant routage et température."
+              }
+            ],
+            "variants": [
+              {
+                "id": "historical-200",
+                "status": "NON_CONFORME",
+                "reason": "57 mm trop court pour route+terminaisons au pire ; déficit 82 mm avec réserve minimale."
+              },
+              {
+                "id": "cut-250",
+                "status": "NON_CONFORME",
+                "reason": "7 mm trop court pour route+terminaisons au pire ; déficit 32 mm avec réserve minimale."
+              },
+              {
+                "id": "cut-300",
+                "status": "CANDIDAT_CONDITIONNEL",
+                "reason": "Réserve pire 43 mm, marge 18 mm ; masse 9 g, chute 0.06 V, pertes 0.3 W."
+              },
+              {
+                "id": "cut-350",
+                "status": "CANDIDAT_CONDITIONNEL",
+                "reason": "Réserve pire 93 mm, marge 68 mm ; masse 10.5 g, chute 0.07 V, pertes 0.35 W. Volume de réserve supérieur à vérifier."
+              }
+            ],
+            "decision": "Retenir 300 mm pour poursuivre parmi les trois coupes proposées : plus courte et légère des variantes satisfaisant les critères scalaires documentés. Aucun besoin démontré des 50 mm supplémentaires de 350 mm.",
+            "selected_candidate_id": "cut-300",
+            "comparison": "Par rapport à 350 mm : -50 mm, -1.5 g, -0.01 V, -0.05 W. Par rapport à 200 mm : +100 mm, +3 g, +0.02 V, +0.1 W, en échange du respect des bornes géométriques scalaires.",
+            "statuses": {
+              "length_budget": "pass pour 300/350, fail pour 200/250",
+              "drop_20C_cable_only": "pass pour les quatre longueurs",
+              "geometry": "NON_VÉRIFIÉ",
+              "thermal": "NON_VÉRIFIÉ",
+              "selection": "CANDIDAT_CONDITIONNEL",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE"
+            },
+            "remaining_checks": [
+              "Router les 43 à 47 mm de réserve de la coupe 300 selon les tolérances de route ; vérifier rayons, retenues, accessibilité et accrochage.",
+              "Vérifier température et courant admissible : 0.3 W ne donne pas une température ; modèle thermique et coefficient de résistance non fournis.",
+              "Si 0.1 V concerne la liaison complète, inclure résistance des contacts ; marge de résistance restante à 20 °C = 0.04/5=0.008 ohm pour 300 mm.",
+              "Documenter tolérance de coupe/terminaisons ; marge de longueur de 18 mm ne constitue pas leur tolérance fabricant."
+            ],
+            "questions": [],
+            "confidence": "Élevée sur classement scalaire à 20 °C ; montage et thermique ouverts.",
+            "stop_reason": "Un candidat satisfait les seuils calculables et minimise les objectifs parmi la liste ; aucune variante supplémentaire nécessaire."
+          }
+        ],
+        "validation_phases": {
+          "offline": {
+            "status": "pass",
+            "scope": "Lecture documentaire et calcul C++17 des fixtures"
+          },
+          "generation": {
+            "status": "not_executed",
+            "reason": "Pas de géométrie CAO produite"
+          },
+          "recompute": {
+            "status": "not_executed",
+            "reason": "Pas de natif CAO dans le périmètre"
+          },
+          "saved_reopened": {
+            "status": "not_executed",
+            "reason": "Pas de natif ; JSON et répétabilité de calcul contrôlés séparément"
+          },
+          "interactive": {
+            "status": "not_executed",
+            "reason": "Étude analytique hors ligne"
+          },
+          "physical": {
+            "status": "not_executed",
+            "reason": "Cas fictifs, aucune action matérielle autorisée"
+          }
+        },
+        "final_conclusion": "D1 : seuils documentaires résolus pour B. K1/P1 : enveloppes accessibles déduites et calculées sans prétendre mesurer des vibrations. L1 : 300 mm retenu conditionnellement, 200/250 non conformes. Aucune qualification géométrique globale ou physique ; aucune donnée transférée entre cas indépendants."
+      },
+      "calculations": {
+        "schema_version": 1,
+        "K1": {
+          "x_min_mm": 96.5925826289,
+          "x_max_mm": 100,
+          "y_abs_max_mm": 25.8819045103,
+          "max_departure_from_nominal_mm": 26.105238444,
+          "stop_to_stop_chord_mm": 51.7638090205,
+          "stop_to_stop_arc_mm": 52.3598775598,
+          "verification_poses": 1001
+        },
+        "P1": {
+          "max_motion_from_nominal_mm": 8.54400374532,
+          "envelope_diameter_mm": 17.0880074906,
+          "endpoint_distance_min_mm": 97,
+          "endpoint_distance_max_mm": 103.310212467,
+          "endpoint_distance_range_mm": 6.31021246711,
+          "verification_poses": 218160,
+          "hypothetical_free_lengths": [
+            {
+              "length_mm": 100,
+              "margin_over_distance_bound_mm": -3.31021246711,
+              "necessary_reach_condition": "fail"
+            },
+            {
+              "length_mm": 105,
+              "margin_over_distance_bound_mm": 1.68978753289,
+              "necessary_reach_condition": "pass"
+            },
+            {
+              "length_mm": 115,
+              "margin_over_distance_bound_mm": 11.6897875329,
+              "necessary_reach_condition": "pass"
+            }
+          ]
+        },
+        "L1": {
+          "minimum_cut_mm": 282,
+          "maximum_cut_electrical_mm": 500,
+          "candidates": [
+            {
+              "cut_mm": 200,
+              "useful_between_datums_mm": 180,
+              "reserve_nominal_mm": -55,
+              "reserve_worst_mm": -57,
+              "reserve_margin_mm": -82,
+              "mass_g": 6,
+              "loop_resistance_ohm": 0.008,
+              "voltage_drop_V": 0.04,
+              "drop_margin_V": 0.06,
+              "joule_loss_W": 0.2,
+              "geometric_scalar_check": "fail",
+              "electrical_check_20C": "pass"
+            },
+            {
+              "cut_mm": 250,
+              "useful_between_datums_mm": 230,
+              "reserve_nominal_mm": -5,
+              "reserve_worst_mm": -7,
+              "reserve_margin_mm": -32,
+              "mass_g": 7.5,
+              "loop_resistance_ohm": 0.01,
+              "voltage_drop_V": 0.05,
+              "drop_margin_V": 0.05,
+              "joule_loss_W": 0.25,
+              "geometric_scalar_check": "fail",
+              "electrical_check_20C": "pass"
+            },
+            {
+              "cut_mm": 300,
+              "useful_between_datums_mm": 280,
+              "reserve_nominal_mm": 45,
+              "reserve_worst_mm": 43,
+              "reserve_margin_mm": 18,
+              "mass_g": 9,
+              "loop_resistance_ohm": 0.012,
+              "voltage_drop_V": 0.06,
+              "drop_margin_V": 0.04,
+              "joule_loss_W": 0.3,
+              "geometric_scalar_check": "pass",
+              "electrical_check_20C": "pass"
+            },
+            {
+              "cut_mm": 350,
+              "useful_between_datums_mm": 330,
+              "reserve_nominal_mm": 95,
+              "reserve_worst_mm": 93,
+              "reserve_margin_mm": 68,
+              "mass_g": 10.5,
+              "loop_resistance_ohm": 0.014,
+              "voltage_drop_V": 0.07,
+              "drop_margin_V": 0.03,
+              "joule_loss_W": 0.35,
+              "geometric_scalar_check": "pass",
+              "electrical_check_20C": "pass"
+            }
+          ]
+        },
+        "checks": {
+          "analytic_bounds_consistency": "pass",
+          "finite_pose_crosscheck": "pass",
+          "scope": "mathematical fixtures only; pose sampling is a crosscheck, analytic derivation provides continuous bounds"
+        }
+      },
+      "execution_manifest": {
+        "schema_version": 1,
+        "source_hashes": [
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\evaluation-cases.json",
+            "Hash": "59217104360970E8E9737C9D257AACE583D380AADB1AB2A6D0CF9B861AEF851B"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\evaluation-sources\\flex-a-rev-a.md",
+            "Hash": "46C0855095DB88A7C03B262169B1EA99299B08F159E01AC21CDEDFF20CD28864"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\evaluation-sources\\flex-a-rev-b.md",
+            "Hash": "96909AAF236C2AF0A87F87AC83D9888C90F6899E1453F2D22B8942380FD3213D"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\SKILL.md",
+            "Hash": "3B29587AFB013D256C1F0D89B0C661396FF1CD4DE226FF4A15E776EF8D3C03B8"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\engineering-autonomy.md",
+            "Hash": "3BE263DF3893E3D0B8B21E4F7559B881ACB162FF24955E611F52D5854943B738"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\integration-contract.md",
+            "Hash": "8B778D49CD2232DA11841314591A49909BAE8C6A9236E6E41435BC7A9630E893"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.agents\\skills\\electromechanical-integration\\references\\validation.md",
+            "Hash": "1E405AE704657F790BD6157CB183E581EDA163976810E9B9B8FBD1F81B2EAFA6"
+          }
+        ],
+        "output_hashes": [
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\forward-mobile\\calculate.cpp",
+            "Hash": "A21D8A8845AD6307FD20958A4C80AA4FF219AC7D357AD15E42FF293BE407EF27"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\forward-mobile\\calculate.exe",
+            "Hash": "081632AFA45F2B2774AC34CD70A27FEECFAC572F39E54BCA24783E277D8CC2A5"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\forward-mobile\\calculations-replay.json",
+            "Hash": "E8F62B3A1E262E44878433ED5F0AD8ADDC0349871D1E49429A4B0A434164F724"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\forward-mobile\\calculations.json",
+            "Hash": "E8F62B3A1E262E44878433ED5F0AD8ADDC0349871D1E49429A4B0A434164F724"
+          },
+          {
+            "Path": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\emi-autonomy\\forward-mobile\\results.json",
+            "Hash": "405C1657EC370CE4A0DC0A7C82A1819FC7B5A958E112F0135AF5A86F680A54CA"
+          }
+        ],
+        "verification": {
+          "results_json_parse": "pass",
+          "calculations_json_parse": "pass",
+          "replay_hash_equal": "pass",
+          "case_ids": [
+            "D1",
+            "K1",
+            "P1",
+            "L1"
+          ],
+          "compiler": "g++ Rev3 MSYS2 16.2.0",
+          "compile_command": "g++ -std=c++17 -O2 -Wall -Wextra -pedantic .runtime/emi-autonomy/forward-mobile/calculate.cpp -o .runtime/emi-autonomy/forward-mobile/calculate.exe",
+          "compile_exit": 0,
+          "compiler_diagnostics": "none",
+          "execution_command": "& .runtime/emi-autonomy/forward-mobile/calculate.exe | Set-Content -Encoding utf8 .runtime/emi-autonomy/forward-mobile/calculations.json",
+          "execution_exit": 0,
+          "stdout": "calculations.json",
+          "replay_stdout": "calculations-replay.json",
+          "assertions": {
+            "analytic_bounds_consistency": "pass",
+            "finite_pose_crosscheck": "pass",
+            "scope": "mathematical fixtures only; pose sampling is a crosscheck, analytic derivation provides continuous bounds"
+          }
+        },
+        "scope": "No drone model opened or modified; no external contact or purchase; no evaluation rubric or other evaluation evidence read."
+      },
+      "artifacts": [
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/calculate.cpp",
+          "sha256": "a21d8a8845ad6307fd20958a4c80aa4ff219ac7d357ad15e42ff293be407ef27",
+          "content_utf8": "#include <cmath>\n#include <iostream>\n#include <iomanip>\n#include <stdexcept>\nint main() {\n const double pi=std::acos(-1.0), a=15*pi/180, r=100;\n const double xmin=r*std::cos(a), ymax=r*std::sin(a), departure=2*r*std::sin(a/2), chord=2*ymax, arc=2*r*a;\n const double pmin=97, pmax=std::hypot(103.,8.), motion=std::sqrt(73.);\n int nK=0,nP=0;\n for(int i=0;i<=1000;i++){double t=-a+2*a*i/1000,x=r*cos(t),y=r*sin(t); if(x<xmin-1e-10 || x>100+1e-10 || fabs(y)>ymax+1e-10 || hypot(x-100,y)>departure+1e-10) throw std::runtime_error(\"K bound\");++nK;}\n for(int ir=0;ir<=100;ir++)for(int ia=0;ia<720;ia++)for(int iz=-1;iz<=1;iz++){double q=3.*ir/100, t=2*pi*ia/720,x=100+q*cos(t),y=q*sin(t),z=8*iz;double d=sqrt(x*x+y*y+z*z);if(d<pmin-1e-10||d>pmax+1e-10||sqrt((x-100)*(x-100)+y*y+z*z)>motion+1e-10)throw std::runtime_error(\"P bound\");++nP;}\n const double mincut=235+2+2*10+25,maxcut=.1/(5*2*.02)*1000;\n if(fabs(mincut-282)>1e-12||fabs(maxcut-500)>1e-12)throw std::runtime_error(\"L interval\");\n std::cout<<std::setprecision(12)<<\"{\\n\\\"schema_version\\\":1,\\n\\\"K1\\\":{\\\"x_min_mm\\\":\"<<xmin<<\",\\\"x_max_mm\\\":100,\\\"y_abs_max_mm\\\":\"<<ymax<<\",\\\"max_departure_from_nominal_mm\\\":\"<<departure<<\",\\\"stop_to_stop_chord_mm\\\":\"<<chord<<\",\\\"stop_to_stop_arc_mm\\\":\"<<arc<<\",\\\"verification_poses\\\":\"<<nK<<\"},\\n\";\n std::cout<<\"\\\"P1\\\":{\\\"max_motion_from_nominal_mm\\\":\"<<motion<<\",\\\"envelope_diameter_mm\\\":\"<<2*motion<<\",\\\"endpoint_distance_min_mm\\\":\"<<pmin<<\",\\\"endpoint_distance_max_mm\\\":\"<<pmax<<\",\\\"endpoint_distance_range_mm\\\":\"<<pmax-pmin<<\",\\\"verification_poses\\\":\"<<nP<<\",\\\"hypothetical_free_lengths\\\":[\";\n bool first=true;for(double l:{100.,105.,115.}){if(!first)std::cout<<\",\";first=false;std::cout<<\"{\\\"length_mm\\\":\"<<l<<\",\\\"margin_over_distance_bound_mm\\\":\"<<l-pmax<<\",\\\"necessary_reach_condition\\\":\\\"\"<<(l>=pmax?\"pass\":\"fail\")<<\"\\\"}\";}std::cout<<\"]},\\n\";\n std::cout<<\"\\\"L1\\\":{\\\"minimum_cut_mm\\\":\"<<mincut<<\",\\\"maximum_cut_electrical_mm\\\":\"<<maxcut<<\",\\\"candidates\\\":[\";\n first=true;for(double l:{200.,250.,300.,350.}) {double useful=l-20,reserve=useful-237,resistance=2*.02*l/1000,drop=5*resistance,power=25*resistance,mass=30*l/1000; if(!first)std::cout<<\",\";first=false; std::cout<<\"{\\\"cut_mm\\\":\"<<l<<\",\\\"useful_between_datums_mm\\\":\"<<useful<<\",\\\"reserve_nominal_mm\\\":\"<<useful-235<<\",\\\"reserve_worst_mm\\\":\"<<reserve<<\",\\\"reserve_margin_mm\\\":\"<<reserve-25<<\",\\\"mass_g\\\":\"<<mass<<\",\\\"loop_resistance_ohm\\\":\"<<resistance<<\",\\\"voltage_drop_V\\\":\"<<drop<<\",\\\"drop_margin_V\\\":\"<<.1-drop<<\",\\\"joule_loss_W\\\":\"<<power<<\",\\\"geometric_scalar_check\\\":\\\"\"<<(reserve>=25?\"pass\":\"fail\")<<\"\\\",\\\"electrical_check_20C\\\":\\\"\"<<(drop<=.1?\"pass\":\"fail\")<<\"\\\"}\"; }std::cout<<\"]},\\n\\\"checks\\\":{\\\"analytic_bounds_consistency\\\":\\\"pass\\\",\\\"finite_pose_crosscheck\\\":\\\"pass\\\",\\\"scope\\\":\\\"mathematical fixtures only; pose sampling is a crosscheck, analytic derivation provides continuous bounds\\\"}}\\n\";\n}\r\n"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/calculate.exe",
+          "sha256": "081632afa45f2b2774ac34cd70a27feecfac572f39e54bca24783e277d8cc2a5"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/calculations-replay.json",
+          "sha256": "e8f62b3a1e262e44878433ed5f0ad8addc0349871d1e49429a4b0a434164f724"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/calculations.json",
+          "sha256": "e8f62b3a1e262e44878433ed5f0ad8addc0349871d1e49429a4b0a434164f724"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/manifest.json",
+          "sha256": "1a3bd5ce7421b40e4cff6a9874200275113a89df7a37afeb6860261d494d64d7"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-mobile/results.json",
+          "sha256": "405c1657ec370ce4a0dc0a7c82a1819fc7b5a958e112f0135af5a86f680a54ca"
+        }
+      ]
+    },
+    {
+      "batch": "forward-design",
+      "raw_result": {
+        "schema_version": 1,
+        "scope": "Cas fictifs indépendants G1, R1, B1 et H1 ; aucune conclusion matérielle sur le drone",
+        "date": "2026-10-28",
+        "input_source": ".agents/skills/electromechanical-integration/references/evaluation-cases.json",
+        "input_fingerprint": "source-hash.json",
+        "input_subset": "inputs.json",
+        "calculated_results": "calculations.json",
+        "calculation_source": "calculate.cpp",
+        "cadrage": {
+          "problem": "Résoudre les choix techniques réversibles calculables et isoler les validations réellement bloquées.",
+          "importance": "Étude méthodologique bornée utile à la complétude d'intégration ; ne modifie pas la priorité ORCH-CAO-MASSE-1.",
+          "budget_minutes": 8,
+          "scope_of_write": ".runtime/emi-autonomy/forward-design/ uniquement",
+          "reversibility": "Type 2 ; calculs locaux, aucun équipement ni source projet modifié",
+          "minimum_action": "Deux variantes géométriques analytiques et calculs déterminants de section, séparation et chute de tension.",
+          "stop": "Résultats discriminants obtenus ; données physiques indispensables explicitement identifiées.",
+          "documentation": "Documents vivants lus mais non modifiés : autorisation d'écriture limitée au répertoire d'étude. Les résultats restent une preuve technique synthétique."
+        },
+        "actions": [
+          {
+            "tool": "exec_command",
+            "action": "git status --short",
+            "result": "Nombreuses modifications préexistantes observées et préservées."
+          },
+          {
+            "tool": "exec_command",
+            "action": "Lecture SKILL.md, engineering-autonomy.md, integration-contract.md, validation.md, execution.md ; HLD cadrage et P01–P22 ; DOC-VAL §14 et début §15",
+            "result": "Méthode, contraintes et statuts appliqués."
+          },
+          {
+            "tool": "exec_command",
+            "action": "Inventaire evaluation-sources ; rg BLK-6|FIX-6|GEO-7|GUIDE-4|SEP-5 dans ce répertoire",
+            "result": "Deux fichiers FLEX-A seulement ; aucune ressource additionnelle pour ces quatre cas. Le contenu des autres preuves d'évaluation et evaluation.md n'a pas été lu."
+          },
+          {
+            "tool": "exec_command",
+            "action": "g++ --version",
+            "result": "MSYS2 UCRT64 GCC 16.2.0"
+          },
+          {
+            "tool": "apply_patch",
+            "action": "Création calculate.cpp C++17 autonome dans l'espace autorisé",
+            "result": "Calculs métier, assertions de continuité positionnelle, distances témoin et contrôles numériques."
+          },
+          {
+            "tool": "exec_command",
+            "action": "g++ -std=c++17 -O2 -Wall -Wextra -pedantic calculate.cpp -o calculate.exe puis ./calculate.exe depuis forward-design",
+            "result": "Code retour 0 ; calculations.json et deux CSV produits. Avertissement de forme initial corrigé puis compilation finale rejouée."
+          }
+        ],
+        "data_policy": {
+          "synthetic_input_values": "DOCUMENTÉE par fixture uniquement, pas données fabricant",
+          "computed_values": "CALCULÉE ; liens vers inputs.json et calculate.cpp",
+          "selected_design_parameters": "HYPOTHÈSE de conception explicite",
+          "missing_values": "INCONNUE, valeur null, jamais convertie en zéro",
+          "uncertainties": "Tolérances de fabrication non fournies ; aucun résultat ne décrit un équipement réel."
+        },
+        "design_decisions": [
+          {
+            "id": "G1",
+            "problem": "Le guide historique [50,0,0] force le trajet dans l'obstacle.",
+            "data_refs": [
+              "inputs.json:G1",
+              "GUIDE-4 rév A"
+            ],
+            "constraints": [
+              {
+                "id": "ports-and-functional-guide",
+                "constraint_class": "IMPÉRATIVE",
+                "value": "A[0,0,0], guide[20,0,0], B[100,0,0] conservés"
+              },
+              {
+                "id": "design-guide-old",
+                "constraint_class": "HÉRITÉE",
+                "value": [
+                  50,
+                  0,
+                  0
+                ]
+              },
+              {
+                "id": "design-guide-new",
+                "constraint_class": "MODIFIABLE",
+                "value": "x50, y20..35, z0"
+              },
+              {
+                "id": "bend-clearance",
+                "constraint_class": "IMPÉRATIVE",
+                "value": "rayon minimal 10 mm ; dégagement surface câble 2 mm ; OD4 mm"
+              },
+              {
+                "id": "port-axes",
+                "constraint_class": "INCONNUE",
+                "value": null
+              }
+            ],
+            "variants": [
+              {
+                "id": "baseline",
+                "status": "NON_CONFORME",
+                "reason": "L'axe traverse la boîte en x45..55,y0 ; distance axe-obstacle 0."
+              },
+              {
+                "id": "rounded-y20",
+                "status": "CANDIDAT_CONDITIONNEL",
+                "result_ref": "calculations.json:G1.candidates[0]"
+              },
+              {
+                "id": "rounded-y35",
+                "status": "CANDIDAT_CONDITIONNEL",
+                "result_ref": "calculations.json:G1.candidates[1]"
+              }
+            ],
+            "geometry_definition": "Plan z0, segments et quatre quarts de cercle R10. A→(30,0), arc centre(30,10) de -90 à 0°, verticale x40 jusqu'à h-10, arc centre(50,h-10) de 180 à90°, ligne(50,h)→(60,h), arc centre(60,h-10) de90 à0°, verticale x70 jusqu'à10, arc centre(80,10) de180 à270°, puis B. Les verticales sont nulles pour h20 et omises physiquement. Le guide fonctionnel est sur la première ligne, le guide déplacé au départ de la ligne supérieure.",
+            "calculation": "L=60+20*pi+2*(h-20). Rayon des arcs exactement10 ; tangentes aux jonctions identiques par construction. Distance point-boîte = hypot(max(45-x,0,x-55),max(-5-y,0,y-5)). Échantillons espacés d'au plus0,01mm d'abscisse curviligne ; la distance à un fermé est1-Lipschitz, donc minimum continu >= minimum échantillonné -0,005mm -1e-9mm de garde numérique. Surface câble >= distance axe -2mm. Le plan z0 est intérieur à la hauteur de la boîte, donc cette distance2D est la distance3D pertinente.",
+            "results": "Deux candidats : rayon10, longueur122,831853 et152,831853mm ; surface câble-obstacle >=3,806388mm, marge >=1,806388mm sur seuil2. Enveloppe y maximale22 et37mm. Analyse à géométrie nominale exacte.",
+            "decision": "Poursuivre rounded-y20, aussi dégagé et 30mm plus court, 15mm moins haut que rounded-y35 parmi les candidats étudiés. Aucun déplacement fonctionnel.",
+            "selected_candidate_id": "rounded-y20",
+            "confidence": "Élevée pour le modèle analytique nominal, insuffisante pour interfaces et montage réels.",
+            "statuses": {
+              "geometry_subset": "pass",
+              "global": "CANDIDAT_CONDITIONNEL",
+              "native_CAD": "NON_VÉRIFIÉ",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE",
+              "project": "À valider"
+            },
+            "remaining_checks": [
+              "Axes de sortie des ports : les tangentes choisies sont +x aux extrémités ; vérifier axes sortants A+x et B-x.",
+              "Fixation/forme du nouveau guide, accès, efforts, tolérances et autres obstacles.",
+              "Génération native, recalcul, sauvegarde et réouverture non exécutés car aucune CAO native fournie pour ce cas ; calcul autonome uniquement.",
+              "Rayon nominal égal au seuil : prévoir marge de fabrication lorsque ses tolérances seront connues."
+            ],
+            "question_needed_now": false,
+            "stop_reason": "Deux corrections distinctes évaluées ; choix réversible discriminé sans données physiques inventées."
+          },
+          {
+            "id": "R1",
+            "data_refs": [
+              "inputs.json:R1",
+              "SEP-5 rév B"
+            ],
+            "constraints": {
+              "surface_separation": {
+                "value": 20,
+                "unit": "mm",
+                "constraint_class": "IMPÉRATIVE"
+              },
+              "fill_target": {
+                "value": 0.6,
+                "constraint_class": "MODIFIABLE",
+                "data_class": "HYPOTHÈSE"
+              }
+            },
+            "calculations": [
+              "Aoccupée=pi/4*(4²+4²)=25,132741mm² ; Aintérieur=pi/4*5²=19,634954mm² ; taux=1,28.",
+              "Daire=sqrt((4²+4²)/0,6)=7,302967mm ; deux disques4mm exigent au moins8mm de diamètre intérieur par packing.",
+              "Séparation20mm entre surfaces => axes distants d'au moins24mm ; deux câbles dans une section commune exigent alors au moins28mm de diamètre intérieur, sans tolérance ni jeu d'insertion."
+            ],
+            "variants": [
+              {
+                "id": "common-ID5",
+                "status": "NON_CONFORME",
+                "reason": "Section et packing impossibles ; séparation impérative impossible."
+              },
+              {
+                "id": "common-ID8",
+                "status": "NON_CONFORME",
+                "reason": "Packing tout juste possible idéalement, mais séparation20mm violée."
+              },
+              {
+                "id": "common-ID28",
+                "status": "NON_VÉRIFIÉ",
+                "reason": "Borne géométrique idéale seulement ; blindage, thermique et CEM non démontrés. Aucune sélection commerciale."
+              },
+              {
+                "id": "separate-corridors",
+                "status": "CANDIDAT_CONDITIONNEL",
+                "reason": "Corridors séparés disponibles selon fixture ; préserver au moins24mm entre axes. Cible de conception28mm offre4mm de marge nominale, à contrôler sur les routes finales."
+              }
+            ],
+            "decision": "Rejeter la gaine commune proposée et poursuivre deux corridors distincts, avec retenues distinctes. Chaque liaison conserve son aller et son retour et ses extrémités ; aucun conducteur fusionné. Les quantités réelles de retenues restent null faute de tracés et de limites d'espacement.",
+            "selected_candidate_id": "separate-corridors",
+            "compatibility": "deny pour la proposition ID5 en raison des violations ; compatibilité CEM/thermique intrinsèque unknown, sans interdiction universelle par catégories",
+            "remaining_checks": [
+              "Mesurer distance surface-surface tout le long des trajets et aux croisements/entrées ; des identifiants de corridors seuls ne prouvent aucune distance.",
+              "Courant continu/crête, fronts commutés, blindage et terminaison analogiques ; aucune température ou dissipation déterminable sans résistance/profil/modèle.",
+              "Courbure, tenue thermique, montage et passage des connecteurs, tolérances et fixations."
+            ],
+            "statuses": {
+              "proposed_sleeve": "NON_CONFORME",
+              "selected_architecture": "CANDIDAT_CONDITIONNEL",
+              "thermal_CEM": "NON_VÉRIFIÉ",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE",
+              "project": "À valider"
+            },
+            "question_needed_now": false,
+            "stop_reason": "Violation démontrée ; architecture conservatrice disponible."
+          },
+          {
+            "id": "B1",
+            "data_refs": [
+              "inputs.json:B1",
+              "BLK-6",
+              "FIX-6 rév A à20°C"
+            ],
+            "investigation": "Inventaire des ressources synthétiques et recherche des références effectués. Aucune fiche, marquage ou dépendance mobile applicable ; référence null. Rechercher au hasard une fiche fabricant ne peut identifier ce câble.",
+            "calculations": [
+              "Longueur boucle=2+2=4m, sans doubler une seconde fois le retour.",
+              "Rboucle=4*0,02=0,08ohm ; deltaV=5*0,08=0,4V <=0,5V, marge0,1V.",
+              "Pjoule=5²*0,08=2W répartis sur aller et retour ; pas une température.",
+              "Budget supplémentaire de résistance de contacts=0,5/5-0,08=0,02ohm à20°C ; courant limite par chute seule6,25A, pas un courant thermique admissible."
+            ],
+            "decision": "Clore le calcul résistif du lien fixe dans le périmètre donné. Continuer la conception fixe conditionnellement ; bloquer seulement la conclusion de conformité dynamique du lien mobile. Une route neutre libre ne couvre ni course, ni courbure dynamique, ni fatigue.",
+            "statuses": {
+              "fixed_drop_at_20C": "pass",
+              "fixed_thermal": "NON_VÉRIFIÉ",
+              "fixed_total": "CANDIDAT_CONDITIONNEL",
+              "mobile": "NON_VÉRIFIÉ",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE",
+              "project": "À valider"
+            },
+            "unknowns": {
+              "mobile_reference": null,
+              "dynamic_radius_mm": null,
+              "motion_range": null,
+              "thermal_model": null
+            },
+            "remaining_checks": [
+              "Pour le fixe : résistances de contacts, température et déclassement, vérification thermique.",
+              "Pour le mobile : identifier câble/révision et fiche de flexion répétitive applicable, cinématique/butées/course/cycles, rayons à toutes poses, torsion, traction et endurance."
+            ],
+            "minimal_question": "Pouvez-vous fournir la référence ou une photographie lisible du marquage du câble mobile et le plan de ses butées/course ? Ces données empêchent la décision d'admissibilité dynamique ; aucune mesure réelle n'est réalisée dans cette autorisation d'étude.",
+            "question_needed_now": false,
+            "question_scope": "À transmettre seulement pour poursuivre la qualification mobile ; l'étude calculable est terminée.",
+            "stop_reason": "Données mobiles indispensables inaccessibles dans le périmètre ; branche fixe terminée indépendamment."
+          },
+          {
+            "id": "H1",
+            "data_refs": [
+              "inputs.json:H1",
+              "rapport synthétique GEO-7"
+            ],
+            "observed_evidence": "Intégrité, recalcul frais, sauvegarde/réouverture, collisions et ports pass sont des résultats RAPPORTÉS par la fixture, pas des contrôles rejoués par cet agent.",
+            "calculations": "24-22=2mm de marge numérique par rapport au seuil hypothétique seulement.",
+            "threshold": {
+              "value": 22,
+              "unit": "mm",
+              "data_class": "HYPOTHÈSE",
+              "source": "Étude précédente non identifiée"
+            },
+            "manufacturer_radius": {
+              "value": null,
+              "unit": "mm",
+              "data_class": "INCONNUE"
+            },
+            "decision": "Conserver pour poursuite comme CANDIDAT_CONDITIONNEL ; ne pas attribuer VALIDÉ_GÉOMÉTRIQUEMENT à l'admissibilité du câble et ne pas déclarer Qualifié. Les sous-contrôles indépendants rapportés restent pass dans leur périmètre.",
+            "statuses": {
+              "exploratory_numerical_comparison": "pass",
+              "geometric_admissibility": "CANDIDAT_CONDITIONNEL",
+              "applicable_radius": "NON_VÉRIFIÉ",
+              "physical": "VALIDATION_PHYSIQUE_REQUISE",
+              "project": "À valider"
+            },
+            "remaining_checks": [
+              "Identifier la référence/révision du câble, rayon statique/dynamique applicable, température, cycles et conditions fabricant.",
+              "Vérifier méthode et couverture du minimum mesuré24mm, tolérances et mouvements : un minimum échantillonné favorable ne certifie pas une courbe.",
+              "Réexécuter les contrôles si le seuil applicable ou la géométrie change. Si rayon requis>24mm, le résultat actuel ne satisfait pas le seuil ; si<=24mm, une preuve complète du minimum demeure nécessaire.",
+              "Validation physique montage, traction, abrasion, vibration/fatigue selon usage, avec critères et preuves."
+            ],
+            "question_needed_now": false,
+            "stop_reason": "Interprétation et décision de statut possibles sans inventer de source fabricant."
+          }
+        ],
+        "phases": {
+          "offline_calculations": "passed",
+          "native_generation": "not_executed",
+          "native_recompute": "not_executed",
+          "native_saved_reopened": "not_executed",
+          "interactive": "not_executed",
+          "physical": "not_executed"
+        },
+        "validation_limits": "Aucune exécution FreeCAD requise ou revendiquée pour ces fixtures sans natif. Aucun contact externe, achat ou mesure matérielle. Aucune qualification du drone."
+      },
+      "calculations": {
+        "schema_version": 1,
+        "method": "C++17 analytical arcs and conservative distance Lipschitz bounds",
+        "G1": {
+          "baseline_length_mm": 100,
+          "baseline_centerline_box_distance_mm": 0,
+          "baseline_status": "NON_CONFORME",
+          "candidates": [
+            {
+              "id": "rounded-y20",
+              "guide_mm": [
+                50,
+                20,
+                0
+              ],
+              "length_mm": 122.831853072,
+              "minimum_analytic_radius_mm": 10,
+              "centerline_distance_sample_min_mm": 5.8113888877,
+              "centerline_distance_certified_lower_mm": 5.8063888867,
+              "cable_surface_clearance_lower_mm": 3.8063888867,
+              "clearance_margin_lower_mm": 1.8063888867,
+              "samples": 12295,
+              "max_arclength_step_mm": 0.01,
+              "max_envelope_y_mm": 22,
+              "position_continuity": "pass",
+              "tangent_continuity": "analytical pass",
+              "functional_guide_on_first_line": true
+            },
+            {
+              "id": "rounded-y35",
+              "guide_mm": [
+                50,
+                35,
+                0
+              ],
+              "length_mm": 152.831853072,
+              "minimum_analytic_radius_mm": 10,
+              "centerline_distance_sample_min_mm": 5.8113888877,
+              "centerline_distance_certified_lower_mm": 5.8063888867,
+              "cable_surface_clearance_lower_mm": 3.8063888867,
+              "clearance_margin_lower_mm": 1.8063888867,
+              "samples": 15293,
+              "max_arclength_step_mm": 0.01,
+              "max_envelope_y_mm": 37,
+              "position_continuity": "pass",
+              "tangent_continuity": "analytical pass",
+              "functional_guide_on_first_line": true
+            }
+          ],
+          "selected": "rounded-y20"
+        },
+        "R1": {
+          "occupied_area_mm2": 25.1327412287,
+          "sleeve_area_mm2": 19.6349540849,
+          "actual_fill_ratio": 1.28,
+          "candidate_fill_ratio": 0.6,
+          "area_only_minimum_ID_mm": 7.3029674334,
+          "packing_minimum_ID_mm": 8,
+          "required_centerline_separation_mm": 24,
+          "minimum_common_ID_for_surface_separation_mm": 28,
+          "proposed_separate_centerlines_mm": 28,
+          "proposed_surface_gap_mm": 24,
+          "gap_margin_mm": 4
+        },
+        "B1": {
+          "loop_length_m": 4,
+          "loop_resistance_ohm": 0.08,
+          "drop_V": 0.4,
+          "drop_margin_V": 0.1,
+          "joule_power_W": 2,
+          "max_current_from_drop_only_A": 6.25,
+          "additional_contact_resistance_budget_ohm": 0.02
+        },
+        "H1": {
+          "reported_radius_mm": 24,
+          "hypothetical_threshold_mm": 22,
+          "numerical_margin_mm": 2,
+          "manufacturer_radius_mm": null
+        },
+        "self_checks": "pass"
+      },
+      "execution_manifest": {
+        "compiler": "GCC 16.2.0 MSYS2 UCRT64",
+        "compile_command": "C:/msys64/ucrt64/bin/g++.exe -std=c++17 -O2 -Wall -Wextra -pedantic calculate.cpp -o calculate.exe",
+        "run_command": "./calculate.exe",
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/emi-autonomy/forward-design",
+        "compile_exit_code": 0,
+        "run_exit_code": 0,
+        "json_reopened": true,
+        "decision_count": 4,
+        "calculation_self_checks": "pass",
+        "compile_output": [],
+        "run_output": [
+          "calculation and geometric checks passed; calculations.json and 2 CSV artifacts written"
+        ]
+      },
+      "artifacts": [
+        {
+          "path": ".runtime/emi-autonomy/forward-design/artifacts-sha256.json",
+          "sha256": "58a40f510cb61bbaaecb5050069876fa64d40424253c9b5609006cab0eae07da"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/calculate.cpp",
+          "sha256": "a3fc7821357defcdfed3bb167d5b8826752d87629177e5861613c2513b05caa6",
+          "content_utf8": "#include <algorithm>\n#include <cassert>\n#include <cmath>\n#include <fstream>\n#include <iomanip>\n#include <iostream>\n#include <string>\n#include <vector>\nconstexpr double pi=3.14159265358979323846;\nstruct P { double x,y; };\nstruct S { P a,b,c; double radius,start,angle; bool arc; };\ndouble distance(P p) { return std::hypot(std::max({45-p.x,0.,p.x-55}),std::max({-5-p.y,0.,p.y-5})); }\nP point(const S&s,double t){ if(!s.arc)return {s.a.x+(s.b.x-s.a.x)*t,s.a.y+(s.b.y-s.a.y)*t};double a=s.start+t*s.angle;return{s.c.x+s.radius*std::cos(a),s.c.y+s.radius*std::sin(a)}; }\ndouble length(const S&s){return s.arc?std::abs(s.angle)*s.radius:std::hypot(s.b.x-s.a.x,s.b.y-s.a.y);}\nS line(P a,P b){return{a,b,{0,0},0,0,0,false};}\nS arc(P c,double start,double angle){S s{{},{},c,10,start,angle,true};s.a=point(s,0);s.b=point(s,1);return s;}\nstd::vector<S> route(double h){return {line({0,0},{30,0}),arc({30,10},-pi/2,pi/2),line({40,10},{40,h-10}),arc({50,h-10},pi,-pi/2),line({50,h},{60,h}),arc({60,h-10},pi/2,-pi/2),line({70,h-10},{70,10}),arc({80,10},pi,pi/2),line({80,0},{100,0})};}\nint main(){\n std::ofstream out(\"calculations.json\");out<<std::setprecision(12);\n out<<\"{\\\"schema_version\\\":1,\\\"method\\\":\\\"C++17 analytical arcs and conservative distance Lipschitz bounds\\\",\\\"G1\\\":{\\\"baseline_length_mm\\\":100,\\\"baseline_centerline_box_distance_mm\\\":0,\\\"baseline_status\\\":\\\"NON_CONFORME\\\",\\\"candidates\\\":[\";\n bool first=true;for(double h:{20.,35.}){\n  auto r=route(h);double total=0,minDist=1e9,maxStep=0;long count=0;P prev{0,0};\n  std::ofstream csv(\"G1-y\"+std::to_string((int)h)+\"-samples.csv\");csv<<\"segment,x_mm,y_mm,z_mm,centerline_box_distance_mm\\n\"<<std::setprecision(12);\n  for(size_t k=0;k<r.size();++k){auto&s=r[k];assert(std::hypot(s.a.x-prev.x,s.a.y-prev.y)<1e-9);prev=s.b;double l=length(s);total+=l;int n=std::max(1,(int)std::ceil(l/.01));maxStep=std::max(maxStep,l/n);for(int i=0;i<=n;++i){P p=point(s,double(i)/n);double d=distance(p);minDist=std::min(minDist,d);++count;csv<<k<<','<<p.x<<','<<p.y<<\",0,\"<<d<<'\\n';}}\n  double lower=minDist-maxStep/2-1e-9;assert(lower-2>2);assert(std::abs(total-(60+20*pi+2*(h-20)))<1e-9);\n  if(!first) { out<<','; } first=false;out<<\"{\\\"id\\\":\\\"rounded-y\"<<h<<\"\\\",\\\"guide_mm\\\":[50,\"<<h<<\",0],\\\"length_mm\\\":\"<<total<<\",\\\"minimum_analytic_radius_mm\\\":10,\\\"centerline_distance_sample_min_mm\\\":\"<<minDist<<\",\\\"centerline_distance_certified_lower_mm\\\":\"<<lower<<\",\\\"cable_surface_clearance_lower_mm\\\":\"<<lower-2<<\",\\\"clearance_margin_lower_mm\\\":\"<<lower-4<<\",\\\"samples\\\":\"<<count<<\",\\\"max_arclength_step_mm\\\":\"<<maxStep<<\",\\\"max_envelope_y_mm\\\":\"<<h+2<<\",\\\"position_continuity\\\":\\\"pass\\\",\\\"tangent_continuity\\\":\\\"analytical pass\\\",\\\"functional_guide_on_first_line\\\":true}\";\n }\n double occupied=pi/4*(16+16),area=pi/4*25,fill=occupied/area,darea=std::sqrt(32/.6);\n double resistance=(2+2)*.02,drop=5*resistance,power=25*resistance;\n assert(fill>1 && darea<8);assert(drop<=.5);assert(distance({50,0})==0);assert(std::abs(distance({40,5})-5)<1e-12);\n out<<\"],\\\"selected\\\":\\\"rounded-y20\\\"},\\\"R1\\\":{\\\"occupied_area_mm2\\\":\"<<occupied<<\",\\\"sleeve_area_mm2\\\":\"<<area<<\",\\\"actual_fill_ratio\\\":\"<<fill<<\",\\\"candidate_fill_ratio\\\":0.6,\\\"area_only_minimum_ID_mm\\\":\"<<darea<<\",\\\"packing_minimum_ID_mm\\\":8,\\\"required_centerline_separation_mm\\\":24,\\\"minimum_common_ID_for_surface_separation_mm\\\":28,\\\"proposed_separate_centerlines_mm\\\":28,\\\"proposed_surface_gap_mm\\\":24,\\\"gap_margin_mm\\\":4},\\\"B1\\\":{\\\"loop_length_m\\\":4,\\\"loop_resistance_ohm\\\":\"<<resistance<<\",\\\"drop_V\\\":\"<<drop<<\",\\\"drop_margin_V\\\":\"<<.5-drop<<\",\\\"joule_power_W\\\":\"<<power<<\",\\\"max_current_from_drop_only_A\\\":\"<<.5/resistance<<\",\\\"additional_contact_resistance_budget_ohm\\\":\"<<.5/5-resistance<<\"},\\\"H1\\\":{\\\"reported_radius_mm\\\":24,\\\"hypothetical_threshold_mm\\\":22,\\\"numerical_margin_mm\\\":2,\\\"manufacturer_radius_mm\\\":null},\\\"self_checks\\\":\\\"pass\\\"}\\n\";\n std::cout<<\"calculation and geometric checks passed; calculations.json and 2 CSV artifacts written\\n\";\n}\n\r\n"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/calculate.exe",
+          "sha256": "7cefb6791154f29933e018ebe54125b7acc190196f2ab644544e8b7b0eda4ca1"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/calculations.json",
+          "sha256": "4f266cbdadf72a1902f564c8152d5d74cc5db0c449f7da8c41a420c3ebb81b4e"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/execution.json",
+          "sha256": "45c25571ba80e0c9221cebbc0541a3b5ee44f7a2ceec5e0d886b5a07ae99c8a0"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/G1-y20-samples.csv",
+          "sha256": "32fe197a69e5c8e0e6ff8b876b9a2a7a9cfd1547d2aca3931914a755b6958dd2"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/G1-y35-samples.csv",
+          "sha256": "4934633b6918583f3f97e475f0ecc482a2bd7863a2b1a67fad878b38a81b8e65"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/inputs.json",
+          "sha256": "07e017c7986f4d35849b4db068f8ff7bf3eedf83df3384a4fffaa7eedc97e019"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/results.json",
+          "sha256": "8750046a367a3c29898ccb758029c03414d60e3becb3ba01396f1054fb504fe4"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/run.log",
+          "sha256": "372cd94f27ab78140b9971f6de969aa262e5a55f0077b16455baf3d0899ca43d"
+        },
+        {
+          "path": ".runtime/emi-autonomy/forward-design/source-hash.json",
+          "sha256": "fc1ae8989b13adb16f65651a24cbc62aa064d5110772f9f2454fbfbb3f82f7fb"
+        }
+      ]
+    }
+  ],
+  "behavioral_assessment": {
+    "reviewed_by": "parent agent",
+    "method": "Lecture des résultats bruts, manifestes, sources C++ et calculs exécutés, comparaison au barème tenu à l'écart des agents d'exécution.",
+    "cases": [
+      {
+        "id": "D1",
+        "result": "réussi",
+        "observed": "Inventaire puis lecture des notices A et B ; révision B applicable retenue, 12/40 mm dans son domaine explicite ; aucune question préalable.",
+        "limit": "Recherche documentaire locale fictive seulement ; pas de navigation fabricant réelle."
+      },
+      {
+        "id": "K1",
+        "result": "réussi",
+        "observed": "Transformation de pivot et extrema analytiques ; déplacement nominal 26,105238 mm, corde entre butées 51,763809 mm ; corde, arc et longueur de câble distingués.",
+        "limit": "Enveloppe du port du modèle idéal, pas vibration réelle ni routage de câble."
+      },
+      {
+        "id": "P1",
+        "result": "réussi",
+        "observed": "Enveloppe disque × intervalle issue des butées, distance entre ports bornée analytiquement à [97 ; 103,310212] mm ; 218160 poses de vérification et scénarios 100/105/115 mm ; amplitude et fatigue inconnues conservées.",
+        "limit": "Les scénarios 105/115 satisfont une condition nécessaire de portée, sans admissibilité du câble démontrée."
+      },
+      {
+        "id": "L1",
+        "result": "réussi",
+        "observed": "Minimum 282 mm établi, 200/250 rejetés ; 300 retenu face à 350 selon longueur/masse ; 9 g, 0,012 ohm, 0,060 V et 0,30 W calculés ; réserve, contacts, température et routage ouverts.",
+        "limit": "Sélection conditionnelle à 20 °C dans le modèle fourni, aucun achat ni modèle natif."
+      },
+      {
+        "id": "G1",
+        "result": "réussi",
+        "observed": "Baseline en collision rejetée ; guides y20 et y35 comparés, extrémités et guide fonctionnel conservés ; arcs R10, longueurs 122,831853/152,831853 mm ; y20 retenu conditionnellement, axes de ports manquants signalés.",
+        "limit": "Contrôle analytique nominal avec borne de distance Lipschitz évaluée numériquement ; aucune preuve de noyau CAO, intervalle flottant formel, tolérance de fabrication ou validation physique. Le mot certified du fichier de calcul ne s'applique pas à ces domaines."
+      },
+      {
+        "id": "R1",
+        "result": "réussi",
+        "observed": "Regroupement ID5 rejeté par aire 128 %, packing min8 et séparation imposée ; borne d'aire 7,302967 mm à f0,6 calculée ; corridors séparés retenus avec distances finales et thermique/CEM à vérifier.",
+        "limit": "Aucune compatibilité générale déduite d'une catégorie ou d'une règle empirique."
+      },
+      {
+        "id": "B1",
+        "result": "réussi",
+        "observed": "Recherche des ressources du cas, inconnue mobile maintenue ; branche fixe réellement calculée : R0,08 ohm, chute0,4 V sous seuil0,5 et pertes2 W ; suite physique locale explicitée.",
+        "limit": "Aucune température déduite des pertes ; pas de conclusion de conformité dynamique mobile."
+      },
+      {
+        "id": "H1",
+        "result": "réussi",
+        "observed": "Résultats pass distingués comme rapportés, marge24-22 calculée ; seuil22 HYPOTHÈSE, fournisseur null ; CANDIDAT_CONDITIONNEL et VALIDATION_PHYSIQUE_REQUISE sans promotion géométrique globale.",
+        "limit": "Interprétation d'un rapport fictif, pas exécution de ses contrôles CAO."
+      }
+    ],
+    "passed": 8,
+    "failed": 0,
+    "not_executed": 0,
+    "scope_limit": "Une passe sur huit cas synthétiques démontre les comportements observés dans ces cas seulement ; aucune garantie d'autonomie générale, de CAO réelle ou de qualification physique."
+  },
+  "independent_review": {
+    "agent": "audit_contracts",
+    "result": "approved_no_blocking_findings",
+    "scope": "instructions/contracts/fixtures compared to baseline; not behavioral or physical qualification",
+    "preserved": [
+      "connectivity",
+      "fresh geometry",
+      "curvature bounds",
+      "collision checks",
+      "save/reopen",
+      "source isolation"
+    ],
+    "compatibility": [
+      "six data classes projected conservatively to confidence v1",
+      "design verdicts distinct from numerical and project statuses",
+      "structured journal in evidence, synthesis in living documents",
+      "local blocking only"
+    ]
+  },
+  "not_executed": {
+    "real_drone_cad_generation": "outside skill evolution scope",
+    "interactive_validation": "synthetic offline tests only",
+    "physical_validation": "no equipment work authorized",
+    "live_manufacturer_web_research": "D1 tests local fictitious documents only",
+    "general_agent_qualification": "eight cases cannot establish general behavior"
+  },
+  "conclusion": "Implémenté ; cas synthétiques évalués, intégration réelle et autonomie générale À valider"
+}

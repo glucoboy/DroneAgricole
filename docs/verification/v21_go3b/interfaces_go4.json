@@ -1,0 +1,83 @@
+{
+  "schema": "drone_agricole.go3b_mechanical_followup.v1",
+  "date": "2026-11-17",
+  "scope": "Interfaces et intégration mécanique du cartographe sans dock",
+  "project_maturity": "Planifié",
+  "execution_status": "NOT_RUN",
+  "campaign_result": "FAIL",
+  "evidence": "docs/verification/v21_go3b/interfaces_review.json",
+  "next_discriminating_experiment": {
+    "id": "IF-NEXT-01",
+    "stage": "CAO sur copie",
+    "status": "NOT_RUN",
+    "question": "Un support réellement ancré au chant peut-il porter l'isolateur et libérer simultanément TTL et USB, sans recouper P72 ni les branches voisines ?",
+    "inputs": ["H03-A et H03-B sauvegardés", "Géométrie de P66 et de ses appuis existants", "Intersections support/P72 et jeu module/support mesurés"],
+    "acceptance": "Appuis et fixations identifiés, module porté, suppression de l'intersection de 109,73357 mm³, accès simultané des deux interfaces et conservation des extrémités opposées F40/F41.",
+    "missing": ["Définition du support et de son ancrage", "Efforts et géométrie de fixation applicables", "Volumes réels des fiches et de leurs manipulations"]
+  },
+  "physical_tests": [
+    {
+      "id": "IF-GO4-01",
+      "domain": "Métrologie et identification",
+      "status": "NOT_RUN",
+      "object": "Isolateur, connecteurs, P66/P72/P75, caméra, ferrite, outil de déverrouillage et cordons du lot",
+      "method": "Identifier révision et référence, relever les repères d'accouplement, sorties, volumes de verrou et géométrie de manipulation, puis confronter aux boîtes ASSUMED.",
+      "acceptance": "Critères et tolérances du lot à fixer avant l'essai. Chaque écart est enregistré sur la définition CAO et les contacts concernés.",
+      "reason_not_run": "Lot physique et protocole de métrologie indisponibles dans la campagne CAO."
+    },
+    {
+      "id": "IF-GO4-02",
+      "domain": "Montage et maintenance hors tension",
+      "status": "NOT_RUN",
+      "object": "F12/TELEM1, F25/P85/GPS1, F31/CAN1, F35, TTL/USB et supports",
+      "method": "Après correction CAO, réaliser montage puis démontage avec les fiches, verrous, outils et moyens de retenue identifiés. Relever efforts, accès, rayons et réserve pour une même intervention.",
+      "acceptance": "Montage complet et déconnexion sans effort parasite ou contact interdit selon les critères matériel approuvés. La chaîne de protection et la séparation électrique conservent leurs interfaces définies.",
+      "reason_not_run": "Réception CAO refusée et protocole physique non exécuté."
+    },
+    {
+      "id": "IF-GO4-03",
+      "domain": "Cinématique caméra",
+      "status": "NOT_RUN",
+      "object": "F16, F_M8, support caméra et ancrages fixes/mobiles",
+      "method": "Mesurer le domaine de déplacement réel des appuis viscoélastiques et observer les deux cordons simultanément, avec fiches et longueurs utiles réelles. Définir charges et mouvements avant exécution.",
+      "acceptance": "Aucun contact interdit et rayons applicables respectés sur le domaine défini, maintien et réserve démontrés avec critères de lot.",
+      "reason_not_run": "Domaine de mouvement et cordons reçus encore inconnus."
+    },
+    {
+      "id": "IF-GO4-04",
+      "domain": "Fabrication et contrôle dimensionnel",
+      "status": "NOT_RUN",
+      "object": "P85, support isolateur éventuel et retenues retenues après nouvelle réception",
+      "method": "Établir plan et gamme à partir d'une définition reçue, puis contrôler dimensions, appuis, assemblage et tenue selon procédé retenu.",
+      "acceptance": "Procédé, matériau, tolérances et critères mécaniques à définir avant fabrication.",
+      "reason_not_run": "Définition et réception CAO non closes."
+    },
+    {
+      "id": "IF-GO4-05",
+      "domain": "Vibration et fatigue",
+      "status": "NOT_RUN",
+      "object": "Faisceaux, ancrages, protections et connexions du montage reçu",
+      "method": "Définir un profil représentatif et instrumenter maintien, déplacement, abrasion, efforts sur prises et intégrité avant/après essai.",
+      "acceptance": "Profil, durée, charges et critères d'acceptation propres au montage à approuver.",
+      "reason_not_run": "Montage physique reçu et protocole absents."
+    },
+    {
+      "id": "IF-GO4-06",
+      "domain": "Thermique et compatibilité électromagnétique",
+      "status": "NOT_RUN",
+      "object": "Baie complète, ventilation, puissance, données, synchronisation et diagnostic",
+      "method": "Après validation des interfaces électriques et du banc hors tension, exécuter les protocoles applicables au montage complet avec instrumentation des températures et perturbations.",
+      "acceptance": "Limites issues des composants, environnement et fonctionnement à définir avant mise sous tension.",
+      "reason_not_run": "Campagne CAO et absence de protocole matériel approuvé."
+    },
+    {
+      "id": "IF-GO4-07",
+      "domain": "Vol progressif",
+      "status": "NOT_RUN",
+      "object": "Drone complet dans la configuration reçue",
+      "method": "Suivre les jalons et protocoles de DOC-VAL après les essais précédents, avec autorité de vol PX4.",
+      "acceptance": "Prérequis et critères du protocole physique de DOC-VAL à satisfaire sur la cible réelle.",
+      "reason_not_run": "GO3B CAO refusé et validations physiques précédentes non exécutées."
+    }
+  ]
+}

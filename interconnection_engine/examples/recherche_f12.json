@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "prototype_cartographe",
+  "questions": [
+    {
+      "issue_id": "F12-ACTIVE-GEOMETRY",
+      "question": {
+        "id": "RQ.F12-ACTIVE-GEOMETRY",
+        "subject_ids": [
+          "F12",
+          "W12"
+        ],
+        "status": "OPEN",
+        "question": "Quel constat de raccordement F12 est établi sur l’actif ?",
+        "hypothesis": "La matrice Action 3 identifie un mauvais port pour W12.",
+        "expected_evidence": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+        "refutation": "Un état actif différent ou une autre association d’axe invalide le constat.",
+        "dependent_decision": "Admettre ou rejeter le raccordement géométrique de W12.",
+        "evidence_ids": []
+      },
+      "parameter": "geometry_finding",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe",
+        "part_number": "W12",
+        "revision": "Action3-v1",
+        "attributes": {
+          "axis": "F12"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock"
+        }
+      },
+      "expected_authority": "PROJECT",
+      "study": {
+        "strategy": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+        "variables": [
+          "révision",
+          "identité du port"
+        ],
+        "next_observation": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée."
+      }
+    },
+    {
+      "issue_id": "F12-TELEM1-REVISION",
+      "question": {
+        "id": "RQ.F12-TELEM1-REVISION",
+        "subject_ids": [
+          "F12",
+          "W12",
+          "RC02"
+        ],
+        "status": "OPEN",
+        "question": "Quelle révision de porteuse RC02 et quelle référence de fiche TELEM1 sont réellement retenues ?",
+        "hypothesis": "La documentation Holybro donne des familles et orientations différentes selon la porteuse.",
+        "expected_evidence": "Relever le marquage de la porteuse et du cordon, puis vérifier le plan Holybro de cette révision et la référence de la fiche.",
+        "refutation": "Un autre marquage, une orientation différente ou un plan de broches contradictoire écarte le candidat.",
+        "dependent_decision": "Valider le brochage radio, le détrompage, le verrouillage et les limites électriques de W12.",
+        "evidence_ids": []
+      },
+      "parameter": "mounted_telem1_revision",
+      "unit": "1",
+      "criticality": "HIGH",
+      "reference": {
+        "manufacturer": "Holybro",
+        "family": "Pixhawk Baseboard",
+        "part_number": "Pixhawk 6X",
+        "revision": null,
+        "attributes": {
+          "port": "TELEM1",
+          "occurrence": "RC02"
+        }
+      },
+      "applicability": {
+        "domain": "DOCUMENT",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock"
+        }
+      },
+      "expected_authority": "MANUFACTURER",
+      "study": {
+        "strategy": "Relever le marquage de la porteuse et du cordon, puis vérifier le plan Holybro de cette révision et la référence de la fiche.",
+        "variables": [
+          "révision",
+          "identité du port"
+        ],
+        "next_observation": "Relever le marquage de la porteuse et du cordon, puis vérifier le plan Holybro de cette révision et la référence de la fiche."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "S.F12.ACTIVE.GEOMETRY",
+      "parameter": "geometry_finding",
+      "reference": {
+        "manufacturer": "DroneAgricole",
+        "family": "Cartographe",
+        "part_number": "W12",
+        "revision": "Action3-v1",
+        "attributes": {
+          "axis": "F12"
+        }
+      },
+      "applicability": {
+        "domain": "CAD",
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock"
+        }
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "unit": "1",
+      "uncertainty": null,
+      "evidence": {
+        "id": "E.F12.ACTIVE.GEOMETRY",
+        "kind": "SOURCE",
+        "domain": "CAD",
+        "artifact_path": "docs/verification/cartographe_action3_interconnexions.json",
+        "uri": null,
+        "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d",
+        "locator": "/interconnexions/19/etat_action3",
+        "revision": "Action3-v1",
+        "collected_at": "2026-11-12T00:00:00Z",
+        "method": "Lecture de la source citée",
+        "hypothetical": false,
+        "limits": "Applicabilité à la configuration montée à vérifier."
+      },
+      "extraction": {
+        "format": "JSON_POINTER",
+        "value": "/interconnexions/19/etat_action3",
+        "checks": {
+          "/interconnexions/19/id": "W12",
+          "/interconnexions/19/route_ids/0": "F12"
+        },
+        "reference_check": {
+          "pointer": "/interconnexions/19/id",
+          "pattern": "^(W12)$"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,510 @@
+{
+  "schema": "cartographe.action3.architectures.v1",
+  "date": "2026-11-11",
+  "périmètre": "Prototype cartographe actif sans dock. Les variantes proposées sont des hypothèses à transposer dans son repère. Les chiffres A/faces décrivent uniquement les copies historiques.",
+  "exigences": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "maturité": "À valider",
+  "sources": {
+    "comparaison": "hardware/mecanique/cartographe_faces/verification/comparaison_faces.json",
+    "décisions_faces": "hardware/mecanique/cartographe_faces/verification/decision_faces.json",
+    "interfaces_distribution": "hardware/mecanique/cartographe_faces/verification/interfaces_distribution.json",
+    "architectures_historiques": "hardware/mecanique/cartographe_refonte_systeme/verification/architectures.json",
+    "qualification": "docs/verification/electromechanical_engine_go2.json",
+    "catalogue_natif": "electromechanical_engine/qualification/historical_catalog.json",
+    "nom_prototype": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "contrat_bms": "hardware/electronique/cartographe/contrat_uart_bms.json",
+    "état_actif": "docs/VALIDATION_QUALIFICATION.md#recentrage"
+  },
+  "cadrage": {
+    "objectif": "Libérer le volume d'accès aux prises et réduire les parcours dispersés en haut de la baie sans perdre une fonction ni introduire de risque électrique ou mécanique.",
+    "levier": "Les faces d'accouplement, points de dérivation et zones de service sont des variables d'architecture. La boucle haute peut répondre à un besoin de flexion ou de maintenance.",
+    "budget": "Trois familles à préfiltrer, une architecture principale par famille. Une reprise supplémentaire uniquement si une donnée nouvelle lève le veto identifié. À cette étape, analyses de sources et calculs comparatifs bornés par GO 2.",
+    "arrêt": "Geler la sélection avant routage complet tant que les interfaces exactes, le mapping des liaisons et la couverture native des solides ne permettent pas de mesurer les exigences impératives.",
+    "signal": "Retenir pour une première construction ciblée une famille qui donne un volume de service continu, une baie moins congestionnée et un passage montable avec les interfaces réelles. Confirmer par mesure BRep et par revalidation indépendante sur copie."
+  },
+  "préfiltrage": {
+    "veto_documenté": [
+      "Destination ou pinout erroné, fusion non autorisée de retours, perte de protection PM08/PX4 ou d'isolement BMS.",
+      "Intersection positive non autorisée, tangence impossible, rupture d'un support, accès/verrou/extraction impossible.",
+      "Déplacement de capteur ou de liaisons mobiles qui viole orientation, champ, amplitude ou rayon applicable.",
+      "Incompatibilité de fiche, détrompage, intensité, isolation, blindage ou exigences de signal."
+    ],
+    "preuves_requises": [
+      "Nets et connexions complets dans le périmètre, points et axes d'accouplement, état et références du lot.",
+      "Géométrie, course des connecteurs et outil, pose de montage, chemin de dépose, supports, rayon et tolérances documentés.",
+      "CEM, échauffement, champs optiques et RF, vibration, masse et centrage.",
+      "V1–V6 après réouverture avec exigences indépendantes et couverture des paires."
+    ],
+    "règle_inconnue": "Une inconnue conserve le candidat conditionnel et hors admission Pareto."
+  },
+  "comparaison_historique": {
+    "preuve": "comparaison",
+    "méthode": {
+      "zone_reference": "X±118, Y±108, Z130,052–250 mm pour dessus.",
+      "sous_plan": "Boîte inter-niveau large distincte de la stricte emprise P66 X±70 Y±47.",
+      "traversees": "Franchissements des plans Z, y compris hors emprise. Ne comptent ni trous ni accouplements.",
+      "rayon": "Les paramètres nominaux sont documentés par FreeCAD. Le rayon admissible dépend du cordon réel."
+    },
+    "zones_mm": {
+      "bay": [
+        [
+          -94,
+          -88,
+          85
+        ],
+        [
+          94,
+          88,
+          165
+        ]
+      ],
+      "above": [
+        [
+          -118,
+          -108,
+          130.052
+        ],
+        [
+          118,
+          108,
+          250
+        ]
+      ],
+      "interlayer": [
+        [
+          -78,
+          -62,
+          110.22
+        ],
+        [
+          78,
+          62,
+          123.72
+        ]
+      ],
+      "p66_below": [
+        [
+          -80,
+          -67,
+          66.4
+        ],
+        [
+          80,
+          67,
+          83
+        ]
+      ],
+      "p66_ca01": [
+        [
+          -63,
+          -40,
+          88
+        ],
+        [
+          63,
+          40,
+          96.12
+        ]
+      ],
+      "sous_P66_emprise_stricte": [
+        [
+          -70,
+          -47,
+          39
+        ],
+        [
+          70,
+          47,
+          85
+        ]
+      ],
+      "sous_porteuse_emprise_stricte": [
+        [
+          -63,
+          -41,
+          110.22
+        ],
+        [
+          63,
+          40.52,
+          123.72
+        ]
+      ]
+    },
+    "avertissement": "Zones se recouvrant. Les longueurs d'axes représentent un périmètre géométrique historique, sans décompte exhaustif des liaisons électriques. Les volumes proxy ne décrivent ni le volume emballé ni le volume d'accès.",
+    "axes_comptés": {
+      "A": 53,
+      "faces": 53
+    },
+    "métriques": {
+      "longueur_totale_mm": {
+        "A": 10885.079164281875,
+        "faces": 10788.378082402582,
+        "delta": -96.701082,
+        "variation_pct": -0.888
+      },
+      "hauteur_max_mm": {
+        "A": 170.27787476169587,
+        "faces": 170.27787476169587,
+        "delta": 0,
+        "variation_pct": 0
+      },
+      "longueur_par_zone_mm": {
+        "bay": {
+          "A": 4221.879483656823,
+          "faces": 3860.6428715948205,
+          "delta": -361.236612,
+          "variation_pct": -8.556
+        },
+        "above": {
+          "A": 2051.21306292215,
+          "faces": 1802.0432305282043,
+          "delta": -249.169832,
+          "variation_pct": -12.147
+        },
+        "interlayer": {
+          "A": 709.8342207008793,
+          "faces": 837.2885974892433,
+          "delta": 127.454377,
+          "variation_pct": 17.956
+        },
+        "p66_below": {
+          "A": 521.4741948144535,
+          "faces": 598.9814381076427,
+          "delta": 77.507243,
+          "variation_pct": 14.863
+        },
+        "p66_ca01": {
+          "A": 0,
+          "faces": 0,
+          "delta": 0,
+          "variation_pct": null
+        },
+        "sous_P66_emprise_stricte": {
+          "A": 451.2019185726972,
+          "faces": 451.2019185726972,
+          "delta": 0,
+          "variation_pct": 0
+        },
+        "sous_porteuse_emprise_stricte": {
+          "A": 21.721053323074948,
+          "faces": 275.5080584322781,
+          "delta": 253.787005,
+          "variation_pct": 1168.392
+        }
+      },
+      "volume_proxy_au_dessus_cm3": {
+        "A": 19.942455902857393,
+        "faces": 18.502845382480285,
+        "delta": -1.439611,
+        "variation_pct": -7.219
+      },
+      "traversées_par_plan_z_mm": {
+        "85": {
+          "A": 12,
+          "faces": 14,
+          "delta": 2,
+          "variation_pct": 16.667
+        },
+        "110.22": {
+          "A": 24,
+          "faces": 24,
+          "delta": 0,
+          "variation_pct": 0
+        },
+        "130.052": {
+          "A": 19,
+          "faces": 19,
+          "delta": 0,
+          "variation_pct": 0
+        }
+      },
+      "axes_critiques_mm": {
+        "F41": {
+          "A": 340.40831309733625,
+          "faces": 340.40831309733625,
+          "delta": 0,
+          "variation_pct": 0
+        },
+        "F24C": {
+          "A": 314.4776106876001,
+          "faces": 344.36375813711584,
+          "delta": 29.886147,
+          "variation_pct": 9.503
+        },
+        "F24A": {
+          "A": 245.4000002993577,
+          "faces": 157.53493047184423,
+          "delta": -87.86507,
+          "variation_pct": -35.805
+        },
+        "F31": {
+          "A": 300.84911184307754,
+          "faces": 300.84911184307754,
+          "delta": 0,
+          "variation_pct": 0
+        },
+        "F16": {
+          "A": 494.607764256343,
+          "faces": 494.607764256343,
+          "delta": 0,
+          "variation_pct": 0
+        },
+        "F24B": {
+          "A": 309.7544711649708,
+          "faces": 249.2596541443535,
+          "delta": -60.494817,
+          "variation_pct": -19.53
+        },
+        "F12": {
+          "A": 183.97922969134586,
+          "faces": 163.99887900224343,
+          "delta": -19.980351,
+          "variation_pct": -10.86
+        },
+        "F25": {
+          "A": 201.53553175808656,
+          "faces": 243.2885399665144,
+          "delta": 41.753008,
+          "variation_pct": 20.717
+        }
+      }
+    },
+    "supports_faces": {
+      "new_physical_concept": 1,
+      "volume_added_cm3": 0.6206014207693773,
+      "mass_estimate_g": 0.577159321315521,
+      "density_g_cm3": 0.93,
+      "density_reference": "https://www.eos.info/polymer-solutions/data-sheets/mds-pa-2200",
+      "status": "Hypothèse de PA12 EOS PA 2200, masse du seul solide ajouté."
+    },
+    "masse_faisceau_g": null,
+    "centre_de_gravité_mm": null,
+    "coût": null,
+    "lecture": "F25 s'allonge tout en libérant le dessus. F31 et F16 restent de même longueur. Le F31 sous P66 se trouve dans un natif d'essai distinct et ne contribue pas à ces chiffres. La réduction historique F41 de 1180,942 à 340,408 mm appartient à la refonte antérieure et ne démontre pas la réserve utile."
+  },
+  "candidats": [
+    {
+      "id": "A1",
+      "famille": "A",
+      "statut": "CANDIDAT_CONDITIONNEL",
+      "configuration": "Équipements, cartes et interfaces OEM inchangés. Tronçon de commande et temps aux chants/intercartes avec dérivations courtes, énergie en dessous P66, diagnostic isolé accessible, F16 et M8 maintenus dans leur couloir de débattement.",
+      "changements": "Étudier des retenues sur ancrages existants au nord pour F12 et au sud pour DEBUG F24B. Répartir F24A et F24C selon la face d'accouplement réelle. F25 sous P66 avec remontée locale GPS1. Conserver des corridors disjoints pour puissance et temps jusqu'à preuve de compatibilité. Maintenir le tronc et l'éclatement Airy OEM.",
+      "hypothèse": "Réemployer les sorties latérales réelles et les chants supprime une partie des boucles supérieures avec la moindre perturbation de la BOM.",
+      "réfutation": "Absence d'une séquence de branchement/dépose pour les connecteurs verticaux, réserve OEM impossible à loger, incompatibilité CEM ou volume F31/F35 inaccessible.",
+      "modèles_sauvegardés_nouveaux": [],
+      "preuves": [
+        "décisions_faces",
+        "interfaces_distribution",
+        "nom_prototype"
+      ],
+      "manques": [
+        "Identification du port GPIO F24A et extracteur FFC F24C",
+        "Régime dynamique réel et retenues de F16",
+        "Cotes F31/CAN1 avec F35, réserve de service F41 et appui P85",
+        "Rayons des cordons, sections de gaine et modèle des ancrages"
+      ]
+    },
+    {
+      "id": "B1",
+      "famille": "B",
+      "statut": "CANDIDAT_CONDITIONNEL",
+      "configuration": "Zone de service puissance et diagnostic dissociées. Tester ensemble la pose du PM08, un isolateur orienté vers un bord accessible et la remontée CAN1 depuis le bas.",
+      "changements": "Prendre la reprise ORCH du PM08 comme état actif. Tester d'abord une translation réversible de l'isolateur vers le bord et conserver la sortie CAN/F31 vers un volume libre distinct de F35. Changer la pose du PM08 seulement si les volumes de puissance et CAN/BEC le requièrent. Évaluer un F41 USB-B coudé direct pour éviter un adaptateur et libérer le passage.",
+      "liaisons_à_revalider": [
+        "F01_NEG",
+        "F01_POS",
+        "F05_NEG",
+        "F05_POS",
+        "F06",
+        "F31",
+        "F32",
+        "F35",
+        "F38",
+        "F40",
+        "F41"
+      ],
+      "hypothèse": "Une direction de dépose commune vers l'extérieur pour le diagnostic et une manœuvre CAN1 séparée restaurent un vrai volume de service malgré la réduction de longueur en baie.",
+      "réfutation": "Aucun domaine commun admissible PM08/isolateur/F38 et CAN1/F35, allongement du tronçon B− brut incompatible, isolement ou accès aux prises perdus.",
+      "interfaces_candidates": [
+        "Molex 5024390600",
+        "Delock 84809"
+      ],
+      "modèles_sauvegardés_nouveaux": [],
+      "preuves": [
+        "interfaces_distribution",
+        "décisions_faces",
+        "état_actif",
+        "contrat_bms"
+      ],
+      "manques": [
+        "Plans d'encombrement accouplés des fiches et outil",
+        "Séquence de dépose, efforts et tenue",
+        "Gestion de B− brut sans pont de masse, masse installée et centrage"
+      ]
+    },
+    {
+      "id": "C1",
+      "famille": "C",
+      "statut": "CONCEPTUEL",
+      "configuration": "Redistribution passive des sorties de synchronisation de CA01 et étude d'une platine passive de bord Jetson, avec un cordon à trois paires distinctes comme témoin.",
+      "changements": "Examiner une implantation des seules embases CA01 J505/J506/J509 face au passage latéral. Regrouper physiquement PPS, GPRMC et référence CSI avec retours distincts. Examiner une petite platine passive seulement si elle réduit les traversées et facilite la dépose malgré les accouplements supplémentaires.",
+      "liaisons_à_revalider": [
+        "F24A",
+        "F24B",
+        "F24C",
+        "AIRY_SYNC"
+      ],
+      "hypothèse": "Un tronc de synchronisation et des pigtails proches des interfaces réduisent la dispersion sans fusionner les nets ni changer les affectations de temps.",
+      "réfutation": "Géométrie de terminaison impossible, retour ou fronts dégradés, chute sur 3,3 V, backpower, ou accroissement net du temps de dépose.",
+      "état_électronique": "Concept de distribution et de connectique, avec aucune nouvelle carte conçue ni validée.",
+      "modèles_sauvegardés_nouveaux": [],
+      "preuves": [
+        "architectures_historiques",
+        "interfaces_distribution",
+        "nom_prototype"
+      ],
+      "manques": [
+        "Interface GPIO et CSI exactes, niveaux et courants",
+        "Qualité des fronts, compatibilité CEM, contrôle ERC/DRC et estimation masse/volume/coût",
+        "Intervention outillée, fiabilité et refroidissement"
+      ]
+    }
+  ],
+  "variantes_historiques_écartées": [
+    {
+      "id": "A-historique",
+      "statut": "NON_CONFORME_DANS_LE_PÉRIMÈTRE",
+      "cause": "F12 vers GPS2 au lieu de TELEM1. Réutiliser comme référence métrique."
+    },
+    {
+      "id": "F31-bas-historique",
+      "statut": "CANDIDAT_CONDITIONNEL",
+      "cause": "Géométrie d'essai séparée. Départ PM08 non démontré et manœuvre CAN1/F35 ouverte. Ne pas transposer ses coordonnées à la pose ORCH."
+    },
+    {
+      "id": "B-rotations-isolateur-historiques",
+      "statut": "ÉCARTÉES_AUX_POSES_TESTÉES",
+      "cause": "Volumes communs constatés sur les cinq poses historiques avec le montant OEM et des obstacles voisins. Le gabarit droit n'est pas le corps du Delock 84809."
+    },
+    {
+      "id": "B-XT30ULW-ouest-historique",
+      "statut": "ÉCARTÉ_AUX_POSES_TESTÉES",
+      "cause": "Tangence trop courte à X−82 puis conflit AntenneRF0 de 37,0345 mm³ sur les quatre autres poses. Aucun déplacement d'antenne retenu."
+    },
+    {
+      "id": "C-PDB-18139-historique",
+      "statut": "ÉCARTÉ_AUX_POSES_TESTÉES",
+      "cause": "Carte latérale nue centrée en conflit avec UART et F02_2. Le déport X+11 libère UART mais recoupe encore F02_2. Réévaluer seulement avec les départs de bras et l'isolateur co-conçus."
+    },
+    {
+      "id": "C-CA01-180-historique",
+      "statut": "AJOURNÉ",
+      "cause": "BRep nominal de la carte plausible à condition d'exclure les terminaisons à régénérer. Le coût de reprise des accès et coaxiaux, ainsi que l'allongement F09, écartent ce pivot de la première passe."
+    }
+  ],
+  "références_exactes": [
+    {
+      "ref": "Delock 84809",
+      "classe": "DOCUMENTEE",
+      "usage": "F41 uniquement, USB 2.0 A mâle vers B mâle coudé à 90°, 0,5 m, Ø environ 4,5 mm, double blindage et ferrite.",
+      "source": "https://www.delock.com/produkt/84809/pdf.html?sprache=en",
+      "compatibilité_installée": "NON_VERIFIEE",
+      "inconnues": [
+        "orientation référencée au détrompeur du lot",
+        "surmoulage et ferrite",
+        "rayon",
+        "course d'insertion/extraction",
+        "réserve et tenue"
+      ]
+    },
+    {
+      "ref": "Molex 5024390600",
+      "classe": "DOCUMENTEE",
+      "usage": "Boîtier candidat de la famille CLIK-Mate 2 mm six voies côté PM08. Préférer le cordon OEM identifié pour le premier essai.",
+      "source": "https://www.molex.com/en-us/products/part-detail/5024390600",
+      "source_module": "https://docs.holybro.com/power-module-and-pdb/power-module-comparison",
+      "compatibilité_installée": "NON_VERIFIEE",
+      "inconnues": [
+        "embase montée et détrompage",
+        "contacts selon section",
+        "brochage lot",
+        "accouplement et dépose"
+      ]
+    },
+    {
+      "ref": "Holybro 18139",
+      "classe": "DOCUMENTEE",
+      "usage": "PDB à entrées latérales étudiée, écartée aux poses historiques.",
+      "source": "https://holybro.com/products/power-distribution-board-pdb-300a-side-entry",
+      "compatibilité_installée": "NON_VERIFIEE",
+      "inconnues": [
+        "limites des assemblages XT",
+        "masses installées",
+        "protection, thermique et accès"
+      ]
+    }
+  ],
+  "calculs_paramétriques": [
+    {
+      "id": "A1-COUDE",
+      "classe": "CALCULEE",
+      "hypothèses": "Quart de cercle de rayon d'axe R avec une tangente horizontale et une verticale, diamètre extérieur d. R+d est l'enveloppe verticale du quart d'axe épaissi par une boule de rayon d/2. Cette enveloppe conservatrice inclut les extrémités. Elle ne mesure pas le volume réel du cordon ni sa projection avec fiche.",
+      "géométrie_historique": "interfaces_distribution",
+      "diamètre_exemple_mm": 5,
+      "r_exemple_mm": 10,
+      "hauteur_enveloppe_conservatrice_mm": 15,
+      "jeux_historiques_mm": [
+        8.12,
+        13.5
+      ],
+      "marges_nominales_mm": [
+        -6.88,
+        -1.5
+      ],
+      "conséquence": "Ce gabarit conservateur ne tient dans aucun des deux jeux historiques. Privilégier un changement de niveau au chant. Toute réduction du gabarit requiert la mesure du cordon orienté et des raccordements droits. Vérifier l'enveloppe et les retenues des sections droites entre cartes."
+    },
+    {
+      "id": "C1-TRONC",
+      "classe": "CALCULEE",
+      "hypothèses": "Comparaison d'une longueur de conducteur théorique à six chemins, trois paires et pas de réserve. Somme des trois axes de référence historique C1 de 869,632 mm. Tronc commun L et somme S des longueurs des six queues par paire aux deux extrémités. Nouvelle longueur par conducteur totalisée = 6L + 2S.",
+      "baseline_proxy_mm": 1739.264,
+      "somme_max_queues_mm": [
+        {
+          "tronc_mm": 150,
+          "seuil_strict_mm": 419.632
+        },
+        {
+          "tronc_mm": 200,
+          "seuil_strict_mm": 269.632
+        },
+        {
+          "tronc_mm": 250,
+          "seuil_strict_mm": 119.632
+        }
+      ],
+      "conséquence": "L'intérêt baisse de 3 mm de longueur de queues admissible par mm de tronc ajouté. Ce calcul borne une étude, sans établir masse, perte, réserves, conformité ni avantage face à un cordon direct."
+    }
+  ],
+  "pareto": {
+    "ensemble_admissible": [],
+    "candidats_non_dominés": [],
+    "raison": "Aucun candidat Action 3 natif revalidé sur le référentiel actif. La comparaison historique est descriptive et les valeurs inconnues restent nulles.",
+    "objectifs_après_admission": [
+      "Minimiser longueur dans les zones hautes et volume balayé dans la baie",
+      "Minimiser masse installée, encombrement maximal et complexité d'assemblage",
+      "Minimiser passages entre niveaux, longueur hors supports et coût/délai",
+      "Maximiser garde de service et marge sur les rayons démontrés"
+    ]
+  },
+  "validations_physiques_à_planifier": [
+    "Contrôle lot des brochages et interfaces, vérification de continuité, isolement et chutes de tension",
+    "Séquences de montage/dépose avec outil et retenues, traction et abrasion",
+    "Cinématique et fatigue F16/M8, essais de vibration des supports et du verrouillage",
+    "CEM, thermique et refroidissement, tests GNSS/radio/LiDAR/caméra",
+    "Masse, centrage et réserve de service mesurés"
+  ]
+}

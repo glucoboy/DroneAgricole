@@ -1,0 +1,621 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "configuration": "prototype_cartographe sans dock",
+  "status": "À valider",
+  "scope": "Intégration réversible du F16 mobile R50/R24 et contrôle BRep sur copie issue du candidat F35",
+  "assembly": {
+    "path": ".runtime/cartographe-action3-f16/candidat/assemblages/Prototype_Cartographe.FCStd",
+    "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa"
+  },
+  "nominal_report": {
+    "path": ".runtime/cartographe-action3-f16/nominal.json",
+    "sha256": "57852a253d481ced645b6685bf49a9e8b34c93af6fdb969b47c4b463fe63d8e2"
+  },
+  "installation_report": {
+    "path": ".runtime/cartographe-action3-f16/apply.json",
+    "sha256": "51129b178edea607a9e69ff98f91782aa303432efbb365fef78a48ba8c210acb"
+  },
+  "reopen_report": {
+    "path": ".runtime/cartographe-action3-f16/reopen.json",
+    "sha256": "51328d1137db76c24e3ec09d91895af98b2e8caeb703a598c8f0359187f0858b"
+  },
+  "pose_report": {
+    "path": ".runtime/cartographe-action3-f16/poses.json",
+    "sha256": "2a9db3fe027c8d65fef7eeac0ee7bff1575a07ddbfc31885cfa3e8c98f690584"
+  },
+  "rigid_clearance_report": {
+    "path": ".runtime/cartographe-action3-f16/jeu_visa_p17.json",
+    "sha256": "9b3b718015b22db96851e8dd7a7d01448251f5ac1ca0780191a3f27998ef4672"
+  },
+  "reproduction_scripts": [
+    {
+      "path": ".runtime/cartographe-action3-f16/screen.py",
+      "sha256": "dd26ae1b8743966efd773a199fe87af3d5936daf7cb32c32f3047c2889e1dd01"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f16/install.py",
+      "sha256": "8bf6e26051b9f1bce2e43981dddcef73c87093fd0f747c34a0ce51ce08ccf069"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f16/poses.py",
+      "sha256": "a25d54e065df6ebf4548ed5adc980cece3ee212c2389e787c17731edebf4b6cb"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f16/jeu_visa_p17.py",
+      "sha256": "95cb469340c1f35760666e4540f514d734abe1f25448e096dcbdc9ef748d16da"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f16/p75.py",
+      "sha256": "2643ecf53480a901c4d52bdd34276fcdb35182559dc60675f466287d8ad7ba52"
+    },
+    {
+      "path": ".runtime/cartographe-action3-f16/contact.py",
+      "sha256": "d9595254627e0f67cb98618473625a91fe4fc996166dd05e0668dd9cd3769faf"
+    }
+  ],
+  "receipt": {
+    "path": ".runtime/cartographe-action3-f16/candidat/experiment.json",
+    "sha256": "dc67732c25b050ed416dc1eef98a326f2457ab95c93635644a613ab859bdac30"
+  },
+  "geometry": {
+    "donor": "hardware\\mecanique\\cartographe_faisceaux_autonome\\verification\\candidats\\F16_R50_X200_Z0.FCStd",
+    "source_sha256": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+    "baseline_length_mm": 425.173842178645,
+    "candidate_length_mm": 494.607764256343,
+    "mobile_length_mm": 315.4404525859487,
+    "mobile_radius_mm": 49.99999999999995,
+    "fixed_radius_mm": 23.999999999999982,
+    "endpoints_mm": [
+      [
+        7.0,
+        -79.95,
+        140.5
+      ],
+      [
+        109.785,
+        -0.525,
+        -96.82
+      ]
+    ],
+    "native_link": "pieces/commerce/W_F16_Prototype.FCStd#Cable002",
+    "nominal_pairs": 3005,
+    "nominal_pairs_brep": 699,
+    "nominal_intersections": 0,
+    "nominal_unknown_boolean": 0,
+    "clearance_caveat": {
+      "p75_mm": 0.14780895665836216,
+      "p73_mm": 0.2,
+      "report": {
+        "path": ".runtime/cartographe-action3-f16/contact.log",
+        "sha256": "18dec766596c984e042778c135918c9672f8b5bdaf08777427104523aad01efb"
+      },
+      "description": "Résultat distance zéro entre BRep complet et un solide OEM incohérent avec un témoin extérieur à la boîte englobante de ce solide. Volume commun nul. Distance axe/solide par arête au minimum 49,121 mm ; ce contrôle ponctuel ne qualifie pas les marges de montage."
+    }
+  },
+  "reopen": {
+    "save_pid": 8884,
+    "reopen_pid": 12204,
+    "native_files": 137,
+    "objects": 3733,
+    "verified_input_files": 139,
+    "fresh_delta_mm3": [
+      0.0,
+      0.0
+    ],
+    "root_saved": false
+  },
+  "poses": [
+    {
+      "id": "POSE_AXE_2",
+      "translation_mm": [
+        1,
+        0,
+        0
+      ],
+      "rotation_xyz_deg": [
+        0,
+        0,
+        0
+      ],
+      "length_error_mm": 0.0,
+      "radii_mm": [
+        49.99999999999995,
+        23.999999999999982
+      ],
+      "cable_pairs": 3005,
+      "cable_pairs_brep": 33,
+      "cable_intersections": 0,
+      "first_pass_unknowns": [
+        {
+          "occurrence": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre/solide:1",
+          "error": "Calcul OCC non résolu dans la limite de 5 s"
+        }
+      ],
+      "fixed_vs_moving_intersections": 0,
+      "rigid_intersections": [
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#VisP10ORCH0/2",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_1/Support_P17/1"
+          ],
+          "volume_mm3": 3.327193448137098,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#VisP10ORCH1/2",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_2/Support_P17/1"
+          ],
+          "volume_mm3": 3.327193448137097,
+          "gap_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "POSE_AXE_6",
+      "translation_mm": [
+        0,
+        0,
+        1
+      ],
+      "rotation_xyz_deg": [
+        0,
+        0,
+        0
+      ],
+      "length_error_mm": -1.1368683772161603E-13,
+      "radii_mm": [
+        49.99999999999995,
+        23.999999999999982
+      ],
+      "cable_pairs": 3005,
+      "cable_pairs_brep": 33,
+      "cable_intersections": 0,
+      "first_pass_unknowns": [],
+      "fixed_vs_moving_intersections": 0,
+      "rigid_intersections": [
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#RetenueCable3/1",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_2/Support_P17/1"
+          ],
+          "volume_mm3": 3.435139876523531,
+          "gap_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "POSE_SOUS_CHARGE",
+      "translation_mm": [
+        0,
+        0,
+        -0.724
+      ],
+      "rotation_xyz_deg": [
+        0,
+        0,
+        0
+      ],
+      "length_error_mm": 5.684341886080802E-14,
+      "radii_mm": [
+        49.999999999999964,
+        23.999999999999982
+      ],
+      "cable_pairs": 3005,
+      "cable_pairs_brep": 33,
+      "cable_intersections": 0,
+      "first_pass_unknowns": [],
+      "fixed_vs_moving_intersections": 0,
+      "rigid_intersections": []
+    },
+    {
+      "id": "POSE_COMB_20",
+      "translation_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rotation_xyz_deg": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "length_error_mm": 1.1368683772161603E-13,
+      "radii_mm": [
+        49.999999999999964,
+        23.999999999999982
+      ],
+      "cable_pairs": 3005,
+      "cable_pairs_brep": 33,
+      "cable_intersections": 0,
+      "first_pass_unknowns": [],
+      "fixed_vs_moving_intersections": 0,
+      "rigid_intersections": [
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#PlatineAluminium/1",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#EcrouAncrage0/1"
+          ],
+          "volume_mm3": 0.410420330431561,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#PlatineAluminium/1",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#EcrouAncrage3/1"
+          ],
+          "volume_mm3": 0.04317690012471432,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#RetenueCable3/1",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_2/Support_P17/1"
+          ],
+          "volume_mm3": 14.806824864048911,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#VisP10ORCH0/2",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_1/Support_P17/1"
+          ],
+          "volume_mm3": 4.262684631747553,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#VisP10ORCH1/2",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_2/Support_P17/1"
+          ],
+          "volume_mm3": 0.10844272603560656,
+          "gap_mm": 0.0
+        },
+        {
+          "pair": [
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#RondelleP10H_ORCH1/1",
+            "sous_assemblages/SA04_Prototype_Perception.FCStd#Appui_2/Support_P17/1"
+          ],
+          "volume_mm3": 0.3000805174513695,
+          "gap_mm": 0.0
+        }
+      ]
+    }
+  ],
+  "pose_boolean_recheck": {
+    "pose": "POSE_AXE_2",
+    "obstacle": "P75_Cadre",
+    "intersection_mm3": 0.0,
+    "clearance_mm": 19.55920499406865,
+    "report": {
+      "path": ".runtime/cartographe-action3-f16/p75.log",
+      "sha256": "849668fd0ad63db3f70df282dc0d08690319bcd2d8c15b393b5482caf42f5b2d"
+    }
+  },
+  "motion_limits": {
+    "real_travel_mm": null,
+    "model": "Quatre appuis viscoélastiques, déplacement couplé, sans axe motorisé ni pivot réel défini.",
+    "press_load": "Le fabricant donne une charge correspondant à 10–20 % de déflexion statique, et aucune course garantie pour cet assemblage.",
+    "tested": "Quatre poses discrètes de longueur constante. Les autres câbles ne sont pas déformés.",
+    "targeted_rigid_scan": "Vis P10/P17 : premier recouvrement échantillonné à +X 0,25 mm. Retenue P10/P17 : premier recouvrement échantillonné à +Z 1 mm. Trois des quatre poses globales présentent une interférence rigide.",
+    "manufacturer": "https://www.sorbothane.com/wp-content/uploads/sorbothane-spg-bushings-washers.pdf"
+  },
+  "supply": {
+    "manufacturer": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+    "family": "RR-ASMUK-XXGRHF, Ø5,5 mm, rayon 48 mm continu / 22 mm statique. Type A droit et Micro-B Up verrouillable.",
+    "catalogue_508": "RR-ASMUK-20GRHF, 508 mm hors tout. Avec allocation estimée de 79,5 mm aux extrémités, longueur utile 428,5 mm, déficit 66,108 mm ; Type A droit incompatible avec la direction CAO retenue.",
+    "catalogue_1981": "RR-ASMUK-78GRHF, 1981 mm hors tout. Type A droit et surplus supérieur à 1,4 m ; aucune implantation de la réserve démontrée.",
+    "custom": "USB3 hautes flexions Micro-B Up verrouillable / Type A Up, environ 600 mm hors tout à confirmer. Longueur minimale calculée 574,108 mm avant réserve, à qualifier avec plans, tolérances et convention de mesure.",
+    "custom_source": "https://www2.usbfirewire.com/brochures/USB.Custom.Cables.pdf",
+    "alternate": "RR-AUAFPM-06GR fixe avec RR-ASMUK-20GRHF mobile, option à étudier seulement après dessin de la jonction et validation SuperSpeed, ancrage, vibrations et réserve.",
+    "alternate_source": "https://www.usbfirewire.com/parts/rr-auafpm-xxgr.html"
+  },
+  "remaining": "Mesurer la course réelle sous charge et en vibration, distinguer les butées prévues des interférences de la visserie, définir les retenues et confirmer le cordon physique. La géométrie conditionnelle du câble est disponible sur copie.",
+  "revue_consolidee": {
+    "evidence": {
+      "path": ".runtime/cartographe-action3-f16/poses_integrees.json",
+      "sha256": "afd32fcf5f6b243862bb90500bc17f35fce477375e894d332ac2c77e47124fa1"
+    },
+    "script": {
+      "path": ".runtime/cartographe-action3-f16/poses_integrees.py",
+      "sha256": "93a052f79743da3772b5795bd49b218fed03ba16a2706dce21b80238c46fb5a0"
+    },
+    "poses": [
+      {
+        "id": "POSE_AXE_2",
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0,
+        "rigid_intersections": 2
+      },
+      {
+        "id": "POSE_AXE_6",
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0,
+        "rigid_intersections": 1
+      },
+      {
+        "id": "POSE_SOUS_CHARGE",
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0,
+        "rigid_intersections": 0
+      },
+      {
+        "id": "POSE_COMB_20",
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0,
+        "rigid_intersections": 6
+      }
+    ],
+    "verification": "138 empreintes de la fermeture principale concordantes avec sa réouverture au moment de la revue. F16 identique au fichier donneur, réévalué sur quatre poses avec F25/F35/P85."
+  },
+  "variante_optique": {
+    "status": "À valider",
+    "assembly": {
+      "path": ".runtime/cartographe-action3-f16/camera_integre/assemblages/Prototype_Cartographe.FCStd",
+      "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa"
+    },
+    "evidence": [
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_design.json",
+        "sha256": "d9238d1835d78da6032233d2e9666bcaad5230e3d98d7acf8042060e9212ee98"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_grid.json",
+        "sha256": "3366235640a01b9dcd439279932b2f7ad4218833bafdbaa8f66a814711f600da"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_apply.json",
+        "sha256": "d39dac0147971b154e722b946259c41cfaa359d96e03cce24d2eda2d81af1c9e"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_reopen.json",
+        "sha256": "8d8945483f0f4ca7d6e38e80af78a6bbd96aef966f1b5d8da19066abe272da3f"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p65_grid.json",
+        "sha256": "9d1542bbf4e76084643b9b8a9841d70441bad57e1dbffb1f30845d0c5eca814e"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p65_apply.json",
+        "sha256": "8e258d7d4a8f7a1f017546e4ee344d0368a7dbba17293d9559487f8366e861f5"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p65_reopen.json",
+        "sha256": "ea97a619a5c83beff6ff6627dd19d20d76edaf27feafe27d73e2fd33b71fd867"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/camera_integre_stage.json",
+        "sha256": "707980eb289b2f748e6e282026ca764d4b34c5b2497428872572ef3fdeec5ebf"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/camera_integre_reopen.json",
+        "sha256": "c530052a52c665b46b19c1d187cfed3dfab75a98e78b93027b0ff3b31026d055"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/camera_integre_grid.json",
+        "sha256": "95b8a6ebc1f9558d3d6605e0a08416d509b001f0e23e1f27114acff09d7bfd2a"
+      }
+    ],
+    "scripts": [
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_design.py",
+        "sha256": "9b0e40f5c74b03bb35fff0736e39adc4af391fac3873f7410dae15536c5eed0e"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_grid.py",
+        "sha256": "afdf354297549717c399c0a2794d90da8841da0bc9c75a0a3e28b23309f5ce5e"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p17_native.py",
+        "sha256": "8ebfc1954fac4e561afd03661c56bff1190ddbc38cf7e5332dc13a5f97d6543a"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p65_grid.py",
+        "sha256": "4ffdc84ee71b836fbad57f891621ca31bb684fdf9e2ddb4af73a4ae255bebe0b"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/p65_native.py",
+        "sha256": "d48df411426e756e2de52904e2ddc50afc371980cc9f8b9b183baf16df996c5f"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/camera_integre.py",
+        "sha256": "fa090b572fa95b63421b51bb255f39af8003e1f4d0ee9875cf7db498ec68f27f"
+      },
+      {
+        "path": ".runtime/cartographe-action3-f16/camera_integre_grid.py",
+        "sha256": "527273cef9d55f28b2cbc13663f20ed359e2f8edb5aca123773650b4202774e8"
+      }
+    ],
+    "p17_only": [
+      {
+        "excursion_mm": 0.25,
+        "before": 18,
+        "after": 27
+      },
+      {
+        "excursion_mm": 0.5,
+        "before": 13,
+        "after": 19
+      },
+      {
+        "excursion_mm": 0.75,
+        "before": 13,
+        "after": 19
+      },
+      {
+        "excursion_mm": 1,
+        "before": 8,
+        "after": 11
+      }
+    ],
+    "amplitude_xyz_mm": 0.5,
+    "p17_volume_removed_mm3": 7.600598399999399,
+    "p65_volume_removed_mm3": 392.0707631679543,
+    "p65_anchor_clearance_diameter_mm": {
+      "before": 7,
+      "after": 8.6
+    },
+    "min_ligament_mm": {
+      "towards_m2": 2.8000000000000003,
+      "towards_nearest_p10_counterbore": 2.294810050208546
+    },
+    "native_files": 138,
+    "objects": 3755,
+    "retained_links": {
+      "F12": "Ensemble",
+      "F16": "Cable002",
+      "F25": "Ensemble",
+      "F35": "Ensemble",
+      "RetenueP85F25": "Ensemble"
+    },
+    "exact_clear_poses": 27,
+    "rigid_brep_pairs": 909.0,
+    "clearance_bounds_movers_to_f25_f35_p85_mm": {
+      "F25": 159.92881925622328,
+      "F35": 188.53562752710667,
+      "RetenueP85F25": 163.15155701826748
+    },
+    "limits": "Translations discrètes seulement. Les dégagements P17 à ±0,75 et ±1,00 mm entament la portée M3 dans le modèle conservateur. Le candidat ±0,50 conserve les perçages et portées P17, mais les ligaments P65 réduits, les rotations, les effets des élastomères, le débattement réel et la tenue mécanique restent à vérifier. Géométrie câble F16 inchangée R50/R24."
+  },
+  "variante_f16_z10": {
+    "status": "À valider",
+    "donor": {
+      "path": "hardware/mecanique/cartographe_faisceaux_autonome/verification/candidats/F16_R50_X200_Z10.FCStd",
+      "sha256": "14293252ce2ca91f3e7a03ecb2c534daead990b3e55e21d94120fd1aea87708a"
+    },
+    "evidence": {
+      "path": ".runtime/cartographe-action3-f16-z10/screen.json",
+      "sha256": "796537aa5495e86787148fe519832c00c4cbff59da60005f2b9353d18423fb02"
+    },
+    "generator": {
+      "path": "hardware/mecanique/cartographe/verification/reconstruction_faisceaux/explorer_f16.cpp",
+      "sha256": "b26f05d71444da001b829192390a83775e3c2d48226140fe2dd086135a22ab01"
+    },
+    "replay": {
+      "path": ".runtime/cartographe-action3-f16-z10/rejouer.py",
+      "sha256": "f4c131fe3042c34d2917f185a58733ca4eb4d586613baa135bf973142c39dcf2"
+    },
+    "scenarios": {
+      "path": ".runtime/cartographe-action3-f16-z10/poses.json",
+      "sha256": "517af4201b94acf46698045583fa01a97f6165657204267307744b555c298379"
+    },
+    "unchanged_interfaces": {
+      "camera_endpoint_xyz_mm": [
+        109.785,
+        -0.525,
+        -96.82
+      ],
+      "fixed_anchor_xyz_mm": [
+        96,
+        -54,
+        75
+      ],
+      "type_a_endpoint_xyz_mm": [
+        7,
+        -79.95,
+        140.5
+      ],
+      "fixed_section_brep_difference_mm3": [
+        0.0,
+        0.0
+      ]
+    },
+    "length_mm": 493.459234398895,
+    "mobile_radius_mm": 49.99999999999995,
+    "fixed_radius_mm": 23.999999999999982,
+    "pre_anchor_straight_mm": 15,
+    "physical_minimum_estimated_length_mm": 572.9592343988949,
+    "results": [
+      {
+        "id": "POSE_AXE_2",
+        "translations_mm": [
+          1,
+          0,
+          0
+        ],
+        "rotations_deg": [
+          0,
+          0,
+          0
+        ],
+        "mobile_length_mm": 314.2919227285007,
+        "mobile_radius_mm": 49.99999999999995,
+        "mobile_pairs_brep": 27,
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0
+      },
+      {
+        "id": "POSE_AXE_6",
+        "translations_mm": [
+          0,
+          0,
+          1
+        ],
+        "rotations_deg": [
+          0,
+          0,
+          0
+        ],
+        "mobile_length_mm": 314.2919227285006,
+        "mobile_radius_mm": 49.99999999999995,
+        "mobile_pairs_brep": 27,
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0
+      },
+      {
+        "id": "POSE_SOUS_CHARGE",
+        "translations_mm": [
+          0,
+          0,
+          -0.724
+        ],
+        "rotations_deg": [
+          0,
+          0,
+          0
+        ],
+        "mobile_length_mm": 314.2919227285006,
+        "mobile_radius_mm": 49.99999999999995,
+        "mobile_pairs_brep": 27,
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0
+      },
+      {
+        "id": "POSE_COMB_20",
+        "translations_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rotations_deg": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "mobile_length_mm": 314.2919227285007,
+        "mobile_radius_mm": 49.999999999999964,
+        "mobile_pairs_brep": 27,
+        "mobile_intersections": 0,
+        "mobile_unknowns": 0,
+        "fixed_intersections": 0,
+        "fixed_unknowns": 0
+      }
+    ],
+    "limits": "Sections et quatre poses discrètes validées géométriquement sur la variante optique. Les mouvements réels, la résistance de la platine, la distance minimale de montage, le maintien V75 et la fiche sur mesure restent à qualifier."
+  }
+}

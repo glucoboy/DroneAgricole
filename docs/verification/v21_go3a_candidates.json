@@ -1,0 +1,452 @@
+{
+  "schema": "drone_agricole.go3a_exploration_portfolio.v1",
+  "date": "2026-11-17",
+  "status": "GO3A_EXPLORATION_READY",
+  "scope": "prototype_cartographe",
+  "reference": {
+    "historical_candidate_id": "H-01",
+    "reference_sha256": "3fc4260910647d3ab5ccffdb1406847ffb310dfec6e45fb221186274fe8535b9",
+    "mechanical_root": "hardware/mecanique/cartographe",
+    "entrypoint": "assemblages/Prototype_Cartographe.FCStd",
+    "entrypoint_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+    "native_count": 137,
+    "auxiliary_count": 4,
+    "native_hashes_pointer": "/cad/native_sha256",
+    "zones_pointer": "/zones_comparaison_mm",
+    "coverage": { "system_lines": 71, "onboard_harness_lines": 50, "axes": 53, "associations": 56, "lines_without_axis": 21 },
+    "dependencies": {
+      "system_model": { "path": "docs/verification/go3a/GO3A_SYSTEM_MODEL.json", "sha256": "e877dc38fe866e817ecef9585664656e83bd0955869f1961b6d89e053d6f6b83" },
+      "requirements": { "path": "docs/verification/go3a/GO3A_REQUIREMENTS.yaml", "sha256": "73a6fc8554da287e83212380c8d01d0aa05629ed494a3927e37a6401c67cf1ad" },
+      "matrix": { "path": "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv", "sha256": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696" },
+      "connector_bom": { "path": "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv", "sha256": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8" },
+      "electrical_inventory": { "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json", "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe" },
+      "electrical_definition": { "path": "hardware/electronique/cartographe/cablage_global.json", "sha256": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f" },
+      "uart_contract": { "path": "hardware/electronique/cartographe/contrat_uart_bms.json", "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19" },
+      "bom": { "path": "hardware/mecanique/cartographe/nomenclature_prototype.json", "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0" },
+      "reference_replay": { "path": "docs/verification/v21_go3a_reference_replay.json", "sha256": "332ecbb285c6365d4d978807944d98b8cfaf8d4fa99b3fd6f6a5e2d42462dcf2" },
+      "gap_register": { "path": "docs/verification/v21_go3a_evidence_gaps.json", "sha256": "349d2675e9d7d7e7e98f01a9ea5751af59b1d89e7db79708376d921ac57e5096" },
+      "b2": { "path": "docs/verification/v21_b2/coverage.json", "sha256": "dbadbac0d99efd37dd800c224060ec1c29440e1153cd16fae50dc8424c3275fa" },
+      "action3_f12": { "path": "docs/verification/cartographe_action3_reprise_f12.json", "sha256": "746f18aaa6e18f806935a696d6a50b4227dc2869bf3b76af7a310f6b71cd0712" },
+      "action3_f16": { "path": "docs/verification/cartographe_action3_f16.json", "sha256": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e" },
+      "action3_f25": { "path": "docs/verification/cartographe_action3_f25.json", "sha256": "109dc473959d8654cd887b57bab46c2f121a16624174be492e9dcf790a3d6922" },
+      "action3_f35": { "path": "docs/verification/cartographe_action3_f35.json", "sha256": "7153003fe96df823054faace492930af1173ab8836662d6e8d26f8d45ff93769" },
+      "action3_can1": { "path": "docs/verification/cartographe_action3_can1_integre.json", "sha256": "b208ff5f79ce2bb7f34b8bbc56a73b1d6103c323607448eaaad7a397dbe8d84d" },
+      "action3_f41": { "path": "docs/verification/cartographe_action3_f41.json", "sha256": "6ae0d0fa8cbb0cee524deec824f1846285ec7acd99044e2880ccd0b1cf97d52d" },
+      "historical_variant_evidence": { "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json", "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3" },
+      "engine_qualification": { "path": "docs/verification/v21_fix_c_qualification.json", "sha256": "8ed0228b59130fec1a6c9ed7e917d0a6ce7b74407a859131fed29b0db60c77cd" },
+      "final_authority": { "path": "docs/verification/go3b/GO3B_ADMISSION.json", "sha256": "b5bb1d3ab901e300b12558ba9cd33558210a9dee343520a0f0085257a7d58521" },
+      "final_source_manifest": { "path": "docs/verification/go3b/GO3B_SOURCE_MANIFEST.json", "sha256": "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d" }
+    }
+  },
+  "exploration_authorized": true,
+  "final_acceptance_allowed": false,
+  "final_policy": {
+    "contract": "drone_agricole.final_reception.v2.1",
+    "historical_verdict": "NO_GO_MOTIVE",
+    "current_verdict": "FINAL_NO_GO",
+    "open_requirements": ["G3A-01", "G3A-02", "G3A-03", "G3A-04", "G3A-05", "G3A-06", "G3A-07", "G3A-08"],
+    "requirement_status": "INCONCLUSIVE",
+    "physical_thresholds_pointer": "/seuils_physiques_a_valider",
+    "requirements_pointer": "/exigences_imperatives"
+  },
+  "bounds": {
+    "families_max": 3,
+    "candidate_native_copies_max": 3,
+    "retained_native_attempts_per_family": 1,
+    "parametric_configurations_per_family_max": 2,
+    "copy_accounting": "Une copie candidate par famille et un témoin commun. Cribler les deux configurations avant de sauvegarder au plus un natif retenu. Les contre-épreuves documentaires ou leur copie dédiée ne sont pas des tentatives candidates.",
+    "total_hours_max": 12,
+    "total_spend_eur_max": 0,
+    "stop": "Arrêter la famille si ses deux configurations échouent, si un invariant est violé ou si son budget est épuisé. Publier la mesure ou le défaut qui permet la prochaine décision."
+  },
+  "imperative_guards": {
+    "private_copy": true,
+    "unpowered": true,
+    "preserve_connectivity": true,
+    "constraints_enabled": true,
+    "failure_policy": "Suspendre toute mutation si la fermeture ou le graphe ne se réconcilient pas. Rejeter la pose si une interférence interdite est observée. Enregistrer les paires héritées B.2 et les isoler dans le diagnostic avant toute comparaison.",
+    "electrical_invariants": [
+      "Conserver chaîne 6S, protections, PM08, POWER1/2, MAIN1–4 sous PX4, CAN1 H/L/GND et +5 V CAN1 NC.",
+      "Conserver séparation B− brut/P−, TTL isolé RX/TX/GND côté BMS et VDD NC, USB et son blindage côté hôte, déconnexion manuelle et lecture seule.",
+      "Conserver variantes CA01 et affectation AUX1/trigger, consignation LED, références IO, interfaces de datation, Airy, RF et chemins de retour."
+    ]
+  },
+  "comparison": {
+    "reference_set": "ACTIVE_BYTE_IDENTICAL",
+    "reference_frame": "XYZ global natif, millimètre, Z vers le haut",
+    "retained_scope": "Même ensemble lié, fonctions et 53 identités d’axe. Toute subdivision passive est déclarée sous l’identité d’origine, avec correspondance et longueur physique sans double comptage.",
+    "baseline_nominal_axes": {
+      "source_dependency": "historical_variant_evidence",
+      "pair": "ACTIF_VS_COPIE_CONSOLIDEE",
+      "length_total_mm": 12125.900,
+      "bay_mm": 4341.486,
+      "above_mm": 2421.421,
+      "strict_below_P66_mm": 451.202,
+      "sheath_top_z_mm": 173.278
+    },
+    "hard_filter": "Écarter toute pose qui introduit une interférence interdite ou aggrave un défaut hérité. Suivre les sept paires B.2 séparément. Tant qu’elles sont ouvertes elles bloquent la réception. Conserver les inconnues pour l’étude de sensibilité.",
+    "method": "Comparer d’abord l'accès simultané et l'absence de régression. Si les mesures communes le permettent, retenir le front de Pareto des poses numériques admissibles. À égalité sur les objectifs couverts, préférer moins d'interfaces et de dépendances, puis moins de risque et de coût. L'arbitrage de priorité avant mesure considère la valeur discriminante et la réversibilité, sans convertir les inconnues en scores.",
+    "metric_definitions": [
+      { "id": "bay_axis_mm", "unit": "mm", "direction": "min", "method": "longueur d’axe dans bay" },
+      { "id": "above_axis_mm", "unit": "mm", "direction": "min", "method": "longueur d’axe dans above" },
+      { "id": "occupied_volume_mm3", "unit": "mm3", "direction": "min", "method": "union des solides liaisons/fiches/supports dans bay et above, reportés par zone; service à part" },
+      { "id": "service_margin_mm", "unit": "mm", "direction": "max", "method": "minimum des jeux connexions, retraits et outils CAN1 + TTL/USB, par manœuvre et hypothèse" },
+      { "id": "connected_top_z_mm", "unit": "mm", "direction": "min", "method": "cote haute du sous-ensemble de faisceau permanent connecté et son enveloppe L×l×H" },
+      { "id": "axis_length_mm", "unit": "mm", "direction": "min", "method": "longueur sur même inventaire, cordon utile et réserve également rapportés" },
+      { "id": "installed_delta_mass_g", "unit": "g", "direction": "min", "method": "écart net par occurrence/référence et inclusions, effet CG séparé" },
+      { "id": "support_count", "unit": "1", "direction": "min", "method": "supports, fixations et jonctions supplémentaires par occurrence" },
+      { "id": "service_operations", "unit": "1", "direction": "min", "method": "déposes, outils, déconnexions et gestes enregistrés pour même intervention" },
+      { "id": "risk_and_relative_cost", "unit": null, "direction": "min", "method": "classes par coût de support, cordon/outil et validation, incluant les inconnues; aucun prix estimé" }
+    ],
+    "candidate_measurements": null
+  },
+  "object_selectors": {
+    "isolator": "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+    "isolator_reference": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+    "isolator_ttl": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_BornierTTL",
+    "isolator_usb": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_USB_B",
+    "pm08": "sous_assemblages/SA03_Prototype_Energie.FCStd#PM08",
+    "carrier": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+    "active_axes_pointer": "/axes_cao"
+  },
+  "common_mutations": [
+    {
+      "id": "TELEM1",
+      "operation": "CORRECT_ENDPOINT_ON_COPY",
+      "axes": ["F12"],
+      "lines": ["W12"],
+      "definition": "Reprendre le point d’arrivée TELEM1 de la preuve Action 3. Interdire GPS2. Comparer nets, positions, repères et maintien au graphe en conservant les inconnues de cavités.",
+      "sources": ["action3_f12", "matrix", "connector_bom"]
+    },
+    {
+      "id": "CAN1_F35",
+      "operation": "GUIDE_ROUTE_AND_RESERVE_ACCESS",
+      "axes": ["F31", "F35"],
+      "lines": ["W31", "W35"],
+      "definition": "F35 par le sud comme témoin, CAN1 droit et axe de retrait +Z; relever fiche/verrou/outil séparément dans la baie avec PM08, isolateur, PDB et F25.",
+      "sources": ["action3_f35", "action3_can1", "matrix"]
+    },
+    {
+      "id": "F25_P85",
+      "operation": "RESERVE_EDGE_BRANCH",
+      "axes": ["F25"],
+      "lines": ["W25"],
+      "definition": "Reprendre la réservation est P66 du témoin P85 comme proxy sur copie; contrôler support, passage de la fiche, vis, contact et epsilon nominal. Le P85 témoin n’est pas une dépendance de l’actif.",
+      "sources": ["action3_f25", "system_model"]
+    }
+  ],
+  "common_tests": [
+    { "id": "T-GO3B-REF", "checks": "Préparer un témoin sans modification et une copie neuve par famille. Lister et empreinter la fermeture, recalculer et rouvrir, vérifier chemins relocalisés et sources actives intactes.", "requirements": ["G3A-08"] },
+    { "id": "T-GO3B-GRAPH", "checks": "Rejouer L2 reconcile et inspect-cartographe sur la référence. Construire une projection L2 de la copie depuis la matrice et la netlist indépendantes. Passer interconnection_core validate sur cette projection et conserver les inconnues. Joindre côté, contact, conducteur, axe, natif et pose dans les deux sens sur les 71 lignes, 53 axes, 56 associations et 21 motifs. Échec si inversion, omission ou chemin externe. Injecter un côté erroné et un repère décalé sur une copie négative séparée.", "requirements": ["G3A-01", "G3A-02", "G3A-03", "G3A-05", "G3A-07"] },
+    { "id": "T-GO3B-XY", "checks": "Préparer --electrical depuis le graphe indépendant avec chemins et SHA des 53 axes de la copie et equipment_mapping des ports et poses attendus. Exécuter L4 XLink et rouvrir indépendamment. Rejouer les paires et critères B.2 avec les nouvelles paires. Isoler les six recouvrements Airy et F37_POS/P73, établir une correction ou une preuve applicable du contact. Compléter accès, réserve et retenues et signaler les contrôles non exécutés.", "requirements": ["G3A-04", "G3A-06", "G3A-07", "G3A-08"] },
+    { "id": "T-GO3B-METRICS", "checks": "Comparer même repère et zones sur témoin et copie; archiver exports, SHA des natifs, mesures, plages et inconnues. Ne cumuler ni marges ni différences de preuves locales.", "requirements": ["G3A-06", "G3A-08"] }
+  ],
+  "link_update": {
+    "equipment_to_cables": [
+      "Calculer la nouvelle transformation monde du lien d’équipement sur copie. Composer chaque repère port d’accouplement et de sortie, et déplacer les volumes retrait/outil avec le même repère.",
+      "Énumérer toutes les extrémités incidentes via la matrice indépendante. Enregistrer les côtés et positions monde avant/après, préserver les extrémités opposées, régénérer axes/gaine/retentions et vérifier réserves."
+    ],
+    "cables_to_equipment": [
+      "Après sauvegarde, rouvrir et résoudre chaque XLink depuis câble et équipement. Inverser la transformation du document parent pour vérifier le repère local, l’appartenance au port et l’identité de contact.",
+      "Comparer la jointure inverse natif/axe → côté → port → net à l’ensemble des incidents attendus. Vérifier les références externes, les positions monde, la matrice 71/53/56, les supports voisins et l’absence de mises à jour manquantes ou surnuméraires."
+    ]
+  },
+  "candidates": [
+    {
+      "id": "H-03",
+      "priority": 1,
+      "trial": "UNPOWERED_LAYOUT",
+      "exploration_authorized": true,
+      "final_acceptance_allowed": false,
+      "budget_hours": 5,
+      "preflight": {
+        "request": {
+          "path": "docs/verification/v21_go3a/H-03.json",
+          "sha256": "65cc82d5f74fbdf7a9c54da88c8e7515480755c1fd14ed22e4bf485fe5f8e2c8"
+        },
+        "construction_sha256": "cd3774bf0986845c5365dbaed7247803e5c17350ebe66a74c31e7cdd9e907e25",
+        "receipt": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/H-03/preflight.json",
+          "sha256": "99536030d7e5733879362364d4b8bf510501b5a80e187f5b9bce6a591ef53e85",
+          "exit_code": 0,
+          "verdict": "EXPLORATION_ALLOWED",
+          "source_files_verified": 180,
+          "blocks": [],
+          "campaign_state": "PLANNED",
+          "queue_items": 8,
+          "variants_built": 0
+        }
+      },
+      "open_requirements_pointer": "/final_policy/open_requirements",
+      "construction": {
+        "decision": "Déplacer l’isolateur existant sur support de service indépendant, avec accès direct aux deux côtés.",
+        "operations": [
+          { "type": "RELOCATE_LINK_AND_RESOLVE_INCIDENTS", "object": "isolator", "lines": ["W40", "W41"], "axes": ["F40", "F41"], "moving_endpoints": ["W40/B", "W41/A"], "fixed_endpoints": ["W40/A", "W41/B"], "gaps": ["G3A-02", "G3A-05", "G3A-06", "G3A-07", "G3A-08"] },
+          { "type": "RESERVE_REVERSIBLE_SUPPORT", "object": "isolator", "attachment": "Appuis existants, sans perçage de P66/P75, à confirmer sur copie.", "gaps": ["G3A-06", "G3A-08"] }
+        ],
+        "parameter_cases": [
+          { "id": "H03-A", "support_region": "chant X−, lèvre basse P66, en dehors du domaine balayé Action 3", "orientation": "Orienter la sortie TTL vers l’extérieur. Relever l’identifiant d’appui et la transformation globale avant mutation." },
+          { "id": "H03-B", "support_region": "chant X−, même zone d’appui", "orientation": "Faire pivoter l’isolateur de 90° en Z relativement à H03-A pour tester l’accès USB latéral. Relever la transformation globale et recalculer les deux gestes." }
+        ],
+        "incompatibilities": ["H-01", "H-02"],
+        "locks": ["PM08", "CA01", "PDB", "porteuse", "F40/F41 sans jonction intermédiaire nouvelle"],
+        "sources": ["system_model", "reference_replay", "action3_f41", "uart_contract", "engine_qualification", "gap_register"],
+        "hypothesis": "Un accès direct et un appui indépendant existent au chant sans réintroduire l’obstruction PDB, entamer les ancrages ni croiser le volume de retrait CAN1.",
+        "test": { "id": "T-GO3B-H03", "measure": "Identifier et enregistrer ancrage/placement globaux des deux poses, gabarits TTL et USB, routes F40/F41, réserve, jeu et séquence de pose avec PDB/PM08/CAN1, F35, P72/P75, câbles de bras et RF.", "reject_if": "Pas d’appui réversible, collision de service à la pose retenue, extrémité ancienne conservée ou accès aux protections dégradé." },
+        "tradeoff": "Support et fixation à définir avec reprise d’effort, longueurs et masse à mesurer. Le choix teste directement l’obstruction PDB avec la topologie et les prises de référence."
+      }
+    },
+    {
+      "id": "H-02",
+      "priority": 2,
+      "trial": "PARAMETRIC_ENVELOPE",
+      "exploration_authorized": true,
+      "final_acceptance_allowed": false,
+      "budget_hours": 4,
+      "preflight": {
+        "request": {
+          "path": "docs/verification/v21_go3a/H-02.json",
+          "sha256": "058528baf08d54781aa0927451a54c528127d5f4a294f0a3cb21ed95f0e23d96"
+        },
+        "construction_sha256": "b54ea9d9b28f76cecb2c4e41ef62acb9b74874e172192067b74bd29871dba8a8",
+        "receipt": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/H-02/preflight.json",
+          "sha256": "b7f8dfd3c80a611eb82455177e0efdd505346f58db2f1c9d76388da2aebc2bcc",
+          "exit_code": 0,
+          "verdict": "EXPLORATION_ALLOWED",
+          "source_files_verified": 180,
+          "blocks": [],
+          "campaign_state": "PLANNED",
+          "queue_items": 8,
+          "variants_built": 0
+        }
+      },
+      "open_requirements_pointer": "/final_policy/open_requirements",
+      "construction": {
+        "decision": "Implanter les sorties de cordons par faces à partir de profils documentés, avec passage au chant puis sous P66 et retenue de la partie fixe hors boucle caméra.",
+        "operations": [
+          { "type": "PROFILE_AND_REROUTE", "axes": ["F16", "F_M8", "F41"], "lines": ["W16", "W18", "W34", "W41"], "parts_for_envelope_only": ["RR-ASMUK-20GRHF", "1522341", "84809"], "gaps": ["G3A-04", "G3A-05", "G3A-06", "G3A-07"] },
+          { "type": "RESERVE_LOCAL_PRECONNECTION", "axes": ["F40"], "lines": ["W40"], "object": "isolator_ttl", "gaps": ["G3A-02", "G3A-05", "G3A-07"] }
+        ],
+        "parameter_cases": [
+          { "id": "H02-A", "route_region": "chant P66 puis dessous, sortie USB-B coudée avec ferrite", "camera_bounds": "Gabarit Micro-B Up et M8 coudé; tester Ø/rayons des sources selon leur régime, plus boucle à réserve indépendante." },
+          { "id": "H02-B", "route_region": "chant P66 sans passage sous la platine, mêmes fiches", "camera_bounds": "Conserver le même domaine de pose et les mêmes limites de rayons; intervertir seulement le corridor de la portion fixe." }
+        ],
+        "incompatibilities": ["H-01", "H-03"],
+        "locks": ["Isolateur, PM08, CA01, PDB et porteuse en pose de référence", "Pas de coude CAN1 sans preuve", "Pas d’adaptateur ni de reprise de la partie mobile par une fixation de portion fixe"],
+        "sources": ["gap_register", "action3_f16", "action3_can1", "action3_f41", "system_model"],
+        "hypothesis": "Les profils de fiches et le chemin par faces réduisent l’occupation supérieure et permettent le service local avec préconnexion TTL; aucun accouplement ou cordon de longueur utile est présumé.",
+        "test": { "id": "T-GO3B-H02", "measure": "Comparer corps/ferrite, longueurs, rayon et enveloppe composée F16/M8, optique, P10/P17/P73, F25/F35; cribler le TTL local préconnecté avec l’outil, PDB et USB-B dans la même copie.", "reject_if": "Réapparition du conflit TTL/PDB, rayon ou réserve insuffisants, porteuse/ventilation inaccessible, garde ou maintenance dégradée par rapport au témoin." },
+        "tradeoff": "Réduit la dépendance à des raccords de diagnostic supplémentaires, demande des cordons orientés et des retenues locales. La longueur 508 mm documentée est insuffisante dans la comparaison historique."
+      }
+    },
+    {
+      "id": "H-01",
+      "priority": 3,
+      "trial": "PARAMETRIC_ENVELOPE",
+      "exploration_authorized": true,
+      "final_acceptance_allowed": false,
+      "budget_hours": 3,
+      "preflight": {
+        "request": {
+          "path": "docs/verification/v21_go3a/H-01.json",
+          "sha256": "b5906f74993df48644e06c5aedaa6840cc1402cd2e8d02a1e395f236c3bed541"
+        },
+        "construction_sha256": "38ae29fe912fbb90e56cb9842bf95806eebf8a07438a382d6215c6499b9fff7c",
+        "receipt": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/H-01/preflight.json",
+          "sha256": "a3b9151c850fb061b6b3280cc7f965ecf61318caddf2fcc113c6bfcfb07b97ec",
+          "exit_code": 0,
+          "verdict": "EXPLORATION_ALLOWED",
+          "source_files_verified": 180,
+          "blocks": [],
+          "campaign_state": "PLANNED",
+          "queue_items": 8,
+          "variants_built": 0
+        }
+      },
+      "open_requirements_pointer": "/final_policy/open_requirements",
+      "construction": {
+        "decision": "Conserver les équipements et corridors retenus, réserver un déport passif séparé TTL/USB au chant ouest.",
+        "operations": [
+          { "type": "RESERVE_PASSIVE_SERVICE_BOUNDARIES", "object": "isolator", "axes": ["F40", "F41"], "lines": ["W40", "W41"], "gaps": ["G3A-01", "G3A-02", "G3A-05", "G3A-07", "G3A-08"] },
+          { "type": "REPLAY_LOCAL_WITNESS_GEOMETRY", "axes": ["F16", "F_M8"], "lines": ["W16", "W18", "W34"], "gaps": ["G3A-04", "G3A-06"] }
+        ],
+        "parameter_cases": [
+          { "id": "H01-A", "remote_region": "chant X−, deux réservations séparées hors zone CAN1, TTL préconnecté avant montage de la distribution", "bounds": "Déterminer la sortie locale du fil et le geste de dépose. Cribler les dimensions historiques comme sondes, à disposition de raccordement différente." },
+          { "id": "H01-B", "remote_region": "chant X−, deux réservations séparées sur appuis distincts", "bounds": "Faire varier la sortie locale et l’orientation de l’outil. Écarter le témoin TTL/PDB à pose de référence et son +Y8." }
+        ],
+        "incompatibilities": ["H-02", "H-03"],
+        "locks": ["Isolateur, PM08, CA01, PDB et porteuse fixes", "Pas de carte", "Raccord J-UART-DECONNEXION et séparation des retours conservés"],
+        "sources": ["historical_variant_evidence", "action3_f16", "action3_f41", "matrix", "uart_contract", "gap_register"],
+        "hypothesis": "Un départ local préconnecté et un accès séparé déporté tiennent avec le PM08 et la PDB en position, en conservant les deux domaines électriques.",
+        "test": { "id": "T-GO3B-H01", "measure": "Mesurer ensemble accès local des prises, trajectoires de pose, volumes du déport et du service courant sans dépose PDB, longueurs/réserves, raccords, isolation et impacts F31/F35. Définir pin à pin avant toute sélection de contacts.", "reject_if": "Sortie ou outil recoupe la PDB/CAN1, maintien de la séparation impossible ou nouvelle jonction non définie sur le graphe." },
+        "tradeoff": "Peu de changements d’équipement, mais au moins une fonction de déport et une réserve nouvelle à instruire; davantage d’interfaces et de risques d’accès simultané."
+      }
+    }
+  ],
+  "verification": {
+    "test_id": "T-CARTO-V21-GO3A-PORTFOLIO",
+    "scope": "Windows amd64. Les observations sur le cartographe portent sur la référence et la préparation des essais.",
+    "preflight": {
+      "contract": "drone_agricole.preflight.v2.1",
+      "source_release": "v2.1",
+      "qualified_root": ".runtime/fix-c",
+      "executable": {
+        "path": ".runtime/fix-c/.runtime/build-l5-c2/convergence_core.exe",
+        "sha256": "1998df3fde976df034d21f94b1debe043010a44ae01f5422af1650e2f5c74b75"
+      },
+      "operating_rule": "Copier la demande exacte dans un dossier sous la racine qualifiée C. Exécuter preflight --root <racine C> --source-release v2.1 --mode explore --plan <demande> --output <dossier neuf dans racine C>.",
+      "construction_digest": "SHA-256 de l'objet construction de la famille sérialisé en JSON compact UTF-8, clés triées, sans échappement ASCII des caractères Unicode et sans ligne terminale.",
+      "extension_semantics": "Le moteur V2.1 exige candidate_id H-01 comme identité du gel. Il vérifie les gardes, restitue plan_sha256 et publie la file. Le consommateur GO3B vérifie portfolio_candidate_id, construction_sha256, et toutes les dépendances du portefeuille avant de construire.",
+      "checkout_limitation": "Le préflight du binaire non corrigé sur l'arbre courant renvoie 1 avant verdict, avec Source modifiée : electromechanical_engine/freecad_worker.py.",
+      "checks": {
+        "pause": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/H-01-paused.json",
+          "sha256": "004cc775e1307b208a0d32d0c7505acb47f054bbeb6870f19b5c4dd3a2115070",
+          "exit_code": 4,
+          "verdict": "EXPLORATION_ALLOWED",
+          "source_files_verified": 180,
+          "blocks": [],
+          "campaign_state": "PAUSED",
+          "queue_items": 2,
+          "variants_built": 0
+        },
+        "known_collision": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/known_collision/preflight.json",
+          "sha256": "624173c3bd58a679ad0f49c36994898223a05a6dded1e9702f033c3b25496531",
+          "exit_code": 2,
+          "verdict": "EXPLORATION_BLOCKED",
+          "source_files_verified": 180,
+          "blocks": [
+            "KNOWN_VIOLATION:T-GO3B-H01"
+          ],
+          "campaign_state": "BLOCKED",
+          "queue_items": 0,
+          "variants_built": 0
+        },
+        "active_write": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/active_write/preflight.json",
+          "sha256": "b5bf0d81b85775c5b5dcc3bb5ddb2a4a38d010ba865b38cda0e0282c522c02fd",
+          "exit_code": 2,
+          "verdict": "EXPLORATION_BLOCKED",
+          "source_files_verified": 180,
+          "blocks": [
+            "UNSAFE_WRITE_TARGET"
+          ],
+          "campaign_state": "BLOCKED",
+          "queue_items": 0,
+          "variants_built": 0
+        },
+        "promote_gap": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/promote_gap/preflight.json",
+          "sha256": "9351bb831b1b56808f6a1751d00c7d6d843c50a48a77e4215981c5507d283b95",
+          "exit_code": 2,
+          "verdict": "EXPLORATION_BLOCKED",
+          "source_files_verified": 180,
+          "blocks": [
+            "MANDATORY_TRIAL_PASS:G3A-05"
+          ],
+          "campaign_state": "BLOCKED",
+          "queue_items": 0,
+          "variants_built": 0
+        },
+        "historical": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/historical/preflight.json",
+          "sha256": "3ee25bd3f02f2ac55facdcd0e770bd9d35ead6825e6ecfd0943ad7b129450344",
+          "exit_code": 2,
+          "verdict": "NO_GO_MOTIVE",
+          "source_files_verified": 180
+        },
+        "final": {
+          "path": ".runtime/fix-c/.runtime/go3a-reprise-20261117-134206-666754/final/preflight.json",
+          "sha256": "faeb3095ae7ec41f555335db5013b50be4f4b0c7fd807575cef74007fe4d4741",
+          "exit_code": 2,
+          "verdict": "FINAL_NO_GO",
+          "source_files_verified": 180
+        }
+      }
+    },
+    "l3_comparison": {
+      "scope": "SYNTHETIC_BENCH",
+      "argv": [
+        ".runtime/fix-a/.runtime/build-l3/architecture_decision_core.exe",
+        "--root",
+        ".",
+        "--l1",
+        ".runtime/fix-a/.runtime/build-l1/technical_research_core.exe",
+        "--output",
+        ".runtime/go3a-reprise/l3"
+      ],
+      "l3_executable": {
+        "path": ".runtime/fix-a/.runtime/build-l3/architecture_decision_core.exe",
+        "sha256": "fb715feb12ad3e0d6b8d32c650c14e1cc85c4152f5ceb7ac7f7419f72fc52762"
+      },
+      "l1_executable": {
+        "path": ".runtime/fix-a/.runtime/build-l1/technical_research_core.exe",
+        "sha256": "6565f3d4a3a505080c3760c7b48a18fd78c3e23ad03595f1773b68562963440d"
+      },
+      "terminal": {
+        "path": ".runtime/go3a-reprise/l3/t0_run_manifest.json",
+        "sha256": "3d6c66e76992df33a5fe37002c6e9fa1642fe12f21e3ad143bfe1156ef5b4052"
+      },
+      "evidence_validator": {
+        "path": ".runtime/fix-a/.runtime/build-t0/cartographe-evidence.exe",
+        "sha256": "b89b143bed8fb0aad0dc89de33639827b60a83d8e13ca3556b0a027260259632"
+      },
+      "validation_argv": [
+        ".runtime/fix-a/.runtime/build-t0/cartographe-evidence.exe",
+        "validate",
+        ".runtime/go3a-reprise/l3",
+        "."
+      ],
+      "validation_exit_code": 0,
+      "verdict": "L3_PASS",
+      "checks_passed": 27,
+      "comparison": {
+        "path": ".runtime/go3a-reprise/l3/comparison.json",
+        "sha256": "efaf202ca4fb3b7320786e86f98a7c51da4dbd85372f4bf91ec297a43481ced5"
+      },
+      "diagnostic_frontier": [
+        "diag-compact",
+        "diag-passive",
+        "diag-placement"
+      ],
+      "diagnostic_cost_available": false,
+      "banned_fusion_test": {
+        "id": "diag-incompatible",
+        "status": "FAIL"
+      },
+      "can1_lateral": "INCONCLUSIVE"
+    },
+    "c4_relocation_and_independent_validation": {
+      "scope": "SYNTHETIC_BENCH",
+      "evidence": {
+        "path": ".runtime/fix-c/.runtime/go3a-moteur-c4-20261117-133422326/evidence.json",
+        "sha256": "7b96fd2cf77a64f26c84a6768788b13b7a84bf8e7efe969b0c30319d89f922be"
+      },
+      "end_to_end_test_exit_code": 0,
+      "decision": "CANDIDATE_CONDITIONAL",
+      "displacement_mm": [
+        0,
+        12,
+        0
+      ],
+      "conductors_preserved": 4,
+      "contacts_preserved": 8,
+      "l4_geometry_passed": 15,
+      "t0_checked": true,
+      "unsupported_connector_action_rejected": true,
+      "weakened_radius_rejected": true,
+      "cartographe_candidate_built": false
+    }
+  },
+  "rejected": [
+    { "id": "H-04", "reason": "Aucun besoin fonctionnel nouveau ou défaut démontré qui nécessite un PCB. Réouvrir sur défaut documenté des trois stratégies; coût ECAD/ERC-DRC, fabrication, connecteurs, masse et qualification seront alors à analyser." },
+    { "id": "TTL_WITH_PDB_WITNESS", "reason": "Collision mesurée sur deux poses. Préconnexion et chemins de sortie étudiés comme hypothèses indépendantes." },
+    { "id": "PDB_LATERALE_18139", "reason": "Intersection historique F02_2 et impact sur la distribution de puissance." },
+    { "id": "CA01_OR_PM08_RELOCATED", "reason": "Dépendances d’alimentation, fixation, datation et service supplémentaires. À réexaminer seulement si le service direct et les approches fixes échouent." },
+    { "id": "UNVERIFIED_CAN1_ADAPTER", "reason": "Aucune paire coudée validée, coût d’interface et risque CAN/maintenance." },
+    { "id": "MERGED_H01_H02_H03", "reason": "Affectations incompatibles d’implantation d’isolateur et de service; une fusion modifierait les obstacles, la validation et la comparabilité." }
+  ]
+}

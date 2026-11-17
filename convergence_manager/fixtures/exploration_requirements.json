@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "SYNTHETIC_BENCH",
+  "benches": [
+    {
+      "id": "l5-obstacle",
+      "rules": [
+        {
+          "requirement": {
+            "id": "obstacle-clearance",
+            "revision": "1",
+            "subject_ids": [
+              "L1",
+              "Obstacle"
+            ],
+            "classification": "MANDATORY",
+            "domain": "BENCH",
+            "applicability": "APPLICABLE",
+            "operator": "GE",
+            "criterion": {
+              "value": 1,
+              "unit": "mm",
+              "status": "ASSUMED",
+              "evidence_ids": [],
+              "revision": "1",
+              "method": "Garde du banc L5."
+            },
+            "method": "AFFINE",
+            "evidence_ids": []
+          },
+          "check": {
+            "kind": "AFFINE",
+            "constant": -5,
+            "terms": {
+              "offset_mm": 1
+            }
+          },
+          "diagnostic": {
+            "cause": "Les corrections de 0 à 3 mm laissent la liaison dans l’enveloppe de l’obstacle.",
+            "ranges": {
+              "offset_mm": [
+                0,
+                3
+              ]
+            },
+            "unknowns": [
+              "L3-F31-MATE-COMPATIBILITY"
+            ]
+          }
+        }
+      ],
+      "objectives": []
+    }
+  ]
+}

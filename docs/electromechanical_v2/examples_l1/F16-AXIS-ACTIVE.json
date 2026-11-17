@@ -1,0 +1,212 @@
+{
+  "cache": {
+    "hit": false,
+    "key": "10204793e184f4f0bf91517ffe1609a210eb7ce172618101d4a4d9ecbf9c6d77"
+  },
+  "configuration_id": "prototype_cartographe",
+  "conflicts": [],
+  "derivation": null,
+  "diagnostics": [],
+  "evidence_details": [
+    {
+      "applicability": {
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock",
+          "state": "nominal"
+        },
+        "domain": "CAD"
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "evidence_id": "E.F16.AXIS.ACTIVE",
+      "match": "EXACT",
+      "reference": {
+        "attributes": {
+          "model": "Actif sans dock"
+        },
+        "family": "cartographe",
+        "manufacturer": "DroneAgricole",
+        "part_number": "F16",
+        "revision": "2026-10-22"
+      },
+      "value": {
+        "collected_at": "2026-11-12T16:12:09Z",
+        "evidence_ids": [
+          "E.F16.AXIS.ACTIVE"
+        ],
+        "input_value_refs": [],
+        "limits": "Longueur de courbe nominale de la CAO active. Terminaux, gaine utile physique et fatigue restent à vérifier.",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "precision": null,
+        "revision": "2026-10-22",
+        "status": "SOURCED",
+        "uncertainty": null,
+        "unit": "mm",
+        "value": 425.17384217864503
+      }
+    },
+    {
+      "applicability": {
+        "conditions": {
+          "configuration": "Copie Action 3 R50/R24",
+          "state": "nominal"
+        },
+        "domain": "CAD"
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "evidence_id": "E.F16.AXIS.CANDIDATE",
+      "match": "REFERENCE_MISMATCH",
+      "reference": {
+        "attributes": {
+          "model": "Copie candidate R50/R24"
+        },
+        "family": "cartographe",
+        "manufacturer": "DroneAgricole",
+        "part_number": "F16",
+        "revision": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74"
+      },
+      "value": {
+        "collected_at": "2026-11-12T16:12:09Z",
+        "evidence_ids": [
+          "E.F16.AXIS.CANDIDATE"
+        ],
+        "input_value_refs": [],
+        "limits": "Axe nominal de la copie R50/R24. La fermeture CAO active et les mesures physiques ont leurs propres périmètres.",
+        "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+        "precision": null,
+        "revision": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+        "status": "SOURCED",
+        "uncertainty": null,
+        "unit": "mm",
+        "value": 494.607764256343
+      }
+    }
+  ],
+  "issue_id": "F16-AXIS-ACTIVE",
+  "local_inputs": [
+    {
+      "path": "docs/electromechanical_v2/L1_CARTOGRAPHE.json",
+      "sha256": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+      "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+    },
+    {
+      "path": "docs/verification/cartographe_action3_f16.json",
+      "sha256": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e"
+    }
+  ],
+  "network": "DISABLED",
+  "outcome": "RESOLVED",
+  "question": {
+    "dependent_decision": "Fixer l’entrée géométrique nominale du budget de gaine sur l’actif.",
+    "evidence_ids": [
+      "E.F16.AXIS.ACTIVE"
+    ],
+    "expected_evidence": "Registre actif gelé par L0, identifiant F16 et longueur de courbe en mm.",
+    "hypothesis": "Le registre de route du 22 octobre identifie l’axe F16 actif et conserve la longueur de courbe calculée.",
+    "id": "RQ.F16-AXIS-ACTIVE",
+    "question": "Quelle longueur d’axe nominale est enregistrée pour F16 dans la CAO active ?",
+    "refutation": "Une empreinte différente, un identifiant différent ou une nouvelle mesure de l’axe actif réfute l’attribution.",
+    "status": "CLOSED",
+    "subject_ids": [
+      "F16",
+      "ELEC-F16"
+    ]
+  },
+  "request": {
+    "applicability": {
+      "conditions": {
+        "configuration": "prototype_cartographe actif sans dock",
+        "state": "nominal"
+      },
+      "domain": "CAD"
+    },
+    "criticality": "HIGH",
+    "expected_authority": "PROJECT",
+    "issue_id": "F16-AXIS-ACTIVE",
+    "parameter": "axis_length",
+    "question": {
+      "dependent_decision": "Fixer l’entrée géométrique nominale du budget de gaine sur l’actif.",
+      "evidence_ids": [],
+      "expected_evidence": "Registre actif gelé par L0, identifiant F16 et longueur de courbe en mm.",
+      "hypothesis": "Le registre de route du 22 octobre identifie l’axe F16 actif et conserve la longueur de courbe calculée.",
+      "id": "RQ.F16-AXIS-ACTIVE",
+      "question": "Quelle longueur d’axe nominale est enregistrée pour F16 dans la CAO active ?",
+      "refutation": "Une empreinte différente, un identifiant différent ou une nouvelle mesure de l’axe actif réfute l’attribution.",
+      "status": "OPEN",
+      "subject_ids": [
+        "F16",
+        "ELEC-F16"
+      ]
+    },
+    "reference": {
+      "attributes": {
+        "model": "Actif sans dock"
+      },
+      "family": "cartographe",
+      "manufacturer": "DroneAgricole",
+      "part_number": "F16",
+      "revision": "2026-10-22"
+    },
+    "study": {
+      "next_observation": "Vérifier l’empreinte du registre actif et relire son axe associé.",
+      "strategy": "Comparer les longueurs de courbe entre les états CAO explicitement gelés.",
+      "variables": [
+        "configuration CAO",
+        "pose caméra",
+        "position des sorties de gaine"
+      ]
+    },
+    "unit": "mm"
+  },
+  "schema_version": "1.0.0",
+  "technical_evidence": [
+    {
+      "artifact_path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+      "collected_at": "2026-11-12T16:12:09Z",
+      "domain": "CAD",
+      "hypothetical": false,
+      "id": "E.F16.AXIS.ACTIVE",
+      "kind": "SOURCE",
+      "limits": "Longueur de courbe nominale de la CAO active. Terminaux, gaine utile physique et fatigue restent à vérifier.",
+      "locator": "/routes/35/longueur_courbe_mm",
+      "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+      "revision": "Registre du 22 octobre 2026",
+      "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+      "uri": null
+    },
+    {
+      "artifact_path": "docs/verification/cartographe_action3_f16.json",
+      "collected_at": "2026-11-12T16:12:09Z",
+      "domain": "CAD",
+      "hypothetical": false,
+      "id": "E.F16.AXIS.CANDIDATE",
+      "kind": "SOURCE",
+      "limits": "Axe nominal de la copie R50/R24. La fermeture CAO active et les mesures physiques ont leurs propres périmètres.",
+      "locator": "/geometry/candidate_length_mm",
+      "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+      "revision": "Action 3, rapport v1",
+      "sha256": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e",
+      "uri": null
+    }
+  ],
+  "unknown_register": [],
+  "value": {
+    "collected_at": "2026-11-12T16:12:09Z",
+    "evidence_ids": [
+      "E.F16.AXIS.ACTIVE"
+    ],
+    "input_value_refs": [],
+    "limits": "Longueur de courbe nominale de la CAO active. Terminaux, gaine utile physique et fatigue restent à vérifier.",
+    "method": "Lecture du registre par pointeur JSON et contrôle de la référence dans la branche de la valeur.",
+    "precision": null,
+    "revision": "2026-10-22",
+    "status": "SOURCED",
+    "uncertainty": null,
+    "unit": "mm",
+    "value": 425.17384217864503
+  }
+}

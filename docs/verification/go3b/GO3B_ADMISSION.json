@@ -1,0 +1,175 @@
+{
+  "schema": "cartographe.go3b.admission.v1",
+  "test_id": "T-CARTO-GO3B-ADM",
+  "date": "2026-11-14",
+  "configuration": "prototype_cartographe sans dock, cible d’instruction H-01",
+  "etape": "admission",
+  "verdict": "NO_GO_MOTIVE",
+  "conclusion": "non conforme aux conditions d’admission",
+  "maturite_h_01": "À valider",
+  "candidat_consolide": null,
+  "rapport_validateur_candidat": null,
+  "references": {
+    "mandat": ".codex-attachments/7a179737-d539-4f83-85fc-7064f00ccc15/64657172-0b12-45d1-82b0-854afa436535/08_GO3B_integration_et_revalidation_cartographe.md",
+    "handoff": "docs/verification/go3a/GO3A_HANDOFF.md",
+    "decisions": "docs/verification/go3a/GO3A_DECISIONS.json",
+    "recherches": "docs/verification/go3a/GO3A_RESEARCH.json",
+    "exigences": "docs/verification/go3a/GO3A_REQUIREMENTS.yaml",
+    "qualification": "docs/verification/GO2BIS_QUALIFICATION.md",
+    "reference_sha256": "3fc4260910647d3ab5ccffdb1406847ffb310dfec6e45fb221186274fe8535b9"
+  },
+  "environnement": {
+    "os": "Windows 11, build 26300",
+    "architecture": "amd64",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "branche": "codex/go2bis-corrections",
+    "workspace_initial_modifie": true,
+    "python": {
+      "version": "3.14.4",
+      "sha256": "7ca24f26d6e3f463419ee4f537ddd3acd312c38fe45e678cce08572f26a8bd1a"
+    },
+    "kicad_cli": {
+      "version": "10.0.6",
+      "sha256": "393525236969434e24bc710334efe244fb285ef6596a1aea8e74353ef4db5477"
+    },
+    "interconnection_core": {
+      "path": ".runtime/go2bis-l1-l2/l2-corrected-build/interconnection_core.exe",
+      "sha256": "642012e822b1e9299d73cf2e5e54cd74b423ae5276558746160763f0806f20a8",
+      "qt6core_sha256": "a54f0e354ff38670df336267333333117d623f7d7a6811e98c345fd68f339b1f"
+    },
+    "freecad_cables": {
+      "statut": "NOT_RUN",
+      "environnement_preuves_GO2bis_GO3A": "FreeCAD 1.1.3, OCCT 7.8.1, Cables 0.3.7"
+    }
+  },
+  "controles_admission": {
+    "gel_v1": {
+      "statut": "PASS",
+      "fichiers_et_reference_identiques_au_recu_go3a": true,
+      "portee": "Identité du modèle documentaire et des exigences par empreinte. La projection v1 ne contient aucun modèle génératif de solides ni seuil numérique de réception approuvé."
+    },
+    "sources": {
+      "statut": "PASS",
+      "manifest": "GO3B_SOURCE_MANIFEST.json",
+      "empreinte_debut_et_fin": "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d",
+      "fichiers": 180,
+      "empreintes_attendues": 173,
+      "fermeture_xlink_xml_fcstd": 137,
+      "auxiliaires_cao": 4,
+      "ecarts": 0,
+      "portee": "Lecture des archives et comparaison des empreintes, sans ouverture FreeCAD."
+    },
+    "reconciliation_l2": {
+      "statut": "PASS",
+      "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb",
+      "identique_octet_pour_octet": true
+    },
+    "preuves_historiques_action3": {
+      "statut": "PASS",
+      "portee": "Contrôle complémentaire en clôture, hors inventaire initial des 180 fichiers. Les SHA-256 correspondent à observations_action3 dans GO3A_VARIANT_EVIDENCE.json.",
+      "fichiers": {
+        "docs/verification/cartographe_action3_reprise_f12.json": "746f18aaa6e18f806935a696d6a50b4227dc2869bf3b76af7a310f6b71cd0712",
+        "docs/verification/cartographe_action3_can1_integre.json": "b208ff5f79ce2bb7f34b8bbc56a73b1d6103c323607448eaaad7a397dbe8d84d",
+        "docs/verification/cartographe_action3_f16.json": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e"
+      }
+    },
+    "couverture": {
+      "statut": "PASS",
+      "matrice": "GO3B_INTERCONNECTION_COVERAGE.csv",
+      "sha256": "5dd5243e2fc204e20dca7b3921d561941126294e3ec0256634bc60cead97f8e5",
+      "lignes": 71,
+      "axes": 53,
+      "associations_bidirectionnelles": 56,
+      "lignes_sans_axe_avec_motif": 21,
+      "extremites_a_b": 142,
+      "revisions_physiques_confirmees": 0,
+      "volumes_accouplement_qualifies": 0,
+      "volumes_extraction_qualifies": 0,
+      "continuite_physique_source": {"A_VALIDER": 60, "SANS_OBJET": 11},
+      "controles_sur_candidat": {"NOT_RUN": 71}
+    },
+    "netlist_ca01": {
+      "statut": "PASS",
+      "feuilles": 6,
+      "references_controlees": 15,
+      "broches_controlees": 43,
+      "ecarts": 0,
+      "dnp_synchronisation": ["R530", "R531", "R532", "R533"],
+      "portee": "Recoupement des identités référence/broche/net. L’export XML a abouti malgré les avertissements d’accès au registre Windows. L’horodatage de l’export varie."
+    },
+    "admissibilite_go3a": {
+      "statut": "FAIL",
+      "statut_go3a": "GO3A_CONDITIONNEL",
+      "autorisation_go3b": false,
+      "front_admissible_cartographe": [],
+      "portee": "Échec du contrôle d’entrée documentaire."
+    }
+  },
+  "preconditions_ouvertes": [
+    {
+      "exigences": ["G3A-01", "G3A-08"],
+      "statut": "INCONCLUSIVE",
+      "constat": "F12/W12 arrive sur GPS2 dans l’actif. La correction TELEM1 sur témoin garde sa révision et ses contacts à confirmer. GO2bis co-évalue le graphe et le monodocument mais conserve le rattachement électrique aux câbles natifs ouvert. Le cas XLink complet rend 2 PASS électriques et 13 NOT_RUN natifs. Le passage BRep GO3A a expiré avant sauvegarde et réouverture.",
+      "preuve": ["docs/verification/go3a/GO3A_MANIFEST.json", "docs/verification/go2bis_l3_l5.json#/L4_cas_mixte_et_XLink", "docs/verification/cartographe_action3_reprise_f12.json"],
+      "reprise": "Identifier TELEM1 et ses terminaisons côté CA01. Démontrer sur un témoin lié sous gel la jointure port/contact → conducteur → occurrence, la réouverture indépendante et la détection d’une erreur injectée. Fixer tolérances, périmètre métrique et règles massiques sourcés."
+    },
+    {
+      "exigences": ["G3A-02", "G3A-05"],
+      "statut": "INCONCLUSIVE",
+      "constat": "Sur le témoin Action 3 CAN1, la distance minimale nominale près de F31 est de 0,120 mm avec l’outil candidat. Dans le criblage GO3A sur la copie Action 3, la PDB intersecte le gabarit de sortie TTL à la pose de référence et à +Y8. L’accès conjoint CAN1/F31, F35, PM08 et F40/F41 et l’identité du connecteur BMS J2/J3 restent à établir.",
+      "preuve": ["docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json#/criblage_GO3A_diagnostic", "docs/verification/cartographe_action3_can1_integre.json", "hardware/electronique/cartographe/contrat_uart_bms.json"],
+      "reprise": "Identifier et relever le bornier, ses fiches et son cordon. Définir geste, outil, verrou, réserve et tolérances dans la baie commune. Vérifier H/L/GND, CAN1 +5 V NC et l’isolement de B− brut/P− avec le déport passif et un outil de banc référencé à la masse."
+    },
+    {
+      "exigences": ["G3A-03"],
+      "statut": "INCONCLUSIVE",
+      "constat": "F24A/GPIO_07 et F24C/CSI restent sans instance révisée confirmée. La netlist confirme le DNP documentaire de R530–R533.",
+      "preuve": ["docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv", "docs/verification/go3a/GO3A_RESEARCH.json"],
+      "reprise": "Identifier GPIO, CSI et la référence IO, décider le peuplement et vérifier la continuité et la cohérence de W23 et W24.A/B/C."
+    },
+    {
+      "exigences": ["G3A-04"],
+      "statut": "INCONCLUSIVE",
+      "constat": "Le cordon F16 de catalogue à 508 mm a un Type A droit et manque de longueur selon le budget utile historique. Des poses discrètes ne donnent pas la cinématique réelle F16/M8.",
+      "preuve": ["docs/verification/go3a/GO3A_RESEARCH.json", "docs/verification/cartographe_action3_f16.json"],
+      "reprise": "Figer les cordons et fiches compatibles, longueurs utiles, rayons et poses spécifiées. Cribler l’enveloppe continue des deux cordons, leurs portions mobiles et les interférences avec l’optique, P10/P17/P73, F25 et F35."
+    },
+    {
+      "exigences": ["G3A-06", "G3A-07"],
+      "statut": "INCONCLUSIVE",
+      "constat": "P85 est présent uniquement dans le témoin Action 3. Montages P75/P85/X650, accouplement SMA G4, câbles de bras, BMS/NTC, FAN et SSD/CSI restent à instruire. Les quatre branches LED restent sans affectation arrêtée. AUX1 est déjà attribuée à W33.",
+      "preuve": ["docs/verification/go3a/GO3A_VARIANTS.md", "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv", "docs/verification/go3a/GO3A_DECISIONS.json"],
+      "reprise": "Documenter ancrages, efforts et accès. Identifier les interfaces OEM et les fonctions périphériques conservées. Arrêter l’état de périmètre des branches LED."
+    }
+  ],
+  "cloture": {
+    "critere": "Arrêt à l’admission si GO3A laisse un verrou critique ouvert. Revue indépendante des interfaces et de la portée L4/L5 réalisée avant clôture.",
+    "budget_go3b": {
+      "source": "Mandat GO3B, barème de repli. La campagne L5 identifiée concerne le banc numérique statique.",
+      "corrections_par_conflit_max": 3,
+      "variantes_detaillees_max": 12,
+      "passes_consolidation_max": 2,
+      "contre_validations_finales_max": 1,
+      "consommation": {"corrections": 0, "variantes": 0, "consolidations": 0, "contre_validations_finales": 0}
+    },
+    "alternatives_documentees": "Le banc monodocument, la réouverture XLink historique et les études A/B/C ou leurs résultats locaux restent des témoins. La mise en commun de leurs résultats ne démontre ni l’intégration H-01 ni la jointure native. Le témoin Action 3 diffère de six dépendances et ajoute P85 à périmètre de racine identique.",
+    "production_et_controles": [
+      {"statut": "NOT_RUN", "objet": "Copie consolidée, scripts de construction et fusion L5", "motif": "Arrêt à l’admission"},
+      {"statut": "NOT_RUN", "objet": "BOM de construction des fiches, cordons, gaines et supports, vues et volumes de service", "motif": "Candidat absent. BOM documentaire des 142 côtés conservée"},
+      {"statut": "NOT_RUN", "objet": "Sauvegarde, réouverture indépendante, réextraction et validation électrique et CAO du candidat", "motif": "Candidat absent"},
+      {"statut": "NOT_RUN", "objet": "Longueurs, volumes, rayons, tangentes, paires de collision, distances, supports, rétention, maintenance, extraction, mouvements, tolérances, encombrement, complexité et masse avant/après", "motif": "Aucune mesure de candidat à comparer sur le même périmètre"},
+      {"statut": "NOT_RUN", "objet": "GO4/GO5, achat ou modification de matériel", "motif": "Périmètre futur selon DOC-VAL §2 et GO3A_HANDOFF.md"},
+      {"statut": "NOT_RUN", "objet": "Compilation de code produit", "motif": "Aucun code produit modifié. Binaire L2 rejoué par empreinte"}
+    ]
+  },
+  "reproduction": {
+    "repertoire_local": ".runtime/go3b-admission-20261114-191837116",
+    "recette_gel": "Suivre GO3A_HANDOFF.md section Entrées et reproduction du gel. Comparer le SHA-256 de la référence et des deux fichiers, hors horodatage du reçu.",
+    "rejeu_l2": "interconnection_core.exe reconcile --root . --output <travail>/reconciliation.json",
+    "export_ca01": "kicad-cli.exe sch export netlist --format kicadxml -o <travail>/ca01.xml hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+    "controle_ca01": "Comparer les triplets référence/broche/net à candidate_ca01_netlist_pins dans hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json et relever le DNP de R530 à R533.",
+    "controle_natif": "Lire Document.xml dans chaque FCStd et résoudre récursivement les attributs file des XLink à partir du parent du fichier, avec le workspace_guard existant. Comparer la fermeture et les SHA-256 à cad.native_sha256 du modèle GO3A.",
+    "scripts_locaux": ["empreintes.py", "couverture.py"],
+    "sorties_locales": ["git-initial.txt", "empreintes-debut.json", "empreintes-fin.json", "gel/reference_lock.json", "reconciliation.json", "ca01.xml", "couverture.json"]
+  }
+}

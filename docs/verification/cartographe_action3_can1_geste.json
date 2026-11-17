@@ -1,0 +1,996 @@
+{
+  "version": 1,
+  "test": "T-EM-ENGINE-04",
+  "objet": "Geste CAN1 sur candidat F35",
+  "statut": "À valider",
+  "assemblee": {
+    "path": ".runtime/cartographe-action3-f35/candidat/assemblages/Prototype_Cartographe.FCStd",
+    "sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa"
+  },
+  "natif_f35": {
+    "path": ".runtime/cartographe-action3-f35/candidat/pieces/commerce/W_F35_Prototype.FCStd",
+    "sha256": "1834a490692f80ce887fb3734667a6a2964c528350824241e22224b33019448f"
+  },
+  "preuve_f35": {
+    "path": "docs/verification/cartographe_action3_f35.json",
+    "sha256": "7153003fe96df823054faace492930af1173ab8836662d6e8d26f8d45ff93769"
+  },
+  "sources": {
+    "fiche": {
+      "reference": "JST GHR-04V-S et BM04B-GHS-TBT candidates",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+      "assise": "Cotes de référence catalogue : hauteur accouplée 7,3 mm au-dessus du PCB et fiche haute de 5,7 mm."
+    },
+    "geste": {
+      "reference": "JST CHM-1-2149 rév. 2, §3-3, fig. 3–4",
+      "source": "https://www.dianziwendang.com/uploadfile/doc/202411/b7eef38edd87bf0.pdf",
+      "applicability": "Appui sur la saillie et retrait axial sans forcer. Aucun outil ni course de déverrouillage imposés."
+    },
+    "outil": {
+      "reference": "Ideal-Tek MPT2SV",
+      "source": "https://www.ideal-tek.com/public/upload/PDS/MPT2SV.IT.pdf",
+      "pointe_mm": [
+        0.5,
+        0.7
+      ],
+      "encombrement_max_mm": [
+        150,
+        10,
+        4
+      ]
+    }
+  },
+  "hypotheses": {
+    "pointe_xyz_mm": [
+      55.275000000000006,
+      -14.5,
+      137.30232
+    ],
+    "verrou": "Flanc +X candidat ; cavité centrale relevée sur lʼembase CAO, emplacement du poussoir de la fiche réelle à confirmer.",
+    "modelisation": "Deux enveloppes parallélépipédiques, pointe mince jusquʼà 10 mm puis corps de section maximale. Longueur de transition et prise opérateur à relever.",
+    "introduction": "Translation continue de 150 mm suivant lʼaxe de lʼoutil en direction du point de contact.",
+    "appui": "Déplacement de toute lʼenveloppe suivant −X. Courses candidates 0,25/0,50/1,00 mm.",
+    "retrait": "Maintien de lʼappui pendant une translation +Z de 2,65 ou 4,25 mm, relâchement puis retrait axial de lʼoutil. Ces courses servent au criblage et ne sont pas des prescriptions fabricant."
+  },
+  "methode": {
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "volume_positive_threshold_mm3": 0.0001,
+    "couverture": "Registre des occurrences réconcilié avec tous les App::Link natifs directs. Les objets masqués sont conservés dans le périmètre de collision.",
+    "geometrie": "Volumes continus balayés et tests BRep des solides après séparation AABB. Vérification indépendante avec tronçons de 20 mm pour la meilleure orientation, sans réduction de lʼenveloppe.",
+    "scope_obstacles": 3006,
+    "fichiers_natifs_candidat_inchanges": 137
+  },
+  "geste_candidate": {
+    "phases_nominales": [
+      "introduction_et_retrait_outil",
+      "appui_0.5",
+      "maintien_0.5_retrait_fiche_4.25",
+      "relachement_0.5_hauteur_4.25",
+      "retrait_outil_apres_4.25"
+    ],
+    "jeu_min_mesure_mm": 0.07500000000000284,
+    "resultat": "Balayages de la sonde sans intersection positive sur lʼapproche, un appui supposé de 0,50 mm, une levée +Z de 4,25 mm et le retrait de la sonde.",
+    "analyse": {
+      "inclinaison_y_deg": -30,
+      "azimut_z_deg": 90,
+      "direction_monde_xyz": [
+        0.0,
+        -0.5000000000000006,
+        0.8660254037844385
+      ],
+      "phases": {
+        "pose": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "introduction_et_retrait_outil": {
+          "paires_brep": 22,
+          "exclusions_aabb": 48074,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "appui_0.25": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [
+            {
+              "segment": 0,
+              "id": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "maintien_0.25_retrait_fiche_2.65": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "relachement_0.25_hauteur_2.65": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "retrait_outil_apres_2.65": {
+          "paires_brep": 20,
+          "exclusions_aabb": 48076,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "maintien_0.25_retrait_fiche_4.25": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "relachement_0.25_hauteur_4.25": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "retrait_outil_apres_4.25": {
+          "paires_brep": 20,
+          "exclusions_aabb": 48076,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "appui_0.5": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_2.65": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "relachement_0.5_hauteur_2.65": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_4.25": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "relachement_0.5_hauteur_4.25": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "appui_1.0": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [
+            {
+              "segment": 0,
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.3059670022575861,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_2.65": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [
+            {
+              "segment": 0,
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.3576221837735127,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "relachement_1.0_hauteur_2.65": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [
+            {
+              "segment": 0,
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.30596700225737383,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_4.25": {
+          "paires_brep": 22,
+          "exclusions_aabb": 24026,
+          "intersections": [
+            {
+              "segment": 0,
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.9925838034381946,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "relachement_1.0_hauteur_4.25": {
+          "paires_brep": 20,
+          "exclusions_aabb": 24028,
+          "intersections": [
+            {
+              "segment": 0,
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.3059670022573625,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "sensibilite_orientations": [
+    {
+      "inclinaison_y_deg": -30,
+      "azimut_z_deg": 60,
+      "direction_monde_xyz": [
+        -0.25000000000000033,
+        -0.4330127018922197,
+        0.8660254037844384
+      ],
+      "phases": {
+        "pose": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.25011160417726613
+          }
+        },
+        "introduction_et_retrait_outil": {
+          "paires_brep": 193,
+          "exclusions_aabb": 2813,
+          "intersections": [],
+          "non_conclus": [
+            {
+              "id": "Holybro6XOrin/1430/sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.2501116041772671
+          }
+        },
+        "appui_0.25": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.033605253231156776
+          }
+        },
+        "maintien_0.25_retrait_fiche_2.65": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.03360525323116173
+          }
+        },
+        "maintien_0.25_retrait_fiche_4.25": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.03360525323116173
+          }
+        },
+        "appui_0.5": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.1903451228773781,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_0.5_retrait_fiche_2.65": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.6471569322790288,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_0.5_retrait_fiche_4.25": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.9308421628669031,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "appui_1.0": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.185093649888475,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_2.65": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 3.564003080937346,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_4.25": {
+          "paires_brep": 16,
+          "exclusions_aabb": 2990,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 5.163205593528749,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        }
+      }
+    },
+    {
+      "inclinaison_y_deg": -30,
+      "azimut_z_deg": 90,
+      "direction_monde_xyz": [
+        0.0,
+        -0.5000000000000006,
+        0.8660254037844385
+      ],
+      "phases": {
+        "pose": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "introduction_et_retrait_outil": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "appui_0.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "maintien_0.25_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "maintien_0.25_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "appui_0.5": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "appui_1.0": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.305967002257586,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.3576221836473519,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.9925838032625591,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        }
+      }
+    },
+    {
+      "inclinaison_y_deg": -45,
+      "azimut_z_deg": 90,
+      "direction_monde_xyz": [
+        0.0,
+        -0.7071067811865479,
+        0.7071067811865475
+      ],
+      "phases": {
+        "pose": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "introduction_et_retrait_outil": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "appui_0.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.1249999999999929
+          }
+        },
+        "maintien_0.25_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "maintien_0.25_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "appui_0.5": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "appui_1.0": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.21635134198184,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [
+            {
+              "id": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.224628649502333,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [
+            {
+              "id": "P75_Cadre/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+              "error": "Calcul OCC non résolu dans la limite de 5 s"
+            }
+          ],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.8333998544873515,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        }
+      }
+    },
+    {
+      "inclinaison_y_deg": -55,
+      "azimut_z_deg": 90,
+      "direction_monde_xyz": [
+        0.0,
+        -0.8191520442889918,
+        0.573576436351046
+      ],
+      "phases": {
+        "pose": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.125
+          }
+        },
+        "introduction_et_retrait_outil": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.125
+          }
+        },
+        "appui_0.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F25/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F25",
+            "distance_mm": 0.125
+          }
+        },
+        "maintien_0.25_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "maintien_0.25_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.32500000000000284
+          }
+        },
+        "appui_0.5": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "maintien_0.5_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.07500000000000284
+          }
+        },
+        "appui_1.0": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 0.1867583703208859,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_2.65": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.1581991881772797,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        },
+        "maintien_1.0_retrait_fiche_4.25": {
+          "paires_brep": 11,
+          "exclusions_aabb": 2995,
+          "intersections": [
+            {
+              "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+              "volume_mm3": 1.7447294935690074,
+              "gap_mm": 0.0
+            }
+          ],
+          "non_conclus": [],
+          "plus_proche": {
+            "id": "F31/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F31",
+            "distance_mm": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "contact_f31_appui_1mm": [
+    {
+      "phase": "appui_1.0",
+      "paires": [
+        {
+          "id": "F31",
+          "volume_mm3": 0.3059670022573143,
+          "gap_mm": 0.0,
+          "intersection_aabb_mm": [
+            53.925000000000004,
+            -15.546123797645373,
+            137.17731999997503,
+            54.349999999999994,
+            -14.283493649053883,
+            139.6142595685285
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "maintien_1.0_retrait_fiche_2.65",
+      "paires": [
+        {
+          "id": "F31",
+          "volume_mm3": 1.3576221836467257,
+          "gap_mm": 0.0,
+          "intersection_aabb_mm": [
+            53.925000000000004,
+            -15.546123797645373,
+            137.17731999997503,
+            54.349999999999994,
+            -14.283493649053808,
+            142.2642595685285
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "maintien_1.0_retrait_fiche_4.25",
+      "paires": [
+        {
+          "id": "F31",
+          "volume_mm3": 1.992583803261871,
+          "gap_mm": 0.0,
+          "intersection_aabb_mm": [
+            53.925000000000004,
+            -15.546123797645373,
+            137.17731999997503,
+            54.349999999999994,
+            -14.283493649053883,
+            143.8642595685285
+          ]
+        }
+      ]
+    }
+  ],
+  "limites": [
+    "Référence et cotes de la fiche du lot, géométrie du verrou, course et effort de libération à mesurer.",
+    "Position exacte de la pointe, profil de la transition de lʼoutil, accès de la main et trajectoire du câble F31 lorsquʼil accompagne la fiche à confirmer.",
+    "Les jeux obtenus sont nominaux et inférieurs à une tolérance dʼaccès réaliste non encore fixée. Aucun essai physique ni validation de maintenabilité.",
+    "À appui de 1 mm, le conflit F31 commence à Z137,177 mm, seulement 1,677 mm au-dessus de sa sortie modélisée. Une simple déviation en partie haute ne suffit pas."
+  ],
+  "traces": [
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\geste.py",
+      "sha256": "8f06057b57dd4896808c0a6f1fb5a15ed7fc5a9876181f1a82d13b43c9b0c586"
+    },
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\geste.json",
+      "sha256": "feeebe7712e63fad20cdc97ec45b0056cb5d7fec3c055f98d316bf564f747cff"
+    },
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\geste_valide.py",
+      "sha256": "442e109d7aab697e60ede36e0972b7eeae49785e11210ab861f9966472fdb13a"
+    },
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\geste_valide.json",
+      "sha256": "01600cb1205ba41e7233ddec71170c8a06691dfd0e6fcdc8404f7d0d7bdc459e"
+    },
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\f31_local.py",
+      "sha256": "61429b192bd4b84c89bc815050b3620b4c12e521608dd920a4087476f1309512"
+    },
+    {
+      "path": ".runtime\\cartographe-action3-can1-tool\\f31_local.json",
+      "sha256": "2b345fa06c8a10a17029abb2dda9b81cd93fbd8f58bd843fcad8cc6e03c9acab"
+    }
+  ]
+}

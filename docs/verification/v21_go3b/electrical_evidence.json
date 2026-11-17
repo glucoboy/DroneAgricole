@@ -1,0 +1,2024 @@
+{
+  "schema": "drone_agricole.v21.go3b.electrical-evidence.v1",
+  "status": "INCONCLUSIVE",
+  "test_id": "T-GO3B-GRAPH",
+  "date": "2026-11-17",
+  "scope": "Prototype cartographe GO3B sans dock, Windows amd64",
+  "reference_replay": {
+    "status": "PASS",
+    "binary": {
+      "path": ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+      "sha256": "feeec904b2b96a215e58c29e048713571e2bc35e832323c1bea99bc3ee27e9d4"
+    },
+    "commands": [
+      [
+        ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+        "reconcile",
+        "--root",
+        ".",
+        "--output",
+        ".runtime/v21-go3b-electrical/l2-reconcile.json"
+      ],
+      [
+        ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+        "inspect-cartographe",
+        "--root",
+        ".",
+        "--output",
+        ".runtime/v21-go3b-electrical/l2-interfaces.json"
+      ]
+    ],
+    "return_codes": [
+      0,
+      0
+    ],
+    "reports": [
+      {
+        "path": ".runtime/v21-go3b-electrical/l2-reconcile.json",
+        "sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb"
+      },
+      {
+        "path": ".runtime/v21-go3b-electrical/l2-interfaces.json",
+        "sha256": "882cb4e46736568e01f7fc4fb0dc7e02e6f8fdf960b574039f1448348cc05a81"
+      }
+    ],
+    "source_files_after_checked": 114,
+    "changed_sources": []
+  },
+  "ca01": {
+    "status": "PASS",
+    "reference": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_netlist_ca01.json",
+      "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+    },
+    "netlist": {
+      "path": ".runtime/v21-go3b-electrical/ca01.xml",
+      "sha256": "3aa9cd7c4639ee454f5e24c3d26ac0535ebc0a0008d1d0a08d42c139a85a49be"
+    },
+    "sheet_count": 6,
+    "port_count": 15,
+    "pin_count": 43,
+    "schematic_sources": [
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch",
+        "sha256": "2e525e1632156264a1a6e36ccfe02aca29e04179d31d078a6cbea529e31ff3ac"
+      },
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/02_buck_12v_capteurs.kicad_sch",
+        "sha256": "42b28b09b5b978fc0c17fa399ecda6cc19baf3b82f7049c5ffb492978738ad36"
+      },
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/03_buck_5v_aux.kicad_sch",
+        "sha256": "c936e544768636172102b4d8027590eb29eb98dc7a937678cbf94265c4aa6de9"
+      },
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch",
+        "sha256": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c"
+      },
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch",
+        "sha256": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4"
+      },
+      {
+        "path": "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+        "sha256": "79c30f1de73e17d20f48c6bf17621a63b07d9341bf538faae4f9ab67ec87a26b"
+      }
+    ],
+    "documented_dnp": [
+      "R530",
+      "R531",
+      "R532",
+      "R533"
+    ]
+  },
+  "coverage": {
+    "documentary_status": "PASS",
+    "lines": 71,
+    "sides": 142,
+    "onboard_lines": 50,
+    "axes": 53,
+    "associations": 56,
+    "off_axis_lines_motivated": [
+      "W14",
+      "W17",
+      "W19",
+      "W22",
+      "W26",
+      "W27",
+      "W28",
+      "W29",
+      "W39",
+      "W42",
+      "W43",
+      "W-JETI-COMMANDE",
+      "CA01-MOD401",
+      "W07",
+      "W11",
+      "W30",
+      "SOL-RTK-ANT",
+      "SOL-RTK-USB",
+      "SOL-RADIO-USB",
+      "SOL-POWER.TERMINAL",
+      "SOL-POWER.S100NEO"
+    ],
+    "classes": {
+      "CONDUCTEUR": 4,
+      "FONCTION": 37,
+      "CORDON": 7,
+      "HORS_PERIMETRE": 21,
+      "BUS": 2
+    },
+    "scopes": {
+      "faisceau_embarque": 50,
+      "interne_oem": 2,
+      "reserve_non_montee": 2,
+      "interface_directe": 1,
+      "sans_fil": 2,
+      "transport_reutilise": 1,
+      "retire": 6,
+      "au_sol": 6,
+      "interne_pcb": 1
+    },
+    "native_contact_models": 0,
+    "mounted_connector_revisions": 0,
+    "physical_continuities": 0,
+    "physical_qualified_connector_envelopes": 0
+  },
+  "cases": {
+    "baseline": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/baseline/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/baseline/l2-validation.json"
+        ],
+        "exit_code": 2,
+        "status": "FAIL",
+        "electrical": "FAIL",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/baseline/l2-validation.json",
+          "sha256": "460d96329be9db6b113ae5d68ea25e3d9806ba99305e586ec455018dc86859d5"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2220,
+          "FAIL": 1
+        },
+        "continuity_proven": 0,
+        "failures": [
+          {
+            "code": "WRONG_PORT",
+            "domain": "electrical",
+            "reason": "Port attendu P.W12-B, observé P.GPS2.CONNU",
+            "status": "FAIL",
+            "subject_id": "W12-B"
+          }
+        ]
+      },
+      "telem1_reservation": {
+        "status": "FAIL",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            12.0,
+            135.5
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/baseline/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -79.0,
+              -20.0,
+              54.0
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 98.87112824277874,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "FAIL",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -79.0,
+              24.0,
+              54.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 53.63926383723028,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "FAIL",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/baseline/snapshot.json",
+          "sha256": "54e129b7b355f46e68bdd1ae386eafe0803c4a4b90f32220d8d30983a7eed9b5"
+        },
+        "process_id": 24228,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/baseline/electrical.json",
+          "sha256": "f2a4769e4667dc53d5e000027bf0efa68c2baa05c539c036c32b01eb0d68181e"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/baseline/axis-endpoints.json",
+          "sha256": "b2301ff90d1eeef7f4fc1bf10c736c28901f6ea28916c1ed98acc85ae0f0cba5"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/baseline/l2-dossier.json",
+          "sha256": "b11777a2481ffb9cdc130307869bdf303148ba06fb90a63262d8594d7df77fdc"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/baseline/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/baseline/connector-bom.json",
+          "sha256": "e26b7e46d134a248f0ca2f1c2b273ca72c0622c91f5e64754e4d5cee6091e0e3"
+        }
+      ],
+      "negative_probes": []
+    },
+    "consolidee": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/consolidee/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/consolidee/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/consolidee/l2-validation.json",
+          "sha256": "95dcb6f762c34454a573f50dacab147064473ffc598c2fa82cd8cf937e8ceaba"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/consolidee/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -79.0,
+              -20.0,
+              54.0
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 98.87112824277874,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "FAIL",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -79.0,
+              24.0,
+              54.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 53.63926383723028,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "FAIL",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/consolidee/snapshot.json",
+          "sha256": "17c742b44bffbe666572b6b78462e62f8bfe62e321c9196647be3cf8207b7c97"
+        },
+        "process_id": 27936,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F25",
+        "F35"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/electrical.json",
+          "sha256": "f857b1be95499bf0a1c185769b381892f9d75dd0a47f2979832562b1cfa82074"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/axis-endpoints.json",
+          "sha256": "42fc362d8f63bbbdb29c1f4677d72d0f921f02b1d15fd1c98a359cb1f2ceb00a"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/l2-dossier.json",
+          "sha256": "ac22ab81bcd1f068f58660b05b24cc58553cbbd5554a0ba0abf5230cda41c7b0"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/connector-bom.json",
+          "sha256": "8cc27e8e1cce8b6a4d5be6e571df279acb920f692f15ea15c8cb4ea8cd9efd3f"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/consolidee/negative-side.json",
+          "sha256": "632325fa67e16717693c50d4dc620f1854e2f8b6ef46377bc32941c7058a0993"
+        }
+      ]
+    },
+    "H01-A-reprise": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H01-A-reprise/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H01-A-reprise/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/l2-validation.json",
+          "sha256": "f9123d29f43622dbe43d624a75b9d0205a297f9910eb8c727cab319a14638963"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H01-A-reprise/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 0.0,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 3.552713678800501e-15,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H01-A-reprise/snapshot.json",
+          "sha256": "2198a0ab8087811276281fc141c24a38e78cac23e5bee719559eaa7ccc578344"
+        },
+        "process_id": 34180,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F16",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/electrical.json",
+          "sha256": "ce1c011e9265e51ddd3c7b210b1a3fca2d87c5a1b968177f859b323d66580614"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/axis-endpoints.json",
+          "sha256": "7c52965283a885b9296fa5f079b6b39540d952c471212e24779b1a9940775a51"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/l2-dossier.json",
+          "sha256": "179e0e36fe8214f3e9b55770a821360077e4c8bfde920cee08f5778f5cb4711e"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/connector-bom.json",
+          "sha256": "3bfbe6ca3b4073b06730e858744f103208c0371611d95e9531aed2a4ef885e45"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/negative-frame.json",
+          "sha256": "179b619d52ecfaee26f736ea9da1429b56bfa4607637d6361d595c53edb28505"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-A-reprise/negative-side.json",
+          "sha256": "4c5e9ea1b0749378cf998e40474559f5490c858ce2417ee73551bfcdc55cbece"
+        }
+      ]
+    },
+    "H01-B-reprise": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H01-B-reprise/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H01-B-reprise/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/l2-validation.json",
+          "sha256": "d498c2c3493b25d0bf83279bc138e74aced847f0ea5bb998991c429d24b889ba"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H01-B-reprise/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 0.0,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 3.552713678800501e-15,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H01-B-reprise/snapshot.json",
+          "sha256": "aa1a5c10987ba3df690ed3785af0dddf87f3b26a885fd19fd8afdf1c4cf4738f"
+        },
+        "process_id": 33708,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F16",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/electrical.json",
+          "sha256": "863d87a9809306f935fb640da39c556610c1f866691ea50df12ea98bf02e12a5"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/axis-endpoints.json",
+          "sha256": "28e55a40a1856139a1babb4ed71c1ea63bec165e7ef2ed9bdcf1d5b8260a5d3e"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/l2-dossier.json",
+          "sha256": "9555d157a57d38c7464483f986ff2ea5cc05465b757ee79057b8172e8fca66de"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/connector-bom.json",
+          "sha256": "5933c830514c45e52275ff18f3e7f019819dbe5820d8cffd60a634fcd007dcd3"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/negative-frame.json",
+          "sha256": "179b619d52ecfaee26f736ea9da1429b56bfa4607637d6361d595c53edb28505"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H01-B-reprise/negative-side.json",
+          "sha256": "2274a19d4a68a6b1c956e34fc50c3ac2291bb50bcec18ddbddc606f4260f4af1"
+        }
+      ]
+    },
+    "H02-A": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H02-A/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H02-A/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H02-A/l2-validation.json",
+          "sha256": "57bd3590b22b93e7492f832ea59eed73f59c4482cf5cbd60ad379bb2d34d6371"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H02-A/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 0.0,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 3.552713678800501e-15,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H02-A/snapshot.json",
+          "sha256": "bdf0c5176e7dd42aebdab4fa2b1ccea6d5e4f760c6e5ed91f78751f6271d1fbf"
+        },
+        "process_id": 7800,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F16",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/electrical.json",
+          "sha256": "c24636908a60608c561c61319e007eef68081b479c474e4570a71e4423c50004"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/axis-endpoints.json",
+          "sha256": "c5f9aa63b279de4a1773176262ea772f1e4865cfa8cc26ea70264b7daa511f89"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/l2-dossier.json",
+          "sha256": "b96f3356e8b556061135896421fbfc13c9e31b3eeef0714daab093303b019ba5"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/connector-bom.json",
+          "sha256": "238d77d66b9ce7750942dd0cd5494474748aa0c7850679513102c81e0ab66fb7"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/negative-frame.json",
+          "sha256": "179b619d52ecfaee26f736ea9da1429b56bfa4607637d6361d595c53edb28505"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-A/negative-side.json",
+          "sha256": "cbe80329c4d34b6feee5d4b1287ae411417e5e1887bb84a999f01492f527e024"
+        }
+      ]
+    },
+    "H02-B": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H02-B/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H02-B/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H02-B/l2-validation.json",
+          "sha256": "9daf816e2c4d78db72c3cedc5f6ae676136c97e16d65e4314ee0131a56ab3c3f"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H02-B/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": false,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              12.0,
+              18.5,
+              50.5
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 0.0,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -68.8,
+              -28.575,
+              51.0
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "observed_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 3.552713678800501e-15,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H02-B/snapshot.json",
+          "sha256": "17229d59767347ca117bb4c71c8f065936bec12bb86e354794ce234cc93237f5"
+        },
+        "process_id": 20964,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F16",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/electrical.json",
+          "sha256": "40ac1e431dda794e1b6cc4abbc03f6bf6d723460e1e45fb2f30ee57d83cd5702"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/axis-endpoints.json",
+          "sha256": "ddf6989f2ff28f2ea9eae2d42a1cdf7c92932739709e6222220c8caf3f55ba3f"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/l2-dossier.json",
+          "sha256": "8b6ca970e917a94e580b1263ec46f6130ea4ac0a7f96f636e9ed8970686d66d7"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/connector-bom.json",
+          "sha256": "5ff3f7ef23d4bb7eba2ed4cb95faed47990fe1e2ce22c3fb07973ce6e38f3ade"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/negative-frame.json",
+          "sha256": "179b619d52ecfaee26f736ea9da1429b56bfa4607637d6361d595c53edb28505"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H02-B/negative-side.json",
+          "sha256": "a034ec08449ad3da6ced631da14b971bded670a7b3219666910e8678510e4ecb"
+        }
+      ]
+    },
+    "H03-A": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H03-A/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H03-A/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H03-A/l2-validation.json",
+          "sha256": "b14d4263138bac7a68c03c906a352964726e6e06e3693eb33b459dba30147045"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H03-A/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "92ead50d6dc1ae622e52354041d8b65efbcb59c51c58fddc419895de3fe43cac"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": true,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -159.40000000000003,
+              -10.999999999999979,
+              68.8
+            ],
+            "transformed_exit_direction": [
+              -1.0,
+              2e-16,
+              0.0
+            ],
+            "observed_mm": [
+              -159.4,
+              -10.999999999999996,
+              68.8
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 3.351623381340333e-14,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -78.60000000000001,
+              36.075,
+              69.3
+            ],
+            "transformed_exit_direction": [
+              1.0,
+              -2e-16,
+              0.0
+            ],
+            "observed_mm": [
+              -78.60000000000001,
+              36.074999999999996,
+              69.3
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 7.105427357601002e-15,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H03-A/snapshot.json",
+          "sha256": "2f9df3220f0ae672e932b11ca20fff17f4bdd9151b2f0c430d78cc5b27a676fe"
+        },
+        "process_id": 21220,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/electrical.json",
+          "sha256": "e624435e2bcc1cda419fd7e578fb8b25749e43f5c564ec0519e36163b388c23f"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/axis-endpoints.json",
+          "sha256": "8049ece94dcf07ae5999ae5729b9099622d96a7d1846f14affa87909e0839a0e"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/l2-dossier.json",
+          "sha256": "499f11e6f6711659ae725d5ec177dd08039133a3ab0505e6a9c9270fd7d3bee4"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/connector-bom.json",
+          "sha256": "08bc734260d5920c33e24d360c0aa76b46447f79bf6bf00a411ba108552f2835"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/negative-frame.json",
+          "sha256": "558aa334e4ea9238af1888de6aa58e423bed882d7f0ef6db304d753330ab448a"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-A/negative-side.json",
+          "sha256": "df9996c5c01bf65f158f3de6d42fb8bfb44281d81d74958da5d791e8dc2b3486"
+        }
+      ]
+    },
+    "H03-B": {
+      "validation_l2": {
+        "command": [
+          ".runtime/v21-xlink-build/interconnection/interconnection_core.exe",
+          "validate",
+          ".runtime/v21-go3b-electrical/H03-B/l2-dossier.json",
+          "--output",
+          ".runtime/v21-go3b-electrical/H03-B/l2-validation.json"
+        ],
+        "exit_code": 3,
+        "status": "INCONCLUSIVE",
+        "electrical": "INCONCLUSIVE",
+        "compatibility": "INCONCLUSIVE",
+        "geometry": "INCONCLUSIVE",
+        "report": {
+          "path": ".runtime/v21-go3b-electrical/H03-B/l2-validation.json",
+          "sha256": "3009cfc891554b1c7c39d7756608dce58536cc60e666a73dabd650e309a077fe"
+        },
+        "findings": {
+          "INCONCLUSIVE": 2224
+        },
+        "continuity_proven": 0,
+        "failures": []
+      },
+      "telem1_reservation": {
+        "status": "PASS",
+        "expected_names": [
+          "CA01 J402",
+          "Pixhawk TELEM1"
+        ],
+        "expected_reservations_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "known_wrong_GPS2_mm": [
+          59.825,
+          12.0,
+          135.5
+        ],
+        "observed_wire_properties_mm": [
+          [
+            -16.0,
+            41.0,
+            103.0
+          ],
+          [
+            59.825,
+            25.0,
+            137.35232
+          ]
+        ],
+        "tolerance_mm": 1e-06,
+        "source": "docs/verification/cartographe_action3_reprise_f12.json",
+        "scope": "Coordonnées sauvées de Wire/Start et Wire/End. Sans preuve d’accouplement."
+      },
+      "diagnostic": {
+        "scope": "Vérification de raccordement aux réservations historiques, hors contacts qualifiés",
+        "source": {
+          "path": "docs/verification/go3a/GO3A_VARIANT_EVIDENCE.json",
+          "sha256": "9a745e27c258e637bcbcc9058cabaa95be99f318914660ce3a89442c7928acd3"
+        },
+        "native_pose": {
+          "path": ".runtime/v21-go3b/H03-B/cad/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "2c7d7d75d714b01de8052784b12085b578096d1f8910275a25d9e1d5726517a8"
+        },
+        "reference_pose": {
+          "path": "hardware/mecanique/cartographe/sous_assemblages/SA03_Prototype_Energie.FCStd",
+          "sha256": "a4bd09996de4f1cbeb36a6689c25e08df5cdf7dcda38fb72302ae2ffa3ccead4"
+        },
+        "control_tolerance_mm": 1e-06,
+        "relocated": true,
+        "checks": {
+          "F40": {
+            "documentary_side": "W40/B",
+            "port": "TTL",
+            "local_origin_mm": [
+              90.0,
+              53.0,
+              11.5
+            ],
+            "local_exit_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -106.00000000000003,
+              -38.4,
+              68.8
+            ],
+            "transformed_exit_direction": [
+              -2.220446049250313e-16,
+              -1.0,
+              0.0
+            ],
+            "observed_mm": [
+              -106.0,
+              -38.400000000000006,
+              68.8
+            ],
+            "observed_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "frozen_other_end_mm": [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            "origin_error_mm": 2.929642751054232e-14,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          },
+          "F41": {
+            "documentary_side": "W41/A",
+            "port": "USB-B",
+            "local_origin_mm": [
+              9.200000000000003,
+              5.925000000000001,
+              12.0
+            ],
+            "local_exit_direction": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "transformed_origin_mm": [
+              -153.075,
+              42.40000000000001,
+              69.3
+            ],
+            "transformed_exit_direction": [
+              2.220446049250313e-16,
+              1.0,
+              0.0
+            ],
+            "observed_mm": [
+              -153.075,
+              42.4,
+              69.3
+            ],
+            "observed_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "frozen_other_end_mm": [
+              7.0,
+              -42.0,
+              131.5
+            ],
+            "origin_error_mm": 1.4210854715202004e-14,
+            "other_end_error_mm": 0.0,
+            "reservation_status": "PASS",
+            "mating_status": "INCONCLUSIVE",
+            "withdrawal_status": "INCONCLUSIVE"
+          }
+        }
+      },
+      "reopen_and_axis_match": {
+        "status": "PASS",
+        "snapshot": {
+          "path": ".runtime/v21-go3b/H03-B/snapshot.json",
+          "sha256": "ab1cfbaf3b36c6db7f7549ddd711f876d706896c84af4d5dc9b69abc5db8cc78"
+        },
+        "process_id": 20420,
+        "reopened_axes": 53,
+        "matching_axes": 53,
+        "failed_axes": {},
+        "unavailable_axes": [],
+        "maximum_delta_mm": 0.0,
+        "tolerance_mm": 1e-06,
+        "scope": "Bout d’axe CAO et identité native, sans position de contact qualifiée"
+      },
+      "changed_axis_ids": [
+        "F12",
+        "F25",
+        "F35",
+        "F40",
+        "F41"
+      ],
+      "inputs_and_measurements": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/electrical.json",
+          "sha256": "f5079b29a04b08f4a8287d5663c1431d1ea4b943fae9d0c4b311acb9deaa71f0"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/axis-endpoints.json",
+          "sha256": "db456b6f5c3c14f73dcb35d7013ea5c7fbfc11313d6b3b548a1d6dd0ee13958e"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/l2-dossier.json",
+          "sha256": "53abb1b4cb9e0b43c9e2db3864891984282846ec2fa9dff711bfd19b52addd2d"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/l2-correspondence.json",
+          "sha256": "cabbde37d7f084a531fcc9713d0fb36770682dbf5e9d57d462f8e56de759fdfd"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/connector-bom.json",
+          "sha256": "b09605359526768cd45d054819d26210a0f2f0ef0abf6ba516e9615dfe49239c"
+        }
+      ],
+      "negative_probes": [
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/negative-frame.json",
+          "sha256": "c99c863a13afd3012d8f9f0485107746b7b4799e46715f9d6a873adb316d0bd6"
+        },
+        {
+          "path": ".runtime/v21-go3b-electrical/H03-B/negative-side.json",
+          "sha256": "e653c984acb27a617def3e20fda4a9540cf56b3b571ce8d9e3488ddfb9f5efc8"
+        }
+      ]
+    }
+  },
+  "review_bom": {
+    "candidate": "consolidee",
+    "status": "INCONCLUSIVE",
+    "artifacts": [
+      {
+        "path": "docs/verification/v21_go3b/electrical_bom.json",
+        "sha256": "8cc27e8e1cce8b6a4d5be6e571df279acb920f692f15ea15c8cb4ea8cd9efd3f"
+      },
+      {
+        "path": "docs/verification/v21_go3b/electrical_bom.csv",
+        "sha256": "48f515ca2e1712373674a9210d4909f95f599f61a3fbe9b6ab64c3882cbcdd8a"
+      }
+    ],
+    "edge_status": "Les références documentaires et longueurs d’axes observées figurent avec leurs réserves. Longueurs de coupe et contacts du lot restent ouverts."
+  },
+  "sources": [
+    {
+      "path": "docs/verification/go3a/GO3A_INTERCONNECTION_MATRIX.csv",
+      "sha256": "839407c022da7df5ba0fc187c9ea50fe29b8f9efe6cdcf1cb3b4024cf05ec696"
+    },
+    {
+      "path": "docs/verification/go3a/GO3A_CONNECTOR_BOM.csv",
+      "sha256": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8"
+    },
+    {
+      "path": "docs/verification/go3b/GO3B_INTERCONNECTION_COVERAGE.csv",
+      "sha256": "5dd5243e2fc204e20dca7b3921d561941126294e3ec0256634bc60cead97f8e5"
+    },
+    {
+      "path": "docs/verification/v21_connector_sources.json",
+      "sha256": "407170656617024bd3e49181eebe25b6a458876a80158d6961a2ac23a2d62b47"
+    },
+    {
+      "path": "hardware/electronique/cartographe/contrat_uart_bms.json",
+      "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19"
+    },
+    {
+      "path": "hardware/electronique/cartographe/cablage_global.json",
+      "sha256": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f"
+    },
+    {
+      "path": "docs/verification/cartographe_action3_reprise_f12.json",
+      "sha256": "746f18aaa6e18f806935a696d6a50b4227dc2869bf3b76af7a310f6b71cd0712"
+    }
+  ],
+  "regression": {
+    "status": "PASS",
+    "return_code": 0,
+    "suites_passed": 3,
+    "command": [
+      "ctest",
+      "--test-dir",
+      ".runtime/v21-xlink-build",
+      "-R",
+      "^(v21_xlink_electrical|l2_interconnection|l2_reconcile)$",
+      "--output-on-failure"
+    ],
+    "log": {
+      "path": ".runtime/v21-go3b-electrical/l2-regression.log",
+      "sha256": "be106e61ae3ffb3656aa6bb772e8098795f727d48e70325a97b4137b74dcea6d"
+    }
+  },
+  "replay_scripts": [
+    {
+      "path": ".runtime/v21-go3b-electrical/replay.py",
+      "sha256": "4ce8bb46c2febe9b3d41761d689409ae3d5348637a728d8e5a50befd5547d3cb"
+    },
+    {
+      "path": ".runtime/v21-go3b-electrical/summarize.py",
+      "sha256": "c296d196b4ee82ff93079bf4f11c45c094bb88a4c0aa018b899e40ad3f29a2c6"
+    }
+  ],
+  "go4": {
+    "path": "docs/verification/v21_go3b/electrical_go4.json",
+    "sha256": "0646b5366695e42770f04c3443a900117f8085807129bf0f02d26ecd92761cb5"
+  },
+  "limits": [
+    "La projection L2 représente les interfaces documentaires, avec des alias explicites pour les côtés partagés. Les cavités et les contacts de cordons du lot restent ouverts.",
+    "La netlist CA01 contrôle seulement les nets schématiques et les DNP documentaires. Elle laisse la population et les conducteurs installés à vérifier.",
+    "Une réserve où les coordonnées coïncident ne renseigne pas la tenue, la fermeture du verrou, les marges après tolérances ou l’isolement.",
+    "Les injections perturbent une preuve numérique séparée. Le témoin CAO fournit en plus le cas réellement sauvegardé GPS2.",
+    "Les essais de continuité, de polarité, de CEM et de fonctionnement sur matériel sont NOT_RUN."
+  ]
+}

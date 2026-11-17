@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rapport du moteur de recherche technique L1",
+  "$comment": "Le moteur contrôle l'intégrité des références, les empreintes et la correspondance d'identité. Ce schéma contrôle la forme et les combinaisons de statuts.",
+  "type": "object",
+  "required": [
+    "schema_version", "configuration_id", "issue_id", "request", "question", "outcome", "value",
+    "technical_evidence", "evidence_details", "diagnostics", "conflicts", "unknown_register",
+    "derivation", "network", "cache", "local_inputs"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "configuration_id": {"$ref": "#/$defs/Id"},
+    "issue_id": {"$ref": "#/$defs/Id"},
+    "request": {"$ref": "#/$defs/Request"},
+    "question": {"$ref": "#/$defs/ResearchQuestion"},
+    "outcome": {"enum": ["RESOLVED", "UNKNOWN", "INCONCLUSIVE", "CONDITIONAL"]},
+    "value": {"$ref": "#/$defs/Value"},
+    "technical_evidence": {"type": "array", "items": {"$ref": "#/$defs/TechnicalEvidence"}},
+    "evidence_details": {"type": "array", "items": {"$ref": "#/$defs/EvidenceDetails"}},
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "code", "message"],
+        "properties": {
+          "source_id": {"anyOf": [{"$ref": "#/$defs/Id"}, {"type": "null"}]},
+          "code": {"$ref": "#/$defs/Text"},
+          "message": {"$ref": "#/$defs/Text"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/Id"}}
+    },
+    "unknown_register": {"$ref": "#/$defs/UnknownRegister"},
+    "derivation": {"anyOf": [{"$ref": "#/$defs/Derivation"}, {"type": "null"}]},
+    "network": {"enum": ["DISABLED", "NOT_NEEDED", "NO_CANDIDATES", "ATTEMPTED"]},
+    "cache": {
+      "type": "object",
+      "required": ["key", "hit"],
+      "properties": {"key": {"$ref": "#/$defs/Sha256"}, "hit": {"type": "boolean"}},
+      "additionalProperties": false
+    },
+    "local_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {"$ref": "#/$defs/Text"},
+          "sha256": {"anyOf": [{"$ref": "#/$defs/Sha256"}, {"type": "null"}]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {"properties": {"outcome": {"const": "RESOLVED"}}},
+      "then": {"properties": {
+        "value": {"properties": {"status": {"enum": ["SOURCED", "MEASURED"]}}},
+        "question": {"properties": {"status": {"const": "CLOSED"}, "evidence_ids": {"minItems": 1}}},
+        "technical_evidence": {"contains": {"properties": {"hypothetical": {"const": false}}}},
+        "evidence_details": {"contains": {"properties": {"match": {"const": "EXACT"}}}},
+        "unknown_register": {"maxItems": 0},
+        "conflicts": {"maxItems": 0}
+      }}
+    },
+    {
+      "if": {"properties": {"outcome": {"enum": ["UNKNOWN", "INCONCLUSIVE"]}}},
+      "then": {"properties": {"value": {"properties": {"status": {"const": "UNKNOWN"}}}}}
+    },
+    {
+      "if": {"properties": {"outcome": {"const": "CONDITIONAL"}}},
+      "then": {"properties": {"value": {"properties": {"status": {"enum": ["CALCULATED", "ESTIMATED", "ASSUMED"]}}}}}
+    },
+    {
+      "if": {"properties": {"outcome": {"enum": ["UNKNOWN", "INCONCLUSIVE", "CONDITIONAL"]}}},
+      "then": {"properties": {
+        "question": {"properties": {"status": {"const": "OPEN"}}},
+        "unknown_register": {"minItems": 1}
+      }}
+    }
+  ],
+  "$defs": {
+    "Id": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/Id"},
+    "Sha256": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/Sha256"},
+    "ResearchQuestion": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/ResearchQuestion"},
+    "TechnicalEvidence": {
+      "$ref": "DATA_CONTRACTS.schema.json#/$defs/TechnicalEvidence",
+      "allOf": [
+        {
+          "if": {"properties": {"artifact_path": {"type": "string"}}},
+          "then": {"properties": {"sha256": {"$ref": "#/$defs/Sha256"}, "locator": {"$ref": "#/$defs/Text"}}}
+        },
+        {
+          "if": {"properties": {"kind": {"const": "SOURCE"}, "hypothetical": {"const": false}}},
+          "then": {
+            "anyOf": [
+              {"properties": {"artifact_path": {"$ref": "#/$defs/Text"}}},
+              {"properties": {"uri": {"type": "string", "format": "uri"}}}
+            ],
+            "properties": {"locator": {"$ref": "#/$defs/Text"}}
+          }
+        }
+      ]
+    },
+    "Value": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/Value"},
+    "Text": {"type": "string", "minLength": 1},
+    "Authority": {"enum": ["PROJECT", "MANUFACTURER", "SECONDARY"]},
+    "Unit": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/Value/properties/unit"},
+    "StringMap": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/Text"},
+      "additionalProperties": {"$ref": "#/$defs/Text"}
+    },
+    "Reference": {
+      "type": "object",
+      "required": ["manufacturer", "family", "part_number", "revision", "attributes"],
+      "properties": {
+        "manufacturer": {"$ref": "#/$defs/Text"},
+        "family": {"$ref": "#/$defs/Text"},
+        "part_number": {"$ref": "#/$defs/Text"},
+        "revision": {"anyOf": [{"$ref": "#/$defs/Text"}, {"type": "null"}]},
+        "attributes": {"$ref": "#/$defs/StringMap"}
+      },
+      "additionalProperties": false
+    },
+    "Applicability": {
+      "type": "object",
+      "required": ["domain", "conditions"],
+      "properties": {
+        "domain": {"$ref": "DATA_CONTRACTS.schema.json#/$defs/TechnicalEvidence/properties/domain"},
+        "conditions": {"$ref": "#/$defs/StringMap"}
+      },
+      "additionalProperties": false
+    },
+    "Study": {
+      "type": "object",
+      "required": ["strategy", "variables", "next_observation"],
+      "properties": {
+        "strategy": {"$ref": "#/$defs/Text"},
+        "variables": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/Text"}},
+        "next_observation": {"$ref": "#/$defs/Text"}
+      },
+      "additionalProperties": false
+    },
+    "Operation": {"enum": ["LENGTH_DIFFERENCE", "CIRCULAR_SECTION_AREA"]},
+    "DerivationRequest": {
+      "type": "object",
+      "required": ["operation", "inputs", "assumptions", "limits"],
+      "properties": {
+        "operation": {"$ref": "#/$defs/Operation"},
+        "inputs": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["value", "unit", "uncertainty"],
+            "properties": {
+              "value": {"type": "number"},
+              "unit": {"const": "mm"},
+              "uncertainty": {"type": "number", "minimum": 0}
+            },
+            "additionalProperties": false
+          }
+        },
+        "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/Text"}},
+        "limits": {"$ref": "#/$defs/Text"}
+      },
+      "additionalProperties": false
+    },
+    "Request": {
+      "type": "object",
+      "required": ["issue_id", "question", "parameter", "unit", "criticality", "reference",
+                   "applicability", "expected_authority", "study"],
+      "properties": {
+        "issue_id": {"$ref": "#/$defs/Id"},
+        "question": {
+          "$ref": "#/$defs/ResearchQuestion",
+          "properties": {"status": {"const": "OPEN"}, "evidence_ids": {"maxItems": 0}}
+        },
+        "parameter": {"$ref": "#/$defs/Text"},
+        "unit": {"$ref": "#/$defs/Unit"},
+        "criticality": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+        "reference": {"$ref": "#/$defs/Reference"},
+        "applicability": {"$ref": "#/$defs/Applicability"},
+        "expected_authority": {"anyOf": [{"$ref": "#/$defs/Authority"}, {"const": "ANY"}]},
+        "study": {"$ref": "#/$defs/Study"},
+        "derivation": {"$ref": "#/$defs/DerivationRequest"}
+      },
+      "additionalProperties": false
+    },
+    "EvidenceDetails": {
+      "type": "object",
+      "required": ["evidence_id", "reference", "applicability", "authority", "confidence", "value", "match"],
+      "properties": {
+        "evidence_id": {"$ref": "#/$defs/Id"},
+        "reference": {"$ref": "#/$defs/Reference"},
+        "applicability": {"$ref": "#/$defs/Applicability"},
+        "authority": {"$ref": "#/$defs/Authority"},
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+        "value": {"$ref": "#/$defs/Value"},
+        "match": {"enum": ["EXACT", "REVISION_MISMATCH", "REFERENCE_MISMATCH", "SCOPE_MISMATCH", "AUTHORITY_MISMATCH"]}
+      },
+      "additionalProperties": false
+    },
+    "UnknownRegister": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue_id", "question_id", "reason", "study"],
+        "properties": {
+          "issue_id": {"$ref": "#/$defs/Id"},
+          "question_id": {"$ref": "#/$defs/Id"},
+          "reason": {"$ref": "#/$defs/Text"},
+          "study": {"$ref": "#/$defs/Study"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "Derivation": {
+      "type": "object",
+      "required": ["operation", "inputs", "assumptions", "limits", "equation", "bounds"],
+      "properties": {
+        "operation": {"$ref": "#/$defs/Operation"},
+        "inputs": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/Value"}},
+        "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/Text"}},
+        "limits": {"$ref": "#/$defs/Text"},
+        "equation": {"$ref": "#/$defs/Text"},
+        "bounds": {
+          "type": "object",
+          "required": ["lower", "upper"],
+          "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

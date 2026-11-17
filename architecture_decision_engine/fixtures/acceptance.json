@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0.0",
+  "checks": [
+    {
+      "id": "f31-baseline",
+      "artifact": "candidates/f31-baseline.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "f31-over",
+      "artifact": "candidates/f31-over.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "f31-under",
+      "artifact": "candidates/f31-under.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "f31-shift",
+      "artifact": "candidates/f31-shift.json",
+      "path": [
+        "status"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "f31-lateral",
+      "artifact": "candidates/f31-lateral.json",
+      "path": [
+        "status"
+      ],
+      "equals": "INCONCLUSIVE",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diagnostic-baseline",
+      "artifact": "candidates/diagnostic-baseline.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-route-1",
+      "artifact": "candidates/diag-route-1.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-route-2",
+      "artifact": "candidates/diag-route-2.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-placement",
+      "artifact": "candidates/diag-placement.json",
+      "path": [
+        "status"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-passive",
+      "artifact": "candidates/diag-passive.json",
+      "path": [
+        "status"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-active",
+      "artifact": "candidates/diag-active.json",
+      "path": [
+        "status"
+      ],
+      "equals": "INCONCLUSIVE",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-incompatible",
+      "artifact": "candidates/diag-incompatible.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-compatible",
+      "artifact": "candidates/diag-compatible.json",
+      "path": [
+        "status"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "diag-assignment-conflict",
+      "artifact": "candidates/diag-assignment-conflict.json",
+      "path": [
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "local-route-passes-cordon",
+      "artifact": "candidates/f31-over-l2.json",
+      "path": [
+        "route_checks",
+        "status"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "local-route-still-fails-service",
+      "artifact": "candidates/f31-over-l2.json",
+      "path": [
+        "report",
+        "geometry"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "unknown-research",
+      "artifact": "candidates/f31-lateral.json",
+      "path": [
+        "research_evidence",
+        "outcome"
+      ],
+      "equals": "UNKNOWN",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "unknown-cote",
+      "artifact": "candidates/f31-lateral.json",
+      "path": [
+        "parameters",
+        "lateral_exit_mm"
+      ],
+      "equals": null,
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "l1-retained-provenance",
+      "artifact": "candidates/f31-lateral-research.json",
+      "path": [
+        "evidence_details",
+        0,
+        "match"
+      ],
+      "equals": "REFERENCE_MISMATCH",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "sensitivity-first",
+      "artifact": "candidates/f31-lateral.json",
+      "path": [
+        "parametric_study",
+        "samples",
+        0,
+        "geometry"
+      ],
+      "equals": "PASS",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "sensitivity-last",
+      "artifact": "candidates/f31-lateral.json",
+      "path": [
+        "parametric_study",
+        "samples",
+        2,
+        "geometry"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "movement-impacted",
+      "artifact": "candidates/f31-shift.json",
+      "path": [
+        "impacted_links"
+      ],
+      "equals": [
+        "F31",
+        "F35",
+        "PWR1",
+        "PWR2"
+      ],
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "movement-rechecked",
+      "artifact": "candidates/f31-shift.json",
+      "path": [
+        "reevaluated_links"
+      ],
+      "equals": [
+        "F31",
+        "F35",
+        "PWR1",
+        "PWR2"
+      ],
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "p75-affected",
+      "artifact": "candidates/diag-placement.json",
+      "path": [
+        "impacted_links"
+      ],
+      "equals": [
+        "F40",
+        "F41",
+        "F24A",
+        "COAX"
+      ],
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "joint-physical-failure",
+      "artifact": "candidates/diag-incompatible.json",
+      "path": [
+        "joint_evaluation",
+        "status"
+      ],
+      "equals": "FAIL",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "local-impossibility-bounded",
+      "artifact": "candidates/diagnostic-baseline.json",
+      "path": [
+        "conflict_graph",
+        0,
+        "conclusion"
+      ],
+      "equals": "CONTRADICTORY_IN_DECLARED_DOMAIN",
+      "criticality": "REQUIRED"
+    },
+    {
+      "id": "pareto-tradeoff",
+      "artifact": "comparison.json",
+      "path": [
+        "diagnostic",
+        "frontier"
+      ],
+      "equals": [
+        "diag-compact",
+        "diag-passive",
+        "diag-placement"
+      ],
+      "criticality": "ADDITIONAL"
+    }
+  ]
+}

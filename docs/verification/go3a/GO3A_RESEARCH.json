@@ -1,0 +1,740 @@
+{
+  "schema": "drone-agricole.go3a.recherches.v1",
+  "date": "2026-11-14",
+  "configuration": "prototype_cartographe sans dock",
+  "statut": "À valider",
+  "budget": {
+    "cadrage": "Une jointure exhaustive et une passe documentaire ciblée par famille d'inconnues, fabricant puis preuve locale. La recherche s'arrête quand la donnée requiert un lot, un plan détaillé absent ou un essai de montage.",
+    "limites": "Accès fabricant par pages publiques consultées le 14 novembre 2026. Aucun achat, contact fabricant ou essai matériel."
+  },
+  "nomenclature_connecteurs": {
+    "fichier": "GO3A_CONNECTOR_BOM.csv",
+    "sha256": "6e7fec9b4d4c5c9dc237ce9103d96960675d124b619ac8349868cd4bc72786c8",
+    "lignes": 142,
+    "cles": "liaison_id et extremite A/B ; cle_interface désigne une affectation électrique, une interface physique peut se répéter",
+    "counts": {
+      "reference_appareil_candidate": 134,
+      "revision_physique_confirmee": 0,
+      "contacts_documentaires": 125,
+      "repere_equipement_vers_assemblage": 108,
+      "repere_port_local": 39,
+      "repere_face_port_global": 39,
+      "repere_bout_axe_global": 100,
+      "gabarit_accouplement_partiel": 5,
+      "etude_extraction_partielle": 2,
+      "volume_accouplement_qualifie": 0,
+      "volume_extraction_qualifie": 0
+    },
+    "unite_repere": "mm, repère XYZ global prototype actif. Matrices homogènes 4×4 ligne par ligne ; transformée de l'équipement vers le global.",
+    "champ_vide": "Valeur inconnue ou hors périmètre, interprétée avec perimetre et statut_geometrie_port. Révisions physiques, continuité et volumes qualifiés restent vides par absence de preuve.",
+    "limite": "Les références de la BOM de définition sont candidates. Les champs contacts renseignés portent du texte documentaire, y compris des fonctions ou mentions explicites d'inconnue. Le nombre ne mesure aucune complétude de brochage."
+  },
+  "controle_reprise": {
+    "autorites": [
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire.json",
+        "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+      },
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\nomenclature_prototype.json",
+        "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0"
+      },
+      {
+        "fichier": "docs\\verification\\cartographe_action3_interconnexions.json",
+        "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+      },
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\verification\\routes_prototype.json",
+        "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+      },
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\manifest.json",
+        "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8"
+      },
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\verification\\configuration_faisceau_haut_prototype.json",
+        "sha256": "5548f7e7f803f12b792b77d28c911affcab650f89739d3142d188fb8fc7752a2"
+      },
+      {
+        "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire_netlist_ca01.json",
+        "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+      },
+      {
+        "fichier": "hardware\\electronique\\cartographe\\carte_avionique\\empreintes_connecteurs.json",
+        "sha256": "5d903a2e70ef2ea7a5b5cca2661e5a85186e6e893d9a197d8d14e6c322d8af29"
+      }
+    ],
+    "validation": "Archives FCStd ouvertes en lecture seule ; 53 empreintes identiques à la preuve Action 3, 53 Start/End extraits de Document.xml et comparés au registre des axes ; parent SA07 et occurrence d'axe à la pose identité. Liaison des bornes extrêmes respectant l'ordre, le sens et le caractère parallèle ou série des tronçons. Aucun nouveau recalcul BRep ni montage.",
+    "schema": "142 clés distinctes, 2 extrémités par liaison. Tous les identifiants L1 non vides pointent sur une fiche groupée ci-dessous. La matrice porte la prochaine observation par ligne.",
+    "empreintes_calculées_localement": true
+  },
+  "recherches_priorisees": [
+    {
+      "id": "GO3A-L1-F12",
+      "objet": "Identifier TELEM1 et accepter le cordon radio",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W12"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+          "localisation": "Tel1/Tel3 et GPS2",
+          "observation": "Les deux familles sont à 6 positions. TX7 en 2, RX7 en 3 et GND en 6 pour TELEM1. GPS2 a SCL/SDA en 4/5 et des signaux UART différents."
+        },
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+          "localisation": "Flight Controller Connectors",
+          "observation": "Telem1/Telem3 JST-GH 6 p, TELEM2 intégré."
+        },
+        {
+          "url": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+          "localisation": "Plan GH 1,25 mm",
+          "observation": "Fiche standard candidate GHR-06V-S, contact SSHL-002T-P0.2 et verrou. Applicabilité à confirmer sur la révision."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "docs\\verification\\cartographe_action3_interconnexions.json",
+          "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_reprise_f12.json",
+          "sha256": "746f18aaa6e18f806935a696d6a50b4227dc2869bf3b76af7a310f6b71cd0712"
+        },
+        {
+          "fichier": "docs\\verification\\go2bis_l1_l2.json",
+          "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire_netlist_ca01.json",
+          "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+        }
+      ],
+      "constats": [
+        "Sur la CAO active RC02, l'axe F12 arrive à Y=12 mm sur GPS2. La cible TELEM1 est à Y=25 mm dans l'étude sur copie. La destination requise et le trajet observé sont distingués.",
+        "J402/2 reçoit TX TELEM1/2, J402/3 transmet vers RX TELEM1/3, J402/1 reçoit GND TELEM1/6. +5 V et contrôle de flux restent NC dans ce cordon.",
+        "GO2bis L1 avait résolu l'écart CAO et laissé la révision de TELEM1 inconnue."
+      ],
+      "inconnues": [
+        "Révision réellement sélectionnée et marquage du port. Profil de la fiche assemblée et outil de verrou."
+      ],
+      "critere_reprise": "Relever révision/sérigraphie, vue côté accouplement, contacts numérotés, géométrie de fiche et chemin de continuité côté CA01. Vérifier absence de +5 V et retrait sans traction. Intégrer Faces seulement si ce repérage concorde.",
+      "consequence": "L'équipement ou le port ne peut être libéré sur les seuls axes CAO."
+    },
+    {
+      "id": "GO3A-L1-F24A",
+      "objet": "Discriminer Orin GPIO et Orin Debug dans la porteuse 11072",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W13.A",
+        "W24.A"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+          "localisation": "Orin GPIO et Orin Debug",
+          "observation": "GPIO_07 en contact 2 et GND en 6, +5 V en 1 à laisser NC. Debug UART2 RX en 3 et GND en 6, connecteur annoncé JST-SH 1 mm."
+        },
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+          "localisation": "Jetson connectors",
+          "observation": "GPIO annoncé 6 p JST-GH."
+        },
+        {
+          "url": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+          "localisation": "GH 1,25, poses top et side entry",
+          "observation": "La famille SM06B-GH renseigne la forme latérale, des prises similaires peuvent porter des fonctions différentes."
+        },
+        {
+          "url": "https://docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html",
+          "localisation": "Generating the Pinmux dtsi Files",
+          "observation": "L'entrée GPIO dépend de l'adaptation de carte et du pinmux. La disponibilité du niveau 3,3 V ne se généralise pas à toutes les broches."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\configuration_faisceau_haut_prototype.json",
+          "sha256": "5548f7e7f803f12b792b77d28c911affcab650f89739d3142d188fb8fc7752a2"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire_netlist_ca01.json",
+          "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_interconnexions.json",
+          "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f24a.json",
+          "sha256": "d896dc19d184060fe75db395532551aa84a4455c420b078385ffe7397a918d04"
+        }
+      ],
+      "constats": [
+        "W24.A J505/1 PPS, J505/2 GND vers GPIO/2 et /6. Le repère CAO présumé approche une embase latérale placée à [−62, 15, 125,9] mm.",
+        "La variante relief de P75 et F13A dégage nominalement trois paires locales. L'identification réelle et le guide entier restent ouverts.",
+        "W24.B est séparé. Le nom CAO BM06B-SR n'identifie pas seul la famille SH annoncée. R530–R533 sont DNP sur CA01 candidate, ce qui rattache l'admission à la population et à W24.C."
+      ],
+      "inconnues": [
+        "Sérigraphie et numéro de révision, orientation de la broche 1 et référence des deux embases. Population CA01, tension efficace en charge et pinmux du lot."
+      ],
+      "critere_reprise": "Aligner plan révisé et marquage du lot avec la matrice CAO, constater continuité hors énergie et PPS sur la bonne entrée, puis vérifier utilisation du DEBUG, niveaux et séquencement de mise sous tension.",
+      "consequence": "Synchronisation Jetson conditionnelle. Le relief P75 reste un candidat et dépend des retenues/coaxiaux."
+    },
+    {
+      "id": "GO3A-L1-F31",
+      "objet": "Montage et accès CAN1 avec PM08, isolateur, puissance et F35",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W25",
+        "W31",
+        "W35"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+          "localisation": "CAN1/CAN2, Power1/2, AD&IO",
+          "observation": "CAN1 : 2 H, 3 L, 4 GND, 1 +5 V sortie NC dans l'adaptateur. AD&IO : CAP1 sur 2 et GND sur 8."
+        },
+        {
+          "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a?variant=44052276641981",
+          "localisation": "PM08-CAN interface type et variantes",
+          "observation": "15029 fils étamés 8 AWG. Côté PM08, interface Molex CLIK-Mate 2 mm 6 p, côté CAN1 GH4 de la porteuse."
+        },
+        {
+          "url": "https://docs.holybro.com/can-termination-resistance-software-toggle",
+          "localisation": "PM08-CAN",
+          "observation": "La possibilité de changer la terminaison 120 Ω dépend du numéro de série. Les lots 15029 001*** et suivants sont cités."
+        },
+        {
+          "url": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
+          "localisation": "GH, plans du corps et verrou",
+          "observation": "Cotes catalogue pour une fiche standard et sa famille. L'accès au poussoir dépend de son montage local."
+        },
+        {
+          "url": "https://www.ideal-tek.com/public/upload/PDS/MPT1RSV.IT.pdf",
+          "localisation": "Fiche outil",
+          "observation": "Référence de sonde du témoin numérique, cote et effort sur le verrou installés à mesurer."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "docs\\verification\\cartographe_action3_can1_integre.json",
+          "sha256": "b208ff5f79ce2bb7f34b8bbc56a73b1d6103c323607448eaaad7a397dbe8d84d"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_can1_geste.json",
+          "sha256": "dc4967fe777fb5d4f7e2ce22950fa725000f58f8000b906bac6f26a898dd3442"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f35.json",
+          "sha256": "7153003fe96df823054faace492930af1173ab8836662d6e8d26f8d45ff93769"
+        },
+        {
+          "fichier": "docs\\verification\\architecture_decision_l3.json",
+          "sha256": "f9f7c3b12892a9c9b0f3e6c1436a81686946f70428c56a7b15f5f4f8ea2a37b3"
+        }
+      ],
+      "constats": [
+        "Le devoir de service comprend retrait du connecteur CAN1, verrouillage, trajet F31, accès F35, PM08 et isolateur en présence des protections puissance.",
+        "Sur copie historique, boîte nominale 4,15 × 6,25 × 5,7 mm et déplacements de 0, 2,65, 4,25 et 12 mm. Sonde MPT1RSV, appui 1 mm et maintien 4,25 mm donnent 0,119999584 mm près de F31.",
+        "Le gabarit exclut l'embase et traite F31 en obstacle fixe. Une translation PM08 de −10 mm gagne 8,4 mm de marge au banc, conditionnelle à l'enveloppe, aux fixations et aux quatre branches affectées du cartographe."
+      ],
+      "inconnues": [
+        "Brochage côté PM08 sur 15029 révision réelle, détente du verrou et course de retrait, tolérances de la fiche/câble, effet du mouvement F31, matière et effort de P85."
+      ],
+      "critere_reprise": "Identifier les deux fiches, leurs axes et enveloppes de connexion et de sortie, contrôler le volume balayé du geste jusqu'à reprise en main avec F35 et puissance présents, fermer la chaîne de tolérances. Vérifier continuité H/L/GND et terminaison adaptée au lot.",
+      "consequence": "Une marge nominale de 0,120 mm laisse le choix conditionnel."
+    },
+    {
+      "id": "GO3A-L1-DIAG",
+      "objet": "Service BMS au moyen des deux interfaces isolées",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W40",
+        "W41"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+          "localisation": "A01 pp. 14, 16–17",
+          "observation": "Table du J2 HY2.0-4P : GND/RXD/TXD/VDD. La note désigne J3 et confirme B− brut comme retour UART non isolé."
+        },
+        {
+          "url": "https://files.waveshare.com/wiki/USB-TO-RS232-485-TTL/manual/USB_TO_RS232_485_TTL_-user-manual-en.pdf",
+          "localisation": "Manuel Waveshare V1.3, p. 1 et schéma TTL",
+          "observation": "Ancienne notice identifie FT232RL et isolation alimentation et signaux sur cette famille. Applicabilité à la révision 15817 réellement retenue ouverte."
+        },
+        {
+          "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+          "localisation": "Fiche exacte SKU 15817",
+          "observation": "Accès direct 403. La variante voisine 22547 et les produits USB TO TTL (B)/(C) n'identifient pas la configuration 15817."
+        },
+        {
+          "url": "https://www.delock.com/produkt/84809/merkmale.html",
+          "localisation": "Delock 84809",
+          "observation": "Accès direct 401. Gabarit historique seulement, fiche déportée non libérée."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\electronique\\cartographe\\contrat_uart_bms.json",
+          "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f41.json",
+          "sha256": "6ae0d0fa8cbb0cee524deec824f1846285ec7acd99044e2880ccd0b1cf97d52d"
+        },
+        {
+          "fichier": "docs\\verification\\architecture_decision_l3.json",
+          "sha256": "f9f7c3b12892a9c9b0f3e6c1436a81686946f70428c56a7b15f5f4f8ea2a37b3"
+        }
+      ],
+      "constats": [
+        "40/41 sont deux ports à rendre accessibles à la même implantation. Sur les essais historiques du cartographe, 24 routes TTL et 20 poses du module donnent zéro accès double. Le décalage +Y de 8 mm libère l'USB seul dans douze essais de F41.",
+        "Le banc L3 a exploré un déport passif conservant fonction et retour, avec marge locale bornée négative dans le domaine étudié. L'interface active ne dispose pas de contrat.",
+        "La sortie F41 raccourcie reste sans réserve fonctionnelle prouvée. Le stock de longueur OEM intégré ne définit pas le mou utile."
+      ],
+      "inconnues": [
+        "Produit/version 15817 et variantes de bornier, connecteur TTL manuel, géométrie et niveau de logique. Enveloppes de retrait, réserve USB et débranchement de la batterie accessibles."
+      ],
+      "critere_reprise": "Définir un chemin de dépose ordonné et un accès physique à USB-B et TTL ou à leurs prises déportées. Préserver TX/RX croisés, GND brut côté isolé, VDD NC, aucune dérivation de puissance et aucune traversée par masse ni blindage. Vérifier la continuité USB et la fonction de lecture BMS.",
+      "consequence": "Le déport passif reste une option sans MPN et l'ajout actif reste en réserve."
+    },
+    {
+      "id": "GO3A-L1-F16",
+      "objet": "Identifier F16 et F_M8 pour l'optique montée sur appuis souples",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W16",
+        "W18",
+        "W34"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+          "localisation": "AW001406 v138, Physical Interface / Connector Pinout",
+          "observation": "USB3 Micro-B verrouillable par vis, M8 femelle A6 avec contacts 2/3 optocoupleur et 4/6 GPIO. Le terme mâle dans la section exigences de câble vise la fiche d'accouplement d'après la section explicite."
+        },
+        {
+          "url": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+          "localisation": "RR-ASMUK-XXGRHF, Available Part Numbers et Specifications",
+          "observation": "508 mm pour 20GRHF, Type A droit, Micro-B Up à vis, R22 mm statique et R48 continu. Cette donnée vaut pour la famille cataloguée."
+        },
+        {
+          "url": "https://www.usbfirewire.com/wp-content/uploads/pdfs/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf",
+          "localisation": "Plan A1 2018, archive et empreinte de la preuve caméra",
+          "observation": "Dimensionalisation du Micro-B, longueur hors tout et tolérances, définitions utilisées pour le criblage précédent."
+        },
+        {
+          "url": "https://www2.usbfirewire.com/brochures/USB.Custom.Cables.pdf",
+          "localisation": "Options constructeur custom",
+          "observation": "Fabrication custom possible sur demande, sans définition précise du cordon cible."
+        },
+        {
+          "url": "https://www.phoenixcontact.com/en-us/products/sensoractuator-cable-sac-6p-m-8mr-15-pur-sh-1522341",
+          "localisation": "1522341, Cable / Dynamic load capacity",
+          "observation": "M8 mâle coudé A6 blindé, 6 × 0,14 mm², OD 5,2 mm, R52 mm fixe et mobile. Essai fournisseur à 10 m, 3 m/s et 10 m/s²."
+        },
+        {
+          "url": "https://www.sorbothane.com/wp-content/uploads/sorbothane-spg-bushings-washers.pdf",
+          "localisation": "Matière et rondelles viscoélastiques",
+          "observation": "Le fabricant décrit une déflexion statique sous charge, sans fournir la cinématique du bloc installé."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\connecteurs_coudes_camera_prototype.json",
+          "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\orch_interfaces_equipements.json",
+          "sha256": "d5a662c3a5872adf76a68f2f9163beade81d1ab4c560590cfa1a612956ed7d55"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_interconnexions.json",
+          "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f16.json",
+          "sha256": "00b0bf00ea08b1341c47f7077e6a8e720bb003c881a9be0af58122f97b167e2e"
+        },
+        {
+          "fichier": "docs\\verification\\go2bis_l1_l2.json",
+          "sha256": "8d81b6e9bdef9d5baf59223511f8f61c33486a531b33d7aa80f08c94b9eeef75"
+        }
+      ],
+      "constats": [
+        "Le cordon de 508 mm Type A droit ne correspond pas au Type A coudé de la réservation géométrique. Deux coudes et environ 600 mm hors tout restent spécification candidate sans MPN.",
+        "Pour la route candidate F16 de 494,608 mm, l'allocation historique prudente de 79,5 mm aux terminaisons donne 574,108 mm hors tout avant réserve. À 508 mm, le déficit estimé est 66,108 mm. Les 425,174 mm de la CAO active et ses arcs de 22 mm ne documentent que le cas statique.",
+        "Le modèle documente quatre poses discrètes. Historique : premier recouvrement vis P10/P17 à +X 0,25 mm, retenue P10/P17 à +Z 1 mm dans l'échantillonnage. Ce sont des cas de réfutation, sans course mécanique réelle déduite.",
+        "Pour le M8, la profondeur CAO de 5,295 mm n'établit pas la butée et le montage de la fiche. L'engagement historique de 6 mm est une hypothèse. Ne pas supposer la constitution des paires du Phoenix Contact."
+      ],
+      "inconnues": [
+        "Cordon F16 effectivement retenu avec plan et rayon garanti, course continue de la platine chargée, couple accessibilité des deux vis USB, montage/couple M8 et constitution paires, marge de signal et contraintes de fatigue."
+      ],
+      "critere_reprise": "Mesurer la trajectoire XY/Z et rotations couplées sous charge et vibration. Distinguer portions encastrées, statiques et mobiles. Valider avant reconstruction le plan du cordon cible, sa longueur utile, l'accouplement et la cinématique continue. Au banc vérifier débit, maintien, flexion et absence de dommage.",
+      "consequence": "La fonction de perception et les marges dynamiques restent conditionnelles."
+    },
+    {
+      "id": "GO3A-L1-FAN",
+      "objet": "Appairer la prise ventilateur et confirmer le refroidissement",
+      "priorite": "P1",
+      "statut": "À valider",
+      "liaisons": [
+        "W20"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+          "localisation": "Fan Power Port",
+          "observation": "Limitation publiée de courant 0,35 A. Tension, ordre et connecteur non donnés sur cette page."
+        },
+        {
+          "url": "https://www.waveshare.com/orin-fan-pwm.htm",
+          "localisation": "Waveshare 24076, Specifications",
+          "observation": "Ventilateur 5 V, 0,13 A nominal, PWM et câble 37 ±3 mm. Le texte ne fournit pas le brochage ni le courant de démarrage."
+        },
+        {
+          "url": "https://www.waveshare.com/product/ai/accessories/orin-fan-pwm.htm",
+          "localisation": "Ancienne URL projet",
+          "observation": "Accès direct 403. La page fabricant de produit ci-dessus est accessible dans l'index."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\electronique\\cartographe\\verification\\controle_connecteur_ventilateur_jetson.json",
+          "sha256": "5d288a7fb9583bfdeefeefbbe979ee5f4db2a3ffaff6cd11ec0b1f396d0b06b6"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\orch_interfaces_equipements.json",
+          "sha256": "d5a662c3a5872adf76a68f2f9163beade81d1ab4c560590cfa1a612956ed7d55"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\orch_reprise_f20.json",
+          "sha256": "b7e9113753e41665a0270759731270c7c5262d4d039e044c517f76e6cd976092"
+        }
+      ],
+      "constats": [
+        "DF13-4P-1.25DSA candidat d'après le STEP et photo RC02. DF13-4S-1.25C est une famille de fiche appariable candidate, sans preuve pour le Waveshare.",
+        "0,13 A nominal vs 0,35 A publié et route F20 de réservation ne démontrent ni démarrage ni brochage. L'axe coté ne rejoint pas le départ réel du ventilateur."
+      ],
+      "inconnues": [
+        "MPN et pinout des deux côtés, courant d'appel, polarité, présence/niveaux PWM et tachymètre, profondeur des vis M2 et efficacité thermique."
+      ],
+      "critere_reprise": "Obtenir dessin ou échantillon relevé de chaque côté, mesurer le cordon utile, identifier chaque fil hors énergie, valider maintien puis démarrage et températures sous charge sur banc.",
+      "consequence": "Le refroidissement réel du calculateur demeure ouvert."
+    },
+    {
+      "id": "GO3A-L1-CSI",
+      "objet": "Extraction candidate de la référence 3,3 V Orin",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W23",
+        "W24.B",
+        "W24.C"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+          "localisation": "Orin Camera0 Port",
+          "observation": "22 contacts. Contact 22 VDD 3,3 V et 1 GND dans la table Camera0."
+        },
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/csi-camera-setup",
+          "localisation": "Configuration CSI",
+          "observation": "Deux caméras possibles. Aucune définition d'extracteur FFC dédié ni capacité du rail dans l'usage de référence."
+        },
+        {
+          "url": "https://docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html",
+          "localisation": "Platform Adaptation, Pinmux",
+          "observation": "Le niveau accepté dépend de la porteuse et de l'adaptation des broches."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\configuration_faisceau_haut_prototype.json",
+          "sha256": "5548f7e7f803f12b792b77d28c911affcab650f89739d3142d188fb8fc7752a2"
+        },
+        {
+          "fichier": "hardware\\electronique\\cartographe\\carte_avionique\\empreintes_connecteurs.json",
+          "sha256": "5d903a2e70ef2ea7a5b5cca2661e5a85186e6e893d9a197d8d14e6c322d8af29"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire_netlist_ca01.json",
+          "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+        }
+      ],
+      "constats": [
+        "La liaison W24.C relie en définition J509/1 (3V3_ORIN_IO_REF) et J509/2 (GND). La CAO réserve un FPC 22 p et ne contient pas d'extracteur fabriquable.",
+        "Les variantes Camera0/Camera1 et le sens d'insertion FFC doivent être identifiés. Variante passive réservée tant que niveau, séquencement et courant sont inconnus."
+      ],
+      "inconnues": [
+        "Référence embase, épaisseur et face contacts de la nappe, verrou, famille FPC exacte, budget de courant de la référence, comportement carte coupée et ESD."
+      ],
+      "critere_reprise": "Obtenir le dessin de la porteuse, identifier et tester port, nappe et accouplement, démontrer que l'usage ne charge pas le rail au-delà des limites et que les entrées ne réalimentent pas Orin.",
+      "consequence": "Les interfaces PPS/GPRMC restent liées à cet arbitrage et à la population CA01."
+    },
+    {
+      "id": "GO3A-L1-LED",
+      "objet": "Conserver la couverture des quatre branches WS2812 X650",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W33",
+        "W-LED-KIT.1",
+        "W-LED-KIT.2",
+        "W-LED-KIT.3",
+        "W-LED-KIT.4"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/overview",
+          "localisation": "X650 Development Kit Includes",
+          "observation": "Quatre WS2812 sont documentées avec moteurs/ESC du kit."
+        },
+        {
+          "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/neopixel-ws2812-led-setup-instruction-1",
+          "localisation": "ArduPilot NeoPixel Setup Guide",
+          "observation": "Exemple d'affectation AUX1–4 pour quatre signaux distincts."
+        },
+        {
+          "url": "https://docs.px4.io/main/en/modules/modules_driver#neopixel",
+          "localisation": "Driver neopixel",
+          "observation": "PX4 documente un pilote générique. La disponibilité sur image/affectation locale n'est pas établie."
+        },
+        {
+          "url": "https://github.com/PX4/PX4-Autopilot/blob/main/boards/px4/fmu-v6x/default.px4board",
+          "localisation": "px4/fmu-v6x/default.px4board, branche main",
+          "observation": "CONFIG_COMMON_LIGHT présent ; aucune activation NeoPixel ni allocation quatre sorties établie par cette lecture. Vérifier la révision logicielle cible."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire.json",
+          "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\manifest.json",
+          "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\routes_prototype.json",
+          "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+        }
+      ],
+      "constats": [
+        "Les quatre axes LED sont présents et les extrémités source restent sans nœud électrique. AUX1 sert à W33. Ne pas prélever arbitrairement la tension sur VDD_SERVO.",
+        "Le module CUAV W25, s'il est retenu, porte une fonction de sécurité distincte des quatre LED de bras."
+      ],
+      "inconnues": [
+        "Lot WS2812, rail et courant de pointe, contacts et mode de pilotage PX4. Besoin exact des quatre, visibilité et défaut admission."
+      ],
+      "critere_reprise": "Définir la fonction exigée, vérifier le support de l'image PX4 sélectionnée, définir alimentation, masse et données pour chaque voie retenue, ou consigner son retrait de la configuration et de la BOM.",
+      "consequence": "Les chemins retiennent les quatre branches et leurs contraintes mécaniques sans désigner de port source arbitraire."
+    },
+    {
+      "id": "GO3A-L1-X650",
+      "objet": "Réutilisation des retenues et de la structure X650",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W02.1",
+        "W02.2",
+        "W02.3",
+        "W02.4",
+        "W03.1",
+        "W03.2",
+        "W03.3",
+        "W03.4",
+        "W04.1",
+        "W04.2",
+        "W04.3",
+        "W04.4"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/overview",
+          "localisation": "X650 V2 Frame Kit and components",
+          "observation": "Périmètre équipement OEM par composition du kit."
+        },
+        {
+          "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/download",
+          "localisation": "Sources fabricant châssis",
+          "observation": "STEP x650-frame-2025-0825 et Assembly Guide V1.1. Un modèle descriptif ne donne pas les tolérances admissibles d'un trou ou d'une section modifiée."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\manifest.json",
+          "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_x650.json",
+          "sha256": "b1ad32e48c0be6ccd37198f36323e1f6a6e68a414e2fb6fd00204721cf5faf59"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f25.json",
+          "sha256": "109dc473959d8654cd887b57bab46c2f121a16624174be492e9dcf790a3d6922"
+        },
+        {
+          "fichier": "docs\\verification\\cartographe_action3_f24a.json",
+          "sha256": "d896dc19d184060fe75db395532551aa84a4455c420b078385ffe7397a918d04"
+        }
+      ],
+      "constats": [
+        "P75 participe au maintien des supports d'antennes RF. Une version sans P75 a laissé les supports P70 sans ancrage. P85/F25 a 0,05 mm de jeu au chant et 0,307 mm vers F25 sur copie.",
+        "Les colonnes simplifiées Ø5 × 90 et alésage Ø2,5 mm de la réparation permettent de relire des solides par BRep. Les cotes ne constituent pas une définition complète OEM.",
+        "Les branches de propulsion et LED sont localisées suivant les quatre quadrants CAO. L'ordre des bras est observé, sans déduire la configuration de rotation physique ni la résistance OEM."
+      ],
+      "inconnues": [
+        "Tolérances matériaux et assemblage des platines OEM de la révision retenue, serrage, résistance à l'arrachement et effets thermo-vibratoires des supports candidats."
+      ],
+      "critere_reprise": "Conserver les références OEM et les chemins de charge. Si P75/P85 évoluent, vérifier ancrages, accès outil et rôle RF, calculer ou mesurer la section utile et la reprise d'efforts, puis tester avec les quatre branches périphériques et F16 sur poses.",
+      "consequence": "Aucune modification de plaque X650 ni nouvelle retenue déclarée admissible à la fabrication."
+    },
+    {
+      "id": "GO3A-L1-BMS",
+      "objet": "Interface pack, puissance protégée et essais de charge",
+      "priorite": "P0",
+      "statut": "À valider",
+      "liaisons": [
+        "W01.NEG",
+        "W01.POS",
+        "W05",
+        "W06",
+        "W08",
+        "W09",
+        "W32",
+        "W37.POS",
+        "W37.NEG",
+        "W38",
+        "W-CELLULES",
+        "W-NTC.1",
+        "W-NTC.2"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+          "localisation": "A01 pp. 3, 12, 14–17",
+          "observation": "C− protégé, B− brut, J5 HY2.0-15P/J4 HY2.0-8P pour BC0…22, J7 HY2.0-4P pour NTC. Configuration 6S selon tableau ; la notice contient une divergence d'étiquette J2/J3 sur UART."
+        },
+        {
+          "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a?variant=44052276641981",
+          "localisation": "Variantes IN/OUT",
+          "observation": "SKU 15029 à fils étamés du candidat, contrôles des terminaisons mécaniques externes sur lot."
+        },
+        {
+          "url": "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry",
+          "localisation": "Top Entry 18138",
+          "observation": "Six XT90 et deux XT30 vers le haut, bornes puissance à vis. Ces interfaces ne donnent pas la section ni le courant admissible des adaptateurs du cartographe."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\electronique\\cartographe\\contrat_uart_bms.json",
+          "sha256": "cc11eb7386cd1b80db6d888435f65093e0b1c3bc82b30f897733e5993b9c4b19"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\definition_bom_electrique.json",
+          "sha256": "1e721d0359518fb65164097727b9dedbaa3a8941e45748fa716f9b655de5b502"
+        },
+        {
+          "fichier": "hardware\\electronique\\cartographe\\verification\\controle_recharge_bms_prototype.json",
+          "sha256": "89f997ece5f0e955b0677bda10b02568ada6e9ba38af1dbec08dd653f702ce73"
+        }
+      ],
+      "constats": [
+        "Protection amont MIDI et paire QS8-S B9310 candidates. Le retour charge/décharge passe par C− protégé, l'UART brut reste côté isolé. Le départ de branche CA01 est protégé en série sur B+.",
+        "Faisceau sondes et équilibrage gardent séparées les 6S, le NTC et la puissance. Étiquettes et ordre du lot ne dérivent pas de la forme physique enregistrée."
+      ],
+      "inconnues": [
+        "Révision Li-ion A01 et dispositions exactes des embases, correspondance du lot B0…B6 vers les prises J4/J5, sections et cosses, couple, échauffement, isolation et retenue QS8 selon le cas."
+      ],
+      "critere_reprise": "Fermer enceintes et révisions, contrôler continuité et absence de pont B−/P−, et vérifier montage avant essais de charge et puissance selon protocole.",
+      "consequence": "Ouverture sur les chemins d'alimentation, persistance de la protection et masse complète."
+    },
+    {
+      "id": "GO3A-L1-INTERFACES",
+      "objet": "Interfaces OEM et raccords moins documentés",
+      "priorite": "P1",
+      "statut": "À valider",
+      "liaisons": [
+        "W10",
+        "W13.B",
+        "W14",
+        "W15",
+        "W19",
+        "W21",
+        "W22",
+        "W27",
+        "W28",
+        "W29",
+        "W36",
+        "W43",
+        "CA01-MOD401",
+        "SOL-RTK-ANT",
+        "SOL-RTK-USB",
+        "SOL-RADIO-USB",
+        "SOL-POWER.TERMINAL",
+        "SOL-POWER.S100NEO"
+      ],
+      "sources_primaires": [
+        {
+          "url": "https://store.cuav.net/shop/c-rtk-usl-expansion-module/",
+          "localisation": "Module CUAV, section Product Features / Package Included",
+          "observation": "Bouton sécurité, buzzer, LED, deux cordons. Pas de contrôle de compatibilité des broches GPS1 Holybro."
+        },
+        {
+          "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/pinout",
+          "localisation": "DroneCAN F9P pinout, images G4/S32K1",
+          "observation": "La variante G4 fournit PPS UART2 attendu. La S32K1 ne peut pas être assimilée au même pinout PPS."
+        },
+        {
+          "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+          "localisation": "GPS1, CAN2, ETH et M.2 selon porteuse",
+          "observation": "Source d'autorité par produit. Les ports physiques et leurs variantes sont à rapprocher du lot."
+        }
+      ],
+      "preuves_locales": [
+        {
+          "fichier": "hardware\\electronique\\cartographe\\sources_fabricants\\RoboSense_Airy_User_Guide_v1.3_20251105.pdf",
+          "sha256": "6ca9616fe8a0f8c0fc5a090a8b0c76ee6f9ae3767ee23aaf82fa91c4fb29ad2d"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\orch_interfaces_equipements.json",
+          "sha256": "d5a662c3a5872adf76a68f2f9163beade81d1ab4c560590cfa1a612956ed7d55"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\refonte_faisceaux\\inventaire_netlist_ca01.json",
+          "sha256": "62d70cfb88f88a8e6ecc3e82c3d90238faf2d2a65f6282e3a70bec9756c6bf75"
+        },
+        {
+          "fichier": "hardware\\electronique\\cartographe\\cablage_global.json",
+          "sha256": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f"
+        },
+        {
+          "fichier": "hardware\\mecanique\\cartographe\\verification\\definition_bom_electrique.json",
+          "sha256": "1e721d0359518fb65164097727b9dedbaa3a8941e45748fa716f9b655de5b502"
+        }
+      ],
+      "constats": [
+        "Le guide Airy et les schémas définissent l'aviation et les contacts énergie/temps. Le tronc et ses branches sont le même cordon. L'éclatement graphique n'implique aucune épissure.",
+        "W22 : SMA horizontal en [−31,85,110,100,2] mm et réservation verticale en [0,110,113,9] mm. Aucun assemblage RF cohérent dans le modèle constaté. W19 : présence de l'empreinte SSD ne démontre pas l'engagement Key M.",
+        "Les autres interfaces, y compris périphériques, retirées ou au sol, sont distinctes dans la matrice ; les terminaisons électroniques projetées sont sourcées par broche là où la netlist est disponible."
+      ],
+      "inconnues": [
+        "G4, SMA et plan d'engagement antenne, référence du cordon aviation Airy et brochage d'éclatement, voie GPS1/CUAV, Key M, terminaisons des liaisons marquées dans la matrice."
+      ],
+      "critere_reprise": "Lever chaque ligne via sa condition de clôture. Établir composant/révision, polarisation et orientation, compatibilité de fiche et accouplement, tension/courant, retenues et accès. Aucun accord automatique par proximité CAO.",
+      "consequence": "W22 et accessoires de sécurité restent ouverts. Les exigences de couverture et maintenance s'appliquent aussi aux branches périphériques."
+    }
+  ],
+  "exclusions": "Pas de qualification de contact, pose physique, matériau, montage, mouvement continu, thermique, courant, CEM ou durée de vie. Les résultats natifs anciens sont référencés explicitement comme historiques."
+}

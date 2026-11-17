@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "id": "banc-consolidation-l5",
+  "revision": "1",
+  "frame": "Banc L5 XYZ, mm, Z vers le haut",
+  "provenance": {"status": "DOCUMENTEE", "source": "Banc synthétique L5"},
+  "equipment": [{"id": "source"}, {"id": "recepteur"}],
+  "ports": [
+    {"id": "S1", "equipment": "source", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [0,0,10], "tangent": [1,0,0]},
+    {"id": "T1", "equipment": "recepteur", "interface": "SIGNAL-1", "status": "DOCUMENTEE", "position_mm": [100,0,10], "tangent": [-1,0,0]},
+    {"id": "S2", "equipment": "source", "interface": "SIGNAL-2", "status": "DOCUMENTEE", "position_mm": [0,11,10], "tangent": [1,0,0]},
+    {"id": "T2", "equipment": "recepteur", "interface": "SIGNAL-2", "status": "DOCUMENTEE", "position_mm": [100,11,10], "tangent": [-1,0,0]}
+  ],
+  "links": [
+    {"id": "L1", "source": "S1", "target": "T1", "family": "signal", "source_cavities": ["1"], "target_cavities": ["1"]},
+    {"id": "L2", "source": "S2", "target": "T2", "family": "signal", "source_cavities": ["2"], "target_cavities": ["2"]}
+  ],
+  "geometry": {
+    "boxes": [
+      {"id": "Deck", "origin_mm": [-5,-25,0], "size_mm": [110,65,2]},
+      {"id": "Obstacle", "origin_mm": [45,-4,2], "size_mm": [10,8,11]}
+    ],
+    "extraction": [
+      {"port": "S1", "origin_mm": [-4,-1,9], "size_mm": [4,2,2], "ignore_ids": ["L1"]},
+      {"port": "T1", "origin_mm": [100,-1,9], "size_mm": [4,2,2], "ignore_ids": ["L1"]},
+      {"port": "S2", "origin_mm": [-4,10,9], "size_mm": [4,2,2], "ignore_ids": ["L2"]},
+      {"port": "T2", "origin_mm": [100,10,9], "size_mm": [4,2,2], "ignore_ids": ["L2"]}
+    ]
+  },
+  "corridors": []
+}

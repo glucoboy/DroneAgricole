@@ -1,0 +1,212 @@
+{
+  "schema": "drone_agricole.station_gazebo_bridge_validation.v1",
+  "created_at_utc": "2026-10-24T20:51:26.3455644Z",
+  "requirement": [
+    "UI-GZ-001",
+    "T-CARTO-GZ-01"
+  ],
+  "status": "Implémenté",
+  "conclusion": "Conforme au périmètre logiciel Windows amd64 et chargement Gazebo exécuté ; physique À valider",
+  "framing": {
+    "stop": "Complete source checks and atomic publication, or failure/cancel without final package",
+    "useful_signal": "Real CAD conversion, usable station route, Gazebo reads and loads package",
+    "problem": "Manual CAD export tools were not integrated with the station",
+    "scope": "Active cartographe profile, immutable sources, independent SDF artifact, shared UI/CLI service",
+    "budget": "900 seconds per export, one export lock, no purchases or material tests"
+  },
+  "environment": {
+    "language": "C++17",
+    "freecad_python": "3.11.14",
+    "git_commit": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "gazebo": "8.14.0 Linux amd64",
+    "host": "Windows amd64",
+    "dirty": true,
+    "compiler": "GCC 16.2",
+    "px4_image": "px4io/px4-sitl-gazebo:v1.18.0-beta2@sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+    "qt": "6.11.2",
+    "freecad": "1.1.3"
+  },
+  "source_sha256": {
+    "software/cpp/include/drone_agricole/application/GazeboExportService.hpp": "2cd26220b228eb6c1ac91c0dfe44ccdf113b0929c26aa43de3ced465d9e22c02",
+    "software/cpp/src/application/GazeboExportService.cpp": "acb8961873932204eac1ad11f2fc777b6b5e6cb2859cab3a9e61d0b78b22f954",
+    "software/cpp/include/drone_agricole/adapters/LocalGazeboExportBackend.hpp": "9cc5d760c207bc0c8e9643dff52665557cb3a73020ac4b309200732e4b178cc4",
+    "software/cpp/src/adapters/LocalGazeboExportBackend.cpp": "60f8cc27effff49e825c7d421678bcd28f5ad0f12470b6cb1c87c343ab345d9b",
+    "software/cpp/include/drone_agricole/ui/GazeboModelPage.hpp": "674e9d4973efab32dbc1dd5096b7055ffb295bf546744d0f220fc1ee070d5474",
+    "software/cpp/src/ui/GazeboModelPage.cpp": "2bb72fdfb995a06a049efccb08734c2f34b88a8ae1066bf1ab0cb7db8f2e6822",
+    "software/cpp/ui/gazebo_model_page.ui": "e2cca382c6b1f39d2bbf5f17807bfb00b5ce9334f58b9638aafcd6bd463b8e8b",
+    "software/cpp/include/drone_agricole/application/IStationServices.hpp": "71fd3bf960984d6693b49ff5f49ebad68018a1e5ee746ead7d2fc8ce3f964cc5",
+    "software/cpp/include/drone_agricole/composition/StationComposition.hpp": "3b01c28216bab84265f44c878fcc7e810856e53e50266cfad96e1ffb1b55b22b",
+    "software/cpp/src/composition/StationComposition.cpp": "f8649bf69cbed040cc0861a4634f2662ee53df82345dd0666a126fba89b22951",
+    "software/cpp/src/composition/GazeboModelCommand.cpp": "955efca176dbd3a0b4b903d6bbf2c967c79b02e50cba2e67864bd06508b7a4f8",
+    "software/cpp/src/cli/ProjectTools.cpp": "1c327c82556587189e297251e8cc00e2002480c49d2a4004cf7b72d6f8ba34b1",
+    "software/cpp/src/ui/MainWindow.cpp": "b828d3f97447c6bfc2a583c5d6b8fdffefc00960d96c7ccd86262a17c66a00bf",
+    "software/cpp/include/drone_agricole/ui/MainWindow.hpp": "c043acad3432c3f687c92b2686733fdb6cbbe4c66be1a1a5d06dc730791e06a4",
+    "software/cpp/src/ui/TrajectoryView.cpp": "1653361357a53205395b87c15bbcad32dbd185de6fb5d7a4bb56fa51858ab0bf",
+    "software/cpp/include/drone_agricole/ui/TrajectoryView.hpp": "5467c02159c758a18c982ecac21d930c8a4f09e8c2e2b3d16ac9ca2f69a4a8c8",
+    "software/cpp/CMakeLists.txt": "46d4f8c44cb78fdd7a78432d476e6cb3d30e91ab0480c0ee1acb8a8c6ff27f2c",
+    "software/cpp/cmake/ArchitectureChecks.cmake": "74984c50294bce872b4bf9b163f80f8f508b9e6f8d5f38e2eb15fceb80da3ada",
+    "software/cpp/tests/TestGazeboExport.cpp": "6b5ea39334db6be0feb8ef557d42c0e1d0093bd09ddac0d4d9448779ae904d81",
+    "software/cpp/tests/TestGazeboModelPage.cpp": "f2ce4cf35269e4b3d87ff9bccb6f4fa835d2e955600f6589eb56e845a13a2eab",
+    "software/cpp/tests/TestStationNavigation.cpp": "b522ce9bd2fd608b415dde24e7a9bb8f4953d392167b5eae0de83332c58963d4",
+    "software/cpp/tests/TestWorkbenchPages.cpp": "4f8faa3045042605b2dc8188db5d5c0a0e80f9282bca73919eea533b3d6583a8",
+    "software/cpp/tests/TestWorkspacePages.cpp": "7374829bcd586a989759e1a2b8720e98888ab2c51e850e93eeb3ded7cd85f634",
+    "simulation/gazebo/ModelBuilder.cpp": "4e20c31a2156cbcf70b44f986cd17d95d15f65bfcfe98e9caaec9220961c9c01",
+    "simulation/gazebo/ModelBuilder.hpp": "ef1a4ac2782554495ec906bc3ab6ef0bb1597ee82bcbace70d41dbbbd38e893b",
+    "simulation/gazebo/tools/cad_export_cartographe.py": "e9b89261c22ac063fd0b4ff3263838369969b27381abb7fe5e2fa982e52e3768",
+    "simulation/gazebo/tools/cad_export_collisions.py": "c13ac7c53a571ce59edbbf4f741fc3ba7b5fbd89e1b98b77cea2f97b97c87629"
+  },
+  "builds": {
+    "desktop_debug": "PASS",
+    "ci_windows": "PASS",
+    "architecture_checks": "PASS",
+    "linux_station_build": "Not executed"
+  },
+  "binaries": [
+    {
+      "path": "build/ci-windows/software/cpp/drone-agricole-tools.exe",
+      "sha256": "25aa3439891331bafb4a37ab121ff3e7a71eb30a459f93e09baf8470563ca1ae"
+    },
+    {
+      "path": "build/desktop-debug/software/cpp/drone-agricole-dashboard.exe",
+      "sha256": "3765be6dbd72cc090b5f65fe48580b489f506450e476f91b8982031e5f7a5ecc"
+    }
+  ],
+  "tests": {
+    "standalone_generator": {
+      "proof": {
+        "path": ".runtime/gazebo_bridge_generator_tests.xml",
+        "sha256": "8929f4e93f0cd40000f6523287c45007679434767fc0f253a0c3f5919861263c"
+      },
+      "failed": 0,
+      "passed": 2
+    },
+    "backend_methods": 10,
+    "negative_scope": [
+      "Source mismatch",
+      "Corrupt mesh",
+      "Existing destination",
+      "Outside workspace",
+      "Missing FreeCAD Python",
+      "Export lock",
+      "Cancellation without publication",
+      "Failed backend",
+      "Concurrent start"
+    ],
+    "page_methods": 2,
+    "lifecycle": "Restart from completed tested; thread finished before terminal publication",
+    "station_ctest": {
+      "proof": {
+        "path": ".runtime/gazebo_bridge_tests_final.xml",
+        "sha256": "4cc57f19f5b098f21efdb2af90df7ea06438c769c2fb1c19cbf3561736075393"
+      },
+      "failed": 0,
+      "passed": 7
+    }
+  },
+  "packages": [
+    {
+      "created_at_utc": "2026-10-24T20:45:02.801Z",
+      "manifest": {
+        "path": "results/simulation/model_exports/bridge_cad_final/cartographe/export_manifest.json",
+        "sha256": "973f129aa730403698dcb931d9f0c31f874e620d9081cec41791fc01213f67ed"
+      },
+      "regenerated_from_cad": true,
+      "files_checked": 15,
+      "role": "Real CAD conversion; before additive standalone preview-world packaging",
+      "directory": "results/simulation/model_exports/bridge_cad_final/cartographe",
+      "all_hashes_match": true
+    },
+    {
+      "created_at_utc": "2026-10-24T20:46:25.788Z",
+      "manifest": {
+        "path": "results/simulation/model_exports/bridge_final_validation/cartographe/export_manifest.json",
+        "sha256": "27e11a4f5fbd2172ad82963b67022a687aa75ad538c2281e505004cce5f8dd50"
+      },
+      "regenerated_from_cad": false,
+      "files_checked": 16,
+      "role": "Final packaging including preview_world.sdf; verified mesh reuse",
+      "directory": "results/simulation/model_exports/bridge_final_validation/cartographe",
+      "all_hashes_match": true
+    }
+  ],
+  "actual_source_preservation": {
+    "source_hashes_rechecked": 156,
+    "native_open_recompute_save": false,
+    "passed": true
+  },
+  "real_cancel": {
+    "final_directory_exists": false,
+    "proof": {
+      "path": ".runtime/gazebo_bridge_cancel.log",
+      "sha256": "3f40f56bf88b2b334879fcfdf807b2b75fd923be4c83f10c8fcda581956e9115"
+    },
+    "exit_code": 130,
+    "during": "CAD tessellation Python process",
+    "after_ms": 10000
+  },
+  "gazebo_validation": {
+    "headless_load_exit_code": 0,
+    "steps": 1000,
+    "network": "none",
+    "arm_commands_sent": false,
+    "warnings": [
+      "No robotNamespace: model name used",
+      "motorNumber deprecated on Harmonic; still accepted",
+      "No preferred network interface in isolated container"
+    ],
+    "proof": {
+      "path": ".runtime/gazebo_bridge_gz_final_load.log",
+      "sha256": "7b0bc88abbda396aa5cbd66cd5af9f73a9efbb20da8db71bf78c96c93a12b30e"
+    },
+    "sdf_valid": true,
+    "px4_started": false
+  },
+  "ui": {
+    "preview": "Sampled visual vertices, metric and navigable; full-resolution STL retained in package",
+    "inspection": "Rendered screenshot visually inspected; model, controls and layout visible",
+    "route": "bench-model",
+    "capture": {
+      "path": ".runtime/gazebo_model_page_final.png",
+      "sha256": "8fc2c8ff7bd34cd79cbaf48df309221abe8a5398664d41dab0da8e57c6a9785c"
+    },
+    "navigation": "Simulations → Modèle 3D"
+  },
+  "independent_review": {
+    "reviewer": "/root/review",
+    "no_files_modified_by_reviewer": true,
+    "final_package_hashes_checked": 16,
+    "verdict": "GO, no blocking findings remaining",
+    "fixes": [
+      "World source captured before copying and copied hash compared",
+      "Terminal signal emitted after thread cleanup; reentrant restart test",
+      "Long-operation lock staleness policy explicit",
+      "XML preview world handles self-closing world; file closed before directory rename on Windows"
+    ],
+    "independent_tests": [
+      "test_gazebo_export PASS",
+      "test_gazebo_model_page PASS"
+    ]
+  },
+  "anomalies_resolved": [
+    "Isolated Windows TEMP denied initial deep fixture writes; test fixtures scoped to working directory",
+    "A legacy UI test remained blocked in isolated TEMP; final suite run with normal TEMP access",
+    "Preview-world fixture exposed the open-file directory rename restriction on Windows; corrected before final tests"
+  ],
+  "reproduction": [
+    "cmake --preset desktop-debug",
+    "cmake --build --preset desktop-debug --target drone-agricole-dashboard",
+    "build/desktop-debug/software/cpp/drone-agricole-dashboard.exe --workspace D:/ProjetGuillaume/DroneAgricole --page bench-model",
+    "build/desktop-debug/software/cpp/drone-agricole-tools.exe gazebo-model --action export",
+    "build/desktop-debug/software/cpp/drone-agricole-tools.exe gazebo-model --action export --reuse-meshes --output results/simulation/model_exports/NEW_ID/cartographe",
+    "ctest --test-dir build/ci-windows -R test_gazebo --timeout 30 --output-on-failure"
+  ],
+  "limits": [
+    "Only active cartographe profile; generic STEP/FCStd import not implemented",
+    "Synthetic physics retained; no mass identification or coupled endurance",
+    "Preview is sampled points, not a watertight display mesh",
+    "No new flight and no interactive Gazebo GUI qualification in this change",
+    "Long interactive performance and station Linux/arm64 not qualified",
+    "No T0 flight archive manufactured for asset export",
+    "Large meshes, images and logs remain outside Git"
+  ]
+}

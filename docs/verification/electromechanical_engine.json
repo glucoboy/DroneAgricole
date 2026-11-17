@@ -1,0 +1,850 @@
+{
+  "version": 1,
+  "id": "T-EM-ENGINE-01",
+  "requirements": [
+    "CAB-CARTO-001",
+    "MEC-INT-001"
+  ],
+  "scope": "Banc logiciel synthétique FreeCAD, XYZ en mm, Z vers le haut. Extraction native XLink à deux documents.",
+  "conclusion": "préliminaire",
+  "go_1": "À valider",
+  "environment": {
+    "git_base": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "working_tree": "Modifications préexistantes. Les empreintes identifient les fichiers réellement testés.",
+    "system": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.4",
+    "freecad_python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ],
+    "cables": {
+      "api": {
+        "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+        "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)",
+        "make_compoundpath": "(plist=None)",
+        "make_wireflex_from_vectors": "(vectorlist)"
+      },
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "nom": "Cables Workbench",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+        "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc"
+      },
+      "version": "0.3.7"
+    },
+    "rpc": {
+      "package": "freecad-mcp 0.1.22",
+      "tool": "get_rpc_status",
+      "observed_error": "WinError 10061"
+    }
+  },
+  "inputs_and_code": [
+    {
+      "path": "electromechanical_engine/__init__.py",
+      "sha256": "38659bf698ee284d7d2d5234a3c25a16ba50b081c63985a21817175fa6983086"
+    },
+    {
+      "path": "electromechanical_engine/__main__.py",
+      "sha256": "37ad78e8cb584cea1741b73530e86595dab2aee13d7b44f0cd754a9e64898bdd"
+    },
+    {
+      "path": "electromechanical_engine/contracts.py",
+      "sha256": "b886f442d8e8aef12f294fce15a5590af1c783eea034a296f5467d279bba490d"
+    },
+    {
+      "path": "electromechanical_engine/freecad.py",
+      "sha256": "33e266c74b26b06bf2f4387d1cc960e9c75f7d2b5891b024af7ccfc5235845e0"
+    },
+    {
+      "path": "electromechanical_engine/freecad_worker.py",
+      "sha256": "f6ccca3b8dd4e4826d1d58c6978cd36c6d41f59e76f3c549b0c957ef6d25a4c0"
+    },
+    {
+      "path": "electromechanical_engine/metrics.py",
+      "sha256": "15218cd72cdd6c98d3af4275753d4842a4040ee3ee6d99ffbc80426a172f43b2"
+    },
+    {
+      "path": "electromechanical_engine/search.py",
+      "sha256": "d380f3e38b618bfea3c05399425c2d1a341795166a3984947c1c765ce4f9d186"
+    },
+    {
+      "path": "electromechanical_engine/validation.py",
+      "sha256": "5dec4b0730802b93e6fc5bd9e158563f1bff4f6f71b54dc89626ecb2d611d263"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_contracts.py",
+      "sha256": "7f9210c7a70fdd0273e24b9b63bcc9b768d1b8fd89b512a6840500429af64758"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_freecad.py",
+      "sha256": "7b4b936d1c2329ee6b6e3c2a356a52192916ff6efb963781551e627e5c62b634"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_metrics.py",
+      "sha256": "d505df6a869a72bce97572dbae191043268be296d2304868af2f176343d34bdb"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_search.py",
+      "sha256": "6dd799b65f92c2f90862ad6be6dfa3195d88704df9cfc3cd398eeefb3e45fbaa"
+    },
+    {
+      "path": "electromechanical_engine/tests/test_validation.py",
+      "sha256": "e37ac8cc7b46c9eda198a2aebd318ec6b395e10a5deb2f9fde6c205cdd8c4f34"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_requirements.yaml",
+      "sha256": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/design_space.json",
+      "sha256": "02281be23142906e55d22302e1399c35395e5577f38a9d2b1c80f97bbaee1991"
+    },
+    {
+      "path": "electromechanical_engine/tests/fixtures/banc/system_model.json",
+      "sha256": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1"
+    },
+    {
+      "path": ".agents/skills/system-electromechanical-architect/SKILL.md",
+      "sha256": "d65c1469abc7868cfd48e2baed451ccd24f6cdf7a0ef77e72b34e40b3989c3aa"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/SKILL.md",
+      "sha256": "0b656f4b97f02dbf7a6630ac4543a9801b4fe625d70e45e92b452df8c358ddff"
+    },
+    {
+      "path": ".agents/skills/electromechanical-validator/SKILL.md",
+      "sha256": "97ce3f555f5651ca2c8e78b5c93c6289968461ddd265a4d6e90f6e77edf7f8b9"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/workspace_guard.py",
+      "sha256": "deef5dc55f76b04675f445c1801b5420dd414bc61b02be463c578ce7d1c73358"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/freecad_geometry.py",
+      "sha256": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39"
+    },
+    {
+      "path": ".agents/skills/electromechanical-integration/scripts/tests_freecad.py",
+      "sha256": "2b680679f844a2204a041f9dafb1338582dd3af5e48c66d21676e056db253a21"
+    },
+    {
+      "path": "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py",
+      "sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061"
+    }
+  ],
+  "reference": {
+    "sha256": "b6d4acb2d2cd89967ebe1e3d009cb845edb36959159119b5a4a6c548cdd903ab",
+    "files": {
+      "design_requirements.yaml": "da642c9644732033a4f4b298cf498181dd578ee4e337aa480db69d6a5fbbde38",
+      "system_model.json": "9365a2a4d36a82d66e7e89db6d0968d12fe839a206d0ba526520f9ad5996e8c1"
+    },
+    "design_space_sha256": "1c38687d8dd321c23a7b55ba7dee4ca4761037ff66157a986865e2f0d65fbe96"
+  },
+  "source_integrity": {
+    "count": 941,
+    "scope": "938 FCStd sous hardware/mecanique/cartographe et trois sources techniques",
+    "algorithm": "SHA-256",
+    "before": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c",
+    "after": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c",
+    "unchanged": true
+  },
+  "commands": [
+    {
+      "id": "tests",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "unittest",
+        "discover",
+        "-s",
+        "electromechanical_engine/tests",
+        "-v"
+      ],
+      "start_utc": "2026-11-10T18:58:52.7524148+00:00",
+      "end_utc": "2026-11-10T18:59:24.6254385+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/tests.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/tests.stderr"
+    },
+    {
+      "id": "probe",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "probe"
+      ],
+      "start_utc": "2026-11-10T18:59:24.6442282+00:00",
+      "end_utc": "2026-11-10T18:59:25.3448705+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/probe.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/probe.stderr"
+    },
+    {
+      "id": "xlink-fixture",
+      "program": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/xlink_fixture.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-source"
+      ],
+      "start_utc": "2026-11-10T18:59:25.3467574+00:00",
+      "end_utc": "2026-11-10T18:59:25.8977899+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-fixture.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-fixture.stderr"
+    },
+    {
+      "id": "extract",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "extract",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-source",
+        "--entry",
+        "assemblies/Assembly.FCStd",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-copy"
+      ],
+      "start_utc": "2026-11-10T18:59:25.9009356+00:00",
+      "end_utc": "2026-11-10T18:59:32.2863498+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/extract.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/extract.stderr"
+    },
+    {
+      "id": "freeze",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "freeze",
+        "--project",
+        "electromechanical_engine/tests/fixtures/banc",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference"
+      ],
+      "start_utc": "2026-11-10T18:59:32.2886622+00:00",
+      "end_utc": "2026-11-10T18:59:32.8970731+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/freeze.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/freeze.stderr"
+    },
+    {
+      "id": "explore",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "explore",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--space",
+        "electromechanical_engine/tests/fixtures/banc/design_space.json",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/explore"
+      ],
+      "start_utc": "2026-11-10T18:59:32.8992739+00:00",
+      "end_utc": "2026-11-10T18:59:33.5129988+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/explore.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/explore.stderr"
+    },
+    {
+      "id": "build-direct",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "build",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--candidate",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/explore/direct.json",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/direct"
+      ],
+      "start_utc": "2026-11-10T18:59:33.5150021+00:00",
+      "end_utc": "2026-11-10T18:59:41.1175682+00:00",
+      "code": 2,
+      "expected": 2,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/build-direct.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/build-direct.stderr"
+    },
+    {
+      "id": "build-lateral",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "build",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--candidate",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/explore/lateral.json",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/lateral"
+      ],
+      "start_utc": "2026-11-10T18:59:41.1189706+00:00",
+      "end_utc": "2026-11-10T18:59:50.0134919+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/build-lateral.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/build-lateral.stderr"
+    },
+    {
+      "id": "campaign",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "run",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--space",
+        "electromechanical_engine/tests/fixtures/banc/design_space.json",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign"
+      ],
+      "start_utc": "2026-11-10T18:59:50.0153200+00:00",
+      "end_utc": "2026-11-10T19:00:27.3342577+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign.stderr"
+    },
+    {
+      "id": "revalidate",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "validate",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--candidate",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/lateral",
+        "--output",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidated"
+      ],
+      "start_utc": "2026-11-10T19:00:27.3357280+00:00",
+      "end_utc": "2026-11-10T19:00:31.4602823+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidate.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidate.stderr"
+    },
+    {
+      "id": "compare",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage",
+        "electromechanical_engine",
+        "compare",
+        "--project",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/reference",
+        "--baseline",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/lateral-large/candidate_report.json",
+        "--candidate",
+        ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidated/candidate_report.json"
+      ],
+      "start_utc": "2026-11-10T19:00:31.4617566+00:00",
+      "end_utc": "2026-11-10T19:00:31.8692056+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/compare.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/compare.stderr"
+    },
+    {
+      "id": "coverage",
+      "program": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "arguments": [
+        "-B",
+        "-m",
+        "trace",
+        "--report",
+        "--missing",
+        "--summary",
+        "--file=.runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/trace-counts.dat",
+        "--coverdir=.runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage"
+      ],
+      "start_utc": "2026-11-10T19:00:31.8706591+00:00",
+      "end_utc": "2026-11-10T19:00:32.0918718+00:00",
+      "code": 0,
+      "expected": 0,
+      "stdout": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage.stdout",
+      "stderr": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage.stderr"
+    }
+  ],
+  "tests": {
+    "total_passed": 61,
+    "native_subprocess_tests": 3,
+    "cables_helper": {
+      "tests_run": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": []
+    },
+    "skills_format_validated": [
+      "system-electromechanical-architect",
+      "electromechanical-integration",
+      "electromechanical-validator"
+    ]
+  },
+  "coverage": {
+    "method": "Python trace, lignes du processus orchestrateur pendant les tests et les commandes CLI. Le worker FreeCAD externe est exercé par les tests natifs.",
+    "lines": {
+      "__init__": {
+        "instrumented_lines": 1,
+        "covered_percent": 100.0
+      },
+      "__main__": {
+        "instrumented_lines": 195,
+        "covered_percent": 95.9
+      },
+      "contracts": {
+        "instrumented_lines": 332,
+        "covered_percent": 87.3
+      },
+      "freecad": {
+        "instrumented_lines": 117,
+        "covered_percent": 84.6
+      },
+      "metrics": {
+        "instrumented_lines": 279,
+        "covered_percent": 96.4
+      },
+      "search": {
+        "instrumented_lines": 378,
+        "covered_percent": 93.7
+      },
+      "validation": {
+        "instrumented_lines": 305,
+        "covered_percent": 94.1
+      }
+    }
+  },
+  "extraction": {
+    "entry": "assemblies/Assembly.FCStd",
+    "files_checked": 2,
+    "source_hashes_preserved": true,
+    "reopened": true,
+    "recompute_ok": true,
+    "saved_process": 36088,
+    "inspected_process": 36564,
+    "native_inputs_sha256": {
+      "assemblies/Assembly.FCStd": "5ca131e3a90204583f8ac0d013710dd30ac57863face00f580d0c06a89d7568d",
+      "parts/Part.FCStd": "6f7c511044413440395e80cc2e35d1ca69daed11df78039c7fa3c7e15647f1eb"
+    },
+    "prototype_copy": {
+      "closure_files": 137,
+      "status": "non finalisé",
+      "last_phase": "contrôle de validité BRep de Prototype_Cartographe.FCStd#Ensemble",
+      "last_timeout_s": 30,
+      "source_integrity": "137/137 vérifiés"
+    },
+    "perception_copy": {
+      "entry": "sous_assemblages/SA04_Prototype_Perception.FCStd",
+      "files_checked": 20,
+      "objects": 285,
+      "links": 52,
+      "completed_partial_documents": [
+        "pieces/commerce/EQ_Basler.FCStd",
+        "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd"
+      ],
+      "saved_process": 36136,
+      "inspected_process": 10420,
+      "reopened": true,
+      "recompute_ok": true,
+      "native_sha256": "26d4812ad87077e703d70e2082a38afbb882db70a1bf97517a01a736ba9b64f1",
+      "source_hashes_preserved": true
+    }
+  },
+  "campaign": {
+    "stop_reason": "ALTERNATIVES_EXHAUSTED",
+    "pareto": [
+      "lateral"
+    ],
+    "candidates": [
+      {
+        "id": "direct",
+        "status": "NON_CONFORME",
+        "length_mm": 100.0,
+        "native_sha256": "4725d379bc853b495b554ff6d6cd1f02dfa0b3892d6c23376fa3c6216b86175b"
+      },
+      {
+        "id": "lateral",
+        "status": "VALIDE_GEOMETRIQUEMENT",
+        "length_mm": 121.41592653589794,
+        "native_sha256": "de2b7fec6772c596ac4ebdf9878e0984658dc919f742e0a814447bf19027d0dc"
+      },
+      {
+        "id": "lateral-large",
+        "status": "VALIDE_GEOMETRIQUEMENT",
+        "length_mm": 133.41592653589794,
+        "native_sha256": "2f6e32d4005120414efb7409f950309b529afb54ce7cb15fe1f6014065e76fdf"
+      },
+      {
+        "id": "connectique-haute",
+        "status": "CANDIDAT_CONDITIONNEL",
+        "length_mm": 117.41592653589794,
+        "native_sha256": "31f89c9a67fc0b70aa655589e9e619a8a67ffc6da2df65d3850e5cfc3e699c6a"
+      },
+      {
+        "id": "carte-intermediaire",
+        "status": "CANDIDAT_CONDITIONNEL",
+        "length_mm": 121.41592653589794,
+        "native_sha256": "12ca8ca0b3a6471e4d9f028f090cb9ba8ad4293c3a0a1489c83ab62b995eb203"
+      }
+    ],
+    "resolved_trigger_findings": [
+      {
+        "after": {
+          "code": "V2.PAIR",
+          "criticality": "none",
+          "evidence": {
+            "distance_tolerance_mm": 1e-06,
+            "measurement": {
+              "a": "L1",
+              "authorized_relation": false,
+              "b": "Obstacle",
+              "clearance_mm": 10.0,
+              "failures": [],
+              "intersection_mm3": 0.0,
+              "intersection_volume_mm3": 0.0,
+              "outer_representation": null,
+              "pair": [
+                "L1",
+                "Obstacle"
+              ],
+              "stage": "integration",
+              "status": "pass",
+              "unknowns": []
+            },
+            "permission": null,
+            "required_clearance_mm": 1,
+            "volume_tolerance_mm3": 1e-06
+          },
+          "object": [
+            "L1",
+            "Obstacle"
+          ],
+          "reason": "clearance_checked",
+          "status": "pass"
+        },
+        "before": {
+          "code": "V2.PAIR",
+          "criticality": "blocking",
+          "evidence": {
+            "distance_tolerance_mm": 1e-06,
+            "measurement": {
+              "a": "L1",
+              "authorized_relation": false,
+              "b": "Obstacle",
+              "clearance_mm": 0.0,
+              "failures": [
+                "forbidden_interference",
+                "insufficient_clearance"
+              ],
+              "intersection_mm3": 31.415926535897942,
+              "intersection_volume_mm3": 31.415926535897942,
+              "outer_representation": null,
+              "pair": [
+                "L1",
+                "Obstacle"
+              ],
+              "stage": "integration",
+              "status": "fail",
+              "unknowns": []
+            },
+            "permission": null,
+            "required_clearance_mm": 1,
+            "volume_tolerance_mm3": 1e-06
+          },
+          "object": [
+            "L1",
+            "Obstacle"
+          ],
+          "reason": "forbidden_interference",
+          "status": "fail"
+        }
+      }
+    ],
+    "revalidation": {
+      "status": "VALIDE_GEOMETRIQUEMENT",
+      "native_sha256": "de2b7fec6772c596ac4ebdf9878e0984658dc919f742e0a814447bf19027d0dc",
+      "coverage": {
+        "evaluated": 1,
+        "fail": 0,
+        "inventoried": 1,
+        "pass": 1,
+        "unknown": 0
+      },
+      "domains": {
+        "V1": {
+          "fail": 0,
+          "pass": 1,
+          "unknown": 0
+        },
+        "V2": {
+          "fail": 0,
+          "pass": 11,
+          "unknown": 0
+        },
+        "V3": {
+          "fail": 0,
+          "pass": 1,
+          "unknown": 0
+        },
+        "V4": {
+          "fail": 0,
+          "pass": 0,
+          "unknown": 0
+        },
+        "V5": {
+          "fail": 0,
+          "pass": 1,
+          "unknown": 0
+        }
+      }
+    },
+    "comparison": {
+      "comparable": true,
+      "admissible": true,
+      "dominance": "CANDIDATE",
+      "deltas": {
+        "total_length_mm": -12.0
+      },
+      "link_length_deltas_mm": {
+        "L1": -12.0
+      },
+      "missing_objectives": []
+    }
+  },
+  "limits": [
+    "Une extraction XLink inventorie les natifs. L’import métier des interfaces et exigences d’un assemblage demande un mapping explicite.",
+    "Le constructeur traite les corridors déclarés sur enveloppes simples. Découverte automatique, packing et construction de supports réels restent ouverts.",
+    "L’évaluation de la mobilité V4 utilise des observations synthétiques injectées. La mesure native des états mobiles et des portées sans retenue reste ouverte.",
+    "Certaines métriques V5 et vues V6 manquent quand la géométrie ou les données requises ne sont pas observables. La courbure spline échantillonnée ne fournit pas de borne garantie.",
+    "Interaction FreeCAD MCP, qualification physique et reconstruction globale ne font pas partie des exécutions démontrées."
+  ],
+  "independent_workflow_checks": {
+    "architecture": {
+      "status": "pass",
+      "steps": [
+        "probe",
+        "freeze",
+        "explore",
+        "run",
+        "build",
+        "validate",
+        "compare"
+      ],
+      "source_and_reference_files_unchanged": true,
+      "pareto": [
+        "lateral"
+      ]
+    },
+    "validation": {
+      "status": "pass",
+      "native_and_reference_unchanged": true,
+      "tampered_native_exit_code": 1,
+      "tampered_reference_exit_code": 1
+    },
+    "review": [
+      "Le gel est publié après recontrôle des entrées et des copies.",
+      "Une correction ne peut être attribuée qu’au même code, objet et état.",
+      "Les empreintes locales assurent un contrôle de cohérence. Les rapports ne sont pas signés."
+    ]
+  },
+  "artifacts_local": [
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/commands.jsonl",
+      "sha256": "458f2ecee64fc4f52bfbc8acb3f76476250765849d718eebe5158c1fca396510"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/tests.stderr",
+      "sha256": "920273346a8932e9ada3c64a1b4dcf4f1125939b1ee35f2f7ad3d4fea491df19"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/coverage.stdout",
+      "sha256": "07c9986759ee081172a3f9c9a834f90e32d5cbe7d516877c526a5ddbdb0f8e20"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/compare.stdout",
+      "sha256": "2ca2ebc1d90b3aa7dba24c540e80b1de60c92a67820ab468974916933b1b2b5e"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/campaign_report.json",
+      "sha256": "8658bf2af61668951e34b4639cf1ecf7de07d27b68332c80b831d90ccb6c731b"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/xlink-copy/extraction_report.json",
+      "sha256": "51f6769d6fee3673eaf778f9a48c0402a91d890f121549e6db23c57b06c61658"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidated/candidate_report.json",
+      "sha256": "fcba7a4758b202605897d94626304d8316b09ce7f2824f0e20d48b9d6b7fabc1"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/revalidated/observations.json",
+      "sha256": "008394790b59666f4e6915c652c12ccf0c5405837cd2c53dfa3de1a207ab797d"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/attempts/001.json",
+      "sha256": "fb43a8dfa9ac3b0ac339bc5fa8274cb3db38efaff2898b3157a94de36d9bfc32"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/attempts/002.json",
+      "sha256": "f4c56b956665a873e0f769d25a52aa13addbdcc04958485ac8fe8e1a4376e054"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/attempts/003.json",
+      "sha256": "b13081cdf158aa2b62aea9497874683ecaf0a063e431cb54074347a8be28d7e4"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/attempts/004.json",
+      "sha256": "bb110079ab2ec9483dc89618a98cafff8662c96be5ddf739b32821542f39960e"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/rejeu-20261110-195852716/campaign/attempts/005.json",
+      "sha256": "254994e0b48b0de9124f806c759696d9df92a7d8ee33f7655a3caa203b47110f"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/cables-api.json",
+      "sha256": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/source-comparison.json",
+      "sha256": "f0700944c3baf982346763e44b9ab619378f34d8920a6185b4abfbfe3a4eaae0"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/sources-before.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/sources-after.json",
+      "sha256": "54c2f49e5e67edca39aea64c6615e09c94b268eb132209fdf553d2f0ebeb228c"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/replay.ps1",
+      "sha256": "8fe7d4b812e6035f296a2b51053611d0da39d23f577bd0575352795f15fb879a"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/trace_run.py",
+      "sha256": "ae1e7aa44b8127d66c2f97ce2fc2e5c6a0cef79820d6d9824eb1ef618b8659de"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/xlink_fixture.py",
+      "sha256": "710a076745214ad604168cdb64deba6b2490dc0d56e79b763efa8b0b7181732e"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/skill-system-electromechanical-architect.log",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/skill-electromechanical-integration.log",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-20261110/skill-electromechanical-validator.log",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-freecad/prototype-traced.log",
+      "sha256": "a003dc064bddc2c789a487d2aaf237213cc1b0dedc6527c593a90b5818ccd753"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-freecad/prototype-traced/experiment.json",
+      "sha256": "7788b46966d77dd8d5f65b9db4ece5df259bc2463c5b4c7ae711eab690b9d7af"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-freecad/prototype-traced/roundtrip-22d6dd27dc5846dd83a1fa900d2e3f3d.request.stderr.log",
+      "sha256": "960a6613d5dbe5317d38ef692fc5698b73601d2bee2ad88d116332bde95ac972"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-freecad/prototype-inventory-diagnostic.log",
+      "sha256": "8de71646e539b1d0353848cbf4760e7e67a3870dc3a185ecfb65c5b5cba4b531"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/reprise-freecad/perception-complete/extraction_report.json",
+      "sha256": "3a011e8fe0c6d53c6a16b073fe159d069123791c063b3314b748f83c3dc75ee7"
+    },
+    {
+      "path": ".runtime/moteur-cablage-demo-20261110-195407037/run/campaign_report.json",
+      "sha256": "d67635466071b4f8d5a1aa141878b6fcc7eec0c1628a9aeffe6a4c76d402eb06"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/skill-validator-20261110-195425766/revalidation/candidate_report.json",
+      "sha256": "a901efeb56968540e325b28bdd71250d857029cb9fda7afe8af4a3cf34ac9206"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/skill-validator-20261110-195425766/reject-native.stdout.json",
+      "sha256": "0003b8eb64385f38130afd4389c591991d2f07c96085ea04ef3471edeed4f5bb"
+    },
+    {
+      "path": ".runtime/electromechanical-engine/skill-validator-20261110-195425766/reject-reference.stdout.json",
+      "sha256": "d5f65aeaaace30bfd35a5f128392fe68e12cee2e80a4b92dc0939a83ae2f5d0f"
+    }
+  ]
+}

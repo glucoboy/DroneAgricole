@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "test_id": "T-EM-ENGINE-L1",
+  "requirements": ["CAB-CARTO-001", "MEC-INT-001", "METH-001"],
+  "date": "2026-11-12",
+  "verdict": "L1_PASS",
+  "environment": {
+    "os": "Microsoft Windows 10.0.26300",
+    "architecture": "amd64",
+    "compiler": "GNU 16.2.0, -std=c++17",
+    "cmake": "4.4.2",
+    "qt": "6.11.2",
+    "python": {"system": "3.14.4", "ctest": "3.14.7"},
+    "powershell": "7.6.9",
+    "git_head": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "workspace_dirty": true,
+    "binary_sha256": "8529551e3d848c39cda59b19ecbb261f370d2018802096d2ff0ebaefc7f1a7b2"
+  },
+  "input_sha256": {
+    "docs/electromechanical_v2/BASELINE_MANIFEST.json": "1871302537a1d77bec5399c03bf5a055cb41112c6fae1e26a1074f558861ad0b",
+    "docs/electromechanical_v2/DATA_CONTRACTS.schema.json": "c151b22b41f71d0ab74f2bae796a150b23373d9c04471277861ec4591ed1085c",
+    "docs/electromechanical_v2/L1_CARTOGRAPHE.json": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b",
+    "docs/electromechanical_v2/RESEARCH_REPORT.schema.json": "e2dc8c4912f03e595af269a3317f24d2e8b59fc56e81f13c2c7b6ea1279d0d0e"
+  },
+  "checks": {
+    "l1_ctest": {"suites_passed": 1, "tests_passed": 24, "failed": 0, "skipped": 0},
+    "independent_build_and_test": {"tests_passed": 24, "failed": 0, "skipped": 0},
+    "v1_regression": {"tests_passed": 63, "failed": 0, "native_skipped": 10},
+    "l0_example_schema": "PASS",
+    "l1_report_schema": {"offline_reports_passed": 8, "https_reports_passed": 1},
+    "independent_schema_review": {
+      "synthetic_outcomes_validated": ["RESOLVED", "UNKNOWN", "INCONCLUSIVE", "CONDITIONAL"],
+      "invalid_status_mutations_rejected": 4
+    },
+    "l0_active_native_sha256": {"checked": 137, "differences": 0},
+    "issue_lookup_and_cache_hit": "PASS",
+    "unknown_register_offline": {"items": 4}
+  },
+  "offline_outcomes": {
+    "F16-AXIS-ACTIVE": {"outcome": "RESOLVED", "value": 425.17384217864503, "unit": "mm"},
+    "F16-CANDIDATE-AXIS": {"outcome": "RESOLVED", "value": 494.607764256343, "unit": "mm"},
+    "F16-MOUNTED-BEND-RADIUS": {"outcome": "UNKNOWN", "value": null, "unit": "mm"},
+    "F16-CANDIDATE-NET-MASS": {"outcome": "UNKNOWN", "value": null, "unit": "g"},
+    "F16-PLAN-A1-LENGTH": {"outcome": "RESOLVED", "value": 508, "unit": "mm"},
+    "F16-LENGTH-BUDGET-A1": {
+      "outcome": "CONDITIONAL", "value": -38.20776425634301, "unit": "mm",
+      "bounds": [-53.60776425634299, -22.807764256343035]
+    },
+    "F16-CAMERA-MASS-BOUND-V135": {"outcome": "RESOLVED", "value": 85, "operator": "<", "unit": "g"},
+    "F16-CAMERA-MASS-BOUND-V138": {"outcome": "UNKNOWN", "value": null, "unit": "g"}
+  },
+  "https": {
+    "issue_id": "F16-CAMERA-MASS-BOUND-V138",
+    "restricted_session": {"outcome": "UNKNOWN", "diagnostic": "NETWORK_UNAVAILABLE (HostNotFoundError)"},
+    "authorized_replay": {
+      "outcome": "RESOLVED",
+      "value": 85,
+      "operator": "<",
+      "unit": "g",
+      "source_id": "E.BASLER.V138.MASS",
+      "uri": "https://docs.baslerweb.com/a2a4096-30ucbas#general-specifications",
+      "revision": "AW001406 v138, 2026-11-12",
+      "source_sha256": "592b6fa9056450b03c4701da7771b7272cbf07c9616e3f48faf092a0a501d96e"
+    }
+  },
+  "report_sha256": {
+    "docs/electromechanical_v2/examples_l1/F16-AXIS-ACTIVE.json": "5f225d8b5a7b5d2d54f7da06150f08de690beb7254fda08880bb2b07f1f4516b",
+    "docs/electromechanical_v2/examples_l1/F16-CAMERA-MASS-BOUND-V138.json": "cb93db12dfdb20e01da8d8d43c33db7d4a5a0c68ae161e9f3934db6771e71c0f",
+    "docs/electromechanical_v2/examples_l1/F16-LENGTH-BUDGET-A1.json": "29244068b88fa67019e53b5f7197b7cd2e017c79cfb224dd91bb912ac01514e7",
+    "docs/electromechanical_v2/examples_l1/F16-MOUNTED-BEND-RADIUS.json": "15ecbc9bcb9d6263e5004d16a576ffd71e4c31a8564958ce7945f52d11ddf062",
+    "docs/electromechanical_v2/examples_l1/F16-PLAN-A1-LENGTH.json": "344a88b80a20cb38b7e87196348771f6005fbb0c1dc93472cfc02accac9738f4"
+  },
+  "limits": [
+    "Exécution logicielle de conception sur Windows amd64. Autres cibles et essais physiques non exécutés.",
+    "Découverte bornée de pistes. Extraction reproductible sur les documents déclarés et les registres de transcription ou de mesure.",
+    "Le plan A1 et les fiches fabricant concernent leur définition documentaire. L’identification du cordon monté, sa masse nette et le rayon en usage réel restent ouverts.",
+    "L’admission du prototype, les contrôles natifs FreeCAD et les contrôles L2 restent hors du périmètre L1."
+  ]
+}

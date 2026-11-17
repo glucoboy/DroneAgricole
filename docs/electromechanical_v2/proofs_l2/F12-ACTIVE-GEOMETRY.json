@@ -1,0 +1,154 @@
+{
+  "cache": {
+    "hit": false,
+    "key": "ab18e623fccb0f8bbf559a83426a1fc0d1b16608ef1e5a1dfd25d36f69300ab0"
+  },
+  "configuration_id": "prototype_cartographe",
+  "conflicts": [],
+  "derivation": null,
+  "diagnostics": [],
+  "evidence_details": [
+    {
+      "applicability": {
+        "conditions": {
+          "configuration": "prototype_cartographe actif sans dock"
+        },
+        "domain": "CAD"
+      },
+      "authority": "PROJECT",
+      "confidence": "HIGH",
+      "evidence_id": "E.F12.ACTIVE.GEOMETRY",
+      "match": "EXACT",
+      "reference": {
+        "attributes": {
+          "axis": "F12"
+        },
+        "family": "Cartographe",
+        "manufacturer": "DroneAgricole",
+        "part_number": "W12",
+        "revision": "Action3-v1"
+      },
+      "value": {
+        "collected_at": "2026-11-12T00:00:00Z",
+        "evidence_ids": [
+          "E.F12.ACTIVE.GEOMETRY"
+        ],
+        "input_value_refs": [],
+        "limits": "Applicabilité à la configuration montée à vérifier.",
+        "method": "Lecture de la source citée",
+        "precision": null,
+        "revision": "Action3-v1",
+        "status": "SOURCED",
+        "uncertainty": null,
+        "unit": "1",
+        "value": "NON_CONFORME_GEOMETRIE_RC02"
+      }
+    }
+  ],
+  "issue_id": "F12-ACTIVE-GEOMETRY",
+  "local_inputs": [
+    {
+      "path": "interconnection_engine/examples/recherche_f12.json",
+      "sha256": "b7dc82b0aae6022788dd9f8c94938df0b302b4407b92c979c5d74aabd6b548eb"
+    },
+    {
+      "path": "docs/verification/cartographe_action3_interconnexions.json",
+      "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+    }
+  ],
+  "network": "DISABLED",
+  "outcome": "RESOLVED",
+  "question": {
+    "dependent_decision": "Admettre ou rejeter le raccordement géométrique de W12.",
+    "evidence_ids": [
+      "E.F12.ACTIVE.GEOMETRY"
+    ],
+    "expected_evidence": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+    "hypothesis": "La matrice Action 3 identifie un mauvais port pour W12.",
+    "id": "RQ.F12-ACTIVE-GEOMETRY",
+    "question": "Quel constat de raccordement F12 est établi sur l’actif ?",
+    "refutation": "Un état actif différent ou une autre association d’axe invalide le constat.",
+    "status": "CLOSED",
+    "subject_ids": [
+      "F12",
+      "W12"
+    ]
+  },
+  "request": {
+    "applicability": {
+      "conditions": {
+        "configuration": "prototype_cartographe actif sans dock"
+      },
+      "domain": "CAD"
+    },
+    "criticality": "HIGH",
+    "expected_authority": "PROJECT",
+    "issue_id": "F12-ACTIVE-GEOMETRY",
+    "parameter": "geometry_finding",
+    "question": {
+      "dependent_decision": "Admettre ou rejeter le raccordement géométrique de W12.",
+      "evidence_ids": [],
+      "expected_evidence": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+      "hypothesis": "La matrice Action 3 identifie un mauvais port pour W12.",
+      "id": "RQ.F12-ACTIVE-GEOMETRY",
+      "question": "Quel constat de raccordement F12 est établi sur l’actif ?",
+      "refutation": "Un état actif différent ou une autre association d’axe invalide le constat.",
+      "status": "OPEN",
+      "subject_ids": [
+        "F12",
+        "W12"
+      ]
+    },
+    "reference": {
+      "attributes": {
+        "axis": "F12"
+      },
+      "family": "Cartographe",
+      "manufacturer": "DroneAgricole",
+      "part_number": "W12",
+      "revision": "Action3-v1"
+    },
+    "study": {
+      "next_observation": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+      "strategy": "Vérifier la ligne W12 et son axe F12 dans la matrice gelée.",
+      "variables": [
+        "révision",
+        "identité du port"
+      ]
+    },
+    "unit": "1"
+  },
+  "schema_version": "1.0.0",
+  "technical_evidence": [
+    {
+      "artifact_path": "docs/verification/cartographe_action3_interconnexions.json",
+      "collected_at": "2026-11-12T00:00:00Z",
+      "domain": "CAD",
+      "hypothetical": false,
+      "id": "E.F12.ACTIVE.GEOMETRY",
+      "kind": "SOURCE",
+      "limits": "Applicabilité à la configuration montée à vérifier.",
+      "locator": "/interconnexions/19/etat_action3",
+      "method": "Lecture de la source citée",
+      "revision": "Action3-v1",
+      "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d",
+      "uri": null
+    }
+  ],
+  "unknown_register": [],
+  "value": {
+    "collected_at": "2026-11-12T00:00:00Z",
+    "evidence_ids": [
+      "E.F12.ACTIVE.GEOMETRY"
+    ],
+    "input_value_refs": [],
+    "limits": "Applicabilité à la configuration montée à vérifier.",
+    "method": "Lecture de la source citée",
+    "precision": null,
+    "revision": "Action3-v1",
+    "status": "SOURCED",
+    "uncertainty": null,
+    "unit": "1",
+    "value": "NON_CONFORME_GEOMETRIE_RC02"
+  }
+}
