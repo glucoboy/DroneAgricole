@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 4 octobre 2026 |
+| Dernière mise à jour | 17 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -158,6 +158,39 @@ puis le parcours surface à 20 suites CTest Windows réussies, comme détaillé 
 section 11. Linux/ROS 2, nouveaux rejeux LIO/SITL et ARM de cette révision
 restent **À valider**.
 
+### 6.3 Contrôles avant intégration Git — 17 novembre 2026
+
+La sauvegarde et la réunion des branches demandées par le responsable portent
+sur le workspace courant, avec ses travaux en cours. Elles ne changent pas
+la priorité de §14. Les contrôles Windows amd64 de cette passe sont consignés
+dans [la preuve structurée](verification/integration_git.json).
+
+| Périmètre | Résultat observé |
+|---|---|
+| Station Qt | compilation réussie ; 22/25 tests réussis, deux assertions en échec, `test_dashboard_mapping` interrompu après 208,95 s et donc incomplet |
+| Simulation hors ligne | compilation réussie ; six tests réussis, `self-test-sitl` dépasse la limite CTest de 30 s puis réussit en exécution directe ; génération du modèle exclue pour préserver les dérivés courants |
+| Moteurs L1–L5 | compilations et tests C++ locaux réussis ; L3 rejoué isolément après un timeout initial ; L4 : six réussites et un test natif ignoré ; L5 : deux réussites |
+| Moteur électromécanique Python | 64 tests réussis et 13 tests natifs ignorés |
+| Fichiers et configuration | configurations Compose de base et cartographe valides, dix formulaires UI XML lisibles, JSON inspectés lisibles ; aucun motif de secret détecté par le contrôle ciblé |
+
+Les assertions station concernent le libellé de masse désormais explicite
+dans `SystemPage` et le décompte des domaines du dépôt de résultats (155
+attendus contre 169 indexés). Elles restent à reprendre ; l'interruption de
+la cartographie ne démontre pas un défaut fonctionnel. La passe conserve
+ces sources et les preuves antérieures, sans correction métier ni nouvelle
+qualification. Les avertissements d'espacement de `git diff --check` sont
+également conservés pour ne pas altérer les empreintes des scripts existants.
+
+L'historique automatique KiCad `.history/`, dépourvu de dépôt distant,
+est retiré du suivi parent et conservé localement. Pièces jointes, archives
+de session et exports électroniques régénérables sont ignorés. Les petits
+natifs explicitement autorisés sont publiables ; les dépendances fabricant
+ignorées restent nécessaires pour rouvrir tous les assemblages.
+
+Build ROS 2/PX4/Docker, Linux/arm64, campagnes natives FreeCAD, ERC/DRC,
+SITL en vol et essais physiques ne sont pas exécutés dans cette tâche de
+publication. La qualification du système complet reste **À valider**.
+
 ## 7. Registre des datasets
 
 ### 7.1 BotanicGarden `1006-03`
@@ -197,7 +230,7 @@ archives ; FriûlBot est le jeu cartographique temporel actif.
 | Élément | Valeur |
 |---|---|
 | Bag | 6 557 409 210 octets ; MD5 `f79aac2893a0b910863962fbd9a9a2bf` |
-| Images `0029SET.zip` | 5 518 848 615 octets ; MD5 `14ded790d1771006219fc02980ee3eb8` |
+| Images `0029SET.zip` | 5 518 848 615 octets ; empreinte de référence dans le [catalogue, entrée FriûlBot](../datasets/manifests/catalogue_datasets.yaml) |
 | Durée / messages | 1 283,858 s / 977 318 |
 | Capteurs utiles | 12 728 scans, 256 812 IMU, 638 déclenchements, 638 jeux × 5 TIFF, 3 855 GNSS |
 
@@ -210,6 +243,13 @@ perception en vigne, pas le montage Airy/Basler ni la dynamique du drone.
 ## 8. Résultats de localisation
 
 ### 8.1 Comparaison de référence BotanicGarden à `1×`
+
+Preuve historique retrouvée lors de l'audit du 7 octobre 2026 :
+[comparaison complète du 19 août](../results/benchmarks/comparison/botanicgarden_1006-03/full_1x_qos_harmonized_20260819.json),
+qui identifie les trois runs sources sous `/workspace/results/benchmarks/`
+(montage conteneur du répertoire local `results/benchmarks/`). Cette archive
+locale est volontairement hors Git ; sa lecture confirme le tableau, sans
+rejeu ni qualification de la révision courante.
 
 | Mesure | FAST-LIO2 | Point-LIO | LIO-SAM |
 |---|---:|---:|---:|
@@ -317,6 +357,355 @@ Les délais de réaction et marges radio ne sont pas encore approuvés :
 aucune qualification possible avant leur fixation. Aucun paramètre réel
 n'est modifié par cette mise à jour documentaire.
 
+<a id="demarrage-gazebo"></a>
+### 9.2 Préparer le démarrage Gazebo — évaluation du 23 octobre 2026
+
+**Cadrage.** La demande porte sur les tâches à prévoir, sans lancer de
+simulation dans cette passe. Le premier résultat utile proposé est la reprise
+supervisée du socle existant, puis un premier `VB01` simplifié et mesuré.
+Cette préparation logicielle réversible ne clôt pas la priorité de faisabilité
+physique du cartographe (§14.1). Le `x500` générique vérifie la chaîne logicielle ;
+une estimation propre au prototype demanderait masse, centrage, inerties et
+propulsion identifiés, puis une confrontation au banc. Arrêter l'évaluation
+quand les prérequis, les sorties attendues et les inconnues sont identifiés ;
+aucun achat, changement de version ou développement n'est engagé ici.
+
+**Constats de lecture et contrôles locaux :**
+
+- Le [Compose](../compose.yaml) configure `gz_x500`, monde `default`, domaine
+  ROS `42`, API locale `8091`, télémétrie `8092` et Agent DDS UDP `8888`.
+  `docker compose --profile sim --profile viz config` se résout correctement.
+  Le client Docker `29.7.2`, Compose `5.5.0` et WSL `2.7.11.0` répondent.
+  Le moteur Docker Linux est inaccessible depuis cette session ; l'inventaire
+  des images/conteneurs n'a donc pas abouti. L'état des distributions WSL et
+  des ports hôte reste inconnu, leurs contrôles étant refusés dans la session.
+- Le [répertoire simulation](../simulation/README.md) contient seulement son
+  README : aucun monde, modèle ou scénario agricole du §4.1 n'est livré.
+  `px4-sitl` monte seulement `.runtime/px4`, sans ressources Gazebo du projet.
+  Des paramètres PX4 persistants existent : les relever avant tout rejeu,
+  plutôt que présumer un état initial vierge.
+- Le [catalogue Offboard](../configs/visualization/simulations/px4_offboard.json)
+  et le [contrat du runner](../software/src/drone_agricole_px4_bridge/src/RunnerContract.cpp)
+  proposent uniquement `square` et `failsafe`, sans mission libre ni vitesse
+  paramétrable. La station V3 y accède depuis **Bench** ; ses brouillons
+  **Missions** ne sont pas des missions PX4 exécutables (DOC-SW §4.6).
+- Les preuves C++ [carré](../results/simulation/px4_lot_a/sw0_cpp_square_20260902_1/result.json)
+  et [perte Offboard](../results/simulation/px4_lot_a/sw0_cpp_failsafe_20260902_1/result.json)
+  du 2 septembre sont présentes et annoncent succès et posé. Leurs cinq
+  artefacts T0 existent, mais les manifestes historiques n'identifient pas
+  commit/image/architecture et leur date de fin est nulle. Ils ne démontrent
+  pas le fonctionnement de la révision courante ; AUD-010/014/015 restent
+  pertinents pour une nouvelle preuve.
+
+**Ordre de travail proposé — Planifié ; charges À valider :**
+
+| Étape | Travail minimal | Signal de fin | Charge indicative |
+|---|---|---|---|
+| GZ-01 — accès et état initial | rendre le moteur Docker Linux accessible ; vérifier images, espace, ressources et ports ; identifier les paramètres persistants et les sources/binaires réellement utilisés ; reconstruire les seules cibles nécessaires si obsolètes | environnement et configuration d'exécution identifiés, sans supposer que les images locales correspondent aux sources modifiées | 0,5–1 jour |
+| GZ-02 — reprise du socle | tests des contrats/verrous concernés, lancement `x500/default`, contrôle API et odométrie fraîche, carré puis perte Offboard supervisés ; vérifier posé et finalisation des résultats | quatre segments et posé, puis repli autonome PX4 observé ; résultats, erreurs et artefacts relisibles | 0,5–1 jour |
+| GZ-03 — preuve exploitable | relever images exécutées, empreintes des sources et état Git modifié, paramètres et dates ; contrôler les contrats applicables à l'entrée et à la finalisation ; sélectionner une version stable PX4 compatible avec `px4_msgs`, épingler puis rejouer | preuve reliée au logiciel effectif et à sa configuration ; stable requise avant qualification formelle (§6.1) | 1–3 jours |
+| GZ-04 — premier VB01 exploratoire | terrain plat et rangs simples en SDF avec collisions ; montage et chemin de ressources ; mission déterministe C++17 à une vitesse déclarée ; vérité terrain distincte, métriques, événements et archivage T0 ; intégration par contrats/services partagés UI/CLI | parcours reproductible, erreurs de suivi, distances, collisions et fin de mission observables ; seuils agricoles définis avant campagne qualifiante | 3–5 jours |
+
+Ces charges d'ingénierie supposent le poste existant réutilisable, sans panne
+majeure ni téléchargement/construction exceptionnellement longs. Prévoir
+**1–2 jours pour reprendre les essais existants**, puis **4–8 jours
+supplémentaires** pour stabiliser la preuve et obtenir le premier `VB01`
+exploratoire. Ce sont des estimations, pas un budget approuvé. Après GZ-02,
+réestimer les étapes suivantes sur les difficultés réellement observées ;
+une panne d'environnement suspend la progression au lieu d'élargir la refonte.
+GZ-03 est obligatoire avant une conclusion qualifiante, sans interdire une
+exploration explicitement préliminaire sur le banc expérimental existant.
+L'orientation précisée ensuite par le responsable retient le modèle du
+cartographe pour les estimations physiques (§9.3). Le chiffrage ci-dessus
+couvre le banc générique et le premier monde, pas ce modèle ni sa calibration.
+
+Le démarrage actuel est **sans fenêtre Gazebo** (`HEADLESS=1`). Une interface
+Gazebo interactive représente un lot optionnel estimé à **2–6 h** de mise au
+point, hors total : définir et tester le passage d'affichage sur cet hôte.
+Changer seulement `PX4_HEADLESS` ne fournit pas les accès d'affichage absents
+de Compose. Le monde et ses modèles devront être accessibles au simulateur
+([guide PX4 Gazebo](https://docs.px4.io/v1.17/en/sim_gazebo_gz/index)) ; la
+compatibilité des définitions de messages doit être vérifiée lors de tout
+changement PX4 ([guide ROS 2 PX4](https://docs.px4.io/main/en/ros2/user_guide)).
+
+Avant des campagnes sans surveillance, borner et tester la fin de mission :
+le délai global d'[OffboardTest](../software/src/drone_agricole_px4_bridge/src/OffboardTest.cpp)
+exclut l'état d'atterrissage ; aucun délai automatique externe couvrant ce cas
+n'a été trouvé dans les chemins runner/client inspectés. L'arrêt opérateur
+existe ; aucun blocage réel n'a été observé pendant cette évaluation.
+
+Un premier passage `VB01` à trajectoire prédéfinie n'implémente pas la
+perception, l'évitement, la couverture agricole ni toutes les variantes
+0,5/1/2 m/s. Les capteurs LiDAR/caméra/IMU, leurs bruits et horloges, la LIO,
+les modèles dynamiques du prototype, `VB02` à `VB10` et AUTO/MANU/RF sont des
+lots distincts à réestimer selon la question retenue. La tolérance interne
+du carré n'est pas un critère agricole approuvé. `GATE-03` reste ouverte.
+
+Validation de cette évaluation : lecture croisée des configurations, contrats,
+preuves historiques et chemins d'arrêt ; contrôles d'environnement en lecture
+seule. Aucun build, test exécutable ou scénario n'a été lancé : cette passe
+évalue les travaux et le moteur Docker n'était pas accessible. Aucun statut
+**Qualifié** supplémentaire n'est accordé.
+
+<a id="fidelite-gazebo-cartographe"></a>
+### 9.3 Modèle du cartographe pour portance et autonomie — Implémenté partiellement
+
+**Choix du 23 octobre 2026.** Le responsable souhaite utiliser le modèle 3D
+du drone avec la meilleure précision possible et priorise **autonomie,
+consommation et capacité à voler avec la charge**. La source retenue et ses
+lacunes sont dans [DOC-MEC §2.3](architecture/ARCHITECTURE_MECANIQUE.md#modele-gazebo-prototype).
+Cette orientation soutient le bilan de faisabilité du §14.1. Le résultat utile
+est une estimation par configuration et profil de mission, avec incertitudes,
+limites et comparaison à des mesures. L'erreur acceptable et l'enveloppe de
+validité restent **À valider** ; aucun pourcentage de précision n'est promis.
+
+**Travaux à reprendre dans cet ordre :**
+
+| Lot | Travail minimal et dépendance | Sortie attendue |
+|---|---|---|
+| CGZ-01 — configuration physique | réconcilier la BOM active avec les occurrences CAO, masses/inclusions, matériaux, équipement réellement conservé et sources disponibles ; résoudre la cote des hélices | une configuration identifiée, bilan de masse, inconnues et mesures minimales à obtenir ; aucune masse inconnue remplacée par zéro |
+| CGZ-02 — dérivation CAO | exporter les visuels, définir des collisions contrôlées, repères et quatre rotors ; constituer masse/centre/inerties depuis les données sourcées | modèle SDF traçable aux natifs ; aperçus géométriques possibles avant clôture des paramètres physiques, conclusions dynamiques limitées aux données disponibles |
+| CGZ-03 — vol chargé | relier géométrie moteur, ordre des sorties, axes, sens et allocation PX4 à un airframe SITL propre ; identifier poussée/couple/régime, transitoires ESC/moteur et traînée selon tension, charge, vitesse et vent | stationnaire et petits mouvements instrumentés, saturation et marge de poussée observables dans le domaine documenté ; aucune reprise implicite des coefficients du x500 |
+| CGZ-04 — consommation et batterie | coupler demande propulsive et consommation électrique du couple exact moteur/hélice/ESC ; ajouter charges avioniques et rendements réels ; modéliser capacité utilisable, tension/chute sous charge, température et seuils BMS/PX4 | énergie et courant par phase de mission, état batterie cohérent, durée avant réserve/repli avec incertitudes ; source de batterie simulée unique et identifiée |
+| CGZ-05 — calibration et validation | confronter d'abord aux données fabricant identifiées, puis au banc et aux essais autorisés selon §2 ; réserver des données indépendantes pour l'évaluation | écarts entre prédiction et mesure, domaine valide et décision de corriger/accepter le modèle selon critères fixés avant résultat |
+
+Le modèle moteur multicoptère de Gazebo fournit notamment poussée en fonction
+du régime, couple et constantes de réponse paramétrées ; la forme CAO ne
+calibre pas ces coefficients et ne réalise pas une CFD du drone
+([source officielle gz-sim8](https://github.com/gazebosim/gz-sim/blob/gz-sim8/src/systems/multicopter_motor_model/MulticopterMotorModel.cc)).
+Pour la capacité à voler, confronter poids, centrage, poussée disponible et
+saturation par moteur aux tensions et conditions étudiées, puis au banc.
+Une valeur publicitaire du porteur ou une animation stable ne ferme pas
+`MEC-MAS-001` ni `ELEC-PWR-002`.
+
+**L'autonomie exige un modèle énergétique explicite.** La batterie SITL
+documentée par PX4 suit des paramètres de décharge et de plancher ; elle ne
+constitue pas un calcul de consommation du prototype
+([PX4, batterie simulée](https://docs.px4.io/main/en/simulation/failsafes#low-battery)).
+Le plugin batterie Gazebo demande également une consommation explicitement
+définie ([Gazebo Battery](https://gazebosim.org/api/sim/8/battery.html)).
+Vérifier le comportement de la version épinglée et la source réellement reçue
+par PX4 avant toute conclusion d'endurance. Ne pas compter deux fois les
+pertes ou l'avionique ; les 75 W/80 % historiques de DOC-ELEC §5.1 et la
+réserve de 20 % de DOC-MEC §6.3 restent des hypothèses d'étude, pas des mesures
+de la configuration courante. Inclure décollage, transits, travail, retour et
+atterrissage dans le profil utile, avec l'énergie nécessaire au retour.
+
+**Validation proposée — tests Planifiés, seuils À valider avant campagne :**
+
+| Test | Exigence / objet | Vérification et preuve attendue |
+|---|---|---|
+| `T-CARTO-GZ-01` | `MEC-ARC-001` ; export et repères | empreintes natives/maillages/SDF, occurrences, unités, dimensions et écarts de collisions ; positions et axes rotors ; paramètres effectifs d'airframe |
+| `T-CARTO-GZ-02` | `MEC-MAS-001` ; masse/centrage/inerties | provenance, inclusions et incertitudes par composant ; agrégation sans doublon ; inerties admissibles ; comparaison masse/centrage mesurés et données indépendantes disponibles |
+| `T-CARTO-GZ-03` | `SAFE-REQ-001/002`, `ELEC-PWR-002` ; portance et dynamique | repos au sol, efforts/couples connus, stationnaire, petits échelons, carré, posé et perte Offboard ; saturation et sensibilité au pas physique ; comparaison poussée/régime/courant et transitoires du banc |
+| `T-CARTO-GZ-04` | `ELEC-PWR-002`, `SYS-FUN-006` ; énergie et endurance | bilan électrique sans double comptage, capacité et tension sous profils réservés à l'évaluation ; comparaison énergie/courant/durée, réserve et transitions BMS/PX4 ; erreur et domaine de validité publiés |
+
+Les exécutions conserveront les contrats T0 du §3, les données de calibration
+et d'évaluation distinctes, versions, pas physique, graines éventuelles,
+paramètres, états PX4 et raisons de fin. Un profil de mission et un état de
+batterie connus ne sont pas remplacés par une durée choisie pour obtenir le
+résultat attendu. PX4 conserve l'autorité du vol ; toute logique propriétaire
+nécessaire aux modèles/mesures reste en C++17.
+
+**Charge indicative, À valider après CGZ-01 :** 1–2 jours de réconciliation
+documentaire, 2–4 jours de dérivation géométrique, 1–3 jours de bilan
+masse/inerties une fois les données disponibles, puis 2–5 jours logiciels
+pour la première identification propulsion/énergie après disponibilité des
+mesures. Acquisition des données, préparation des bancs et qualification
+expérimentale sont hors de ces charges ; aucun délai fiable ne peut leur
+être attribué sans inventaire. La mise au point détaillée des images et du
+LiDAR est différée ; leurs masses, placements et consommations doivent
+néanmoins être intégrés au bilan physique. Revoir le chiffrage après la première configuration
+réconciliée ; arrêter sur une donnée discriminante absente et désigner la
+mesure nécessaire plutôt que prolonger une simulation non étayée.
+
+**Réalisation ORCH-GZ-1, 23 octobre 2026.** La passe réalise les chemins
+logiciels disponibles pour la priorité physique de §14, sur une seule CAO
+active. Le proxy fabricant est réfutable par des mesures du couple exact ;
+les 6/7/8 kg sont des scénarios, jamais la masse du prototype. Décisions
+réversibles, aucun achat ni essai matériel. Budget : une configuration,
+54 cas, 2 400 s simulées maximum par cas, processus énergie borné à 60 s
+réelles et corrections limitées au lot avec revue indépendante. Arrêt sur défaut hôte identifié ou donnée
+physique discriminante absente, en poursuivant les travaux indépendants.
+Signal de sortie : preuve finalisée et reproductible, sans qualification
+physique implicite. Le [manifeste du véhicule](../simulation/gazebo/models/cartographe/model_manifest.json)
+référence sources, paramètres, preuves et commandes ; il ne remplace ni la
+BOM ni le manifeste CAO. Modifications initiales du dépôt préservées.
+
+| Contrôle exécuté / cible | Résultat et preuve | Limite |
+|---|---|---|
+| FreeCAD 1.1.3 / OCCT 7.8.1, Windows amd64 | 339 feuilles = 335 fixes + quatre rotors, 145 dépendances SHA, cinq STL ; 13 contrôles dont deux refus. [Géométrie](../simulation/gazebo/models/cartographe/geometry/geometry_tests.json), [collisions](../simulation/gazebo/models/cartographe/geometry/collision_model.json) | 21 boîtes/quatre disques pour sol plat, Basler invalide OCCT tessellé sans réparation ; Ø393,7 mm provisoire distinct du nominal fabricant 381 mm |
+| BOM/CAO | 95 postes embarqués, sept masses documentaires, six inclusions. [Bilan](../simulation/gazebo/models/cartographe/geometry/mass_ledger.json) | masse totale, centrage et inerties physiques inconnus ; aucun sous-total historique repris |
+| C++17 / GCC 16.2 / Qt 6, Windows amd64 | six CTest réussis : T0, sûreté, SDF, refus physique, masse, énergie ; énergie 34 contrôles ; T0 34 cas négatifs. [Vérification](../simulation/verification/orch_gz_1_checks.json) | ne qualifie ni Linux/arm64 ni ROS 2 |
+| SDF et airframe | XML, cinq liens/quatre joints/quatre moteurs, empreintes, inerties de scénario et allocation FLU/FRD contrôlés. [Calculs](../simulation/gazebo/models/cartographe/model_checks.json) | scénario synthétique 6 kg, kT proxy, kM/réponse hypothétiques ; chargement Gazebo non exécuté |
+| Énergie hors ligne | 54 cas finalisés : 5 profils terminés, 7 réserves, 39 saturations, 3 sous-tensions. [Synthèse](../simulation/verification/energy_checks.json), [T0 exact](../results/simulation/orch_gz_1/t0_energy/t0_run_manifest.json) | aucune trajectoire, décollage ou posé observé ; pas une autonomie PX4 |
+| Annulation et finalisation hors ligne | annulation à 3 s, refus d'écrasement, entrées périmées/non finalisées refusées, CSV et cinq artefacts T0 contrôlés ; mêmes synthèses | annulation en vol et atterrissage restent à vérifier en SITL |
+| Docker/Compose | socle et surcharge cartographe résolus, runtime séparé ; refus préflight code 2. [Préflight](../simulation/px4_sitl/verification/bench_preflight.json), [infrastructure](../simulation/px4_sitl/verification/infrastructure_checks.json) | moteur Linux absent après échec du socket local Docker Desktop ; aucun reset hôte |
+
+Le point central **synthétique** 6 kg / SoC 100 % atteint la réserve à
+1 366,936 s et 319,475 Wh au bus ; le profil de 210 s consomme 50,160 Wh.
+À 7 kg, le proxy sature à 759 s en stationnaire et dès la demande initiale
+du profil simple ; à 8 kg, immédiatement. Ces valeurs testent les décisions
+logicielles et orientent les mesures ; **elles ne prédisent pas l'autonomie
+ou la portance du prototype**. Les variations sont des hypothèses choisies
+avant calcul, sans niveau de confiance. Points fabricant de calibration et
+profils synthétiques d'évaluation sont distincts ; zéro comparaison physique.
+
+**Banc et batterie ouverts.** Versions attendues : PX4 `v1.18.0-beta2` au
+digest de Compose, `px4_msgs` 598c7aad… et Agent 73622810… ; compatibilité
+effective à vérifier sur les topics versionnés de l'image reconstruite.
+La bêta reste expérimentale. Les paramètres historiques, dont autostart
+4001, sont conservés ; la surcharge utilise 4010 et `.runtime/px4-cartographe`.
+WSL répond hors sandbox, mais Docker Desktop échoue à renommer
+`sailor-ingest.sock` en `.stale` ; le pipe moteur reste absent. Les essais
+carré/perte Offboard historiques ne sont pas rejoués sur cette révision.
+Compilation ROS, odométrie fraîche, repos, stationnaire, posé/désarmement
+et annulation SITL restent non exécutés. La source batterie effectivement
+reçue par PX4 n'a pas été observée. Le modèle énergie est **hors ligne** ;
+son contrat RPM est testé, aucun adaptateur Gazebo→PX4 n'est installé.
+Une décharge forfaitaire PX4 n'est pas une estimation d'autonomie.
+
+**Portée T-CARTO-GZ-01..04.** `01` : dérivation numérique réussie,
+chargement restant ; `02` : bilan/agrégation testés, mesures manquantes ;
+`03` : politiques de sûreté testées, vol chargé/SITL non exécuté ; `04` :
+campagne proxy et contrats réussis, couplage et précision expérimentale
+non validés. Aucun test déclaré physiquement **Qualifié**.
+
+Le [protocole](../simulation/energy/measurements_protocol.json) prépare
+inventaire/pesées, centrage/inerties, poussée-couple-RPM-courant du couple
+exact, OCV/impédance/capacité utilisable et consommation simultanée des
+rails, avec sessions indépendantes pour identification et évaluation.
+Erreurs acceptables, répétitions, budgets et seuils matériels restent
+**À valider** avant les essais autorisés selon §2.
+
+La [revue indépendante](../simulation/verification/independent_review.json)
+est favorable sur le périmètre numérique et hors ligne après correction
+des chemins Gazebo, du scellement, du domaine de stationnaire, de la
+conversion RPM et de la chronologie T0. Elle ne clôt pas les essais absents.
+
+**Reprise exécutée le 24 octobre 2026.** Le démarrage Docker par le
+responsable lève le blocage hôte constaté le 23. Le périmètre reste un seul
+banc Linux/amd64, sol plat, carré de 2 m à 2 m de hauteur, stationnaire 3 s,
+perte Offboard et annulation après décollage. Budget par essai : armement
+10 s, étape 12 s, mission 100 s, posé 35 s ; superviseur externe borné.
+Arrêt sur identité ambiguë, données périmées ou absence de posé confirmé.
+Aucun appareil réel, achat ou essai matériel. Les preuves exactes et leurs
+empreintes sont dans la
+[campagne structurée](../simulation/px4_sitl/verification/campaign_20261024.json).
+
+Critères fonctionnels du runner : chaque cible du carré à moins de 0,35 m
+après au moins 1 s dans l'étape, puis stationnaire de 3 s ; en perte
+Offboard, transition spontanée vers `AUTO_LAND` dans les 6 s suivant la
+coupure, avant toute commande LAND de secours ; en annulation, motif
+`signal_interrupt`. Dans tous les cas retenus, posé et désarmement frais,
+résultat atomique et cinq contrats T0 valides sont nécessaires. Sur les
+preuves courantes, la transition perte Offboard est observée après 1,05 s
+pour cartographe et 1,20 s pour x500. Ces seuils fonctionnels ne qualifient
+pas la précision du suivi, la stabilité prolongée ou les marges physiques.
+
+La reconstruction ROS 2 Jazzy passe les quatre exécutables CTest du pont
+(six cas GTest et une politique de sûreté autonome). Les sept CTest natifs
+passent, dont T0 énergie (34 cas négatifs) et SITL (six positifs, 29 négatifs).
+Les deux refus exécutables `execute=false` et `DRONE_AGRICOLE_SITL=0`
+s'exécutent dans des conteneurs sans réseau, code 2 sans émission. Les sept
+fixtures préflight vérifient notamment airframe ambigu ou non conforme.
+
+Trois corrections d'intégration sont nécessaires : conserver aussi les
+chemins officiels Gazebo dans `GZ_SIM_RESOURCE_PATH` ; remplacer l'identifiant
+4010, déjà attribué à `gz_x500_mono_cam`, par **40000** ; ajouter un bruit de
+capteurs **synthétique**, les mesures parfaitement constantes étant rejetées
+comme bloquées par les validateurs PX4. Ces contrôles restent activés.
+La fixture utilise σ gyro 0,001 rad/s, accélération 0,01 m/s², pression
+1 Pa, magnétomètre Harmonic 0,0001 gauss ; elle ne représente aucune
+calibration du prototype et sa graine n'est pas fixée. Le champ déclaré du
+monde est ENU ; avec les coordonnées sphériques, Harmonic utilise sa table
+géomagnétique. Aucun succès n'est attribué à la seule correction du champ.
+
+Sur **cartographe synthétique 6 kg**, carré, perte Offboard et annulation
+aboutissent avec posé/désarmement confirmés et cinq contrats T0 validés.
+Le carré atteint 2,0071 m de hauteur relative maximale. Le repos Gazebo
+est observé à z = 0,312505 m, cohérent avec le bas des patins. L'observation
+des commandes des moteurs contient 47 valeurs à la limite effective
+628 rad/s sur 44 932 valeurs : saturation transitoire présente, sans
+durée ni phase déterminées par cette capture non horodatée. Ce sont des
+commandes simulées, pas des mesures de RPM ou de courant matériels.
+
+PX4 exécuté : commit `83c4f4e580558816f0e398918f66358988004696`, Gazebo
+8.14.0. Les neuf messages utilisés du `px4_msgs` installé, commit 598c7aad…,
+sont identiques par SHA aux définitions de cette révision PX4. Cette preuve
+et le transport exécuté couvrent ces neuf types seulement. La bêta reste
+expérimentale. Le modèle reçoit six cellules et le simulateur batterie
+forfaitaire (`SIM_BAT_DRAIN=60`, plancher 50 %, courant instantané −1 A).
+**Aucune estimation d'autonomie couplée n'est validée.**
+
+Les nouvelles requêtes T0 précèdent le vol et archivent leurs sources dans
+`source_snapshot/`. Le scellement refuse une source modifiée pendant l'essai ;
+la validation ultérieure utilise ces copies. Les premiers x500 `_01` restent
+historiques, relus positivement lors de leur scellement ; leurs références
+directes signalent désormais l'empreinte obsolète après correction du banc.
+Ils ne sont ni réécrits ni utilisés comme preuve courante.
+
+Les régressions x500 `_02` carré/perte Offboard/annulation sont également
+réussies et validées, avec sources archivées : **six résultats courants**
+au total. Le pont d'affichage confirme ensuite le désarmement des trois
+régressions. Son cache HTTP est contrôlé par l'âge absolu de
+`bridge_time_ns` en plus des âges des topics ; quatre fixtures vérifient
+ce durcissement final, ajouté après les vols. Les preuves cartographe
+immédiates peuvent encore afficher `armed=true` sur une publication en
+retard ; le runner a confirmé le désarmement sur son abonnement direct,
+et l'état désarmé a été contrôlé avant tout changement de banc.
+
+`T-CARTO-GZ-01` couvre désormais aussi chargement et allocation effective ;
+`03` dispose de premiers vols exploratoires avec posé et annulation.
+`02` reste suspendu aux masses/CG/inerties réels ; `04` conserve les 54 cas
+hors ligne et attend la source batterie couplée et les mesures exactes.
+Les échelons dédiés, sensibilité au pas, vent, variations dynamiques de
+charge/centrage/SoC et comparaison expérimentale restent **À valider**.
+La revue indépendante de cette reprise est référencée par la campagne.
+
+<a id="orchestration-gazebo"></a>
+### 9.4 Réalisation par orchestrateurs successifs — Planifié
+
+**Précision utilisateur du 23 octobre 2026 :** les trois domaines proposés
+doivent être réalisés, dans l'ordre ci-dessous. Les prompts d'orchestration
+doivent demander l'implémentation, les tests et la consolidation de chaque
+lot. Ils ne constituent pas une autorisation d'achat ou d'essai physique.
+
+| Lot | Périmètre | Base attendue pour la suite |
+|---|---|---|
+| `ORCH-GZ-1` | reprise du banc, dérivation CAO active, masse/centrage/inerties, véhicule PX4, propulsion et énergie ; CGZ-01..05 | modèle, paramètres et scénario minimal traçables ; preuves de fonctionnement ou prérequis d'exécution manquants explicités ; incertitudes physiques conservées |
+| `ORCH-GZ-2` | stabilité, suivi de trajectoire, vent, variations de charge/centrage/état batterie et fautes PX4 ; régressions énergie | campagne dynamique reproductible, métriques et états d'arrêt ; baseline identifiée et effets des modifications mesurés |
+| `ORCH-GZ-3` | modèles détaillés Airy/Basler/IMU/GNSS, temps et bruits, couverture, localisation/perception/cartographie et extension incrémentale de VB01 à VB10 | chaîne capteurs/cartographie évaluée sur vérité terrain séparée, limites et scénarios exécutés explicités ; aucune qualification implicite des fils ni du traitement |
+
+Chaque orchestrateur reprend les sources et preuves du dépôt. Le premier
+créera, s'il est absent, le manifeste technique léger
+`simulation/gazebo/models/cartographe/model_manifest.json` ; les suivants
+le contrôleront puis le feront évoluer en place. Il référencera sources et
+empreintes, paramètres et provenance, unités/repères, configuration PX4,
+source batterie, résultats exacts, limites et commandes de reproduction,
+sans se substituer à la BOM ou au manifeste CAO. Ce manifeste est désormais
+**Implémenté** par ORCH-GZ-1, avec les limites du §9.3.
+
+Les investigations indépendantes sont déléguées avec propriétaires de fichiers
+distincts ; l'orchestrateur consolide les analyses avant l'implémentation et
+intègre seul les fichiers partagés et documents vivants. Une review indépendante
+intervient après intégration. Les trois orchestrateurs ne sont pas lancés
+simultanément sur le même banc. La qualification physique complète du lot
+précédent n'est pas un prérequis général au suivant : contrôler les dépendances
+réellement nécessaires, poursuivre les travaux indépendants et suspendre
+seulement les conclusions qui dépendent des mesures absentes.
+
+**Relais ORCH-GZ-2.** Dérivés CAO, collisions sol plat, générateur SDF/airframe,
+agrégateur massique, énergie et contrats T0 sont disponibles. Le 24 octobre,
+Docker, le pont ROS reconstruit, l'identité, les neuf types utilisés et les
+premiers vols cartographe sont vérifiés (§9.3). ORCH-GZ-2 peut reprendre
+cette baseline synthétique avec ses preuves de posé et finalisation, en
+vérifiant à nouveau l'état courant. Le raccordement d'une source
+batterie modèle unique manque pour les essais couplés. Les scénarios
+synthétiques identifiés permettent des essais exploratoires ; une conclusion
+sur le prototype exige les données physiques manquantes. Les commandes
+sont dans [simulation/README.md](../simulation/README.md).
+
 ## 10. Résultats station et contrats
 
 - T0.1 : sept contrats métier et huit schémas JSON, avec sélection par
@@ -335,7 +724,96 @@ n'est modifié par cette mise à jour documentaire.
   réécrit silencieusement.
 
 Les futures fonctions de réception de paquets, construction globale, édition,
-approbation/signature de carte, mission et transfert ne sont pas qualifiées.
+approbation/signature de carte, exécution de mission et transfert ne sont pas qualifiées.
+
+<a id="station-v3"></a>
+### 10.1 Station métier V3 issue de MagicPath — 23 octobre 2026
+
+**Implémenté ; conclusion préliminaire limitée au poste Windows 11 x64.**
+Les deux révisions MagicPath identifiées par
+[`magicpath_reference.json`](../configs/station/magicpath_reference.json)
+ont été lues via MCP, code et aperçus compris. Leur même structure fonctionnelle
+est transposée en Qt 6 Widgets, avec thèmes bleu/vert sélectionnables et
+persistants, sans importer leurs données fictives. Les décisions et limites
+fonctionnelles sont dans [DOC-SW §4.6](architecture/ARCHITECTURE_LOGICIELLE.md#46-interface-métier-v3--23-octobre-2026).
+
+Protocole : configurer et compiler `ci-windows` depuis la racine, exécuter
+CTest, vérifier les 21 routes visibles, le retour au bench et sa configuration,
+la création d'un nouveau formulaire, les changements de thème, les captures
+et le format portable 1200 × 760. Les tests de services utilisent des fixtures
+temporaires ; les régressions de cartographie conservent les données locales
+EscaYard et FriûlBot. Le fichier
+[`station_magicpath_v3.json`](verification/station_magicpath_v3.json)
+porte les commandes, versions, empreintes et résultats de cette passe.
+
+| Exigence | Composant / vérification | Résultat et limite |
+|---|---|---|
+| `UI-V3-001` | shell, six espaces et thèmes ; `test_station_navigation`, `test_workspace_pages`, captures | routes et contexte, deux thèmes et réglage persistant ; rendu desktop contrôlé |
+| `UI-V3-002` | `WorkspaceService`, stockage atomique, BOM ; `test_workspace_service` | brouillons non exécutables, valeurs inconnues, import sans écrasement d'identité, état corrompu conservé, concurrence et lecture canonique |
+| `UI-V3-003` | résultats/comparaison/analyse ; `test_workbench_pages`, `test_dashboard_mapping` | recherche/favoris, liens externes malgré filtres, comparaison, artefacts réels et régression cartographique |
+
+La suite complète a passé **23 tests CTest sur 23**, en 92,09 s, dont
+71,26 s pour la régression cartographique. Le premier passage avait cinq échecs
+d'écriture dans le TEMP isolé Windows ; TEMP et TMP ont ensuite été placés
+sous `.runtime/station-v3/tmp`, sans modifier ces tests pour masquer un échec.
+Les dernières corrections de disposition font l'objet d'une nouvelle
+compilation réussie puis de **5 tests UI CTest sur 5** en 3,76 s.
+La capture des 21 routes, des deux thèmes et du format 1200 × 760 a été
+rejouée avec succès après ces retouches ; les 25 captures sont liées par
+empreinte dans la preuve.
+
+Les journaux et captures restent locaux dans `.runtime/station-v3/`.
+La CLI `station-workspace --action diagnostics` lit la même source que l'UI.
+Le chargement des schémas station est distinct du catalogue T0 ; les contrôles
+des brouillons sont effectivement codés et testés, sans prétendre fournir
+un moteur JSON Schema général ni fermer AUD-010.
+
+Ni PX4 SITL, ni banc matériel, ni vol, ni Linux/`arm64` n'ont été exécutés
+pour cette refonte desktop. Les commandes de mission réelles, transferts,
+approbations cartographiques, pilotes et diagnostics embarqués demeurent
+**Planifiés / À valider**. Cocher un contrôle ou lire une ligne de BOM
+ne produit aucune autorisation de vol ni qualification du matériel.
+
+### 10.2 Passerelle du modèle 3D vers Gazebo — 24 octobre 2026
+
+**Implémenté ; validation logicielle limitée à Windows amd64.** `UI-GZ-001`
+relie la demande de préparation depuis Simulations à `GazeboExportService`,
+son port, le backend local et la page `GazeboModelPage` ; `T-CARTO-GZ-01`
+couvre les dérivés, unités et format du véhicule. La préparation crée un
+nouvel artefact ; elle ne remplace pas les preuves de vol du §9.3.
+
+Protocole : compiler la station `ci-windows`, tester service et page avec
+fixtures autonomes, créer un dossier depuis les maillages existants puis
+réaliser la conversion complète depuis la CAO avec Python FreeCAD 1.1.3.
+Vérifier les empreintes d'entrée/sortie, quatre rotors, repères en mètres,
+SDF/config/airframe présents et absence de modification des natifs ; faire
+lire puis charger le modèle par Gazebo. Tester les refus de source périmée,
+maillage altéré, destination existante/hors projet, Python absent, verrou
+concurrent, annulation et relance depuis le signal de fin. Critère de
+publication : sources inchangées et dossier finalisé complet ; une annulation
+ne publie aucun nouveau dossier. Le worker doit être arrêté avant sa fin.
+
+La [preuve structurée](verification/station_gazebo_bridge.json) référence les
+commandes, exécutables, paquets, captures et journaux exacts. Les sept CTest
+ciblés station passent, ainsi que les deux tests du générateur autonome.
+La conversion CAO réelle et la réutilisation contrôlée des maillages passent.
+L'annulation réelle pendant FreeCAD retourne 130 sans dossier publié.
+Gazebo 8.14.0 répond `Valid` au SDF et charge le paquet pendant 1 000 pas,
+dans un conteneur sans réseau, sans PX4 ni armement. Les avertissements de
+namespace moteur et de balise `motorNumber` dépréciée restent non bloquants
+sur cette version ; aucune compatibilité avec d'autres versions n'est déduite.
+La capture réelle du parcours et les tests UI confirment navigation, aperçu,
+progression, contrôles et finalisation. Les sources et gros résultats restent
+hors Git selon leur politique ; la synthèse légère assure leur traçabilité.
+
+Le premier test dans le TEMP isolé Windows et un test UI bloqué ont été
+diagnostiqués ; les nouvelles fixtures utilisent leur dossier de travail,
+et la suite finale est exécutée avec accès normal au TEMP. Aucun échec n'est
+masqué par un succès antérieur. La revue indépendante a fait corriger l'ordre
+de contrôle de la copie du monde et la publication trop précoce de `completed`.
+Le profil reste celui du prototype actif ; aperçu simplifié, physiques
+provisoires, absence d'autonomie couplée, Linux/arm64 et import arbitraire
+restent À valider ou hors périmètre. Aucun nouveau vol n'est revendiqué ici.
 
 ## 11. Résultats de cartographie
 
@@ -570,6 +1048,11 @@ physique ne découle de cette préétude.
 
 ### 12.1.3 Cassette 6S 20 Ah et rehausse20mm, 2–3 octobre 2026
 
+Résultat historique avant la migration de l'étage énergie et le raccordement
+direct du pack (§12.1.8). Les quantités, coupes, retenues P41/P53 et essais
+ci-dessous décrivent cette ancienne configuration ; ils ne certifient pas
+la définition ni les fichiers courants.
+
 **Périmètre : CAO native FreeCAD1.1.3, Windows, variante20Ah.** La capacité
 20 Ah et la rehausse20mm sont choisies pour cette implémentation, sans
 qualification matérielle. Les anciennes preuves de berceau et de faisabilité
@@ -757,6 +1240,1439 @@ restent **À valider**. Non exécutés : régénération de la stack, nouvelle
 campagne d'interférences et essais mécaniques/électriques/RF/vol, car aucun
 placement, solide ou interface matérielle n'est modifié. Les preuves
 antérieures et leurs réserves continuent de s'appliquer.
+
+### 12.1.7 Couleurs et compacité du dock — 4 octobre 2026
+
+Résultat historique de la première étape de compactage ; la définition
+courante et son contrôle sont décrits au §12.1.8. Les réserves ci-dessous
+décrivent l'état contrôlé à cette étape, sans certifier les fichiers évolués.
+
+Chaîne `MEC-ARC-001`, `MEC-BAT-001` → dock et deux cordons fixes TE/JETI →
+`T-CARTO-DOCK-COULEURS-01`, `T-CARTO-DOCK-COMPACT-01` →
+[couleurs](../hardware/mecanique/cartographe/verification/couleurs_dock20Ah.json),
+[implantation](../hardware/mecanique/cartographe/verification/compacite_dock20Ah.json),
+[contrôle indépendant en processus neuf](../hardware/mecanique/cartographe/verification/controle_compacite_dock20Ah.json)
+et [rendu natif](../hardware/mecanique/cartographe/verification/rendu_dock20Ah_courant.json).
+La [revue indépendante](../hardware/mecanique/cartographe/verification/revue_compacite_dock20Ah.json)
+contrôle les tangences natives, les BRep préservés et les tables d'apparence.
+Recettes `update_compacite_dock20Ah.py`, `finalize_couleurs_dock20Ah.py`,
+`verify_compacite_dock20Ah.py` et `render_dock20Ah_courant.py` dans le même répertoire.
+
+Protocole Windows amd64 / FreeCAD1.1.3 : conserver références/placements,
+réouvrir et recalculer, vérifier liens et arbres Chemin/Section/Sweep,
+solides valides, rayons circulaires50mm, longueurs dechemin relevées,
+absence de nouvelle collision externe et séparation continue de la cassette
+sur+X. Les couleurs doivent être relues depuis les fichiers et contrôlées
+sur une capture native ; une couleur en mémoire n'est pas un résultat finalisé.
+Le PythonFreeCAD externe produisait des tables MaterialList v3 vides à la
+sauvegarde : la finalisation restaure les tables GUI initiales depuis Git,
+remplace seulement les apparences et vérifie ensuite leur réouverture.
+
+Résultats :181 liens dock résolus, aucun objetInvalid, deux balayages natifs
+valides,629 BRep exactement inchangés hors des deux cordons, aucune
+intersection inter-cordons ni avec châssis/stack/capteurs/distribution.
+La séparation conservatrice surX est17,17mm pour l'extraction continue+X.
+L'enveloppe FreeCAD passe de548,64×135,84×212,89mm à543,84×135,84×150,57mm
+(hauteur−29,3%, boîte−29,9%) ; conducteurs480,91/425,75mm libres.
+Les couleurs sont persistantes sur89 références et les noms restent inchangés.
+
+Conclusion **préliminaire**, CAO **Implémenté**, physique **À valider**.
+L'intersection préexistante positif/P49 d'environ84,525mm³ est conservée,
+signalée et doit être résolue avant fabrication. Les recouvrements avec
+épissures/gaines sont consignés, sans conclure à l'absence globale d'interférence.
+Non exécutés : mesure des ports/lot, liberté flottante, courbures réelles,
+accessibilité et montage, vibration, thermique/isolement/courant, hélices et vol,
+car les fournitures et le banc ne sont pas disponibles dans cette validation CAO.
+
+L'état initial de91 petits natifs est conservé dans Git sur
+`codex/batterie-avant-evolution-20261004` ;
+[preuve de suivi](../hardware/mecanique/cartographe/verification/suivi_git_dock20Ah.json).
+Les preuves du2–3octobre et du tri§12.1.6 restent historiques : leurs
+empreintes antérieures ne certifient pas les fichiers évolués. Les nouvelles
+empreintes sont celles du contrôle ci-dessus ; les exports STEP des deux
+cordons sont régénérés. Aucune nouvelle qualification du drone complet.
+
+### 12.1.8 Étage énergie et raccordement direct du pack — 4 octobre 2026
+
+Chaîne `MEC-ARC-001`/`MEC-BAT-001` → SA02A, SA07 et P31/P39/P40/P43/P44/P51/P57 →
+`T-CARTO-ETAGE-DIRECT-01` → [contrôle](../hardware/mecanique/cartographe/verification/controle_etage_batterie.json),
+[distribution](../hardware/mecanique/cartographe/verification/distribution_etage_batterie.json),
+[revue indépendante](../hardware/mecanique/cartographe/verification/revue_etage_batterie.json),
+[cohérence des registres et des couleurs](../hardware/mecanique/cartographe/verification/controle_registres_etage_batterie.json),
+[rendu natif](../hardware/mecanique/cartographe/verification/rendu_etage_batterie.json).
+Windows amd64, FreeCAD 1.1.3 ; aucune qualification matérielle.
+
+Périmètre courant : liaison directe candidate AWG8/742F5 M5, XT90-S,
+adaptateurs AWG10 et barres P42 retirés ; JETI, commande magnétique,
+PM08-CAN et PDB dans SA07 sur P57 candidat. PM08-CAN reste la sélection
+courante ; PM08D est un module distinct, sans substitution. Le modèle de
+cosse 742F5, notamment sa forme de coude, est une représentation d'étude **À valider**,
+sans qualification de sa compatibilité AWG8 ni du sertissage.
+
+Protocole : réouvrir/recalculer dans un processus neuf ; contrôler les liens,
+l'unicité de JETI/PM08-CAN/PDB, les corps sous la batterie et les géométries
+finales ; mesurer quatre balayages natifs, les rayons de 50 mm et les
+intersections, puis l'extraction échantillonnée contre le châssis et les
+pièces fixes. Les formes de construction cachées ne doivent pas gonfler
+`App::Part.Shape` : les visibilités App et GUI sont synchronisées, les BRep
+courants conservés et les matériaux natifs relus après sauvegarde.
+Le contrôle porte uniquement sur le pack nominal de 193 × 76 × 58 mm.
+L'enveloppe d'étude de 198 × 78 × 60 mm, sans tolérance fabricant publiée,
+et le lot réel restent **À valider**.
+
+Résultats courants : 130 occurrences du dock ; aucun objet `Invalid` ni
+lien non résolu dans le contrôle. Fils mobiles de 89,70/90,56 mm ; fixes
+de 354,42/354,07 mm, arcs de rayon 50 mm. Enveloppe batterie et énergie :
+429,00 × 208,50 × 177,00 mm. Cette boîte inclut le déport latéral de SA07 ;
+ne pas comparer son volume à l'ancien dock seul ni déduire un gain de
+masse. Les détails des intersections et des poses d'extraction figurent
+dans la preuve et la revue, sans assertion globale de conformité physique.
+La réserve PDB de 22 mm est sans collision avec le châssis.
+
+La revue indépendante vérifie 13 occurrences nouvelles et l'extraction de
+9 occurrences mobiles aux courses 0, 10, 25, 50, 100, 200, 350 et 500 mm,
+sans intersection détectée sur ce périmètre. Les quatre paires finales
+cosse/vis/rondelle ont un volume commun nul après correction de leur pose
+et de l'enveloppe d'étude du coude. Le contrôle des registres confirme
+135 occurrences SA02A/SA07, les quantités et empreintes concordantes,
+ainsi que les matériaux relus dans 91 sources natives.
+
+Les collisions détectées avec logement TE/capture/cosse, un tube du châssis
+et le plateau pendant l'extraction ont motivé des recoupes des coffrets,
+un routage fixe plus précoce, des passages dans P31 et le rangement de
+l'équilibrage dans le corridor intérieur. Le nouveau trajet traite aussi
+l'intersection historique positif/P49 du §12.1.7. Le jeu nominal P44/plateau
+est de 0,5 mm ; les tolérances restent **À valider**. La comparaison
+échantillonnée n'est pas une preuve continue générale ; les guides STEP TE
+gardent leurs limites historiques : ni accouplement ni flottement qualifiés.
+
+Conclusion **préliminaire**, CAO **Implémenté**, matériel **À valider**.
+Non exécutés : réception des lots pack/cosses/kit, compatibilité AWG8 et
+sertissage, essai de l'adaptateur de charge TE, dressage et liberté TE,
+finalisation des vis/sangles/coffrets, résistance des bras en porte-à-faux
+de 82 mm, traction, vibration, isolement/courant/thermique, hélices et vol ;
+les fournitures et le banc ne sont pas disponibles. Les faisceaux aval
+JETI → PM08-CAN → PDB restent à recoter. L'adaptateur de puissance TE
+protégé pour la charge hors drone est **Planifié** ; la prise JST
+d'équilibrage seule ne remplace pas la liaison de puissance de charge,
+et la charge ne passe pas par JETI OUT.
+
+Les anciennes préparations de 150/600/520 mm et les tableaux de sept
+colliers sont historiques et ne définissent pas les coupes ou quantités
+actuelles ; BOM et faisceau sont mis à jour. La distance TE de 152,4 mm
+est spatiale et concerne le collier éventuel ; un rayon nominal de 50 mm
+et une longueur totale suffisante ne démontrent pas une conformité globale
+au dressage perpendiculaire ni au flottement.
+
+Point Git avant migration : `codex/batterie-avant-etage-inferieur` ; noms
+des assemblages conservés. Les preuves §12.1.3/12.1.6/12.1.7 sont historiques
+et leurs empreintes ne certifient pas les fichiers courants. Le contrôle
+courant porte les nouvelles empreintes ; aucune qualification du drone
+complet n'est ajoutée.
+
+### 12.1.9 BMS de cassette et raccordement TE compact — 5 octobre 2026
+
+`SAFE-REQ-011` / `ELEC-BMS-001` → JBD-SP22S003 A01, TE5signaux,
+isolationUART et SA08 → contrôles natifs et schéma courants. CAO et schéma
+**Implémentés**, qualification matérielle **À valider**. BMS au-dessus du
+pack, P37 de95 mm et plateau/fixations rehaussés de25 mm conservés.
+
+Le dernier compactage avance le TE encore40 mm sur X, avec décalage
+Y−6,1535/Z+12,255 mm, réoriente la cosse négative de−90° autour de X et
+supprime la chambre78×46×42 au profit de protections locales des cosses.
+Les axes des douilles/contacts et vis sont cohérents après réouverture.
+Le [comparatif courant](../hardware/mecanique/cartographe/verification/compactage_raccord_bms_te.json)
+se réfère à Git `1ccbad81` :143 sources natives identiques aux fichiers Git
+et quatre sources OEM lourdes figées localement par SHA. Utiliser les bornes
+`bbox_apres_verification_mm`, recalculées en processus neuf :
+
+| Périmètre identique avant/après | Avant L×l×H (mm) | Courant (mm) | Volume englobant |
+|---|---|---|---|
+| Batterie et énergie | 399×210,5×181 | 388×210,5×181 | −2,757 % |
+| Cassette mobile | 346,337×108,5×91 | 295,900×113,6535×91 | −10,505 % |
+| Intégration locale | 538,596×511,015×501,529 | 538,596×511,015×501,529 | 0 % |
+
+La cassette gagne50,4369 mm sur X et s’élargit de5,1535 mm sur Y ;
+l’ensemble énergie gagne11 mm sur X. Le gain de cassette inclut aussi la
+correction d’orientation des douilles. L’isolateur fixe et les bras limitent
+respectivement ces deux enveloppes. Avancer le TE de40 mm ne démontre pas
+40 mm de gain global, de réduction de matière ou de masse. Le cache auteur
+immédiatement enregistré donnaitXmin−167,796 ; le recalcul frais donne
+**−167,900059 mm**, seule valeur retenue. Aucune qualification physique
+ni enveloppe de drone de mission complet n’en est déduite.
+
+Les contrôles de l’étape arrière Git `94d04d0`, de son comparatif145 sources
+exactes/deux reconstructions P37=70/rehausse=20, puis de la première
+implantation supérieure Git `1ccbad81` sont historiques. Leurs réussites
+ne certifient pas le dernier déplacement. Les fichiers et noms restent
+stables ; retours arrière par Git.
+
+Les résultats suivants portent sur le compactage avant séparation des parents
+CAO ; la migration est contrôlée séparément au §12.1.10. Le [contrôle BMS du compactage](../hardware/mecanique/cartographe/verification/controle_bms_cassette.json)
+réouvre/recalcule les natifs en processus FreeCAD neuf :147 sources,
+aucune erreur de recalcul ni lien rompu, cinq routes valides avec contrôle
+BOP, axes et entrées des cosses cohérents, aucune collision non classée.
+Les parcours mobiles mesurent17,2548 mm B+ axial,77,6861 mm B− brut,
+49,3353 mm C− protégé,52,9941 mm équilibrage et83,6733 mm UART.
+Les huit poses d’extraction0/10/25/50/100/200/350/500 mm sont libres.
+Seul le recouvrement86,5901 mm³ câble d’équilibrage/réservation JST est
+intentionnel ; accouplement physique **À valider**. Ce test reste limité au
+pack nominal193×76×58 mm ; enveloppe d’étude198×78×60 et lot réel non acceptés.
+
+Le départ fixe des cinq signaux TE de SA08 est recalé vers
+(−195, −26,1535, 90,255) mm. Le
+[contrôle complet des37 routes](../hardware/mecanique/cartographe/verification/controle_routes_systeme_courant.json)
+est réussi en mode «natifs enregistrés», sans collision et avec sources
+externes stables. PM_OUT_PDB conserve son départ puis descend de4 mm pour
+éviter le dock ; cette correction est incluse dans le contrôle complet.
+La [relecture finale après sauvegarde](../hardware/mecanique/cartographe/verification/controle_faisceau_natif_bms.json)
+est réussie en processus neuf :109 empreintes de sources obstacles et38
+fichiers de faisceau concordants,37 routes valides au contrôle BOP et
+identité géométrique natif/candidat avec différence symétrique maximale
+0 mm³ pour seuil1e−5 mm³. La preuve candidate et la recette de vérification
+sont rattachées par chemin et SHA. Les booléens contre les obstacles ne sont
+pas recalculés dans ce processus ; le résultat complet est réutilisé après
+contrôle d’identité. La relecture indépendante P49 confirme un solide BOP sain,
+24 interfaces sans collision et sommetZ121 conservé ; rigidité physique
+**À valider**. Les cordons fixes mesurent305,7557/325,2341 mm avec troisR50
+chacun et extrémités JETI cohérentes. Aucune collision non classée ou réserve
+géométrique ne reste ouverte dans le périmètre nominal contrôlé.
+
+Les registres de cette étape avant migration sont actualisés :182 occurrences,115 références et629 placements
+dans le manifeste, avec TE à12 mm de recul sur X. Le
+[rendu final](../hardware/mecanique/cartographe/verification/rendu_bms_cassette.json)
+produit deux PNG relus, sans modification des147 sources : protections
+locales et P49 monobloc visibles, grande chambre supprimée. La dernière
+mise en concordance doit suivre le gel documentaire :
+`verify_registres_bms.py`, puis contrôle électrique `verify_cablage.ps1`
+rattachant notamment le chemin et le SHA de DOC-ELEC. Consulter les preuves
+[des registres](../hardware/mecanique/cartographe/verification/controle_registres_bms.json)
+et [du câblage](../hardware/electronique/cartographe/verification/cablage_global_bms.json)
+pour les résultats et empreintes de cette dernière exécution. La [revue indépendante](../hardware/mecanique/cartographe/verification/revue_bms_cassette.json)
+doit porter sur ces mêmes natifs et documents.
+
+Un résultat «sans collision» ne valide pas les rayons : PM_OUT_PDB mesure
+R50/R33/R28,9365 pour R50 souhaité ; TE5_SIGNAL_ISOLATEUR mesure185,6664 mm
+avec R7,04/R8,2925/R9,24/R4,4 pour R23 souhaité. Ces écarts restent
+explicitement **À valider**, sans réduction silencieuse des critères.
+
+Le circuit reste27 modules et40 liaisons ; le vérificateur électrique
+couvre aussi28 broches CA01 et trois requêtes JBD03/04/05 avec checksum.
+Le diagramme Mermaid reste synchronisé avec DOC-ELEC. Aucun contrôle de
+trame déclarative n’est un test de décodeur, de communication réelle ou de
+courant. B+ continu→TE39, B− brut→BMS, C−/P− protégé→TE40 ; charge hors
+drone par B+/P− protégé, jamais B− brut. L’UART brut ne rejoint l’avionique
+qu’à travers l’isolateur fixe ; VDD JBD et5V TTL isolée restent NC.
+
+| Essai | Critères restant à fermer | État |
+|---|---|---|
+| T-CARTO-BMS-01 réception/interface pack | lotA01, chimie6S, ordreB0…B6/JST, adaptation22S, fil ouvert, NTC, J2/J3, niveauTTL | Planifié, pas de matériel |
+| T-CARTO-BMS-02 implantation/extraction | BMS supérieur, PCB tolérancé, P37/plateau/fixations, jeux3/4 mm, protections locales et continuité P49, cosses/câbles ; course continue, rigidité et masse | CAO **Implémentée**, contrôle BMS réussi ; contrôle complet et relecture native SA08 réussis, physique **À valider** |
+| T-CARTO-BMS-03 puissance/charge/thermique | courant mission, pertes, pointes, charge protégée, précharge et températures selonOEM | Planifié ;100A système non qualifié |
+| T-CARTO-BMS-04 coupures/communication | aucune voie B− brut vers avionique, isolationdata+DC/DC, VDD/5VNC, mappingTE/ports réels, parser/identité/fraîcheur | Topologie déclarative contrôlée ; banc et logiciel Planifiés |
+| T-CARTO-BMS-05 alerte/protection coordonnée | margesPX4 pour dérives progressives, défauts sévères immédiats, perte de mesure ; aucune inhibition des protections | Planifié, pas d’essai nouveau |
+| T-CARTO-BMS-06 cycles/environnement | nombre échanges mission, retenue, guidage/flottement, protection au toucher, intrusion et vibration | Planifié, objectifs à fermer |
+
+Rayons brutsR16,77/équilibrageR12,41/UARTR8, diamètre AWG8 réservé5 mm,
+ports non cotés, cosse742F5 M5/10 mm² et positif axial très court restent
+**À valider** sur lot. Les132,7452 mm de solde sur les150 mm usine ne sont
+pas une longueur de coupe. Aucun test numérique ne qualifie sertissage,
+tolérances, liberté flottante, reprise de traction ou dissipation100A.
+Une coupure BMS supprime propulsion et les deux BEC du PM08 ; POWER1/2 ne
+constituent pas un secours à cette cause commune. PM08 reste source PX4.
+Non exécutés : réception, sertissage, isolation physique, thermique, charge,
+vibration, cycles, matériel embarqué et vol, faute de lot/banc. Aucun
+résultat **Qualifié**.
+
+### 12.1.10 Découpage batterie/récepteur et énergie directe — 5 octobre 2026
+
+**Portée historique :** les résultats ci-dessous concernent les fichiers
+empreintés dans la revue. Le contrôle du 7 octobre constate une empreinte
+différente pour l'assemblage d'intégration présent ; voir [AUD-007](#aud-007).
+La portée de ce changement reste inconnue ; la revue historique ne certifie
+pas à elle seule les octets courants.
+
+`MEC-ARC-001` / `MEC-BAT-001` / `SAFE-REQ-011` → batterie mobile,
+récepteur fixe et principal6+6 → `T-CARTO-HIER-BAT-01` →
+`verification/decoupage_sous_assemblages_batterie.json`.
+La migration CAO est **Implémentée** et le contrôle après sauvegarde est
+réussi. Les preuves de migration et de contrôle frais sont finalisées. Le contrôle frais est
+`verification/controle_hierarchie_batterie.json`, la concordance registres/BOM
+`verification/hierarchie_batterie_recepteur.json`, et la vérification des vues
+`verification/rendu_hierarchie_batterie.json`. Les anciennes preuves de
+compactage restent gelées, avec leurs empreintes et leur parentage antérieur.
+
+Cible :67 pièces mobiles dans `SA02_Cassette20Ah_Coulissante`,72 fixes dans
+`SA02A_Dock20Ah`, six pièces d’énergie directement dans le principal et six
+liens de sous-assemblages, soit12 liens directs. SA07 est conservé hors
+configuration installée. Le protocole en processus FreeCAD neuf vérifie :
+
+- parentage et unicité, absence du groupe SA07 installé, liens résolus et recalcul ;
+- références et quantités identiques, matrices mondiales et orientations
+  conservées, sources natives de pièces/faisceau inchangées et couleurs avant/après ;
+- extraction appliquée une seule fois à l’ensemble mobile67 pièces,
+  récepteur et six équipements fixes immobiles, aux trois translations0/50/500 mm ;
+- empreintes des sources et des preuves du compactage permettant le transfert
+  de leurs résultats ; les sources de pièces et faisceau ne doivent pas changer.
+  Les huit poses et booléens de collision antérieurs sont réutilisés par cette
+  identité, sans les présenter comme de nouveaux calculs de collision ;
+- registres installés sans double comptage des montages historiques.
+
+Résultats : aucun objet Invalid ni lien non résolu,149 éléments affectés
+conservés comme multiensemble de références et matrices mondiales, apparences
+complètes identiques. Ces149 éléments sont139 anciens éléments du dock,
+six équipements et quatre liens principaux traités comme blocs ; ils ne
+constituent pas un inventaire détaillé de tous les objets internes du drone.
+Aux translations0/50/500 mm, seuls les67 mobiles bougent une fois ;72
+éléments du récepteur, six pièces directes et37 routes restent fixes.
+Le contrôle ne modifie aucun natif ; sources de pièces/faisceau, anciennes
+preuves et enveloppe du principal conservées. Les registres publiés
+confirment182 occurrences/115 références sur le périmètre batterie,
+récepteur, énergie directe et SA08, ainsi que12 liens directs dans le principal.
+
+Les gardes des anciennes recettes monolithiques doivent refuser cette
+hiérarchie avant mutation. Les preuves citées ici ne constituent pas
+un rejeu de toutes les recettes historiques. Les vues et leur contrôle
+sont rattachés à `verification/rendu_hierarchie_batterie.json` ; vérifier
+sa finalisation et ses empreintes avant de réutiliser une vue.
+
+Les mesures388×210,5×181 mm énergie,295,900×113,6535×91 mm cassette et
+538,596×511,015×501,529 mm intégration sont les références géométriques du
+compactage précédent. Leurs sources et poses sont conservées ; aucun nouveau gain
+n’est attribué au seul changement de hiérarchie. Circuit27 modules/40 liaisons
+et frontières BMS/JETI/isolation inchangés. Aucune qualification matérielle,
+course continue, tenue des fixations, thermique ou vol n’est ajoutée.
+
+<a id="validation-skill-electromecanique"></a>
+### 12.1.11 Skill d'intégration électromécanique — 27–28 octobre 2026
+
+`T-SKILL-EMI-01` vérifie les ressources réutilisables de la
+[skill](../.agents/skills/electromechanical-integration/SKILL.md), en soutien
+des exigences `CAB-CARTO-001` et `MEC-INT-001`. La
+[preuve structurée](verification/electromechanical_integration.json) conserve
+les commandes, codes de retour, empreintes, mesures synthétiques, cas couverts
+et conclusion de revue. Aucun natif du drone ni constructeur existant modifié.
+
+Environnement : Windows amd64, C++17 GCC 16.2.0/Qt6Core 6.11.2, FreeCAD 1.1.3,
+Cables 0.3.7. Le MCP freecad-mcp 0.1.22 installé est indisponible (connexion
+RPC refusée) ; le Python embarqué réalise les contrôles Part et les créations
+natives dans un processus indépendant offscreen. Aucun contrôle interactif.
+
+Critères : conservation exacte des liaisons et extrémités, absence de partage
+non autorisé, refus des incohérences/débordements, absence de faux succès sur
+mesure inconnue ou solide périmé, isolation des sources et résultats finalisés.
+Les valeurs des fixtures sont synthétiques ; elles ne deviennent pas des
+spécifications fournisseur.
+
+| Cas demandé | Contrôle exécuté et résultat |
+|---|---|
+| Deux câbles compatibles, corridor commun | partage de 100 mm détecté ; longueur cumulée de 240 mm et deux liaisons conservées |
+| Trois câbles et dérivations | tronc partagé, destinations distinctes, branches et trois liaisons conservées ; forward-test indépendant |
+| Câbles incompatibles | aucune gaine commune ; séparation géométrique dans un corridor commun encore explicitement à démontrer |
+| Rayon non conforme | arc BRep de 10 mm rejeté face au seuil synthétique de 22 mm |
+| Collision réelle | intersection BRep positive câble/obstacle détectée et rejetée |
+| Inclusion/contact autorisé | inclusion justifiée dans une enveloppe de gaine acceptée ; pénétration de matière rejetée |
+| Échec de génération | forme nulle et retour natif injecté sans nouvelle forme rejetés ; ancien solide effacé avant recalcul |
+| Propriété fournisseur absente | `null` conservé, candidat `unresolved` ; aucune conformité fournisseur déduite |
+| MCP indisponible | branche de repli testée ; probe Part et génération Cables réellement exécutés séparément, sans faux état d'exécution |
+| Connexion perdue | omission identifiée `missing_link`, candidat rejeté |
+
+Résultats : compilation et CTest réussis, **41 assertions C++**, **19 tests
+FreeCAD dont 4 natifs**, **6 tests d'infrastructure**, validateur officiel
+`quick_validate.py` réussi. La revue indépendante a identifié puis vérifié
+la correction d'un faux succès sur coordonnées/axes NaN ; 15 contre-exemples
+NaN/±inf sont rejetés. La correction du prédimensionnement des câbles isolés
+est aussi vérifiée : Ø3 mm dans 4 mm accepté, dans 2 mm rejeté, sans gaine
+ajoutée implicitement. La preuve porte les sorties et empreintes exactes.
+
+La méthode et ses utilitaires sont **Implémenté**. Ces résultats sont limités
+aux contrats et géométries synthétiques, pas à un assemblage réel. Splines sans
+borne globale, découverte de corridors, routage complet, packing, CEM,
+thermique, vibrations, montage et maintenance réels restent **À valider**.
+Sauvegarde/réouverture d'un assemblage reconstruit, contrôle interactif et
+validation physique non exécutés : hors périmètre de cette mission de skill.
+La définition et qualification du faisceau drone ne changent pas.
+
+**Évolution d'autonomie — `T-SKILL-EMI-02`, 28 octobre 2026.** La
+[décision de conception](architecture/ARCHITECTURE_MECANIQUE.md#integration-electromecanique)
+enrichit la skill existante ; les scripts métier, d'isolation et FreeCAD
+restent identiques. La
+[preuve d'évaluation](verification/electromechanical_autonomy.json)
+porte les entrées/empreintes, commandes, résultats bruts et leur appréciation.
+Les huit [cas synthétiques](../.agents/skills/electromechanical-integration/references/evaluation.md)
+testent les actions observées, distinctement des régressions exécutables.
+Deux agents indépendants reçoivent les consignes et données sans barème ; une
+revue séparée compare les instructions et contrats à la baseline préservée.
+
+Rejeu Windows amd64 : nouvelle compilation depuis les sources actives,
+CTest **1/1**, **41 assertions C++**, **6 tests d'isolation**, **19 tests
+FreeCAD dont 4 natifs**, tous réussis sans exclusion. Rapport FreeCAD finalisé
+et relu ; empreintes des scripts et du constructeur inchangées. Validation
+officielle de la skill et liens internes contrôlés. La revue indépendante
+ne relève pas de contradiction bloquante avec les mécanismes antérieurs.
+
+Les **8/8 cas comportementaux réussissent** au barème observé :
+
+| Cas | Résultat observé et limite |
+|---|---|
+| D1 — documentation | notice fictive B retrouvée, A écartée ; rayons 12/40 mm avec conditions, sans question préalable |
+| K1 — cinématique | pivot calculé : déplacement nominal–butée 26,105 mm et corde entre butées 51,764 mm ; pas une longueur de cordon |
+| P1 — amplitude inconnue | bornes issues des butées, distance des ports 97–103,310 mm ; scénarios de longueur et contrôle paramétrique, vibration/fatigue inconnues conservées |
+| L1 — longueur héritée | minimum 282 mm ; 200/250 rejetés, 300 retenu conditionnellement face à 350 ; masse 9 g, chute 0,060 V et pertes 0,30 W |
+| G1 — guide modifiable | baseline en collision, guides y20/y35 comparés par trajets analytiques R10 ; y20 retenu conditionnellement, port/guide fonctionnels conservés ; natif et tolérances non vérifiés |
+| R1 — regroupement | gaine Øint 5 rejetée pour deux Ø4 et séparation imposée ; architecture séparée candidate, CEM/thermique ouvertes |
+| B1 — blocage local | liaison mobile non vérifiée ; liaison fixe calculée jusqu'au résultat : chute 0,4 V sous seuil 0,5 V, pertes 2 W, température inconnue |
+| H1 — hypothèse | `pass` numérique rapporté conservé, seuil 22 mm hypothétique ; candidat conditionnel et validation physique requise, aucune promotion globale |
+
+Les évaluations documentaires utilisent des notices fictives locales ; elles
+ne démontrent pas une recherche web fabricant réelle. Les cas cinématiques et
+électriques sont calculés en C++17 ; leurs résultats ne qualifient ni montage,
+ni CEM, ni thermique, ni fatigue. Aucun modèle du drone ouvert ou modifié,
+aucune publication de variante ni essai matériel. La validation interactive
+et physique n'est pas exécutée, hors périmètre de cette évolution de skill.
+Méthode **Implémenté**, autonomie générale et intégration réelle **À valider**.
+
+<a id="validation-reconstruction-faisceaux"></a>
+### 12.1.12 Reconstruction des faisceaux sur copie
+
+<a id="validation-refonte-faisceaux"></a>
+**Refonte du 9 novembre 2026 — candidat sur copie, À valider.**
+Le [reçu d'installation](../hardware/mecanique/cartographe/verification/refonte_faisceaux/installation.json)
+identifie les fichiers natifs, les sources et les paramètres. La recette
+utilise FreeCAD 1.1.3 avec Cables 0.3.7 sous Windows. Le RPC a refusé la
+connexion au démarrage. Le Python embarqué a exécuté les opérations natives
+et les 19 tests du banc synthétique. Les propriétés du planificateur C++17
+ont également été testées. Les résultats synthétiques et ceux du drone sont
+interprétés séparément.
+
+| Porte et exigence | Contrôle et portée |
+|---|---|
+| A / EM-INT-01 et EM-INT-02 | Réconciliation de 43 lignes BOM, des 40 identifiants du registre électrique global et de 53 parcours natifs. Le registre compte 71 lignes et couvre les liaisons embarquées, les interfaces directes, les liaisons internes, le sol et les retraits. Un export KiCad neuf retrouve les 43 broches vérifiées sur 15 références. |
+| B / EM-GEO-01 et EM-GEO-02 | Réouverture de 141 natifs. 53 câbles, 4 gaines et 2 guides recalculés avec leur cache vidé. Équivalence volumique aux tolérances du contrôle. La revue des 21 groupes confirme les 53 identifiants et leurs extrémités. |
+| C / EM-GRP-01 | Quatre protections communes distinctes du cordon Airy. Dix inclusions locales passent, avec zéro volume en paroi. Tronçons de 105, 30, 9 et 8 mm. Quatre stations de retenue du corridor nord restent à redéfinir autour de la gaine. |
+| C / EM-COL-01 et EM-COL-02 | 19 765 paires au nominal, dont 2 527 touchées par la refonte. Aucun nouveau recouvrement détecté au seuil de 0,0001 mm³. Six recouvrements d'enveloppes Airy restent circonscrits à l'éclatement. Neuf distances exactes restent indéterminées. |
+| D / EM-INT-02 et EM-GRP-01 | 53 axes avant/après. Les protections communes passent de 80 à 152 mm, hors tronc Airy déjà présent. Les axes cumulés passent d'environ 12 195 à 12 207 mm. Masse complète inconnue des deux côtés. Les douze selles des bras sont conservées. |
+
+Le [rapport géométrique](../hardware/mecanique/cartographe/verification/refonte_faisceaux/validation_geometrique.json)
+rattache la réouverture, les comparaisons volumiques et les preuves
+indépendantes aux mêmes natifs sauvegardés. Deux paires entre P75 et les
+équipements avioniques ont dépassé le délai du calcul direct. Leur
+recouvrement est borné par les contrôles du guide de référence et par la
+borne sur la matière ajoutée après les soustractions. Ce raisonnement ne
+donne pas leur dégagement exact. La
+[comparaison des variantes](../hardware/mecanique/cartographe/verification/refonte_faisceaux/validation_variantes.json)
+reporte les rejets et le dimensionnement des sections. Le classement porte
+sur les variantes testées et les critères géométriques évalués.
+
+Le contrôle différentiel de F16 compte 4 455 paires sur 27 poses sans
+nouveau recouvrement ou calcul indéterminé. Les intersections rigides de
+référence aux poses caméra et la course réelle restent ouvertes. Pour M8,
+sept poses sur seize échouent à raccorder le départ hérité à R52. Sur 36
+variations du départ, trois des quatre variantes contrôlées passent au
+nominal. Les trois rencontrent la semelle ou la rondelle du BMS dans au
+moins deux poses. La copie conserve donc la route nominale M8. Les essais
+exploratoires autorisaient la variation de longueur entre poses et ne
+démontrent aucune tenue en traction, torsion ou fatigue.
+[Contrôle des poses](../hardware/mecanique/cartographe/verification/refonte_faisceaux/mobilite.json),
+[variantes M8](../hardware/mecanique/cartographe/verification/refonte_faisceaux/mobilite_variantes_m8.json).
+
+La course et la fatigue F16/M8, la tenue des retenues, les efforts et jeux
+au montage, les températures, la CEM et les longueurs de commande restent
+**À valider**. Le registre conserve les neuf définitions embarquées non
+résolues. Aucun essai physique ni validation interactive du montage n'a été
+exécuté.
+
+<a id="validation-faisceaux-modulaires"></a>
+**Copie modulaire du 9 novembre 2026 — Implémenté en CAO, À valider pour le montage.**
+La [preuve consolidée](../hardware/mecanique/cartographe_faisceaux_modulaires/verification/validation.json)
+relie les critères `CAB-CARTO-001`, `MEC-INT-001` et `EM-INT/GEO/COL/GRP`
+au modèle et à ses fichiers finaux. La
+[revue indépendante initiale](../hardware/mecanique/cartographe_faisceaux_modulaires/verification/revue_modulaire.json)
+recoupe les axes, les interfaces électriques et les intersections des premiers
+trajets reconstruits. La
+[contrelecture de la reprise](../hardware/mecanique/cartographe_faisceaux_modulaires/verification/revue_reprise_modulaire.json)
+vérifie les natifs P70, la retenue F41 et le trajet F06.
+
+| Porte | Résultat et périmètre |
+|---|---|
+| A — Intégrité | 147 fichiers de la source de copie vérifiés par empreinte. Onze modules, 53 axes et 71 identités électriques rapprochées. Équipements, placements et terminaisons électriques conservés. |
+| B — Recalcul et réouverture | FreeCAD 1.1.3 et Cables 0.3.7 sous Windows AMD64. Les 53 câbles sont reconstruits en mémoire à partir des natifs sauvegardés. Les 141 documents de la fermeture native sont rouverts dans la copie. Les rayons et axes de définition sont contrôlés séparément des données fournisseur. |
+| C — Retenues et protections | 172 paires à proximité des occurrences ajoutées ou reprises. Aucun recouvrement volumique ou résultat indéterminé dans ce sous-contrôle. Les cinq interférences de la première passe ont été reprises. Les deux gaines F38 contiennent chacune leur câble sur 105 mm, avec 0,75 mm de garde radiale nominale et 66 % de section occupée. |
+| C — Assemblage nominal | 33 120 paires impliquant un câble, une gaine ou une retenue. Après reprise des quatre calculs interrompus, aucune intersection interdite détectée au seuil de 0,0001 mm³. Six recouvrements d'enveloppe sont circonscrits à l'éclatement Airy. Les distances exactes de quatre paires autour de CA01 et de la porteuse restent indéterminées. |
+| D — Comparaison | Trois cadres et deux grandes retenues retirés. Les occurrences de supports de faisceau, quincaillerie et boucles dans la CAO passent de 75 à 58. Les longueurs d'axe diminuent de 1 082,7 mm. Le retrait invalide 263 affectations historiques de station. Le bilan de masse reste incomplet. |
+
+Le retrait de P75 a d'abord laissé les supports radio P70 sans ancrage.
+La reprise utilise les colonnes P68. Le
+[contrôle sur les natifs](../hardware/mecanique/cartographe_faisceaux_modulaires/verification/validation_radio.json)
+mesure le jeu radial nominal de 0,10 mm et identifie les faces de butée
+axiale. Les forces d'encliquetage et de retenue, les tolérances et le
+comportement vibratoire demeurent **À valider**.
+
+Le contrôle géométrique porte sur la pose nominale. Les 48 axes conservés
+comprennent des réservations dont les attaches ne sont plus définies. Les
+couples et tolérances, le passage des connecteurs, la tenue vibratoire,
+thermique et CEM, la course et la fatigue de la caméra restent à vérifier.
+Les essais de montage physique et
+l'inspection interactive d'accessibilité n'ont pas été exécutés.
+
+**Reprise du 8 novembre 2026 — Implémentée sur copie, À valider.** Le
+[bilan technique](../hardware/mecanique/cartographe/verification/reconstruction_faisceaux/bilan_autonomie.json)
+relie les essais et leurs empreintes à l'assemblage final. La recette utilise
+le Python embarqué de FreeCAD 1.1.3 avec Cables 0.3.7 et le solveur C++17.
+
+| Porte et exigence | Contrôle et résultat |
+|---|---|
+| A / EM-INT-01 et 02 | 143 sources originales et 144 fichiers de la copie de référence vérifiés par SHA256. Fermeture finale de 138 natifs sous la copie. 53 parcours uniques, 52 autres parcours et leurs liens conservés, deux terminaisons de F16 conservées. |
+| B / EM-GEO-01 et 02 | F16 complet `Cable002` sur `CompoundPath`, protection F38 paramétrique et guide P73 recalculés. Réouverture de l'assemblage en processus dédié avec chargement complet préalable des deux candidats à reconstruire. Différences volumiques nulles aux tolérances du contrôle. |
+| C / EM-F16-01 | 24 géométries nominales explorées, 6 infaisables par manque de tangence et 3 avec intersection. Une géométrie favorable du lot exploratoire garde une trace d'exécution non figée. Cinq stations retenues à moins de 0,6 mm de l'axe. R50 mobile et R24 fixe vérifiés. |
+| C / EM-COL-01 | 27 poses de F16, aucun recouvrement au-dessus de 0,0001 mm³ sur les obstacles modélisés. Longueur constante, écart numérique inférieur à 2 × 10⁻¹³ mm. Les nouveaux volumes P73/F38 sont disjoints des sections F16 et des 31 pièces mobiles aux 27 poses, soit 1 782 paires supplémentaires écartées par boîtes englobantes. |
+| C / suspension | 16 poses sur 27 présentent une intersection rigide, dont 7 des 8 combinaisons à signes couplés de ±0,5 mm et ±0,5°. Les quatre bagues et quatre tampons déformables sont exclus de la simulation rigide. Aucun domaine de déplacement continu ni qualification vibratoire déduits. |
+| C / EM-GRP-01 | Quatre longueurs de gaine ronde F38 interfèrent avec P73. La paroi ovale de 80 mm sur P73 adapté contient les deux tronçons sans pénétration de paroi. Les gaines NTC de 6 mm et GNSS de 5 mm, testées en CAO, ne sont pas retenues. |
+| D / comparaison | F16 initial 425,174 mm et R22. Candidat 494,608 mm et rayons 50/24 mm, trois stations libérées, cinq conservées. Un tronçon de protection commun de 80 mm. Les mesures ne lèvent pas les inconnues de montage et de masse complète. |
+
+La distance nominale de 0,105 mm au P75 est mesurée sur le tronçon fixe.
+Un retour de distance nul près de la vis OEM079 contredit la séparation des
+boîtes englobantes. La distance exacte de cette paire est donc indéterminée,
+et l'intersection de cette paire est exclue par la borne géométrique. Le zéro
+brut ne sert pas de dégagement. Les seuils de dégagement physiques restent ouverts.
+
+La réouverture a d'abord échoué sur le document F16 partiellement chargé par
+XLink. L'ouverture préalable des deux natifs candidats a permis de les
+reconstruire et de vérifier les liens et empreintes du modèle final. Les
+recettes de comparaison se limitent aux poses discrètes, au câble F16 et aux
+nouveaux volumes rigides. Les autres câbles mobiles, le passage des outils et
+des prises, la tenue des colliers et du guide, la torsion et la fatigue de
+F16, le comportement USB3, la CEM et le thermique restent à valider. Aucun
+essai physique, en vol ou validation interactive n'a été réalisé.
+
+**Contrôle étendu aux 53 parcours.** Cinq lots ont reconstruit les 53 solides
+à partir de leurs bases natives, cache de câble vidé et absence d'écart
+volumétrique au seuil de 0,0001 mm³. Les extrémités coïncident avec les points
+du registre. Les axes de prise et rayons d'acceptation indépendants ne sont
+pas établis dans cette recette pour 52 parcours. Les mesures de courbure ne
+qualifient donc pas ces liaisons. La distinction entre câble natif et groupe
+`Ensemble` lié dans SA07 est vérifiée sur les 53 occurrences.
+
+La mesure des 257 associations entre stations documentées et axes a conduit
+à corriger sept stations de P73/P75. Le premier candidat P73 est écarté pour
+trois intersections. Sur la paire de guides retenue, les seuls volumes ajoutés
+ou leur borne conservatrice sont vérifiés contre les autres occurrences et
+entre eux. Aucun nouveau recouvrement n'est détecté au nominal, ni dans le
+complément de contrôle du bloc rigide et de F16 aux 27 poses déjà étudiées.
+Le modèle complet et les deux guides ont été rouverts en processus neuf. Les
+guides recalculés ont des volumes égaux aux volumes sauvegardés à la tolérance
+du contrôle. Après transformation de huit points déclarés en repère local,
+11 écarts dépassent 0,6 mm. Huit correspondent à des distances au point
+commun du peigne MAIN, qui ne désigne pas les axes individuels. Les trois
+sites individuels à reprendre sont F38_POS_RETOUR, F05_POS_T_20 et F37_NEG_V.
+La tenue des colliers et les accès de montage restent ouverts.
+[Résultats du contrôle étendu](../hardware/mecanique/cartographe/verification/reconstruction_faisceaux/bilan_faisceau_complet.json).
+
+**Baseline du 28 octobre 2026.** Les résultats suivants concernent la copie
+conservée et l'essai R23,5 séparé.
+
+**Résultat partiel, À valider ; aucune reconstruction globale qualifiée.**
+Protocole : skill `electromechanical-integration`, portes intégrité, géométrie
+fraîche, intégration puis comparaison. Environnement Windows amd64, FreeCAD
+1.1.3, Cables 0.3.7 et planificateur C++17/Qt6. Le RPC a refusé la connexion ;
+les tentatives de démarrage n'ont pas établi de session MCP durable. Le repli
+Python embarqué a réellement exécuté les mesures et objets natifs, avec GUI
+dédiée hors écran. Les avertissements Qt/cache ne valent pas échec BRep ni
+validation interactive. Les 19 tests synthétiques de la skill ont réussi.
+
+Le [bilan consolidé](../hardware/mecanique/cartographe/verification/reconstruction_faisceaux/bilan.json)
+relie fichiers, empreintes, phases, mesures et limites. La comparaison détaillée
+et les vues sont dans [DOC-MEC §2.2.3](architecture/ARCHITECTURE_MECANIQUE.md#reconstruction-faisceaux).
+La copie conserve l'assemblage initial ; l'essai F16 reste séparé.
+
+| Exigence / risque | Contrôle exécuté | Résultat / preuve dans `verification/reconstruction_faisceaux/` |
+|---|---|---|
+| EM-INT-01 — préserver sources et dépendances | fermeture XLink, SHA256, résolution native | 143 fichiers préservés ; 137 documents uniquement sous la copie ; reçu `experiment.json` de la copie et `reouverture_assemblage.json` |
+| EM-INT-02 — conserver les identités | projection des 53 routes et inventaire logique/BOM | aucune omission/duplication dans la projection ; trois candidats `unresolved` ; brochages physiques NON_VERIFIE ; `analyse_connectivite.json`, `resultat_planificateur.json` |
+| EM-GEO-01 — supprimer le risque de solide périmé | cache Shape vidé avant recalcul | 53/53 câbles frais valides et essai F16 valide puis réouvert ; `recalcul_natif.json`, `prototype_f16_reouverture.json` |
+| EM-GEO-02 — relier sauvegarde et recalcul | différences volumiques dans les deux sens | 54/54 différences ≤0,0001 mm³ ; 60 poses racine/câbles identité et conformes au registre ; `equivalence_solides.json` |
+| EM-F16-01 — stations, rayon, tangence, longueur | huit stations à 0,6 mm ; continuité 0,00001 mm, tangence 0,1° ; courbes analytiques | statique favorable pour initial et R23,5 ; axes candidats, dynamique NON_VERIFIE ; `comparaison_f16.json` |
+| EM-COL-01 — volumes F16 | BRep sur 360 autres occurrences, seuil 0,0001 mm³ | aucune intersection positive ou opération inconnue ; minimum 0 mm, aucune marge vibratoire démontrée |
+| EM-COL-02 — périmètre global | 17 702 paires prises en compte, dont AABB disjointes, reprise bornée | intersections et erreurs détaillées ci-dessous ; ce nombre n'est pas celui de booléens réussis |
+| EM-GRP-01 — enveloppes | C++17, aire et disposition nominale de disques | huit diamètres candidats ; aucune compatibilité CEM/thermique ou fourniture validée ; `dimensionnement_gaines.json` |
+
+L'équivalence mesurée est volumétrique, pas une borne de Hausdorff ni une
+preuve de montage. Les minima de distance non conservés ou non calculés
+restent `null` ; un zéro mesuré est un contact, pas un dégagement acceptable.
+
+**Collisions.** `baseline_volumes.json` finalise les 361 occurrences
+(53 routes, 308 obstacles), mais rapporte six intersections entre les quatre
+enveloppes Airy et 159 paires inconnues après expiration de trois lots de
+35 s (CA01, Holybro6XOrin et P75_Cadre). Cette preuve conserve ses erreurs.
+`affinage_volumes.json` porte séparément la reprise avec validité des entrées
+mise en cache et contrôles BRep maintenus, ainsi que la mesure des recouvrements
+Airy hors zone nominale d'éclatement. Le bilan consolidé indique le résultat
+effectivement finalisé ; `complete=true` signifie rapport terminé, pas absence
+de défaut. Un recouvrement d'enveloppes OEM ne permet pas des conducteurs
+physiques superposés ; l'intérieur réel de la jonction reste NON_VERIFIE.
+
+**Reprise finalisée : 159/159 paires résolues, aucune inconnue de calcul
+résiduelle et aucune intersection supplémentaire détectée.** Pour les composés
+coûteux, les intersections sont évaluées sur leurs solides détaillés après
+filtrage AABB ; la somme des volumes est une borne supérieure si ces solides
+se recouvrent. Tous les résultats correspondants sont nuls à la tolérance.
+Les six volumes Airy hors zone nominale sont nuls. Cette localisation ne
+qualifie pas leur intérieur, les dégagements de service ni les mouvements.
+
+**Statuts et arrêt.** R48 uniforme sur les points F16 initiaux est
+`NON_CONFORME` par manque de longueur de tangence. Le candidat R23,5 et
+l'architecture globale restent `NON_VERIFIE` pour l'intégration complète ;
+le matériel reste `A_VALIDER_PHYSIQUEMENT`. Aucun faisceau n'est déclaré
+globalement `VALIDE_GEOMETRIQUEMENT`. Le gain local F16 (suppression de deux
+contacts structure) ne lève ni la condition de flexion caméra ni les inconnues
+de cohabitation. Phase D non engagée. Montage/démontage, débattements,
+extraction des prises, vibration, thermique et CEM ne sont pas validés ;
+aucun essai matériel ou vol n'est exécuté. Les données discriminantes et la
+prochaine décision sont dans DOC-MEC.
+
+La [revue indépendante](../hardware/mecanique/cartographe/verification/reconstruction_faisceaux/revue_reconstruction.json)
+porte les constats et leur clôture ou maintien explicite.
+
+<a id="validation-moteur-electromecanique"></a>
+### 12.1.13 Moteur électromécanique sur banc — 10–11 novembre 2026
+
+`T-EM-ENGINE-01` vérifie la chaîne de conception du banc pour `CAB-CARTO-001`
+et `MEC-INT-001`. Le [guide d’exécution](../electromechanical_engine/README.md)
+décrit la reprise. La [preuve structurée](verification/electromechanical_engine.json)
+identifie les commandes, empreintes, résultats et limites par phase. Le banc
+utilise des entrées synthétiques en millimètres dans un repère XYZ, Z vers le
+haut. Cette action soutient la complétude électromécanique du lot
+ORCH-CAO-MASSE-1. La progression des essais et la priorité du §14 restent
+applicables.
+
+| Jalon | Contrôle et critère de sortie |
+|---|---|
+| J0 — environnement | Probe Part et contrôle Cables, versions et API locales, fermeture XLink et empreintes avant/après. Le refus RPC conduit à un repli testé dans un processus FreeCAD distinct. |
+| J1 — contrats | Validation des identifiants, de la provenance et des contraintes, gel des octets et refus des divergences. |
+| J2 — extraction | Sauvegarde d’une copie avec dépendances, réouverture et vérification de l’intégrité en processus distinct. |
+| J3 — validation | Contrôles V1–V4 sur données de test et sur les mesures natives prises en charge. Les exigences dont les mesures manquent restent ouvertes. |
+| J4 — rapports | Longueurs, volumes, dégagements, métriques par zone et projections à cadre commun lorsque les observations le permettent. Les métriques absentes sont identifiées. |
+| J5 — variantes | Corridors rattachés aux enveloppes porteuses gelées, hypothèses de connectique et électronique conditionnelles, budget et contraintes vérifiés. |
+| J6 — rétrovalidation | Collision native du trajet direct, contournement déclenché par le même défaut et la même paire, réouverture indépendante et comparaison des variantes admissibles. |
+| J7 — utilisation | CLI, trois skills, exécution de leurs parcours, résultats et point de reprise par tentative. |
+
+**Résultat du banc — Implémenté.** La paire `L1` / `Obstacle` passe de
+31,416 mm³ d’intersection à zéro. Le contournement `lateral` atteint 10 mm
+de dégagement pour un seuil de test de 1 mm. Il mesure 121,416 mm, soit 12 mm
+de moins que `lateral-large`, et reste seul sur le front de Pareto des
+candidats admissibles pour l’objectif de longueur. Le trajet direct est
+rejeté. Les variantes de connectique et d’électronique restent
+conditionnelles. Le rapport de revalidation confirme le verdict après une
+nouvelle ouverture. Les SHA-256 des 941 fichiers contrôlés (938 natifs sous
+`hardware/mecanique/cartographe` et trois sources techniques) sont identiques
+avant et après la reprise.
+
+L’extraction native est démontrée sur la fixture à deux documents et sur la
+copie du sous-assemblage `SA04_Prototype_Perception`. Cette dernière couvre
+20 documents, 285 objets et 52 liens. Deux dépendances ouvertes partiellement
+ont été chargées en entier avant le contrôle. Les sources ont gardé leurs
+empreintes et la copie a été rouverte et recalculée dans un nouveau processus.
+Les 61 tests du moteur, dont trois intégrations FreeCAD, et les 19 tests de
+l’utilitaire Cables passent. Les trois skills passent le validateur de format
+et leurs parcours CLI sont exercés. La couverture de lignes du processus
+orchestrateur figure dans la preuve. Le worker est contrôlé par les tests
+natifs, hors instrumentation de couverture.
+
+**Clôture du développement — GO 1.** Le rejeu `T-EM-ENGINE-02` valide le
+moteur sur deux bancs contrôlés sous Windows amd64, FreeCAD 1.1.3,
+OCCT 7.8.1 et Cables 0.3.7. Les 66 tests du moteur, dont six tests natifs,
+et les 19 tests Cables réussissent. Le RPC refusait la connexion. Les essais
+natifs ont utilisé le Python de FreeCAD dans des processus distincts.
+[Preuve de clôture](verification/electromechanical_engine_go1.json)
+
+Sur le banc mobile, V3 vérifie la couronne fermée du support dans le solide
+natif et mesure 111,416 mm de portée maximale sur l’axe, pour une limite de
+115 mm. La variante de 131,416 mm est rejetée. V4 contrôle le câble sauvegardé
+aux poses intermédiaire et extrême. La collision de 31,416 mm³ à la pose
+extrême déclenche une correction de la même liaison dans cette pose.
+Le dégagement final atteint 28 mm sur cette paire, la longueur développée
+reste de 121,416 mm et le rayon minimal est de 5 mm aux deux poses. Le
+validateur rejette une variation de longueur de 5 mm et laisse une pose
+manquante conditionnelle. Une nouvelle ouverture indépendante confirme le
+verdict du candidat corrigé.
+
+L’extraction de `SA04_Prototype_Perception` confirme la sauvegarde et la
+réouverture de la copie avec ses 20 fichiers et 52 liens. L’inventaire
+complet du prototype a finalisé le contrôle de 137 fichiers, 3 733 objets
+et 375 liens. OCCT signale quatre solides et leur agrégat dans
+`EQ_Chassis_X650.FCStd`. Le code 2 indique que ces défauts ont empêché la
+sauvegarde et la réouverture de cette copie. Les 941 empreintes sources
+contrôlées concordent avec l’inventaire initial.
+
+GO 1 couvre les capacités exercées sur ces bancs et l’extraction sur copie.
+La réserve V4 correspond à la longueur développée moins la corde entre
+ports. La cinématique entre les poses, la tenue des fixations, le mapping
+métier du cartographe, le regroupement physique et les métriques dont les
+entrées manquent restent **À valider**. La qualification du cartographe
+relève de l’action 2 et les essais physiques suivent le §2.
+
+<a id="qualification-moteur-go2"></a>
+#### Action 2 — qualification indépendante du moteur, 11 novembre 2026
+
+`T-EM-ENGINE-03` vérifie que le moteur reconnaît ses défauts avant toute
+nouvelle intégration. L’action a été bornée aux deux bancs GO 1, aux cas
+adversariaux et aux géométries historiques retrouvées. Les exigences des
+bancs ont été gelées séparément des candidats. Les natifs historiques ont
+été ouverts depuis des copies isolées. Le cartographe complet, sa définition
+massique et les essais physiques conservent leurs conditions de clôture du §14.
+
+**GO CONDITIONNEL.** Passage autorisé pour l’usage des capacités démontrées
+sur banc sous Windows amd64, FreeCAD 1.1.3, OCCT 7.8.1 et Cables 0.3.7.
+Les historiques donnent des constats ciblés. Leur admission globale et
+l’usage du moteur pour accepter une conception complète du cartographe
+restent **À valider**. [Manifeste de qualification et résultats](verification/electromechanical_engine_go2.json)
+[Revue indépendante](../electromechanical_engine/qualification/independent_review.json)
+
+Les comparaisons nominales de banc réconcilient chaque paire de l’inventaire
+gelé. Une borne de distance entre boîtes englobantes strictement supérieure
+au dégagement requis augmenté de la tolérance permet d’écarter une paire.
+Les autres paires passent par un contrôle BRep. Les cas d’extraction sont
+mesurés séparément des collisions nominales. Deux réouvertures indépendantes
+du même candidat admissible de chaque banc produisent des rapports identiques.
+Les 73 tests du moteur, 19 tests FreeCAD/Cables et 6 tests d’isolation
+réussissent. Aucun de ces tests n’a été sauté.
+Le client RPC local a renvoyé `WinError 10061`. Le repli par processus
+FreeCAD séparé a exécuté les contrôles natifs. L’exécution sur RPC disponible
+reste **À valider**. [Cas adversariaux et limites par classe](../electromechanical_engine/qualification/adversarial_cases.json)
+
+| Exigence et composant | Défaut reproduit | Correctif et preuve de non-régression |
+|---|---|---|
+| `MEC-INT-001` → inventaire et contrôle de paires | Un lien de propriété masquait un solide qui recouvrait le câble de 12,566 mm³. Le moteur annonçait une couverture complète. | Rejet de tout solide sans identité de campagne ou pose mobile reconnue. Les candidats du banc sont mesurés dans un seul document. Les fixtures de lien interne et externe sont rejetées après réouverture. L’extraction d’assemblages liés conserve son parcours séparé. |
+| `CAB-CARTO-001` → verdict de courbure | Un arc de test de 7,2 mm était rejeté à cause de la lecture 7,199999999999996 mm. | Marge d’arrondi de 16 ULP sur la mesure analytique certifiée, enregistrée dans le constat. Le rayon de 7,199999 mm reste rejeté pour le même seuil. La lecture native de l’arc F16 à 21,999999999999954 mm exerce également ce contrôle d’arrondi. |
+| `MEC-INT-001` → comparaison et Pareto | Une copie de rapport dépourvue du constat de couverture pouvait rester admissible. | Cinq constats natifs favorables sont requis pour l’admission. Les différences de métriques restent calculables à périmètre commun. La provenance d’un rapport exige la revalidation indépendante de son natif. |
+
+Le [catalogue des historiques](../electromechanical_engine/qualification/historical_catalog.json)
+répertorie les fichiers, preuves, sources d’interface et références manquantes.
+Les mesures de trajectoire et de collisions ne certifient que la géométrie
+observée. Le classement global reste ouvert pour les cas privés de contrat
+d’interface, d’exigence de manipulation, de modèle exact ou de résultat BRep
+conclusif. Les vues historiques facilitent l’identification des objets.
+Les verdicts reposent sur les critères et mesures cités.
+La comparaison avant/après confirme l’intégrité des 1 998 fichiers
+catalogués. [Empreintes des sources](../electromechanical_engine/qualification/historical_source_integrity.json)
+
+| Cas historique | Contre-validation et limite |
+|---|---|
+| F16 initial | Axe rouvert de 425,174 mm et minimum échantillonné de 22 mm. Le couple avec P73 est dégagé dans le contrôle ciblé. La référence de famille distingue 22 mm statique et 48 mm en flexion continue. Le cordon effectivement monté et son usage dynamique restent **À valider**. |
+| F16 `BSpline_K` | Axe de 456,959 mm avec un rayon local échantillonné voisin de 0,006 mm. Le recalcul conservait l’ancien solide en mémoire. Après effacement du cache sur la copie rouverte, la gaine n’est pas régénérée et le validateur signale un solide invalide. |
+| F16 `BSpline_P` | Rayon minimal échantillonné de 23,663 mm, sans borne globale certifiée. Le couple avec P73 confirme l’interférence par deux méthodes, pour environ 704,63 mm³. Le détail des paires non conclues reste dans la preuve et le décompte de huit intersections appartient au rapport historique. |
+| Guides orange et copie modulaire | Sur le périmètre historique identifié, le volume des guides et retenues passe de 221,958 à 30,514 cm³ pour 17 occurrences dans chaque copie. P72 et P73 représentent respectivement 43,85 et 75,75 cm³ sur le monolithe. Statut physique, masse, ancrage, accès, montage et variantes de parcours doivent encore être établis avant acceptation. |
+| F12 | La borne native de A tombe sur GPS2 suivant le repère de la carte de référence. Le contrat radio fixe TELEM1. Cette destination est `NON_CONFORME` dans A. La borne de la copie par faces rejoint TELEM1. Brochage et accouplement du lot restent à vérifier. |
+| F24A | La cible GPIO de la CAO demeure présumée. Le brochage fournisseur consulté ne démontre pas la correspondance entre le gabarit modélisé et le connecteur réel. Destination `NON_VERIFIE`. |
+| F25 | Le catalogue identifie le trajet sous P66, la remontée GPS1 et le clip local P85. Les coordonnées terminales ont été relues. Les preuves historiques de dégagement restent limitées aux volumes et poses modélisés. |
+| F31 | Le parcours bas sauvegardé a été relu face aux obstacles du modèle. Les paires non conclues restent ouvertes. L’enveloppe installée, la protection puissance et le volume d’accouplement/extraction CAN1 doivent être contrôlés séparément. Le conflit historique avec F35 et les variantes d’orientation du PM08 ne donnent pas une validation de la manœuvre CAN1. |
+| F41 | Axe rouvert ramené de 1 180,942 à 340,408 mm. L’accès fonctionnel de diagnostic reste `NON_VERIFIE` en l’absence d’une longueur utile et d’un scénario de manipulation documentés. |
+
+La variante A et la copie par faces utilisent les mêmes volumes de référence
+dans le repère XYZ de l’assemblage, en millimètres. Les 53 axes ont été
+recalculés depuis les BRep sauvegardés. Les longueurs portent sur les axes.
+L’altitude maximale est le Z maximal des enveloppes de gaine. Les zones, le découpage
+et la tolérance de comparaison sont consignés dans les preuves natives
+référencées par le manifeste. Les longueurs et altitudes se répètent à
+l’identique. Le balayage complet F16 a expiré lors de la répétition, et les
+deux passages F31 laissent des paires indéterminées différentes. Le contrôle
+ciblé F16/P73 se répète à l’identique.
+[Mesures, journaux et critères de rejeu](../electromechanical_engine/qualification/native_evidence.json)
+
+| Métrique | A (mm) | Faces (mm) |
+|---|---:|---:|
+| Longueur au-dessus de la porteuse | 2 051,213 | 1 802,043 |
+| Longueur dans la baie de référence | 4 221,879 | 3 860,643 |
+| Longueur sous l’emprise de P66 | 21,721 | 275,508 |
+| Longueur totale | 10 885,079 | 10 788,378 |
+| Altitude maximale | 170,278 | 170,278 |
+
+Le gain de 249,170 mm au-dessus de la porteuse s’accompagne d’une hausse de
+253,787 mm sous son emprise. La hauteur maximale est identique.
+Les dégagements de montage, les rayons applicables et l’effet sur la
+congestion globale restent **À valider**.
+
+<a id="cartographe-action3"></a>
+#### Action 3 — exploration du cartographe sans dock, 11 novembre 2026
+
+`T-EM-ENGINE-04` traite la complétude géométrique et électrique du lot
+ORCH-CAO-MASSE-1 (§14, audit AUD-003/004/006/007 au §15). Le
+[référentiel de campagne](verification/cartographe_action3_reference.json)
+fixe les contrôles V1–V6 et identifie la demande, le GO 2 et les 30 fichiers
+de code et d’entrée dont les SHA-256 concordent avec GO 2. Les seuils du
+banc ne sont pas applicables au prototype. Il reste à établir la
+correspondance entre ports, obstacles et exigences pour geler le contrat
+du moteur sur le prototype complet. Les 73 tests du moteur réussissent, y compris les essais
+natifs exécutés avec le Python de FreeCAD. Le contrôle RPC local n’a pas
+abouti (WinError 10013). Les contrôles natifs ont utilisé des processus
+FreeCAD dédiés. Les 137 sources de la fermeture XLink sont identiques avant
+et après extraction. Le corpus historique de 1 998 fichiers concorde
+avec GO 2.
+
+| Contrôle | Résultat et périmètre |
+|---|---|
+| V1 — interconnexions | La [matrice](verification/cartographe_action3_interconnexions.json) réconcilie 71 lignes de périmètre, 50 liaisons embarquées, 43 identifiants de liaison de la nomenclature et 53 axes. Neuf liaisons restent non résolues dans la copie de référence. Le natif actif de F12 est identique à celui de A, mesuré sur GPS2 dans le repère RC02 alors que la destination requise est TELEM1. F24A, le brochage et l’accouplement restent ouverts. |
+| V2 — intégrité et géométrie | [Extraction sur copie](verification/cartographe_action3_extraction.json). L’inventaire du prototype est complet (137 fichiers, 3 733 objets, 375 liens). Quatre solides HUAZHU-LV-M3-90 et leur agrégat OEM X650 sont invalides. L’extraction renvoie le code 2 avant sauvegarde et réouverture. Les 12 essais de réparation locale sur copie restent invalides. Le sous-assemblage de perception a été sauvegardé puis rouvert en processus neuf (20 fichiers, 285 objets, 52 liens, code 0). Le candidat isolé F31_Sous_P66 est comparé aux obstacles de la copie par faces en excluant le F31 assemblé. Sur 349 paires, 311 sont éliminées par séparation des boîtes et une paire BRep avec l’avionique reste non conclue. |
+| V3 — montage et démontage | **À valider**. Mesurer la manœuvre CAN1 autour de F31/F35, l’ancrage des retenues, l’assemblage du passage bas et la réserve accessible de F41. |
+| V4 — mouvement | Mouvement non exécuté. Deux mesures indépendantes du couple F16/P73 sur copies historiques reproduisent 0,200 mm de dégagement pour l’axe initial et 704,630 mm³ d’interférence pour la variante BSpline_P. Poses, réserve utilisable et flexion continue **À valider**. |
+| V5 — comparaison | Le [rejeu](verification/cartographe_action3_rejeu.json) mesure les mêmes 53 axes en deux passages par historique. De A à la copie par faces, −96,701 mm au total, −249,170 mm au-dessus de la porteuse (zone à partir de Z = 130,052 mm), −361,237 mm dans la baie, +253,787 mm sous l’emprise de la porteuse, altitude de gaine inchangée à 170,278 mm. Ces longueurs sont des mesures de zones géométriques. La congestion, la masse, le montage et la CEM demandent des preuves supplémentaires. |
+| V6 — revue des vues | Revue des vues historiques à échelle commune, avec rapprochement des empreintes des natifs et des mesures de zones. Les vues de détail et les volumes de manœuvre des nouveaux candidats restent à produire. |
+
+Le [catalogue](verification/cartographe_action3_architectures.json) décrit
+les alternatives A (corridors à équipement fixe), B (implantation et
+connectique) et C (redistribution électronique). Les trois pistes restent
+**À valider**. Le front de Pareto admissible est vide. **GO 3 non acquis.**
+La revue indépendante a réconcilié les empreintes, rapports, statuts
+d’exécution et mesures historiques. Pour poursuivre, vérifier une source CAO
+OEM corrigée sur copie. Une enveloppe conservatrice sourcée peut servir au
+préfiltrage des passages dans un périmètre explicite. Le choix du premier
+candidat dépend aussi du mapping des interfaces et du préfiltrage des accès
+CAN1, F16 et F41. Les contrôles de montage, vibration, fatigue, CEM et
+thermique suivent la progression du §2.
+
+**Reprise sur copie corrigée.** Les quatre BRep invalides du châssis X650
+ont été remplacés, dans la branche OEM de la copie, par la réservation
+nominale Ø5 × 90 mm avec alésage simplifié Ø2,5 mm. Les quatre liens actifs
+de SA01 conservent leur référence paramétrique. L’assemblage complet a été
+recalculé, sauvegardé puis rouvert et recalculé dans un second processus
+FreeCAD. Les 137 fichiers, 3 733 objets et 375 liens sont réconciliés,
+sans objet invalide, lien rompu ni document partiel. Les empreintes des
+137 fichiers natifs sources concordent. [Preuve X650](verification/cartographe_action3_x650.json)
+
+La piste A1 a été reprise sur une seconde copie avec le même X650 corrigé.
+Le trajet F12 rejoint TELEM1 dans le repère CAO et passe de 183,979 à
+163,999 mm. SA07 a été sauvegardé. La racine complète a été rouverte puis
+recalculée dans un processus distinct, avec contrôle du lien F12.
+Le criblage géométrique de 2 418 paires couvre 272 mesures BRep, sans
+intersection de volume positif ni paire non résolue sur ce périmètre.
+Deux contacts géométriques avec la porteuse restent à instruire. La
+retenue, l’accouplement et le brochage restent **À valider**.
+[Preuve A1/F12](verification/cartographe_action3_reprise_f12.json)
+
+Pour B1, le criblage sur la copie de référence autour de CAN1 a mesuré
+0,800 mm de jeu avec F35 pour un gabarit vertical de 4 × 4 × 10 mm.
+Avec un gabarit de 6 × 6 × 10 mm, F35 intersecte le volume de 1,082 mm³.
+Les cotes de la fiche et de l’outillage ainsi que les autres obstacles
+restent à vérifier avant de choisir un déplacement. Aucun gabarit
+d’essai ne fait autorité pour l’enveloppe réelle. Le GO 3 reste ouvert.
+[Préfiltrage B1/CAN1](verification/cartographe_action3_reprise_can1.json)
+
+**Accès CAN1 et essai F35.** Le plan JST GH4 et la porteuse OEM fixent le
+gabarit nominal à 4,15 × 6,25 × 5,7 mm, largeur selon Y et retrait selon +Z.
+L’assise est estimée à partir de la hauteur accouplée de 7,3 mm au-dessus
+du PCB. Sur le trajet initial, le gabarit ne touche pas F35 à 4,25 mm de
+course et l’intersecte à 5 mm. La course de déverrouillage réelle n’est
+pas mesurée. Sur le nouveau trajet, le jeu est d’au moins 3,75 mm avec
+F35 pour les courses testées jusqu’à 20 mm. La sonde candidate MPT2SV a
+été testée avec des gabarits dérivés des cotes fabricant. Des poses
+interfèrent encore avec la retenue P75. Les neuf poses testées côté +X
+intersectent F31. Le geste de
+déverrouillage, la prise et la réserve du cordon restent à vérifier.
+[Preuve CAN1](verification/cartographe_action3_can1_service.json)
+
+F35 passe désormais au sud de CAN1 dans la copie candidate et conserve
+ses extrémités, sa longueur de 123,090 mm et son rayon nominal de 5 mm.
+La fermeture de 137 fichiers a été rouverte et recalculée en processus
+neuf après sauvegarde de F35 et SA07. Le contrôle de 3 005 paires, dont
+131 mesures BRep, ne relève aucune intersection au seuil de 0,0001 mm³.
+Le jeu de 0,20 mm avec F25 et P75 et la retenue haute restent **À valider**.
+Les sources et la copie A1 d’entrée conservent leurs empreintes.
+[Preuve F35](verification/cartographe_action3_f35.json)
+
+**Consolidation du 12 novembre 2026.** La copie X650 corrigée regroupe
+F12 vers TELEM1, le trajet F35 qui libère CAN1, F25 abaissé sur le chant
+est avec P85, et F16 à rayons de 50 mm sur la section mobile et 24 mm
+sur la section fixe. La copie a été rouverte et recalculée dans un
+processus distinct, avec 138 fichiers, 3 753 objets et cinq liens ciblés
+visibles et valides. Les quatre criblages statiques F16/F25/P85/F35
+réconcilient chacun 3 006 paires. Les 1 460 mesures BRep ne relèvent
+aucune interférence supérieure à 0,0001 mm³ ni paire indéterminée.
+Un contact F16–châssis à distance nulle reste à instruire.
+[Preuve de la copie consolidée](verification/cartographe_action3_integre.json)
+La contre-validation intégrale a sauvegardé l’assemblage puis l’a
+rouvert dans un second processus FreeCAD. Elle confirme 376 liens,
+aucun objet invalide, lien rompu ou document partiel. Les empreintes
+des entrées et des natifs rouverts ont été réconciliées.
+
+À périmètre commun de 53 axes, la longueur totale augmente de 87,3 mm
+et la longueur au-dessus de la porteuse diminue de 105,0 mm. L’altitude
+maximale des gaines reste 173,3 mm. F25 réduit son point haut de 12,5 mm
+et passe 102,1 mm sous le plan P66, sur le côté du plateau.
+P85 présente 0,05 mm de jeu nominal au chant et 0,307 mm vers F25.
+Sa tenue et le montage de la fiche restent **À valider**.
+[Preuve F25 et P85](verification/cartographe_action3_f25.json)
+
+Le gabarit de fiche CAN1 passe sur les courses testées jusqu’à 12 mm
+et conserve 4,10 mm avec F35. Les six phases simulées de la sonde
+MPT1RSV avec un appui hypothétique de 1 mm et une levée de 4,25 mm
+passent sur la copie intégrée, avec une borne de 0,120 mm près de F31.
+Le point d’appui du verrou, le geste opérateur et la réserve F31
+restent **À valider**. [Preuve CAN1 intégrée](verification/cartographe_action3_can1_integre.json)
+
+F16 mesure 494,608 mm sur l’axe. Le cordon de catalogue de 508 mm
+hors tout laisse 428,5 mm après allocation des extrémités dans le
+gabarit, soit un déficit de 66,1 mm. Le candidat demande une définition
+du cordon et de sa course réelle. Les collisions rigides des poses
+d’étude interdisent de déduire la mobilité de la seule souplesse du
+câble. [Preuve F16](verification/cartographe_action3_f16.json)
+
+Une variante optique a été sauvegardée et rouverte avec deux dégagements
+locaux sur P17 et les passages de P65 portés à Ø8,6 mm. Les 27 poses
+discrètes de translation à ±0,50 mm passent les 909 contrôles BRep.
+Les ligaments nominaux de 2,80 mm vers le passage M2 et de 2,30 mm vers
+le lamage P10 demandent un contrôle de tenue. La course réelle, les
+rotations, la fatigue du cordon et les tolérances restent ouvertes.
+Cette variante optique a aussi été rouverte avec le trajet F16
+de 493,459 mm qui dégage le solide OEM précédemment tangent.
+Les quatre poses de câble testées passent. La portion droite
+côté mobile à V75 mesure 15 mm. La longueur commerciale disponible
+et la tenue de cette retenue restent à démontrer.
+
+Une autre copie rouverte teste le dégagement GPIO avec deux encoches
+P75 et un parcours F13A à rayon nominal de 8 mm. Le criblage ciblé
+ne relève aucune intersection positive du F13A modifié. Le changement
+de tangente à l’antenne et la résistance du guide restent à vérifier.
+[Preuve GPIO/F13A](verification/cartographe_action3_f24a.json)
+
+Le diagnostic USB-B/TTL reste ouvert. Aucun des 24 trajets F40 et
+20 placements explorés pour l’isolateur ne démontre le dégagement
+simultané des deux interfaces. [Preuve F40/F41](verification/cartographe_action3_f41.json)
+
+Le GO 3 reste ouvert.
+
+<a id="moteur-electromecanique-v2-l0"></a>
+#### Audit L0 et contrats V2 — 12 novembre 2026
+
+`T-EM-ENGINE-L0` conclut **L0_READY** pour engager le rapprochement L1 du
+prototype sans dock. L’audit a vérifié les empreintes de 137 natifs actifs
+et de 138 natifs de la copie consolidée. Le registre couvre 71 lignes.
+Les 50 lignes embarquées se rattachent aux 53 axes par 56 couples.
+Un export KiCad 10.0.6 retrouve les 43 broches sélectionnées sur 15
+références. Sous Windows x64, 73 tests
+du moteur avec FreeCAD, 19 tests Cables et 6 tests d’isolation passent. Le
+planificateur C++17 passe ses 41 assertions. Le banc statique donne deux
+rapports identiques en réouvertures indépendantes. Le RPC est inaccessible
+depuis la session et le repli par le Python FreeCAD est exercé.
+
+Le contrat et son exemple hypothétique ont passé la validation de schéma
+et la revue des références. Le rapprochement métier et le gel des exigences du
+prototype restent des prérequis de L2 et L3. L’intégration complète et les interfaces physiques
+restent **À valider**. L0 conserve GO 3 ouvert. La CAO du prototype a été
+contrôlée par empreinte et fermeture XLink, avec les reçus historiques
+pour les mesures natives. [Audit L0](electromechanical_v2/L0_AUDIT.md) ·
+[Résultats des contrôles](electromechanical_v2/TEST_RESULTS.json) ·
+[Reprise L1](electromechanical_v2/ROADMAP_L1_L5.md#reprise-de-l1)
+
+<a id="moteur-electromecanique-v2-l1"></a>
+#### Recherche technique L1 — 12 novembre 2026
+
+`T-EM-ENGINE-L1` conclut **L1_PASS** sur Windows amd64 pour le moteur
+C++17/Qt 6, l’API Python, la CLI et les échanges L0. Les 24 tests passent
+en compilation principale et indépendante. Le schéma valide les huit
+rapports du catalogue hors ligne et le rapport HTTPS Basler. La
+régression du moteur FreeCAD existant passe sur les 63 tests hors natif.
+Les 137 empreintes de la fermeture CAO active correspondent à L0.
+
+Le parcours F16 retrouve 425,174 mm pour l’axe nominal de l’actif et
+494,608 mm pour l’axe de la copie R50/R24. Avec la convention A1 du plan
+USBFireWire et l’axe de la copie, l’étude conditionnelle borne la marge
+de longueur à environ −53,608 à −22,808 mm. La masse nette du cordon et
+le rayon de flexion continue applicable à la pièce montée restent
+`UNKNOWN`. La borne fabricant de masse de la caméra, inférieure à 85 g,
+est vérifiée sur la copie locale v135 et par requête HTTPS sur v138. Le
+rejeu avec DNS indisponible avait finalisé l’inconnue v138 avec diagnostic.
+
+Le moteur est **Implémenté**. Le résultat couvre la recherche et la
+traçabilité documentaires. Le gel complet V2, l’admission du prototype et
+les essais physiques restent **À valider**. [Reçu L1](electromechanical_v2/L1_RESULT.md) ·
+[Preuve structurée](verification/technical_research_l1.json) ·
+[Architecture](architecture/ARCHITECTURE_LOGICIELLE.md#recherche-technique-l1)
+
+<a id="moteur-electromecanique-v2-l2"></a>
+#### Interconnexion et accouplement L2 — 12 novembre 2026
+
+`T-EM-ENGINE-L2` conclut **L2_CONDITIONAL**. Le banc numérique Windows
+amd64 est **Qualifié** pour deux interfaces droites et un cordon à quatre
+contacts. Les 25 tests L2 passent. Le nominal établit la continuité, les
+repères d’accouplement et la sortie de câble. Les défauts d’identité, de
+brochage, de détrompage, de pose, de dégagement et de rattachement sont
+rejetés. Une donnée indispensable inconnue donne `INCONCLUSIVE`. Le
+FCStd a été sauvegardé puis rouvert et recalculé dans un processus
+distinct avec FreeCAD 1.1.3 et Cables 0.3.7.
+
+Le convertisseur rapproche 71 lignes et 53 axes actifs par 56 associations
+vérifiées. Le mauvais port F12 de l’actif reste un échec géométrique. L1
+laisse ouvertes la révision de la liaison TELEM1 et la limite dynamique du
+cordon F16 monté. Les preuves contribuent à la clôture des interfaces
+d’ORCH-CAO-MASSE-1. Le graphe gelé du prototype, la compatibilité réelle
+des références et les essais matériels restent **À valider**.
+[Preuve L2](electromechanical_v2/L2_RESULT.md) ·
+[Registre rapproché](electromechanical_v2/L2_RECONCILIATION.json)
+
+<a id="moteur-electromecanique-v2-l3"></a>
+#### Décision et exploration d’architectures L3 — 13 novembre 2026
+
+`T-EM-ENGINE-L3` conclut **L3_PASS** sur Windows amd64 pour les cinq cas
+synthétiques demandés. Le lot soutient ORCH-CAO-MASSE-1 en distinguant
+les problèmes de trajet, de service et d’interface. Les observations
+historiques CAN1 et F40/F41 motivent les bancs. L’exploration utilise
+les paramètres et exigences synthétiques gelés, avec au plus cinq
+variantes F31 et sept F40/F41, hors références et consolidations déclarées.
+
+| Cas de réception | Résultat observé |
+|---|---|
+| F31/PM08–CAN1 | Deux détours libèrent le trajet avec 0,4 mm de marge et laissent le retrait et l’outil obstrués. La translation de PM08 de −10 mm donne 8,4 mm de marge de service au banc. |
+| F40/F41 | Après deux routes insuffisantes, le déplacement de P75 et l’interface passive déportée conservent les deux signaux. La marge locale est bornée à [−4, −1] mm sur le domaine étudié. L’interface active reste `INCONCLUSIVE` avec contrat manquant. |
+| Consolidation | Le déplacement et le déport passif passent seuls, puis échouent ensemble avec −3 mm sur la réservation commune. Le témoin compatible passe. Une double affectation contradictoire est refusée. |
+| Fiche inconnue | L1 conserve la provenance de la fiche droite et établit un écart de référence. La compatibilité de la fiche latérale reste `INCONCLUSIVE`. Les courses de 8, 12 et 16 mm donnent +1,4, +0,9 et −0,6 mm de marge. Deux échantillons encadrent la transition entre 12 et 16 mm. |
+| Déplacement et Pareto | F31, F35 et les deux départs de puissance sont réévalués pour PM08. F40, F41, F24A et le coaxial sont réévalués pour P75. Trois variantes restent sur le front de Pareto diagnostic. Le coût reste inconnu. |
+
+La revue indépendante a rejoué les mutations de graphe électrique,
+de seuil et de classement d’exigence ainsi que le refus d’un artefact altéré.
+Les décisions et mesures sont stables entre rejeux. Les horodatages L1
+se propagent dans les empreintes de preuve. Les projections L0 et le rapport
+L1 passent leurs schémas et les dossiers T0 passent le validateur.
+Les réservations F31 utilisent des boîtes et des axes polygonaux. Les
+marges F40/F41 proviennent du modèle affine du banc. Le prototype et
+l’implantation native restent **À valider**.
+[Réception et commandes](electromechanical_v2/L3_RESULT.md) ·
+[Preuve structurée](verification/architecture_decision_l3.json) ·
+[Architecture](architecture/ARCHITECTURE_LOGICIELLE.md#exploration-architecture-l3)
+
+<a id="moteur-electromecanique-v2-l4"></a>
+#### Rétrovalidation électromécanique indépendante L4 — 13 novembre 2026
+
+`T-EM-ENGINE-L4` prolonge ORCH-CAO-MASSE-1 en contrôlant les défauts qui
+peuvent invalider une définition géométrique ou un raccordement. Le budget
+est limité aux cas de réception figés, à deux mesures FreeCAD par natif et
+à un délai maximal de cinq minutes par cas. La référence, les seuils, la
+recette, les scripts et le binaire sont empreintés avant l’évaluation.
+La copie de chaque fermeture permet la réouverture et la mesure en
+processus neuf. Les résultats sont rapportés dans le périmètre mesuré.
+
+**Résultat `L4_CONDITIONAL` sur Windows amd64.** Les 100 attentes de
+réception correspondent sur 29 cas. Les 71 constats donnent 39 `PASS`,
+21 `FAIL` et 11 `INCONCLUSIVE`. Les 19 cas natifs ont chacun fourni deux
+mesures reproductibles dans FreeCAD 1.1.3 / OCCT 7.8.1. Les 137 empreintes
+du cartographe actif concordent avec L0 avant et après l’exécution.
+La vérification L0 et T0 passe. Le rejeu sans FreeCAD conserve 69 attentes
+de réception `NOT_RUN`. Le candidat latéral sauvegardé passe et le candidat
+direct échoue sous le même gel. Un interpréteur substitué et un artefact
+T0 altéré sont refusés.
+
+| Famille | Signal recherché et limite d’interprétation |
+|---|---|
+| V1 | Le banc à quatre circuits réconcilie les broches, les contacts, la compatibilité et les révisions. Le port F12 erroné, le détrompage incompatible, la révision divergente et la matrice permutée sont discriminés. La perte du retour F41 fait échouer le contrôle même si le signal F40 subsiste. Les références montées F12 et F24A restent **À valider**. |
+| V2 | La recette exerce le rayon analytique, la B-spline F16 K, la gaine en cache, le chargement partiel et le criblage conservatif des paires, dont la paire ajoutée hors sélection. Le contact F16/châssis à distance et volume nuls est interdit dans son périmètre. |
+| V3 | Les repères de deux embases et fiches, le volume de retrait CAN1 et l’appui d’une retenue sur le porteur sont contrôlés. L’obstruction historique concerne le gabarit nominal de 5 mm face à F35. Le geste, l’outil et l’extraction complète du PM08 réel restent **À valider**. |
+| V4 | Les poses intermédiaire et extrême du banc mobile éprouvent la réserve, la longueur développée et les distances. Une collision à la pose extrême est discriminée. L’enveloppe continue, la traction, le pincement et la tenue en service restent **À valider**. |
+| V5 | Les deux historiques A/Faces sont comparés sur les mêmes 53 axes. La longueur totale, la cote haute et la longueur discrétisée en zone sont rejouées. Le banc plus court qui occupe davantage la zone supérieure est défavorable sur ce critère. La masse et la maintenabilité du système restent ouvertes. |
+| V6 | Les vues dessus, dessous, profils, connecteurs, extraction et retenues servent à formuler des hypothèses testées par mesures de distance, volume, pose ou appui. |
+
+La variante F16 K donne un témoin local de rayon de 4,95 × 10⁻⁸ mm et une
+gaine invalide après régénération. Le contact F16/châssis donne 0 mm et
+0 mm³. Le retrait CAN1 rencontre F35 sur 0,05176 mm³. L’historique F16
+initial garde 0,20 mm de dégagement au droit de P73. Le câble haut du
+banc mesure 117,416 mm contre 121,416 mm pour le témoin latéral, avec une
+occupation haute bornée entre 65,708 et 71,708 mm contre 0 mm. Les témoins
+et échecs historiques restent limités aux mesures correspondantes.
+
+Les résultats et limites de réception sont consignés dans la [preuve L4](verification/electromechanical_validation_l4.json).
+La procédure conserve la [matrice de traçabilité et les commandes](../validation_engine/README.md).
+La fatigue, la CEM et la sécurité du vol gardent leurs preuves et essais
+propres. GO 3 reste ouvert et la réalisation native du cartographe relève
+d’un lot ultérieur.
+
+<a id="moteur-electromecanique-v2-l5"></a>
+#### Convergence et consolidation électromécanique L5 — 13–14 novembre 2026
+
+`T-EM-ENGINE-L5` vérifie qu’une campagne peut aboutir à une seule
+architecture intégrée sur un banc isolé. La demande L5 contribue à
+ORCH-CAO-MASSE-1 en réduisant le risque d’assembler des variantes locales
+incompatibles. L’action est réversible et bornée aux fixtures, aux copies
+FreeCAD et à leurs rapports. La configuration autorise douze candidats
+détaillés, trois corrections locales successives, au moins deux familles
+examinées après escalade et deux tentatives de consolidation. Les budgets
+par problème et par famille sont fixés avant l’exécution.
+
+**Résultat `L5_PASS`, décision `GO` pour le banc numérique** sur Windows
+amd64, GCC 16.2, Qt 6.11.2, FreeCAD 1.1.3, OCCT 7.8.1 et Cables 0.3.7.
+Sept variantes ont été construites. Trois corrections échouent sur la même
+paire L1–obstacle et déclenchent L1 et le criblage L3. Trois familles sont
+examinées. La variante de connectique coudée reste conditionnelle et la
+seconde demande identique est détectée. Une route équivalente est
+dédupliquée. Une fusion locale est refusée sur les affectations concurrentes
+de L1. Sur les deux tentatives natives, la première est rejetée par L4 pour
+garde nulle entre L1 et L2. La seconde, `lateral-service`, passe les
+13 contrôles obligatoires, dont les quatre extractions nominales, et couvre
+L1 et L2. Sa longueur totale est de 221,416 mm et sa cote haute de
+10,993 mm. Ces métriques proviennent des réouvertures indépendantes de la
+copie retenue.
+
+La préférence du banc va à la cote haute minimale, puis à la longueur,
+avec 0,001 mm de tolérance par objectif. La variante haute est plus courte
+dans la comparaison locale et consomme davantage de hauteur. Sa fusion
+reste hors budget. Le Pareto consolidé se limite aux copies admissibles
+effectivement revalidées. Le manifeste T0, le rapport de sélection et le
+checkpoint reprenable sont identifiés dans la
+[preuve L5](verification/electromechanical_convergence_l5.json).
+[Recette](../convergence_manager/README.md)
+
+La réception CTest L5 passe 3/3 suites, dont 11 scénarios CLI. Le rejeu
+avec interruption conserve le manifeste, l’historique et les métriques
+dans les tolérances déclarées. Une variante locale et un portefeuille qui
+portent le même nom conservent des reçus de construction distincts.
+Le scénario d’entrée documentaire utilise deux transcriptions synthétiques
+de fiches fabricant. Leur contradiction donne `L5_CONDITIONAL` quand la
+preuve conditionne le jalon. La branche indépendante est consolidée.
+Les contrôles injectent aussi un échec de sauvegarde, un XLink rompu et
+l’indisponibilité de FreeCAD. Les régressions L1 à L4 passent sur leurs
+deux configurations CTest (4/4 chacune) et les régressions du moteur
+électromécanique passent 76/76. Les deux rapports L4 de consolidation
+satisfont les contrats L0 et le validateur T0 accepte la campagne.
+
+**Critères proposés — À valider avant engagement**
+
+| Jalon | Critères de passage proposés |
+|---|---|
+| GO2bis | Rejouer le parcours L5 sur des bancs isolés avec les versions cibles. Vérifier reprise, gel, couverture, échec borné, provenance des preuves et rollback. Ajouter une consolidation avec fermeture XLink et un cas combinant géométrie native et contrôle électrique indépendant. Identifier la portée exacte des contrôles mobilisés. |
+| GO3A | Sur une copie du périmètre cartographe approuvé, réconcilier lignes, axes, broches, références et révisions montées. Geler les exigences depuis leurs sources et cribler les variantes sur copies. Réserver la reconstruction détaillée et la rétrovalidation de la cible commune à GO3B. Bloquer les interfaces critiques dont le référentiel reste insuffisant. |
+| GO3B | Après admission du référentiel GO3A, construire une copie FreeCAD consolidée et vérifier indépendamment les connexions électriques et la géométrie sur les natifs sauvegardés et rouverts. Comparer les métriques au périmètre gelé. Les mesures physiques relèvent de GO4/GO5 selon les prérequis de DOC-VAL §2 et §14. |
+
+Le banc L5 couvre les axes statiques, les paires et les volumes de service
+nominaux. La [qualification GO2bis](#qualification-moteur-go2bis) statue sur
+ce périmètre. Le brochage observé et la tenue physique restent **À valider**.
+
+<a id="qualification-moteur-go2bis"></a>
+#### Qualification du moteur V2 — GO2bis, 14 novembre 2026
+
+**GO conditionnel** sur Windows amd64. Le périmètre admis couvre la
+recherche traçable, les bancs numériques d’interconnexion, l’exploration
+bornée, les rétrovalidations ciblées et la consolidation sur banc
+monodocument. Le dossier de qualification associe chaque contrôle à son
+oracle et à ses preuves. [Matrice GO2bis](verification/GO2BIS_QUALIFICATION.md) ·
+[Reçu structuré](verification/go2bis_results.json)
+
+- Les 71 lignes se rapprochent de 53 axes par 56 associations
+  bidirectionnelles. Les 50 lignes embarquées peuvent partager un axe ou
+  en référencer plusieurs. Les 21 autres portent leur motif d’absence
+  d’axe embarqué. Le candidat d’interconnexion du cartographe reste
+  `INCONCLUSIVE`. [Preuves L0–L2](verification/go2bis_l1_l2.json)
+- La réception L4 sur le code corrigé compte 29 cas et 71 constats, dont
+  39 `PASS`, 21 `FAIL` attendus et 11 `INCONCLUSIVE` attendus. La variante
+  sans FreeCAD produit 69 attentes `NOT_RUN`. Les réouvertures indépendantes
+  de A, Faces et de la copie consolidée contrôlent respectivement 141, 145
+  et 138 fichiers natifs. L’inventaire BRep exhaustif de la copie consolidée
+  a dépassé deux fois le délai de 180 s. Les contrôles historiques ciblés
+  retrouvent F12 vers GPS2, le rayon extrême et la gaine invalide F16,
+  l’interférence F16/P73 et une contrainte d’accès F31. F24A, la réserve
+  F41 et la tenue de P85 restent `INCONCLUSIVE`. [Preuves L4](verification/go2bis_l4.json)
+- Sur la branche `codex/go2bis-corrections`, les mêmes témoins vérifient les
+  corrections de longueur et polarité L2, de provenance du port et de
+  caractéristiques du cordon L4, et de reprise et de conservation du gel L5.
+  La fusion statique couvre les deux liaisons requises. L4 co-évalue la
+  géométrie de cette famille de banc et un graphe électrique indépendant.
+  La traçabilité entre le graphe et les câbles natifs, ainsi que
+  l’admission d’une fusion L5 composée de plusieurs natifs XLink, restent
+  **À valider**. [Preuves L3 et L5](verification/go2bis_l3_l5.json)
+
+**GO3A — portée admise.** Si une suite est engagée séparément, le moteur
+peut servir à réconcilier les lignes, préparer le gel, instruire les
+inconnues et cribler les variantes sur copies isolées. La reconstruction
+et l’admission du cartographe consolidé restent suspendues à la démonstration
+de la chaîne liée et du rattachement électrique indépendant, ainsi qu’à la
+fermeture des inconnues critiques du périmètre choisi.
+
+**Admission GO3B — À valider sur la cible.** Identifier les révisions,
+les fiches OEM, les gestes de dépose et la cinématique applicable pour
+définir les contrôles numériques. Les vérifications physiques de montage,
+de retenue et de tenue requièrent un protocole approuvé selon les §2 et §14.
+
+<a id="cartographe-go3a"></a>
+#### Architecture du cartographe — GO3A, 14 novembre 2026
+
+**GO3A_CONDITIONNEL.** Le dossier est **Implémenté** avec des preuves
+et copies isolées, et la configuration H-01 demeure **À valider**.
+L’architecture conserve les équipements de la BOM du prototype sans dock.
+Elle reprend les corridors de chant et dessous, des corrections d’interface
+et un déport de service passif. Les 71 lignes sont rapprochées, dont 50
+embarquées avec 56 associations couvrant 53 axes. Les 21 lignes sans axe
+portent un motif individuel. La mise en service des quatre branches LED
+n’est pas instruite. [Dossier de reprise](verification/go3a/GO3A_HANDOFF.md) ·
+[Reçu de campagne](verification/go3a/GO3A_MANIFEST.json)
+
+| Contrôle | Résultat observé et portée |
+|---|---|
+| Réconciliation L2 et netlist CA01 | Rejeu L2 identique à GO2bis. KiCad recoupe 43 broches sur 15 références et les quatre résistances DNP. L’anomalie F12→GPS2 dans l’actif et l’accouplement SMA du GNSS restent tracés. La BOM recense 142 côtés. Les révisions montées, matrices complètes et volumes de service restent à établir selon chaque interface. |
+| Fermeture CAO et inventaire | 137 FCStd et quatre auxiliaires vérifiés par empreinte sur copie. Onze chargements partiels complétés, aucune dépendance manquante ou externe à la copie. Le passage d’inventaire BRep a expiré à 120 s avant réception d’un résultat sauvegardé et rouvert. L’actif et la copie Action 3 ont six dépendances différentes, et P85 figure seulement dans le témoin. |
+| Alternatives et voisinage | Trois dossiers T0 L3 validés, dont deux mutations rejetées comme attendu. Les familles A/B/C et leur combinaison sont comparées. Le contrat de H-01 impose la conservation de l’isolement et des signaux. La continuité du déport a été vérifiée au banc L3. Dans le criblage des sorties sur copie, le gabarit TTL recoupe la PDB aux deux positions de sonde étudiées. Aucun candidat cartographe admissible démontré. |
+| Reprise GO3B | Valider la baie commune CAN1/F31/F35/PM08 et F40/F41, la chaîne GPIO/CSI, les prises et le mouvement caméra, les retenues et les extrémités OEM. Démontrer la fermeture XLink avec un graphe électrique indépendant rattaché aux natifs. Masse, centrage, montabilité avec tolérances et essais GO4 restent ouverts. |
+
+<a id="cartographe-go3b"></a>
+#### Intégration du cartographe — admission GO3B, 14 novembre 2026
+
+**`NO_GO_MOTIVE` à l’admission.** Le gel documentaire H-01 est intact.
+GO3A reste conditionnel avec les interfaces critiques ouvertes et aucun
+candidat admissible. La contre-épreuve GO2bis sur XLink complet laisse
+13 contrôles natifs `NOT_RUN`. Le lien entre le graphe électrique
+indépendant et les occurrences natives reste à démontrer.
+[Preuve d’admission](verification/go3b/GO3B_ADMISSION.json) ·
+[Synthèse GO3B](verification/go3b/GO3B_REPORT.md)
+
+Le rejeu L2 est identique octet pour octet. Les 71 liaisons et 142 côtés
+A/B concordent avec 53 axes et 56 associations bidirectionnelles. La
+fermeture XML contient 137 FCStd et les 180 fichiers empreintés au départ
+sont retrouvés identiques à la fin. Le rejeu KiCad recoupe 43 broches CA01
+et confirme R530–R533 DNP. Les contrôles de réception d’un candidat et les
+métriques avant/après sont `NOT_RUN`, après arrêt avant construction.
+[Matrice d’interconnexion](verification/go3b/GO3B_INTERCONNECTION_COVERAGE.csv) ·
+[Empreintes](verification/go3b/GO3B_SOURCE_MANIFEST.json)
+
+La reprise demande un témoin XLink sous gel avec rapprochement indépendant
+port/contact → conducteur → occurrence, réouverture et détection d’un défaut
+injecté. Elle demande aussi l’identification de TELEM1, la fermeture de
+l’accès conjoint CAN1/diagnostic avec isolement, la définition GPIO/CSI et
+F16/M8 et les autres verrous H-01. Les critères de réception et de comparaison
+restent **À valider**. [Verrous GO3A](verification/go3a/GO3A_HANDOFF.md#verrous-de-réception-go3b)
+
+<a id="cartographe-go3a-revise"></a>
+#### Préparation des essais sur copies — GO3A V2.1, 17 novembre 2026
+
+**`GO3A_EXPLORATION_READY`.** Le préflight donne `EXPLORATION_ALLOWED`
+pour H-03, H-02 et H-01, à partir du gel historique et de trois demandes
+liées aux contrats de construction. Les huit exigences G3A-01 à G3A-08
+restent `INCONCLUSIVE`. Aucun candidat cartographe n’a été construit
+pendant ce lot. La réception rend `FINAL_NO_GO` et le rejeu historique
+rend `NO_GO_MOTIVE`. Le portefeuille ouvre des essais CAO hors tension.
+Les preuves de conformité du montage restent **À valider**.
+[Portefeuille, demandes et reçus](verification/v21_go3a_candidates.json) ·
+[Recette GO3B](electromechanical_v2_1/05_GO3A_ARCHITECTURES.md)
+
+| Contrôle | Résultat observé |
+|---|---|
+| Gel, L2 et CA01 | Deux gels concordants, 71 lignes, 53 axes, 56 associations bidirectionnelles et 21 exceptions motivées. Rejeu KiCad sur 43 broches et R530–R533 DNP documentaires. |
+| Fermeture mécanique | FreeCAD 1.1.3, OCCT 7.8.1 et Cables 0.3.7 sous Windows `amd64`. 137 natifs et 4 auxiliaires vérifiés, 2 772 occurrences résolues sur copie, recalcul sans sauvegarde. |
+| L1–L3 | 19 recherches L1 finalisées, dont 6 résolutions documentaires et 13 inconnues. Rejeu d’architecture L3 sur banc synthétique, 27 critères réussis et reçu T0 valide. Le coût manque au front de Pareto du banc. |
+| Préflight C | Les trois demandes finalisées contrôlent 180 entrées. Pause et reprise H-01 à budget constant. Écriture vers l’actif, collision connue et promotion d’un verrou à `PASS` refusées. L’exécutable V2.1 du gel corrigé C est requis. Le rejeu avec le binaire de l’arbre courant échoue sur le SHA du worker. |
+| Relocalisation C4 et L4 | Rejeu du banc synthétique XLink avec translation de 12 mm, 4 conducteurs et 8 contacts conservés, 15 contrôles géométriques réussis après réouverture. Changement de fiche hors capacité et affaiblissement du rayon refusés. T0 vérifié sur le banc et les cas L4. |
+
+Les sept intersections du prototype B.2 et la couverture des contacts,
+outils, mouvements, retenues et masses du futur candidat restent à
+instruire. Le banc C4 vérifie la méthode de relocalisation dans son
+propre périmètre. Le constructeur GO3B devra appliquer les mutations à
+une fermeture privée du cartographe, avec projection électrique
+indépendante et contrôle dans les deux sens. L’essai physique conserve
+la progression du §2. [Rejeu des entrées](verification/v21_go3a_reference_replay.json) ·
+[Verrous et nomenclature](verification/v21_go3a_evidence_gaps.json) ·
+[Paires B.2](verification/v21_b2/coverage.json)
+
+<a id="cartographe-go3b-reconstruction"></a>
+#### GO3B V2.1 construit et contre-validé — 17 novembre 2026
+
+**`GO3B_CAO_NO_GO_MOTIVE`.** La porte exploratoire a été rejouée
+sur les trois demandes GO3A avec le binaire C scellé. Le témoin est
+mesuré avant mutation et les sources sont contrôlées après exécution.
+Huit tentatives de variantes produisent six copies sauvegardées et deux
+échecs de génération conservés. Une consolidation des corrections
+communes ajoute une expérience, soit 9/12 crédits. Les deux configurations
+de chaque famille sont rejetées sur les défauts mesurés.
+La reconstruction est **Implémenté**, l’admission et le montage restent
+**À valider**. [Rapport GO3B demandé](electromechanical_v2_1/06_GO3B_REPORT.md) ·
+[Variantes](verification/v21_go3b_candidates.json)
+
+| Exigence, composant et contrôle | Résultat et portée |
+|---|---|
+| G3A-01 à G3A-08 → gel et fermeture → T-GO3B-REF/NATIVE | Windows amd64, FreeCAD 1.1.3, Cables 0.3.7, OCCT 7.8.1. Les six variantes et la consolidée sont sauvegardées et rouvertes. La consolidée compte 138 natifs, sans lien rompu ni objet en erreur. Les 142 fichiers sources sont identiques avant/après. Probe Part et 19/19 tests Cables réussis. |
+| G3A-01/02/03/05/07 → graphe L2, CA01 et occurrences → T-GO3B-GRAPH | 71 lignes, 142 côtés, 53 axes, 56 associations et 21 exceptions motivées. TELEM1 corrigé sur copies, GPS2 rejeté sur témoin. Rejeu CA01 sur 43 broches documentaires, 15 références, six feuilles et quatre DNP. Négatifs mauvais côté et repère décalé discriminés. L2 INCONCLUSIVE sur la consolidée, contacts montés et continuité physique ouverts. Régressions 3/3 suites réussies. |
+| G3A-07/08 → solides et paires B.2 → T-GO3B-B2 | 566 solides PASS et 53 routes INCONCLUSIVE sur la consolidée. 28 567 paires câble éligibles, 26 941 exclusions AABB. Les 1 629 paires retenues et supplémentaires donnent 7 FAIL, 1 562 INCONCLUSIVE et 60 NOT_RUN pour l’admission. Les mesures nominales correspondantes comptent 1 562 PASS géométriques et sept FAIL. |
+| G3A-08 → fermeture et projections L4 → T-GO3B-XY | L4 XLink et finalisation T0 exécutés sur H03-A et la consolidée. T0 validé code 0. Le résultat L4 conditionnel garde les contacts et les tâches non mesurées ouverts. |
+| G3A-02/04/05/06 → interfaces et appuis → T-GO3B-SERVICE | 93 enveloppes ASSUMED mesurées séparément, admission INCONCLUSIVE. Les branches historiques F40/F41 de la consolidée restent à 98,871 et 53,639 mm des faces candidates. Les appuis H03 sont rejetés sous leurs hypothèses. Mouvements continus et gestes réels NOT_RUN. |
+| G3A-08 → métriques et nomenclatures → T-GO3B-METRICS/MASS | Même inventaire des 53 axes et mêmes zones gelées. Consolidée à 12 143,722 mm contre 12 125,900 mm au témoin. Masse totale, centrage et union des volumes connectés exacts inconnus. BOM électrique et physique dérivées disponibles. |
+
+Les sept défauts B.2 sont remesurés sur toutes les copies. Les six
+recouvrements Airy restent ouverts. F37_POS/P73 reste en échec au seuil
+gelé nul pour 2,8373 × 10⁻⁸ mm³, avec interprétation physique à instruire.
+La consolidée reprend 1 533 paires après identité stricte BRep/pose/
+visibilité/critères et finalise 36 nouvelles mesures, dont sept échecs.
+Les couples porteur/F12, porteur/F25 et porteur/F35 bloquants et les
+paires hors budget restent NOT_RUN dans leur dénominateur.
+Les variantes présentent des défauts supplémentaires et leurs couvertures
+diffèrent. Aucun classement de conformité n’est établi.
+[Contre-validation](verification/v21_go3b/independent_evidence.json)
+
+La consolidée réunit F12/TELEM1, F35 au sud et F25/P85.
+Les décisions contradictoires des trois familles rejetées sont écartées.
+Le prochain essai doit concevoir un appui ancré de l’isolateur, dégager
+F40 des retenues et recontrôler CAN1/diagnostic et toutes les branches
+affectées. Montage, continuité, isolement, traction, mouvement,
+vibration/fatigue, CEM, thermique et vol restent NOT_RUN.
+[Contrôles et exigences](verification/v21_go3b_validation.json) ·
+[Manifeste et copies natives](verification/v21_go3b_manifest.json) ·
+[Essais GO4](verification/v21_go3b/go4.json)
+
+<a id="preuve-connectique-v21"></a>
+#### Connectique V2.1 du prototype sans dock, 15 novembre 2026
+
+`T-CARTO-V21-CONNECTORS` prolonge l’admission GO3B sur le périmètre H-01.
+Le contrôle croise les 71 lignes, 142 extrémités, 53 axes et 56 associations
+dans les deux sens. Les 21 lignes hors axe gardent leur motif d’origine.
+Le rejeu des bancs L2 vérifie les défauts de port, clé, cavité, numéro de
+broche et signal, ainsi que les volumes accouplés, de retrait et d’accès.
+La réouverture d’une copie XLink donne 108 poses d’équipement et aucune
+attache de contact aux 106 bouts WireFlex observés. Pour F16/B, le retrait et
+l’accès donnent des conflits de gabarits candidats au voisinage du pack.
+
+**`V21_CONNECTORS_CONDITIONAL`.** Les contrôles numériques sont **Implémentés**
+sur Windows `amd64`. La réception réelle reste **À valider** pour les
+révisions et lots, la continuité, les volumes de montage et le mouvement
+d’extraction. Les tests synthétiques et la relecture de la copie ne ferment
+aucun des contrôles de réception GO3B. Le prochain signal est un plan orienté
+applicable aux exemplaires, avec les repères des embases et les gestes
+de service des interfaces critiques. [Preuve](verification/v21_connector_tests.json) ·
+[Inventaire](verification/v21_connector_inventory.csv) ·
+[Recette](electromechanical_v2_1/02_CONNECTOR_RESOLUTION.md)
+
+<a id="preuve-xlink-v21"></a>
+#### Validation XLink de la fermeture cartographe, 15 novembre 2026
+
+`T-CARTO-V21-XLINK` exerce la chaîne graphe L2 → occurrences du montage →
+relecture et mesure FreeCAD. Sur Windows `amd64`, le prototype actif est
+copié avec ses 137 natifs. La sauvegarde de la racine de copie et sa
+réouverture s’exécutent dans deux processus. Les empreintes des sources et
+des dépendances sauvegardées sont contrôlées. Le graphe L2 relie 53 axes
+natifs à 56 segments de parcours et conserve les motifs des 21 lignes hors
+axe. Il donne 108 poses d’équipement sur 142 côtés, dont 96 sur 100 côtés
+du faisceau embarqué. Les contacts du montage restent sans attache démontrée.
+
+Le calcul nominal valide les 565 solides terminaux visibles récupérés et
+relève les rayons des 53 axes analytiques. La réservation CA01
+`ReserveTVS` reste sans solide exploitable. Sur 28 514 paires de solides
+visibles comprenant au moins un câble, les boîtes englobantes en écartent
+26 905. Trois lots bornés mesurent 130 des 1 609 paires restantes et
+laissent 1 479 `NOT_RUN`. Le dernier lot reprend 720 mesures déjà enregistrées.
+Le criblage GO3A relève six recouvrements entre le tronc et les branches du
+faisceau Airy, ainsi qu’entre ses branches. La définition de l’éclatement et
+les zones de contact autorisées restent à vérifier au montage.
+
+Le témoin historique L4 de deux documents a été relu séparément.
+Ses 13 contrôles auparavant `NOT_RUN` donnent 3 `FAIL` et 10
+`INCONCLUSIVE`. Le natif historique ne contient plus les proxies
+nécessaires à la régénération de ses deux gaines. Le banc reconstruit
+avec proxies préservés donne 13 `PASS`. Il couvre dix paires, dont
+deux BRep et huit exclusions AABB, et quatre retraits avec quatre
+obstacles par volume.
+
+**`V21_XLINK_CONDITIONAL`.** État de la chaîne de preuve numérique
+**Implémenté**. La validation du montage reste **À valider** pour les
+contacts, les rayons et tangentes aux ports, les montages de fiches, les
+retenues, les courses et enveloppes cinématiques. Les tests du prototype
+portent sur sa fermeture de 137 natifs. La fermeture Action 3 de 138 natifs
+conserve ses preuves propres. [Couverture](verification/v21_xlink_coverage.json) ·
+[Recette](electromechanical_v2_1/03_XLINK_VALIDATION.md)
+
+<a id="qualification-xlink-v21-b2"></a>
+#### Clôture de la couverture XLink V2.1 B.2, 17 novembre 2026
+
+`T-CARTO-V21-XLINK-B2` complète le criblage du cartographe actif sans
+dock, en état nominal sauvegardé, avec le validateur scellé de la mission
+B sous Windows `amd64`. Les 267 observations initiales ont été authentifiées
+et les 1 342 paires restantes mesurées. Les 26 905 exclusions AABB ont été
+vérifiées séparément. Les 1 609 paires candidates donnent 1 602 `PASS`
+de mesure et 7 `FAIL`. Aucun résultat de mesure ne reste indéterminé ou
+`NOT_RUN`. Le checkpoint final et ses preuves T0 sont valides. La réouverture
+indépendante reproduit 14 mesures, dont les sept interférences, et les
+202 empreintes originales concordent.
+
+Le moteur reçoit `GO_B` et est **Qualifié** pour la couverture nominale de
+ces paires XLink sur cette cible. Le prototype est **non conforme** dans
+ce périmètre géométrique. Six intersections concernent les gaines AIRY
+au nœud d’éclatement et une concerne F37_POS et le guide P73. Le criblage
+conserve 1 602 paires au statut d’admission `INCONCLUSIVE`. Le montage,
+les critères fonctionnels et la qualification physique restent **À valider**.
+GO 3A et GO 3B sont restés `NOT_RUN`.
+[Clôture et preuves](verification/v21_b2/REPORT.md) ·
+[Couverture JSON](verification/v21_b2/coverage.json)
+
+<a id="qualification-integree-v21"></a>
+#### Qualification indépendante de l’intégration V2.1, 15 novembre 2026
+
+`T-CARTO-V21-QUAL` porte sur l’aptitude de la livraison à piloter une
+campagne numérique sur copies. Les oracles des cinq lots ont été gelés
+avant construction et les dossiers de revalidation ont été créés à part.
+Le rejeu H-01 a identifié un écart sur les 180 fichiers d’autorité. Le
+préflight du moteur courant refuse les trois modes avant l’évaluation
+des règles. Sur banc, une sortie fictive à l’intérieur d’une fiche est
+acceptée par L2 et par l’adaptateur natif. Une mesure falsifiée dans le
+cache XLink remplace un `FAIL` géométrique par un `PASS` sans remesure.
+Le contrôle de structure T0 accepte la sortie ainsi produite.
+
+Le prototype actif a été relu dans une fermeture privée de 137 natifs.
+Les 71 lignes, 53 axes et 56 associations sont réconciliés. Les contacts
+restent ouverts et 1 506 paires candidates sont `NOT_RUN`. La convergence
+L5 a construit et revalidé une fusion de parcours sur banc. Le gestionnaire
+ne consomme pas la file du préflight et son constructeur n’a pas réalisé
+de décision de connectique ou d’implantation sur un natif XLink.
+
+**`V21_EXPLORATION_NO_GO`** pour la chaîne intégrée. La reprise exige un
+référentiel H-01 compatible et vérifiable, une preuve de sortie de fiche
+et de provenance indépendante, des mesures XLink de reprise intègres,
+et un parcours exécuté du plan à la copie consolidée en reliant les
+contrôles électriques et natifs. Le montage et la réception finale restent
+**À valider**. [Matrice Q1–Q5](electromechanical_v2_1/04_QUALIFICATION.md) ·
+[Preuves](verification/v21_qualification_results.json).
+
+<a id="requalification-v21-c"></a>
+#### Requalification indépendante V2.1, 17 novembre 2026
+
+`T-CARTO-V21-FIX-C` confronte la livraison corrective au gel de
+`T-CARTO-V21-QUAL` du 15 novembre, sous Windows `amd64` avec FreeCAD 1.1.3,
+OCCT 7.8.1 et Cables 0.3.7. C0 admet `GO_A` au commit `d5706a0` et
+`GO_B` après la [clôture B.2](#qualification-xlink-v21-b2) sur `b17a915`.
+Les empreintes du gel historique, des deux fermetures L0 de 137 et 138 natifs,
+des preuves B.2 et des exécutables scellés concordent. Les oracles de
+recette sont antérieurs aux exécutions et les mesures de réception utilisent
+les natifs sauvegardés. Le correctif C4 est isolé au commit `71f7218`.
+[Reçu, matrice par cas, commandes et empreintes](verification/v21_fix_c_qualification.json)
+
+| Lot | Résultat du 15 novembre | Résultat de la requalification |
+|---|---|---|
+| Q1 · Préflight, gardes et reprise | Les trois modes échouaient au contrôle du worker. Une hypothèse impérative déclarée `PASS` traversait la garde isolée. | 16 exécutions concordantes. `historical` donne `NO_GO_MOTIVE` à 0/12, `explore` donne `EXPLORATION_ALLOWED` avec huit écarts et `final` donne `FINAL_NO_GO`. L’hypothèse et le faux reçu sont rejetés. Worker, entrée ou manifeste altérés sur copie produisent le code 1 avant verdict. La reprise conserve le plan, les identités et le préfixe de file. |
+| Q2 · Interfaces, identité et provenance | Nominal accepté. Faux repère de sortie et provenance locale acceptés à tort. | 12 cas L2 et deux contrôles natifs concordants. Le nominal rouvert conserve deux cartes, deux embases, deux fiches, quatre conducteurs et huit paires de contacts. Le repère décalé de 3 mm avec l’axe est rejeté. La provenance locale reste `INCONCLUSIVE`. |
+| Q3 · XLink et couverture | Mutation de dépendance détectée. Cache falsifié accepté. 103 mesures sur 1 609 candidates, 1 506 `NOT_RUN`. | La mutation est détectée à racine identique. Le cache falsifié est écarté et la collision de 7,653 mm³ remesurée. Une reprise sous empreinte d’autorité complète le banc interrompu. Sur le même gel cartographe, 14 remesures indépendantes confirment le lot B.2, dont les sept interférences. |
+| Q4 · Convergence et réimplantation | Changement de famille et reprise réussis sur le banc D1. La chaîne entre préflight et action de connectique ou d’implantation échouait. | L5 reproduit le changement de famille, le refus d’une fusion incompatible, la reprise, le budget de six détails et deux fusions et les 14 constats L4 du consolidé. Sur le banc lié, `integrate` matérialise une réimplantation choisie par L3 et l’action non supportée est rejetée avant construction. L2 et L4/T0 revalident la fermeture. Un rayon minimal abaissé dans les critères du candidat est rejeté. |
+| Q5 · Non-régression historique | Défauts F16, F12 et F31 reproduits. F24A, F40/F41 et P85 restent ouverts. | Six fermetures relues deux fois, résultats répétés. Les témoins F16, F12, F31/CAN1 et P85 concordent. Les 24 variantes de l’archive F40 gardent une collision de service. Montage, pinmux F24A, réserve F41, accès TTL/USB et tenue P85 restent **À valider**. |
+
+Sur le banc lié, les quatre repères de l’interface B, l’équipement et les
+volumes de retrait et d’outillage sont translatés de 12 mm selon +Y. L’axe
+de gaine passe de 72 à 77,273 mm. La réouverture conserve les quatre
+conducteurs et huit paires de contacts. L4 retrouve 100,531 mm³
+d’intersection sur le témoin, puis 6 mm de jeu sur le candidat. Les cinq
+exclusions AABB et quatre mesures BRep du montage final couvrent les
+paires du banc. Les quatre mesures entre réservations et obstacles liés
+donnent au moins 22,36 mm de jeu pour un seuil de 2 mm.
+
+| Axe de réception | Périmètre démontré et limite |
+|---|---|
+| Qualité du moteur | Les contre-épreuves critiques de promotion de preuve, faux repère, fausse provenance, cache falsifié et seuil de validation modifié sont rejetées. |
+| Capacité d’exploration | H-01 est autorisé sur copie privée sous huit écarts ouverts. Les hypothèses restent au statut d’essai. |
+| Capacité de construction | Réimplantation latérale **Qualifiée** sur le banc synthétique lié et son contrat. Le remplacement de fiche, les concepts PCB et la matérialisation d’une architecture sur le cartographe restent **À valider**. |
+| Couverture de validation | Même gel cartographe, 28 514 paires, 26 905 exclusions AABB et 1 609 mesures dont sept intersections. Aucune erreur OCC ni paire `NOT_RUN` dans ce dénominateur. Les 564 contrôles autonomes hors paires restent `NOT_RUN`. Le criblage et les approximations OEM X650 conservent leur portée nominale. |
+
+Les régressions passent sur le moteur L0 (77 tests), l’isolation (6),
+Cables (19), le planificateur (1), L1–L3 (4 suites), L4 (7 suites) et L5
+(6 suites). Le banc statique relu deux fois reste équivalent et les scénarios
+correctifs A et B sont couverts par les rejeux. Les essais ont utilisé les
+binaires scellés des lots inchangés ainsi que la compilation C++17 du
+gestionnaire corrigé. [Reçu de régression](verification/v21_fix_c_qualification.json)
+
+**`GO_CONDITIONNEL_V21_CORRECTIF`**. Le périmètre admis couvre le
+préflight et l’exploration numérique sous hypothèses de H-01, la
+réimplantation qualifiée sur le banc lié et l’exploitation des mesures
+nominales du gel cartographe. Une construction automatique sur le
+cartographe, la réception finale du montage, GO 3A, GO 3B et les essais
+physiques restent hors de cette autorisation. Les sept interférences,
+les contacts installés et les preuves de service propres au montage
+conditionnent une reprise sur le prototype. [Clôture B.2](#qualification-xlink-v21-b2)
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -1950,6 +3866,33 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 
 | Exigence | Composant / algorithme | Test | Résultat / preuve | Statut |
 |---|---|---|---|---|
+| CAB-CARTO-001, MEC-INT-001 | skill electromechanical-integration, planificateur C++17, contrôles BRep, copies isolées et résolution des inconnues | T-SKILL-EMI-01 ; T-SKILL-EMI-02 | §12.1.11 ; [preuve initiale](verification/electromechanical_integration.json), [autonomie](verification/electromechanical_autonomy.json) | **Implémenté**, tests synthétiques ; autonomie générale, faisceau réel et physique **À valider** |
+| CAB-CARTO-001, MEC-INT-001 | Moteur de banc, référentiel gelé, extraction FreeCAD, mesures natives des retenues et poses, rétrovalidation et contre-validation historique ciblée | T-EM-ENGINE-01, T-EM-ENGINE-02, T-EM-ENGINE-03 | [§12.1.13](#validation-moteur-electromecanique), [GO 1](verification/electromechanical_engine_go1.json), [GO 2](#qualification-moteur-go2) | Bancs et contrôles ciblés **Implémenté**, intégration du prototype **À valider** |
+| CAB-CARTO-001, MEC-INT-001 | Matrice d’interconnexion et contrôles du cartographe sur copies | T-EM-ENGINE-04 | [Action 3](#cartographe-action3) | Contrôles ciblés **Implémenté**. Architecture candidate **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Audit du moteur et des sources, rapprochement des axes, contrat V2 et régressions sur banc | T-EM-ENGINE-L0 | [L0](#moteur-electromecanique-v2-l0), [preuve](electromechanical_v2/TEST_RESULTS.json) | Audit **Implémenté**, `L0_READY` pour engager L1. Intégration et GO 3 **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Recherche documentaire par `issue_id`, vérification des références, calcul conditionnel et cache | T-EM-ENGINE-L1 | [L1](#moteur-electromecanique-v2-l1), [preuve](verification/technical_research_l1.json) | Moteur **Implémenté**, `L1_PASS` sur Windows amd64. Applicabilité matérielle des inconnues **À valider**. |
+| CAB-CARTO-001, MEC-INT-001 | Catalogue, graphe de continuité, repères, enveloppes et réconciliation des sources | T-EM-ENGINE-L2 | [L2](#moteur-electromecanique-v2-l2), [preuve](electromechanical_v2/L2_RESULT.md) | `L2_CONDITIONAL`. Banc numérique **Qualifié** pour le cas à quatre contacts. Prototype **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Diagnostic L3, alternatives, fonctions, consolidation et Pareto | T-EM-ENGINE-L3 | [L3](#moteur-electromecanique-v2-l3), [preuve](verification/architecture_decision_l3.json) | **Implémenté**, `L3_PASS` sur bancs synthétiques Windows amd64. Prototype **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Validation indépendante V1 à V6 et contrôle des preuves natives | T-EM-ENGINE-L4 | [L4](#moteur-electromecanique-v2-l4), [preuve](verification/electromechanical_validation_l4.json) | **Implémenté**, `L4_CONDITIONAL`. 100 attentes sur 100 satisfaites. Architecture complète et essais physiques **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Convergence, sélection, rollback et validation indépendante de la fusion | T-EM-ENGINE-L5 | [L5](#moteur-electromecanique-v2-l5), [preuve](verification/electromechanical_convergence_l5.json) | **Implémenté**, `L5_PASS` sur banc statique Windows amd64. Périmètre de reprise dans [GO2bis](#qualification-moteur-go2bis). |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Lots L0–L5 corrigés, gel, couverture, diagnostics historiques, fusion et chaîne de preuve | T-EM-ENGINE-GO2BIS | [Résultat](#qualification-moteur-go2bis), [matrice et preuves](verification/GO2BIS_QUALIFICATION.md) | GO conditionnel sur bancs Windows amd64. Fusion XLink, rattachement électrique au natif et matériel **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | Architecture du prototype sans dock et validation des interfaces | T-CARTO-GO3A | [Résultat](#cartographe-go3a), [critères](verification/go3a/GO3A_REQUIREMENTS.yaml) | Dossier **Implémenté**. H-01 **À valider**, GO3B suspendu aux données et contrôles critiques. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Admission du dossier H-01, interconnexion L2, natifs XLink et portée du validateur L4/L5 | T-CARTO-GO3B-ADM | [Résultat](#cartographe-go3b), [preuve](verification/go3b/GO3B_ADMISSION.json) | `NO_GO_MOTIVE` à l’admission. Couverture documentaire vérifiée. Reconstruction et rétrovalidation `NOT_RUN`. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Construction native des trois familles et consolidation avec contre-validation indépendante | T-CARTO-V21-GO3B | [Résultat](#cartographe-go3b-reconstruction), [preuves](verification/v21_go3b_validation.json) | `GO3B_CAO_NO_GO_MOTIVE`. Six variantes sauvegardées, une consolidée de diagnostic et défauts mesurés. Montage et GO4 **À valider**. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
+| CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Validateur L4 scellé, couverture BRep des paires, exclusions AABB et réouverture | T-CARTO-V21-XLINK-B2 | [Résultat](#qualification-xlink-v21-b2), [preuve](verification/v21_b2/coverage.json) | `GO_B` sur Windows `amd64`. Cartographe nominal **non conforme** sur les sept intersections. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Préflight, connectique L2, validation XLink L4 et convergence L5 | T-CARTO-V21-QUAL · Q1 à Q5 | [Résultat](#qualification-integree-v21), [preuve](verification/v21_qualification_results.json) | `V21_EXPLORATION_NO_GO` pour l’intégration, sur Windows `amd64`. Conditions de reprise et démonstrations locales tracées. |
+| CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Admission H-01, L2 et L4 XLink, réimplantation L5, témoins historiques | T-CARTO-V21-FIX-C · C0 et Q1 à Q5 | [Requalification](#requalification-v21-c), [reçu](verification/v21_fix_c_qualification.json) | `GO_CONDITIONNEL_V21_CORRECTIF` sur Windows `amd64`, périmètre numérique borné. |
+| CAB-CARTO-001, MEC-INT-001, EM-INT-01/02, EM-GEO-01/02, EM-COL-01/02, EM-GRP-01 | Registre de connectivité et SA07 de la copie de refonte | Export KiCad, fermeture XLink, comparaison BRep nominale, mobilité discrète | [§12.1.12](#validation-refonte-faisceaux), [variantes et couverture](../hardware/mecanique/cartographe/verification/refonte_faisceaux/validation_variantes.json) | Candidat **Implémenté** sur copie, neuf définitions embarquées et intégration physique **À valider** |
+| CAB-CARTO-001, MEC-INT-001, EM-INT-01/02, EM-GEO-01/02, EM-COL-01/02, EM-GRP-01 | SA07 modulaire, P60/P64/P68 et supports locaux | Fermeture XLink, recalcul à cache vidé, intersections BRep et inclusion F38 | [§12.1.12](#validation-faisceaux-modulaires) | Architecture **Implémenté** sur copie, maintien, montage et qualification physique **À valider** |
+| MEC-ARC-001 | dérivation CAO, collisions, SDF/allocation | T-CARTO-GZ-01 | §§9.3 et 10.2 ; geometry_tests.json, model_checks.json, campaign_20261024.json et station_gazebo_bridge.json via manifeste | **Implémenté**, contrôles numériques, chargement et allocation effective réussis ; fidélité physique **À valider** |
+| UI-GZ-001 | service GazeboExportService, backend local et page Modèle 3D ; UI/CLI communs | test_gazebo_export, test_gazebo_model_page, navigation et chargement Gazebo | §10.2 ; [preuve logicielle](verification/station_gazebo_bridge.json) | **Implémenté**, conversion réelle, annulation et publication contrôlées ; Windows amd64 ; import générique **Planifié** |
+| MEC-MAS-001 | bilan des inclusions et agrégateur C++17 | T-CARTO-GZ-02 | §9.3 ; mass_ledger.json / test_mass_properties | logiciel testé ; masse/CG/inerties réels **À valider** |
+| SAFE-REQ-001/002, ELEC-PWR-002 | airframe et runner borné | T-CARTO-GZ-03 | §9.3 ; campaign_20261024.json, six T0 et revue indépendante | carré, perte Offboard et annulation réussis sur x500/cartographe synthétique ; saturation observée ; qualification physique **À valider** |
+| ELEC-PWR-002, SYS-FUN-006 | propulsion proxy, auxiliaires, batterie Thévenin | T-CARTO-GZ-04 | §9.3 ; energy_checks.json et T0 t0_energy | hors ligne **Implémenté**, préliminaire ; couplage/précision **À valider** |
+| METH-001 | cadre HLD, AGENTS, INDEX et documents de domaine | T-METH-01 ; §15 | [preuve d'intégration](verification/audit_preceptes.json), 22 principes couverts et 17 fiches | méthode **Implémenté** ; écarts techniques et conformité globale **À valider** |
 | `SYS-FUN-001` | pont d'état PX4–ROS 2 | topics, diagnostics, SITL | odométrie observée ~100 Hz | conforme au banc SITL |
 | `SYS-FUN-004` | runner Offboard + PX4 | carré 2 m | quatre segments et posé | conforme au banc SITL |
 | `SAFE-REQ-001` | frontière PX4/ROS 2 | revue des interfaces et runners | aucun topic actionneur direct | conforme au lot A |
@@ -1958,6 +3901,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | `SW-RTK-001`, `SYS-FUN-009`, `ELEC-LNK-001/002/003` | H-RTK F9P Base retenue, rover patch réévalué au profit du candidat Helical DroneCAN STM32G4, QGC, Backpack, ELRS/RP4TD, PX4 | `T-RF-06`, §9.1 : RTCM + commandes ponctuelles + RC + télémétrie | choix rover temporel et débit, marge, reprise RF non mesurés | **Planifié / À valider** |
 | `MAP-FUN-009` | planification et suivi de couverture | `T-MAP-COV-01`, §9.1 | aucun résultat de couverture de parcelle qualifié | **Planifié / À valider** |
 | `QUAL-REQ-001` | Docker, contrats et runners | builds, CTest, smokes | PC/`amd64` conforme ; cible **À valider** | partiel |
+| `SYS-FUN-006`, `SAFE-REQ-001/002`, `QUAL-REQ-001` | socle PX4/Gazebo et premier monde VB01 | reprise carré/perte Offboard puis VB01 exploratoire ; [§9.2](#demarrage-gazebo), GZ-01..04 | évaluation des sources et preuves historiques ; aucun nouveau rejeu | travaux **Planifiés**, révision courante et critères agricoles **À valider** |
 | `LOC-001` | FAST-LIO2 | BotanicGarden complet à `1×` | 5 762 scans, ATE 0,35916 m | baseline PC préliminaire |
 | `LOC-002` | LIO-SAM | BotanicGarden complet à `1×` | meilleure orientation/RPE, coût supérieur | candidat précision |
 | `DATA-FB-001` | recette FriûlBot | contrôle MD5 bag et images | empreintes conformes | conforme |
@@ -1972,8 +3916,163 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | MEC-ARC-001, MEC-AVI-001, MEC-MAS-001 | variante système 20 Ah inactive, BOM et faisceau candidats | T-CARTO-SYS-NATIF/GEOM/MAS, §12.1.4 | nouveaux natifs/liens et sources préservés ; fixations, rayons, passages et masse totale non validés | **Implémenté** en maquette ; intégration **À valider** |
 | MAP-FUN-001, ELEC-TIM-001, CARTE-009, SW-TIM-001 | Jetson mission_manager/sensor_manager et adaptateur PX4 ; H-RTK Helical DroneCAN candidat, PPS/GPRMC via CA01 vers Airy/Orin, trigger AUX Pixhawk, Basler ExposureActive vers FMU_CAP1 | T-AIRY-SYNC-01, §12.8 ; T-CA01-09, §12.2 | responsabilités clarifiées ; commande, signaux, datation et association non qualifiés ; PPS Pixhawk non acquis | **Planifié / À valider** |
 | `HW-BAT-SWAP-01..06` | cassette historique, berceau fixe candidat et option interplateaux | CAO `T-BAT-CAO-01..04`, préétude interplateaux, puis inspection, efforts, cycles et défauts | DOC-MEC §4.1.1–4.1.2 et §12.1.1–12.1.2 ; géométrie préliminaire distincte des essais physiques | qualification physique **À valider** |
+| MEC-ARC-001, MEC-BAT-001 | batterie67 mobiles, récepteur72 fixes et principal6 SA+6 pièces | T-CARTO-HIER-BAT-01, §12.1.10 | parentage12, multiensemble149, poses/apparences/sources conservées ; extraction0/50/500 unique ; registres182/115 sans doublon | CAO **Implémentée**, contrôle numérique réussi ; physique **À valider** |
+| SAFE-REQ-011, ELEC-BMS-001 | BMS solidaire de cassette et connecteur d'échange candidat | T-CARTO-BMS-01..06, §12.1.9 | CAO JBD/TE et schéma40liaisons implémentés ; charge/thermique/isolation/logiciel/cycles à valider, aucun essai matériel | CAO/schéma **Implémentés**, physique **À valider** |
+| MEC-ARC-001, MEC-BAT-001 | étage énergie et raccordement direct candidat AWG8/742F5 M5 au TE | T-CARTO-ETAGE-DIRECT-01, §12.1.8 | liens/rayons/implantation/collisions/extraction du pack nominal contrôlés ; enveloppe d'étude, lot et fixations **À valider** | CAO **Implémenté**, préliminaire |
+| MEC-ARC-001, MEC-BAT-001 | dock historique coloré et cordons fixes repliés | T-CARTO-DOCK-COULEURS-01 / COMPACT-01, §12.1.7 |181 liens,629 BRep préservés hors2cordons, course+X séparée17,17mm, hauteur−29,3% ; intersectionP49 ouverte | CAO **Implémenté**, conclusion préliminaire, physique **À valider** |
 
+<a id="recentrage"></a>
 ## 14. Actions de qualification ouvertes
+
+### ORCH-CAO-MASSE-1 — priorité du 25 octobre 2026
+
+La complétude géométrique et massique du prototype actif précède désormais
+les études de vol, de consommation et d'autonomie. Les nouvelles capacités
+et campagnes Gazebo/PX4 sont suspendues ; leurs capacités et résultats
+historiques restent conservés. Le cadrage utilisateur autorise des grades et
+recettes de fabrication candidats sourcés, sans qualification physique.
+
+La passe couvre une seule configuration sans dock et suit : préservation
+récupérable de l'état initial, trois investigations indépendantes, intégration
+sous propriétaire unique, contrôles sur fichiers finaux et revue indépendante.
+La baseline récupérable est dans `.runtime/orch-cao-masse-1/` ; ce cache local
+n'est pas une preuve versionnée de qualification. Les preuves légères du lot
+sont conservées sous `hardware/mecanique/cartographe/verification/`.
+
+Critères : couverture quantitative bidirectionnelle des composants physiques,
+géométries utiles documentées, masses applicables ou inclusions explicites,
+inconnues sans valeur zéro, sommes reproductibles sans double comptage,
+interfaces/solides/rotors/faisceaux contrôlés, réouverture dans un processus
+FreeCAD neuf, registres et exports cohérents puis revue indépendante.
+Une définition encore bloquée ne vaut pas clôture : terminer les travaux
+indépendants et préciser le plan fabricant ou la mesure nécessaire.
+Aucune campagne ni qualification physique ne découle de ces contrôles.
+
+**Résultat exécuté au 26 octobre — lot non clos.** Les recherches et modèles
+ont été réalisés, puis intégrés sous propriétaire unique dans les natifs
+existants. La [preuve consolidée ORCH](../hardware/mecanique/cartographe/verification/controle_orch_cao_masse_1.json)
+référence les entrées, empreintes, commandes, résultats et anomalies ; la
+[revue indépendante](../hardware/mecanique/cartographe/verification/revue_orch_cao_masse_1.json)
+en vérifie la portée. Les trois preuves d'investigation décrivent les sources
+consultées, les pistes infructueuses et l'information fabricant nécessaire.
+Les preuves antérieures modifiées sont conservées dans
+`verification/historique/orch_cao_masse_1/` avec l'index de conservation des
+exports ; elles ne qualifient pas les nouvelles dépendances. Les preuves
+du 25 octobre remplacées par la reprise sont conservées sous
+`verification/historique/orch_cao_masse_1/avant_reprise/`. La reprise étend les
+recherches structure, équipements et fournitures, puis la visserie ; une
+contrelecture dédiée maintient les poids commerciaux Waveshare conditionnels.
+Chaque poste massique incomplet porte désormais son problème et l'information
+nécessaire dans la BOM canonique, sans imposer l'arrêt des travaux indépendants.
+
+| Exigence et contrôle | Résultat observé et limite |
+|---|---|
+| `MEC-ARC-001` → intégration, extraction BRep et couverture BOM/CAO | 132 références, 368 occurrences enregistrées, 512 occurrences physiques et 328 formes sources ; aucune forme physique invalide. Les 134 postes BOM, dont 95 embarqués, figurent dans la réconciliation inverse. Six postes restent sans détail CAO identifié : fixation d'hélices, piges Airy, freinage, terminaisons, gaines et capots. Cinq propriétaires massiques restent indéterminés : quatre feuilles OEM et le composé porteuse/6X/Orin. Un rattachement ne démontre pas une complétude. |
+| `MEC-INT-001` → sauvegarde, fermeture et réouverture dans un nouveau processus FreeCAD 1.1.3 Windows AMD64 | 375 liens et 368 poses contrôlés sans erreur de lien, de recalcul ou de pose ; natifs non modifiés par le contrôle. Sauvegarde FreeCAD App, apparences utiles conservées et nouveaux résultats de découpe/fusion reprenant leur source ; contrôle XML des liens/placements. Contrôle interactif GUI non exécuté après blocage d'initialisation ; les vues de contrôle sont tessellées depuis les BRep sauvegardés. |
+| `MEC-INT-001` → remplacements et interfaces | Sept géométries d'équipements reprises dans la première passe. Reprise PM08 appliquée avec rotation, déplacements UART/fusible, passages P64/P73/P75 et six fixations ajoutées. Les trois collisions PM08 et quatre chevauchements QS8 constatés sont supprimés. Têtes M3×16/M3×40 et fraisures P60/P66 corrigées à90°, huit poses ajustées ; contour exact des vis et appui physique encore inconnus. Trois têtes CHC corrigées selon les diamètres documentaires, douze placements conservés ; filetages et détails simplifiés. Le gabarit théorique ne devient pas un modèle fabricant exact. |
+| `CAB-CARTO-001` → interfaces et faisceaux | Huit parcours puissance et le départ F20 repris, chevauchement F20 supprimé. Contrôle sauvegardé de 12 977 paires autour des occurrences modifiées : zéro intersection positive ; 18 contrôles de paramètres et contacts des fraisures et 15 contrôles des têtes et placements CHC. Réservations arrêtées hors enveloppes QS8/PM08/fan ; segments terminaux et raccordements restent ouverts. Interface SMA GNSS incohérente, prises Basler et engagement Key M à documenter. Les 53 parcours ne sont pas des coupes libérées ni 53 câbles à additionner. |
+| `MEC-INT-001` → quatre rotors | Axes et appuis nominaux conformes ; six paires de disques modélisés séparées, jeu minimal 66,108 mm. Variante 1555, moyeux/perçages, masses, tolérances et hélices réelles restent inconnus ; compatibilité et vol non démontrés. |
+| `MEC-MAS-001` → calcul C++17, inclusions et provenance | Sous-total disponible 2 892,664 g = 1 299,808 g documentaires applicables + 1 592,856 g de calculs candidats, dont 387,779 g de pièces carbone et 200,650 g de corps aluminium OEM à densités analogues, et 10,094 g pour le seul segment M8. Dix postes documentés, treize calculés complets sur leur contenu défini et deux inclusions couvertes ; 70 postes restent incomplets, dont onze avec contribution partielle. Quinze recettes documentaires, 86 contributions de géométrie/câble ; moteurs 600 g, ATOF 1,4 g et RP4TD 1,4 g comptés une fois. Le kit complet 2 000 g sans batterie figure en approvisionnement sans être ajouté ; scénarios ESC 23,2 g et hélices 88 g exclus du sous-total. Masse complète, centrage et inerties du drone `null`. Les propriétés de 47 pièces homogènes seulement ne sont pas celles du drone et excluent 24 pièces OEM sans distribution calculée. |
+| `MEC-INT-001` → intérieurs des bras OEM | Contrôle BRep avec matrices globales : 216 paires après filtre, 22 intersections positives, deux booléens non conclus. Aucun recoupement détecté entre les douze corps aluminium estimés, ni entre eux et les quatre tubes carbone retenus. Les objets non attribués, bagues et vis concernés restent hors estimation ; caractère voulu des contacts, résolution des erreurs et comptage réel **À valider**. La [preuve](../hardware/mecanique/cartographe/verification/orch_verifier_interferences_oem.json) conserve le résultat incomplet. |
+| `MEC-MAS-001` → cas négatifs, reproductibilité et consommateurs | Tests de conversion, maxima, périmètres, quantités inconnues, inclusions, absence de propriétaire, formes de même fichier et caches périmés. Tests ciblés de la passerelle/inventaire existants ; classeur réimporté et recalculé pour quantité 7/0/inconnue, sans erreur de formule. Aucun Excel natif, nouveau Gazebo/PX4 ou essai physique. |
+
+La couverture et le sous-total sont **Implémenté** ; la définition complète
+reste **À valider**. Les collisions ciblées sont corrigées ; les raccordements,
+interfaces non documentées et l'orientation GNSS restent ouverts. Les masses
+commerciales sans tolérance publiée ne sont pas exactes,
+les densités typiques et recettes de fabrication sont des hypothèses de calcul,
+et aucune borne garantie de masse du drone n'est annoncée.
+
+**Prérequis avant reprise des simulations physiques :** identifier variantes
+et révisions réellement retenues, obtenir plans utiles et masses nettes avec
+contenu exact des ensembles OEM, batterie/BMS/PM08/avionique ; résoudre les
+44 MPN CA01 manquants et sa constitution ; compléter quincaillerie, gaines,
+contacts, consommables et coupes de faisceaux ; résoudre les interfaces
+restantes et contrôler leurs modifications sur les fichiers
+finaux. Les mesures nécessaires portent les composants effectivement montés
+avec leurs accessoires et longueurs conservés, sans masse de colis ou de kit.
+Après réconciliation, caractériser la distribution des masses avant CG/inerties
+du drone, régénérer les exports Gazebo et revalider leur périmètre. La suspension
+des nouvelles campagnes demeure ; les essais physiques demandent toujours leur
+protocole et autorisation propres.
+
+La passe [GO3A](#cartographe-go3a) complète le rattachement documentaire du
+faisceau et confirme que le montage des interfaces critiques reste à
+démontrer. Avant de chiffrer les terminaisons et de clore le bilan, instruire
+la baie commune CAN1/diagnostic et les cordons critiques avec les trois
+familles [GO3A V2.1](#cartographe-go3a-revise) sur le même actif. Le
+[contrôle d’admission GO3B](#cartographe-go3b) confirme que ces
+données et la preuve d’intégrité électromécanique des natifs liés conditionnent
+la réception. La clôture ORCH conserve ses critères de masse et de preuves.
+Le [rejeu V2.1 XLink](#preuve-xlink-v21) établit la correspondance des axes
+et leurs occurrences sur le prototype actif. Les contacts et les volumes
+de service restent à instruire avant clôture des terminaisons.
+La [clôture B.2](#qualification-xlink-v21-b2) complète la couverture
+nominale des paires et localise les intersections à instruire dans
+ORCH-CAO-MASSE-1.
+La [requalification C](#requalification-v21-c) démontre le préflight et
+la réimplantation sur banc synthétique lié. Les essais GO3A V2.1 sur
+copies doivent tracer les sept intersections héritées et produire les
+observations d’interface propres au prototype.
+
+La campagne [GO3B exécutée](#cartographe-go3b-reconstruction) conserve une
+consolidée de diagnostic sur copie et ferme cette passe en NO_GO motivé.
+Elle confirme les sept défauts B.2 et les reprises nécessaires au
+raccordement F40/F41. La prochaine expérience d’appui/cheminement doit
+précéder la clôture des terminaisons, des masses et la réception. Le
+programme GO4 conserve la progression du §2.
+
+<a id="preuve-porte-v21"></a>
+**T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
+préflight du gestionnaire de convergence a rejoué `NO_GO_MOTIVE` à 0
+variante sur 12, puis a autorisé le
+plan d’exploration numérique privé H-01 avec les huit états
+`INCONCLUSIVE`. La réception rend `FINAL_NO_GO` en l’absence d’un
+candidat intégré et de preuves associées aux critères gelés. Les cas
+négatifs couvrent les gardes d’essai, les états de preuve, l’intégrité des
+fichiers et la reprise de la file à budget inchangé. La preuve spécifie
+les régressions et les limites. Le rejeu intégré sur la livraison courante
+s’arrête au contrôle d’empreinte du worker FreeCAD (voir
+[T-CARTO-V21-QUAL](#qualification-integree-v21)). H-01 reste **À valider**.
+[Preuve reproductible](verification/v21_exploration_gate.json) ·
+[Contrat V2.1](electromechanical_v2_1/01_EXPLORATION_POLICY.md).
+
+### 14.1 Ordre de reprise à partir du 8 octobre 2026
+
+Appliquer le [cadrage de DOC-HLD](architecture/HLD.md#methodologie).
+Le responsable du projet a choisi le 7 octobre de valider d'abord la
+**faisabilité physique du cartographe**. Les axes ci-dessous organisent les
+travaux conservés ; ils ne constituent ni un calendrier approuvé ni une
+autorisation de banc. Les critères chiffrés et budgets encore inconnus sont
+**À valider** avant engagement, jamais ajustés après observation pour conclure
+favorablement. Impact et urgence sont distincts : aucun incident matériel
+urgent n'est observé ici ; l'urgence des premiers points vient des décisions
+de conception qu'ils conditionnent.
+
+| Ordre / rôle | Action minimale et lien aux écarts | Preuve de sortie / décision | Limite et arrêt |
+|---|---|---|---|
+| 1 — système/mécanique, fort impact avant nouvelle variante | inventorier matériel disponible/révisions ; réconcilier une configuration cartographe, sa BOM, inclusions, masse/centrage, limites du porteur et données propulsion ; AUD-003/008 | bilan unique sourcé, inconnues et postes discriminants ; décision poursuivre, alléger, revoir le porteur ou mesurer | une configuration et une passe sur données existantes ; pas de nouveau modèle ni achat ; arrêter sur bilan exploitable ou donnée bloquante identifiée |
+| En soutien immédiat — validation/mécanique | comparer sans sauvegarde le natif divergent et la revue ; AUD-007 | portée du changement connue puis contrôles proportionnés sur le fichier courant | arrêt après diagnostic de portée ; pas de régénération automatique ni réécriture de preuve historique |
+| 2 — électrique/système, fort impact avant fabrication | confronter profil mission, puissance/énergie, BMS/connecteur avec maîtrise de l'appel/PM08/CA01 et thermique ; sélectionner le premier test discriminant ; AUD-004 | critère tiré des limites applicables, modèle/hypothèse, protocole et résultat attendu ; décision prévue si échec | budget horaire/financier et répétitions **À valider** ; aucun essai sensible sans prérequis de §2 et arrêt sûr |
+| 3 — mécanique/acquisition, fort impact avant intégration avancée | fermer tenue/fixations et définir la chaîne minimale LiDAR–image–pose ; AUD-004/005 | mesures d'effort/tenue et synchronisation liées au besoin, limites et refus explicites | une hypothèse critique à la fois ; suspendre l'ajout de variantes si les données nécessaires manquent |
+| Selon dépendance du banc retenu — logiciel/validation | corriger seulement les garanties nécessaires pour exploiter sa preuve ; AUD-010/011/012/014/015 | contrat effectivement contrôlé, test autonome et environnement identifiable | pas de refonte globale de station ou Docker ; arrêter quand le banc retenu produit la preuve attendue |
+| Après décision de faisabilité — pilotage | réexaminer les lots logiciels, perception avancée, traitement et abstractions ; AUD-013/016 | justification par besoin observé et capacité minimale démontrée | un nouveau chantier exige son propre signal, budget, arrêt et revue ; toute priorité différente est explicitée |
+
+La méthode, les renvois d'autorité et les contradictions documentaires ciblées
+sont corrigés dans cette tâche (AUD-001/002 partiellement, AUD-006/009/017).
+Les travaux techniques du tableau sont **Planifiés**. La décision de priorité
+est acquise ; les critères de réussite physique, les budgets d'essai et la
+preuve de faisabilité restent **À valider**.
+
+État au 9 octobre : la sélection documentaire a été rapprochée dans une
+nomenclature unique du prototype sans dock (§14.3). L'inventaire du matériel
+possédé, le bilan complet et la preuve de faisabilité restent ouverts ;
+la première action n'est donc pas close.
+
+### 14.2 Portefeuille conservé
+
+Les actions ci-dessous restent nécessaires selon leurs portes. Leur numéro
+est un repère de liste, **pas l'ordre d'exécution** ; le §14.1 les séquence.
 
 1. Exécuter la suite courante, les rejeux LIO et les scénarios PX4 sur Linux,
    puis sur un hôte `arm64` natif/Jetson.
@@ -2000,10 +4099,677 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
    politique de priorisation et, si la marge
    échoue, dimensionner une liaison de données distincte pour RTCM/MAVLink.
 
-## 15. Journal de modifications
+<a id="nomenclature-prototype"></a>
+### 14.3 Nomenclatures prototype et produit custom — 11 octobre 2026
+
+**T-CARTO-BOM-PROTO-01**, lié à MEC-ARC-001, MEC-MAS-001,
+CAB-CARTO-001 et à l'action prioritaire de §14.1 : rapprocher la sélection
+cible avec le prototype X650 sans échange rapide. Le
+[registre](../hardware/mecanique/cartographe/nomenclature_prototype.json)
+et le [classeur](../hardware/mecanique/cartographe/exports/Nomenclature_Prototype_Cartographe.xlsx)
+sont **Implémentés** ; la sélection, la réalisation et la qualification
+physique restent **À valider**.
+
+Critères de cette vérification documentaire : tous les postes source et
+liaisons repris ou explicitement exclus, identifiants uniques, parentages
+résolus, quantités inconnues distinctes de zéro, sources locales accessibles,
+empreintes concordantes, aucune masse totale inférée, export fidèle et
+formules sans erreur. La
+[preuve technique](../hardware/mecanique/cartographe/verification/controle_nomenclature_prototype.json)
+porte les entrées, empreintes, comptages, contrôles et limites.
+
+Résultat courant après définition du prototype : **134 lignes** couvrent les **60 postes
+source**, dont **95 embarquées et 23 exclues** ; **43 identifiants de liaisons**
+couvrent tous les Wxx de la source, y compris ceux explicitement retirés.
+JETI, commande magnétique et `ELEC-F39` sont à quantité zéro dans les retraits ;
+`W39` et `W-JETI-COMMANDE` aussi. `ELEC-F38`/`W38` portent le raccord direct
+connecteur côté drone → PM08-CAN IN. La reprise
+CA01 conserve **151 repères / 141 composants montés candidats / 8 DNP /
+2 points de test**. La revue indépendante a fait corriger le rattachement des
+empreintes CA01 et la nature de la masse Basler (« <85 g »). Les onglets,
+formules de comptage et représentations du classeur sont contrôlés.
+
+La décision du 10 octobre conserve BMS, PM08, distribution, isolation UART et
+protections ; le connecteur doit assurer la maîtrise de l'appel de courant
+pour **branchement = marche, débranchement = arrêt**. Les candidats et leurs
+limites sont dans [DOC-ELEC §3](architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#3-chaîne-dénergie-candidate-du-cartographe).
+Ce besoin est décidé ; le responsable retient **un jeu QS8-S D-MAX B9310**.
+La référence est choisie, la qualification reste **À valider** : aucune tenue
+à l'appel capacitif, mesure thermique ou déconnexion sous charge n'est acquise.
+Le responsable retient ensuite un SSD Samsung 990 EVO Plus 1 To,
+MZ-V9S1T0BW, ligne 21, pour conserver toutes les données brutes LiDAR/caméra
+pendant la mission, scénario caméra confirmé à 5 images/s sur 20 minutes.
+Les budgets conditionnels sont dans [DOC-ELEC](architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#stockage-prototype) ;
+budget combiné et qualification d'acquisition restent ouverts. Le responsable
+retient ensuite **un jeu Waveshare Orin-FAN-PWM, SKU 24076**, à la ligne 22 ;
+interfaces et thermique **À valider**, dans
+[DOC-MEC](architecture/ARCHITECTURE_MECANIQUE.md#refroidissement-prototype).
+Le responsable retient ensuite **un Fujinon CF8ZA-1S, 8 mm, monture C**,
+pour `SEN-LENS`, ligne 26 ; sa masse fabricant d'environ 180 g est distinguée
+d'une masse installée mesurée. Le poste `SOL-PC`, ligne30, désigne depuis la précision du 12 octobre un
+terminal au format ouvert (portable/tablette/téléphone), distinct du PC fixe.
+Son choix et son chargeur hypothétique60 W sont différés hors CAO, selon
+[DOC-ELEC](architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#pc-sol-prototype).
+
+Le contrôle documentaire **`T-CARTO-FAN-CONN-01`**, du 10 octobre, est
+**Implémenté** ; le raccordement demeure **À valider**. Sa
+[preuve](../hardware/electronique/cartographe/verification/controle_connecteur_ventilateur_jetson.json)
+établit le courant nominal Waveshare 0,13 A sous la limite Holybro 0,35 A,
+et conserve l'identification DF13 **candidate** issue du STEP et de la photo.
+Elle n'établit ni la tension du port FAN, ni les deux brochages, ni la
+référence d'accouplement Waveshare, ni la portée réelle du câble.
+Conclusion : **raccordement direct non démontré**, sans qualification
+électrique ou thermique. Critères de fermeture : confirmer les références
+et les contacts sur les variantes utilisées, la tension, les niveaux de
+commande éventuels et la portée ; vérifier ensuite démarrage, régulation et
+température sous charge. Aucune mesure sur matériel n'a été exécutée.
+Le contrôle FAN précède le choix du refroidissement ; sa preuve historique
+reste conservée. La sélection ultérieure actualise le registre et son export
+sans fermer ces vérifications physiques.
+
+Le calcul **`T-CARTO-OPT-01`** est **Implémenté**, qualification **À valider**.
+La [preuve](../hardware/electronique/cartographe/verification/dimensionnement_objectif_prototype.json)
+compare les champs idéaux de deux objectifs candidats sur la Basler.
+Le responsable souhaite espacer les passages et propose une hauteur de
+travail de 10 m au-dessus des vignes, en remplacement de 20–30 m envisagés
+initialement. Ce scénario n'est pas une hauteur nominale qualifiée ;
+le responsable choisit ensuite le Fujinon CF8ZA-1S pour `SEN-LENS`.
+La preuve conserve l'état des candidats au moment du calcul ; la sélection
+figure dans la BOM. Les paramètres, masses publiées et limites
+sont dans [DOC-ELEC](architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#objectif-prototype).
+Critères de fermeture : GSD utile et recouvrements définis, intrusion et
+fixation compatibles, calibration/distorsion et netteté mesurées, retours
+LiDAR et densité utiles constatés sur les cibles réelles. Aucun essai
+d'acquisition, thermique ou vol, ni changement de paramètres PX4 exécuté.
+
+Le choix du terminal `SOL-PC` est différé hors CAO. Avant usage du format
+retenu, vérifier les fonctions de terrain réellement nécessaires :
+supervision, affichage et manipulation, liaison radio/RTK, veille/énergie,
+autonomie et transfert des acquisitions. Le profil Qt desktop antérieur
+ne démontre aucune capacité mobile. Les60 W du chargeur sont une hypothèse
+utilisateur, sans mesure ni qualification. Aucun de ces essais matériels
+n'est exécuté dans cette passe documentaire ; la CAO aéronef reste inchangée.
+
+La revue **`T-CARTO-CHARGE-DOC-01`** est **Implémenté**, qualification
+**À valider**. Sa
+[preuve](../hardware/electronique/cartographe/verification/controle_recharge_bms_prototype.json)
+confronte la notice JBD A01 et les chargeurs candidats. Le port protégé
+B+/C− permet le concept deux fils, batterie débranchée du drone ; le chargeur
+assure la régulation. **SkyRC S100neo SK-100202** est retenu pour la définition,
+quantité **1**, avec réglages et recharge **À valider**. Le courant
+OEM du pack et les bornes Capacity/Timer du firmware restent à confirmer.
+Sa sortie de charge XT60 impose un cordon **XT60 → QS8-S** ; l'accouplement
+direct est impossible. Ce raccordement est explicité dans la BOM et sa preuve ;
+**Logic RC O-LGL-CLQS8** est retenu comme cordon complet en quantité 1,
+connecteurs intégrés. Cette référence documentaire ne démontre pas
+l'accouplement exact avec D-MAX B9310 ; sexes des contacts, polarité et
+caractéristiques du lot doivent être contrôlés sur les équipements réels.
+Avant recharge : limites de charge et seuils BMS adaptés, polarité et protections
+revues ; protocole de banc pour profils CC/CV, cellules/équilibrage, température,
+fin sans maintien et ouverture/reconnexion BMS. Les critères chiffrés suivent
+les notices réelles, pas les coupures ultimes par défaut. Un arrêt pour
+coupure BMS n'est pas assimilé à une charge complète. Aucun faisceau réalisé
+ni essai de recharge exécuté ; natifs dock/JETI historiques conservés.
+
+Deux exports distincts comportent chacun onze onglets, dont une Vue système
+liée au détail (**24 équipements principaux prototype**, 26 fonctions/équipements
+custom). Le
+[registre custom](../hardware/mecanique/cartographe/nomenclature_produit_custom.json)
+recense 54 postes fonctionnels **Planifiés / À valider**. La revue indépendante
+a confirmé la conservation du prototype et fait clarifier le parentage custom
+et les fonctions incluses dans sa porteuse. Les **96 contrôles** du vérificateur
+réussissent sur les fichiers sauvegardés : couverture, données des cellules,
+formules de synthèse, inconnues, inclusions, filtres, volets et empreintes.
+La synthèse prototype a été recalculée après les suppressions ; les rendus
+avant/après ont été relus et les réserves modifiées rendues entièrement lisibles.
+La vérification précédente de propagation des quantités demeure distincte ;
+le recalcul dans Excel natif n'a pas été exécuté. La preuve liée ci-dessus
+porte les exports sauvegardés et les quatre contrôles ciblés du retrait.
+La revue indépendante du retrait ne relève plus d'écart après correction
+de la mention F39 dans les terminaisons. La comparaison à l'état avant retrait
+confirme la conservation des données, formules, styles et dimensions des sept
+onglets non concernés ; les empreintes du registre et de l'export custom sont
+identiques. Aucun résultat de cette revue documentaire ne vaut essai matériel.
+Pour l'ajout QS8-S et le cadrage SSD qui suivent, la comparaison des onze
+onglets à l'état précédent confirme que seuls `ELEC-CONNECTEUR-MANUEL` et
+`AVI-SSD` changent ; les données/formules/styles non concernés et les deux
+fichiers custom sont préservés. Les budgets caméra sont calculés, sans test
+de débit, température ou intégrité sur Jetson ; le format Bayer8 reste une
+hypothèse distincte de la cadence/durée confirmées.
+
+La sélection du SSD et le cadrage du refroidissement qui suivent sont
+vérifiés à leur tour sur les onze onglets : seules les données des postes
+`AVI-SSD` et `MEC-REFROIDISSEMENT-JETSON`, leur synthèse liée et la hauteur
+nécessaire à lire les réserves du refroidissement changent. Les autres
+données, formules, styles et les deux fichiers custom sont préservés.
+Aucun essai thermique ou d'acquisition sur matériel n'a été exécuté.
+
+La définition du prototype comprend désormais **55 postes repris**, dont
+les 50 initialement incomplets. Les champs actifs de référence et de quantité
+sont renseignés par une référence fabricant, une inclusion OEM ou une
+définition projet distinctes ; cela n’établit pas la disponibilité du matériel.
+**20 détails matériels demeurent ouverts** : trois contrôles de contenu OEM,
+neuf détails de montage ou qualification physiques et huit interfaces à
+identifier. Les deux choix de terminal et d’alimentation au sol sont différés
+séparément, sans dépendance CAO. Le registre possède le détail courant.
+Le 22 octobre, le classeur prototype est réexporté, réimporté et recalculé,
+puis ses lignes modifiées sont inspectées. **108 contrôles documentaires**
+réussissent sur les fichiers sauvegardés ; les variations 7, 0 et vide
+se propagent dans la synthèse sans sauvegarder les valeurs d’essai.
+Le classeur custom et son registre sont préservés. Le recalcul dans Excel
+natif n’est pas exécuté. Seules des preuves aux empreintes concordantes
+décrivent les fichiers courants ; les contrôles CAO correspondants sont au §14.4.
+
+La conclusion de faisabilité reste **données insuffisantes** : les masses,
+le centrage, l'endurance, la thermique et l'acquisition ne sont pas démontrés.
+AUD-003 reste ouvert. AUD-007 et les preuves de course du dock concernent les
+natifs historiques avec JETI ; le nouvel assemblage possède une vérification
+distincte au §14.4. Le routage CA01, les essais de propulsion, de câblage et
+de banc ne sont pas rejoués par cette passe de définition mécanique.
+
+<a id="assemblage-prototype"></a>
+### 14.4 Reconstruction FreeCAD du prototype — 22 octobre 2026
+
+**Périmètre historique du 22 octobre, remplacé pour les fichiers modifiés par ORCH-CAO-MASSE-1 (§14).**
+
+**T-CARTO-CAO-PROTO-01**, lié à MEC-ARC-001, MEC-INT-001 et CAB-CARTO-001,
+porte sur
+[`Prototype_Cartographe.FCStd`](../hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd)
+et ses sept sous-assemblages liés. La refonte est **Implémenté** :
+**118 références, 346 occurrences**, énergie à l’étage supérieur,
+caméra conservée avec prises coudées et **53 parcours Cable Workbench 0.3.7**.
+Les choix et interfaces sont dans
+[DOC-MEC §2.2](architecture/ARCHITECTURE_MECANIQUE.md#assemblage-prototype).
+Les preuves du 22 octobre portent les empreintes des fichiers finaux ;
+les résultats des constructions antérieures ne sont pas transférés sans identité.
+
+Les contrôles numériques sont conformes à leurs critères déclarés, sans
+assouplissement de seuil pour accepter un défaut. Ils ont été exécutés sous
+FreeCAD 1.1/Windows sur les natifs sauvegardés, par réouverture ou lecture
+des BRep selon le protocole. Les processus de contrôle n’ont pas sauvegardé
+de modification des natifs. La construction, les sources et les recettes sont
+rapprochées par empreintes avant la synchronisation finale.
+
+| Périmètre et critère | Résultat et preuve du 22 octobre |
+|---|---|
+| Construction et sources | 118 références et 346 occurrences ; sources OEM préservées, sept sous-assemblages. [Construction](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/construction_prototype.json), [inventaire](../hardware/mecanique/cartographe/verification/inventaire_reconstruction_prototype.json) et [préservation initiale](../hardware/mecanique/cartographe/verification/preservation_sources_prototype.json). |
+| Liens, placements et interférences | 346 liens et poses retrouvés ; aucune collision hors interfaces explicitement déclarées. Les volumes engagés SSD/microSD restent localisés et **À valider**. [Contrôle assemblage](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_assemblage_prototype.json). |
+| Recalcul et cheminements | 53 parcours natifs recalculés, continuité, rayons et longueurs conformes aux critères de définition. Contrôles exacts contre structure, guides et équipements. [Contrôle faisceaux](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_faisceaux_prototype.json). |
+| Pièces et fixations des guides | Solides, métadonnées persistées, ancrages et interférences des références fabriquées contrôlés. [Pièces](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_pieces_prototype.json) et [guides](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_fixations_guides_prototype.json). |
+| Départs des bras | Huit départs signal/LED fermés par douze stations : huit sur les commandes MAIN/F04 (deux par bras) et quatre sur les LED. Contrôle contre les câbles et obstacles finaux. [Départs](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_departs_bras_prototype.json). |
+| Réserve USB, liaisons et corps | Trois boucles de réserve USB, neuf liaisons entre supports et trois captures de corps QS8/RF0/RF1 : bandes fermées, passages, captures communes, interférences et têtes contrôlés. Deux liaisons P75–P72 réemploient des colliers du contrat ; QS8 réemploie F37_POS_-20 et RF1 sa boucle native. [Colliers](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_colliers_prototype.json). |
+| Couverture des retenues | 295 affectations de stations pour les 53 parcours, 269 colliers uniques, portées et exceptions locales documentées conformes. Les colliers communs ont une affectation géométrique cohérente. [Contrat](../hardware/mecanique/cartographe/verification/retenues_faisceaux_prototype.json) et [contrôle](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_retenues_faisceaux_prototype.json). |
+| Supports GNSS/USL, RF et MIDI | 24 occurrences ciblées : quatre supports, quatre boucles natives et seize éléments M2. Fusions, cinq appuis, quatre empilages M2 et interférences conformes. [Équipements](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_fixations_equipements_prototype.json). |
+| Revue indépendante et inspection visuelle | Revue des pièces, placements et fixations, [contre-vérification des trois corps](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/review_assemblage_prototype.json#contre_verification_corps) ; inspection de l’ensemble et des zones difficiles sur les vues natives finales. [Revue](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/review_assemblage_prototype.json) et [rendu](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/rendu_prototype.json). |
+| Registres et nomenclature | BOM et classeur alignés sur les fichiers contrôlés ; 108 contrôles documentaires, relecture/recalcul de l’export, limites de quantité testées à 7, 0 et vide. [Nomenclature](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_nomenclature_prototype.json), [couverture BOM/CAO](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/couverture_bom_cao_prototype.json) et [registres](../hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_registres_prototype.json). |
+
+L’enveloppe nominale est de **853,513 × 505,793 × 486,320 mm**, avec une garde
+verticale de l’objectif de **91,436 mm**. Elle comprend les représentations
+de câbles ; elle ne borne ni les débattements ni l’accès de tout outillage.
+Les sources OCCT imparfaites et les volumes engagés des connecteurs restent
+identifiés par le contrôle plutôt que masqués par une exemption générale.
+
+**Défauts CAO corrigés.** Les corrections portent sur les croisements de
+guides et gaines, les huit reprises des bras, les passages et les boucles
+communes USB, les ancrages P69/P71 fusionnés vers P66, les reprises P70
+vers P75 et la tablette MIDI sur P73. La déduplication des colliers évite
+d’ajouter les deux bandes P75–P72, le QS8/F37 et le corps RF1 déjà retenu
+par sa boucle native. Le contrôle des retenues
+conserve les budgets de portée et refuse les partages entre ancrages incompatibles.
+La synchronisation refuse une preuve absente, périmée ou non conforme.
+
+**Limites matérielles — À valider.** La BOM porte **20 détails matériels
+ouverts**. Aucun défaut géométrique constaté n’est reclassé en essai physique.
+Le décompte est de **281 colliers nominaux dans le périmètre de contrôle** ;
+les trois corps QS8/RF0/RF1 ont une pose nominale contrôlée, sans
+qualification physique. La quantité réellement posée est inconnue.
+Les coordonnées ou plans manquants des interfaces modules, les brochages
+USL/FAN, la protection des bornes, les terminaisons, la compatibilité des
+prises caméra, les tolérances, le serrage, l’abrasion, les vibrations,
+la thermique et les masses installées restent à vérifier sur matériel.
+Le QS8 monobloc ne décrit pas sa face de joint ni son volume de manœuvre :
+identifier le demi-corps fixe sur plan/lot, vérifier accouplement, extraction
+et prise en main hors bande, puis adapter la pose si le joint est recouvert.
+Le cordon USB n’a que 3,326 mm de marge sur son budget conservateur ; le
+rayon statique de 22 mm ne qualifie pas la flexion continue à 48 mm.
+L’engagement M8 de 6 mm reste hypothétique. La définition de CAO ne qualifie
+ni la fabrication, ni la mise sous tension, ni le vol. Aucun de ces essais
+n’a été exécuté dans cette passe ; terminal et alimentation au sol restent
+différés hors CAO.
+
+<a id="audit-preceptes"></a>
+## 15. Audit des préceptes et remise en cohérence
+
+### 15.1 Périmètre, méthode et limites — 7–8 octobre 2026
+
+Référentiel : [DOC-HLD §11, P01–P22](architecture/HLD.md#preceptes).
+Exigence : `METH-001`. Priorité choisie par le responsable du projet :
+**faisabilité physique du cartographe**, avant les extensions de capacité.
+
+L'audit porte sur le workspace à partir de Git
+`4463ffeee77653ae92dca59fae4cf6c16c6f2f80`, branche
+`codex/sw0-consolidation`, avec **128 entrées de statut Git préexistantes**
+(certaines représentent un répertoire), et non sur ce commit seul.
+869 fichiers suivis ou non ignorés ont été inventoriés et empreintés au départ,
+puis retrouvés identiques à la reprise du 8 octobre avant nos modifications.
+Trois investigations indépendantes ont couvert logiciel, matériel et
+validation ; leurs constats ont été consolidés avant intégration.
+
+Lecture des documents vivants et points d'entrée ; inspection ciblée des
+contrats, services, tests, CI, Docker, nomenclatures, configurations,
+instructions agentiques et preuves. Les **22 préceptes sont passés en revue**.
+Les faits sont vérifiés sur les fichiers cités ; risques et causes non observés
+sont des inférences ou inconnues. Les empreintes, références initiales et
+contrôles sont dans la [preuve structurée](verification/audit_preceptes.json).
+
+L'inventaire léger des résultats locaux a trouvé 98 fichiers de manifeste,
+108 fichiers de métriques et 11 `result.json` PX4 sous `results/benchmarks`
+et `results/simulation` : ce ne sont pas autant de campagnes distinctes.
+L'absence de Git de ces fichiers volontairement ignorés n'est pas un manquement.
+Il n'y a eu ni nouveau build, ni CI distante, ni rejeu LIO/SITL, ni ouverture
+ou sauvegarde de CAO, ni contrôle KiCad/ERC/DRC, ni mesure physique.
+Les comportements logiciels décrits sont déduits du code, sauf contrôle
+explicitement exécuté. Les gros datasets n'ont pas été relus intégralement.
+Les notices, prix et règles externes n'ont pas été réévalués : les valeurs
+matérielles citées sont celles du dossier local, encore **À valider**.
+
+Critère d'arrêt : référence intégrée, couverture des 22 principes, constats
+étayés avec action et clôture, ordre de reprise, revue indépendante et
+contrôles documentaires. Aucun nouveau système d'audit n'est construit.
+Conclusion : **non conforme au nouveau cadre sur les écarts identifiés** ;
+intégration de la méthode **Implémenté**, conformité globale et faisabilité
+physique **À valider**. Cet audit ne garantit pas l'absence d'autres écarts
+dans les comportements non exécutés ou le matériel.
+
+### 15.2 Constats, actions minimales et clôture
+
+L'ordre de reprise est au §14. Le rôle indiqué est celui à mobiliser pour la
+correction, pas une nomination ni un engagement de budget.
+
+<a id="aud-001"></a>
+#### AUD-001 — Référentiel de décision incomplet
+
+- **Fait :** HLD §1 définit l'usage et §8.6 des performances préliminaires,
+  mais l'état initial ne comportait ni méthode commune ni définition
+  opérationnelle de l'Étoile du Nord et de son décideur. AGENTS organisait
+  réalisation/review sans imposer le cadrage préalable.
+- **Préceptes :** P01, P02, P12, P17. **Impact : fort ; rôle : pilotage.**
+- **Action réalisée :** référence complète, déclencheurs et priorité utilisateur
+  intégrés dans HLD/AGENTS/INDEX. Le besoin terrain et la réussite d'usage
+  restent **À valider**, sans inventer d'approbation.
+- **Clôture restante :** résultat utile, bénéficiaire et critères de réussite
+  physique reliés au besoin et approuvés avant engagement correspondant.
+
+<a id="aud-002"></a>
+#### AUD-002 — Chantiers sans borne commune ni ordre de décision
+
+- **Fait :** l'ancien §14 listait neuf actions, et DOC-SW §12 onze lots après T0,
+  sans plafond d'effort, arrêt méthodologique ni arbitrage entre cartographe,
+  cartographie, traitement et infrastructure. L'arrêt sûr d'un banc ne
+  remplace pas l'arrêt d'une investigation.
+- **Préceptes :** P03, P07, P08, P09, P14, P15. **Impact : fort ; rôle : pilotage.**
+- **Action réalisée :** priorité physique et séquence §14 ; extension reportée
+  sauf contribution explicite à la contrainte courante. Les budgets du futur
+  essai ne sont pas encore approuvés.
+- **Clôture restante :** première tâche bornée avec responsable, plafond
+  d'effort/coût, signal, événement de revue et décision en cas d'échec.
+
+<a id="aud-003"></a>
+#### AUD-003 — Pas de bilan de faisabilité du cartographe complet
+
+- **Fait :** DOC-MEC §6.1 donne un sous-total **historique et incomplet** de
+  6,195–6,809 kg ; aucune marge sous les 6,3 kg commerciaux cités n'est
+  démontrée. La [configuration cible](../hardware/mecanique/cartographe/configuration_cible_20261003.json)
+  déclare elle-même l'absence de configuration complète active. Ce sous-total
+  n'est ni la masse du prototype courant ni une preuve de dépassement réel.
+- **Préceptes :** P02, P03, P10, P11, P12, P14. **Impact : critique pour la décision ; rôle : système/mécanique.**
+- **Inférence :** poursuivre les détails d'implantation risque de consolider
+  une configuration incompatible avec son porteur. Le gain de volume local
+  mesuré ne ferme pas masse, centrage, poussée ou autonomie.
+- **Action et clôture — Planifié :** réconcilier une seule BOM, inclusions et
+  retraits, masses mesurées/publiées/provisionnelles/inconnues ; identifier les
+  limites applicables puis décider poursuivre, alléger, changer la
+  configuration ou obtenir une mesure précise. Aucun inconnu compté à zéro.
+
+<a id="aud-004"></a>
+#### AUD-004 — Critères physiques discriminants encore à définir
+
+- **Fait :** DOC-MEC §4.1 et §4.4 laisse efforts, cycles, tolérances,
+  précharge et fluage ouverts. La
+  [campagne électrique/thermique/CEM](../hardware/electronique/cartographe/carte_avionique/validation_electrique_thermique_cem.json)
+  contient encore des critères `null` ; §12.7.11 déclare zéro banc.
+- **Préceptes :** P08, P09, P13, P14, P21. **Impact : fort ; rôle : système/mécanique/électrique.**
+- **Qualification :** lacune de préparation de décision, pas fausse
+  qualification ; les limites sont déjà annoncées honnêtement.
+- **Action et clôture — Planifié :** dériver de la configuration et de l'usage
+  un premier cas susceptible de réfuter tenue, énergie ou thermique ; fixer
+  critère, répétitions, budget et arrêt avant résultat. Revue/calcul d'abord,
+  banc après ses prérequis. Aucun seuil inventé par l'audit.
+
+<a id="aud-005"></a>
+#### AUD-005 — Succès de l'acquisition minimale non relié au besoin
+
+- **Fait :** DOC-ELEC §8 et DOC-VAL §12.8 décrivent la chaîne candidate et
+  demandent encore l'approbation des limites d'erreur temporelle, jitter,
+  appariement, pertes et reprise ; aucun essai matériel n'est réalisé.
+- **Préceptes :** P01, P11, P12, P21. **Impact : fort ; rôle : acquisition/système.**
+- **Action et clôture — Planifié :** partir du niveau de carte utile pour
+  définir la précision LiDAR–image–pose requise et une observation minimale
+  sur la chaîne disponible ; relier critère approuvé, protocole et mesure.
+  La présence d'un circuit de synchronisation ne prouve pas la datation réelle.
+
+<a id="aud-006"></a>
+#### AUD-006 — Synthèses électriques actives périmées
+
+- **Fait initial :** DOC-ELEC §5.2 mentionnait EC5/AWG10, §6 un routage
+  complet CA01 encore Planifié, et §10 le SBS X-75A. §6.2 et les registres
+  courants décrivent AWG8/TE/BMS et un routage candidat présent. HLD §7.1
+  présentait CA01 seulement comme Planifiée ; DOC-SW avait une date ancienne.
+- **Préceptes :** P19, P22. **Impact : fort ; rôle : documentation de domaine.**
+- **Correction Implémentée :** ces synthèses et leurs renvois sont alignés
+  sur les choix actuels, avec fabrication/qualification toujours **À valider**.
+- **Clôture :** cohérence documentaire ciblée vérifiée ; cela ne clôt pas
+  AUD-008 ni ne requalifie les interfaces ou composants.
+
+<a id="aud-007"></a>
+#### AUD-007 — Empreinte de l'assemblage différente de la revue
+
+- **Contrôle exécuté :** 147 natifs comparés à
+  [revue_hierarchie_batterie.json](../hardware/mecanique/cartographe/verification/revue_hierarchie_batterie.json),
+  146 identiques et un différent ; 66 autres fichiers revus tous concordants.
+  `Integration_Stack_Revue_20261003.FCStd` vaut au moment de l'audit
+  `b03b8588f5b2b64ecfe4114ed1ecd9500e589e623c4898f6d7e17319d26d93e5`,
+  contre `a418dad3701a6ca6ece86a26167cf8be73c80c731c11a5005323e6f5f72a32a8`
+  dans la revue, le contrôle et le manifeste.
+- **Préceptes :** P04, P13, P19. **Impact : fort ; rôle : mécanique/validation.**
+- **Inconnue :** géométrie, liens, vues ou métadonnées ; aucune régression
+  géométrique n'est déduite d'une différence d'empreinte.
+- **Action et clôture — Planifié :** comparer le contenu natif sans sauvegarde,
+  identifier la portée puis rejouer les contrôles proportionnés sur le fichier
+  courant ; conserver l'ancienne preuve. Ne pas remplacer seulement le hash
+  attendu pour faire passer la vérification.
+
+<a id="aud-008"></a>
+#### AUD-008 — Contraintes de configuration historiques encore actives
+
+- **Fait :** [configuration_cible_20261003.json](../hardware/mecanique/cartographe/configuration_cible_20261003.json)
+  conserve le logement Z33…103 et une course continue/301 poses ; DOC-MEC
+  distingue ce logement historique du plateau actuel Z128…130. Les preuves
+  courantes portent sur des positions discrètes et excluent une démonstration
+  continue (DOC-MEC §4.1.3.3 ; DOC-VAL §12.1.10).
+- **Préceptes :** P13, P19. **Impact : fort ; rôle : mécanique/configuration.**
+- **Action et clôture — Planifié :** distinguer dans le registre historique,
+  requis et vérifié pour la variante courante. Conserver le reliquat de course
+  continue ; une exigence non couverte n'est pas supprimée pour rendre la
+  preuve conforme. Vérifier les recettes qui lisent ces champs avant modification.
+
+<a id="aud-009"></a>
+#### AUD-009 — Autorité ambiguë et empreinte FriûlBot mal recopiée
+
+- **Fait initial :** §7.3 recopiait `14ded790d1771006219fc02980ee3eb8`
+  pour les images ; le
+  [catalogue canonique](../datasets/manifests/catalogue_datasets.yaml)
+  et la [recette](../tools/download_friulbot.cmake) portent
+  `14ded790d1771006218fc02980ee3eb8`. L'INDEX donnait une prévalence
+  documentaire dont la portée vis-à-vis des manifestes était ambiguë.
+- **Préceptes :** P17, P19. **Impact : moyen ; rôle : documentation/datasets.**
+- **Correction Implémentée :** renvoi au catalogue au lieu de recopier le MD5,
+  autorité précisée par nature de donnée dans l'INDEX.
+- **Clôture :** contradiction documentaire retirée ; aucun recalcul du dataset
+  ni nouvelle qualification d'intégrité n'est revendiqué.
+
+<a id="aud-010"></a>
+#### AUD-010 — Garantie T0 supérieure aux validations effectives
+
+- **Fait par lecture :** [ContractRegistry.cpp](../software/cpp/src/application/ContractRegistry.cpp)
+  charge et compte les schémas sans les appliquer intégralement.
+  [StationComposition.cpp](../software/cpp/src/composition/StationComposition.cpp)
+  recopie certains champs libres de la requête ;
+  [ResultAdapter.cpp](../software/cpp/src/adapters/storage/ResultAdapter.cpp)
+  effectue des contrôles partiels avant écriture.
+  [RunService.cpp](../software/cpp/src/application/RunService.cpp) annonce
+  pourtant des contrats « archivés et validés ».
+- **Préceptes :** P04, P13, P19. **Impact : fort avant usage qualifiant ; rôle : logiciel.**
+- **Correction documentaire Implémentée :** DOC-SW §5 distingue contrat
+  déclaré et contrôle effectif. **Correction logicielle Planifiée :** source
+  de validation commune à l'entrée et à la finalisation, cohérence des IDs.
+- **Clôture :** tests négatifs types/champs requis/inattendus, identifiants
+  contradictoires et événements invalides ; aucune finalisation « validée »
+  en cas d'échec. Aucun de ces tests n'a été exécuté par l'audit.
+
+<a id="aud-011"></a>
+#### AUD-011 — Tests ordinaires dépendants de résultats locaux
+
+- **Fait par lecture :** [TestResultRepository.cpp](../software/cpp/tests/TestResultRepository.cpp)
+  exige au moins 59 résultats et trois identifiants historiques ;
+  [TestComparisonService.cpp](../software/cpp/tests/TestComparisonService.cpp)
+  utilise ces archives et [TestContractRegistry.cpp](../software/cpp/tests/TestContractRegistry.cpp)
+  résout un dataset local obligatoire. Le
+  [workflow](../.github/workflows/sw0-ci.yml) lance CTest sans fournir ces
+  ressources, volontairement absentes de Git.
+- **Préceptes :** P05, P11, P13. **Impact : moyen ; rôle : logiciel/validation.**
+- **Conséquence déduite :** plusieurs suites n'ont pas leurs prérequis dans
+  un checkout neuf ; aucune panne de CI distante n'a été observée ici.
+- **Action et clôture — Planifié :** petites fixtures synthétiques pour les
+  contrats, intégrations terrain séparées avec prérequis explicites ; suite
+  ordinaire réussie sur checkout neuf, intégrations exécutées/absentes distinguées.
+
+<a id="aud-012"></a>
+#### AUD-012 — Rejeu LIO sans échéance totale
+
+- **Fait par lecture :** [LioOrchestrator.cpp](../software/cpp/src/adapters/runtime/LioOrchestrator.cpp)
+  attend tant que lecteur rosbag et LIO restent vivants. Le délai de vidange
+  commence après la fin du lecteur ; l'annulation borne l'arrêt demandé,
+  mais aucune échéance totale automatique ne couvre un lecteur bloqué vivant.
+- **Préceptes :** P13, P14. **Impact : moyen ; rôle : logiciel/rejeu.**
+- **Action et clôture — Planifié :** budget total dérivé de durée/vitesse et
+  marge configurée, diagnostic et arrêt ; test d'un lecteur vivant sans
+  progression terminé dans le budget. Aucun blocage réel n'est allégué.
+
+<a id="aud-013"></a>
+#### AUD-013 — Abstractions compilées sans consommateur actuel trouvé
+
+- **Fait :** [IStationModule.hpp](../software/cpp/include/drone_agricole/station/IStationModule.hpp)
+  n'a pas d'implémentation ni d'usage trouvés dans le périmètre inspecté.
+  [StationArchitecture.cpp](../software/cpp/src/station/StationArchitecture.cpp)
+  décrit dix étapes ; seuls ses tests le consomment.
+  [TestStationArchitecture.cpp](../software/cpp/tests/TestStationArchitecture.cpp)
+  vérifie des booléens déclarés, pas une frontière de commande effective.
+- **Préceptes :** P06, P10, P11, P16, P19. **Impact : faible à moyen ; rôle : logiciel.**
+- **Action et clôture — Planifié :** justifier un utilisateur actuel, ou
+  différer/supprimer le contrat après vérification de dépendances ; garder la
+  cible dans DOC-SW. Ne pas compter ce test déclaratif comme preuve de sûreté.
+  Une abstraction inutilisée n'est pas, à elle seule, un défaut de vol.
+
+<a id="aud-014"></a>
+#### AUD-014 — Identité du rejeu insuffisamment garantie
+
+- **Fait :** les producteurs FriûlBot
+  [FriulBotMap.cpp](../software/cpp/src/adapters/mapping/FriulBotMap.cpp) et
+  [FriulBotReconstruction.cpp](../software/cpp/src/adapters/mapping/FriulBotReconstruction.cpp)
+  n'inscrivent dans `software` que l'implémentation ; leurs manifestes ne
+  suffisent pas à relier commit, image, entrées et calibrations comme demandé
+  au §3. Le [Dockerfile](../software/docker/Dockerfile) utilise aussi des bases
+  ROS sans digest et APT non figé. Des commits LIO/PX4 et l'image SITL sont,
+  eux, épinglés : la reproductibilité est partielle, pas inexistante.
+- **Préceptes :** P04, P13, P19. **Impact : moyen ; rôle : logiciel/validation.**
+- **Action et clôture — Planifié :** pour le seul banc retenu, lier la preuve
+  à l'image exécutée, au logiciel et aux empreintes d'entrées/calibrations,
+  puis conserver l'environnement nécessaire. Une preuve doit permettre de
+  retrouver sa configuration exacte ; aucune refonte générale Docker requise.
+
+<a id="aud-015"></a>
+#### AUD-015 — Résultats historiques insuffisamment reliés à leurs preuves
+
+- **Fait :** les tableaux initiaux §§8–9 et plusieurs lignes §13 donnaient
+  des métriques sans résultat exact lié. Les preuves existent localement.
+  Le comparatif LIO du 19 août référence les trois runs et retrouve les
+  valeurs publiées ; cela n'est pas un nouveau rejeu.
+- **Préceptes :** P04, P13, P19, P22. **Impact : moyen ; rôle : validation.**
+- **Correction partielle Implémentée :** lien exact ajouté au §8.1.
+- **Clôture restante — Planifié :** rattacher les autres affirmations
+  utilisées pour une décision à leurs runs et conditions ; ne pas relancer
+  une campagne si l'archive existante répond déjà à la question.
+
+<a id="aud-016"></a>
+#### AUD-016 — Hypothèse de calibration non bornée par sa réfutation
+
+- **Fait :** le [profil FriûlBot](../configs/datasets/friulbot/test2-2024-07-22.yaml)
+  indique une extrinsèque utilisée sans inversion et à valider ; la
+  qualification sur correspondances indépendantes n'a pas encore de seuil
+  approuvé ni décision explicitée en cas d'échec.
+- **Préceptes :** P07, P13, P21. **Impact : moyen ; rôle : perception/validation.**
+- **Action et clôture — Planifié, différé :** lors de la reprise du chantier,
+  définir prédiction, observation indépendante de soutien/réfutation et effet
+  sur la projection. Aucun seuil ni résultat inventé ; ne passe pas devant
+  la faisabilité physique du cartographe.
+
+<a id="aud-017"></a>
+#### AUD-017 — Consigne locale encourageant des notes dispersées
+
+- **Fait initial :** `research/README.md` demandait études et notes avec
+  décisions, contrairement à la consolidation dans cinq documents vivants.
+- **Préceptes :** P10, P17, P19, P22. **Impact : faible ; rôle : documentation.**
+- **Correction Implémentée :** ressources et preuves techniques, avec
+  intégration des décisions dans leur document vivant.
+- **Clôture :** instruction locale cohérente ; aucun fichier de recherche
+  supprimé et aucun rapport narratif séparé créé.
+
+### 15.3 Couverture des 22 préceptes
+
+Une preuve positive reste limitée au périmètre observé ; elle n'accorde pas
+une conformité générale. « Pas d'écart établi » ne signifie pas qualification.
+
+| Précepte | Lecture de l'audit et renvoi |
+|---|---|
+| P01 First Principles | usage et contraintes physiques à préciser : AUD-001/005 |
+| P02 Référentiel validé | priorité choisie, faisabilité et réussite d'usage ouvertes : AUD-001/003 |
+| P03 Classification | ordre de reprise introduit ; budgets futurs ouverts : AUD-002/003 |
+| P04 Réel observé | preuves existantes réutilisées ; AUD-007/010/014/015 |
+| P05 Résoudre à la source | cause des tests dépendants du poste identifiée : AUD-011 ; autres causes non présumées |
+| P06 Distinction réelle | couches station justifiées ; contrat inutilisé à revoir : AUD-013 |
+| P07 Réversibilité | cadrage Type 1/2 introduit ; feedback et limites à concrétiser : AUD-002/016 |
+| P08 Budget d'erreur | portes de sûreté conservées ; prochaine expérience à borner : AUD-004 |
+| P09 Test asymétrique | plafonds d'effort/coût et revue manquants : AUD-002/004 |
+| P10 Minimum suffisant | fermer configuration et nécessité des ajouts : AUD-003/013/017 |
+| P11 Gall's Law | noyau physique/acquisition et banc reproductible à démontrer : AUD-003/005/011/013 |
+| P12 Valider avant construire | contraintes physiques à fermer : AUD-001/003/005 ; pas de preuve que toute construction antérieure était injustifiée |
+| P13 Boucle fermée | calcul/finalisation distincts déjà présents ; AUD-004/007/008/010/011/012/014/015/016 |
+| P14 Arrêt | arrêt sûr existant, arrêt d'investissement incomplet et délai LIO absent : AUD-002/004/012 |
+| P15 Avantage cumulatif | contrats, rejeu et documents réutilisables ; arbitrage par friction réelle ajouté via AUD-002 |
+| P16 Infrastructure justifiée | adaptateurs LIO comparés sur mesures, pas d'écart par simple multiplicité ; AUD-013 |
+| P17 Instructions LLM | entrée méthodologique et autorité clarifiées : AUD-001/009/017 ; aucune technique dépendante d'un modèle introduite |
+| P18 Jugement/mécanique IA | pas de LLM en runtime trouvé dans le périmètre ; agents bornés par invariants et contrôles, aucun contournement critique observé, autorité PX4 conservée |
+| P19 Source unique | divergences concrètes AUD-006/007/008/009/010/013/014/015/017 |
+| P20 Mesurer avant optimiser | compacité avant/après et baseline LIO présentes ; pas de manquement général établi. Gain local ≠ faisabilité globale (AUD-003) |
+| P21 Hypothèse réfutable | saturation CPU LIO éprouvée (§8.2) ; réfutations ouvertes AUD-004/005/016 |
+| P22 Capitaliser | documents vivants et preuves réutilisables ; résumés/liens/notes corrigés ou ouverts : AUD-006/015/017 |
+
+### 15.4 Vérifications de cette intégration
+
+`T-METH-01` relie `METH-001` à l'intégration documentaire : fidélité du texte
+fourni hors adaptation de titres/métadonnées, présence unique P01–P22,
+liens locaux ajoutés, concordance des identifiants d'audit, dates/journaux,
+et préservation des fichiers hors périmètre. Résultats, revue indépendante
+et empreintes dans la [preuve structurée](verification/audit_preceptes.json).
+
+La revue et les contrôles documentaires ne ferment pas les corrections
+logicielles, les écarts de registre ou l'empreinte CAO. Builds, tests
+fonctionnels, rejeux, recalculs natifs et bancs ne sont pas exécutés : aucun
+code exécutable ni modèle physique n'est modifié par cette intégration.
+
+
+## 16. Journal de modifications
+
+- **17 novembre 2026** — Contrôles locaux avant sauvegarde et intégration Git : compilations réussies, échecs et tests incomplets conservés, périmètre de publication explicité (§6.3).
+- **17 novembre 2026** — GO3B exécuté sur copies natives, consolidation et contre-validation. [Verdict NO_GO et couverture](#cartographe-go3b-reconstruction).
+- **17 novembre 2026** — Rejeu du gel cartographe et préflight GO3A V2.1 des trois familles. [Résultat et porte finale](#cartographe-go3a-revise).
+- **17 novembre 2026** — Requalification indépendante V2.1 après A, B.2 et correction C4 sur banc lié. [Résultats et portée](#requalification-v21-c).
+- **17 novembre 2026** — Couverture nominale V2.1 B.2 complète, validation indépendante et résultats distincts du moteur et du prototype. [Clôture XLink](#qualification-xlink-v21-b2).
+- **15 novembre 2026** — Qualification indépendante V2.1 sur copies, écart de gel H-01 et contre-épreuves de connectique et de reprise XLink. [Verdict et conditions de reprise](#qualification-integree-v21).
+- **15 novembre 2026** — Validation V2.1 multi-documents sur copie du prototype actif, banc L4 XLink et reprise par lots. [Couverture et limites](#preuve-xlink-v21).
+- **15 novembre 2026** — Vérification V2.1 de la connectique sur documents, bancs et copie XLink. [Résultat conditionnel](#preuve-connectique-v21).
+
+- **15 novembre 2026** — Préflight V2.1 vérifié sur le dossier H-01.
+  Exploration numérique conditionnelle autorisée, réception fermée.
+  [Résultats et limites](#preuve-porte-v21).
+- **14 novembre 2026** — GO3B clos à l’admission en `NO_GO_MOTIVE`. Gel,
+  sources et couverture rejoués, verrous critiques et contrôles candidat non
+  exécutés tracés (§12.1.13 et §14).
+- **14 novembre 2026** — GO3A conditionnel, preuve de réconciliation exhaustive et critères de reprise H-01 (§12.1.13 et §14).
+
+- **14 novembre 2026** — Qualification GO2bis sur Windows amd64. Corrections
+  L2/L4/L5, réouvertures historiques et GO conditionnel borné aux capacités
+  démontrées (§12.1.13).
+- **14 novembre 2026** — Résultats finaux de réception L5 et limites de
+  validation consignés (§12.1.13).
+- **13 novembre 2026** — L5, consolidation native unique, reprise de campagne,
+  13 contrôles indépendants et critères de passage proposés (§12.1.13).
+- **13 novembre 2026** — L4, validation indépendante sur bancs et historiques,
+  réouverture en processus neufs et chaîne de preuves L0/T0 (§12.1.13).
+- **13 novembre 2026** — L3, décision d’architecture sur bancs synthétiques,
+  consolidation, preuve T0 et revue indépendante (§12.1.13).
+- **12 novembre 2026** — L2, continuité et raccordement sur banc natif,
+  convertisseur 71 lignes / 53 axes et inconnues fournisseur (§12.1.13).
+- **12 novembre 2026** — Recherche technique L1 C++17 validée hors FreeCAD,
+  avec rejeu F16, rapport HTTPS Basler et inconnues matérielles tracées (§12.1.13).
+- **12 novembre 2026** — Audit L0, contrats V2 et conditions de reprise L1.
+  Régressions sur banc et empreintes vérifiées. GO 3 ouvert (§12.1.13).
+- **11 novembre 2026** — Action 2 du moteur électromécanique. Trois défauts
+  corrigés avec régressions. GO conditionnel sur bancs et contre-validation
+  historique ciblée (§12.1.13).
+- **11 novembre 2026** — Clôture GO 1 sur les bancs, mesure native des
+  retenues et des poses discrètes, inventaire complet du prototype avec
+  défauts CAO fournisseur (§12.1.13).
+- **10 novembre 2026** — Banc du moteur électromécanique, réouverture
+  indépendante, rétrovalidation et périmètre des résultats (§12.1.13).
+- **9 novembre 2026** — Contrôles de la copie modulaire sur les natifs
+  sauvegardés, essais de variantes, contrôle des retenues et revue
+  indépendante (§12.1.12).
+- **9 novembre 2026** — Contrôles de la refonte du câblage sur copie isolée,
+  rapprochement électrique et comparaison des enveloppes de protection.
 
 | Date | Évolution |
 |---|---|
+| 12 novembre 2026 | Action 3 : F12/F16/F25/P85/F35 consolidés sur copie, réouverture et criblage ciblé exécutés, geste CAN1 simulé. |
+| 11 novembre 2026 | Action 3 : gabarit CAN1 coté et sonde candidate testés ; nouveau trajet F35 sauvegardé et assemblage rouvert sur copie. |
+| 11 novembre 2026 | Reprise action 3 : X650 corrigé sur copie, sauvegarde et réouverture du prototype complet démontrées ; F12 vers TELEM1 sur copie A1 et accès CAN1 préfiltré. |
+| 11 novembre 2026 | Action 3 : référentiel et identité du moteur vérifiés, interconnexions réconciliées, historiques rejoués et trois architectures conditionnelles documentées ; GO 3 ouvert. |
+| 28 octobre 2026 | T-SKILL-EMI-02 : autonomie de conception, huit évaluations comportementales indépendantes réussies, régressions et revue de cohérence ; preuves et limites synthétiques sans qualification matérielle (§12.1.11). |
+| 28 octobre 2026 | Essais de reconstruction sur copie, recalculs frais, équivalence volumique, F16 et contrôles globaux bornés ; inconnues, reprises et absence de qualification globale explicites (§12.1.12). |
+| 27 octobre 2026 | T-SKILL-EMI-01 : skill d'intégration des faisceaux, tests C++/BRep/natifs/isolation, validation officielle et revue indépendante ; aucun faisceau drone reconstruit ni qualification physique (§12.1.11). |
+| 26 octobre 2026 | Reprise X650 : kit 2 000 g hors bilan, 24 estimations OEM par densités analogues, scénarios ESC/hélices distincts et intersections internes des bras à résoudre ; lot non clos (§14). |
+| 26 octobre 2026 | Reprise ORCH : collisions ciblées supprimées, fraisures, têtes CHC et placements contrôlés, réouverture et 12 977 paires examinées ; bilan enrichi, poids Waveshare conditionnels et 70 problèmes massiques explicites dans la BOM. Clôture complète et reprise des simulations encore conditionnées (§14). |
+| 25 octobre 2026 | ORCH-CAO-MASSE-1 : recherches, reconstructions, intégration et bilan partiel exécutés ; couverture quantitative, réouverture, défauts PM08/QS8 et inconnues conservés, lot non clos et reprise des simulations conditionnée (§14). |
+| 24 octobre 2026 | Passerelle CAO → Gazebo intégrée à Simulations : service UI/CLI commun, export isolé et contrôlé, aperçu navigable, annulation et tests ; chargement Gazebo réel, physique À valider (DOC-VAL §10.2). |
+| 24 octobre 2026 | ORCH-GZ-1 : banc Docker/ROS reconstruit, airframe 40000 et capteurs synthétiques corrigés ; six essais SITL courants carré/perte Offboard/annulation finalisés, T0 et revue indépendante ; batterie forfaitaire observée, fidélité physique et autonomie couplée À valider (DOC-VAL §9.3). |
+| 23 octobre 2026 | ORCH-GZ-1 : dérivation, SDF/airframe d'aperçu, modules C++17, 54 cas énergie et T0 effectif ; tests natifs, blocage Docker, couplage batterie absent et mesures physiques explicités, relais ORCH-GZ-2 et T-CARTO-GZ-01..04 (§9.3–9.4). |
+| 23 octobre 2026 | Trois domaines Gazebo explicitement demandés et séquencés entre orchestrateurs (§9.4) ; relais par manifeste technique Planifié, propriétaires de fichiers et régressions communes, données physiques manquantes distinguées des travaux indépendants. |
+| 23 octobre 2026 | Priorité utilisateur Gazebo : portance avec charge, consommation et autonomie depuis la CAO active ; lots CGZ-01..05 et tests Planifiés, modèles physiques et énergie distingués du visuel et de la batterie SITL ; inventaire CAO/BOM et données manquantes consignés (§9.3). |
+| 23 octobre 2026 | Évaluation du démarrage Gazebo (§9.2) : accès Docker non établi, socle historique distingué des mondes agricoles absents, reprise et premier VB01 séquencés et estimés ; preuves historiques et limites de finalisation explicitées, aucun scénario exécuté. |
+| 23 octobre 2026 | UI-V3-001/002/003 : maquettes MagicPath transposées, services locaux et BOM reliés aux tests ; compilation Windows, suite CTest et captures, limites matérielles et environnements non exécutés explicités (§10.1). |
+| 22 octobre 2026 | T-CARTO-CAO-PROTO-01 : construction finale 118 références/346 occurrences, contrôles frais des liens, recalculs, collisions, 53 parcours, pièces, guides, départs, colliers et retenues conformes dans leurs périmètres ; revue et inspection visuelle. BOM/classeur rapprochés, 108 contrôles documentaires ; 20 réserves matérielles et aucune qualification physique (§14.3–14.4). |
+| 21 octobre 2026 | Contrôle cumulé des quatre guides étendus : deux intersections intersupports identifiées puis corrigées, sans collision câble/support dans cette passe. Contrat exhaustif des 53 parcours et preuve de retenue des spires USB en consolidation ; contrôles finaux liés aux empreintes encore requis (§14.4). |
+| 16 octobre 2026 | Construction intégrée 110 références/313 occurrences ; 53 géométries Cable Workbench recalculées sans erreur géométrique mais erreurs d'affichage de couleurs observées. Neuf collisions de guides/fixations/Type A identifiées, corrections et nouvelle reconstruction en cours. Contrôles locaux de retenues réussis, couverture globale et contrôles finaux encore ouverts (§14.4). |
+| 19 octobre 2026 | Construction complète 111 références/314 occurrences. Recalcul des 53 câbles réussi ; correction du format d'apparence vérifiée par réouverture sans MemoryError. Retenues locales intégrées ; vérification globale des collisions et de la couverture en cours (§14.4). |
+| 13 octobre 2026 | Refonte énergie supérieure/faisceau53 parcours Cable Workbench en cours de contrôle ; garde nominale 18 mm, P72/P73 implantés, P75 en étude. Les contrôles et104 vérifications documentaires du12 ne couvrent pas les fichiers modifiés ; réouverture, interférences, retenues, synchronisation et réexport requis. Aucune qualification physique (§14.3–14.4). |
+| 12 octobre 2026 | Précision utilisateur : terminal au sol portable/tablette/téléphone, choix selon ergonomie ; chargeur60 W hypothétiques. Deux sélections différées hors CAO,18 compléments embarqués ; aucun natif ni logiciel modifié. |
+| 12 octobre 2026 | T-CARTO-BOM-PROTO-01 :104 contrôles réussis. T-CARTO-CAO-PROTO-01 :245 liens/poses,20 équipements et32 fixations contrôlés après corrections, empreintes conservées ; limites SSD/microSD, garde énergie et20 compléments ouverts, aucune qualification physique (§14.3–14.4). |
+| 10 octobre 2026 | SkyRC S100neo SK-100202 inscrit comme choix de définition en quantité 1 ; T-CARTO-CHARGE-DOC-01 actualisée, qualification des réglages, du raccordement et de la recharge toujours À valider (§14.3). |
+| 10 octobre 2026 | Référence Logic RC O-LGL-CLQS8 inscrite pour le cordon de recharge, quantité 1 et connecteurs intégrés ; catalogue fabricant rapproché, accouplement avec D-MAX B9310 et recharge À valider, aucun essai matériel (§14.3). |
+| 10 octobre 2026 | T-CARTO-CHARGE-DOC-01 : correction de connectique documentaire, sortie de charge S100neo XT60 et cordon XT60 → QS8-S précisés dans la BOM ; chargeur candidat, accouplement/polarité et essais matériels toujours À valider (§14.3). |
+| 10 octobre 2026 | T-CARTO-CHARGE-DOC-01 : recharge via port BMS protégé documentée, S100neo/D200neo candidats et maintien NPB-120/240 écarté ; courant OEM, réglages et essais de recharge ouverts. Minimum PC accepté pour la définition ; export contrôlé, qualification physique À valider (§14.3). |
+| 10 octobre 2026 | Prise FAN : contrôle documentaire T-CARTO-FAN-CONN-01 consigné avec sources et empreintes ; courant nominal sous limite publiée et DF13 candidat, tension/brochages/accouplement/portée ouverts ; raccordement direct non démontré, qualification À valider, BOM inchangée (§14.3). |
+| 10 octobre 2026 | Deux BOM hiérarchiques puis retrait JETI/commande/F39 du prototype, W38 direct PM08 ; QS8-S D-MAX B9310, SSD Samsung MZ-V9S1T0BW 1 To, Waveshare Orin-FAN-PWM SKU 24076 et Fujinon CF8ZA-1S 8 mm choisis ; 24 principaux, 97 embarqués, 21 exclus, 42 références embarquées vides ; 96 contrôles des exports réussis. Comparaison à 10 m conservée dans T-CARTO-OPT-01 ; PC ligne 30 : portable de récupération distinct du poste fixe, minimum proposé, matériel et essais ouverts ; qualification physique À valider (§14.3). |
+| 9 octobre 2026 | T-CARTO-BOM-PROTO-01 : couverture de la sélection prototype, inclusions/retraits et export contrôlés, revue indépendante ; faisabilité physique toujours À valider (§14.3). |
+| 8 octobre 2026 | Audit transversal des 22 préceptes : 17 écarts/lacunes sourcés, ordre de reprise centré sur la faisabilité physique, empreinte CAO divergente signalée, autorité FriûlBot et lien LIO corrigés ; intégration documentaire contrôlée, sans nouvelle qualification matérielle ou logicielle. |
+| 5 octobre 2026 | Protocole T-CARTO-HIER-BAT-01 : séparation67/72, principal6+6, identité des références/poses/couleurs et extraction unique ; réouverture après sauvegarde et registres réussis, sources conservées et anciens booléens transférés par identité ; physique À valider (§12.1.10). |
+| 5 octobre 2026 | Compactage pack/BMS/TE :147 sources relues, cinq routes BOP, axes/entrées et huit poses d’extraction contrôlés ; comparaison depuis1ccbad81 sur bornes recalculées ; contrôle complet et persistance SA08 réussis, aucun essai matériel (§12.1.9). |
+| 5 octobre 2026 | Première implantation supérieure historique Git1ccbad81 : comparaison géométrique BMS recalculée par périmètre, anciens contrôles arrière historiques ; contrôles BMS/extraction,37 routes SA08 enregistrées et registres réussis, aucun essai matériel nouveau (§12.1.9). |
+| 5 octobre 2026 | ContrôlesCAOBMS/UART/TE etschéma40liaisons, revueindépendante etempreintescourantes ; limitesphysiquesnonqualifiées (§12.1.9) |
+| 5 octobre 2026 | Préparationinitiale Plan de validation BMS embarqué/blind-mate : portée séparée de la CAO TE sans BMS, critères de charge/coupure/communication/implantation/cycles à fermer ; lecture seule et sources fabricant, aucun nouvel essai matériel (§12.1.9) |
+| 4 octobre 2026 | CAO étage énergie et liaison directe candidate AWG8/742F5 M5 au TE : retrait XT90-S/AWG10/P42, supports repris ; contrôle du seul pack nominal et rendu ; enveloppe d'étude/lot/physique **À valider**, adaptateur de charge protégé **Planifié** (§12.1.8) |
+| 4 octobre 2026 | Dock coloré et repli natif de deux cordons ; réouverture et collisions vérifiées,629 BRep préservés, hauteur−29,3%, intersectionP49 toujours ouverte ; état initial dans Git et nouvelles empreintes distinctes des preuves historiques (§12.1.7) |
 | 4 octobre 2026 | Tri des sous-assemblages : miroir autonome et 321 empreintes préservées, réouvertures FreeCAD courant/archive séparées sans erreur, reprise de source châssis contrôlée ; géométrie et essais physiques inchangés (§12.1.6) |
 | 4 octobre 2026 | Calcul conditionnel GNSS/radio sur plateaux : volumes et empreintes contrôlés, matériaux hypothétiques, aucun crédit en double des supports absents de la cible ; gain net et qualification physique ouverts (§12.1.5) |
 | 3 octobre 2026 | Revue stack sur plan Holybro : neuf natifs, CA01 courante et perçages, fixation communeP17 parM3×65 et appuis24/2 ; contraintes de montage, précharge et isolement ouvertes (§12.7.14) |

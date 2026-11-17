@@ -17,6 +17,10 @@ consolidés puis supprimés. Voir [`docs/INDEX.md`](docs/INDEX.md).
 - Contrôle de vol : PX4 sur autopilote dédié
 - Calcul avancé : ROS 2 sur ordinateur compagnon
 
+Avant une évolution, consulter la [méthode et la priorité du projet](docs/architecture/HLD.md#methodologie),
+ses [22 préceptes](docs/architecture/HLD.md#preceptes) et les
+[écarts de l'audit](docs/VALIDATION_QUALIFICATION.md#audit-preceptes).
+
 ## Documents de référence
 
 1. [High Level Design](docs/architecture/HLD.md) — fonctionnement du système complet.

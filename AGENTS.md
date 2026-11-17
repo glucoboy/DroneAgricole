@@ -11,6 +11,14 @@ Ce fichier s'applique à l'ensemble du workspace.
 - Réserver les `README.md` locaux aux instructions d'utilisation du répertoire ou de l'artefact voisin. Les manifestes, configurations, schémas et preuves de vérification restent autorisés.
 - Employer les états **Planifié**, **Implémenté**, **Qualifié** et **À valider** selon `docs/INDEX.md`. Ne jamais présenter une hypothèse, une sélection candidate ou une valeur préliminaire comme une exigence figée.
 - Ne pas versionner les rosbags, datasets, modèles lourds, secrets, clés ou résultats volumineux.
+- Faire évoluer les fichiers de pièces, sous-assemblages et assemblages en place, sans suffixe de date ou de révision supplémentaire. Utiliser Git pour les retours arrière ; les petits natifs CAO explicitement suivis peuvent être versionnés avec leurs dépendances, les sources fabricant lourdes et exports restant exclus.
+
+## Méthodologie de décision
+
+- Avant toute tâche non triviale, lire le [cadrage courant de DOC-HLD](docs/architecture/HLD.md#methodologie) et appliquer les [22 préceptes](docs/architecture/HLD.md#preceptes) selon leurs déclencheurs, leur ordre et leurs règles de conflit. Ils constituent la source canonique ; ne pas en créer une copie dans les skills.
+- Cadrer avant de concevoir ou déléguer : problème utile, impact/urgence, observations disponibles, hypothèses réfutables, réversibilité et coût d'erreur, action minimale, budget et arrêt, signal de résultat et prochaine décision. Adapter l'effort au risque ; ne pas imposer une fiche aux petites corrections réversibles.
+- Consigner seulement la décision et l'apprentissage réutilisables dans le document vivant concerné. Référencer les manifestes, contrats et preuves qui possèdent les données ; ne pas reconstruire une vérité critique à partir d'un résumé.
+- Reprendre la priorité et les actions de [DOC-VAL §14](docs/VALIDATION_QUALIFICATION.md#recentrage), puis les écarts de l'[audit des préceptes](docs/VALIDATION_QUALIFICATION.md#audit-preceptes). Une nouvelle capacité ou optimisation doit justifier son utilité pour la priorité courante, ou expliciter le changement de priorité.
 
 ## Invariants d'architecture et de sûreté
 
