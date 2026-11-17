@@ -1,0 +1,125 @@
+{
+  "schema": "cartographe.reconstruction.review.v1",
+  "date": "2026-10-28",
+  "reviewer": "/root/revue_finale",
+  "state": "finalisee_resultat_partiel",
+  "scope": "Revue indépendante lecture seule des scripts et preuves ; aucune exécution CAO nouvelle",
+  "reviewed_sha256": {
+    "affinage_volumes.json": "aa854c08e070d4074d8ae33303f34e7c851df07b473192f78959947d4b5f1ec3",
+    "affiner_volumes.py": "814392cca21a200d33bc1ce02bc25d8b16f954c892be06334e87208abe87ab83",
+    "analyse_connectivite.json": "ec4c5fc63fade751a5259fcc801e28e563cdce3dc7c1e55b5201df48afd92950",
+    "analyse_mecanique_f16.json": "286cf0d105fdca5255f3254c9023fffae8c03a6bbf060ed46afc48241dae24f5",
+    "baseline_volumes.json": "86e28366a7b9b62435e4d373bc382865b1a18c799fd57f909a223cdb57ecaa14",
+    "bilan.json": "90774e11921d7940b78b301162aa6ddfa661c23a375affad6f3c397dd94704c5",
+    "comparaison_f16.json": "4cac0e3de0812812e30b8cce5fb2b9b8446bfe473a7be0a9ebdadb6d61c4b25b",
+    "dimensionnement_gaines.cpp": "abd0d56751acf1452b9b19876954ac6d5337f70f3a950f70d07e0b69e00383ca",
+    "dimensionnement_gaines.json": "0d5795fa77f12192e6a1dd71a5d4e981e2c17022c084dba1aee12268ef711521",
+    "entree_planificateur.json": "a53b90213ee2d6e83230fa1a6367e3b99e856fd0d84605e35a5766d7da0f9ce6",
+    "equivalence_solides.json": "b81ddb94727fb8d9d36729d0106bb0c9860ab5c6de31bc82f9a6d3248427a518",
+    "finaliser_preuves.py": "aa0b9b0cf4b7e281adafbd3c887601a561dc73496126cb3f37fdaf4af3ef1e89",
+    "mesurer_copie.py": "a0c71d1397462ead7784f913d7ec6de19a6696194dd6cdbef7f11a5527885aa3",
+    "prototype_f16_reouverture.json": "f6f92b14195eeacff15d79f0cc87b96a23962e69c7ffffe30f466ae7439c5d33",
+    "prototype_f16.json": "7d696a1c99022ced7b25e872e5123fe55e002f265f2b81dcf52e533fab9bf499",
+    "prototype_f16.py": "054f17557fc614e4fb5fb0457c31d16f81ce6e514fed00b6912f9d0e4cbbb3ce",
+    "recalcul_natif.json": "50da82bea814c5806ac0c7ec828ab5adf7a572843011ab4fd66b164d4dc9c334",
+    "render_vues.py": "5ab0b39d941d9500acd6294647f95dcca6d6496023e20b7eca3006f90bcd25f5",
+    "reouverture_assemblage.json": "f8f881bf1820ecc4e2b1e46ef1d130ce4c4e7f85a098ff6033ae99acb9fe5453",
+    "resultat_planificateur.json": "a747635a7f7fb5c9a178c7e48607f8aa8194f8b1ec8486b60e2e7c2ee8409164",
+    "terminer_volumes.py": "3fb8837b0affff3be4b2e4a460101fef375172dbe33fb1c07d467080ebe0ee0c",
+    "tests_freecad_skill.json": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea",
+    "vues/manifest.json": "12d3c3ebd8a8acf7c5d154fd2dd33e05e0a64980162d9cfde6917c4d0fbb5dd6",
+    "docs/architecture/ARCHITECTURE_MECANIQUE.md": "1e34fdc72721b4a2d14d4e659742fdac877eef87b5c8256b4f2fcb022a790974",
+    "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md": "343cfe22d06aa1071930a3e0ddc0b16e5a6e1d0ce51938ff5c432ff9694d95e0",
+    "docs/VALIDATION_QUALIFICATION.md": "1ea1275427ab7577ae7c44588892b300059e0eb4ab6198cf998318c0c0ffaf52"
+  },
+  "preservation": {
+    "files_checked": 143,
+    "source_hashes_equal_receipt": true,
+    "copy_hashes_equal_receipt": true,
+    "differences": [],
+    "note": "Candidat supplémentaire hors reçu, original et copie de base inchangés"
+  },
+  "observations": [
+    "53 recalculs frais rapportés pass, anciens solides vidés avant génération, aucun natif source sauvegardé.",
+    "137 documents réouverts exclusivement dans copie, recalcul principal vrai, erreurs objets absentes.",
+    "Comparaison F16 finalisée sur360 occurrences,0 intersections positives et0 erreurs booléennes, minimum0mm.",
+    "F16 candidat respecte8stations à0,6mm et tangentes aux axes candidats ; axes non indépendants de la baseline.",
+    "Candidat élimine contacts nominaux avec OEM_Part__Feature066/100 dans les paires mesurées ; seuls contacts connecteurs restent à0mm.",
+    "F_M8 mesure R52 analytique ; F16 R22 initial/R23,5 candidat. Aucune qualification mouvement/CEM/thermique.",
+    "Planificateur3candidats unresolved,582 réserves chacun : sa conservation porte projection des53routes, pas validation brochage réel."
+  ],
+  "findings": [
+    {
+      "id": "REV-01",
+      "severity": "major_for_global_claim",
+      "state": "closed",
+      "issue": "Baseline globale interrompue à180/361 et complete=false",
+      "required": "Rapport finalisé : 17 702 paires prises en compte ; affinage séparé des 159 paires inconnues terminé, zéro inconnue résiduelle et aucune intersection supplémentaire. Six recouvrements Airy localisés dans zone nominale, intérieur réel NON_VERIFIE."
+    },
+    {
+      "id": "REV-02",
+      "severity": "medium",
+      "state": "closed",
+      "issue": "Formes câbles chargées localement, obstacles transformés seulement dans leur sous-assemblage",
+      "required": "60 poses natives contrôlées identité et registre : 7 racine et 53 câbles."
+    },
+    {
+      "id": "REV-03",
+      "severity": "medium",
+      "state": "closed_for_volume_equivalence",
+      "issue": "Équivalence solide sauvegardé/recalculé comparée seulement par volume/longueur ; hash BRep change après sérialisation",
+      "required": "54 solides frais valides ; différences volumiques bilatérales <= 0,0001 mm³. Équivalence volumétrique nominale, aucune borne de Hausdorff revendiquée."
+    },
+    {
+      "id": "REV-04",
+      "severity": "limitation",
+      "state": "accepted_open",
+      "issue": "Axes de fiches, mouvement caméra, seuil dégagement, compatibilité groupes, retenues réelles non vérifiés",
+      "required": "Conserver NON_VERIFIE/A_VALIDER_PHYSIQUEMENT ; ne pas déclarer VALIDE_GEOMETRIQUEMENT intégral"
+    },
+    {
+      "id": "REV-05",
+      "severity": "limitation",
+      "state": "accepted_open",
+      "issue": "Aucune reconstruction globale de gaines validée et intégrée",
+      "required": "Livraison partielle explicitement annoncée ; ne pas présenter copie identique comme reconstruction complète"
+    }
+  ],
+  "conclusion": "Revue favorable pour livraison partielle et préservation des sources. Aucun écart de preuve bloquant subsistant dans le périmètre nominal contrôlé. La reconstruction globale, la conformité des regroupements et la qualification physique ne sont pas réalisées. Ne pas présenter cette livraison comme mission complète.",
+  "documentation_review": {
+    "date": "2026-10-28",
+    "documents": [
+      "DOC-MEC2.2.3",
+      "DOC-ELEC architecture conditionnelle des faisceaux",
+      "DOC-VAL validation reconstruction"
+    ],
+    "result": "Trois documents vivants relus en version finale : résultats partiels et statuts cohérents, chiffres du bilan concordants, inconnues et prochaine décision explicites."
+  },
+  "final_checks": {
+    "evidence_hashes_verified": 24,
+    "living_document_hashes_verified": 3,
+    "hash_mismatches": [],
+    "sources_and_baseline_copy_files_verified": 143,
+    "preservation_mismatches": [],
+    "fresh_baseline_cables": 53,
+    "fresh_candidate": 1,
+    "volume_equivalence_passed": 54,
+    "root_and_cable_poses_verified": 60,
+    "resolved_refinement_pairs": 159,
+    "remaining_calculation_unknowns": 0,
+    "new_intersections": 0,
+    "airy_overlaps": 6,
+    "airy_outside_nominal_zone_max_mm3": 0,
+    "f16_station_count": 8,
+    "f16_baseline_and_candidate_collision_count": 0,
+    "visual_review": "Vue 03 inspectée : cadrage identique, stations lisibles, candidat séparé non publié clairement mentionné",
+    "mission_complete": false,
+    "global_harness_reconstruction_executed": false,
+    "interactive_and_physical_validation_executed": false
+  },
+  "review_history": [
+    "Revue initiale : baseline interrompue et équivalence géométrique insuffisamment reliée à sauvegarde.",
+    "Corrections : reprise bornée avec inconnues explicites, contrôle des 60 poses et différences volumiques des 54 solides.",
+    "Revue finale : affinage de 159 paires, bilan, manifeste, trois documents vivants et empreintes contrôlés ; limites physiques et absence de reconstruction globale maintenues."
+  ]
+}

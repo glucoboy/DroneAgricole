@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "lot": "ORCH-CAO-MASSE-1",
+  "reference": "Périmètres des poids commerciaux Waveshare 15817 et 24076",
+  "date": "2026-10-26",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "finalisation_correcte": true,
+  "cadrage": {
+    "probleme": "Éviter l'attribution embarquée de poids commerciaux dont l'exclusion de l'emballage et les inclusions matérielles ne sont pas démontrées.",
+    "action": "Relire les deux originaux SKU exacts, contrôler leurs empreintes et la structure du champ Weight ; examiner des contre-exemples primaires du même fabricant.",
+    "critere": "Une masse complète est applicable seulement si son périmètre net correspond au matériel conservé. Absence du mot shipping ou gross et liste Package Contains ne suffisent pas.",
+    "limite": "La preuve clôt la contrelecture documentaire ; elle ne démontre ni masse nette ni masse brute des deux SKU. Aucun achat, contact fabricant envoyé, mesure ou raccordement réel."
+  },
+  "sources": [
+    {
+      "id": "WS-P01",
+      "reference": "Waveshare 15817, USB TO RS232/485/TTL",
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_15817.html",
+      "sha256": "c0cb168a78f044326e7cfb9ec276edd6bd2118df10f759a17ae9699b70479326",
+      "octets": 217152,
+      "date_capture_precedente": "2026-10-25",
+      "extraits": [
+        {
+          "lignes": [
+            133,
+            137
+          ],
+          "constat": "JSON-LD Product weight QuantitativeValue 229 g ; aucun qualificatif net, brut ou emballage."
+        },
+        {
+          "lignes": [
+            2831,
+            2838
+          ],
+          "constat": "Champ Weight 0.2286 kg dans tab-package_content, puis Package Contains : USB Converter x1 et USB Cable ~1.2m x1 ; la liste ne définit pas le périmètre du poids."
+        }
+      ],
+      "nature": "source primaire fabricant",
+      "date_consultation": "2026-10-26",
+      "droits": "Original public conservé inchangé pour consultation technique ; licence de redistribution non publiée, droits réservés du titulaire. Sources originales hors Git."
+    },
+    {
+      "id": "WS-P02",
+      "reference": "Waveshare 24076, Orin-FAN-PWM",
+      "url": "https://www.waveshare.com/product/ai/accessories/orin-fan-pwm.htm",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_Orin_FAN_PWM.html",
+      "sha256": "71e35836dd442551f79542764b7c39d4599ec052b719b8de2c05ac26b6b2e3ff",
+      "octets": 199230,
+      "date_capture_precedente": "2026-10-25",
+      "extraits": [
+        {
+          "lignes": [
+            129,
+            133
+          ],
+          "constat": "JSON-LD Product weight QuantitativeValue 72 g ; aucun qualificatif net, brut ou emballage."
+        },
+        {
+          "lignes": [
+            2583,
+            2588
+          ],
+          "constat": "Champ Weight 0.072 kg dans tab-package_content, puis Orin-FAN-PWM x1 et Elastic bracket and height-limited screws x1 ; aucune exclusion explicite de l'emballage."
+        }
+      ],
+      "nature": "source primaire fabricant",
+      "date_consultation": "2026-10-26",
+      "droits": "Original public conservé inchangé pour consultation technique ; licence de redistribution non publiée, droits réservés du titulaire. Sources originales hors Git."
+    },
+    {
+      "id": "WS-P03",
+      "reference": "Contre-exemple fabricant : Waveshare 14448, écran brut e-Paper 9,7 pouces",
+      "url": "https://www.waveshare.com/product/displays/e-paper/epaper-1/9.7inch-e-paper.htm",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_perimetres_waveshare/Waveshare_Epaper97_original.html",
+      "sha256": "fab10398fb6241b868902384aa8126e9fde0c3f8371798992fb82aae8f7fb9b9",
+      "octets": 222236,
+      "date_capture_precedente": null,
+      "extraits": [
+        {
+          "lignes": [
+            3394,
+            3397
+          ],
+          "constat": "Même page et même tab-package_content : champ Weight 0.65 kg puis indication distincte Actual Weight 0.29 kg. Le champ commercial Weight ne peut donc pas être assimilé par règle générale à une masse nette."
+        }
+      ],
+      "nature": "source primaire fabricant",
+      "date_consultation": "2026-10-26",
+      "droits": "Original public conservé inchangé pour consultation technique ; licence de redistribution non publiée, droits réservés du titulaire. Sources originales hors Git."
+    },
+    {
+      "id": "WS-P04",
+      "reference": "Contre-exemple fabricant : Waveshare 15299, MG996R Servo",
+      "url": "https://www.waveshare.com/product/robotics/motors-servos/servos/mg996r-servo.htm",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_perimetres_waveshare/Waveshare_MG996R_original.html",
+      "sha256": "cfd51fe87cff33f6231623e5581beed481e0f1f83d5c4732b4328b0249cbf1a5",
+      "octets": 202693,
+      "date_capture_precedente": null,
+      "extraits": [
+        {
+          "lignes": [
+            2549,
+            2553
+          ],
+          "constat": "Specifications : Weight 55g ; champ commercial de tab-package_content : Weight 0.086 kg. Deux périmètres de poids distincts sur une même fiche ; ce contre-exemple ne permet pas de calculer l'emballage des SKU15817/24076."
+        }
+      ],
+      "nature": "source primaire fabricant",
+      "date_consultation": "2026-10-26",
+      "droits": "Original public conservé inchangé pour consultation technique ; licence de redistribution non publiée, droits réservés du titulaire. Sources originales hors Git."
+    }
+  ],
+  "constats": [
+    {
+      "id": "WS-C01",
+      "resultat": "conforme",
+      "source_ids": [
+        "WS-P01",
+        "WS-P02"
+      ],
+      "constat": "Les valeurs228,6g/72g sont effectivement publiées par Waveshare. Elles sont placées dans le contenu de colis, sans définition explicite de net/brut/emballage ; les reprises JSON-LD n'ajoutent aucune condition massique."
+    },
+    {
+      "id": "WS-C02",
+      "resultat": "conforme",
+      "source_ids": [
+        "WS-P03",
+        "WS-P04"
+      ],
+      "constat": "Le même fabricant distingue ailleurs un Weight commercial d'un Actual Weight ou d'un Weight de spécification. L'hypothèse générale Weight = net est réfutée."
+    },
+    {
+      "id": "WS-C03",
+      "resultat": "À valider",
+      "source_ids": [
+        "WS-P01",
+        "WS-P02"
+      ],
+      "constat": "L'ambiguïté de périmètre reste ouverte pour15817/24076. Les contre-exemples ne prouvent pas que leurs valeurs sont nécessairement des poids d'expédition et ne permettent aucune soustraction d'emballage."
+    }
+  ],
+  "propositions_normalisees": [
+    {
+      "bom_id": "ELEC-ISO",
+      "reference_exacte": "Waveshare15817 USB TO RS232/485/TTL, version retenue FT232RNL",
+      "quantite": 1,
+      "unite": "ensemble",
+      "masse_unitaire_g": null,
+      "contribution_embarquee_g": null,
+      "nature": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "WS-P01",
+        "WS-P03",
+        "WS-P04"
+      ],
+      "valeurs_documentaires_conditionnelles": [
+        {
+          "valeur_g": 228.6,
+          "nature": "fabricant, poids commercial à périmètre non établi",
+          "applicable": false,
+          "source_id": "WS-P01",
+          "condition": "Confirmer masse nette hors emballage du convertisseur et de ses accessoires réellement conservés ; ne pas déduire l'inclusion du câble de sa seule présence dans Package Contains."
+        },
+        {
+          "valeur_g": 229,
+          "nature": "reprise JSON-LD arrondie du même poids commercial",
+          "applicable": false,
+          "source_id": "WS-P01",
+          "condition": "Ne constitue pas une seconde source ni une mesure indépendante."
+        }
+      ],
+      "probleme_massique": "Masse nette de15817 non établie ; inclusion du cordon USB entier dans228,6g non démontrée. Les228,6g doivent être exclus du sous-total connu.",
+      "information_necessaire": "Document Waveshare indiquant pourSKU15817 et sa révision : masse nette du convertisseur avec boîtier/borniers, masse nette du cordon USB A/B~1,2m et masse nette de l'ensemble exactement conservé, avec exclusion explicite de l'emballage et liste d'accessoires inclus. À défaut, pesées de ces périmètres identifiés lors d'une mission matérielle autorisée.",
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "MEC-REFROIDISSEMENT-JETSON",
+      "reference_exacte": "Waveshare24076 Orin-FAN-PWM",
+      "quantite": 1,
+      "unite": "ensemble",
+      "masse_unitaire_g": null,
+      "contribution_embarquee_g": null,
+      "nature": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "WS-P02",
+        "WS-P03",
+        "WS-P04"
+      ],
+      "valeurs_documentaires_conditionnelles": [
+        {
+          "valeur_g": 72,
+          "nature": "fabricant, poids commercial à périmètre non établi",
+          "applicable": false,
+          "source_id": "WS-P02",
+          "condition": "Confirmer masse nette hors emballage, avec distinction ventilateur/dissipateur/câble/graisse/bride/vis. Ne pas la considérer comme masse du refroidisseur seul."
+        }
+      ],
+      "probleme_massique": "Ni l'exclusion d'emballage ni la ventilation des accessoires compris dans72g ne sont établies. Le montage conserve des fixations OEM Holybro et ne démontre pas le même contenu que le kit commercial.",
+      "information_necessaire": "Document Waveshare précisant masse nette du dissipateur/ventilateur24076 avec cordon et graisse retenus, masses de la bride et des vis, inclusions/exclusions et révision. À défaut, pesée des seuls composants identifiés comme conservés, hors emballage, dans une mission matérielle autorisée.",
+      "incertitude_g": null
+    }
+  ],
+  "comptage_F41": {
+    "bom_id": "ELEC-F41",
+    "parent_prevu": "ELEC-ISO",
+    "nature_relation": "Règle de définition prévue : cordon fourni avec convertisseur conservé entier, sans double comptage.",
+    "masse_individuelle_g": null,
+    "masse_parent_complete_g": null,
+    "inclusion_massique_couverte": false,
+    "condition": "L'inclusion prévue F41→ISO peut être conservée pour le contenu ; elle ne ferme aucun poids tant que le périmètre net du parent est inconnu. Ne pas mettreF41 à zéro et ne pas attribuer228,6g au parent comme masse démontrée."
+  },
+  "controles": {
+    "nombre_sources": 4,
+    "empreintes_sha256_verifiees": true,
+    "deux_originaux_SKU_preexistants_inchanges": true,
+    "deux_comparatifs_fabricant_conserves_hors_git": true,
+    "preuves_precedentes_modifiees": false,
+    "BOM_modifiee": false,
+    "masse_brute_affirmee": false,
+    "borne_garantie_affirmee": false
+  },
+  "conclusion": "Masse nette non établie pour Waveshare15817 et24076. Les228,6g et72g sont uniquement des données documentaires conditionnelles, applicable:false ; contributions embarquées null. La liste des accessoires et l'absence des termes shipping/gross ne justifient pas leur inclusion dans le sous-total connu."
+}
+

@@ -1,0 +1,53 @@
+{
+  "schema":"cartographe.faces.decision.v1",
+  "date":"2026-11-10",
+  "status":"CANDIDAT_CONDITIONNEL",
+  "configuration":"Prototype sans dock. Référence A vérifiée par empreinte.",
+  "cadrage":{
+    "priority":"ORCH-CAO-MASSE-1",
+    "problem":"Les boucles supérieures reflètent des faces d'accouplement mal représentées, des départs superposés et une utilisation incomplète des faces disponibles.",
+    "budget":"Recherches constructeur, trois passes de routes bornées, criblage des rotations, une combinaison, une reprise des marges et deux planches de vues. Aucun achat, perçage, fabrication ou raccordement.",
+    "imperatives":["Maintenir fonctions et graphe logique, notamment vol critique, protection PM08 et isolation BMS.","Refuser une intersection positive non justifiée et conserver les inconnues physiques.","Conserver orientation, fixation et volumes de service des capteurs et équipements de sûreté.","Réduire les traversées hautes sans remplacer inutilement une interface OEM."],
+    "criteria":"À sécurité et interfaces compatibles, réduire longueur/volume au-dessus de la porteuse puis charge et accessibilité sur les autres faces. Préférer cordon direct, changement de sortie et retenue locale sans carte. Écarter les gains sur gabarit qui rendent le branchement ou la dépose douteux.",
+    "stop":"Définition native et comparaisons sauvegardées, alternatives refusées motivées. Les ports non vérifiables dans la documentation ou les BRep attendent le lot réel."
+  },
+  "sources":{
+    "logic":"../../cartographe_refonte_systeme/verification/matrice_interconnexion.json",
+    "board_and_mates":"interfaces_porteuse.json",
+    "power_and_custom_board":"interfaces_distribution.json",
+    "zones":"zones_et_candidats.json",
+    "trials":["essais_faces.json","essais_affinage.json","essais_derniere_passe.json","essais_reimplantation.json","essais_combinaison.json","essais_marges.json"],
+    "measures":"comparaison_faces.json",
+    "saved_checks":"controle_apres_sauvegarde.json"
+  },
+  "matrix":[
+    {"routes":["F25"],"A":"Sortie droite avec grand détour haut et terminaison oblique près de GPS1.","B":"GHR-10V-S embase verticale et volume accouplé au vrai niveau.","C":"Descente après l'USL, flanc est sous le plan P66, puis remontée locale.","D":"CUAV -90° et P71 réorienté, trajet bas possible mais gêne d'accès supérieure F16.","retained":"C + raccord GPS1, P85 local. Fonction, brochage CUAV et fatigue à vérifier."},
+    {"routes":["F31","F06","F32"],"A":"Réservations de départ haut PM08 incorrectes.","B":"Deux CLIK-Mate 2 mm Molex 5024390600 ; dérivation CAN possible sur un POWER sans réunir les deux sorties 5 V.","C":"Natif d'essai F31 sous P66, position de départ héritée.","D":"PM08 demi-tour et isolateur pivoté étudiés. La prise originale intersecte l'isolateur et après demi-tour les gabarits rencontrent gaine/maintien F38.","retained":"A conservé dans l'assemblage, F31 bas séparé. Corriger installation PM08 et accès CAN1 face à F35 avant intégration."},
+    {"routes":["F12"],"A":"Fin à GPS2 en A. Contrat radio vers TELEM1.","B":"GHR-06V-S direct, insertion +Z sur TELEM1.","C":"Route intercartes au nord, P83 réutilisé et remontée locale.","D":"TELEM3 demanderait adaptation des affectations et nouvel accès.","retained":"B+C, broches et affectation série à vérifier sur lot."},
+    {"routes":["F24A"],"A":"Approche ouest horizontale héritée.","B":"GHR-06V-S dans l'embase GPIO sous-face probable, sortie −Z.","C":"Traversée intercartes directe, sans détour nord.","D":"CA01 180° étudiée, variation des cordes défavorable en cumul.","retained":"B+C en réservation. Vérifier affectation GPIO, face, tenue et rails."},
+    {"routes":["F24B"],"A":"Déport est puis retour sous porteuse, longue remontée ouest.","B":"Famille JST-SH6 vers ORIN DEBUG, pas de cordon coudé qualifié.","C":"Entre-cartes au sud et remontée courte à la prise.","D":"Garder l'affectation et le port de debug.","retained":"C. Sortie réelle et séparation mécanique/CEM avec F08_AVAL à vérifier."},
+    {"routes":["F24C"],"A":"Grand rectangle haut et fin entre les deux ports CSI.","B":"Nappe 22 contacts et extracteur non identifiés sur le lot.","C":"Réservation du cheminement de référence électrique côté est à X100, sans prétendre représenter la nappe.","D":"Petit breakout seulement si référence et bénéfice justifiés.","retained":"C en réservation géométrique. Garder l'indétermination de la nappe et de son corps."},
+    {"routes":["F04_1","F04_2","F04_3","F04_4"],"A":"Quatre sorties fictives, plus haut faisceau autour de MAIN.","B":"GH10 unique. 4 signaux et un retour commun au connecteur, besoin de définition du départ de faisceau.","C":"Passage bas F04_3 sans collision au nominal avec départ A, départ non représentatif.","D":"Modification embase OEM écartée dans ce lot.","retained":"Routes héritées. Corriger GND et décharge du toron avant adoption."},
+    {"routes":["F09","F08_AMONT","F08_AVAL"],"A":"F09 détour côté ouest, F08 puissance fusible.","B":"XT30ULW-F direct coudé. Orientation et intensité à confirmer.","C":"Trajet F09 ouest mesuré, en conflit avec antenne RF. F08 doit garder protection et séparation.","D":"Déport antenne ou rotation CA01 affectent RF, connectique et maintenance.","retained":"A. Ne pas déplacer antenne sur le seul gain de 12 V."},
+    {"routes":["F21","F36","F33","F35"],"A":"Interfaces navigation et temps distinctes.","B":"GH stock et circuits candidats préservés.","C":"Passages locaux testés, conflits avec AIRY_SYNC, F24 ou F12 selon scénario.","D":"GNSS et portée antenne restent imposés dans ce lot.","retained":"A, améliorer accès F35/CAN1 conjointement."},
+    {"routes":["AIRY","AIRY_PWR","AIRY_SYNC","AIRY_ETH"],"A":"Éclatement OEM et trois branches, séparation fonctionnelle.","B":"RJ45 latéral/cordon à vérifier, aucune substitution automatique du jeu OEM.","C":"Passages nord/est testés, plusieurs volumes communs à l'éclatement ou avec signaux existants.","D":"Descendre l'éclatement modifie longueur de tronc et queue, maintien et géométrie OEM.","retained":"A. Vérifier l'ensemble fourni et son volume de jonction avant modifier."},
+    {"routes":["F16","F_M8","F13A","F13B","F20","F41","F40"],"A":"USB3 et M8 mobiles, RF et ventilation inchangés, diagnostic conditionnel.","B":"Delock 84809 USB2 et alternatives USB3/cordon OEM documentés, verrouillage et flexion discriminants.","C":"Conserver les passages directs existants, pas de multiplication de prises.","D":"Plusieurs rotations isolateur essayées, volumes incompatibles sur candidats mesurés.","retained":"A. Relever accès, rayons, F41 réel et isolation, champs de perception et refroidissement."}
+  ],
+  "nomenclature_candidats":[
+    {"id":"GHR-10V-S","manufacturer":"JST","usage":"Corps de fiche GPS1, géométrie externe estimée","quantity":1,"installed_mass_g":null,"source":"https://www.jst.com/wp-content/uploads/2025/06/eGH.pdf"},
+    {"id":"GHR-06V-S","manufacturer":"JST","usage":"TELEM1, GPIO sous-face présumé, volumes estimés","quantity":2,"installed_mass_g":null,"source":"https://www.jst.com/wp-content/uploads/2025/06/eGH.pdf"},
+    {"id":"P85_Retenue_Chant_P66","manufacturer":null,"usage":"Clip local F25, PA12 candidat","quantity":1,"mass_source":"comparaison_faces.json","installed_mass_g":null},
+    {"id":"XT30ULW-F","manufacturer":"AMASS","usage":"Étude F09 coudée, pose testée bloquée par RF","quantity":0,"source":"https://www.china-amass.com/biao/419.html"},
+    {"id":"84809","manufacturer":"Delock","usage":"Étude USB2 A vers B à 90°, corps et rayon non confirmés","quantity":0,"source":"https://www.delock.com/produkt/84809/merkmale.html"},
+    {"id":"5024390600","manufacturer":"Molex","usage":"Famille CLIK-Mate 2 mm étudiée, circuit PM08 non remplacé","quantity":0,"source":"https://www.molex.com/en-us/products/part-detail/5024390600"}
+  ],
+  "remaining":[
+    "Une translation axiale exploratoire de 8 mm contrôle une section de corps hors porteuse, hors câble propre et outil. Vérifier verrou, doigt, flexion et séquence réelle.",
+    "Identifier le GPIO et le connecteur SH6 sur lot. Fixer l'extracteur FFC de F24C et ses terminaisons, prévoir maintien intercartes sans toucher les circuits.",
+    "Mesurer tenue du clip P85 sur chant et câble, dispersion, traction, abrasion, serrage et vibrations. Vérifier jeux minimes F12 et F24B.",
+    "Vérifier séparation CEM et thermique F24B/F08_AVAL et niveaux de synchronisation. Référence de masse, susceptibilité, rayons OEM et réserves de service.",
+    "Revoir PM08/F06/F32/F31 et MAIN avec retours documentés, prises montées, F35 et F38. Préserver protections et alimentation de vol.",
+    "Compléter mesures de masse/centrage, thermique Jetson, capteurs et suspension en configuration réelle. Aucune modification de pose capteur ou de circuit de ventilation réalisée."
+  ]
+}
+

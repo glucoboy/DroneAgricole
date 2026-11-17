@@ -1,0 +1,2162 @@
+{
+  "schema_version": "drone-agricole.orch-cao-masse-equipements.v1",
+  "lot": "ORCH-CAO-MASSE-1",
+  "date": "2026-10-25",
+  "configuration": "prototype_cartographe",
+  "statut": "Implémenté partiellement",
+  "qualification": "À valider",
+  "finalisation_correcte": true,
+  "perimetre": "Pièces équipements, énergie, électronique, perception et navigation. Aucun assemblage, BOM canonique, manifeste ou registre massique partagé n'est modifié par cette recette. Aucune mesure physique, aucun achat ni raccordement.",
+  "sources": [
+    {
+      "id": "PM08_DOWNLOAD",
+      "url": "https://docs.holybro.com/power-module-and-pdb/power-module/download",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_power_module_download.html",
+      "sha256": "b7b53e38fff14c6053a996af0a7d3a75fa6a4b6e104218b59ba03586599b5ffe",
+      "revision": "Page consultée ; liens PM08, PM08D et CAN PM08 séparés",
+      "date_consultation": "2026-10-25",
+      "droits": "Téléchargement public fabricant ; licence de redistribution non établie, source originale inchangée conservée hors Git."
+    },
+    {
+      "id": "PM08_CASE",
+      "url": "https://2367252986-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FLIgtGDAvVGkCKGOJb1bR%2Fuploads%2Fmfhg84GXQGkaGYEUurMC%2FCAN%20PM08%20Case%20v003.step?alt=media&token=f88e2349-59d4-4d67-bcff-82af8d8c7165",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_CAN_PM08_Case_v003.step",
+      "sha256": "f31ae70b1c14ea0d455c86e2f7c9cc946a56ede3d644baa1bf19b2e6b53640f0",
+      "revision": "CAN PM08 Case v003 ; boîtier seul",
+      "date_consultation": "2026-10-25",
+      "droits": "CAO publique depuis la documentation Holybro ; licence de redistribution inconnue. Ne pas confondre avec PM08 ou PM08D."
+    },
+    {
+      "id": "PM08_SPEC",
+      "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+      "fichier": "hardware/electronique/cartographe/sources_fabricants/Holybro_PM08_CAN_20260929.html",
+      "sha256": "fc37b312ba8980d4b111a771cf5e9ad0167a9f7d6212eb99642c6a2d670e6744",
+      "revision": "Capture conservée du 29 septembre 2026 ; page actuelle également consultée le 25 octobre",
+      "date_consultation": "2026-10-25",
+      "droits": "Document fabricant public, droits réservés ; pas d'autorisation de redistribution supposée."
+    },
+    {
+      "id": "BASLER_SPEC",
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_a2A4096_30ucBAS.html",
+      "sha256": "b4fd15fce35ed0eb5ef5afc7b9ee7bdd7000e6e42f4d5e7269d8303911552ba3",
+      "revision": "Documentation modèle exact : Front II, masse <85 g",
+      "date_consultation": "2026-10-25",
+      "droits": "Documentation fabricant publique ; licence de redistribution inconnue."
+    },
+    {
+      "id": "BASLER_DRAWING",
+      "url": "https://docs.baslerweb.com/images/drawing-ace-2-usb-dimensions.svg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_ace2_USB_dimensions.svg",
+      "sha256": "a97f470ca227974fc0eec72ec5b8b4ec3c7f0a1f28764435e732e62d50f45518",
+      "revision": "Plan ace 2 USB ; tableau Front I/II/III, Front II sélectionné par la documentation modèle",
+      "date_consultation": "2026-10-25",
+      "droits": "Plan original fabricant inchangé ; aucune licence CAO ou redistribution déduite."
+    },
+    {
+      "id": "BASLER_CONNECTORS",
+      "url": "https://docs.baslerweb.com/images/drawing-ace-2-usb-connectors.svg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_ace2_USB_connecteurs.svg",
+      "sha256": "35a6d34096fe1da8ff003ed53a18339199150de305c51d6cf431629b3664200f",
+      "revision": "Micro-B USB3 à vis et M8 6 broches A",
+      "date_consultation": "2026-10-25",
+      "droits": "Document fabricant public, droits non explicités."
+    },
+    {
+      "id": "BASLER_INTRUSION",
+      "url": "https://docs.baslerweb.com/maximum-allowed-lens-intrusion",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_intrusion.html",
+      "sha256": "3eee8b98cf042ff9648dfe98a915720700e2408099f29583802a452feb6c6cc4",
+      "revision": "Table a2A4096-30ucBAS : maximum 10,9 mm",
+      "date_consultation": "2026-10-25",
+      "droits": "Document fabricant public, droits non explicités."
+    },
+    {
+      "id": "BASLER_SOURCE_ANTERIEURE",
+      "url": "https://www.baslerweb.com/en/downloads/documents/?downloadCategory.data=cad&series=Basler+ace+2",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/origine_v01/basler/Basler ace 2 USB3.stp",
+      "sha256": "c71e32c1fada09c6eef04587602841991bc90b03944db6fdba84754055cfb901",
+      "revision": "Source de famille via distributeur 51camera ; révision Front II non démontrée, import initial invalide",
+      "date_consultation": "2026-10-25",
+      "droits": "Original antérieur inchangé. Origine de distribution et licence à confirmer ; non utilisé comme modèle exact après reconstruction."
+    },
+    {
+      "id": "FAN_DRAWING",
+      "url": "https://www.waveshare.com/img/devkit/accessories/Orin-FAN-PWM/Orin-FAN-PWM-details-size.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_Orin_FAN_PWM_dimensions.jpg",
+      "sha256": "689361f864160e77309f0d6acaa5ce5e32dee39744cc4d543ad7a679f61236f6",
+      "revision": "Plan Orin-FAN-PWM : 57,8±0,2 /39±0,25 /18±0,25 ; axes 43,2±0,05 et 28,8±0,05",
+      "date_consultation": "2026-10-25",
+      "droits": "Image cotée fabricant publique, licence de redistribution non établie."
+    },
+    {
+      "id": "FAN_SPEC",
+      "url": "https://www.waveshare.com/product/ai/accessories/orin-fan-pwm.htm",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/Waveshare_Orin_FAN_PWM.html",
+      "sha256": "51618ea093fac8e62612b664d20bc729ebd9b2df4cd2b91202ae99240138b299",
+      "revision": "SKU24076, Orin-FAN-PWM ; contenu du colis indique 0,072 kg sans masse nette séparée",
+      "date_consultation": "2026-10-25",
+      "droits": "Capture originale conservée, données fabricant publiques ; licence non établie."
+    },
+    {
+      "id": "GNSS_DOWNLOAD",
+      "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/download",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_F9P_download.html",
+      "sha256": "aaee6985ebc8c96a365a93a713217b1a9bb720ad49225779912604969c191cdd",
+      "revision": "Modèle Helical simple distinct du téléchargement S32K1",
+      "date_consultation": "2026-10-25",
+      "droits": "Documentation fabricant publique, licence de redistribution inconnue."
+    },
+    {
+      "id": "GNSS_CAD",
+      "url": "https://2367252986-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FLIgtGDAvVGkCKGOJb1bR%2Fuploads%2F0hCWILAVxWAQH4JFmk56%2FDroneCAN-F9P-helical-3D-simple.stp?alt=media&token=d9a3ac2d-7300-4daa-9251-d67e485ae06d",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_DroneCAN_F9P_Helical_original.stp",
+      "sha256": "d59dd9a7571dd709b514a2a6ba930c6ab8dd4953766232827400943719e5e7d6",
+      "revision": "DroneCAN-F9P-helical-3D-simple ; corps 11 solides, sans antenne ; révision G4 à garantir",
+      "date_consultation": "2026-10-25",
+      "droits": "Téléchargement officiel public ; original immuable, licence de redistribution non établie."
+    },
+    {
+      "id": "GNSS_SPEC",
+      "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_GNSS_F9P_specification.html",
+      "sha256": "77f88c0fedbdcb9d1e67ddfa4142e8e7e240235de42e0beea88b158298d19d16",
+      "revision": "G4 : 51,1×35×22,9 ; S32K1 : hauteur24,3 ; antenne Ø27,5×59 ; 58g groupés",
+      "date_consultation": "2026-10-25",
+      "droits": "Document fabricant public, droits non explicités."
+    },
+    {
+      "id": "ISO_SPEC",
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_15817.html",
+      "sha256": "1d9fca68da5b3c86065f003113996a2feed5245870f26179fa777cda98900768",
+      "revision": "Page variantes FT232RNL/CH343G ; référence retenue15817, composant livré non inventorié",
+      "date_consultation": "2026-10-25",
+      "droits": "Document fabricant public ; licence non établie."
+    },
+    {
+      "id": "ISO_DRAWING",
+      "url": "https://www.waveshare.com/img/devkit/accBoard/USB-TO-RS232-485-TTL/USB-TO-RS232-485-TTL-details-size.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_15817_dimensions.jpg",
+      "sha256": "92a38042f1776743d2a71377354bf55a745afea85a916f5594a0d8cc58c6f5e8",
+      "revision": "Coque71,6×72,15×27,4 ; pattes68,5×86,5 ; image cotée",
+      "date_consultation": "2026-10-25",
+      "droits": "Image fabricant originale conservée ; redistribution non autorisée par présomption."
+    },
+    {
+      "id": "JBD_A01",
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7",
+      "revision": "Li-ion A01,20pages ; p4 dimensions et p13 quatre trous R1,1 sans coordonnées cotées",
+      "date_consultation": "2026-10-25",
+      "droits": "Original fabricant antérieur conservé inchangé ; licence non établie."
+    },
+    {
+      "id": "SAMSUNG_SPEC",
+      "url": "https://www.samsung.com/sg/memory-storage/nvme-ssd/990-evo-plus-1tb-mz-v9s1t0bw/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Samsung_MZ_V9S1T0BW.html",
+      "sha256": "e890929ab2236103fd598c746c0d784a934a3da76267bb6d0a5470e2bc5f353c",
+      "revision": "MZ-V9S1T0BW : maximum80,15×22,15×2,38mm, maximum9,0g",
+      "date_consultation": "2026-10-25",
+      "droits": "Fiche produit fabricant publique, droits réservés ; aucune licence de redistribution supposée."
+    },
+    {
+      "id": "KINGSTON_SPEC",
+      "url": "https://www.kingston.com/datasheets/SDCE_en.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Kingston_SDCE.pdf",
+      "sha256": "2dbc0892054f94f0f30def5dea05278fa185472e2a964e7a05e5f18031aa02fc",
+      "revision": "High Endurance SDCE/32GB ; 15×11×1mm ; masse non publiée",
+      "date_consultation": "2026-10-25",
+      "droits": "Fiche technique fabricant publique, droits non explicités."
+    },
+    {
+      "id": "FUJINON_SPEC",
+      "url": "https://asset.fujifilm.com/www/us/files/2022-10/bed2e95d89655bd0f71ed68cf0476a0f/cf8za-1s.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/Fujinon_CF8ZA_1S_Specification.pdf",
+      "sha256": "b71055f7eb0ecb601b60e6d10cbb8a9fd27f81a84b33bbb0a6193d0be88e512c",
+      "revision": "CF8ZA-1S ; environ180g, Ø54×67mm",
+      "date_consultation": "2026-10-25",
+      "droits": "Fiche fabricant publique originale inchangée, droits non explicités."
+    },
+    {
+      "id": "FUJINON_DRAWING",
+      "url": "https://asset.fujifilm.com/www/za/files/2021-09/564a037f6e6f6ac9ad86db17ffc5a22e/CF8ZA-1S_DrawingData.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Fujinon_CF8ZA_1S_dessin.pdf",
+      "sha256": "585976630e35f6bd5c3133e3b4aa05ef1a05824f1396c1b508cfde62f8f779cc",
+      "revision": "S000002818-00,02oct2018 ; appui C, intrusion4mm, positions bagues42,3/20,4mm",
+      "date_consultation": "2026-10-25",
+      "droits": "Plan fabricant public, original inchangé ; licence de redistribution non établie."
+    },
+    {
+      "id": "FUJINON_DXF",
+      "url": "https://asset.fujifilm.com/www/za/files/2021-09/9c5edcbe57710927656d408dc10709ce/CF8ZA-1S_DrawingData.dxf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Fujinon_CF8ZA_1S_dessin.dxf",
+      "sha256": "4e4a1b1ffe00fa41d85d81dbbca62a060dc507e1f66cc81ad6d418bca042c2ab",
+      "revision": "Profil DXF du même dessin ; plan appui x281,1703665714 et axe y146,8150603672",
+      "date_consultation": "2026-10-25",
+      "droits": "Dessin fabricant téléchargé publiquement ; original immuable, droits non explicités."
+    },
+    {
+      "id": "AIRY_SPEC",
+      "url": "https://robosense-robotics.github.io/product-manual/en/Airy/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/RoboSense_Airy_manuel.html",
+      "sha256": "6d6fa49f69c0efac434a1d355598d112ad94e2c5530e6d80640bae5b26f7ec5b",
+      "revision": "Airy : corps230±20g ; Ø60×63 ; interfaces de montage dans manuel",
+      "date_consultation": "2026-10-25",
+      "droits": "Documentation fabricant publique ; licence de redistribution non établie."
+    },
+    {
+      "id": "AIRY_CAD",
+      "url": "https://robotopian.com/cdn/shop/files/Airy_3D_FOV.STEP?v=17864594049926064388",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/origine_v01/Airy_3D_FOV.STEP",
+      "sha256": "62bf7d54ab7475f72d09eaff1b641e6a658c45fae5a42977667cd1f92e418be3",
+      "revision": "Source distributeur antérieure, dessin RoboSense ; révision exacte non renseignée",
+      "date_consultation": "2026-10-25",
+      "droits": "Source originale inchangée ; licence et droit de redistribution non établis."
+    },
+    {
+      "id": "CUAV_SPEC",
+      "url": "https://store.cuav.net/shop/c-rtk-usl-expansion-module/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/CUAV_USL.html",
+      "sha256": "623ff5d110b3ddc5a7f0782a92ccd09e59a7ecdfae0b339d5dec1f09bc3e88a2",
+      "revision": "USL ; page contradictoire2Pcs/V5+ versus contenu1module+2câbles ; ni plan coté ni masse nette",
+      "date_consultation": "2026-10-25",
+      "droits": "Page fabricant publique, droits non explicités."
+    },
+    {
+      "id": "HOLYBRO_MASS",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_11072_dimensions_masses.html",
+      "sha256": "09bb09736964be76255c7194ab3aede8219e440a1660f0ade28a7553d6851690",
+      "revision": "85g porteuse seule ; masses d'ensembles110/175/185/190g ; attribution exacte11072 non garantie",
+      "date_consultation": "2026-10-25",
+      "droits": "Documentation fabricant publique, droits non explicités."
+    },
+    {
+      "id": "NVIDIA_MASS",
+      "url": "https://forums.developer.nvidia.com/t/jetson-orin-nx-dry-weight/232621",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/NVIDIA_Orin_NX_module_mass.html",
+      "sha256": "bbb907b37262bc33315d3860a27cc9ab02c2662ec56bc7d33ff50018dfe39dbc",
+      "revision": "Réponse NVIDIA Trumany11nov2022 :28g pour le module OrinNX ; pas refroidissement",
+      "date_consultation": "2026-10-25",
+      "droits": "Forum fabricant public, licence non évaluée ; pas une pesée du module cible."
+    },
+    {
+      "id": "RP4TD_DRAWING",
+      "url": "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "fichier": "hardware/electronique/cartographe/sources_fabricants/rp4td/RP4TD_Size.jpg",
+      "sha256": "eacc4e72aeb59b4d46c7d2c7cbc56e7cbc5f780afdeaf139719eaca20b7ceb39",
+      "revision": "23,7×16,3×4mm,65mmcoax,79mmtotal ; dipôle transversal non coté",
+      "date_consultation": "2026-10-25",
+      "droits": "Image fabricant antérieure inchangée, licence non établie."
+    },
+    {
+      "id": "RP4TD_MANUAL",
+      "url": "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "fichier": "hardware/electronique/cartographe/sources_fabricants/RadioMaster_RP4TD_User_Manual_20241105.pdf",
+      "sha256": "543aeb69bfb1c90c667504c1954bbba5ba00629f60f68f031e0eb0d99d36e41e",
+      "revision": "Manuel antérieur contradictoire entre1,4getbadge4g/inclusions ; page actuelle annonce1,4gsansantenne",
+      "date_consultation": "2026-10-25",
+      "droits": "Original fabricant conservé ; aucune attribution de masse d'antenne par soustraction."
+    },
+    {
+      "id": "TATTU_SPEC",
+      "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/GensAce_Tattu_NMC_TAA200006S5X9S.html",
+      "sha256": "228ad70d00d07a5e5feef2e457ac2f774b5dce865546cd6651c11037c9ebf134",
+      "revision": "TAA200006S5X9S ;1950±20g livré avecfils/connecteurs",
+      "date_consultation": "2026-10-25",
+      "droits": "Capture fabricant antérieure immuable, licence non établie."
+    }
+  ],
+  "geometries": [
+    {
+      "reference": "EQ_PM08_CAN_Enveloppe_Systeme_Candidat",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "ELEC-PM08"
+      ],
+      "constructeur": "pm08",
+      "traitement": "Boîtier fabricant détaillé remplaçant le cube ; modèle OEM partiel",
+      "source_ids": [
+        "PM08_CASE",
+        "PM08_SPEC",
+        "PM08_DOWNLOAD"
+      ],
+      "cotes_documentees": [
+        "Corps nominal45×41×26mm horsfils",
+        "Boîtier OEM v003 deux solides :62,9×41,6×24,795122mm avecpattes"
+      ],
+      "cotes_deduites": [
+        "CentreXY du corps historique maintenu22,5/20,5 ; basboîtier ramenéà0"
+      ],
+      "cotes_inconnues": [
+        "Révision du module15029 correspondant au boîtier v003",
+        "Sortiesdesfils etconnecteursinternes",
+        "PCB et distributioninternedemasse"
+      ],
+      "limites": [
+        "Boîtierseul OEM ; aucun PM08 analogique ou PM08D substitué",
+        "Pattesélargissentl'enveloppe : contrôleassemblage nécessaire",
+        "185g couvre câbles constructeur ; n'estpas masse de la coque"
+      ],
+      "etat_initial": {
+        "sha256": "de3c9bcd13a09df2112a2047627972ababbfab293dce135a1a37b96bc2654686",
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          45.0,
+          41.0,
+          26.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "42de7a9fae173a73945817ec3a966d222c3caa8f13a56afdc65d7a397be6cc68",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -8.95,
+          -0.3000000000000007,
+          1.7763568394002505e-15,
+          53.95,
+          41.3,
+          24.795122189695
+        ],
+        "volume_geometrique_mm3": 14393.144837166787,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Basler",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Basler.FCStd",
+      "objet_source": "Basler",
+      "bom_ids": [
+        "SEN-CAMERA"
+      ],
+      "constructeur": "basler",
+      "traitement": "Reconstruction extérieure paramétrique Front II depuis plan fabricant ; remplacement de l'import invalide",
+      "source_ids": [
+        "BASLER_SPEC",
+        "BASLER_DRAWING",
+        "BASLER_CONNECTORS",
+        "BASLER_INTRUSION",
+        "BASLER_SOURCE_ANTERIEURE"
+      ],
+      "cotes_documentees": [
+        "Boîtier29×29×42,8mmFrontII ; débord arrière maximal5,3mm",
+        "3M3profondeur4mm ; paireentraxe21 à8,8dufront, troisièmeà40,3dufront",
+        "DeuxM2arrièreprofondeur4,entraxe18 ; centreM8à20,3dubordet6,4dubas",
+        "Intrusionobjectif maximale10,9mm"
+      ],
+      "cotes_deduites": [
+        "Axeoptique et planappui localz10,5702589939 conservés",
+        "DiamètreboreC25,4nominal sansprofildufilet",
+        "PortM8extérieurØ8,cavitéØ6etUSB8×22/port5×13 : réservationsnominales",
+        "USBcentre local8,285/0,525repris desinterfacesantérieures ; unécart0,015à0,020mmavecarrondisduplanresteàcontrôler"
+      ],
+      "cotes_inconnues": [
+        "Rayonsexternesetépaisseursréelles",
+        "Monture filetée et fenêtreoptique détaillées",
+        "Corps/contactsUSB/M8,profondeursd'accouplementetdétrompeurs exacts",
+        "Distributioninternedemasse"
+      ],
+      "limites": [
+        "Aucunhealingaveuglede l'ancien solide invalide ; source STEP d'origine conservée",
+        "Extérieurdocumenté avecdétailsdéduits explicitement ; modèleexactfabricant nonobtenudepuisportailCAD",
+        "Volumeferméreconstruit inutilisablepourmasse ; massefabricant<85g"
+      ],
+      "etat_initial": {
+        "sha256": "3c1a34d3bd3e0b722987defb2f3ef30ae193dcee76771cd98dfbc32d6405d131",
+        "bbox_mm": [
+          65.5,
+          -14.5000000000001,
+          -153.57000066452943,
+          94.5,
+          14.500000000000004,
+          -105.4549999999998
+        ],
+        "forme_valide": false
+      },
+      "sha256": "6a149b20f89ec4e38c0196838814f0102914c4e359fdea0e5ab2cda39119dc42",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 3,
+        "bbox_mm": [
+          65.5,
+          -14.5,
+          -153.57025899391192,
+          94.5,
+          14.500000000000004,
+          -105.4702589939119
+        ],
+        "volume_geometrique_mm3": 30614.523430414996,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Waveshare_OrinFanPWM",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "MEC-REFROIDISSEMENT-JETSON"
+      ],
+      "constructeur": "fan",
+      "traitement": "Reconstruction extérieure avecdimensionsetaxesdocumentés ; modèlepartiel",
+      "source_ids": [
+        "FAN_DRAWING",
+        "FAN_SPEC"
+      ],
+      "cotes_documentees": [
+        "57,8±0,2×39±0,25×18±0,25mm",
+        "Ouverture37±0,1mm",
+        "M2entraxe43,2±0,05×28,8±0,05mm",
+        "Câble37±3mm et5V/0,13A"
+      ],
+      "cotes_deduites": [
+        "Axesdemontagecentréssurcorps ; perçagesØ2nominauxsansfilet",
+        "Ouvertureprofondeur4mm,moyeuØ14×2 : représentationsdéduites"
+      ],
+      "cotes_inconnues": [
+        "Profondeursfiletées,épaisseursinternesetailettes",
+        "Bride,visetgraissedétaillées",
+        "ConnecteurFAN,pinoutetpositionexacte",
+        "Massenettedel'ensemble"
+      ],
+      "limites": [
+        "AncienspassagesØ5,2hypothétiquesretirés : aucuneusinagefabricantprescrit",
+        "Lechevauchementaveclesvisdumodulepeutrévéleruneincompatibilité réelle ; vérifierassemblage",
+        "0,072kgdanscontenuducolis nonrequalifiéenmassenette"
+      ],
+      "etat_initial": {
+        "sha256": "468406dd9b2f65dfcccb97f7c78f1f5feb4b5049fd29d3dfd83fa6164bc67761",
+        "bbox_mm": [
+          -29.0,
+          -19.5,
+          0.0,
+          29.0,
+          19.5,
+          18.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "d866399cf88dfb462c49ae3eea7169a5149cf7a1645305df2aeac01ef6423dda",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -28.9,
+          -19.5,
+          0.0,
+          28.9,
+          19.5,
+          18.0
+        ],
+        "volume_geometrique_mm3": 36356.44106622892,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "SEN-GNSS"
+      ],
+      "constructeur": "gnss",
+      "traitement": "Boîtier OEM détaillé et antenne réservée distinctement ; jonction non démontrée",
+      "source_ids": [
+        "GNSS_CAD",
+        "GNSS_SPEC",
+        "GNSS_DOWNLOAD"
+      ],
+      "cotes_documentees": [
+        "G4boîtier51,1×35×22,9mm ; modèle51,1×35×22,85horsprisedébordante",
+        "AntennedocumentéeØ27,5×59mm",
+        "SMAfemelleduSTEP :pointlocal[-31,85;0;9,2],axe[-1;0;0]"
+      ],
+      "cotes_deduites": [
+        "RotationX90°puistranslation[3,45;0;14]pourconserverboîtierhorizontal",
+        "Antennederéservationconservéebase[0;0;22,9],axeZ : interfaceinvalide"
+      ],
+      "cotes_inconnues": [
+        "RévisionG4exacte12037",
+        "PlanappuietengagementantenneSMA",
+        "Géométrieantenne,jonctionetprofondeuraccouplement",
+        "Contenudela masse58g"
+      ],
+      "limites": [
+        "AucunadaptateurSMAinventé",
+        "Montagedirectimposeantennehorizontaleouboîtiervertical ; posecandidatedanspropriétéInterfaceSMAOEM",
+        "Laréservationactuelle nepeutpasêtreacceptéecommeliaisondirectevalide"
+      ],
+      "etat_initial": {
+        "sha256": "293622f1e623237267d9149c60a8c6f467e9d981505ccd547f8fde6dc62c5a52",
+        "bbox_mm": [
+          -25.55,
+          -17.5,
+          0.0,
+          25.55,
+          17.5,
+          81.9
+        ],
+        "forme_valide": true
+      },
+      "sha256": "929bf3e2526c818355445d14751f72964666ca1c8c2386970673c504a2edad35",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 12,
+        "bbox_mm": [
+          -31.85,
+          -17.500000000000004,
+          -2.3823026884523663e-09,
+          25.55,
+          17.5,
+          81.9
+        ],
+        "volume_geometrique_mm3": 49806.76626334612,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Waveshare15817_UART_Isole",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "ELEC-ISO"
+      ],
+      "constructeur": "iso",
+      "traitement": "Reconstruction extérieure de coque,pattesetinterfaces ; détailsdéduits ouverts",
+      "source_ids": [
+        "ISO_SPEC",
+        "ISO_DRAWING"
+      ],
+      "cotes_documentees": [
+        "Coque71,6×72,15×27,4mm ; pattes68,5×86,5mm"
+      ],
+      "cotes_deduites": [
+        "CentreXYhistorique45/40conservé",
+        "Tôle1,2mm,quatre lumières10×3etleurscentres déduitsphotographie",
+        "Bor-niersTTL/RS485etUSB :réservationsd'interface,débord9,2mmcandidat"
+      ],
+      "cotes_inconnues": [
+        "Positionscotéesdeslumièresetprises",
+        "Épaisseurs,profilsDB9/USBetcontacts",
+        "MassenetteetcontenuducordonUSB"
+      ],
+      "limites": [
+        "L'ancienneboîte90×80×26estréduiteaucotécaractèreprimairemaislesprisesdébordent",
+        "Supportetaccèsbornieràrecontrôler ; aucunebarrièreisolanteconsidéréequalifiéeparlaCAO"
+      ],
+      "etat_initial": {
+        "sha256": "17fb50df708391efd7b2f9d92e6631248a540f3e185ef081d3aac2e2a8b5e6e6",
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          90.0,
+          80.0,
+          26.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 5,
+        "bbox_mm": [
+          9.2,
+          -3.25,
+          0.0,
+          90.0,
+          83.25,
+          27.4
+        ],
+        "volume_geometrique_mm3": 154814.65599999996,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Samsung990EVOPlus_1To",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "AVI-SSD"
+      ],
+      "constructeur": "ssd",
+      "traitement": "Correction de l'enveloppe maximale fabricant ; reconstructionpartielle2280",
+      "source_ids": [
+        "SAMSUNG_SPEC"
+      ],
+      "cotes_documentees": [
+        "Maximum80,15×22,15×2,38mm ; M.2 2280KeyM"
+      ],
+      "cotes_deduites": [
+        "PCB0,8mm,composants1,58mm,enveloppeinférieure",
+        "EncocheR1,75etcentre39,98conservéscandidats ; engagementexistantpréservé"
+      ],
+      "cotes_inconnues": [
+        "ÉpaisseurPCB,profilencocheetcontactsKeyM exacts",
+        "Nombre/implantation/hauteurdescomposants",
+        "Positionducentrephysiquedemasse"
+      ],
+      "limites": [
+        "L'enveloppemaximalen'estpasuneformephysiquepleine",
+        "Maximum9g n'estpasunemassenominalemesurée"
+      ],
+      "etat_initial": {
+        "sha256": "4db4c676765d4cd36472ae501a129ada934fe994a5bbd5df2fb6f1423648bbae",
+        "bbox_mm": [
+          -40.0,
+          -11.0,
+          0.0,
+          40.0,
+          11.0,
+          2.4000000000000004
+        ],
+        "forme_valide": true
+      },
+      "sha256": "37078b961d0eb05e23dcef05f017bdb3afca049a487471852a4ed76586c882a6",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -40.075,
+          -11.075,
+          0.0,
+          40.075,
+          11.075,
+          2.38
+        ],
+        "volume_geometrique_mm3": 3659.7436797047876,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Fujinon_CF8ZA1S",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "SEN-LENS"
+      ],
+      "constructeur": "lens",
+      "traitement": "Profil de révolution extérieur depuis dessin/DXF fabricant ; appui C conservé",
+      "source_ids": [
+        "FUJINON_SPEC",
+        "FUJINON_DRAWING",
+        "FUJINON_DXF"
+      ],
+      "cotes_documentees": [
+        "Ø54max,Ø39corps,longueurnominale67mm",
+        "Monture1-32UNF(Ø25,4),intrusion4mmderrièreappui",
+        "Blocagesà42,3/20,4mmnominalsetextrémitésradiales23,3mmnominales"
+      ],
+      "cotes_deduites": [
+        "ProfilDXFconvertià0,001mm : longueur66,970 contre67nominal ; écart0,030mmconservé",
+        "Baguesexternesreprésentéesparrévolution ; têtesblocagecylindriquesdepuisDXF"
+      ],
+      "cotes_inconnues": [
+        "Profilsinternesoptiques,verres,épaisseursréellesetdistributiondemasse",
+        "Filets,mouvementsdesbaguesetorientationfinaledesblocages"
+      ],
+      "limites": [
+        "Ancienmodèle67,5etmontureprojetéeversavantcorrigés",
+        "Threadmâle−4mm correspondàunengagementvouluaveccaméra ; nepasclassercetteintersectionsansanalyse",
+        "Environ180gfabricant ; pasdemasseparvolumeextérieur"
+      ],
+      "etat_initial": {
+        "sha256": "e86f6fc7922f4db2cdf91ca0db9aa88f937ba856cdd98debae44df8c4ec79136",
+        "bbox_mm": [
+          -27.0,
+          -26.960402173980345,
+          0.0,
+          27.0,
+          26.960402173980345,
+          67.5
+        ],
+        "forme_valide": true
+      },
+      "sha256": "8984a1bd639bd21c161d8c2fe12b9452608faa352cf74071a77f283969230b87",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 3,
+        "bbox_mm": [
+          -27.000000000000007,
+          -27.000000000000007,
+          -4.000000000000001,
+          27.000000000000007,
+          27.000000000000007,
+          66.97000000000001
+        ],
+        "volume_geometrique_mm3": 90663.57899213,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_JBD_SP22S003_BMS",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "ELEC-BMS",
+        "ELEC-NTC"
+      ],
+      "constructeur": null,
+      "traitement": "Enveloppe maximale conservée et inconnues documentées ; blocagegéométrique",
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "cotes_documentees": [
+        "130±0,5×65±0,5×10±2mm ; enveloppemax130,5×65,5×12déjàprésente",
+        "QuatretrousR1,1p13sanscoordonnéescotées"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "Coordonnéesexactesdes4trous",
+        "ÉpaisseurPCBetcapot,hauteursconnecteurs/bornes",
+        "CotesdesprisesJ7NTC/UART etpointsdepuissance",
+        "Massenette100A,contenuinclusetnombreNTCdu lot"
+      ],
+      "limites": [
+        "Aucunperçageinventédepuisunephotographie",
+        "Levolumepleinmaxn'estpaslematériauphysique ; aucunemassecalculée"
+      ],
+      "etat_initial": {
+        "sha256": "dfc673352d1195054f3700bb1d0c27a87a86cbd8835e72aad1f29a45c580cd45",
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          130.5,
+          65.5,
+          12.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "4c04c39a5617a52e0a3e0bf0af601717167e6c05da285ec279d39e17d2ce49d0",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          130.5,
+          65.5,
+          12.0
+        ],
+        "volume_geometrique_mm3": 102573.0,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Kingston_SDCE32GB",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Kingston_SDCE32GB.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "AVI-SD"
+      ],
+      "constructeur": null,
+      "traitement": "Réservation15×11×1conservée ; contacts/formerequisnoncotés",
+      "source_ids": [
+        "KINGSTON_SPEC"
+      ],
+      "cotes_documentees": [
+        "15×11×1mm,microSDHC32Go"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "Contours/détrompeurs/contactsettolérances",
+        "EngagementduconnecteurPixhawk",
+        "Massenette,sansadaptateurSD"
+      ],
+      "limites": [
+        "Aucunemasse0,4g génériqueattribuée",
+        "Massesgrossesdistributeur10g/10,12gemballageexclues"
+      ],
+      "etat_initial": {
+        "sha256": "65e0c0db667847d806cfd4d6be4ab2aa8d98e844cf0df7ef2dd9602224db181b",
+        "bbox_mm": [
+          -7.5,
+          -5.5,
+          0.0,
+          7.5,
+          5.5,
+          1.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "ab4b92c37a4d2e89090fe32666036ff818eed04e8d0c1f272113d5ccdcd4ac6b",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -7.5,
+          -5.5,
+          0.0,
+          7.5,
+          5.5,
+          1.0
+        ],
+        "volume_geometrique_mm3": 165.0,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_CUAV_USL_Prototype",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_CUAV_USL_Prototype.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "AVI-SAFE"
+      ],
+      "constructeur": null,
+      "traitement": "Réservationnoncotéeconservée ; blocagegéométriqueetvariante",
+      "source_ids": [
+        "CUAV_SPEC"
+      ],
+      "cotes_documentees": [],
+      "cotes_deduites": [
+        "35×25×15mmhistorique,nonconfirmés"
+      ],
+      "cotes_inconnues": [
+        "VarianteV5+ exacte etcontenudujeu",
+        "Plancompletdu modulebouton/buzzer/LED etfixations",
+        "Connecteurs,pinoutsetinterfacesHolybro",
+        "Massenetteavec/sansdeuxcâbles"
+      ],
+      "limites": [
+        "Aucuneautreréférence substituée ; géométrieinsuffisante resteexplicitementbloquante"
+      ],
+      "etat_initial": {
+        "sha256": "d9e587fdf3b51ce513c69c6922af87ad2599db88d96dfaf7b17810349533c5d8",
+        "bbox_mm": [
+          -17.5,
+          -12.5,
+          0.0,
+          17.5,
+          12.5,
+          15.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "94f6886b6390a8f94a8dbac6360f6df5278b38062033868bfea610e0d5e5c2c7",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -17.5,
+          -12.5,
+          0.0,
+          17.5,
+          12.5,
+          15.0
+        ],
+        "volume_geometrique_mm3": 13125.0,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Airy",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Airy.FCStd",
+      "objet_source": "Airy",
+      "bom_ids": [
+        "SEN-LIDAR"
+      ],
+      "constructeur": null,
+      "traitement": "Importdistributeur29solidesvalideconservé ; provenance/révisionàlever",
+      "source_ids": [
+        "AIRY_SPEC",
+        "AIRY_CAD"
+      ],
+      "cotes_documentees": [
+        "CorpsØ60×63mmnominal ; 3visM3×8 et2pigesØ3suivantmanuel"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "RévisionduSTEPetcorrespondanceauproduitretenu",
+        "Coordonnéescotéesdespigesetprofondeursd'interfaces"
+      ],
+      "limites": [
+        "EncombrementduSTEP61,25×68,96×66,60avecinterfacesdépasselecylindrenominal",
+        "Massecorps230±20g,horsfaisceau/support ; distributioninternenonconnue"
+      ],
+      "etat_initial": {
+        "sha256": "abefc33b2bb6275ebf4b1223c3614d2a2e0e885f8355c9c3dbceb368da7ae360",
+        "bbox_mm": [
+          -69.0,
+          -37.55736929122494,
+          -194.00447127433995,
+          -9.0,
+          30.000000000000004,
+          -131.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "d8f31fb861394bdf3db716f62a0bc5a75379625700622f73ad44ca175239ab11",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 29,
+        "bbox_mm": [
+          -69.0,
+          -37.557369291224944,
+          -194.00447127433995,
+          -9.0,
+          30.0,
+          -131.0
+        ],
+        "volume_geometrique_mm3": 151116.5000721264,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Antenne_RP4TD_Prototype",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "RF-ANT"
+      ],
+      "constructeur": null,
+      "traitement": "Réservationdipôleconservée ; dimensionspartiellesetmasseinconnues",
+      "source_ids": [
+        "RP4TD_DRAWING",
+        "RP4TD_MANUAL"
+      ],
+      "cotes_documentees": [
+        "Coax65mm,total79mmdepuisimagefabricant"
+      ],
+      "cotes_deduites": [
+        "Dipôleactuel8×4×60mmréservé,noncotéparcettesource"
+      ],
+      "cotes_inconnues": [
+        "Largeur/épaisseuretformeexactesdesdipôles",
+        "Massenetted'uneantenneavecsoncoaxetU.FL",
+        "Révisiondesantenneslivrées"
+      ],
+      "limites": [
+        "DeuxoccurrencesenCAO,deuxcoaxdansF13 : nepasdoubler",
+        "Inclusions4g/1,4gcontradictoiresdu manuel nejustifientaucunesoustraction"
+      ],
+      "etat_initial": {
+        "sha256": "4cf073a4e249cfc0a896d40b5f7a74d1e80419cd2238f98ac4f66f24dcd18e7f",
+        "bbox_mm": [
+          -4.0,
+          -2.0,
+          0.0,
+          4.0,
+          2.0,
+          60.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "613590afa1fad83d66af9366083ddd5911bdb80f4628a555bb52404e817ec9f4",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -4.0,
+          -2.0,
+          0.0,
+          4.0,
+          2.0,
+          60.0
+        ],
+        "volume_geometrique_mm3": 674.5486315913922,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Holybro11072_Prototype",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+      "objet_source": "Ensemble",
+      "bom_ids": [
+        "AVI-CARRIER",
+        "AVI-FCU",
+        "AVI-CPU"
+      ],
+      "constructeur": null,
+      "traitement": "DérivéOEM2059solidesconservé,aucunereconstructionarbitraire",
+      "source_ids": [
+        "HOLYBRO_MASS",
+        "NVIDIA_MASS"
+      ],
+      "cotes_documentees": [
+        "126×80mmporteuse ; modèleinclut6XetOrin",
+        "Sansboîtier11072demandé,différentde11072Aavecboîtier"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "Révisionexacte11072etmodule6X",
+        "DoublonsdesolidesOEMetpérimètredechaquesouscomposant",
+        "Centresdemasseetinertiesinternes"
+      ],
+      "limites": [
+        "Sourceporteusehistoriqueimmuablepréservée ; dérivéseulementannoté",
+        "12solidesrefroidissementet8fixationsnylonOEMdéjàretirés",
+        "85/110/175/185/190gensemblesdifférentset203,2gboutique : aucuneaddition/subtractionpourinventerlesmassesmodules"
+      ],
+      "etat_initial": {
+        "sha256": "f58930b993332e273d6914f57b4c90055d1090355e5214eeda5148bc02042bec",
+        "bbox_mm": [
+          0.0,
+          -0.9999998569081654,
+          -4.25,
+          126.0,
+          80.51250152589745,
+          18.852320000083683
+        ],
+        "forme_valide": true
+      },
+      "sha256": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 2059,
+        "bbox_mm": [
+          0.0,
+          -0.9999998569081654,
+          -4.25,
+          126.0,
+          80.51250152589745,
+          18.852320000083683
+        ],
+        "volume_geometrique_mm3": 59503.93932214058,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Holybro_PDB18138_Systeme_Candidat",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "ELEC-PDB"
+      ],
+      "constructeur": null,
+      "traitement": "STEP OEM27solidesconservé ; géométriedocumentée,masseinconnue",
+      "source_ids": [],
+      "cotes_documentees": [
+        "SixXT90etdeuxXT30montés ; bornespuissanceetfixationsM3"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "Massenetteavecconnecteursetbornes",
+        "Densités/empilagePCB10ozetdistributionmassique"
+      ],
+      "limites": [
+        "Métadonnéecommercialeweight180nonutilisée"
+      ],
+      "etat_initial": {
+        "sha256": "6db469ef495f199d7cb1f374e6f60ab661bed2b053db7afda8049a68cb51521c",
+        "bbox_mm": [
+          85.00017018034,
+          85.00510907911,
+          -1.682397764797,
+          144.9875895352,
+          164.9876301753,
+          21.317602533224
+        ],
+        "forme_valide": true
+      },
+      "sha256": "c5ff64ca75e4c0e9c1e7bc96ddd4b545088dbf9ca394b42a408d631267c19dfa",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 27,
+        "bbox_mm": [
+          85.00017018034,
+          85.00510907911,
+          -1.682397764797,
+          144.9875895352,
+          164.9876301753,
+          21.317602533224
+        ],
+        "volume_geometrique_mm3": 21135.17903328285,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "CA01_PCB_Revue_20261003",
+      "fichier": "hardware/mecanique/cartographe/pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+      "objet_source": "CarteCA01",
+      "bom_ids": [
+        "AVI-CA01",
+        "AVI-PCB"
+      ],
+      "constructeur": null,
+      "traitement": "Nativeparamétriqueetpeuplementconservés ; aucuneMPNmanquantesélectionnée",
+      "source_ids": [
+        "RP4TD_DRAWING",
+        "RP4TD_MANUAL"
+      ],
+      "cotes_documentees": [
+        "PCB126×80×1,6mmcandidat ; trousM3auxcoins3/3,123/3,123/77,3/77"
+      ],
+      "cotes_deduites": [
+        "Positions4brochesRP4TDestiméesphotographiquementdanscanoniqueexistant"
+      ],
+      "cotes_inconnues": [
+        "44MPNmontésabsents,écartsBOM/CSV",
+        "Stackup/matériaux/finition/soudures/épaisseurscuivrefinies",
+        "GéométriemontageRP4TD,dessousetbroches",
+        "Masseassembléefinale"
+      ],
+      "limites": [
+        "151repères,141montéscandidats,8DNPet2points sanscomposant ; nepasajouterledétailàunemasseassemblée",
+        "Aucunemodificationdecontenuélectriqueoudefabricationautoriséeparcettepasse"
+      ],
+      "etat_initial": {
+        "sha256": "003f7ec4824fc67685f8cd61ecac0387ac4258d59218fd07ea6ca0673a230aa9",
+        "bbox_mm": [
+          0.0,
+          -80.0,
+          -1.88,
+          126.0,
+          0.0,
+          12.22
+        ],
+        "forme_valide": true
+      },
+      "sha256": "b48335ba7019654a77d7afe84d887075788eb42d243865d96501577a976494b6",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 309,
+        "bbox_mm": [
+          0.0,
+          -80.0,
+          -1.88,
+          126.0,
+          0.0,
+          12.22
+        ],
+        "volume_geometrique_mm3": 25482.757144682448,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    },
+    {
+      "reference": "EQ_Tattu20Ah6S_Dock",
+      "fichier": "hardware/mecanique/cartographe/pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd",
+      "objet_source": "Reference",
+      "bom_ids": [
+        "ELEC-BAT"
+      ],
+      "constructeur": null,
+      "traitement": "Enveloppesoftpackdocumentéeconservée ; géométrieinterneinconnue",
+      "source_ids": [
+        "TATTU_SPEC"
+      ],
+      "cotes_documentees": [
+        "193×76×58mmnominal ; filsAWG8/150mmetXT90-S/JST-XHR-7Pdanslivraison"
+      ],
+      "cotes_deduites": [],
+      "cotes_inconnues": [
+        "Tolérances/gonflementsoftpacketpointsdesortiedesfils",
+        "MasseinstalléeaprèsadaptationBMS/QS8",
+        "Distributioninternedemasse"
+      ],
+      "limites": [
+        "1950±20gpacklivré : aucuncréditderetraitconnecteurinventé",
+        "Aucunehypothèsededensitéhomogènedesélémentsinternes"
+      ],
+      "etat_initial": {
+        "sha256": "95dad8403a8404f02b0bf6865ba44e6131f53d881d10c2a46465dd10e08560b7",
+        "bbox_mm": [
+          -96.5,
+          -38.0,
+          0.0,
+          96.5,
+          38.0,
+          58.0
+        ],
+        "forme_valide": true
+      },
+      "sha256": "2132dd34b035f3a1081939c0b36258a7e65e22744d0fd1d66a0d76ccdd747531",
+      "controle_construction": {
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -96.5,
+          -38.0,
+          0.0,
+          96.5,
+          38.0,
+          58.0
+        ],
+        "volume_geometrique_mm3": 850743.9999999999,
+        "volume_utilisable_pour_masse": false,
+        "objet_source_stable": true
+      }
+    }
+  ],
+  "masses": [
+    {
+      "bom_id": "ELEC-BAT",
+      "reference": "TAA200006S5X9S",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 1950,
+      "qualificatif": "Nominale fabricant ±20g, pack livré",
+      "nature": "fabricant",
+      "source_ids": [
+        "TATTU_SPEC"
+      ],
+      "conditions": "Pack commercial livré ; masse installée adaptée nonétablie.",
+      "inclusions": [
+        "Pack",
+        "cordonsAWG8 150mm",
+        "XT90-S",
+        "équilibrageJST"
+      ],
+      "exclusions": [
+        "BMS ajouté",
+        "QS8 ajouté",
+        "supports"
+      ],
+      "incertitude_g": 20
+    },
+    {
+      "bom_id": "ELEC-BMS",
+      "reference": "JBD-SP22S003 Li-ion A01 100A",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Inconnue",
+      "nature": "inconnue",
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "conditions": "Variante100Aetcontenudulotàidentifier.",
+      "inclusions": [
+        "NTCselonlot,àconfirmer"
+      ],
+      "exclusions": [
+        "Supports",
+        "fils ajoutés"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-NTC",
+      "reference": "DoubleNTC10kB3950,250mm,HY2.0-4P",
+      "quantite": 1,
+      "unite": "jeu",
+      "masse_unitaire_g": null,
+      "qualificatif": "Individuelle inconnue ; inclusionprévueELEC-BMS",
+      "nature": "inconnue",
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "conditions": "Nombre/voieslotàconfirmer ; inclusiondansmasseBMSnonencoremesurée.",
+      "inclusions": [
+        "Deuxsondes",
+        "cordon",
+        "HY2.0-4P"
+      ],
+      "exclusions": [
+        "Protectionsisolantesajoutées"
+      ],
+      "incertitude_g": null,
+      "masse_incluse_dans": "ELEC-BMS"
+    },
+    {
+      "bom_id": "ELEC-PM08",
+      "reference": "PM08-CAN SKU15029 Tinned Wires candidat",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 185,
+      "qualificatif": "Nominale fabricant, câblesinclus,variantedecontenuàconfirmer",
+      "nature": "fabricant",
+      "source_ids": [
+        "PM08_SPEC"
+      ],
+      "conditions": "185gpubliéssansprécisiondetoléranceoudevariante15028/29/30 ; inconnued'applicabilitéaucordoninstallé.",
+      "inclusions": [
+        "Module",
+        "câblesfabricant"
+      ],
+      "exclusions": [
+        "Support ajouté"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-PDB",
+      "reference": "Holybro18138",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Inconnue,weight180commercialrejeté",
+      "nature": "inconnue",
+      "source_ids": [],
+      "conditions": "Carteavec6XT90,2XT30etbornes ; masse nette nonpubliée.",
+      "inclusions": [
+        "Connecteursmontés",
+        "bornes"
+      ],
+      "exclusions": [
+        "Faisceauxetadaptateurs"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-ISO",
+      "reference": "Waveshare15817 USB TO RS232/485/TTL isolé",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Massenette inconnue",
+      "nature": "inconnue",
+      "source_ids": [
+        "ISO_SPEC",
+        "ISO_DRAWING"
+      ],
+      "conditions": "CordonUSBfourniàréconcilieravecF14/F15 ; poidscolis0,23kgdistributeurinutilisable.",
+      "inclusions": [],
+      "exclusions": [
+        "Emballage"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-CARRIER",
+      "reference": "Holybro11072 sansboîtier",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "valeur_documentaire_conditionnelle_g": 85,
+      "qualificatif": "85gdocumentésporteuseseule,correspondancerévision11072nonétablie",
+      "nature": "inconnue",
+      "source_ids": [
+        "HOLYBRO_MASS"
+      ],
+      "conditions": "Nepasdéduiredepuis190/185/110/175g ; confirmerqu85gcouvreexactementporteusesansboîtieretaccessoiresmontés.",
+      "inclusions": [],
+      "exclusions": [
+        "Orin",
+        "6X",
+        "SSD",
+        "refroidissement",
+        "boîtier90g"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-FCU",
+      "reference": "Pixhawk6X du kit X650",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "valeur_documentaire_conditionnelle_g": 31.3,
+      "qualificatif": "Révisionindéterminée ; actuel31,3g,ancien23g",
+      "nature": "inconnue",
+      "source_ids": [],
+      "conditions": "Pagefabricantactuelleconsultéehttps://holybro.com/products/pixhawk-6x?variant=43699025871037 ; révisionphysiqueetMPNdukitabsents.",
+      "inclusions": [
+        "ModuleFCUseul"
+      ],
+      "exclusions": [
+        "Baseboardv2Aretirée",
+        "PM02Dretiré",
+        "porteuseJetson"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-CPU",
+      "reference": "900-13767-0000-001 OrinNX16Go",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 28,
+      "qualificatif": "Nominale documentaire fabricant, sans tolérance publiée",
+      "nature": "fabricant",
+      "source_ids": [
+        "NVIDIA_MASS"
+      ],
+      "conditions": "ModuleOrinNXseul,référencedonnéesNVIDIA ; paspeséetpasderefroidissement.",
+      "inclusions": [
+        "ModuleSoM"
+      ],
+      "exclusions": [
+        "Porteuse",
+        "dissipateur",
+        "vis",
+        "SSD"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "MEC-REFROIDISSEMENT-JETSON",
+      "reference": "Waveshare24076 Orin-FAN-PWM",
+      "quantite": 1,
+      "unite": "jeu",
+      "masse_unitaire_g": null,
+      "qualificatif": "Massenetteinconnue ; 0,072kgcolisnonattribuable",
+      "nature": "inconnue",
+      "source_ids": [
+        "FAN_SPEC"
+      ],
+      "conditions": "Unjeuavecbride,visetgraisse ; aucunevaleurdeduiteparretraitdupoidsd'unbundle.",
+      "inclusions": [
+        "Dissipateur",
+        "ventilateur",
+        "bride",
+        "vis",
+        "graissefournie"
+      ],
+      "exclusions": [
+        "Jetson"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-SSD",
+      "reference": "SamsungMZ-V9S1T0BW",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 9,
+      "qualificatif": "Maximumfabricant9,0g,borneetnonmassenominale",
+      "nature": "fabricant",
+      "source_ids": [
+        "SAMSUNG_SPEC"
+      ],
+      "conditions": "SSD1To2280sansdissipateur ; nepasinterprétercommevaleurpesée.",
+      "inclusions": [
+        "SSD"
+      ],
+      "exclusions": [
+        "Visetretenue",
+        "refroidissementajouté"
+      ],
+      "incertitude_g": null,
+      "relation": "<="
+    },
+    {
+      "bom_id": "AVI-SD",
+      "reference": "KingstonSDCE/32GB",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Inconnue",
+      "nature": "inconnue",
+      "source_ids": [
+        "KINGSTON_SPEC"
+      ],
+      "conditions": "Carte seule ; adaptateurSDnonfourni/nonembarqué.",
+      "inclusions": [
+        "microSD"
+      ],
+      "exclusions": [
+        "AdaptateurSD",
+        "emballage"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-SAFE",
+      "reference": "CUAVC-RTKUSL,variantencorecandidate",
+      "quantite": 1,
+      "unite": "jeu",
+      "masse_unitaire_g": null,
+      "qualificatif": "Inconnue,contenuetvarianteouverts",
+      "nature": "inconnue",
+      "source_ids": [
+        "CUAV_SPEC"
+      ],
+      "conditions": "Bouton/buzzer/LED,pinoutàgarantir ; page2Pcscontradictoireavec1module+2câbles.",
+      "inclusions": [],
+      "exclusions": [],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-CA01",
+      "reference": "CA01_Avionique",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Assemblé inconnue",
+      "nature": "inconnue",
+      "source_ids": [],
+      "conditions": "141repèresmontéscandidats ;44MPNabsents,stackup/processouverts ; pasdefabrication.",
+      "inclusions": [
+        "PCBAVI-PCB",
+        "composantsmontés",
+        "MOD401RP4TD"
+      ],
+      "exclusions": [
+        "RF-ANTetcoaxexternes",
+        "DNP",
+        "pointsdetestsanscomposant"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "RF-ANT",
+      "reference": "RadioMasterT2,4GHzU.FL65mm",
+      "quantite": 2,
+      "unite": "piece",
+      "masse_unitaire_g": null,
+      "qualificatif": "Inconnue",
+      "nature": "inconnue",
+      "source_ids": [
+        "RP4TD_DRAWING",
+        "RP4TD_MANUAL"
+      ],
+      "conditions": "AntennesOEMconservées ; massemoduleseul1,4gactuellementpubliée nepermetpasdedéduirelamassedesantennes.",
+      "inclusions": [
+        "Dipôle",
+        "coax65mm",
+        "U.FL"
+      ],
+      "exclusions": [
+        "RécepteurRP4TDdansCA01"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "SEN-LIDAR",
+      "reference": "RoboSenseAiry",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 230,
+      "qualificatif": "Nominalefabricant230±20gcorpsLiDAR",
+      "nature": "fabricant",
+      "source_ids": [
+        "AIRY_SPEC"
+      ],
+      "conditions": "CorpsLiDAR,révisionetcontenudelivraisonàvérifier.",
+      "inclusions": [
+        "CorpsAiry"
+      ],
+      "exclusions": [
+        "Faisceau",
+        "supports",
+        "fixations"
+      ],
+      "incertitude_g": 20
+    },
+    {
+      "bom_id": "SEN-CAMERA",
+      "reference": "Baslera2A4096-30ucBAS",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 85,
+      "qualificatif": "Borne fabricant strictementinférieureà85g",
+      "nature": "fabricant",
+      "source_ids": [
+        "BASLER_SPEC"
+      ],
+      "conditions": "Caméraseule ; jamais85gprésentécommemassenominaleexacte.",
+      "inclusions": [
+        "Caméra"
+      ],
+      "exclusions": [
+        "Objectif",
+        "câbles",
+        "supports"
+      ],
+      "incertitude_g": null,
+      "relation": "<"
+    },
+    {
+      "bom_id": "SEN-LENS",
+      "reference": "FujinonCF8ZA-1S",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 180,
+      "qualificatif": "Environ180gfabricant",
+      "nature": "fabricant",
+      "source_ids": [
+        "FUJINON_SPEC"
+      ],
+      "conditions": "Objectifseul ; tolérancenonpubliée,n'estpasuneborne.",
+      "inclusions": [
+        "Objectifavecblocages"
+      ],
+      "exclusions": [
+        "Supportajouté"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "SEN-GNSS",
+      "reference": "Holybro12037 HelicalG4àgarantir",
+      "quantite": 1,
+      "unite": "piece",
+      "masse_unitaire_g": 58,
+      "qualificatif": "Nominalefabricantgroupée,contenuexactàconfirmer",
+      "nature": "fabricant",
+      "source_ids": [
+        "GNSS_SPEC"
+      ],
+      "conditions": "Poids58gpubliéencolonneHelical ; attributionG4/antenne/accessoiresàvérifier.",
+      "inclusions": [
+        "Électroniqueetantenneprésuméesgroupées,àconfirmer"
+      ],
+      "exclusions": [
+        "Supportajouté"
+      ],
+      "incertitude_g": null
+    }
+  ],
+  "blocages": [
+    {
+      "id": "EQ-GEO-BASLER",
+      "bom_ids": [
+        "SEN-CAMERA"
+      ],
+      "information_necessaire": "ModèleCADexactFrontIIouplansdétaillésdesinterfacesM8/Micro-Betépaisseurs ; sourcefamillegénériqueantérieureinsuffisante.",
+      "recherches": [
+        "DocumentationmodèleexactetSVGcotésobtenus",
+        "PortailfabricantCADidentifié maisaucunSTEPexactdirectobtenu",
+        "Sourceantérieureinvalidepréservée,reconstructioncotéeexécutée"
+      ]
+    },
+    {
+      "id": "EQ-GEO-GNSS",
+      "bom_ids": [
+        "SEN-GNSS"
+      ],
+      "information_necessaire": "GarantirvarianteG4puisdéfinirposedeSMAetantennecompatibleavecsupportsansadaptateurimplicite.",
+      "recherches": [
+        "STEPofficielHelical11solidesobtenu,versionS32K1distincte",
+        "SMAextraitduSTEP,axelatéral−X ; antenneactuelleverticalesansjonctiondémontrée",
+        "Antennemâleplanappui/engagementnoncotés"
+      ]
+    },
+    {
+      "id": "EQ-GEO-BMS",
+      "bom_ids": [
+        "ELEC-BMS",
+        "ELEC-NTC"
+      ],
+      "information_necessaire": "PlanA01/100Acotant4centresdetrous,connecteurs,bornesetépaisseurs ; masse nette aveccontenu livré.",
+      "recherches": [
+        "PDFprimaire20pagesinspecté,p4dimensionsnominalestolérancées,p13R1,1×4sanscentrescotés",
+        "PageconstructeurSP22S003etportailfichiersconsultés ; niCAOexacteni massesnettesobtenues"
+      ]
+    },
+    {
+      "id": "EQ-GEO-FAN",
+      "bom_ids": [
+        "MEC-REFROIDISSEMENT-JETSON"
+      ],
+      "information_necessaire": "Bride/vis/contacts/prisesetépaisseursinternescotées ; masse nette SKU24076 sanscolis.",
+      "recherches": [
+        "Planprimairecotéetcontenudujeuobtenus",
+        "0,072kgfigureencontenucolis sansdistinctionmassenette",
+        "AnciensØ5,2inventésretirés ; axesM2duplanreprésentés"
+      ]
+    },
+    {
+      "id": "EQ-GEO-ISO",
+      "bom_ids": [
+        "ELEC-ISO"
+      ],
+      "information_necessaire": "Planrévision15817aveccentresfixationsetprises,profilconnecteursetmassenette avec/sansUSB.",
+      "recherches": [
+        "Photographieprimairecotéeobtenue",
+        "ManuelOEMlocalinspecté",
+        "Coque/pattesdocumentées ; bornieretpositiondeslumièresrestentdéduits"
+      ]
+    },
+    {
+      "id": "EQ-GEO-CUAV",
+      "bom_ids": [
+        "AVI-SAFE"
+      ],
+      "information_necessaire": "Référencevariantestable,planmécanique,pinoutHolybroetmassenette ; contenu1modulevs2Pcsàclarifier.",
+      "recherches": [
+        "BoutiqueofficielleCUAVetdocumentationC-RTKconsultées",
+        "PageafficheV5+/2Pcs,contenu1module+2câbles,indisponible",
+        "Aucunplancoté/CAO/massenettetraçablestrouvé ; réservationresteinconnue"
+      ]
+    },
+    {
+      "id": "EQ-GEO-SSD-SD-ANT",
+      "bom_ids": [
+        "AVI-SSD",
+        "AVI-SD",
+        "RF-ANT"
+      ],
+      "information_necessaire": "Plansdétailléscontacts/encochesetmassesnettesmicroSD/antennes ; révisionsdesantennes.",
+      "recherches": [
+        "Samsungprimairedonnebornesexternesetmax9g",
+        "KingstonSDCEficheprimairedonneformatmaisnipascontourscontactsni masse",
+        "ImageRadioMasterdonne65mmcoaxet79mmtotal ; dipôle noncoté,manuelmassiquecontradictoire"
+      ]
+    },
+    {
+      "id": "EQ-MASSE-AVIONIQUE",
+      "bom_ids": [
+        "AVI-CARRIER",
+        "AVI-FCU"
+      ],
+      "information_necessaire": "Identifier11072sansboîtieretrévision6Xdukit,obtenirmassesnettesappliquéesauxseulsélémentsinstallés.",
+      "recherches": [
+        "DocumentationHolybro85/110/175/185/190gconsultée",
+        "Boutiquebundle203,2gconsommateurnoncomparable",
+        "6Xactuel31,3gcontre23ganciennesrévisions ; aucunevariantechoisiepourfaciliterbilan"
+      ]
+    },
+    {
+      "id": "EQ-MASSE-CA01",
+      "bom_ids": [
+        "AVI-CA01",
+        "AVI-PCB"
+      ],
+      "information_necessaire": "Résoudre44MPNmontésabsentsetécartsBOM/CSV,figerstackup/matériaux/finition/souduresetsous-faceRP4TDavantmassereproductible.",
+      "recherches": [
+        "SousBOMcanonique151repèresetCSVfabricationinspectés",
+        "141montéscandidats,8DNP,2pointssanscomposantconfirmés",
+        "AucunMPNchoisi,aucuneadditiondemassed'ensembleetdessouscomposants"
+      ]
+    }
+  ],
+  "validations_non_executees": [
+    "Assemblageprincipaletcollisionsentreéquipementsetstructure : propriétaireintégration",
+    "Qualificationphysique,vibration,thermique,électriqueetpesées : horsmission",
+    "Centresdemasse/inertiesréels : massesetdistributionsinternesinsuffisantes"
+  ],
+  "validation": {
+    "date_utc": "2026-10-25T13:42:43.394681+00:00",
+    "environnement": {
+      "os": "Windows",
+      "architecture": "amd64",
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ]
+    },
+    "protocole": "Nouveau processus --verify après --apply ; réouverture, recalcul, contrôle BREP, identifiants et empreintes ; fermeture sans sauvegarde.",
+    "controles": [
+      {
+        "reference": "EQ_PM08_CAN_Enveloppe_Systeme_Candidat",
+        "objet_source": "Reference",
+        "sha256": "42de7a9fae173a73945817ec3a966d222c3caa8f13a56afdc65d7a397be6cc68",
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -8.95,
+          -0.3000000000000007,
+          1.7763568394002505e-15,
+          53.95,
+          41.3,
+          24.795122189695
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Basler",
+        "objet_source": "Basler",
+        "sha256": "6a149b20f89ec4e38c0196838814f0102914c4e359fdea0e5ab2cda39119dc42",
+        "forme_valide": true,
+        "solides": 3,
+        "bbox_mm": [
+          65.5,
+          -14.5,
+          -153.57025899391192,
+          94.5,
+          14.5,
+          -105.4702589939119
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Waveshare_OrinFanPWM",
+        "objet_source": "Ensemble",
+        "sha256": "d866399cf88dfb462c49ae3eea7169a5149cf7a1645305df2aeac01ef6423dda",
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -28.9,
+          -19.5,
+          0.0,
+          28.9,
+          19.5,
+          18.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat",
+        "objet_source": "Reference",
+        "sha256": "929bf3e2526c818355445d14751f72964666ca1c8c2386970673c504a2edad35",
+        "forme_valide": true,
+        "solides": 12,
+        "bbox_mm": [
+          -31.85,
+          -17.5,
+          -2.382299e-09,
+          25.55,
+          17.5,
+          81.9
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Waveshare15817_UART_Isole",
+        "objet_source": "Reference",
+        "sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+        "forme_valide": true,
+        "solides": 5,
+        "bbox_mm": [
+          9.2,
+          -3.25,
+          0.0,
+          90.0,
+          83.25,
+          27.4
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Samsung990EVOPlus_1To",
+        "objet_source": "Ensemble",
+        "sha256": "37078b961d0eb05e23dcef05f017bdb3afca049a487471852a4ed76586c882a6",
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -40.075,
+          -11.075,
+          0.0,
+          40.075,
+          11.075,
+          2.38
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Fujinon_CF8ZA1S",
+        "objet_source": "Ensemble",
+        "sha256": "8984a1bd639bd21c161d8c2fe12b9452608faa352cf74071a77f283969230b87",
+        "forme_valide": true,
+        "solides": 3,
+        "bbox_mm": [
+          -27.000000000000007,
+          -27.000000000000007,
+          -4.000000000000001,
+          27.0,
+          27.000000000000007,
+          66.97000000000001
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_JBD_SP22S003_BMS",
+        "objet_source": "Reference",
+        "sha256": "4c04c39a5617a52e0a3e0bf0af601717167e6c05da285ec279d39e17d2ce49d0",
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          130.5,
+          65.5,
+          12.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Kingston_SDCE32GB",
+        "objet_source": "Ensemble",
+        "sha256": "ab4b92c37a4d2e89090fe32666036ff818eed04e8d0c1f272113d5ccdcd4ac6b",
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -7.5,
+          -5.5,
+          0.0,
+          7.5,
+          5.5,
+          1.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_CUAV_USL_Prototype",
+        "objet_source": "Ensemble",
+        "sha256": "94f6886b6390a8f94a8dbac6360f6df5278b38062033868bfea610e0d5e5c2c7",
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -17.5,
+          -12.5,
+          0.0,
+          17.5,
+          12.5,
+          15.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Airy",
+        "objet_source": "Airy",
+        "sha256": "d8f31fb861394bdf3db716f62a0bc5a75379625700622f73ad44ca175239ab11",
+        "forme_valide": true,
+        "solides": 29,
+        "bbox_mm": [
+          -69.0,
+          -37.55736929122494,
+          -194.00447127433995,
+          -9.0,
+          30.000000000000004,
+          -131.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Antenne_RP4TD_Prototype",
+        "objet_source": "Ensemble",
+        "sha256": "613590afa1fad83d66af9366083ddd5911bdb80f4628a555bb52404e817ec9f4",
+        "forme_valide": true,
+        "solides": 2,
+        "bbox_mm": [
+          -4.0,
+          -2.0,
+          0.0,
+          4.0,
+          2.0,
+          60.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Holybro11072_Prototype",
+        "objet_source": "Ensemble",
+        "sha256": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032",
+        "forme_valide": true,
+        "solides": 2059,
+        "bbox_mm": [
+          0.0,
+          -0.9999998569081654,
+          -4.25,
+          126.0,
+          80.51250152589745,
+          18.852320000083683
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Holybro_PDB18138_Systeme_Candidat",
+        "objet_source": "Reference",
+        "sha256": "c5ff64ca75e4c0e9c1e7bc96ddd4b545088dbf9ca394b42a408d631267c19dfa",
+        "forme_valide": true,
+        "solides": 27,
+        "bbox_mm": [
+          85.00017018034,
+          85.00510907911,
+          -1.682397764797,
+          144.9875895352,
+          164.9876301753,
+          21.317602533224
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "CA01_PCB_Revue_20261003",
+        "objet_source": "CarteCA01",
+        "sha256": "b48335ba7019654a77d7afe84d887075788eb42d243865d96501577a976494b6",
+        "forme_valide": true,
+        "solides": 309,
+        "bbox_mm": [
+          0.0,
+          -80.0,
+          -1.88,
+          126.0,
+          0.0,
+          12.22
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      },
+      {
+        "reference": "EQ_Tattu20Ah6S_Dock",
+        "objet_source": "Reference",
+        "sha256": "2132dd34b035f3a1081939c0b36258a7e65e22744d0fd1d66a0d76ccdd747531",
+        "forme_valide": true,
+        "solides": 1,
+        "bbox_mm": [
+          -96.5,
+          -38.0,
+          0.0,
+          96.5,
+          38.0,
+          58.0
+        ],
+        "bbox_reproductible": true,
+        "erreurs_document": [],
+        "aucune_sauvegarde_reouverture": true
+      }
+    ],
+    "sources": [
+      {
+        "id": "PM08_DOWNLOAD",
+        "sha256_coherent": true
+      },
+      {
+        "id": "PM08_CASE",
+        "sha256_coherent": true
+      },
+      {
+        "id": "PM08_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "BASLER_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "BASLER_DRAWING",
+        "sha256_coherent": true
+      },
+      {
+        "id": "BASLER_CONNECTORS",
+        "sha256_coherent": true
+      },
+      {
+        "id": "BASLER_INTRUSION",
+        "sha256_coherent": true
+      },
+      {
+        "id": "BASLER_SOURCE_ANTERIEURE",
+        "sha256_coherent": true
+      },
+      {
+        "id": "FAN_DRAWING",
+        "sha256_coherent": true
+      },
+      {
+        "id": "FAN_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "GNSS_DOWNLOAD",
+        "sha256_coherent": true
+      },
+      {
+        "id": "GNSS_CAD",
+        "sha256_coherent": true
+      },
+      {
+        "id": "GNSS_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "ISO_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "ISO_DRAWING",
+        "sha256_coherent": true
+      },
+      {
+        "id": "JBD_A01",
+        "sha256_coherent": true
+      },
+      {
+        "id": "SAMSUNG_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "KINGSTON_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "FUJINON_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "FUJINON_DRAWING",
+        "sha256_coherent": true
+      },
+      {
+        "id": "FUJINON_DXF",
+        "sha256_coherent": true
+      },
+      {
+        "id": "AIRY_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "AIRY_CAD",
+        "sha256_coherent": true
+      },
+      {
+        "id": "CUAV_SPEC",
+        "sha256_coherent": true
+      },
+      {
+        "id": "HOLYBRO_MASS",
+        "sha256_coherent": true
+      },
+      {
+        "id": "NVIDIA_MASS",
+        "sha256_coherent": true
+      },
+      {
+        "id": "RP4TD_DRAWING",
+        "sha256_coherent": true
+      },
+      {
+        "id": "RP4TD_MANUAL",
+        "sha256_coherent": true
+      },
+      {
+        "id": "TATTU_SPEC",
+        "sha256_coherent": true
+      }
+    ],
+    "conforme": true,
+    "qualification_physique": false,
+    "limites": "Contrôles des pièces seules. Assemblages, accouplements, collisions, fixations et routes sont contrôlés par l’intégrateur."
+  }
+}

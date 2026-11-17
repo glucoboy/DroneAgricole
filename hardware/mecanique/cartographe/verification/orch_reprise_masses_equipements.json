@@ -1,0 +1,1289 @@
+{
+  "schema_version": "drone-agricole.orch-reprise-masses-equipements.v1",
+  "lot": "ORCH-CAO-MASSE-1",
+  "date_consultation": "2026-10-25",
+  "statut": "À valider",
+  "cadrage": {
+    "probleme": "Attribuer les masses documentaires des références de définition et leurs inclusions sans exiger un matériel reçu.",
+    "observations": [
+      "La BOM exclut plusieurs masses nominales fabricant disponibles.",
+      "Une absence de tolérance publiée ne rend pas une masse nominale inutilisable.",
+      "La référence exacte et le périmètre de l’ensemble restent nécessaires."
+    ],
+    "hypotheses": [
+      "La sélection documentaire peut conserver le contenu fabricant explicitement déclaré.",
+      "Les inconnues restent null ; les maximums et approximations gardent leur nature."
+    ],
+    "acceptation": [
+      "Chaque poste reçoit une proposition applicable ou un problème massique précis.",
+      "Sources primaires originales, empreintes, dates, droits et inclusions conservés.",
+      "Aucune édition des natifs, BOM, manifestes, anciennes preuves ou documents partagés."
+    ],
+    "arret": "Après les fiches produit, plans/manuels et sources primaire de la référence ; continuer les autres postes lorsqu’une masse nette reste absente.",
+    "calculs": "Aucun total métier calculé ici ; intégration et calculs C++17 sous propriétaire root."
+  },
+  "sources": [
+    {
+      "id": "TATTU_NET",
+      "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/GensAce_Tattu_NMC_TAA200006S5X9S.html",
+      "sha256": "228ad70d00d07a5e5feef2e457ac2f774b5dce865546cd6651c11037c9ebf134",
+      "revision": "Source fabricant courante ; indice à préciser après lecture.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Archive originale conservée ; donnée vérifiée sur page primaire actuelle. Nouvelle capture HTML : HTTP429.",
+      "archive_originale": true,
+      "date_capture_originale": "2026-10-02"
+    },
+    {
+      "id": "PM08_SPEC",
+      "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+      "fichier": "hardware/electronique/cartographe/sources_fabricants/Holybro_PM08_CAN_20260929.html",
+      "sha256": "fc37b312ba8980d4b111a771cf5e9ad0167a9f7d6212eb99642c6a2d670e6744",
+      "revision": "Source fabricant courante ; indice à préciser après lecture.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Archive originale conservée ; masse185g et8AWG vérifiés sur page actuelle. Nouvelle capture HTML : HTTP429.",
+      "archive_originale": true,
+      "date_capture_originale": "2026-09-29"
+    },
+    {
+      "id": "PM08_PHOTO_15029",
+      "url": "https://holybro.com/cdn/shop/files/15029_7.jpg?v=1719574436",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PM08_15029.jpg",
+      "sha256": "807c12d58f91eeb69d600c75b775cb9035d3f684e9993bd03061f47a3661f996",
+      "revision": "Photo du SKU15029 ; quatre fils avec étiquettes Vbat-IN/Vbat-out.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "PM08_PINOUT",
+      "url": "https://cdn.shopifycdn.net/s/files/1/0604/5905/7341/files/Pinout_480x480.jpg?v=1719898500",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PM08_pinout.jpg",
+      "sha256": "19143ca3288412a5de41b9f9d416a06c8fa5a9bf0bad58db1c68beeb15f1ae90",
+      "revision": "Visuel fabricant POWER1/POWER2,5V/5V/CANH/CANL/GND/GND.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "PM08_DIMENSIONS",
+      "url": "https://cdn.shopifycdn.net/s/files/1/0604/5905/7341/files/PM08-CAN_Dimension_V001.pdf?v=1719900677",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PM08_dimensions_V001.pdf",
+      "sha256": "19402689ce5491a77dd75cff39c582c4039c411be227420bd18f7c39ed1007b7",
+      "revision": "Plan fabricant PM08-CAN Dimension V001 :62,9×41,6×24,8mm, entraxe fils28,5mm.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "JBD_A01",
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/JBD_SP22S003_Li_ion_A01.pdf",
+      "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7",
+      "revision": "Spécification Li-ion A01,20pages,40–100A ; aucune masse nette trouvée.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CARRIER_STORE",
+      "url": "https://holybro.com/products/pixhawk-jetson-baseboard?variant=44636182347965",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_11072.html",
+      "sha256": "77486ff5e0af1dc3c8f305e4caf08b265e7a1968ac1d5ba223c9eebeb1f2d745",
+      "revision": "SKU11072 = BaseboardOnly / None / WithoutCase ; ne pas confondre11072A.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CARRIER_MASS",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight.md",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_11072_masses.md",
+      "sha256": "aef04ab24ba6f5d37c008a7a184bc88e600407f75177c3a2bac7fe72349da23f",
+      "revision": "Documentation actuelle : porteuse seule85g ; boîtier séparé90g. Les masses de bundles ne sont pas soustraites.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "FCU_REV8",
+      "url": "https://holybro.com/products/pixhawk-6x",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_Pixhawk6X_Rev8.html",
+      "sha256": "d6d33054edd3e11257502499830593db578ed1192b52f01b96e6a1eab8a737e6",
+      "revision": "Page actuelle : SKU11073, nouveau montage antivibratoire,31,3g et38,8×31,8×16,8mm.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "FCU_REV3",
+      "url": "https://holybro.com/products/pixhawk-6x-rev3",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_Pixhawk6X_Rev3_4.html",
+      "sha256": "22890253bbac46ac99a4cd49a4a32fb1ba33f9075b6208d70af935e22e5511f5",
+      "revision": "Page legacy explicitement Rev3/4 : module23g et hauteur14,6mm.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "X650_CONTENTS",
+      "url": "https://holybro.com/products/x650-development-kit",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_X650_kit.html",
+      "sha256": "24544f452d8c79d867427fe63223f016ef39286636f7fc83654eed7cb833d559",
+      "revision": "Source fabricant courante ; indice à préciser après lecture.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "FAN_SPEC",
+      "url": "https://www.waveshare.com/product/ai/accessories/orin-fan-pwm.htm",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_Orin_FAN_PWM.html",
+      "sha256": "71e35836dd442551f79542764b7c39d4599ec052b719b8de2c05ac26b6b2e3ff",
+      "revision": "SKU24076 : Weight0,072kg, produit et bride/vis ; aucune mention shipping/gross.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "ISO_SPEC",
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_15817.html",
+      "sha256": "c0cb168a78f044326e7cfb9ec276edd6bd2118df10f759a17ae9699b70479326",
+      "revision": "SKU15817/FT232RNL : Weight0,2286kg dans contenu kit incluant USB≈1,2m ; JSON-LD arrondi229g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "PDB_SPEC",
+      "url": "https://holybro.com/products/power-distribution-board-pdb-300a-top-entry",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PDB18138.html",
+      "sha256": "5e5788bde993e058f445b2e1da8c0150308537a3dd421da6515e87233af271e5",
+      "revision": "SKU18138 : seule métadonnée Shopify weight180, identique aux options cordons ; aucune masse nette publiée dans corps de page.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "GNSS_STORE",
+      "url": "https://holybro.com/products/dronecan-h-rtk-f9p-helical",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_GNSS12037.html",
+      "sha256": "83706b6185cf9673da0638cd5c95ddd7003033ba5230002e9fe3b9f1323b9b13",
+      "revision": "SKU12037, STM32G473, module+antenne, masse61,2g ; câbles séparés dans contenu du colis.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "GNSS_DOC",
+      "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification.md",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_GNSS_specification.md",
+      "sha256": "c6ae31b173f947e5481c35e2d52e9f2be69c1463b2111718980f4dcd5affef4b",
+      "revision": "G4/S32K1 :58g dans tableau ; divergence avec page SKU12037 actuelle61,2g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "NVIDIA_MASS",
+      "url": "https://forums.developer.nvidia.com/t/jetson-orin-nx-dry-weight/232621",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/NVIDIA_OrinNX_masse.html",
+      "sha256": "f693a944853dd02b9f9681bb4775013070bd749b8450cad9813eed1d570d1a90",
+      "revision": "Réponse personnel NVIDIA,11 novembre2022, module OrinNX sec28g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "SSD_DATASHEET",
+      "url": "https://download.semiconductor.samsung.com/resources/data-sheet/samsung_nvme_ssd_990_evo_plus_datasheet_rev.1.0_10139908981125.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Samsung_990_EVO_Plus_rev1.pdf",
+      "sha256": "be258d24692caa99fa623c7ba103e596ff8b82f0c230ab428b6ec4998b9bcf42",
+      "revision": "Source fabricant courante ; indice à préciser après lecture.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "KINGSTON_DATASHEET",
+      "url": "https://www.kingston.com/datasheets/SDCE_en.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Kingston_SDCE.pdf",
+      "sha256": "2dbc0892054f94f0f30def5dea05278fa185472e2a964e7a05e5f18031aa02fc",
+      "revision": "SDCE/32GB dans fiche HighEndurance ; dimensions mais aucune masse nette.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_USL",
+      "url": "https://store.cuav.net/shop/c-rtk-usl-expansion-module/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_USL.html",
+      "sha256": "623ff5d110b3ddc5a7f0782a92ccd09e59a7ecdfae0b339d5dec1f09bc3e88a2",
+      "revision": "Page produit officielle :1module+2câbles ; libellé variante2Pcs contradictoire, aucune masse.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "BASLER_SPEC",
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Basler_a2A4096_30ucBAS.html",
+      "sha256": "b4fd15fce35ed0eb5ef5afc7b9ee7bdd7000e6e42f4d5e7269d8303911552ba3",
+      "revision": "Modèle exact a2A4096-30ucBAS, FrontII, Weight<85g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "FUJINON_SPEC",
+      "url": "https://asset.fujifilm.com/www/us/files/2022-10/bed2e95d89655bd0f71ed68cf0476a0f/cf8za-1s.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Fujinon_CF8ZA_1S_rev2_3.pdf",
+      "sha256": "b71055f7eb0ecb601b60e6d10cbb8a9fd27f81a84b33bbb0a6193d0be88e512c",
+      "revision": "Fiche CF8ZA-1S Ver2.3,17-Oct-2022, Weight approx180g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "AIRY_SPEC",
+      "url": "https://robosense-robotics.github.io/product-manual/en/Airy/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/RoboSense_Airy.html",
+      "sha256": "6d6fa49f69c0efac434a1d355598d112ad94e2c5530e6d80640bae5b26f7ec5b",
+      "revision": "Manuel fabricant Airy :230±20g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "RP4TD_SPEC",
+      "url": "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Capture_web_RadioMaster_Tattu.txt",
+      "sha256": "b04761b4659d628197add0072b13425ff13b318d681a7c76ee853a6df46b2602",
+      "revision": "Source fabricant courante ; indice à préciser après lecture.",
+      "date_consultation": "2026-10-25",
+      "droits": "Source publique fabricant, droits réservés ; licence de redistribution non publiée. Original préservé hors Git.",
+      "collecte": "Capture de consultation primaire conservée ; HTML direct HTTP429 ; manuel original également conservé.",
+      "capture_normalisee": true,
+      "format": "Réponse indexée de consultation web, texte normalisé ; ne remplace pas un original HTML fabricant."
+    },
+    {
+      "id": "ANT_T65",
+      "url": "https://radiomasterrc.com/products/ufl-2-4ghz-t-antenna-65mm-95mm-for-elrs-receivers.js",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/RadioMaster_T65_api.json",
+      "sha256": "b58f204ad1f9e5a9f3ca16d2bbb0404e5a9cf9e7d8c5609490a5ee4a5f984e1a",
+      "revision": "Description JSON publique, variante65mm SKU HP0157.RXANT-T2465 ; poids produit1,76g.",
+      "date_consultation": "2026-10-25",
+      "droits": "Document public fabricant, droits réservés ; licence de redistribution non publiée.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "RP4TD_MANUAL",
+      "url": "https://cdn.shopify.com/s/files/1/0609/8324/7079/files/RP4TD.pdf?v=1730771705",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/RadioMaster_RP4TD_manuel.pdf",
+      "sha256": "543aeb69bfb1c90c667504c1954bbba5ba00629f60f68f031e0eb0d99d36e41e",
+      "revision": "Manuel lié actuellement par fabricant,2pages ; texte1,4g avec2antennes contredit page actuelle1,4g sans antenne.",
+      "date_consultation": "2026-10-25",
+      "droits": "Document public fabricant, droits réservés ; licence de redistribution non publiée.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_BROCHURE",
+      "url": "https://manual.cuav.net/CUAV%20Product%20Brochure_V25.2.0.pdf",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_brochure_V25_2_0.pdf",
+      "sha256": "d01fefeea7dd4ed8c4ab3cc19db6ea2bd14cfd8bd71cb59d512a3b3093a6e8f6",
+      "revision": "CUAV ProductBrochure V25.2.0 ; pas de masse USL trouvée.",
+      "date_consultation": "2026-10-25",
+      "droits": "Document public fabricant, droits réservés ; licence de redistribution non publiée.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_IMAGE_61",
+      "url": "https://ae01.alicdn.com/kf/H3f57a6fbaf65452e9be658b2ae2e4afda.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_USL_61.jpg",
+      "sha256": "6348e49dace30813b18bfd86729a411d1c88050a6ba2db76dc8b3327ae24711e",
+      "revision": "Image reliée par page produit CUAV officielle ; hébergement externe.",
+      "date_consultation": "2026-10-25",
+      "droits": "Image publique reliée par le fabricant, droits et auteur originel non publiés.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_IMAGE_62",
+      "url": "https://ae01.alicdn.com/kf/H931eaaf1673645da8b2a31c85df9e846c.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_USL_62.jpg",
+      "sha256": "1cba447c7ee3e0ba98820a7b32b8b4189247050a4bb513be6093a8b2c57367f4",
+      "revision": "Image reliée par page produit CUAV officielle ; hébergement externe.",
+      "date_consultation": "2026-10-25",
+      "droits": "Image publique reliée par le fabricant, droits et auteur originel non publiés.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_IMAGE_63",
+      "url": "https://ae01.alicdn.com/kf/Hbeba4d7479f94a88993090ccf8f25ed28.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_USL_63.jpg",
+      "sha256": "9602053e5490577e9ddabe304980cc1bc983d271bdd7fd8b4ca6473b0f3e6d42",
+      "revision": "Image reliée par page produit CUAV officielle ; hébergement externe.",
+      "date_consultation": "2026-10-25",
+      "droits": "Image publique reliée par le fabricant, droits et auteur originel non publiés.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "CUAV_IMAGE_60",
+      "url": "https://ae01.alicdn.com/kf/Hb7636800a759400a8b4e31d7ccf933cac.jpg",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/CUAV_USL_60.jpg",
+      "sha256": "3caf455b946ee382b25e76b1de51e5f956188bc525ed73d5d8137a6318a2c771",
+      "revision": "Image du contenu reliée par CUAV Store ; un module et deux câbles.",
+      "date_consultation": "2026-10-25",
+      "droits": "Image publique reliée par le fabricant ; droits et auteur originel non précisés.",
+      "collecte": "Original conservé"
+    },
+    {
+      "id": "TATTU_CONSULTATION",
+      "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Capture_web_RadioMaster_Tattu.txt",
+      "sha256": "b04761b4659d628197add0072b13425ff13b318d681a7c76ee853a6df46b2602",
+      "revision": "Consultation primaire actuelle : NET1950±20g ; mêmes spécifications que capture originale.",
+      "date_consultation": "2026-10-25",
+      "droits": "Texte public fabricant, droits réservés ; capture normalisée de consultation.",
+      "capture_normalisee": true,
+      "collecte": "Capture de consultation primaire conservée ; pas un original HTML."
+    },
+    {
+      "id": "PM08_CASE",
+      "url": "https://docs.holybro.com/power-module-and-pdb/power-module/download",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_CAN_PM08_Case_v003.step",
+      "sha256": "f31ae70b1c14ea0d455c86e2f7c9cc946a56ede3d644baa1bf19b2e6b53640f0",
+      "revision": "CAN PM08 Case v003, original STEP conservé ; pour repérage des passages et fenêtres.",
+      "date_consultation": "2026-10-25",
+      "droits": "CAO publique Holybro ; licence de redistribution non publiée.",
+      "archive_originale": true,
+      "collecte": "Original antérieur inchangé"
+    }
+  ],
+  "interfaces_PM08": {
+    "reference": "PM08-CAN15029 TinnedWires",
+    "source_ids": [
+      "PM08_SPEC",
+      "PM08_PHOTO_15029",
+      "PM08_PINOUT",
+      "PM08_DIMENSIONS",
+      "PM08_CASE"
+    ],
+    "gauge_documentee": "8AWG, multibrins isolant silicone",
+    "diametre_exterieur_fil_mm": null,
+    "diametre_passage_carter_STEP_mm": 6.2,
+    "entraxe_fils_documente_mm": 28.5,
+    "repere_local_conserve": {
+      "LED_centre_mm": [
+        10.25,
+        20.5000556785,
+        24.0951221896
+      ],
+      "axes_fils": "±X ; positifs côtéY+ par recalage photo/STEP",
+      "nature_attribution": "Déduite de la photo fabricant15029 étiquetée IN/OUT et du STEP/plande cotes ; pas une cote électrique publiée."
+    },
+    "sorties_deduites": [
+      {
+        "fonction": "IN+",
+        "point_local_mm": [
+          44.65,
+          34.75,
+          16.89512218961
+        ],
+        "axe_sortant": [
+          1,
+          0,
+          0
+        ],
+        "couleur": "rouge"
+      },
+      {
+        "fonction": "IN-",
+        "point_local_mm": [
+          44.65,
+          6.25,
+          16.89512218961
+        ],
+        "axe_sortant": [
+          1,
+          0,
+          0
+        ],
+        "couleur": "noir"
+      },
+      {
+        "fonction": "OUT+",
+        "point_local_mm": [
+          0.35,
+          34.75,
+          16.89512218961
+        ],
+        "axe_sortant": [
+          -1,
+          0,
+          0
+        ],
+        "couleur": "rouge"
+      },
+      {
+        "fonction": "OUT-",
+        "point_local_mm": [
+          0.35,
+          6.25,
+          16.89512218961
+        ],
+        "axe_sortant": [
+          -1,
+          0,
+          0
+        ],
+        "couleur": "noir"
+      }
+    ],
+    "prises_de_signal": [
+      {
+        "designation": "POWER2",
+        "fenetre_centre_local_mm": [
+          12.5,
+          -0.3,
+          8.641410000998
+        ],
+        "axe_sortant": [
+          0,
+          -1,
+          0
+        ]
+      },
+      {
+        "designation": "POWER1",
+        "fenetre_centre_local_mm": [
+          32.5,
+          -0.3,
+          8.641410000998
+        ],
+        "axe_sortant": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "contacts_chaque_prise": [
+      "5V",
+      "5V",
+      "CANH",
+      "CANL",
+      "GND",
+      "GND"
+    ],
+    "limites": [
+      "Le calibre8AWG ne détermine pas le diamètre extérieur ; diamètre6,5mm actuel non justifié au passageØ6,2.",
+      "Les points ci-dessus sont ceux des passages/fenêtres et non des plans de contact fabricant.",
+      "Aucun troisième portCAN séparé n’est documenté ; répartir F06/F32/F31 sur les deux prises selon contacts.",
+      "Le routage peut terminer sur les bornes externes du boîtier avec réservation interne explicitement non libérée ; pas de validation de traversée tant que diamètre OEM inconnu.",
+      "Longueurs des quatre fils non cotées ; pas de calcul ou masse de coupes/extensions inventé."
+    ]
+  },
+  "propositions_normalisees": [
+    {
+      "bom_id": "ELEC-BAT",
+      "masse_unitaire_g": 1950,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "TATTU_NET",
+        "TATTU_CONSULTATION"
+      ],
+      "conditions": "Masse nette documentée du pack TAA200006S5X9S livré. Applicable si cordons150mm, XT90-S et JST sont tous conservés. Le raccordement actif retire XT90-S : delta de masse inconnu, donc valeur conservée comme référence documentaire/partielle, sans crédit de retrait inventé.",
+      "inclusions": [
+        "Pack",
+        "Cordons AWG8 150mm et équilibrage22AWG 150mm",
+        "XT90-S",
+        "JST-XHR-7P"
+      ],
+      "exclusions": [
+        "BMS",
+        "QS8 ajouté",
+        "supports"
+      ],
+      "incertitude_g": 20
+    },
+    {
+      "bom_id": "ELEC-BMS",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "conditions": "JBD-SP22S003 Li-ion A01 100A : absence de masse nette dans fiche20pages et pages primaire produit examinées. La variante100A est la définition, aucune attente d’inventaire matériel n’est invoquée.",
+      "inclusions": [
+        "Carte BMS avec Bluetooth intégré et dissipateur de la référence"
+      ],
+      "exclusions": [
+        "Câbles/NTC externes si non inclus explicitement",
+        "supports"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-NTC",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "conditions": "Deux NTC externes10kΩ B3950 avec faisceau250mm HY2.0-4P ; ni masse individuelle ni inclusion dans une masse nette BMS disponible.",
+      "inclusions": [
+        "Deux sondes et faisceau spécifié"
+      ],
+      "exclusions": [],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-PM08",
+      "masse_unitaire_g": 185,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "PM08_SPEC",
+        "PM08_PHOTO_15029"
+      ],
+      "conditions": "Valeur fabricant185g câbles inclus pour PM08-CAN. Retenir la masse d’ensemble uniquement si les quatre filsOEM du15029 sont intégralement conservés. Les coupes/extensions et longueurs F05/F38 ne sont pas encore réconciliées : valeur documentaire conditionnelle, sans soustraction arbitraire.",
+      "inclusions": [
+        "Module et boîtier",
+        "Quatre fils8AWG OEM"
+      ],
+      "exclusions": [
+        "Cosses ajoutées F05",
+        "QS8 ajouté F38",
+        "Extensions ajoutées",
+        "support"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-PDB",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "PDB_SPEC"
+      ],
+      "conditions": "PDB300A TopEntry18138 seul. Métadonnée Shopify180 identique pour la carte et toutes les options de cordons ; ce champ ne démontre pas une masse nette.",
+      "inclusions": [
+        "Carte assemblée18138 avec connecteurs intégrés"
+      ],
+      "exclusions": [
+        "Cordons optionnels"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-ISO",
+      "masse_unitaire_g": 228.6,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "ISO_SPEC"
+      ],
+      "conditions": "Kit Waveshare15817 exact conservé : convertisseur FT232RNL et cordon USB A/B≈1,2m entier, explicitement retenu par ELEC-F41 avec boucle fixée. Masse commerciale fabricant du kit, pas mesure ; sans tolérance publiée. Les masses séparées module/câble restent indisponibles.",
+      "inclusions": [
+        "Convertisseur15817 avec boîtier",
+        "Cordon USB A/B≈1,2m ELEC-F41"
+      ],
+      "exclusions": [
+        "Support et fixations projet"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-F41",
+      "masse_unitaire_g": null,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "ISO_SPEC"
+      ],
+      "conditions": "Cordon USB A/B entier≈1,2m inclus dans les228,6g du kit ELEC-ISO. Ne pas lui attribuer une masse zéro ni le sommer une deuxième fois ; masse individuelle inconnue.",
+      "inclusions": [
+        "Cordon OEM entier, connecteurs et moulages"
+      ],
+      "exclusions": [],
+      "incertitude_g": null,
+      "masse_incluse_dans": "ELEC-ISO"
+    },
+    {
+      "bom_id": "AVI-CARRIER",
+      "masse_unitaire_g": 85,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "CARRIER_STORE",
+        "CARRIER_MASS"
+      ],
+      "conditions": "Porteuse seule sans boîtier, SKU11072 : correspondance explicitement donnée par la variante constructeur WithoutCase. Masse documentaire85g sans Jetson ni FCU ; ne pas exclure pour absence de matériel reçu ou tolérance. Pas de soustraction de bundle.",
+      "inclusions": [
+        "Porteuse assemblée avec connecteurs/composants intégrés"
+      ],
+      "exclusions": [
+        "Boîtier aluminium90g",
+        "Jetson",
+        "FCU",
+        "SSD",
+        "refroidissement",
+        "câbles amovibles"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-FCU",
+      "masse_unitaire_g": 31.3,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "FCU_REV8",
+        "FCU_REV3",
+        "X650_CONTENTS"
+      ],
+      "conditions": "31,3g ne s’applique qu’au module courant11073 avec nouveau montage antivibratoire et hauteur16,8mm. La CAO et l’ancienne définition utilisent une hauteur14,6mm ; source legacy Rev3/4 donne23g. Ne pas choisir une révision pour obtenir une masse. Résoudre la révision de définition/CAO puis appliquer sa masse.",
+      "inclusions": [
+        "Module FCU seul"
+      ],
+      "exclusions": [
+        "Baseboard kit retirée",
+        "PM02D retiré",
+        "porteuse Jetson"
+      ],
+      "incertitude_g": null,
+      "valeurs_alternatives": [
+        {
+          "valeur_g": 23,
+          "source_ids": [
+            "FCU_REV3"
+          ],
+          "conditions": "Module Rev3/4 legacy, hauteur14,6mm ; correspondance avec définition active à établir."
+        }
+      ]
+    },
+    {
+      "bom_id": "AVI-CPU",
+      "masse_unitaire_g": 28,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "NVIDIA_MASS"
+      ],
+      "conditions": "NVIDIA publie28g pour module OrinNX sec ; module16Go de la définition, sans tolérance publiée, pas une masse pesée par le projet.",
+      "inclusions": [
+        "Module SoM"
+      ],
+      "exclusions": [
+        "Porteuse",
+        "SSD",
+        "dissipateur",
+        "bride et vis"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "MEC-REFROIDISSEMENT-JETSON",
+      "masse_unitaire_g": 72,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "FAN_SPEC"
+      ],
+      "conditions": "Poids produit fabricant72g pour le kit24076, pas masse shipping explicite. Applicable au kit entier (fan/dissipateur, bride, vis limitées et graisse). Le montage CAO conserve quatre visOEM Holybro et ne démontre pas la bride/vis Waveshare : valeur documentaire conditionnelle ; ne pas la traiter comme masse du seul dissipateur ni ajouter les fixations deux fois.",
+      "inclusions": [
+        "Dissipateur et ventilateur",
+        "Cordon OEM37±3mm",
+        "Bride élastique",
+        "Vis limitées",
+        "Graisse thermique fournie"
+      ],
+      "exclusions": [
+        "Jetson",
+        "Extensions F20 éventuelles",
+        "visserie projet supplémentaire"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "ELEC-F20",
+      "masse_unitaire_g": null,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "FAN_SPEC"
+      ],
+      "conditions": "Le cordon OEM37±3mm est inclus dans le refroidissement. La masse du kit parent72g reste conditionnelle à son contenu installé ; aucune masse individuelle de cordon. Toute rallonge/adaptation doit être ajoutée séparément.",
+      "inclusions": [
+        "Cordon OEM"
+      ],
+      "exclusions": [
+        "Rallonge et adaptation éventuelles"
+      ],
+      "incertitude_g": null,
+      "masse_incluse_dans": "MEC-REFROIDISSEMENT-JETSON"
+    },
+    {
+      "bom_id": "AVI-SSD",
+      "masse_unitaire_g": 9,
+      "nature": "fabricant",
+      "qualificatif": "maximale",
+      "applicable": true,
+      "source_ids": [
+        "SSD_DATASHEET"
+      ],
+      "conditions": "MZ-V9S1T0BW1To : maximum fabricant9,0g applicable à la référence exacte, sans dissipateur ajouté. Borne documentaire exploitable ; ne pas la convertir en masse nominale exacte.",
+      "inclusions": [
+        "SSD"
+      ],
+      "exclusions": [
+        "Vis/entretoise",
+        "dissipateur ajouté"
+      ],
+      "incertitude_g": null,
+      "relation": "<="
+    },
+    {
+      "bom_id": "AVI-SD",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "KINGSTON_DATASHEET"
+      ],
+      "conditions": "Kingston SDCE/32GB carte seule. La fiche ne donne pas de masse ; les10g de revendeurs correspondent à l’emballage/adaptateur et ne sont pas utilisés.",
+      "inclusions": [
+        "Carte microSD"
+      ],
+      "exclusions": [
+        "Adaptateur SD",
+        "emballage"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "AVI-SAFE",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "CUAV_USL",
+        "CUAV_BROCHURE",
+        "CUAV_IMAGE_60",
+        "CUAV_IMAGE_61",
+        "CUAV_IMAGE_62",
+        "CUAV_IMAGE_63"
+      ],
+      "conditions": "CUAV C-RTK USL : page fabricant, brochure et images examinées, aucune masse nette trouvée. Définition1module ; page annonce2Pcs dans option mais contenu1module+2câbles, incohérence à expliciter.",
+      "inclusions": [
+        "Module bouton/buzzer/LED"
+      ],
+      "exclusions": [
+        "Câbles spécifiques non embarqués si adaptés par le projet"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "SEN-LIDAR",
+      "masse_unitaire_g": 230,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "AIRY_SPEC"
+      ],
+      "conditions": "Airy, masse fabricant230±20g du capteur ; câbles et fixation externe séparés.",
+      "inclusions": [
+        "Capteur avec boîtier et connecteurs intégrés"
+      ],
+      "exclusions": [
+        "Câbles externes",
+        "vis et piges projet"
+      ],
+      "incertitude_g": 20
+    },
+    {
+      "bom_id": "SEN-CAMERA",
+      "masse_unitaire_g": 85,
+      "nature": "fabricant",
+      "qualificatif": "maximale",
+      "applicable": true,
+      "source_ids": [
+        "BASLER_SPEC"
+      ],
+      "conditions": "a2A4096-30ucBAS FrontII : borne stricte fabricant<85g. Cette donnée est applicable et utile au budget ; la masse nominale exacte reste inconnue.",
+      "inclusions": [
+        "Caméra avec C-mount et prises intégrées"
+      ],
+      "exclusions": [
+        "Objectif",
+        "cordons externes",
+        "vis de fixation"
+      ],
+      "incertitude_g": null,
+      "relation": "<"
+    },
+    {
+      "bom_id": "SEN-LENS",
+      "masse_unitaire_g": 180,
+      "nature": "fabricant",
+      "qualificatif": "approximative",
+      "applicable": true,
+      "source_ids": [
+        "FUJINON_SPEC"
+      ],
+      "conditions": "CF8ZA-1S, fiche Ver2.3 : environ180g pour l’objectif complet avec verrouillages captifs ; pas de tolérance publiée ni mesure projet.",
+      "inclusions": [
+        "Objectif complet",
+        "Verrouillages iris/focus captifs intégrés"
+      ],
+      "exclusions": [
+        "Bouchons/emballage",
+        "Vis supplémentaires ou support projet"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "MEC-OBJECTIF-RETENUE",
+      "masse_unitaire_g": null,
+      "nature": "fabricant",
+      "qualificatif": "approximative",
+      "applicable": true,
+      "source_ids": [
+        "FUJINON_SPEC"
+      ],
+      "conditions": "Les verrouillages captifs de l’objectif sont compris dans les≈180g de SEN-LENS. Toute vis supplémentaire réellement ajoutée doit être distinguée ; les pièces de rechange non montées restent au sol.",
+      "inclusions": [
+        "Verrouillages captifs intégrés"
+      ],
+      "exclusions": [
+        "Vis supplémentaire non incluse par preuve"
+      ],
+      "incertitude_g": null,
+      "masse_incluse_dans": "SEN-LENS"
+    },
+    {
+      "bom_id": "SEN-GNSS",
+      "masse_unitaire_g": 61.2,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "GNSS_STORE",
+        "GNSS_DOC"
+      ],
+      "conditions": "SKU12037 STM32G473, ensemble module+antenne hélicoïdale de la page produit actuelle :61,2g. Documentation générique58g conservée comme divergence ouverte, sans inventer une tolérance ni soustraire une masse d’antenne. Donnée nominale d’ensemble ; accouplement SMA géométrique traité séparément.",
+      "inclusions": [
+        "Module avec boîtier",
+        "Antenne hélicoïdale"
+      ],
+      "exclusions": [
+        "Câbles CAN/UART/USB amovibles du colis",
+        "Support et fixations projet"
+      ],
+      "incertitude_g": null,
+      "valeurs_alternatives": [
+        {
+          "valeur_g": 58,
+          "source_ids": [
+            "GNSS_DOC"
+          ],
+          "conditions": "Tableau G4/S32K1 documentaire ; différence de3,2g non expliquée par fabricant."
+        }
+      ]
+    },
+    {
+      "bom_id": "RF-ANT",
+      "masse_unitaire_g": 1.76,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": false,
+      "source_ids": [
+        "ANT_T65",
+        "RP4TD_SPEC"
+      ],
+      "conditions": "1,76g est publié pour antenne65mm SKU HP0157.RXANT-T2465 et inclut son coaxial U.FL. La pageRP4TD nomme deux antennesT65 mais ne donne pas leur MPN, et annonce des antennes améliorées. Correspondance avec le même OEM livré non démontrée : conserver la valeur conditionnelle, sans remplacer une référence pour obtenir le poids.",
+      "inclusions": [
+        "Une antenne T65 avec coaxial65mm et U.FL"
+      ],
+      "exclusions": [
+        "Support et fixations projet"
+      ],
+      "incertitude_g": null
+    },
+    {
+      "bom_id": "KIT-LED",
+      "masse_unitaire_g": null,
+      "nature": "inconnue",
+      "qualificatif": "inconnue",
+      "applicable": false,
+      "source_ids": [
+        "X650_CONTENTS"
+      ],
+      "conditions": "Quatre cartesLED OEM des bras, désignation WS2812 insuffisante pour identifier le PCB assemblé. Aucune masse nette dédiée trouvée ; ne pas utiliser la masse de puceLED seule ni celle du kit X650 complet.",
+      "inclusions": [
+        "CarteLED OEM avec composants intégrés"
+      ],
+      "exclusions": [
+        "Fixations ou câbles hors carte"
+      ],
+      "incertitude_g": null
+    }
+  ],
+  "inclusions_partielles": [
+    {
+      "ensemble": "ELEC-PM08",
+      "masse_documentaire_g": 185,
+      "postes": [
+        {
+          "bom_id": "ELEC-F38",
+          "contenu_couvert": "Paire IN OEM8AWG seulement",
+          "contenu_non_couvert": "Demi-QS8 et extensions ajoutées"
+        },
+        {
+          "bom_id": "ELEC-F05",
+          "contenu_couvert": "Paire OUT OEM8AWG seulement",
+          "contenu_non_couvert": "Deux cosses ajoutées et protections"
+        }
+      ],
+      "condition": "L’ensemble185g ne devient applicable qu’après conservation/réconciliation des longueurs OEM ; pas de masse de câble calculée en plus pour les mêmes fils."
+    },
+    {
+      "ensemble": "MEC-REFROIDISSEMENT-JETSON",
+      "postes": [
+        {
+          "bom_id": "ELEC-F20",
+          "contenu_couvert": "Cordon OEM37±3mm",
+          "contenu_non_couvert": "Rallonge/adaptation éventuelle"
+        }
+      ],
+      "condition": "Les quatre visOEM Holybro sont déjà dans la dérivée porteuse ; confronter leur comptage à la bride/vis du kit24076 et à la masse85g de porteuse, sans soustraction de bundle."
+    },
+    {
+      "ensemble": "RF-ANT",
+      "postes": [
+        {
+          "bom_id": "ELEC-F13",
+          "contenu_couvert": "Coaxiaux des deux antennes65mm",
+          "contenu_non_couvert": "Supports/colle ajoutés"
+        }
+      ],
+      "condition": "Valider l’identité des antennes OEM avant attribution1,76g ; ne pas ajouter une masse de coaxial séparée si déjà incluse."
+    }
+  ],
+  "problemes": [
+    {
+      "id": "EQ-MASS-BAT-DELTA",
+      "bom_ids": [
+        "ELEC-BAT"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "1950±20g est une masse nette primaire disponible, mais l’installation active retire le XT90-S. Le delta de masse après modification manque.",
+      "recherches": [
+        "Fiche GensAce/Tattu actuelle et capture originale conservée, référence exacte TAA200006S5X9S, NET1950±20g.",
+        "Les données de masse d’autres batteries ou d’expédition ne sont pas reprises."
+      ],
+      "source_ids": [
+        "TATTU_NET",
+        "TATTU_CONSULTATION"
+      ],
+      "information_necessaire": "Masse du pack adapté dans le périmètre défini ou masses documentées des seuls éléments retirés/ajoutés. Alternative de définition : conserver intégralement les éléments fabricant et représenter les adaptations ajoutées.",
+      "impact": "Valeur documentaire/partielle connue ; masse installée exacte ouverte, sans crédit de retrait."
+    },
+    {
+      "id": "EQ-MASS-BMS-NTC",
+      "bom_ids": [
+        "ELEC-BMS",
+        "ELEC-NTC"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Aucune masse nette fabricant trouvée pour SP22S003 Li-ion A01 100A et son doubleNTC/faisceau.",
+      "recherches": [
+        "Fiche primaire A01,20pages, recherche poids/weight/重量/质量 : aucune valeur.",
+        "Pages fabricant jbdbms.com/products/sp22s003 et about-this-item-sp22s003 consultées : aucune masse affichée ; captures HTML refuséesHTTP403.",
+        "Références secondaires annonçant package0,3kg rejetées comme masse d’expédition, non masse embarquée."
+      ],
+      "source_ids": [
+        "JBD_A01"
+      ],
+      "information_necessaire": "Masse nette de la variante100A, périmètre boîtier/Bluetooth/dissipateur, et inclusion exacte des deuxNTC, faisceau d’équilibrage et éventuel faisceauUART ; sinon pesée séparée.",
+      "impact": "Masse BMS/NTC null ; ne bloque pas attribution des autres équipements."
+    },
+    {
+      "id": "EQ-MASS-PM08-CONTENU",
+      "bom_ids": [
+        "ELEC-PM08",
+        "ELEC-F05",
+        "ELEC-F38"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "185g inclut les filsOEM, mais ni leurs longueurs publiées ni leur conservation exacte face aux routes modifiées ne sont établies.",
+      "recherches": [
+        "Page Holybro actuelle :185g IncludeCable,8AWG silicone ; variantes15028/15029/15030 explicites.",
+        "Photo exacte15029 et planV001 conservés ; diamètre extérieur et longueur des quatre fils non cotés."
+      ],
+      "source_ids": [
+        "PM08_SPEC",
+        "PM08_PHOTO_15029",
+        "PM08_DIMENSIONS"
+      ],
+      "information_necessaire": "Longueurs et diamètre extérieur des fils15029, masse ensemble si variante diffère ; réconcilier fils OEM conservés, coupes, extensions et terminaisons ajoutées.",
+      "impact": "185g reste masse nominale documentaire conditionnelle ; aucun double comptage F05/F38."
+    },
+    {
+      "id": "EQ-MASS-PDB",
+      "bom_ids": [
+        "ELEC-PDB"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Masse nette18138 absente ; Shopifyweight180 est identique à toutes les options, y compris cordons seuls.",
+      "recherches": [
+        "Fiche produit primaire18138 et ses variantes, aucune masse nette dans spécifications.",
+        "La métadonnée commerciale180 n’est pas présentée comme masse embarquée."
+      ],
+      "source_ids": [
+        "PDB_SPEC"
+      ],
+      "information_necessaire": "Masse nette carte18138 assemblée avec sixXT90 et deuxXT30, visserie/borniers inclus à expliciter ; sinon pesée de ce périmètre.",
+      "impact": "Contribution PDB null."
+    },
+    {
+      "id": "EQ-MASS-FCU-REVISION",
+      "bom_ids": [
+        "AVI-FCU"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Masse31,3g et hauteur16,8mm du produit actuel ; ancienne géométrie14,6mm et sourcelegacy23g. Aucun choix arbitraire de révision.",
+      "recherches": [
+        "Fiche actuelle11073/Rev8, nouvelle isolation antivibratoire :31,3g.",
+        "Fiche constructeur Rev3/4 :23g et14,6mm.",
+        "Contenu du kitX650 nomme Pixhawk6X sans résoudre cette définition mécanique."
+      ],
+      "source_ids": [
+        "FCU_REV8",
+        "FCU_REV3",
+        "X650_CONTENTS"
+      ],
+      "information_necessaire": "Révision/montage antivibratoire explicitement retenu dans la définition et correspondance avec le modèle CAO. Une fois fixé, utiliser la valeur primaire correspondante sans exiger un matériel reçu.",
+      "impact": "Masse documentaire conditionnelle ; référence générale Pixhawk6X conservée."
+    },
+    {
+      "id": "EQ-MASS-FAN-ACCESSOIRES",
+      "bom_ids": [
+        "MEC-REFROIDISSEMENT-JETSON",
+        "ELEC-F20"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "72g est une masse produit fabricant utilisable pour le kit entier, mais la bride/vis fournie n’est pas démontrée dans la CAO et quatre visOEM Holybro sont présentes.",
+      "recherches": [
+        "Fiche SKU24076 et JSON-LD72g ; pas étiqueté shipping/gross.",
+        "Contenu : fan/dissipateur, bride élastique, vis limitées, graisse et cordon37±3mm."
+      ],
+      "source_ids": [
+        "FAN_SPEC"
+      ],
+      "information_necessaire": "Règle d’installation des brides/vis retenues et leurs inclusions dans les85g de porteuse/72g kit ; démontrer que tout le kit est embarqué ou obtenir masses séparées fabricant.",
+      "impact": "72g conservés conditionnels ; ne pas les appeler masse du fan seul et ne pas compter deux fois vis/bride/F20."
+    },
+    {
+      "id": "EQ-MASS-GNSS-DIVERGENCE",
+      "bom_ids": [
+        "SEN-GNSS"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "SKU12037/G4 actuel61,2g contre58g dans documentation primaire générique.",
+      "recherches": [
+        "Page produit exacte12037 STM32G473, antenne hélicoïdale et poids61,2g.",
+        "Documentation comparant G4/S32K1, poids58g sans détail de révision de masse."
+      ],
+      "source_ids": [
+        "GNSS_STORE",
+        "GNSS_DOC"
+      ],
+      "information_necessaire": "Confirmation fabricant du périmètre et de la révision de la donnée58/61,2g. La proposition retient la valeur nominale de la fiche SKU exacte actuelle, sans inventer une tolérance ni affirmer une borne garantie.",
+      "impact": "Masse nominale d’ensemble disponible ; masses séparées module/antenne inconnues et divergence conservée."
+    },
+    {
+      "id": "EQ-MASS-SD",
+      "bom_ids": [
+        "AVI-SD"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Masse nette carteSDCE/32GB non publiée dans fiche primaire.",
+      "recherches": [
+        "Fiche KingstonHighEnduranceSDCE, dimensions15×11×1mm, aucune masse.",
+        "RevendeursTME/Distrelec donnent10–10,12g bruts avec emballage ; valeurs exclues."
+      ],
+      "source_ids": [
+        "KINGSTON_DATASHEET"
+      ],
+      "information_necessaire": "Masse nette de la carte seule, sans adaptateurSD ni emballage, ou pesée adaptée.",
+      "impact": "Masse carte seule null ; pas de zéro de remplissage."
+    },
+    {
+      "id": "EQ-MASS-USL",
+      "bom_ids": [
+        "AVI-SAFE"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Aucune masse nette USL disponible dans les sources primaires examinées ; contenu1module/2Pcs contradictoire.",
+      "recherches": [
+        "Page CUAV officielle : bouton/buzzer/LED, contenu1module+2câbles, option2Pcs.",
+        "BrochureV25.2.0 et quatre photos liées par la page produit examinées, aucune masse lisible.",
+        "Lien ancien thanksbuyer vers image technique retourne404."
+      ],
+      "source_ids": [
+        "CUAV_USL",
+        "CUAV_BROCHURE",
+        "CUAV_IMAGE_60",
+        "CUAV_IMAGE_61",
+        "CUAV_IMAGE_62",
+        "CUAV_IMAGE_63"
+      ],
+      "information_necessaire": "Masse nette d’un module USL exact et périmètre de ses câbles ; clarification de varianteV5+ et du conditionnement ; sinon pesée module/câbles séparés.",
+      "impact": "Masse module null ; l’ambiguïté du conditionnement ne prouve pas qu’il faut embarquer deux modules."
+    },
+    {
+      "id": "EQ-MASS-RF-ANT-IDENTITE",
+      "bom_ids": [
+        "RF-ANT",
+        "ELEC-F13"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "Une antenneRadioMasterT65 exacte a une masse primaire1,76g, mais sa correspondance avec les antennes OEM améliorées du kitRP4TD n’est pas explicitée par fabricant.",
+      "recherches": [
+        "Produit primaire T65 SKUHP0157.RXANT-T2465 :1,76g ; originalJSON conservé.",
+        "Produit RP4TD :2antennes65mm et antennes améliorées, sans MPN.",
+        "Manuel RP4TD1,4g avec2antennes contredit page actuelle1,4g sans antennes ; aucune différence de masse déduite."
+      ],
+      "source_ids": [
+        "ANT_T65",
+        "RP4TD_SPEC",
+        "RP4TD_MANUAL"
+      ],
+      "information_necessaire": "Correspondance constructeur du MPN d’antenne effectivement inclus dans RP4TD retenu, ou masse propre du modèle OEM ; ne pas remplacer l’antenne pour faciliter son poids.",
+      "impact": "Valeur1,76g conditionnelle ; coaxiaux65mm inclus si applicable, aucune masseF13 supplémentaire pour les mêmes coaxiaux."
+    },
+    {
+      "id": "EQ-MASS-KITLED",
+      "bom_ids": [
+        "KIT-LED"
+      ],
+      "statut": "À valider",
+      "probleme_massique": "WS2812 nomme la fonction/puce, pas la référence de la carteLED OEM assemblée des bras.",
+      "recherches": [
+        "Contenu primaire du kitX650 :LEDs embarquées mais masse unitaire de carte absente."
+      ],
+      "source_ids": [
+        "X650_CONTENTS"
+      ],
+      "information_necessaire": "Référence et masse nette d’une carteLED OEM complète, avec son éventuel câble ; sinon géométrie/matériaux/sous-BOM permettant calcul ou pesée.",
+      "impact": "Quatre contributions LED null ; masse du kit complet non utilisée."
+    }
+  ],
+  "echecs_collecte": [
+    {
+      "id": "JBD_PRODUCT",
+      "url": "https://jbdbms.com/products/sp22s003",
+      "resultat": "Échec : Response status code does not indicate success: 403 (Forbidden)."
+    },
+    {
+      "id": "JBD_ABOUT",
+      "url": "https://jbdbms.com/pages/about-this-item-sp22s003-",
+      "resultat": "Échec : Response status code does not indicate success: 403 (Forbidden)."
+    },
+    {
+      "id": "CUAV_IMAGE_DIM",
+      "url": "https://www.thanksbuyer.com/image/catalog/202003/64295/64295-02.jpg",
+      "resultat": "Échec : Response status code does not indicate success: 404 (Not Found)."
+    },
+    {
+      "id": "TATTU_NET_HTML_ACTUEL",
+      "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug",
+      "resultat": "HTTP429 ; archive fabricant originale conservée et consultation actuelle indexée capturée."
+    },
+    {
+      "id": "PM08_SPEC_HTML_ACTUEL",
+      "url": "https://holybro.com/products/dronecan-pm08-power-module-14s-200a",
+      "resultat": "HTTP429 ; archive fabricante originale conservée, donnée consultée actuellement."
+    },
+    {
+      "id": "RP4TD_SPEC_HTML_ACTUEL",
+      "url": "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "resultat": "HTTP429 ; consultation indexée conservée, manuel PDF original disponible."
+    }
+  ],
+  "limites": [
+    "Aucune masse nette inventée. Une absence de tolérance publiée laisse une valeur nominale, sans la transformer en mesure exacte.",
+    "Les valeurs maximales gardent relation<= ou< ; aucune addition automatique à un total nominal.",
+    "Une masse globale ne démontre pas les masses individuelles des composants inclus.",
+    "Le propriétaire root consolide les ensembles, sous-BOM, occurrences, inclusions et calculsC++17 ; aucune somme métier ni native partagée écrite ici.",
+    "Les attributions restent documentaires et ne qualifient ni le matériel ni le vol."
+  ],
+  "hors_scope_calcule_par_autres_lots": [
+    "AVI-CA01/AVI-PCB et autres composants de leur sous-BOM, hors information primaireMOD401 fournie ici",
+    "Structures, propulsion, supports, fixations, connecteurs et faisceaux ajoutés calculés par leurs propriétaires."
+  ],
+  "propositions_sous_bom": [
+    {
+      "bom_id": null,
+      "masse_unitaire_g": 1.4,
+      "nature": "fabricant",
+      "qualificatif": "nominale",
+      "applicable": true,
+      "source_ids": [
+        "RP4TD_SPEC",
+        "RP4TD_MANUAL"
+      ],
+      "conditions": "RepèreMOD401 de la sous-BOM CA01 : RP4TD seul sans antennes selon page actuelle. Rattacher au véritable identifiant repère, sans créer un composant additionnel ; ne pas ajouter cette masse à une future masse complète de CA01. Le manuel disant1,4g avec antennes est contradictoire et conservé.",
+      "inclusions": [
+        "Récepteur seul"
+      ],
+      "exclusions": [
+        "Deux antennes et coaxiaux RF-ANT",
+        "Gaines et cordon CRSF"
+      ],
+      "incertitude_g": null,
+      "repere_sous_bom": "MOD401",
+      "masse_incluse_dans": "AVI-CA01",
+      "parent_bom_id": "AVI-CA01"
+    }
+  ],
+  "validation_sources": {
+    "date_utc": "2026-10-25T20:56:58.9682885Z",
+    "erreurs": [],
+    "conforme": true,
+    "commande": "collecte_reprise_masses_equipements.ps1 -VerifierSeulement"
+  },
+  "finalisation_correcte": true,
+  "validation_structure": {
+    "date_utc": "2026-10-25T20:58:09.6789269Z",
+    "propositions": 22,
+    "sources": 33,
+    "problemes": 11,
+    "anomalies": [],
+    "conforme": true,
+    "qualification_physique": false
+  }
+}

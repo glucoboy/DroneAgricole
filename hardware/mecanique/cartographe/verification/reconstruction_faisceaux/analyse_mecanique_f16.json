@@ -1,0 +1,798 @@
+{
+  "schema": "reconstruction-faisceaux-analyse-f16-v1",
+  "statut": "NON_VERIFIE",
+  "phase": "analyse_documentaire_lecture_seule",
+  "perimetre": "F16 et preuves historiques; aucun appel FreeCAD, aucune mutation source",
+  "sources": [
+    {
+      "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+      "file": "hardware/mecanique/cartographe/verification/routes_prototype.json"
+    },
+    {
+      "sha256": "f3902bad94db3ba3f92e8e4f8fb615eb525b7fde79c7179aaa61f2030d51d155",
+      "file": "hardware/mecanique/cartographe/verification/controle_retenues_faisceaux_prototype.json"
+    },
+    {
+      "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+      "file": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json"
+    },
+    {
+      "sha256": "53f81b490fb76d09362f4e7b43177cbd1302816d312b339afd67cd09ed98e754",
+      "file": "hardware/mecanique/cartographe/verification/essai_wireflex/mesures.json"
+    },
+    {
+      "sha256": "ed7f9dc210c00058ec5c4f7f9766c7286a19f28103b6868c55b323f6e85c8e05",
+      "file": "hardware/mecanique/cartographe/verification/essai_wireflex/comparaison.json"
+    },
+    {
+      "sha256": "191232405d67105b59cd6ea9fd522919488b72e90e9dc17f7c36bb28ff375eda",
+      "file": "hardware/mecanique/cartographe/verification/essai_routage_f16/mesures.json"
+    },
+    {
+      "sha256": "ca2e7af4c2fc2bfea09542354e27aa6b5c8094fe8b923a9a36ab9540ed18d67d",
+      "file": "hardware/mecanique/cartographe/verification/essai_routage_f16/statut.json"
+    },
+    {
+      "sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+      "file": "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py"
+    }
+  ],
+  "repere": "Repère global prototype, mm; points de route déjà globaux, matrices connecteurs row-major 4x4",
+  "baseline_registre": {
+    "id": "F16",
+    "bom_ids": [
+      "ELEC-F16"
+    ],
+    "points_mm": [
+      [
+        109.785,
+        -0.525,
+        -96.82
+      ],
+      [
+        132,
+        -0.525,
+        -96.82
+      ],
+      [
+        132,
+        -54,
+        -96.82
+      ],
+      [
+        96,
+        -54,
+        -67
+      ],
+      [
+        96,
+        -54,
+        90
+      ],
+      [
+        96,
+        -105,
+        140.5
+      ],
+      [
+        7,
+        -105,
+        140.5
+      ],
+      [
+        7,
+        -79.95,
+        140.5
+      ]
+    ],
+    "diametre_mm": 5.5,
+    "rayon_courbure_mm": 22,
+    "supports": [
+      "P65/P10",
+      "P73",
+      "P75"
+    ],
+    "statut": "À valider",
+    "terminaisons": "Faces de sortie réservées ; fiches, orientation et brochage à confirmer sur matériel",
+    "fonction": "USB3 coudé vers extérieur, chemin sur flanc droit et arrivée dans la gaine du type A",
+    "longueur_catalogue_mm": 508,
+    "longueur_gaine_utile_min_mm": 428.5,
+    "reference_candidate": "USBFireWire RR-ASMUK-20GRHF",
+    "limite_connecteurs": "Caméra conservée ; épaulement microB Z−109,82 et sortie de gaine issue du STEP. Type A : épaulement Y−39,35 et queue 40,6 mm. Longueur utile minimale conservatrice ; révision de définition L, engagement et polarisation à confirmer avant achat.",
+    "cable_proxy": "freecad.cables.archCable.ArchCable",
+    "route_proxy": "freecad.cables.wireFlex.WireFlex",
+    "longueur_courbe_mm": 425.17384217864503,
+    "longueur_addon_mm": 425.17384217864503,
+    "diametre_exterieur_mm": 5.5,
+    "rayon_demande_mm": 22.0,
+    "rayons_arcs_mm": [
+      22.000000000000004,
+      22.000000000000014,
+      21.999999999999996,
+      21.999999999999954,
+      22.000000000000014,
+      22.0
+    ],
+    "continuite": true,
+    "parcours_valide": true,
+    "solides": 1,
+    "solide_valide": true,
+    "volume_mm3": 10101.405331845268,
+    "erreurs": [],
+    "fichier": "pieces/commerce/W_F16_Prototype.FCStd",
+    "objet_cable": "Cable",
+    "objet_parcours": "Wire",
+    "longueur_trace_mm": 425.174
+  },
+  "stations_et_audit_historique": {
+    "id": "F16",
+    "stations": [
+      {
+        "station_id": "F16_V_-45",
+        "collier_id": "P73_Guide_Faisceau_Droit_Prototype/F16_V_-45",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+        "station_native": "F16_V_-45",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -54.0,
+          -45.0
+        ],
+        "point_projete_mm": [
+          96.0,
+          -54.0,
+          -45.0
+        ],
+        "s_mm": 124.20195572192435,
+        "distance_projection_mm": 2.5618982671915014E-14,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.22699512932081367,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "F16_V_0",
+        "collier_id": "P73_Guide_Faisceau_Droit_Prototype/F16_V_0",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+        "station_native": "F16_V_0",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -54.0,
+          0.0
+        ],
+        "point_projete_mm": [
+          96.0,
+          -54.0,
+          0.0
+        ],
+        "s_mm": 169.20195572192435,
+        "distance_projection_mm": 2.5618982671915014E-14,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.19999999999998863,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "F16_V_35",
+        "collier_id": "P73_Guide_Faisceau_Droit_Prototype/F16_V_35",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+        "station_native": "F16_V_35",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -54.0,
+          35.0
+        ],
+        "point_projete_mm": [
+          96.0,
+          -54.0,
+          35.0
+        ],
+        "s_mm": 204.20195572192438,
+        "distance_projection_mm": 2.6586074758753436E-14,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.19999999999998863,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "F16_V_75",
+        "collier_id": "P73_Guide_Faisceau_Droit_Prototype/F16_V_75",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+        "station_native": "F16_V_75",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -54.0,
+          75.0
+        ],
+        "point_projete_mm": [
+          96.0,
+          -54.0,
+          75.0
+        ],
+        "s_mm": 244.20195572192438,
+        "distance_projection_mm": 2.5618982671915014E-14,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.19999999999998863,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "USB3_I_70",
+        "collier_id": "P75_Guide_Avionique_Prototype/USB3_I_70",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+        "station_native": "USB3_I_70",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -70.0,
+          105.843137
+        ],
+        "point_projete_mm": [
+          96.0,
+          -70.0,
+          105.843137
+        ],
+        "s_mm": 280.75336617769153,
+        "distance_projection_mm": 0.0,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.20000000000000284,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "USB3_I_88",
+        "collier_id": "P75_Guide_Avionique_Prototype/USB3_I_88",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+        "station_native": "USB3_I_88",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          96.0,
+          -88.0,
+          123.666667
+        ],
+        "point_projete_mm": [
+          96.0,
+          -88.0,
+          123.666667
+        ],
+        "s_mm": 306.0847340975659,
+        "distance_projection_mm": 1.4210854715202004E-14,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.20000000000000284,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "USB3_T_67",
+        "collier_id": "P75_Guide_Avionique_Prototype/USB3_T_67",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+        "station_native": "USB3_T_67",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          67.0,
+          -105.0,
+          140.5
+        ],
+        "point_projete_mm": [
+          67.0,
+          -105.0,
+          140.5
+        ],
+        "s_mm": 349.56632298915724,
+        "distance_projection_mm": 0.0,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.20000000000000284,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      },
+      {
+        "station_id": "USB3_T_36",
+        "collier_id": "P75_Guide_Avionique_Prototype/USB3_T_36",
+        "support": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+        "station_native": "USB3_T_36",
+        "mode": "individuel",
+        "mode_appui": "direct",
+        "point_nominal_mm": [
+          36.0,
+          -105.0,
+          140.5
+        ],
+        "point_projete_mm": [
+          36.0,
+          -105.0,
+          140.5
+        ],
+        "s_mm": 380.56632298915724,
+        "distance_projection_mm": 0.0,
+        "tolerance_projection_mm": 0.6,
+        "jeu_surface_appui_mm": 0.20000000000000284,
+        "jeu_max_mm": 1.0,
+        "erreurs": []
+      }
+    ],
+    "portions": [
+      {
+        "debut": "DEBUT",
+        "fin": "F16_V_-45",
+        "type": "boucle_souple",
+        "s_debut_mm": 0.0,
+        "s_fin_mm": 124.20195572192435,
+        "longueur_mm": 124.20195572192435,
+        "portee_max_mm": 180.0,
+        "conforme": true,
+        "justification": "Sortie USB3 coudée et retour inférieur vers P73 ; souplesse requise pour la suspension caméra, rayon R22 conservé."
+      },
+      {
+        "debut": "F16_V_-45",
+        "fin": "F16_V_0",
+        "type": "guidee",
+        "s_debut_mm": 124.20195572192435,
+        "s_fin_mm": 169.20195572192435,
+        "longueur_mm": 45.0,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "F16_V_0",
+        "fin": "F16_V_35",
+        "type": "guidee",
+        "s_debut_mm": 169.20195572192435,
+        "s_fin_mm": 204.20195572192438,
+        "longueur_mm": 35.00000000000003,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "F16_V_35",
+        "fin": "F16_V_75",
+        "type": "guidee",
+        "s_debut_mm": 204.20195572192438,
+        "s_fin_mm": 244.20195572192438,
+        "longueur_mm": 40.0,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "F16_V_75",
+        "fin": "USB3_I_70",
+        "type": "guidee",
+        "s_debut_mm": 244.20195572192438,
+        "s_fin_mm": 280.75336617769153,
+        "longueur_mm": 36.551410455767154,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "USB3_I_70",
+        "fin": "USB3_I_88",
+        "type": "guidee",
+        "s_debut_mm": 280.75336617769153,
+        "s_fin_mm": 306.0847340975659,
+        "longueur_mm": 25.331367919874367,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "USB3_I_88",
+        "fin": "USB3_T_67",
+        "type": "guidee",
+        "s_debut_mm": 306.0847340975659,
+        "s_fin_mm": 349.56632298915724,
+        "longueur_mm": 43.48158889159134,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "USB3_T_67",
+        "fin": "USB3_T_36",
+        "type": "guidee",
+        "s_debut_mm": 349.56632298915724,
+        "s_fin_mm": 380.56632298915724,
+        "longueur_mm": 31.0,
+        "portee_max_mm": 50.0,
+        "conforme": true,
+        "justification": ""
+      },
+      {
+        "debut": "USB3_T_36",
+        "fin": "FIN",
+        "type": "transition_courte",
+        "s_debut_mm": 380.56632298915724,
+        "s_fin_mm": 425.173842178645,
+        "longueur_mm": 44.60751918948773,
+        "portee_max_mm": 60.0,
+        "conforme": true,
+        "justification": ""
+      }
+    ],
+    "longueur_mm": 425.173842178645
+  },
+  "connecteurs": [
+    {
+      "reference": "EQ_USBFireWire_MicroB_Up_Prototype",
+      "occurrence": "ConnecteurF16Camera",
+      "fichier": "pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd",
+      "objet": "Ensemble",
+      "matrice": [
+        0,
+        1,
+        0,
+        250.385,
+        0,
+        0,
+        -1,
+        -0.525,
+        -1,
+        0,
+        0,
+        -96.82,
+        0,
+        0,
+        0,
+        1
+      ],
+      "solides_source_zero_based": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "objets_exposes": [
+        "ExterneSolide3",
+        "ExterneSolide5",
+        "ExterneSolide6"
+      ],
+      "objets_engages": [
+        "ExterneSolide3Engage",
+        "ExterneSolide4Engage",
+        "ExterneSolide5Engage",
+        "ExterneSolide6Engage"
+      ],
+      "plan_local": {
+        "axe": "X",
+        "valeur_mm": 13
+      }
+    },
+    {
+      "reference": "EQ_USBFireWire_TypeA_Prototype",
+      "occurrence": "ConnecteurF16TypeA",
+      "fichier": "pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd",
+      "objet": "Ensemble",
+      "matrice": [
+        1,
+        0,
+        0,
+        7,
+        0,
+        1,
+        0,
+        -39.35,
+        0,
+        0,
+        1,
+        140.5,
+        0,
+        0,
+        0,
+        1
+      ],
+      "solides_source_zero_based": [
+        0,
+        1,
+        2
+      ],
+      "objets_exposes": [
+        "ExterneSolide0",
+        "ExterneSolide1"
+      ],
+      "objets_engages": [
+        "ExterneSolide0Engage",
+        "ExterneSolide1Engage"
+      ],
+      "plan_local": {
+        "axe": "Y",
+        "valeur_mm": 0
+      }
+    }
+  ],
+  "axes_sortie_candidats": {
+    "type_a": {
+      "source": "Opposé dernier segment F16 orienté caméra vers calculateur",
+      "value": [
+        0,
+        -1,
+        0
+      ],
+      "confidence": "candidate"
+    },
+    "limite": "Mesures et polarisation des interfaces physiques non confirmées",
+    "camera": {
+      "source": "Premier segment F16; inférence cohérente sortie gaine",
+      "value": [
+        1,
+        0,
+        0
+      ],
+      "confidence": "candidate"
+    }
+  },
+  "rayons_documentaires": {
+    "statique_mm": 22,
+    "applicabilite": "Conditionnelle à la référence candidate et à la définition de flexion continue; lot, montage et conditions dynamiques inconnus",
+    "continu_mm": 48,
+    "source": "connecteurs_coudes_camera_prototype.json /usb/dimensions_plan_mm et /pages_primaires",
+    "confidence": "supplier",
+    "url": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+    "reference": "USBFireWire RR-ASMUK-20GRHF",
+    "correction": "Les audits historiques ont omis cette donnée déjà archivée. Ne pas répéter que tout rayon fournisseur F16 est inconnu; ne pas confondre R22 observé et spécification arbitraire."
+  },
+  "historique": {
+    "bspline_k": {
+      "erreur": "MakePipeShell MakeSolid; forme précédente potentiellement conservée",
+      "mesures": {
+        "longueur_mm": 456.9592355880553,
+        "rayon_min_echantillonne_mm": 0.006141002109003422,
+        "echantillons_par_arete": 2001,
+        "aretes": [
+          "Part::GeomBSplineCurve"
+        ],
+        "solides": 1,
+        "solide_valide": true,
+        "chemin_valide": true,
+        "etats": {
+          "Cable": [
+            "Up-to-date"
+          ],
+          "Wire": [
+            "Up-to-date"
+          ]
+        },
+        "path_type": "BSpline_K",
+        "points": 55,
+        "boundary_start_mm": 0.0,
+        "boundary_end_mm": 0.0,
+        "tangences_extremites": true
+      },
+      "collisions": "NON_VERIFIE, contrôle interrompu à280/360",
+      "statut": "NON_CONFORME"
+    },
+    "baseline": {
+      "distances": [
+        {
+          "distance_mm": 0.0,
+          "obstacle": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature066"
+        },
+        {
+          "distance_mm": 0.0,
+          "obstacle": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature100"
+        },
+        {
+          "distance_mm": 0.0,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#ConnecteurF16TypeA"
+        },
+        {
+          "distance_mm": 1.4210854715202004E-14,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#ConnecteurF16Camera"
+        },
+        {
+          "distance_mm": 0.19999999999997442,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+        },
+        {
+          "distance_mm": 0.20000000000000284,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+        },
+        {
+          "distance_mm": 4.069999999999993,
+          "obstacle": "sous_assemblages/SA02_Prototype_Batterie.FCStd#Semelle"
+        },
+        {
+          "distance_mm": 4.383257615924381,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+        },
+        {
+          "distance_mm": 6.0,
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F38_POS"
+        },
+        {
+          "distance_mm": 6.578594478999689,
+          "obstacle": "sous_assemblages/SA02_Prototype_Batterie.FCStd#BerceauQS8"
+        }
+      ],
+      "occurrences": 360,
+      "collisions_positives": 0,
+      "limites": [
+        "Périmètre : occurrences du registre de construction ; les occurrences non répertoriées sont exclues.",
+        "Les matrices du registre sont confrontées aux parents sauvegardés ; pas de contrôle des occurrences non liées.",
+        "Volume positif uniquement ; un contact ou une distance nulle sans volume ne prouve pas un jeu suffisant.",
+        "Boîte élargie de 25 mm : obstacles éloignés exclus des vues et distances, mais présélection conservatrice pour intersections.",
+        "Formes nominales sauvegardées ; pas de tolérances, flexion, usure, ni montage réel."
+      ],
+      "tol_volume_mm3": 0.0001
+    },
+    "bspline_p": {
+      "collisions": [
+        {
+          "obstacle": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM",
+          "volume_mm3": 6.540759881260376
+        },
+        {
+          "obstacle": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM__07190001_ASM",
+          "volume_mm3": 70.61617097369248
+        },
+        {
+          "obstacle": "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+          "volume_mm3": 59.95190700511861
+        },
+        {
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+          "volume_mm3": 704.6272865184653
+        },
+        {
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#VisGuideMilieu1",
+          "volume_mm3": 51.42485648261893
+        },
+        {
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#RondelleGuideMilieu1",
+          "volume_mm3": 4.829698418709955
+        },
+        {
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#EcrouGuideMilieu1",
+          "volume_mm3": 26.542498589403117
+        },
+        {
+          "obstacle": "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F08_AMONT",
+          "volume_mm3": 46.66147452974228
+        }
+      ],
+      "rayon_echantillonne_mm": 23.662668015165963,
+      "tol_volume_mm3": 0.0001,
+      "longueur_mm": 425.72510260219224,
+      "obstacles_testes": 360,
+      "statut": "NON_CONFORME"
+    }
+  },
+  "mouvements": {
+    "debattement_mm": null,
+    "cycles": null,
+    "tenue": "PA12, abrasion, serrage, desserrage, déplacement, fatigue et transfert vibratoire non validés",
+    "temperature_c": null,
+    "camera": "Suspension caméra découplée; portion DEBUT à F16_V_-45 explicitement boucle souple,124.202mm historique, portée max180mm candidate"
+  },
+  "strategies": [
+    {
+      "points_mm": [
+        [
+          109.785,
+          -0.525,
+          -96.82
+        ],
+        [
+          132,
+          -0.525,
+          -96.82
+        ],
+        [
+          132,
+          -54,
+          -96.82
+        ],
+        [
+          96,
+          -54,
+          -67
+        ],
+        [
+          96,
+          -54,
+          90
+        ],
+        [
+          96,
+          -105,
+          140.5
+        ],
+        [
+          7,
+          -105,
+          140.5
+        ],
+        [
+          7,
+          -79.95,
+          140.5
+        ]
+      ],
+      "radius_mm": 22,
+      "action": "Conserver parcours analytique initial en copie et le recalculer fraîchement",
+      "motif": "Chemin historiquement sans intersections positives dans360 occurrences; pas de preuve physique ou globale fraîche",
+      "id": "F16_BASELINE",
+      "statut": "NON_VERIFIE"
+    },
+    {
+      "points_mm": [
+        [
+          109.785,
+          -0.525,
+          -96.82
+        ],
+        [
+          134,
+          -0.525,
+          -96.82
+        ],
+        [
+          134,
+          -54,
+          -96.82
+        ],
+        [
+          96,
+          -54,
+          -67
+        ],
+        [
+          96,
+          -54,
+          90
+        ],
+        [
+          96,
+          -105,
+          140.5
+        ],
+        [
+          7,
+          -105,
+          140.5
+        ],
+        [
+          7,
+          -79.95,
+          140.5
+        ]
+      ],
+      "gain": "Marge statique proposée; pas de réduction de dispersion ni gain mécanique établi",
+      "limites": "Rayon continu48 non satisfait dans portion souple; obstacles et longueur à mesurer; ne pas retenir si gain seulement esthétique",
+      "radius_mm": 23.5,
+      "action": "Essai borné de faible déplacement du retour bas, mêmes huit stations",
+      "id": "F16_ARCS_R23_5",
+      "statut": "NON_VERIFIE"
+    },
+    {
+      "id": "F16_R48_POINTS_INITIAUX",
+      "preuve": "Fillet90° au premier point intermédiaire requiert48mm de retrait alors que segment terminal mesure22.215mm. La polyligne inchangée ne peut porter R48 uniforme.",
+      "limite": "Ne démontre pas impossibilité de toute route3D R48; une vraie nouvelle boucle de service exige espace libre, course caméra et longueur disponible connus",
+      "statut": "NON_CONFORME"
+    }
+  ],
+  "plan_controles": [
+    "Conserver les connexions ELEC-F16 et deux occurrences connecteur; contrôler poses sur sauvegarde.",
+    "Reconstruction fraîche avec câble.Shape vidé dans copie; recalcul sans erreur; sauvegarde et réouverture processus neuf.",
+    "Arcs et droites analytiques; continuité C0 et tangente; stations distToShape <=0.6mm selon protocole historique, pas distance aux seuls points.",
+    "Comparer axes géométriques des connecteurs et tangentes; garder unknown pour référence physique non confirmée.",
+    "BRep câble/obstacles et gaine/obstacles; tol volume1e-4mm3 historique, distances positives requises selon seuil sourcé ou explicitement candidat.",
+    "Ne pas exempter équipement complet pour contact connecteur; identifier précisément engagement autorisé et contrôler reste des solides.",
+    "Huit retenues et enveloppes de colliers; jeu support historique0.2mm, maximum1mm audit. Une gaine additionnelle même mince peut consommer ce jeu.",
+    "Conserver courbes libres suspension caméra; distinguer statique22 et continu48 et vérifier plage de mouvement; hors portée actuelle sans données.",
+    "Longueur utile428.5mm conservative, longueur catalogue508mm incluant terminaisons; ne pas substituer508mm à budget gaine.",
+    "Qualification globale impossible tant que CEM/thermique, rayons autres références, courses et maintien réel manquent."
+  ],
+  "budget": "Au plus baseline fraîche et un candidat analytique marginal; arrêter ce candidat si stations, obstacle ou réserve échoue; reprise architecture indépendante possible en conservant F16."
+}

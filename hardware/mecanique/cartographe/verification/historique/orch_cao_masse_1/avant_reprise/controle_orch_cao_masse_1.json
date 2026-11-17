@@ -1,0 +1,2707 @@
+{
+  "lot": "ORCH-CAO-MASSE-1",
+  "date_utc": "2026-10-25T18:54:19.6696183Z",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "lot_clos": false,
+  "conclusion": "préliminaire ; définition géométrique et massique incomplète, anomalies détaillées dans les preuves",
+  "exigences": [
+    "MEC-ARC-001",
+    "MEC-INT-001",
+    "MEC-MAS-001",
+    "CAB-CARTO-001"
+  ],
+  "environnement": {
+    "os": "Microsoft Windows NT 10.0.26300.0",
+    "architecture": "AMD64",
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ],
+    "compilateur": "GCC MSYS2 ucrt64, C++17",
+    "qt": "6.11.2",
+    "temp_workspace": true
+  },
+  "sources_sha256": {
+    "hardware/mecanique/cartographe/verification/construction_prototype.json": "367d69019a1eb7424091d01e77e06dec920828dc47264f7d1237a9df18a0ffe6",
+    "hardware/mecanique/cartographe/manifest.json": "2300b05912d2c4c31df8c2cd3132b18c67de4c300ac24e525b9ce53662096654",
+    "hardware/mecanique/cartographe/nomenclature_prototype.json": "0e552a180f4514c23f2098e2bf9c94ff5642bfd3bfae6a305f6d3c6f9f9cadee",
+    "hardware/mecanique/cartographe/verification/orch_cao_masse_geometrie.json": "4a44cc9bdd4bfa1e80046fab404bca280a15f87436ed455cc1e379bb4d5fb7e1",
+    "hardware/mecanique/cartographe/verification/controle_masse_prototype.json": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192",
+    "simulation/gazebo/models/cartographe/geometry/mass_ledger.json": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192",
+    "hardware/mecanique/cartographe/verification/couverture_bom_cao_prototype.json": "f775b08ef78e0ae51476de8855579f1da3ef85768948856b65e8804591a9b74f",
+    "hardware/mecanique/cartographe/verification/controle_assemblage_prototype.json": "83c50648fa4e07a6c38855b54155418edfa9400aea94d71073b916c7490bd9df",
+    "hardware/mecanique/cartographe/verification/orch_cao_masse_fabrication.json": "61240d904a2df4a7bf95737e27fbd9e16144bfafe283a48b6f2517ca922f425c",
+    "hardware/mecanique/cartographe/verification/orch_cao_masse_equipements.json": "134669201e67d3f52eac8c76ab01edad29d07020578180db189768a4b963abca",
+    "hardware/mecanique/cartographe/verification/orch_interfaces_equipements.json": "bacc91655832e43b12c3fdf5fe1e1d65cc4228d2eee28307c4a04d38af852d25",
+    "hardware/mecanique/cartographe/verification/orch_cao_masse_structure.json": "d60245cfefca106116b678970a41fffd761754eeec1db88e3b28b17cfb53b33b",
+    "hardware/mecanique/cartographe/verification/controle_nomenclature_prototype.json": "68fd8beb1b22df4baf362e8ce4a58b411a53c5f50b191749a5a462e95320d65a",
+    "hardware/mecanique/cartographe/verification/rendu_prototype.json": "d3de70d8275a4417d502050677a4727cb3d8fa65c3494dd0778ef2c52e758393",
+    "hardware/mecanique/cartographe/verification/reproductibilite_masse_prototype.json": "2e517cfa9e3fb90d8eca67705b8a59bb1431862f41b1e05f61a9f378c4df2f12",
+    "simulation/gazebo/models/cartographe/geometry/geometry_manifest.json": "24993e3fc020cd89b4fec7e86b670fb3ccffd2be6a00bef52400fb854544e041",
+    "simulation/gazebo/models/cartographe/model_manifest.json": "6586816eab93e5d450f131906a2b4f98da66a017115b539d93f51a66f49397fc",
+    ".runtime/orch-cao-masse-1/tests_mass.log": "c8c0b3fe44ea3b7d6bf526d202af978e192706aac635addfb38605988f1a3ba4",
+    ".runtime/orch-cao-masse-1/tests_station.log": "0b0b457603d4f6fe74e9f7235bf99d382831ccf44ba10c31c36f15b1432cced4",
+    "simulation/mass/BomMass.cpp": "5238202c7aaa68e5d042388ca1d0f18c6f1e1f4da7ec7dffb20e3bda9f170fff",
+    "simulation/mass/MassProperties.hpp": "03a6bba0cb0f34f8a1b0f20cc8228e8c9f561889a4da5c02fcbfbe6b90e23d88",
+    "simulation/mass/TestMass.cpp": "025dee99bfbc68bd9352a4caede51c55f0330192ac52294c38024685461737fd",
+    "software/cpp/src/adapters/LocalGazeboExportBackend.cpp": "daf807aa2055f99304028a5c61d3b88c075b8b653b833fdba6f0ef4b74bc5128",
+    "software/cpp/src/ui/GazeboModelPage.cpp": "1ad94d7e3456095d7500efcc15a36f69a512d663bc1c440ec2dda64c54659d74",
+    "software/cpp/src/ui/SystemPage.cpp": "71441c4b47e22b793f08ac7047242dfd35ca1e4e446cb28a16383e80537f651a",
+    "software/cpp/tests/TestGazeboExport.cpp": "f972f72da84d1a640a6ba2f7e8f8aaaa535190093f5fde8e8b8523eac016ecef",
+    "hardware/mecanique/cartographe/verification/verify_orch_cao_masse.ps1": "90ee599eaed764d622d62da735965454d05676ede77ddb1a568ea2b38d39e03c"
+  },
+  "controles": [
+    {
+      "id": "configuration_unique",
+      "reussi": true,
+      "detail": "Prototype sans dock, nouvelles campagnes suspendues"
+    },
+    {
+      "id": "investigations_finalisees",
+      "reussi": true,
+      "detail": "Finalisation des recherches, sans clôture des blocages"
+    },
+    {
+      "id": "integration_extraction_finalisees",
+      "reussi": true,
+      "detail": "Sauvegarde puis lecture BRep en processus séparé"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_X650_Colonne90_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a2fb5afc1c7a300f2ee84b65c69d63680026a66feb3e64b60569f33062dadb24"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Gemfan1555_CW.FCStd",
+      "reussi": true,
+      "detail": "2a19739a716240440d13cd416982658af875564595b155a13891d8479daef904"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Gemfan1555_CCW.FCStd",
+      "reussi": true,
+      "detail": "4bd64807b0f2ad6d93e39a9bc110daf07de147ba500641eea271256c086d3528"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Tekko32_45A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d003ea5d326959df6d38c3209352d0fee45af22f9112d8a7179dfea4305657e4"
+    },
+    {
+      "id": "natif:sous_assemblages/SA01_Prototype_Structure.FCStd",
+      "reussi": true,
+      "detail": "307aa78a21e5a906c37db60e60dc6278c47c7c8f4d6ad7649680d1575146b71d"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1be04e1120992aba7f2fa3813461967068f0fc98c1d216a4c585706fafc152f6"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fa725c8b143e39c8a81c6d500c04d3bbc91198589387750019a7dfa081095863"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Pad_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4af9234aba82157edca36879402b311d4a658a55d21d73ee39d33c8986de04f2"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Pad_Droit_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "644cf7d8935fdd8c760675c58079a6ed594f2ebf3edfa2cde794bd86dc32c524"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Sangle_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "985a96dba71a2b4f2819cf0a9d4b8ec590968e159280801f3868070c994ed16c"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a16a84a515b4c001807ccc5307ad4fc4fb298a6425ec51f886ed71208dc9b95e"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f3ff4dd6489fdb8b0562da1ecaa5080b03abf3b080c1f0b2965fda1d335af3f6"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2220469d2a92b2de658013bfc159f4391ab30f5bc3c23db4c114c94bcf16d955"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1a352527fe60f466b56bd253ccb2ea2dd7bd79a76c6574c718d7f68fe9823c88"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_MIDI_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e04c463644a05838b6c9fbfeb18440a253d00ab16fa854aa4a3a53241aa2483b"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_NTC_JBD_Prototype.FCStd",
+      "reussi": true,
+      "detail": "00a535b4d4ce89e19f05757e9158104c48e8ef6803e40051bea793ad811a90c3"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO7089_M3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fe6eee1a0d3124fc371adeacd57051279bf5978ec2c46897d90de71f22dca492"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO10511_M3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "87555be94abea0a9fd69929c6cfa77d1c29f0bd95488fac8c24a99a1d3260bbc"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e279a32d0db48470ae8c958dafdf7b0fc4774fc461cb785cf5021c81260182ea"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "75a2656cc7a09b47e00feeafc02430f7a8610cb54945b8b1a572512ef83bf4e6"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x75_Prototype.FCStd",
+      "reussi": true,
+      "detail": "b43e268d8a951eb225fba3a3b1983f266ee9f225d339b152bafb647728ba9420"
+    },
+    {
+      "id": "natif:sous_assemblages/SA02_Prototype_Batterie.FCStd",
+      "reussi": true,
+      "detail": "9f7542654c4279bd1101368aee4aa8b71b4cd1dbdb19b9317789679e0b430789"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9c31b9cd332532e4d23e59083930bd3a889517c38463ad7e05ed847ab3d941ab"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "89695df4e201711c7d673b1777f7242b4ba28b8c8fdc62676df8d4906a7ebb5d"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Protection_CA01_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4c7934ae531a45ad6135c867cc4587b10123eae81e2e04e2fa559160c10935a5"
+    },
+    {
+      "id": "natif:sous_assemblages/SA03_Prototype_Energie.FCStd",
+      "reussi": true,
+      "detail": "c34c1c9126a47027b6574d92d5f3b40c25b54253ed020fe14c0cadc5bd38d913"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a4192f1000b81db9a02f1bf519b03a2437caed83aa530d0e5b66c34e00a71785"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+      "reussi": true,
+      "detail": "8984a1bd639bd21c161d8c2fe12b9452608faa352cf74071a77f283969230b87"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e53622130b2e6e271aed1caf9068e7c09382ad7ed6c4d804ce5974115e6a9523"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO10642_M3x40_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fe6de6bdf2ba61a2fcbc63483cd8d4969a5c859e8efab2c7a007962b7db71aaa"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x6_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f636b0464515ac87950293286ca9f62da5fa40f9202a1f196edd81c403101401"
+    },
+    {
+      "id": "natif:sous_assemblages/SA04_Prototype_Perception.FCStd",
+      "reussi": true,
+      "detail": "ee3c34f4c3d9e36ac16ba2424f195f74e658c8d789360740fb5e44e7e7f872cd"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "049d59e2a7b7a9bdf032255eeec388774602e23f9496b6a5b1728b994bcae379"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "02083f29276203004333e54e1eac41bc9547e4f3bfe58ce878340888aff9c85d"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7cb00d23d2c80e8beb1dde4213fcc87e06911f2b1313b249d5e83d4abe324f63"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M3x55_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2a96ddca75e2364ac512963f9c87d04f297af550e91fefb69a005fec48cb7270"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd",
+      "reussi": true,
+      "detail": "d866399cf88dfb462c49ae3eea7169a5149cf7a1645305df2aeac01ef6423dda"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+      "reussi": true,
+      "detail": "37078b961d0eb05e23dcef05f017bdb3afca049a487471852a4ed76586c882a6"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Kingston_SDCE32GB.FCStd",
+      "reussi": true,
+      "detail": "ab4b92c37a4d2e89090fe32666036ff818eed04e8d0c1f272113d5ccdcd4ac6b"
+    },
+    {
+      "id": "natif:sous_assemblages/SA05_Prototype_Avionique.FCStd",
+      "reussi": true,
+      "detail": "795c8ea2646b660af7daefded8036a031ef2f7e81969e6a67736845fcc3df8cf"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "21577d7bd05d1341c3b35f93cc9b133eb4498b79f5e3fc226c5936a4811a7951"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd",
+      "reussi": true,
+      "detail": "613590afa1fad83d66af9366083ddd5911bdb80f4628a555bb52404e817ec9f4"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+      "reussi": true,
+      "detail": "35a1ab667970830b029469bfcb67935c34def9a9d3ea871dc651da8d1c791fad"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_CUAV_USL_Prototype.FCStd",
+      "reussi": true,
+      "detail": "94f6886b6390a8f94a8dbac6360f6df5278b38062033868bfea610e0d5e5c2c7"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P71_Support_Securite_Prototype.FCStd",
+      "reussi": true,
+      "detail": "741f763a6a4132f5d7dcd4a9f0598dadc38b74394dfc0e3a7cd344add24ac0f2"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4762_M2x12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1006dbe5f8756f3712745674c6fecfbf0365a853dcb3b4cf3074cf5387ef33e4"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO7089_M2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "53895ee5bbe6c3439c792ce363b66936bf8297b62b4ead53534edf285ab1286c"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO4032_M2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4de5e8650ad3ca2c31ef2eefb7aea668dc439743547b587b07f007ec43f965fd"
+    },
+    {
+      "id": "natif:sous_assemblages/SA06_Prototype_Navigation.FCStd",
+      "reussi": true,
+      "detail": "dd2da259acae5f4ee1c33deb2514c79b6c72c35ef5ac8fb87c1f49dfe2bc4400"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd",
+      "reussi": true,
+      "detail": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd",
+      "reussi": true,
+      "detail": "702ace30d0ea3cc971bbd350b8e1fa1ac5ffd493f33c9a5ccf1e75de3392224c"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "93803e87c8d07f231a7776bb6b25c292f73cfb3d490c45602a61e99ce9eb5bb4"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd",
+      "reussi": true,
+      "detail": "c1c33506b7bcdb3d5d8c21761c4c433fc77fda67ec090d13007545eb13e2ed92"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "82e99213076e8327e61b335de2ab2b7ed68fd77b6e40da202afd7702662652a4"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0d1f8cfafe1a8831eb23c477311c499cba210503f38f1bdbf93f3e02a107e781"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2c2ba754f22cb6e0b55bdd47993e77b10035455dcbd166ce8eab3cfa8dffe137"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd",
+      "reussi": true,
+      "detail": "8efbd0909e1e872802edb80e05c0aa0640847ce0cc2066888159fe6d07efea9d"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2677d937846d34a78eb1136d3eb41d46491dffa1d8993c2f881e348d69e0254d"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d8ff478c952a6b750e4ec1a84d26f3f596fbec7281acbf8e19ea138d2efddf3b"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Collier_T50R_AncrageRF_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9b4dbc5a965fe7205979b7b1b0ba16b872f0ab493e432d87b35334f3573c405f"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Collier_T50R_MIDI_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3aa97b97375a5fedab0723bfe1bd00ab04a45c1959873d3141c3aa66f24928ae"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_ISO10642_M3x16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e10c9502b040f8cdb54577817498e5d9936fa74ad1de5272940bf9eac9204ff2"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F01_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F01_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F37_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d9e37b4e0a9b54a5924552edaa38eb7cb8fbb632b307a28ea930d2f99d207c18"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F37_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "26a2743c582fe8dbde7e07db3908c1d352d6d31d9f9bf501bff3ac6239c02fb3"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F38_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "24df46495936412b2b17f9e4456bab190ea1858a3906c82c7c6d4c0dba103f07"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F05_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "175c2ba08af77931fb2f118a2e7742266fad2a23bae5e0ed926b779701611bbd"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F38_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "05878c5035e47171c93161b70ac75133a3942a94770f7ce0b53eced4770e0b8f"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F05_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "df38104a255d84649d56312134fd8ae0eeb5f12d2929057c2ae981d2e95be03e"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F08_AMONT_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e82a32636da8c4444f34538c465e333a343631ddbb94f8f4d6ed00aa48699880"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F08_AVAL_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3a97a19070ec5573169bf522006d6dfaa5a0cf9251e3a77b668fa5ec5f9037e9"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F40_Prototype.FCStd",
+      "reussi": true,
+      "detail": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a"
+    },
+    {
+      "id": "natif:pieces/commerce/W_BALANCE_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3"
+    },
+    {
+      "id": "natif:pieces/commerce/W_NTC1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302"
+    },
+    {
+      "id": "natif:pieces/commerce/W_NTC2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F02_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F03_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F04_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c"
+    },
+    {
+      "id": "natif:pieces/commerce/W_LED_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F02_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F03_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F04_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab"
+    },
+    {
+      "id": "natif:pieces/commerce/W_LED_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F02_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F03_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F04_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11"
+    },
+    {
+      "id": "natif:pieces/commerce/W_LED_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F02_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F03_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F04_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3"
+    },
+    {
+      "id": "natif:pieces/commerce/W_LED_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53"
+    },
+    {
+      "id": "natif:pieces/commerce/W_AIRY_Prototype.FCStd",
+      "reussi": true,
+      "detail": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567"
+    },
+    {
+      "id": "natif:pieces/commerce/W_AIRY_ETH_Prototype.FCStd",
+      "reussi": true,
+      "detail": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a"
+    },
+    {
+      "id": "natif:pieces/commerce/W_AIRY_PWR_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812"
+    },
+    {
+      "id": "natif:pieces/commerce/W_AIRY_SYNC_Prototype.FCStd",
+      "reussi": true,
+      "detail": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F_M8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F41_Prototype.FCStd",
+      "reussi": true,
+      "detail": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F09_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F06_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F32_Prototype.FCStd",
+      "reussi": true,
+      "detail": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F31_Prototype.FCStd",
+      "reussi": true,
+      "detail": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F21_Prototype.FCStd",
+      "reussi": true,
+      "detail": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F36_Prototype.FCStd",
+      "reussi": true,
+      "detail": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F24A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F24B_Prototype.FCStd",
+      "reussi": true,
+      "detail": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F24C_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F33_Prototype.FCStd",
+      "reussi": true,
+      "detail": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F35_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F25_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F20_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cda215381434af6aac35c1e28cf74ba9874b830084744a08b651c672135cea0b"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F13A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d"
+    },
+    {
+      "id": "natif:pieces/commerce/W_F13B_Prototype.FCStd",
+      "reussi": true,
+      "detail": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54"
+    },
+    {
+      "id": "natif:sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+      "reussi": true,
+      "detail": "21f3ea9ceb908c8d47b1cef48d40d964380e86e4a1d926bfdb3d56e241dfd237"
+    },
+    {
+      "id": "natif:assemblages/Prototype_Cartographe.FCStd",
+      "reussi": true,
+      "detail": "7a971a838fa65de864c94ee8984bd0495f144fd667e6775fc82393e7a82303c4"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd",
+      "reussi": true,
+      "detail": "2132dd34b035f3a1081939c0b36258a7e65e22744d0fd1d66a0d76ccdd747531"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd",
+      "reussi": true,
+      "detail": "4c04c39a5617a52e0a3e0bf0af601717167e6c05da285ec279d39e17d2ce49d0"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "42de7a9fae173a73945817ec3a966d222c3caa8f13a56afdc65d7a397be6cc68"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "c5ff64ca75e4c0e9c1e7bc96ddd4b545088dbf9ca394b42a408d631267c19dfa"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+      "reussi": true,
+      "detail": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Airy.FCStd",
+      "reussi": true,
+      "detail": "d8f31fb861394bdf3db716f62a0bc5a75379625700622f73ad44ca175239ab11"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_Basler.FCStd",
+      "reussi": true,
+      "detail": "6a149b20f89ec4e38c0196838814f0102914c4e359fdea0e5ab2cda39119dc42"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P10_Retenue_cable.FCStd",
+      "reussi": true,
+      "detail": "56e5d80722581f2ed613875f54c28359b94d7237ab10f5d96d382452fe6c6832"
+    },
+    {
+      "id": "natif:sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
+      "reussi": true,
+      "detail": "881c5e705fed1ea6c0c40a1b2c7672d87ddd92db37c3c0553d4d0f638edd2fec"
+    },
+    {
+      "id": "natif:pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+      "reussi": true,
+      "detail": "b48335ba7019654a77d7afe84d887075788eb42d243865d96501577a976494b6"
+    },
+    {
+      "id": "natif:pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "929bf3e2526c818355445d14751f72964666ca1c8c2386970673c504a2edad35"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P17_Support_deporte_isolation.FCStd",
+      "reussi": true,
+      "detail": "e5a48335c2face3dfa6516ccae78213c89b8f49b34215bd39c23e5f79349a891"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd",
+      "reussi": true,
+      "detail": "010dc6af5cbde264558dc3e54fc84e5ce730e6b3e8108bcd488c8e0384c7309f"
+    },
+    {
+      "id": "natif:pieces/fabriquees/P19_Rondelle_capture_metal.FCStd",
+      "reussi": true,
+      "detail": "8973755eb0e3b7467b18b5144ab28e848b0e0c0655970d7508f1ed52cf97dd2b"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Chassis_X650.FCStd",
+      "reussi": true,
+      "detail": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909"
+    },
+    {
+      "id": "source_preservee:pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd",
+      "reussi": true,
+      "detail": "5677d67493e1e5a378d62d72cd05ae90a4a83cef436ce68f557a77fbed935b34"
+    },
+    {
+      "id": "source_preservee:sous_assemblages/SA05A_Bloc_capteurs.FCStd",
+      "reussi": true,
+      "detail": "e02525e07bf45b36ba2ac6975431b35c68d623d52e8fb39b99897903136ba772"
+    },
+    {
+      "id": "source_preservee:sous_assemblages/SA05_Capteurs_Isoles.FCStd",
+      "reussi": true,
+      "detail": "7a4388076326c9918bcb2c498537b57f672ae0dbf67f2ea44902fb1bc27b9694"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd",
+      "reussi": true,
+      "detail": "2cade6f15f64465ef031ff52a14f7328d2acbe05b04614fecd60dd3327be299d"
+    },
+    {
+      "id": "source_preservee:sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_3dConn1.stp",
+      "reussi": true,
+      "detail": "cfa92d8044781703fa24208723d4f4348754537516025f3f089832035e9f52c5"
+    },
+    {
+      "id": "source_preservee:sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf",
+      "reussi": true,
+      "detail": "f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab"
+    },
+    {
+      "id": "source_preservee:sources_fabricants/phoenix_contact/1522341_dimensions_41886.jpg",
+      "reussi": true,
+      "detail": "e058807591f7c5e844c3961b29861077fdc904b3a05e9f4b9588176609f9479a"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Ecrou_frein_M2.FCStd",
+      "reussi": true,
+      "detail": "485f08fb8183e7e1681fe340bbb62ed038a3b8344d4cf752ebd7b3680fac024d"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Objectif.FCStd",
+      "reussi": true,
+      "detail": "3712f1b0fd0bea908033f7dd97c92ddabaf10528121595088192fd843023bc82"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Sorbothane_0510010_30.FCStd",
+      "reussi": true,
+      "detail": "c34984e935e00a2c10f738b124424d58ea51f855803988ad80519029d959cc6c"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Sorbothane_0510030_30.FCStd",
+      "reussi": true,
+      "detail": "21d77bff888bdd7518688548eb180bd852a096513b61762eb11631e57cd2d231"
+    },
+    {
+      "id": "source_preservee:pieces/commerce/EQ_Vis_M2x25_CHC.FCStd",
+      "reussi": true,
+      "detail": "9fc8e666b1df6b23660ac470604ac5a1eace4cc5b9b7f526cab04e2421770fe8"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P70_Support_Radio_Prototype.gcode",
+      "reussi": true,
+      "detail": "80d04e6402e5726e4cf89f933e1cb351ab3fd39c406e3f13138df3c96d29f93c"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P70_Support_Radio_Prototype.stl",
+      "reussi": true,
+      "detail": "2b0322ac824da87b548fe3a609b7b9bb3cc32d99e4a5fdfbbd1b64545515a86f"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P70_Support_Radio_Prototype_cura.log",
+      "reussi": true,
+      "detail": "0aeef19ee354222a9b613dd1f8944d026f5149fb5fdad915f4b88925fbbd1aa7"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P79_Selle_Bras_Amont_Prototype.gcode",
+      "reussi": true,
+      "detail": "36a8a3652eb32986c00cf6bd848e28a1744a7e57bc0ae6981e901eb99a227e7e"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P79_Selle_Bras_Amont_Prototype.stl",
+      "reussi": true,
+      "detail": "4f850aea8eb61035e9a461734d4f02f23efbf3f1a440c1b0fc4a4cdd0ce9d9ea"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P79_Selle_Bras_Amont_Prototype_cura.log",
+      "reussi": true,
+      "detail": "abe948904806ecb273871b802e3f0f838c26e994a278152203052cfde415edaa"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P80_Selle_Bras_Aval_Prototype.gcode",
+      "reussi": true,
+      "detail": "1737d34362702b6f637b127c891de638af3868958f2f9278e01e9e0f95865225"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P80_Selle_Bras_Aval_Prototype.stl",
+      "reussi": true,
+      "detail": "f7079c52dd9edacdf0e402921ceab5b0c642a383706e82208148d386906db62a"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/P80_Selle_Bras_Aval_Prototype_cura.log",
+      "reussi": true,
+      "detail": "5c43bde44831c3905050c9e5d4b4a1f159e888b59e61646a1a93b521b62a2ed0"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/tooling/cura491/resources/definitions/ultimaker_s5.def.json",
+      "reussi": true,
+      "detail": "0f96e5bdfc746537903a27f646d68d3e73bb1d42374d5d3bf5acffd023f2aab1"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/tooling/cura491/resources/extruders/ultimaker_s5_extruder_left.def.json",
+      "reussi": true,
+      "detail": "529f5206ee56b3903d45642c5eebf54eead9cb9673c54e6f7762839bcefe064a"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/tooling/cura491/resources/materials/ultimaker_tpu_black.xml.fdm_material",
+      "reussi": true,
+      "detail": "fea63b66194f95dbce85ca3d90e3907e16295f708d8546540a0c6ffb4290da22"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/tooling/cura491/resources/quality/ultimaker_s5/um_s5_aa0.4_TPU_Normal_Quality.inst.cfg",
+      "reussi": true,
+      "detail": "124d3df4137081bce3bd938aa5f9d053efb44cea4b5e3e8d9c31b5979a8ce062"
+    },
+    {
+      "id": "entree_masse:.runtime/orch-cao-masse-1/fabrication/tooling/cura491/resources/variants/ultimaker_s5_aa04.inst.cfg",
+      "reussi": true,
+      "detail": "b53a83133b8b8ec0f93c5460ff28664fc43a47d830a9f859eca566a3341f4d93"
+    },
+    {
+      "id": "entree_masse:hardware/electronique/cartographe/sources_fabricants/Holybro_PM08_CAN_20260929.html",
+      "reussi": true,
+      "detail": "fc37b312ba8980d4b111a771cf5e9ad0167a9f7d6212eb99642c6a2d670e6744"
+    },
+    {
+      "id": "entree_masse:hardware/electronique/cartographe/sources_fabricants/RadioMaster_RP4TD_User_Manual_20241105.pdf",
+      "reussi": true,
+      "detail": "543aeb69bfb1c90c667504c1954bbba5ba00629f60f68f031e0eb0d99d36e41e"
+    },
+    {
+      "id": "entree_masse:hardware/electronique/cartographe/sources_fabricants/rp4td/RP4TD_Size.jpg",
+      "reussi": true,
+      "detail": "eacc4e72aeb59b4d46c7d2c7cbc56e7cbc5f780afdeaf139719eaca20b7ceb39"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/manifest.json",
+      "reussi": true,
+      "detail": "2300b05912d2c4c31df8c2cd3132b18c67de4c300ac24e525b9ce53662096654"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "reussi": true,
+      "detail": "0e552a180f4514c23f2098e2bf9c94ff5642bfd3bfae6a305f6d3c6f9f9cadee"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/Fujinon_CF8ZA_1S_Specification.pdf",
+      "reussi": true,
+      "detail": "b71055f7eb0ecb601b60e6d10cbb8a9fd27f81a84b33bbb0a6193d0be88e512c"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/Waveshare_Orin_FAN_PWM.html",
+      "reussi": true,
+      "detail": "51618ea093fac8e62612b664d20bc729ebd9b2df4cd2b91202ae99240138b299"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/batterie20Ah_20261002/exemples/GensAce_Tattu_NMC_TAA200006S5X9S.html",
+      "reussi": true,
+      "detail": "228ad70d00d07a5e5feef2e457ac2f774b5dce865546cd6651c11037c9ebf134"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "reussi": true,
+      "detail": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/constellium_6061.pdf",
+      "reussi": true,
+      "detail": "acbc68d3eb9c2032865114653594f7f3d2891ba0733e0858c0caf52da1e3bc51"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/ensinger_tecaform_ah.html",
+      "reussi": true,
+      "detail": "b720383c6c381c2b3f39625e7c4115cde3a99095cadd356038bf3ee51461ba5d"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/eos_pa2200_balance.pdf",
+      "reussi": true,
+      "detail": "e56c2808574c5d0d2828f7ad59b15aa14324f3b499dafdc5ffc247a1e16a5746"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/hellermann_111_01960.html",
+      "reussi": true,
+      "detail": "289b34b2713056f5d598a30c47f0309fb377afd6b71d97bbe627a644d5069bd0"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/hellermann_111_05012.html",
+      "reussi": true,
+      "detail": "bf83e353c0637fdc7ee70f4013f5fbc72edfa7ae334611f376fe2fc6d8156b5d"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/henkel_loctite222.pdf",
+      "reussi": true,
+      "detail": "790080298de734ed424da6be3b3c008a5551b5a4da0344e9432f182e66df31a8"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/minicars_b9310.html",
+      "reussi": true,
+      "detail": "9c6e7514cb770ee2f5c40bd102d71d81d9727339415bf6ee0402d3d8176f1bae"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/norplex_np500a.pdf",
+      "reussi": true,
+      "detail": "d53a7f59217f3293d382f5a0e80364f22bf41844fac506a53809cc0d44f9a9c5"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/outokumpu_core.pdf",
+      "reussi": true,
+      "detail": "91d2f4b1340562b0d692a3921a5b0ea2518ddcb6cbdcc9ec97a3d7ad886d7ad9"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/phoenix_1522341_extrait.json",
+      "reussi": true,
+      "detail": "aeffc8a8ffd366753db8046f8fc618359dc474d2ddb6441eeb2f6bd023409fe7"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/ultimaker_tpu95a.pdf",
+      "reussi": true,
+      "detail": "874b73a651c6f122a0d9bff033311424cf9c642fb3c7a993b8bc6ff8d7a9b21a"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/usbfirewire_rr_asmuk.html",
+      "reussi": true,
+      "detail": "d236d25d4e1323aeb1744fb5f239c4aecc02c7942b4c59b4ef1ad589df4c7e89"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_a2A4096_30ucBAS.html",
+      "reussi": true,
+      "detail": "b4fd15fce35ed0eb5ef5afc7b9ee7bdd7000e6e42f4d5e7269d8303911552ba3"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_ace2_USB_connecteurs.svg",
+      "reussi": true,
+      "detail": "35a6d34096fe1da8ff003ed53a18339199150de305c51d6cf431629b3664200f"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_ace2_USB_dimensions.svg",
+      "reussi": true,
+      "detail": "a97f470ca227974fc0eec72ec5b8b4ec3c7f0a1f28764435e732e62d50f45518"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Basler_intrusion.html",
+      "reussi": true,
+      "detail": "3eee8b98cf042ff9648dfe98a915720700e2408099f29583802a452feb6c6cc4"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/CUAV_USL.html",
+      "reussi": true,
+      "detail": "623ff5d110b3ddc5a7f0782a92ccd09e59a7ecdfae0b339d5dec1f09bc3e88a2"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Fujinon_CF8ZA_1S_dessin.dxf",
+      "reussi": true,
+      "detail": "4e4a1b1ffe00fa41d85d81dbbca62a060dc507e1f66cc81ad6d418bca042c2ab"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Fujinon_CF8ZA_1S_dessin.pdf",
+      "reussi": true,
+      "detail": "585976630e35f6bd5c3133e3b4aa05ef1a05824f1396c1b508cfde62f8f779cc"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_11072_dimensions_masses.html",
+      "reussi": true,
+      "detail": "09bb09736964be76255c7194ab3aede8219e440a1660f0ade28a7553d6851690"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_CAN_PM08_Case_v003.step",
+      "reussi": true,
+      "detail": "f31ae70b1c14ea0d455c86e2f7c9cc946a56ede3d644baa1bf19b2e6b53640f0"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_DroneCAN_F9P_Helical_original.stp",
+      "reussi": true,
+      "detail": "d59dd9a7571dd709b514a2a6ba930c6ab8dd4953766232827400943719e5e7d6"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_F9P_download.html",
+      "reussi": true,
+      "detail": "aaee6985ebc8c96a365a93a713217b1a9bb720ad49225779912604969c191cdd"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_GNSS_F9P_specification.html",
+      "reussi": true,
+      "detail": "77f88c0fedbdcb9d1e67ddfa4142e8e7e240235de42e0beea88b158298d19d16"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Holybro_power_module_download.html",
+      "reussi": true,
+      "detail": "b7b53e38fff14c6053a996af0a7d3a75fa6a4b6e104218b59ba03586599b5ffe"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Kingston_SDCE.pdf",
+      "reussi": true,
+      "detail": "2dbc0892054f94f0f30def5dea05278fa185472e2a964e7a05e5f18031aa02fc"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/NVIDIA_Orin_NX_module_mass.html",
+      "reussi": true,
+      "detail": "bbb907b37262bc33315d3860a27cc9ab02c2662ec56bc7d33ff50018dfe39dbc"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/RoboSense_Airy_manuel.html",
+      "reussi": true,
+      "detail": "6d6fa49f69c0efac434a1d355598d112ad94e2c5530e6d80640bae5b26f7ec5b"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Samsung_MZ_V9S1T0BW.html",
+      "reussi": true,
+      "detail": "e890929ab2236103fd598c746c0d784a934a3da76267bb6d0a5470e2bc5f353c"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_15817.html",
+      "reussi": true,
+      "detail": "1d9fca68da5b3c86065f003113996a2feed5245870f26179fa777cda98900768"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_15817_dimensions.jpg",
+      "reussi": true,
+      "detail": "92a38042f1776743d2a71377354bf55a745afea85a916f5594a0d8cc58c6f5e8"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_Orin_FAN_PWM_dimensions.jpg",
+      "reussi": true,
+      "detail": "689361f864160e77309f0d6acaa5ce5e32dee39744cc4d543ad7a679f61236f6"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/FlyingTech_31230_original.html",
+      "reussi": true,
+      "detail": "6e4b382bca53350bd0d4a65b4d184228b70ddfb1478e65f1935c6ff5701c5307"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Gemfan_2025_Product_Catalog_original.pdf",
+      "reussi": true,
+      "detail": "fdc69bfcd3a0d09e3d305de774380f50dd561fe34fdba2e8bb92ab323e47f99d"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Gemfan_carbon_fiber_original.html",
+      "reussi": true,
+      "detail": "5783ec5654ace6c17fad60355fc75cc17846b7a43089c6cd2718e1c8978178e6"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Gemfan_t_type_original.html",
+      "reussi": true,
+      "detail": "1282e12ed0a29f0b96a1ed200c7997138cd5622c7dd0889b54ace7e968967930"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_31230_original.jpg",
+      "reussi": true,
+      "detail": "984f3f886d9857e9093de9e03552a8bc871dcd5caea0db1b97d270a0366fcfdd"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_520095_original.jpg",
+      "reussi": true,
+      "detail": "ee55f3dc6a1ac73927e9823f7215d4009b9223d2ca9b268878527ffbfee195e9"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_Tekko32_F4_45A_ESC_SPEC_V1.1_original.pdf",
+      "reussi": true,
+      "detail": "deaaa7699730ccb9637be55c84cb885336161c377e9d932c56cf19de0e97a0d1"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_X650_Assembly_Guide_V1.1_original.pdf",
+      "reussi": true,
+      "detail": "642dffcdbe266f0355c64b28d9d25f622f857a554b1b250f94d04e18d2535869"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/PremiumModellbau_31230_original.html",
+      "reussi": true,
+      "detail": "9b0d4dd1576b3913c6e08e47ab8dae943325f0ca889b3727c2319c4c3393d269"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/TMotor_MN4014_KV330_original.html",
+      "reussi": true,
+      "detail": "9ae50720cf138a69768df3f40e62ca665460eb37025f1a403c96158926876e8e"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/orch_structure/TMotor_MN4014_draw_0603_v1_original.jpg",
+      "reussi": true,
+      "detail": "60438122e4950bada5b2a20e59e7db635873bf381d7929281b2fb4840842d75e"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/origine_v01/Airy_3D_FOV.STEP",
+      "reussi": true,
+      "detail": "62bf7d54ab7475f72d09eaff1b641e6a658c45fae5a42977667cd1f92e418be3"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/origine_v01/basler/Basler ace 2 USB3.stp",
+      "reussi": true,
+      "detail": "c71e32c1fada09c6eef04587602841991bc90b03944db6fdba84754055cfb901"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/origine_v01/holybro_x650.html",
+      "reussi": true,
+      "detail": "7a226b0b59340677fb489b4f92f338e77c2e42438360f54161efc1965b31c06d"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/sources_fabricants/origine_v01/x650-frame-2025-0825.stp",
+      "reussi": true,
+      "detail": "62cf031a85c59a7f023c2b525115497dfb0821de9c964c1a5cf905c549d156f7"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_cao_masse_equipements.json",
+      "reussi": true,
+      "detail": "134669201e67d3f52eac8c76ab01edad29d07020578180db189768a4b963abca"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_cao_masse_fabrication.json",
+      "reussi": true,
+      "detail": "61240d904a2df4a7bf95737e27fbd9e16144bfafe283a48b6f2517ca922f425c"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_cao_masse_geometrie.json",
+      "reussi": true,
+      "detail": "4a44cc9bdd4bfa1e80046fab404bca280a15f87436ed455cc1e379bb4d5fb7e1"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_cao_masse_structure.json",
+      "reussi": true,
+      "detail": "d60245cfefca106116b678970a41fffd761754eeec1db88e3b28b17cfb53b33b"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_equipements_cao.py",
+      "reussi": true,
+      "detail": "6164867f99bbb2568c1f6502612d86a9fb60eadbc2fc3ceac2ad2d3741388570"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_fabrication_cao.py",
+      "reussi": true,
+      "detail": "2fbc6eaa42a9a0b8801ff802a2c80c509a7eae54ce0809f54154ee95be28b9c9"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_integrate_cao.py",
+      "reussi": true,
+      "detail": "249e9976432e06a084550054e08d955e35dd983c1606d3d6624c1640616e36a8"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_prepare_registres.py",
+      "reussi": true,
+      "detail": "78209a9820c8b2b0827f65231fa0af624a9a56767cdfadba1aa81889829df903"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/orch_structure_cao.py",
+      "reussi": true,
+      "detail": "e1fd891ea4d45af407f9b99ea77bfa5885d81a1f55cd77c5578b44bcaa8d4f95"
+    },
+    {
+      "id": "entree_masse:hardware/mecanique/cartographe/verification/read_brep_prototype.py",
+      "reussi": true,
+      "detail": "36320d6ebeb21a824385763e9b7418151fbe5de3cbbad9144b7aef17db3aa063"
+    },
+    {
+      "id": "entree_masse:simulation/mass/BomMass.cpp",
+      "reussi": true,
+      "detail": "5238202c7aaa68e5d042388ca1d0f18c6f1e1f4da7ec7dffb20e3bda9f170fff"
+    },
+    {
+      "id": "entree_masse:simulation/mass/MassProperties.hpp",
+      "reussi": true,
+      "detail": "03a6bba0cb0f34f8a1b0f20cc8228e8c9f561889a4da5c02fcbfbe6b90e23d88"
+    },
+    {
+      "id": "manifeste_construction_occurrences",
+      "reussi": true,
+      "detail": 362
+    },
+    {
+      "id": "ledger_identique_controle",
+      "reussi": true,
+      "detail": "Même résultat C++ publié"
+    },
+    {
+      "id": "publication_massique_idempotente",
+      "reussi": true,
+      "detail": "Cinq artefacts identiques après une seconde publication"
+    },
+    {
+      "id": "reproduction:hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "reussi": true,
+      "detail": "0e552a180f4514c23f2098e2bf9c94ff5642bfd3bfae6a305f6d3c6f9f9cadee"
+    },
+    {
+      "id": "reproduction:hardware/mecanique/cartographe/verification/controle_masse_prototype.json",
+      "reussi": true,
+      "detail": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192"
+    },
+    {
+      "id": "reproduction:hardware/mecanique/cartographe/verification/couverture_bom_cao_prototype.json",
+      "reussi": true,
+      "detail": "f775b08ef78e0ae51476de8855579f1da3ef85768948856b65e8804591a9b74f"
+    },
+    {
+      "id": "reproduction:hardware/mecanique/cartographe/verification/couverture_massique_prototype.json",
+      "reussi": true,
+      "detail": "03476ebe5ebab3c21f9252725c961addc5e6880e0038404429a62d29a36b488a"
+    },
+    {
+      "id": "reproduction:simulation/gazebo/models/cartographe/geometry/mass_ledger.json",
+      "reussi": true,
+      "detail": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192"
+    },
+    {
+      "id": "aucune_masse_inconnue_zero",
+      "reussi": true,
+      "detail": "Inconnues null et valeurs documentaires conditionnelles distinctes"
+    },
+    {
+      "id": "inventaire_bidirectionnel",
+      "reussi": true,
+      "detail": "Tous les postes et occurrences présents dans les tableaux, écarts conservés"
+    },
+    {
+      "id": "reouverture_liens_poses",
+      "reussi": true,
+      "detail": "Nouveau processus FreeCAD ; aucun natif modifié par le contrôle"
+    },
+    {
+      "id": "solides_physiques_valides",
+      "reussi": true,
+      "detail": 506
+    },
+    {
+      "id": "rendus_courants",
+      "reussi": true,
+      "detail": 7
+    },
+    {
+      "id": "vue:exports/prototype/ensemble_brep.png",
+      "reussi": true,
+      "detail": "1112f49390cae763fb145ca13325861deec461acf6e537c4aaa03550b70192b5"
+    },
+    {
+      "id": "vue:exports/prototype/reserve_usb.png",
+      "reussi": true,
+      "detail": "4f1fcf7789a4a2b443d44687e88c141f38ebaec03314aaa3e59d5bb7a0a71f16"
+    },
+    {
+      "id": "vue:exports/prototype/departs_bras.png",
+      "reussi": true,
+      "detail": "d01eb578f24dde244df5bab8366d0372f34de294ddbe163667c1c9372ca1ab96"
+    },
+    {
+      "id": "vue:exports/prototype/bras_selles.png",
+      "reussi": true,
+      "detail": "e79f6e5ce45c004c642142fcc73247e94a7e0890812726f3cec35b2af1414b56"
+    },
+    {
+      "id": "vue:exports/prototype/connexions_camera.png",
+      "reussi": true,
+      "detail": "a56dab82b92975587f07c3fe682c848265b541375407aea1f782b841a1cf29cb"
+    },
+    {
+      "id": "vue:exports/prototype/guides_distribution.png",
+      "reussi": true,
+      "detail": "611850bfd401dc4bf95884193f5923378bcd1a289a902e00d254a4394b53800c"
+    },
+    {
+      "id": "vue:exports/prototype/connexions_avionique.png",
+      "reussi": true,
+      "detail": "044a0c9be3694e6ce064e8f081f49a0a7c0cf99198e53ec1688efa7313c28083"
+    },
+    {
+      "id": "interfaces_equipements_courantes",
+      "reussi": true,
+      "detail": 354
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/manifest.json",
+      "reussi": true,
+      "detail": "2300b05912d2c4c31df8c2cd3132b18c67de4c300ac24e525b9ce53662096654"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Airy.FCStd",
+      "reussi": true,
+      "detail": "d8f31fb861394bdf3db716f62a0bc5a75379625700622f73ad44ca175239ab11"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd",
+      "reussi": true,
+      "detail": "613590afa1fad83d66af9366083ddd5911bdb80f4628a555bb52404e817ec9f4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Basler.FCStd",
+      "reussi": true,
+      "detail": "6a149b20f89ec4e38c0196838814f0102914c4e359fdea0e5ab2cda39119dc42"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_CUAV_USL_Prototype.FCStd",
+      "reussi": true,
+      "detail": "94f6886b6390a8f94a8dbac6360f6df5278b38062033868bfea610e0d5e5c2c7"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Chassis_X650.FCStd",
+      "reussi": true,
+      "detail": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Collier_T50R_AncrageRF_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9b4dbc5a965fe7205979b7b1b0ba16b872f0ab493e432d87b35334f3573c405f"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Collier_T50R_MIDI_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3aa97b97375a5fedab0723bfe1bd00ab04a45c1959873d3141c3aa66f24928ae"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+      "reussi": true,
+      "detail": "8984a1bd639bd21c161d8c2fe12b9452608faa352cf74071a77f283969230b87"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Gemfan1555_CCW.FCStd",
+      "reussi": true,
+      "detail": "4bd64807b0f2ad6d93e39a9bc110daf07de147ba500641eea271256c086d3528"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Gemfan1555_CW.FCStd",
+      "reussi": true,
+      "detail": "2a19739a716240440d13cd416982658af875564595b155a13891d8479daef904"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "c5ff64ca75e4c0e9c1e7bc96ddd4b545088dbf9ca394b42a408d631267c19dfa"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO10511_M3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "87555be94abea0a9fd69929c6cfa77d1c29f0bd95488fac8c24a99a1d3260bbc"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO10642_M3x16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e10c9502b040f8cdb54577817498e5d9936fa74ad1de5272940bf9eac9204ff2"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO10642_M3x40_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fe6de6bdf2ba61a2fcbc63483cd8d4969a5c859e8efab2c7a007962b7db71aaa"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4032_M2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4de5e8650ad3ca2c31ef2eefb7aea668dc439743547b587b07f007ec43f965fd"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M2x12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1006dbe5f8756f3712745674c6fecfbf0365a853dcb3b4cf3074cf5387ef33e4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e279a32d0db48470ae8c958dafdf7b0fc4774fc461cb785cf5021c81260182ea"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "75a2656cc7a09b47e00feeafc02430f7a8610cb54945b8b1a572512ef83bf4e6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x55_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2a96ddca75e2364ac512963f9c87d04f297af550e91fefb69a005fec48cb7270"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x6_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f636b0464515ac87950293286ca9f62da5fa40f9202a1f196edd81c403101401"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x75_Prototype.FCStd",
+      "reussi": true,
+      "detail": "b43e268d8a951eb225fba3a3b1983f266ee9f225d339b152bafb647728ba9420"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO4762_M3x8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e53622130b2e6e271aed1caf9068e7c09382ad7ed6c4d804ce5974115e6a9523"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "53895ee5bbe6c3439c792ce363b66936bf8297b62b4ead53534edf285ab1286c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_ISO7089_M3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fe6eee1a0d3124fc371adeacd57051279bf5978ec2c46897d90de71f22dca492"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd",
+      "reussi": true,
+      "detail": "4c04c39a5617a52e0a3e0bf0af601717167e6c05da285ec279d39e17d2ce49d0"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Kingston_SDCE32GB.FCStd",
+      "reussi": true,
+      "detail": "ab4b92c37a4d2e89090fe32666036ff818eed04e8d0c1f272113d5ccdcd4ac6b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_MIDI_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e04c463644a05838b6c9fbfeb18440a253d00ab16fa854aa4a3a53241aa2483b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_NTC_JBD_Prototype.FCStd",
+      "reussi": true,
+      "detail": "00a535b4d4ce89e19f05757e9158104c48e8ef6803e40051bea793ad811a90c3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "42de7a9fae173a73945817ec3a966d222c3caa8f13a56afdc65d7a397be6cc68"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Pad_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4af9234aba82157edca36879402b311d4a658a55d21d73ee39d33c8986de04f2"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Pad_Droit_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "644cf7d8935fdd8c760675c58079a6ed594f2ebf3edfa2cde794bd86dc32c524"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d8ff478c952a6b750e4ec1a84d26f3f596fbec7281acbf8e19ea138d2efddf3b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Protection_CA01_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4c7934ae531a45ad6135c867cc4587b10123eae81e2e04e2fa559160c10935a5"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2220469d2a92b2de658013bfc159f4391ab30f5bc3c23db4c114c94bcf16d955"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+      "reussi": true,
+      "detail": "929bf3e2526c818355445d14751f72964666ca1c8c2386970673c504a2edad35"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+      "reussi": true,
+      "detail": "37078b961d0eb05e23dcef05f017bdb3afca049a487471852a4ed76586c882a6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Sangle_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "985a96dba71a2b4f2819cf0a9d4b8ec590968e159280801f3868070c994ed16c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd",
+      "reussi": true,
+      "detail": "2132dd34b035f3a1081939c0b36258a7e65e22744d0fd1d66a0d76ccdd747531"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Tekko32_45A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d003ea5d326959df6d38c3209352d0fee45af22f9112d8a7179dfea4305657e4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd",
+      "reussi": true,
+      "detail": "8efbd0909e1e872802edb80e05c0aa0640847ce0cc2066888159fe6d07efea9d"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2677d937846d34a78eb1136d3eb41d46491dffa1d8993c2f881e348d69e0254d"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+      "reussi": true,
+      "detail": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd",
+      "reussi": true,
+      "detail": "d866399cf88dfb462c49ae3eea7169a5149cf7a1645305df2aeac01ef6423dda"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/EQ_X650_Colonne90_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a2fb5afc1c7a300f2ee84b65c69d63680026a66feb3e64b60569f33062dadb24"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_AIRY_ETH_Prototype.FCStd",
+      "reussi": true,
+      "detail": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_AIRY_PWR_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_AIRY_Prototype.FCStd",
+      "reussi": true,
+      "detail": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_AIRY_SYNC_Prototype.FCStd",
+      "reussi": true,
+      "detail": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_BALANCE_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F01_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F01_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F02_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F02_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F02_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F02_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F03_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F03_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F03_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F03_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F04_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F04_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F04_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F04_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F05_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "df38104a255d84649d56312134fd8ae0eeb5f12d2929057c2ae981d2e95be03e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F05_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "175c2ba08af77931fb2f118a2e7742266fad2a23bae5e0ed926b779701611bbd"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F06_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F08_AMONT_Prototype.FCStd",
+      "reussi": true,
+      "detail": "e82a32636da8c4444f34538c465e333a343631ddbb94f8f4d6ed00aa48699880"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F08_AVAL_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3a97a19070ec5573169bf522006d6dfaa5a0cf9251e3a77b668fa5ec5f9037e9"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F09_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F12_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F13A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F13B_Prototype.FCStd",
+      "reussi": true,
+      "detail": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F16_Prototype.FCStd",
+      "reussi": true,
+      "detail": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F20_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cda215381434af6aac35c1e28cf74ba9874b830084744a08b651c672135cea0b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F21_Prototype.FCStd",
+      "reussi": true,
+      "detail": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F24A_Prototype.FCStd",
+      "reussi": true,
+      "detail": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F24B_Prototype.FCStd",
+      "reussi": true,
+      "detail": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F24C_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F25_Prototype.FCStd",
+      "reussi": true,
+      "detail": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F31_Prototype.FCStd",
+      "reussi": true,
+      "detail": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F32_Prototype.FCStd",
+      "reussi": true,
+      "detail": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F33_Prototype.FCStd",
+      "reussi": true,
+      "detail": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F35_Prototype.FCStd",
+      "reussi": true,
+      "detail": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F36_Prototype.FCStd",
+      "reussi": true,
+      "detail": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F37_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "26a2743c582fe8dbde7e07db3908c1d352d6d31d9f9bf501bff3ac6239c02fb3"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F37_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "d9e37b4e0a9b54a5924552edaa38eb7cb8fbb632b307a28ea930d2f99d207c18"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F38_NEG_Prototype.FCStd",
+      "reussi": true,
+      "detail": "05878c5035e47171c93161b70ac75133a3942a94770f7ce0b53eced4770e0b8f"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F38_POS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "24df46495936412b2b17f9e4456bab190ea1858a3906c82c7c6d4c0dba103f07"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F40_Prototype.FCStd",
+      "reussi": true,
+      "detail": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F41_Prototype.FCStd",
+      "reussi": true,
+      "detail": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_F_M8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_LED_1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_LED_2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_LED_3_Prototype.FCStd",
+      "reussi": true,
+      "detail": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_LED_4_Prototype.FCStd",
+      "reussi": true,
+      "detail": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_NTC1_Prototype.FCStd",
+      "reussi": true,
+      "detail": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/commerce/W_NTC2_Prototype.FCStd",
+      "reussi": true,
+      "detail": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+      "reussi": true,
+      "detail": "b48335ba7019654a77d7afe84d887075788eb42d243865d96501577a976494b6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P10_Retenue_cable.FCStd",
+      "reussi": true,
+      "detail": "56e5d80722581f2ed613875f54c28359b94d7237ab10f5d96d382452fe6c6832"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1be04e1120992aba7f2fa3813461967068f0fc98c1d216a4c585706fafc152f6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "fa725c8b143e39c8a81c6d500c04d3bbc91198589387750019a7dfa081095863"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a16a84a515b4c001807ccc5307ad4fc4fb298a6425ec51f886ed71208dc9b95e"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "f3ff4dd6489fdb8b0562da1ecaa5080b03abf3b080c1f0b2965fda1d335af3f6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "9c31b9cd332532e4d23e59083930bd3a889517c38463ad7e05ed847ab3d941ab"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd",
+      "reussi": true,
+      "detail": "a4192f1000b81db9a02f1bf519b03a2437caed83aa530d0e5b66c34e00a71785"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "049d59e2a7b7a9bdf032255eeec388774602e23f9496b6a5b1728b994bcae379"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "02083f29276203004333e54e1eac41bc9547e4f3bfe58ce878340888aff9c85d"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd",
+      "reussi": true,
+      "detail": "7cb00d23d2c80e8beb1dde4213fcc87e06911f2b1313b249d5e83d4abe324f63"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd",
+      "reussi": true,
+      "detail": "21577d7bd05d1341c3b35f93cc9b133eb4498b79f5e3fc226c5936a4811a7951"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+      "reussi": true,
+      "detail": "35a1ab667970830b029469bfcb67935c34def9a9d3ea871dc651da8d1c791fad"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P71_Support_Securite_Prototype.FCStd",
+      "reussi": true,
+      "detail": "741f763a6a4132f5d7dcd4a9f0598dadc38b74394dfc0e3a7cd344add24ac0f2"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd",
+      "reussi": true,
+      "detail": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd",
+      "reussi": true,
+      "detail": "702ace30d0ea3cc971bbd350b8e1fa1ac5ffd493f33c9a5ccf1e75de3392224c"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd",
+      "reussi": true,
+      "detail": "89695df4e201711c7d673b1777f7242b4ba28b8c8fdc62676df8d4906a7ebb5d"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd",
+      "reussi": true,
+      "detail": "93803e87c8d07f231a7776bb6b25c292f73cfb3d490c45602a61e99ce9eb5bb4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "1a352527fe60f466b56bd253ccb2ea2dd7bd79a76c6574c718d7f68fe9823c88"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd",
+      "reussi": true,
+      "detail": "c1c33506b7bcdb3d5d8c21761c4c433fc77fda67ec090d13007545eb13e2ed92"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd",
+      "reussi": true,
+      "detail": "82e99213076e8327e61b335de2ab2b7ed68fd77b6e40da202afd7702662652a4"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd",
+      "reussi": true,
+      "detail": "0d1f8cfafe1a8831eb23c477311c499cba210503f38f1bdbf93f3e02a107e781"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd",
+      "reussi": true,
+      "detail": "2c2ba754f22cb6e0b55bdd47993e77b10035455dcbd166ce8eab3cfa8dffe137"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+      "reussi": true,
+      "detail": "dfee72717b735c4b10089435ae1019482878f6607051f1a3b8397da7721ed6ee"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse_equipements/Waveshare_Orin_FAN_PWM_dimensions.jpg",
+      "reussi": true,
+      "detail": "689361f864160e77309f0d6acaa5ce5e32dee39744cc4d543ad7a679f61236f6"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
+      "reussi": true,
+      "detail": "881c5e705fed1ea6c0c40a1b2c7672d87ddd92db37c3c0553d4d0f638edd2fec"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/verification/holybro_stack_source_20261001.json",
+      "reussi": true,
+      "detail": "dd09a689a16bb3c74eb45ab7c56dd139852bedbc5dc36f19e5ead6b24096d661"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/verification/orch_interfaces_equipements.py",
+      "reussi": true,
+      "detail": "f7a3afe7e5eb678f509073a89be38e8cd63d04ee892b69cadf9c7c0abc13e658"
+    },
+    {
+      "id": "interface_entree:hardware/mecanique/cartographe/verification/routes_prototype.json",
+      "reussi": true,
+      "detail": "8546487b052efa703e4dadc8aa4f7c4047e927e0f67c472b32ff0b4c94985e30"
+    },
+    {
+      "id": "export_bom_courant",
+      "reussi": true,
+      "detail": 108
+    },
+    {
+      "id": "export:hardware/mecanique/cartographe/exports/Nomenclature_Prototype_Cartographe.xlsx",
+      "reussi": true,
+      "detail": "bd36112782010374a25be3dfb1098c7379182c8c91d5aa9a296df52c1cc1d41e"
+    },
+    {
+      "id": "export:hardware/mecanique/cartographe/exports/Nomenclature_Produit_Custom_Cartographe.xlsx",
+      "reussi": true,
+      "detail": "d9cd375467fd7e4b5d2e1c00b7627bcee09e36508067c0edb5000b3a552769fa"
+    },
+    {
+      "id": "obsolescence_gazebo_visible",
+      "reussi": true,
+      "detail": [
+        "assemblages/Prototype_Cartographe.FCStd",
+        "pieces/commerce/EQ_Airy.FCStd",
+        "pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd",
+        "pieces/commerce/EQ_Basler.FCStd",
+        "pieces/commerce/EQ_CUAV_USL_Prototype.FCStd",
+        "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+        "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+        "pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+        "pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd",
+        "pieces/commerce/EQ_Kingston_SDCE32GB.FCStd",
+        "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+        "pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd",
+        "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+        "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+        "pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd",
+        "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+        "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd",
+        "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+        "pieces/fabriquees/P10_Retenue_cable.FCStd",
+        "pieces/fabriquees/P17_Support_deporte_isolation.FCStd",
+        "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd",
+        "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd",
+        "pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd",
+        "pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd",
+        "pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd",
+        "pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd",
+        "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd",
+        "pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd",
+        "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd",
+        "pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd",
+        "pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd",
+        "pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd",
+        "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+        "pieces/fabriquees/P71_Support_Securite_Prototype.FCStd",
+        "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd",
+        "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd",
+        "pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd",
+        "pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd",
+        "pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd",
+        "pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd",
+        "pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd",
+        "pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd",
+        "pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd",
+        "sous_assemblages/SA01_Prototype_Structure.FCStd",
+        "sous_assemblages/SA02_Prototype_Batterie.FCStd",
+        "sous_assemblages/SA03_Prototype_Energie.FCStd",
+        "sous_assemblages/SA04_Prototype_Perception.FCStd",
+        "sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+        "sous_assemblages/SA06_Prototype_Navigation.FCStd",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd"
+      ]
+    },
+    {
+      "id": "tests:cartographe_mass_properties|cartographe_bom_mass_contract",
+      "reussi": true,
+      "detail": ".runtime/orch-cao-masse-1/tests_mass.log"
+    },
+    {
+      "id": "tests:test_gazebo_export|test_gazebo_model_page|test_workspace_service",
+      "reussi": true,
+      "detail": ".runtime/orch-cao-masse-1/tests_station.log"
+    }
+  ],
+  "tests": [
+    {
+      "commande": "ctest --test-dir .runtime/orch-gz-1/evidence_agent -R cartographe_mass_properties|cartographe_bom_mass_contract --output-on-failure",
+      "code_retour": 0,
+      "journal": ".runtime/orch-cao-masse-1/tests_mass.log",
+      "sha256": "c8c0b3fe44ea3b7d6bf526d202af978e192706aac635addfb38605988f1a3ba4"
+    },
+    {
+      "commande": "ctest --test-dir .runtime/orch-cao-masse-1/station-build -R test_gazebo_export|test_gazebo_model_page|test_workspace_service --output-on-failure",
+      "code_retour": 0,
+      "journal": ".runtime/orch-cao-masse-1/tests_station.log",
+      "sha256": "0b0b457603d4f6fe74e9f7235bf99d382831ccf44ba10c31c36f15b1432cced4"
+    }
+  ],
+  "inspections_visuelles": [
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/prototype/ensemble_brep.png",
+      "sha256": "1112f49390cae763fb145ca13325861deec461acf6e537c4aaa03550b70192b5",
+      "inspection_effectuee": true
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/prototype/connexions_camera.png",
+      "sha256": "a56dab82b92975587f07c3fe682c848265b541375407aea1f782b841a1cf29cb",
+      "inspection_effectuee": true
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/verification_nomenclature_prototype/apres-masses-Perception.png",
+      "sha256": "18c74ddcd06059368d39af75763069669089e004dc3871981ea43dbab8cdc78d",
+      "inspection_effectuee": true
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/verification_nomenclature_prototype/apres-masses-Énergie.png",
+      "sha256": "9153189f3e2c4abda6ab70855c40461c0d964edd48ca7c81166178519fc796db",
+      "inspection_effectuee": true
+    }
+  ],
+  "couverture": {
+    "postes_bom": 134,
+    "postes_embarques": 95,
+    "references_actives": 132,
+    "occurrences_registre": 362,
+    "occurrences_physiques": 506,
+    "formes_sources": 328,
+    "postes_embarques_sans_rattachement": [
+      "MEC-FIXATION-HELICES",
+      "MEC-AIRY-PIGES",
+      "MEC-FREINAGE",
+      "ELEC-TERMINAISONS",
+      "ELEC-GAINES",
+      "ELEC-CAPOTS"
+    ],
+    "occurrences_non_attribuees": [
+      {
+        "blocage": "Propriétaire massique indéterminé",
+        "bom_ids": [],
+        "id": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/Part__Feature212",
+        "limites": "Petit solide OEM voisin du diffuseur ; désignation00/001/002/003 insuffisante pour identifier fonction, matériau et ligneBOM. Candidat KIT-LED non imposé.",
+        "matrice_mm": [
+          -0.7071067811863978,
+          6.914857575424094E-12,
+          0.7071067811866978,
+          82.12132034356001,
+          -0.7071067811866978,
+          2.3509638680252465E-11,
+          -0.7071067811863977,
+          -82.12132034355001,
+          -2.1513568704278896E-11,
+          -1.0000000000000002,
+          -1.1734613281078055E-11,
+          16.500000000110003,
+          0,
+          0,
+          0,
+          1
+        ],
+        "objet_source": "Part__Feature212",
+        "proprietaire_masse_bom": "",
+        "rattachement": "non attribué",
+        "source": "pieces/commerce/EQ_Chassis_X650.FCStd",
+        "valide": true
+      },
+      {
+        "blocage": "Propriétaire massique indéterminé",
+        "bom_ids": [],
+        "id": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/Part__Feature244",
+        "limites": "Petit solide OEM voisin du diffuseur ; désignation00/001/002/003 insuffisante pour identifier fonction, matériau et ligneBOM. Candidat KIT-LED non imposé.",
+        "matrice_mm": [
+          0.7071067811865475,
+          -8.632039527611823E-12,
+          0.7071067811865477,
+          82.12132034357002,
+          -0.7071067811865477,
+          -8.632206061065517E-12,
+          0.7071067811865478,
+          82.12132034356001,
+          0,
+          -1.0000000000000002,
+          -1.2207790334173296E-11,
+          16.499999999790003,
+          0,
+          0,
+          0,
+          1
+        ],
+        "objet_source": "Part__Feature244",
+        "proprietaire_masse_bom": "",
+        "rattachement": "non attribué",
+        "source": "pieces/commerce/EQ_Chassis_X650.FCStd",
+        "valide": true
+      },
+      {
+        "blocage": "Propriétaire massique indéterminé",
+        "bom_ids": [],
+        "id": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/Part__Feature276",
+        "limites": "Petit solide OEM voisin du diffuseur ; désignation00/001/002/003 insuffisante pour identifier fonction, matériau et ligneBOM. Candidat KIT-LED non imposé.",
+        "matrice_mm": [
+          0.7071067811865476,
+          8.595346656647962E-13,
+          -0.7071067811865475,
+          -82.12132034357002,
+          0.7071067811865475,
+          -8.593126210598712E-13,
+          0.7071067811865477,
+          82.12132034356001,
+          1.1102230246251565E-16,
+          -1,
+          -1.2154721673596214E-12,
+          16.499999999980005,
+          0,
+          0,
+          0,
+          1
+        ],
+        "objet_source": "Part__Feature276",
+        "proprietaire_masse_bom": "",
+        "rattachement": "non attribué",
+        "source": "pieces/commerce/EQ_Chassis_X650.FCStd",
+        "valide": true
+      },
+      {
+        "blocage": "Propriétaire massique indéterminé",
+        "bom_ids": [],
+        "id": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/Part__Feature308",
+        "limites": "Petit solide OEM voisin du diffuseur ; désignation00/001/002/003 insuffisante pour identifier fonction, matériau et ligneBOM. Candidat KIT-LED non imposé.",
+        "matrice_mm": [
+          -0.7071067811865475,
+          8.595346656647962E-13,
+          -0.7071067811865475,
+          -82.12132034356001,
+          0.7071067811865475,
+          8.594236433623337E-13,
+          -0.7071067811865477,
+          -82.12132034357002,
+          -1.1102230246251565E-16,
+          -1,
+          -1.2154721673596214E-12,
+          16.499999999980005,
+          0,
+          0,
+          0,
+          1
+        ],
+        "objet_source": "Part__Feature308",
+        "proprietaire_masse_bom": "",
+        "rattachement": "non attribué",
+        "source": "pieces/commerce/EQ_Chassis_X650.FCStd",
+        "valide": true
+      },
+      {
+        "blocage": "Propriétaire massique indéterminé",
+        "bom_ids": [
+          "AVI-CARRIER",
+          "AVI-FCU",
+          "AVI-CPU"
+        ],
+        "centre_volume_global_mm": null,
+        "id": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+        "inertie_volumique_globale_mm5": null,
+        "limites": "",
+        "matrice_mm": [
+          1,
+          0,
+          0,
+          -63,
+          0,
+          1,
+          0,
+          -40,
+          0,
+          0,
+          1,
+          128,
+          0,
+          0,
+          0,
+          1
+        ],
+        "objet_source": "Ensemble",
+        "proprietaire_masse_bom": "",
+        "source": "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+        "valide": true
+      }
+    ]
+  },
+  "masses": {
+    "sous_total_disponible_g": 1465.7983610143526,
+    "sous_total_documentaire_applicable_g": 479.7,
+    "sous_total_calculs_candidats_g": 986.0983610143526,
+    "masse_complete_g": null,
+    "postes_incomplets": [
+      "MEC-OEM-PLATEAUX",
+      "MEC-OEM-BRAS",
+      "MEC-OEM-TRAIN",
+      "MEC-OEM-COLONNES",
+      "MEC-OEM-FIXATIONS",
+      "MEC-MOTEUR",
+      "MEC-ESC",
+      "MEC-HELICE-CW",
+      "MEC-HELICE-CCW",
+      "MEC-FIXATION-HELICES",
+      "MEC-BATTERIE-SUPPORT",
+      "MEC-BATTERIE-SANGLES",
+      "MEC-BATTERIE-PADS",
+      "MEC-BATTERIE-FIXATIONS",
+      "MEC-PLATINE-CAPTEURS",
+      "MEC-SUPPORT-ISOLATION",
+      "MEC-MANCHON",
+      "MEC-RONDELLE-CAPTURE",
+      "MEC-SORBOTHANE-BAS",
+      "MEC-SORBOTHANE-HAUT",
+      "MEC-VIS-ISOLATION",
+      "MEC-ECROU-ISOLATION",
+      "MEC-ANCRAGES-CAPTEURS",
+      "MEC-AIRY-VIS",
+      "MEC-AIRY-PIGES",
+      "MEC-AIRY-THERMIQUE",
+      "MEC-BASLER-FIXATIONS",
+      "MEC-RETENUES-CAPTEURS",
+      "MEC-RETENUES-CAPTEURS-FIXATIONS",
+      "MEC-SUPPORT-AVIONIQUE",
+      "MEC-REFROIDISSEMENT-JETSON",
+      "MEC-SUPPORTS-ENERGIE",
+      "MEC-SUPPORT-GNSS",
+      "MEC-SUPPORTS-RF",
+      "MEC-SUPPORTS-SECURITE",
+      "MEC-FREINAGE",
+      "ELEC-BAT",
+      "ELEC-BMS",
+      "ELEC-NTC",
+      "ELEC-PM08",
+      "ELEC-PDB",
+      "ELEC-ISO",
+      "ELEC-PROTECTION-AMONT",
+      "ELEC-PROTECTION-W08",
+      "ELEC-F01",
+      "ELEC-F37",
+      "ELEC-F38",
+      "ELEC-F05",
+      "ELEC-F02",
+      "ELEC-F03",
+      "ELEC-F04",
+      "ELEC-F06",
+      "ELEC-F32",
+      "ELEC-F31",
+      "ELEC-F08",
+      "ELEC-F09",
+      "ELEC-F-AIRY",
+      "ELEC-F12",
+      "ELEC-F13",
+      "ELEC-F16",
+      "ELEC-F-M8",
+      "ELEC-F20",
+      "ELEC-F21",
+      "ELEC-F24A",
+      "ELEC-F24B",
+      "ELEC-F24C",
+      "ELEC-F25",
+      "ELEC-F33",
+      "ELEC-F35",
+      "ELEC-F36",
+      "ELEC-F40",
+      "ELEC-F41",
+      "ELEC-F-BALANCE",
+      "ELEC-F-LED",
+      "ELEC-TERMINAISONS",
+      "ELEC-GAINES",
+      "ELEC-PASSEFILS",
+      "ELEC-CAPOTS",
+      "ELEC-COLLIERS",
+      "AVI-CARRIER",
+      "AVI-FCU",
+      "AVI-SSD",
+      "AVI-SD",
+      "AVI-SAFE",
+      "AVI-CA01",
+      "AVI-PCB",
+      "RF-ANT",
+      "SEN-CAMERA",
+      "SEN-GNSS",
+      "KIT-LED"
+    ],
+    "centrage_drone": null,
+    "inerties_drone": null
+  },
+  "anomalies_assemblage": {
+    "collisions_equipements": [
+      {
+        "a": "SA03_Prototype_Energie/PM08",
+        "b": "SA03_Prototype_Energie/UART_isole",
+        "volume_commun_mm3": 121.758268,
+        "solides_touches": []
+      },
+      {
+        "a": "SA03_Prototype_Energie/PM08",
+        "b": "SA03_Prototype_Energie/Fusible_CA01",
+        "volume_commun_mm3": 122.967369,
+        "solides_touches": []
+      }
+    ],
+    "collisions_structure": [
+      {
+        "equipement": "SA03_Prototype_Energie/PM08",
+        "structure": "OEM_Part__Feature085",
+        "volume_commun_mm3": 19.464933
+      }
+    ],
+    "interfaces_fabrication": "hardware/mecanique/cartographe/verification/orch_cao_masse_fabrication.json",
+    "interfaces_equipements": "hardware/mecanique/cartographe/verification/orch_interfaces_equipements.json"
+  },
+  "blocages_recherches": [
+    {
+      "bom_ids": [
+        "MEC-HELICE-CW",
+        "MEC-HELICE-CCW"
+      ],
+      "id": "STR-B01",
+      "impact": "Les quatre hélices restent enveloppes insuffisantes ; masse,interfaces et inertie de rotor non démontrées.",
+      "information_necessaire": "Plan3D/plan coté exact Holybro520095/GemfanOEM : diamètre,pas,profil,épaisseur,moyeu,entraxe/alésages,sens ; masse nette unitaire et tolérance. Identification de la familleGemfan et révision.",
+      "recherches": [
+        "STR-R05",
+        "STR-R06",
+        "STR-R07"
+      ]
+    },
+    {
+      "bom_ids": [
+        "MEC-ESC"
+      ],
+      "id": "STR-B02",
+      "impact": "Quatre enveloppes48×25×10 conservées ;5,8 g n’est pas une masse installée. Recouvrement avec faisceaux doit être ventilé.",
+      "information_necessaire": "31230 : révision de carte,plan monté sous gaine,longueurs/sections des câbles,références prises,condensateur/protections inclus,masse nette du périmètre conservé.",
+      "recherches": [
+        "STR-R04",
+        "STR-R06",
+        "STR-R07"
+      ]
+    },
+    {
+      "bom_ids": [
+        "MEC-OEM-PLATEAUX",
+        "MEC-OEM-BRAS",
+        "MEC-OEM-TRAIN",
+        "MEC-OEM-COLONNES",
+        "MEC-OEM-FIXATIONS"
+      ],
+      "id": "STR-B03",
+      "impact": "Géométrie OEM disponible mais volumes seuls insuffisants pour calculer masse complète ; kit2000 g non transféré.",
+      "information_necessaire": "Masse nette par pièce ou ensemble exactement conservé,nuance/densité du carbone stratifié,polymères et aluminium,finition et tolérances ; lots et révisions OEM.",
+      "recherches": [
+        "STR-R01",
+        "STR-R02",
+        "STR-R06"
+      ]
+    },
+    {
+      "bom_ids": [
+        "MEC-OEM-FIXATIONS"
+      ],
+      "id": "STR-B04",
+      "impact": "Quatre colonnes reconstruites géométriquement valides mais définition non exacte. Ne pas appliquer densité d’alliage supposé.",
+      "information_necessaire": "Plan et matière exacte des colonnesM3×90 ; diamètre/forme,profondeurs taraudées et masse nette. Rapprocher géométrie OEM invalide et anneau de réservation actuel.",
+      "recherches": [
+        "STR-R01",
+        "STR-R02",
+        "STR-R07"
+      ]
+    },
+    {
+      "bom_ids": [
+        "MEC-MOTEUR",
+        "MEC-FIXATION-HELICES"
+      ],
+      "id": "STR-B05",
+      "impact": "Quatre solides moteur présents ; masse installée et fixation hélices non ventilées. Les deux masses catalogue restent conditionnelles.",
+      "information_necessaire": "Correspondance variantesOEM31228/31229 aux natifs et à MN.00026, contenu exact adaptateur/écrou/vis inclus dans150/171 g,longueurs et prises de fils réellement conservées.",
+      "recherches": [
+        "STR-R01",
+        "STR-R03"
+      ]
+    },
+    {
+      "bom_ids": [
+        "KIT-LED",
+        "MEC-OEM-BRAS",
+        "MEC-OEM-FIXATIONS"
+      ],
+      "id": "STR-B06",
+      "impact": "Quatre feuilles actives sans rattachementBOM démontré ; deux supports conservés de fonction incertaine ; clôture bidirectionnelle impossible en l’état.",
+      "information_necessaire": "Identifier feuilles00/001/002/003212/244/276/308, carteWS2812 et câblage ; fixer périmètre du diffuseur et de ses vis dansLED ; justifier supports076/077 après retrait rails.",
+      "recherches": [
+        "STR-R01",
+        "STR-R02"
+      ]
+    },
+    {
+      "bom_ids": [
+        "SEN-CAMERA"
+      ],
+      "id": "EQ-GEO-BASLER",
+      "information_necessaire": "ModèleCADexactFrontIIouplansdétaillésdesinterfacesM8/Micro-Betépaisseurs ; sourcefamillegénériqueantérieureinsuffisante.",
+      "recherches": [
+        "DocumentationmodèleexactetSVGcotésobtenus",
+        "PortailfabricantCADidentifié maisaucunSTEPexactdirectobtenu",
+        "Sourceantérieureinvalidepréservée,reconstructioncotéeexécutée"
+      ]
+    },
+    {
+      "bom_ids": [
+        "SEN-GNSS"
+      ],
+      "id": "EQ-GEO-GNSS",
+      "information_necessaire": "GarantirvarianteG4puisdéfinirposedeSMAetantennecompatibleavecsupportsansadaptateurimplicite.",
+      "recherches": [
+        "STEPofficielHelical11solidesobtenu,versionS32K1distincte",
+        "SMAextraitduSTEP,axelatéral−X ; antenneactuelleverticalesansjonctiondémontrée",
+        "Antennemâleplanappui/engagementnoncotés"
+      ]
+    },
+    {
+      "bom_ids": [
+        "ELEC-BMS",
+        "ELEC-NTC"
+      ],
+      "id": "EQ-GEO-BMS",
+      "information_necessaire": "PlanA01/100Acotant4centresdetrous,connecteurs,bornesetépaisseurs ; masse nette aveccontenu livré.",
+      "recherches": [
+        "PDFprimaire20pagesinspecté,p4dimensionsnominalestolérancées,p13R1,1×4sanscentrescotés",
+        "PageconstructeurSP22S003etportailfichiersconsultés ; niCAOexacteni massesnettesobtenues"
+      ]
+    },
+    {
+      "bom_ids": [
+        "MEC-REFROIDISSEMENT-JETSON"
+      ],
+      "id": "EQ-GEO-FAN",
+      "information_necessaire": "Bride/vis/contacts/prisesetépaisseursinternescotées ; masse nette SKU24076 sanscolis.",
+      "recherches": [
+        "Planprimairecotéetcontenudujeuobtenus",
+        "0,072kgfigureencontenucolis sansdistinctionmassenette",
+        "AnciensØ5,2inventésretirés ; axesM2duplanreprésentés"
+      ]
+    },
+    {
+      "bom_ids": [
+        "ELEC-ISO"
+      ],
+      "id": "EQ-GEO-ISO",
+      "information_necessaire": "Planrévision15817aveccentresfixationsetprises,profilconnecteursetmassenette avec/sansUSB.",
+      "recherches": [
+        "Photographieprimairecotéeobtenue",
+        "ManuelOEMlocalinspecté",
+        "Coque/pattesdocumentées ; bornieretpositiondeslumièresrestentdéduits"
+      ]
+    },
+    {
+      "bom_ids": [
+        "AVI-SAFE"
+      ],
+      "id": "EQ-GEO-CUAV",
+      "information_necessaire": "Référencevariantestable,planmécanique,pinoutHolybroetmassenette ; contenu1modulevs2Pcsàclarifier.",
+      "recherches": [
+        "BoutiqueofficielleCUAVetdocumentationC-RTKconsultées",
+        "PageafficheV5+/2Pcs,contenu1module+2câbles,indisponible",
+        "Aucunplancoté/CAO/massenettetraçablestrouvé ; réservationresteinconnue"
+      ]
+    },
+    {
+      "bom_ids": [
+        "AVI-SSD",
+        "AVI-SD",
+        "RF-ANT"
+      ],
+      "id": "EQ-GEO-SSD-SD-ANT",
+      "information_necessaire": "Plansdétailléscontacts/encochesetmassesnettesmicroSD/antennes ; révisionsdesantennes.",
+      "recherches": [
+        "Samsungprimairedonnebornesexternesetmax9g",
+        "KingstonSDCEficheprimairedonneformatmaisnipascontourscontactsni masse",
+        "ImageRadioMasterdonne65mmcoaxet79mmtotal ; dipôle noncoté,manuelmassiquecontradictoire"
+      ]
+    },
+    {
+      "bom_ids": [
+        "AVI-CARRIER",
+        "AVI-FCU"
+      ],
+      "id": "EQ-MASSE-AVIONIQUE",
+      "information_necessaire": "Identifier11072sansboîtieretrévision6Xdukit,obtenirmassesnettesappliquéesauxseulsélémentsinstallés.",
+      "recherches": [
+        "DocumentationHolybro85/110/175/185/190gconsultée",
+        "Boutiquebundle203,2gconsommateurnoncomparable",
+        "6Xactuel31,3gcontre23ganciennesrévisions ; aucunevariantechoisiepourfaciliterbilan"
+      ]
+    },
+    {
+      "bom_ids": [
+        "AVI-CA01",
+        "AVI-PCB"
+      ],
+      "id": "EQ-MASSE-CA01",
+      "information_necessaire": "Résoudre44MPNmontésabsentsetécartsBOM/CSV,figerstackup/matériaux/finition/souduresetsous-faceRP4TDavantmassereproductible.",
+      "recherches": [
+        "SousBOMcanonique151repèresetCSVfabricationinspectés",
+        "141montéscandidats,8DNP,2pointssanscomposantconfirmés",
+        "AucunMPNchoisi,aucuneadditiondemassed'ensembleetdessouscomposants"
+      ]
+    },
+    {
+      "bom_ids": [
+        "ELEC-CONNECTEUR-MANUEL",
+        "MEC-SUPPORTS-ENERGIE"
+      ],
+      "id": "QS8-INTERFACE",
+      "information_necessaire": "Plan exact des deux demi-corps B9310 : joint, interfaces, capots et débattement. P76 non adapté par invention.",
+      "recherches": [
+        "MINICARS-B9310 ; spécifications externes trouvées, aucune interface cotée."
+      ]
+    },
+    {
+      "bom_ids": [
+        "ELEC-CAPOTS",
+        "ELEC-TERMINAISONS",
+        "ELEC-GAINES"
+      ],
+      "id": "CAPOTS-TERMINAISONS",
+      "information_necessaire": "Interfaces BMS/PDB/QS8 documentées ; références cosses/contact/gaine et longueurs installées. Aucun capot inventé.",
+      "recherches": [
+        "BOM active et définitions terminaisons ; matières et dimensions critiques absentes."
+      ]
+    },
+    {
+      "bom_ids": [
+        "ELEC-F-AIRY",
+        "ELEC-F-BALANCE",
+        "ELEC-F-LED",
+        "ELEC-F-M8",
+        "ELEC-F01",
+        "ELEC-F02",
+        "ELEC-F03",
+        "ELEC-F04",
+        "ELEC-F05",
+        "ELEC-F06",
+        "ELEC-F08",
+        "ELEC-F09",
+        "ELEC-F12",
+        "ELEC-F13",
+        "ELEC-F16",
+        "ELEC-F20",
+        "ELEC-F21",
+        "ELEC-F24A",
+        "ELEC-F24B",
+        "ELEC-F24C",
+        "ELEC-F25",
+        "ELEC-F31",
+        "ELEC-F32",
+        "ELEC-F33",
+        "ELEC-F35",
+        "ELEC-F36",
+        "ELEC-F37",
+        "ELEC-F38",
+        "ELEC-F40",
+        "ELEC-F41",
+        "ELEC-NTC"
+      ],
+      "id": "FAISCEAUX",
+      "information_necessaire": "Sections et références réellement conservées, gaines et coupes, inclusions OEM, contacts. Courbes insuffisantes pour masse complète.",
+      "recherches": [
+        "53 routes Cable Workbench et contrat retenues ; sources câble1522341, USBFireWire et colliers."
+      ]
+    }
+  ],
+  "exports_historiques": [
+    {
+      "fichier": "simulation/gazebo/models/cartographe/geometry/geometry_manifest.json",
+      "sha256": "24993e3fc020cd89b4fec7e86b670fb3ccffd2be6a00bef52400fb854544e041",
+      "statut": "Historique, obsolète pour la CAO ORCH-CAO-MASSE-1",
+      "regeneration_executee": false
+    },
+    {
+      "fichier": "simulation/gazebo/models/cartographe/model_manifest.json",
+      "sha256": "6586816eab93e5d450f131906a2b4f98da66a017115b539d93f51a66f49397fc",
+      "statut": "Historique, obsolète pour la CAO ORCH-CAO-MASSE-1",
+      "regeneration_executee": false
+    }
+  ],
+  "dependances_gazebo_modifiees": [
+    "assemblages/Prototype_Cartographe.FCStd",
+    "pieces/commerce/EQ_Airy.FCStd",
+    "pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd",
+    "pieces/commerce/EQ_Basler.FCStd",
+    "pieces/commerce/EQ_CUAV_USL_Prototype.FCStd",
+    "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd",
+    "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+    "pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd",
+    "pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd",
+    "pieces/commerce/EQ_Kingston_SDCE32GB.FCStd",
+    "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd",
+    "pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd",
+    "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd",
+    "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd",
+    "pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd",
+    "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+    "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd",
+    "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+    "pieces/fabriquees/P10_Retenue_cable.FCStd",
+    "pieces/fabriquees/P17_Support_deporte_isolation.FCStd",
+    "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd",
+    "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd",
+    "pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd",
+    "pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd",
+    "pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd",
+    "pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd",
+    "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd",
+    "pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd",
+    "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd",
+    "pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd",
+    "pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd",
+    "pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd",
+    "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+    "pieces/fabriquees/P71_Support_Securite_Prototype.FCStd",
+    "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd",
+    "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd",
+    "pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd",
+    "pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd",
+    "pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd",
+    "pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd",
+    "pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd",
+    "pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd",
+    "pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd",
+    "sous_assemblages/SA01_Prototype_Structure.FCStd",
+    "sous_assemblages/SA02_Prototype_Batterie.FCStd",
+    "sous_assemblages/SA03_Prototype_Energie.FCStd",
+    "sous_assemblages/SA04_Prototype_Perception.FCStd",
+    "sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
+    "sous_assemblages/SA05_Prototype_Avionique.FCStd",
+    "sous_assemblages/SA06_Prototype_Navigation.FCStd",
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd"
+  ],
+  "non_execute": [
+    "Nouvelle campagne Gazebo/PX4, études de vol/autonomie",
+    "Achat, fabrication et mesure de masse physique",
+    "Banc, raccordement ou vol réel"
+  ],
+  "limites": [
+    "Une exécution numérique finalisée ne qualifie pas le matériel.",
+    "Sous-total disponible conditionné aux matières et procédés candidats ; ni masse complète ni borne garantie.",
+    "Reprise des simulations physiques après résolution des blocages et définition reproductible des masses/distributions applicables."
+  ],
+  "finalisation_correcte": true
+}

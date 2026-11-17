@@ -1,0 +1,678 @@
+{
+  "schema": "cartographe.radio-modulaire.v1",
+  "status": "À valider",
+  "mounts": [
+    {
+      "id": "Nord",
+      "occurrence": "SupportRF0",
+      "label": "P70 nord avec logement de dipôle",
+      "radius_mm": 4.2,
+      "expected_volume_mm3": 2118.55169596106,
+      "interface": "Colonne existante P68, axe X=-60, Y=37, Ø6 mm. Douille ouvrable Ø6,2 intérieur, Ø8,4 extérieur, gorge 5 mm. Longueur 28,2 mm et jeu axial 0,1 mm par face au nominal.",
+      "assembly": "Encliqueter la pièce depuis l'ouest sur P68 avant les antennes et les cordons RF. Vérifier le jeu aux deux faces, poser l'antenne, brancher son cordon. Pour la dépose, libérer le cordon puis le dipôle et le clip depuis l'ouest.",
+      "result": "Resultat",
+      "primitives": [
+        {
+          "id": "CorpsClip",
+          "type": "Box",
+          "origin_mm": [
+            -65.7,
+            32.5,
+            103
+          ],
+          "properties": {
+            "Length": 10,
+            "Width": 9,
+            "Height": 6
+          }
+        },
+        {
+          "id": "DouilleAxiale",
+          "type": "Cylinder",
+          "origin_mm": [
+            -60,
+            37,
+            99.7
+          ],
+          "properties": {
+            "Radius": 4.2,
+            "Height": 28.2
+          }
+        },
+        {
+          "id": "PassageP68",
+          "type": "Cylinder",
+          "origin_mm": [
+            -60,
+            37,
+            99.55
+          ],
+          "properties": {
+            "Radius": 3.1,
+            "Height": 28.5
+          }
+        },
+        {
+          "id": "OuvertureP68",
+          "type": "Box",
+          "origin_mm": [
+            -60,
+            34.5,
+            99.5
+          ],
+          "properties": {
+            "Length": 6,
+            "Width": 5,
+            "Height": 28.6
+          }
+        },
+        {
+          "id": "Patte",
+          "type": "Box",
+          "origin_mm": [
+            -69,
+            29,
+            103
+          ],
+          "properties": {
+            "Length": 4.8,
+            "Width": 8,
+            "Height": 3
+          }
+        },
+        {
+          "id": "BrutClip",
+          "type": "MultiFuse",
+          "inputs": [
+            "CorpsClip",
+            "DouilleAxiale"
+          ]
+        },
+        {
+          "id": "Gorge",
+          "type": "Cut",
+          "inputs": [
+            "BrutClip",
+            "PassageP68"
+          ]
+        },
+        {
+          "id": "Clip",
+          "type": "Cut",
+          "inputs": [
+            "Gorge",
+            "OuvertureP68"
+          ]
+        },
+        {
+          "id": "SocleAntenne",
+          "type": "Cylinder",
+          "origin_mm": [
+            -76,
+            28,
+            106
+          ],
+          "properties": {
+            "Radius": 3.4,
+            "Height": 7
+          }
+        },
+        {
+          "id": "PassageAntenne",
+          "type": "Cylinder",
+          "origin_mm": [
+            -76,
+            28,
+            106
+          ],
+          "properties": {
+            "Radius": 1.7,
+            "Height": 7
+          }
+        },
+        {
+          "id": "OuvertureAntenne",
+          "type": "Box",
+          "origin_mm": [
+            -80,
+            26.75,
+            105
+          ],
+          "properties": {
+            "Length": 4,
+            "Width": 2.5,
+            "Height": 9
+          }
+        },
+        {
+          "id": "CaviteAntenne",
+          "type": "Cut",
+          "inputs": [
+            "SocleAntenne",
+            "PassageAntenne"
+          ]
+        },
+        {
+          "id": "PriseAntenne",
+          "type": "Cut",
+          "inputs": [
+            "CaviteAntenne",
+            "OuvertureAntenne"
+          ]
+        },
+        {
+          "id": "Resultat",
+          "type": "MultiFuse",
+          "inputs": [
+            "SupportRFAncre1",
+            "Patte",
+            "Clip",
+            "PriseAntenne"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Sud",
+      "occurrence": "SupportRF1",
+      "label": "P70 sud avec passage de bande",
+      "radius_mm": 4.2,
+      "expected_volume_mm3": 2025.22595906419,
+      "interface": "Colonne existante P68, axe X=-60, Y=-37, Ø6 mm. Douille ouvrable Ø6,2 intérieur, Ø8,4 extérieur, gorge 5 mm. Longueur 28,2 mm et jeu axial 0,1 mm par face au nominal.",
+      "assembly": "Encliqueter la pièce depuis l'ouest sur P68 avant les antennes et les cordons RF. Vérifier le jeu aux deux faces, poser l'antenne, brancher son cordon. Pour la dépose, libérer le cordon puis le dipôle et le clip depuis l'ouest.",
+      "result": "Resultat",
+      "primitives": [
+        {
+          "id": "CorpsClip",
+          "type": "Box",
+          "origin_mm": [
+            -65.7,
+            -41.5,
+            103
+          ],
+          "properties": {
+            "Length": 10,
+            "Width": 9,
+            "Height": 6
+          }
+        },
+        {
+          "id": "DouilleAxiale",
+          "type": "Cylinder",
+          "origin_mm": [
+            -60,
+            -37,
+            99.7
+          ],
+          "properties": {
+            "Radius": 4.2,
+            "Height": 28.2
+          }
+        },
+        {
+          "id": "PassageP68",
+          "type": "Cylinder",
+          "origin_mm": [
+            -60,
+            -37,
+            99.55
+          ],
+          "properties": {
+            "Radius": 3.1,
+            "Height": 28.5
+          }
+        },
+        {
+          "id": "OuvertureP68",
+          "type": "Box",
+          "origin_mm": [
+            -60,
+            -39.5,
+            99.5
+          ],
+          "properties": {
+            "Length": 6,
+            "Width": 5,
+            "Height": 28.6
+          }
+        },
+        {
+          "id": "Patte",
+          "type": "Box",
+          "origin_mm": [
+            -69,
+            -37,
+            103
+          ],
+          "properties": {
+            "Length": 4.8,
+            "Width": 13,
+            "Height": 3
+          }
+        },
+        {
+          "id": "BrutClip",
+          "type": "MultiFuse",
+          "inputs": [
+            "CorpsClip",
+            "DouilleAxiale"
+          ]
+        },
+        {
+          "id": "Gorge",
+          "type": "Cut",
+          "inputs": [
+            "BrutClip",
+            "PassageP68"
+          ]
+        },
+        {
+          "id": "Clip",
+          "type": "Cut",
+          "inputs": [
+            "Gorge",
+            "OuvertureP68"
+          ]
+        },
+        {
+          "id": "Resultat",
+          "type": "MultiFuse",
+          "inputs": [
+            "SupportRFAncre1",
+            "Patte",
+            "Clip"
+          ]
+        }
+      ]
+    }
+  ],
+  "process": "Fabrication candidate TPU 95A par impression. Prévoir un coupon de gorge pour mesurer l'effort sur le diamètre de colonne réel, les jeux et le maintien. La douille est capturée par les faces des étages existants, sans serrage de leur empilage.",
+  "bounds": "Z99,7 à Z127,9 mm pour P68 entre Z99,6 et Z128. Assurer 0,1 mm de jeu nominal à chaque face, sans précharge des cartes. Vérifier l'état de surface et les zones sans composants ni piste exposée.",
+  "alternatives": [
+    "Le clip court de 6 mm laisse le glissement axial ouvert.",
+    "Ø7,4 extérieur réduit la matière mais ne laisse que 0,6 mm de paroi nominale.",
+    "Ø9 extérieur offre plus de matière sans gain observé de capture et accroît l'encombrement."
+  ],
+  "band": {
+    "id": "EQ_BandeRF2mm",
+    "label": "Bande indépendante du dipôle sud",
+    "role": "fixation",
+    "directory": "commerce",
+    "procedure": "Bande souple ouvrable ou coupable de 2 mm de large et épaisseur nominale 1,2 mm. Passer dans la lumière de P70 avant l'antenne. Fermeture côté ouest, géométrie de tête et accès à confirmer avec la bande retenue.",
+    "occurrences": [
+      {
+        "id": "BandeAntenneRF1",
+        "label": "Bande dipôle sud",
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "P70 sud, plan Y=-16,3 mm. Encercle le support et le dipôle avec branche basse sous la plaque."
+      }
+    ],
+    "primitives": [
+      {
+        "id": "Bas",
+        "type": "Box",
+        "origin_mm": [
+          -81.3,
+          -17.3,
+          101.8
+        ],
+        "properties": {
+          "Length": 10.6,
+          "Width": 2,
+          "Height": 1.2
+        }
+      },
+      {
+        "id": "Ouest",
+        "type": "Box",
+        "origin_mm": [
+          -81.3,
+          -17.3,
+          103
+        ],
+        "properties": {
+          "Length": 1.2,
+          "Width": 2,
+          "Height": 7
+        }
+      },
+      {
+        "id": "Est",
+        "type": "Box",
+        "origin_mm": [
+          -71.9,
+          -17.3,
+          103
+        ],
+        "properties": {
+          "Length": 1.2,
+          "Width": 2,
+          "Height": 7
+        }
+      },
+      {
+        "id": "Haut",
+        "type": "Box",
+        "origin_mm": [
+          -81.3,
+          -17.3,
+          110
+        ],
+        "properties": {
+          "Length": 10.6,
+          "Width": 2,
+          "Height": 1.2
+        }
+      },
+      {
+        "id": "Resultat",
+        "type": "MultiFuse",
+        "inputs": [
+          "Bas",
+          "Ouest",
+          "Est",
+          "Haut"
+        ]
+      }
+    ],
+    "result": "Resultat",
+    "color": [
+      0.18,
+      0.55,
+      0.51
+    ]
+  },
+  "open": [
+    "Tolérances et montage élastique avec l'équipement réel.",
+    "Bande radio sud, verrou, compatibilité RF et dégagements de pose à confirmer.",
+    "Butées axiales sans appui sur composants ni charge permanente sur CA01/porteuse. Vérifier vibration, flexion et abrasion."
+  ],
+  "reroutes": {
+    "F06": "POWER1_OUEST_81"
+  },
+  "f41_accessories": [
+    {
+      "id": "P84_PinceOuestF41",
+      "label": "Pince F41 sur le chant ouest P64",
+      "directory": "fabriquees",
+      "role": "fixation",
+      "procedure": "POM usiné candidat. Glisser depuis l’ouest, serrer par dessous via une vis de pression à bout isolant et poser la bande garnie après le câble. La selle n’est ni un chemin imposé ni un support de carte.",
+      "occurrences": [
+        {
+          "id": "PinceDepartF41",
+          "label": "Pince F41 sur le chant ouest P64",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "interface": "Chant ouest P64, X=-94, Y=24 mm, insertion depuis ouest. Siège F41 à Z54.",
+          "routes": [
+            "F41"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Machoire",
+          "type": "Box",
+          "origin_mm": [
+            -97,
+            20,
+            32.5
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 8,
+            "Height": 9
+          }
+        },
+        {
+          "id": "Selle",
+          "type": "Box",
+          "origin_mm": [
+            -91.8,
+            20,
+            40.5
+          ],
+          "properties": {
+            "Length": 9.6,
+            "Width": 8,
+            "Height": 15.3
+          }
+        },
+        {
+          "id": "PassagePlateau",
+          "type": "Box",
+          "origin_mm": [
+            -94,
+            19,
+            36
+          ],
+          "properties": {
+            "Length": 11,
+            "Width": 10,
+            "Height": 3.2
+          }
+        },
+        {
+          "id": "Ouverture",
+          "type": "Box",
+          "origin_mm": [
+            -92,
+            21.3,
+            53.6
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 5.4,
+            "Height": 5
+          }
+        },
+        {
+          "id": "Cavite",
+          "type": "Cylinder",
+          "origin_mm": [
+            -92,
+            24,
+            54
+          ],
+          "properties": {
+            "Radius": 2.7,
+            "Height": 12
+          },
+          "direction": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "AvantTrou",
+          "type": "Cylinder",
+          "origin_mm": [
+            -90,
+            24,
+            32
+          ],
+          "properties": {
+            "Radius": 1.6,
+            "Height": 4
+          }
+        },
+        {
+          "id": "Fenetre",
+          "type": "Box",
+          "origin_mm": [
+            -89.4,
+            18.5,
+            45.7
+          ],
+          "properties": {
+            "Length": 4.8,
+            "Width": 11,
+            "Height": 4
+          }
+        },
+        {
+          "id": "Brut",
+          "type": "MultiFuse",
+          "inputs": [
+            "Machoire",
+            "Selle"
+          ]
+        },
+        {
+          "id": "GorgeP64",
+          "type": "Cut",
+          "inputs": [
+            "Brut",
+            "PassagePlateau"
+          ]
+        },
+        {
+          "id": "EntreeCordon",
+          "type": "Cut",
+          "inputs": [
+            "GorgeP64",
+            "Ouverture"
+          ]
+        },
+        {
+          "id": "SiegeCordon",
+          "type": "Cut",
+          "inputs": [
+            "EntreeCordon",
+            "Cavite"
+          ]
+        },
+        {
+          "id": "Percage",
+          "type": "Cut",
+          "inputs": [
+            "SiegeCordon",
+            "AvantTrou"
+          ]
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "Percage",
+            "Fenetre"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "EQ_VisPressionM3F41",
+      "label": "Vis de pression et patin de F41",
+      "directory": "commerce",
+      "role": "fixation",
+      "procedure": "M3 courte et embout isolant. Enveloppe nominale, contrôler l’empreinte et le couple sans poinçonner le G10.",
+      "occurrences": [
+        {
+          "id": "PressionDepartF41",
+          "label": "Vis de pression et patin de F41",
+          "origin_mm": [
+            -90,
+            24,
+            32.2
+          ],
+          "interface": "Chant ouest P64, X=-94, Y=24 mm, insertion depuis ouest. Siège F41 à Z54.",
+          "routes": [
+            "F41"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Vis",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "properties": {
+            "Radius": 1.49,
+            "Height": 3.4
+          }
+        },
+        {
+          "id": "Patin",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            3.4
+          ],
+          "properties": {
+            "Radius": 1.45,
+            "Height": 0.6
+          }
+        },
+        {
+          "id": "Resultat",
+          "type": "MultiFuse",
+          "inputs": [
+            "Vis",
+            "Patin"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "EQ_BandeDepartF41",
+      "label": "Bande ouvrable de la pince F41",
+      "directory": "commerce",
+      "role": "fixation",
+      "procedure": "Bande 4,6 × 1,2 mm à garniture souple candidate. Passer la bande dans la fenêtre, poser le câble puis fermer par le dessus. Effort de tenue axiale et type de verrou à mesurer.",
+      "occurrences": [
+        {
+          "id": "BandeDepartF41",
+          "label": "Bande ouvrable de la pince F41",
+          "origin_mm": [
+            -87,
+            0,
+            0
+          ],
+          "interface": "Chant ouest P64, X=-94, Y=24 mm, insertion depuis ouest. Siège F41 à Z54.",
+          "routes": [
+            "F41"
+          ],
+          "angle_z": 90
+        }
+      ],
+      "primitives": [],
+      "result": "Bande",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ],
+      "collar_bounds_mm": [
+        19.3,
+        47.4,
+        28.7,
+        56.5
+      ]
+    }
+  ]
+}

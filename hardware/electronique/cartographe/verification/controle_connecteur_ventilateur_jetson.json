@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "reference": "T-CARTO-FAN-CONN-01",
+  "date": "2026-10-10",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "objet": "Vérification documentaire du raccordement du Waveshare Orin-FAN-PWM SKU 24076 au port FAN de la Holybro Pixhawk Jetson Baseboard SKU 11072.",
+  "resultat": "Raccordement direct non démontré",
+  "perimetre": {
+    "sources_fabricant": true,
+    "examen_photos": true,
+    "lecture_entites_step": true,
+    "identification_sur_lot_reel": false,
+    "essai_electrique": false,
+    "essai_thermique": false,
+    "modification_bom": false
+  },
+  "observations": {
+    "holybro": {
+      "reference_porteuse": "11072",
+      "revision_visible_photo": "PAB-BASE-OrinNX-RC02",
+      "revision_lot_reel": null,
+      "limite_courant_fan_a": 0.35,
+      "tension_fan_v": null,
+      "nombre_positions_photo": 4,
+      "brochage": null,
+      "reference_candidate_modele": "Hirose DF13-4P-1.25DSA",
+      "pas_candidat_mm": 1.25,
+      "identification": "Rapprochement candidat entre la référence du STEP, le placement de son sous-assemblage près du XT30 et la prise FAN visible sur la photo ; ni la photo ni le STEP ne confirment la référence ou le brochage du lot réel."
+    },
+    "waveshare": {
+      "reference": "Orin-FAN-PWM",
+      "sku": 24076,
+      "tension_nominale_v": 5,
+      "courant_nominal_a": 0.13,
+      "puissance_nominale_w": 0.65,
+      "courant_demarrage_a": null,
+      "longueur_cable_mm": 37,
+      "tolerance_cable_mm": 3,
+      "nombre_fils_photo": 4,
+      "nombre_positions_photo": 4,
+      "reference_connecteur": null,
+      "pas_connecteur_mm": null,
+      "brochage": null
+    },
+    "hirose": {
+      "boitier_accouplement": "DF13-4S-1.25C",
+      "nombre_positions": 4,
+      "pas_mm": 1.25,
+      "usage": "Référence d’accouplement documentaire de la famille candidate ; ni preuve de correspondance au câble Waveshare, ni article ajouté à la BOM."
+    }
+  },
+  "repères_step": [
+    {
+      "entite": "#89692",
+      "definition": "PRODUCT('DF13-4P-1_25DSA_XTD_2_1','DF13-4P-1_25DSA_XTD_2_1',\n'NOT SPECIFIED',(#89691))"
+    },
+    {
+      "entite": "#89759",
+      "definition": "PRODUCT('SUBMODEL-CON-4_PART_DF13-4P-1_2_ASM',\n'SUBMODEL-CON-4_PART_DF13-4P-1_2_ASM','NOT SPECIFIED',(#89758))"
+    },
+    {
+      "entite": "#89700",
+      "definition": "NEXT_ASSEMBLY_USAGE_OCCURRENCE('786','Next assembly relationship',\n'DF13-4P-1_25DSA_XTD',#89729,#89694,$)"
+    },
+    {
+      "entite": "#89733",
+      "definition": "NEXT_ASSEMBLY_USAGE_OCCURRENCE('787','Next assembly relationship',\n'SUBMODEL-C__USERS_ADMINIST-3889',#89761,#89729,$)"
+    },
+    {
+      "entite": "#89762",
+      "definition": "NEXT_ASSEMBLY_USAGE_OCCURRENCE('788','Next assembly relationship',\n'SUBMODEL-CON-4_PART_DF13-4P-1_2',#832518,#89761,$)"
+    },
+    {
+      "entite": "#89764",
+      "definition": "CARTESIAN_POINT('',(1.05E1,7.85E1,2.05232E0))"
+    },
+    {
+      "entite": "#89767",
+      "definition": "AXIS2_PLACEMENT_3D('',#89764,#89765,#89766)"
+    },
+    {
+      "entite": "#89735",
+      "definition": "CARTESIAN_POINT('',(-1.437500095370E1,-2.5217181E1,1.830469E0))"
+    },
+    {
+      "entite": "#59832",
+      "definition": "PRODUCT('XT30UPB-M_XTD_2_1','XT30UPB-M_XTD_2_1','NOT SPECIFIED',\n(#59831))"
+    },
+    {
+      "entite": "#59902",
+      "definition": "NEXT_ASSEMBLY_USAGE_OCCURRENCE('122','Next assembly relationship',\n'SUBMODEL-TX30-UPB-F_PART_TX30-U',#832518,#59901,$)"
+    },
+    {
+      "entite": "#59903",
+      "definition": "PRODUCT_DEFINITION_SHAPE('Placement #122',\n'Placement of SUBMODEL-TX30-UPB-F_PART_TX30-U_ASM with respect to DESIGNROOTMODEL_ASM_2_ASM_1_ASM',#59902)"
+    },
+    {
+      "entite": "#59907",
+      "definition": "AXIS2_PLACEMENT_3D('',#59904,#59905,#59906)"
+    },
+    {
+      "entite": "#59904",
+      "definition": "CARTESIAN_POINT('',(3.E0,6.75E1,2.05232E0))"
+    }
+  ],
+  "criteres_ouverts": [
+    "Confirmer la référence FAN montée sur la révision Holybro utilisée et la fiche livrée avec le Waveshare.",
+    "Établir la tension du port FAN et les brochages des deux côtés, avec numéro de contact et sens de vue.",
+    "Confirmer les contacts d’alimentation, la commande PWM éventuelle et le retour vitesse éventuel, ainsi que leurs niveaux.",
+    "Vérifier la portée du câble 37 ±3 mm après placement du refroidissement, sans traction sur les prises.",
+    "Vérifier démarrage et courant réel sur la porteuse, puis commande et comportement thermique sous charge."
+  ],
+  "limites": [
+    "Le nombre de contacts et la couleur du boîtier ne démontrent ni accouplement ni identité de brochage.",
+    "La limite de courant du port ne fournit pas sa tension de sortie.",
+    "Aucun brochage NVIDIA de kit de développement ou d’autre porteuse n’est transposé.",
+    "Le contrôle documentaire ne qualifie ni la connexion électrique ni le refroidissement."
+  ],
+  "sources": [
+    {
+      "id": "holybro_vue_ensemble",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification.md",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Overview_20261010.md",
+      "sha256": "8d0e7c08eb49ab65cd5dc8b8766d041fe26bbfd53dd5ece6ea0c37566526fb84",
+      "octets": 5243
+    },
+    {
+      "id": "holybro_brochages",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout.md",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Ports_20261010.md",
+      "sha256": "99ce5f23bce055a8c010631569027918f91c4ea9147ccd0679ae98abb57cfc35",
+      "octets": 17970
+    },
+    {
+      "id": "holybro_photo_11072",
+      "url": "https://holybro.com/cdn/shop/files/11072.jpg?v=1775699143",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Holybro_11072_FAN.jpg",
+      "sha256": "8c975986d7ed4f6f86fab389d2d5c9affba4197ca914b7c9528b9fb20c8b7dc8",
+      "octets": 295700
+    },
+    {
+      "id": "waveshare_produit",
+      "url": "https://www.waveshare.com/orin-fan-pwm.htm",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Waveshare_Orin_FAN_PWM.html",
+      "sha256": "51618ea093fac8e62612b664d20bc729ebd9b2df4cd2b91202ae99240138b299",
+      "octets": 200492
+    },
+    {
+      "id": "waveshare_photo",
+      "url": "https://www.waveshare.com/media/catalog/product/o/r/orin-fan-pwm-1.jpg",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Waveshare_Orin_FAN_PWM_Face.jpg",
+      "sha256": "1965b9dd5174a01db5d2f43ac18c48cd45e837663e8d32df7f659742e2f31a89",
+      "octets": 225845
+    },
+    {
+      "id": "hirose_accouplement",
+      "url": "https://www.hirose.com/en/product/p/CL0536-0003-0-00",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Hirose_DF13_4S_1_25C.html",
+      "sha256": "9938919f7761283aea8a8bf1b004bce7dcc2ce2aa1c871ec2a330bbf34669ecf",
+      "octets": 693308
+    },
+    {
+      "id": "holybro_modele_step",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/download",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+      "sha256": "dfee72717b735c4b10089435ae1019482878f6607051f1a3b8397da7721ed6ee",
+      "octets": 78172053
+    }
+  ],
+  "controles": [
+    {
+      "id": "SOURCE-01",
+      "objet": "Archives fabricant disponibles avec empreintes",
+      "reussi": true
+    },
+    {
+      "id": "SOURCE-02",
+      "objet": "Limite FAN Holybro publiée 0,35 A",
+      "reussi": true
+    },
+    {
+      "id": "SOURCE-03",
+      "objet": "Absence de tableau FAN dans le texte Ports Pinout consulté",
+      "reussi": true
+    },
+    {
+      "id": "SOURCE-04",
+      "objet": "Paramètres 0,13 A et 37 ±3 mm présents sur la page Waveshare",
+      "reussi": true
+    },
+    {
+      "id": "SOURCE-05",
+      "objet": "Boîtier DF13-4S et embase DF13-4P présents sur la page Hirose consultée",
+      "reussi": true
+    },
+    {
+      "id": "STEP-01",
+      "objet": "Empreinte STEP identique à la source mécanique déjà tracée",
+      "reussi": true
+    },
+    {
+      "id": "COURANT-01",
+      "objet": "Comparaison nominale 0,13 A < limite 0,35 A ; sans qualification au démarrage",
+      "reussi": true
+    },
+    {
+      "id": "BOM-01",
+      "objet": "Refroidissement non figé, quantité candidate 1 jeu, référence vide",
+      "reussi": true
+    },
+    {
+      "id": "CONSERVATION-1",
+      "objet": "hardware/mecanique/cartographe/exports/Nomenclature_Prototype_Cartographe.xlsx",
+      "reussi": true
+    },
+    {
+      "id": "CONSERVATION-2",
+      "objet": "hardware/mecanique/cartographe/nomenclature_produit_custom.json",
+      "reussi": true
+    },
+    {
+      "id": "CONSERVATION-3",
+      "objet": "hardware/mecanique/cartographe/exports/Nomenclature_Produit_Custom_Cartographe.xlsx",
+      "reussi": true
+    }
+  ],
+  "bilan_controles": {
+    "total": 11,
+    "reussis": 11,
+    "echoues": 0
+  },
+  "nomenclature_conservee": {
+    "registre_prototype": {
+      "fichier": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "sha256": "c2daf51db810f4eec8f54f6579f9d17871209996aa393b9022221a1a21dce78e",
+      "refroidissement_reference_fabricant": null
+    },
+    "exports_et_custom": [
+      {
+        "fichier": "hardware/mecanique/cartographe/exports/Nomenclature_Prototype_Cartographe.xlsx",
+        "sha256": "878f9afff56c9cac2939366c8602d2a4f01aa6d0a1540ae58c438e2e2232ae83",
+        "identique_a_fin_selection_ssd": true
+      },
+      {
+        "fichier": "hardware/mecanique/cartographe/nomenclature_produit_custom.json",
+        "sha256": "8642f4f6ee4c2c6d1dfcd9f0315bd29ada65c46f53a3a0eb222e4720da38ef39",
+        "identique_a_fin_selection_ssd": true
+      },
+      {
+        "fichier": "hardware/mecanique/cartographe/exports/Nomenclature_Produit_Custom_Cartographe.xlsx",
+        "sha256": "d9cd375467fd7e4b5d2e1c00b7627bcee09e36508067c0edb5000b3a552769fa",
+        "identique_a_fin_selection_ssd": true
+      }
+    ]
+  },
+  "documentation": [
+    "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#connecteur-ventilateur-jetson",
+    "docs/architecture/ARCHITECTURE_MECANIQUE.md#refroidissement-prototype",
+    "docs/VALIDATION_QUALIFICATION.md#nomenclature-prototype"
+  ],
+  "rejeu_documentaire": [
+    "Recalculer SHA-256 des archives indiquées, ou les récupérer aux URL fabricant et signaler toute évolution.",
+    "Relever la section Fan Power Port Holybro et les caractéristiques Waveshare ; conserver explicitement les paramètres non publiés.",
+    "Dans le STEP, rechercher les entités PRODUCT et NEXT_ASSEMBLY_USAGE_OCCURRENCE conservées dans repères_step ; vérifier les points du sous-assemblage DF13 et du XT30.",
+    "Comparer visuellement les photos fournisseur ; ne pas attribuer un brochage ou une référence exacte à partir de leur apparence.",
+    "Vérifier que MEC-REFROIDISSEMENT-JETSON reste sans référence retenue et que les empreintes BOM/export demeurent identiques."
+  ]
+}

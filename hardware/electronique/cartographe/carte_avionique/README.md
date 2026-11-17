@@ -1,5 +1,8 @@
 # Utiliser le projet KiCad CA01
 
+Le répertoire `.history/` contient l'historique automatique local de KiCad.
+Il est ignoré par Git et ne constitue pas un sous-module à récupérer au clonage.
+
 Le schéma complet exporté est disponible dans [CA01_Avionique.pdf](CA01_Avionique.pdf)
 (six pages, à côté du projet KiCad). La copie dans `verification/CA01_schema_preliminaire.pdf`
 est identique ; la provenance actuelle de l'export est dans

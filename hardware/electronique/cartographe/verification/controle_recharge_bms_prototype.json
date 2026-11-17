@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "reference": "T-CARTO-CHARGE-DOC-01",
+  "date": "2026-10-10",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "objet": "Revue documentaire du raccordement de charge à travers le BMS du prototype et de deux chargeurs candidats.",
+  "perimetre": "Batterie débranchée du drone, sans dock ni JETI ; aucune réalisation de faisceau ou mesure matérielle.",
+  "equipements": {
+    "pack": "Tattu TAA200006S5X9S, NMC 6S 20 Ah",
+    "bms": "JBD-SP22S003 Li-ion A01, variante 100 A à confirmer",
+    "connecteur_pack": "QS8-S D-MAX B9310",
+    "cordon_charge": "Logic RC O-LGL-CLQS8, quantité 1, connecteurs intégrés",
+    "chargeur_retenu": "SkyRC S100neo SK-100202, quantité 1"
+  },
+  "raccordement_candidat": {
+    "chargeur_positif": "B+ continu du pack",
+    "chargeur_negatif": "P− protégé, nommé C− dans A01",
+    "sortie_charge_si_S100neo": "XT60, fiche d'accouplement sur le cordon ; ce n'est pas la prise d'alimentation DC",
+    "accouplement": "Cordon commercial Logic RC O-LGL-CLQS8, XT60 → QS8-S, connecteurs intégrés ; distinct de la paire batterie/drone B9310, aucun achat séparé de connecteurs de charge",
+    "contacts_a_verifier": "Sexes et polarité sur les équipements réels ; aucune référence de fiche inventée",
+    "equilibrage": "Interne au BMS ; aucune prise cellules externe raccordée au chargeur",
+    "interdits": ["Retour de puissance sur B− brut", "Charge avec batterie branchée au drone"]
+  },
+  "faits_documentaires": [
+    {"source": "logicrc_cordon_catalogue", "fait": "Le catalogue officiel répertorie O-LGL-CLQS8 comme Charge Lead: XT60~QS8-S. Référence retenue pour la définition, sans preuve d'accouplement sur D-MAX B9310 ni courant admissible publié dans cette source."},
+    {"source": "skyrc_s100neo_produit", "fait": "La sortie de charge S100neo est XT60 ; aucun accouplement direct avec QS8-S, un cordon adaptateur est requis."},
+    {"source": "jbd_a01", "pages_pdf_1_based": [3, 4, 14, 15, 16], "fait": "Port commun charge/décharge, C− protégé ; aucune régulation du courant de charge."},
+    {"source": "jbd_a01", "pages_pdf_1_based": [6, 10], "equilibrage_passif_mA": [100, 160], "limite": "Ne démontre pas la correction rapide d'un pack 20 Ah déséquilibré."},
+    {"source": "tattu_pack", "fait": "6S, 20 Ah ; courant de charge spécifique non trouvé dans la fiche, TA1000 recommandé."},
+    {"source": "gensace_guide", "fait": "Respecter l'étiquette ; 1C est un plafond générique sans autre instruction, pas une limite OEM qualifiée du pack."},
+    {"source": "meanwell_npb_npp", "pages_imprimees": [39, 40], "sections": ["5.3.1", "5.3.2"], "fait": "NPB-120/240/360 conservent le maintien même en deux étapes ; écartés du concept autonome sans maintien."}
+  ],
+  "inference_equilibrage_externe": {
+    "nature": "Inférence de circuit conditionnelle",
+    "condition": "B0 d'équilibrage et négatif puissance du chargeur non isolés l'un de l'autre",
+    "consequence": "Le raccordement parallèle du JST brut et de C− peut ponter les MOS du BMS par le fil d'équilibrage.",
+    "decision_de_definition": "Conserver seulement deux fils de puissance protégés ; équilibrage JBD interne."
+  },
+  "profil_a_confirmer": {
+    "cellules_serie": 6,
+    "tension_cellule_V": 4.2,
+    "tension_pack_V": 25.2,
+    "nature": "Candidat CC/CV, cohérent avec A01 ; confirmer étiquette et notice du pack réel",
+    "courant_OEM_max_A": null,
+    "temperature_charge_OEM_C": null,
+    "seuils_BMS_qualifies": false
+  },
+  "candidats": [
+    {
+      "fabricant": "SkyRC",
+      "reference": "S100neo SK-100202",
+      "selection": "Retenu pour la définition du prototype ; réglages et recharge À valider",
+      "source": "skyrc_s100neo",
+      "pages_pdf_1_based": [5, 6, 8, 10, 12, 13, 26, 28],
+      "puissance_secteur_nominale_W": 100,
+      "dimensions_mm": [105, 105, 62],
+      "masse_fabricant_g": 340,
+      "mode_candidat": "LiIon / 6S / Charge / 4,20 V par cellule ; Holding Voltage OFF",
+      "sortie_charge": "XT60 ; cordon XT60 → QS8-S requis pour le pack du prototype",
+      "courant_propose_A": 3.5,
+      "puissance_au_sommet_W": 88.2,
+      "courant_theorique_nominal_au_sommet_A": 3.9682539682539684,
+      "temps_CC_pour_20Ah_h": 5.714285714285714,
+      "qualification": "À valider",
+      "reserves": ["Bornes maximales Capacity et Safety Timer non publiées : vérifier le firmware pour 20 Ah et la durée nécessaire", "Fin de charge sans maintien et comportement à coupure BMS à mesurer", "Compatibilité exacte JBD non garantie par la notice"]
+    },
+    {
+      "fabricant": "SkyRC",
+      "reference": "D200neo SK-100196",
+      "source": "skyrc_d200neo",
+      "puissance_secteur_totale_nominale_W": 200,
+      "dimensions_mm": [116, 110, 79],
+      "masse_fabricant_g": 602,
+      "courant_propose_A": 5,
+      "puissance_au_sommet_W": 126,
+      "temps_CC_pour_20Ah_h": 4,
+      "qualification": "À valider",
+      "reserves": ["Un seul canal actif, puissance allouée à confirmer", "Table LiIon à 4,1 V : réglage effectif à 4,20 V LiIon à confirmer sur firmware", "Capacité, durée, absence de maintien, terminaison et réaction BMS à vérifier"]
+    }
+  ],
+  "equations": {
+    "tension_pack": "6 × 4,2 = 25,2 V",
+    "courant_limite_puissance_nominale": "I = P / V ; puissance publiée nominale, sans garantie de courant constant réel",
+    "puissance_reglage": "P = V × I",
+    "temps_CC": "t = 20 Ah / I ; calcul depuis vide idéal, hors phase CV, équilibrage et état initial réel"
+  },
+  "conclusion": "Recharge à travers le port protégé documentée ; SkyRC S100neo SK-100202 retenu pour la définition en quantité 1. Cordon Logic RC O-LGL-CLQS8 retenu, quantité 1 avec connecteurs intégrés. Accouplement exact, caractéristiques de lot, réglages et profils de charge à valider ; aucune qualification physique.",
+  "prochain_signal": "Confirmer courant/température OEM et réglages réels du chargeur, puis protocole de banc avant première recharge.",
+  "sources": [
+    {"id": "jbd_a01", "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf", "fichier": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf", "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7"},
+    {"id": "tattu_pack", "url": "https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug"},
+    {"id": "gensace_guide", "url": "https://gensace.de/pages/lipo-battery-guide"},
+    {"id": "skyrc_s100neo", "url": "https://www.skyrc.com/files/276/100202%20S100neo%20Instruction%20Manual_V27.pdf", "fichier": "hardware/mecanique/cartographe/sources_fabricants/SkyRC_S100neo_Notice_V27.pdf", "sha256": "c41526b6a1c7ddabf7fbde2046147b0274283fdfde3611cd46e1e3076e181a16"},
+    {"id": "skyrc_s100neo_produit", "url": "https://www.skyrc.com/s100neo/", "verifie_le": "2026-10-10", "champ": "Single Output, Coupled with Neo : output on XT60 DC plug"},
+    {"id": "logicrc_cordon_catalogue", "url": "https://www.logicrc.com/default.aspx?s=c%3A0%2Cc%3A40%2Cc%3A40-90%2Cc%3A40-90-50", "verifie_le": "2026-10-10", "champ": "O-LGL-CLQS8 — Charge Lead: XT60~QS8-S", "acces": "Catalogue officiel indexé consulté ; accès direct HTTP 403. Les caractéristiques absentes du catalogue restent inconnues."},
+    {"id": "skyrc_d200neo", "url": "https://www.skyrc.com/files/259/100196%20NFC%20Instruction%20Manua_260630_V63.pdf", "fichier": "hardware/mecanique/cartographe/sources_fabricants/SkyRC_D200neo_Notice_V63.pdf", "sha256": "f576dbe057915ff6659eae83f468394e1fec4471302ee9f6d06b680197615bf3"},
+    {"id": "meanwell_npb_npp", "url": "https://www.meanwell.com/Upload/PDF/NPB,NPP-E.pdf", "fichier": "hardware/mecanique/cartographe/sources_fabricants/MeanWell_NPB_NPP_Notice.pdf", "sha256": "ba8273b5197565221b8aeb073bc9aaa2cdb86f618a07d48892d1bd8e9ef6cab0"}
+  ],
+  "validation": {
+    "revue_independante": "Réussie le 10 octobre 2026, en lecture seule : aucun défaut bloquant sur BOM, sources et documents",
+    "calculs_et_empreintes": "Réussis : quatre empreintes PDF, tension, puissances et durées CC conditionnelles cohérentes",
+    "export": "96 contrôles réussis ; comparaison des 11 onglets, 10 champs modifiés et deux lignes agrandies, formules et structures préservées",
+    "essais_materiels": "Non exécutés",
+    "correction_connectique": "10 octobre 2026 : sortie de charge XT60 vérifiée sur la fiche fabricant ; cordon XT60 → QS8-S précisé. 96 contrôles réussis, sept cellules de recharge modifiées, onze onglets/formules/formats/structures préservés ; vues Sol et W43 lisibles. Un cordon distinct compté, pas de duplication de la paire batterie/drone. Qualification de l'accouplement et de la recharge toujours À valider.",
+    "reference_cordon": "10 octobre 2026 : Logic RC O-LGL-CLQS8 inscrit dans Sol C18, quantité D18=1 et fabricant N18=Logic RC. 96 contrôles réussis ; huit cellules liées au cordon/W43 modifiées, onze onglets/formules/styles/structures et produit custom préservés. Vues Sol/W43 lisibles ; aucune qualification matérielle revendiquée.",
+    "selection_chargeur": "10 octobre 2026 : SkyRC S100neo SK-100202 inscrit dans Sol C17 et Vue système C31, quantité 1. 96 contrôles réussis ; cinq cellules du chargeur modifiées, onze onglets/formules/styles/structures et cordon O-LGL-CLQS8 préservés. Vues Sol et ligne 31 lisibles. Réglages et recharge toujours À valider, sans essai matériel."
+  }
+}

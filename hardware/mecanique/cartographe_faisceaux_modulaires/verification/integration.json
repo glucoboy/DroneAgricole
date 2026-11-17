@@ -1,0 +1,876 @@
+{
+  "schema": "cartographe.integration-modulaire.v1",
+  "baseline": "cartographe_faisceaux_refonte",
+  "selected_routes": {
+    "F41": "USB_MONTANT_OUEST",
+    "F04_1": "DESCENTE_SUD_GAUCHE",
+    "F04_2": "DESCENTE_NORD_DROITE_X88",
+    "F04_4": "X108_REPRISE_66"
+  },
+  "reuse": {
+    "SelleBras1_1": "retenues",
+    "SelleBras1_2": "retenues",
+    "SelleBras1_3": "retenues",
+    "SelleBras2_1": "retenues",
+    "SelleBras2_2": "retenues",
+    "SelleBras2_3": "retenues",
+    "SelleBras3_1": "retenues",
+    "SelleBras3_2": "retenues",
+    "SelleBras3_3": "retenues",
+    "SelleBras4_1": "retenues",
+    "SelleBras4_2": "retenues",
+    "SelleBras4_3": "retenues",
+    "ConnecteurF16Camera": "CAMERA",
+    "ConnecteurF16TypeA": "CAMERA",
+    "ConnecteurM8Camera": "CAMERA",
+    "CollierMIDI0": "retenues",
+    "CollierMIDI1": "retenues",
+    "VisGuideBas2": "retenues",
+    "RondelleGuideBasB2": "retenues",
+    "RondelleGuideBasH2": "retenues",
+    "EcrouGuideBas2": "retenues",
+    "VisGuideBas3": "retenues",
+    "RondelleGuideBasB3": "retenues",
+    "RondelleGuideBasH3": "retenues",
+    "EcrouGuideBas3": "retenues"
+  },
+  "reused_saddles": {
+    "count": 12,
+    "interface": "Tubes OEM Ø20, rayons 180, 250 et 280 mm, quatre bras.",
+    "assembly": "Monter les selles P79/P80 TPU 95A candidates avec une bande démontable par selle, sur tube sans perçage. R180 reçoit F02/F04/LED, R250 F03/LED, R280 LED.",
+    "limitations": "Douze bandes restent dans la nomenclature de montage. Leur tête et fermeture ne sont pas modélisées. Vérifier glissement, CEM entre gorges, accès ESC et pliage."
+  },
+  "pieces": [
+    {
+      "id": "P81_SupportMIDI",
+      "label": "Patte locale du porte-fusible MIDI",
+      "role": "fixation",
+      "directory": "fabriquees",
+      "procedure": "Pièce locale candidate en PA12 SLS. Pied à deux M3 sur la semelle, âme à un seul étage et tablette sous le boîtier. Ébavurer les passages, vérifier la tenue en porte-à-faux, le fluage et le couple.",
+      "occurrences": [
+        {
+          "id": "SupportLocalMIDI",
+          "label": "SupportLocalMIDI",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "interface": "SA02/Semelle P60 : deux trous à (88,-43) et (96,-43) mm, pied sur Z=-87. Deux bandes réutilisées autour du boîtier et de la tablette. Accès avant pose batterie.",
+          "routes": [
+            "F01_POS",
+            "F37_POS"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Pied",
+          "type": "Box",
+          "origin_mm": [
+            84,
+            -62,
+            -87
+          ],
+          "properties": {
+            "Length": 17,
+            "Width": 23,
+            "Height": 3
+          }
+        },
+        {
+          "id": "Ame",
+          "type": "Box",
+          "origin_mm": [
+            84,
+            -62,
+            -87
+          ],
+          "properties": {
+            "Length": 6,
+            "Width": 6,
+            "Height": 35
+          }
+        },
+        {
+          "id": "Tablette",
+          "type": "Box",
+          "origin_mm": [
+            34,
+            -86,
+            -55
+          ],
+          "properties": {
+            "Length": 56,
+            "Width": 30,
+            "Height": 3
+          }
+        },
+        {
+          "id": "TrouA",
+          "type": "Cylinder",
+          "origin_mm": [
+            88,
+            -43,
+            -88
+          ],
+          "properties": {
+            "Radius": 1.6,
+            "Height": 5
+          }
+        },
+        {
+          "id": "TrouB",
+          "type": "Cylinder",
+          "origin_mm": [
+            96,
+            -43,
+            -88
+          ],
+          "properties": {
+            "Radius": 1.6,
+            "Height": 5
+          }
+        },
+        {
+          "id": "Brut",
+          "type": "MultiFuse",
+          "inputs": [
+            "Pied",
+            "Ame",
+            "Tablette"
+          ]
+        },
+        {
+          "id": "PercageA",
+          "type": "Cut",
+          "inputs": [
+            "Brut",
+            "TrouA"
+          ]
+        },
+        {
+          "id": "PercageB",
+          "type": "Cut",
+          "inputs": [
+            "PercageA",
+            "TrouB"
+          ]
+        },
+        {
+          "id": "CoinButee",
+          "type": "Box",
+          "origin_mm": [
+            98.3,
+            -40.2,
+            -87.5
+          ],
+          "properties": {
+            "Length": 3,
+            "Width": 1.3,
+            "Height": 4
+          }
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "PercageB",
+            "CoinButee"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "P82_PinceP64",
+      "label": "Pince locale sur chant P64",
+      "role": "fixation",
+      "directory": "fabriquees",
+      "procedure": "Corps candidat en POM usiné avec une ouverture de 3,2 mm pour le chant G10 de 2,8 mm, engagement 7 mm. Usiner les fenêtres de passage de bande et tarauder M3 en dessous. Vis de pression à patin isolant. Contrôler le serrage et la tenue en vibration.",
+      "occurrences": [
+        {
+          "id": "PinceF38_1",
+          "label": "PinceF38_1",
+          "origin_mm": [
+            -30,
+            0,
+            0
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=-30, engagement nominal 7 mm. Montage depuis le sud.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ]
+        },
+        {
+          "id": "PinceF38_2",
+          "label": "PinceF38_2",
+          "origin_mm": [
+            35,
+            0,
+            0
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=35, engagement nominal 7 mm. Montage depuis le sud.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "MachoireBasse",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            -90,
+            30.7
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 9,
+            "Height": 5.3
+          }
+        },
+        {
+          "id": "MachoireHaute",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            -90,
+            39.2
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 9,
+            "Height": 1.8
+          }
+        },
+        {
+          "id": "Ame",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            -91,
+            30.7
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 3,
+            "Height": 10.3
+          }
+        },
+        {
+          "id": "MontantA",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            -91,
+            40
+          ],
+          "properties": {
+            "Length": 3,
+            "Width": 2,
+            "Height": 6.8
+          }
+        },
+        {
+          "id": "MontantB",
+          "type": "Box",
+          "origin_mm": [
+            3,
+            -91,
+            40
+          ],
+          "properties": {
+            "Length": 3,
+            "Width": 2,
+            "Height": 6.8
+          }
+        },
+        {
+          "id": "Berceau",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            -113,
+            45
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 27.5,
+            "Height": 2.1
+          }
+        },
+        {
+          "id": "AvantTrouVis",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            -84,
+            30
+          ],
+          "properties": {
+            "Radius": 1.5,
+            "Height": 7
+          }
+        },
+        {
+          "id": "FenteA",
+          "type": "Box",
+          "origin_mm": [
+            -2.7,
+            -111.3,
+            44
+          ],
+          "properties": {
+            "Length": 5.4,
+            "Width": 2.9,
+            "Height": 4
+          }
+        },
+        {
+          "id": "FenteB",
+          "type": "Box",
+          "origin_mm": [
+            -2.7,
+            -89.6,
+            44
+          ],
+          "properties": {
+            "Length": 5.4,
+            "Width": 2.9,
+            "Height": 4
+          }
+        },
+        {
+          "id": "Brut",
+          "type": "MultiFuse",
+          "inputs": [
+            "MachoireBasse",
+            "MachoireHaute",
+            "Ame",
+            "MontantA",
+            "MontantB",
+            "Berceau"
+          ]
+        },
+        {
+          "id": "AjourVis",
+          "type": "Cut",
+          "inputs": [
+            "Brut",
+            "AvantTrouVis"
+          ]
+        },
+        {
+          "id": "AjourA",
+          "type": "Cut",
+          "inputs": [
+            "AjourVis",
+            "FenteA"
+          ]
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "AjourA",
+            "FenteB"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "EQ_VisPressionM3P64",
+      "label": "Vis de pression M3 et patin isolant, enveloppe",
+      "role": "fixation",
+      "directory": "commerce",
+      "procedure": "Vis M3 candidate, tête affleurante côté inférieur. Patin isolant pris entre bout et face basse P64. Filets, empreinte et pression restent à vérifier.",
+      "occurrences": [
+        {
+          "id": "PressionF38_1",
+          "label": "PressionF38_1",
+          "origin_mm": [
+            -30,
+            -84,
+            30.7
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=-30, engagement nominal 7 mm. Montage depuis le sud.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ]
+        },
+        {
+          "id": "PressionF38_2",
+          "label": "PressionF38_2",
+          "origin_mm": [
+            35,
+            -84,
+            30.7
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=35, engagement nominal 7 mm. Montage depuis le sud.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Vis",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "properties": {
+            "Radius": 1.49,
+            "Height": 4.9
+          }
+        },
+        {
+          "id": "Patin",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            4.9
+          ],
+          "properties": {
+            "Radius": 1.45,
+            "Height": 0.6
+          }
+        },
+        {
+          "id": "Resultat",
+          "type": "MultiFuse",
+          "inputs": [
+            "Vis",
+            "Patin"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "EQ_BandeF38",
+      "label": "Bande de maintien F38, enveloppe",
+      "role": "fixation",
+      "directory": "commerce",
+      "procedure": "Boucle ouvrable de largeur 4,6 mm, épaisseur nominale 1,2 mm. Poser après les deux gaines. La fermeture et son espace d'accès restent à définir sur le collier retenu.",
+      "occurrences": [
+        {
+          "id": "BandeF38_1",
+          "label": "BandeF38_1",
+          "origin_mm": [
+            -30,
+            0,
+            0
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=-30, engagement nominal 7 mm. Montage depuis le sud. Deux fenêtres dans le berceau.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ],
+          "angle_z": 90
+        },
+        {
+          "id": "BandeF38_2",
+          "label": "BandeF38_2",
+          "origin_mm": [
+            35,
+            0,
+            0
+          ],
+          "interface": "SA03/Isolation P64, chant Y=-88, X=35, engagement nominal 7 mm. Montage depuis le sud. Deux fenêtres dans le berceau.",
+          "routes": [
+            "F38_NEG",
+            "F38_POS"
+          ],
+          "angle_z": 90
+        }
+      ],
+      "primitives": [],
+      "result": "Bande",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ],
+      "collar_bounds_mm": [
+        -109.55,
+        44.75,
+        -88.45,
+        56.95
+      ]
+    },
+    {
+      "id": "EQ_BandeP64",
+      "label": "Bande locale aux lumières de P64, enveloppe",
+      "role": "fixation",
+      "directory": "commerce",
+      "procedure": "Bande 4,6 × 1,2 mm, passée dans les deux lumières existantes et autour du ligament, puis fermée sur le câble de commande. Insérer la bande avant la mise en place du plateau. Le solide CAO représente uniquement le passage de la bande. La tête doit être située côté opposé à la LED selon le relevé.",
+      "occurrences": [
+        {
+          "id": "BandeDepartBras1",
+          "label": "BandeDepartBras1",
+          "origin_mm": [
+            -80.26666666666667,
+            -72,
+            39
+          ],
+          "interface": "SA03/Isolation P64, double lumière du bras 1. Cote de l'axe câble Z=40,4 mm.",
+          "routes": [
+            "F04_1"
+          ],
+          "angle_z": -165.06858282186244
+        },
+        {
+          "id": "BandeDepartBras2",
+          "label": "BandeDepartBras2",
+          "origin_mm": [
+            74.66666666666667,
+            68,
+            39
+          ],
+          "interface": "SA03/Isolation P64, double lumière du bras 2. Cote de l'axe câble Z=40,4 mm.",
+          "routes": [
+            "F04_2"
+          ],
+          "angle_z": -3.814074834290352
+        },
+        {
+          "id": "BandeDepartBras3",
+          "label": "BandeDepartBras3",
+          "origin_mm": [
+            -76,
+            74,
+            39
+          ],
+          "interface": "SA03/Isolation P64, double lumière du bras 3. Cote de l'axe câble Z=40,4 mm.",
+          "routes": [
+            "F04_3"
+          ],
+          "angle_z": 0
+        },
+        {
+          "id": "BandeDepartBras4",
+          "label": "BandeDepartBras4",
+          "origin_mm": [
+            76,
+            -74,
+            39
+          ],
+          "interface": "SA03/Isolation P64, double lumière du bras 4. Cote de l'axe câble Z=40,4 mm.",
+          "routes": [
+            "F04_4"
+          ],
+          "angle_z": -180
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Contour",
+          "type": "Box",
+          "origin_mm": [
+            -4.25,
+            -2.3,
+            -4.35
+          ],
+          "properties": {
+            "Length": 8.5,
+            "Width": 4.6,
+            "Height": 7.75
+          }
+        },
+        {
+          "id": "Passage",
+          "type": "Box",
+          "origin_mm": [
+            -3.05,
+            -2.8,
+            -3.15
+          ],
+          "properties": {
+            "Length": 6.1,
+            "Width": 5.6,
+            "Height": 5.35
+          }
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "Contour",
+            "Passage"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "P83_ClipColonneF12",
+      "label": "Clip local F12 sur colonne existante",
+      "role": "fixation",
+      "directory": "fabriquees",
+      "procedure": "Clip double latéral TPU 95A candidat. Encliqueter sur la colonne depuis +Y, puis ouvrir la petite bouche pour le câble séparé. Vérifier force d'encliquetage, glissement et démontage après cycles.",
+      "occurrences": [
+        {
+          "id": "ClipColonneF12",
+          "label": "ClipColonneF12",
+          "origin_mm": [
+            60,
+            37,
+            114
+          ],
+          "interface": "SA05/ColonnePorteuse_3 P68 Ø6. Axe colonne +Z, câble F12 +X à Y=43 mm.",
+          "routes": [
+            "F12"
+          ]
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Brut",
+          "type": "Box",
+          "origin_mm": [
+            -4.3,
+            -4,
+            -4
+          ],
+          "properties": {
+            "Length": 8.6,
+            "Width": 12,
+            "Height": 8
+          }
+        },
+        {
+          "id": "Colonne",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            -5
+          ],
+          "properties": {
+            "Radius": 3.1,
+            "Height": 10
+          }
+        },
+        {
+          "id": "EntreeColonne",
+          "type": "Box",
+          "origin_mm": [
+            -2.55,
+            -5,
+            -5
+          ],
+          "properties": {
+            "Length": 5.1,
+            "Width": 4,
+            "Height": 10
+          }
+        },
+        {
+          "id": "PassageCable",
+          "type": "Cylinder",
+          "origin_mm": [
+            -6,
+            6,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "properties": {
+            "Radius": 1.4,
+            "Height": 12
+          }
+        },
+        {
+          "id": "EntreeCable",
+          "type": "Box",
+          "origin_mm": [
+            -6,
+            6,
+            -1
+          ],
+          "properties": {
+            "Length": 12,
+            "Width": 3,
+            "Height": 2
+          }
+        },
+        {
+          "id": "GorgeColonne",
+          "type": "Cut",
+          "inputs": [
+            "Brut",
+            "Colonne"
+          ]
+        },
+        {
+          "id": "BoucheColonne",
+          "type": "Cut",
+          "inputs": [
+            "GorgeColonne",
+            "EntreeColonne"
+          ]
+        },
+        {
+          "id": "GorgeCable",
+          "type": "Cut",
+          "inputs": [
+            "BoucheColonne",
+            "PassageCable"
+          ]
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "GorgeCable",
+            "EntreeCable"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.18,
+        0.55,
+        0.51
+      ]
+    },
+    {
+      "id": "EQ_GaineFendue08",
+      "label": "Gaine fendue F38 Ø8 nominal",
+      "role": "gaine",
+      "directory": "commerce",
+      "procedure": "HellermannTyton Twist-In 08 170-01001, PET ouvrable. Enveloppe candidate ID 8 mm, paroi 0,9 mm, 105 mm. Couper à longueur et monter latéralement après les terminaisons. La couture réelle se recouvre, la fente est exagérée dans le modèle.",
+      "occurrences": [
+        {
+          "id": "ProtectionF38_NEG",
+          "label": "ProtectionF38_NEG",
+          "origin_mm": [
+            -40,
+            -104,
+            52
+          ],
+          "interface": "Deux pinces au chant P64, Z52, gaine déposée latéralement.",
+          "routes": [
+            "F38_NEG"
+          ],
+          "module": "PUISSANCE"
+        },
+        {
+          "id": "ProtectionF38_POS",
+          "label": "ProtectionF38_POS",
+          "origin_mm": [
+            -40,
+            -94,
+            52
+          ],
+          "interface": "Deux pinces au chant P64, Z52, gaine déposée latéralement.",
+          "routes": [
+            "F38_POS"
+          ],
+          "module": "PUISSANCE"
+        }
+      ],
+      "primitives": [
+        {
+          "id": "Enveloppe",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "properties": {
+            "Radius": 4.9,
+            "Height": 105,
+            "Angle": 350
+          }
+        },
+        {
+          "id": "Passage",
+          "type": "Cylinder",
+          "origin_mm": [
+            0,
+            0,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "properties": {
+            "Radius": 4,
+            "Height": 105
+          }
+        },
+        {
+          "id": "Resultat",
+          "type": "Cut",
+          "inputs": [
+            "Enveloppe",
+            "Passage"
+          ]
+        }
+      ],
+      "result": "Resultat",
+      "color": [
+        0.23,
+        0.38,
+        0.58
+      ]
+    }
+  ],
+  "gaines": {
+    "reference": "HellermannTyton Twist-In 08 170-01001",
+    "notice": "https://www.hellermanntyton.com/products/open-woven-sleeves/twist-in-08/170-01001",
+    "fill_candidate_pct": 66.02,
+    "caveat": "Rapport nominal (6,5/8)^2. Diamètre in situ, recouvrement textile, tenue thermique et au glissement à contrôler. Ni gaine commune ni enfilage des prises."
+  },
+  "points_non_resolus": [
+    "Entrée/sortie du cordon F41, maintien le long du bord ouest et spécification USB courte. Les points de maintien restent à définir.",
+    "Support RF de P70 : la bride P75 est retirée. Le support et le coaxial exigent une reprise d'ancrage mécanique vérifiée.",
+    "La caméra conserve deux boucles indépendantes en CAO. Les ancrages des côtés fixe et suspendu, le balayage continu et les références finales restent à déterminer.",
+    "Les routes longues héritées dont le guidage était assuré par P72/P73/P75 restent des réservations visibles et à reprendre module par module. Un éloignement de la structure n'est pas couvert par les retenues locales ajoutées.",
+    "Les deux protections F38 sont conditionnées par la température en service, le maintien axial et les interfaces de serrage.",
+    "Le fusible MIDI reste dans une enveloppe commerciale de définition. Vérifier le boîtier réel, la rigidité de la tablette et le passage aux bornes."
+  ]
+}

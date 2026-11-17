@@ -1,0 +1,836 @@
+{
+  "status": "PASS",
+  "scope": "SYNTHETIC",
+  "projection_sha256": "7f36b37211e7cefb119321ebad571a9b8138bb02802905b7ff10a7b06195cf3d",
+  "adapter_sha256": "f48f686c95b125ba42be962bb334661f0f4b12fbb455b6f40eb01b4b3f9d1f30",
+  "builder_sha256": "198fddb269d496bf12b668853f4159cca952c3f606d22c6c0a4dc6428ca1b061",
+  "rpc": {
+    "endpoint": "localhost:9875",
+    "method": "get_rpc_status",
+    "package_version": "0.1.22",
+    "metadata_source": "uv_package_metadata",
+    "outcome": "INCONCLUSIVE",
+    "error": "PermissionError",
+    "winerror": 10013
+  },
+  "tolerances": {
+    "position_mm": 1e-06,
+    "volume_mm3": 1e-06,
+    "pose_matrix_components": 1e-08
+  },
+  "phases": {
+    "build": {
+      "pid": 10112,
+      "fcstd_sha256": "74c8530132fd379e4ae6e7fd8683b666c1ae1b5d6782f47875cdd7042c45b309",
+      "step_probe": {
+        "status": "PASS",
+        "sha256": "d8bf9b3b5299027eeb388c32f82db2dd534084ff64e864605a0df17011c8e850",
+        "native_proxy_imports": {
+          "ArchCableConnector": {
+            "solids": 1,
+            "volume_mm3": 6.0,
+            "color_entries": 0
+          },
+          "ArchElectricalDevice": {
+            "solids": 1,
+            "volume_mm3": 6.0,
+            "color_entries": 0
+          }
+        },
+        "source": "Boîte synthétique FreeCAD 1 × 2 × 3 mm exportée en STEP"
+      },
+      "environment": {
+        "freecad": [
+          "1",
+          "1",
+          "3",
+          "20260725 (Git shallow)",
+          "Unknown",
+          "2026/07/25 04:52:02",
+          "grafted,grafted",
+          "145529fe741292ff0b3977a01195bf0247425794"
+        ],
+        "cables": "0.3.7",
+        "system": "Windows",
+        "architecture": "AMD64",
+        "python": "3.11.14",
+        "qt_platform": "offscreen",
+        "sha256_modules": {
+          "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+          "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+          "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+          "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+          "archCableConnector.py": "5ff8db12bf9978046eb59c1a9e55edbe90759e80a145ebefaa68f1b9fb9fd7f7",
+          "archElectricalDevice.py": "28651fdc3c45e5f32477864254d7cecd905ed95396a084d92bf1cfcafa7335f0",
+          "cableTerminal.py": "46efde0b10c20ec906eafb59e58d16fa6c2ddd89794c3dbeb44f361540592a5f",
+          "cableutils.py": "f7faf61341b78f2874516b5786fda078622a25d55465a88851e787cf6bb129fa"
+        },
+        "factories": {
+          "freecad.cables.archCableConnector.makeCableConnector": "(baseobj=None, nrofholes=0, holesize=0, thickness=0, height=0, preset=None, placement=None, name=None)",
+          "freecad.cables.archElectricalDevice.makeElectricalDevice": "(baseobj=None, preset=None, placement=None, name=None)",
+          "freecad.cables.cableTerminal.makeCableTerminal": "()",
+          "freecad.cables.wireFlex.make_wireflex": "(plist=None)",
+          "freecad.cables.cableutils.attach_in_place": "(obj_list)"
+        }
+      }
+    },
+    "reopen": {
+      "status": "PASS",
+      "pid": 28732,
+      "fcstd_sha256": "74c8530132fd379e4ae6e7fd8683b666c1ae1b5d6782f47875cdd7042c45b309",
+      "interfaces": [
+        {
+          "end_id": "a",
+          "port_id": "port-a",
+          "device": "ElectricalDevice",
+          "receptacle": "CableConnector",
+          "plug": "CableConnector001",
+          "frames": {
+            "mount": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                2.220446049250313e-16,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "Mount1",
+              "attachment": "ElectricalDevice"
+            },
+            "receptacle_mating": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                0.0,
+                1.0,
+                4.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                2.220446049250313e-16,
+                -1.1821580299874798e-17,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "ReceptacleMating1",
+              "attachment": "CableConnector"
+            },
+            "mate_mating": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                0.0,
+                1.0,
+                4.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                2.220446049250313e-16,
+                -1.1821580299874798e-17,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "MateMating1",
+              "attachment": "CableConnector001"
+            },
+            "exit": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                0.0,
+                1.0,
+                14.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                2.220446049250313e-16,
+                8.624468950438427e-18,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "WireExit1",
+              "attachment": "CableConnector001"
+            }
+          },
+          "contacts": [
+            {
+              "mate_contact_id": "ma1",
+              "receptacle_contact_id": "ra1",
+              "native_pair": [
+                "CableTerminal",
+                "CableTerminal001"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                4.0,
+                -0.9,
+                0.9
+              ]
+            },
+            {
+              "mate_contact_id": "ma2",
+              "receptacle_contact_id": "ra2",
+              "native_pair": [
+                "CableTerminal002",
+                "CableTerminal003"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                4.0,
+                0.9,
+                0.9
+              ]
+            },
+            {
+              "mate_contact_id": "ma3",
+              "receptacle_contact_id": "ra3",
+              "native_pair": [
+                "CableTerminal004",
+                "CableTerminal005"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                4.0,
+                -0.9,
+                -0.9
+              ]
+            },
+            {
+              "mate_contact_id": "ma4",
+              "receptacle_contact_id": "ra4",
+              "native_pair": [
+                "CableTerminal006",
+                "CableTerminal007"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                4.0,
+                0.9,
+                -0.9
+              ]
+            }
+          ],
+          "envelope": "Extraction1",
+          "pull_envelope": {
+            "status": "PASS",
+            "translation_mm": [
+              8.0,
+              0.0,
+              1.7763568394002505e-15
+            ],
+            "swept_bounds_mm": [
+              3.999999999999999,
+              -3.0,
+              -3.0,
+              22.0,
+              3.0,
+              3.0000000000000036
+            ]
+          },
+          "extraction": {
+            "status": "PASS",
+            "bounds_mm": [
+              4.0,
+              -4.0,
+              -4.0,
+              24.0,
+              4.0,
+              4.0
+            ],
+            "pairs": [
+              {
+                "obstacle": "ElectricalDevice",
+                "volume_mm3": 0.0,
+                "distance_mm": 4.0
+              },
+              {
+                "obstacle": "CableConnector",
+                "volume_mm3": 0.0,
+                "distance_mm": 8.881784197001252e-16
+              },
+              {
+                "obstacle": "ElectricalDevice001",
+                "volume_mm3": 0.0,
+                "distance_mm": 76.0
+              },
+              {
+                "obstacle": "CableConnector002",
+                "volume_mm3": 0.0,
+                "distance_mm": 72.0
+              },
+              {
+                "obstacle": "CableConnector003",
+                "volume_mm3": 0.0,
+                "distance_mm": 62.0
+              },
+              {
+                "obstacle": "Obstacle",
+                "volume_mm3": 0.0,
+                "distance_mm": 8.0
+              }
+            ]
+          },
+          "tooling": {
+            "status": "PASS",
+            "bounds_mm": [
+              4.0,
+              -5.0,
+              -5.0,
+              16.0,
+              5.0,
+              5.0
+            ],
+            "pairs": [
+              {
+                "obstacle": "Obstacle",
+                "volume_mm3": 0.0,
+                "distance_mm": 7.0
+              }
+            ]
+          }
+        },
+        {
+          "end_id": "b",
+          "port_id": "port-b",
+          "device": "ElectricalDevice001",
+          "receptacle": "CableConnector002",
+          "plug": "CableConnector003",
+          "frames": {
+            "mount": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                -0.0,
+                -1.0,
+                100.0,
+                0.0,
+                1.0,
+                -0.0,
+                0.0,
+                1.0,
+                0.0,
+                2.220446049250313e-16,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "Mount2",
+              "attachment": "ElectricalDevice001"
+            },
+            "receptacle_mating": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                -0.0,
+                -1.0,
+                96.0,
+                0.0,
+                1.0,
+                -0.0,
+                0.0,
+                1.0,
+                0.0,
+                2.220446049250313e-16,
+                -1.1821580299875981e-17,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "ReceptacleMating2",
+              "attachment": "CableConnector002"
+            },
+            "mate_mating": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                -0.0,
+                -1.0,
+                96.0,
+                0.0,
+                1.0,
+                -0.0,
+                0.0,
+                1.0,
+                0.0,
+                2.220446049250313e-16,
+                -1.1821580299875981e-17,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "MateMating2",
+              "attachment": "CableConnector003"
+            },
+            "exit": {
+              "status": "PASS",
+              "matrix": [
+                2.220446049250313e-16,
+                -0.0,
+                -1.0,
+                86.0,
+                0.0,
+                1.0,
+                -0.0,
+                0.0,
+                1.0,
+                0.0,
+                2.220446049250313e-16,
+                8.624468950437244e-18,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "object": "WireExit2",
+              "attachment": "CableConnector003"
+            }
+          },
+          "contacts": [
+            {
+              "mate_contact_id": "mb1",
+              "receptacle_contact_id": "rb1",
+              "native_pair": [
+                "CableTerminal008",
+                "CableTerminal009"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                96.0,
+                -0.9,
+                -0.9
+              ]
+            },
+            {
+              "mate_contact_id": "mb2",
+              "receptacle_contact_id": "rb2",
+              "native_pair": [
+                "CableTerminal010",
+                "CableTerminal011"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                96.0,
+                0.9,
+                -0.9
+              ]
+            },
+            {
+              "mate_contact_id": "mb3",
+              "receptacle_contact_id": "rb3",
+              "native_pair": [
+                "CableTerminal012",
+                "CableTerminal013"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                96.0,
+                -0.9,
+                0.9
+              ]
+            },
+            {
+              "mate_contact_id": "mb4",
+              "receptacle_contact_id": "rb4",
+              "native_pair": [
+                "CableTerminal014",
+                "CableTerminal015"
+              ],
+              "gap_mm": 0.0,
+              "position_mm": [
+                96.0,
+                0.9,
+                0.9
+              ]
+            }
+          ],
+          "envelope": "Extraction2",
+          "pull_envelope": {
+            "status": "PASS",
+            "translation_mm": [
+              -8.0,
+              0.0,
+              1.7763568394002505e-15
+            ],
+            "swept_bounds_mm": [
+              78.00000000000001,
+              -3.0,
+              -3.0,
+              96.0,
+              3.0,
+              3.0000000000000036
+            ]
+          },
+          "extraction": {
+            "status": "PASS",
+            "bounds_mm": [
+              76.0,
+              -4.0,
+              -4.0,
+              96.0,
+              4.0,
+              4.0
+            ],
+            "pairs": [
+              {
+                "obstacle": "ElectricalDevice",
+                "volume_mm3": 0.0,
+                "distance_mm": 76.0
+              },
+              {
+                "obstacle": "CableConnector",
+                "volume_mm3": 0.0,
+                "distance_mm": 72.0
+              },
+              {
+                "obstacle": "CableConnector001",
+                "volume_mm3": 0.0,
+                "distance_mm": 62.0
+              },
+              {
+                "obstacle": "ElectricalDevice001",
+                "volume_mm3": 0.0,
+                "distance_mm": 4.0
+              },
+              {
+                "obstacle": "CableConnector002",
+                "volume_mm3": 0.0,
+                "distance_mm": 0.0
+              },
+              {
+                "obstacle": "Obstacle",
+                "volume_mm3": 0.0,
+                "distance_mm": 58.54912467321779
+              }
+            ]
+          },
+          "tooling": {
+            "status": "PASS",
+            "bounds_mm": [
+              84.0,
+              -5.0,
+              -5.0,
+              96.0,
+              5.0,
+              5.0
+            ],
+            "pairs": [
+              {
+                "obstacle": "Obstacle",
+                "volume_mm3": 0.0,
+                "distance_mm": 66.37017402418047
+              }
+            ]
+          }
+        }
+      ],
+      "jacket": {
+        "cable_proxy": "freecad.cables.archCable.ArchCable",
+        "route_proxy": "freecad.cables.wireFlex.WireFlex",
+        "longueur_courbe_mm": 72.0,
+        "longueur_addon_mm": 72.0,
+        "diametre_exterieur_mm": 4.0,
+        "rayon_demande_mm": 5.0,
+        "rayons_arcs_mm": [],
+        "continuite": true,
+        "parcours_valide": true,
+        "solides": 1,
+        "solide_valide": true,
+        "volume_mm3": 904.7786842338601,
+        "erreurs": []
+      },
+      "jacket_endpoints": {
+        "status": "PASS",
+        "wire": "Line",
+        "endpoint_errors_mm": [
+          8.624468950438427e-18,
+          8.624468950437244e-18
+        ],
+        "targets": [
+          "WireExit1",
+          "WireExit2"
+        ],
+        "subelements": [
+          "Vertex1",
+          "Vertex1"
+        ],
+        "contact_ids": [
+          null,
+          null
+        ],
+        "terminal_types": [
+          false,
+          false
+        ],
+        "reciprocal_terminal_links": false
+      },
+      "conductors": [
+        {
+          "id": "c1",
+          "status": "PASS",
+          "wire": "Line001",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "CableTerminal001",
+            "CableTerminal009"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            "ma1",
+            "mb1"
+          ],
+          "terminal_types": [
+            true,
+            true
+          ],
+          "reciprocal_terminal_links": true
+        },
+        {
+          "id": "c2",
+          "status": "PASS",
+          "wire": "Line002",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "CableTerminal003",
+            "CableTerminal011"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            "ma2",
+            "mb2"
+          ],
+          "terminal_types": [
+            true,
+            true
+          ],
+          "reciprocal_terminal_links": true
+        },
+        {
+          "id": "c3",
+          "status": "PASS",
+          "wire": "Line003",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "CableTerminal005",
+            "CableTerminal013"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            "ma3",
+            "mb3"
+          ],
+          "terminal_types": [
+            true,
+            true
+          ],
+          "reciprocal_terminal_links": true
+        },
+        {
+          "id": "c4",
+          "status": "PASS",
+          "wire": "Line004",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "CableTerminal007",
+            "CableTerminal015"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            "ma4",
+            "mb4"
+          ],
+          "terminal_types": [
+            true,
+            true
+          ],
+          "reciprocal_terminal_links": true
+        }
+      ],
+      "faults": {
+        "extraction_blocked": {
+          "status": "FAIL",
+          "bounds_mm": [
+            4.0,
+            -4.0,
+            -4.0,
+            24.0,
+            4.0,
+            4.0
+          ],
+          "pairs": [
+            {
+              "obstacle": "BlockerTest",
+              "volume_mm3": 0.9999999999999998,
+              "distance_mm": 0.0
+            }
+          ]
+        },
+        "generic_endpoint_same_position": {
+          "status": "FAIL",
+          "wire": "Line001",
+          "endpoint_errors_mm": [
+            0.0,
+            0.0
+          ],
+          "targets": [
+            "GenericVertex",
+            "CableTerminal009"
+          ],
+          "subelements": [
+            "Vertex1",
+            "Vertex1"
+          ],
+          "contact_ids": [
+            null,
+            "mb1"
+          ],
+          "terminal_types": [
+            false,
+            true
+          ],
+          "reciprocal_terminal_links": false
+        },
+        "rotated_equipment": {
+          "frozen_pose": {
+            "status": "FAIL",
+            "matrix": [
+              2.220446049250313e-16,
+              -0.25881904510252074,
+              0.9659258262890681,
+              0.0,
+              2.7755575615628914e-17,
+              0.9659258262890683,
+              0.25881904510252074,
+              0.0,
+              -0.9999999999999999,
+              -2.7755575615628914e-17,
+              2.220446049250313e-16,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "object": "Mount1"
+          },
+          "wire": {
+            "status": "PASS",
+            "wire": "Line001",
+            "endpoint_errors_mm": [
+              0.0,
+              3.3306690738754696e-16
+            ],
+            "targets": [
+              "CableTerminal001",
+              "CableTerminal009"
+            ],
+            "subelements": [
+              "Vertex1",
+              "Vertex1"
+            ],
+            "contact_ids": [
+              "ma1",
+              "mb1"
+            ],
+            "terminal_types": [
+              true,
+              true
+            ],
+            "reciprocal_terminal_links": true
+          },
+          "terminal_displacement_mm": 1.0579065344044114
+        }
+      },
+      "environment": {
+        "freecad": [
+          "1",
+          "1",
+          "3",
+          "20260725 (Git shallow)",
+          "Unknown",
+          "2026/07/25 04:52:02",
+          "grafted,grafted",
+          "145529fe741292ff0b3977a01195bf0247425794"
+        ],
+        "cables": "0.3.7",
+        "system": "Windows",
+        "architecture": "AMD64",
+        "python": "3.11.14",
+        "qt_platform": "offscreen",
+        "sha256_modules": {
+          "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+          "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+          "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+          "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+          "archCableConnector.py": "5ff8db12bf9978046eb59c1a9e55edbe90759e80a145ebefaa68f1b9fb9fd7f7",
+          "archElectricalDevice.py": "28651fdc3c45e5f32477864254d7cecd905ed95396a084d92bf1cfcafa7335f0",
+          "cableTerminal.py": "46efde0b10c20ec906eafb59e58d16fa6c2ddd89794c3dbeb44f361540592a5f",
+          "cableutils.py": "f7faf61341b78f2874516b5786fda078622a25d55465a88851e787cf6bb129fa"
+        },
+        "factories": {
+          "freecad.cables.archCableConnector.makeCableConnector": "(baseobj=None, nrofholes=0, holesize=0, thickness=0, height=0, preset=None, placement=None, name=None)",
+          "freecad.cables.archElectricalDevice.makeElectricalDevice": "(baseobj=None, preset=None, placement=None, name=None)",
+          "freecad.cables.cableTerminal.makeCableTerminal": "()",
+          "freecad.cables.wireFlex.make_wireflex": "(plist=None)",
+          "freecad.cables.cableutils.attach_in_place": "(obj_list)"
+        }
+      }
+    }
+  },
+  "interactive": "NOT_EXECUTED",
+  "physical": "NOT_EXECUTED"
+}

@@ -1,0 +1,246 @@
+{
+  "intentional_envelope_inclusion": {
+    "stage": "integration",
+    "pair": [
+      "C1",
+      "G1"
+    ],
+    "failures": [],
+    "unknowns": [],
+    "authorized_relation": true,
+    "intersection_volume_mm3": 1256.6370614359173,
+    "clearance_mm": 0.0,
+    "outside_envelope_volume_mm3": 0.0,
+    "status": "pass"
+  },
+  "radius_nonconforming": {
+    "stage": "geometry",
+    "failures": [
+      "bend_radius_below_requirement"
+    ],
+    "unknowns": [
+      "start_connector_position_missing",
+      "end_connector_position_missing"
+    ],
+    "minimum_radius_mm": 10.0,
+    "radius_evidence": "analytic_lines_circles",
+    "edge_measurements": [
+      {
+        "curve_type": "Part::GeomCircle",
+        "length_mm": 15.707963267948966,
+        "method": "analytic_circle",
+        "samples": 0,
+        "minimum_radius_mm": 10.0
+      }
+    ],
+    "join_angles_deg": [],
+    "waypoint_distances_mm": [],
+    "length_mm": 15.707963267948966,
+    "shape_sha256": "11843dbf87390cc63c3b4fea59b76a052a50bb51a234af648b0fa11bf3175c20",
+    "straight_radius_infinite": false,
+    "start_axis_error_deg": 0.0,
+    "end_axis_error_deg": 0.0,
+    "status": "fail"
+  },
+  "obstacle_collision": {
+    "stage": "integration",
+    "pair": [
+      "C1",
+      "OB1"
+    ],
+    "failures": [
+      "forbidden_interference"
+    ],
+    "unknowns": [],
+    "authorized_relation": false,
+    "intersection_volume_mm3": 125.6637061435917,
+    "clearance_mm": 3.9831970004118395e-16,
+    "status": "fail"
+  },
+  "adaptive_spline": {
+    "stage": "geometry",
+    "failures": [],
+    "unknowns": [
+      "curvature_subdivision_budget_reached",
+      "global_curvature_bound_not_proven",
+      "start_connector_position_missing",
+      "end_connector_position_missing"
+    ],
+    "minimum_radius_mm": 31.275033687967326,
+    "radius_evidence": "sampled_upper_bound_on_true_minimum_radius",
+    "edge_measurements": [
+      {
+        "curve_type": "Part::GeomBSplineCurve",
+        "length_mm": 69.33086331438179,
+        "method": "adaptive_curvature_samples",
+        "samples": 905,
+        "knot_spans": 1,
+        "depth_budget_exhausted": true,
+        "min_depth": 3,
+        "max_depth": 8,
+        "curvature_relative_tolerance": 0.01,
+        "minimum_radius_mm": 31.275033687967326
+      }
+    ],
+    "join_angles_deg": [],
+    "waypoint_distances_mm": [],
+    "length_mm": 69.33092746276091,
+    "shape_sha256": "147cad06af61f5274000163f4665c792537e24ea784860969c42675ab2866be0",
+    "straight_radius_infinite": false,
+    "start_axis_error_deg": 0.0,
+    "end_axis_error_deg": 0.0,
+    "status": "unknown"
+  },
+  "environment": {
+    "nom": "Cables Workbench",
+    "version": "0.3.7",
+    "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+    "sha256_modules": {
+      "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+      "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+      "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+      "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb"
+    },
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ]
+  },
+  "native_failed_generation_injected": {
+    "stage": "solid",
+    "failures": [
+      "solid_generation_invalid"
+    ],
+    "null": true,
+    "valid": false,
+    "solid_count": 0,
+    "volume_mm3": 0.0,
+    "status": "fail",
+    "recompute_return": true,
+    "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+    "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+    "cache_cleared": true,
+    "object_states": {
+      "Cable": [
+        "Up-to-date"
+      ],
+      "Line": [
+        "Up-to-date"
+      ]
+    }
+  },
+  "native_compoundpath_conduit": {
+    "path_type": "Complex",
+    "length_mm": 100.0,
+    "conduit": {
+      "stage": "solid",
+      "failures": [],
+      "null": false,
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 2827.4333882308138,
+      "status": "pass"
+    },
+    "subconduits": 0
+  },
+  "native_archcable": {
+    "stage": "solid",
+    "failures": [],
+    "null": false,
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 1454.0291494577045,
+    "status": "pass",
+    "recompute_return": true,
+    "path_before_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+    "path_after_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+    "cache_cleared": true,
+    "object_states": {
+      "Cable": [
+        "Up-to-date"
+      ],
+      "Wire": [
+        "Up-to-date"
+      ]
+    }
+  },
+  "native_route": {
+    "stage": "geometry",
+    "failures": [],
+    "unknowns": [],
+    "minimum_radius_mm": 10.0,
+    "radius_evidence": "analytic_lines_circles",
+    "edge_measurements": [
+      {
+        "curve_type": "Part::GeomLine",
+        "length_mm": 50.0,
+        "method": "analytic_line",
+        "samples": 0,
+        "minimum_radius_mm": null
+      },
+      {
+        "curve_type": "Part::GeomCircle",
+        "length_mm": 15.707963267948964,
+        "method": "analytic_circle",
+        "samples": 0,
+        "minimum_radius_mm": 10.0
+      },
+      {
+        "curve_type": "Part::GeomLine",
+        "length_mm": 50.0,
+        "method": "analytic_line",
+        "samples": 0,
+        "minimum_radius_mm": null
+      }
+    ],
+    "join_angles_deg": [
+      0.0,
+      0.0
+    ],
+    "waypoint_distances_mm": [],
+    "length_mm": 115.70796326794897,
+    "shape_sha256": "bf32d1b07bb06d2a62adc716226fb63e6ce634e8010687d1080791731b9b3d53",
+    "straight_radius_infinite": false,
+    "start_position_error_mm": 0.0,
+    "end_position_error_mm": 0.0,
+    "start_axis_error_deg": 0.0,
+    "end_axis_error_deg": 0.0,
+    "status": "pass"
+  },
+  "recompute_false_injected": {
+    "stage": "solid",
+    "failures": [
+      "freecad_recompute_failed"
+    ],
+    "null": false,
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 628.3185307179585,
+    "status": "fail",
+    "recompute_return": false,
+    "path_before_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+    "path_after_sha256": "cfc45f93ccb6ac0963dbde930eae4a571d71247384adcd1f8b64df2f0af1e8b0",
+    "cache_cleared": true,
+    "object_states": {
+      "Cable": [
+        "Up-to-date"
+      ],
+      "Line": [
+        "Up-to-date"
+      ]
+    }
+  },
+  "tests_run": 19,
+  "failures": 0,
+  "errors": 0,
+  "skipped": [],
+  "geometry_stage": "executed",
+  "interactive_stage": "not_executed",
+  "physical_stage": "not_executed"
+}

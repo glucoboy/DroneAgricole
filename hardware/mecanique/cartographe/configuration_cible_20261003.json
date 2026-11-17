@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "date": "2026-10-03",
+  "date": "2026-10-05",
   "reference": "CFG-CARTO-CIBLE-20261003",
   "objet": "Registre de BOM embarquée et d'intégration cible ; sans achat ni qualification physique",
   "statut": "Implémenté en registre et maquette ; intégration À valider",
@@ -15,11 +15,11 @@
     "assemblage_revue_candidat": "archives/avant_tri_20261004/assemblages/Drone_Cartographe_Systeme_Candidat.FCStd",
     "limite_revue": "Maquette complète antérieure archivée ; catalogue courant des dernières implémentations. Aucune configuration complète nouvellement qualifiée.",
     "variante_stack_revue": "assemblages/Integration_Stack_Revue_20261003.FCStd",
-    "limite_stack_revue": "Fixation commune candidate à P17, accès outil avec bloccapteurs déposé ; ancien faisceau non recalé, physique et masse À valider.",
+    "limite_stack_revue": "Deux assemblages batterie/récepteur, six équipements directs et SA08 ; références et poses conservées. Ports, fixations, masse et thermique À valider ; GNSS non implanté.",
     "ancienne_configuration_active_archivee": "archives/avant_tri_20261004/assemblages/Drone_Cartographe_20Ah.FCStd",
     "catalogue_courant": "manifest.json#catalogue_courant_20261004",
     "assemblage_local_courant": "assemblages/Integration_Stack_Revue_20261003.FCStd",
-    "tri_sous_assemblages": "Implémenté ; GNSS sur plateaux Planifié, faisceau non recalé sur nouvelle stack."
+    "tri_sous_assemblages": "Batterie et récepteur séparés ; six équipements énergie directement dans le principal ; SA07 historique non installé"
   },
   "regles_masse": [
     "null signifie inconnue, jamais0g ; les quantités nulles restent des postes ouverts.",
@@ -82,26 +82,30 @@
   "bom": [
     {
       "id": "DOCK20",
-      "designation": "Dock complet 6S20Ah, batterie, mécanisme, JETI, contacts et faisceau amont",
+      "designation": "Batterie et récepteur 6S 20 Ah ; poste de synthèse documentaire",
       "quantite_cible": 1,
       "quantite_statut": "Quantité d'intégration candidate",
       "mpn": null,
       "source": "LOCAL",
       "statut_selection": "Configuration de travail choisie",
-      "statut_CAO": "Implémenté dans drone actif",
+      "statut_CAO": "Implémenté dans le principal local ; physique À valider",
       "statut_physique": "À valider",
       "masse_unitaire_g": null,
       "masse_source": null,
       "masse_perimetre": "Inconnu ; aucune assimilation à zéro",
       "incluse_dans": null,
-      "comptage": "Décomposer exclusivement par la BOM référencée ; aucun second comptage des lignes dock",
+      "comptage": "Poste de synthèse sans masse additionnelle ; décomposer par la BOM référencée. Les six équipements directs et SA08 y figurent aussi : ne pas les ajouter deux fois.",
       "dimensions_mm": null,
-      "fichier_CAO": "sous_assemblages/SA02A_Dock20Ah.FCStd",
+      "fichier_CAO": null,
       "reserves": [
-        "La BOM dock inclut aussi P27/P37/P38 et la visserie de rehausse : réconcilier ces lignes, ne pas les ajouter deux fois."
+        "Châssis, stack et capteurs exclus des 182 liens de ce périmètre. Fixations et masse physique À valider."
       ],
       "bom_detaillee": "verification/bom_dock20Ah_20261002.json",
-      "faisceau": "verification/faisceau_dock20Ah_20261002.json"
+      "faisceau": "verification/faisceau_dock20Ah_20261002.json",
+      "fichiers_CAO": [
+        "sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd",
+        "sous_assemblages/SA02A_Dock20Ah.FCStd"
+      ]
     },
     {
       "id": "X650KIT",
@@ -570,7 +574,9 @@
         "15028 XT90 conforme lien DOC-ELEC ;15029 fils étamés et15030 XT90/cosses alternatives non choisies.",
         "AWG8 silicone ; Molex CLIK-Mate2mm6pins pour ports combinés énergie/CAN.",
         "Support isolant séparé du dock requis ; ne pas modifier modèle fabricant pour supprimer une interférence."
-      ]
+      ],
+      "assemblage_parent_CAO": "assemblages/Integration_Stack_Revue_20261003.FCStd",
+      "occurrence_CAO": "PM08"
     },
     {
       "id": "PDB",
@@ -593,7 +599,9 @@
         "SixXT90 et deuxXT30 vers le haut ; fixationM3 ; masse nette non publiée dans texte vérifié.",
         "Valeur Shopify180g identique aux accessoires non retenue comme poids net.",
         "CAD fabricant disponible à intégrer ; dégagement fiches accouplées/bornes/maintenance ouvert."
-      ]
+      ],
+      "assemblage_parent_CAO": "assemblages/Integration_Stack_Revue_20261003.FCStd",
+      "occurrence_CAO": "PDB18138"
     },
     {
       "id": "LIDAR",
@@ -1487,7 +1495,7 @@
     "masse_g": null,
     "statut": "Implémenté en réservation CAO ; À valider",
     "limites": [
-      "35 routes natives candidates présentes, dont JETI OUT→PM08 IN et PM08→PDB ; sorties OEM, prises accouplées, sections, rayons, longueur de coupe et masses finales À valider.",
+      "37 routes natives candidates présentes, dont JETI OUT→PM08 IN et PM08→PDB ; sorties OEM, prises accouplées, sections, rayons, longueur de coupe et masses finales À valider.",
       "Les fils stockPM08 compris dans185g doivent être identifiés puis retirés du poste additionnel.",
       "W19SSD est internePCIe : pas de câble externe inventé ;W20refroidissement dépend du lot.",
       "W13 est la paire de coaxiauxRF ; montageRP4TD direct élimine ancienW11, pasW13. GNSS et antennesRF restent routes distinctes.",
@@ -1724,5 +1732,35 @@
       "masse_fixations_ajoutees_g": null,
       "regle": "La plaqueP56 et CA01de revue sont des substitutions ; P17 et kitOEM restent comptés dans leur ensemble. Aucune masseCAO de métal fileté assimilée à pesée."
     }
+  },
+  "BMS_cassette": {
+    "reference": "JBD-SP22S003 Li-ion A01 100A",
+    "connecteur": "TE1648156-1/1648151-1",
+    "statut": "CAO/schémaImplémentés, physiqueÀvalider",
+    "diagnostic": "UARTisolé, décodeurPlanifié"
+  },
+  "hierarchie_batterie_recepteur": {
+    "batterie": "sous_assemblages/SA02_Cassette20Ah_Coulissante.FCStd",
+    "recepteur": "sous_assemblages/SA02A_Dock20Ah.FCStd",
+    "principal": "assemblages/Integration_Stack_Revue_20261003.FCStd",
+    "equipements_directs": [
+      "EQ_Holybro_PDB18138_Systeme_Candidat",
+      "EQ_JetiMagneticSwitch",
+      "EQ_JetiMainSwitch100_PortsEtude20A",
+      "EQ_PM08_CAN_Enveloppe_Systeme_Candidat",
+      "EQ_Waveshare15817_UART_Isole",
+      "P57_PlateauEnergieInferieur"
+    ],
+    "distribution_historique": "sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd",
+    "occurrences_batterie": 67,
+    "occurrences_recepteur": 72,
+    "equipements_directs_nombre": 6,
+    "routes_SA08": 37,
+    "liens_principal": 12,
+    "occurrences_perimetre": 182,
+    "references_perimetre": 115,
+    "placements_monde_conserves": true,
+    "verification": "verification/hierarchie_batterie_recepteur.json",
+    "statut": "Implémenté en CAO ; physique À valider"
   }
 }

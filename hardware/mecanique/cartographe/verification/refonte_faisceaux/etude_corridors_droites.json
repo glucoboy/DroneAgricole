@@ -1,0 +1,1827 @@
+{
+  "schema": "cartographe.corridors-arcs-droits.v1",
+  "configuration": "prototype_cartographe",
+  "input_copy": "hardware/mecanique/cartographe_faisceaux_autonome",
+  "construction_sha256": "8fd0b2968602b87596784aa91e18a09f13bb6d1cf78338c8e66aefb8d3a3ac7b",
+  "route_registry_sha256": "64476afcdb6263cd0e671ac0fd5cc497ae7ec196e80eb23febc977f580f3e92d",
+  "brep_adapter_sha256": "dc1e8b16f21507408bd2554383df6ee09ef6025da6993f322e13ef74aff3e713",
+  "cpp17_sha256": "9e93de73f2ecff13d2ab1fe8c4c99f2f92e2025a9d5413fdc889d4a2c2b53333",
+  "route_count": 53,
+  "straight_edge_count": 370,
+  "matched_edge_pair_count": 60,
+  "limits": {
+    "minimum_overlap_mm": 4,
+    "maximum_axis_spacing_mm": 15,
+    "parallel_cosine_tolerance": 1E-10,
+    "overlap_between_different_routes": true,
+    "nominal_sections_must_not_overlap": true
+  },
+  "scope": "Projection des arêtes droites BRep sauvegardées en repère global. Le recouvrement de projection donne des pistes de corridors. Compatibilité, obstacles, coudes, cohabitation et montage sont des contrôles distincts.",
+  "reproducibility": [
+    "FreeCAD Python -B etude_corridors_droites.py <copie> <droites.tsv>",
+    "g++ -std=c++17 -O2 -Wall -Wextra etude_corridors_droites.cpp -o corridors.exe",
+    "corridors.exe <droites.tsv>"
+  ],
+  "pairs": [
+    {
+      "a": "F01_NEG",
+      "b": "F01_POS",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 5.5,
+      "axis_spacing_mm": 12.0,
+      "start_a_mm": [
+        -97.5,
+        12.0,
+        -50.0
+      ],
+      "end_a_mm": [
+        -103.0,
+        12.0,
+        -50.0
+      ],
+      "start_b_mm": [
+        -97.5,
+        0.0,
+        -50.0
+      ],
+      "end_b_mm": [
+        -103.0,
+        0.0,
+        -50.0
+      ]
+    },
+    {
+      "a": "F01_NEG",
+      "b": "AIRY",
+      "diameter_mm": [
+        6.5,
+        7.0
+      ],
+      "shared_length_mm": 18.0,
+      "axis_spacing_mm": 13.038405,
+      "start_a_mm": [
+        -111.0,
+        53.0,
+        -42.0
+      ],
+      "end_a_mm": [
+        -111.0,
+        53.0,
+        -24.0
+      ],
+      "start_b_mm": [
+        -104.0,
+        64.0,
+        -42.0
+      ],
+      "end_b_mm": [
+        -104.0,
+        64.0,
+        -24.0
+      ]
+    },
+    {
+      "a": "F01_NEG",
+      "b": "BALANCE",
+      "diameter_mm": [
+        6.5,
+        3.5
+      ],
+      "shared_length_mm": 10.0,
+      "axis_spacing_mm": 11.18034,
+      "start_a_mm": [
+        -98.0,
+        34.0,
+        -16.0
+      ],
+      "end_a_mm": [
+        -88.0,
+        34.0,
+        -16.0
+      ],
+      "start_b_mm": [
+        -98.0,
+        36.0,
+        -5.0
+      ],
+      "end_b_mm": [
+        -88.0,
+        36.0,
+        -5.0
+      ]
+    },
+    {
+      "a": "F37_POS",
+      "b": "F37_NEG",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 4.0,
+      "axis_spacing_mm": 14.866069,
+      "start_a_mm": [
+        128.0,
+        19.0,
+        -40.0
+      ],
+      "end_a_mm": [
+        128.0,
+        23.0,
+        -40.0
+      ],
+      "start_b_mm": [
+        118.0,
+        19.0,
+        -51.0
+      ],
+      "end_b_mm": [
+        118.0,
+        23.0,
+        -51.0
+      ]
+    },
+    {
+      "a": "F37_POS",
+      "b": "F38_NEG",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 24.0,
+      "axis_spacing_mm": 14.866069,
+      "start_a_mm": [
+        128.0,
+        -67.0,
+        -40.0
+      ],
+      "end_a_mm": [
+        128.0,
+        -43.0,
+        -40.0
+      ],
+      "start_b_mm": [
+        118.0,
+        -67.0,
+        -51.0
+      ],
+      "end_b_mm": [
+        118.0,
+        -43.0,
+        -51.0
+      ]
+    },
+    {
+      "a": "F37_POS",
+      "b": "F37_NEG",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 4.0,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        108.0,
+        23.0,
+        -51.0
+      ],
+      "end_a_mm": [
+        108.0,
+        19.0,
+        -51.0
+      ],
+      "start_b_mm": [
+        118.0,
+        23.0,
+        -51.0
+      ],
+      "end_b_mm": [
+        118.0,
+        19.0,
+        -51.0
+      ]
+    },
+    {
+      "a": "F38_POS",
+      "b": "F38_NEG",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 15.0,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        108.0,
+        -43.0,
+        -51.0
+      ],
+      "end_a_mm": [
+        108.0,
+        -58.0,
+        -51.0
+      ],
+      "start_b_mm": [
+        118.0,
+        -43.0,
+        -51.0
+      ],
+      "end_b_mm": [
+        118.0,
+        -58.0,
+        -51.0
+      ]
+    },
+    {
+      "a": "F38_POS",
+      "b": "F38_NEG",
+      "diameter_mm": [
+        6.5,
+        6.5
+      ],
+      "shared_length_mm": 147.0,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        90.0,
+        -94.0,
+        52.0
+      ],
+      "end_a_mm": [
+        -57.0,
+        -94.0,
+        52.0
+      ],
+      "start_b_mm": [
+        90.0,
+        -104.0,
+        52.0
+      ],
+      "end_b_mm": [
+        -57.0,
+        -104.0,
+        52.0
+      ]
+    },
+    {
+      "a": "F05_POS",
+      "b": "F08_AMONT",
+      "diameter_mm": [
+        6.5,
+        4.6
+      ],
+      "shared_length_mm": 23.114041,
+      "axis_spacing_mm": 7.0,
+      "start_a_mm": [
+        35.885959,
+        -70.0,
+        77.0
+      ],
+      "end_a_mm": [
+        59.0,
+        -70.0,
+        77.0
+      ],
+      "start_b_mm": [
+        35.885959,
+        -70.0,
+        70.0
+      ],
+      "end_b_mm": [
+        59.0,
+        -70.0,
+        70.0
+      ]
+    },
+    {
+      "a": "F05_POS",
+      "b": "F08_AMONT",
+      "diameter_mm": [
+        6.5,
+        4.6
+      ],
+      "shared_length_mm": 26.0,
+      "axis_spacing_mm": 13.892444,
+      "start_a_mm": [
+        69.0,
+        -60.0,
+        77.0
+      ],
+      "end_a_mm": [
+        69.0,
+        -34.0,
+        77.0
+      ],
+      "start_b_mm": [
+        81.0,
+        -60.0,
+        70.0
+      ],
+      "end_b_mm": [
+        81.0,
+        -34.0,
+        70.0
+      ]
+    },
+    {
+      "a": "F05_NEG",
+      "b": "F08_AVAL",
+      "diameter_mm": [
+        6.5,
+        4.6
+      ],
+      "shared_length_mm": 5.5,
+      "axis_spacing_mm": 11.002841,
+      "start_a_mm": [
+        15.5,
+        -45.25,
+        77.0
+      ],
+      "end_a_mm": [
+        21.0,
+        -45.25,
+        77.0
+      ],
+      "start_b_mm": [
+        15.5,
+        -35.0,
+        73.0
+      ],
+      "end_b_mm": [
+        21.0,
+        -35.0,
+        73.0
+      ]
+    },
+    {
+      "a": "NTC1",
+      "b": "NTC2",
+      "diameter_mm": [
+        1.8,
+        1.8
+      ],
+      "shared_length_mm": 11.35,
+      "axis_spacing_mm": 6.0,
+      "start_a_mm": [
+        -3.0,
+        45.1,
+        -16.0
+      ],
+      "end_a_mm": [
+        -3.0,
+        33.75,
+        -16.0
+      ],
+      "start_b_mm": [
+        3.0,
+        45.1,
+        -16.0
+      ],
+      "end_b_mm": [
+        3.0,
+        33.75,
+        -16.0
+      ]
+    },
+    {
+      "a": "F02_1",
+      "b": "F04_1",
+      "diameter_mm": [
+        5.0,
+        1.6
+      ],
+      "shared_length_mm": 9.934019,
+      "axis_spacing_mm": 6.0,
+      "start_a_mm": [
+        -123.975588,
+        -123.975588,
+        32.0
+      ],
+      "end_a_mm": [
+        -131.0,
+        -131.0,
+        32.0
+      ],
+      "start_b_mm": [
+        -119.975588,
+        -127.975588,
+        30.0
+      ],
+      "end_b_mm": [
+        -127.0,
+        -135.0,
+        30.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F04_2",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 19.622418,
+      "axis_spacing_mm": 4.242641,
+      "start_a_mm": [
+        74.377582,
+        -37.0,
+        163.0
+      ],
+      "end_a_mm": [
+        94.0,
+        -37.0,
+        163.0
+      ],
+      "start_b_mm": [
+        74.377582,
+        -34.0,
+        166.0
+      ],
+      "end_b_mm": [
+        94.0,
+        -34.0,
+        166.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F04_3",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 19.569464,
+      "axis_spacing_mm": 8.485281,
+      "start_a_mm": [
+        74.430536,
+        -37.0,
+        163.0
+      ],
+      "end_a_mm": [
+        94.0,
+        -37.0,
+        163.0
+      ],
+      "start_b_mm": [
+        74.430536,
+        -31.0,
+        169.0
+      ],
+      "end_b_mm": [
+        94.0,
+        -31.0,
+        169.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F04_4",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 19.524786,
+      "axis_spacing_mm": 12.727922,
+      "start_a_mm": [
+        74.475214,
+        -37.0,
+        163.0
+      ],
+      "end_a_mm": [
+        94.0,
+        -37.0,
+        163.0
+      ],
+      "start_b_mm": [
+        74.475214,
+        -28.0,
+        172.0
+      ],
+      "end_b_mm": [
+        94.0,
+        -28.0,
+        172.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F04_4",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 13.0,
+      "axis_spacing_mm": 14.422205,
+      "start_a_mm": [
+        94.0,
+        -58.0,
+        116.0
+      ],
+      "end_a_mm": [
+        81.0,
+        -58.0,
+        116.0
+      ],
+      "start_b_mm": [
+        94.0,
+        -66.0,
+        128.0
+      ],
+      "end_b_mm": [
+        81.0,
+        -66.0,
+        128.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F24B",
+      "diameter_mm": [
+        1.6,
+        2.4
+      ],
+      "shared_length_mm": 131.0,
+      "axis_spacing_mm": 14.317821,
+      "start_a_mm": [
+        69.0,
+        -58.0,
+        116.0
+      ],
+      "end_a_mm": [
+        -62.0,
+        -58.0,
+        116.0
+      ],
+      "start_b_mm": [
+        69.0,
+        -72.0,
+        119.0
+      ],
+      "end_b_mm": [
+        -62.0,
+        -72.0,
+        119.0
+      ]
+    },
+    {
+      "a": "F04_1",
+      "b": "F06",
+      "diameter_mm": [
+        1.6,
+        3.4
+      ],
+      "shared_length_mm": 32.88786,
+      "axis_spacing_mm": 8.944272,
+      "start_a_mm": [
+        -84.0,
+        -58.0,
+        111.0
+      ],
+      "end_a_mm": [
+        -84.0,
+        -58.0,
+        78.11214
+      ],
+      "start_b_mm": [
+        -92.0,
+        -62.0,
+        111.0
+      ],
+      "end_b_mm": [
+        -92.0,
+        -62.0,
+        78.11214
+      ]
+    },
+    {
+      "a": "F02_2",
+      "b": "F04_2",
+      "diameter_mm": [
+        5.0,
+        1.6
+      ],
+      "shared_length_mm": 8.861707,
+      "axis_spacing_mm": 6.0,
+      "start_a_mm": [
+        124.733827,
+        124.733827,
+        32.0
+      ],
+      "end_a_mm": [
+        131.0,
+        131.0,
+        32.0
+      ],
+      "start_b_mm": [
+        120.733827,
+        128.733827,
+        30.0
+      ],
+      "end_b_mm": [
+        127.0,
+        135.0,
+        30.0
+      ]
+    },
+    {
+      "a": "F04_2",
+      "b": "F04_3",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 22.569464,
+      "axis_spacing_mm": 4.242641,
+      "start_a_mm": [
+        74.430536,
+        -34.0,
+        166.0
+      ],
+      "end_a_mm": [
+        97.0,
+        -34.0,
+        166.0
+      ],
+      "start_b_mm": [
+        74.430536,
+        -31.0,
+        169.0
+      ],
+      "end_b_mm": [
+        97.0,
+        -31.0,
+        169.0
+      ]
+    },
+    {
+      "a": "F04_2",
+      "b": "F04_4",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 22.524786,
+      "axis_spacing_mm": 8.485281,
+      "start_a_mm": [
+        74.475214,
+        -34.0,
+        166.0
+      ],
+      "end_a_mm": [
+        97.0,
+        -34.0,
+        166.0
+      ],
+      "start_b_mm": [
+        74.475214,
+        -28.0,
+        172.0
+      ],
+      "end_b_mm": [
+        97.0,
+        -28.0,
+        172.0
+      ]
+    },
+    {
+      "a": "F04_2",
+      "b": "F04_3",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 18.0,
+      "axis_spacing_mm": 8.0,
+      "start_a_mm": [
+        97.0,
+        58.0,
+        116.0
+      ],
+      "end_a_mm": [
+        79.0,
+        58.0,
+        116.0
+      ],
+      "start_b_mm": [
+        97.0,
+        66.0,
+        116.0
+      ],
+      "end_b_mm": [
+        79.0,
+        66.0,
+        116.0
+      ]
+    },
+    {
+      "a": "F04_2",
+      "b": "AIRY_SYNC",
+      "diameter_mm": [
+        1.6,
+        2.5
+      ],
+      "shared_length_mm": 10.0,
+      "axis_spacing_mm": 7.211103,
+      "start_a_mm": [
+        89.0,
+        58.0,
+        116.0
+      ],
+      "end_a_mm": [
+        79.0,
+        58.0,
+        116.0
+      ],
+      "start_b_mm": [
+        89.0,
+        64.0,
+        120.0
+      ],
+      "end_b_mm": [
+        79.0,
+        64.0,
+        120.0
+      ]
+    },
+    {
+      "a": "F04_2",
+      "b": "F21",
+      "diameter_mm": [
+        1.6,
+        3.0
+      ],
+      "shared_length_mm": 9.0,
+      "axis_spacing_mm": 10.259142,
+      "start_a_mm": [
+        74.0,
+        58.0,
+        111.0
+      ],
+      "end_a_mm": [
+        74.0,
+        58.0,
+        102.0
+      ],
+      "start_b_mm": [
+        66.5,
+        51.0,
+        111.0
+      ],
+      "end_b_mm": [
+        66.5,
+        51.0,
+        102.0
+      ]
+    },
+    {
+      "a": "F02_3",
+      "b": "F04_3",
+      "diameter_mm": [
+        5.0,
+        1.6
+      ],
+      "shared_length_mm": 9.934019,
+      "axis_spacing_mm": 6.0,
+      "start_a_mm": [
+        -123.975588,
+        123.975588,
+        32.0
+      ],
+      "end_a_mm": [
+        -131.0,
+        131.0,
+        32.0
+      ],
+      "start_b_mm": [
+        -119.975588,
+        127.975588,
+        30.0
+      ],
+      "end_b_mm": [
+        -127.0,
+        135.0,
+        30.0
+      ]
+    },
+    {
+      "a": "F04_3",
+      "b": "F04_4",
+      "diameter_mm": [
+        1.6,
+        1.6
+      ],
+      "shared_length_mm": 25.524786,
+      "axis_spacing_mm": 4.242641,
+      "start_a_mm": [
+        74.475214,
+        -31.0,
+        169.0
+      ],
+      "end_a_mm": [
+        100.0,
+        -31.0,
+        169.0
+      ],
+      "start_b_mm": [
+        74.475214,
+        -28.0,
+        172.0
+      ],
+      "end_b_mm": [
+        100.0,
+        -28.0,
+        172.0
+      ]
+    },
+    {
+      "a": "F04_3",
+      "b": "AIRY_SYNC",
+      "diameter_mm": [
+        1.6,
+        2.5
+      ],
+      "shared_length_mm": 160.0,
+      "axis_spacing_mm": 4.472136,
+      "start_a_mm": [
+        89.0,
+        66.0,
+        116.0
+      ],
+      "end_a_mm": [
+        -71.0,
+        66.0,
+        116.0
+      ],
+      "start_b_mm": [
+        89.0,
+        64.0,
+        120.0
+      ],
+      "end_b_mm": [
+        -71.0,
+        64.0,
+        120.0
+      ]
+    },
+    {
+      "a": "F04_3",
+      "b": "F24A",
+      "diameter_mm": [
+        1.6,
+        2.4
+      ],
+      "shared_length_mm": 131.015271,
+      "axis_spacing_mm": 11.18034,
+      "start_a_mm": [
+        67.0,
+        66.0,
+        116.0
+      ],
+      "end_a_mm": [
+        -64.015271,
+        66.0,
+        116.0
+      ],
+      "start_b_mm": [
+        67.0,
+        55.0,
+        118.0
+      ],
+      "end_b_mm": [
+        -64.015271,
+        55.0,
+        118.0
+      ]
+    },
+    {
+      "a": "F04_3",
+      "b": "F24C",
+      "diameter_mm": [
+        1.6,
+        2.4
+      ],
+      "shared_length_mm": 41.0,
+      "axis_spacing_mm": 5.0,
+      "start_a_mm": [
+        73.0,
+        66.0,
+        116.0
+      ],
+      "end_a_mm": [
+        32.0,
+        66.0,
+        116.0
+      ],
+      "start_b_mm": [
+        73.0,
+        61.0,
+        116.0
+      ],
+      "end_b_mm": [
+        32.0,
+        61.0,
+        116.0
+      ]
+    },
+    {
+      "a": "F02_4",
+      "b": "F04_4",
+      "diameter_mm": [
+        5.0,
+        1.6
+      ],
+      "shared_length_mm": 9.934019,
+      "axis_spacing_mm": 6.0,
+      "start_a_mm": [
+        123.975588,
+        -123.975588,
+        32.0
+      ],
+      "end_a_mm": [
+        131.0,
+        -131.0,
+        32.0
+      ],
+      "start_b_mm": [
+        119.975588,
+        -127.975588,
+        30.0
+      ],
+      "end_b_mm": [
+        127.0,
+        -135.0,
+        30.0
+      ]
+    },
+    {
+      "a": "AIRY",
+      "b": "F41",
+      "diameter_mm": [
+        7.0,
+        5.0
+      ],
+      "shared_length_mm": 28.30874,
+      "axis_spacing_mm": 11.313708,
+      "start_a_mm": [
+        -104.0,
+        64.0,
+        65.134011
+      ],
+      "end_a_mm": [
+        -104.0,
+        64.0,
+        93.442751
+      ],
+      "start_b_mm": [
+        -112.0,
+        56.0,
+        65.134011
+      ],
+      "end_b_mm": [
+        -112.0,
+        56.0,
+        93.442751
+      ]
+    },
+    {
+      "a": "AIRY_PWR",
+      "b": "F24B",
+      "diameter_mm": [
+        3.4,
+        2.4
+      ],
+      "shared_length_mm": 57.0,
+      "axis_spacing_mm": 9.848858,
+      "start_a_mm": [
+        -62.0,
+        -68.0,
+        128.0
+      ],
+      "end_a_mm": [
+        -5.0,
+        -68.0,
+        128.0
+      ],
+      "start_b_mm": [
+        -62.0,
+        -72.0,
+        119.0
+      ],
+      "end_b_mm": [
+        -5.0,
+        -72.0,
+        119.0
+      ]
+    },
+    {
+      "a": "AIRY_PWR",
+      "b": "F25",
+      "diameter_mm": [
+        3.4,
+        3.2
+      ],
+      "shared_length_mm": 6.902445,
+      "axis_spacing_mm": 8.077747,
+      "start_a_mm": [
+        3.0,
+        -60.0,
+        105.0
+      ],
+      "end_a_mm": [
+        3.0,
+        -53.097555,
+        105.0
+      ],
+      "start_b_mm": [
+        0.0,
+        -60.0,
+        97.5
+      ],
+      "end_b_mm": [
+        0.0,
+        -53.097555,
+        97.5
+      ]
+    },
+    {
+      "a": "AIRY_SYNC",
+      "b": "F24A",
+      "diameter_mm": [
+        2.5,
+        2.4
+      ],
+      "shared_length_mm": 131.015271,
+      "axis_spacing_mm": 9.219544,
+      "start_a_mm": [
+        -64.015271,
+        64.0,
+        120.0
+      ],
+      "end_a_mm": [
+        67.0,
+        64.0,
+        120.0
+      ],
+      "start_b_mm": [
+        -64.015271,
+        55.0,
+        118.0
+      ],
+      "end_b_mm": [
+        67.0,
+        55.0,
+        118.0
+      ]
+    },
+    {
+      "a": "AIRY_SYNC",
+      "b": "F24C",
+      "diameter_mm": [
+        2.5,
+        2.4
+      ],
+      "shared_length_mm": 41.0,
+      "axis_spacing_mm": 5.0,
+      "start_a_mm": [
+        32.0,
+        64.0,
+        120.0
+      ],
+      "end_a_mm": [
+        73.0,
+        64.0,
+        120.0
+      ],
+      "start_b_mm": [
+        32.0,
+        61.0,
+        116.0
+      ],
+      "end_b_mm": [
+        73.0,
+        61.0,
+        116.0
+      ]
+    },
+    {
+      "a": "F09",
+      "b": "F06",
+      "diameter_mm": [
+        5.0,
+        3.4
+      ],
+      "shared_length_mm": 14.0,
+      "axis_spacing_mm": 10.965856,
+      "start_a_mm": [
+        -84.0,
+        -4.0,
+        155.0
+      ],
+      "end_a_mm": [
+        -70.0,
+        -4.0,
+        155.0
+      ],
+      "start_b_mm": [
+        -84.0,
+        -14.0,
+        150.5
+      ],
+      "end_b_mm": [
+        -70.0,
+        -14.0,
+        150.5
+      ]
+    },
+    {
+      "a": "F09",
+      "b": "F32",
+      "diameter_mm": [
+        5.0,
+        3.4
+      ],
+      "shared_length_mm": 14.0,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        -84.0,
+        -4.0,
+        155.0
+      ],
+      "end_a_mm": [
+        -70.0,
+        -4.0,
+        155.0
+      ],
+      "start_b_mm": [
+        -84.0,
+        4.0,
+        149.0
+      ],
+      "end_b_mm": [
+        -70.0,
+        4.0,
+        149.0
+      ]
+    },
+    {
+      "a": "F06",
+      "b": "F32",
+      "diameter_mm": [
+        3.4,
+        3.4
+      ],
+      "shared_length_mm": 64.88786,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        -92.0,
+        -62.0,
+        78.11214
+      ],
+      "end_a_mm": [
+        -92.0,
+        -62.0,
+        143.0
+      ],
+      "start_b_mm": [
+        -98.0,
+        -70.0,
+        78.11214
+      ],
+      "end_b_mm": [
+        -98.0,
+        -70.0,
+        143.0
+      ]
+    },
+    {
+      "a": "F06",
+      "b": "F32",
+      "diameter_mm": [
+        3.4,
+        3.4
+      ],
+      "shared_length_mm": 36.0,
+      "axis_spacing_mm": 6.184658,
+      "start_a_mm": [
+        -92.0,
+        -56.0,
+        150.5
+      ],
+      "end_a_mm": [
+        -92.0,
+        -20.0,
+        150.5
+      ],
+      "start_b_mm": [
+        -98.0,
+        -56.0,
+        149.0
+      ],
+      "end_b_mm": [
+        -98.0,
+        -20.0,
+        149.0
+      ]
+    },
+    {
+      "a": "F32",
+      "b": "F31",
+      "diameter_mm": [
+        3.4,
+        3.0
+      ],
+      "shared_length_mm": 64.913674,
+      "axis_spacing_mm": 8.485281,
+      "start_a_mm": [
+        -98.0,
+        -70.0,
+        78.086326
+      ],
+      "end_a_mm": [
+        -98.0,
+        -70.0,
+        143.0
+      ],
+      "start_b_mm": [
+        -104.0,
+        -76.0,
+        78.086326
+      ],
+      "end_b_mm": [
+        -104.0,
+        -76.0,
+        143.0
+      ]
+    },
+    {
+      "a": "F31",
+      "b": "F24C",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 34.5,
+      "axis_spacing_mm": 7.615773,
+      "start_a_mm": [
+        85.0,
+        -55.0,
+        158.0
+      ],
+      "end_a_mm": [
+        85.0,
+        -20.5,
+        158.0
+      ],
+      "start_b_mm": [
+        78.0,
+        -55.0,
+        155.0
+      ],
+      "end_b_mm": [
+        78.0,
+        -20.5,
+        155.0
+      ]
+    },
+    {
+      "a": "F31",
+      "b": "F33",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 5.175,
+      "axis_spacing_mm": 11.629703,
+      "start_a_mm": [
+        70.0,
+        -14.5,
+        158.0
+      ],
+      "end_a_mm": [
+        64.825,
+        -14.5,
+        158.0
+      ],
+      "start_b_mm": [
+        70.0,
+        -4.0,
+        153.0
+      ],
+      "end_b_mm": [
+        64.825,
+        -4.0,
+        153.0
+      ]
+    },
+    {
+      "a": "F31",
+      "b": "F21",
+      "diameter_mm": [
+        3.0,
+        3.0
+      ],
+      "shared_length_mm": 15.5,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        52.85,
+        -14.5,
+        151.0
+      ],
+      "end_a_mm": [
+        52.85,
+        -14.5,
+        135.5
+      ],
+      "start_b_mm": [
+        52.85,
+        -4.5,
+        151.0
+      ],
+      "end_b_mm": [
+        52.85,
+        -4.5,
+        135.5
+      ]
+    },
+    {
+      "a": "F31",
+      "b": "F33",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 12.5,
+      "axis_spacing_mm": 12.605579,
+      "start_a_mm": [
+        52.85,
+        -14.5,
+        148.0
+      ],
+      "end_a_mm": [
+        52.85,
+        -14.5,
+        135.5
+      ],
+      "start_b_mm": [
+        59.825,
+        -4.0,
+        148.0
+      ],
+      "end_b_mm": [
+        59.825,
+        -4.0,
+        135.5
+      ]
+    },
+    {
+      "a": "F12",
+      "b": "F24A",
+      "diameter_mm": [
+        2.6,
+        2.4
+      ],
+      "shared_length_mm": 78.0,
+      "axis_spacing_mm": 12.649111,
+      "start_a_mm": [
+        -11.0,
+        43.0,
+        114.0
+      ],
+      "end_a_mm": [
+        67.0,
+        43.0,
+        114.0
+      ],
+      "start_b_mm": [
+        -11.0,
+        55.0,
+        118.0
+      ],
+      "end_b_mm": [
+        67.0,
+        55.0,
+        118.0
+      ]
+    },
+    {
+      "a": "F12",
+      "b": "F33",
+      "diameter_mm": [
+        2.6,
+        2.4
+      ],
+      "shared_length_mm": 17.0,
+      "axis_spacing_mm": 5.0,
+      "start_a_mm": [
+        75.0,
+        30.0,
+        127.0
+      ],
+      "end_a_mm": [
+        75.0,
+        30.0,
+        144.0
+      ],
+      "start_b_mm": [
+        75.0,
+        35.0,
+        127.0
+      ],
+      "end_b_mm": [
+        75.0,
+        35.0,
+        144.0
+      ]
+    },
+    {
+      "a": "F12",
+      "b": "F21",
+      "diameter_mm": [
+        2.6,
+        3.0
+      ],
+      "shared_length_mm": 8.0,
+      "axis_spacing_mm": 11.672618,
+      "start_a_mm": [
+        75.0,
+        25.0,
+        149.0
+      ],
+      "end_a_mm": [
+        75.0,
+        17.0,
+        149.0
+      ],
+      "start_b_mm": [
+        66.5,
+        25.0,
+        157.0
+      ],
+      "end_b_mm": [
+        66.5,
+        17.0,
+        157.0
+      ]
+    },
+    {
+      "a": "F12",
+      "b": "F24C",
+      "diameter_mm": [
+        2.6,
+        2.4
+      ],
+      "shared_length_mm": 8.0,
+      "axis_spacing_mm": 6.708204,
+      "start_a_mm": [
+        75.0,
+        25.0,
+        149.0
+      ],
+      "end_a_mm": [
+        75.0,
+        17.0,
+        149.0
+      ],
+      "start_b_mm": [
+        78.0,
+        25.0,
+        155.0
+      ],
+      "end_b_mm": [
+        78.0,
+        17.0,
+        155.0
+      ]
+    },
+    {
+      "a": "F12",
+      "b": "F33",
+      "diameter_mm": [
+        2.6,
+        2.4
+      ],
+      "shared_length_mm": 8.0,
+      "axis_spacing_mm": 4.0,
+      "start_a_mm": [
+        75.0,
+        25.0,
+        149.0
+      ],
+      "end_a_mm": [
+        75.0,
+        17.0,
+        149.0
+      ],
+      "start_b_mm": [
+        75.0,
+        25.0,
+        153.0
+      ],
+      "end_b_mm": [
+        75.0,
+        17.0,
+        153.0
+      ]
+    },
+    {
+      "a": "F21",
+      "b": "F36",
+      "diameter_mm": [
+        3.0,
+        2.6
+      ],
+      "shared_length_mm": 10.503425,
+      "axis_spacing_mm": 10.0,
+      "start_a_mm": [
+        -5.0,
+        91.0,
+        100.0
+      ],
+      "end_a_mm": [
+        -5.0,
+        80.496575,
+        100.0
+      ],
+      "start_b_mm": [
+        5.0,
+        91.0,
+        100.0
+      ],
+      "end_b_mm": [
+        5.0,
+        80.496575,
+        100.0
+      ]
+    },
+    {
+      "a": "F21",
+      "b": "F24C",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 43.5,
+      "axis_spacing_mm": 11.672618,
+      "start_a_mm": [
+        66.5,
+        45.0,
+        157.0
+      ],
+      "end_a_mm": [
+        66.5,
+        1.5,
+        157.0
+      ],
+      "start_b_mm": [
+        78.0,
+        45.0,
+        155.0
+      ],
+      "end_b_mm": [
+        78.0,
+        1.5,
+        155.0
+      ]
+    },
+    {
+      "a": "F21",
+      "b": "F33",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 28.5,
+      "axis_spacing_mm": 9.394147,
+      "start_a_mm": [
+        66.5,
+        30.0,
+        157.0
+      ],
+      "end_a_mm": [
+        66.5,
+        1.5,
+        157.0
+      ],
+      "start_b_mm": [
+        75.0,
+        30.0,
+        153.0
+      ],
+      "end_b_mm": [
+        75.0,
+        1.5,
+        153.0
+      ]
+    },
+    {
+      "a": "F21",
+      "b": "F25",
+      "diameter_mm": [
+        3.0,
+        3.2
+      ],
+      "shared_length_mm": 14.5,
+      "axis_spacing_mm": 6.726812,
+      "start_a_mm": [
+        66.5,
+        16.0,
+        157.0
+      ],
+      "end_a_mm": [
+        66.5,
+        1.5,
+        157.0
+      ],
+      "start_b_mm": [
+        62.0,
+        16.0,
+        162.0
+      ],
+      "end_b_mm": [
+        62.0,
+        1.5,
+        162.0
+      ]
+    },
+    {
+      "a": "F21",
+      "b": "F33",
+      "diameter_mm": [
+        3.0,
+        2.4
+      ],
+      "shared_length_mm": 12.5,
+      "axis_spacing_mm": 6.992898,
+      "start_a_mm": [
+        52.85,
+        -4.5,
+        148.0
+      ],
+      "end_a_mm": [
+        52.85,
+        -4.5,
+        135.5
+      ],
+      "start_b_mm": [
+        59.825,
+        -4.0,
+        148.0
+      ],
+      "end_b_mm": [
+        59.825,
+        -4.0,
+        135.5
+      ]
+    },
+    {
+      "a": "F24A",
+      "b": "F24C",
+      "diameter_mm": [
+        2.4,
+        2.4
+      ],
+      "shared_length_mm": 35.0,
+      "axis_spacing_mm": 6.324555,
+      "start_a_mm": [
+        67.0,
+        55.0,
+        118.0
+      ],
+      "end_a_mm": [
+        32.0,
+        55.0,
+        118.0
+      ],
+      "start_b_mm": [
+        67.0,
+        61.0,
+        116.0
+      ],
+      "end_b_mm": [
+        32.0,
+        61.0,
+        116.0
+      ]
+    },
+    {
+      "a": "F24B",
+      "b": "F25",
+      "diameter_mm": [
+        2.4,
+        3.2
+      ],
+      "shared_length_mm": 5.256237,
+      "axis_spacing_mm": 13.0,
+      "start_a_mm": [
+        74.0,
+        -43.0,
+        108.743763
+      ],
+      "end_a_mm": [
+        74.0,
+        -43.0,
+        114.0
+      ],
+      "start_b_mm": [
+        62.0,
+        -48.0,
+        108.743763
+      ],
+      "end_b_mm": [
+        62.0,
+        -48.0,
+        114.0
+      ]
+    },
+    {
+      "a": "F24C",
+      "b": "F33",
+      "diameter_mm": [
+        2.4,
+        2.4
+      ],
+      "shared_length_mm": 29.0,
+      "axis_spacing_mm": 3.605551,
+      "start_a_mm": [
+        78.0,
+        30.0,
+        155.0
+      ],
+      "end_a_mm": [
+        78.0,
+        1.0,
+        155.0
+      ],
+      "start_b_mm": [
+        75.0,
+        30.0,
+        153.0
+      ],
+      "end_b_mm": [
+        75.0,
+        1.0,
+        153.0
+      ]
+    },
+    {
+      "a": "F24C",
+      "b": "F35",
+      "diameter_mm": [
+        2.4,
+        2.4
+      ],
+      "shared_length_mm": 24.5,
+      "axis_spacing_mm": 14.422205,
+      "start_a_mm": [
+        78.0,
+        -15.5,
+        155.0
+      ],
+      "end_a_mm": [
+        78.0,
+        -40.0,
+        155.0
+      ],
+      "start_b_mm": [
+        70.0,
+        -15.5,
+        143.0
+      ],
+      "end_b_mm": [
+        70.0,
+        -40.0,
+        143.0
+      ]
+    },
+    {
+      "a": "F35",
+      "b": "F25",
+      "diameter_mm": [
+        2.4,
+        3.2
+      ],
+      "shared_length_mm": 23.0,
+      "axis_spacing_mm": 8.544004,
+      "start_a_mm": [
+        70.0,
+        -45.0,
+        115.0
+      ],
+      "end_a_mm": [
+        70.0,
+        -45.0,
+        138.0
+      ],
+      "start_b_mm": [
+        62.0,
+        -48.0,
+        115.0
+      ],
+      "end_b_mm": [
+        62.0,
+        -48.0,
+        138.0
+      ]
+    }
+  ]
+}

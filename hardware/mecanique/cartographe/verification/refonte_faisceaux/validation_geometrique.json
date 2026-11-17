@@ -1,0 +1,898 @@
+{
+  "schema": "cartographe.refonte.validation-geometrique.v1",
+  "complete": true,
+  "statut": "CANDIDAT_CONDITIONNEL",
+  "sources": {
+    "installation.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/installation.json",
+      "sha256": "ff20c2a9c4705d065f7182b58da4d20942aef9f9981d9c10d7c35280dfe42cf4"
+    },
+    "controles_geometrie_delta.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_geometrie_delta.json",
+      "sha256": "712ae508b1f167dfba922e82068ce3ec6cf9496e5a597838337c326d1b55d1e3"
+    },
+    "controles_reouverture.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_reouverture.json",
+      "sha256": "a42048cebf28e8d75aac8f61e8d29adc37376d0bcccec5fcd07c1cfc03c465b4"
+    },
+    "controles_reprise_paires.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_reprise_paires.json",
+      "sha256": "4289fe962756f8991012ace44eaf732b8d2caef4d9246e619524406066ec965f"
+    },
+    "etude_corridors_revue.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/etude_corridors_revue.json",
+      "sha256": "8d5d1aa6312d663ae18763fc47ef78bf63769e66b1fafafac5187960eca02b24"
+    },
+    "controles_revue.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_revue.json",
+      "sha256": "ea96fa791b1f1129d56d75bd3f981fbe72c9b297d914c378e01d1339bb47f45c"
+    },
+    "mobilite.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/mobilite.json",
+      "sha256": "62d1dea56752f2238429da806876342dfc8a39b73b8ee7bdcc22279eb8ac8361"
+    },
+    "mobilite_variantes_m8.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/mobilite_variantes_m8.json",
+      "sha256": "6449173540034cd59b6cdf48abd9ef5aba7104498a881e08e3333d448890cab9"
+    },
+    "validation_variantes.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/validation_variantes.json",
+      "sha256": "8b12e301cc7e76faf813f9ffa5c465106af9e6db15cd36b79f4d3c6e50eab39d"
+    },
+    "inventaire.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+      "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+    },
+    "planificateur_compatible.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/planificateur_compatible.json",
+      "sha256": "b40e85017d07f20862a5cd81dc9248d827249258c0266d6b191d7007d2a4be59"
+    },
+    "planificateur_separate.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/planificateur_separate.json",
+      "sha256": "1ee843d1c4b60af60490ed7793e2d1e080147cfbde91f702987b797d197abba4"
+    },
+    "controles_vues/sources.json": {
+      "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/controles_vues/sources.json",
+      "sha256": "878d14b55be3e546e28d9594ab30bec10cfd98e03d42dd5cf8affb7f02185df8"
+    },
+    "controle_reference": {
+      "path": ".runtime/refonte-controles/baseline-opt.json",
+      "sha256": "443af1182fef3e38f661a41262875ded2d8433c567fc0abbef6c598867840835"
+    }
+  },
+  "portee": "Paires impliquant au moins un câble, une gaine ou un guide, au nominal. Les paires structure contre structure et les seuils de montage ne relèvent pas de ce verdict.",
+  "geometrie_fraiche": {
+    "gate": "pass",
+    "natifs": 141,
+    "cables": 53,
+    "gaines_guides": 6,
+    "mesures_de_stations": 257
+  },
+  "intersections": {
+    "paires_finales": 19765,
+    "paires_touchees": 2527,
+    "paires_reprises_reference": 17238,
+    "aabb_disjointes_distance_superieure_1_mm": 18106,
+    "statuts_paires_proches": {
+      "pass": 1653,
+      "fail": 6
+    },
+    "paires_justifiees_par_retrait_de_matiere": [
+      {
+        "pair": [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+        ],
+        "roles": [
+          "structure",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "pass",
+        "clearance_status": "unknown",
+        "worker_error": "Délai borné OCC de 35 s",
+        "overlap_bounds_mm3": [
+          0,
+          2.7882182621397078e-05
+        ],
+        "methode": "Guide par retraits uniquement, borne de matière ajoutée et preuve BRep sur référence identique."
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+        ],
+        "roles": [
+          "structure",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "pass",
+        "clearance_status": "unknown",
+        "worker_error": "Délai borné OCC de 35 s",
+        "overlap_bounds_mm3": [
+          0,
+          2.7882182621397078e-05
+        ],
+        "methode": "Guide par retraits uniquement, borne de matière ajoutée et preuve BRep sur référence identique."
+      }
+    ],
+    "relations_airy_heritees": [
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_ETH"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          16.00606354388959,
+          16.00606354388959
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 7,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_PWR"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          22.56622964394539,
+          22.56622964394539
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 7,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_SYNC"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          1.0850694439200599,
+          1.0850694439200599
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 7,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_ETH",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_PWR"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          17.2682862384885,
+          17.2682862384885
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 5.5,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_ETH",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_SYNC"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          6.570377899808104,
+          6.570377899808104
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 5.5,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_PWR",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#AIRY_SYNC"
+        ],
+        "roles": [
+          "cable",
+          "cable"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          1.572718060041036,
+          1.572718060041036
+        ],
+        "relation": {
+          "kind": "enveloppes_OEM_a_la_jonction",
+          "centres_mm": [
+            [
+              -80.0,
+              64.0,
+              120.0
+            ]
+          ],
+          "rayon_zone_mm": 3.4,
+          "borne_sup_hors_zone_mm3": 0.0,
+          "zone_nominale_confirmee": true,
+          "qualification_interne": "unknown"
+        },
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      }
+    ],
+    "anomalies_ou_inconnues": [],
+    "distances_exactes_inconnues": [
+      [
+        "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+      ],
+      [
+        "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature084",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+      ],
+      [
+        "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_Part__Feature085",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+      ],
+      [
+        "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1"
+      ],
+      [
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+      ],
+      [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+      ],
+      [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre"
+      ],
+      [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F38_POS"
+      ],
+      [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#GaineSignalNord"
+      ]
+    ],
+    "tolerance_mm3": 0.0001
+  },
+  "inclusion": {
+    "ProtectionF38": {
+      "members": [
+        "F38_POS",
+        "F38_NEG"
+      ],
+      "inclusion": [
+        {
+          "member": "F38_POS",
+          "status": "pass",
+          "section_mm3": 3484.22260237193,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.7499999999999972
+        },
+        {
+          "member": "F38_NEG",
+          "status": "pass",
+          "section_mm3": 3484.222602371932,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.749999999999993
+        }
+      ],
+      "axis": {
+        "stage": "geometry",
+        "failures": [],
+        "unknowns": [
+          "minimum_radius_requirement_missing",
+          "start_connector_position_missing",
+          "end_connector_position_missing",
+          "start_connector_axis_missing",
+          "end_connector_axis_missing"
+        ],
+        "minimum_radius_mm": null,
+        "radius_evidence": "analytic_lines_circles",
+        "edge_measurements": [
+          {
+            "curve_type": "Part::GeomLine",
+            "length_mm": 105.0,
+            "method": "analytic_line",
+            "samples": 0,
+            "minimum_radius_mm": null
+          }
+        ],
+        "join_angles_deg": [],
+        "waypoint_distances_mm": [],
+        "length_mm": 105.0,
+        "shape_sha256": "55fb6f3434818621bc72013a9fa8cd3ee9be61fc28a19bddeba378e0315fee5f",
+        "straight_radius_infinite": true,
+        "status": "unknown"
+      },
+      "length_mm": 105.0,
+      "cavity_volume_mm3": 13677.87565803085,
+      "wall_volume_mm3": 4532.236501301704,
+      "occupied_fraction_upper_bound": 0.5094683837582921
+    },
+    "GaineNTC": {
+      "members": [
+        "NTC1",
+        "NTC2"
+      ],
+      "inclusion": [
+        {
+          "member": "NTC1",
+          "status": "pass",
+          "section_mm3": 22.9022104446696,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.2999999999999984
+        },
+        {
+          "member": "NTC2",
+          "status": "pass",
+          "section_mm3": 22.902210444669596,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.29999999999999605
+        }
+      ],
+      "axis": {
+        "stage": "geometry",
+        "failures": [],
+        "unknowns": [
+          "minimum_radius_requirement_missing",
+          "start_connector_position_missing",
+          "end_connector_position_missing",
+          "start_connector_axis_missing",
+          "end_connector_axis_missing"
+        ],
+        "minimum_radius_mm": null,
+        "radius_evidence": "analytic_lines_circles",
+        "edge_measurements": [
+          {
+            "curve_type": "Part::GeomLine",
+            "length_mm": 9.0,
+            "method": "analytic_line",
+            "samples": 0,
+            "minimum_radius_mm": null
+          }
+        ],
+        "join_angles_deg": [],
+        "waypoint_distances_mm": [],
+        "length_mm": 9.0,
+        "shape_sha256": "c2786b25207230f2badc3f65a7429ae66cf5b0caddbbb577b2719c63dccb6582",
+        "straight_radius_infinite": true,
+        "status": "unknown"
+      },
+      "length_mm": 9.0,
+      "cavity_volume_mm3": 170.3150407905237,
+      "wall_volume_mm3": 181.17477163045533,
+      "occupied_fraction_upper_bound": 0.2689393765620244
+    },
+    "GaineSignalNord": {
+      "members": [
+        "F24A",
+        "F24C"
+      ],
+      "inclusion": [
+        {
+          "member": "F24A",
+          "status": "pass",
+          "section_mm3": 135.7168026350791,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.3499999999991947
+        },
+        {
+          "member": "F24C",
+          "status": "pass",
+          "section_mm3": 135.71680263507892,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.3499999999991947
+        }
+      ],
+      "axis": {
+        "stage": "geometry",
+        "failures": [],
+        "unknowns": [
+          "minimum_radius_requirement_missing",
+          "start_connector_position_missing",
+          "end_connector_position_missing",
+          "start_connector_axis_missing",
+          "end_connector_axis_missing"
+        ],
+        "minimum_radius_mm": null,
+        "radius_evidence": "analytic_lines_circles",
+        "edge_measurements": [
+          {
+            "curve_type": "Part::GeomLine",
+            "length_mm": 30.0,
+            "method": "analytic_line",
+            "samples": 0,
+            "minimum_radius_mm": null
+          }
+        ],
+        "join_angles_deg": [],
+        "waypoint_distances_mm": [],
+        "length_mm": 30.0,
+        "shape_sha256": "2a2f6ff38944ec70cca570c1a0591b3f6b3c60426d55cb27087cb29ac7fc84ff",
+        "straight_radius_infinite": true,
+        "status": "unknown"
+      },
+      "length_mm": 30.0,
+      "cavity_volume_mm3": 814.6139352988031,
+      "wall_volume_mm3": 436.91406226120387,
+      "occupied_fraction_upper_bound": 0.3332052074098085
+    },
+    "GaineMAIN": {
+      "members": [
+        "F04_1",
+        "F04_2",
+        "F04_3",
+        "F04_4"
+      ],
+      "inclusion": [
+        {
+          "member": "F04_1",
+          "status": "pass",
+          "section_mm3": 16.084954386379742,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.24999999999932374
+        },
+        {
+          "member": "F04_2",
+          "status": "pass",
+          "section_mm3": 16.084954386379742,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.24999999999930375
+        },
+        {
+          "member": "F04_3",
+          "status": "pass",
+          "section_mm3": 16.08495438637975,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.24999999999930111
+        },
+        {
+          "member": "F04_4",
+          "status": "pass",
+          "section_mm3": 16.08495438637975,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.2499999999993212
+        }
+      ],
+      "axis": {
+        "stage": "geometry",
+        "failures": [],
+        "unknowns": [
+          "minimum_radius_requirement_missing",
+          "start_connector_position_missing",
+          "end_connector_position_missing",
+          "start_connector_axis_missing",
+          "end_connector_axis_missing"
+        ],
+        "minimum_radius_mm": null,
+        "radius_evidence": "analytic_lines_circles",
+        "edge_measurements": [
+          {
+            "curve_type": "Part::GeomLine",
+            "length_mm": 8.0,
+            "method": "analytic_line",
+            "samples": 0,
+            "minimum_radius_mm": null
+          }
+        ],
+        "join_angles_deg": [],
+        "waypoint_distances_mm": [],
+        "length_mm": 8.0,
+        "shape_sha256": "b00a9c4267ca41642b559b33be8e327dafa0626aa72751281319fb8bd3a4b992",
+        "straight_radius_infinite": true,
+        "status": "unknown"
+      },
+      "length_mm": 8.0,
+      "cavity_volume_mm3": 241.5379378354743,
+      "wall_volume_mm3": 162.90309257955894,
+      "occupied_fraction_upper_bound": 0.2663756183483881
+    }
+  },
+  "comparaison": {
+    "occurrences_before_after": [
+      362,
+      365
+    ],
+    "new_occurrences": [
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#GaineMAIN",
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#GaineNTC",
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#GaineSignalNord"
+    ],
+    "removed_occurrences": [],
+    "common_occurrences_with_changed_pose": [],
+    "common_sources_with_changed_hash": [
+      "assemblages/Prototype_Cartographe.FCStd",
+      "pieces/commerce/W_F04_1_Prototype.FCStd",
+      "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd",
+      "pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd",
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd",
+      "verification/construction_prototype.json",
+      "verification/routes_prototype.json"
+    ],
+    "unchanged_route_ids": true,
+    "nominal_route_length_mm_before_after": [
+      12195.334261136766,
+      12207.334261136766
+    ],
+    "protection_length_mm_before_after": [
+      {
+        "ProtectionF38": 80
+      },
+      {
+        "ProtectionF38": 105.0,
+        "GaineNTC": 9.0,
+        "GaineSignalNord": 30.0,
+        "GaineMAIN": 8.0
+      }
+    ],
+    "route_volume_mm3_before_after": [
+      179017.1132460129,
+      179041.24067759246
+    ],
+    "mass_complete_g_before_after": [
+      null,
+      null
+    ],
+    "length_mm_by_route_before_after": {
+      "AIRY": [
+        331.984319786212,
+        331.984319786212
+      ],
+      "AIRY_ETH": [
+        171.67326994295263,
+        171.67326994295263
+      ],
+      "AIRY_PWR": [
+        267.1315348395224,
+        267.1315348395224
+      ],
+      "AIRY_SYNC": [
+        247.65370931975875,
+        247.65370931975875
+      ],
+      "BALANCE": [
+        127.15911653416558,
+        127.15911653416558
+      ],
+      "F01_NEG": [
+        150.64822368615503,
+        150.64822368615503
+      ],
+      "F01_POS": [
+        273.6407502493715,
+        273.6407502493715
+      ],
+      "F02_1": [
+        263.94912953674566,
+        263.94912953674566
+      ],
+      "F02_2": [
+        140.73514685198995,
+        140.73514685198995
+      ],
+      "F02_3": [
+        224.14988501219923,
+        224.14988501219923
+      ],
+      "F02_4": [
+        135.53494357011718,
+        135.53494357011718
+      ],
+      "F03_1": [
+        60.873319867932025,
+        60.873319867932025
+      ],
+      "F03_2": [
+        60.873319867932025,
+        60.873319867932025
+      ],
+      "F03_3": [
+        60.873319867932025,
+        60.873319867932025
+      ],
+      "F03_4": [
+        60.873319867932025,
+        60.873319867932025
+      ],
+      "F04_1": [
+        465.0042586895621,
+        477.0042586895621
+      ],
+      "F04_2": [
+        368.5856960671903,
+        368.5856960671903
+      ],
+      "F04_3": [
+        525.1608493793034,
+        525.1608493793034
+      ],
+      "F04_4": [
+        341.66450899316885,
+        341.66450899316885
+      ],
+      "F05_NEG": [
+        125.62921169269814,
+        125.62921169269814
+      ],
+      "F05_POS": [
+        137.26729958899006,
+        137.26729958899006
+      ],
+      "F06": [
+        220.30678577619807,
+        220.30678577619807
+      ],
+      "F08_AMONT": [
+        130.70407344541502,
+        130.70407344541502
+      ],
+      "F08_AVAL": [
+        226.17942453473918,
+        226.17942453473918
+      ],
+      "F09": [
+        140.53981633974485,
+        140.53981633974485
+      ],
+      "F12": [
+        183.97922969134586,
+        183.97922969134586
+      ],
+      "F13A": [
+        47.18906110630759,
+        47.18906110630759
+      ],
+      "F13B": [
+        46.06311123605831,
+        46.06311123605831
+      ],
+      "F16": [
+        494.607764256343,
+        494.607764256343
+      ],
+      "F20": [
+        19.66963641852448,
+        19.66963641852448
+      ],
+      "F21": [
+        254.19578251989498,
+        254.19578251989498
+      ],
+      "F24A": [
+        245.4000002993577,
+        245.4000002993577
+      ],
+      "F24B": [
+        309.7544711649708,
+        309.7544711649708
+      ],
+      "F24C": [
+        314.4776106876001,
+        314.4776106876001
+      ],
+      "F25": [
+        273.3940640919881,
+        273.3940640919881
+      ],
+      "F31": [
+        468.5633179058214,
+        468.5633179058214
+      ],
+      "F32": [
+        265.3571432101304,
+        265.3571432101304
+      ],
+      "F33": [
+        186.26299789465972,
+        186.26299789465972
+      ],
+      "F35": [
+        123.09038140767306,
+        123.09038140767306
+      ],
+      "F36": [
+        58.03812491229759,
+        58.03812491229759
+      ],
+      "F37_NEG": [
+        95.85459826594271,
+        95.85459826594271
+      ],
+      "F37_POS": [
+        215.2336639786674,
+        215.2336639786674
+      ],
+      "F38_NEG": [
+        417.48757454455074,
+        417.48757454455074
+      ],
+      "F38_POS": [
+        346.877424672926,
+        346.877424672926
+      ],
+      "F40": [
+        145.62774613393037,
+        145.62774613393037
+      ],
+      "F41": [
+        1180.9420885415457,
+        1180.9420885415457
+      ],
+      "F_M8": [
+        296.87739881307846,
+        296.87739881307846
+      ],
+      "LED_1": [
+        207.38549151242785,
+        207.38549151242785
+      ],
+      "LED_2": [
+        207.38549151242785,
+        207.38549151242785
+      ],
+      "LED_3": [
+        207.38549151242785,
+        207.38549151242785
+      ],
+      "LED_4": [
+        207.38549151242785,
+        207.38549151242785
+      ],
+      "NTC1": [
+        59.02693501275546,
+        59.02693501275546
+      ],
+      "NTC2": [
+        59.02693501275546,
+        59.02693501275546
+      ]
+    },
+    "added_intersections": [],
+    "removed_intersections": [],
+    "persistent_intersections": [],
+    "bbox_global_avant_mm": [
+      -426.75663800031634,
+      -255.5075382860537,
+      -313.2886844374779,
+      426.75663800031634,
+      255.5075382858263,
+      173.8137084989848
+    ],
+    "bbox_global_apres_mm": [
+      -426.75663800031634,
+      -255.5075382860537,
+      -313.2886844374779,
+      426.75663800031634,
+      255.5075382858263,
+      173.8137084989848
+    ]
+  },
+  "mobilite": {
+    "f16_poses": 27,
+    "f16_paires_diff": 4455,
+    "f16_ecarts_diff": 0,
+    "m8_poses": 16,
+    "m8_echecs_tangence": 7
+  },
+  "validations_physiques_restantes": [
+    "Terminaisons, brochages et neuf définitions embarquées non résolues.",
+    "Jeux sous tolérances, fermeture et retenue des gaines, extraction des prises et outils, pliage des bras.",
+    "Résistance des guides après retrait, serrage et abrasion, quatre stations de gaine commune au nord à redéfinir.",
+    "CEM, échauffement, courant et tenue en cas de dommage commun. Masse complète et réserve réelle.",
+    "Course caméra, pince, traction, torsion et fatigue F16/M8. Les 27 poses F16 et le sondage M8 restent discrets."
+  ]
+}

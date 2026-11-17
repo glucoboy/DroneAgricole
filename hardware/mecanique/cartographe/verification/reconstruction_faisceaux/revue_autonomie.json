@@ -1,0 +1,837 @@
+{
+  "schema": "cartographe.autonomie.review.v1",
+  "date": "2026-11-08",
+  "reviewer": "/root/suspension",
+  "state": "revue_finale_candidat_conditionnel",
+  "scope": "Relecture indépendante des preuves JSON/XML et scripts sans exécution FreeCAD. Adaptateur integrer_autonomie.py initialement contribué par ce reviewer: sa revue seule ne constitue pas une revue de code indépendante.",
+  "reviewed_sha256": {
+    "explorer_f16.cpp": "f3f8cb24e24f2548b6c269e97106a4d2333d47cad5920696b249d2dff061a7b9",
+    "autonomie_cao.py": "2d1952c4b593d407d33ea2c954ab3c946a1d1e5381167f0e63e69c1d05c53b91",
+    "executer_autonomie.py": "1b7492b88a32c6328de1dca2e2c760f7f8cc537f2286a788e81f6bcbd265942b",
+    "protections_cao.py": "387cca5c200b887f64820bb85ceac008a47a0a09777acd3a204c444af5ebe05f",
+    "protections_autonomie.json": "42e9df9acf65552e7b6db679a202c2656b54c5134f2ce58f56c294bdfd389c2d",
+    "recherche_suspension.json": "f31aa782eae0a94003991b3d8f1f6007d36ffb8a31c6da82f8d8fe3e6abf197f",
+    "verifier_partition.py": "49420482a633920e3c1ce9d923d7a95f02fe017c8941666e6878cd2efd27d016",
+    "integrer_autonomie.py": "33f74148bbe11734de3802253074f52c9adaf1c7fe994e16fee40fcce71d549c",
+    "suspension_cao.py": "6cb8dd87e03533717fbb23fe49ed3581c5f1a71e9232bc9ae06f7879e6236920",
+    "adapter_f38.py": "ec8d0cfc05df252616a0a7648cdb3d55db7c41ebf6c61ba52e661fa44d35e6bb",
+    "execution_poses_autonomie.json": "0d3346b6d6ae0f49ac82e571925dfac9f6dc5e5b35ea5f5379b2ab39218cfcfb",
+    "execution_suspension.json": "7d54b504f214e0dfa16c84af460150c667c2a38caa592d486c6019dc6b5e6b81",
+    "guide_autonomie.json": "dbb33208820f7cf703a1bc0378d8f505f3e792cf19840cd886de7b7d8a2a08a7",
+    "protection_F38_OVALE_L80.json": "01d2535580053af9322beb47d7cd00fb9d7de28a56fa98770b688fac42088b76",
+    "integration_autonomie.json": "ef94494bd5e58db593dffa268d80729c25a62a6f5b6861663237204d1411e8fe",
+    "reouverture_autonomie.json": "ab5357694e5aa21c29fb8b4dbcb4a821ce11e91427ffcc347c390ed22ee87540",
+    "execution_integration_autonomie.json": "4790ce9c0fd1052a08322d25f79ca4b1799b373cfb4395c4c19dac18a1eeb290",
+    "delta_poses_autonomie.json": "0c83755f0f2fedc2e20e1567200da3395e5dc0f8e71883ee90dbb5d77edcaee7",
+    "controle_details_autonomie.json": "7fbe05dfa1c966b92404bd637fb096881e44f534c329884799dd50e52cbb7c3d"
+  },
+  "findings": [
+    {
+      "id": "AUT-REV-01",
+      "severity": "major",
+      "state": "closed_evidence",
+      "issue": "Cable est portion mobile cachée ; câble complet est Cable002 visible (makeCable name définit Label). Anciennes collisions/reouvertures lisaient Cable.",
+      "evidence": "XML F16_R50_X200_Z0 : Cable BaseWire LabelMobile ; Cable001 BaseWire001 LabelFixe ; Cable002 BaseCompoundPath LabelCable. fresh.object_states Cable002.",
+      "resolution": "27poses: Cable002 complet, partition Mobile/Fixe à différences et overlap nuls;27natifs empreintés concordants,81processus generate/check/reopen terminés. Nominal choisi relu après adaptationP73."
+    },
+    {
+      "id": "AUT-REV-02",
+      "severity": "medium",
+      "state": "closed_code_review",
+      "issue": "Indexation mémoire structV via &d.x puis indice1/2, accès argv3 sans argc4, JSONselection non validé, cible longueur non encadrée.",
+      "resolution": "Composantes explicites, mode/argc/JSON/champs vérifiés, encadrement et erreur finale1e-6 contrôlés ; revue code, exécution négative non faite par reviewer."
+    },
+    {
+      "id": "AUT-REV-03",
+      "severity": "medium",
+      "state": "closed_code_review",
+      "issue": "Minimum hors connecteurs excluait ConnecteurF16Orin au lieu TypeA.",
+      "resolution": "Occurrence canonique ConnecteurF16TypeA désormais exclue ; comparer résultats rejoués."
+    },
+    {
+      "id": "AUT-REV-04",
+      "severity": "medium",
+      "state": "closed_for_selected_candidate",
+      "issue": "Empreinte adaptateur calculée après processus, ambiguë si modification pendant exécution.",
+      "resolution": "81processus des27poses et27processus suspension empreintes avant/après stables. Lot exploratoireX220Z0 comporte1check instable non rejoué dans journal: ne pas le compter comme validation figée."
+    },
+    {
+      "id": "AUT-REV-05",
+      "severity": "limitation",
+      "state": "open_accepted",
+      "issue": "27poses sont exploratoires,8combinaisons aux signes couplés ne couvrent pas64coins6DDL ni trajet continu. Les translations et rotations de bloc ne modélisent pas déformation Sorbothane.",
+      "required": "Garder CANDIDAT_CONDITIONNEL ; expliciter couverture et vérifier cas plafond opposant +Z/tangage négatif."
+    },
+    {
+      "id": "AUT-REV-06",
+      "severity": "limitation",
+      "state": "open_accepted",
+      "issue": "Longueur constante et R48 ne prouvent pas torsion, traction, fatigue ni équilibre élastique. BoutTypeA droit1,05mm àR24 ; antiflexion réelle non spécifiée. Autres câbles mobiles non reconstruits dans toutes poses.",
+      "required": "Pas de validation dynamique globale ; validation physique requise et réserves connexion/M8/Airy."
+    },
+    {
+      "id": "AUT-REV-07",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "Protection inclusion utilise intersection avec cylindre axial de rayon intérieur+30 ; section absente ou câble hors cylindre peut avoir outside_inner=0 sans inclusion réelle.",
+      "required": "Exiger tous membres et volume section positif ; tranche axiale couvrant les formes complètes des membres ou preuve de containment dans cylindre large ; booléens valides/finitude.",
+      "resolution": "Protection ovale retenue:2sections positives2654.645792mm3, inclusion/paroi0mm3, jeu0.75mm,0intersection/0unknown; natif et empreintes scène concordants à relecture avant intégration."
+    },
+    {
+      "id": "AUT-REV-08",
+      "severity": "limitation",
+      "state": "closed_evidence",
+      "issue": "Réouverture rebuild touche CompoundPath et Cable, pas explicitement deux WireFlex sources.",
+      "required": "Pour contrôle frais complet sélectionné, toucher/recalculer routesMobile/Fixe et réinspecter rayons/tangences/longueur sur disque neuf. Comparaison volume ne prouve pas Hausdorff.",
+      "resolution": "27réouvertures exécutées avec touch2WireFlex et reconstruction câble; rapports frais pass. Réouverture assemblage final attendue séparément."
+    },
+    {
+      "id": "AUT-REV-09",
+      "severity": "medium",
+      "state": "closed_code_review",
+      "issue": "Partition vérifiée par différences bilatérales et overlap mais low.common(top).Volume non validé ; full/low/top non contrôlés indépendamment non nuls/valides ; path_length_verified_mm recopié sans lecture dans cette nouvelle méthode.",
+      "required": "Contrôler solides et booléen overlap valides/finitude ; mesurer Base+longueur complète comme anciencheck.",
+      "resolution": "Trois solides non nuls/valides/uniques, volume positif fini; overlap valide fini; Base et longueur relus dans XML/BRep. Relecture avant preuves finales."
+    },
+    {
+      "id": "AUT-REV-10",
+      "severity": "medium",
+      "state": "closed_code_review",
+      "issue": "Cache clé2BRep conserve exactement géométrie/pose mais pas version de measured_pair/FreeCAD/OCCT. Résultat ancien pourrait être repris après correction méthode.",
+      "required": "Versionner cache par empreintes adaptateur/helper et environnement ou réinitialiser explicitement avant passe finale figée.",
+      "resolution": "Code actuel empreinte méthode measured_pair+Reader+transform+FreeCAD+OCCT et fermeture sourcesXLink.27poses antérieures restent liées ancienne scène, voir16."
+    },
+    {
+      "id": "AUT-REV-11",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "Integration met à jour construction et un champ manifest.integration_autonome mais prototype_cartographe contient occurrences/references/assemblages actifs encore liés aux anciennes valeurs F16, P73, SA07, principal.",
+      "required": "Synchroniser liens et empreintes effectifs; ajouter nouvelles références; préserver source W_F16 historique explicitement.",
+      "resolution": "Manifest.prototype_cartographe occurrences identiques construction, références également. Cinq références modifiées/ajoutées P73/SA07/principal/F16/F38 ont hashes concordants. XML SA07 lie Cable002 et Protection dans copie."
+    },
+    {
+      "id": "AUT-REV-12",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "route.update F16 laisse anciennes métriques rayon_demande22, rayons_arcs six22, longueur_addon425.173842, volume et route_proxyWireFlex après lien CompoundPath hybride.",
+      "required": "Actualiser depuis natif ou retirer champs obsolètes explicitement; vérifier53IDs et52autresroutes conservés.",
+      "resolution": "53routes uniques conservées; comparaison indépendante avec baseline confirme52routes strictement identiques. F16 actualisé hybrideR50/R24,494.607764mm,5stations canoniques et sourceCable002."
+    },
+    {
+      "id": "AUT-REV-13",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "verify annonce saved_files_not_modified=True sans mesure; erreurs documents relevées avant reconstruction F16.",
+      "required": "Comparer empreintes avant/après et relever erreurs après rebuild/recompute; vérifier état frais et longueur attendue.",
+      "resolution": "Reçu intégration et réouverture pass: hashes natifs avant/après identiques et concordants sur disque,3registres concordants,erreursvides. F16 frais mobile/fixe/whole/solid pass et différences0; protection fraîche différences0."
+    },
+    {
+      "id": "AUT-REV-14",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "Guide suppression3membres de fusion contrôle seulement recompute/State et laisse3objets dans Groupe historique.",
+      "required": "Forcer masquage3objets, contrôler solides du guide et aval valides/non nuls; mesurer retenue75 conservée. Revue XML confirme stations4exclusivementF16, aucune autre station supprimée.",
+      "resolution": "adapter_f38 masque3doigts; résultatP73 valide1solide, retrait1732.394078/ajout1600mm3, ajout sans collision; réouverture fraîche géométrie bilatérale0. Stations75 maintenue,3inférieures libérées. Dimensionnement structurel absent."
+    },
+    {
+      "id": "AUT-REV-15",
+      "severity": "limitation",
+      "state": "open_accepted",
+      "issue": "suspension_cao mesure rigides mobiles/fixes dans27poses avec recherche proche3mm; élastomères et câbles exclus.",
+      "required": "Ne pas conclure admissibilité mécanique ou enveloppe continue. Vérifier31mobiles attendus, solides valides/non nuls avant bbox; mettre en évidence collisions nominales héritées si présentes.",
+      "resolution": "27résultats31mobiles,0unknown:16poses avec intersections,11sans. Nominal passe; +X1 donne2paires VisP10/SupportP17 ~3.327mm3; +Z1 RetenueCable3/SupportP17~3.435mm3.7/8combinaisons±0.5 échouent. Aucun domaine±0.5 ou±1 ne peut être déclaré admissible."
+    },
+    {
+      "id": "AUT-REV-16",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "27poses F16 contrôlées sur ancienne scène digest868ad859 sans dictionnaire sources; P73 adapté et protection ajoutée ensuite.",
+      "required": "Contrôle complémentaire des seules géométries ajoutées contre chaque pose, ou rejeu. Nominal courant seul ne couvre pas scène finale27poses. Retrait seul monotone sans nouvelle collision, ajout doit être contrôlé.",
+      "resolution": "delta_poses_autonomie rattache27poses au digest initial et contrôle2portionsF16+31rigides contre ajoutP73 et paroiF38:66pairesAABBdisjointes par pose,1782au total,aucune intersection. Sources nouvelles empreintées concordantes. Retrait seul ne crée pas intersection. Extension scène finale acceptée pour ces27poses discrètes."
+    },
+    {
+      "id": "AUT-REV-17",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "Nominal OEM_Part__Feature079: distance mobile0 avec boolean_count0. La logique measured_pair implique gapAABB>=1e-7, donc incohérence entre distanceOCCT et borneAABB.",
+      "required": "Diagnostic ciblé/cohérence borne; distance inconnue si échec OCCT. Ne pas présenter comme contact réel ou minimum fiable. Absence intersection peut rester certifiée AABB; conclusion volumes distincte.",
+      "resolution": "Diagnostic ciblé confirme mobile/OEM079 gapAABB87.7049698257mm, distanceOCCT brute0 invalide remplacée parnull. Fixe borne184.7359564441mm,distance208.7133508971mm. Séparation garantieAABB; minimum global ancien0 ne constitue pas valeur fiable et reste nonqualifié. P75 mesuré0.1052015853mm sans critère de jeu admissible."
+    },
+    {
+      "id": "AUT-REV-18",
+      "severity": "limitation",
+      "state": "open_accepted",
+      "issue": "F38 ovale repose sur enveloppe textile idéale rint4mm,centres espacés10mm,épaisseur0.9,80mm; deux retenues proposées non dimensionnées/non modélisées.",
+      "required": "Ne pas annoncer protection fabricant formée/rigidité/thermique ou retenue qualifiée. P73 ponts rigidité et fabrication Àvalider."
+    },
+    {
+      "id": "AUT-REV-19",
+      "severity": "medium",
+      "state": "closed_evidence",
+      "issue": "verify intégration exige mêmes documents ouverts; ancienF16 délié peut rester ouvert pendant install puis disparaître à réouverture.",
+      "required": "Comparer tous fichiers du reçu sur disque avant/après et interdire nouveaux documents hors reçu; gérer explicitement sources historiques déliées sans exiger leur réouverture.",
+      "resolution": "Première réouverture exit2 conservée au journal; reprise exit0 après correction fermeture et hashes natifs identiques. Preuves intégration et réouverture actuelles concordent."
+    }
+  ],
+  "observations": [
+    "Formule analytique fillets et jonction verticale mobile/fixe cohérentes avec constructeur existant.",
+    "Sur4 premiers résultats génération, fresh/mobile/fixed/whole pass ; longueur analytique concordante <=1,2e-13mm. Ces observations ne valident pas collision complète.",
+    "Protection modélisée comme paroi annulaire native, doublure textile réelle non qualifiée ; modèle déclaratif explicite.",
+    "Partition low/top : principe de contrôle accepté pour volumes nominaux si solides valides, équivalence bilatérale, absence de chevauchement volumique et clés cache incluant toutes les entrées de mesure. Aucune borne de Hausdorff revendiquée.",
+    "Revue intégration avant exécution: retrait3doigts limité à F16_-45/0/35; retenue75 conservée. Suspension transform31occurrences cohérent, appuis décomposés5pièces rigides par support, sans modèle élastomère."
+  ],
+  "final_gates": {
+    "complete_cable_identity": "passed",
+    "native_generation_and_fresh_reopen": "passed",
+    "source_preservation": "passed_143_original_144_baseline",
+    "f16_27_discrete_poses_final_scene": "passed_geometry_only",
+    "suspension_motion_domain": "not_validated_16_intersecting_poses",
+    "protection_inclusion_nominal": "passed",
+    "integration_53_routes_52_unchanged": "passed",
+    "clearance_tolerances_and_physical": "not_executed",
+    "living_document_update": "handled_by_parent_not_reviewed_here"
+  },
+  "conclusion": "Avis favorable au dépôt du modèle comme CANDIDAT_CONDITIONNEL / À valider. Aucun défaut bloquant restant dans les preuves géométriques relues de la sélection et de son intégration. Cet avis ne valide ni admissibilité mécanique de la suspension, ni domaine continu, ni jeux avec tolérances, ni durabilité/thermique/efforts. Les16poses de suspension en collision restent explicitement rejetées.",
+  "review_history": [
+    "30oct2026 reprise : gardes inclusion protections et recalcul des2WireFlex relues ; optimisation partition/cache examinée, nouveaux points09/10 ouverts.",
+    "30oct2026 revue préintégration integrer_autonomie.py/suspension_cao.py et correction partition: points11–15 transmis avant mutation; pas de processus FreeCAD lancé par reviewer.",
+    "8nov2026:27poses,27suspensions,7protections et adaptationP73 relues; sources143+144 préservées; blocages16/17/19 transmis. Aucune exécution FreeCAD ni modification adaptateur par reviewer pendant cette revue.",
+    "8nov2026 finale: intégration et réouverture relues; extension scène27poses1782pairesAABBdisjointes,diagnosticOEM079 et5stations vérifiés. Fermeture11/12/13/16/17/19. Aucun natif modifié ou FreeCAD lancé par reviewer."
+  ],
+  "evidence_review": {
+    "nominal_variants": {
+      "considered": 24,
+      "infeasible": 6,
+      "generated": 18,
+      "reported_colliding": 3,
+      "reported_no_volume_intersection": 15,
+      "unstable_check_not_replayed": [
+        "F16_R50_X220_Z0"
+      ]
+    },
+    "selected": {
+      "id": "F16_R50_X200_Z0",
+      "length_mm": 494.607764256343,
+      "mobile_mm": 315.4404525859488,
+      "fixed_mm": 179.16731167039424,
+      "minimum_mobile_radius_mm": 49.99999999999995,
+      "minimum_fixed_radius_mm": 23.999999999999982,
+      "straight_before_station75_mm": 25,
+      "type_a_final_straight_mm": 1.05
+    },
+    "poses": [
+      {
+        "id": "POSE_NOMINAL",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_1",
+        "translation_mm": [
+          -1,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_2",
+        "translation_mm": [
+          1,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 2,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_3",
+        "translation_mm": [
+          0,
+          -1,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_4",
+        "translation_mm": [
+          0,
+          1,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_5",
+        "translation_mm": [
+          0,
+          0,
+          -1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_6",
+        "translation_mm": [
+          0,
+          0,
+          1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 1,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_7",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          -1,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -5.684341886080802e-14,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_8",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          1,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_9",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          -1,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 5.684341886080802e-14,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_10",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          1,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 3,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_11",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          -1
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 3,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_AXE_12",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          1
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 1,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_13",
+        "translation_mm": [
+          -0.5,
+          -0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          -0.5,
+          -0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_14",
+        "translation_mm": [
+          -0.5,
+          -0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 1,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_15",
+        "translation_mm": [
+          -0.5,
+          0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          0.5,
+          -0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 1,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_16",
+        "translation_mm": [
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 1.7053025658242404e-13,
+        "suspension_volume_intersections": 4,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_17",
+        "translation_mm": [
+          0.5,
+          -0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          -0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 3,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_18",
+        "translation_mm": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 2,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_19",
+        "translation_mm": [
+          0.5,
+          0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          0.5,
+          -0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 2,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_COMB_20",
+        "translation_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 1.1368683772161603e-13,
+        "suspension_volume_intersections": 6,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "REJET_Z_PLUS_2",
+        "translation_mm": [
+          0,
+          0,
+          2
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 6,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "REJET_X_PLUS_1_5",
+        "translation_mm": [
+          1.5,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 8,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "REJET_Z_MOINS_5",
+        "translation_mm": [
+          0,
+          0,
+          -5
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 4,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_PLAFOND",
+        "translation_mm": [
+          0,
+          0,
+          1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          -0.5,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 0.0,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_PLAFOND_COMB",
+        "translation_mm": [
+          0,
+          0,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": -1.1368683772161603e-13,
+        "suspension_volume_intersections": 3,
+        "suspension_unknown": 0
+      },
+      {
+        "id": "POSE_SOUS_CHARGE",
+        "translation_mm": [
+          0,
+          0,
+          -0.724
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_geometry_pass": true,
+        "f16_volume_intersections": 0,
+        "f16_unknown": 0,
+        "length_error_mm": 5.684341886080802e-14,
+        "suspension_volume_intersections": 0,
+        "suspension_unknown": 0
+      }
+    ],
+    "preservation": {
+      "original_files_checked": 143,
+      "baseline_files_checked": 144,
+      "hash_mismatches": []
+    },
+    "integration_receipt_present": true,
+    "integration": {
+      "candidate": "F16_R50_X200_Z0",
+      "xml_links_verified": [
+        "F16->Cable002",
+        "ProtectionF38->Protection"
+      ],
+      "routes_count": 53,
+      "other_routes_strictly_equal_to_baseline": 52,
+      "manifest_and_construction_occurrences_equal": true,
+      "manifest_and_construction_references_equal": true,
+      "native_hash_mismatches": [],
+      "registry_hash_mismatches": [],
+      "reopened_hashes_equal": true,
+      "fresh_errors": []
+    },
+    "delta_scene": {
+      "poses": 27,
+      "aabb_disjoint_pairs": 1782,
+      "collisions": 0,
+      "new_obstacles_sha256": {
+        "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd": "c56ac9278f0d2bfb7a148be7efe8de6a9cd267993c4d812605f604480cb55d6a",
+        "verification\\candidats\\F38_OVALE_L80.FCStd": "f16e5e928949da8ae6fcda81d538d72e7f5167aab1d77aa466fda10682410bc4"
+      }
+    },
+    "retained_stations": [
+      {
+        "id": "F16_V_-45",
+        "retained": false,
+        "distance_to_axis_mm": 57.35455276791942
+      },
+      {
+        "id": "F16_V_0",
+        "retained": false,
+        "distance_to_axis_mm": 20.710678118654727
+      },
+      {
+        "id": "F16_V_35",
+        "retained": false,
+        "distance_to_axis_mm": 2.201532544552746
+      },
+      {
+        "id": "F16_V_75",
+        "retained": true,
+        "distance_to_axis_mm": 0.0
+      },
+      {
+        "id": "USB3_I_70",
+        "retained": true,
+        "distance_to_axis_mm": 1.8112860633155057e-07
+      },
+      {
+        "id": "USB3_I_88",
+        "retained": true,
+        "distance_to_axis_mm": 0.00012011338621280561
+      },
+      {
+        "id": "USB3_T_67",
+        "retained": true,
+        "distance_to_axis_mm": 0.0
+      },
+      {
+        "id": "USB3_T_36",
+        "retained": true,
+        "distance_to_axis_mm": 0.0
+      }
+    ],
+    "p75_clearance_mm": 0.10520158525979001,
+    "oem079_diagnostic": [
+      {
+        "segment": "mobile",
+        "aabb_lower_bound_mm": 87.70496982573236,
+        "distance_occt_raw_mm": 0.0,
+        "distance_mm": null,
+        "intersection_excluded_by_aabb": true
+      },
+      {
+        "segment": "fixe",
+        "aabb_lower_bound_mm": 184.73595644411054,
+        "distance_occt_raw_mm": 208.71335089711158,
+        "distance_mm": 208.71335089711158,
+        "intersection_excluded_by_aabb": true
+      }
+    ]
+  },
+  "blocking_findings": [],
+  "accepted_limitations": [
+    "Aucune qualification physique, ni domaine mécanique continu de la suspension.16poses sur27 en intersection et7/8combinaisons±0.5 rejetées.",
+    "F16 sans intersection volumique dans27poses discrètes étudiées; rayons et longueur constante validés géométriquement, efforts/torsion/fatigue non simulés.",
+    "Jeu fixeP75 nominal0.1052015853mm seulement, sans tolérances cumulées ni seuil admissible; minimum global fiable non établi.",
+    "Cordon utile494.607764mm et rayons50/24 représentent un candidat sur mesure; cotesengagement, définition longueurfabricant et antiflexionTypeA restant1.05mm à confirmer.",
+    "ProtectionF38 ovale textile idéale,0.75mm aux deux membres, recouvrement/forme/épaisseur/tenue/thermique et colliers non qualifiés. PontsP73 rigidité/fabrication non validées.",
+    "M8 et Airy mobiles non reconstruits sur toutes poses; ne pas conclure intégration dynamique globale des53routes.",
+    "Variante exploratoireX220Z0 comporte check instable non rejoué; ne pas annoncer uniformément15variantes qualifiées. Sélection retenue dispose de preuves stables propres."
+  ]
+}

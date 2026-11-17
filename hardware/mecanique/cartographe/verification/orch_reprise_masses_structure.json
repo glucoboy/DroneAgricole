@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "lot": "ORCH-CAO-MASSE-1",
+  "reference": "Reprise masses structure et propulsion",
+  "date": "2026-10-25",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "finalisation_correcte": true,
+  "cloture_perimetre": false,
+  "cadrage": {
+    "probleme": "Attribuer les masses de la définition documentaire OEM conservée, sans attendre un inventaire physique non autorisé et sans masse de kit.",
+    "observations": "La passe précédente laissait toutes les masses structure/propulsion inconnues, y compris le corps MN4014 à masse fabricant disponible.",
+    "hypothese_refutable": "La fiche MN.00026 liée directement par Holybro décrit le moteur de base des variantes 31228/31229, distinct de leurs fils et prises. Une modification OEM du corps réfuterait cette applicabilité.",
+    "action": "Préserver originaux, croiser références/conditions, proposer une contribution connue distincte des compléments inconnus, sonder quatre feuilles sans fonction connue.",
+    "reversibilite": "Proposition de registre et contrôle en lecture seule ; aucun natif, manifeste ou BOM partagé modifié.",
+    "dependances": "Intégration et calcul C++ réservés à orchestrateur propriétaire unique.",
+    "criteres": "Chaque poste a une masse applicable/proposée ou un problème individuel précis ; sources conservées avec empreinte/droits ; inconnue jamais zéro.",
+    "arret": "Après fabricant, annuaire officiel, distributeurs identifiés et preuves disponibles ; donnée absente maintenue null avec information fabricant/pesée précise. Aucun achat, matériel ni Gazebo/PX4."
+  },
+  "entrees": {
+    "bom": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "preuve_precedente": "hardware/mecanique/cartographe/verification/orch_cao_masse_structure.json",
+    "configuration": "prototype_cartographe sans dock ; deux moteurs 31228 CW et deux 31229 CCW, quatre ESC 31230, deux paires 520095"
+  },
+  "sources": [
+    {
+      "id": "RSTR-S01",
+      "url": "https://cdn.shopifycdn.net/s/files/1/0604/5905/7341/files/Tomotor-MN4014_SPEC_1.png?v=1717576213",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_MN4014_SPEC_original.png",
+      "sha256": "18736d18c3295e0137413a2d5c754058e5378b5f5d8b2558a39eadd67a7f880c",
+      "octets": 3765961,
+      "date_consultation": "2026-10-25",
+      "nature": "fabricant OEM, fiche T-Motor directement liée par Holybro",
+      "revision": "MN.00026 KV330 ; MN.00025 KV400",
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "KV330 : 150 g hors câbles, 171 g avec câbles, 600 mm 18 AWG ; corps Ø44,7×34,5 mm. Plan interfaces et adaptateurs inclus dans la fiche."
+    },
+    {
+      "id": "RSTR-S02",
+      "url": "https://holybro.com/products/spare-parts-x650-kit",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_X650_Spares_original.html",
+      "sha256": "6eb812cae99235c13dbbaf1ae338b1585cd746a11ab7f9f32b718d6d09ec5123",
+      "octets": 558018,
+      "date_consultation": "2026-10-25",
+      "nature": "fabricant",
+      "revision": null,
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "SKU exacts 31228 CW, 31229 CCW, 31230 ESC et 520095 paire hélices ; références structure. Champs Shopify weight non démontrés comme masses nettes."
+    },
+    {
+      "id": "RSTR-S03",
+      "url": "https://holybro.com/pages/dealer",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_Dealers_original.html",
+      "sha256": "639994df8ed1436e3bbbd8aaab0b6e176b687ba5c073e9f15406a76c45ed96c3",
+      "octets": 268794,
+      "date_consultation": "2026-10-25",
+      "nature": "fabricant",
+      "revision": null,
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "Annuaire avec liens explicites FlyingTech, 3DXR, Premium-Modellbau et MG Super Labs : statut de revendeur vérifié."
+    },
+    {
+      "id": "RSTR-S04",
+      "url": "https://www.flyingtech.co.uk/product/t-motor-mn4014-330kv-brushless-motor-for-holybro-x650-cw-ccw/",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/FlyingTech_MN4014_original.html",
+      "sha256": "5a27c8ddff3ed658f50342e09022c08ffaf7157fb578c20f370afc94d8f6ea25",
+      "octets": 497677,
+      "date_consultation": "2026-10-25",
+      "nature": "distributeur figurant dans annuaire fabricant RSTR-S03",
+      "revision": null,
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "Moteur OEM X650 CW/CCW avec MR30 présoudé, vis M3 de fixation exclues. Valeur 149 g sans condition des fils, divergente de la fiche fabricant 150/171 g : non substituée silencieusement."
+    },
+    {
+      "id": "RSTR-S05",
+      "url": "https://gemfanhobby.en.hisupplier.com/product-2894109-1555-Carbon-Fiber-Propeller-T-Type-CW-CCW-Prop-for-FPV.html",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Gemfan_PMCF1555_T_original.html",
+      "sha256": "5e4b4870f206ba6e26d195c234fcdc428cb36ec086648b57f2cc4410ba6c4acf",
+      "octets": 252678,
+      "date_consultation": "2026-10-25",
+      "nature": "profil commercial attribué au fabricant Gemfan Hobby Co., Ltd sur HiSupplier ; identité déclarative, lien officiel vers ce profil non trouvé",
+      "revision": "PMCF1555-T",
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "1555 T-Type, carbone, 15×5,5 pouces, CW/CCW et 22 g. Aucune correspondance écrite à Holybro 520095 ; unité exacte de la masse non explicitée entre une hélice et la paire."
+    },
+    {
+      "id": "RSTR-S06",
+      "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/neopixel-ws2812-led-setup-instruction",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_WS2812_original.html",
+      "sha256": "18e0dd4b746a978ea67c0bedba4268a010e8e7574bd26b89047d2580e42d4e67",
+      "octets": 667112,
+      "date_consultation": "2026-10-25",
+      "nature": "fabricant",
+      "revision": null,
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "Quatre voies LED NeoPixel moteur ; aucune masse, référence de carte ou contenu de câblage utilisable pour la masse."
+    },
+    {
+      "id": "RSTR-S07",
+      "url": "https://holybro.com/products/tekko32-f4-45a-esc",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_ESC_original.html",
+      "sha256": "a66044a3bd476e046bd5e9db2820695e490e64579a9e3b33db8fa99606484a2c",
+      "octets": 375679,
+      "date_consultation": "2026-10-25",
+      "nature": "fabricant",
+      "revision": "SKU 31104/20156, AM32",
+      "droits": "Original public conservé inchangé ; aucune licence explicite de redistribution/réutilisation du fichier identifiée. Consultation technique interne, droits réservés du titulaire.",
+      "faits": "5,8 g et 34,3×17,3×4,5 mm pour ESC simple 31104/20156 ; condensateur 330µF 35V et fils énumérés séparément. Ne définit pas le précâblage 31230."
+    }
+  ],
+  "sources_preexistantes": [
+    {
+      "id": "STR-S03",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_X650_Assembly_Guide_V1.1_original.pdf",
+      "sha256": "642dffcdbe266f0355c64b28d9d25f622f857a554b1b250f94d04e18d2535869",
+      "usage": "Décomposition et tailles de vis OEM ; colonnes aluminium 4×50 et 4×90 mm ; aucune masse ni nuance exacte."
+    },
+    {
+      "id": "STR-S05",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_structure/TMotor_MN4014_KV330_original.html",
+      "sha256": "9ae50720cf138a69768df3f40e62ca665460eb37025f1a403c96158926876e8e",
+      "usage": "Corroboration fabricant actuel 150/171 g, rapport MN.00026."
+    }
+  ],
+  "recherches": [
+    {
+      "id": "RSTR-R01",
+      "sources": [
+        "RSTR-S01",
+        "RSTR-S02",
+        "RSTR-S04"
+      ],
+      "resultat": "Fiche technique liée depuis https://holybro.com/products/x650-kits, rubrique Motor specification, et par distributeur officiel. Consultation web expose ce lien ; capture directe de la page kit refusée HTTP429/local_rate_limited. Original PNG obtenu et inspecté visuellement."
+    },
+    {
+      "id": "RSTR-R02",
+      "sources": [
+        "RSTR-S02",
+        "RSTR-S03",
+        "RSTR-S07"
+      ],
+      "resultat": "Catalogue constructeur, annuaire, FlyingTech/Premium-Modellbau/MGSL examinés pour 31230. Les 5,8 g concernent le circuit simple ; aucune masse nette du paquet précâblé gainé trouvée. Requêtes exactes 31230/weight/mass."
+    },
+    {
+      "id": "RSTR-R03",
+      "sources": [
+        "RSTR-S02",
+        "RSTR-S05",
+        "STR-S03"
+      ],
+      "resultat": "520095 confirmé comme paire 1555. Profil Gemfan PMCF1555-T 22 g trouvé, chaîne identité jusqu’à 520095 absente ; autres vendeurs citent 14 ou 22 g sans variante prouvée. Ni moyenne ni substitution, ni 80 g Shopify."
+    },
+    {
+      "id": "RSTR-R04",
+      "sources": [
+        "RSTR-S02",
+        "STR-S03"
+      ],
+      "resultat": "Recherches 510245/510246/510247 plateaux, 510241 tube, 510254 articulation, 510235 base, 510248 train : aucune masse nette primaire trouvée. Champs e-commerce 50/80/100 g, dont 80 g pour moteur documenté 150 g : rejet comme masse nette."
+    },
+    {
+      "id": "RSTR-R05",
+      "sources": [
+        "STR-S03",
+        "RSTR-S06"
+      ],
+      "resultat": "Feuilles 00/001/002/003 sondées par BRep ; désignation et voisinage ne prouvent ni carte LED ni pièce physique séparée."
+    }
+  ],
+  "masses_proposees": [
+    {
+      "bom_id": "MEC-MOTEUR",
+      "reference_exacte": "Holybro 31228 CW×2 et 31229 CCW×2, T-Motor MN4014 KV330",
+      "quantite": 4,
+      "unite": "moteur",
+      "masse_unitaire_installee_complete_g": null,
+      "contribution_complete_g": null,
+      "masse_unitaire_corps_documentaire_g": 150,
+      "contribution_corps_documentaire_proposee_g": 600,
+      "nature": "fabricant nominale",
+      "applicabilite": "Applicable au périmètre documentaire corps MN4014 KV330 relié par Holybro à MN.00026 ; peut contribuer au sous-total connu. Le moteur précâblé complet reste incomplet.",
+      "source_ids": [
+        "RSTR-S01",
+        "RSTR-S02",
+        "RSTR-S04"
+      ],
+      "qualificatif": "nominale commerciale fabricant, non mesurée, tolérance non publiée",
+      "incertitude_g": null,
+      "incertitude_motif": "Tolérance absente : ne rend pas la nominale inconnue et ne justifie aucune borne garantie.",
+      "inclusions": [
+        "Corps moteur assemblé du champ Weight Excluding Cables de MN.00026 ; éléments solidaires du corps."
+      ],
+      "exclusions": [
+        "Fils OEM, prises MR30, soudures, gaines et compléments de fixation hélice non démontrés dans le périmètre publié.",
+        "Vis M3 moteur/support explicitement exclues par distributeur officiel."
+      ],
+      "regle_double_comptage": "Sommer 150 g par moteur une seule fois ; fils sous MEC-MOTEUR ou faisceaux avec un propriétaire unique. Ne pas ajouter 21 g, 171 g ou adaptateur déjà compris sans délimiter le montage exact.",
+      "valeurs_conditionnelles": [
+        {
+          "valeur_g": 171,
+          "condition": "Même fiche, fils 600 mm 18AWG ; non preuve du précâblage MR30 OEM."
+        },
+        {
+          "valeur_g": 149,
+          "condition": "FlyingTech, conditions fils non publiées ; priorité document constructeur directement fourni par Holybro."
+        }
+      ],
+      "probleme_massique": "Masse des compléments OEM et périmètre adaptateur à confirmer. Corps nominal connu ; total installé incomplet."
+    },
+    {
+      "bom_id": "MEC-ESC",
+      "reference_exacte": "Holybro 31230 X650-Tekko32 F4 45A précâblé",
+      "quantite": 4,
+      "unite": "ESC",
+      "masse_unitaire_installee_complete_g": null,
+      "contribution_complete_g": null,
+      "applicabilite": "Aucune masse complète applicable trouvée.",
+      "nature": "inconnue",
+      "source_ids": [
+        "RSTR-S02",
+        "RSTR-S07"
+      ],
+      "incertitude_g": null,
+      "inclusions": [
+        "Carte, condensateur si présent, câbles puissance/moteur/commande, MR30/XT30, soudures, gaine du paquet conservé."
+      ],
+      "exclusions": [
+        "Aucun recomptage des fils/connecteurs dans un autre faisceau."
+      ],
+      "valeurs_conditionnelles": [
+        {
+          "valeur_g": 5.8,
+          "condition": "Circuit Tekko32 F4 45A 31104/20156 ; précâblage 31230 non délimité, pas masse complète 31230."
+        }
+      ],
+      "probleme_massique": "Obtenir masse nette 31230 et contenu exact, longueurs/sections, gaine/prises/condensateur ; sinon pesée de ce périmètre identifié."
+    },
+    {
+      "bom_id": "MEC-HELICE-CW",
+      "reference_exacte": "Holybro 520095 : hélice CW de paire Gemfan 1555",
+      "quantite": 2,
+      "unite": "hélice",
+      "masse_unitaire_installee_complete_g": null,
+      "contribution_complete_g": null,
+      "applicabilite": "Correspondance PMCF1555-T à 520095 non démontrée.",
+      "nature": "inconnue",
+      "source_ids": [
+        "RSTR-S02",
+        "RSTR-S05"
+      ],
+      "incertitude_g": null,
+      "inclusions": [
+        "Hélice seule."
+      ],
+      "exclusions": [
+        "Adaptateurs, visserie, rechanges."
+      ],
+      "valeurs_conditionnelles": [
+        {
+          "valeur_g": 22,
+          "condition": "Profil Gemfan PMCF1555-T ; 520095 non cité, unité pièce/paire non précisée."
+        }
+      ],
+      "probleme_massique": "MPN Gemfan complet, révision et masse nette unitaire CW pour 520095 à obtenir ; aucune substitution par une 1555 générique."
+    },
+    {
+      "bom_id": "MEC-HELICE-CCW",
+      "reference_exacte": "Holybro 520095 : hélice CCW de paire Gemfan 1555",
+      "quantite": 2,
+      "unite": "hélice",
+      "masse_unitaire_installee_complete_g": null,
+      "contribution_complete_g": null,
+      "applicabilite": "Correspondance PMCF1555-T à 520095 non démontrée.",
+      "nature": "inconnue",
+      "source_ids": [
+        "RSTR-S02",
+        "RSTR-S05"
+      ],
+      "incertitude_g": null,
+      "inclusions": [
+        "Hélice seule."
+      ],
+      "exclusions": [
+        "Adaptateurs, visserie, rechanges."
+      ],
+      "valeurs_conditionnelles": [
+        {
+          "valeur_g": 22,
+          "condition": "Profil Gemfan PMCF1555-T ; 520095 non cité, unité pièce/paire non précisée."
+        }
+      ],
+      "probleme_massique": "MPN Gemfan complet, révision et masse nette unitaire CCW pour 520095 à obtenir ; aucune substitution par une 1555 générique."
+    }
+  ],
+  "problemes_massiques": [
+    {
+      "bom_id": "MEC-OEM-PLATEAUX",
+      "reference_exacte": "510245 + 510246 + 510247 et plateau batterie OEM",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Masse nette de chacun des quatre plateaux conservés ou densité du stratifié exact, layup et révision.",
+      "impact": "Quatre plateaux sans masse ; volume CAO insuffisant sans matériau documenté.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "reference_exacte": "4×510241 + 510254 + 510235 et visserie propre",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Masses des tubes, articulations, bases moteur et vis OEM ; nuances aluminium/carbone et révision exactes.",
+      "impact": "Quatre ensembles incomplets ; exclure moteur/ESC/LED déjà sur lignes distinctes.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-OEM-TRAIN",
+      "reference_exacte": "2×510248",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Masse nette de chaque jambe complète avec raccords et fixations, hors emballage ; ou matières documentées par pièce.",
+      "impact": "Train entier inconnu ; pas de 200 g déduit du champ e-commerce 100 g.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-OEM-COLONNES",
+      "reference_exacte": "4×HUAZHU-LV-M3-50",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Masse nette, nuance aluminium, profondeur taraudée et géométrie conforme des colonnes 50 mm.",
+      "impact": "Quatre pièces sans masse nette ; appellation aluminium ne prouve pas une nuance.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-OEM-FIXATIONS",
+      "reference_exacte": "Quincaillerie résiduelle OEM et 4 colonnes M3×90",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Détail quantités de chaque vis/rondelle/écrou retenu, matière/masse ; plans et masses colonnes 90 mm ; fonction/supports 076/077 après retrait des rails.",
+      "impact": "Lot résiduel non clos ; risque double comptage avec bras/train/supports.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-MOTEUR",
+      "reference_exacte": "31228×2 / 31229×2",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Poids des câbles MR30 conservés et contenu exact des accessoires inclus dans 150 g ; confirmation OEM si modification du corps par rapport à MN.00026.",
+      "impact": "600 g de corps nominal proposés ; ensemble câblé complet incomplet.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-ESC",
+      "reference_exacte": "4×31230",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Masse nette exacte précâblée, sections/longueurs, connecteurs, condensateur et gaine inclus ; sinon décomposition/pesée du même périmètre.",
+      "impact": "Masse des 4 ESC inconnue ; 5,8 g du 31104 non transposable au paquet complet.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-HELICE-CW",
+      "reference_exacte": "2×CW de 520095",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "MPN Gemfan exact lié à 520095 et masse nette par hélice CW ; confirmation unité de la valeur 22 g PMCF1555-T.",
+      "impact": "Masse et inertie de deux rotors non connues.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-HELICE-CCW",
+      "reference_exacte": "2×CCW de 520095",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "MPN Gemfan exact et masse nette par hélice CCW ; lien à 520095.",
+      "impact": "Masse et inertie des deux autres rotors non connues.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "MEC-FIXATION-HELICES",
+      "reference_exacte": "4 dispositifs OEM MN4014/Gemfan 1555",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "Identifier dispositif conservé parmi les adaptateurs du plan ; délimiter pièces déjà solidaires du moteur 150 g et vis/rondelles/écrous séparés ; fournir masses nettes.",
+      "impact": "Quatre jeux sans rattachement CAO détaillé ni masse séparée ; aucune masse forfaitaire.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    },
+    {
+      "bom_id": "KIT-LED",
+      "reference_exacte": "4×WS2812 OEM avec diffuseurs",
+      "masse_unitaire_complete_g": null,
+      "probleme_massique": "MPN carte LED, fils et prises OEM, matière du diffuseur, masses carte/diffuseur/câble/vis ; fonction physique des feuilles 00/001/002/003.",
+      "impact": "Quatre LED incomplètes ; proximité géométrique insuffisante pour attribuer les quatre solides sans fonction connue.",
+      "action_necessaire": "Obtenir du fabricant masse nette et inclusions de la référence exacte ; sinon peser ce périmètre identifié lors d’une future mission matérielle autorisée.",
+      "recherches": [
+        "RSTR-R01",
+        "RSTR-R02",
+        "RSTR-R03",
+        "RSTR-R04",
+        "RSTR-R05"
+      ],
+      "etat": "À valider"
+    }
+  ],
+  "regles_comptage": [
+    "Kit X650 2000 g et scénario 6 kg exclus de toute attribution prototype.",
+    "Une nominale commerciale sans tolérance est une donnée utilisable de définition ; elle ne devient pas une mesure ou une borne garantie.",
+    "Corps moteur et compléments visibles séparément ; total complet null si complément inconnu.",
+    "Masse d’expédition et champ weight Shopify sans condition nette exclus.",
+    "Aucun grade composite OEM déduit de couleur ou volume."
+  ],
+  "limites": [
+    "Aucun natif, placement, manifeste, BOM ou document partagé modifié par cet agent.",
+    "Aucun achat, fabrication, pesée physique, connexion réelle ou campagne Gazebo/PX4.",
+    "Recherche ne clôturant pas les interfaces, la définition structurelle ou la masse complète du drone."
+  ],
+  "controles": [
+    {
+      "id": "RSTR-C01",
+      "resultat": "conforme",
+      "protocole": "9 sources conservees relues et empreintes SHA256 comparees",
+      "nombre_sources": 9
+    },
+    {
+      "id": "RSTR-C02",
+      "resultat": "conforme",
+      "protocole": "4 feuilles OEM lues par BRep, validite et voisinage controles ; empreinte native avant/apres identique",
+      "nombre_feuilles": 4,
+      "qualification_physique": false
+    },
+    {
+      "id": "RSTR-C03",
+      "resultat": "conforme",
+      "protocole": "11 postes du perimetre portent un probleme massique individuel ; inconnues null, masse de kit et champs commerciaux rejetes",
+      "nombre_problemes": 11
+    },
+    {
+      "id": "RSTR-C04",
+      "resultat": "conforme",
+      "protocole": "Fiche moteur originale Holybro inspectee visuellement : 150 g sans cables et 171 g avec cables ; proposition corps distincte du moteur installe complet",
+      "contribution_corps_proposee_g": 600,
+      "masse_totale_propulsion_g": null
+    }
+  ],
+  "sonde_feuilles_oem": {
+    "natif": "hardware/mecanique/cartographe/pieces/commerce/EQ_Chassis_X650.FCStd",
+    "sha256_avant": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+    "sha256_apres": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+    "natif_inchange": true,
+    "observations": [
+      {
+        "objet": "Part__Feature212",
+        "valide": true,
+        "volume_mm3": 53.3232799205263,
+        "voisinage": [
+          {
+            "objet_voisin": "Part__Feature182",
+            "role_voisin": "base moteur inférieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 53.21069543233993
+          },
+          {
+            "objet_voisin": "Part__Feature183",
+            "role_voisin": "base moteur supérieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature184",
+            "role_voisin": "moteur",
+            "distance_mm": 14.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature185",
+            "role_voisin": "diffuseur LED",
+            "distance_mm": 0.13749217771900035,
+            "volume_intersection_mm3": 0.0
+          }
+        ]
+      },
+      {
+        "objet": "Part__Feature244",
+        "valide": true,
+        "volume_mm3": 53.3232799205263,
+        "voisinage": [
+          {
+            "objet_voisin": "Part__Feature214",
+            "role_voisin": "base moteur inférieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 53.21069543233993
+          },
+          {
+            "objet_voisin": "Part__Feature215",
+            "role_voisin": "base moteur supérieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature216",
+            "role_voisin": "moteur",
+            "distance_mm": 14.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature217",
+            "role_voisin": "diffuseur LED",
+            "distance_mm": 0.13749217771900035,
+            "volume_intersection_mm3": 0.0
+          }
+        ]
+      },
+      {
+        "objet": "Part__Feature276",
+        "valide": true,
+        "volume_mm3": 53.3232799205263,
+        "voisinage": [
+          {
+            "objet_voisin": "Part__Feature246",
+            "role_voisin": "base moteur inférieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 53.21069543233993
+          },
+          {
+            "objet_voisin": "Part__Feature247",
+            "role_voisin": "base moteur supérieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature248",
+            "role_voisin": "moteur",
+            "distance_mm": 14.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature249",
+            "role_voisin": "diffuseur LED",
+            "distance_mm": 0.13749217771900035,
+            "volume_intersection_mm3": 0.0
+          }
+        ]
+      },
+      {
+        "objet": "Part__Feature308",
+        "valide": true,
+        "volume_mm3": 53.3232799205263,
+        "voisinage": [
+          {
+            "objet_voisin": "Part__Feature278",
+            "role_voisin": "base moteur inférieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 53.21069543233993
+          },
+          {
+            "objet_voisin": "Part__Feature279",
+            "role_voisin": "base moteur supérieure",
+            "distance_mm": 0.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature280",
+            "role_voisin": "moteur",
+            "distance_mm": 14.0,
+            "volume_intersection_mm3": 0.0
+          },
+          {
+            "objet_voisin": "Part__Feature281",
+            "role_voisin": "diffuseur LED",
+            "distance_mm": 0.13749217771900035,
+            "volume_intersection_mm3": 0.0
+          }
+        ]
+      }
+    ],
+    "recette": "hardware/mecanique/cartographe/verification/orch_reprise_structure_collect.py",
+    "recette_sha256": "909d6b233f460798e9dbc8ea99b98b59f95a8d46f58c28a8efc151793fa2298b",
+    "lecteur_sha256": "36320d6ebeb21a824385763e9b7418151fbe5de3cbbad9144b7aef17db3aa063",
+    "interpretation": "Les feuilles 00/001/002/003 chevauchent presque entièrement la base moteur inférieure. Leur attribution automatique à une carte LED n’est pas justifiée. Fonction, matière et caractère physique distinct doivent être confirmés par le fabricant ; aucune masse et aucune suppression ne sont déduites de ce chevauchement."
+  },
+  "conclusion": "Recherche et sonde finalisees ; attribution corps moteur nominal proposee, completude OEM et physique restant A valider."
+}

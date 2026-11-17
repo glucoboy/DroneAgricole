@@ -1,32 +1,35 @@
 {
   "schema_version": 1,
   "reference": "CAB-CARTO-01",
-  "date": "2026-10-03",
+  "date": "2026-10-05",
   "scope": "Cartographe uniquement ; traitement/pompe/vannes hors périmètre",
   "status": "Planifié / À valider",
   "harness_ready": false,
   "conventions": [
-    "Broches CA01 = numérotation logique du schéma V0.5-pre, empreintes non figées",
+    "Broches CA01 = contrat courant du schéma0.5-pre ; numéros logiques de la carte inchangés.",
     "Flèches énergie = alimentation et retour ; masses, blindages et carbone à concevoir",
-    "Cible V0.5 : schéma et routage PCB CA01 candidats ; maquette système et réservations de câbles implémentées le03/10, aucun faisceau physique assemblé ; interfaces et fixation À valider",
+    "Schéma système candidat avec BMS mobile JBD et UART isolé ; CA01 KiCad0.5-pre inchangée ; aucun faisceau physique assemblé.",
     "BEC1 vers POWER1 et BEC2 vers POWER2, sans parallèle ni retour ; Jetson sur XT30 séparé",
     "Les ports combinés PM08-CAN exigent séparation énergie/CAN ; aucun câble six fils droit vers POWER1/2",
     "Numéros de contacts côté PM et composition du faisceau livré à relever sur les révisions réelles",
     "Architecture temporelle étudiée : H-RTK DroneCAN Helical STM32G4 à PPS exposé, CA01 distribue PPS/GPRMC et adapte le trigger/retour exposition ; référence et brochage à confirmer",
-    "FMU_CAP1 réservé au retour ExposureActive Basler dans la cible ; PPS Pixhawk simultané non prévu sans seconde capture et firmware qualifiés"
+    "FMU_CAP1 réservé au retour ExposureActive Basler dans la cible ; PPS Pixhawk simultané non prévu sans seconde capture et firmware qualifiés",
+    "Contacts TE de signal : S_GND/S_TX/S_RX/S_PRESENT_A/S_PRESENT_B sont des fonctions logiques ; numéros de cavités et vues à relever, aucune instruction de fabrication.",
+    "UART JBD propriétaire9600 8N1 en lecture seule ; aucun CAN BMS ni adaptateur PX4 implémenté.",
+    "TE peut rester sous potentiel ; échange sans courant de puissance, JETI OFF vérifié, chargeur débranché ; ne pas assimiler hot-plug à interruption100A."
   ],
   "modules": [
     {
       "id": "BAT",
-      "name": "Batterie 6S candidate",
-      "inputs": "charge externe hors vol",
-      "outputs": "puissance batterie",
-      "open": "pack/révision, décharge et connecteur définitifs",
+      "name": "Tattu NMC20Ah6S TAA200006S5X9S candidat",
+      "inputs": "charge hors drone par port BMS protégé",
+      "outputs": "B+ et B− bruts, JST-XHR-7P B0…B6 internes cassette",
+      "open": "Brochage OEM, seuils/charge NMC, état du lot et tenue mission ; retrait XT90-S autorisé mais terminaison à valider",
       "status": "À valider"
     },
     {
       "id": "DIST",
-      "name": "Holybro PDB 300A Top Entry candidate",
+      "name": "Holybro PDB300A TopEntry candidate, étage inférieur",
       "inputs": "PM08-CAN OUT 6S +/−",
       "outputs": "4 départs ESC candidats XT90 ; départ CA01 candidat XT30",
       "open": "liaison PM, polarité, protection branche CA01, courant par connecteur, montage et thermique à valider",
@@ -50,8 +53,8 @@
     },
     {
       "id": "PM",
-      "name": "Holybro PM08-CAN sur châssis",
-      "inputs": "batterie 6S via IN",
+      "name": "Holybro PM08-CAN fixe à l’étage inférieur",
+      "inputs": "JETI OUT via IN, après BMS et TE",
       "outputs": "OUT distribution ; BEC1/2 5,3 V/3 A vers POWER1/2 ; DroneCAN",
       "open": "variante, brochage réel et faisceau séparateur ; tenue thermique, couverture/calibration ; support fixe",
       "status": "À valider"
@@ -183,17 +186,65 @@
       "outputs": "aucune fonction affectée",
       "open": "charge, protection et budget avant usage ; schéma V0.5-pre non fabricable",
       "status": "À valider"
+    },
+    {
+      "id": "BMS",
+      "name": "JBD-SP22S003 Li-ion A01, variante100A, embarqué cassette",
+      "inputs": "B+/B− bruts, prises cellules internes et NTC",
+      "outputs": "B+ continu, P− protégé commun charge/décharge, UART brut",
+      "open": "Bornes C−/P−, mapping6S, température/derating, précharge absente et seuils OEM à valider",
+      "status": "Planifié / À valider"
+    },
+    {
+      "id": "TE",
+      "name": "TE ELCON125A Middle Drawer1648151-1/1648156-1",
+      "inputs": "2contacts puissance #4 et5signaux #20",
+      "outputs": "Puissance vers JETI, UART vers isolateur, boucle passive distincte",
+      "open": "Plans de cavités, séquence réelle, sertissages, isolement/carbone, protection contacts mobiles et câbles à valider",
+      "status": "Planifié / À valider"
+    },
+    {
+      "id": "JETI",
+      "name": "JETI MainSwitch100, étage inférieur fixe",
+      "inputs": "TE B+ continu/P− protégé",
+      "outputs": "B+ continu/retour négatif commuté vers PM IN",
+      "open": "OFF mémorisé vérifié avant échange ; pas de retour brut contournant la coupure",
+      "status": "Planifié / À valider"
+    },
+    {
+      "id": "BMS_ISO",
+      "name": "Waveshare USB TO RS232/485/TTL SKU15817, fixe",
+      "inputs": "TXD/RXD/GND UART côté isolé ; USB énergie/données côté Jetson",
+      "outputs": "USB diagnostic vers Jetson à travers isolation numérique et DC/DC",
+      "open": "Niveau UART JBD à relever avant réglage TTL3.3V ; 5V isolateur et VDD JBD NC, tests Ioff/backpower/CEM à faire",
+      "status": "Planifié / À valider"
+    },
+    {
+      "id": "PRESENCE_RESERVE",
+      "name": "Boucle passive présence TE, réserve non raccordée",
+      "inputs": "Deux contacts postmate reliés ensemble dans cassette",
+      "outputs": "Aucun signal exploité ; côté châssis NC",
+      "open": "Pas de liaison B− brut ; éventuel circuit de détection CA01 à concevoir séparément",
+      "status": "Planifié / À valider"
+    },
+    {
+      "id": "CHARGE_EXTERNE",
+      "name": "Chargeur6S NMC externe sur adaptateur TE protégé",
+      "inputs": "Énergie secteur hors drone",
+      "outputs": "B+ et retour P− protégé du BMS commun",
+      "open": "Aucun chargeur embarqué ; mode charge incompatible insertion drone, profils OEM/seuils/connectique et fusible à valider",
+      "status": "Planifié / À valider"
     }
   ],
   "connections": [
     {
       "id": "W01",
       "from": "BAT",
-      "to": "PM",
+      "to": "BMS",
       "type": "Énergie",
-      "route": "Batterie amovible → connexion/coupure/protection → PM08-CAN IN fixe",
-      "pins": "+/− ; 6S ; 25,2 V pleine charge candidate",
-      "open": "variante et faisceau à dimensionner ; aucun départ contournant PM ; déconnexion batterie coupe aussi PM",
+      "route": "Pack mobile sans XT90-S → BMS embarqué : B− brut vers B−, B+ continu vers TE",
+      "pins": "AWG8 OEM candidat ; B+ brut / B− brut distinct de P− protégé",
+      "open": "Courant100A annoncé non qualifié ; bornes/sections et protection court-circuit à valider ; aucun départ direct vers PM/PDB",
       "status": "Planifié / À valider",
       "assembled": false
     },
@@ -548,6 +599,88 @@
       "open": "SKU G4, pin5 PPS (S32K1 NC), niveaux, émission GPRMC, protection et absence de retour alimentation à valider",
       "status": "Planifié / À valider",
       "assembled": false
+    },
+    {
+      "id": "W37",
+      "from": "BMS",
+      "to": "TE",
+      "type": "Énergie protégée",
+      "route": "B+ continu et P− protégé → TE mobile, cosses M5 sans XT90-S",
+      "pins": "CAO candidate cavité39PLUS/cavité40MOINS ; contacts #4 M5, mapping à contrôler sur lot",
+      "open": "P− peut être marqué C− sur fiche commune ; jamais B− brut au contact puissance négatif",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W38",
+      "from": "TE",
+      "to": "JETI",
+      "type": "Énergie protégée",
+      "route": "TE fixe → JETI IN étage inférieur",
+      "pins": "+/− ; − = P− protégé amont JETI",
+      "open": "Positif permanent ; capotage et absence de chemin vers masse avionique hors JETI",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W39",
+      "from": "JETI",
+      "to": "PM",
+      "type": "Énergie commutée",
+      "route": "JETI OUT → PM08-CAN IN étage inférieur",
+      "pins": "+ continu, − commuté JETI",
+      "open": "Toutes charges embarquées après PM IN/OUT ; bascule JETI et inrush à tester",
+      "status": "Planifié / À valider",
+      "assembled": false
+    },
+    {
+      "id": "W40",
+      "from": "BMS",
+      "to": "BMS_ISO",
+      "type": "UART isolé",
+      "route": "JBD UART →5contacts TE dont3UART → TTL Waveshare côté isolé",
+      "pins": "J2candidat1GND=B−brut,2RXD_BMS←TXD_ISO,3TXD_BMS→RXD_ISO ;4VDD NC",
+      "open": "J2/J3 contradictoire dans fiche ; niveau logique lot à relever ; GND brut ne rejoint ni USB GND ni masse avionique",
+      "status": "Planifié / À valider",
+      "assembled": false,
+      "ground_domain": "BAT_MOINS_BRUT_ISOLE",
+      "conductor_count": 3
+    },
+    {
+      "id": "W41",
+      "from": "BMS_ISO",
+      "to": "CPU",
+      "type": "USB diagnostic isolé",
+      "route": "USB Waveshare → port USB Jetson aval, données et alimentation hôte",
+      "pins": "Isolation données et DC/DC ; aucun fil5VTTL ni VDD_BMS raccordé",
+      "open": "Parser C++17 lecture seule et adaptation PX4 Planifiés ; aucune commande moteur ni commande BMS",
+      "status": "Planifié / À valider",
+      "assembled": false,
+      "read_only": true
+    },
+    {
+      "id": "W42",
+      "from": "TE",
+      "to": "PRESENCE_RESERVE",
+      "type": "Présence passive réservée",
+      "route": "Deux broches TE postmate court-circuitées entre elles dans cassette ; extrémités fixes NC",
+      "pins": "S_PRESENT_A/S_PRESENT_B distincts de B− brut et de masse avionique",
+      "open": "Aucun interverrouillage réalisé ; éventuelle entrée CA01 non raccordée, circuit à concevoir",
+      "status": "Planifié / À valider",
+      "assembled": false,
+      "installed": false
+    },
+    {
+      "id": "W43",
+      "from": "CHARGE_EXTERNE",
+      "to": "TE",
+      "type": "Charge externe protégée",
+      "route": "Hors drone uniquement : chargeur → adaptateur TE → B+ et P− protégé BMS commun",
+      "pins": "Même polarité protégée que puissance ; jamais retour chargeur sur B− brut, jamais courant charge dans JST cellules",
+      "open": "Profil et courant NMC approuvés OEM, protection et interlock charge/vol à valider",
+      "status": "Planifié / À valider",
+      "assembled": false,
+      "operating_mode": "charge_hors_drone"
     }
   ],
   "current_sizing_review": {
@@ -556,7 +689,7 @@
     "note": "PM08-CAN retenu : 200A continus annoncés, deux BEC 5,3V/3A. Ces valeurs ne qualifient ni connecteurs, ni faisceau, ni bascule POWER1/POWER2.",
     "reference": "DOC-ELEC §4.2.2/5.1"
   },
-  "revision": "0.5",
+  "revision": "0.6-bms-candidat",
   "retired_connections": [
     {
       "id": "W30",
@@ -599,7 +732,10 @@
     "outputs_paralleled": false,
     "budgets_closed": false,
     "common_points": [
-      "batterie 6S",
+      "batterie6S",
+      "BMS et coupure ultime",
+      "TE",
+      "JETI",
       "PM08-CAN"
     ],
     "ca01_aux_source": "DC/DC 5V local depuis départ 6S protégé W08",
@@ -638,7 +774,11 @@
     "https://docs.px4.io/main/en/advanced/pps_time_sync",
     "https://docs.baslerweb.com/a2a4096-30ucbas",
     "https://docs.baslerweb.com/line-source",
-    "https://docs.baslerweb.com/data-chunks"
+    "https://docs.baslerweb.com/data-chunks",
+    "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+    "https://cdn.shopifycdn.net/s/files/1/0606/5199/5298/files/JDB_RS485-RS232-UART-Bluetooth-Communication_Protocol.pdf?v=1682577935",
+    "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+    "https://www.te.com/en/products/brands/elcon/elcon-drawer-connectors.html"
   ],
   "pm_connector_mapping": {
     "pm_side_status": "contacts et faisceau de séparation à vérifier sur les révisions livrées",
@@ -690,6 +830,74 @@
       "status": "Implémenté en PCB candidat ; À valider sur matériel",
       "assembled": false,
       "limits": "Routage PCB candidat réalisé ; contacts physiques et connexion sur matériel À valider."
+    },
+    {
+      "id": "BMS-CELLULES",
+      "from": "BAT",
+      "to": "BMS",
+      "route": "JST-XHR-7P B0…B6 → adaptateur6S JBD interne cassette",
+      "pins": "Mapping OEM B0…B6 à relever ; JBD6S utilise BC0…BC4 puis BC21/BC22, BC4…BC20 pontés selon fiche6S",
+      "status": "Planifié / À valider",
+      "assembled": false,
+      "limits": "Mesure/équilibrage seulement ; aucune puissance charge/propulsion, adaptation cellules non fabriquée, NTC externes sur enveloppe accessibles après validation OEM."
     }
-  ]
+  ],
+  "manufacturing_ready": false,
+  "battery_interface": {
+    "status": "Planifié / À valider",
+    "manufacturing_ready": false,
+    "bms_reference": "JBD-SP22S003 Li-ion A01 100A",
+    "common_port": true,
+    "negative_power_terminal": "P_MINUS_PROTEGE",
+    "raw_ground_bypass_allowed": false,
+    "signal_count": 5,
+    "signal_cavity_numbers_confirmed": false,
+    "cavity_map": [
+      {
+        "function": "B− brut référence UART isolée",
+        "logical_id": "S_GND",
+        "cavity_number": null,
+        "pin_mpn": "1650161-1",
+        "socket_mpn": "1648325-1"
+      },
+      {
+        "function": "TXD_BMS",
+        "logical_id": "S_TX",
+        "cavity_number": null,
+        "pin_mpn": "1650155-1",
+        "socket_mpn": "1648325-1"
+      },
+      {
+        "function": "RXD_BMS",
+        "logical_id": "S_RX",
+        "cavity_number": null,
+        "pin_mpn": "1650155-1",
+        "socket_mpn": "1648325-1"
+      },
+      {
+        "function": "Présence passive A",
+        "logical_id": "S_PRESENT_A",
+        "cavity_number": null,
+        "pin_mpn": "1650162-2",
+        "socket_mpn": "1648325-1"
+      },
+      {
+        "function": "Présence passive B",
+        "logical_id": "S_PRESENT_B",
+        "cavity_number": null,
+        "pin_mpn": "1650162-2",
+        "socket_mpn": "1648325-1"
+      }
+    ],
+    "raw_uart_ground_only_to_isolated_side": true,
+    "presence_isolated_from_raw_ground": true,
+    "presence_operational_connection": false,
+    "uart_contract": "contrat_uart_bms.json",
+    "balance_taps_internal_to_cassette": true,
+    "bms_cutoff_removes_propulsion_and_both_becs": true,
+    "px4_preemptive_thresholds_qualified": false,
+    "precharge_implemented": false,
+    "swap_power_current_a_required": 0,
+    "swap_procedure": "Désarmé, hélices immobiles, chargeur et liaisons externes débranchés ; JETI OFF confirmé avant déverrouillage. Contacts sous potentiel possibles ; aucune interruption100A validée."
+  }
 }

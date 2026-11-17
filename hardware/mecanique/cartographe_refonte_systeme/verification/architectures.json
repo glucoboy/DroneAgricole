@@ -1,0 +1,256 @@
+{
+  "schema": "cartographe.refonte-systeme.architectures.v1",
+  "status": "À valider",
+  "scope": "Prototype cartographe sans dock. Architecture complète par conservation des lignes de la matrice sauf deltas explicités. Les valeurs d'étude ne valent pas limites qualifiées.",
+  "cadrage": {
+    "priority": "ORCH-CAO-MASSE-1, complétude des interfaces et du bilan massique avant les campagnes",
+    "question": "Réduire la traversée des niveaux et libérer l'accès aux interfaces sans dégrader perception, diagnostic isolé ou sûreté du vol.",
+    "budget": "Une passe documentaire, une passe d'enveloppes et un ensemble borné de positions et d'axes en CAO. 0 achat, 0 fabrication et 0 raccordement.",
+    "signal": "Écart CAO à périmètre égal, nouvelle pose montable au nominal, géométrie native fraîche, matrice électrique conservée ou modification explicitée.",
+    "stop": "Retenir le candidat le moins risqué numériquement. Fermer les inconnues matérielles déterminantes avant fabrication ou engagement de la variante."
+  },
+  "baseline": {
+    "active_axis_sum_mm": 12125.900339059066,
+    "modular_axis_sum_mm": 11124.651902678519,
+    "axes_both": 53,
+    "modular_installation_modules": 11,
+    "modular_sa07_support_material_cm3": 30.51425273617843,
+    "modular_sa07_fabricated_supports": 17,
+    "modular_diagnostic_f41_axis_mm": 340.4083130973363,
+    "physical_matings": null,
+    "physical_harness_count": null,
+    "total_conductor_length_mm": null,
+    "harness_mass_g": null,
+    "limits": "Axes issus des registres natifs. Modules distincts des faisceaux physiquement liés. Connecteurs terminaux et cordons intégrés sans métrique globale fiable."
+  },
+  "gates": [
+    [
+      "G01",
+      "Le Pixhawk garde autorité, boutons et alarmes restent utilisables, PWM et chaîne PM08/PDB protégée conservés."
+    ],
+    [
+      "G02",
+      "B− brut n'a aucun chemin vers USB GND ou masse avionique hors isolation. VDD_BMS et 5 V TTL restent ouverts."
+    ],
+    [
+      "G03",
+      "L'orientation, l'amplitude, la suspension et la datation de chaque capteur restent compatibles avec leur contrat."
+    ],
+    [
+      "G04",
+      "Toute collision ou obstruction nouvelle démontrée écarte la pose testée. Les inconnues interdisent la libération physique."
+    ],
+    [
+      "G05",
+      "Garantir la compatibilité tension/courant, thermique et CEM et la tenue mécanique des terminaisons avant fabrication."
+    ]
+  ],
+  "decision": {
+    "selected_for_cad": "A",
+    "selected_for_production": null,
+    "scale": "0 absence de solution, 1 blocage majeur, 2 études substantielles nécessaires, 3 candidat conditionnel, 4 changement démontrable de faible risque dans le périmètre numérique.",
+    "criteria": [
+      {
+        "id": "Fonctions et sûreté",
+        "weight_pct": 30,
+        "why": "Défaillances vol, énergie et datation dominent le risque d'erreur."
+      },
+      {
+        "id": "Montage et maintenance",
+        "weight_pct": 20,
+        "why": "Intervention, extraction et inspection ont motivé la refonte."
+      },
+      {
+        "id": "Densité et encombrement",
+        "weight_pct": 18,
+        "why": "Réduire traversées et obstacles plutôt que compter seulement les cordons."
+      },
+      {
+        "id": "Masse et pertes",
+        "weight_pct": 12,
+        "why": "Aucune marge massique démontrée. Évaluer le coût complet de chaque interface."
+      },
+      {
+        "id": "Thermique et CEM",
+        "weight_pct": 10,
+        "why": "Peu de données de banc et plusieurs références et retours sensibles."
+      },
+      {
+        "id": "Coût et délai de développement",
+        "weight_pct": 10,
+        "why": "Livrer des résultats mesurables à faible engagement avant de refaire l'électronique."
+      }
+    ],
+    "scores_out_of_four": {
+      "A": [
+        3,
+        3,
+        2,
+        3,
+        3,
+        4
+      ],
+      "B": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        2
+      ],
+      "C": [
+        1,
+        2,
+        3,
+        1,
+        1,
+        1
+      ]
+    },
+    "score_pct": {
+      "A": 73,
+      "B": 54.5,
+      "C": 39
+    },
+    "sensitivity": "Même si on donne à B 4/4 en densité (+4,5 points), il reste derrière A aux évaluations actuelles. Si connecteurs, pertes et maintien B sont démontrés au même niveau qu'A, reclasser avec la densité mesurée et la masse réelle. Aucun score ne compense un veto.",
+    "why": "A est le premier essai réversible. B-PDB est le levier direct sur les départs de propulsion mais son encombrement et les interfaces locales changent. B-TIME ne crée aucune conversion et concurrence un cordon à trois paires. C transfère le risque vers la datation, le réseau, la thermique et le montage."
+  },
+  "architectures": {
+    "A": {
+      "functions": "Matrice intacte. Séparer énergie propulsion, commandes et temps, radio et liaisons mobiles, diagnostic isolé. Conserver PM08 et PDB 18138 ainsi que les équipements OEM, CA01 et les ports logiques.",
+      "changes": "Étudier le déport USL pour placer commande/indication et F25 vers un bord, optimiser F31 CAN1 distinct, corriger les coordonnées du diagnostic seulement avec un accès démontré. Réemployer les 11 modules et les retenues utiles.",
+      "metrics_delta": {
+        "boards": 0,
+        "logic_connections": 0,
+        "intended_matings": 0,
+        "assembly_modules": 0,
+        "electronic_power_w": 0,
+        "cad_axis_delta_mm": -239.57273839664595,
+        "changed_mount_material_cm3": 0.8000000000000025,
+        "harness_mass_g": null,
+        "conductor_length_mm": null,
+        "axis_in_bay_delta_mm": -95.43352811094701,
+        "bay_volume_proxy_delta_cm3": -0.7620921949924977,
+        "evidence": "comparaison_systeme.json"
+      },
+      "sensitivity": "Pivot Z 180° de la pile autour de (0,0,128) pour 19 terminaisons, somme des cordes 2506,16 à 2559,69 mm. Décalage éclatement Airy vers (−100,64,75), somme des cordes +30,79 mm. Écarter à ce stade, calibration et boucle mobile coûteuses pour un gain non observé.",
+      "risk": "Reprises de maintien, encombrement réel des prises, F41 à réancrer, accès, CG et tenue des fixations ouverts. Aucune garantie de réduction du cordon OEM F41.",
+      "reposition": "USL de (0,−100,90) à (30,−120,90) mm. P71 avec deux ancrages préservés. F31 sans détour ouest. Port Waveshare en écart avec l’axe hérité, variante X−20 à confirmer avant montage."
+    },
+    "B": {
+      "functions": "A + B-PDB et B-TIME comme options indépendantes. Pas d'adaptation active, de regroupement des alimentations critiques ni de réaffectation bus.",
+      "changes": [
+        {
+          "id": "B-PDB",
+          "candidate": "Holybro 18139, substitution 18138",
+          "signals": "6S 25,2 V chargé, retour protégé, PM08 amont, quatre départs ESC, protection et auxiliaires conservés. Aucun canal de mesure ou BEC intégré.",
+          "connectors": "5 XT90 et 2 XT30 latéraux, bornes de puissance. Choix entrée bornier ou XT90 à confirmer et mesurer. Les terminaisons F02 doivent être reprises si les ports de côté changent la sortie.",
+          "baseline_size_mm": [
+            60,
+            80,
+            23.5
+          ],
+          "candidate_size_mm": [
+            80,
+            80,
+            20
+          ],
+          "bare_bounding_volume_delta_cm3": 15.2,
+          "bare_height_delta_mm": -3.5,
+          "mass_installed_delta_g": null,
+          "indicative_example_delta_g": 14.8,
+          "indicative_mass_limit": "110,9 g et 125,7 g lus sur exemplaires de sources différentes. Le champ marchand Holybro 18139 de 180 g a un périmètre indéterminé.",
+          "public_board_price_usd": 25,
+          "loss_model": "P = Σ I_branche² R_contact + I_total² R_tronc. 0,5 mΩ hypothétique au tronc à 85 A implique 3,61 W et 42,5 mV. Résistances et températures réelles inconnues.",
+          "checks": "Cotes M3 70×70, accès latéraux avec connecteurs, rayon du faisceau, isolation contre carbone et protection/courant par départ. La mention 300 A du PCB ne qualifie aucun XT ni le faisceau complet.",
+          "cad": "Deux poses du volume nu essayées. Pose centrée chevauche UART et F02_2. Pose +11 mm X chevauche F02_2 existant. La reprise de F02_2 pourrait lever ce conflit, à vérifier avec STEP, prises et fixations."
+        },
+        {
+          "id": "B-TIME",
+          "candidate": "Platine passive de bord Jetson, ou cordon trois paires sans PCB",
+          "signals": "F24A PPS logique/retour, F24B GPRMC logique/retour, F24C référence CSI 3,3 V/retour en sens inverse. Aucun fan-out, adaptation de niveau ou fusion des retours sur le tronçon.",
+          "connectors": "J505, J506, J509 inchangés côté CA01. Côté Jetson, GPIO, DEBUG et extracteur FFC CSI à qualifier. Un tronc détachable 6 voies GH, une embase PCB à verrou et trois pigtails soudés ou deux accouplements avec un cordon détachable aux deux bouts.",
+          "envelope_candidate_mm": [
+            28,
+            20,
+            10
+          ],
+          "fr4_assumption_thickness_mm": 1.6,
+          "fr4_assumption_density_g_cm3": 1.85,
+          "bare_substrate_estimate_g": 1.66,
+          "mass_installed_g": null,
+          "cost": null,
+          "metric": "3 traversées → 1, 3 axes → 1 tronc + 3 pigtails dans le scénario câblé, 0 réduction automatique du nombre de conducteurs, +1 à +2 accouplements suivant architecture de dépose.",
+          "length_sensitivity": "869,632 mm d'axe répartis en 3 paires, soit 1739,264 mm de longueurs de paires développées comptées par fil, comme proxy si deux fils pleins par axe et sans mou. Candidat 200 mm de tronc et trois queues de 40 mm donne 1440 mm avant queues CA01, valeur d'étude non implantée. Seuil Σ des queues deux côtés < 269,632 mm si tronc 200 mm.",
+          "checks": "Continuité six chemins indépendants, niveaux 3,3 V, absence de backpower et retour d'horloge. Vérifier qualité des fronts PPS, couplage proche et rigidité du FFC. R530–R533 restent DNP dans la baseline électrique. Mesurer Iref avant calculer chute et échauffement.",
+          "cad": "Boîte nominale testée sans interférence détectée, à confirmer avec sorties, fixations, prise d'outil et FFC."
+        }
+      ],
+      "metrics_delta": {
+        "net_electronic_boards_if_both": 1,
+        "added_matings_time": [
+          1,
+          2
+        ],
+        "support_volume_cm3": null,
+        "passive_active_power_w": 0,
+        "electrical_loss_delta_w": null,
+        "harness_mass_g": null,
+        "conductor_length_mm": null
+      },
+      "cost_difficulty": "B-PDB achat de carte catalogue et redéfinition des cordons. B-TIME PCB, extracteur et fixation à développer pour un bénéfice que le cordon pourrait obtenir.",
+      "gate": "Cotes et encombrement avec fiches accouplées, gains de maintenance et pertes à démontrer."
+    },
+    "C": {
+      "functions": "Conserver tous les autres blocs. Revoir caméra et transport temporel. Basler a2A4096-9gcBAS 4096×3000, IMX545, PoE, GigE et PTP avec actions planifiées. Jetson joue le rôle d'hôte acquisition et d'association UTC. Garder l'autorité PX4.",
+      "changes": "Phase C0 conserve l'I/O matériel tant que le lien UTC/exposition n'est pas démontré et adapte J502 seulement à pinout vérifié. C1 retire F16, F_M8, F33 et F35 après preuve équivalente, puis ajoute Ethernet caméra ↔ PSE, PSE ↔ NIC hôte et paire 12 V protégée vers PSE. Pas d'usage de PoE passif arbitraire.",
+      "candidate": "Tycon TP-DCDC-1248GAD commercial 802.3af, 85×76×36 mm, 134 g documentaire, 12 V protégé et retour CA01 dimensionnés à nouveau. Il injecte l'énergie, aucun commutateur intégré.",
+      "cad": "Réservation PSE chevauche AntenneRF0 à la pose essayée. Corps GigE 62,2×29×29 chevauche platine aluminium sur pose étudiée. Le connecteur USB F16 qui chevauche cette même boîte serait retiré, il est traité comme conflit non applicable.",
+      "metrics_delta": {
+        "nominal_c1_axis_count": 52,
+        "removed_legacy_axis_mm": 1100.84,
+        "removed_legacy_axis_limit": "Somme de quatre axes de la copie modulaire. Longueurs des trois remplacements inconnues. Seuil de gain si somme des trois inférieure à ce chiffre.",
+        "local_c1_matings_baseline_minimum": 8,
+        "local_c1_matings_candidate_minimum": 6,
+        "extra_nic_matings": null,
+        "support_mass_g": null,
+        "added_pse_mass_g_documentary": 134,
+        "harness_mass_g": null,
+        "conductor_length_mm": null,
+        "camera_typical_poe_w": 4.2,
+        "source_input_w_at_assumed_80_to_90_percent_efficiency": [
+          4.67,
+          5.25
+        ],
+        "pse_loss_w_in_same_assumption": [
+          0.47,
+          1.05
+        ],
+        "format_rates_at_5_fps_Mbps_raw": {
+          "Bayer8": 491.52,
+          "Bayer12_packed": 737.28,
+          "RGB8": 1474.56
+        }
+      },
+      "checks": "Airy et caméra partagent sinon RTL8367S. Il faut confirmer budget commun et PTP matériel de bout en bout ou ajouter un NIC séparé, prise et alimentation. Horloge PTP alignée UTC, latence réelle d'exposition, appariement, pertes, vibration et tenue RJ45 à vérifier. 9 fps au lieu de 30 au maximum nominal. Empreinte optique, profondeur de mise au point et thermique revues.",
+      "cost_difficulty": "Prix et budget PSE, caméra et NIC non consolidés. Développement et banc acquisition avec défauts réseau nécessaires. Gain local de cordons incertain et nouveau point de panne."
+    }
+  },
+  "ecad_mcad": {
+    "status": "Étudié. CA01 conservée pour A. Réservations B et C en FreeCAD, aucun PCB nouveau libéré.",
+    "stepup": "KiCad StepUp permet d'importer PCB/STEP, vérifier modèle, interfaces et Edge.Cuts. Ne déplacer le contour que sur une copie d'un PCB candidat. Reprendre plan des ancrages, STEP avec fiches engagées, ERC, DRC, netlist, contrôle des masses/retours et accès dans FreeCAD avant toute fabrication. Atelier non présent dans le profil FreeCAD lu.",
+    "source": "https://github.com/easyw/kicadStepUpMod"
+  },
+  "sources_constructeur": {
+    "holybro_18139": "https://holybro.com/products/power-distribution-board-pdb-300a-side-entry",
+    "holybro_18139_plan": "https://cdn.shopify.com/s/files/1/0604/5905/7341/files/PDB_XT90PW-F_600x600.jpg?v=1735277505",
+    "holybro_18139_step": "https://cdn.shopify.com/s/files/1/0604/5905/7341/files/pdb-xt90pw-f.stp?v=1741143461",
+    "holybro_18138": "https://holybro.com/products/power-distribution-board-pdb-300a",
+    "holybro_jetson": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+    "jst": "https://www.jst.com/wp-content/uploads/2021/08/eGH.pdf",
+    "basler_usb": "https://docs.baslerweb.com/a2a4096-30ucbas",
+    "basler_gige": "https://docs.baslerweb.com/a2a4096-9gcbas",
+    "basler_ptp": "https://docs.baslerweb.com/scheduled-action-commands",
+    "tycon_pse": "https://www.tyconsystems.com/products/tp-dcdc-1248gad/6026428000003330225"
+  }
+}

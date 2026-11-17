@@ -1,0 +1,784 @@
+{
+  "schema": "cartographe.reconstruction.recherche_groupes.v1",
+  "date": "2026-10-29",
+  "scope": "Investigation indépendante8groupes, données existantes+sources primaires; pas de FreeCAD exécuté par cet agent",
+  "framing": {
+    "problem": "Réduire dispersion/protéger sans modifier connectivité ni dégrader refroidissement/mobilité",
+    "priority": "ORCH-CAO-MASSE-1",
+    "baseline": "reconstruction_faisceaux/analyse_connectivite.json et dimensionnement_gaines.json",
+    "budget": "Une passe8groupes,3protections droites à évaluer enCAO, recherche primaire PM08/GNSS/protections/cuivre; arrêt après paramètres discriminants et inconnues explicites",
+    "reversibility": "Copie seule",
+    "stop_reason": "Données utiles extraites; profil mission et caractéristiques lot non publiées empêchent ampacité/thermique/CEM finales, sans empêcher géométrie conditionnelle"
+  },
+  "sources": [
+    {
+      "id": "HB-PM08",
+      "url": "https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "observations": "PM08 : fils silicone multibrins 8AWG, entrée7–60,9V,200A continu module,400A1s à25°C, température module−25/+85°C. Aucun rayon ni déclassement du faisceau gainé publié;200A ne vaut pas courant admissible des modifications."
+    },
+    {
+      "id": "HT-19",
+      "url": "https://www.hellermanntyton.com/products/open-woven-sleeves/twist-in-19-2-m/170-01014",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "observations": "Twist-In19-2m,170-01014,PET,ouvrable après terminaison,bundle16–19mm,paroi0,9mm."
+    },
+    {
+      "id": "HT-08",
+      "url": "https://www.hellermanntyton.de/produkte/gewebeschlaeuche-selbstschliessend/twist-in-08/170-01001",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "observations": "Twist-In08,170-01001,bundle5–8mm,paroi0,9mm,−50/+125°C; recommandation fabricant remplissage≤75%, définition géométrique à confirmer."
+    },
+    {
+      "id": "HT-CATALOG",
+      "url": "https://www.hellermanntyton.com/binaries/content/assets/downloads/com/product_catalogue/ht_cable_protection_systems_2026_com.pdf",
+      "page": 417,
+      "revision": "édition septembre2025 catalogue2026",
+      "accessed": "2026-10-29",
+      "observations": "Gamme ouvrable PET Twist-In destinée au rétrofit et à la protection abrasion.08:5–8mm;13:10–13mm;19:16–19mm. Température−50/+125°C. Ni blindage CEM, ni isolation primaire, ni essai de fatigue de cette application démontrés."
+    },
+    {
+      "id": "HB-GNSS",
+      "url": "https://docs.holybro.com/gps-and-rtk-system/f9p-h-rtk-series/dronecan-f9p/specification",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "observations": "DroneCAN F9P G4:4,75–5,25V,consommation typique~250mA,DroneCAN1Mbit/s,température−20/+85°C. Ces données équipement ne bornent ni fronts PPS ni courant crête du faisceau."
+    },
+    {
+      "id": "NBS-COPPER",
+      "url": "https://www.govinfo.gov/content/pkg/GOVPUB-C13-065d941b3da85fca6b466966977f1cb1/pdf/GOVPUB-C13-065d941b3da85fca6b466966977f1cb1.pdf",
+      "page": 14,
+      "accessed": "2026-10-29",
+      "revision": "Circular31 deuxième édition",
+      "observations": "Cuivre recuit standard: résistivité20°C=1/58Ωmm²/m; coefficient résistance0,00393/°C. Analogie de calcul, pas caractérisation conducteur OEM."
+    }
+  ],
+  "groups": [
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [
+        {
+          "id": "F38-tronc-droit",
+          "centerline_mm": [
+            [
+              -50,
+              -99,
+              52
+            ],
+            [
+              80,
+              -99,
+              52
+            ]
+          ],
+          "members": [
+            "F38_POS",
+            "F38_NEG"
+          ],
+          "member_diameters_mm": [
+            6.5,
+            6.5
+          ],
+          "center_spacing_mm": 10,
+          "inner_envelope_mm": 19,
+          "wall_mm": 0.9,
+          "reference": "170-01014",
+          "source_ref": "HT-19",
+          "geometry_class": "HYPOTHÈSE",
+          "wall_class": "DOCUMENTÉE",
+          "limitations": "Enveloppe annulaire lisse candidate; textile réel s'ajuste au bundle, recouvrement/couture non représentés. Tester collision et inclusion paroi. Ne pas appliquer aux coudes."
+        }
+      ],
+      "id": "PWR-QS8-IN",
+      "members": [
+        "F38_POS",
+        "F38_NEG"
+      ],
+      "selected_topology": "Tronçon droit commun exploratoire; branches et connecteurs séparés",
+      "decision_reason": "Même courant aller/retour. Réduire dispersion localement sans déplacer connecteurs. Gainage continu suspendu à thermique et rayon fournisseur.",
+      "wire_gauge": {
+        "value": 8,
+        "unit": "AWG",
+        "data_class": "DOCUMENTÉE",
+        "source": "HB-PM08",
+        "scope": "conducteur candidat",
+        "uncertainty": null
+      },
+      "voltage_nominal_V": {
+        "value": 22.2,
+        "unit": "V",
+        "data_class": "DOCUMENTÉE",
+        "source": "nomenclature_prototype ELEC-BAT",
+        "scope": "nominal pack6S",
+        "uncertainty": null
+      }
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [],
+      "id": "PWR-PM-PDB",
+      "members": [
+        "F05_POS",
+        "F05_NEG"
+      ],
+      "selected_topology": "Deux routes séparées; protections locales individuelles",
+      "decision_reason": "Axes historiques parallèles à24,75mm: enveloppe commune minimale31,25mm, hors dimensionnement initial14,53mm. Regrouper exige détour et nouvelles courbures près des bornes. Aucun bénéfice démontré face à séparation refroidie.",
+      "wire_gauge": {
+        "value": 8,
+        "unit": "AWG",
+        "data_class": "DOCUMENTÉE",
+        "source": "HB-PM08",
+        "scope": "conducteur candidat",
+        "uncertainty": null
+      },
+      "voltage_nominal_V": {
+        "value": 22.2,
+        "unit": "V",
+        "data_class": "DOCUMENTÉE",
+        "source": "nomenclature_prototype ELEC-BAT",
+        "scope": "nominal pack6S",
+        "uncertainty": null
+      }
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [],
+      "id": "PWR-BAT-PROTECTED",
+      "members": [
+        "F37_POS",
+        "F37_NEG"
+      ],
+      "selected_topology": "Branches séparées jusqu'au QS8; protection locale de sortie éventuelle",
+      "decision_reason": "Les lignes terminales voisines ont10mm d'entraxe mais les congés R10 réduisent le tronc commun droit à quelques millimètres. Ne pas allonger vers MIDI pour créer un tronc artificiel; ne jamais connecter C− au fusible ni au B− brut.",
+      "wire_gauge": {
+        "value": 8,
+        "unit": "AWG",
+        "data_class": "HYPOTHÈSE",
+        "source": "nomenclature_prototype ELEC-F37",
+        "scope": "conducteur candidat",
+        "uncertainty": null
+      },
+      "voltage_nominal_V": {
+        "value": 22.2,
+        "unit": "V",
+        "data_class": "DOCUMENTÉE",
+        "source": "nomenclature_prototype ELEC-BAT",
+        "scope": "nominal pack6S",
+        "uncertainty": null
+      }
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [
+        {
+          "id": "NTC-J7-court",
+          "centerline_mm": [
+            [
+              0,
+              35,
+              -16
+            ],
+            [
+              0,
+              41,
+              -16
+            ]
+          ],
+          "members": [
+            "NTC1",
+            "NTC2"
+          ],
+          "member_diameters_mm": [
+            1.8,
+            1.8
+          ],
+          "center_spacing_mm": 6,
+          "inner_envelope_mm": 8,
+          "wall_mm": 0.9,
+          "reference": "170-01001",
+          "source_ref": "HT-08",
+          "geometry_class": "HYPOTHÈSE",
+          "wall_class": "DOCUMENTÉE",
+          "limitations": "Seulement6mm; tolérance radiale très faible. Si collision/tenue insuffisante, conserver guide double ouvert et aucun gainage."
+        }
+      ],
+      "id": "SENSE-NTC",
+      "members": [
+        "NTC1",
+        "NTC2"
+      ],
+      "selected_topology": "Deux branches de sondes et protection courte commune près J7",
+      "decision_reason": "Ensemble doubleNTC OEM même fonction; préserver sondes exposées thermiquement et absence de pression sur softpack. Passage commun court seulement, mappingJ7 et réponse thermique non démontrés.",
+      "sensor_definition": {
+        "value": "doubleNTC10kΩ B3950±1%,250mm,HY2.0-4P",
+        "unit": null,
+        "data_class": "DOCUMENTÉE",
+        "source": "nomenclature_prototype ELEC-NTC avec réserves lot/J7",
+        "scope": "référence dossier, pas réception physique",
+        "uncertainty": null
+      }
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [],
+      "id": "TIME-ORIN",
+      "members": [
+        "F24A",
+        "F24B",
+        "F24C"
+      ],
+      "selected_topology": "Trois dérivations indépendantes, supports partageables sans gaine commune",
+      "decision_reason": "PPS passe nord/ouest, UART sud/ouest, référence3,3V est/CSI. Fonction commune ne prouve pas corridor commun. Tronc imposé augmente détour et maintenance. Garder références GND distinctes et absence réalimentation3,3V."
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [],
+      "id": "TIME-EXPOSURE",
+      "members": [
+        "F33",
+        "F35"
+      ],
+      "selected_topology": "Deux corridors indépendants trigger/capture",
+      "decision_reason": "Trajets existants nord et sud; fronts trigger et capture sensibles à diaphonie non bornée. Pas d'interdiction universelle de cohabiter, mais gaine commune non justifiée par les données."
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [
+        {
+          "id": "GNSS-court",
+          "centerline_mm": [
+            [
+              0,
+              82,
+              100
+            ],
+            [
+              0,
+              87,
+              100
+            ]
+          ],
+          "members": [
+            "F21",
+            "F36"
+          ],
+          "member_diameters_mm": [
+            3,
+            2.6
+          ],
+          "center_spacing_mm": 10,
+          "inner_envelope_mm": 13,
+          "wall_mm": 0.9,
+          "reference": "170-01013",
+          "source_ref": "HT-CATALOG",
+          "geometry_class": "HYPOTHÈSE",
+          "wall_class": "HYPOTHÈSE",
+          "limitations": "Paroi0,9mm analogie gamme à confirmer pour13; seulement5mm, ne garantit pas écart3mm sans séparateur. Préférer support double ouvert si pas gain matériel."
+        }
+      ],
+      "id": "GNSS-TIME",
+      "members": [
+        "F21",
+        "F36"
+      ],
+      "selected_topology": "Support commun avec deux canaux espacés; gaine commune courte variante de contrôle",
+      "decision_reason": "Conserver séparation locale3mm héritée du registre, origine CEM non démontrée. CAN+alimentation et PPS/UART restent distincts; aucun+5V vers CA01. Gaine PET seule ne maintient pas écart sans séparateur.",
+      "equipment_current_typical_A": {
+        "value": 0.25,
+        "unit": "A",
+        "data_class": "DOCUMENTÉE",
+        "source": "HB-GNSS",
+        "scope": "F21 équipement GNSS, typique non maximum",
+        "uncertainty": null
+      },
+      "voltage_operating_V": {
+        "value": [
+          4.75,
+          5.25
+        ],
+        "unit": "V",
+        "data_class": "DOCUMENTÉE",
+        "source": "HB-GNSS",
+        "scope": "GNSS",
+        "uncertainty": null
+      }
+    },
+    {
+      "compatibility_decision": "unknown",
+      "status": "CANDIDAT_CONDITIONNEL",
+      "current_continuous_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "current_peak_A": {
+        "value": null,
+        "unit": "A",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "thermal_derating": {
+        "value": null,
+        "unit": "1",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "groupement",
+        "uncertainty": null
+      },
+      "installed_temperature_C": {
+        "value": null,
+        "unit": "°C",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "mission",
+        "uncertainty": null
+      },
+      "shield_termination": {
+        "value": null,
+        "unit": null,
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "montage",
+        "uncertainty": null
+      },
+      "mass_g": {
+        "value": null,
+        "unit": "g",
+        "data_class": "INCONNUE",
+        "source": null,
+        "scope": "câbles+protections",
+        "uncertainty": null
+      },
+      "straight_protection_candidates": [],
+      "id": "CAMERA-PROTECTION",
+      "members": [
+        "F16",
+        "F_M8"
+      ],
+      "selected_topology": "Deux boucles mobiles indépendantes; protections fixes locales seulement",
+      "decision_reason": "Connecteurs/orientations différents, rayons dynamiques48/52mm, rigidité suspension inconnue. Une gaine commune mobile couplerait rigidité/torsion et éloignerait axes. Rejeter cette topologie sur présente passe; renvoyer étude F16/suspension."
+    }
+  ],
+  "global_incompatibilities": [
+    {
+      "constraint_class": "IMPÉRATIVE",
+      "rule": "Aucune fusion de conducteurs ou suppression de retours; identité électrique et bornes inchangées",
+      "source": "skill et nomenclature_prototype"
+    },
+    {
+      "constraint_class": "IMPÉRATIVE",
+      "rule": "Frontière B−brut/C−protégé et fusibleB+ conservée",
+      "source": "ELEC-F37 et contrat électrique"
+    },
+    {
+      "constraint_class": "HÉRITÉE",
+      "rule": "F21/F36 au moins3mm hors prises; garder provisoirement, pas garantieCEM",
+      "source": "configuration_faisceau_haut_prototype.json limitesF36"
+    },
+    {
+      "constraint_class": "MODIFIABLE",
+      "rule": "Gaines/supports/longueurs modifiables sur copie; toute variante reconfronte rayons,efforts,thermique et collisions",
+      "source": "autorisation utilisateur"
+    }
+  ],
+  "electrical_scenarios": {
+    "data_class": "HYPOTHÈSE",
+    "current_A": [
+      20,
+      50,
+      100
+    ],
+    "conductor_temperature_C": [
+      20,
+      80
+    ],
+    "section": "AWG8 géométrique nominal, formule d=0,127×92^((36−8)/39)mm",
+    "resistivity_source": "NBS-COPPER",
+    "formula": "Rconducteurs=rho20(1+alpha(T−20))×ΣL/S; ΔV=I×R; P=I²R",
+    "scope": "Trois paires puissance, longueurscourbes historiques; aller+retour chacun une fois. Contacts absents du calcul, contribution inconnue et total null. Ni fils réellement mesurés ni conditions admissibles. Aucun calcul thermique d'équilibre."
+  },
+  "recommended_cad_checks": [
+    "Tester trois tronçons sur copie avec parois distinctes des réservations pleines; erreurs booléennes restentunknown.",
+    "Vérifier inclusion de chaque axe/solide et collisions paroi/obstacles; modifier tronçon ou revenir doubleguide.",
+    "Ne pas déclarer huit faisceaux regroupés: cinq topologies séparées retenues, trois protections courtes candidates seulement.",
+    "Courbure fournisseur des fils puissance/NTC/signaux inconnue; aucun rayon historique converti en spécification."
+  ],
+  "remaining_questions_for_final_validation": [
+    "Références et diamètre mesuré des fils effectivement montés, rayon fabricant et température admissible.",
+    "Profil RMS/crêtes mission et résistances de contacts pour dimensionnement thermique.",
+    "Cartographie J7/retours/blindages, fonctionnement CEM et endurance de montage."
+  ],
+  "design_decisions": [
+    {
+      "id": "GROUP-AUTONOMY-01",
+      "decision": "Ne pas forcer huit gaines sur huit groupes fonctionnels; sélectionner tronçons communs réellement proches et conserver cinq groupes séparés.",
+      "confidence": "moyenne pour topologie, faible pour tenue physique",
+      "selected_candidate_id": "groupes_separes_et_protections_locales",
+      "statuses": [
+        "CANDIDAT_CONDITIONNEL",
+        "VALIDATION_PHYSIQUE_REQUISE"
+      ],
+      "variants": [
+        "baseline_separee",
+        "huit_gaines_fonctionnelles_rejetees",
+        "trois_troncons_droits_exploratoires"
+      ],
+      "remaining_checks": [
+        "CalculC++",
+        "CAO finale parent",
+        "thermique,CEM,montage physique"
+      ]
+    }
+  ]
+}

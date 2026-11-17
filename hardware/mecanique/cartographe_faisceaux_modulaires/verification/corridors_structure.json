@@ -1,0 +1,2854 @@
+{
+  "schema": "cartographe.corridors-structure.v1",
+  "périmètre": "Investigation indépendante à partir du candidat refonte sauvegardé. Les variantes BRep sont calculées en mémoire. Les références ci-dessous sont nominales et dans le repère global du prototype.",
+  "configuration": "prototype_cartographe",
+  "classe_cotes": "MESURÉE en CAO et CALCULÉE pour variantes; validation matérielle inconnue.",
+  "contexte": {
+    "priorité": "ORCH-CAO-MASSE-1 / CAB-CARTO-001",
+    "budget": "Deux variantes locales sur chant P64, une pince locale P68 et comparaison des interfaces existantes; aucune fabrication ou modification des platines.",
+    "signal": "Ancrage nommé, forme locale valide, contrôle géométrique nominal, accès et dépose explicites.",
+    "arrêt": "Une fois mesurée l’enveloppe des solutions locales, garder les conditions mécaniques indémontrables et préparer les essais de friction, accès et durabilité."
+  },
+  "entrées_sha256": {
+    "hardware/mecanique/cartographe_faisceaux_refonte/verification/construction_prototype.json": "87e83f58c1faad08bad51c9b997dd815821c30062603f333ce29b547a8e7d3f4",
+    "hardware/mecanique/cartographe_faisceaux_refonte/verification/routes_prototype.json": "75a047c82b075e7c48040bbf1d2efc279ff47da4f8e3b4bffc213a390e742bb3",
+    "hardware/mecanique/cartographe_faisceaux_refonte/verification/read_brep_prototype.py": "36320d6ebeb21a824385763e9b7418151fbe5de3cbbad9144b7aef17db3aa063"
+  },
+  "freecad": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "alternatives": [
+    {
+      "id": "SUPERSTRUCTURE",
+      "verdict": "ÉCARTÉE",
+      "raison": "Les rails et cages répliquent des liaisons structurelles. Une prise n’impose pas une nouvelle structure entre deux niveaux."
+    },
+    {
+      "id": "ANCRAGES_EXISTANTS",
+      "verdict": "CANDIDAT_CONDITIONNEL",
+      "raison": "Ligaments de P64, trous P66, colonnes P68, tube OEM, supports d’équipements P69/P70/P71; une retenue sur deux équipements démontables séparément est écartée."
+    },
+    {
+      "id": "PINCES_LOCALES",
+      "verdict": "CANDIDAT_CONDITIONNEL",
+      "raison": "Deux pinces F38 là où il manque un appui à proximité, une pince F12 comme essai d’interface; chaque nouveau corps appartient à une seule structure et a une direction de retrait."
+    }
+  ],
+  "modules_candidats": [
+    {
+      "id": "PACK",
+      "parcours_CAO": [
+        "F01_NEG",
+        "F01_POS",
+        "F37_POS",
+        "F37_NEG",
+        "BALANCE",
+        "NTC1",
+        "NTC2"
+      ],
+      "montage_et_dépose": "P60/P62. Préparer sur le pack les mesures cellule et température avec étiquettes. Monter le pack, connecter BMS et fusible, puis coupure QS8 accessible. Dépose avec coupure, déconnexion et maintien des sondes repérées.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "DISTRIBUTION",
+      "parcours_CAO": [
+        "F38_POS",
+        "F38_NEG",
+        "F05_POS",
+        "F05_NEG",
+        "F08_AMONT",
+        "F08_AVAL"
+      ],
+      "montage_et_dépose": "Chant sud P64 et tronçon ouvrable F38. Poser les deux pinces depuis le sud avant de présenter les câbles; serrer par dessous, poser la paire et refermer la gaine puis les bandes; accès permanent au fusible F08. Dépose de F38 après ouverture des bandes puis de la gaine.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "UART_ISOLE",
+      "parcours_CAO": [
+        "F40",
+        "F41"
+      ],
+      "montage_et_dépose": "Deux cordons indépendants aux côtés isolés de l’interface. Connecter après montage du support d’isolateur. Réserve USB accessible depuis son équipement; ouverture locale et extraction côté USB. Rayon, volume de mou et rétention du cordon restent à établir.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "AIRY",
+      "parcours_CAO": [
+        "AIRY",
+        "AIRY_ETH",
+        "AIRY_PWR",
+        "AIRY_SYNC"
+      ],
+      "montage_et_dépose": "Introduire le cordon Airy avec le bloc suspendu et raccorder les trois branches en dernier. La jonction appartient au cordon OEM, conditionnée par référence et enveloppe physique. Déposer en débranchant les trois branches avant la platine.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "CAMERA",
+      "parcours_CAO": [
+        "F16",
+        "F_M8"
+      ],
+      "montage_et_dépose": "Poser les deux fiches coudées avant mise en place du bloc suspendu. Raccorder le fixe après fermeture mécanique avec une boucle par cordon; déconnecter côté fixe avant dépose du bloc. Les routes nominales gardent les rayons hérités; mouvement et nouvelle limite fixe non établis.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "AVIONIQUE",
+      "parcours_CAO": [
+        "F06",
+        "F32",
+        "F31",
+        "F12",
+        "F24A",
+        "F24B",
+        "F24C",
+        "F33",
+        "F35"
+      ],
+      "montage_et_dépose": "Tenir F06 et F32 séparés; laisser libres les verrous à chaque carte. Monter le clip F12 par le nord de P68_3 avant d’y pousser le câble si le site est retenu. Brancher les cartes puis poser les retenues latérales. Dépose câble par câble avec outillage à confirmer.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "SECURITE",
+      "parcours_CAO": [
+        "F25"
+      ],
+      "montage_et_dépose": "Le support P71 porte l’équipement. Présenter le cordon sur son bord libre et conserver accès et déconnexion indépendante.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "CALCUL",
+      "parcours_CAO": [
+        "F09",
+        "F20"
+      ],
+      "montage_et_dépose": "Brancher XT30 et ventilateur indépendamment; présenter le ventilateur après raccordement si l’accès le requiert. Écarter la petite branche de la grille et dégager le ventilateur par déconnexion propre.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "GNSS",
+      "parcours_CAO": [
+        "F21",
+        "F36"
+      ],
+      "montage_et_dépose": "P69 et coin nord-est de P66, cordons indépendants; connecter les deux extrémités avant fermeture par le côté GNSS. Libérer côté GNSS, puis côté avionique. Le jeu des fiches et l’interface SMA restent ouverts.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "RF",
+      "parcours_CAO": [
+        "F13A",
+        "F13B"
+      ],
+      "montage_et_dépose": "P70 reste support d’antenne. Brancher le coaxial puis maintenir sans pincement par la retenue locale existante si ancrage réel confirmé; débrancher en tenant la fiche.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "BRAS_1",
+      "parcours_CAO": [
+        "F02_1",
+        "F03_1",
+        "F04_1",
+        "LED_1"
+      ],
+      "montage_et_dépose": "Passer le signal par les lumières P64 avant fermeture du plateau. Installer le bras et les selles sur le tube, poser séparément puissance amont, phases, commande et LED; fermer les colliers avec têtes accessibles. Ouvrir les colliers et déconnecter avant repli/dépose; aucun cordon ne doit servir de butée.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "BRAS_2",
+      "parcours_CAO": [
+        "F02_2",
+        "F03_2",
+        "F04_2",
+        "LED_2"
+      ],
+      "montage_et_dépose": "Passer le signal par les lumières P64 avant fermeture du plateau. Installer le bras et les selles sur le tube, poser séparément puissance amont, phases, commande et LED; fermer les colliers avec têtes accessibles. Ouvrir les colliers et déconnecter avant repli/dépose; aucun cordon ne doit servir de butée.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "BRAS_3",
+      "parcours_CAO": [
+        "F02_3",
+        "F03_3",
+        "F04_3",
+        "LED_3"
+      ],
+      "montage_et_dépose": "Passer le signal par les lumières P64 avant fermeture du plateau. Installer le bras et les selles sur le tube, poser séparément puissance amont, phases, commande et LED; fermer les colliers avec têtes accessibles. Ouvrir les colliers et déconnecter avant repli/dépose; aucun cordon ne doit servir de butée.",
+      "maturité": "À valider"
+    },
+    {
+      "id": "BRAS_4",
+      "parcours_CAO": [
+        "F02_4",
+        "F03_4",
+        "F04_4",
+        "LED_4"
+      ],
+      "montage_et_dépose": "Passer le signal par les lumières P64 avant fermeture du plateau. Installer le bras et les selles sur le tube, poser séparément puissance amont, phases, commande et LED; fermer les colliers avec têtes accessibles. Ouvrir les colliers et déconnecter avant repli/dépose; aucun cordon ne doit servir de butée.",
+      "maturité": "À valider"
+    }
+  ],
+  "audit_partition": {
+    "parcours": 53,
+    "doublons": 0,
+    "manquants": 0,
+    "source": "verification/routes_prototype.json du candidat refonte; ce contrôle concerne les identifiants de parcours, distincts de la connectivité électrique complète."
+  },
+  "structure": {
+    "Semelle": {
+      "parent": "SA02_Prototype_Batterie",
+      "source": "pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd",
+      "bbox": [
+        -110.0,
+        -48.0,
+        -90.0,
+        110.0,
+        48.0,
+        -87.0
+      ],
+      "volume": 60331.2874
+    },
+    "PlateauBMS": {
+      "parent": "SA02_Prototype_Batterie",
+      "source": "pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd",
+      "bbox": [
+        -85.0,
+        -48.0,
+        -24.0,
+        85.0,
+        48.0,
+        -22.0
+      ],
+      "volume": 32479.6602
+    },
+    "Isolation": {
+      "parent": "SA03_Prototype_Energie",
+      "source": "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd",
+      "bbox": [
+        -94.0,
+        -88.0,
+        36.2,
+        94.0,
+        88.0,
+        39.0
+      ],
+      "volume": 88452.6811
+    },
+    "PlatineAluminium": {
+      "parent": "SA04_Prototype_Perception",
+      "source": "pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd",
+      "bbox": [
+        -85.0,
+        -56.0,
+        -151.0,
+        105.0,
+        56.0,
+        -126.0
+      ],
+      "volume": 98776.3323
+    },
+    "Interface": {
+      "parent": "SA05_Prototype_Avionique",
+      "source": "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd",
+      "bbox": [
+        -70.0,
+        -47.0,
+        85.0,
+        70.0,
+        47.0,
+        88.0
+      ],
+      "volume": 39144.851
+    },
+    "SupportGNSS": {
+      "parent": "SA06_Prototype_Navigation",
+      "source": "pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd",
+      "bbox": [
+        -48.0,
+        15.0,
+        88.0,
+        48.0,
+        135.0,
+        91.0
+      ],
+      "volume": 17010.6823
+    },
+    "SupportRF0": {
+      "parent": "SA06_Prototype_Navigation",
+      "source": "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+      "bbox": [
+        -85.0,
+        13.0,
+        103.0,
+        -67.0,
+        34.0,
+        110.0
+      ],
+      "volume": 1157.9
+    },
+    "SupportRF1": {
+      "parent": "SA06_Prototype_Navigation",
+      "source": "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd",
+      "bbox": [
+        -85.0,
+        -30.0,
+        103.0,
+        -67.0,
+        -9.0,
+        110.0
+      ],
+      "volume": 1157.9
+    },
+    "SupportSecurite": {
+      "parent": "SA06_Prototype_Navigation",
+      "source": "pieces/fabriquees/P71_Support_Securite_Prototype.FCStd",
+      "bbox": [
+        -48.0,
+        -115.0,
+        88.0,
+        48.0,
+        -24.0,
+        91.0
+      ],
+      "volume": 8285.0221
+    }
+  },
+  "interfaces": {
+    "P64_ligaments_F04": {
+      "classe": "DOCUMENTÉE et observée dans la CAO",
+      "source": "hardware/mecanique/cartographe/verification/prototype_retenues_departs.py#energy_departure_interfaces",
+      "axes_mm": [
+        [
+          -80.2667,
+          -72,
+          40.4
+        ],
+        [
+          74.6667,
+          68,
+          40.4
+        ],
+        [
+          -76,
+          74,
+          40.4
+        ],
+        [
+          76,
+          -74,
+          40.4
+        ]
+      ],
+      "tangentes_xy": [
+        [
+          8,
+          -30
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      "accès": "Montage par dessous avant fermeture du plateau. Pas de perçage; contrôler tête, ligament G10 et abrasion. Chaque station reçoit un collier indépendant."
+    },
+    "P66_coins": {
+      "classe": "MESURÉE",
+      "alésages_mm": [
+        [
+          -66,
+          -43,
+          88
+        ],
+        [
+          -66,
+          43,
+          88
+        ],
+        [
+          66,
+          -43,
+          88
+        ],
+        [
+          66,
+          43,
+          88
+        ]
+      ],
+      "diamètre_mm": 3.2,
+      "fraisure_sous_face_diamètre_mm": 6.92,
+      "accès": "Les logements libérés par P75 peuvent porter des oreilles à proximité. Pas de cage ni de longues pattes."
+    },
+    "bras_OEM": {
+      "classe": "DOCUMENTÉE",
+      "tube_d_mm": 20,
+      "stations_radiales_mm": [
+        180,
+        250,
+        280
+      ],
+      "repère_tube_z_mm": 16.5,
+      "pièces": [
+        "P79_Selle_Bras_Amont_Prototype",
+        "P80_Selle_Bras_Aval_Prototype"
+      ],
+      "occurrences": 12,
+      "fabrication": "TPU95A candidat, selle de largeur 8 mm et collier T50R par occurrence, face et gorges adaptées aux faisceaux locaux. Maintien, fluage, tête du collier et repli à vérifier sur matériel.",
+      "source": "hardware/mecanique/cartographe/verification/controle_selles_bras_prototype.json"
+    },
+    "P62_NTC": {
+      "classe": "MESURÉE",
+      "distance_axe_chant_mm": 1.1,
+      "jeu_surface_nominal_mm": 0.2,
+      "accès": "Les deux sondes restent distinctes. Examiner d’abord l’interface de chant locale et la protection individuelle avant de prescrire une gaine commune de seulement 9 mm."
+    },
+    "F38": {
+      "classe": "MESURÉE",
+      "axes_distincts_y_mm": [
+        -104,
+        -94
+      ],
+      "axes_z_mm": 52,
+      "gaine_candidate_x_mm": [
+        -40,
+        65
+      ],
+      "paroi_nominale_mm": 0.9,
+      "fabrication": "Gaine textile ouvrable mise en place latéralement après passage des terminaisons; tenue thermique, recouvrement et matière à vérifier. Le contrôle utilise la paroi idéale sauvegardée."
+    }
+  },
+  "proximité_axes": {
+    "PlateauBMS": [
+      {
+        "route": "NTC1",
+        "distance_mm": 1.1,
+        "point_a": [
+          -26.0,
+          48.0,
+          -23.0
+        ],
+        "point_b": [
+          -26.0,
+          49.1,
+          -23.0
+        ]
+      },
+      {
+        "route": "NTC2",
+        "distance_mm": 1.1,
+        "point_a": [
+          26.0,
+          48.0,
+          -23.0
+        ],
+        "point_b": [
+          26.0,
+          49.1,
+          -23.0
+        ]
+      },
+      {
+        "route": "F01_NEG",
+        "distance_mm": 6.0,
+        "point_a": [
+          -80.0,
+          26.0,
+          -22.0
+        ],
+        "point_b": [
+          -80.0,
+          26.0,
+          -16.0
+        ]
+      },
+      {
+        "route": "F37_NEG",
+        "distance_mm": 6.0,
+        "point_a": [
+          66.25,
+          20.0,
+          -22.0
+        ],
+        "point_b": [
+          66.25,
+          20.0,
+          -16.0
+        ]
+      },
+      {
+        "route": "BALANCE",
+        "distance_mm": 6.0,
+        "point_a": [
+          -44.0,
+          37.0,
+          -22.0
+        ],
+        "point_b": [
+          -44.0,
+          37.0,
+          -16.0
+        ]
+      },
+      {
+        "route": "F40",
+        "distance_mm": 9.0,
+        "point_a": [
+          -66.25,
+          -10.0,
+          -22.0
+        ],
+        "point_b": [
+          -66.25,
+          -10.0,
+          -13.0
+        ]
+      },
+      {
+        "route": "F01_POS",
+        "distance_mm": 17.0,
+        "point_a": [
+          20.0,
+          -44.0,
+          -22.0
+        ],
+        "point_b": [
+          20.0,
+          -44.0,
+          -5.0
+        ]
+      }
+    ],
+    "P64_chant_sud_x-30": [
+      {
+        "route": "F38_POS",
+        "distance_mm": 14.3178,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -30.0,
+          -94.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F38_NEG",
+        "distance_mm": 20.6155,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -30.0,
+          -104.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F31",
+        "distance_mm": 31.8904,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -18.0,
+          -76.0,
+          66.0
+        ]
+      },
+      {
+        "route": "F32",
+        "distance_mm": 32.5115,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -28.0,
+          -70.0,
+          66.0
+        ]
+      },
+      {
+        "route": "F06",
+        "distance_mm": 38.3275,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -38.0,
+          -62.0,
+          66.0
+        ]
+      },
+      {
+        "route": "F05_POS",
+        "distance_mm": 42.2434,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          6.0,
+          -73.75,
+          55.8951
+        ]
+      },
+      {
+        "route": "LED_1",
+        "distance_mm": 46.2709,
+        "point_a": [
+          -30.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -75.0,
+          -78.0,
+          43.0
+        ]
+      }
+    ],
+    "P64_chant_sud_x20": [
+      {
+        "route": "F38_POS",
+        "distance_mm": 14.3178,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          20.0,
+          -94.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F38_NEG",
+        "distance_mm": 20.6155,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          20.0,
+          -104.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F05_POS",
+        "distance_mm": 24.7231,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          10.7051,
+          -73.5878,
+          56.8079
+        ]
+      },
+      {
+        "route": "F08_AMONT",
+        "distance_mm": 28.1707,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          34.7012,
+          -69.7556,
+          54.6398
+        ]
+      },
+      {
+        "route": "F02_4",
+        "distance_mm": 44.3413,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          62.4058,
+          -76.2975,
+          44.5635
+        ]
+      },
+      {
+        "route": "F05_NEG",
+        "distance_mm": 47.5408,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          8.9014,
+          -45.25,
+          56.5894
+        ]
+      },
+      {
+        "route": "F31",
+        "distance_mm": 48.1352,
+        "point_a": [
+          20.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          -18.0,
+          -76.0,
+          66.0
+        ]
+      }
+    ],
+    "P64_chant_sud_x35": [
+      {
+        "route": "F38_POS",
+        "distance_mm": 14.3178,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          35.0,
+          -94.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F38_NEG",
+        "distance_mm": 20.6155,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          35.0,
+          -104.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F08_AMONT",
+        "distance_mm": 23.7658,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          35.5005,
+          -69.0806,
+          53.3743
+        ]
+      },
+      {
+        "route": "F02_4",
+        "distance_mm": 30.2416,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          62.7525,
+          -77.2768,
+          44.4186
+        ]
+      },
+      {
+        "route": "F05_POS",
+        "distance_mm": 32.6846,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          13.4937,
+          -73.251,
+          58.7035
+        ]
+      },
+      {
+        "route": "F04_4",
+        "distance_mm": 41.0841,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          76.0065,
+          -85.9007,
+          40.4
+        ]
+      },
+      {
+        "route": "LED_4",
+        "distance_mm": 41.4246,
+        "point_a": [
+          35.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          75.0,
+          -78.0,
+          43.0
+        ]
+      }
+    ],
+    "P64_chant_sud_x65": [
+      {
+        "route": "F02_4",
+        "distance_mm": 7.8206,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          68.207,
+          -82.9131,
+          44.0
+        ]
+      },
+      {
+        "route": "F04_4",
+        "distance_mm": 11.2598,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          76.0533,
+          -86.3731,
+          40.4
+        ]
+      },
+      {
+        "route": "F38_POS",
+        "distance_mm": 14.3178,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          65.0,
+          -94.0,
+          52.0
+        ]
+      },
+      {
+        "route": "LED_4",
+        "distance_mm": 14.6969,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          75.0,
+          -78.0,
+          43.0
+        ]
+      },
+      {
+        "route": "F38_NEG",
+        "distance_mm": 20.6155,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          65.0,
+          -104.0,
+          52.0
+        ]
+      },
+      {
+        "route": "F08_AMONT",
+        "distance_mm": 35.8469,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          65.0,
+          -70.0,
+          70.0
+        ]
+      },
+      {
+        "route": "F05_POS",
+        "distance_mm": 42.3236,
+        "point_a": [
+          65.0,
+          -88.0,
+          39.0
+        ],
+        "point_b": [
+          61.0953,
+          -69.778,
+          77.0
+        ]
+      }
+    ],
+    "P66_trou_-66_-43": [
+      {
+        "route": "F02_1",
+        "distance_mm": 9.8489,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -70.0,
+          -43.0,
+          79.0
+        ]
+      },
+      {
+        "route": "F08_AVAL",
+        "distance_mm": 17.0,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -66.0,
+          -35.0,
+          73.0
+        ]
+      },
+      {
+        "route": "F04_1",
+        "distance_mm": 23.4307,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -84.0,
+          -58.0,
+          88.0
+        ]
+      },
+      {
+        "route": "F06",
+        "distance_mm": 24.5304,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -65.7127,
+          -62.0,
+          72.4868
+        ]
+      },
+      {
+        "route": "F32",
+        "distance_mm": 31.1533,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -65.778,
+          -70.0,
+          72.4603
+        ]
+      },
+      {
+        "route": "F38_NEG",
+        "distance_mm": 33.1646,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -59.4517,
+          -45.6174,
+          55.5938
+        ]
+      },
+      {
+        "route": "F13B",
+        "distance_mm": 34.7707,
+        "point_a": [
+          -66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          -71.0,
+          -15.0,
+          108.0
+        ]
+      }
+    ],
+    "P66_trou_-66_43": [
+      {
+        "route": "F04_3",
+        "distance_mm": 25.0799,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -76.0,
+          66.0,
+          88.0
+        ]
+      },
+      {
+        "route": "F13A",
+        "distance_mm": 30.0666,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -50.0,
+          25.0,
+          106.0
+        ]
+      },
+      {
+        "route": "F24A",
+        "distance_mm": 32.323,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -65.5696,
+          54.7732,
+          118.0996
+        ]
+      },
+      {
+        "route": "F13B",
+        "distance_mm": 33.6745,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -61.4396,
+          14.9205,
+          106.0199
+        ]
+      },
+      {
+        "route": "AIRY_SYNC",
+        "distance_mm": 38.2753,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -66.0,
+          64.0,
+          120.0
+        ]
+      },
+      {
+        "route": "AIRY",
+        "distance_mm": 39.5767,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -87.4754,
+          64.0,
+          113.7705
+        ]
+      },
+      {
+        "route": "AIRY_ETH",
+        "distance_mm": 40.7554,
+        "point_a": [
+          -66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          -80.0,
+          64.0,
+          120.0
+        ]
+      }
+    ],
+    "P66_trou_66_-43": [
+      {
+        "route": "F05_POS",
+        "distance_mm": 11.4018,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          69.0,
+          -43.0,
+          77.0
+        ]
+      },
+      {
+        "route": "F25",
+        "distance_mm": 13.396,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          59.2344,
+          -47.9554,
+          98.4462
+        ]
+      },
+      {
+        "route": "F24B",
+        "distance_mm": 18.1914,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          74.0,
+          -39.1716,
+          103.883
+        ]
+      },
+      {
+        "route": "F35",
+        "distance_mm": 22.5242,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          70.0,
+          -40.5522,
+          110.0306
+        ]
+      },
+      {
+        "route": "F08_AMONT",
+        "distance_mm": 23.4307,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          81.0,
+          -43.0,
+          70.0
+        ]
+      },
+      {
+        "route": "F05_NEG",
+        "distance_mm": 23.7943,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          44.9826,
+          -41.1455,
+          77.0
+        ]
+      },
+      {
+        "route": "F04_4",
+        "distance_mm": 25.0799,
+        "point_a": [
+          66.0,
+          -43.0,
+          88.0
+        ],
+        "point_b": [
+          76.0,
+          -66.0,
+          88.0
+        ]
+      }
+    ],
+    "P66_trou_66_43": [
+      {
+        "route": "F21",
+        "distance_mm": 12.0727,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          62.6939,
+          51.0,
+          96.4155
+        ]
+      },
+      {
+        "route": "F04_2",
+        "distance_mm": 17.0,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          74.0,
+          58.0,
+          88.0
+        ]
+      },
+      {
+        "route": "F24A",
+        "distance_mm": 20.1735,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          72.0,
+          32.9056,
+          104.4034
+        ]
+      },
+      {
+        "route": "F12",
+        "distance_mm": 26.0,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          66.0,
+          43.0,
+          114.0
+        ]
+      },
+      {
+        "route": "F_M8",
+        "distance_mm": 27.7435,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          44.9676,
+          50.9353,
+          104.2596
+        ]
+      },
+      {
+        "route": "AIRY_SYNC",
+        "distance_mm": 30.545,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          65.0,
+          17.0,
+          104.0
+        ]
+      },
+      {
+        "route": "F24C",
+        "distance_mm": 33.2866,
+        "point_a": [
+          66.0,
+          43.0,
+          88.0
+        ],
+        "point_b": [
+          66.0,
+          61.0,
+          116.0
+        ]
+      }
+    ],
+    "SupportGNSS": [
+      {
+        "route": "F21",
+        "distance_mm": 5.0,
+        "point_a": [
+          -2.0,
+          51.0,
+          91.0
+        ],
+        "point_b": [
+          -2.0,
+          51.0,
+          96.0
+        ]
+      },
+      {
+        "route": "F36",
+        "distance_mm": 9.0,
+        "point_a": [
+          5.0,
+          91.0,
+          91.0
+        ],
+        "point_b": [
+          5.0,
+          91.0,
+          100.0
+        ]
+      },
+      {
+        "route": "F12",
+        "distance_mm": 12.5,
+        "point_a": [
+          -12.5,
+          41.0,
+          91.0
+        ],
+        "point_b": [
+          -16.0,
+          41.0,
+          103.0
+        ]
+      },
+      {
+        "route": "F33",
+        "distance_mm": 12.816,
+        "point_a": [
+          12.5,
+          41.0,
+          91.0
+        ],
+        "point_b": [
+          17.0,
+          41.0,
+          103.0
+        ]
+      },
+      {
+        "route": "F24C",
+        "distance_mm": 13.8924,
+        "point_a": [
+          27.0,
+          34.0,
+          91.0
+        ],
+        "point_b": [
+          27.0,
+          41.0,
+          103.0
+        ]
+      },
+      {
+        "route": "F_M8",
+        "distance_mm": 15.0,
+        "point_a": [
+          41.0,
+          34.0,
+          91.0
+        ],
+        "point_b": [
+          41.0,
+          43.0,
+          103.0
+        ]
+      },
+      {
+        "route": "F13A",
+        "distance_mm": 15.1327,
+        "point_a": [
+          -48.0,
+          25.0,
+          91.0
+        ],
+        "point_b": [
+          -50.0,
+          25.0,
+          106.0
+        ]
+      }
+    ],
+    "SupportRF0": [
+      {
+        "route": "F13B",
+        "distance_mm": 1.1438,
+        "point_a": [
+          -67.0,
+          13.0,
+          106.0
+        ],
+        "point_b": [
+          -66.2316,
+          12.4437,
+          106.6391
+        ]
+      },
+      {
+        "route": "F13A",
+        "distance_mm": 9.6383,
+        "point_a": [
+          -67.0,
+          21.7752,
+          106.0
+        ],
+        "point_b": [
+          -63.447,
+          21.7752,
+          114.9595
+        ]
+      },
+      {
+        "route": "AIRY_PWR",
+        "distance_mm": 16.1557,
+        "point_a": [
+          -82.0,
+          24.0,
+          110.0
+        ],
+        "point_b": [
+          -88.0,
+          24.4876,
+          124.9923
+        ]
+      },
+      {
+        "route": "F24A",
+        "distance_mm": 16.8244,
+        "point_a": [
+          -78.0,
+          24.0,
+          110.0
+        ],
+        "point_b": [
+          -72.5,
+          24.0,
+          125.9
+        ]
+      },
+      {
+        "route": "F09",
+        "distance_mm": 18.0278,
+        "point_a": [
+          -67.0,
+          13.0,
+          106.0
+        ],
+        "point_b": [
+          -61.0,
+          -4.0,
+          106.0
+        ]
+      },
+      {
+        "route": "F41",
+        "distance_mm": 28.7052,
+        "point_a": [
+          -85.0,
+          34.0,
+          106.0
+        ],
+        "point_b": [
+          -112.0,
+          35.2419,
+          115.6668
+        ]
+      },
+      {
+        "route": "AIRY",
+        "distance_mm": 30.9365,
+        "point_a": [
+          -85.0,
+          34.0,
+          106.0
+        ],
+        "point_b": [
+          -89.8361,
+          64.0,
+          111.8033
+        ]
+      }
+    ],
+    "SupportRF1": [
+      {
+        "route": "F13B",
+        "distance_mm": 2.0,
+        "point_a": [
+          -71.0,
+          -9.0,
+          106.0
+        ],
+        "point_b": [
+          -71.0,
+          -9.0,
+          108.0
+        ]
+      },
+      {
+        "route": "F08_AVAL",
+        "distance_mm": 6.0,
+        "point_a": [
+          -67.0,
+          -22.0,
+          106.0
+        ],
+        "point_b": [
+          -61.0,
+          -22.0,
+          106.0
+        ]
+      },
+      {
+        "route": "F09",
+        "distance_mm": 7.8102,
+        "point_a": [
+          -67.0,
+          -9.0,
+          106.0
+        ],
+        "point_b": [
+          -61.0,
+          -4.0,
+          106.0
+        ]
+      },
+      {
+        "route": "AIRY_PWR",
+        "distance_mm": 17.4611,
+        "point_a": [
+          -82.0,
+          -19.0,
+          110.0
+        ],
+        "point_b": [
+          -88.0,
+          -18.467,
+          126.3892
+        ]
+      },
+      {
+        "route": "F02_1",
+        "distance_mm": 24.0,
+        "point_a": [
+          -70.0,
+          -30.0,
+          103.0
+        ],
+        "point_b": [
+          -70.0,
+          -30.0,
+          79.0
+        ]
+      },
+      {
+        "route": "F04_1",
+        "distance_mm": 28.0,
+        "point_a": [
+          -84.0,
+          -30.0,
+          106.0
+        ],
+        "point_b": [
+          -84.0,
+          -58.0,
+          106.0
+        ]
+      },
+      {
+        "route": "F41",
+        "distance_mm": 30.9971,
+        "point_a": [
+          -85.0,
+          -9.0,
+          106.0
+        ],
+        "point_b": [
+          -112.0,
+          -7.0599,
+          121.1014
+        ]
+      }
+    ],
+    "SupportSecurite": [
+      {
+        "route": "F25",
+        "distance_mm": 7.5,
+        "point_a": [
+          0.0,
+          -86.0,
+          90.0
+        ],
+        "point_b": [
+          0.0,
+          -86.0,
+          97.5
+        ]
+      },
+      {
+        "route": "F02_1",
+        "distance_mm": 9.8489,
+        "point_a": [
+          -48.0,
+          -24.0,
+          88.0
+        ],
+        "point_b": [
+          -48.0,
+          -20.0,
+          79.0
+        ]
+      },
+      {
+        "route": "F05_NEG",
+        "distance_mm": 11.0,
+        "point_a": [
+          45.0,
+          -34.0,
+          88.0
+        ],
+        "point_b": [
+          45.0,
+          -34.0,
+          77.0
+        ]
+      },
+      {
+        "route": "AIRY_PWR",
+        "distance_mm": 14.0,
+        "point_a": [
+          3.0,
+          -40.0,
+          91.0
+        ],
+        "point_b": [
+          3.0,
+          -40.0,
+          105.0
+        ]
+      },
+      {
+        "route": "F08_AVAL",
+        "distance_mm": 15.0,
+        "point_a": [
+          10.0,
+          -35.0,
+          88.0
+        ],
+        "point_b": [
+          10.0,
+          -35.0,
+          73.0
+        ]
+      },
+      {
+        "route": "F05_POS",
+        "distance_mm": 16.6806,
+        "point_a": [
+          10.0,
+          -70.3798,
+          88.0
+        ],
+        "point_b": [
+          20.2786,
+          -70.3798,
+          74.8626
+        ]
+      },
+      {
+        "route": "F31",
+        "distance_mm": 17.5531,
+        "point_a": [
+          -24.0,
+          -85.0,
+          88.0
+        ],
+        "point_b": [
+          -24.0,
+          -76.0,
+          72.9298
+        ]
+      }
+    ],
+    "ColonnePorteuse_0": [
+      {
+        "route": "F24B",
+        "distance_mm": 10.2709,
+        "point_a": [
+          -57.0052,
+          -37.1759,
+          128.0
+        ],
+        "point_b": [
+          -50.0,
+          -37.5875,
+          135.5
+        ]
+      },
+      {
+        "route": "F08_AVAL",
+        "distance_mm": 12.0333,
+        "point_a": [
+          -60.1996,
+          -34.0066,
+          111.0
+        ],
+        "point_b": [
+          -61.0,
+          -22.0,
+          111.0
+        ]
+      },
+      {
+        "route": "F04_1",
+        "distance_mm": 18.0,
+        "point_a": [
+          -60.0,
+          -40.0,
+          116.0
+        ],
+        "point_b": [
+          -60.0,
+          -58.0,
+          116.0
+        ]
+      },
+      {
+        "route": "F13B",
+        "distance_mm": 21.5967,
+        "point_a": [
+          -61.3416,
+          -34.3167,
+          108.0
+        ],
+        "point_b": [
+          -71.0,
+          -15.0,
+          108.0
+        ]
+      },
+      {
+        "route": "F02_1",
+        "distance_mm": 21.7568,
+        "point_a": [
+          -63.0,
+          -37.0,
+          99.6
+        ],
+        "point_b": [
+          -70.0,
+          -37.0,
+          79.0
+        ]
+      },
+      {
+        "route": "F06",
+        "distance_mm": 22.6581,
+        "point_a": [
+          -59.753,
+          -34.0102,
+          128.0
+        ],
+        "point_b": [
+          -58.1,
+          -14.0,
+          138.5
+        ]
+      },
+      {
+        "route": "AIRY_PWR",
+        "distance_mm": 25.0,
+        "point_a": [
+          -63.0,
+          -37.0,
+          126.9919
+        ],
+        "point_b": [
+          -88.0,
+          -37.0,
+          126.9919
+        ]
+      }
+    ],
+    "ColonnePorteuse_1": [
+      {
+        "route": "F20",
+        "distance_mm": 8.7959,
+        "point_a": [
+          -57.0377,
+          37.474,
+          128.0
+        ],
+        "point_b": [
+          -52.5,
+          38.2,
+          135.5
+        ]
+      },
+      {
+        "route": "F24A",
+        "distance_mm": 9.1268,
+        "point_a": [
+          -62.9104,
+          37.7276,
+          124.6092
+        ],
+        "point_b": [
+          -71.7647,
+          39.9412,
+          124.6092
+        ]
+      },
+      {
+        "route": "F13A",
+        "distance_mm": 9.6318,
+        "point_a": [
+          -59.2656,
+          34.0913,
+          112.5613
+        ],
+        "point_b": [
+          -56.9078,
+          24.7525,
+          112.5613
+        ]
+      },
+      {
+        "route": "F09",
+        "distance_mm": 14.089,
+        "point_a": [
+          -60.0,
+          34.0,
+          128.0
+        ],
+        "point_b": [
+          -60.0,
+          27.5,
+          140.5
+        ]
+      },
+      {
+        "route": "F13B",
+        "distance_mm": 19.0,
+        "point_a": [
+          -60.0,
+          34.0,
+          106.0
+        ],
+        "point_b": [
+          -60.0,
+          15.0,
+          106.0
+        ]
+      },
+      {
+        "route": "AIRY_SYNC",
+        "distance_mm": 24.0,
+        "point_a": [
+          -60.0,
+          40.0,
+          120.0
+        ],
+        "point_b": [
+          -60.0,
+          64.0,
+          120.0
+        ]
+      },
+      {
+        "route": "AIRY_PWR",
+        "distance_mm": 25.0,
+        "point_a": [
+          -63.0,
+          37.0,
+          124.5854
+        ],
+        "point_b": [
+          -88.0,
+          37.0,
+          124.5854
+        ]
+      }
+    ],
+    "ColonnePorteuse_2": [
+      {
+        "route": "F35",
+        "distance_mm": 7.0,
+        "point_a": [
+          63.0,
+          -37.0,
+          110.0
+        ],
+        "point_b": [
+          70.0,
+          -37.0,
+          110.0
+        ]
+      },
+      {
+        "route": "F25",
+        "distance_mm": 7.9816,
+        "point_a": [
+          60.0729,
+          -39.9991,
+          99.6
+        ],
+        "point_b": [
+          60.2667,
+          -47.972,
+          99.2813
+        ]
+      },
+      {
+        "route": "F04_1",
+        "distance_mm": 8.0,
+        "point_a": [
+          61.6,
+          -37.0,
+          128.0
+        ],
+        "point_b": [
+          61.6,
+          -37.0,
+          136.0
+        ]
+      },
+      {
+        "route": "F04_2",
+        "distance_mm": 8.0,
+        "point_a": [
+          60.0,
+          -34.0,
+          128.0
+        ],
+        "point_b": [
+          60.0,
+          -34.0,
+          136.0
+        ]
+      },
+      {
+        "route": "F04_3",
+        "distance_mm": 8.544,
+        "point_a": [
+          60.0,
+          -34.0,
+          128.0
+        ],
+        "point_b": [
+          60.0,
+          -31.0,
+          136.0
+        ]
+      },
+      {
+        "route": "F04_4",
+        "distance_mm": 10.0,
+        "point_a": [
+          60.0,
+          -34.0,
+          128.0
+        ],
+        "point_b": [
+          60.0,
+          -28.0,
+          136.0
+        ]
+      },
+      {
+        "route": "F24B",
+        "distance_mm": 11.0,
+        "point_a": [
+          63.0,
+          -37.0,
+          103.6842
+        ],
+        "point_b": [
+          74.0,
+          -37.0,
+          103.6842
+        ]
+      }
+    ],
+    "ColonnePorteuse_3": [
+      {
+        "route": "F12",
+        "distance_mm": 3.0,
+        "point_a": [
+          60.0,
+          40.0,
+          114.0
+        ],
+        "point_b": [
+          60.0,
+          43.0,
+          114.0
+        ]
+      },
+      {
+        "route": "F33",
+        "distance_mm": 7.2551,
+        "point_a": [
+          60.2577,
+          39.9889,
+          122.0
+        ],
+        "point_b": [
+          60.8808,
+          47.2172,
+          122.0
+        ]
+      },
+      {
+        "route": "F24A",
+        "distance_mm": 9.0,
+        "point_a": [
+          63.0,
+          37.0,
+          106.9231
+        ],
+        "point_b": [
+          72.0,
+          37.0,
+          106.9231
+        ]
+      },
+      {
+        "route": "F21",
+        "distance_mm": 11.5741,
+        "point_a": [
+          60.0,
+          40.0,
+          99.6
+        ],
+        "point_b": [
+          60.0,
+          51.0,
+          96.0
+        ]
+      },
+      {
+        "route": "F_M8",
+        "distance_mm": 16.6774,
+        "point_a": [
+          57.3167,
+          38.3416,
+          103.4444
+        ],
+        "point_b": [
+          42.4,
+          45.8,
+          103.4444
+        ]
+      },
+      {
+        "route": "AIRY_SYNC",
+        "distance_mm": 17.6155,
+        "point_a": [
+          60.7276,
+          34.0896,
+          104.0
+        ],
+        "point_b": [
+          65.0,
+          17.0,
+          104.0
+        ]
+      },
+      {
+        "route": "F24C",
+        "distance_mm": 21.0,
+        "point_a": [
+          60.0,
+          40.0,
+          116.0
+        ],
+        "point_b": [
+          60.0,
+          61.0,
+          116.0
+        ]
+      }
+    ]
+  },
+  "pinces_F38_étude": {
+    "première_forme_sans_vis_ni_lumières": {
+      "scope": "Corps de pince simplifié, poses nominales, avant modélisation vis/patins/bande. BRep de baseline, sans superstructures éliminées. Le passage de vis, la pression admissible du G10 et le verrouillage restent à vérifier.",
+      "mm": true,
+      "source_sha256": "87e83f58c1faad08bad51c9b997dd815821c30062603f333ce29b547a8e7d3f4",
+      "FreeCAD": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "paires_possibles_par_essai": 318,
+      "assumptions": {
+        "body": "candidat POM usiné, patins isolants et vis de pression à empreinte six pans orientée vers le dessous, bande réouvrable autour du socle et de la gaine",
+        "height_and_access": "25 mm outil nominal exploratoire, pas exigence",
+        "excluded": [
+          "GaineMAIN",
+          "GaineNTC",
+          "GaineSignalNord",
+          "P72_Guide",
+          "P73_Guide",
+          "P75_Cadre",
+          "P77_BerceauReserveUSB",
+          "P78_RetenueCameraM8"
+        ]
+      },
+      "results": {
+        "-30": {
+          "interface_plate": "SA03_Prototype_Energie/Isolation (P64)",
+          "ancrage_chant_mm": [
+            -30,
+            -88,
+            39
+          ],
+          "corps_en_place": {
+            "volume_mm3": 1147.1999999999998,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 7,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              },
+              {
+                "object": "ProtectionF38",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "enveloppe_translation_depose_pose_hors_cables": {
+            "volume_mm3": 2385.5999999999995,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 1,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "outil_inferieur_d6_l25": {
+            "volume_mm3": 706.8583470577037,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 0,
+            "contacts": [],
+            "errors": []
+          },
+          "distance_appui_gaine_mm": 0.0
+        },
+        "35": {
+          "interface_plate": "SA03_Prototype_Energie/Isolation (P64)",
+          "ancrage_chant_mm": [
+            35,
+            -88,
+            39
+          ],
+          "corps_en_place": {
+            "volume_mm3": 1147.2,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 6,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              },
+              {
+                "object": "ProtectionF38",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "enveloppe_translation_depose_pose_hors_cables": {
+            "volume_mm3": 2385.6000000000004,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 1,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "outil_inferieur_d6_l25": {
+            "volume_mm3": 706.8583470577037,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 0,
+            "contacts": [],
+            "errors": []
+          },
+          "distance_appui_gaine_mm": 0.0
+        }
+      }
+    },
+    "forme_avec_passage_vis_et_bande": {
+      "scope": "Corps de pince simplifié, poses nominales, avant modélisation vis/patins/bande. BRep de baseline, sans superstructures éliminées. Le passage de vis, la pression admissible du G10 et le verrouillage restent à vérifier.",
+      "mm": true,
+      "source_sha256": "87e83f58c1faad08bad51c9b997dd815821c30062603f333ce29b547a8e7d3f4",
+      "FreeCAD": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "paires_possibles_par_essai": 318,
+      "assumptions": {
+        "body": "candidat POM usiné, patins isolants et vis de pression à empreinte six pans orientée vers le dessous, bande réouvrable autour du socle et de la gaine",
+        "height_and_access": "25 mm outil nominal exploratoire, pas exigence",
+        "excluded": [
+          "GaineMAIN",
+          "GaineNTC",
+          "GaineSignalNord",
+          "P72_Guide",
+          "P73_Guide",
+          "P75_Cadre",
+          "P77_BerceauReserveUSB",
+          "P78_RetenueCameraM8"
+        ]
+      },
+      "results": {
+        "-30": {
+          "interface_plate": "SA03_Prototype_Energie/Isolation (P64)",
+          "ancrage_chant_mm": [
+            -30,
+            -88,
+            39
+          ],
+          "corps_en_place": {
+            "volume_mm3": 1627.6445076059429,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 7,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              },
+              {
+                "object": "ProtectionF38",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "enveloppe_translation_depose_pose_hors_cables": {
+            "volume_mm3": 4518.5999999999985,
+            "valid": true,
+            "solids": 5,
+            "checked_pairs": 1,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "outil_inferieur_d6_l25": {
+            "volume_mm3": 706.8583470577037,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 0,
+            "contacts": [],
+            "errors": []
+          },
+          "distance_appui_gaine_mm": 0.0
+        },
+        "35": {
+          "interface_plate": "SA03_Prototype_Energie/Isolation (P64)",
+          "ancrage_chant_mm": [
+            35,
+            -88,
+            39
+          ],
+          "corps_en_place": {
+            "volume_mm3": 1627.6445076059417,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 6,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              },
+              {
+                "object": "ProtectionF38",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "enveloppe_translation_depose_pose_hors_cables": {
+            "volume_mm3": 4518.5999999999985,
+            "valid": true,
+            "solids": 5,
+            "checked_pairs": 1,
+            "contacts": [
+              {
+                "object": "Isolation",
+                "volume_mm3": 0.0,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          },
+          "outil_inferieur_d6_l25": {
+            "volume_mm3": 706.8583470577037,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 0,
+            "contacts": [],
+            "errors": []
+          },
+          "distance_appui_gaine_mm": 0.0
+        }
+      }
+    },
+    "géométrie_forme_avec_passages": {
+      "stations_x_mm": [
+        -30,
+        35
+      ],
+      "boîtes_Ymin_Ymax_Zmin_Zmax_mm": [
+        [
+          -90,
+          -81,
+          30.7,
+          36
+        ],
+        [
+          -90,
+          -81,
+          39.2,
+          41
+        ],
+        [
+          -91,
+          -88,
+          30.7,
+          41
+        ],
+        [
+          -91,
+          -89,
+          40,
+          46.8
+        ],
+        [
+          -113,
+          -85.5,
+          45,
+          47.1
+        ]
+      ],
+      "étendue_x_relative_mm": [
+        -6,
+        6
+      ],
+      "montant_dédoublé_x_relatif_mm": [
+        [
+          -6,
+          -3
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "passage_vis": {
+        "axe": "Z",
+        "début_xyz": [
+          "x",
+          -84,
+          30
+        ],
+        "hauteur_mm": 7,
+        "d_mm": 3
+      },
+      "lumières_bande": {
+        "x_relatif_mm": [
+          -2.7,
+          2.7
+        ],
+        "y_mm": [
+          [
+            -111.1,
+            -109.2
+          ],
+          [
+            -88.8,
+            -86.9
+          ]
+        ],
+        "z_mm": [
+          44,
+          48
+        ]
+      },
+      "pression": "Vis à bout isolé avec patin inférieur, patin supérieur candidat et ouverture de 3,2 mm pour le chant G10 2,8 mm. Valider l’épaisseur réelle, accès du six pans, efforts et anti-desserrage. Les accessoires sont ouverts."
+    }
+  },
+  "clip_F12_étude": {
+    "mount": "SA05_Prototype_Avionique/ColonnePorteuse_3 (P68), F12",
+    "bom_status": "CANDIDAT_CONDITIONNEL",
+    "assumptions": "Pince souple double, TPU95A ou polymère apte à l’encliquetage après essais. Côté +Y accessible par le côté nord. Clips d’abord, câble ensuite. Tenue au glissement de colonne, ventilation, vibration, fluage et montage réel à vérifier. Enveloppe d’assemblage échantillonnée au pas 1 mm sans colonne, la flexion nécessaire pour franchir le col n’est pas simulée.",
+    "bbox_mm": [
+      55.7,
+      33,
+      110,
+      64.3,
+      45,
+      118
+    ],
+    "colonne_center_xy_mm": [
+      60,
+      37
+    ],
+    "colonne_d_mm": 6,
+    "cable_center_yz_mm": [
+      43,
+      114
+    ],
+    "cable_d_mm": 2.6,
+    "installation_static": {
+      "volume_mm3": 465.578968345716,
+      "valid": true,
+      "solids": 1,
+      "checked_pairs": 12,
+      "contacts": [],
+      "errors": []
+    },
+    "installation_positions": {
+      "0": {
+        "volume_mm3": 465.578968345716,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "1": {
+        "volume_mm3": 465.5789683457161,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "2": {
+        "volume_mm3": 465.5789683457162,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "3": {
+        "volume_mm3": 465.5789683457161,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "4": {
+        "volume_mm3": 465.5789683457161,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "5": {
+        "volume_mm3": 465.5789683457161,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      },
+      "6": {
+        "volume_mm3": 465.5789683457161,
+        "valid": true,
+        "solids": 1,
+        "checked_pairs": 2,
+        "contacts": [],
+        "errors": []
+      }
+    },
+    "installation_cable_par_y": {
+      "volume_mm3": 245.9599999999993,
+      "valid": true,
+      "solids": 1,
+      "checked_pairs": 0,
+      "contacts": [],
+      "errors": []
+    }
+  },
+  "bandes_P64_étude": {
+    "scope": "Boucles de contrôle rectangulaires à section 4.6 × 1.2 mm; montage en passant la bande ouverte avant la pose P64. Dimensions et raccordements des angles de collier et accès à la tête à établir. Les enveloppes de tête 6.8 × 4.6 × 3.5 sont hypothétiques.",
+    "results": {
+      "F04_1": {
+        "axis_xyz": [
+          -80.26666666666667,
+          -72,
+          40.4
+        ],
+        "tangent": [
+          8,
+          -30
+        ],
+        "band": {
+          "volume_mm3": 152.9040000000001,
+          "valid": true,
+          "solids": 1,
+          "checked_pairs": 7,
+          "contacts": [
+            {
+              "object": "F04_1",
+              "volume_mm3": 0.0,
+              "gap_mm": 0.0
+            }
+          ],
+          "errors": []
+        },
+        "heads": {
+          "-1": {
+            "volume_mm3": 109.47999999999999,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 5,
+            "contacts": [],
+            "errors": []
+          },
+          "1": {
+            "volume_mm3": 109.47999999999999,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 6,
+            "contacts": [],
+            "errors": []
+          }
+        }
+      },
+      "F04_2": {
+        "axis_xyz": [
+          74.66666666666667,
+          68,
+          40.4
+        ],
+        "tangent": [
+          2,
+          30
+        ],
+        "band": {
+          "volume_mm3": 152.9039999999999,
+          "valid": true,
+          "solids": 1,
+          "checked_pairs": 7,
+          "contacts": [
+            {
+              "object": "F04_2",
+              "volume_mm3": 0.0,
+              "gap_mm": 0.0
+            }
+          ],
+          "errors": []
+        },
+        "heads": {
+          "-1": {
+            "volume_mm3": 109.47999999999999,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 6,
+            "contacts": [],
+            "errors": []
+          },
+          "1": {
+            "volume_mm3": 109.47999999999999,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 6,
+            "contacts": [],
+            "errors": []
+          }
+        }
+      },
+      "F04_3": {
+        "axis_xyz": [
+          -76,
+          74,
+          40.4
+        ],
+        "tangent": [
+          0,
+          1
+        ],
+        "band": {
+          "volume_mm3": 152.904,
+          "valid": true,
+          "solids": 1,
+          "checked_pairs": 5,
+          "contacts": [
+            {
+              "object": "F04_3",
+              "volume_mm3": 0.0,
+              "gap_mm": 0.0
+            }
+          ],
+          "errors": []
+        },
+        "heads": {
+          "-1": {
+            "volume_mm3": 109.48000000000013,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 4,
+            "contacts": [],
+            "errors": []
+          },
+          "1": {
+            "volume_mm3": 109.48000000000013,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 5,
+            "contacts": [
+              {
+                "object": "LED_3",
+                "volume_mm3": 0.009539786023590778,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      "F04_4": {
+        "axis_xyz": [
+          76,
+          -74,
+          40.4
+        ],
+        "tangent": [
+          0,
+          -1
+        ],
+        "band": {
+          "volume_mm3": 152.904,
+          "valid": true,
+          "solids": 1,
+          "checked_pairs": 9,
+          "contacts": [
+            {
+              "object": "F04_4",
+              "volume_mm3": 0.0,
+              "gap_mm": 0.0
+            }
+          ],
+          "errors": []
+        },
+        "heads": {
+          "-1": {
+            "volume_mm3": 109.48000000000013,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 8,
+            "contacts": [],
+            "errors": []
+          },
+          "1": {
+            "volume_mm3": 109.48000000000013,
+            "valid": true,
+            "solids": 1,
+            "checked_pairs": 9,
+            "contacts": [
+              {
+                "object": "LED_4",
+                "volume_mm3": 0.00953978602359061,
+                "gap_mm": 0.0
+              }
+            ],
+            "errors": []
+          }
+        }
+      }
+    }
+  },
+  "recettes_mesure": {
+    "inspecter.py": "2fbbdf3f7ff9edb4bea025f29e0ee757bebf16e5694cd57e163af03832773432",
+    "proximites.py": "d528ffaf1b68cd10858a14e6c3a68204119c1177fe84174b7a9fbeeeb0774327",
+    "pinces.py": "a749dd7acfb8784f1d70552af4173587f893cfba33dd0a1989dd25c7bc41eeff",
+    "pinces_ouvrables.py": "e690fcdd1f5f5048bb989782d1997bcc23cc89f62e13d90f9a821fd68d0b7e46",
+    "clip_f12.py": "07b119aae9d4fd47beb16b063f5cd26bc335f757c81692c48faea0c4fd6ce0e7",
+    "bandes_p64.py": "c85e047f2b46fe07a4c7ac0fcf9ab700fd8325dc300ffd1588c40987550cc94a"
+  },
+  "sources_cao_sha256_pour_proximité": {
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd": "b213313a7ecb714242770bf3a6ce73adb42a5ecb881a7a76112289a88b7b668b",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd": "a16a84a515b4c001807ccc5307ad4fc4fb298a6425ec51f886ed71208dc9b95e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd": "27406d66fa7ec506be5dfd455b3ff0a352d692f38f3c91023ebbb29dfc17a1a8",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd": "a4192f1000b81db9a02f1bf519b03a2437caed83aa530d0e5b66c34e00a71785",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd": "eab33964597674737709c5ac436579b28aa8ddbcca9966e5850ebbf7dba84f62",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd": "21577d7bd05d1341c3b35f93cc9b133eb4498b79f5e3fc226c5936a4811a7951",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P70_Support_Radio_Prototype.FCStd": "35a1ab667970830b029469bfcb67935c34def9a9d3ea871dc651da8d1c791fad",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P71_Support_Securite_Prototype.FCStd": "741f763a6a4132f5d7dcd4a9f0598dadc38b74394dfc0e3a7cd344add24ac0f2",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd": "7cb00d23d2c80e8beb1dde4213fcc87e06911f2b1313b249d5e83d4abe324f63",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F01_NEG_Prototype.FCStd": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F01_POS_Prototype.FCStd": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F37_POS_Prototype.FCStd": "44910ae45b6cb4af070d32ba25866f546e09196ae1e5e209b7d7408702440d6b",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F37_NEG_Prototype.FCStd": "c9b12c941e6bf6905a5355731f68afb35b0bc03f418aa300121c512f59f1cbb8",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F38_POS_Prototype.FCStd": "064ea815edb8cc41a65ae03cf5b5b39ae1ca0d2af225d51123f0af49ffe0903e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F05_POS_Prototype.FCStd": "dd77218504683b15fe2ee248eb8ddac7c523a5f543c999cb73e8114defac181a",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F38_NEG_Prototype.FCStd": "28153e3272c66aeec6be06f9ded7da6deebe6adc88b96ebddadd7f54509fc092",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F05_NEG_Prototype.FCStd": "5dd08e292c667809ea77380b52f64d36e91b76af42d54a7c09b643f3c998a2d4",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F08_AMONT_Prototype.FCStd": "13248417829f677e540356c19207148ea49521a35dd2a475714c5aad60238740",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F08_AVAL_Prototype.FCStd": "48dd341fd8f2104ba5fcaf833c16e398330f6a57a3bd0c6f8cfd1f2ae58985e7",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F40_Prototype.FCStd": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_BALANCE_Prototype.FCStd": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_NTC1_Prototype.FCStd": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_NTC2_Prototype.FCStd": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F02_1_Prototype.FCStd": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F03_1_Prototype.FCStd": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F04_1_Prototype.FCStd": "6040ed407c364d4e2661d570cc1e49d64adb75833a5c62c64a6393da36a93218",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_LED_1_Prototype.FCStd": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F02_2_Prototype.FCStd": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F03_2_Prototype.FCStd": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F04_2_Prototype.FCStd": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_LED_2_Prototype.FCStd": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F02_3_Prototype.FCStd": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F03_3_Prototype.FCStd": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F04_3_Prototype.FCStd": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_LED_3_Prototype.FCStd": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F02_4_Prototype.FCStd": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F03_4_Prototype.FCStd": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F04_4_Prototype.FCStd": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_LED_4_Prototype.FCStd": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_AIRY_Prototype.FCStd": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_AIRY_ETH_Prototype.FCStd": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_AIRY_PWR_Prototype.FCStd": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_AIRY_SYNC_Prototype.FCStd": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F_M8_Prototype.FCStd": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+    "hardware/mecanique/cartographe_faisceaux_refonte/verification/candidats/F16_R50_X200_Z0.FCStd": "68c169508ee92df6ca03c378bc7374c995e48d3b71de6d8e8879846f048a7c74",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F41_Prototype.FCStd": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F09_Prototype.FCStd": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F06_Prototype.FCStd": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F32_Prototype.FCStd": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F31_Prototype.FCStd": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F12_Prototype.FCStd": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F21_Prototype.FCStd": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F36_Prototype.FCStd": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F24A_Prototype.FCStd": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F24B_Prototype.FCStd": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F24C_Prototype.FCStd": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F33_Prototype.FCStd": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F35_Prototype.FCStd": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F25_Prototype.FCStd": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F20_Prototype.FCStd": "50cf55d0a8be88cbd1c463136aeacbaf0a397278823a1aeaf392ffbe3e3dc8c1",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F13A_Prototype.FCStd": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+    "hardware/mecanique/cartographe_faisceaux_refonte/pieces/commerce/W_F13B_Prototype.FCStd": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54"
+  },
+  "limite_scene_locale": "Les essais en mémoire filtrent les guides condamnés P72/P73/P75/P77/P78, leur visserie, les gaines historiques autres que F38 et les quatre colliers natifs RF et MIDI. Les autres occurrences référencées sont lues. Les résultats sont des études de sites pour la reconstruction, indépendantes de la recette de sauvegarde et de sa validation finale.",
+  "conclusion": {
+    "code": "CANDIDAT_CONDITIONNEL",
+    "restant": [
+      "Encliquetage et glissement F12",
+      "Serrage et accès des bandes, patins et vis de pression F38",
+      "Débattement des bras et caméra",
+      "Comportement vibratoire, thermique et CEM",
+      "Compatibilité réelle des terminaisons et rayons fabricant"
+    ]
+  }
+}

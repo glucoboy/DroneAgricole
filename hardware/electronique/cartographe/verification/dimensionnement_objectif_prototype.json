@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "reference": "T-CARTO-OPT-01",
+  "date": "2026-10-10",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "objet": "Calcul conditionnel du champ et du GSD de deux objectifs C-mount candidats, pour définir SEN-LENS à la ligne 26 du prototype.",
+  "besoin_utilisateur": {
+    "priorite": "Champ assez large pour espacer les passages",
+    "hauteur_initialement_envisagee_m": [
+      20,
+      30
+    ],
+    "hauteur_etudiee_courante_m": 10,
+    "nature_hauteur": "Proposition utilisateur / scénario de dimensionnement à confirmer sur cibles réelles, au-dessus des vignes",
+    "hauteur_nominale_qualifiee": false
+  },
+  "hypotheses": [
+    "Caméra dirigée verticalement vers une surface cible plane.",
+    "Distance caméra-surface de référence égale à la hauteur du scénario ; terrain et hauteur de vigne non confondus.",
+    "Grand côté du capteur utilisé dans le sens transversal aux passages.",
+    "Modèle géométrique idéal à l’infini, sans distorsion ni recadrage supplémentaire.",
+    "Recouvrement latéral de 70 % utilisé comme exemple calculé, sans exigence retenue."
+  ],
+  "capteur": {
+    "camera": "Basler a2A4096-30ucBAS",
+    "monture": "C-mount",
+    "resolution_px": [
+      4096,
+      3000
+    ],
+    "pas_pixel_um": 2.74,
+    "largeur_mm": 11.223040000000001,
+    "hauteur_mm": 8.22,
+    "zone": "Résolution par défaut, image complète non redimensionnée"
+  },
+  "candidats": [
+    {
+      "reference": "Fujinon CF8ZA-1S",
+      "focale_nominale_mm": 8,
+      "focale_calcul_mm": 8.31,
+      "masse_fabricant_g": 180,
+      "masse_nature": "Approximation publiée, non pesée",
+      "diametre_mm": 54,
+      "longueur_mm": 67,
+      "statut": "À valider",
+      "choix": "Proposition privilégiée, non retenue",
+      "source": "fujinon"
+    },
+    {
+      "reference": "Kowa LM6FC24M",
+      "focale_nominale_mm": 6.5,
+      "focale_calcul_mm": 6.5,
+      "masse_fabricant_g": 300,
+      "masse_nature": "Publiée, non pesée",
+      "diametre_mm": 84,
+      "longueur_mm": 79.1,
+      "statut": "À valider",
+      "choix": "Alternative plus large, non retenue",
+      "source": "kowa"
+    }
+  ],
+  "equations": {
+    "largeur_m": "hauteur_cible_m * largeur_capteur_mm / focale_mm",
+    "profondeur_m": "hauteur_cible_m * hauteur_capteur_mm / focale_mm",
+    "gsd_mm_pixel": "hauteur_cible_m * pas_pixel_um / focale_mm",
+    "distance_coin_m": "sqrt(hauteur_cible_m^2 + (largeur_m/2)^2 + (profondeur_m/2)^2)",
+    "espacement_m": "largeur_m * (1 - recouvrement_lateral)"
+  },
+  "resultats_conditionnels": [
+    {
+      "reference": "Fujinon CF8ZA-1S",
+      "hauteur_cible_m": 10,
+      "focale_mm": 8.31,
+      "largeur_m": 13.50546329723225,
+      "profondeur_m": 9.891696750902527,
+      "gsd_mm_pixel": 3.2972322503008424,
+      "angle_horizontal_deg": 68.0602016867383,
+      "distance_coin_m": 13.04073620894065,
+      "espacement_exemple_recouvrement_70pct_m": 4.051638989169675
+    },
+    {
+      "reference": "Fujinon CF8ZA-1S",
+      "hauteur_cible_m": 20,
+      "focale_mm": 8.31,
+      "largeur_m": 27.0109265944645,
+      "profondeur_m": 19.783393501805055,
+      "gsd_mm_pixel": 6.594464500601685,
+      "angle_horizontal_deg": 68.0602016867383,
+      "distance_coin_m": 26.0814724178813,
+      "espacement_exemple_recouvrement_70pct_m": 8.10327797833935
+    },
+    {
+      "reference": "Fujinon CF8ZA-1S",
+      "hauteur_cible_m": 30,
+      "focale_mm": 8.31,
+      "largeur_m": 40.516389891696754,
+      "profondeur_m": 29.675090252707584,
+      "gsd_mm_pixel": 9.891696750902527,
+      "angle_horizontal_deg": 68.0602016867383,
+      "distance_coin_m": 39.12220862682195,
+      "espacement_exemple_recouvrement_70pct_m": 12.154916967509026
+    },
+    {
+      "reference": "Kowa LM6FC24M",
+      "hauteur_cible_m": 10,
+      "focale_mm": 6.5,
+      "largeur_m": 17.266215384615386,
+      "profondeur_m": 12.646153846153847,
+      "gsd_mm_pixel": 4.2153846153846155,
+      "angle_horizontal_deg": 81.6087936336451,
+      "distance_coin_m": 14.64622306951967,
+      "espacement_exemple_recouvrement_70pct_m": 5.1798646153846155
+    },
+    {
+      "reference": "Kowa LM6FC24M",
+      "hauteur_cible_m": 20,
+      "focale_mm": 6.5,
+      "largeur_m": 34.53243076923077,
+      "profondeur_m": 25.292307692307695,
+      "gsd_mm_pixel": 8.430769230769231,
+      "angle_horizontal_deg": 81.6087936336451,
+      "distance_coin_m": 29.29244613903934,
+      "espacement_exemple_recouvrement_70pct_m": 10.359729230769231
+    },
+    {
+      "reference": "Kowa LM6FC24M",
+      "hauteur_cible_m": 30,
+      "focale_mm": 6.5,
+      "largeur_m": 51.79864615384616,
+      "profondeur_m": 37.93846153846154,
+      "gsd_mm_pixel": 12.646153846153847,
+      "angle_horizontal_deg": 81.6087936336451,
+      "distance_coin_m": 43.93866920855901,
+      "espacement_exemple_recouvrement_70pct_m": 15.539593846153846
+    }
+  ],
+  "sources": [
+    {
+      "id": "basler",
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Basler_a2A4096_30ucBAS_20261010.html",
+      "sha256": "5aff478e4d0b2ceb6e11cd12f974ac679f4e70e626d8e2ad18acbfc3dca5cc58"
+    },
+    {
+      "id": "fujinon",
+      "url": "https://asset.fujifilm.com/www/us/files/2022-10/bed2e95d89655bd0f71ed68cf0476a0f/cf8za-1s.pdf",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Fujinon_CF8ZA_1S_Specification.pdf",
+      "sha256": "b71055f7eb0ecb601b60e6d10cbb8a9fd27f81a84b33bbb0a6193d0be88e512c"
+    },
+    {
+      "id": "kowa",
+      "url": "https://www.kowa-lenses.com/LM6FC24M-1.1-6.5mm-24MP-C-mount-Lens/12185",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/Kowa_LM6FC24M_20261010.html",
+      "sha256": "eaf51b7b0dfe7d0c064220e8c129285110d873189373146b9a235855d2f0222f"
+    },
+    {
+      "id": "airy",
+      "url": "https://robosense-robotics.github.io/product-manual/en/Airy/",
+      "archive": "hardware/mecanique/cartographe/sources_fabricants/RoboSense_Airy_Manuel_20261010.html",
+      "sha256": "6d6fa49f69c0efac434a1d355598d112ad94e2c5530e6d80640bae5b26f7ec5b"
+    }
+  ],
+  "lidar": {
+    "reference": "RoboSense Airy, manuel 96 canaux consulté",
+    "portee_maximale_m": 60,
+    "portee_tableau_a_10pct_nist_m": 30,
+    "portee_annexe_d_certains_canaux_a_10pct_m": 20,
+    "nature": "Distances de mesure, pas hauteur de travail garantie ; révision, orientation et canaux du lot à vérifier",
+    "conclusion": "Le scénario 10 m réduit les distances obliques ; aucune densité utile ni tenue sur feuillage réel n’est qualifiée."
+  },
+  "decision": {
+    "reference_objectif_retenue": null,
+    "proposition": "Fujinon CF8ZA-1S pour limiter masse/encombrement, sous réserve du GSD utile et du montage ; Kowa LM6FC24M si priorité donnée au champ plus large.",
+    "qualification_optique": "À valider",
+    "parametres_px4_modifies": false
+  },
+  "criteres_ouverts": [
+    "Précision/résolution utile du résultat cartographique et recouvrements.",
+    "Intrusion C-mount maximale compatible avec Front II Basler, fixation/support et tenue vibratoire.",
+    "Netteté à l’infini, ouverture, exposition, distorsion/calibration et largeur réellement exploitable.",
+    "Masses installées, centrage et faisabilité du prototype ; les masses publiées des deux objectifs dépassent la provision historique 80–150 g.",
+    "Retours et densité LiDAR utiles selon orientation, révision, réflectivité, soleil, relief et végétation."
+  ],
+  "verification": {
+    "sources_parametres_camera_et_fujinon_relues": true,
+    "calculs_6_scenarios_coherents_en_unites": true,
+    "reference_sen_lens_toujours_vide": true,
+    "essai_images": false,
+    "essai_lidar": false,
+    "vol": false
+  },
+  "documentation": [
+    "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#objectif-prototype",
+    "docs/architecture/ARCHITECTURE_MECANIQUE.md#objectif-prototype",
+    "docs/VALIDATION_QUALIFICATION.md#nomenclature-prototype"
+  ]
+}

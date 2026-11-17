@@ -7,6 +7,8 @@ from pathlib import Path
 import hashlib,json,sys
 sys.path.insert(0,'C:/Program Files/FreeCAD 1.1/bin')
 import FreeCAD as A, Part
+from etage_batterie_helpers import require_legacy_layout
+require_legacy_layout('build_rehausse20_avionique_20261002.py')
 
 ROOT=Path(__file__).resolve().parents[4]
 MEC=ROOT/'hardware/mecanique/cartographe'

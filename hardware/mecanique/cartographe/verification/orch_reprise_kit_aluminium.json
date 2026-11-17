@@ -1,0 +1,524 @@
+{
+  "schema_version": 1,
+  "lot": "ORCH-CAO-MASSE-1",
+  "date": "2026-10-26",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "configuration": "prototype_cartographe",
+  "cadre": "Scénario massique proposé ; six formes par bras comparées au guide et aux références du fabricant. Matériau des corps principaux documenté commercialement, nuance et petits composants non démontrés.",
+  "sources": [
+    {
+      "id": "HOLYBRO-SPARES",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_structure/Holybro_X650_Spares_original.html",
+      "url": "https://holybro.com/products/spare-parts-x650-kit",
+      "sha256": "6eb812cae99235c13dbbaf1ae338b1585cd746a11ab7f9f32b718d6d09ec5123",
+      "date_consultation": "2026-10-26",
+      "faits": "Références 510235 Aluminum Motor Base et 510254 Aluminum ARM Connector Kit ; désignation commerciale du kit, sans affirmation de matière de chacun de ses composants.",
+      "droits": "Source publique pour consultation technique ; licence de redistribution non identifiée ; originaux préservés hors Git."
+    },
+    {
+      "id": "HOLYBRO-GUIDE",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_structure/Holybro_X650_Assembly_Guide_V1.1_original.pdf",
+      "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/download",
+      "sha256": "642dffcdbe266f0355c64b28d9d25f622f857a554b1b250f94d04e18d2535869",
+      "date_consultation": "2026-10-26",
+      "faits": "Page 2, géométrie éclatée : support moteur à deux demi-coquilles et kit articulation à quatre formes.",
+      "droits": "Source publique pour consultation technique ; licence de redistribution non identifiée ; originaux préservés hors Git."
+    },
+    {
+      "id": "CONSTELLIUM",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/orch_cao_masse/constellium_6061.pdf",
+      "url": "https://assets.ctfassets.net/e62qtriulv4v/Snx9pjCdtrYCSlsFquBvt/e0f6b8cb7bfb0e1533e0aeec55796f03/Material_sheet_6061.pdf",
+      "sha256": "acbc68d3eb9c2032865114653594f7f3d2891ba0733e0858c0caf52da1e3bc51",
+      "date_consultation": "2026-10-26",
+      "faits": "Alliage 6061, densité typique 2,70 g/cm³ ; nuance exacte Holybro non démontrée.",
+      "droits": "Source publique pour consultation technique ; licence de redistribution non identifiée ; originaux préservés hors Git."
+    },
+    {
+      "id": "COMPARAISON",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/kit_aluminium/comparaison_brep_fabriquee.png",
+      "url": null,
+      "sha256": "aceb937a72fe05f0fcb92954d682ffa7671420c22a799a5138408229c54f1363",
+      "date_consultation": "2026-10-26",
+      "faits": "Image de contrôle générée par tessellation BRep, six objets OEM ; ce fichier dérivé ne prétend pas être un original fabricant.",
+      "droits": "Image de contrôle dérivée du modèle constructeur ; ne pas supposer un droit de redistribution."
+    }
+  ],
+  "preuve_geometrie": {
+    "fichier": "hardware/mecanique/cartographe/verification/orch_cao_masse_structure.json",
+    "sha256": "d60245cfefca106116b678970a41fffd761754eeec1db88e3b28b17cfb53b33b",
+    "natif": "hardware/mecanique/cartographe/pieces/commerce/EQ_Chassis_X650.FCStd",
+    "natif_sha256": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+    "image_comparaison": "COMPARAISON",
+    "methode": "Inspection visuelle des six pièces BRep tessellées et du guide constructeur page 2. Volumes FreeCAD issus du rapport OEM ; vérifiés à la volée par sections."
+  },
+  "regle_comptage": "Chaque forme matérielle retenue est comptée une fois, sans somme de la masse 2000 g du kit ; exclure toutes les bagues, vis, moteurs et formes dont matière ou propriétaire n’est pas établi.",
+  "pieces_candidats": [
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature182",
+      "objet": "Part__Feature182",
+      "description": "demi-coquille inférieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 4611.584930852335,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 12.451279313301306,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature183",
+      "objet": "Part__Feature183",
+      "description": "demi-coquille supérieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 5856.288252893396,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 15.81197828281217,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature187",
+      "objet": "Part__Feature187",
+      "description": "corps principal de l’articulation 510254",
+      "reference_fabricant": "510254",
+      "quantite": 1,
+      "volume_mm3": 8110.815550744619,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 21.899201987010475,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature214",
+      "objet": "Part__Feature214",
+      "description": "demi-coquille inférieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 4611.584930852335,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 12.451279313301306,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature215",
+      "objet": "Part__Feature215",
+      "description": "demi-coquille supérieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 5856.288252893389,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 15.811978282812152,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature219",
+      "objet": "Part__Feature219",
+      "description": "corps principal de l’articulation 510254",
+      "reference_fabricant": "510254",
+      "quantite": 1,
+      "volume_mm3": 8110.815550744614,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 21.89920198701046,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature246",
+      "objet": "Part__Feature246",
+      "description": "demi-coquille inférieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 4611.5849308523375,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 12.451279313301313,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature247",
+      "objet": "Part__Feature247",
+      "description": "demi-coquille supérieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 5856.288252893391,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 15.811978282812156,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature251",
+      "objet": "Part__Feature251",
+      "description": "corps principal de l’articulation 510254",
+      "reference_fabricant": "510254",
+      "quantite": 1,
+      "volume_mm3": 8110.815550744622,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 21.899201987010482,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature278",
+      "objet": "Part__Feature278",
+      "description": "demi-coquille inférieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 4611.584930852331,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 12.451279313301296,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature279",
+      "objet": "Part__Feature279",
+      "description": "demi-coquille supérieure de la base moteur 510235",
+      "reference_fabricant": "510235",
+      "quantite": 1,
+      "volume_mm3": 5856.288252893393,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 15.811978282812163,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    },
+    {
+      "bom_id": "MEC-OEM-BRAS",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature283",
+      "objet": "Part__Feature283",
+      "description": "corps principal de l’articulation 510254",
+      "reference_fabricant": "510254",
+      "quantite": 1,
+      "volume_mm3": 8110.815550744625,
+      "densite_candidate_g_cm3": 2.7,
+      "masse_candidate_g": 21.89920198701049,
+      "source_materiau": "HOLYBRO-SPARES",
+      "source_densite": "CONSTELLIUM",
+      "nature": "calcul candidat, alliage 6061 utilisé comme analogie sans présumer la nuance OEM",
+      "incertitude_g": null,
+      "condition": "Géométrie OEM et identification par comparaison visuelle au guide ; aucune tolérance ou masse mesurée."
+    }
+  ],
+  "total_candidat_g": 200.64983833249576,
+  "pieces_exclues": [
+    {
+      "objet": "Part__Feature186",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature186",
+      "volume_mm3": 4770.550280757067,
+      "masse_candidate_g": null,
+      "raison": "Manchon fendu de 510254 : matériau individuel non explicitement confirmé."
+    },
+    {
+      "objet": "Part__Feature188",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature188",
+      "volume_mm3": 4676.792514863084,
+      "masse_candidate_g": null,
+      "raison": "Bague crantée de 510254 : matériau individuel et contact de filetage inconnus."
+    },
+    {
+      "objet": "Part__Feature189",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM/Part__Feature189",
+      "volume_mm3": 2384.926484664514,
+      "masse_candidate_g": null,
+      "raison": "Collier de 510254 : matériau individuel non confirmé."
+    },
+    {
+      "objet": "Part__Feature218",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature218",
+      "volume_mm3": 4770.550280757064,
+      "masse_candidate_g": null,
+      "raison": "Manchon fendu de 510254 : matériau individuel non explicitement confirmé."
+    },
+    {
+      "objet": "Part__Feature220",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature220",
+      "volume_mm3": 4676.792514863085,
+      "masse_candidate_g": null,
+      "raison": "Bague crantée de 510254 : matériau individuel et contact de filetage inconnus."
+    },
+    {
+      "objet": "Part__Feature221",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM001/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM001/Part__Feature221",
+      "volume_mm3": 2384.9264846645115,
+      "masse_candidate_g": null,
+      "raison": "Collier de 510254 : matériau individuel non confirmé."
+    },
+    {
+      "objet": "Part__Feature250",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature250",
+      "volume_mm3": 4770.550280757062,
+      "masse_candidate_g": null,
+      "raison": "Manchon fendu de 510254 : matériau individuel non explicitement confirmé."
+    },
+    {
+      "objet": "Part__Feature252",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature252",
+      "volume_mm3": 4676.79251486308,
+      "masse_candidate_g": null,
+      "raison": "Bague crantée de 510254 : matériau individuel et contact de filetage inconnus."
+    },
+    {
+      "objet": "Part__Feature253",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM002/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM002/Part__Feature253",
+      "volume_mm3": 2384.926484664509,
+      "masse_candidate_g": null,
+      "raison": "Collier de 510254 : matériau individuel non confirmé."
+    },
+    {
+      "objet": "Part__Feature282",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature282",
+      "volume_mm3": 4770.550280757057,
+      "masse_candidate_g": null,
+      "raison": "Manchon fendu de 510254 : matériau individuel non explicitement confirmé."
+    },
+    {
+      "objet": "Part__Feature284",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature284",
+      "volume_mm3": 4676.792514863083,
+      "masse_candidate_g": null,
+      "raison": "Bague crantée de 510254 : matériau individuel et contact de filetage inconnus."
+    },
+    {
+      "objet": "Part__Feature285",
+      "occurrence": "sous_assemblages/SA01_Prototype_Structure.FCStd#OEM_X650_ZHEDIE_JIBI_2024_ASM003/X650_ZHEDIE_JIBI_2024_ASM_41__1_ASM003/Part__Feature285",
+      "volume_mm3": 2384.9264846645087,
+      "masse_candidate_g": null,
+      "raison": "Collier de 510254 : matériau individuel non confirmé."
+    }
+  ],
+  "vis_et_pieces_annexes": "Toutes les vis, éléments 190–211 et leurs équivalents des autres bras ; masse et matériau non attribués par ce calcul.",
+  "interferences": {
+    "methode": "Dans les quatre groupes, six formes testées contre les autres feuilles du même bras avec filtre boîtes englobantes, puis booléenne FreeCAD Shape.common ; tolérance positive 10^-6 mm³. Pas de test inter-bras ni d’interférences avec autres sous-assemblages.",
+    "paires_testees": 188,
+    "paires_positives": 20,
+    "resultats": [
+      {
+        "bras_index": 1,
+        "objet_a": "Part__Feature182",
+        "objet_b": "Part__Feature212",
+        "volume_commun_mm3": 53.21069543418465,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 1,
+        "objet_a": "Part__Feature186",
+        "objet_b": "Part__Feature188",
+        "volume_commun_mm3": 9.78134848763317,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 1,
+        "objet_a": "Part__Feature186",
+        "objet_b": "Part__Feature198",
+        "volume_commun_mm3": 1.283824078168205,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 1,
+        "objet_a": "Part__Feature186",
+        "objet_b": "Part__Feature199",
+        "volume_commun_mm3": 1.2839037272379428,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 1,
+        "objet_a": "Part__Feature187",
+        "objet_b": "Part__Feature188",
+        "volume_commun_mm3": 95.2517887902851,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 2,
+        "objet_a": "Part__Feature214",
+        "objet_b": "Part__Feature244",
+        "volume_commun_mm3": 53.21069543418465,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 2,
+        "objet_a": "Part__Feature218",
+        "objet_b": "Part__Feature220",
+        "volume_commun_mm3": 9.78134848763317,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 2,
+        "objet_a": "Part__Feature218",
+        "objet_b": "Part__Feature230",
+        "volume_commun_mm3": 1.283824078168205,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 2,
+        "objet_a": "Part__Feature218",
+        "objet_b": "Part__Feature231",
+        "volume_commun_mm3": 1.2839037272379428,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 2,
+        "objet_a": "Part__Feature219",
+        "objet_b": "Part__Feature220",
+        "volume_commun_mm3": 95.2517887902851,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 3,
+        "objet_a": "Part__Feature246",
+        "objet_b": "Part__Feature276",
+        "volume_commun_mm3": 53.21069543418465,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 3,
+        "objet_a": "Part__Feature250",
+        "objet_b": "Part__Feature252",
+        "volume_commun_mm3": 9.78134848763317,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 3,
+        "objet_a": "Part__Feature250",
+        "objet_b": "Part__Feature262",
+        "volume_commun_mm3": 1.283824078168205,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 3,
+        "objet_a": "Part__Feature250",
+        "objet_b": "Part__Feature263",
+        "volume_commun_mm3": 1.2839037272379428,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 3,
+        "objet_a": "Part__Feature251",
+        "objet_b": "Part__Feature252",
+        "volume_commun_mm3": 95.2517887902851,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 4,
+        "objet_a": "Part__Feature278",
+        "objet_b": "Part__Feature308",
+        "volume_commun_mm3": 53.21069543418465,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 4,
+        "objet_a": "Part__Feature282",
+        "objet_b": "Part__Feature284",
+        "volume_commun_mm3": 9.78134848763317,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 4,
+        "objet_a": "Part__Feature282",
+        "objet_b": "Part__Feature294",
+        "volume_commun_mm3": 1.283824078168205,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 4,
+        "objet_a": "Part__Feature282",
+        "objet_b": "Part__Feature295",
+        "volume_commun_mm3": 1.2839037272379428,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      },
+      {
+        "bras_index": 4,
+        "objet_a": "Part__Feature283",
+        "objet_b": "Part__Feature284",
+        "volume_commun_mm3": 95.2517887902851,
+        "qualification": "intersection BRep ; caractère voulu ou erreur non établi",
+        "action": "Résoudre fonction, matière et interface ; ne pas soustraire sans justification."
+      }
+    ],
+    "limites": [
+      "Le caractère voulu des filetages et la nature des petits solides non identifiés restent inconnus.",
+      "Un chevauchement géométrique n’est pas une masse supplémentaire ; aucune déduction de volume arbitraire n’a été appliquée.",
+      "Chaque solide reste candidat à estimer depuis sa forme propre ; les intersections empêchent une validation complète de la géométrie assemblée."
+    ]
+  },
+  "informations_necessaires": [
+    "Nuance et densité exactes des pièces 510235/510254 ; présence et masse des revêtements et autres matières.",
+    "Nature individuelle du manchon, des bagues, colliers et quincaillerie.",
+    "Fonction des quatre solides 212/244/276/308 et justification de leur pénétration dans la base moteur.",
+    "Tolérances, détails filetés et justification ou correction des 20 intersections constatées."
+  ],
+  "controles": {
+    "nombre_occurrences_candidates": 12,
+    "occurrences_uniques": true,
+    "toutes_dans_bom": true,
+    "toutes_conservees_et_solid_valides": true,
+    "bornes_garanties": null,
+    "aucune_qualification_physique": true
+  }
+}

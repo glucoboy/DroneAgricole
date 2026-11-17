@@ -1,0 +1,1612 @@
+{
+  "schema": "cartographe.validation-faisceaux-modulaires.v1",
+  "complete": true,
+  "environment": {
+    "freecad": [
+      "1",
+      "1",
+      "3"
+    ],
+    "occ": "7.8.1"
+  },
+  "sources": {
+    "baseline_unchanged": {
+      "sources_unchanged": true,
+      "files_checked": 147
+    },
+    "fresh_report": {
+      "path": ".runtime/faisceaux-modulaires/reprise/geometrie_reouverture_livree.json",
+      "sha256": "b8a77f30a8e69355be996a3b7e059e044f80c99e5ec938e4837c508674fb64b8"
+    },
+    "pair_report": {
+      "path": ".runtime/faisceaux-modulaires/reprise/geometrie_paires.json",
+      "sha256": "9445ffccefa69a788293bedd368c82699d53997b074d355c257184a671901cd5"
+    },
+    "fixtures_report": {
+      "path": "validation_retenues.json",
+      "sha256": "7d0a935582dcf4d2465d8eaa3004f9b223cbf330d786d8afb6c4cf751b6208fc"
+    },
+    "baseline_audit_sha256": "b251d8ce26450b61730c3635275fd1b29b67c06f2163fec2fe9f7378bf99c6d0",
+    "rf_attachment_report": "validation_radio.json",
+    "intersection_retry": {
+      "path": "reprise_intersections.json",
+      "sha256": "1429f892ee6f1a9846c8ea89ecc58207c49802ef7654b7436258c24c2e4f0d63"
+    },
+    "script_sha256": "ec4419e7d9a3a4fd61aa148fa81d2fdcb15af4aa2770a2b4b488fc8238ed7d5e"
+  },
+  "gates": {
+    "integrity": "pass",
+    "fresh": "pass",
+    "pairs": "unknown",
+    "interactive": "not_executed",
+    "physical": "not_executed"
+  },
+  "fresh_route_results": {
+    "pass": 53
+  },
+  "native_doc_count_on_reopen": 141,
+  "native_doc_errors": [],
+  "native_read_only": true,
+  "pair_counts": {
+    "considered": 33120,
+    "positive_except_airy_junction": 0,
+    "unknown_intersections_after_retry": 0,
+    "unknown_clearances_after_retry": 4,
+    "airy_zone_pairs": 6,
+    "aabb_disjoint": 31760,
+    "reused_unchanged": 1277
+  },
+  "conflicts": [],
+  "unknown_pairs": [
+    {
+      "pair": [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+      ],
+      "roles": [
+        "structure",
+        "cable"
+      ],
+      "aabb_lower_bound_mm": 0.0,
+      "intersection_status": "pass",
+      "overlap_bounds_mm3": [
+        0.0,
+        0
+      ],
+      "clearance_status": "bounded"
+    },
+    {
+      "pair": [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1"
+      ],
+      "roles": [
+        "structure",
+        "cable"
+      ],
+      "aabb_lower_bound_mm": 0.0,
+      "intersection_status": "pass",
+      "overlap_bounds_mm3": [
+        0.0,
+        0
+      ],
+      "clearance_status": "bounded"
+    },
+    {
+      "pair": [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+      ],
+      "roles": [
+        "structure",
+        "cable"
+      ],
+      "aabb_lower_bound_mm": 0.0,
+      "intersection_status": "pass",
+      "overlap_bounds_mm3": [
+        0.0,
+        0
+      ],
+      "clearance_status": "bounded"
+    },
+    {
+      "pair": [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F06"
+      ],
+      "roles": [
+        "structure",
+        "cable"
+      ],
+      "aabb_lower_bound_mm": 0.0,
+      "intersection_status": "pass",
+      "overlap_bounds_mm3": [
+        0.0,
+        0
+      ],
+      "clearance_status": "bounded"
+    }
+  ],
+  "protections": {
+    "ProtectionF38_NEG": {
+      "members": [
+        "F38_NEG"
+      ],
+      "inclusion": [
+        {
+          "member": "F38_NEG",
+          "status": "pass",
+          "section_mm3": 3484.222602371932,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.749999999999989
+        }
+      ],
+      "axis": null,
+      "length_mm": 105,
+      "length_source": "valeur candidate documentée, sans axe reconstitué dans ce contrôle",
+      "cavity_volume_mm3": 5277.875658030852,
+      "wall_volume_mm3": 2568.841042932167,
+      "occupied_fraction_upper_bound": 0.6601562500000006
+    },
+    "ProtectionF38_POS": {
+      "members": [
+        "F38_POS"
+      ],
+      "inclusion": [
+        {
+          "member": "F38_POS",
+          "status": "pass",
+          "section_mm3": 3484.2226023719286,
+          "outside_cavity_mm3": 0.0,
+          "inside_wall_mm3": 0.0,
+          "wall_distance_mm": 0.7499999999999898
+        }
+      ],
+      "axis": null,
+      "length_mm": 105,
+      "length_source": "valeur candidate documentée, sans axe reconstitué dans ce contrôle",
+      "cavity_volume_mm3": 5277.875658030852,
+      "wall_volume_mm3": 2568.841042932166,
+      "occupied_fraction_upper_bound": 0.6601562499999998
+    }
+  },
+  "local_fixture_checks": {
+    "pairs_within_0_9_mm": 172,
+    "positive": [],
+    "unknown": [],
+    "previous_failed_pairs": [
+      {
+        "pair": [
+          "sous_assemblages/SA02_Prototype_Batterie.FCStd#Butee1",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#SupportLocalMIDI"
+        ],
+        "roles": [
+          "structure",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          4.499999999999999,
+          4.499999999999999
+        ],
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#BandeDepartBras3"
+        ],
+        "roles": [
+          "structure",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          0.00016047144672927394,
+          0.00016047144672927394
+        ],
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#BandeDepartBras4"
+        ],
+        "roles": [
+          "structure",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          0.00016047144672921496,
+          0.00016047144672921496
+        ],
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#PinceF38_1",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#BandeF38_1"
+        ],
+        "roles": [
+          "fixation",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          0.05292135073612281,
+          0.05292135073612281
+        ],
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      },
+      {
+        "pair": [
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#PinceF38_2",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#BandeF38_2"
+        ],
+        "roles": [
+          "fixation",
+          "fixation"
+        ],
+        "aabb_lower_bound_mm": 0.0,
+        "intersection_status": "fail",
+        "overlap_bounds_mm3": [
+          0.052921350736122585,
+          0.052921350736122585
+        ],
+        "clearance_mm": 0.0,
+        "clearance_status": "measured",
+        "zero_clearance": true
+      }
+    ]
+  },
+  "comparison": {
+    "native_routes": [
+      53,
+      53
+    ],
+    "native_axis_lengths_mm": [
+      12207.334261136766,
+      11124.65190267852
+    ],
+    "manufactured_fixture_occurrences_sa07": [
+      17,
+      17
+    ],
+    "manufactured_fixture_refs_sa07": [
+      7,
+      6
+    ],
+    "manufactured_fixture_occurrences_global": [
+      21,
+      21
+    ],
+    "large_frames": [
+      3,
+      0
+    ],
+    "sleeve_occurrences": [
+      4,
+      2
+    ],
+    "fixation_occurrences_all_roles": [
+      75,
+      58
+    ],
+    "new_manufactured_pieces": 5,
+    "redesigned_existing_antenna_mounts": 2,
+    "manufactured_fixture_material_volume_sa07_mm3": [
+      221958.49053312547,
+      30514.25273617843
+    ],
+    "old_station_assignments_removed": 263,
+    "assembled_harness_mass_g": [
+      null,
+      null
+    ]
+  },
+  "modules": {
+    "BAT": {
+      "paths": [
+        "F01_NEG",
+        "F01_POS",
+        "F37_NEG",
+        "F37_POS",
+        "BALANCE",
+        "NTC1",
+        "NTC2"
+      ],
+      "status": "À valider",
+      "open": [
+        "Brochage BMS et nombre de sondes livré",
+        "Longueurs utiles OEM",
+        "Accès au demi-QS8",
+        "Compatibilité traction et protection de court-circuit"
+      ]
+    },
+    "PUISSANCE": {
+      "paths": [
+        "F38_NEG",
+        "F38_POS",
+        "F05_NEG",
+        "F05_POS",
+        "F08_AMONT",
+        "F08_AVAL"
+      ],
+      "status": "À valider",
+      "open": [
+        "Section, diamètre et longueur nette PM08 du lot",
+        "Cosses PDB et protection de bornes",
+        "Courant, échauffement, rayon et jeu au joint QS8"
+      ]
+    },
+    "BRAS_1": {
+      "paths": [
+        "F02_1",
+        "F03_1",
+        "F04_1",
+        "LED_1"
+      ],
+      "status": "À valider",
+      "open": [
+        "Pliage et pincement",
+        "Section et courant ESC",
+        "Référence des connecteurs et maintien OEM",
+        "Rail/port et terminaisons des LED"
+      ]
+    },
+    "BRAS_2": {
+      "paths": [
+        "F02_2",
+        "F03_2",
+        "F04_2",
+        "LED_2"
+      ],
+      "status": "À valider",
+      "open": [
+        "Pliage et pincement",
+        "Section et courant ESC",
+        "Référence des connecteurs et maintien OEM",
+        "Rail/port et terminaisons des LED"
+      ]
+    },
+    "BRAS_3": {
+      "paths": [
+        "F02_3",
+        "F03_3",
+        "F04_3",
+        "LED_3"
+      ],
+      "status": "À valider",
+      "open": [
+        "Pliage et pincement",
+        "Section et courant ESC",
+        "Référence des connecteurs et maintien OEM",
+        "Rail/port et terminaisons des LED"
+      ]
+    },
+    "BRAS_4": {
+      "paths": [
+        "F02_4",
+        "F03_4",
+        "F04_4",
+        "LED_4"
+      ],
+      "status": "À valider",
+      "open": [
+        "Pliage et pincement",
+        "Section et courant ESC",
+        "Référence des connecteurs et maintien OEM",
+        "Rail/port et terminaisons des LED"
+      ]
+    },
+    "AVIONIQUE": {
+      "paths": [
+        "F06",
+        "F32",
+        "F31",
+        "F25"
+      ],
+      "status": "À valider",
+      "open": [
+        "Brochages côté PM08",
+        "Tolérances des prises",
+        "USL/GPS1",
+        "Tenue des séparations en maintenance"
+      ]
+    },
+    "NAV_RF": {
+      "paths": [
+        "F21",
+        "F36",
+        "F12",
+        "F13A",
+        "F13B"
+      ],
+      "status": "À valider",
+      "open": [
+        "SMA latéral incompatible avec la réservation d'antenne verticale",
+        "Rayon coaxial lot et décharge de traction",
+        "PPS/GPRMC et marges CEM"
+      ]
+    },
+    "PERCEPTION": {
+      "paths": [
+        "AIRY",
+        "AIRY_ETH",
+        "AIRY_PWR",
+        "AIRY_SYNC",
+        "F09",
+        "F20",
+        "F24A",
+        "F24B",
+        "F24C"
+      ],
+      "status": "À valider",
+      "open": [
+        "Éclatement compact qualifiable pour le vol",
+        "Ports et longueurs du faisceau Airy",
+        "Extracteur FFC et R530–R533 DNP",
+        "Brochage et portée FAN"
+      ]
+    },
+    "CAMERA": {
+      "paths": [
+        "F16",
+        "F_M8",
+        "F33",
+        "F35"
+      ],
+      "status": "À valider",
+      "open": [
+        "F16 longueur et forme Type A",
+        "Paires torsadées M8 et longueur de coupe",
+        "Engagement, outil et accès des prises",
+        "Courses, jeux, fatigue et traction"
+      ]
+    },
+    "DIAGNOSTIC_ISOLE": {
+      "paths": [
+        "F40",
+        "F41"
+      ],
+      "status": "À valider",
+      "open": [
+        "Prise intermédiaire compatible avec le lot",
+        "Volume de déclipsage et déconnexion",
+        "Longueur réelle de F41 ou MPN court de substitution"
+      ]
+    }
+  },
+  "routes": {
+    "F01_NEG": {
+      "module": "BAT",
+      "path_length_mm": 150.64822368615503,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P72"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F01_POS": {
+      "module": "BAT",
+      "path_length_mm": 273.6407502493715,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "SupportLocalMIDI"
+      ],
+      "old_supports_removed": [
+        "P72",
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F37_POS": {
+      "module": "BAT",
+      "path_length_mm": 215.2336639786674,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "SupportLocalMIDI"
+      ],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F37_NEG": {
+      "module": "BAT",
+      "path_length_mm": 95.85459826594271,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F38_POS": {
+      "module": "PUISSANCE",
+      "path_length_mm": 346.877424672926,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "PinceF38_1",
+        "PinceF38_2",
+        "PressionF38_1",
+        "PressionF38_2",
+        "BandeF38_1",
+        "BandeF38_2"
+      ],
+      "old_supports_removed": [
+        "P72",
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F05_POS": {
+      "module": "PUISSANCE",
+      "path_length_mm": 137.26729958899006,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F38_NEG": {
+      "module": "PUISSANCE",
+      "path_length_mm": 417.48757454455074,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "PinceF38_1",
+        "PinceF38_2",
+        "PressionF38_1",
+        "PressionF38_2",
+        "BandeF38_1",
+        "BandeF38_2"
+      ],
+      "old_supports_removed": [
+        "P72",
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F05_NEG": {
+      "module": "PUISSANCE",
+      "path_length_mm": 125.62921169269814,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F08_AMONT": {
+      "module": "PUISSANCE",
+      "path_length_mm": 130.70407344541502,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F08_AVAL": {
+      "module": "PUISSANCE",
+      "path_length_mm": 226.17942453473918,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73",
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F40": {
+      "module": "DIAGNOSTIC_ISOLE",
+      "path_length_mm": 145.62774613393037,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P72"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "BALANCE": {
+      "module": "BAT",
+      "path_length_mm": 127.15911653416558,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P72"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "NTC1": {
+      "module": "BAT",
+      "path_length_mm": 59.02693501275546,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "NTC2": {
+      "module": "BAT",
+      "path_length_mm": 59.02693501275546,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F02_1": {
+      "module": "BRAS_1",
+      "path_length_mm": 263.94912953674566,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P72",
+        "P73"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F03_1": {
+      "module": "BRAS_1",
+      "path_length_mm": 60.873319867932025,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F04_1": {
+      "module": "BRAS_1",
+      "path_length_mm": 376.3347736828607,
+      "reconstructed_in_copy": true,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "BandeDepartBras1"
+      ],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [
+        [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F04_1"
+        ]
+      ],
+      "physical_status": "À valider"
+    },
+    "LED_1": {
+      "module": "BRAS_1",
+      "path_length_mm": 207.38549151242785,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F02_2": {
+      "module": "BRAS_2",
+      "path_length_mm": 140.73514685198995,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F03_2": {
+      "module": "BRAS_2",
+      "path_length_mm": 60.873319867932025,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F04_2": {
+      "module": "BRAS_2",
+      "path_length_mm": 312.96298558659026,
+      "reconstructed_in_copy": true,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "BandeDepartBras2"
+      ],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "LED_2": {
+      "module": "BRAS_2",
+      "path_length_mm": 207.38549151242785,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F02_3": {
+      "module": "BRAS_3",
+      "path_length_mm": 224.14988501219923,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F03_3": {
+      "module": "BRAS_3",
+      "path_length_mm": 60.873319867932025,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F04_3": {
+      "module": "BRAS_3",
+      "path_length_mm": 525.1608493793034,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "BandeDepartBras3"
+      ],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "LED_3": {
+      "module": "BRAS_3",
+      "path_length_mm": 207.38549151242785,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F02_4": {
+      "module": "BRAS_4",
+      "path_length_mm": 135.53494357011718,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F03_4": {
+      "module": "BRAS_4",
+      "path_length_mm": 60.873319867932025,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F04_4": {
+      "module": "BRAS_4",
+      "path_length_mm": 285.59101743878625,
+      "reconstructed_in_copy": true,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "BandeDepartBras4"
+      ],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "LED_4": {
+      "module": "BRAS_4",
+      "path_length_mm": 207.38549151242785,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": false,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "AIRY": {
+      "module": "PERCEPTION",
+      "path_length_mm": 331.984319786212,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P72"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "AIRY_ETH": {
+      "module": "PERCEPTION",
+      "path_length_mm": 171.67326994295263,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "AIRY_PWR": {
+      "module": "PERCEPTION",
+      "path_length_mm": 267.1315348395224,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "AIRY_SYNC": {
+      "module": "PERCEPTION",
+      "path_length_mm": 247.65370931975875,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F_M8": {
+      "module": "CAMERA",
+      "path_length_mm": 296.87739881307846,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P78"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F16": {
+      "module": "CAMERA",
+      "path_length_mm": 494.607764256343,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {
+        "mobile": {
+          "stage": "geometry",
+          "failures": [],
+          "unknowns": [],
+          "minimum_radius_mm": 49.99999999999995,
+          "radius_evidence": "analytic_lines_circles",
+          "edge_measurements": [
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 40.215000000000025,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 78.53981633974479,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 49.999999999999964
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 10.606003566714264,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 78.53981633974479,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 49.999999999999964
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 4.000000000000043,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 78.5398163397448,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 49.99999999999995
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 25.00000000000003,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            }
+          ],
+          "join_angles_deg": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoint_distances_mm": [],
+          "length_mm": 315.4404525859487,
+          "shape_sha256": "b68b609bc53d09b5bd21440826944c15c74e3d98c7e1335b745b46da98b8f458",
+          "straight_radius_infinite": false,
+          "start_position_error_mm": 0.0,
+          "end_position_error_mm": 0.0,
+          "start_axis_error_deg": 0.0,
+          "end_axis_error_deg": 0.0,
+          "status": "pass"
+        },
+        "fixe": {
+          "stage": "geometry",
+          "failures": [],
+          "unknowns": [],
+          "minimum_radius_mm": 23.999999999999982,
+          "radius_evidence": "analytic_lines_circles",
+          "edge_measurements": [
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 4.989548655853756,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 18.96778156622089,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 23.999999999999982
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 37.76175776216454,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 37.6991118430775,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 24.0
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 41.0,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            },
+            {
+              "curve_type": "Part::GeomCircle",
+              "length_mm": 37.699111843077524,
+              "method": "analytic_circle",
+              "samples": 0,
+              "minimum_radius_mm": 23.999999999999982
+            },
+            {
+              "curve_type": "Part::GeomLine",
+              "length_mm": 1.050000000000001,
+              "method": "analytic_line",
+              "samples": 0,
+              "minimum_radius_mm": null
+            }
+          ],
+          "join_angles_deg": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoint_distances_mm": [],
+          "length_mm": 179.16731167039424,
+          "shape_sha256": "843e5392331b6c5359995a049442614881330e381b3a9fd6b9a390351f5d5f50",
+          "straight_radius_infinite": false,
+          "start_position_error_mm": 0.0,
+          "end_position_error_mm": 0.0,
+          "start_axis_error_deg": 0.0,
+          "end_axis_error_deg": 0.0,
+          "status": "pass"
+        }
+      },
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P73",
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F41": {
+      "module": "DIAGNOSTIC_ISOLE",
+      "path_length_mm": 340.40831309733625,
+      "reconstructed_in_copy": true,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "PinceDepartF41",
+        "PressionDepartF41",
+        "BandeDepartF41"
+      ],
+      "old_supports_removed": [
+        "P72",
+        "P75",
+        "P77"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [
+        [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+        ],
+        [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41"
+        ]
+      ],
+      "physical_status": "À valider"
+    },
+    "F09": {
+      "module": "PERCEPTION",
+      "path_length_mm": 140.53981633974485,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F06": {
+      "module": "AVIONIQUE",
+      "path_length_mm": 190.5238898038469,
+      "reconstructed_in_copy": true,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [
+        [
+          "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin",
+          "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F06"
+        ]
+      ],
+      "physical_status": "À valider"
+    },
+    "F32": {
+      "module": "AVIONIQUE",
+      "path_length_mm": 265.3571432101304,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F31": {
+      "module": "AVIONIQUE",
+      "path_length_mm": 468.5633179058214,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F12": {
+      "module": "NAV_RF",
+      "path_length_mm": 183.97922969134586,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [
+        "ClipColonneF12"
+      ],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F21": {
+      "module": "NAV_RF",
+      "path_length_mm": 254.19578251989498,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F36": {
+      "module": "NAV_RF",
+      "path_length_mm": 58.03812491229759,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F24A": {
+      "module": "PERCEPTION",
+      "path_length_mm": 245.4000002993577,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F24B": {
+      "module": "PERCEPTION",
+      "path_length_mm": 309.7544711649708,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F24C": {
+      "module": "PERCEPTION",
+      "path_length_mm": 314.4776106876001,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F33": {
+      "module": "CAMERA",
+      "path_length_mm": 186.26299789465972,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F35": {
+      "module": "CAMERA",
+      "path_length_mm": 123.09038140767306,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F25": {
+      "module": "AVIONIQUE",
+      "path_length_mm": 273.3940640919881,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F20": {
+      "module": "PERCEPTION",
+      "path_length_mm": 19.66963641852448,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F13A": {
+      "module": "NAV_RF",
+      "path_length_mm": 47.18906110630759,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    },
+    "F13B": {
+      "module": "NAV_RF",
+      "path_length_mm": 46.06311123605831,
+      "reconstructed_in_copy": false,
+      "solid": "pass",
+      "axis_check": "pass",
+      "axis_findings": [],
+      "segments": {},
+      "retention_candidates": [],
+      "old_supports_removed": [
+        "P75"
+      ],
+      "lost_all_historical_sites": true,
+      "collisions": [],
+      "unknown_pairs": [],
+      "physical_status": "À valider"
+    }
+  },
+  "decision": {
+    "model_status": "Implémenté",
+    "qualification": "À valider",
+    "global_mounting_verdict": "CANDIDAT_CONDITIONNEL",
+    "mounting_failure": null,
+    "integration_released": false,
+    "conditions": [
+      "La caméra conserve deux boucles indépendantes en CAO. Les ancrages des côtés fixe et suspendu, le balayage continu et les références finales restent à déterminer.",
+      "Les routes longues héritées dont le guidage était assuré par P72/P73/P75 restent des réservations visibles et à reprendre module par module. Un éloignement de la structure n'est pas couvert par les retenues locales ajoutées.",
+      "Les deux protections F38 sont conditionnées par la température en service, le maintien axial et les interfaces de serrage.",
+      "Le fusible MIDI reste dans une enveloppe commerciale de définition. Vérifier le boîtier réel, la rigidité de la tablette et le passage aux bornes.",
+      "F41. Le clip P84 reprend la sortie près de P64. Il reste à définir les retenues de la montée et de la traversée, le cordon de remplacement et ses fiches.",
+      "Tolérances et montage élastique avec l'équipement réel.",
+      "Bande radio sud, verrou, compatibilité RF et dégagements de pose à confirmer.",
+      "Butées axiales sans appui sur composants ni charge permanente sur CA01/porteuse. Vérifier vibration, flexion et abrasion."
+    ]
+  }
+}

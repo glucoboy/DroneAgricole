@@ -1,0 +1,1024 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "reference": "DEF-BOM-PROTOTYPE-MEC",
+  "autorite": "Propositions de définition pour consolidation dans nomenclature_prototype.json ; le registre BOM demeure autorité après intégration.",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "cadrage": {
+    "probleme": "Remplacer les postes mécaniques indéfinis par des inclusions kit identifiées ou des spécifications candidates mesurables pour reconstruire le prototype sans dock.",
+    "action_minimale": "Une configuration, supports simples démontables, aucune commande ni essai physique.",
+    "arret": "Chaque poste possède une référence de définition, quantité et limites de validation ; ne pas inventer de masse installée ou déclarer fabrication libérée.",
+    "signal": "BOM rapprochée des occurrences CAO et contrôle des interfaces, puis contrôle du lot physique avant fabrication et vol."
+  },
+  "sources": [
+    {
+      "id": "S-X650",
+      "url": "https://holybro.com/products/x650-development-kit",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Châssis X650 V2, quatre moteurs/ESC/LED préinstallés, quatre hélices 1555 ; corps 160×160×2 mm, plateaux upper/batterie 120×128 mm, deux rails Ø10×320 mm, pads et sangles, outils."
+    },
+    {
+      "id": "S-X650-PIECES",
+      "url": "https://holybro.com/products/spare-parts-x650-kit",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Catalogue de pièces détachées OEM : plateaux, bras, train, supports moteur, connecteurs de bras, hélices. Train une jambe SKU 510248 ; paire hélices SKU 520095."
+    },
+    {
+      "id": "S-X650-GUIDE",
+      "url": "https://docs.holybro.com/drone-development-kit/x650-development-kit/download",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Guide de montage Holybro X650 V1.1. Le contenu détaillé de visserie est une référence d'inventaire, pas la preuve du lot possédé."
+    },
+    {
+      "id": "S-AIRY",
+      "path": "hardware/electronique/cartographe/sources_fabricants/RoboSense_Airy_User_Guide_v1.3_20251105.pdf",
+      "type": "fabricant local",
+      "pages_pdf": [
+        20,
+        21
+      ],
+      "faits": "Exigences reprises dans DOC-MEC §4.2 : trois M3×8, saillie 4,5 mm, deux piges Ø3 avec saillie 3 mm, planéité <0,15 mm, support métallique dissipant, mode propre >50 Hz, mou câble >20 mm."
+    },
+    {
+      "id": "S-BASLER",
+      "url": "https://docs.baslerweb.com/a2a4096-30ucbas",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Interface ace 2 USB C-mount ; géométrie de montage et profondeur maximale selon plan fabricant du modèle exact."
+    },
+    {
+      "id": "S-BASLER-MONTAGE",
+      "url": "https://docs.baslerweb.com/mounting-instructions",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Ace 2 : serrer les deux points (a) puis le troisième (b), M3."
+    },
+    {
+      "id": "S-FUJINON",
+      "url": "https://www.fujifilm.com/se/en/business/optical-devices/mvlens/cfza1s",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "CF8ZA-1S Ø54×67 mm, environ 180 g ; blocages iris/focus captifs, trois positions par bague et six vis sans tête fournies. Blocage des réglages distinct du maintien de la monture C."
+    },
+    {
+      "id": "S-GNSS-MONT",
+      "url": "https://holybro.com/products/vertical-mount-for-h-rtk-helical",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Support vertical 31153 et support d'antenne 31154 ; aluminium CNC et tube carbone, annoncés adaptés au DroneCAN H-RTK F9P Helical 12037."
+    },
+    {
+      "id": "S-RP4TD",
+      "url": "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Deux antennes T 2,4 GHz 65 mm fournies déjà montées sur RP4TD ; ne pas doubler l'achat antennes/coaxiaux."
+    },
+    {
+      "id": "S-LOCTITE",
+      "url": "https://next.henkel-adhesives.com/de/en/products/industrial-adhesives/central-pdp.html/loctite-222/BP000340.html",
+      "type": "fabricant",
+      "consulte": "2026-10-10",
+      "faits": "Frein-filet faible résistance pour petites vis métalliques ; flacon 10 ml IDH 267358. Le flacon est un consommable sol, seul dépôt installé appartient à la masse embarquée."
+    }
+  ],
+  "items": [
+    {
+      "id": "MEC-OEM-PLATEAUX",
+      "reference_fabricant": "Holybro X650 V2 : Top Plate + Bottom Plate + Upper Mounting Board + Battery Mounting Board",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Quatre plateaux OEM conservés : centraux160×160×2 mm, supérieur et batterie128×120×2 mm. Le plateau de charge utile déporté et ses rails/brides sont retirés avec MEC-OEM-RAILS. Profils et perçages issus de la CAO OEM, sans plateaux de dock.",
+      "sources": [
+        "S-X650",
+        "S-X650-PIECES"
+      ],
+      "a_valider": "Révision, nombre de plateaux du lot et interférences de l'installation finale.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-OEM-BRAS",
+      "reference_fabricant": "Holybro X650 V2 Carbon Fiber Tube ARM Ø20 + Aluminum ARM Connector Kit + Aluminum Motor Base",
+      "quantite": 4,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Quatre bras OEM complets avec visserie de charnière/support moteur propre ; moteur/ESC/LED restent leurs lignes distinctes et une seule occurrence chacun.",
+      "sources": [
+        "S-X650",
+        "S-X650-PIECES"
+      ],
+      "a_valider": "Inventaire du lot, jeux/verrouillage et serrages fabricant.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-OEM-TRAIN",
+      "reference_fabricant": "Holybro 510248, Carbon Fiber Landing Gear with Plastic Connectors, deux jambes",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "detail": [
+        {
+          "reference": "510248",
+          "quantite": 2,
+          "unite": "jambe"
+        }
+      ],
+      "definition": "Train OEM complet, tubes Ø16 et Ø10, raccords et visserie propres inclus. Le jeu contient deux jambes, jamais deux jeux.",
+      "sources": [
+        "S-X650",
+        "S-X650-PIECES"
+      ],
+      "a_valider": "Garde au sol objectif et LiDAR, stabilité et tenue avec masse réelle.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-OEM-RAILS",
+      "reference_fabricant": "Holybro X650 V2 Slide bar Ø10×320 mm",
+      "quantite": 0,
+      "unite": "piece",
+      "achat": "exclu",
+      "parent": "MEC-X650-KIT",
+      "definition": "Rails de charge utile et leurs brides/plateau déporté retirés du prototype. P60 et les P17 sont repris sur le plateau inférieur OEM et ses quatre colonnes90mm. Aucun usage des rails reconduit ; leurs interférences avec le BMS disparaissent sans déplacer les éléments porteurs.",
+      "sources": [
+        "S-X650"
+      ],
+      "a_valider": "Vérifier reprise des efforts sur le plateau inférieur et ses colonnes ; aucun gain massique chiffré sans pesée du montage.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-OEM-FIXATIONS",
+      "reference_fabricant": "Holybro X650 V2, lot de quincaillerie OEM résiduelle selon guide V1.1",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Lot restant des fixations de plateaux, colonnes et suspensions de rails. Exclure les vis déjà intégrées aux quatre bras, au train et aux quatre fixations d'hélices. Les assemblages doivent conserver les fixations OEM 50 mm et 90 mm selon leur étage ; ne pas les remplacer par la rehausse dock.",
+      "sources": [
+        "S-X650-GUIDE"
+      ],
+      "a_valider": "Le comptage vis à vis reste un contrôle de réception : un jeu documente le lot fourni et ne prétend pas un inventaire réalisé.",
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-FIXATION-HELICES",
+      "reference_fabricant": "Ensemble adaptateur/moyeu/écrou OEM X650 pour MN4014 KV330 et Gemfan 1555",
+      "quantite": 4,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Réutiliser les quatre dispositifs OEM avec sens de filetage correspondant aux deux CW et deux CCW. Aucun adaptateur générique ni écrou M6 ajouté sans contrôle de l'arbre réel.",
+      "sources": [
+        "S-X650",
+        "S-X650-PIECES"
+      ],
+      "a_valider": "Filetage réel, contenu des quatre jeux, couple de serrage, sens et équilibrage ; la page kit ne publie pas une référence unitaire de l'écrou.",
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-FREINAGE",
+      "reference_fabricant": "Henkel LOCTITE 222, IDH 267358, flacon 10 ml pour atelier",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "definition": "Dépôts de frein-filet faible résistance sur filetages métalliques M2/M3 admissibles, après vérification des consignes de chaque fabricant ; écrous autofreinés pour les assemblages traversants. Aucun frein-filet appliqué sur optique, plastique ou softpack.",
+      "detail": [
+        {
+          "reference": "LOCTITE 222 IDH 267358",
+          "quantite_approvisionnement": 1,
+          "unite": "flacon 10 ml",
+          "embarque": false
+        }
+      ],
+      "sources": [
+        "S-LOCTITE"
+      ],
+      "a_valider": "Compatibilité, couple et cure. Quantité un jeu de dépôts n'est pas 10 ml embarqués.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-BATTERIE-SUPPORT",
+      "reference_fabricant": "PROJ-SUP-BAT-20AH : semelle G10 220×96×3 mm et deux butées POM démontables",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "fabriquer",
+      "definition": "Semelle isolante sur plateau batterie OEM, deux butées POM à oreilles vissées hors empreinte du pack ; jeu longitudinal197 mm et largeur libre80 mm autour du pack193×76×58 mm. Parois courtes8 mm haut, rayons≥2 mm. Deux paires de lumières22×4 mm à x=−60 et +50 mm. Butées de positionnement, sangles assurant retenue ; aucun tiroir ni connecteur automatique. Position retenue : semelle z=−90 à −87 mm, pads candidats 2 mm, pack z=−85 à −27 mm. Aucun relèvement des plateaux OEM. P60 comporte un dégagement ouvert de la fiche M8 et de sa sortie de câble ; cette découpe dépend de l’hypothèse d’engagement e=6 mm, à confirmer avant fabrication.",
+      "dimensions_mm": {
+        "semelle": [
+          220,
+          96,
+          3
+        ],
+        "pack_nominal": [
+          193,
+          76,
+          58
+        ],
+        "cavite_libre": [
+          197,
+          80
+        ],
+        "lumiere_sangle": [
+          22,
+          4
+        ],
+        "positions_sangles_x": [
+          -60,
+          50
+        ],
+        "largeur_butee": 80,
+        "hauteur_butee": 8,
+        "decoupe_m8_candidate": {
+          "corps_xy_dimensions": [
+            12,
+            31
+          ],
+          "corps_xy_origine": [
+            68.2,
+            2.1
+          ],
+          "transition_xy_dimensions": [
+            8.8,
+            7.9
+          ],
+          "transition_xy_origine": [
+            68.6,
+            32.1
+          ],
+          "sortie_xy_dimensions": [
+            8,
+            9.1
+          ],
+          "sortie_xy_origine": [
+            68.6,
+            40
+          ],
+          "hypothese_engagement_m8_mm": 6,
+          "fabrication_liberee": false
+        }
+      },
+      "sources": [
+        "S-X650",
+        "hardware/mecanique/cartographe/nomenclature_prototype.json",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py",
+        "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json"
+      ],
+      "a_valider": "Dimensions projet candidates : expansion du pack, calage souple, ancrages OEM, efforts, masse et centrage. Garder accès au QS8-S pour coupure manuelle.",
+      "detail": [
+        {
+          "reference": "Semelle G10 220×96×3",
+          "quantite": 1
+        },
+        {
+          "reference": "Butée POM largeur80 hauteur8, oreilles épaisseur2",
+          "quantite": 2
+        }
+      ],
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-BATTERIE-SANGLES",
+      "reference_fabricant": "Sangles boucle autoagrippante X650 OEM ; spécification d'acceptation 20 mm de large et 400 mm utiles",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Deux sangles indépendantes croisent le pack aux abscisses −60 et +50 mm par rapport au centre du pack. Longueur 400 mm est la spécification projet candidate pour garder ≥70 mm de recouvrement, pas une cote fabricant déclarée du kit.",
+      "dimensions_mm": {
+        "largeur_cible": 20,
+        "longueur_utile_min": 400,
+        "recouvrement_min": 70,
+        "positions_sangles_x": [
+          -60,
+          50
+        ]
+      },
+      "sources": [
+        "S-X650",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py"
+      ],
+      "a_valider": "Mesurer les sangles livrées. Si trop courtes ou résistance non adaptée, les remplacer par deux sangles de même spécification ; ne pas monter quatre sangles par double-compte.",
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-BATTERIE-PADS",
+      "reference_fabricant": "Holybro X650 V2 Battery Pad OEM",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Deux pads candidats 70×65×2 mm, centres X=±52 mm, Z=−87..−85 mm, avec rainure inférieure de 1 mm pour chaque sangle. Le pad droit reçoit un évidement M8 ouvert au bord. Adapter les deux pads OEM si le matériau et les dimensions le permettent, sinon les remplacer sans ajouter deux pads au comptage. Aucun pad thermique dans ce poste.",
+      "sources": [
+        "S-X650",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py",
+        "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json"
+      ],
+      "a_valider": "Vérifier dimensions et matériau des pads OEM, adhérence et compatibilité softpack ; valider rainures, appuis résiduels et évidement après confirmation de l’engagement M8. Adapter ou remplacer les deux pads, sans double comptage.",
+      "dimensions_mm": {
+        "dimensions_pad": [
+          70,
+          65,
+          2
+        ],
+        "centres_x": [
+          -52,
+          52
+        ],
+        "z": [
+          -87,
+          -85
+        ],
+        "rainure_inferieure": {
+          "largeur": 20,
+          "profondeur": 1,
+          "axes_x_globaux": [
+            -60,
+            50
+          ]
+        },
+        "evidement_pad_droit": {
+          "dimensions_xy": [
+            12,
+            32
+          ],
+          "origine_xy_locale": [
+            16.2,
+            2.1
+          ],
+          "ouvert_au_bord": true
+        }
+      },
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-BATTERIE-FIXATIONS",
+      "reference_fabricant": "KIT-FIX-BUTEES : 2 ISO 4762 M3×12, 2 ISO 4762 M3×16, 8 ISO 7089 M3, 4 écrous frein M3",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "detail": [
+        {
+          "reference": "ISO 4762 M3×12 acier 8.8",
+          "quantite": 2
+        },
+        {
+          "reference": "ISO 4762 M3×16 acier 8.8",
+          "quantite": 2
+        },
+        {
+          "reference": "ISO 7089 M3",
+          "quantite": 8
+        },
+        {
+          "reference": "ISO 10511 M3 écrou frein",
+          "quantite": 4
+        }
+      ],
+      "definition": "Quatre fixations des butées POM à X=±105 mm, Y=±29 mm : deux M3×12 à gauche et deux M3×16 à droite. Les deux vis de droite retiennent aussi le berceau P76 du QS8 ; aucune seconde visserie P76 ajoutée. La semelle G10 utilise les quatre ancrages communs MEC-ANCRAGES-CAPTEURS, non recomptés ici.",
+      "sources": [
+        "hardware/mecanique/cartographe/verification/definition_bom_mecanique.json",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py"
+      ],
+      "a_valider": "Confirmer empilage et engagement complet des écrous, dégagement des têtes, arêtes et pointes ; aucune vis au contact du softpack. Les dimensions et entraxes de fabrication suivent le natif prototype consolidé.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-SUPPORTS-ENERGIE",
+      "reference_fabricant": "PROJ-SUP-ENERGIE : P64 G10 188×176×2,8 mm, quatre cales P74 et plateforme BMS G10 170×96×2 mm",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "fabriquer",
+      "definition": "SA03 est déplacé sur le plateau central supérieur OEM. P64 G10 188×176×2,8 mm à Z36,2..39, sur quatre P74 Ø10 / passage6,6 / longueur3,2 aux axes±52/±52 et à Z33..36,2. Douze dégagements OEM Ø6,6 conservés, deux perçages de guides Ø3,2 aux points(−80;56)/(80;−56), deux encoches ouvertes 20×42 centrées(−94;56)/(94;−56), huit fentes de reprise6×2. Centres XY : PM08(−22;−57,5), UART(−33;4), PDB(42;4), fusible CA01(25;−50). Zbas commun39 ; sommet PM08/UART65, garde nominale 18 mm sous le plateau OEM à Z83. P62 G10 170×96×2 à Z−24..−22, quatre P63 Ø6/3,2 de63 mm aux axes±80/±43 ; quatre M3×75 traversantes avec huit rondelles et quatre écrous frein. BMS12 mm au-dessus. Le berceau QS8 P76 se fixe sur les deux vis de butée droite existantes, remplacées par M3×16 et comptées dans MEC-BATTERIE-FIXATIONS. QS8 tourné de −90°, centre XY(113;−12), bas Z−59 ; pied P76 à Z−85..−82, tablette à Z−62..−59. Un collier de retenue est affecté au poste ELEC-COLLIERS. Refonte CAO en cours de contrôle ; retenue de P64, berceaux de modules, maintien MIDI, protection des bornes et tolérances restent à détailler.",
+      "dimensions_mm": {
+        "semelle_energie": [
+          188,
+          176,
+          2.8
+        ],
+        "plateforme_bms": [
+          170,
+          96,
+          2
+        ],
+        "hauteur_colonnes_bms": 63,
+        "enveloppe_pm08": [
+          45,
+          41,
+          26
+        ],
+        "enveloppe_pdb": [
+          60,
+          80,
+          23
+        ],
+        "enveloppe_uart": [
+          90,
+          80,
+          26
+        ],
+        "colonnes_bms_xy": [
+          [
+            80,
+            43
+          ],
+          [
+            80,
+            -43
+          ],
+          [
+            -80,
+            43
+          ],
+          [
+            -80,
+            -43
+          ]
+        ],
+        "z_semelle_energie": [
+          36.2,
+          39
+        ],
+        "degagements_vis_oem_diametre": 6.6,
+        "garde_superieure_pm08_uart_nominale": 18,
+        "cales_energie": {
+          "reference": "P74",
+          "quantite": 4,
+          "diametre_exterieur": 10,
+          "passage": 6.6,
+          "longueur": 3.2,
+          "z": [
+            33,
+            36.2
+          ],
+          "axes_xy": [
+            [
+              -52,
+              -52
+            ],
+            [
+              -52,
+              52
+            ],
+            [
+              52,
+              -52
+            ],
+            [
+              52,
+              52
+            ]
+          ]
+        },
+        "z_base_modules_energie": 39,
+        "centres_modules_energie_xy": {
+          "PM08": [
+            -22,
+            -57.5
+          ],
+          "UART": [
+            -33,
+            4
+          ],
+          "PDB": [
+            42,
+            4
+          ],
+          "fusible_CA01": [
+            25,
+            -50
+          ]
+        },
+        "encoches_ouvertes_guides": {
+          "dimensions": [
+            20,
+            42
+          ],
+          "centres_xy": [
+            [
+              -94,
+              56
+            ],
+            [
+              94,
+              -56
+            ]
+          ]
+        },
+        "fentes_reprise_faisceau": {
+          "dimensions": [
+            6,
+            2
+          ],
+          "quantite": 8
+        },
+        "berceau_qs8": {
+          "reference": "P76",
+          "pied_z": [
+            -85,
+            -82
+          ],
+          "tablette_z": [
+            -62,
+            -59
+          ],
+          "ancrages_xy": [
+            [
+              105,
+              -29
+            ],
+            [
+              105,
+              29
+            ]
+          ],
+          "qs8_centre_xy": [
+            113,
+            -12
+          ],
+          "qs8_base_z": -59,
+          "qs8_rotation_z_deg": -90,
+          "vis_additionnelles": 0,
+          "collier_affecte_dans": "ELEC-COLLIERS"
+        }
+      },
+      "detail": [
+        {
+          "reference": "P64 G10 188×176×2,8 avec dégagements OEM, encoches de guides et fentes de reprise",
+          "quantite": 1
+        },
+        {
+          "reference": "P74 Cale énergie Ø10 / passage6,6 / longueur3,2",
+          "quantite": 4
+        },
+        {
+          "reference": "P62 Plateforme BMS G10 170×96×2",
+          "quantite": 1
+        },
+        {
+          "reference": "P63 Colonne BMS Ø6 / passage3,2 / longueur63",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO4762 M3×75, classe et finition à valider",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO7089 M3 Ø3,2×7×0,5",
+          "quantite": 8
+        },
+        {
+          "reference": "ISO10511 M3 écrou frein, enveloppe hauteur4",
+          "quantite": 4
+        },
+        {
+          "reference": "Berceau PM08, PDB, UART — définition résiduelle",
+          "quantite": 3
+        },
+        {
+          "reference": "P76 Berceau QS8 PA12, deux fixations partagées avec la butée droite",
+          "quantite": 1
+        }
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py"
+      ],
+      "a_valider": "Relever les modules réels ; contrôler la garde nominale 18 mm avec les câbles, fiches et tolérances, les interférences des cales et guides, la fixation de P64, l’isolation, les berceaux, l’accès et la dissipation. Les contrôles de l’ancienne implantation ne valent pas validation de l’étage supérieur.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-SUPPORT-AVIONIQUE",
+      "reference_fabricant": "PROJ-SUP-AVI : platine G10 140×94×3 mm, stack CA01 / porteuse Holybro",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "fabriquer",
+      "definition": "Platine P66 G10 140×94×3 mm à z=85..88 mm sur le plateau supérieur OEM. Quatre trous OEM Ø2,2 mm (vis M2) aux axes x=±43, y=±29 mm ; quatre passages M3 Ø3,2 mm aux axes x=±60, y=±37 mm pour la stack. P67 de 10 mm à z=88..98 mm ; CA01 z=98..99,6 mm ; P68 de 28,4 mm à z=99,6..128 mm. Les plans inférieurs des PCB CA01 et porteuse sont séparés de 30 mm ; cela ne constitue pas la longueur de P68. Ventilateur, USB et SSD restent accessibles à vérifier. Quatre M3×55 traversantes relient porteuse, P68, CA01, P67, P66 et plateau OEM aux axes±60/±37 : tête Z130,52232, rondelle supérieureZ130,02232, rondelle inférieureZ82,5 et écrouZ78,5. Les trous M2 de P66 sont conservés comme interface disponible, sans seconde visserie ajoutée. P66 comporte quatre passages Ø3,2 aux axes X=±66, Y=±43 mm avec fraisures côté inférieur pour P75 et les guides. Les quatre vis fraisées correspondantes sont comptées dans ELEC-PASSEFILS ; aucun perçage OEM ajouté.",
+      "dimensions_mm": {
+        "platine": [
+          140,
+          94,
+          3
+        ],
+        "entraxe_porteuse": [
+          120,
+          74
+        ],
+        "z_base": 85,
+        "z_ca01": 98,
+        "z_pcb_porteuse": 128,
+        "ecart_ca01_porteuse": 30,
+        "diametre_trous_oem": 2.2,
+        "entraxe_oem": [
+          86,
+          58
+        ],
+        "axes_oem_xy": [
+          [
+            -43,
+            -29
+          ],
+          [
+            -43,
+            29
+          ],
+          [
+            43,
+            -29
+          ],
+          [
+            43,
+            29
+          ]
+        ],
+        "diametre_passages_stack": 3.2,
+        "hauteur_p67": 10,
+        "hauteur_p68": 28.4,
+        "epaisseur_ca01_nominale": 1.6,
+        "z_p67": [
+          88,
+          98
+        ],
+        "z_p68": [
+          99.6,
+          128
+        ],
+        "passages_guides": {
+          "diametre": 3.2,
+          "axes_xy": [
+            [
+              -66,
+              -43
+            ],
+            [
+              -66,
+              43
+            ],
+            [
+              66,
+              -43
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "fraisure": "Face inférieure P66",
+          "visserie_dans": "ELEC-PASSEFILS"
+        }
+      },
+      "detail": [
+        {
+          "reference": "P66 Platine G10 140×94×3, perçages OEM M2 et stack M3",
+          "quantite": 1
+        },
+        {
+          "reference": "P67 Entretoise de 10 mm, Ø6 / passage Ø3,2",
+          "quantite": 4
+        },
+        {
+          "reference": "P68 Entretoise de 28,4 mm, Ø6 / passage Ø3,2",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO4762 M3×55, classe et finition à valider",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO7089 M3 Ø3,2×7×0,5",
+          "quantite": 8
+        },
+        {
+          "reference": "ISO10511 M3 écrou frein, enveloppe hauteur4",
+          "quantite": 4
+        }
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json",
+        "hardware/mecanique/cartographe/manifest.json",
+        "hardware/mecanique/cartographe/verification/prototype_guides.py"
+      ],
+      "a_valider": "Contrôler les trous OEM nominaux Ø3, les épaisseurs PCB, pistes sous rondelles, engagements et accès. Fixation SSD, bride du ventilateur et compatibilité thermique restent à contrôler ; le G10 ne démontre pas une isolation vibratoire.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-SUPPORTS-SECURITE",
+      "reference_fabricant": "PROJ-SUP-SEC : support isolant du module CUAV C-RTK USL",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "fabriquer",
+      "definition": "Un support commun démontable reçoit le module candidat regroupant bouton, buzzer et LED. Son interface dépend du plan USL encore manquant ; la réservation projet 40×30×20 mm du module ne vaut pas une cote fabricant. Accès opérateur et sortie acoustique dégagés.",
+      "dimensions_mm": {
+        "equerre": [
+          55,
+          30,
+          2
+        ],
+        "entraxe_ancrages": 40
+      },
+      "detail": [
+        {
+          "reference": "Support isolant PROJ-SUP-SEC, géométrie à ajuster au module USL identifié",
+          "quantite": 1
+        }
+      ],
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json"
+      ],
+      "a_valider": "Identifier cotes et brochage du CUAV USL, ajuster le support avant fabrication, puis vérifier visibilité et manipulation hors zone hélices.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-PLATINE-CAPTEURS",
+      "reference_fabricant": "P65_Platine_Capteurs_Prototype : aluminium 6061-T6, plaque 5 mm, équerre 4 mm",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "fabriquer",
+      "definition": "P65 dérivée de l'arbre paramétrique P16, reprise en aluminium 6061-T6. Plaque 5 mm avec lamages Airy 1,5 mm pour portée locale 3,5 mm ; équerre Basler 4 mm avec lamages 1 mm pour portée locale 3 mm. Deux points latéraux Basler conservés. Passages libres Ø7 aux axes ±60/±37 mm pour éviter tout contact avec les ancrages du châssis.",
+      "dimensions_mm": {
+        "epaisseur_plaque": 5,
+        "epaisseur_equerre": 4,
+        "lamage_airy": 1.5,
+        "lamage_basler": 1,
+        "epaisseur_locale_airy": 3.5,
+        "epaisseur_locale_basler": 3,
+        "passage_ancrages": 7,
+        "planeite_cible_max": 0.1
+      },
+      "sources": [
+        "S-AIRY",
+        "hardware/mecanique/cartographe/pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd"
+      ],
+      "a_valider": "Rigidité >50 Hz du sous-ensemble Airy-support, dissipation, géométrie des trous du lot, isolation bloc complet et température en acquisition.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-ECROU-ISOLATION",
+      "reference_fabricant": "DIN 985 M2 acier zingué, écrou autofreiné bas",
+      "quantite": 4,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Quatre écrous métalliques à bague frein, combinés aux M2×25 existantes et limiteurs P18 ; aucun serrage des élastomères au couple d'une liaison rigide.",
+      "sources": [
+        "hardware/mecanique/cartographe/nomenclature_prototype.json"
+      ],
+      "a_valider": "Épaisseur d'écrou, filet dépassant, précharge et jeu de capture ; écrou changé si frein dégradé.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-ANCRAGES-CAPTEURS",
+      "reference_fabricant": "ISO 10642 M3×40 acier 8.8 + ISO 7089 M3 + écrou frein M3",
+      "quantite": 4,
+      "unite": "jeu",
+      "achat": "distinct",
+      "definition": "Quatre ancrages communs P17 / plateau batterie OEM / semelle G10 aux axes x=±60, y=±37 mm. ISO 10642 M3×40 à tête fraisée affleurante z=−87 mm côté softpack. Sous le P17 (bas à −121,174 mm), une rondelle de 0,5 mm et un écrou frein de 4 mm par vis ; pointe à −127 mm, dépassement nominal de 1,326 mm sous l'écrou. Ces ancrages fixent aussi la semelle batterie, sans double compte dans MEC-BATTERIE-FIXATIONS.",
+      "dimensions_mm": {
+        "entraxe": [
+          120,
+          74
+        ],
+        "epaisseur_p17": 29.174,
+        "epaisseur_plateau": 2,
+        "epaisseur_semelle": 3,
+        "diametre_tete_reservation": 6,
+        "nature_cote_p17": "Hauteur de la géométrie source aux bornes z −121,174 / −92 ; portée réelle à vérifier",
+        "z_bas_p17": -121.174,
+        "epaisseur_rondelle": 0.5,
+        "hauteur_ecrou_frein": 4,
+        "z_rondelle": [
+          -121.674,
+          -121.174
+        ],
+        "z_ecrou": [
+          -125.674,
+          -121.674
+        ],
+        "z_tete_affleurante": -87,
+        "z_pointe": -127,
+        "depassement_nominal_sous_ecrou": 1.326,
+        "passage_p65": 7
+      },
+      "detail_par_jeu": [
+        {
+          "reference": "Collier fendu PROJ-ANCR-P17 Ø10",
+          "quantite": 1
+        },
+        {
+          "reference": "ISO4762 M3×12 acier8.8",
+          "quantite": 2
+        },
+        {
+          "reference": "ISO7089 M3",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO10511 M3",
+          "quantite": 2
+        }
+      ],
+      "sources": [
+        "S-X650"
+      ],
+      "a_valider": "Confirmer tête exacte et fraisure dans G10 3 mm, tenue de la semelle, empilage et engagement de la bague frein. Vérifier les passages Ø7 de P65 dérivée de P16 : aucune pointe ou fixation ne doit rigidifier les appuis Sorbothane. Les valeurs géométriques ne remplacent pas la mesure du lot. Aucun collier de rail ajouté.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-AIRY-VIS",
+      "reference_fabricant": "ISO 4762 M3×8 acier 8.8, freinage selon guide Airy",
+      "quantite": 3,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Trois M3×8, engagement nominal4,5 mm via portée aluminium3,5 mm ; ne pas ajouter de rondelle sans corriger l'empilage. Anti-desserrage compatible fabricant.",
+      "sources": [
+        "S-AIRY"
+      ],
+      "a_valider": "Tolérances engagement réel, couple constructeur, profondeur et absence de talonnage.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-AIRY-PIGES",
+      "reference_fabricant": "ISO 8734, goupille cylindrique acier trempé Ø3 m6 ×6 mm",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Deux piges, longueur6 mm : emmanchement3 mm dans platine, saillie3 mm côté Airy. Trou borgne de platine profondeur3 mm. Le m6 est un choix de fabrication candidat pour la rétention dans le support, pas une tolérance prescrite par RoboSense.",
+      "dimensions_mm": {
+        "diametre": 3,
+        "longueur": 6,
+        "profondeur_support": 3,
+        "saillie": 3
+      },
+      "sources": [
+        "S-AIRY"
+      ],
+      "a_valider": "Ajustement avec les logements réels Airy et plan constructeur ; remplacer la seconde pige par une pige dégagée si contraintes de tolérances l'exigent, sans forcer deux emmanchements dans le capteur.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-AIRY-THERMIQUE",
+      "reference_fabricant": "Contact métal direct Airy/P65 aluminium, intégré à P65",
+      "quantite": 1,
+      "unite": "interface",
+      "achat": "inclus",
+      "parent": "MEC-PLATINE-CAPTEURS",
+      "definition": "Contact aluminium propre, plan, continu selon portée fabricante. Aucun pad compressible ajouté : préserver positionnement et planéité. P65 constitue le chemin dissipatif candidat et reçoit trois vis Airy. Deux piges sont prévues ; positions et perçages restent à définir à partir du plan ou du lot fabricant.",
+      "sources": [
+        "S-AIRY"
+      ],
+      "a_valider": "Température stabilisée avec acquisition et au soleil/air ambiant prévu. Si insuffisant, ajouter un dissipateur ou TIM documenté après mesure, puis corriger l'empilage ; aucune évacuation thermique démontrée par CAO seule.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-BASLER-FIXATIONS",
+      "reference_fabricant": "ISO 4762 M3×6 acier 8.8, deux vis latérales sur portée 3 mm",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Deux M3×6 dans la face latérale utilisée par le natif Basler, engagement nominal 3 mm pour limite publiée 4 mm. La séquence fabricant de trois vis concerne une autre face de montage et ne décrit pas ce montage latéral à deux vis.",
+      "dimensions_mm": {
+        "epaisseur_support": 3,
+        "engagement_nominal": 3,
+        "profondeur_max_documentee": 4
+      },
+      "sources": [
+        "S-BASLER",
+        "S-BASLER-MONTAGE",
+        "hardware/mecanique/cartographe/nomenclature_prototype.json"
+      ],
+      "a_valider": "Confirmer les deux trous latéraux du modèle a2A4096-30ucBAS réel, profondeur, engagement et tenue au moment de flexion de l'objectif ; couple constructeur et vibration à valider.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-OBJECTIF-RETENUE",
+      "reference_fabricant": "Fujinon CF8ZA-1S, verrouillages iris/focus captifs intégrés et vis sans tête OEM fournies",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "SEN-LENS",
+      "definition": "Monture C vissée dans Basler et réglages verrouillés par dispositifs fournis. Un seul jeu compté dans l'objectif ; six vis sans tête dans le lot fournisseur ne signifient pas six vis obligatoirement installées. Pas de colle sur le filetage optique ni collier supplémentaire de définition.",
+      "dimensions_mm": {
+        "enveloppe_objectif_diametre": 54,
+        "longueur_objectif": 67
+      },
+      "sources": [
+        "S-FUJINON"
+      ],
+      "a_valider": "Blocage C-mount séparé des bagues, intrusion optique et tenue au moment de flexion avec objectif180 g ; vérifier absence de rotation/dérive après vibration. Un défaut impose support secondaire révisé, pas supposition de tenue acquise.",
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-RETENUES-CAPTEURS-FIXATIONS",
+      "reference_fabricant": "KIT-FIX-P10 : ISO4762 M3×12 + ISO7089 M3 + ISO10511 M3",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "detail": [
+        {
+          "reference": "ISO4762 M3×12 acier8.8",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO7089 M3",
+          "quantite": 8
+        },
+        {
+          "reference": "ISO10511 M3",
+          "quantite": 4
+        }
+      ],
+      "definition": "Une fixation traversante par retenue P10 ; quatre retenues à monter. Reprise candidate de la semelle locale à 1,5 mm et appui de 3 mm à confirmer au montage. Les colliers appartiennent au faisceau et ne sont pas recomptés ici. Conserver le mou Airy >20 mm.",
+      "sources": [
+        "S-AIRY",
+        "hardware/mecanique/cartographe/nomenclature_prototype.json"
+      ],
+      "a_valider": "Empilage candidat : vis 12 mm, semelle 1,5 mm, appui 3 mm, deux rondelles de 0,5 mm et écrou frein de 4 mm, soit 2,5 mm de dépassement nominal. Vérifier la géométrie réelle des P10, la présence des appuis, les ancrages, le dégagement sous vis et l'absence de rigidification bloc isolé/châssis.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false
+    },
+    {
+      "id": "MEC-SUPPORT-GNSS",
+      "reference_fabricant": "Holybro H-RTK Helical Vertical Mount 31153",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "detail": [
+        {
+          "reference": "31153 support vertical GNSS Helical complet",
+          "quantite": 1
+        }
+      ],
+      "definition": "Un support vertical récepteur+antenne intégrée Holybro 31153, annoncé compatible12037. Le 31154 avec rallonge SMA est une alternative pour antenne déportée, non installée dans cette définition. Déduire le 31153 si déjà fourni au lot. Position au-dessus du châssis, ciel libre et boucle CAN soutenue.",
+      "sources": [
+        "S-GNSS-MONT"
+      ],
+      "a_valider": "Contenu kit12037, cotes par STEP OEM et contrôle physique, ancrages châssis, tenue et perturbations magnétiques/RF. Aucune rallonge SMA installée.",
+      "source_step": "https://cdn.shopify.com/s/files/1/0604/5905/7341/files/Vertical-Mount-for-H-RTK-Helical.stp?v=1695104716",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "MEC-SUPPORTS-RF",
+      "reference_fabricant": "PROJ-SUP-RP4TD : deux supports TPU95A pour antennes T 65 mm OEM",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "fabriquer",
+      "definition": "Deux supports isolants à glissière de coaxial et logement T, fixés au voisinage immédiat de CA01 pour respecter les65 mm de câble fournis ; dipôles orthogonaux, parties rayonnantes hors carbone et sans tension sur U.FL. Base candidate18×12×3 mm, passage coaxial2 mm, fixation par deux lumières3×2 mm pour colliers.",
+      "dimensions_mm": {
+        "base": [
+          18,
+          12,
+          3
+        ],
+        "passage_coaxial": 2,
+        "lumiere_collier": [
+          3,
+          2
+        ],
+        "centres_xy": [
+          [
+            -76,
+            28
+          ],
+          [
+            -76,
+            -15
+          ]
+        ],
+        "z_base": 103
+      },
+      "sources": [
+        "S-RP4TD"
+      ],
+      "a_valider": "Diamètre câble/antenne réel, portée65 mm, éloignement rayonnant du carbone et réception RF sur toute orientation. Aucun coaxial additionnel si les deux antennes d'origine suffisent.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    }
+  ],
+  "regles_consolidation": [
+    "Chaque proposition reste À valider sur lot physique et essais ; référence de définition résolue ne signifie pas référence d'achat libérée.",
+    "Les quantités de jeux structurent le comptage : leur détail n'est pas une seconde quantité embarquée.",
+    "Les dimensions des supports PROJ sont des décisions candidates de conception ; l'assemblage CAO doit les ajuster et consigner tout changement dans le registre consolidé.",
+    "Aucune masse/prix ajouté faute de donnée primaire ou pesée. Aucun total complet calculé à partir de volumes de réservation.",
+    "Les fixations connues de la CAO doivent être instanciées ; une réserve d'interface ne devient pas automatiquement une vis sourcée.",
+    "Les quatre fixations de butées sont 2 M3×12 à gauche et 2 M3×16 à droite, 8 rondelles et4 écrous dans MEC-BATTERIE-FIXATIONS. Les deux vis de droite retiennent aussi P76 ; les quatre ancrages communs MEC-ANCRAGES-CAPTEURS ne sont pas recomptés.",
+    "Les dix axes de guides P72/P73/P75, avec6 M3×12,4 M3×16 fraisées,14 rondelles et10 écrous, sont détaillés dans ELEC-PASSEFILS. Le lot de colliers reste une provision distincte, non un second achat de cette visserie."
+  ]
+}

@@ -1,0 +1,2223 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "statut": "Proposition de routage CAO",
+  "qualification": "À valider",
+  "repere": "mm global Prototype_Cartographe ; poses SA identité",
+  "autorite": "Configuration provisoire pour intégration racine, pas dossier de fabrication",
+  "sources": [
+    "hardware/mecanique/cartographe/verification/build_prototype.py",
+    "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "hardware/mecanique/cartographe/verification/positions_modeles_ca01_20261001.json",
+    "hardware/mecanique/cartographe/sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+    "hardware/mecanique/cartographe/sources_fabricants/Holybro_11072_FAN.jpg",
+    "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+    "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+    "hardware/electronique/cartographe/verification/controle_connecteur_ventilateur_jetson.json"
+  ],
+  "implantation": {
+    "P64_base_z_mm": 36.2,
+    "P64_top_z_mm": 39,
+    "PM08_base_z_mm": 39,
+    "PM08_center_xy_mm": [
+      -22,
+      -57.5
+    ],
+    "PDB_center_xy_mm": [
+      42,
+      4
+    ],
+    "PDB_base_z_mm": 39,
+    "supports_RF_xy_mm": [
+      [
+        -76,
+        28
+      ],
+      [
+        -76,
+        -15
+      ]
+    ]
+  },
+  "ports": {
+    "CA01_J104": {
+      "point_mm": [
+        -61,
+        -4,
+        106
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J104",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F09",
+          "extremite": "debut",
+          "point_mm": [
+            -61,
+            -4,
+            106
+          ],
+          "decalage_repere_mm": [
+            0,
+            0,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J402": {
+      "point_mm": [
+        -16,
+        40,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J402",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F12",
+          "extremite": "debut",
+          "point_mm": [
+            -16,
+            41,
+            103
+          ],
+          "decalage_repere_mm": [
+            0,
+            1,
+            1
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J503": {
+      "point_mm": [
+        2,
+        40,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J503",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F36",
+          "extremite": "fin",
+          "point_mm": [
+            2,
+            41,
+            103
+          ],
+          "decalage_repere_mm": [
+            0,
+            1,
+            1
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J505": {
+      "point_mm": [
+        63,
+        4,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J505",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24A",
+          "extremite": "debut",
+          "point_mm": [
+            65,
+            4,
+            102
+          ],
+          "decalage_repere_mm": [
+            2,
+            0,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J506": {
+      "point_mm": [
+        63,
+        -5,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J506",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24B",
+          "extremite": "debut",
+          "point_mm": [
+            65,
+            -5,
+            102
+          ],
+          "decalage_repere_mm": [
+            2,
+            0,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J507": {
+      "point_mm": [
+        17,
+        40,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J507",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F33",
+          "extremite": "debut",
+          "point_mm": [
+            17,
+            41,
+            103
+          ],
+          "decalage_repere_mm": [
+            0,
+            1,
+            1
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J508": {
+      "point_mm": [
+        63,
+        -16,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J508",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F35",
+          "extremite": "debut",
+          "point_mm": [
+            65,
+            -16,
+            103
+          ],
+          "decalage_repere_mm": [
+            2,
+            0,
+            1
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "CA01_J509": {
+      "point_mm": [
+        27,
+        40,
+        102
+      ],
+      "nature": "Accès de fiche candidat appuyé sur empreinte/STEP",
+      "reference": "J509",
+      "limites": "XY empreinte tracé dans ca01_sources.json ; extrusion de fiche, centre des conducteurs et Z à relever. Ne pas confondre ancrage empreinte et sortie du câble.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24C",
+          "extremite": "debut",
+          "point_mm": [
+            27,
+            41,
+            103
+          ],
+          "decalage_repere_mm": [
+            0,
+            1,
+            1
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_POWER1": {
+      "point_mm": [
+        -58.1,
+        -14,
+        137.50232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON6-SMD_PART_SD502443_ASM001",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F06",
+          "extremite": "fin",
+          "point_mm": [
+            -58.1,
+            -14,
+            138.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0,
+            0.99768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_POWER2": {
+      "point_mm": [
+        -58.1,
+        4,
+        137.50232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON6-SMD_PART_SD502443_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F32",
+          "extremite": "fin",
+          "point_mm": [
+            -58.1,
+            4,
+            138.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0,
+            0.99768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_CAN1": {
+      "point_mm": [
+        52.85,
+        -14.5,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON4-SMD-125_PART_BM04_ASM002",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F31",
+          "extremite": "fin",
+          "point_mm": [
+            52.85,
+            -14.5,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0.0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_CAN2": {
+      "point_mm": [
+        52.85,
+        -4.5,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON4-SMD-125_PART_BM04_ASM001",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F21",
+          "extremite": "fin",
+          "point_mm": [
+            52.85,
+            -4.5,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0.0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_TELEM1": {
+      "point_mm": [
+        59.825,
+        12,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON6-SMD_PART_BM06B-GH_ASM001",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F12",
+          "extremite": "fin",
+          "point_mm": [
+            59.825,
+            12,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_GPS1": {
+      "point_mm": [
+        52.825,
+        9.5,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON10-SMD_PART_BM10B-G_ASM002",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F25",
+          "extremite": "fin",
+          "point_mm": [
+            52.825,
+            9.5,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0.0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_FMU_PWM": {
+      "point_mm": [
+        59.825,
+        -4,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON10-SMD_PART_BM10B-G_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F33",
+          "extremite": "fin",
+          "point_mm": [
+            59.825,
+            -4,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_AD_IO": {
+      "point_mm": [
+        45.825,
+        -10.5,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON8-SMD_PART_BM08B-GH_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F35",
+          "extremite": "fin",
+          "point_mm": [
+            45.825,
+            -10.5,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0.0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_ORIN_DEBUG": {
+      "point_mm": [
+        -50,
+        -37.5875,
+        134.30232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON6-SMD_PART_BM06B-SR_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24B",
+          "extremite": "fin",
+          "point_mm": [
+            -50,
+            -37.5875,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0,
+            0.0,
+            1.19768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_JETSON_XT30": {
+      "point_mm": [
+        -60,
+        27.5,
+        139.55232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-TX30-UPB-F_PART_TX30-U_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F09",
+          "extremite": "fin",
+          "point_mm": [
+            -60,
+            27.5,
+            140.5
+          ],
+          "decalage_repere_mm": [
+            0,
+            0.0,
+            0.94768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_FAN": {
+      "point_mm": [
+        -52.5,
+        38.2,
+        134.65232
+      ],
+      "nature": "Centre XY / face haute de boîtier STEP ; accès candidat",
+      "reference": "SUBMODEL-CON-4_PART_DF13-4P-1_2_ASM",
+      "limites": "Position source mesurée dans holybro_objets.json ; fonction rapprochée photo/ports constructeur, affectation lot et fiche accouplée non qualifiées. Pas de coordonnées de contact.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F20",
+          "extremite": "fin",
+          "point_mm": [
+            -52.5,
+            38.2,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0.0,
+            0.0,
+            0.84768
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_GPIO": {
+      "point_mm": [
+        -62,
+        15,
+        125.9
+      ],
+      "nature": "Réservation à identifier",
+      "reference": "SM06B-GH face inférieure candidate",
+      "limites": "Identification GPIO physique non prouvée ; ne pas fabriquer à partir de ce point.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24A",
+          "extremite": "fin",
+          "point_mm": [
+            -64,
+            15,
+            125.9
+          ],
+          "decalage_repere_mm": [
+            -2,
+            0,
+            0.0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "HOLYBRO_CSI_EXTRACTEUR": {
+      "point_mm": [
+        35,
+        -30,
+        130.1
+      ],
+      "nature": "Réservation ; extracteur absent",
+      "reference": "SUBMODEL-FPC-22P-0_5_1471197680_ASM",
+      "limites": "STEP est une représentation plane incomplète. FFC22, extracteur et fixation à concevoir ; pas une prise GH existante.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F24C",
+          "extremite": "fin",
+          "point_mm": [
+            35,
+            -30,
+            135.5
+          ],
+          "decalage_repere_mm": [
+            0,
+            0,
+            5.4
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "PM_BEC1": {
+      "point_mm": [
+        -28,
+        -37,
+        62
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "PM_BEC1",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F06",
+          "extremite": "debut",
+          "point_mm": [
+            -38,
+            -62,
+            66
+          ],
+          "decalage_repere_mm": [
+            -10,
+            -25,
+            4
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "PM_BEC2": {
+      "point_mm": [
+        -18,
+        -37,
+        62
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "PM_BEC2",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F32",
+          "extremite": "debut",
+          "point_mm": [
+            -28,
+            -70,
+            66
+          ],
+          "decalage_repere_mm": [
+            -10,
+            -33,
+            4
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "PM_CAN": {
+      "point_mm": [
+        -38,
+        -37,
+        62
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "PM_CAN",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F31",
+          "extremite": "debut",
+          "point_mm": [
+            -18,
+            -76,
+            66
+          ],
+          "decalage_repere_mm": [
+            20,
+            -39,
+            4
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "GNSS_CAN": {
+      "point_mm": [
+        -5,
+        92.5,
+        100
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "GNSS_CAN",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F21",
+          "extremite": "debut",
+          "point_mm": [
+            -5,
+            91,
+            100
+          ],
+          "decalage_repere_mm": [
+            0,
+            -1.5,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "GNSS_UART2": {
+      "point_mm": [
+        5,
+        92.5,
+        100
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "GNSS_UART2",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F36",
+          "extremite": "debut",
+          "point_mm": [
+            5,
+            91,
+            100
+          ],
+          "decalage_repere_mm": [
+            0,
+            -1.5,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "USL": {
+      "point_mm": [
+        0,
+        -87.5,
+        97.5
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "USL",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F25",
+          "extremite": "debut",
+          "point_mm": [
+            0,
+            -86,
+            97.5
+          ],
+          "decalage_repere_mm": [
+            0,
+            1.5,
+            0.0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "FAN_SORTIE": {
+      "point_mm": [
+        -52,
+        22,
+        150
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "FAN_SORTIE",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F20",
+          "extremite": "debut",
+          "point_mm": [
+            -52,
+            27.5,
+            150
+          ],
+          "decalage_repere_mm": [
+            0,
+            5.5,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "RP4TD_A": {
+      "point_mm": [
+        -50,
+        25,
+        104
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "RP4TD_A",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F13A",
+          "extremite": "debut",
+          "point_mm": [
+            -50,
+            25,
+            106
+          ],
+          "decalage_repere_mm": [
+            0,
+            0,
+            2
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "RP4TD_B": {
+      "point_mm": [
+        -50,
+        15,
+        104
+      ],
+      "nature": "Réservation de sortie non cotée",
+      "reference": "RP4TD_B",
+      "limites": "Enveloppe commerciale ou implantation photo seulement ; relever point et direction sur lot/source détaillée avant fabrication.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F13B",
+          "extremite": "debut",
+          "point_mm": [
+            -50,
+            15,
+            106
+          ],
+          "decalage_repere_mm": [
+            0,
+            0,
+            2
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "ANT_A": {
+      "point_mm": [
+        -76,
+        28,
+        136
+      ],
+      "nature": "Centre de jonction de l’enveloppe CAO déplacée",
+      "reference": "EQ_Antenne_RP4TD_Prototype",
+      "limites": "Antenne verticale : base106 + jonction30. Géométrie OEM à vérifier.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F13A",
+          "extremite": "fin",
+          "point_mm": [
+            -71,
+            28,
+            136
+          ],
+          "decalage_repere_mm": [
+            5,
+            0,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    },
+    "ANT_B": {
+      "point_mm": [
+        -76,
+        -15,
+        108
+      ],
+      "nature": "Centre de jonction de l’enveloppe CAO déplacée",
+      "reference": "EQ_Antenne_RP4TD_Prototype",
+      "limites": "Antenne horizontale : centre de jonction après rotation90°. Géométrie OEM à vérifier.",
+      "statut": "À valider",
+      "sorties_parcours_mm": [
+        {
+          "route": "F13B",
+          "extremite": "fin",
+          "point_mm": [
+            -71,
+            -15,
+            108
+          ],
+          "decalage_repere_mm": [
+            5,
+            0,
+            0
+          ],
+          "statut": "À valider : sortie de gaine réservée, fiche accouplée non cotée"
+        }
+      ]
+    }
+  },
+  "routes": [
+    {
+      "id": "F09",
+      "bom_ids": [
+        "ELEC-F09"
+      ],
+      "points_mm": [
+        [
+          -61,
+          -4,
+          106
+        ],
+        [
+          -61,
+          -4,
+          119
+        ],
+        [
+          -94,
+          -4,
+          119
+        ],
+        [
+          -94,
+          -4,
+          155
+        ],
+        [
+          -60,
+          -4,
+          155
+        ],
+        [
+          -60,
+          27.5,
+          155
+        ],
+        [
+          -60,
+          27.5,
+          140.5
+        ]
+      ],
+      "diameter_mm": 5,
+      "bend_radius_mm": 10,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J104",
+        "HOLYBRO_JETSON_XT30"
+      ],
+      "substrat": [
+        "guide isolant ouest CA01/Holybro",
+        "colonne ouest"
+      ],
+      "retentions": "2 retenues guide ouest + retenue avant XT30",
+      "longueur_polyline_mm": 162.0,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "Paire AWG14 candidate, diamètre faisceau provisoire ; boucle hors composants. Cote de sortie XT30 et dégagement fiche à intégrer.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 5,
+      "rayon_courbure_mm": 10,
+      "supports": [
+        "guide isolant ouest CA01/Holybro",
+        "colonne ouest"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F06",
+      "bom_ids": [
+        "ELEC-F06"
+      ],
+      "points_mm": [
+        [
+          -38,
+          -62,
+          66
+        ],
+        [
+          -38,
+          -62,
+          73
+        ],
+        [
+          -92,
+          -62,
+          72
+        ],
+        [
+          -92,
+          -62,
+          150.5
+        ],
+        [
+          -92,
+          -14,
+          150.5
+        ],
+        [
+          -58.1,
+          -14,
+          150.5
+        ],
+        [
+          -58.1,
+          -14,
+          138.5
+        ]
+      ],
+      "diameter_mm": 3.4,
+      "bend_radius_mm": 6,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "PM_BEC1",
+        "HOLYBRO_POWER1"
+      ],
+      "substrat": [
+        "P64 haut",
+        "colonne(-60,-37)",
+        "guide ouest Holybro"
+      ],
+      "retentions": "retenue P64, colonne Z76/110/128, guide supérieur",
+      "longueur_polyline_mm": 233.4093,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "PM08 base39 ; 4 fils utiles, aucun SCL/SDA, ne pas lier les BEC.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 3.4,
+      "rayon_courbure_mm": 6,
+      "supports": [
+        "P64 haut",
+        "colonne(-60,-37)",
+        "guide ouest Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F32",
+      "bom_ids": [
+        "ELEC-F32"
+      ],
+      "points_mm": [
+        [
+          -28,
+          -70,
+          66
+        ],
+        [
+          -28,
+          -70,
+          73
+        ],
+        [
+          -98,
+          -70,
+          72
+        ],
+        [
+          -98,
+          -70,
+          149
+        ],
+        [
+          -98,
+          4,
+          149
+        ],
+        [
+          -58.1,
+          4,
+          149
+        ],
+        [
+          -58.1,
+          4,
+          138.5
+        ]
+      ],
+      "diameter_mm": 3.4,
+      "bend_radius_mm": 6,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "PM_BEC2",
+        "HOLYBRO_POWER2"
+      ],
+      "substrat": [
+        "P64 haut",
+        "guide ouest colonne(-60,-37)"
+      ],
+      "retentions": "retenue P64, guide vertical Z80/112/136",
+      "longueur_polyline_mm": 278.4071,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "Route BEC2 distincte BEC1. Guides déportés isolants nécessaires ; pas de fixation sur composants.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 3.4,
+      "rayon_courbure_mm": 6,
+      "supports": [
+        "P64 haut",
+        "guide ouest colonne(-60,-37)"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F31",
+      "bom_ids": [
+        "ELEC-F31"
+      ],
+      "points_mm": [
+        [
+          -18,
+          -76,
+          66
+        ],
+        [
+          -18,
+          -76,
+          73
+        ],
+        [
+          -104,
+          -76,
+          72
+        ],
+        [
+          -104,
+          -76,
+          158
+        ],
+        [
+          85,
+          -76,
+          158
+        ],
+        [
+          85,
+          -14.5,
+          158
+        ],
+        [
+          52.85,
+          -14.5,
+          158
+        ],
+        [
+          52.85,
+          -14.5,
+          135.5
+        ]
+      ],
+      "diameter_mm": 3,
+      "bend_radius_mm": 6,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "PM_CAN",
+        "HOLYBRO_CAN1"
+      ],
+      "substrat": [
+        "P64 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "retentions": "P64 tous40mm, colonne Z80/110/130, bride sortie",
+      "longueur_polyline_mm": 484.1558,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "CAN H/L torsadés +GND ; +5V CAN1 NC. Séparer de puissance de propulsion sur P64, écart cible20mm ou cloison isolante ; CEM à qualifier.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 3,
+      "rayon_courbure_mm": 6,
+      "supports": [
+        "P64 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F12",
+      "bom_ids": [
+        "ELEC-F12"
+      ],
+      "points_mm": [
+        [
+          -16,
+          41,
+          103
+        ],
+        [
+          -16,
+          43,
+          114
+        ],
+        [
+          75,
+          43,
+          114
+        ],
+        [
+          75,
+          30,
+          114
+        ],
+        [
+          75,
+          30,
+          149
+        ],
+        [
+          75,
+          12,
+          149
+        ],
+        [
+          59.825,
+          12,
+          149
+        ],
+        [
+          59.825,
+          12,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.6,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J402",
+        "HOLYBRO_TELEM1"
+      ],
+      "substrat": [
+        "guide nord P66",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "retentions": "guide nord tous40mm ; colonne Z110/130 ; guide prise",
+      "longueur_polyline_mm": 196.8553,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "TELEM1 choisi pour géométrie seulement ; confirmer port PX4. 3 fils, pas +5V.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.6,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide nord P66",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F21",
+      "bom_ids": [
+        "ELEC-F21"
+      ],
+      "points_mm": [
+        [
+          -5,
+          91,
+          100
+        ],
+        [
+          -5,
+          80,
+          100
+        ],
+        [
+          -8,
+          62,
+          100
+        ],
+        [
+          -8,
+          51,
+          96
+        ],
+        [
+          66.5,
+          51,
+          96
+        ],
+        [
+          66.5,
+          51,
+          157
+        ],
+        [
+          66.5,
+          -4.5,
+          157
+        ],
+        [
+          52.85,
+          -4.5,
+          157
+        ],
+        [
+          52.85,
+          -4.5,
+          135.5
+        ]
+      ],
+      "diameter_mm": 3,
+      "bend_radius_mm": 6,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "GNSS_CAN",
+        "HOLYBRO_CAN2"
+      ],
+      "substrat": [
+        "bras GNSS largeur25",
+        "P66 bord nord",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "retentions": "bras GNSS Y80/60 ; nord X15/45 ; colonne Z106/128",
+      "longueur_polyline_mm": 267.103,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "CAN H/L torsadés ; +5V etGND conservés. Garder GNSS éloigné des boucles fortes intensités.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 3,
+      "rayon_courbure_mm": 6,
+      "supports": [
+        "bras GNSS largeur25",
+        "P66 bord nord",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F36",
+      "bom_ids": [
+        "ELEC-F36"
+      ],
+      "points_mm": [
+        [
+          5,
+          91,
+          100
+        ],
+        [
+          5,
+          80,
+          100
+        ],
+        [
+          8,
+          60,
+          100
+        ],
+        [
+          8,
+          49,
+          109
+        ],
+        [
+          2,
+          45,
+          109
+        ],
+        [
+          2,
+          41,
+          103
+        ]
+      ],
+      "diameter_mm": 2.6,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "GNSS_UART2",
+        "CA01_J503"
+      ],
+      "substrat": [
+        "bras GNSS",
+        "guide court nord CA01"
+      ],
+      "retentions": "bras Y80/60 ; guide près J503",
+      "longueur_polyline_mm": 59.8586,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "3 fils G4 pins3/5/6 ; ne pas relier VCC UART2 à CA01. Séparer physiquement F21 de3mm au moins hors prises.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.6,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "bras GNSS",
+        "guide court nord CA01"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F24A",
+      "bom_ids": [
+        "ELEC-F24A"
+      ],
+      "points_mm": [
+        [
+          65,
+          4,
+          102
+        ],
+        [
+          72,
+          4,
+          102
+        ],
+        [
+          72,
+          29,
+          102
+        ],
+        [
+          72,
+          55,
+          118
+        ],
+        [
+          -68,
+          55,
+          118
+        ],
+        [
+          -72.5,
+          37,
+          125.9
+        ],
+        [
+          -72.5,
+          15,
+          125.9
+        ],
+        [
+          -64,
+          15,
+          125.9
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J505",
+        "HOLYBRO_GPIO"
+      ],
+      "substrat": [
+        "guide est CA01",
+        "guide transversal nord tenu par colonnes",
+        "guide ouest sous Holybro"
+      ],
+      "retentions": "guides tous35mm ; retenue avant GPIO",
+      "longueur_polyline_mm": 253.1945,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "Terminaison GPIO non identifiée définitivement. Guide transversal requis ; pas de fil libre sur139mm.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide est CA01",
+        "guide transversal nord tenu par colonnes",
+        "guide ouest sous Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F24B",
+      "bom_ids": [
+        "ELEC-F24B"
+      ],
+      "points_mm": [
+        [
+          65,
+          -5,
+          102
+        ],
+        [
+          74,
+          -5,
+          102
+        ],
+        [
+          74,
+          -43,
+          104
+        ],
+        [
+          74,
+          -43,
+          119
+        ],
+        [
+          74,
+          -72,
+          119
+        ],
+        [
+          -67,
+          -72,
+          119
+        ],
+        [
+          -67,
+          -72,
+          135
+        ],
+        [
+          -67,
+          -50,
+          135
+        ],
+        [
+          -67,
+          -50,
+          151
+        ],
+        [
+          -50,
+          -50,
+          151
+        ],
+        [
+          -50,
+          -37.5875,
+          151
+        ],
+        [
+          -50,
+          -37.5875,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J506",
+        "HOLYBRO_ORIN_DEBUG"
+      ],
+      "substrat": [
+        "guide sud P66/CA01",
+        "colonnes sud",
+        "guide bord sud Holybro"
+      ],
+      "retentions": "guides tous35mm ; retenue hors boîtier Debug",
+      "longueur_polyline_mm": 330.9651,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "J506GH2 vers DebugSH6. Long passage sud intégralement porté par guide isolant, sans contact plaque carbone.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide sud P66/CA01",
+        "colonnes sud",
+        "guide bord sud Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F24C",
+      "bom_ids": [
+        "ELEC-F24C"
+      ],
+      "points_mm": [
+        [
+          27,
+          41,
+          103
+        ],
+        [
+          27,
+          61,
+          116
+        ],
+        [
+          78,
+          61,
+          116
+        ],
+        [
+          78,
+          61,
+          155
+        ],
+        [
+          78,
+          -60,
+          155
+        ],
+        [
+          35,
+          -60,
+          155
+        ],
+        [
+          35,
+          -30,
+          155
+        ],
+        [
+          35,
+          -30,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J509",
+        "HOLYBRO_CSI_EXTRACTEUR"
+      ],
+      "substrat": [
+        "guide nord CA01",
+        "colonne(+60,+37)",
+        "guide sous bord est Holybro",
+        "support extracteur à créer"
+      ],
+      "retentions": "guide tous35mm ; retenue dédiée extracteur",
+      "longueur_polyline_mm": 327.3537,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "Référence3.3V seulement ; extracteurFFC absent. Aucune autorisation de raccorder un fil nu au CSI.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide nord CA01",
+        "colonne(+60,+37)",
+        "guide sous bord est Holybro",
+        "support extracteur à créer"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F33",
+      "bom_ids": [
+        "ELEC-F33"
+      ],
+      "points_mm": [
+        [
+          17,
+          41,
+          103
+        ],
+        [
+          17,
+          51,
+          103
+        ],
+        [
+          17,
+          51,
+          122
+        ],
+        [
+          75,
+          46,
+          122
+        ],
+        [
+          75,
+          35,
+          122
+        ],
+        [
+          75,
+          35,
+          153
+        ],
+        [
+          75,
+          -4,
+          153
+        ],
+        [
+          59.825,
+          -4,
+          153
+        ],
+        [
+          59.825,
+          -4,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J507",
+        "HOLYBRO_FMU_PWM"
+      ],
+      "substrat": [
+        "guide nord/est externe",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "retentions": "nord tous35mm ; colonne Z115/133",
+      "longueur_polyline_mm": 200.8901,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "FMU_CH1/AUX1 pin2 et GND10 ; distinct du PWM MAIN moteurs.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide nord/est externe",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F35",
+      "bom_ids": [
+        "ELEC-F35"
+      ],
+      "points_mm": [
+        [
+          65,
+          -16,
+          103
+        ],
+        [
+          70,
+          -24,
+          110
+        ],
+        [
+          70,
+          -45,
+          110
+        ],
+        [
+          70,
+          -45,
+          143
+        ],
+        [
+          70,
+          -10.5,
+          143
+        ],
+        [
+          45.825,
+          -10.5,
+          143
+        ],
+        [
+          45.825,
+          -10.5,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "CA01_J508",
+        "HOLYBRO_AD_IO"
+      ],
+      "substrat": [
+        "guide est CA01",
+        "colonne(+60,-37)",
+        "guide accès AD&IO"
+      ],
+      "retentions": "colonne Z113/132 ; guide accès ADIO",
+      "longueur_polyline_mm": 131.9223,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "AD&IO pin2FMU_CAP1 / pin8GND. Distinguer de F33, pas de câble fictif combiné.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "guide est CA01",
+        "colonne(+60,-37)",
+        "guide accès AD&IO"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F25",
+      "bom_ids": [
+        "ELEC-F25"
+      ],
+      "points_mm": [
+        [
+          0,
+          -86,
+          97.5
+        ],
+        [
+          0,
+          -72,
+          97.5
+        ],
+        [
+          0,
+          -47,
+          97.5
+        ],
+        [
+          62,
+          -48,
+          97.5
+        ],
+        [
+          62,
+          -48,
+          162
+        ],
+        [
+          62,
+          22,
+          162
+        ],
+        [
+          48,
+          22,
+          162
+        ],
+        [
+          48,
+          9.5,
+          162
+        ],
+        [
+          52.825,
+          9.5,
+          135.5
+        ]
+      ],
+      "diameter_mm": 3.2,
+      "bend_radius_mm": 6,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "USL",
+        "HOLYBRO_GPS1"
+      ],
+      "substrat": [
+        "bras sécurité X±10",
+        "P66 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "retentions": "bras Y−75/−50 ; P66 tous35mm ; colonne Z106/127",
+      "longueur_polyline_mm": 288.9437,
+      "longueur_max_catalogue_mm": null,
+      "longueur_coupe_mm": null,
+      "limites": "Interface CUAV non documentée ; route réservée et brochage GPS1 uniquement. Aucun AUX1 dédié à sécurité.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 3.2,
+      "rayon_courbure_mm": 6,
+      "supports": [
+        "bras sécurité X±10",
+        "P66 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F20",
+      "bom_ids": [
+        "ELEC-F20"
+      ],
+      "points_mm": [
+        [
+          -52,
+          27.5,
+          150
+        ],
+        [
+          -52,
+          31,
+          150
+        ],
+        [
+          -52,
+          38.2,
+          145
+        ],
+        [
+          -52.5,
+          38.2,
+          135.5
+        ]
+      ],
+      "diameter_mm": 2.4,
+      "bend_radius_mm": 5,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "FAN_SORTIE",
+        "HOLYBRO_FAN"
+      ],
+      "substrat": [
+        "périphérie refroidisseur",
+        "retenue sur support refroidisseur sans obturer entrée air"
+      ],
+      "retentions": "retenue isolante proche sortie ; bride proche connecteur",
+      "longueur_polyline_mm": 21.779,
+      "longueur_max_catalogue_mm": 40,
+      "longueur_coupe_mm": null,
+      "limites": "Sortie ventilateur candidate ; 37±3mm OEM. Longueur utile à mesurer entre sorties réelles. Réserve rallonge100mm conditionnelle ; connectique/pinout non figés.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 2.4,
+      "rayon_courbure_mm": 5,
+      "supports": [
+        "périphérie refroidisseur",
+        "retenue sur support refroidisseur sans obturer entrée air"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F13A",
+      "bom_ids": [
+        "ELEC-F13"
+      ],
+      "points_mm": [
+        [
+          -50,
+          25,
+          106
+        ],
+        [
+          -57,
+          25,
+          113
+        ],
+        [
+          -67,
+          20,
+          116
+        ],
+        [
+          -71,
+          17,
+          136
+        ],
+        [
+          -71,
+          28,
+          136
+        ]
+      ],
+      "diameter_mm": 1.6,
+      "bend_radius_mm": 8,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "RP4TD_A",
+        "ANT_A"
+      ],
+      "substrat": [
+        "supportRF gauche prolongé jusqu’au bord CA01",
+        "montant support antenne verticale"
+      ],
+      "retentions": "retenue avant U.FL sans effort ;2 retenues supportRF",
+      "longueur_polyline_mm": 53.0909,
+      "longueur_max_catalogue_mm": 65,
+      "longueur_coupe_mm": null,
+      "limites": "65mm ensemble commercial : longueur utile exacte inconnue. Prolonger support isolant RF jusqu’àX−62 et jusqu’àZ130 pour supprimer segment libre ; hors dipôle actif.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 1.6,
+      "rayon_courbure_mm": 8,
+      "supports": [
+        "supportRF gauche prolongé jusqu’au bord CA01",
+        "montant support antenne verticale"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    },
+    {
+      "id": "F13B",
+      "bom_ids": [
+        "ELEC-F13"
+      ],
+      "points_mm": [
+        [
+          -50,
+          15,
+          106
+        ],
+        [
+          -64,
+          15,
+          106
+        ],
+        [
+          -71,
+          7,
+          108
+        ],
+        [
+          -71,
+          -15,
+          108
+        ]
+      ],
+      "diameter_mm": 1.6,
+      "bend_radius_mm": 8,
+      "statut": "À valider",
+      "endpoint_refs": [
+        "RP4TD_B",
+        "ANT_B"
+      ],
+      "substrat": [
+        "pontRF isolant côté gauche CA01",
+        "supportRF horizontal"
+      ],
+      "retentions": "retenue avant U.FL ;2 retenues pont RF",
+      "longueur_polyline_mm": 46.8167,
+      "longueur_max_catalogue_mm": 65,
+      "longueur_coupe_mm": null,
+      "limites": "65mm ensemble commercial. Déplacer supportX−76/Y−15 et prolonger pontRF de retenue. Éviter pincement/coax par collier direct ; aucun raccord rallongeRF.",
+      "verification_collision": "À valider",
+      "verification_rayon": "À valider",
+      "diametre_mm": 1.6,
+      "rayon_courbure_mm": 8,
+      "supports": [
+        "pontRF isolant côté gauche CA01",
+        "supportRF horizontal"
+      ],
+      "precheck_rayons": "Réussi sur polyligne, rayon non diminué ; courbe réelle à contrôler après construction."
+    }
+  ],
+  "guides_requis": [
+    {
+      "id": "GUIDE_P66",
+      "definition": "Guide isolant périphérique retenu mécaniquement à P66 et colonnes ; tenir toutes les voies nord/sud/est/ouest indiquées, sans appui sur PCB ou composants."
+    },
+    {
+      "id": "GUIDE_HOLYBRO",
+      "definition": "Cadre isolant périphérique tenu aux quatre colonnes. Voies distinctes jusqu’àX−82/+79,Y−59/+54,Z93..156, supports locaux accessibles et démontables. Adapter cadre aux points ci-dessous puis vérifier interférences et portée des retenues."
+    },
+    {
+      "id": "GUIDE_RF",
+      "definition": "Deux ponts isolants reliant CA01bordouest aux supports déplacés, avec petit montant vers alimentation du dipôle verticalZ136. Coax hors éléments rayonnants."
+    },
+    {
+      "id": "GUIDE_P64_P66",
+      "definition": "Retenues sur P64 et guide vertical le long colonnes, ne pas tendre les fils du PM08 entre deux plateaux."
+    }
+  ],
+  "regles": [
+    "Chaque longue portion doit être sur un guide matériel présent dans CAO ; substrat ne signifie pas contact câblePCB autorisé.",
+    "Diamètres/rayons horsUSB constructeur sont candidats, à remplacer par données exactes fil/gaine.",
+    "Ne pas réduire silencieusement rayon pour faire passer un coin : déplacer points/guide et enregistrer rayon construit.",
+    "Distances entre voies, fillets, prises et volumes doivent être contrôlés après arrondi CableWorkbench ; les points seuls ne prouvent pas absence interférence.",
+    "Rayon du tronc et rayon individuel des fils distincts ; AWG ne définit pas diamètre isolant.",
+    "Rilsans supportés par languettes/oeillets ; ne pas serrer directement coax/U.FL, bloc isolé, arête carbone ou corps chauds.",
+    "Les courts liens terminaux doivent avoir retenue et mou de montage ; pas de long câble volant.",
+    "Puissance propulsion et données séparées, cible projet20mm en parcours parallèles surplateau, croisements≈90° si inévitables ; CEM et critère final Àvalider."
+  ],
+  "finalisation_correcte": true,
+  "integration_cao_validee": false,
+  "precheck": {
+    "outil": "cable_workbench_prototype._check_polyline",
+    "routes": [
+      {
+        "id": "F09",
+        "rayon_mm": 10,
+        "reussi": true
+      },
+      {
+        "id": "F06",
+        "rayon_mm": 6,
+        "reussi": true
+      },
+      {
+        "id": "F32",
+        "rayon_mm": 6,
+        "reussi": true
+      },
+      {
+        "id": "F31",
+        "rayon_mm": 6,
+        "reussi": true
+      },
+      {
+        "id": "F12",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F21",
+        "rayon_mm": 6,
+        "reussi": true
+      },
+      {
+        "id": "F36",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F24A",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F24B",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F24C",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F33",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F35",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F25",
+        "rayon_mm": 6,
+        "reussi": true
+      },
+      {
+        "id": "F20",
+        "rayon_mm": 5,
+        "reussi": true
+      },
+      {
+        "id": "F13A",
+        "rayon_mm": 8,
+        "reussi": true
+      },
+      {
+        "id": "F13B",
+        "rayon_mm": 8,
+        "reussi": true
+      }
+    ],
+    "reussi": true,
+    "date": "2026-10-13",
+    "limite": "Précheck de tangence seulement ; courbe CableWorkbench, collisions équipement et retenues matérielles à vérifier dans assemblage."
+  },
+  "references_remplacees": {
+    "F24": [
+      "F24A",
+      "F24B",
+      "F24C"
+    ],
+    "F33_F35": [
+      "F33",
+      "F35"
+    ],
+    "action": "Omettre liens ancienF24 etancienF33_F35 dans reconstruction ; conserver leurs fichiers historiques, aucun effacement requis."
+  },
+  "preuve_ports": {
+    "extraction_ca01": ".runtime/faisceau_analyse/ca01_sources.json",
+    "extraction_holybro": ".runtime/faisceau_analyse/holybro_objets.json",
+    "source_step_sha256": "dfee72717b735c4b10089435ae1019482878f6607051f1a3b8397da7721ed6ee"
+  },
+  "limites_routage": "Parcours nominaux en correction ; preuve de collision globale requise avant clôture. Sorties PM08 réservées sur face supérieure ; coordonnées des fiches à confirmer.",
+  "convention_ports": "point_mm reste le repère d’interface source ; sorties_parcours_mm distingue la sortie de gaine provisoire utilisée par les routes. Les décalages ne prouvent pas la géométrie de la fiche accouplée."
+}

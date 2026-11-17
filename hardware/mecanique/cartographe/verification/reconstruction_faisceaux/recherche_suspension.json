@@ -1,0 +1,459 @@
+{
+  "schema": "cartographe.suspension.recherche.v1",
+  "date": "2026-10-29",
+  "scope": "Lecture documentaire, XML natif et recherches fabricant ; aucune génération ni mutation CAO par cet agent",
+  "status": "CANDIDAT_CONDITIONNEL",
+  "sources_locales": [
+    {
+      "file": "verification/construction_prototype.json",
+      "sha256": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9"
+    },
+    {
+      "file": "verification/connecteurs_coudes_camera_prototype.json",
+      "sha256": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb"
+    },
+    {
+      "file": "verification/dimensionnement_isolateurs_20260915.json",
+      "sha256": "4a4000ceab8f62e2b38a7ddc8388634adc8d106b5855ebe673af174421e02ef3"
+    },
+    {
+      "file": "verification/isolation_capteurs.json",
+      "sha256": "2c50adabd258f19f012765b27932ed008ff9aa74d1f023ad92d42e407818e89d"
+    },
+    {
+      "file": "verification/correction_capteurs_20260915.json",
+      "sha256": "80b4583b36ad656cbe36099d8c8aae846322813be6dd1e98995f8d2b644aecce"
+    },
+    {
+      "file": "verification/prototype_retenues_capteurs.py",
+      "sha256": "a1510c44184727f4de3e9d67ea7f9f7b18977455d0c9f0932ad540488d5fd329"
+    },
+    {
+      "file": "sous_assemblages/SA05B_Appui_Sorbothane.FCStd",
+      "sha256": "959420d0c4e01789a86c0369a90e7963fdf93df5caebb1237a205802543bd456"
+    },
+    {
+      "file": "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd",
+      "sha256": "010dc6af5cbde264558dc3e54fc84e5ce730e6b3e8108bcd488c8e0384c7309f"
+    },
+    {
+      "file": "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd",
+      "sha256": "8973755eb0e3b7467b18b5144ab28e848b0e0c0655970d7508f1ed52cf97dd2b"
+    },
+    {
+      "file": "pieces/fabriquees/P17_Support_deporte_isolation.FCStd",
+      "sha256": "e5a48335c2face3dfa6516ccae78213c89b8f49b34215bd39c23e5f79349a891"
+    },
+    {
+      "file": "pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd",
+      "sha256": "5677d67493e1e5a378d62d72cd05ae90a4a83cef436ce68f557a77fbed935b34"
+    }
+  ],
+  "sources_fabricant": [
+    {
+      "id": "USB",
+      "url": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "facts": "RR-ASMUK-XXGRHF : Ø5,5 mm, Rstat22 mm/Rcontinu48 mm, double blindage, AWG24 alimentation/retour et AWG28 données ; catalogue254/508/1981 mm. Longueur custom proposée par fabricant ; aucune référence Up610 mm confirmée."
+    },
+    {
+      "id": "SORB-SPG",
+      "url": "https://www.sorbothane.com/wp-content/uploads/sorbothane-spg-bushings-washers.pdf",
+      "accessed": "2026-10-29",
+      "revision": "06/2025",
+      "pages": [
+        6,
+        7
+      ],
+      "facts": "0510030-30-10 30±5 Shore00 : Ø0,50 pouce, base0,19, hauteur0,39, alésage0,12, col0,22 ; charge0,25–0,60 lb pour déflexion10–20%. 0510010-30-10 Ø0,50, épaisseur0,19, alésage0,22 ;0,20–0,40 lb. Ne pas surserrer, écrou frein de qualité."
+    },
+    {
+      "id": "SORB-WEB",
+      "url": "https://www.sorbothane.com/sorbothane-products/standard-industrial-products/product/washers/",
+      "accessed": "2026-10-29",
+      "revision": null,
+      "facts": "Table web0510010 affiche épaisseur0,189/alésage0,224 pouce, contrairement arrondi0,19/0,22 PDF. Tolérances de lot inconnues ; ne pas traiter arrondis CAO comme cotes garanties."
+    },
+    {
+      "id": "SORB-EDG",
+      "url": "https://www.sorbothane.com/wp-content/uploads/Sorbothane-EDG.pdf",
+      "accessed": "2026-10-29",
+      "revision": "©2018, guide accessible courant",
+      "pages": [
+        2,
+        4,
+        5,
+        10,
+        11
+      ],
+      "facts": "Modèle viscoélastique dépendant fréquence ; calcul exige charge par appui, forme, module dynamique/fréquence et facteur pertes. Guide consultatif. Déflexion statique continue <=20%, limites impact conditionnées au facteur forme et amplitude."
+    }
+  ],
+  "kinematics": {
+    "kind": "bloc rigide Airy/Basler/Fujinon sur quatre appuis viscoélastiques ; aucun axe motorisé ni pivot imposé",
+    "dof": [
+      "translation X",
+      "translation Y",
+      "translation Z",
+      "roulis",
+      "tangage",
+      "lacet"
+    ],
+    "coupling": "Les six degrés de liberté sont couplés par compression/cisaillement des quatre appuis ; aucun joint cinématique idéal ne décrit le Sorbothane.",
+    "supports_axes_mm": [
+      [
+        -50,
+        -37
+      ],
+      [
+        70,
+        -37
+      ],
+      [
+        -50,
+        37
+      ],
+      [
+        70,
+        37
+      ]
+    ],
+    "mobile_sa04_occurrences": [
+      "PlatineAluminium",
+      "EQ_Airy_Occurrence",
+      "EQ_Basler_Occurrence",
+      "P10_Retenue_cable_Occurrence",
+      "P10_Retenue_cable_Occurrence001",
+      "RetenueCable3",
+      "RetenueCable4",
+      "ObjectifFujinon",
+      "VisAiry0",
+      "VisAiry1",
+      "VisAiry2",
+      "VisBasler0",
+      "VisBasler1",
+      "VisP10ORCH0",
+      "RondelleP10H_ORCH0",
+      "RondelleP10B_ORCH0",
+      "EcrouP10ORCH0",
+      "VisP10ORCH1",
+      "RondelleP10H_ORCH1",
+      "RondelleP10B_ORCH1",
+      "EcrouP10ORCH1",
+      "VisP10ORCH2",
+      "RondelleP10H_ORCH2",
+      "RondelleP10B_ORCH2",
+      "EcrouP10ORCH2",
+      "VisP10ORCH3",
+      "RondelleP10H_ORCH3",
+      "RondelleP10B_ORCH3",
+      "EcrouP10ORCH3"
+    ],
+    "mobile_sa07_occurrences": [
+      "ConnecteurF16Camera",
+      "ConnecteurM8Camera"
+    ],
+    "fixed_sa04_prefixes": [
+      "Appui_",
+      "Ancrage",
+      "RondelleAncrage",
+      "EcrouAncrage"
+    ],
+    "elastomers": "Bague_porteuse et Tampon_rebond se déforment ; ne pas déplacer rigidement tout Appui_*.",
+    "study_pivot": {
+      "value": [
+        10,
+        0,
+        -128.5
+      ],
+      "unit": "mm",
+      "data_class": "HYPOTHÈSE",
+      "source": "centre géométrique rectangle4 appuis et plan médian platine ; aucun pivot matériel revendiqué",
+      "uncertainty": null
+    },
+    "max_service_motion": {
+      "value": null,
+      "unit": "mm/degré",
+      "data_class": "INCONNUE",
+      "source": null,
+      "uncertainty": null,
+      "reason": "précharge, masse mobile actualisée, courbes raideur/mouvement, vibration et tolérances non établies"
+    }
+  },
+  "geometric_limits": [
+    {
+      "id": "G-CAPTURE-Z",
+      "value": 4.826,
+      "unit": "mm",
+      "data_class": "CALCULÉE",
+      "method": "Zplatine[-131,-126], dessusP19=-135,826, dessousP17=-121,174 ; différences nominales de faces",
+      "source": "XML natifs listés",
+      "scope": "borne métal nominale translation pure de platine, avant autres obstacles ; élastomère présent",
+      "uncertainty": null,
+      "constraint_class": "IMPÉRATIVE"
+    },
+    {
+      "id": "G-CAPTURE-XY",
+      "value": 1.4,
+      "unit": "mm",
+      "data_class": "CALCULÉE",
+      "method": "(Øpassage5,8−Ømanchon3)/2",
+      "source": "P16 + P18 XML",
+      "scope": "contact métal nominal en translation pure ; élastomère non simulé",
+      "uncertainty": null,
+      "constraint_class": "IMPÉRATIVE"
+    },
+    {
+      "id": "G-USB-P60",
+      "value": 1.82,
+      "unit": "mm",
+      "data_class": "CALCULÉE",
+      "method": "−90−(−91,82)",
+      "source": "connecteurs_coudes_camera_prototype.json",
+      "scope": "jeu nominal dessus corps MicroB/P60 ;1,62 mm avec projection max du plan",
+      "uncertainty": null,
+      "constraint_class": "IMPÉRATIVE"
+    }
+  ],
+  "stations": [
+    {
+      "id": "F16_V_-45",
+      "baseline_point_mm": [
+        96.0,
+        -54.0,
+        -45.0
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "déplacer/supprimer si dans boucle dynamique ; créer première retenue fixe après zone R48 et recontrôler portée/montage",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "F16_V_0",
+      "baseline_point_mm": [
+        96.0,
+        -54.0,
+        0.0
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "déplacer/supprimer si dans boucle dynamique ; créer première retenue fixe après zone R48 et recontrôler portée/montage",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "F16_V_35",
+      "baseline_point_mm": [
+        96.0,
+        -54.0,
+        35.0
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "déplacer/supprimer si dans boucle dynamique ; créer première retenue fixe après zone R48 et recontrôler portée/montage",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "F16_V_75",
+      "baseline_point_mm": [
+        96.0,
+        -54.0,
+        75.0
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "conserver initialement si compatible, adapter si R24 ou corridor changé",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "USB3_I_70",
+      "baseline_point_mm": [
+        96.0,
+        -70.0,
+        105.843137
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "conserver initialement si compatible, adapter si R24 ou corridor changé",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "USB3_I_88",
+      "baseline_point_mm": [
+        96.0,
+        -88.0,
+        123.666667
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "conserver initialement si compatible, adapter si R24 ou corridor changé",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "USB3_T_67",
+      "baseline_point_mm": [
+        67.0,
+        -105.0,
+        140.5
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "conserver initialement si compatible, adapter si R24 ou corridor changé",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    },
+    {
+      "id": "USB3_T_36",
+      "baseline_point_mm": [
+        36.0,
+        -105.0,
+        140.5
+      ],
+      "constraint_class": "MODIFIABLE",
+      "origin_class": "HÉRITÉE",
+      "justification": "Station créée pour soutenir route préexistante R22, pas percement OEM obligatoire ; retenue mécanique reste nécessaire mais position et nombre ajustables.",
+      "source": "prototype_retenues_capteurs.py / contrôle_retenues_faisceaux_prototype.json",
+      "recommended": "conserver initialement si compatible, adapter si R24 ou corridor changé",
+      "span_limit_status": "50/60/180 mm historiques, pas limite fournisseur ni validation effort"
+    }
+  ],
+  "parametric_study": {
+    "purpose": "Départager des géométries de câble sans prétendre borner les mouvements réels",
+    "poses": {
+      "translations_each_axis_mm": [
+        -1,
+        -0.5,
+        0,
+        0.5,
+        1
+      ],
+      "rotations_each_axis_deg": [
+        -1,
+        -0.5,
+        0,
+        0.5,
+        1
+      ],
+      "combined_corners": "au moins cas ±0,5 mm et ±0,5° combinés les plus défavorables au plafond et au câble",
+      "rejection_cases": [
+        {
+          "translation_mm": [
+            0,
+            0,
+            2
+          ],
+          "reason": "tester collision corpsUSB/P60 en plus du câble"
+        },
+        {
+          "translation_mm": [
+            1.5,
+            0,
+            0
+          ],
+          "reason": "dépasser garde métal1,4 mm et vérifier rejet mécanique"
+        }
+      ]
+    },
+    "data_class": "HYPOTHÈSE",
+    "coverage": "exploratoire discrète ; pas preuve continue, pas amplitude en service",
+    "static_settlement": {
+      "value_mm": [
+        -0.9652,
+        -0.4826
+      ],
+      "data_class": "CALCULÉE",
+      "formula": "−[0,20;0,10]×4,826 mm flasque porteur",
+      "condition": "interprétation locale compression flasque ; masse/précharge et contact col à vérifier, ne constitue pas une course maximale"
+    },
+    "model": "p_pose=c+t+R(p_nominal−c), axe_pose=R axe_nominal ; longueur constante de la boucle, tangences et R48 à chaque pose. Câble ne simule pas rigidité/effort/fatigue."
+  },
+  "constraints": [
+    {
+      "id": "USB-R-DYN",
+      "constraint_class": "IMPÉRATIVE",
+      "value": 48,
+      "unit": "mm",
+      "data_class": "DOCUMENTÉE",
+      "source": "USB",
+      "scope": "portion entre corps mobile et première retenue fixe, si flexion continue"
+    },
+    {
+      "id": "USB-R-STATIC",
+      "constraint_class": "IMPÉRATIVE",
+      "value": 22,
+      "unit": "mm",
+      "data_class": "DOCUMENTÉE",
+      "source": "USB",
+      "scope": "portion fixe après immobilisation effective"
+    },
+    {
+      "id": "USB-L-508",
+      "constraint_class": "MODIFIABLE",
+      "value": 428.5,
+      "unit": "mm",
+      "data_class": "CALCULÉE",
+      "source": "connecteurs_coudes_camera_prototype.json",
+      "scope": "budget conservateur gaine cordon508, non longueur mesurée ; variante custom autorisée sur copie"
+    },
+    {
+      "id": "USB-CONNECTIVITY",
+      "constraint_class": "IMPÉRATIVE",
+      "value": "MicroB caméra vers TypeA Jetson, brochage intact",
+      "data_class": "DOCUMENTÉE",
+      "source": "connectivité projet"
+    },
+    {
+      "id": "USB-EXIT-AXES",
+      "constraint_class": "IMPÉRATIVE",
+      "data_class": "MESURÉE",
+      "source": "STEP fabricant + matrices connecteurs_coudes_camera_prototype.json",
+      "scope": "axes CAO applicables au montage candidat, polarisation/engagement réels encore inconnus"
+    }
+  ],
+  "design_decisions": [
+    {
+      "id": "SUS-D01",
+      "decision": "Ne pas utiliser bilan masse558–668 g pour qualifier appuis actuels.",
+      "reason": "Ancienne P16 imprimée125,5 g et objectif80–150 g remplacés par P65 aluminium et Fujinon180 g ; masse mobile complète inconnue."
+    },
+    {
+      "id": "F16-D01",
+      "decision": "Explorer R50 dynamique avec marge2 mm puis partie fixeR24 ; déplacer/supprimer retenues basses historiques si besoin.",
+      "reason": "R22/R23,5 réfutés pour flexion continue ; huit stations ne sont pas des passages impératifs."
+    },
+    {
+      "id": "F16-D02",
+      "decision": "Évaluer cordon custom plus long avec connecteurs Up existants ; ne pas inventer RR-ASMUK-24GRHF.",
+      "reason": "Catalogue Up seulement254/508/1981 mm ; Down610 change orientation. Longueur utile doit inclure rangement, pertes et réserve."
+    }
+  ],
+  "remaining_checks": [
+    "Mesurer/recalculer masse mobile actuelle et réactions4appuis ; précharge/couple/manchon et tolérances",
+    "Contrôler les poses combinées avec bloc entier, M8 et autres liaisons mobiles, pas F16 seul",
+    "Modèle de rigidité câble, traction des fiches, vibration et fatigue non exécutés",
+    "Confirmer dimensions et sens de montage exacts sur lot ; définir amplitude et spectre de service",
+    "Calculer courant, chute de tension et essais USB3 pour toute longueur custom retenue"
+  ],
+  "phases": {
+    "documentary": "passed",
+    "xml_inspection": "passed",
+    "manufacturer_search": "passed",
+    "generation": "not_executed_by_this_agent",
+    "mechanical_simulation": "not_executed_by_this_agent",
+    "physical": "not_executed"
+  },
+  "budget": "Sources locales, source primaire exacte + guide ; arrêt après paramètres discriminants et inconnues identifiées."
+}

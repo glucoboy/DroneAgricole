@@ -1,0 +1,161 @@
+{
+  "schema": "cartographe.faces.interfaces-distribution.v1",
+  "statut": "À valider",
+  "baseline": "hardware/mecanique/cartographe_refonte_systeme/A",
+  "repere": "XYZ assemblage A, mm ; axes du connecteur vers l'extérieur de l'embase. Les terminaux historiques du faisceau ne servent pas de preuve d'emboîtement.",
+  "perimetre": ["CA01 J103/J104/J201/J301/J402/J501 à J509", "PM08 15029, PDB 18138/18139", "Airy, RP4TD, Waveshare 15817"],
+  "sources_projet": {
+    "contrats": "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json",
+    "routes": "hardware/mecanique/cartographe_refonte_systeme/A/verification/routes_prototype.json",
+    "native_ca01": "hardware/mecanique/cartographe_refonte_systeme/A/pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd",
+    "ecad": "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_pcb",
+    "connecteurs_ca01": "hardware/mecanique/cartographe/verification/sources_connecteurs_ca01_20261001.json",
+    "reperage_ca01": "hardware/mecanique/cartographe/verification/controle_routes_systeme_courant.json#/ports_reserves/CA01_sorties_enveloppes_natives_mm",
+    "positions": "hardware/mecanique/cartographe_refonte_systeme/A/verification/construction_prototype.json",
+    "porteuse_oem": "hardware/mecanique/cartographe/verification/holybro_stack_source_20261001.json",
+    "diagnostic_anterieur": "hardware/mecanique/cartographe_refonte_systeme/verification/essais_diagnostic.json",
+    "pdb_anterieur": "hardware/mecanique/cartographe_refonte_systeme/verification/enveloppes_BC.json"
+  },
+  "sources_fabricant": {
+    "amass_a": "https://www.china-amass.com/biao/419.html",
+    "amass_b": "https://www.china-amass.com/biao/275.html",
+    "amass_catalogue": "https://www.china-amass.com/public/upload/20260207/7fa24f5a6f35ec66c7a115c07a34ab06.pdf",
+    "jst_gh": "https://www.jst.com/wp-content/uploads/2025/06/eGH.pdf",
+    "jst_ph": "https://www.jst.com/wp-content/uploads/2025/06/ePH.pdf",
+    "jst_vh": "https://www.jst.com/wp-content/uploads/2021/08/eVH.pdf",
+    "holybro_baseboard": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+    "holybro_pm08": "https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a",
+    "holybro_pm08_cao": "https://docs.holybro.com/power-module-and-pdb/power-module/download",
+    "holybro_pdb": "https://holybro.com/products/power-distribution-board-pdb-300a-side-entry",
+    "molex_clik_mate": "https://www.content.molex.com/dxdam/literature/987650-3302.pdf",
+    "molex_5024940670": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/502/502494/5024940670_sd.pdf?inline=",
+    "robosense_splitter": "https://store.robosense.ai/products/airy-splitter-1-to-3-aviation-connector-cable",
+    "radiomaster": "https://radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+    "waveshare": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+    "delock_usb_b_coude": "https://www.delock.com/produkt/84809/merkmale.html",
+    "delock_usb_a_lateral": "https://www.delock.com/produkt/85167/merkmale.html",
+    "delock_usb_a_haut_bas": "https://www.delock.com/produkt/85183/merkmale.html"
+  },
+  "ca01": {
+    "construction": "PCB X±63 Y±40, sommet nu Z99,72, montage Z98. Les 308 solides du composé ComposantsKiCad permettent de vérifier des enveloppes et ne donnent pas des logements qualifiés.",
+    "faces": [
+      {"port":"J103","routes":["F08_AVAL"],"ref":"AMASS XT30PW-M30","axe":[-1,0,0],"origine_candidate_mm":[-62,-24.5,102.2575],"incertitude":"Face reconvertie du contrôle historique puis rapprochée du solide 140. Embase réelle et fiche absentes du contrôle d'accouplement."},
+      {"port":"J104","routes":["F09"],"ref":"AMASS XT30PW-F30","axe":[-1,0,0],"origine_candidate_mm":[-61.95,-1.5,102.295],"incertitude":"Face reconvertie puis rapprochée du solide 237. Axe horizontal ; l'extrémité historique [-61,-4,106] et sa tangente Z+ sont des réservations."},
+      {"port":"J201","routes":["AIRY_PWR"],"ref":"JST B2PS-VH, fiche VHR-2N et contacts à choisir selon section","axe":[0,-1,0],"origine_candidate_mm":[4.98,-37.4,103.97],"incertitude":"Plastique et conducteurs se prolongent hors de l'enveloppe. Les plans du B2PS-VH portent environ 7,86 mm de largeur et 8,5 mm de hauteur ; le plan d'assemblage latéral est à appliquer avec la fiche retenue."},
+      {"port":"J301","routes":[],"ref":"JST B2PS-VH","axe":null,"origine_candidate_mm":null,"incertitude":"Alimentation auxiliaire réservée, sans route de la variante A."},
+      {"port":"J402","routes":["F12"],"ref":"JST SM03B-GHS-TB","axe":[0,1,0],"origine_candidate_mm":[-16,38.875,101.84],"incertitude":"Face reconvertie du contrôle historique."},
+      {"port":"J501","routes":[],"ref":"JST SM02B-GHS-TB","axe":[1,0,0],"origine_candidate_mm":null,"incertitude":"Retour SYNC_OUT1 sans parcours natif associé dans A ; ne pas créer une connexion supplémentaire."},
+      {"port":"J502","routes":["F_M8"],"ref":"JST S6B-PH-SM4-TB, fiche PHR-6 et contact SPH selon conducteur","axe":[0,1,0],"origine_candidate_mm":[41,39.11,102.52],"incertitude":"Embase PH déjà latérale, largeur 15,9 mm et hauteur nominale 5,5 mm, pas un JST GH. Préserver câblage du trigger et retour exposition."},
+      {"port":"J503","routes":["F36"],"ref":"JST SM06B-GHS-TB","axe":[0,1,0],"origine_candidate_mm":[2,38.875,101.84],"incertitude":"VCC UART GNSS NC selon netlist."},
+      {"port":"J504","routes":["AIRY_SYNC"],"ref":"JST SM04B-GHS-TB","axe":[1,0,0],"origine_candidate_mm":[61.875,17,101.84],"incertitude":"PPS/GPRMC et retours inchangés ; réseau candidat et R530–R533 DNP."},
+      {"port":"J505","routes":["F24A"],"ref":"JST SM02B-GHS-TB","axe":[1,0,0],"origine_candidate_mm":[61.875,4,101.84],"incertitude":"PPS et retour dédié."},
+      {"port":"J506","routes":["F24B"],"ref":"JST SM02B-GHS-TB","axe":[1,0,0],"origine_candidate_mm":[61.875,-5,101.84],"incertitude":"GPRMC et retour dédié."},
+      {"port":"J507","routes":["F33"],"ref":"JST SM02B-GHS-TB","axe":[0,1,0],"origine_candidate_mm":[17,38.875,101.84],"incertitude":"AUX1 et retour inchangés ; aucun échange avec MAIN."},
+      {"port":"J508","routes":["F35"],"ref":"JST SM02B-GHS-TB","axe":[1,0,0],"origine_candidate_mm":[61.875,-16,101.84],"incertitude":"CAP1 et retour inchangés."},
+      {"port":"J509","routes":["F24C"],"ref":"JST SM02B-GHS-TB","axe":[0,1,0],"origine_candidate_mm":[27,38.875,101.84],"incertitude":"La CAO aval héritée ne vaut pas définition de l'extracteur CSI, tension ou routage du FFC."}
+    ],
+    "regles": [
+      {"data_class":"CALCULÉE","source":"reperage_ca01 + positions + natifs CA01","detail":"L'ancien contrôle utilisait [x−63,−y−40,−z−64,4]. En A, occurrence sans rotation, translation [-63,+40,+98]. La reprise globale est (x_ancien, -y_ancien, 33,6 - z_ancien). Pas de tolérance d'emboîtement vérifiée."},
+      {"data_class":"DOCUMENTÉE","source":"jst_gh","detail":"GH 1,25 mm verrou positif, 1 A à AWG26, 50 V. Plan d'assemblage latéral hauteur 4,35 mm et projection de référence 7,15 mm depuis le repère de plan d'implantation. Les valeurs ne comprennent ni courbure ni accès au verrou. GHR-02V-S, -03V-S, -04V-S et -06V-S selon nombre de voies et SSHL-002T-P0.2 selon isolation/section."},
+      {"data_class":"DOCUMENTÉE","source":"jst_vh","detail":"VH 3,96 mm à verrou, 10 A à AWG16 dans les conditions fabricant. Vérifier température, traction et section pour J201. L'implantation latérale est déjà retenue."}
+    ]
+  },
+  "pm08_pdb": {
+    "pm08_ref": "Holybro PM08-CAN SKU 15029 fils étamés, version CAN Case v003 dans la CAO.",
+    "ports": ["IN+ et IN− QS8-S", "OUT+ et OUT− vers bornes PDB", "BEC1/2 vers POWER1/2, alimentation et retour séparés", "CAN vers CAN1 par F31 ; CAN_H, CAN_L, GND, pas de +5 V en parallèle"],
+    "pm08_dims": {"data_class":"DOCUMENTÉE","value":[45,41,26],"unit":"mm","source":"holybro_pm08","scope":"Corps annoncé sans fils ; différent du volume CAO de montage incluant les pattes."},
+    "pm08_bbox_A": {"data_class":"MESURÉE","value":[-48.45,-80.3,39,14.45,-38.7,63.795],"unit":"mm","source":"EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd#ORCH_BoitierFabricantV003","scope":"L'origine exacte des prises CAN/BEC accouplées n'est pas démontrée par le STEP du boîtier seul."},
+    "pm08_connectique": "CLIK-Mate 2 mm six voies côté PM08 dans le comparatif Holybro, fiche Molex 5024390600 et contacts 502438-0000 de la famille correspondante. Molex 5024940670 et 502443 série sont embases de PCB coudées. Elles ne dévient pas le cordon d'un PM08 intact. Vérifier cordon OEM et brochage réel avant de modifier ou sertir.",
+    "pdb_bbox_A": {"data_class":"MESURÉE","value":[12.006,-35.994,39,71.994,43.994,62],"unit":"mm","source":"EQ_Holybro_PDB18138_Systeme_Candidat.FCStd#FabricantSTEP","scope":"Modèle de carte avec embases, sans fiches et courbures."},
+    "pdb_side_candidate": {
+      "ref":"Holybro 18139",
+      "data_class":"DOCUMENTÉE",
+      "dimensions_bare_candidate_mm":[80,80,20],
+      "ports":"5 XT90 et 2 XT30 latéraux, bornes de courant. 18138 : 6 XT90 et 2 XT30 verticaux.",
+      "comparaison":"18139 gagne environ 3 mm sur le dessus nu de l'équipement A et prend environ 20 mm supplémentaires en largeur X. Le gain sur fils ne se déduit pas de la carte nue. Courants admissibles des prises et cordons, chute, isolation, rayon et accès à recalculer. Les 300 A annoncés de la carte ne sont pas la limite admissible d'un XT90.",
+      "decision":"Pose centrée [2,-36,39,82,44,59] déjà réfutée dans la refonte système par intersection UART 6656 mm³ et F02_2 218 mm³. Pose X+11 dégage UART mais F02_2 525 mm³. Conserver 18138 pour cette passe ; reconsidérer seulement avec départs de bras et isolateur repris conjointement."
+    }
+  },
+  "airy": {
+    "function": "Conserver tronc, éclatement OEM et trois branches distinctes. Aucun épissurage ni remplacement de l'interface aviation déduit de la CAO.",
+    "ref_candidate": "RoboSense Airy Splitter 1-to-3 Aviation Connector Cable",
+    "longueurs_fabricant": {"data_class":"DOCUMENTÉE","value":[1500,800],"unit":"mm","source":"robosense_splitter","scope":"Tronc puis splitter OEM ; usage installé avec surplus, variantes et longueurs de branches à confirmer."},
+    "reference_A_mm": {"split":[-80,64,120],"AIRY_ETH":171.6733,"AIRY_PWR":267.1315,"AIRY_SYNC":247.6537,"AIRY":331.9843},
+    "propositions": [
+      {"famille":"A/C","decision":"Candidat prioritaire simple. Garder jonction et RJ45, chemin Ethernet en flanc nord Y≈64–74 et montée locale vers 137 plutôt que palier Z160. R10 et Ø5,5 sont hypothèses CAO ; vérifier espace de dépose du verrou RJ45 et axe réel du surmoulage OEM."},
+      {"famille":"B","decision":"RJ45 coudés catalogues possibles en général. Le bout OEM de ce splitter doit être identifié (constructeur annonce Ethernet femelle) et l'accouplement ne doit pas introduire un intermédiaire, ni rompre le blindage et les paires. Aucun changement de produit retenu."},
+      {"famille":"D","decision":"Éclatement plus bas sur flanc ouest [−104,64,79] est une hypothèse couplée. Toute variation exige recalcul du tronc et des trois branches, tenue de l'éclatement et réserve OEM complète ; aucun bénéfice qualifié à ce stade."}
+    ],
+    "contraintes": ["Longueur libre, verrou, orientation LiDAR, tronc et branches conservés", "Pas de rayon OEM connu pour la réservation installée", "Paires Ethernet et alimentation retours séparés, pas de fil Sync ajouté", "Encombrement de service inconnu et longueur de catalogue très supérieure à la longueur des axes"]
+  },
+  "radio": {
+    "reference": "RadioMaster RP4TD, deux antennes T 65 mm fournies, 2,4 GHz, connectique U.FL",
+    "routes":["F12","F13A","F13B"],
+    "mesure_oem": {"data_class":"DOCUMENTÉE","value":[23.7,16.3,4],"unit":"mm","source":"radiomaster","scope":"Récepteur seul, hors antennes et dégagement des fiches."},
+    "decision":"Conserver coaxiaux, fermetures U.FL, zones de polarisation et axes antennes sans adaptateur RF. Déplacer une antenne pour libérer F09 est une option distincte à valider sur diversité, distance carbone et supports. Les enveloppes F13A/F13B (R8 candidat) ne sont pas un certificat d'installation."
+  },
+  "diagnostic": {
+    "ref":"Waveshare 15817 USB 2.0 Type B et borne TTL côté isolé",
+    "faces_CAO_A": {"USB_B":{"origine_mm":[-68.8,-28.575,51],"axe":[-1,0,0],"bbox_mm":[-68.8,-32.575,46,-58.8,-24.575,56]},"TTL":{"origine_mm":[12,18.5,50.5],"axe":[1,0,0],"bbox_mm":[2.8,5.5,44,12,31.5,57]}},
+    "limite":"Origines tirées de l'enveloppe reconstruite, pas de cote de contact. Le départ F41 historique [-79,24,54] est à 53,639 mm de la face USB-B candidate. Le diagnostic et l'isolation B− brut / 0V avionique restent impératifs.",
+    "cordons": [
+      {"ref":"Delock 84809","data_class":"DOCUMENTÉE","scope":"USB 2.0 A mâle droit vers B mâle coudé à 90°, 500 mm, Ø4,5 mm, blindage double, ferrite, 28 AWG données / 24 AWG alimentation, 480 Mb/s","bbox_accouple_mm":null,"rayon_min_mm":null,"source":"delock_usb_b_coude","condition":"Plan coté du surmoulage, direction réelle en référence au détrompeur B, ferrite, extraction et rayon à relever. Aucun adaptateur et aucun pont de masse entre USB et TTL."},
+      {"ref":"Delock 85167 / 85183","data_class":"DOCUMENTÉE","scope":"Cordon de 500 mm Type A réversible à sortie gauche/droite ou haut/bas, Type B droit","bbox_accouple_mm":null,"rayon_min_mm":null,"source":"delock_usb_a_lateral / delock_usb_a_haut_bas","condition":"Vérifier encombrement de l'autre logement USB3, tenue et insertion. Cordon non pertinent pour F16 USB3."}
+    ],
+    "rotation_criblee": {
+      "method":"FreeCAD 1.1.3 lecture BRep A. Rotation Z autour de [-33,5.5,39], translation Y après rotation. Intersections nominales BRep du module et d'un gabarit droit 35×11,8×10,2 mm, jamais attribué au Delock coudé. Dépose prévue ancien F40/F41 et P84 avec pression/bande ; ces occurrences et module d'origine exclus.",
+      "results":[
+        {"angle_z_deg":-90,"dy_mm":20,"usb_mm":[-67.075,61.3,51],"usb_axe":[0,1,0],"ttl_mm":[-20,-19.5,50.5],"collision_module_mm3":{"OEM_Part__Feature086":16.9466},"collision_gabarit_mm3":{"F02_3":15.7487}},
+        {"angle_z_deg":-90,"dy_mm":30,"usb_mm":[-67.075,71.3,51],"usb_axe":[0,1,0],"ttl_mm":[-20,-9.5,50.5],"collision_module_mm3":{"OEM_Part__Feature086":16.9466,"F04_3":0.2321},"collision_gabarit_mm3":{"F02_3":15.7487}},
+        {"angle_z_deg":90,"dy_mm":15,"usb_mm":[1.075,-15.3,51],"usb_axe":[0,-1,0],"ttl_mm":[-46,65.5,50.5],"collision_module_mm3":{"OEM_Part__Feature086":16.9476},"collision_gabarit_mm3":{"PM08":251.4408,"F05_NEG":17.4577}},
+        {"angle_z_deg":180,"dy_mm":14,"usb_mm":[2.8,53.575,51],"usb_axe":[1,0,0],"ttl_mm":[-78,6.5,50.5],"collision_module_mm3":{"OEM_Part__Feature086":16.9462},"collision_gabarit_mm3":{"F02_3":236.7713}},
+        {"angle_z_deg":180,"dy_mm":18,"usb_mm":[2.8,57.575,51],"usb_axe":[1,0,0],"ttl_mm":[-78,10.5,50.5],"collision_module_mm3":{"OEM_Part__Feature086":16.9462},"collision_gabarit_mm3":{"F02_3":236.3872}}
+      ],
+      "decision":"Poses non retenues, collision d'un montant OEM et/ou d'un cordon voisin. Le diagnostic reste ouvert. Translation -20 mm X de l'ancienne étude reste une piste conditionnelle, pénalisée par F40 plus long côté B− brut."
+    }
+  },
+  "candidats": [
+    {
+      "id":"CA01-A-SORTIES-LATERALES",
+      "famille":"A/C",
+      "liaisons":["F08_AVAL","F09","AIRY_PWR","AIRY_ETH","F24A","F24B","F24C","F33","F35"],
+      "action":"Commencer dans l'axe latéral de l'embase et utiliser bord et espace intercartes. Conserver les familles présentes et éviter un nouveau PCB. Autoriser une montée localisée à la destination.",
+      "geometrie":"P66 bbox X±70, Y±47, Z85–88 ; CA01 bbox X±63, Y±40, Z96,12–110,22 ; Holybro sans refroidissement Z123,718–146,852. Jeu vertical AABB P66 sommet→composants bas CA01 8,12 mm et CA01 sommet→Holybro plan bas 13,50 mm. Les entretoises et composants réduisent les volumes libres localement. Pour un câble Ø5 mm, un coude à 90° de R10 exige au moins 15 mm en hauteur entre plans pour les extrémités tangentes opposées du volume balayé. Ne pas supposer qu'il tient dans un jeu de 8,12 mm.",
+      "decision":"Réutiliser d'abord les embases présentes. Aucun montage industriel n'est démontré par les jeux d'AABB."
+    },
+    {
+      "id":"F09-B-XT30ULW-OUEST",
+      "famille":"B/C",
+      "liaisons":["F09"],
+      "reference_proposee":"AMASS XT30ULW-F type A/B côté XT30UPB-M de la porteuse ; XT30U-M candidat câble côté J104 XT30PW-F30",
+      "enveloppes":{"coudée_nue_mm":[13.4,7.6,10.6],"droite_femelle_nue_mm":[12.4,5.6,10.2],"dimensions_accouplees_reelles_mm":null,"masse_g":null,"rayon_admissible_mm":null,"scope":"Plans fabricant Amass p.9. Comparaison des boîtiers nus, non volumes de service. Deux variantes A/B opposées selon le détrompeur, choix exact après essai géométrique et lot."},
+      "porteuse":{"data_class":"MESURÉE","ref_modele":"XT30UPB-M_XTD_2_1","source":"Pixhawk-Jetson-Baseboard-3D.stp #59832/#59904 ; solide 71 de EQ_Holybro11072_Prototype, occurrence Holybro6XOrin","bbox_mm":[-62.7,22.35,126.552,-57.3,32.65,139.552],"axe_accouplement":[0,0,1],"centre_face_candidate_mm":[-60,27.5,139.552]},
+      "regles":"12 V Compute. Le catalogue 20 A sous 16 AWG et forte élévation de température ne constitue pas une vérification de charge. Fiche polarisée, pas de verrou positif documenté ; contrôle de signe, insertion, traction, décharge et isolement des soudures. Aucune modification PCB OEM.",
+      "essais_native": {
+        "parametres":"Cables Workbench 0.3.7, R10 et Ø5 hérités ; sortie de câble côté CA01 [−76,−1.5,102.295], côté fiche coudée [−66.7,27.5,145.55] estimées. Fiche non modélisée dans cet essai de trajectoire.",
+        "points_x_94_mm":[[-76,-1.5,102.295],[-94,-1.5,102.295],[-94,27.5,145.55],[-66.7,27.5,145.55]],
+        "comparaison_baseline_mm":140.5,
+        "resultats":[
+          {"x_mm":-82,"state":"rayon_inconstructible","note":"droite d'entrée 6 mm < tangence de 10 mm"},
+          {"x_mm":-88,"longueur_mm":76.792745,"collisions_mm3":{"AntenneRF0":37.0345,"AIRY_PWR":50.2124}},
+          {"x_mm":-94,"longueur_mm":88.792745,"collisions_mm3":{"AntenneRF0":37.0345}},
+          {"x_mm":-101,"longueur_mm":102.792745,"collisions_mm3":{"AntenneRF0":37.0345}},
+          {"x_mm":-107,"longueur_mm":114.792745,"collisions_mm3":{"AntenneRF0":37.0345},"contact_non_positif":["F41"]}
+        ]
+      },
+      "decision":"Le levier de sortie câble 90° est réel, mais l'arrivée ouest essayée est réfutée par AntenneRF0. Ne pas créditer le gain d'environ 52 mm du cas X−94 sans lever ce blocage. Variante vers l'autre face de la prise et gabarits de dépose à étudier si sans déplacement RF."
+    },
+    {
+      "id":"CA01-D-ROTATION-180",
+      "famille":"D",
+      "action":"Rotation de CA01 180° autour de Z au point [0,0,98]. Les quatre ancrages M3 symétriques X±60/Y±37 sont repris. J103/J104 passent à l'est, J201 au nord, J504/J505/J506/J508 à l'ouest, J402/J502/J503/J507/J509 au sud.",
+      "controle":"BRep en lecture seule. Après exclusion de l'occurrence CA01 d'origine et des routes dont la terminaison devrait être régénérée, zéro volume commun détecté sur les obstacles fixes testés, seuil 10^-4 mm³. La même boîte CA01 ne signifie pas même montage. Exclusions F08_AVAL, F09, AIRY_PWR, AIRY_SYNC, F12, F13A/B, F24A/B/C, F33, F35, F36, F_M8.",
+      "decision":"Pose mécaniquement plausible, pas de promotion car elle déplace aussi les coaxiaux, rallonge F09 et rend plusieurs accès à reprendre. Repositionner d'abord seulement les embases GH d'une prochaine révision CA01 si le bilan le justifie. Il faudrait revalider nets et implantation PCB, isolement, réserves, CEM, radio, connecteurs et efforts."
+    }
+  ],
+  "limites": [
+    "Faisabilité électrique et mécanique du lot, côtes d'accouplement, service, rayon dynamique, maintien sous vibration, CEM et efforts sur prises restent à valider.",
+    "Criblage BRep fait en mémoire, sans sauvegarde CAO ni acte matériel. Aucune masse additionnelle inventée.",
+    "Aucun cordon nouveau proposé ne doit être commandé à partir d'un seul gabarit ou d'un gain de tracé."
+  ]
+}

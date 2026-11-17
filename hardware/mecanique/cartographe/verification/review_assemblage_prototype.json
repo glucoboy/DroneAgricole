@@ -1,0 +1,1246 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-12",
+  "portee": "Revue independante ciblée de géométrie native et interfaces; ne qualifie ni fabrication ni tenue physique.",
+  "etat": "Revue initiale conservée ; contrôle final des fixations après corrections dans review_finale_fixations",
+  "source_construction": {
+    "fichier": "verification/construction_prototype.json",
+    "sha256": "1c2524a46fb38fee2eee9fd36dd15dd6fba97a12b0661074c9f8be5026ea6422",
+    "script_sha256": "6ebd0c05d2d6c07eb853db22e890817e06528bc8750ef976d5cf8221b173583c",
+    "references": 74,
+    "occurrences": 236
+  },
+  "sources": {
+    "holybro_original": {
+      "fichier": "pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd",
+      "sha256": "2cade6f15f64465ef031ff52a14f7328d2acbe05b04614fecd60dd3327be299d"
+    },
+    "holybro_derive": {
+      "fichier": "pieces/commerce/EQ_Holybro11072_Prototype.FCStd",
+      "sha256": "2cf128b61dcf1f51253c560eadec8bf76b736333da60b06087742027a7f90c58"
+    }
+  },
+  "faits_geometriques": {
+    "moteurs": {
+      "axes_xy_absolus_mm": 229.906638,
+      "plan_flasque_z_mm": 65.5,
+      "arbre_diametre_mm": 4,
+      "arbre_sommet_z_mm": 71.499959,
+      "origine": "Faces planes et cylindres de Part__Feature184 source X650, transformation globale"
+    },
+    "OEMtop": {
+      "z_mm": [
+        83,
+        85
+      ],
+      "axes_M2": [
+        [
+          -43,
+          -29
+        ],
+        [
+          -43,
+          29
+        ],
+        [
+          43,
+          -29
+        ],
+        [
+          43,
+          29
+        ]
+      ],
+      "diametre_mm": 2.2,
+      "autre_jeu_M2": [
+        [
+          -29,
+          -43
+        ],
+        [
+          -29,
+          43
+        ],
+        [
+          29,
+          -43
+        ],
+        [
+          29,
+          43
+        ]
+      ],
+      "axes_M3_possibles": [
+        [
+          -48,
+          -33.5
+        ],
+        [
+          -48,
+          33.5
+        ],
+        [
+          48,
+          -33.5
+        ],
+        [
+          48,
+          33.5
+        ]
+      ],
+      "diametre_M3_mm": 3.0
+    },
+    "P17": {
+      "sous_face_appui_z_mm": -121.174,
+      "rondelle_05_bas_z_mm": -121.674,
+      "ecrou_4_bas_z_mm": -125.674,
+      "vis_M3x40_pointe_z_mm": -127.0
+    },
+    "slot_SSD": {
+      "original_index": 1401,
+      "derive_index": 1401,
+      "designation_STEP": "C-1-2199230-5-B3-3D_XTD_2_1",
+      "fonction": "M.2 KEY M SSD",
+      "bbox_locale_mm": [
+        17.222498,
+        57.049998,
+        -4.282392,
+        25.922498,
+        78.949998,
+        0.5
+      ],
+      "centre_y_local_mm": 68,
+      "ancrage_bout_local_mm": [
+        101.3,
+        68
+      ],
+      "source_primaire": "https://www.te.com.cn/chn-zh/product-1-2199230-5.datasheet.pdf"
+    },
+    "slot_wifi": {
+      "original_index": 1400,
+      "designation_STEP": "C-2199230-4-B3-3D_XTD_2_1",
+      "fonction": "M.2 KEY E; ne pas y placer le SSD",
+      "source_primaire": "https://www.te.com/en/product-2199230-4.html"
+    },
+    "slot_microSD": {
+      "groupe_STEP": "SOFNG_TF1007F_ASM_2_ASM_1_ASM",
+      "bbox_locale_mm": [
+        79.4,
+        27.59233,
+        6.172615,
+        90.190266,
+        40.226443,
+        7.98732
+      ],
+      "contacts": [
+        {
+          "original_index": 2071,
+          "derive_index": 2059,
+          "label": "MSBR-2_2_1"
+        },
+        {
+          "original_index": 2072,
+          "derive_index": 2060,
+          "label": "MSBR-1_2_1"
+        }
+      ]
+    }
+  },
+  "constats_corriges_ou_transmis": [
+    {
+      "id": "REV-01",
+      "sujet": "Hélices initiales suspendues à cause ancrage min de bbox et loft déformé",
+      "correction": "Axes rotor mesurés, moyeu base65.5, alésage4.2, profil corrigé",
+      "etat": "Code corrigé; nouvelle géométrie à reprendre dans contrôle final"
+    },
+    {
+      "id": "REV-02",
+      "sujet": "ESC pénétraient tubeOEM",
+      "volume_initial_par_ESC_mm3": 869.312032,
+      "correction": "BasESC27.5, pad1mm, bride",
+      "etat": "Code corrigé; contrôle final structure attendu"
+    },
+    {
+      "id": "REV-03",
+      "sujet": "Supports GNSS/USL pénétraient plateauOEM",
+      "volumes_initiaux_mm3": [
+        2218.628184,
+        985.862833
+      ],
+      "correction": "Bases supports à88 sur P66; GNSS91, USL90",
+      "etat": "Code corrigé; contrôle final attendu"
+    },
+    {
+      "id": "REV-04",
+      "sujet": "CA01 native dans Y[-80,0] initialement translatée vers mauvais côté",
+      "correction": "Translation(-63,+40,98)",
+      "etat": "Native corrigée: bboxXY[-63,-40,63,40]"
+    },
+    {
+      "id": "REV-05",
+      "sujet": "ColonnesBMS dans lumières de sangles",
+      "correction": "Axes(+-80,+-43), plateau170x100, trous appariés",
+      "etat": "Native corrigée, tenue physique non qualifiée"
+    },
+    {
+      "id": "REV-06",
+      "sujet": "Refroidissement touche fixations module",
+      "correction": "Quatre dégagements candidatsØ5.2 dans base",
+      "etat": "Native contrôlée: aucune intersection avec porteuse; fabrication et interface thermique restent à valider"
+    },
+    {
+      "id": "REV-07",
+      "sujet": "Quatre colonnesOEM90 importées invalides",
+      "correction": "Références dérivées paramétriques; originals préservés",
+      "etat": "Native reconstruite; source fabricant invalide exclue des occurrences concernées"
+    }
+  ],
+  "intersections_avionique_observees": {
+    "OrinFan": {
+      "volume_mm3": 0
+    },
+    "SSD": {
+      "pose_reference_bas_mm": 123.82,
+      "bbox_globale_mm": [
+        -41.68,
+        17,
+        123.82,
+        38.32,
+        39,
+        126.22
+      ],
+      "details": [
+        {
+          "index_original": 0,
+          "volume_mm3": 26.345796,
+          "nature": "Bossages de fixation intégrés au corpsPCB"
+        },
+        {
+          "index_original": 1401,
+          "volume_mm3": 56.935992,
+          "nature": "ConnecteurM.2 KEY M"
+        }
+      ],
+      "statut": "A corriger par pose assise sous bossage, pas acceptée en état"
+    },
+    "microSD": {
+      "pose_centre_xy_bas_mm": [
+        21.8,
+        -6.1,
+        134.7
+      ],
+      "details": [
+        {
+          "index_original": 2071,
+          "index_derive": 2059,
+          "volume_mm3": 1.068283
+        },
+        {
+          "index_original": 2072,
+          "index_derive": 2060,
+          "volume_mm3": 0.206514
+        }
+      ],
+      "statut": "Écart de représentation localisé aux contacts de la prise; engagement réel à valider, pas de collision capot acceptée"
+    }
+  },
+  "test_SSD_candidat_en_memoire": {
+    "pose_centre_xy_mm": [
+      -1.68,
+      28
+    ],
+    "PCB_bas_z_mm": 124.23,
+    "PCB_haut_z_mm": 125.03,
+    "composants_bas_z_mm": 122.63,
+    "encoche_bout_nominale_rayon_mm": 1.75,
+    "resultat": {
+      "collision_bossage_mm3": 0,
+      "collision_composants_etrangers_mm3": 0,
+      "collision_connecteur_M_mm3": 15.593553
+    },
+    "limite": "Encoche de représentation M.2 nominale, aucune demande usinageSSD. Le modèle connecteur fusionne volume de logement et contacts; insertion et tolérances restent à vérifier. Les plans de faces z-2.58/-1.65 observés auparavant ne constituaient pas un volume libre mesuré."
+  },
+  "tests_executés": [
+    "Relecture natifs sources et assemblages dans processus FreeCAD séparés, sans sauvegarde",
+    "Inspection géométrique OEMplateau, flasque moteur, P17",
+    "Import STEP fabricant en mémoire pour labels exacts des interfaces",
+    "Intersections OCCT ciblées ESC/bras, supports/OEM, refroidissement et chaque solide proche SSD/microSD",
+    "Comparaison de deux poses SSD, ancrage et connecteur distincts"
+  ],
+  "tests_non_executés": [
+    "Qualification des tolérances, fixations, tenue structurelle, fatigue/vibration, thermique, énergie et vol",
+    "Validation matérielle engagementSSD/microSD",
+    "Toutes les routes de câbles et rayons réels",
+    "Reprise finale après dernière correctionSSD"
+  ],
+  "qualification": "À valider",
+  "finalisation_correcte": true,
+  "implantation_energie_candidate": {
+    "etat": "À valider — essais numériques en mémoire avant nouveau build",
+    "retrait_oem": [
+      "048",
+      "049",
+      "074",
+      "HANGER_ZHU quatre groupes",
+      "HANGER quatre groupes",
+      "134 à145"
+    ],
+    "placements_centres_xy_zbas_mm": {
+      "PM08": [
+        -22,
+        -57.5,
+        4.8
+      ],
+      "UART_isole": [
+        -33,
+        4,
+        4.8
+      ],
+      "PDB": [
+        42,
+        14,
+        4.8
+      ],
+      "Fusible_CA01": [
+        25,
+        -50,
+        4.8
+      ],
+      "MIDI": [
+        45,
+        -71,
+        -52
+      ]
+    },
+    "rotations_z_deg": {
+      "PM08": 0,
+      "UART_isole": 0,
+      "PDB": 0,
+      "Fusible_CA01": 0,
+      "MIDI": 0
+    },
+    "intersections_equipements_oem_mm3": 0,
+    "intersections_equipements_entre_eux_mm3": 0,
+    "limites": [
+      "PM08 et UART somment à30.8 sous plaque31 : jeu nominal0.2 mm, insuffisant pour libérer fabrication sans tolérances.",
+      "Vis hautes104 à107 descendent à29.2; implantation candidate les contourne enXY.",
+      "Contrôle géométrique de représentations candidates; accès ports, câblage, fixation et thermique restent à valider."
+    ],
+    "P64_test": {
+      "dimensions_mm": [
+        156,
+        160,
+        2.8
+      ],
+      "placement_bas_mm": [
+        -78,
+        -80,
+        2
+      ],
+      "degagements_diametre_mm": 6.6,
+      "collisions": []
+    }
+  },
+  "review_finale_fixations": {
+    "date_utc": "2026-10-22T10:58:53.654757+00:00",
+    "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+    "script_sha256": "1b6d3ed2626338a0e92cf86f05880fcf96814c382244d18475870613a8881f80",
+    "references": 118,
+    "occurrences": 346,
+    "assemblage_sha256": "3718cecc43b435a095c1016bc883871116105654363a60eb8029bb6cecb05e2e",
+    "fixations_controlees": 32,
+    "focales": [
+      "SA02_Prototype_Batterie/VisColonneBMS0",
+      "SA02_Prototype_Batterie/RondelleColonneBMSH0",
+      "SA02_Prototype_Batterie/RondelleColonneBMSB0",
+      "SA02_Prototype_Batterie/EcrouColonneBMS0",
+      "SA02_Prototype_Batterie/VisColonneBMS1",
+      "SA02_Prototype_Batterie/RondelleColonneBMSH1",
+      "SA02_Prototype_Batterie/RondelleColonneBMSB1",
+      "SA02_Prototype_Batterie/EcrouColonneBMS1",
+      "SA02_Prototype_Batterie/VisColonneBMS2",
+      "SA02_Prototype_Batterie/RondelleColonneBMSH2",
+      "SA02_Prototype_Batterie/RondelleColonneBMSB2",
+      "SA02_Prototype_Batterie/EcrouColonneBMS2",
+      "SA02_Prototype_Batterie/VisColonneBMS3",
+      "SA02_Prototype_Batterie/RondelleColonneBMSH3",
+      "SA02_Prototype_Batterie/RondelleColonneBMSB3",
+      "SA02_Prototype_Batterie/EcrouColonneBMS3",
+      "SA05_Prototype_Avionique/VisStack0",
+      "SA05_Prototype_Avionique/RondelleStackH0",
+      "SA05_Prototype_Avionique/RondelleStackB0",
+      "SA05_Prototype_Avionique/EcrouStack0",
+      "SA05_Prototype_Avionique/VisStack1",
+      "SA05_Prototype_Avionique/RondelleStackH1",
+      "SA05_Prototype_Avionique/RondelleStackB1",
+      "SA05_Prototype_Avionique/EcrouStack1",
+      "SA05_Prototype_Avionique/VisStack2",
+      "SA05_Prototype_Avionique/RondelleStackH2",
+      "SA05_Prototype_Avionique/RondelleStackB2",
+      "SA05_Prototype_Avionique/EcrouStack2",
+      "SA05_Prototype_Avionique/VisStack3",
+      "SA05_Prototype_Avionique/RondelleStackH3",
+      "SA05_Prototype_Avionique/RondelleStackB3",
+      "SA05_Prototype_Avionique/EcrouStack3",
+      "SA02_Prototype_Batterie/Semelle",
+      "SA02_Prototype_Batterie/PlateauBMS",
+      "SA05_Prototype_Avionique/Interface"
+    ],
+    "paires_presel_bbox_controlees": 106,
+    "plateaux_controles": [
+      {
+        "objet": "SA02_Prototype_Batterie/Semelle",
+        "solides": 1,
+        "valide": true,
+        "bbox_mm": [
+          -110.0,
+          -48.0,
+          -90.0,
+          110.0,
+          48.0,
+          -87.0
+        ]
+      },
+      {
+        "objet": "SA02_Prototype_Batterie/PlateauBMS",
+        "solides": 1,
+        "valide": true,
+        "bbox_mm": [
+          -85.0,
+          -48.0,
+          -24.0,
+          85.0,
+          48.0,
+          -22.0
+        ]
+      },
+      {
+        "objet": "SA05_Prototype_Avionique/Interface",
+        "solides": 1,
+        "valide": true,
+        "bbox_mm": [
+          -70.0,
+          -47.0,
+          85.0,
+          70.0,
+          47.0,
+          88.0
+        ]
+      }
+    ],
+    "collisions": [],
+    "erreurs": [],
+    "fichiers_non_modifies": true,
+    "methode": "Réouverture sans sauvegarde des natifs finaux. Intersections exactes OCCT après présélection des boîtes, seuil1e-4mm3. Huit vis traversantes BMS/stack, 16rondelles et8écrous, ainsi queP60/P62/P66 sont comparés à tous les liens des six sous-ensembles solides. Aucun volume positif n'est exempté : les filetages simplifiés partagent seulement une frontière cylindrique nominale.",
+    "limites": [
+      "Contacts filetés, classe des vis, précharge et couples non qualifiés.",
+      "Routes de câbles, tolérances, flexion et accès outil hors périmètre.",
+      "Absence d'une fixation non prescrite dans ce protocole non détectée automatiquement."
+    ],
+    "conclusion": "Conforme au contrôle géométrique déclaré",
+    "qualification": "À valider",
+    "finalisation_correcte": true
+  },
+  "portee_historique": "source_construction, sources et faits_geometriques décrivent la revue initiale et ses défauts ; les empreintes et résultats courants sont ceux de review_finale_fixations et controle_assemblage_prototype.json.",
+  "contre_verification_corps": {
+    "date_utc": "2026-10-22T18:10:22.588454+00:00",
+    "auteur": "Agent principal, contre-vérification des propositions des autres agents",
+    "script_fichier": "hardware/mecanique/cartographe/verification/verify_corps_prototype.py",
+    "script_sha256": "6f374432c41cf6b84e76e3b00a8729c97281558a2c02d0ef2c805b3d86a1225a",
+    "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+    "colliers_sha256": "d923956fe48b033857df5f954daa061813d7ecf6b9916a23edb4d481e59a5806",
+    "scene_fichier": ".runtime/colliers_usb/ColliersControle.FCStd",
+    "scene_sha256": "d56c12da7fe4da57256c328c54a93f0985a5a80d9e16fda6084b82691a8024b5",
+    "natifs_sha256": {
+      "pieces/commerce/EQ_X650_Colonne90_Prototype.FCStd": "a2fb5afc1c7a300f2ee84b65c69d63680026a66feb3e64b60569f33062dadb24",
+      "pieces/commerce/EQ_Gemfan1555_CW.FCStd": "2a19739a716240440d13cd416982658af875564595b155a13891d8479daef904",
+      "pieces/commerce/EQ_Gemfan1555_CCW.FCStd": "4bd64807b0f2ad6d93e39a9bc110daf07de147ba500641eea271256c086d3528",
+      "pieces/commerce/EQ_Tekko32_45A_Prototype.FCStd": "d003ea5d326959df6d38c3209352d0fee45af22f9112d8a7179dfea4305657e4",
+      "sous_assemblages/SA01_Prototype_Structure.FCStd": "b4ac8389cd1f5e46c8c81f444a240f238c73b087c546153832c1b8d6545db384",
+      "pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd": "7fb0acda18dd6701e376b3c4fcb082e4b3c718499ba17ce99297d4d1d67babf8",
+      "pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd": "dda14690ebf9dd7caa8e0324e311f7d26b820a58601ea7db82559d0bdcfa1642",
+      "pieces/commerce/EQ_Pad_Batterie_Prototype.FCStd": "4af9234aba82157edca36879402b311d4a658a55d21d73ee39d33c8986de04f2",
+      "pieces/commerce/EQ_Pad_Droit_Batterie_Prototype.FCStd": "644cf7d8935fdd8c760675c58079a6ed594f2ebf3edfa2cde794bd86dc32c524",
+      "pieces/commerce/EQ_Sangle_Batterie_Prototype.FCStd": "985a96dba71a2b4f2819cf0a9d4b8ec590968e159280801f3868070c994ed16c",
+      "pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd": "e224797e4721b1a238686965718dafa5593401e7b0e03f2977bdd8eec18e750a",
+      "pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd": "7ba3959ef2429718cac4214d389e4077f783f172d99fe3f8638d19581cb21588",
+      "pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd": "22e1d8ee944181183dbb688939a13dde3830313e1a3e3eb1e19c0137bca4ec6a",
+      "pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd": "11558a31e989af55fa496b0abd066ed1e19c58a537e468d833d07563a45a3328",
+      "pieces/commerce/EQ_MIDI_Prototype.FCStd": "e04c463644a05838b6c9fbfeb18440a253d00ab16fa854aa4a3a53241aa2483b",
+      "pieces/commerce/EQ_NTC_JBD_Prototype.FCStd": "00a535b4d4ce89e19f05757e9158104c48e8ef6803e40051bea793ad811a90c3",
+      "pieces/commerce/EQ_ISO7089_M3_Prototype.FCStd": "fe6eee1a0d3124fc371adeacd57051279bf5978ec2c46897d90de71f22dca492",
+      "pieces/commerce/EQ_ISO10511_M3_Prototype.FCStd": "87555be94abea0a9fd69929c6cfa77d1c29f0bd95488fac8c24a99a1d3260bbc",
+      "pieces/commerce/EQ_ISO4762_M3x12_Prototype.FCStd": "e279a32d0db48470ae8c958dafdf7b0fc4774fc461cb785cf5021c81260182ea",
+      "pieces/commerce/EQ_ISO4762_M3x16_Prototype.FCStd": "75a2656cc7a09b47e00feeafc02430f7a8610cb54945b8b1a572512ef83bf4e6",
+      "pieces/commerce/EQ_ISO4762_M3x75_Prototype.FCStd": "b43e268d8a951eb225fba3a3b1983f266ee9f225d339b152bafb647728ba9420",
+      "sous_assemblages/SA02_Prototype_Batterie.FCStd": "7d6dff1c3184986f4623e1cd8d1403010954e8a52febc39136fd72ae16f16d65",
+      "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd": "4d1c1279025924482686f8f55eebf02c69f3ecac9ca15691a3c3b103de1fb81c",
+      "pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd": "434ba69ad547ce395df75265732734b6260438e3faf0fb86587ca7f861bb8597",
+      "pieces/commerce/EQ_Protection_CA01_Prototype.FCStd": "4c7934ae531a45ad6135c867cc4587b10123eae81e2e04e2fa559160c10935a5",
+      "sous_assemblages/SA03_Prototype_Energie.FCStd": "85069ba1443af178e484fe1d4f54d563eb37bd9ea9df054c6498efeb1595676c",
+      "pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd": "b78424ab70f5a087634e0d6406af1868b276dfb3c743031ebb77a6f9ee5c0f8a",
+      "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd": "e86f6fc7922f4db2cdf91ca0db9aa88f937ba856cdd98debae44df8c4ec79136",
+      "pieces/commerce/EQ_ISO4762_M3x8_Prototype.FCStd": "e53622130b2e6e271aed1caf9068e7c09382ad7ed6c4d804ce5974115e6a9523",
+      "pieces/commerce/EQ_ISO10642_M3x40_Prototype.FCStd": "fe6de6bdf2ba61a2fcbc63483cd8d4969a5c859e8efab2c7a007962b7db71aaa",
+      "pieces/commerce/EQ_ISO4762_M3x6_Prototype.FCStd": "f636b0464515ac87950293286ca9f62da5fa40f9202a1f196edd81c403101401",
+      "sous_assemblages/SA04_Prototype_Perception.FCStd": "f11e5e935d39869c175d651b3d3ff24cfac1734b34e39f413e3ee5405438d5b5",
+      "pieces/commerce/EQ_Holybro11072_Prototype.FCStd": "f58930b993332e273d6914f57b4c90055d1090355e5214eeda5148bc02042bec",
+      "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd": "ebb648b18a48de17b8f05e9606a33afab964fa1f3011f694154d91b41c65689f",
+      "pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd": "4e2dae187aa81e303f98e23c3a2fc8500eaebf37496a16bc73f5d6bf84b399c8",
+      "pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd": "8aa46e681669d9c6b58a0beb8f5c2e5a32007bfe1fe9a5fa0b22cae1919a0924",
+      "pieces/commerce/EQ_ISO4762_M3x55_Prototype.FCStd": "2a96ddca75e2364ac512963f9c87d04f297af550e91fefb69a005fec48cb7270",
+      "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd": "468406dd9b2f65dfcccb97f7c78f1f5feb4b5049fd29d3dfd83fa6164bc67761",
+      "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd": "4db4c676765d4cd36472ae501a129ada934fe994a5bbd5df2fb6f1423648bbae",
+      "pieces/commerce/EQ_Kingston_SDCE32GB.FCStd": "65e0c0db667847d806cfd4d6be4ab2aa8d98e844cf0df7ef2dd9602224db181b",
+      "sous_assemblages/SA05_Prototype_Avionique.FCStd": "7beab01089a8e224a3fbb4a2e2274aca3abc55aa0eaeb7b170790f51a27de59e",
+      "pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd": "c54db24df7dc21fdc5126379ca53e52e9dcf6cf5211ca802893a1b8ba600f396",
+      "pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd": "4cf073a4e249cfc0a896d40b5f7a74d1e80419cd2238f98ac4f66f24dcd18e7f",
+      "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd": "ade77b928dd2b4d857b539933ba0277e0edc24bfb56c99c55cfee1a2392c9298",
+      "pieces/commerce/EQ_CUAV_USL_Prototype.FCStd": "d9e587fdf3b51ce513c69c6922af87ad2599db88d96dfaf7b17810349533c5d8",
+      "pieces/fabriquees/P71_Support_Securite_Prototype.FCStd": "0c100f4011a69c6b3b97e8ce093d331c9d1f3817e09605edf7b0f19752507589",
+      "pieces/commerce/EQ_ISO4762_M2x12_Prototype.FCStd": "1006dbe5f8756f3712745674c6fecfbf0365a853dcb3b4cf3074cf5387ef33e4",
+      "pieces/commerce/EQ_ISO7089_M2_Prototype.FCStd": "53895ee5bbe6c3439c792ce363b66936bf8297b62b4ead53534edf285ab1286c",
+      "pieces/commerce/EQ_ISO4032_M2_Prototype.FCStd": "4de5e8650ad3ca2c31ef2eefb7aea668dc439743547b587b07f007ec43f965fd",
+      "sous_assemblages/SA06_Prototype_Navigation.FCStd": "f2bcba8e6aa3ef36da81af63f2c783b55dfb3660bdee06d2f5ec9d5cd872fe38",
+      "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd": "a4ee8654c6d50df9736858b183415a6e2b38d6479beaf2190e514048307bb152",
+      "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd": "0febbc0e17f54b65e90332ad6a3eafdee88a4265bca2764d78a523a437284faa",
+      "pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd": "b886f2ea167506b1b6da8e752ec624e03bc4a80fe027de72d1b8fe77fe6221cc",
+      "pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd": "819aa45df5dbc3a23e13ee531848d7d0d81eef139a6acbfe226e8bf0f3adf3c0",
+      "pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd": "a83612ac1523f7b89864332600ab68d997ef3faf48d6352e455f5fb6b1afc1ee",
+      "pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd": "000f68607e1bd12a85b815e988e3cfedf1019cfc806920f2cc797544c8f79ec9",
+      "pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd": "3da4d2af707e82d2c0daa0bc31bcc44565eecf89777bd4023d41fb86a9b16c2c",
+      "pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd": "8efbd0909e1e872802edb80e05c0aa0640847ce0cc2066888159fe6d07efea9d",
+      "pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd": "2677d937846d34a78eb1136d3eb41d46491dffa1d8993c2f881e348d69e0254d",
+      "pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd": "d8ff478c952a6b750e4ec1a84d26f3f596fbec7281acbf8e19ea138d2efddf3b",
+      "pieces/commerce/EQ_Collier_T50R_AncrageRF_Prototype.FCStd": "9b4dbc5a965fe7205979b7b1b0ba16b872f0ab493e432d87b35334f3573c405f",
+      "pieces/commerce/EQ_Collier_T50R_MIDI_Prototype.FCStd": "3aa97b97375a5fedab0723bfe1bd00ab04a45c1959873d3141c3aa66f24928ae",
+      "pieces/commerce/EQ_ISO10642_M3x16_Prototype.FCStd": "e10c9502b040f8cdb54577817498e5d9936fa74ad1de5272940bf9eac9204ff2",
+      "pieces/commerce/W_F01_NEG_Prototype.FCStd": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+      "pieces/commerce/W_F01_POS_Prototype.FCStd": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+      "pieces/commerce/W_F37_POS_Prototype.FCStd": "d9e37b4e0a9b54a5924552edaa38eb7cb8fbb632b307a28ea930d2f99d207c18",
+      "pieces/commerce/W_F37_NEG_Prototype.FCStd": "26a2743c582fe8dbde7e07db3908c1d352d6d31d9f9bf501bff3ac6239c02fb3",
+      "pieces/commerce/W_F38_POS_Prototype.FCStd": "24df46495936412b2b17f9e4456bab190ea1858a3906c82c7c6d4c0dba103f07",
+      "pieces/commerce/W_F05_POS_Prototype.FCStd": "175c2ba08af77931fb2f118a2e7742266fad2a23bae5e0ed926b779701611bbd",
+      "pieces/commerce/W_F38_NEG_Prototype.FCStd": "05878c5035e47171c93161b70ac75133a3942a94770f7ce0b53eced4770e0b8f",
+      "pieces/commerce/W_F05_NEG_Prototype.FCStd": "df38104a255d84649d56312134fd8ae0eeb5f12d2929057c2ae981d2e95be03e",
+      "pieces/commerce/W_F08_AMONT_Prototype.FCStd": "e82a32636da8c4444f34538c465e333a343631ddbb94f8f4d6ed00aa48699880",
+      "pieces/commerce/W_F08_AVAL_Prototype.FCStd": "3a97a19070ec5573169bf522006d6dfaa5a0cf9251e3a77b668fa5ec5f9037e9",
+      "pieces/commerce/W_F40_Prototype.FCStd": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+      "pieces/commerce/W_BALANCE_Prototype.FCStd": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+      "pieces/commerce/W_NTC1_Prototype.FCStd": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+      "pieces/commerce/W_NTC2_Prototype.FCStd": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+      "pieces/commerce/W_F02_1_Prototype.FCStd": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+      "pieces/commerce/W_F03_1_Prototype.FCStd": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+      "pieces/commerce/W_F04_1_Prototype.FCStd": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c",
+      "pieces/commerce/W_LED_1_Prototype.FCStd": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+      "pieces/commerce/W_F02_2_Prototype.FCStd": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+      "pieces/commerce/W_F03_2_Prototype.FCStd": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+      "pieces/commerce/W_F04_2_Prototype.FCStd": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+      "pieces/commerce/W_LED_2_Prototype.FCStd": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+      "pieces/commerce/W_F02_3_Prototype.FCStd": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+      "pieces/commerce/W_F03_3_Prototype.FCStd": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+      "pieces/commerce/W_F04_3_Prototype.FCStd": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+      "pieces/commerce/W_LED_3_Prototype.FCStd": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+      "pieces/commerce/W_F02_4_Prototype.FCStd": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+      "pieces/commerce/W_F03_4_Prototype.FCStd": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+      "pieces/commerce/W_F04_4_Prototype.FCStd": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+      "pieces/commerce/W_LED_4_Prototype.FCStd": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+      "pieces/commerce/W_AIRY_Prototype.FCStd": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+      "pieces/commerce/W_AIRY_ETH_Prototype.FCStd": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+      "pieces/commerce/W_AIRY_PWR_Prototype.FCStd": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+      "pieces/commerce/W_AIRY_SYNC_Prototype.FCStd": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+      "pieces/commerce/W_F_M8_Prototype.FCStd": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+      "pieces/commerce/W_F16_Prototype.FCStd": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+      "pieces/commerce/W_F41_Prototype.FCStd": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+      "pieces/commerce/W_F09_Prototype.FCStd": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+      "pieces/commerce/W_F06_Prototype.FCStd": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+      "pieces/commerce/W_F32_Prototype.FCStd": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+      "pieces/commerce/W_F31_Prototype.FCStd": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+      "pieces/commerce/W_F12_Prototype.FCStd": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+      "pieces/commerce/W_F21_Prototype.FCStd": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+      "pieces/commerce/W_F36_Prototype.FCStd": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+      "pieces/commerce/W_F24A_Prototype.FCStd": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+      "pieces/commerce/W_F24B_Prototype.FCStd": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+      "pieces/commerce/W_F24C_Prototype.FCStd": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+      "pieces/commerce/W_F33_Prototype.FCStd": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+      "pieces/commerce/W_F35_Prototype.FCStd": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+      "pieces/commerce/W_F25_Prototype.FCStd": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+      "pieces/commerce/W_F20_Prototype.FCStd": "cda215381434af6aac35c1e28cf74ba9874b830084744a08b651c672135cea0b",
+      "pieces/commerce/W_F13A_Prototype.FCStd": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+      "pieces/commerce/W_F13B_Prototype.FCStd": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54",
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd": "090a6db1e7f5d818e888b01028378f2d277b45656956af60445cd8a0ec69019a",
+      "assemblages/Prototype_Cartographe.FCStd": "3718cecc43b435a095c1016bc883871116105654363a60eb8029bb6cecb05e2e",
+      "pieces/commerce/EQ_Chassis_X650.FCStd": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+      "pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd": "95dad8403a8404f02b0bf6865ba44e6131f53d881d10c2a46465dd10e08560b7",
+      "pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd": "dfc673352d1195054f3700bb1d0c27a87a86cbd8835e72aad1f29a45c580cd45",
+      "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd": "de3c9bcd13a09df2112a2047627972ababbfab293dce135a1a37b96bc2654686",
+      "pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd": "6db469ef495f199d7cb1f374e6f60ab661bed2b053db7afda8049a68cb51521c",
+      "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd": "17fb50df708391efd7b2f9d92e6631248a540f3e185ef081d3aac2e2a8b5e6e6",
+      "pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd": "5677d67493e1e5a378d62d72cd05ae90a4a83cef436ce68f557a77fbed935b34",
+      "sous_assemblages/SA05A_Bloc_capteurs.FCStd": "e02525e07bf45b36ba2ac6975431b35c68d623d52e8fb39b99897903136ba772",
+      "pieces/commerce/EQ_Airy.FCStd": "abefc33b2bb6275ebf4b1223c3614d2a2e0e885f8355c9c3dbceb368da7ae360",
+      "pieces/commerce/EQ_Basler.FCStd": "3c1a34d3bd3e0b722987defb2f3ef30ae193dcee76771cd98dfbc32d6405d131",
+      "pieces/fabriquees/P10_Retenue_cable.FCStd": "5588ffd6336c938b6682921f97a95e59e530e91a059de4d9e0606c690d4064f8",
+      "sous_assemblages/SA05B_Appui_Sorbothane.FCStd": "3e8ea7a5414b2e98eadb190357c9ba989ddb65a8141af443d4f098d60b4b1ec4",
+      "sous_assemblages/SA05_Capteurs_Isoles.FCStd": "7a4388076326c9918bcb2c498537b57f672ae0dbf67f2ea44902fb1bc27b9694",
+      "pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd": "2cade6f15f64465ef031ff52a14f7328d2acbe05b04614fecd60dd3327be299d",
+      "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd": "003f7ec4824fc67685f8cd61ecac0387ac4258d59218fd07ea6ca0673a230aa9",
+      "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd": "293622f1e623237267d9149c60a8c6f467e9d981505ccd547f8fde6dc62c5a52",
+      "sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_3dConn1.stp": "cfa92d8044781703fa24208723d4f4348754537516025f3f089832035e9f52c5",
+      "sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf": "f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab",
+      "sources_fabricants/phoenix_contact/1522341_dimensions_41886.jpg": "e058807591f7c5e844c3961b29861077fdc904b3a05e9f4b9588176609f9479a",
+      "pieces/commerce/EQ_Ecrou_frein_M2.FCStd": "485f08fb8183e7e1681fe340bbb62ed038a3b8344d4cf752ebd7b3680fac024d",
+      "pieces/commerce/EQ_Objectif.FCStd": "3712f1b0fd0bea908033f7dd97c92ddabaf10528121595088192fd843023bc82",
+      "pieces/commerce/EQ_Sorbothane_0510010_30.FCStd": "c34984e935e00a2c10f738b124424d58ea51f855803988ad80519029d959cc6c",
+      "pieces/commerce/EQ_Sorbothane_0510030_30.FCStd": "21d77bff888bdd7518688548eb180bd852a096513b61762eb11631e57cd2d231",
+      "pieces/commerce/EQ_Vis_M2x25_CHC.FCStd": "9fc8e666b1df6b23660ac470604ac5a1eace4cc5b9b7f526cab04e2421770fe8",
+      "pieces/fabriquees/P17_Support_deporte_isolation.FCStd": "b34b92767b62499c8875065ad27393b9dd4c82028959d5af6c6adb2bc2184dce",
+      "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd": "0aca65101ff39e8b64070055f660bf26e058cd4a960691f7b58247bbcb384fb0",
+      "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd": "2d32d23f307d86a2bf1b2ded58013dc63e3670e1e9b87721b3c9ec7da9b7ef43"
+    },
+    "occurrences_controlees": 339,
+    "paires_bbox_exactes": 36,
+    "mesures": [
+      {
+        "id": "QS8_P76",
+        "bande_valide": true,
+        "tete_valide": true,
+        "volume_tete_mm3": 327.33200000000005,
+        "engagement_serrure_mm3": 6.715999999999597,
+        "majorant_perimetre_interieur_mm": 105.90669593329393,
+        "occurrence_native_reemployee": 0
+      },
+      {
+        "id": "ANTENNE_RF0",
+        "bande_valide": true,
+        "tete_valide": true,
+        "volume_tete_mm3": 327.3320000000003,
+        "engagement_serrure_mm3": 6.715999999999498,
+        "majorant_perimetre_interieur_mm": 50.73458267499003,
+        "occurrence_native_reemployee": 0
+      },
+      {
+        "id": "ANTENNE_RF1",
+        "bande_valide": true,
+        "tete_valide": true,
+        "volume_tete_mm3": 327.33200000000005,
+        "engagement_serrure_mm3": 6.716000000000422,
+        "majorant_perimetre_interieur_mm": 52.90973355292337,
+        "occurrence_native_reemployee": 1
+      }
+    ],
+    "protocole": "Relecture BRep indépendante du contrôleur de pose ; intersections OCCT avec toutes les occurrences et les 14 autres bandes/têtes, seuil1e-4mm³. Seule la même boucle native RF1 et l’engagement de chaque tête dans sa propre bande sont identifiés comme identités/contacts fonctionnels.",
+    "erreurs": [],
+    "collisions": [],
+    "fichiers_non_modifies": true,
+    "conforme": true,
+    "finalisation_correcte": true,
+    "qualification": "À valider"
+  },
+  "revue_finale_refonte": {
+    "schema_version": 1,
+    "date_utc": "2026-10-22T18:15:10.043580+00:00",
+    "portee": "Revue indépendante finale de la refonte native et de la chaîne de preuves du prototype. Aucun fichier CAO reconstruit ou sauvegardé par ce rôle. Les géométries de contrôle QS8 commun et RF0 diagonal ont été proposées et testées en mémoire pendant la revue, puis intégrées par l’auteur des contrôles ; ces deux propositions font l’objet d’une relecture complémentaire par le consolidateur.",
+    "cadrage": "Priorité de faisabilité physique DOC-HLD §1.1 et DOC-VAL §14 ; séparation faits/hypothèses et source canonique. Fermer la passe de définition lorsque liens, géométrie, retenues, BOM et preuves concordent ; ne pas qualifier les interfaces ou la tenue physique à partir de ces seuls résultats.",
+    "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+    "routes_sha256": "8546487b052efa703e4dadc8aa4f7c4047e927e0f67c472b32ff0b4c94985e30",
+    "contrat_sha256": "bd524fb4656fd8b920b1bf18a154e5409b68ac376c2c108c1964ca5e68c7617f",
+    "assemblage_sha256": "3718cecc43b435a095c1016bc883871116105654363a60eb8029bb6cecb05e2e",
+    "entrees_sha256": {
+      "../../../.runtime/colliers_usb/ColliersControle.FCStd": "d56c12da7fe4da57256c328c54a93f0985a5a80d9e16fda6084b82691a8024b5",
+      "../../../.runtime/colliers_usb/antenne_rf0.png": "33efa6da272efb3dc8bb01d47237d758a6576bea3370fd32d2bed10caa1b52fd",
+      "../../../.runtime/colliers_usb/antenne_rf1.png": "4168d324363bc53ae2544007b10c636614cfcd5bf58258633cbe3977afad0dc8",
+      "../../../.runtime/colliers_usb/liaisons_p72_p73.png": "9aa6ac2a81f8b9cf4a8ca6c0ad83e62c71a831d9bd14e33e6fabdf579e6a0163",
+      "../../../.runtime/colliers_usb/liaisons_p75.png": "ec90c34698c4ab3ddb113369e3196677e4a2cf940a2c516f2ba1af6d26c45a24",
+      "../../../.runtime/colliers_usb/p78_face.png": "24c09a031a048d97596d801266adb1aea1410916b3203d5f27609057014b5474",
+      "../../../.runtime/colliers_usb/p78_gorge.png": "03441322c04c3758b52a768f0bd8bbb98c86512124e4f1e68a5c9b7d0cbe82f2",
+      "../../../.runtime/colliers_usb/qs8_commun.png": "986abe1f392d0aca5c43aa277c4c58970c40e0643b58e8d3d11eaf5075d9d69c",
+      "../../../.runtime/colliers_usb/rendus_colliers.json": "aa489fae95e9195c31b05352603f793219ee21bfb1641c2f106280a1fedcbf35",
+      "../../../.runtime/colliers_usb/usb_dessous.png": "db2a5faf0cee29fb24944ec0830ac806b13b39482605e8e704ef49de0b3b8daf",
+      "../../../.runtime/colliers_usb/usb_dessus.png": "a875d03c49b2b9da598816f7e4918acb288dce896eb1792cf9342253eed97d3e",
+      "../../../.runtime/colliers_usb/usb_oblique.png": "71da2242d389f2f2040f2ac152d3bf524a655c30d2dc6f6e2d1589f46478573b",
+      "exports/Nomenclature_Prototype_Cartographe.xlsx": "511d69256cee12feaeb147b4e6293ced7d1ea06711a5c12c77a5820baf343107",
+      "exports/prototype/bras_selles.png": "e79f6e5ce45c004c642142fcc73247e94a7e0890812726f3cec35b2af1414b56",
+      "exports/prototype/connexions_avionique.png": "de5fced9962e7d504b4de1004d285abbcdb66393852bb46518288f701e9e2db4",
+      "exports/prototype/connexions_camera.png": "08192e06123702130c99ad34b209504517407e638d04761c6391ea547eb55407",
+      "exports/prototype/departs_bras.png": "f94fb8bccc0684625009e5b15e9c1921a61515efebdf41fd322310a3fe05272d",
+      "exports/prototype/dessus.png": "c9b7398fd16075bee1dcc9ad1a6525096287abc8b0a03d2c81bd73fa0ba8f93a",
+      "exports/prototype/ensemble_brep.png": "1c48ba9dd7f2f788ba9d4799f9bfda79b1358c2ec2101ae605dc1ae5b429cd23",
+      "exports/prototype/face.png": "1b698928b74d37a3a21ce2e79d99fa6e85d8f9f57d64766e79c5582a462a6727",
+      "exports/prototype/guides_distribution.png": "66badecca2f99eca3af8fd728f25dec876cf1a13007d373bf0cfc206e3e22fdd",
+      "exports/prototype/isometrique.png": "ffe0c17c2e763fe71918223e659bbdc9778e0b533d5c2c5820e2eddb21576494",
+      "exports/prototype/reserve_usb.png": "4f1fcf7789a4a2b443d44687e88c141f38ebaec03314aaa3e59d5bb7a0a71f16",
+      "nomenclature_prototype.json": "c0fb2115a3deb329d389023cb414175e43ec60891eef407a2a715b6369d052c9",
+      "verification/configuration_faisceau_haut_prototype.json": "5548f7e7f803f12b792b77d28c911affcab650f89739d3142d188fb8fc7752a2",
+      "verification/connecteurs_coudes_camera_prototype.json": "3aac3251c446c0d33a551ededabf673c32cc64302d0a0f8cb3e6399de260f7bb",
+      "verification/construction_prototype.json": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+      "verification/controle_assemblage_prototype.json": "3f34468d854fc6355d08fb6a7d7c11f8128333bb018c2021c14dfea5992381d8",
+      "verification/controle_colliers_prototype.json": "d923956fe48b033857df5f954daa061813d7ecf6b9916a23edb4d481e59a5806",
+      "verification/controle_departs_bras_prototype.json": "586e9e4a287ea240384d44766ace484e542dfb3a3c091493bb84fa82739e5537",
+      "verification/controle_faisceaux_prototype.json": "81f2d392e9144a126b1bc34bfe6c1484eb0441e50426620ac1484a8537bd2eff",
+      "verification/controle_fixations_equipements_prototype.json": "a65693e7f74b1ae0f69d10ec7df9b92bfd64e60827123d54619632660f862f5f",
+      "verification/controle_fixations_guides_prototype.json": "2749328d32c25513e62a43e45b1c32eaa8d6a6a06b53dbb7cd2bf0048d43d850",
+      "verification/controle_nomenclature_prototype.json": "3eb13341740c86a40ccb8930d98c7674fdac6d03b3e41b0bbe2a2eb79319e6e9",
+      "verification/controle_pieces_prototype.json": "75b8a41fbca9fc88fac266f89786fd9a4f11d6139a01534b8f5bbd704b0b53ac",
+      "verification/controle_retenues_faisceaux_prototype.json": "f3902bad94db3ba3f92e8e4f8fb615eb525b7fde79c7179aaa61f2030d51d155",
+      "verification/definition_bom_electrique.json": "1e721d0359518fb65164097727b9dedbaa3a8941e45748fa716f9b655de5b502",
+      "verification/definition_bom_mecanique.json": "259cff3e04ccda4f3a90e8acacf8dcf7410c8062a0402f0798af0e0b572d82b9",
+      "verification/read_brep_prototype.py": "36320d6ebeb21a824385763e9b7418151fbe5de3cbbad9144b7aef17db3aa063",
+      "verification/render_colliers_prototype.py": "882a3089e82946958e4663669fc605efe9cbed0b937750710bd4f2250b5b9176",
+      "verification/render_prototype.py": "87609d2462ccf3916bc1d831d073fcd4aee6143b85f2357fa60fd8af099ee972",
+      "verification/rendu_prototype.json": "203dd9a9b56e0fdc4b174649a93250abbb47399f167dbbbbe76fd5c249095469",
+      "verification/retenues_faisceaux_prototype.json": "bd524fb4656fd8b920b1bf18a154e5409b68ac376c2c108c1964ca5e68c7617f",
+      "verification/routes_prototype.json": "8546487b052efa703e4dadc8aa4f7c4047e927e0f67c472b32ff0b4c94985e30",
+      "verification/verify_colliers_prototype.py": "42eceda34ee9c7c4ed3b14efb88b7c80b4331b4fce40604dd7b3cbf4cac88881",
+      "verification/verify_corps_prototype.py": "6f374432c41cf6b84e76e3b00a8729c97281558a2c02d0ef2c805b3d86a1225a",
+      "verification/verify_departs_bras_prototype.py": "d3107d3c92966cbd3cba822a03111edd0fe6a6449423bc004ccaac15ff52df40",
+      "verification/verify_faisceaux_brep_prototype.py": "3ba0d327a5946f5baccd64cc5634363a2713b0cd1ba4267043d31c26ab9d7820",
+      "verification/verify_faisceaux_prototype.py": "fcbd54fa2e3e04eeda26beb377e61ce11a7567c6619d04aad762bb4fb00e438d",
+      "verification/verify_fixations_equipements_prototype.py": "cd64ef0ab78a8b540cacd400bc909f555909d803853eb3cb8609fc6b4ad1f1e8",
+      "verification/verify_fixations_guides_prototype.py": "b7987b615a16c24a21b26a9ac313c20b0ac067672b254eed34b9c356bb802d67",
+      "verification/verify_fixations_prototype.py": "1b6d3ed2626338a0e92cf86f05880fcf96814c382244d18475870613a8881f80",
+      "verification/verify_nomenclature_prototype.ps1": "5b9eb2fcbe27417803848f59a110fddb52ad7851f6c9b309dcda1d193b9fe877",
+      "verification/verify_pieces_prototype.py": "7b9bcea364b1d5e20f1f8378ea9cfa83844d26f714708714380204699167894e",
+      "verification/verify_prototype.py": "e55e191ce2dcd9434d9d112c32089a60b3acb1dba1be405ca5f895edd353cef7",
+      "verification/verify_retenues_faisceaux_prototype.py": "1a5df848b06d14db3c603711c6e794866e3cd2b00ec7775efc6b5861a6ffe1ff"
+    },
+    "entrees_cles_sha256": {
+      "verification/review_assemblage_prototype.json#review_finale_fixations": "2be37a46462f2b2cea970ebee936ce362ee45604aea5ab4baa717be370adf60f",
+      "verification/review_assemblage_prototype.json#contre_verification_corps": "312fe258c6ee73dbad51bbe50b5c057835b12df4b393f40f3426c032077aaede"
+    },
+    "canonisation_cles": "SHA256 des octets UTF-8 de json.dumps(sous_clé, ensure_ascii=False, sort_keys=True, separators=(\",\",\":\")).",
+    "natifs_sha256": {
+      "pieces/commerce/EQ_X650_Colonne90_Prototype.FCStd": "a2fb5afc1c7a300f2ee84b65c69d63680026a66feb3e64b60569f33062dadb24",
+      "pieces/commerce/EQ_Gemfan1555_CW.FCStd": "2a19739a716240440d13cd416982658af875564595b155a13891d8479daef904",
+      "pieces/commerce/EQ_Gemfan1555_CCW.FCStd": "4bd64807b0f2ad6d93e39a9bc110daf07de147ba500641eea271256c086d3528",
+      "pieces/commerce/EQ_Tekko32_45A_Prototype.FCStd": "d003ea5d326959df6d38c3209352d0fee45af22f9112d8a7179dfea4305657e4",
+      "sous_assemblages/SA01_Prototype_Structure.FCStd": "b4ac8389cd1f5e46c8c81f444a240f238c73b087c546153832c1b8d6545db384",
+      "pieces/fabriquees/P60_Semelle_Batterie_Prototype.FCStd": "7fb0acda18dd6701e376b3c4fcb082e4b3c718499ba17ce99297d4d1d67babf8",
+      "pieces/fabriquees/P61_Butee_Batterie_Prototype.FCStd": "dda14690ebf9dd7caa8e0324e311f7d26b820a58601ea7db82559d0bdcfa1642",
+      "pieces/commerce/EQ_Pad_Batterie_Prototype.FCStd": "4af9234aba82157edca36879402b311d4a658a55d21d73ee39d33c8986de04f2",
+      "pieces/commerce/EQ_Pad_Droit_Batterie_Prototype.FCStd": "644cf7d8935fdd8c760675c58079a6ed594f2ebf3edfa2cde794bd86dc32c524",
+      "pieces/commerce/EQ_Sangle_Batterie_Prototype.FCStd": "985a96dba71a2b4f2819cf0a9d4b8ec590968e159280801f3868070c994ed16c",
+      "pieces/fabriquees/P62_Plateau_BMS_Prototype.FCStd": "e224797e4721b1a238686965718dafa5593401e7b0e03f2977bdd8eec18e750a",
+      "pieces/fabriquees/P63_Colonne_BMS_Prototype.FCStd": "7ba3959ef2429718cac4214d389e4077f783f172d99fe3f8638d19581cb21588",
+      "pieces/commerce/EQ_QS8S_B9310_Prototype.FCStd": "22e1d8ee944181183dbb688939a13dde3830313e1a3e3eb1e19c0137bca4ec6a",
+      "pieces/fabriquees/P76_Berceau_QS8_Prototype.FCStd": "11558a31e989af55fa496b0abd066ed1e19c58a537e468d833d07563a45a3328",
+      "pieces/commerce/EQ_MIDI_Prototype.FCStd": "e04c463644a05838b6c9fbfeb18440a253d00ab16fa854aa4a3a53241aa2483b",
+      "pieces/commerce/EQ_NTC_JBD_Prototype.FCStd": "00a535b4d4ce89e19f05757e9158104c48e8ef6803e40051bea793ad811a90c3",
+      "pieces/commerce/EQ_ISO7089_M3_Prototype.FCStd": "fe6eee1a0d3124fc371adeacd57051279bf5978ec2c46897d90de71f22dca492",
+      "pieces/commerce/EQ_ISO10511_M3_Prototype.FCStd": "87555be94abea0a9fd69929c6cfa77d1c29f0bd95488fac8c24a99a1d3260bbc",
+      "pieces/commerce/EQ_ISO4762_M3x12_Prototype.FCStd": "e279a32d0db48470ae8c958dafdf7b0fc4774fc461cb785cf5021c81260182ea",
+      "pieces/commerce/EQ_ISO4762_M3x16_Prototype.FCStd": "75a2656cc7a09b47e00feeafc02430f7a8610cb54945b8b1a572512ef83bf4e6",
+      "pieces/commerce/EQ_ISO4762_M3x75_Prototype.FCStd": "b43e268d8a951eb225fba3a3b1983f266ee9f225d339b152bafb647728ba9420",
+      "sous_assemblages/SA02_Prototype_Batterie.FCStd": "7d6dff1c3184986f4623e1cd8d1403010954e8a52febc39136fd72ae16f16d65",
+      "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd": "4d1c1279025924482686f8f55eebf02c69f3ecac9ca15691a3c3b103de1fb81c",
+      "pieces/fabriquees/P74_Cale_Energie_Prototype.FCStd": "434ba69ad547ce395df75265732734b6260438e3faf0fb86587ca7f861bb8597",
+      "pieces/commerce/EQ_Protection_CA01_Prototype.FCStd": "4c7934ae531a45ad6135c867cc4587b10123eae81e2e04e2fa559160c10935a5",
+      "sous_assemblages/SA03_Prototype_Energie.FCStd": "85069ba1443af178e484fe1d4f54d563eb37bd9ea9df054c6498efeb1595676c",
+      "pieces/fabriquees/P65_Platine_Capteurs_Prototype.FCStd": "b78424ab70f5a087634e0d6406af1868b276dfb3c743031ebb77a6f9ee5c0f8a",
+      "pieces/commerce/EQ_Fujinon_CF8ZA1S.FCStd": "e86f6fc7922f4db2cdf91ca0db9aa88f937ba856cdd98debae44df8c4ec79136",
+      "pieces/commerce/EQ_ISO4762_M3x8_Prototype.FCStd": "e53622130b2e6e271aed1caf9068e7c09382ad7ed6c4d804ce5974115e6a9523",
+      "pieces/commerce/EQ_ISO10642_M3x40_Prototype.FCStd": "fe6de6bdf2ba61a2fcbc63483cd8d4969a5c859e8efab2c7a007962b7db71aaa",
+      "pieces/commerce/EQ_ISO4762_M3x6_Prototype.FCStd": "f636b0464515ac87950293286ca9f62da5fa40f9202a1f196edd81c403101401",
+      "sous_assemblages/SA04_Prototype_Perception.FCStd": "f11e5e935d39869c175d651b3d3ff24cfac1734b34e39f413e3ee5405438d5b5",
+      "pieces/commerce/EQ_Holybro11072_Prototype.FCStd": "f58930b993332e273d6914f57b4c90055d1090355e5214eeda5148bc02042bec",
+      "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd": "ebb648b18a48de17b8f05e9606a33afab964fa1f3011f694154d91b41c65689f",
+      "pieces/fabriquees/P67_Entretoise_Avionique_Prototype.FCStd": "4e2dae187aa81e303f98e23c3a2fc8500eaebf37496a16bc73f5d6bf84b399c8",
+      "pieces/fabriquees/P68_Entretoise_CA01_Prototype.FCStd": "8aa46e681669d9c6b58a0beb8f5c2e5a32007bfe1fe9a5fa0b22cae1919a0924",
+      "pieces/commerce/EQ_ISO4762_M3x55_Prototype.FCStd": "2a96ddca75e2364ac512963f9c87d04f297af550e91fefb69a005fec48cb7270",
+      "pieces/commerce/EQ_Waveshare_OrinFanPWM.FCStd": "468406dd9b2f65dfcccb97f7c78f1f5feb4b5049fd29d3dfd83fa6164bc67761",
+      "pieces/commerce/EQ_Samsung990EVOPlus_1To.FCStd": "4db4c676765d4cd36472ae501a129ada934fe994a5bbd5df2fb6f1423648bbae",
+      "pieces/commerce/EQ_Kingston_SDCE32GB.FCStd": "65e0c0db667847d806cfd4d6be4ab2aa8d98e844cf0df7ef2dd9602224db181b",
+      "sous_assemblages/SA05_Prototype_Avionique.FCStd": "7beab01089a8e224a3fbb4a2e2274aca3abc55aa0eaeb7b170790f51a27de59e",
+      "pieces/fabriquees/P69_Support_GNSS_Prototype.FCStd": "c54db24df7dc21fdc5126379ca53e52e9dcf6cf5211ca802893a1b8ba600f396",
+      "pieces/commerce/EQ_Antenne_RP4TD_Prototype.FCStd": "4cf073a4e249cfc0a896d40b5f7a74d1e80419cd2238f98ac4f66f24dcd18e7f",
+      "pieces/fabriquees/P70_Support_Radio_Prototype.FCStd": "ade77b928dd2b4d857b539933ba0277e0edc24bfb56c99c55cfee1a2392c9298",
+      "pieces/commerce/EQ_CUAV_USL_Prototype.FCStd": "d9e587fdf3b51ce513c69c6922af87ad2599db88d96dfaf7b17810349533c5d8",
+      "pieces/fabriquees/P71_Support_Securite_Prototype.FCStd": "0c100f4011a69c6b3b97e8ce093d331c9d1f3817e09605edf7b0f19752507589",
+      "pieces/commerce/EQ_ISO4762_M2x12_Prototype.FCStd": "1006dbe5f8756f3712745674c6fecfbf0365a853dcb3b4cf3074cf5387ef33e4",
+      "pieces/commerce/EQ_ISO7089_M2_Prototype.FCStd": "53895ee5bbe6c3439c792ce363b66936bf8297b62b4ead53534edf285ab1286c",
+      "pieces/commerce/EQ_ISO4032_M2_Prototype.FCStd": "4de5e8650ad3ca2c31ef2eefb7aea668dc439743547b587b07f007ec43f965fd",
+      "sous_assemblages/SA06_Prototype_Navigation.FCStd": "f2bcba8e6aa3ef36da81af63f2c783b55dfb3660bdee06d2f5ec9d5cd872fe38",
+      "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd": "a4ee8654c6d50df9736858b183415a6e2b38d6479beaf2190e514048307bb152",
+      "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd": "0febbc0e17f54b65e90332ad6a3eafdee88a4265bca2764d78a523a437284faa",
+      "pieces/fabriquees/P75_Guide_Avionique_Prototype.FCStd": "b886f2ea167506b1b6da8e752ec624e03bc4a80fe027de72d1b8fe77fe6221cc",
+      "pieces/fabriquees/P77_Berceau_Reserve_USB_Prototype.FCStd": "819aa45df5dbc3a23e13ee531848d7d0d81eef139a6acbfe226e8bf0f3adf3c0",
+      "pieces/fabriquees/P78_Retenue_Camera_M8_Prototype.FCStd": "a83612ac1523f7b89864332600ab68d997ef3faf48d6352e455f5fb6b1afc1ee",
+      "pieces/fabriquees/P79_Selle_Bras_Amont_Prototype.FCStd": "000f68607e1bd12a85b815e988e3cfedf1019cfc806920f2cc797544c8f79ec9",
+      "pieces/fabriquees/P80_Selle_Bras_Aval_Prototype.FCStd": "3da4d2af707e82d2c0daa0bc31bcc44565eecf89777bd4023d41fb86a9b16c2c",
+      "pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd": "8efbd0909e1e872802edb80e05c0aa0640847ce0cc2066888159fe6d07efea9d",
+      "pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd": "2677d937846d34a78eb1136d3eb41d46491dffa1d8993c2f881e348d69e0254d",
+      "pieces/commerce/EQ_Phoenix_M8_1522341_Prototype.FCStd": "d8ff478c952a6b750e4ec1a84d26f3f596fbec7281acbf8e19ea138d2efddf3b",
+      "pieces/commerce/EQ_Collier_T50R_AncrageRF_Prototype.FCStd": "9b4dbc5a965fe7205979b7b1b0ba16b872f0ab493e432d87b35334f3573c405f",
+      "pieces/commerce/EQ_Collier_T50R_MIDI_Prototype.FCStd": "3aa97b97375a5fedab0723bfe1bd00ab04a45c1959873d3141c3aa66f24928ae",
+      "pieces/commerce/EQ_ISO10642_M3x16_Prototype.FCStd": "e10c9502b040f8cdb54577817498e5d9936fa74ad1de5272940bf9eac9204ff2",
+      "pieces/commerce/W_F01_NEG_Prototype.FCStd": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+      "pieces/commerce/W_F01_POS_Prototype.FCStd": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+      "pieces/commerce/W_F37_POS_Prototype.FCStd": "d9e37b4e0a9b54a5924552edaa38eb7cb8fbb632b307a28ea930d2f99d207c18",
+      "pieces/commerce/W_F37_NEG_Prototype.FCStd": "26a2743c582fe8dbde7e07db3908c1d352d6d31d9f9bf501bff3ac6239c02fb3",
+      "pieces/commerce/W_F38_POS_Prototype.FCStd": "24df46495936412b2b17f9e4456bab190ea1858a3906c82c7c6d4c0dba103f07",
+      "pieces/commerce/W_F05_POS_Prototype.FCStd": "175c2ba08af77931fb2f118a2e7742266fad2a23bae5e0ed926b779701611bbd",
+      "pieces/commerce/W_F38_NEG_Prototype.FCStd": "05878c5035e47171c93161b70ac75133a3942a94770f7ce0b53eced4770e0b8f",
+      "pieces/commerce/W_F05_NEG_Prototype.FCStd": "df38104a255d84649d56312134fd8ae0eeb5f12d2929057c2ae981d2e95be03e",
+      "pieces/commerce/W_F08_AMONT_Prototype.FCStd": "e82a32636da8c4444f34538c465e333a343631ddbb94f8f4d6ed00aa48699880",
+      "pieces/commerce/W_F08_AVAL_Prototype.FCStd": "3a97a19070ec5573169bf522006d6dfaa5a0cf9251e3a77b668fa5ec5f9037e9",
+      "pieces/commerce/W_F40_Prototype.FCStd": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+      "pieces/commerce/W_BALANCE_Prototype.FCStd": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+      "pieces/commerce/W_NTC1_Prototype.FCStd": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+      "pieces/commerce/W_NTC2_Prototype.FCStd": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+      "pieces/commerce/W_F02_1_Prototype.FCStd": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+      "pieces/commerce/W_F03_1_Prototype.FCStd": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+      "pieces/commerce/W_F04_1_Prototype.FCStd": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c",
+      "pieces/commerce/W_LED_1_Prototype.FCStd": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+      "pieces/commerce/W_F02_2_Prototype.FCStd": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+      "pieces/commerce/W_F03_2_Prototype.FCStd": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+      "pieces/commerce/W_F04_2_Prototype.FCStd": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+      "pieces/commerce/W_LED_2_Prototype.FCStd": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+      "pieces/commerce/W_F02_3_Prototype.FCStd": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+      "pieces/commerce/W_F03_3_Prototype.FCStd": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+      "pieces/commerce/W_F04_3_Prototype.FCStd": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+      "pieces/commerce/W_LED_3_Prototype.FCStd": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+      "pieces/commerce/W_F02_4_Prototype.FCStd": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+      "pieces/commerce/W_F03_4_Prototype.FCStd": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+      "pieces/commerce/W_F04_4_Prototype.FCStd": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+      "pieces/commerce/W_LED_4_Prototype.FCStd": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+      "pieces/commerce/W_AIRY_Prototype.FCStd": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+      "pieces/commerce/W_AIRY_ETH_Prototype.FCStd": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+      "pieces/commerce/W_AIRY_PWR_Prototype.FCStd": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+      "pieces/commerce/W_AIRY_SYNC_Prototype.FCStd": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+      "pieces/commerce/W_F_M8_Prototype.FCStd": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+      "pieces/commerce/W_F16_Prototype.FCStd": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+      "pieces/commerce/W_F41_Prototype.FCStd": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+      "pieces/commerce/W_F09_Prototype.FCStd": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+      "pieces/commerce/W_F06_Prototype.FCStd": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+      "pieces/commerce/W_F32_Prototype.FCStd": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+      "pieces/commerce/W_F31_Prototype.FCStd": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+      "pieces/commerce/W_F12_Prototype.FCStd": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+      "pieces/commerce/W_F21_Prototype.FCStd": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+      "pieces/commerce/W_F36_Prototype.FCStd": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+      "pieces/commerce/W_F24A_Prototype.FCStd": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+      "pieces/commerce/W_F24B_Prototype.FCStd": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+      "pieces/commerce/W_F24C_Prototype.FCStd": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+      "pieces/commerce/W_F33_Prototype.FCStd": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+      "pieces/commerce/W_F35_Prototype.FCStd": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+      "pieces/commerce/W_F25_Prototype.FCStd": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+      "pieces/commerce/W_F20_Prototype.FCStd": "cda215381434af6aac35c1e28cf74ba9874b830084744a08b651c672135cea0b",
+      "pieces/commerce/W_F13A_Prototype.FCStd": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+      "pieces/commerce/W_F13B_Prototype.FCStd": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54",
+      "sous_assemblages/SA07_Prototype_Faisceaux.FCStd": "090a6db1e7f5d818e888b01028378f2d277b45656956af60445cd8a0ec69019a",
+      "assemblages/Prototype_Cartographe.FCStd": "3718cecc43b435a095c1016bc883871116105654363a60eb8029bb6cecb05e2e",
+      "pieces/commerce/EQ_Chassis_X650.FCStd": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909",
+      "pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd": "95dad8403a8404f02b0bf6865ba44e6131f53d881d10c2a46465dd10e08560b7",
+      "pieces/commerce/EQ_JBD_SP22S003_BMS.FCStd": "dfc673352d1195054f3700bb1d0c27a87a86cbd8835e72aad1f29a45c580cd45",
+      "pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd": "de3c9bcd13a09df2112a2047627972ababbfab293dce135a1a37b96bc2654686",
+      "pieces/commerce/EQ_Holybro_PDB18138_Systeme_Candidat.FCStd": "6db469ef495f199d7cb1f374e6f60ab661bed2b053db7afda8049a68cb51521c",
+      "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd": "17fb50df708391efd7b2f9d92e6631248a540f3e185ef081d3aac2e2a8b5e6e6",
+      "pieces/fabriquees/P16_Platine_capteurs_isolee.FCStd": "5677d67493e1e5a378d62d72cd05ae90a4a83cef436ce68f557a77fbed935b34",
+      "sous_assemblages/SA05A_Bloc_capteurs.FCStd": "e02525e07bf45b36ba2ac6975431b35c68d623d52e8fb39b99897903136ba772",
+      "pieces/commerce/EQ_Airy.FCStd": "abefc33b2bb6275ebf4b1223c3614d2a2e0e885f8355c9c3dbceb368da7ae360",
+      "pieces/commerce/EQ_Basler.FCStd": "3c1a34d3bd3e0b722987defb2f3ef30ae193dcee76771cd98dfbc32d6405d131",
+      "pieces/fabriquees/P10_Retenue_cable.FCStd": "5588ffd6336c938b6682921f97a95e59e530e91a059de4d9e0606c690d4064f8",
+      "sous_assemblages/SA05B_Appui_Sorbothane.FCStd": "3e8ea7a5414b2e98eadb190357c9ba989ddb65a8141af443d4f098d60b4b1ec4",
+      "sous_assemblages/SA05_Capteurs_Isoles.FCStd": "7a4388076326c9918bcb2c498537b57f672ae0dbf67f2ea44902fb1bc27b9694",
+      "pieces/commerce/EQ_Holybro_Pixhawk_Jetson_Baseboard_candidat.FCStd": "2cade6f15f64465ef031ff52a14f7328d2acbe05b04614fecd60dd3327be299d",
+      "pieces/fabriquees/CA01_PCB_Revue_20261003.FCStd": "003f7ec4824fc67685f8cd61ecac0387ac4258d59218fd07ea6ca0673a230aa9",
+      "pieces/commerce/EQ_RTK_Helical_G4_Enveloppe_Systeme_Candidat.FCStd": "293622f1e623237267d9149c60a8c6f467e9d981505ccd547f8fde6dc62c5a52",
+      "sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_3dConn1.stp": "cfa92d8044781703fa24208723d4f4348754537516025f3f089832035e9f52c5",
+      "sources_fabricants/usbfirewire/RR-ASMUK-XXGRHF_TechnicalDrawing.pdf": "f34731833f09bde2a14c1b19b66ecb0bed85cf175cf2c6f512dde8390bb33eab",
+      "sources_fabricants/phoenix_contact/1522341_dimensions_41886.jpg": "e058807591f7c5e844c3961b29861077fdc904b3a05e9f4b9588176609f9479a",
+      "pieces/commerce/EQ_Ecrou_frein_M2.FCStd": "485f08fb8183e7e1681fe340bbb62ed038a3b8344d4cf752ebd7b3680fac024d",
+      "pieces/commerce/EQ_Objectif.FCStd": "3712f1b0fd0bea908033f7dd97c92ddabaf10528121595088192fd843023bc82",
+      "pieces/commerce/EQ_Sorbothane_0510010_30.FCStd": "c34984e935e00a2c10f738b124424d58ea51f855803988ad80519029d959cc6c",
+      "pieces/commerce/EQ_Sorbothane_0510030_30.FCStd": "21d77bff888bdd7518688548eb180bd852a096513b61762eb11631e57cd2d231",
+      "pieces/commerce/EQ_Vis_M2x25_CHC.FCStd": "9fc8e666b1df6b23660ac470604ac5a1eace4cc5b9b7f526cab04e2421770fe8",
+      "pieces/fabriquees/P17_Support_deporte_isolation.FCStd": "b34b92767b62499c8875065ad27393b9dd4c82028959d5af6c6adb2bc2184dce",
+      "pieces/fabriquees/P18_Manchon_limiteur_metal.FCStd": "0aca65101ff39e8b64070055f660bf26e058cd4a960691f7b58247bbcb384fb0",
+      "pieces/fabriquees/P19_Rondelle_capture_metal.FCStd": "2d32d23f307d86a2bf1b2ded58013dc63e3670e1e9b87721b3c9ec7da9b7ef43"
+    },
+    "comptages": {
+      "references": 118,
+      "occurrences": 346,
+      "documents_reouverts": 137,
+      "cables": 53,
+      "pieces_Pxx_controlees": 45,
+      "fixations_BMS_stack": 32,
+      "paires_BMS_stack": 106,
+      "fixations_guides": 42,
+      "paires_guides": 460,
+      "affectations_retenues": 295,
+      "colliers_cables_uniques": 269,
+      "colliers_nominal_total": 281,
+      "colliers_perimetre_controle": 281,
+      "bandes_controle_local": 15,
+      "tetes_controle_local": 15,
+      "vues_inspectees": 20
+    },
+    "criteres_audites": [
+      "Seuil d’intersection volumique 1e-4 mm³ pour les pièces, câbles et enveloppes extérieures des prises ; aucune exclusion générale des collisions câble/équipement.",
+      "Seule jonction de câbles Airy limitée aux extrémités communes et à la sphère locale liée au diamètre ; les autres intersections restent des défauts.",
+      "Interférences SSD/microSD identifiées par les seuls indices source des connecteurs attendus, avec engagement réel explicitement À valider ; aucune autre collision acceptée au titre d’une réserve.",
+      "Contrat des retenues couvrant chaque parcours de bout en bout ; projection nominale 0,6 mm, jeu câble/appui 1,0 mm. Les portées 50 mm sur les guides, 60 mm aux transitions générales et exceptions explicites ne prouvent pas la tenue vibratoire.",
+      "Portée candidate 80 mm entre selles LED sur tube continu distincte de la limite 50 mm sur les nouveaux guides ; pas de hausse implicite du seuil général.",
+      "Les réserves USB communes exigent une preuve d’enveloppement des spires, un appui direct sur P77 et la cohérence des empreintes ; la simple proximité ne suffit pas.",
+      "La synchronisation refuse les preuves absentes, non finalisées, périmées ou signalant des erreurs ; succès d’exécution et finalisation sont distincts."
+    ],
+    "camera": {
+      "source": "pieces/commerce/EQ_Basler.FCStd",
+      "sha256": "3c1a34d3bd3e0b722987defb2f3ef30ae193dcee76771cd98dfbc32d6405d131",
+      "matrice": [
+        1,
+        0,
+        0,
+        80,
+        0,
+        -1,
+        -1.2246467991473532e-16,
+        0,
+        0,
+        1.2246467991473532e-16,
+        -1,
+        -143,
+        0,
+        0,
+        0,
+        1
+      ],
+      "resultat": "Source et placement identiques au contrat des connecteurs coudés ; caméra inchangée."
+    },
+    "controle_complementaire_connecteurs": {
+      "date_utc": "2026-10-22T10:41:18.263589+00:00",
+      "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+      "focus": [
+        "ConnecteurF16Camera",
+        "ConnecteurF16TypeA",
+        "ConnecteurM8Camera"
+      ],
+      "obstacles": 339,
+      "paires": 16,
+      "collisions": [],
+      "fichiers_non_modifies": true,
+      "methode": "Lecture indépendante sans sauvegarde des BRep finales via Reader ; application des matrices d’occurrence et comparaison OCCT des trois enveloppes extérieures avec toutes les occurrences des sous-assemblages, y compris les câbles. Présélection des boîtes, intersection par solide détaillé et seuil 1e-4 mm³. Les volumes engagés séparés dans les natifs restent hors de ce contrôle extérieur."
+    },
+    "controle_complementaire_partages": {
+      "date_utc": "2026-10-22T18:13:18.225579+00:00",
+      "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+      "contrat_sha256": "bd524fb4656fd8b920b1bf18a154e5409b68ac376c2c108c1964ca5e68c7617f",
+      "affectations": 295,
+      "colliers_uniques": 269,
+      "incompatibilites": [],
+      "stations": [
+        {
+          "station": "F41_M_64",
+          "point_mm": [
+            -112,
+            55.19004735329247,
+            59.5
+          ],
+          "projection_mm": 0,
+          "tol_mm": 0.6,
+          "jeu_mm": 0.26927911637687174,
+          "jeu_max_mm": 1
+        },
+        {
+          "station": "F41_M_85",
+          "point_mm": [
+            -112,
+            56,
+            85
+          ],
+          "projection_mm": 0,
+          "tol_mm": 0.6,
+          "jeu_mm": 0.20000000000000284,
+          "jeu_max_mm": 1
+        }
+      ],
+      "portions_voisines": [
+        {
+          "debut": "F41_SORTIE_INCLINEE",
+          "fin": "F41_M_64",
+          "type": "guidee",
+          "s_debut_mm": 828.9432330165871,
+          "s_fin_mm": 840.678804733231,
+          "longueur_mm": 11.735571716643904,
+          "portee_max_mm": 50,
+          "conforme": true,
+          "justification": ""
+        },
+        {
+          "debut": "F41_M_64",
+          "fin": "F41_M_85",
+          "type": "guidee",
+          "s_debut_mm": 840.678804733231,
+          "s_fin_mm": 866.2561132276816,
+          "longueur_mm": 25.577308494450563,
+          "portee_max_mm": 50,
+          "conforme": true,
+          "justification": ""
+        },
+        {
+          "debut": "F41_M_85",
+          "fin": "F41_L_30",
+          "type": "guidee",
+          "s_debut_mm": 866.2561132276816,
+          "s_fin_mm": 914.1404192227077,
+          "longueur_mm": 47.884305995026125,
+          "portee_max_mm": 50,
+          "conforme": true,
+          "justification": ""
+        }
+      ],
+      "portions_F41_conformes": true
+    },
+    "controles_corps_en_memoire": {
+      "QS8": {
+        "id": "QS8_P73_F37_POS",
+        "methode": "Lecture des BRep et matrices finales, tranche Y[-22,3;-17,7] ; enveloppe convexe des sections centrales de P76, du QS8, du ruban P73 et du câble F37_POS. Bande nominale 4,6×1,2 mm ; contrôle par solide contre les 339 occurrences.",
+        "perimetre_mm": 101.63736436277745,
+        "solide_unique_valide": true,
+        "collisions": [],
+        "tete_nominale_sans_collision": true,
+        "tete_matrice": [
+          1,
+          0,
+          0,
+          111.23516522579585,
+          0,
+          -1,
+          0,
+          -16.199999999999985,
+          0,
+          0,
+          -1,
+          -63.08000000000001,
+          0,
+          0,
+          0,
+          1
+        ],
+        "condition_interface": "Le QS8 n’est qu’une boîte monobloc 42×24×15 sans face de joint. Bande Y[-22,3;-17,7] : demi-corps fixe, face de joint, trajectoire d’accouplement/extraction et prise en main à confirmer sur lot ; pose à revoir si la bande gêne la séparation."
+      },
+      "RF0": {
+        "id": "RF0_P75",
+        "origine_mm": [
+          -78,
+          28,
+          141
+        ],
+        "normale": [
+          0,
+          1,
+          1
+        ],
+        "largeur_mm": 4.6,
+        "epaisseur_mm": 1.2,
+        "methode": "Section diagonale des formes finales. P75 : composant proche(-80;24;145). Antenne : section calculée séparément pour chacun des deux solides puis toutes les sections incluses ; enveloppe convexe et offsets 0,08/1,28 mm. Test par solide contre les 339 occurrences.",
+        "perimetre_mm": 46.25974742443271,
+        "volume_mm3": 280.0548963659449,
+        "solide_unique_valide": true,
+        "collisions": [],
+        "tete_nominale_sans_collision": true,
+        "tete_matrice": [
+          0.4685212856658081,
+          0,
+          0.8834522085987776,
+          -75.8617735783185,
+          0.6246950475544266,
+          0.707106781186549,
+          -0.3312945782245318,
+          18.907647872139115,
+          -0.6246950475544294,
+          0.7071067811865459,
+          0.33129457822453323,
+          144.71834059084316,
+          0,
+          0,
+          0,
+          1
+        ],
+        "limite": "Pose proche du haut du boîtier nominal et hors du coax à Z136 ; zone réelle de serrage, habillage et comportement RF à confirmer sur lot."
+      },
+      "RF1": {
+        "id": "RF1_P70_P75",
+        "methode": "Lecture indépendante des formes finales ; mesure des distances, sections et volumes communs.",
+        "contacts_mm": {
+          "support_P70": 1.4210854715202004e-14,
+          "P75": 1.4210854715202004e-14,
+          "collier_ancrage": 0.3999999999999915
+        },
+        "collisions_mm3": 0,
+        "section_P75_nombre_aretes": 4,
+        "observation": "Le boîtier de l’antenne horizontale porte nominalement sur P70 et sous P75 ; la boucle d’ancrage existante ferme cet empilement. Le réemploi doit être déclaré dans la preuve des corps et dédupliqué dans la BOM."
+      },
+      "contre_verification_independante": "verification/review_assemblage_prototype.json#contre_verification_corps"
+    },
+    "constats_fermes": [
+      {
+        "id": "REV-REFONTE-F41",
+        "constat_initial": {
+          "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+          "contrat_sha256": "284fd0be51d37a00bd0e161a5acc278008b47ce59948c9f273597a66791cd597",
+          "station": "F41_M_64",
+          "point_natif_mm": [
+            -112,
+            56,
+            64
+          ],
+          "point_effectif_mm": [
+            -112,
+            56,
+            59.5
+          ],
+          "distance_projection_mm": 0.7784042356094428,
+          "tolerance_mm": 0.6,
+          "jeu_surface_support_mm": 0.25934510736674055,
+          "portees_voisines_mm": [
+            11.955192721656545,
+            25.35768748943792,
+            47.884305995026125
+          ],
+          "constat": "La translation verticale seule ne rejoint pas l’axe courbe réel ; correction du point effectif demandée sans élargir la tolérance."
+        },
+        "resolution": "Point effectif pris sur l’intersection OCCT exacte WireFlex/plan Z59,5 ; projection finale 0 mm, tolérance 0,6 mm conservée, portées guidées voisines inférieures à50 mm."
+      },
+      {
+        "id": "REV-REFONTE-SELLES",
+        "constat": "Identifiants de bandes communs affectés à des cle_id de gorges distinctes, sans identifiant commun d’ancrage.",
+        "resolution": "ancrage_commun explicite sur les24 affectations des12 selles ; contrôle de compatibilité conservé. Audit indépendant295 affectations/269 identifiants : aucune incompatibilité."
+      },
+      {
+        "id": "REV-REFONTE-CORPS",
+        "constat": "Trois retenues de corps QS8/RF0/RF1 ne disposaient pas de pose nominale démontrée ; ce manque ne relevait pas du seul serrage physique.",
+        "resolution": "QS8 commun avec F37_POS ; RF0 diagonal sur P75 ; RF1 réemploi de la boucle native et appuis P70/antenne/P75. Quinze bandes/têtes et trois captures contrôlées, puis contre-vérifiées indépendamment ; décompte281 sans double emploi."
+      },
+      {
+        "id": "REV-REFONTE-VUES",
+        "constat": "Plateau opaque et projection latérale masquaient la réserve USB et les prises caméra.",
+        "resolution": "Vues transparentes et axonométriques inspectées. Petit trait vert de scène non retrouvé dans la recomposition BRep ; aucun solide parasite confirmé."
+      }
+    ],
+    "vues": [
+      {
+        "fichier": "exports/prototype/isometrique.png",
+        "observation": "Vue globale native fraîche : énergie sur l’étage supérieur, chemins visibles le long des guides, perception et train conservés.",
+        "sha256": "ffe0c17c2e763fe71918223e659bbdc9778e0b533d5c2c5820e2eddb21576494"
+      },
+      {
+        "fichier": "exports/prototype/dessus.png",
+        "observation": "Quatre bras, selles et passages de faisceaux répartis autour du châssis ; aucun défaut de placement confirmé à cette échelle.",
+        "sha256": "c9b7398fd16075bee1dcc9ad1a6525096287abc8b0a03d2c81bd73fa0ba8f93a"
+      },
+      {
+        "fichier": "exports/prototype/face.png",
+        "observation": "Étagement et position du bloc capteurs cohérents ; garde nominale visuelle au train, sans qualification des débattements.",
+        "sha256": "1b698928b74d37a3a21ce2e79d99fa6e85d8f9f57d64766e79c5582a462a6727"
+      },
+      {
+        "fichier": "exports/prototype/ensemble_brep.png",
+        "observation": "Recomposition des formes sauvegardées exposant guides et faisceaux. Le petit trait vert de la scène native globale n’est pas retrouvé dans cette composition ; aucun solide parasite confirmé.",
+        "sha256": "1c48ba9dd7f2f788ba9d4799f9bfda79b1358c2ec2101ae605dc1ae5b429cd23"
+      },
+      {
+        "fichier": "exports/prototype/reserve_usb.png",
+        "observation": "Après transparence du plateau : spires F41 et trois appuis P77 visibles ; aucune anomalie géométrique visible. L’enveloppement des colliers est contrôlé séparément.",
+        "sha256": "4f1fcf7789a4a2b443d44687e88c141f38ebaec03314aaa3e59d5bb7a0a71f16"
+      },
+      {
+        "fichier": "exports/prototype/departs_bras.png",
+        "observation": "Guides de départ et continuité vers les quatre bras visibles ; les autres équipements sont masqués pour la revue.",
+        "sha256": "f94fb8bccc0684625009e5b15e9c1921a61515efebdf41fd322310a3fe05272d"
+      },
+      {
+        "fichier": "exports/prototype/bras_selles.png",
+        "observation": "Un bras exposé : selles réparties sur le tube, ESC et passages de câbles distincts. Les guides de stack masqués expliquent les portions supérieures isolées dans cette vue démontée.",
+        "sha256": "e79f6e5ce45c004c642142fcc73247e94a7e0890812726f3cec35b2af1414b56"
+      },
+      {
+        "fichier": "exports/prototype/guides_distribution.png",
+        "observation": "P72/P73/P75 et prolongements de retenue exposés ; absence de collision et unicité des pièces vérifiées numériquement séparément.",
+        "sha256": "66badecca2f99eca3af8fd728f25dec876cf1a13007d373bf0cfc206e3e22fdd"
+      },
+      {
+        "fichier": "exports/prototype/connexions_camera.png",
+        "observation": "Axonométrie rapprochée avec semelle et pad transparents : sorties coudées et dégagement local visibles, caméra inchangée. Aucun défaut extérieur confirmé ; engagement réel des prises reste une réserve distincte.",
+        "sha256": "08192e06123702130c99ad34b209504517407e638d04761c6391ea547eb55407"
+      },
+      {
+        "fichier": "exports/prototype/connexions_avionique.png",
+        "observation": "Chemins autour de la porteuse et du cadre exposés ; réserve et remontées visibles. Les capteurs et autres sous-ensembles masqués expliquent les extrémités isolées de cette vue démontée ; aucun défaut supplémentaire confirmé.",
+        "sha256": "de5fced9962e7d504b4de1004d285abbcdb66393852bb46518288f701e9e2db4"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/qs8_commun.png",
+        "observation": "Boucle commune QS8/P76/P73/F37_POS, passages et tête visibles ; absence de collision recoupée numériquement. La séparation du connecteur manuel n’est pas modélisée.",
+        "sha256": "986abe1f392d0aca5c43aa277c4c58970c40e0643b58e8d3d11eaf5075d9d69c"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/antenne_rf0.png",
+        "observation": "Reprise diagonale RF0 sur P75 à Z141, bande et tête visibles ; profil au voisinage du boîtier, hors coax. Zone réelle de serrage et effet RF À valider.",
+        "sha256": "33efa6da272efb3dc8bb01d47237d758a6576bea3370fd32d2bed10caa1b52fd"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/antenne_rf1.png",
+        "observation": "Boucle d’ancrage native RF1 réemployée ; fermeture de l’empilement P70/boîtier/P75 visible, sans deuxième bande au passage encombré.",
+        "sha256": "4168d324363bc53ae2544007b10c636614cfcd5bf58258633cbe3977afad0dc8"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/usb_dessus.png",
+        "observation": "Bandes communes, trois appuis et spires F41 exposés avec plateaux transparents ; passages et têtes visibles. Aucun défaut supplémentaire confirmé.",
+        "sha256": "a875d03c49b2b9da598816f7e4918acb288dce896eb1792cf9342253eed97d3e"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/usb_dessous.png",
+        "observation": "Bandes communes, trois appuis et spires F41 exposés avec plateaux transparents ; passages et têtes visibles. Aucun défaut supplémentaire confirmé.",
+        "sha256": "db2a5faf0cee29fb24944ec0830ac806b13b39482605e8e704ef49de0b3b8daf"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/usb_oblique.png",
+        "observation": "Bandes communes, trois appuis et spires F41 exposés avec plateaux transparents ; passages et têtes visibles. Aucun défaut supplémentaire confirmé.",
+        "sha256": "71da2242d389f2f2040f2ac152d3bf524a655c30d2dc6f6e2d1589f46478573b"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/p78_gorge.png",
+        "observation": "Gorge, passage de bande P78/P64 et tête exposés ; aucun défaut supplémentaire confirmé.",
+        "sha256": "03441322c04c3758b52a768f0bd8bbb98c86512124e4f1e68a5c9b7d0cbe82f2"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/p78_face.png",
+        "observation": "Gorge, passage de bande P78/P64 et tête exposés ; aucun défaut supplémentaire confirmé.",
+        "sha256": "24c09a031a048d97596d801266adb1aea1410916b3203d5f27609057014b5474"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/liaisons_p75.png",
+        "observation": "Liaisons de guides, bandes et têtes exposées ; gaines et supports capturés repérés. Les coupes de cadrage sont des artifices de contrôle, pas des terminaisons réelles.",
+        "sha256": "ec90c34698c4ab3ddb113369e3196677e4a2cf940a2c516f2ba1af6d26c45a24"
+      },
+      {
+        "fichier": "../../../.runtime/colliers_usb/liaisons_p72_p73.png",
+        "observation": "Liaisons de guides, bandes et têtes exposées ; gaines et supports capturés repérés. Les coupes de cadrage sont des artifices de contrôle, pas des terminaisons réelles.",
+        "sha256": "9aa6ac2a81f8b9cf4a8ca6c0ad83e62c71a831d9bd14e33e6fabdf579e6a0163"
+      }
+    ],
+    "erreurs": [],
+    "collisions": [],
+    "limites_et_interfaces_physiques": [
+      "Aucun achat, fabrication, montage matériel, tenue mécanique/vibratoire, abrasion, thermique, masse/centrage, propulsion/endurance, comportement électrique ou vol qualifié par cette revue.",
+      "Prise M8 Phoenix : engagement 6 mm, orientation et forme de surmoulage restent des hypothèses ; paires torsadées requises pour l’interface caméra non confirmées par la référence blindée. La découpe nominale ne valide pas cette interface.",
+      "F16 : tracé 425,173842 mm contre budget conservateur de gaine 428,5 mm, marge 3,326158 mm avant confirmation de lot et mou de pose ; montage et découplage dynamique de la caméra À valider.",
+      "F41 : tracé 1180,942089 mm comparé au cordon OEM environ 1200 mm ; longueur de gaine utile, sorties des fiches et quantité exacte de réserve à confirmer sur le lot. La longueur totale ne vaut pas longueur utile démontrée.",
+      "Coordonnées des piges Airy, interfaces thermiques et cotes réelles des réservations de commerce restent ouvertes selon leurs contrats ; aucun perçage matériel déduit des seules enveloppes.",
+      "La couverture des bandes et des enveloppes de tête dépend du périmètre de chaque preuve. Insertion, accès doigts/outils, serrage, languette libre, fluage, tolérances et freinage restent à vérifier sur matériel ; les enveloppes nominales ne qualifient pas le montage.",
+      "QS8 : le natif ne comporte ni séparation des deux demi-corps ni face de joint. La boucle commune occupe Y[-22,3;-17,7] ; le demi-corps immobilisé, la face de joint, le débattement d’accouplement/extraction et la prise en main sont à confirmer sur le lot. La pose doit être revue si elle traverse la séparation réelle.",
+      "Antenne verticale : reprise nominale diagonale au voisinage Z141 sur P75. La zone de serrage sur l’habillage exact de l’antenne et le comportement RF restent à confirmer ; aucune validation RF ne découle du passage géométrique."
+    ],
+    "tests_non_executes": [
+      "Aucun essai matériel, thermique, vibration, électrique, propulsion, acquisition synchronisée ou vol.",
+      "Pas de validation de l’accès des doigts/outils ni des cotes, tolérances et interfaces des lots exacts.",
+      "Pas de preuve de faisabilité physique complète ni de libération de fabrication."
+    ],
+    "fichiers_non_modifies": true,
+    "conforme": true,
+    "finalisation_correcte": true,
+    "statut": "Implémenté",
+    "qualification": "À valider",
+    "conclusion": "Conforme pour la définition CAO nominale et les contrôles déclarés. Aucun défaut CAO confirmé restant dans ce périmètre ; les interfaces de lot et la qualification physique restent À valider."
+  }
+}

@@ -1,0 +1,1407 @@
+{
+  "schema": "cartographe.faces.interfaces-porteuse.v1",
+  "statut": "À valider",
+  "perimetre": "Porteuse Holybro 11072 sans boîtier, Pixhawk 6X module et Jetson Orin NX. PM08-CAN SKU15029, Basler a2A4096-30ucBAS, RoboSense Airy et CUAV C-RTK USL selon sélection candidate du prototype.",
+  "budget_et_limite": "Une passe de recherche fabricant et une lecture ciblée du BRep. Aucune mutation, aucun matériel reçu ni vérification de qualification physique.",
+  "sources_fabricant": {
+    "pinout": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+    "spec_11072": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+    "cotes_11072": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/dimension-and-weight",
+    "step_11072": "https://docs.holybro.com/autopilot/pixhawk-baseboards/download",
+    "jeu_holybro": "https://holybro.com/products/pixhawk-jetson-baseboard-cable-set",
+    "jst_gh": "https://www.jst.com/wp-content/uploads/2021/08/eGH.pdf",
+    "jst_sh": "https://www.jst.com/wp-content/uploads/2021/01/eSH.pdf",
+    "molex_fiche": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/502/502439/5024390600_sd.pdf?inline=",
+    "molex_verticale": "https://www.molex.com/en-us/products/part-detail/5024430670",
+    "molex_laterale": "https://www.molex.com/en-us/products/part-detail/5024940670",
+    "molex_laterale_plan": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/502/502494/5024940670_sd.pdf?inline=",
+    "molex_sertissage": "https://www.molex.com/en-us/products/part-detail/5024380000",
+    "molex_150": "https://www.molex.com/en-us/products/part-detail/2219591062",
+    "molex_300": "https://www.molex.com/en-us/products/part-detail/2219591063",
+    "pm08": "https://docs.holybro.com/power-module-and-pdb/power-module/digital-power-module-pm-setup",
+    "pm08_step": "https://docs.holybro.com/power-module-and-pdb/power-module/download",
+    "pm08_can_term": "https://docs.holybro.com/can-termination-resistance-software-toggle",
+    "cuav_usl": "https://store.cuav.net/shop/c-rtk-usl-expansion-module/",
+    "basler": "https://docs.baslerweb.com/a2a4096-30ucbas",
+    "usb_actuel": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+    "usb_coude_host": "https://www.usbfirewire.com/parts/rr-alms-xxgr.html",
+    "usb_double_coude": "https://www.usbfirewire.com/angle-ab.html",
+    "usb_custom": "https://www.usbfirewire.com/locking.html",
+    "airy": "https://store.robosense.ai/products/airy-splitter-1-to-3-aviation-connector-cable",
+    "delock_rj45": "https://www.delock.com/produkt/80221/merkmale.html",
+    "delock_rj45_bas": "https://www.delock.com/produkt/80304/merkmale.html",
+    "phoenix_m8": "https://www.phoenixcontact.com/en-us/products/sensoractuator-cable-sac-6p-m-8mr-15-pur-sh-1522341",
+    "startech_usb2": "https://media.startech.com/cms/pdfs/usb2hab50cm_datasheet.pdf"
+  },
+  "sources_locales": {
+    "hardware/mecanique/cartographe_refonte_systeme/A/verification/routes_prototype.json": "9368c70ba0796e8ed0eee2b099fb75e87f04d7672b2dec7460c00514f9c7e1f7",
+    "hardware/mecanique/cartographe_refonte_systeme/A/verification/construction_prototype.json": "439bf5ecc2138b09c689e2ec4a1e49d253ce97c005e0fd26e65ef67a3400c89f",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_Holybro11072_Prototype.FCStd": "7ec3bc5046d2ec5f2d468f5ceb5c1326711bad1fe92c8255f9edf5806ff7b032",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_PM08_CAN_Enveloppe_Systeme_Candidat.FCStd": "42de7a9fae173a73945817ec3a966d222c3caa8f13a56afdc65d7a397be6cc68",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_CUAV_USL_Prototype.FCStd": "94f6886b6390a8f94a8dbac6360f6df5278b38062033868bfea610e0d5e5c2c7",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_USBFireWire_MicroB_Up_Prototype.FCStd": "8efbd0909e1e872802edb80e05c0aa0640847ce0cc2066888159fe6d07efea9d",
+    "hardware/mecanique/cartographe_refonte_systeme/A/pieces/commerce/EQ_USBFireWire_TypeA_Prototype.FCStd": "2677d937846d34a78eb1136d3eb41d46491dffa1d8993c2f881e348d69e0254d",
+    "hardware/mecanique/cartographe/sources_fabricants/Holybro_11072_FAN.jpg": "8c975986d7ed4f6f86fab389d2d5c9affba4197ca914b7c9528b9fb20c8b7dc8",
+    "hardware/mecanique/cartographe/sources_fabricants/Holybro_PixhawkJetson_Dimensions.jpg": "3fd663332c7aa099418f4797b5d5bcb6e6562527e4d1cd5aaf8a37285719eb33",
+    "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Holybro_PM08_pinout.jpg": "19143ca3288412a5de41b9f9d416a06c8fa5a9bf0bad58db1c68beeb15f1ae90",
+    "hardware/mecanique/cartographe/verification/holybro_stack_source_20261001.json": "dd09a689a16bb3c74eb45ab7c56dd139852bedbc5dc36f19e5ead6b24096d661",
+    "hardware/mecanique/cartographe_refonte_systeme/verification/matrice_interconnexion.json": "2646def9459768b81e3fb629613843256fc27523a82730d8a79438ecc7490757"
+  },
+  "mesure": {
+    "logiciel": "FreeCAD 1.1.3, extraction BRep sauvegardée avec Scene/Reader, pas de remaillage des cotes",
+    "repere": "XYZ global variante A en mm, direction donnée vers extérieur/cordon",
+    "pose_porteuse": [
+      -63,
+      -40,
+      128
+    ],
+    "pcb_superieur_porteuse_mm": 130.05232,
+    "borne_porteuse_mm": [
+      -63,
+      -41,
+      123.71761,
+      63,
+      40.51936,
+      146.85232
+    ],
+    "indice_STEP": "RC02 d’après le nom CAO et la sérigraphie de l’image OEM. Révision commerciale exacte du lot inconnue.",
+    "identification": "Ordre des solides OCC du composé Holybro6XOrin en A. Cotes ±0,001 mm d’arrondi numérique, aucune tolérance fabricant déduite.",
+    "notes_lecture": "Comparer largeur, géométrie des faces et positions relatives à l’image RC02 de la carte nue. Cotes fonctionnelles de verrou, orientation du détrompeur et desserte de l’outil à vérifier sur matériel."
+  },
+  "bibliotheque_candidats": {
+    "JST_GH": {
+      "pas_mm": 1.25,
+      "1A_AC_DC_AWG26": true,
+      "tension_nominale_V": 50,
+      "contacts": "SSHL-002T-P0.2, AWG30–26, OD fil 0,76–1 mm",
+      "verrouillage": "Positif, fiche polarisée GHR et outil/prise de déverrouillage nécessaires.",
+      "fiches": {
+        "GHR-04V-S": [
+          6.25,
+          5.7,
+          4.15
+        ],
+        "GHR-06V-S": [
+          8.75,
+          5.7,
+          4.15
+        ],
+        "GHR-08V-S": [
+          11.25,
+          5.7,
+          4.15
+        ],
+        "GHR-10V-S": [
+          13.75,
+          5.7,
+          4.15
+        ]
+      },
+      "hauteur_accouplee_verticale_mm": 7.3,
+      "longueur_accouplee_laterale_mm": 7.15,
+      "embases": "BM04/06/08/10B-GHS-TBT dessus, SM04/06/08/10B-GHS-TB sur chant. Même fiche droite selon détrompage. Reprise empreinte et implantation PCB nécessaire pour changer l’axe. Aucune fiche GH filaire 90° équivalente confirmée.",
+      "limite": "Valeurs de catalogue sans fil et réserves. Ne pas confondre le calibre individuel avec le courant cumulé limité par la porteuse. Pas de rayon assigné aux fils sans leur référence.",
+      "source": "jst_gh"
+    },
+    "JST_SH6": {
+      "fiche": "SHR-06V-S-B ou SHR-06V-S suivant hauteur et latch du lot",
+      "pas_mm": 1.0,
+      "corps_embase_brep_mm": [
+        8,
+        3.6,
+        4.25
+      ],
+      "alternatives": "BM06B-SRSS-TB / SM06B-SRSS-TB, embases PCB top/side, aucun changement OEM retenu. Les corps ne sont pas interchangeables avec GH.",
+      "rayon_min_mm": null,
+      "source": "jst_sh"
+    },
+    "CLIK_Mate2": {
+      "fiche": "5024390600",
+      "masse_corps_g": 0.506,
+      "dimensions_fiche_nue_mm": [
+        16,
+        6.6,
+        9.65
+      ],
+      "contact": "5024380000, AWG22–26, étamé",
+      "pas_mm": 2.0,
+      "courant_catalogue_max_contact_A": 3,
+      "verrouillage": "Positif et détrompage",
+      "embase_verticale": "5024430670",
+      "hauteur_accouplee_mm": 10.9,
+      "embase_laterale": "5024940670",
+      "hauteur_accouplee_laterale_mm": 6.9,
+      "volume_bloc_engage_vertical_estimatif_mm3": 1369.04,
+      "hauteur_evitee_laterale_mm": 4.0,
+      "fil_libre": [
+        "2219591062, 150 mm, AWG22, masse 5,240 g",
+        "2219591063, 300 mm, AWG22, masse 8,583 g"
+      ],
+      "limite": "Mates catalogues, marquage OEM à vérifier. Vrai coude vient du réceptacle SMT, pas du pigtail. La famille 502578 est CLIK-Mate 1,50 et incompatible.",
+      "sources": [
+        "molex_fiche",
+        "molex_sertissage",
+        "molex_verticale",
+        "molex_laterale",
+        "molex_laterale_plan",
+        "molex_150",
+        "molex_300"
+      ]
+    },
+    "USB3_RR_ASMUK_20GRHF": {
+      "etat": "Cordon A préexistant",
+      "longueur_catalogue_mm": 508,
+      "sorties": "Micro-B Up à vis / USB A droit",
+      "rayon_statique_mm": 22,
+      "rayon_dynamique_mm": 48,
+      "diametre_CAO_mm": 5.5,
+      "corps_proxy_type_A_mm": [
+        15.5,
+        40.6,
+        8
+      ],
+      "corps_proxy_microB_mm": [
+        26.062,
+        28.063,
+        22.169
+      ],
+      "limite": "Les trois dimensions proviennent des boîtes globales des solides CAO de A, pas des limites du fabricant. La géométrie actuelle F16 de 494,608 mm ne fournit pas la réserve utile et démontre seulement un axe modélisé.",
+      "source": "usb_actuel"
+    },
+    "USB3_RR_ALMS_10GR": {
+      "etat": "Écarté au périmètre A",
+      "longueur_catalogue_mm": 254,
+      "sorties": "USB A gauche / Micro-B droit à vis",
+      "diametre_mm": 5.5,
+      "masse_g": null,
+      "rayon_dynamique_mm": null,
+      "limite": "Longueur inférieure de 240,6 mm à l’axe A, pas de flexion équivalente documentée. Les RR-ADMU-20GR et RR-ARMR-20GR à deux sorties coudées ne documentent ni vis côté caméra ni flexion continue 48 mm.",
+      "sources": [
+        "usb_coude_host",
+        "usb_double_coude"
+      ]
+    },
+    "USB3_sur_mesure": {
+      "etat": "Candidat sans MPN",
+      "fonction": "Un seul cordon direct USB A à sortie vers le flanc + Micro-B Up à vis, USB3 5 Gb/s, blindage continu. Aucun adaptateur.",
+      "limite": "Demander un dessin selon orientation du port supérieur et fenêtre de reprise, longueur utile, diamètre, maintien, intégrité et fatigue dynamique. La possibilité du configurateur ne prouve pas la combinaison.",
+      "sources": [
+        "usb_custom",
+        "basler"
+      ]
+    },
+    "RJ45_Delock": {
+      "ref_side": "80221, RJ45 droit / RJ45 90° côté droit, 0,5 m",
+      "ref_bas": "80304, RJ45 90° vers bas / droit, 0,5 m",
+      "classe": "DOCUMENTÉE",
+      "category": "Cat6A S/FTP, 80221 droit 1:1 et AWG26, Ø6 mm. 80304 slim.",
+      "plan": "Dessins cotés annoncés chez Delock. Dimensions engagées dans 11072, rayon et effort du verrou non établis.",
+      "limite": "Utiliser uniquement pour remplacer le patch mâle/mâle déjà nécessaire entre la sortie femelle du splitter Airy et RJ45 11072. Ne pas couper la branche OEM, ni ajouter un coupleur. Vérifier l’orientation par rapport à la languette du port réel, blindage de bout en bout et extraction.",
+      "sources": [
+        "delock_rj45",
+        "delock_rj45_bas",
+        "airy"
+      ]
+    }
+  },
+  "ports_Pixhawk_GH": {
+    "GPS1": {
+      "indice_solide_ordre_OCC": 1045,
+      "bbox_receptacle_mm": [
+        50.35,
+        1.625,
+        130.05232,
+        55.3,
+        17.375,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        52.825,
+        9.5,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        50.35,
+        1.625,
+        130.05232,
+        55.3,
+        17.375,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        52.825,
+        9.5,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "CAN1": {
+      "indice_solide_ordre_OCC": 1047,
+      "bbox_receptacle_mm": [
+        50.375,
+        -18.625,
+        130.05232,
+        55.325,
+        -10.375,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        52.85,
+        -14.5,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        50.375,
+        -18.625,
+        130.05232,
+        55.325,
+        -10.375,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        52.85,
+        -14.5,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "CAN2": {
+      "indice_solide_ordre_OCC": 1046,
+      "bbox_receptacle_mm": [
+        50.375,
+        -8.625,
+        130.05232,
+        55.325,
+        -0.375,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        52.85,
+        -4.5,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        50.375,
+        -8.625,
+        130.05232,
+        55.325,
+        -0.375,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        52.85,
+        -4.5,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "IO_PWM_MAIN": {
+      "indice_solide_ordre_OCC": 1042,
+      "bbox_receptacle_mm": [
+        57.35,
+        -30.375,
+        130.05232,
+        62.3,
+        -14.625,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        59.825,
+        -22.5,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        57.35,
+        -30.375,
+        130.05232,
+        62.3,
+        -14.625,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        59.825,
+        -22.5,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "FMU_PWM_AUX": {
+      "indice_solide_ordre_OCC": 1041,
+      "bbox_receptacle_mm": [
+        57.35,
+        -11.875,
+        130.05232,
+        62.3,
+        3.875,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        59.825,
+        -4,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        57.35,
+        -11.875,
+        130.05232,
+        62.3,
+        3.875,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        59.825,
+        -4,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "TELEM1": {
+      "indice_solide_ordre_OCC": 1039,
+      "bbox_receptacle_mm": [
+        57.35,
+        19.625,
+        130.05232,
+        62.3,
+        30.375,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        59.825,
+        25,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        57.35,
+        19.625,
+        130.05232,
+        62.3,
+        30.375,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        59.825,
+        25,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "GPS2": {
+      "indice_solide_ordre_OCC": 1040,
+      "bbox_receptacle_mm": [
+        57.35,
+        6.625,
+        130.05232,
+        62.3,
+        17.375,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        59.825,
+        12,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        57.35,
+        6.625,
+        130.05232,
+        62.3,
+        17.375,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        59.825,
+        12,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    },
+    "AD_IO": {
+      "indice_solide_ordre_OCC": 1051,
+      "bbox_receptacle_mm": [
+        43.35,
+        -17.125,
+        130.05232,
+        48.3,
+        -3.875,
+        134.30232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        45.825,
+        -10.5,
+        134.30232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par cote indicative du catalogue GH BM sur PCB observé",
+      "bbox_accouplee_conservatrice_mm": [
+        43.35,
+        -17.125,
+        130.05232,
+        48.3,
+        -3.875,
+        137.35232000000002
+      ],
+      "point_sortie_corps_nominal_mm": [
+        45.825,
+        -10.5,
+        137.35232000000002
+      ],
+      "course_extraction_mm": null,
+      "limite": "Enveloppe conservatrice du corps sans fil ni volume de doigt ou outil. Ne pas imposer le rayon sur la longueur du corps."
+    }
+  },
+  "ports_Pixhawk_POWER": {
+    "POWER1": {
+      "indice_solide_ordre_OCC": 1399,
+      "bbox_receptacle_mm": [
+        -62.025,
+        -22,
+        130.05232,
+        -54.175,
+        -6,
+        137.50232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        -58.1,
+        -14,
+        137.50232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par hauteur fabricant 10,9 mm de la combinaison verticale compatible",
+      "bbox_accouplee_conservatrice_mm": [
+        -62.025,
+        -22,
+        130.05232,
+        -54.175,
+        -6,
+        140.95232000000001
+      ],
+      "point_sortie_corps_nominal_mm": [
+        -58.1,
+        -14,
+        140.95232000000001
+      ],
+      "course_extraction_mm": null
+    },
+    "POWER2": {
+      "indice_solide_ordre_OCC": 1215,
+      "bbox_receptacle_mm": [
+        -62.025,
+        -4,
+        130.05232,
+        -54.175,
+        12,
+        137.50232
+      ],
+      "axe_mecanique_sortant": [
+        0,
+        0,
+        1
+      ],
+      "centre_face_mm": [
+        -58.1,
+        4,
+        137.50232
+      ],
+      "classe": "MESURÉE sur BRep",
+      "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+      "revision_materiel_recu_confirmee": false,
+      "classe_enveloppe_accouplee": "ESTIMÉE par hauteur fabricant 10,9 mm de la combinaison verticale compatible",
+      "bbox_accouplee_conservatrice_mm": [
+        -62.025,
+        -4,
+        130.05232,
+        -54.175,
+        12,
+        140.95232000000001
+      ],
+      "point_sortie_corps_nominal_mm": [
+        -58.1,
+        4,
+        140.95232000000001
+      ],
+      "course_extraction_mm": null
+    }
+  },
+  "ports_PM08": {
+    "classe": "MESURÉE pour ouvertures, HYPOTHÈSE pour station de séparation",
+    "matiere": "Deux ouvertures sur face +Y du boîtier fournisseur CAO mesurées via les fils internes de la face plane #200, aucune ouverture sur face −Y #203.",
+    "boitier_bbox_mm": [
+      -48.45,
+      -80.3,
+      39,
+      14.45,
+      -38.7,
+      63.79512
+    ],
+    "ports": [
+      {
+        "centre_ouverture_mm": [
+          -27,
+          -38.7,
+          47.64141
+        ],
+        "bbox_ouverture_mm": [
+          -35.606,
+          -38.7,
+          43.69141,
+          -18.394,
+          -38.7,
+          51.59141
+        ],
+        "axe_sortie": [
+          0,
+          1,
+          0
+        ],
+        "plan_int_mm": -40.4,
+        "trou_largeur_hauteur_mm": [
+          17.212,
+          7.9
+        ],
+        "role_POWER1_ou_POWER2": null,
+        "fiche_degagee_candidat_mm": [
+          -27,
+          -29.05,
+          47.64141
+        ],
+        "station_separation_candidate_mm": [
+          -27,
+          -21.7,
+          47.64141
+        ]
+      },
+      {
+        "centre_ouverture_mm": [
+          -7,
+          -38.7,
+          47.64141
+        ],
+        "bbox_ouverture_mm": [
+          -15.606,
+          -38.7,
+          43.69141,
+          1.6059999999999999,
+          -38.7,
+          51.59141
+        ],
+        "axe_sortie": [
+          0,
+          1,
+          0
+        ],
+        "plan_int_mm": -40.4,
+        "trou_largeur_hauteur_mm": [
+          17.212,
+          7.9
+        ],
+        "role_POWER1_ou_POWER2": null,
+        "fiche_degagee_candidat_mm": [
+          -7,
+          -29.05,
+          47.64141
+        ],
+        "station_separation_candidate_mm": [
+          -7,
+          -21.7,
+          47.64141
+        ]
+      }
+    ],
+    "broches_d_apres_photo_SKU15029": {
+      "1": "5V",
+      "2": "5V",
+      "3": "CAN-H",
+      "4": "CAN-L",
+      "5": "GND",
+      "6": "GND"
+    },
+    "implicite_A_refute": "Les départs F06/F32/F31 vers Z+ au-dessus du boîtier sont des réservations sans faces de ports correspondantes.",
+    "contrat": "Deux circuits BEC indépendants, tension 5,3 V/3 A sur photo spécifique, 5,2 V/3 A dans comparatif/guidage Holybro. Vérifier le lot. Affecter CAN-H/L depuis une seule fiche combinée après repérage et assurer retour CAN documenté sans pont 5 V. À la porteuse laisser POWER1/2 pins 3 et 4 non câblées au PM et CAN1 pin1 non câblée.",
+    "derivation": "Cordon séparateur sans accouplement ajouté. Sortie +Y sur fiche CLIK-Mate, point à Y−21,7 à tester, décharge sur châssis avant partage des directions. La station n’est ni une connexion autonome ni un point d’épissure prescrit. Garder H/L torsadés et vérifier topologie de masse, charge du retour, pas de dérivation CAN longue ni de bridge de BEC.",
+    "alternatives": {
+      "A": "Un faisceau séparateur sortant +Y, deux terminaisons BEC distinctes.",
+      "B": "Oeuvrer sur pigtail/chemin des fils à partir de la fiche compatible, aucun 90° filaire démontré.",
+      "C": "Diriger les trois branches à plat vers les flancs après engagement +Y. Vérifier le passage sous platine et la proximité du PDB/isolateur.",
+      "D": "Demi-tour autour du centre du boîtier permet une sortie côté −Y mais inverse également les positions IN/OUT. Recalcul puissance, retenues, place et accès indispensable. Non présumé interchangeable."
+    }
+  },
+  "liaisons": [
+    {
+      "id": "F25",
+      "terminal_A": {
+        "position_mm": [
+          52.825,
+          9.5,
+          135.5
+        ],
+        "direction_vers_cable": [
+          -0.1791304608475754,
+          0.0,
+          0.9838253290074084
+        ],
+        "axe_A_mm": 201.53553175808653,
+        "diametre_reservation_mm": 3.2,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "GPS1",
+      "equipement_distant": "CUAV C-RTK USL, OEM 2 câbles inclus",
+      "pins": "GPS1 6 sécurité, 7 LED, 8 3,3 V, 9 buzzer 0–5 V, 10 GND. Brochage côté CUAV et usage éventuel du +5 V pin1 non démontrés.",
+      "cordon_candidat": "Faisceau dédié, GHR-10V-S + terminaisons CUAV à identifier, utiliser cordon donneur après contrôle. Fiche nue GH10 et corps accouplé dans ports_Pixhawk_GH.",
+      "applicabilite": {
+        "A": "Réserver enveloppe accouplée et première portion +Z. Fiche réelle plus haute que réservation A à Z135,5.",
+        "B": "Pas de GH10 coudé filaire établi. SM10B exige modification de carte.",
+        "C": "Déport via bord +X, descente locale, accès extraction libre au-dessus.",
+        "D": "Rotation du CUAV sur fixation réversible à examiner séparément si son port matériel et les accès sont identifiés."
+      },
+      "limite": "CUAV modélisé enveloppe seule 35×25×15 mm, port et orientation non mesurables sur ce fichier. Une rotation du corps ne peut pas justifier le déplacement d’une prise inconnue. Vérifier boutons/LED, verrou et commandes avant raccordement.",
+      "sources": [
+        "cuav_usl",
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F31",
+      "terminal_A": {
+        "position_mm": [
+          52.85,
+          -14.5,
+          135.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 300.84911184307754,
+        "diametre_reservation_mm": 3,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "CAN1",
+      "equipement_distant": "PM08-CAN SKU15029",
+      "pins": "CAN1 2 H, 3 L, 4 GND, 1 +5V out NC. Terminaison DroneCAN et câble torsadé H/L à conserver.",
+      "cordon_candidat": "GHR-04V-S au port CAN1, sortie réelle PM08 +Y par prise combinée, faisceau séparateur.",
+      "applicabilite": {
+        "A": "Corriger ancrage des deux côtés dans les enveloppes accouplées.",
+        "B": "GHR droit; SM04B serait embase PCB, exclure substitution OEM.",
+        "C": "Monter via une seule sortie de plan autour du chant Est, réserver pli +Z.",
+        "D": "Rotation PM08 change les faces d’IN/OUT; contraindre puissance avant géométrie."
+      },
+      "limite": "A ne démontre pas l’engagement ni la branche réelle du PM08.",
+      "sources": [
+        "pinout",
+        "jst_gh",
+        "pm08",
+        "pm08_step",
+        "pm08_can_term"
+      ]
+    },
+    {
+      "id": "F04_1…F04_4",
+      "terminaux_A": {
+        "F04_1": {
+          "position_mm": [
+            58,
+            -37,
+            136
+          ],
+          "direction_vers_cable": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "axe_A_mm": 376.3347736828607,
+          "diametre_reservation_mm": 1.6,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        },
+        "F04_2": {
+          "position_mm": [
+            58,
+            -34,
+            136
+          ],
+          "direction_vers_cable": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "axe_A_mm": 312.96298558659026,
+          "diametre_reservation_mm": 1.6,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        },
+        "F04_3": {
+          "position_mm": [
+            58,
+            -31,
+            136
+          ],
+          "direction_vers_cable": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "axe_A_mm": 525.1608493793033,
+          "diametre_reservation_mm": 1.6,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        },
+        "F04_4": {
+          "position_mm": [
+            58,
+            -28,
+            136
+          ],
+          "direction_vers_cable": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "axe_A_mm": 285.59101743878625,
+          "diametre_reservation_mm": 1.6,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        }
+      },
+      "porteuse": "IO_PWM_MAIN",
+      "equipement_distant": "4 ESC Holybro Tekko32 F4 45A candidats",
+      "pins": "IO PWM MAIN GH10, pins2–5 IO_CH1–4 3,3 V, pin10 GND, pin1 VDD_SERVO 0–16 V hors faisceau de commande. Ordre/allocation PWM ou DShot à valider dans la configuration réelle.",
+      "cordon_candidat": "Une fiche GHR-10V-S commune, quatre départs de signaux et leurs références de retour dans un faisceau dédié.",
+      "applicabilite": {
+        "A": "Le départ physique GH10 est unique et top entry. Les 4 points A +X ne sont pas des connecteurs réels.",
+        "B": "Pas de fiche GH10 filaire 90° démontrée.",
+        "C": "Regrouper physiquement départs de commande au chant +X puis distribuer vers bras sur niveaux inférieurs, distincts de la puissance.",
+        "D": "Faire pivoter la porteuse change aussi les repères Pixhawk, refroidissement et accès. Reconfiguration et preuves de sûreté nécessaires."
+      },
+      "limite": "Un seul contact de retour au MAIN, pas quatre crimps superposés. Distribution de référence de retour à définir et vérifier sans raccorder par défaut le 5V ou les retours batterie. Le partage mécanique ne fusionne pas les signaux.",
+      "sources": [
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F06/F32",
+      "terminaux_A": {
+        "F06": {
+          "position_mm": [
+            -58.1,
+            -14,
+            138.5
+          ],
+          "direction_vers_cable": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "axe_A_mm": 190.5238898038469,
+          "diametre_reservation_mm": 3.4,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        },
+        "F32": {
+          "position_mm": [
+            -58.1,
+            4,
+            138.5
+          ],
+          "direction_vers_cable": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "axe_A_mm": 265.3571432101304,
+          "diametre_reservation_mm": 3.4,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        }
+      },
+      "porteuse": [
+        "POWER1",
+        "POWER2"
+      ],
+      "equipement_distant": "PM08-CAN SKU15029, deux voies",
+      "pins": "POWER1/2 : 1/2 +5V, 5/6 GND, 3/4 I²C du Pixhawk NC vers PM08. Les 3/4 côté PM08 sont CAN et ne doivent jamais joindre I²C.",
+      "cordon_candidat": "Fiches 5024390600 ou donneurs 2219591062/63. Deux voies distinctes et point-à-point validé, sans cordon six-fils droit.",
+      "applicabilite": {
+        "A": "Corriger attaches dans volume réel 10,9 mm accouplé, séparateur côté PM08.",
+        "B": "Embase Molex 5024940670 6,9 mm accouplée, pas une fiche. Aucun remplacement SMT sur OEM.",
+        "C": "Sorties vers flanc ouest, chemin dessous si la dépose conserve deux branches indépendantes.",
+        "D": "Rotation/translation du PM08 à juger sur power IN/OUT, dégagement du PDB et accès."
+      },
+      "limite": "Le rayon dépend du faisceau réel, catalogue du connecteur ne suffit pas. Calibre 3 A individuel non garantie de chute ou thermique au courant prévu. Essai de bascule/absence de retour nécessaire.",
+      "sources": [
+        "pinout",
+        "pm08",
+        "molex_verticale",
+        "molex_laterale",
+        "molex_fiche"
+      ]
+    },
+    {
+      "id": "F12",
+      "terminal_A": {
+        "position_mm": [
+          59.825,
+          12,
+          135.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 183.97922969134586,
+        "diametre_reservation_mm": 2.6,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "TELEM1 ou TELEM3 conditionnel",
+      "equipement_distant": "CA01 J402, radio RP4TD",
+      "pins": "Porteuse TEL1/3 pins2 TX, 3 RX et 6 GND; inversion logique TX/RX au câblage conforme à J402. +5 V et handshakes non repris sans besoin. Ne pas utiliser GPS2 par analogie de GH6.",
+      "applicabilite": {
+        "A": "Corriger point à Y25 pour TEL1, GPS2 est à Y12.",
+        "B": "GHR-06V-S, aucun coude filaire établi.",
+        "C": "Remontée locale au bord Est vers sortie top entry TEL1.",
+        "D": "Autre UART TELEM3 possible avec affectation PX4 et réévaluation du brochage, identité et espace."
+      },
+      "sources": [
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F21",
+      "terminal_A": {
+        "position_mm": [
+          52.85,
+          -4.5,
+          135.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 254.19578251989498,
+        "diametre_reservation_mm": 3,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "CAN2",
+      "equipement_distant": "H-RTK F9P Helical G4 candidat",
+      "pins": "CAN2 pin1 5V out, pin2 H, 3 L, 4 GND. Alimentation GNSS et terminaison CAN2 distinctes du CAN1 PM08. CAN2 relie aussi l’Orin sur 11072.",
+      "applicabilite": {
+        "A": "GHR-04V-S +Z sur port actuel, trajectoire réancrée au-dessus du corps accouplé.",
+        "B": "Pas de fiche GH coudée vérifiée.",
+        "C": "Descendre sur chant +X loin des boucles fortes, conserver orientation et visibilité antenne.",
+        "D": "Éviter un déplacement GNSS motivé uniquement par la longueur."
+      },
+      "sources": [
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F33/F35",
+      "terminaux_A": {
+        "F33": {
+          "position_mm": [
+            59.825,
+            -4,
+            135.5
+          ],
+          "direction_vers_cable": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "axe_A_mm": 186.26299789465972,
+          "diametre_reservation_mm": 2.4,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        },
+        "F35": {
+          "position_mm": [
+            45.825,
+            -10.5,
+            135.5
+          ],
+          "direction_vers_cable": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "axe_A_mm": 123.09038140767305,
+          "diametre_reservation_mm": 2.4,
+          "classe": "MESURÉE sur registre CAO",
+          "port_reel_demontre": false
+        }
+      },
+      "porteuse": [
+        "FMU_PWM_AUX",
+        "AD_IO"
+      ],
+      "pins": "F33 AUX1 pin2 et GND pin10. F35 AD&IO CAP1 pin2 et GND pin8. Distincts du MAIN et sans rail servo.",
+      "applicabilite": {
+        "A": "Conserver GH10/GH8 +Z.",
+        "B": "Embases latérales nécessiteraient reprise SMT OEM.",
+        "C": "Chemins courts au flanc Est et remonter côté module.",
+        "D": "CA01 personnalisable, possibilité embases de chant après revue électrique/empreinte."
+      },
+      "sources": [
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F24A",
+      "terminal_A": {
+        "position_mm": [
+          -64,
+          15,
+          125.9
+        ],
+        "direction_vers_cable": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "axe_A_mm": 245.4000002993577,
+        "diametre_reservation_mm": 2.4,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "Orin GPIO GH6, sous-face potentielle",
+      "pins": "GPIO_07 pin2 PPS, pin6 GND selon contrat CA01.",
+      "port_presume": {
+        "indice_solide_ordre_OCC": 68,
+        "bbox_receptacle_mm": [
+          -62.3,
+          9.625,
+          123.75,
+          -57.35,
+          20.375,
+          128
+        ],
+        "axe_mecanique_sortant": [
+          0,
+          0,
+          -1
+        ],
+        "centre_face_mm": [
+          -59.825,
+          15,
+          123.75
+        ],
+        "classe": "MESURÉE sur BRep",
+        "identification": "Hypothèse à confirmer par repère sérigraphie de sous-face. BRep d’une embase verticale GH6 sous PCB, non affectée électriquement par la seule géométrie.",
+        "revision_materiel_recu_confirmee": false
+      },
+      "applicabilite": {
+        "A": "Trajet A sort vers −X, vérifier le vrai engagement.",
+        "B": "Fiche GHR-06V-S sous-face éventuelle.",
+        "C": "Passage direct dans inter-étages si correspondance GPIO et course d’extraction −Z démontrées.",
+        "D": "L’orientation CA01 peut compléter ce passage, sans déplacer l’Orin."
+      },
+      "sources": [
+        "pinout",
+        "jst_gh"
+      ]
+    },
+    {
+      "id": "F24B",
+      "terminal_A": {
+        "position_mm": [
+          -50,
+          -37.5875,
+          135.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 309.7544711649707,
+        "diametre_reservation_mm": 2.4,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "Orin Debug JST-SH6",
+      "pins": "Pin3 RX UART 3,3 V, pin6 GND, pin1 5 V OUT NC pour ce besoin. Préserver assignation logicielle du debug.",
+      "port_presume": {
+        "indice_solide_ordre_OCC": 1206,
+        "bbox_receptacle_mm": [
+          -54,
+          -39.3875,
+          130.05232,
+          -46,
+          -35.7875,
+          134.30232
+        ],
+        "axe_mecanique_sortant": [
+          0,
+          0,
+          1
+        ],
+        "centre_face_mm": [
+          -50,
+          -37.5875,
+          134.30232
+        ],
+        "classe": "MESURÉE sur BRep",
+        "identification": "Recoupement de l’embase 8 mm en bord sud dans la photo RC02, port ORIN DEBUG 6 positions",
+        "revision_materiel_recu_confirmee": false
+      },
+      "applicabilite": {
+        "A": "Préserver une courte sortie +Z de la vraie SH6.",
+        "B": "Aucun cordon SH6 90° compatible confirmé.",
+        "C": "Rejoindre le bord sud puis l’entre-niveaux sans franchir le dissipateur.",
+        "D": "Maintenir port de debug tant que contrat de routage n’est pas revalidé."
+      },
+      "sources": [
+        "pinout",
+        "jst_sh"
+      ]
+    },
+    {
+      "id": "F24C",
+      "terminal_A": {
+        "position_mm": [
+          35,
+          -30,
+          135.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 314.47761068759996,
+        "diametre_reservation_mm": 2.4,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "CSI0 ou CSI1 FFC 22 positions",
+      "pins": "Pin22 3,3 V et pin1 GND via extracteur, pas une liaison vidéo CSI dans ce faisceau. Aucun câble FFC ou extracteur compatible libéré.",
+      "applicabilite": {
+        "A": "Maintenir le caractère réservation. Deux enveloppes FFC dans la zone, l’axe A entre les deux ne matérialise pas la sortie réelle.",
+        "B": "Vérifier contact top/bottom, hauteur, pas, orientation, rayon et verrou ZIF avant choix.",
+        "C": "Une vraie nappe puis déport peut s’intégrer sous bord mais ordre de montage et accès verrou obligatoires.",
+        "D": "Un breakout de proximité n’est utile qu’après identification de la référence FFC et séparation des rails."
+      },
+      "sources": [
+        "pinout",
+        "spec_11072"
+      ]
+    },
+    {
+      "id": "F09",
+      "terminal_A": {
+        "position_mm": [
+          -60,
+          27.5,
+          140.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "axe_A_mm": 140.53981633974485,
+        "diametre_reservation_mm": 5,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "XT30 alimentation Jetson",
+      "pins": "CA01 J104 12V_COMPUTE/GND, polarité et courant du lot à vérifier. Holybro donne 7–24 V pour entrée, ancienne fiche produit 7–21 V, aucun 6S direct.",
+      "port": {
+        "indice_solide_ordre_OCC": 71,
+        "bbox_receptacle_mm": [
+          -62.7,
+          22.35,
+          126.55232,
+          -57.3,
+          32.65,
+          139.55232
+        ],
+        "axe_mecanique_sortant": [
+          0,
+          0,
+          1
+        ],
+        "centre_face_mm": [
+          -60,
+          27.5,
+          139.55232
+        ],
+        "classe": "MESURÉE sur BRep",
+        "identification": "Recoupement corps du STEP et sérigraphie fabricant RC02",
+        "revision_materiel_recu_confirmee": false
+      },
+      "applicabilite": {
+        "A": "Départ XT30 vers bord ouest après engagement; dimension de la fiche mâle/femelle complémentaire et gaine inconnues.",
+        "B": "Pas d’adaptateur 90° ajouté pour gagner l’encombrement.",
+        "C": "Coude filaire après décharge et remontée locale ouest.",
+        "D": "Ne déplacer le point CA01 qu’après revue puissance 12 V."
+      },
+      "sources": [
+        "pinout",
+        "spec_11072"
+      ]
+    },
+    {
+      "id": "F16",
+      "terminal_A": {
+        "position_mm": [
+          7,
+          -79.95,
+          140.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "axe_A_mm": 494.607764256343,
+        "diametre_reservation_mm": 5.5,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "Jetson USB 3.2 Type A supérieur",
+      "port": {
+        "indice_solide_ordre_OCC": 782,
+        "bbox_receptacle_mm": [
+          -0.775,
+          -39.351,
+          126.852,
+          14.845,
+          -23.652,
+          145.332
+        ],
+        "axe_mecanique_sortant": [
+          0,
+          -1,
+          0
+        ],
+        "centre_face_mm": [
+          7,
+          -39.351,
+          140.5
+        ],
+        "classe": "MESURÉE sur BRep",
+        "identification": "Boîtier métallique commun de deux USB Type A, centre du port supérieur donné par la pose de la fiche A.",
+        "revision_materiel_recu_confirmee": false
+      },
+      "pins": "USB3 SuperSpeed 5 Gbit/s côté Basler et alimentation USB, limite hôte 1,5 A annoncée. Micro-B vis côté caméra, 22 mm statique/48 mm mobile pour RR-ASMUK-20GRHF.",
+      "applicabilite": {
+        "A": "Garder direct et boucle caméra mobile. À l’hôte, longueur de saillie proxy 40,6 mm.",
+        "B": "RR-ALMS-10GR coudé hôte réel mais trop court et sans flexion qualifiée; autres 20 pouces à coudes non verrouillables caméra. Sur-mesure documenté seulement avec plan, rayon, blindage et essais.",
+        "C": "Déport local possible après le corps Type A et le rayon statique. Aucun gain ne justifie la compression du loop mobile.",
+        "D": "Ports A haut/bas à évaluer sans toucher la caméra ni le débit, avec accès et effort de maintien côté hôte."
+      },
+      "sources": [
+        "basler",
+        "usb_actuel",
+        "usb_coude_host",
+        "usb_double_coude",
+        "spec_11072"
+      ]
+    },
+    {
+      "id": "AIRY_ETH",
+      "terminal_A": {
+        "position_mm": [
+          13,
+          40.5,
+          137
+        ],
+        "direction_vers_cable": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "axe_A_mm": 171.67326994295263,
+        "diametre_reservation_mm": 5.5,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "ETH-P0 RJ45",
+      "equipement_distant": "Splitter Airy branche Ethernet femelle OEM, câble de diagnostic",
+      "port": {
+        "indice_solide_ordre_OCC": 797,
+        "bbox_receptacle_mm": [
+          4.725,
+          22.575,
+          126.552,
+          21.275,
+          39.475,
+          146.852
+        ],
+        "axe_mecanique_sortant": [
+          0,
+          1,
+          0
+        ],
+        "centre_face_mm": [
+          13,
+          39.475,
+          137
+        ],
+        "classe": "MESURÉE sur BRep",
+        "identification": "Capot RJ45 externe identifié sur dessin et photo. Centre Z de la baie estimé par axe A, face de latch et pinout à confirmer.",
+        "revision_materiel_recu_confirmee": false
+      },
+      "pins": "Gigabit commutateur RTL8367S partagé avec Pixhawk et Jetson. ETH-P1 8 pin GH est une autre interface du même switch, pas un second chemin isolé.",
+      "applicabilite": {
+        "A": "Vérifier le patch mâle/mâle requis entre deux prises femelles et son volume, la branche de A ne prouve pas sa présence.",
+        "B": "Delock 80221/80304 candidats pour le patch existant, Cat6A S/FTP. Relever sortie et accès au latch en CAO/matériel.",
+        "C": "Rejoindre chant Nord/face inférieure après fiche coudée si routage et rayon le permettent.",
+        "D": "ETH-P1 via faisceau Holybro OEM peut être étudié après identification de son orientation et conformité des paires, sans rapprocher données et puissance de l’Airy."
+      },
+      "limite": "RoboSense annonce 1,5 m de tronc et 0,8 m splitter de validation, pas de qualification en vol ni de géométrie exacte de branches. Liaisons, blindage et rayons du cordon final à vérifier.",
+      "sources": [
+        "pinout",
+        "spec_11072",
+        "airy",
+        "delock_rj45",
+        "delock_rj45_bas",
+        "jeu_holybro"
+      ]
+    },
+    {
+      "id": "F41",
+      "terminal_A": {
+        "position_mm": [
+          7,
+          -42,
+          131.5
+        ],
+        "direction_vers_cable": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "axe_A_mm": 340.4083130973363,
+        "diametre_reservation_mm": 5,
+        "classe": "MESURÉE sur registre CAO",
+        "port_reel_demontre": false
+      },
+      "porteuse": "Jetson USB Type A inférieur candidat",
+      "applicabilite": {
+        "A": "Conserver diagnostic USB2 isolé. Le trajet A commence hors face USB-B Waveshare et le corps de la fiche hôte est absent.",
+        "B": "Cordon droit 0,5 m StarTech USB2HAB50CM documenté. Coude USB-A non validé par l’identité de fiche seule.",
+        "C": "Considérer un bord sud, mais B− brut reste côté TTL séparé, accès USB-B et vraie longueur limitent.",
+        "D": "Option hôte USB2 GH5 via cordon direct spécial à valider comme une interface nouvelle; aucun adaptateur ou partage mécanique USB3 supposé."
+      },
+      "sources": [
+        "pinout",
+        "spec_11072",
+        "startech_usb2"
+      ]
+    }
+  ],
+  "verdicts": {
+    "modifications_OEM": [
+      "Aucune modification PCB Holybro retenue par cette étude. Les couples à sortie latérale restent une alternative de nouvelle empreinte, notamment sur CA01 modifiable."
+    ],
+    "calculs_et_rejets": [
+      "Un logement de fiche dans le BRep ne couvre pas le rayon ni la dépose. Raccordements A à reprendre lorsque l’embase est mal identifiée. F04 et F31 amont à dessiner avec leurs vraies fiches communes.",
+      "Pas de rayon minimum universel pour GH/CLIK-Mate, contrôler référence de fil, faisceau, maintien et accès avant validation."
+    ],
+    "preuves_restantes": [
+      "Photos cotées et marquage des lots",
+      "course de déverrouillage en place",
+      "gabarits de surmoulage et rayon réel",
+      "continuité/polarité et essais de bascule, charge et CEM",
+      "arrachement, vibrations et dépose répétée"
+    ],
+    "achats_ou_qualification": false
+  }
+}

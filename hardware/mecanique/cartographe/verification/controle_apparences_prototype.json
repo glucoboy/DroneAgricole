@@ -1,0 +1,674 @@
+{
+  "date_utc": "2026-10-22T10:47:59.782857+00:00",
+  "exigence": "MEC-ARC-001",
+  "objet": "Persistance et réouverture des apparences des câbles natifs",
+  "statut": "Implémenté",
+  "qualification_physique": "À valider",
+  "finalisation_correcte": true,
+  "freecad": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "extension": {
+    "nom": "Cables Workbench",
+    "version": "0.3.7",
+    "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+    "sha256_modules": {
+      "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+      "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+      "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+      "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb"
+    },
+    "freecad": [
+      "1",
+      "1",
+      "3",
+      "20260725 (Git shallow)",
+      "Unknown",
+      "2026/07/25 04:52:02",
+      "grafted,grafted",
+      "145529fe741292ff0b3977a01195bf0247425794"
+    ]
+  },
+  "construction_sha256": "dba87b3631c33e2f101bf4283614f4014514554c2d9cb9b477ebc358d005fd06",
+  "routes_sha256": "8546487b052efa703e4dadc8aa4f7c4047e927e0f67c472b32ff0b4c94985e30",
+  "helper": "verification/etage_batterie_helpers.py",
+  "helper_sha256": "a172b304a6eaa8bec16a6ffb4c1b867ad36eeddc3e67f1d5824543807a11583d",
+  "protocole": [
+    {
+      "etape": 1,
+      "action": "Créer un Part::Box natif, affecter six matériaux de même couleur (0,14 ; 0,19 ; 0,24), sauvegarder avec FreeCAD sans helper.",
+      "attendu": "MaterialList version 3 ; uint32 N, puis N blocs numériques de 24 octets, puis chaînes vides (12N octets).",
+      "preuve": "material_native_probe.json"
+    },
+    {
+      "etape": 2,
+      "action": "Copier F01_NEG du témoin avant retenues, réordonner uniquement sa table binaire de 15 matériaux et rouvrir dans un processus FreeCAD distinct.",
+      "attendu": "Seule entrée ShapeAppearance10 modifiée ; Document.xml, BRep et autres entrées identiques ; absence de MemoryError et Traceback.",
+      "preuve": "comparaison_material_probe.json"
+    },
+    {
+      "etape": 3,
+      "action": "Comparer les octets de material_table() corrigé à la sauvegarde native, sauvegarder la copie via save_native puis rouvrir dans un nouveau processus.",
+      "attendu": "Tables identiques, 15 matériaux/15 faces, même géométrie et absence d’erreur de restauration.",
+      "preuve": "colorize_reopen_helper.json"
+    },
+    {
+      "etape": 4,
+      "action": "Lire les 53 FCStd courants sans GUI ; comparer empreinte de construction, nombre de faces, nombre de matériaux et structure binaire.",
+      "attendu": "53 tables conformes et fichiers inchangés pendant le contrôle."
+    }
+  ],
+  "diagnostic": {
+    "hypothese_materiau_unique": "Réfutée : le témoin possède déjà 15 matériaux pour 15 faces.",
+    "cause": "Le helper entrelaçait les blocs numériques et les chaînes ; la restauration lisait des valeurs de couleur comme tailles de chaînes.",
+    "correction": "Blocs numériques contigus avant les chaînes ; addon Cables inchangé."
+  },
+  "tests_recette": [
+    {
+      "test": "six_materials_identical_to_native_FreeCAD_1_1",
+      "succes": true,
+      "octets": 220
+    },
+    {
+      "test": "fifteen_materials_identical_to_reopened_cable",
+      "succes": true,
+      "octets": 544
+    },
+    {
+      "test": "empty_table",
+      "succes": true,
+      "octets": 4
+    }
+  ],
+  "test_save_native_corrige": {
+    "succes": true,
+    "reouverture_processus_distinct": true,
+    "geometrie_identique": true,
+    "materiaux": 15,
+    "journal": "colorize_reopen_helper.log",
+    "preuve": "colorize_reopen_helper.json"
+  },
+  "temoin": {
+    "source_sha256": "01f38980baad97c578f4f2e23985f4914507fdf91850f458e5ea7bab9422cbf3",
+    "copie_sha256": "2344868918420ba341ffb15ee3047ffe0cbab11b08b6ac330731538c4e699af0",
+    "entrees_modifiees": [
+      "ShapeAppearance10"
+    ],
+    "document_et_geometries_identiques": true
+  },
+  "tables_courantes": [
+    {
+      "id": "F01_NEG",
+      "fichier": "pieces/commerce/W_F01_NEG_Prototype.FCStd",
+      "sha256": "cd07af1ed79045cd12fb5e60002e325998356606c291fe80e064f59e86ec9cb1",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F01_POS",
+      "fichier": "pieces/commerce/W_F01_POS_Prototype.FCStd",
+      "sha256": "011c33a1c0412495f654337cd8c341995d24671df0ac57d1c7f845bb5c4e7fc5",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F37_POS",
+      "fichier": "pieces/commerce/W_F37_POS_Prototype.FCStd",
+      "sha256": "d9e37b4e0a9b54a5924552edaa38eb7cb8fbb632b307a28ea930d2f99d207c18",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F37_NEG",
+      "fichier": "pieces/commerce/W_F37_NEG_Prototype.FCStd",
+      "sha256": "26a2743c582fe8dbde7e07db3908c1d352d6d31d9f9bf501bff3ac6239c02fb3",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F38_POS",
+      "fichier": "pieces/commerce/W_F38_POS_Prototype.FCStd",
+      "sha256": "24df46495936412b2b17f9e4456bab190ea1858a3906c82c7c6d4c0dba103f07",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F05_POS",
+      "fichier": "pieces/commerce/W_F05_POS_Prototype.FCStd",
+      "sha256": "175c2ba08af77931fb2f118a2e7742266fad2a23bae5e0ed926b779701611bbd",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F38_NEG",
+      "fichier": "pieces/commerce/W_F38_NEG_Prototype.FCStd",
+      "sha256": "05878c5035e47171c93161b70ac75133a3942a94770f7ce0b53eced4770e0b8f",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F05_NEG",
+      "fichier": "pieces/commerce/W_F05_NEG_Prototype.FCStd",
+      "sha256": "df38104a255d84649d56312134fd8ae0eeb5f12d2929057c2ae981d2e95be03e",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F08_AMONT",
+      "fichier": "pieces/commerce/W_F08_AMONT_Prototype.FCStd",
+      "sha256": "e82a32636da8c4444f34538c465e333a343631ddbb94f8f4d6ed00aa48699880",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F08_AVAL",
+      "fichier": "pieces/commerce/W_F08_AVAL_Prototype.FCStd",
+      "sha256": "3a97a19070ec5573169bf522006d6dfaa5a0cf9251e3a77b668fa5ec5f9037e9",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F40",
+      "fichier": "pieces/commerce/W_F40_Prototype.FCStd",
+      "sha256": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "BALANCE",
+      "fichier": "pieces/commerce/W_BALANCE_Prototype.FCStd",
+      "sha256": "f9b8f64b941d79e2d364d64b38ee8ba0d199f1293600a37d3e14fab5c29f56f3",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "NTC1",
+      "fichier": "pieces/commerce/W_NTC1_Prototype.FCStd",
+      "sha256": "07afb38f27e3f6d4f6526a3248be28cc840afdde6a12611a5c5372fee4336302",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "NTC2",
+      "fichier": "pieces/commerce/W_NTC2_Prototype.FCStd",
+      "sha256": "ff6cf32cf8a4058317bfa3cc6c51f7e90d59789a3fd14a2bc2f30e6f5170b5ae",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F02_1",
+      "fichier": "pieces/commerce/W_F02_1_Prototype.FCStd",
+      "sha256": "557d321b3319bc3be9ca59eb426f8f321e0afba3135deeea41c3d25c3e4f7707",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F03_1",
+      "fichier": "pieces/commerce/W_F03_1_Prototype.FCStd",
+      "sha256": "0f77ab73860d6a17c4046bd360197d9f9c8295b38e89969cf6972a0c8861c23e",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F04_1",
+      "fichier": "pieces/commerce/W_F04_1_Prototype.FCStd",
+      "sha256": "a02de0800fb8cbeebbabbf136c8e9c4f2710f9c664b9359d4cd249f8e2d4411c",
+      "version": "3",
+      "faces": 21,
+      "materiaux": 21,
+      "taille_octets": 760,
+      "table_conforme": true
+    },
+    {
+      "id": "LED_1",
+      "fichier": "pieces/commerce/W_LED_1_Prototype.FCStd",
+      "sha256": "21018a5988d75a473bf5df9f4b0e9d74dee94e0acd106a7ab35ec1d2c0de6f29",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F02_2",
+      "fichier": "pieces/commerce/W_F02_2_Prototype.FCStd",
+      "sha256": "83c77e699a183c7433dd91ea0e0c93fe55d76c7a80495e53ce0c57a43765e60e",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F03_2",
+      "fichier": "pieces/commerce/W_F03_2_Prototype.FCStd",
+      "sha256": "79f21deb3bfd45f108876ad4996cc51c35336ba19cd51776d2a5298000ffb73b",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F04_2",
+      "fichier": "pieces/commerce/W_F04_2_Prototype.FCStd",
+      "sha256": "8551c67adab1662587a8b2d6841620f244ad87a9903ece92380140825eb302ab",
+      "version": "3",
+      "faces": 21,
+      "materiaux": 21,
+      "taille_octets": 760,
+      "table_conforme": true
+    },
+    {
+      "id": "LED_2",
+      "fichier": "pieces/commerce/W_LED_2_Prototype.FCStd",
+      "sha256": "2772f6cdd040c9bdc342d91c96bbdd3ae2e525215cd7728414302afca7e8cea4",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F02_3",
+      "fichier": "pieces/commerce/W_F02_3_Prototype.FCStd",
+      "sha256": "a2ad0dd7fac629a92147fead10047911d1e7c2b2524d58028d7e151064339dde",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F03_3",
+      "fichier": "pieces/commerce/W_F03_3_Prototype.FCStd",
+      "sha256": "f72a398a1847a5119cf440251adedefd74a6a57fc1d865b9658025d87b0072c3",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F04_3",
+      "fichier": "pieces/commerce/W_F04_3_Prototype.FCStd",
+      "sha256": "83f305cfa86b8d142cc72ed0c776a04da573ad1e183cd0086c33d03be4b47d11",
+      "version": "3",
+      "faces": 21,
+      "materiaux": 21,
+      "taille_octets": 760,
+      "table_conforme": true
+    },
+    {
+      "id": "LED_3",
+      "fichier": "pieces/commerce/W_LED_3_Prototype.FCStd",
+      "sha256": "653cb6c1c94dcf00e7629a8e7ec32d8892039093908d719416b62d2ce107515f",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F02_4",
+      "fichier": "pieces/commerce/W_F02_4_Prototype.FCStd",
+      "sha256": "a7ce37058c539dfd2e26160e3b10026f91543b5167137e4166780db923a952c3",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F03_4",
+      "fichier": "pieces/commerce/W_F03_4_Prototype.FCStd",
+      "sha256": "5a0c5354f53ca8631aa4dd802a8a3f15d5c96a59cf89e9d0a98649e25ddf4f7e",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F04_4",
+      "fichier": "pieces/commerce/W_F04_4_Prototype.FCStd",
+      "sha256": "63d22a40b285db9928edff7958067fb6c6762ab0603f16d01c222a114e31bab3",
+      "version": "3",
+      "faces": 21,
+      "materiaux": 21,
+      "taille_octets": 760,
+      "table_conforme": true
+    },
+    {
+      "id": "LED_4",
+      "fichier": "pieces/commerce/W_LED_4_Prototype.FCStd",
+      "sha256": "82c99d1fc9b7173a786a939a61f5a9ccc5c54744bd4bcbb60eff9a60f2e72d53",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "AIRY",
+      "fichier": "pieces/commerce/W_AIRY_Prototype.FCStd",
+      "sha256": "b971bf677177595fd3e8458de3175dafa7aa9d070cdf73937756dba7ac2da567",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "AIRY_ETH",
+      "fichier": "pieces/commerce/W_AIRY_ETH_Prototype.FCStd",
+      "sha256": "129a35814e11326c70f3a9ed74950d4fe831b33dfb5a50124cae4021cb21077a",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "AIRY_PWR",
+      "fichier": "pieces/commerce/W_AIRY_PWR_Prototype.FCStd",
+      "sha256": "7f872be3f049023310c22b940fd792adfbb559adca03ffd9953e39cd95111812",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "AIRY_SYNC",
+      "fichier": "pieces/commerce/W_AIRY_SYNC_Prototype.FCStd",
+      "sha256": "204c6e8f4c79c1820b227a93740324127cfb13232e8464a8fd179edd830a624c",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F_M8",
+      "fichier": "pieces/commerce/W_F_M8_Prototype.FCStd",
+      "sha256": "127d992707896985f78d489a6a8a723603f70377258833394ecc56b4fb79262c",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F16",
+      "fichier": "pieces/commerce/W_F16_Prototype.FCStd",
+      "sha256": "77eb68ace4968c1ebf79b283843e45b673e50685a03a21970c201b5bd51a01d5",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F41",
+      "fichier": "pieces/commerce/W_F41_Prototype.FCStd",
+      "sha256": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+      "version": "3",
+      "faces": 137,
+      "materiaux": 137,
+      "taille_octets": 4936,
+      "table_conforme": true
+    },
+    {
+      "id": "F09",
+      "fichier": "pieces/commerce/W_F09_Prototype.FCStd",
+      "sha256": "1b4bfe30217d5db3824a6ab64f2fe869359787673bfb7f219d2f38cab02af0d2",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F06",
+      "fichier": "pieces/commerce/W_F06_Prototype.FCStd",
+      "sha256": "f63388e598232eb9153057a399ab6f81a36a401c0d2f294cb8f75a4418360f64",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F32",
+      "fichier": "pieces/commerce/W_F32_Prototype.FCStd",
+      "sha256": "87f5b9f5908558ca4d21ac05c277618561b926576e5bd90acf5dc2a985116414",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F31",
+      "fichier": "pieces/commerce/W_F31_Prototype.FCStd",
+      "sha256": "6b39f6d89699bbe3165d464d1e4206b682295b5f69b97e887603ed5a4eda94ba",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F12",
+      "fichier": "pieces/commerce/W_F12_Prototype.FCStd",
+      "sha256": "0210cbeb4de00869b4261f1929f12a7619597bfd2b5b08ea0746b2189c378906",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F21",
+      "fichier": "pieces/commerce/W_F21_Prototype.FCStd",
+      "sha256": "60a7e355dcd6a62e5c9f84b94708a7e3eb4184a55c322518198383081d66cd47",
+      "version": "3",
+      "faces": 17,
+      "materiaux": 17,
+      "taille_octets": 616,
+      "table_conforme": true
+    },
+    {
+      "id": "F36",
+      "fichier": "pieces/commerce/W_F36_Prototype.FCStd",
+      "sha256": "752d64818b418ae0d3dd7ac5c4e29a1565b4c9b8a9ff613808f71db2e2ba0751",
+      "version": "3",
+      "faces": 11,
+      "materiaux": 11,
+      "taille_octets": 400,
+      "table_conforme": true
+    },
+    {
+      "id": "F24A",
+      "fichier": "pieces/commerce/W_F24A_Prototype.FCStd",
+      "sha256": "69c4d94ca80ad936c6b9433b85d85725f42195a263747f4f1fe0d42b4777d37b",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F24B",
+      "fichier": "pieces/commerce/W_F24B_Prototype.FCStd",
+      "sha256": "637d5cb818a4b9b443f1bee994646edb12a6b2fdb504b7b816624e30c729ea83",
+      "version": "3",
+      "faces": 23,
+      "materiaux": 23,
+      "taille_octets": 832,
+      "table_conforme": true
+    },
+    {
+      "id": "F24C",
+      "fichier": "pieces/commerce/W_F24C_Prototype.FCStd",
+      "sha256": "9f87481429db05050673e51009bece280e186cdd7093fc58f9375121d449602a",
+      "version": "3",
+      "faces": 15,
+      "materiaux": 15,
+      "taille_octets": 544,
+      "table_conforme": true
+    },
+    {
+      "id": "F33",
+      "fichier": "pieces/commerce/W_F33_Prototype.FCStd",
+      "sha256": "c2d8441b8968ec853bd8b18cdb2f48a5a4af650eb87c86a20873ecd2ea6f4328",
+      "version": "3",
+      "faces": 17,
+      "materiaux": 17,
+      "taille_octets": 616,
+      "table_conforme": true
+    },
+    {
+      "id": "F35",
+      "fichier": "pieces/commerce/W_F35_Prototype.FCStd",
+      "sha256": "cc3516deec3c102c69d2e7db68264d704052bb18f13c72a4363c8942fd76c5ae",
+      "version": "3",
+      "faces": 13,
+      "materiaux": 13,
+      "taille_octets": 472,
+      "table_conforme": true
+    },
+    {
+      "id": "F25",
+      "fichier": "pieces/commerce/W_F25_Prototype.FCStd",
+      "sha256": "3cc03271fd77b8ac1b81b6274268a17b7064f62a48e4911184cc66c7e061961e",
+      "version": "3",
+      "faces": 16,
+      "materiaux": 16,
+      "taille_octets": 580,
+      "table_conforme": true
+    },
+    {
+      "id": "F20",
+      "fichier": "pieces/commerce/W_F20_Prototype.FCStd",
+      "sha256": "cda215381434af6aac35c1e28cf74ba9874b830084744a08b651c672135cea0b",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    },
+    {
+      "id": "F13A",
+      "fichier": "pieces/commerce/W_F13A_Prototype.FCStd",
+      "sha256": "4bb1560b81f5bb1eb5369403d18d564c79b1b88d12e37af7c960031a72e9902d",
+      "version": "3",
+      "faces": 9,
+      "materiaux": 9,
+      "taille_octets": 328,
+      "table_conforme": true
+    },
+    {
+      "id": "F13B",
+      "fichier": "pieces/commerce/W_F13B_Prototype.FCStd",
+      "sha256": "63f21d5bf639b5dd0bb78e0551247e8939e3e227b3946e6d34752d6e822eee54",
+      "version": "3",
+      "faces": 7,
+      "materiaux": 7,
+      "taille_octets": 256,
+      "table_conforme": true
+    }
+  ],
+  "nombre_cables": 53,
+  "erreurs": [],
+  "fichiers_non_modifies": true,
+  "artefacts_essai": {
+    "dossier": ".runtime/revue_independante",
+    "sha256": {
+      "material_native_probe.py": "8d41837fe9e92226fbd1a9859d3b08bd74c2799ab264dd2cb3536a4807f92eca",
+      "material_native_probe.json": "beff7fffc5289188487d49fa72d94361b173195121fdff777c4de3cfc0883c16",
+      "repair_material_table_probe.py": "b25e2f8937a494f087d4aa5fc6eb50d6ad48674cd42425d13c2aad53b2f84d9e",
+      "material_binary_repair.json": "c81afa028b2b069f373bcb38a2d9f33ad09489c5394df65cd51577163101a235",
+      "colorize_probe.py": "b85fcf77c23c47bf3b46c2395f36a1e9f71bf55d9cc37591fa1cbf4227b0bed5",
+      "colorize_reopen_clean.log": "f784dfa7c769e3e89d44b4fcaf0248c59394f506519fffbfb1d52770943598d4",
+      "colorize_save_helper.json": "3e34f9b5575fde162a4d49790016dfc91f86dfc56f00c9a152c1192806f4cc54",
+      "colorize_save_helper.log": "8f476899576265f4d10024f978e3f4acd20f09e80acf6f9d6c3652ddabbca1db",
+      "colorize_reopen_helper.json": "53b8698fdf298f047be6bc5e804852f66d0630dcda0d4b3eb6ed347091f6433a",
+      "colorize_reopen_helper.log": "ef23eda48d1096aad997c97cd7da88d62b5496c7ff03fb936aef0ee4d900365a",
+      "compare_material_probe.py": "1dcca3d4f04f32eba38d4223bd3093d87a2b9e512623e9a76f8b8b55885f5599",
+      "comparaison_material_probe.json": "b7af23ba38832796a27450039fe9364cd287be0c911a53114ba4441130c3d3d6",
+      "consigner_apparences.py": "df2220253d0bb36ad60d4985a9ee20b6783657703d9767753ca5748e67f7826c"
+    },
+    "commandes": [
+      "python.exe material_native_probe.py",
+      "python.exe repair_material_table_probe.py",
+      "python.exe colorize_probe.py reopen",
+      "python.exe colorize_probe.py save_helper",
+      "python.exe colorize_probe.py reopen_helper",
+      "python.exe compare_material_probe.py",
+      "python.exe consigner_apparences.py"
+    ]
+  },
+  "limites": [
+    "Essai dynamique de sauvegarde/réouverture sur le câble témoin F01_NEG ; les 53 tables courantes sont contrôlées statiquement.",
+    "La réouverture globale et le recalcul des 53 géométries relèvent du contrôle faisceau distinct.",
+    "Avertissement de renommage du cache FreeCAD observé, distinct des erreurs de restauration ; aucune qualification physique."
+  ],
+  "conclusion": "Conforme au protocole déclaré"
+}

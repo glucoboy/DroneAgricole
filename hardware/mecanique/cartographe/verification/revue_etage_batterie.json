@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-04",
+  "horodatage_UTC": "2026-10-04T21:44:58.271541+00:00",
+  "revue": "indépendante",
+  "controle": "T-CARTO-ETAGE-DIRECT-01",
+  "environnement": "Windows amd64 / FreeCAD 1.1.3",
+  "realisation_CAO": "Implémenté",
+  "qualification": "À valider",
+  "p1_non_resolus": [],
+  "p2_non_resolus": [],
+  "nominal_pack_mm": [
+    193,
+    76,
+    58
+  ],
+  "enveloppe_pack_etude_mm": [
+    198,
+    78,
+    60
+  ],
+  "enveloppe_etude_controlee": false,
+  "occurrences_dock": 130,
+  "occurrences_SA07": 5,
+  "erreurs_recalcul": [],
+  "liens_non_resolus": [],
+  "unicite_modules": {
+    "EQ_JetiMainSwitch100_PortsEtude20A": 1,
+    "EQ_PM08_CAN_Enveloppe_Systeme_Candidat": 1,
+    "EQ_Holybro_PDB18138_Systeme_Candidat": 1
+  },
+  "suppression_XT90_P42_JETI_dock_verifiee": true,
+  "modules_sous_pack": true,
+  "controle_global_reutilise": {
+    "processus_neuf": true,
+    "occurrences_nouvelles_controlees": [
+      "EQ_LeadPack8AWG_Plus20A",
+      "EQ_LeadPack8AWG_Moins20A",
+      "EQ_CordonFixe8AWG_Plus20A",
+      "EQ_CordonFixe8AWG_Moins20A",
+      "P43_ProtectionConducteurs20Ah",
+      "P44_CouvercleArriereConducteurs20Ah",
+      "ProtectionFixeTE",
+      "CapotProtectionFixeTE",
+      "P51_RetenueEquilibrage20Ah",
+      "P52_CapotEquilibrage20Ah",
+      "EQ_BoucleEquilibragePack20Ah_Reservation",
+      "CosseMobileDirecte0",
+      "CosseMobileDirecte1"
+    ],
+    "intersections_volumiques_hors_visserie_corrigee": [],
+    "methode": "Formes finales des références (ObjetFinal ou Resultat), transformation LinkPlacement, filtre boîte puis common().Volume ; comparaison contre dock et autres sous-assemblages de l’intégration. Contrôle SA07 contre reste de l’intégration et entre ses cinq occurrences.",
+    "extraction": {
+      "mobiles_controles": [
+        "EQ_LeadPack8AWG_Plus20A",
+        "EQ_LeadPack8AWG_Moins20A",
+        "P43_ProtectionConducteurs20Ah",
+        "P44_CouvercleArriereConducteurs20Ah",
+        "P51_RetenueEquilibrage20Ah",
+        "P52_CapotEquilibrage20Ah",
+        "EQ_BoucleEquilibragePack20Ah_Reservation",
+        "CosseMobileDirecte0",
+        "CosseMobileDirecte1"
+      ],
+      "courses_X_mm": [
+        0,
+        10,
+        25,
+        50,
+        100,
+        200,
+        350,
+        500
+      ],
+      "obstacles": "Toutes les occurrences du châssis SA01 et P39/P49/P50 fixes du dock",
+      "intersections": [],
+      "balayage_continu": false
+    },
+    "limite_reutilisation": "Contrôle global effectué avant le dernier correctif local cosse/visserie. La nouvelle forme de coude retire de la matière sans agrandir son enveloppe ; les quatre placements de vis/rondelles sont corrigés et vérifiés séparément ci-dessous. Aucun autre volume n’a été modifié après ce contrôle selon la consolidation de l’agent principal."
+  },
+  "controle_cible_final": {
+    "processus_neuf": true,
+    "CoudeEtude_Width_mm": 5.5,
+    "TrouM5_Height_mm": 8.0,
+    "cosses_solides_valides": true,
+    "comparaisons": [
+      {
+        "cosse": "CosseMobileDirecte0",
+        "autre": "VisM5ContactMobile0",
+        "volume_commun_mm3": 0.0,
+        "base_X_mm": -197.2548
+      },
+      {
+        "cosse": "CosseMobileDirecte0",
+        "autre": "RondelleM5ContactMobile0",
+        "volume_commun_mm3": 0.0,
+        "base_X_mm": -198.2548
+      },
+      {
+        "cosse": "CosseMobileDirecte1",
+        "autre": "VisM5ContactMobile1",
+        "volume_commun_mm3": 0.0,
+        "base_X_mm": -197.2548
+      },
+      {
+        "cosse": "CosseMobileDirecte1",
+        "autre": "RondelleM5ContactMobile1",
+        "volume_commun_mm3": 0.0,
+        "base_X_mm": -198.2548
+      }
+    ],
+    "engagement_M5_nominal_calcule_mm": 5,
+    "limite": "Engagement réel, fond de taraudage et couple à contrôler sur les contacts du lot ; représentation de coude commerciale approximative, ne pas usiner une cosse fabricant."
+  },
+  "preuves_parent": [
+    "verification/controle_etage_batterie.json",
+    "verification/distribution_etage_batterie.json",
+    "verification/rendu_etage_batterie.json"
+  ],
+  "empreintes_natifs_finales": {
+    "hardware/mecanique/cartographe/assemblages/Integration_Stack_Revue_20261003.FCStd": {
+      "sha256_natif": "451a87280de78b396da90c93fd19857680eb083fa696c091177511ce8bbbc172",
+      "sha256_Document_xml": "915f3c7caf988946ee4018ad97818f5729deee0af17bcafbadee462f6c4f6bdc",
+      "nombre_BRep": 0,
+      "sha256_BRep_tries": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_BoucleEquilibragePack20Ah_Reservation.FCStd": {
+      "sha256_natif": "b9451d082763050773d87517624d66a58e0791afdd6ad27edeb71a4a69d6b81c",
+      "sha256_Document_xml": "a55d670c0226b667c550ecd3624d97d311c1522a7f8c403c312b18df264d2f0e",
+      "nombre_BRep": 3,
+      "sha256_BRep_tries": "d5f0bde5ceb9e9f9b69c08123fa267ebf8e8ab94aa4c0718477b09d7f68ba275"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Moins20A.FCStd": {
+      "sha256_natif": "8a2cab492786003cd64112cddfa1ffd9668e6a7da782e0a19d10abf3c05c34ce",
+      "sha256_Document_xml": "c32b7796a1acb29c62cccbc42d44b0741e63fec6ed6b04617091892f1b25006d",
+      "nombre_BRep": 3,
+      "sha256_BRep_tries": "43a59c6ea6ab58457716d782f9ad2dfc577bfa0a2c0783409fdad898c8ac4b50"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_CordonFixe8AWG_Plus20A.FCStd": {
+      "sha256_natif": "ebedd95c8b983b2ea36bfa2e18702b9ec1afca4151a3e5ae056795b94cdf3d8c",
+      "sha256_Document_xml": "08953f85872acde82d7257d3a197c1a9a32762ab1f7f154f9fcb7e6384091aeb",
+      "nombre_BRep": 3,
+      "sha256_BRep_tries": "8a891cd7e4a21e805936d5ee2b32218a41c28e02954e58191b486b06e6aa8b5a"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_JetiMainSwitch100_PortsEtude20A.FCStd": {
+      "sha256_natif": "daa4446ef70c1e13d0cc4cd82e2368adbc85288ac95d521bb530fb668a51850a",
+      "sha256_Document_xml": "733053e0b1ee955fb368d214612487258976986e8333f9ac52a7a27062610aa5",
+      "nombre_BRep": 4,
+      "sha256_BRep_tries": "4d54839dd70a79ca4c8edd687a4ac9e4191bae67ac75e3d0d193e00baa40033c"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Klauke742F5_Cosse90_TE.FCStd": {
+      "sha256_natif": "3af1982083143ce4100eebe1373314ae9b385be287a9926e1069add97eef4128",
+      "sha256_Document_xml": "c21fbcc58016c748ad4a567d493f83697b7c317df5a5f70e5bdbc27b720702c4",
+      "nombre_BRep": 8,
+      "sha256_BRep_tries": "792e3025c5476f7bd50f04397573abc3bf2fe1fcd322205a46b258d49e277ad4"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Moins20A.FCStd": {
+      "sha256_natif": "17d6270a6dd4520ec6e7a1879dca9963493031ac2fad830dec44e1a58420f93a",
+      "sha256_Document_xml": "3b64200d20ea9c0d513ceca124992867643cc2591d3bfe3e1208252613ef6b97",
+      "nombre_BRep": 3,
+      "sha256_BRep_tries": "bbd271be0100c3d73375dfe723ecb0765887be7777cb7e1e37f82529679d846f"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_LeadPack8AWG_Plus20A.FCStd": {
+      "sha256_natif": "831a2cc8a85e41e819075da7be80e92a09827e25bf0adbc324ed126740a9f45a",
+      "sha256_Document_xml": "6f766743c35318d2b33debd40040879b40de1757a298b2e720b3b2cbdeaa1ddb",
+      "nombre_BRep": 3,
+      "sha256_BRep_tries": "3578e9136ebe00f65b510bca87a3e4616e91a9d5bff36c756ab829dbd50e7b67"
+    },
+    "hardware/mecanique/cartographe/pieces/commerce/EQ_Tattu20Ah6S_Dock.FCStd": {
+      "sha256_natif": "95dad8403a8404f02b0bf6865ba44e6131f53d881d10c2a46465dd10e08560b7",
+      "sha256_Document_xml": "fe3cde1e10b7810c14a6b97e62359804c9dff06890f60db95ac65c82cf687b60",
+      "nombre_BRep": 2,
+      "sha256_BRep_tries": "90351cf5d793f1caa01ab53cc1a7d4e3fe1ab8c30f0f8de56ea4d31c50219141"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P31_CaptureCassette20Ah.FCStd": {
+      "sha256_natif": "d99abd66c1255703707349523797b964f3789e5544f86cb16446de52eb174cf2",
+      "sha256_Document_xml": "3c87ef2df9f8d049000484d521f4ecc6e7a26e13f74fceea85aca5704527ce6b",
+      "nombre_BRep": 59,
+      "sha256_BRep_tries": "af9eda2f1f1336a3e431173daaea1c92d870edf923f0fc598a83a4c15570f307"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P39_SupportFixeContacts20Ah.FCStd": {
+      "sha256_natif": "230fcaeba7d66d2972ac414f90a54c3a606e9d4d73dd4755afb57c4b0b0e13bb",
+      "sha256_Document_xml": "dcd02831a503d55cd8827f0f1d3f9f9da6fbb28f1607a0884d734990a4b62b37",
+      "nombre_BRep": 30,
+      "sha256_BRep_tries": "5d4e1ce330c5e07c80420af5f66ce00249826ee0fb9613495ac8d07bc6c97d95"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P40_SupportMobileContacts20Ah.FCStd": {
+      "sha256_natif": "28224ed46df52bd383447bf92ed0c9fc9f2ac423ea0d51bae472691f195622a0",
+      "sha256_Document_xml": "c25e3bd063571c3075363deece59263cf5b11422e58aa5cefbf7b955a24994e3",
+      "nombre_BRep": 18,
+      "sha256_BRep_tries": "ea02092d20184f31a6ec8449bfdd283eed16ebc4b19dd4d51119addc26dc51cd"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P43_ProtectionConducteurs20Ah.FCStd": {
+      "sha256_natif": "ed2e6ab4743062db3c38f87310d422cb6a65b50669e6db5cf46e09441684ef36",
+      "sha256_Document_xml": "827401ba840c0803dc9e64c180806f1b6a25f36653823ebe0821ec6269e78bfa",
+      "nombre_BRep": 13,
+      "sha256_BRep_tries": "ef0e97b599ec40db7b60ca9ddef696d0d453672e3f02373c28b5683c7d57c49e"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P44_CouvercleArriereConducteurs20Ah.FCStd": {
+      "sha256_natif": "e5bd5da1ebc55e3725a0158e1a12abc57e39fde9dd5bf52eba218e25f92a87dc",
+      "sha256_Document_xml": "897f6135e8b3d9abb0d7fb488a6f43a484646196c7a9e9e64150a79ed2d7a13a",
+      "nombre_BRep": 1,
+      "sha256_BRep_tries": "13e8d96dd30f70989a3142e0517196ba348d88ad845665e4f63df1bec5e862b4"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P49_ProtectionFixeTE20Ah.FCStd": {
+      "sha256_natif": "e3a4364d967b83b2d902a2d00873f2207092570171db8616f69bea0bda45c28e",
+      "sha256_Document_xml": "65010726f8c5dcb340fdaf95b0b1626faef3f95bff62ea5f902e9817800af296",
+      "nombre_BRep": 36,
+      "sha256_BRep_tries": "d0819e5cfe5b95350fff2c54fda37ee5144bb89948b7ed89223168b472a4a671"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P50_CapotProtectionFixeTE20Ah.FCStd": {
+      "sha256_natif": "f1d0c0084a0db6160027af92a0a715ad279674c39efabab4c354346337e0cc43",
+      "sha256_Document_xml": "7095747f86e4d44430a142fa20572d5ea1e758001f0c5f6f9c428f3d04d2fa99",
+      "nombre_BRep": 5,
+      "sha256_BRep_tries": "aed640ff23d170d1e98dcfc02a27a7248dcc8ffbe93178f58d062d98b387dcb6"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P51_RetenueEquilibrage20Ah.FCStd": {
+      "sha256_natif": "9dae492e2255779515c261f389b3605b50f1960cecfb340528d54aa66938345d",
+      "sha256_Document_xml": "cda16d078ae6c8580d356f7b21bddb56bca874dfdf77f4418ed3b8febadeff4f",
+      "nombre_BRep": 20,
+      "sha256_BRep_tries": "057e735f253dd1ffc5eadbdb9e4eaaf6ac901a363ddfddf2aadc3268e3d869a5"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P52_CapotEquilibrage20Ah.FCStd": {
+      "sha256_natif": "fba767343be96c08c7670da75fca99a4bf1efe899d24d5a760d962a9be069225",
+      "sha256_Document_xml": "e97a9cbcbc57cde8db51104b7d66400ecfcebeb43f84ed25496975300dc37cb8",
+      "nombre_BRep": 5,
+      "sha256_BRep_tries": "0456dbad11dad28c7bc5552335b8951174d9dfb32a8b29c6b7e89e4129004761"
+    },
+    "hardware/mecanique/cartographe/pieces/fabriquees/P57_PlateauEnergieInferieur.FCStd": {
+      "sha256_natif": "9473f8ff22aefef502b565f910490dcad76f5f7f86763a340cb12211d72307b8",
+      "sha256_Document_xml": "caad03643b96cc595acf9e5ec427605ea9a85dc98445b3149a1275cb16c64c91",
+      "nombre_BRep": 48,
+      "sha256_BRep_tries": "e92a8a745aae4554859b049ed60c4c73d564f8d298a8d0bf89a6d50934477ca5"
+    },
+    "hardware/mecanique/cartographe/sous_assemblages/SA02A_Dock20Ah.FCStd": {
+      "sha256_natif": "40bfbab2f3c1cd2f55695b9617b5c2eaff22d7b46e7e5a8d72193ab081c07d7f",
+      "sha256_Document_xml": "52fea450023b72dd3a5fa1a8613f97cd3085c5ca559cd43b11f34bccdb2e16b2",
+      "nombre_BRep": 0,
+      "sha256_BRep_tries": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "hardware/mecanique/cartographe/sous_assemblages/SA07_Distribution_Systeme_Candidat.FCStd": {
+      "sha256_natif": "5760a4c7bb08a218a7eef18b4e7f413aee2f69ba5317de0f001dacbb76c28866",
+      "sha256_Document_xml": "385829cc62acc1d47bd86e5571ce3e318dd414071600f33d6c4be4b2831b4c58",
+      "nombre_BRep": 0,
+      "sha256_BRep_tries": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "revue_documentaire": {
+    "documents": [
+      "DOC-MEC §4.1.3.2",
+      "DOC-ELEC §6.1",
+      "DOC-VAL §12.1.8"
+    ],
+    "chaine_directe_et_statuts_coherents": true,
+    "nettoyage_redactionnel": "Prise en charge par l’agent documentaire ; la présente revue porte sur la cohérence technique. Ne pas prolonger les preuves historiques aux fichiers courants."
+  },
+  "anomalies_detectees_et_corrigees": [
+    "Coiffes/fils/borne en collision avec capture, logement TE et supports P39/P40",
+    "Coiffe au-dessusZ103 bloquant le plateau pendant extraction",
+    "Équilibrage dans les colonnesY±52 et passages de fils trop serrés",
+    "Cordons fixes contre capot et tube OEM",
+    "Agrégation des volumes de construction cachés dans App::Part.Shape",
+    "Rondelles/têtes M5 dans la nouvelle plage/coude : pose et enveloppe corrigées"
+  ],
+  "limites": [
+    "Contrôle sur pack nominal193×76×58mm ; enveloppe198×78×60 et sorties réelles du lot non contrôlées dans cette revue.",
+    "Extraction aux huit positions ; aucune preuve continue générale ni tolérances/efforts d’accouplement TE qualifiés.",
+    "Dressage perpendiculaire TE et liberté des fils, cosses742F5/AWG8, sertissage/outillage et ports JETI/PM/PDB À valider.",
+    "Le minimum152,4mm concerne la distance spatiale du collier éventuel ; les longueursR50 ne prouvent pas cette conformité.",
+    "Fixations/sangles des modules et coffrets, cantilever82mm, traction, vibration, isolement, courant et thermique non qualifiés.",
+    "Le déport SA07 élargit la boîte de l’ensemble ; aucun gain global de volume ou de masse extrapolé.",
+    "Adaptateur de chargeTE protégé Planifié ; fils d’équilibrage seuls ne portent pas la charge de puissance.",
+    "Aucun essai matériel, hélices ni vol exécuté, faute de fournitures et banc.",
+    "Les SHA du ZIP natif reflètent également les tables GUI/couleurs. Les empreintes Document.xml et BRep ci-dessus permettent de distinguer un futur changement d’apparence ; aucune différence non examinée n’est automatiquement attribuée aux couleurs."
+  ],
+  "conclusion": "Aucun P1/P2 résiduel dans le périmètre CAO nominal contrôlé après correction ciblée. Résultat préliminaire, matériel À valider.",
+  "finalisation_correcte": true
+}

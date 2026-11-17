@@ -1,0 +1,2701 @@
+{
+  "schema": "cartographe.graphe-physique.v1",
+  "groupes": [
+    {
+      "id": "PACK_DECHARGE",
+      "label": "Énergie · batterie, BMS et coupure",
+      "routes": [
+        "F01_NEG",
+        "F01_POS",
+        "F37_POS",
+        "F37_NEG"
+      ],
+      "couleur": "#cc553e",
+      "zone": "Étage bas",
+      "decision": "Chemins existants vers connecteurs et traversées distinctes. Préserver l'accès à la coupure et aux terminaisons de puissance."
+    },
+    {
+      "id": "PACK_MESURE",
+      "label": "Énergie · mesure cellule et température",
+      "routes": [
+        "BALANCE",
+        "NTC1",
+        "NTC2"
+      ],
+      "couleur": "#dea62d",
+      "zone": "Étage bas, le long de la cassette",
+      "decision": "Mesure analogique séparée de la puissance et de l'UART. Conserver les deux positions de mesure sur le pack."
+    },
+    {
+      "id": "PACK_UART",
+      "label": "Énergie · UART isolé du BMS",
+      "routes": [
+        "F40",
+        "F41"
+      ],
+      "couleur": "#53a1b3",
+      "zone": "Montée isolateur et boucle de réserve USB",
+      "decision": "Conserver les cordons de part et d'autre de l'isolation, les supports P72/P75 et la réserve P77."
+    },
+    {
+      "id": "ENERGIE_DISTRIBUTION",
+      "label": "Énergie · PM08 et distribution",
+      "routes": [
+        "F38_POS",
+        "F38_NEG",
+        "F05_POS",
+        "F05_NEG",
+        "F08_AMONT",
+        "F08_AVAL"
+      ],
+      "couleur": "#d87337",
+      "zone": "Traversée basse et étage énergie",
+      "decision": "Gaine locale F38 sur aller et retour d'un même circuit. Séparer les branches de mesure et garder l'accès au fusible entre F08 amont et aval."
+    },
+    {
+      "id": "AVIONIQUE_PRIMAIRE",
+      "label": "Avionique · alimentation primaire",
+      "routes": [
+        "F06"
+      ],
+      "couleur": "#b76138",
+      "zone": "Montée ouest vers POWER1",
+      "decision": "Alimentation de vol primaire indépendante. Pas de gaine commune avec POWER2 dans la configuration candidate."
+    },
+    {
+      "id": "AVIONIQUE_SECOURS",
+      "label": "Avionique · alimentation de secours",
+      "routes": [
+        "F32"
+      ],
+      "couleur": "#a58743",
+      "zone": "Montée ouest vers POWER2",
+      "decision": "Conserver une gaine distincte. Un corridor voisin n'établit pas la séparation face à un dommage commun."
+    },
+    {
+      "id": "CALCUL_ALIM",
+      "label": "Calcul · alimentation Jetson",
+      "routes": [
+        "F09"
+      ],
+      "couleur": "#e88b46",
+      "zone": "Montée CA01 vers Jetson",
+      "decision": "Garder la terminaison XT30 accessible et isolée des petits signaux."
+    },
+    {
+      "id": "MAIN_ESC",
+      "label": "Vol · tronc des commandes ESC",
+      "routes": [
+        "F04_1",
+        "F04_2",
+        "F04_3",
+        "F04_4"
+      ],
+      "couleur": "#4b9f44",
+      "zone": "P75, éclatement vers quatre bras",
+      "decision": "Quatre voies distinctes de même famille, partage de protection limité au corridor rectiligne du peigne. Limites de dommage commun, retour électrique et CEM à vérifier."
+    },
+    {
+      "id": "BRAS_1",
+      "label": "Bras 1 · puissance et balisage sur selles séparées",
+      "routes": [
+        "F02_1",
+        "F03_1",
+        "LED_1"
+      ],
+      "couleur": "#c65b50",
+      "zone": "Bras 1",
+      "decision": "Fixation commune sur selle à gorges distinctes. Alimentation ESC et phases moteur distinctes à la borne de l'ESC. Réserve LED conditionnelle."
+    },
+    {
+      "id": "BRAS_2",
+      "label": "Bras 2 · puissance et balisage sur selles séparées",
+      "routes": [
+        "F02_2",
+        "F03_2",
+        "LED_2"
+      ],
+      "couleur": "#c65b50",
+      "zone": "Bras 2",
+      "decision": "Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."
+    },
+    {
+      "id": "BRAS_3",
+      "label": "Bras 3 · puissance et balisage sur selles séparées",
+      "routes": [
+        "F02_3",
+        "F03_3",
+        "LED_3"
+      ],
+      "couleur": "#c65b50",
+      "zone": "Bras 3",
+      "decision": "Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."
+    },
+    {
+      "id": "BRAS_4",
+      "label": "Bras 4 · puissance et balisage sur selles séparées",
+      "routes": [
+        "F02_4",
+        "F03_4",
+        "LED_4"
+      ],
+      "couleur": "#c65b50",
+      "zone": "Bras 4",
+      "decision": "Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."
+    },
+    {
+      "id": "AIRY",
+      "label": "Perception · tronc Airy et trois branches",
+      "routes": [
+        "AIRY",
+        "AIRY_ETH",
+        "AIRY_PWR",
+        "AIRY_SYNC"
+      ],
+      "couleur": "#139cab",
+      "zone": "Montée LiDAR et éclatement Ethernet/12 V/temps",
+      "decision": "Conserver la topologie en Y à trois départs du séparateur OEM. Les quatre volumes sont des enveloppes distinctes et l'intérieur de la jonction reste indéfini."
+    },
+    {
+      "id": "CAMERA_USB",
+      "label": "Perception · USB3 caméra suspendue",
+      "routes": [
+        "F16"
+      ],
+      "couleur": "#925ac7",
+      "zone": "Boucle mobile sous P73 puis parcours fixe vers P75",
+      "decision": "Boucle mobile indépendante de la gaine commune et de F_M8. Conserver la séparation R50 mobile et R24 fixe sur le candidat précédent."
+    },
+    {
+      "id": "CAMERA_SYNC",
+      "label": "Perception · synchronisation caméra M8",
+      "routes": [
+        "F_M8"
+      ],
+      "couleur": "#b86acb",
+      "zone": "Caméra suspendue puis montée vers CA01",
+      "decision": "Conserver le cordon M8 et sa sortie coudée. Sa tenue en mouvement reste à établir indépendamment de F16."
+    },
+    {
+      "id": "CAN_PM",
+      "label": "Avionique · DroneCAN puissance",
+      "routes": [
+        "F31"
+      ],
+      "couleur": "#75abc5",
+      "zone": "Bord sud et colonne est",
+      "decision": "Préserver le départ distinct du réseau GNSS et de la puissance. Interfaces et rayon indépendants à confirmer."
+    },
+    {
+      "id": "NAV_GNSS",
+      "label": "Navigation · CAN et temps GNSS",
+      "routes": [
+        "F21",
+        "F36"
+      ],
+      "couleur": "#30ad8a",
+      "zone": "Bras GNSS et dérivation nord vers CA01 et autopilote",
+      "decision": "Cordon GNSS CAN et UART2 sur axes distincts. La cohabitation en gaine reste conditionnée à l'évaluation du couplage et du montage."
+    },
+    {
+      "id": "RF",
+      "label": "Radio · coaxiaux de diversité",
+      "routes": [
+        "F13A",
+        "F13B"
+      ],
+      "couleur": "#c39639",
+      "zone": "Pont isolant ouest et deux antennes",
+      "decision": "Deux cordons RF courts. Préserver la séparation des prises, l'orientation des antennes et l'absence de pincement des coaxiaux."
+    },
+    {
+      "id": "SECURITE",
+      "label": "Sécurité · commande et signalisation USL",
+      "routes": [
+        "F25"
+      ],
+      "couleur": "#ecab32",
+      "zone": "Bras sécurité puis bord sud",
+      "decision": "Garder la fonction de sécurité sur son cordon distinct et accessible."
+    },
+    {
+      "id": "AVIONIQUE_SIGNAUX",
+      "label": "Avionique · télémétrie et interfaces CA01",
+      "routes": [
+        "F12",
+        "F24A",
+        "F24B",
+        "F24C",
+        "F33",
+        "F35"
+      ],
+      "couleur": "#617fc6",
+      "zone": "Périphérie nord, est et sud de la pile",
+      "decision": "Corridors proches avec branches aux ports. Maintenir indépendance des câbles tant que blindages, retours, démontabilité et capacité d'accès ne sont pas établis."
+    },
+    {
+      "id": "VENTILATION",
+      "label": "Avionique · cordon du ventilateur",
+      "routes": [
+        "F20"
+      ],
+      "couleur": "#749da4",
+      "zone": "Périphérie du refroidisseur",
+      "decision": "Garder le branchement court avec accès et sans obturation de l'entrée d'air."
+    }
+  ],
+  "jonctions": [
+    {
+      "id": "Y_AIRY",
+      "groupe": "AIRY",
+      "entrant": "AIRY",
+      "sortants": [
+        "AIRY_ETH",
+        "AIRY_PWR",
+        "AIRY_SYNC"
+      ],
+      "point_mm": [
+        -80,
+        64,
+        120
+      ],
+      "nature": "éclatement physique OEM candidat, trois fonctions distinctes"
+    },
+    {
+      "id": "FUSIBLE_CA01",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "entrant": "F08_AMONT",
+      "sortants": [
+        "F08_AVAL"
+      ],
+      "point_mm": null,
+      "nature": "organe électrique distinct, accès à préserver"
+    }
+  ],
+  "gaines": [
+    {
+      "id": "NTC_Y35_44",
+      "occurrence": "GaineNTC",
+      "groupe": "PACK_MESURE",
+      "membres": [
+        "NTC1",
+        "NTC2"
+      ],
+      "axes_bords_mm": [
+        [
+          -3,
+          35,
+          -16
+        ],
+        [
+          3,
+          35,
+          -16
+        ]
+      ],
+      "longueur_mm": 9,
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "rayon_interieur_mm": 1.2,
+      "paroi_mm": 0.9,
+      "supports": [],
+      "compatibilite": "CANDIDAT_CONDITIONNEL, deux voies de température du même BMS, fenêtre de protection hors des têtes de sonde"
+    },
+    {
+      "id": "SIGNAL_NORD_RELIEF_L30",
+      "occurrence": "GaineSignalNord",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "membres": [
+        "F24A",
+        "F24C"
+      ],
+      "axes_bords_mm": [
+        [
+          35,
+          55,
+          118
+        ],
+        [
+          35,
+          61,
+          116
+        ]
+      ],
+      "longueur_mm": 30,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "rayon_interieur_mm": 1.55,
+      "paroi_mm": 0.6,
+      "supports": [
+        "P75_Cadre"
+      ],
+      "degagement_guide_mm": 0.25,
+      "compatibilite": "CANDIDAT_CONDITIONNEL, GPIO et CSI dans le même secteur, accès extracteur et immunité à mesurer"
+    },
+    {
+      "id": "F38_RELIEF_Xm40_65",
+      "occurrence": "ProtectionF38",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "membres": [
+        "F38_POS",
+        "F38_NEG"
+      ],
+      "axes_bords_mm": [
+        [
+          -40,
+          -104,
+          52
+        ],
+        [
+          -40,
+          -94,
+          52
+        ]
+      ],
+      "longueur_mm": 105,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "rayon_interieur_mm": 4,
+      "paroi_mm": 0.9,
+      "supports": [
+        "P73_Guide"
+      ],
+      "degagement_guide_mm": 0.25,
+      "compatibilite": "CANDIDAT_CONDITIONNEL, aller-retour AWG8 du même circuit; thermique, abrasion et compression à mesurer"
+    },
+    {
+      "id": "MAIN_4_RELIEF_L8",
+      "occurrence": "GaineMAIN",
+      "groupe": "MAIN_ESC",
+      "membres": [
+        "F04_1",
+        "F04_2",
+        "F04_3",
+        "F04_4"
+      ],
+      "axes_bords_mm": [
+        [
+          88,
+          -37,
+          163
+        ],
+        [
+          88,
+          -28,
+          172
+        ]
+      ],
+      "longueur_mm": 8,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "rayon_interieur_mm": 1.05,
+      "paroi_mm": 0.6,
+      "supports": [
+        "P75_Cadre"
+      ],
+      "degagement_guide_mm": 0.25,
+      "translations_main_x_mm": {
+        "F04_1": 6
+      },
+      "compatibilite": "CANDIDAT_CONDITIONNEL, commandes de même famille; peigne préservé en amont. CEM et tenue à la défaillance commune à vérifier"
+    }
+  ],
+  "routes": [
+    {
+      "id": "F01_NEG",
+      "groupe": "PACK_DECHARGE",
+      "segments": [
+        {
+          "id": "F01_NEG:terminal",
+          "origine": "F01_NEG:origine",
+          "destination": "F01_NEG:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 150.64822368615503,
+          "point_depart_mm": [
+            -97.5,
+            12,
+            -50
+          ],
+          "point_arrivee_mm": [
+            -66.25,
+            15,
+            -16
+          ]
+        }
+      ],
+      "longueur_mm": 150.64822368615503,
+      "appuis": [
+        "P72_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P62",
+        "P72"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F01_NEG_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F01_POS",
+      "groupe": "PACK_DECHARGE",
+      "segments": [
+        {
+          "id": "F01_POS:terminal",
+          "origine": "F01_POS:origine",
+          "destination": "F01_POS:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 273.6407502493715,
+          "point_depart_mm": [
+            -97.5,
+            0,
+            -50
+          ],
+          "point_arrivee_mm": [
+            30,
+            -70,
+            -27
+          ]
+        }
+      ],
+      "longueur_mm": 273.6407502493715,
+      "appuis": [
+        "P72_Guide",
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P62"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F01_POS_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F37_POS",
+      "groupe": "PACK_DECHARGE",
+      "segments": [
+        {
+          "id": "F37_POS:terminal",
+          "origine": "F37_POS:origine",
+          "destination": "F37_POS:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 215.2336639786674,
+          "point_depart_mm": [
+            74.5,
+            -79.0,
+            -40.0
+          ],
+          "point_arrivee_mm": [
+            108.0,
+            19.0,
+            -51.0
+          ]
+        }
+      ],
+      "longueur_mm": 215.2336639786674,
+      "appuis": [
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P76"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F37_POS_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F37_NEG",
+      "groupe": "PACK_DECHARGE",
+      "segments": [
+        {
+          "id": "F37_NEG:terminal",
+          "origine": "F37_NEG:origine",
+          "destination": "F37_NEG:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 95.85459826594271,
+          "point_depart_mm": [
+            66.25,
+            20.0,
+            -16.0
+          ],
+          "point_arrivee_mm": [
+            118.0,
+            19.0,
+            -51.0
+          ]
+        }
+      ],
+      "longueur_mm": 95.85459826594271,
+      "appuis": [
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P62",
+        "P76"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F37_NEG_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F38_POS",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F38_POS:branche_1",
+          "origine": "F38_POS:origine",
+          "destination": "ProtectionF38:B",
+          "nature": "branche_individuelle",
+          "longueur_mm": 178.12346920081285,
+          "point_depart_mm": [
+            108.0,
+            -43.0,
+            -51.0
+          ],
+          "point_arrivee_mm": [
+            65.0,
+            -94.0,
+            52.0
+          ]
+        },
+        {
+          "id": "ProtectionF38",
+          "origine": "ProtectionF38:B",
+          "destination": "ProtectionF38:A",
+          "nature": "gaine_commune",
+          "longueur_mm": 105.0,
+          "point_depart_mm": [
+            65.0,
+            -94.0,
+            52.0
+          ],
+          "point_arrivee_mm": [
+            -40.0,
+            -94.0,
+            52.0
+          ]
+        },
+        {
+          "id": "F38_POS:terminal",
+          "origine": "ProtectionF38:A",
+          "destination": "F38_POS:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 63.75395547211315,
+          "point_depart_mm": [
+            -40.0,
+            -94.0,
+            52.0
+          ],
+          "point_arrivee_mm": [
+            -40.0,
+            -73.75,
+            55.89512218960999
+          ]
+        }
+      ],
+      "longueur_mm": 346.877424672926,
+      "appuis": [
+        "P72_Guide",
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P72",
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F38_POS_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F05_POS",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F05_POS:terminal",
+          "origine": "F05_POS:origine",
+          "destination": "F05_POS:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 137.26729958899006,
+          "point_depart_mm": [
+            6.0,
+            -73.75,
+            55.89512218961
+          ],
+          "point_arrivee_mm": [
+            69.0,
+            -14.0,
+            63.0
+          ]
+        }
+      ],
+      "longueur_mm": 137.26729958899006,
+      "appuis": [
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F05_POS_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F38_NEG",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F38_NEG:branche_1",
+          "origine": "F38_NEG:origine",
+          "destination": "ProtectionF38:B",
+          "nature": "branche_individuelle",
+          "longueur_mm": 191.5646663834249,
+          "point_depart_mm": [
+            118.0,
+            -43.0,
+            -51.0
+          ],
+          "point_arrivee_mm": [
+            65.0,
+            -104.0,
+            52.0
+          ]
+        },
+        {
+          "id": "ProtectionF38",
+          "origine": "ProtectionF38:B",
+          "destination": "ProtectionF38:A",
+          "nature": "gaine_commune",
+          "longueur_mm": 104.99999999999997,
+          "point_depart_mm": [
+            65.0,
+            -104.0,
+            52.0
+          ],
+          "point_arrivee_mm": [
+            -40.0,
+            -104.0,
+            52.0
+          ]
+        },
+        {
+          "id": "F38_NEG:terminal",
+          "origine": "ProtectionF38:A",
+          "destination": "F38_NEG:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 120.92290816112586,
+          "point_depart_mm": [
+            -40.0,
+            -104.0,
+            52.0
+          ],
+          "point_arrivee_mm": [
+            -40.0,
+            -45.25,
+            55.89512218960999
+          ]
+        }
+      ],
+      "longueur_mm": 417.48757454455074,
+      "appuis": [
+        "P72_Guide",
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P72",
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F38_NEG_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F05_NEG",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F05_NEG:terminal",
+          "origine": "F05_NEG:origine",
+          "destination": "F05_NEG:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 125.62921169269814,
+          "point_depart_mm": [
+            6.0,
+            -45.25,
+            55.89512218961
+          ],
+          "point_arrivee_mm": [
+            45.0,
+            14.0,
+            63.0
+          ]
+        }
+      ],
+      "longueur_mm": 125.62921169269814,
+      "appuis": [
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F05_NEG_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F08_AMONT",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F08_AMONT:terminal",
+          "origine": "F08_AMONT:origine",
+          "destination": "F08_AMONT:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 130.70407344541502,
+          "point_depart_mm": [
+            65.0,
+            -28.0,
+            63.0
+          ],
+          "point_arrivee_mm": [
+            37.0,
+            -63.5,
+            51.0
+          ]
+        }
+      ],
+      "longueur_mm": 130.70407344541502,
+      "appuis": [
+        "P73_Guide"
+      ],
+      "support_documente": [
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F08_AMONT_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F08_AVAL",
+      "groupe": "ENERGIE_DISTRIBUTION",
+      "segments": [
+        {
+          "id": "F08_AVAL:terminal",
+          "origine": "F08_AVAL:origine",
+          "destination": "F08_AVAL:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 226.17942453473918,
+          "point_depart_mm": [
+            27.0,
+            -43.0,
+            59.0
+          ],
+          "point_arrivee_mm": [
+            -61.0,
+            -22.0,
+            106.0
+          ]
+        }
+      ],
+      "longueur_mm": 226.17942453473918,
+      "appuis": [
+        "P73_Guide",
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P64",
+        "P66"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F08_AVAL_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F40",
+      "groupe": "PACK_UART",
+      "segments": [
+        {
+          "id": "F40:terminal",
+          "origine": "F40:origine",
+          "destination": "F40:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 145.62774613393037,
+          "point_depart_mm": [
+            -66.25,
+            -10,
+            -13
+          ],
+          "point_arrivee_mm": [
+            -79,
+            -20,
+            54
+          ]
+        }
+      ],
+      "longueur_mm": 145.62774613393037,
+      "appuis": [
+        "P72_Guide"
+      ],
+      "support_documente": [
+        "P62",
+        "P72",
+        "P64"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F40_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "BALANCE",
+      "groupe": "PACK_MESURE",
+      "segments": [
+        {
+          "id": "BALANCE:terminal",
+          "origine": "BALANCE:origine",
+          "destination": "BALANCE:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 127.15911653416558,
+          "point_depart_mm": [
+            -97.5,
+            21,
+            -45
+          ],
+          "point_arrivee_mm": [
+            -44,
+            33.75,
+            -16
+          ]
+        }
+      ],
+      "longueur_mm": 127.15911653416558,
+      "appuis": [
+        "P72_Guide"
+      ],
+      "support_documente": [
+        "P60",
+        "P62"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_BALANCE_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "NTC1",
+      "groupe": "PACK_MESURE",
+      "segments": [
+        {
+          "id": "NTC1:branche_1",
+          "origine": "NTC1:origine",
+          "destination": "GaineNTC:B",
+          "nature": "branche_individuelle",
+          "longueur_mm": 48.77693501275545,
+          "point_depart_mm": [
+            -30,
+            40,
+            -33
+          ],
+          "point_arrivee_mm": [
+            -3.0,
+            44.00000000000001,
+            -16.0
+          ]
+        },
+        {
+          "id": "GaineNTC",
+          "origine": "GaineNTC:B",
+          "destination": "GaineNTC:A",
+          "nature": "gaine_commune",
+          "longueur_mm": 9.0,
+          "point_depart_mm": [
+            -3.0,
+            44.00000000000001,
+            -16.0
+          ],
+          "point_arrivee_mm": [
+            -3.0,
+            35.0,
+            -16.0
+          ]
+        },
+        {
+          "id": "NTC1:terminal",
+          "origine": "GaineNTC:A",
+          "destination": "NTC1:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 1.250000000000007,
+          "point_depart_mm": [
+            -3.0,
+            35.0,
+            -16.0
+          ],
+          "point_arrivee_mm": [
+            -3,
+            33.75,
+            -16
+          ]
+        }
+      ],
+      "longueur_mm": 59.02693501275546,
+      "appuis": [],
+      "support_documente": [
+        "P62"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_NTC1_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "NTC2",
+      "groupe": "PACK_MESURE",
+      "segments": [
+        {
+          "id": "NTC2:branche_1",
+          "origine": "NTC2:origine",
+          "destination": "GaineNTC:B",
+          "nature": "branche_individuelle",
+          "longueur_mm": 48.77693501275545,
+          "point_depart_mm": [
+            30,
+            40,
+            -33
+          ],
+          "point_arrivee_mm": [
+            3.0,
+            44.00000000000001,
+            -16.0
+          ]
+        },
+        {
+          "id": "GaineNTC",
+          "origine": "GaineNTC:B",
+          "destination": "GaineNTC:A",
+          "nature": "gaine_commune",
+          "longueur_mm": 9.0,
+          "point_depart_mm": [
+            3.0,
+            44.00000000000001,
+            -16.0
+          ],
+          "point_arrivee_mm": [
+            3.0,
+            35.0,
+            -16.0
+          ]
+        },
+        {
+          "id": "NTC2:terminal",
+          "origine": "GaineNTC:A",
+          "destination": "NTC2:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 1.250000000000007,
+          "point_depart_mm": [
+            3.0,
+            35.0,
+            -16.0
+          ],
+          "point_arrivee_mm": [
+            3,
+            33.75,
+            -16
+          ]
+        }
+      ],
+      "longueur_mm": 59.02693501275546,
+      "appuis": [],
+      "support_documente": [
+        "P62"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_NTC2_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F02_1",
+      "groupe": "BRAS_1",
+      "segments": [
+        {
+          "id": "F02_1:terminal",
+          "origine": "F02_1:origine",
+          "destination": "F02_1:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 263.94912953674566,
+          "point_depart_mm": [
+            20,
+            -20,
+            63
+          ],
+          "point_arrivee_mm": [
+            -133.7,
+            -133.7,
+            32
+          ]
+        }
+      ],
+      "longueur_mm": 263.94912953674566,
+      "appuis": [
+        "P72_Guide",
+        "P73_Guide",
+        "SelleBras1_1"
+      ],
+      "support_documente": [
+        "P64",
+        "bras1"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F02_1_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F03_1",
+      "groupe": "BRAS_1",
+      "segments": [
+        {
+          "id": "F03_1:terminal",
+          "origine": "F03_1:origine",
+          "destination": "F03_1:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 60.873319867932025,
+          "point_depart_mm": [
+            -170.5,
+            -170.5,
+            32
+          ],
+          "point_arrivee_mm": [
+            -210,
+            -210,
+            47
+          ]
+        }
+      ],
+      "longueur_mm": 60.873319867932025,
+      "appuis": [
+        "SelleBras1_2"
+      ],
+      "support_documente": [
+        "bras1"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F03_1_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F04_1",
+      "groupe": "MAIN_ESC",
+      "segments": [
+        {
+          "id": "F04_1:branche_1",
+          "origine": "F04_1:origine",
+          "destination": "GaineMAIN:A",
+          "nature": "branche_individuelle",
+          "longueur_mm": 50.276543302782954,
+          "point_depart_mm": [
+            58,
+            -37,
+            136
+          ],
+          "point_arrivee_mm": [
+            88.0,
+            -37.0,
+            163.0
+          ]
+        },
+        {
+          "id": "GaineMAIN",
+          "origine": "GaineMAIN:A",
+          "destination": "GaineMAIN:B",
+          "nature": "gaine_commune",
+          "longueur_mm": 8.0,
+          "point_depart_mm": [
+            88.0,
+            -37.0,
+            163.0
+          ],
+          "point_arrivee_mm": [
+            96.0,
+            -37.0,
+            163.0
+          ]
+        },
+        {
+          "id": "F04_1:terminal",
+          "origine": "GaineMAIN:B",
+          "destination": "F04_1:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 418.72771538677915,
+          "point_depart_mm": [
+            96.0,
+            -37.0,
+            163.0
+          ],
+          "point_arrivee_mm": [
+            -127,
+            -135,
+            30
+          ]
+        }
+      ],
+      "longueur_mm": 477.0042586895621,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras1_1"
+      ],
+      "support_documente": [
+        "P66",
+        "P64",
+        "bras1"
+      ],
+      "integration": "reconstruite",
+      "justification": "Géométrie native recalculée sur la nouvelle branche MAIN.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F04_1_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "LED_1",
+      "groupe": "BRAS_1",
+      "segments": [
+        {
+          "id": "LED_1:terminal",
+          "origine": "LED_1:origine",
+          "destination": "LED_1:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 207.38549151242785,
+          "point_depart_mm": [
+            -75,
+            -78,
+            43
+          ],
+          "point_arrivee_mm": [
+            -224,
+            -200,
+            20
+          ]
+        }
+      ],
+      "longueur_mm": 207.38549151242785,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras1_1",
+        "SelleBras1_2",
+        "SelleBras1_3"
+      ],
+      "support_documente": [
+        "P64",
+        "bras1"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_LED_1_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F02_2",
+      "groupe": "BRAS_2",
+      "segments": [
+        {
+          "id": "F02_2:terminal",
+          "origine": "F02_2:origine",
+          "destination": "F02_2:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 140.73514685198995,
+          "point_depart_mm": [
+            73,
+            24,
+            52
+          ],
+          "point_arrivee_mm": [
+            133.7,
+            133.7,
+            32
+          ]
+        }
+      ],
+      "longueur_mm": 140.73514685198995,
+      "appuis": [
+        "P73_Guide",
+        "SelleBras2_1"
+      ],
+      "support_documente": [
+        "P64",
+        "bras2"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F02_2_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F03_2",
+      "groupe": "BRAS_2",
+      "segments": [
+        {
+          "id": "F03_2:terminal",
+          "origine": "F03_2:origine",
+          "destination": "F03_2:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 60.873319867932025,
+          "point_depart_mm": [
+            170.5,
+            170.5,
+            32
+          ],
+          "point_arrivee_mm": [
+            210,
+            210,
+            47
+          ]
+        }
+      ],
+      "longueur_mm": 60.873319867932025,
+      "appuis": [
+        "SelleBras2_2"
+      ],
+      "support_documente": [
+        "bras2"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F03_2_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F04_2",
+      "groupe": "MAIN_ESC",
+      "segments": [
+        {
+          "id": "F04_2:branche_1",
+          "origine": "F04_2:origine",
+          "destination": "GaineMAIN:A",
+          "nature": "branche_individuelle",
+          "longueur_mm": 53.13761191192994,
+          "point_depart_mm": [
+            58,
+            -34,
+            136
+          ],
+          "point_arrivee_mm": [
+            88.0,
+            -34.0,
+            166.0
+          ]
+        },
+        {
+          "id": "GaineMAIN",
+          "origine": "GaineMAIN:A",
+          "destination": "GaineMAIN:B",
+          "nature": "gaine_commune",
+          "longueur_mm": 8.0,
+          "point_depart_mm": [
+            88.0,
+            -34.0,
+            166.0
+          ],
+          "point_arrivee_mm": [
+            96.0,
+            -34.0,
+            166.0
+          ]
+        },
+        {
+          "id": "F04_2:terminal",
+          "origine": "GaineMAIN:B",
+          "destination": "F04_2:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 307.4480841552604,
+          "point_depart_mm": [
+            96.0,
+            -34.0,
+            166.0
+          ],
+          "point_arrivee_mm": [
+            127,
+            135,
+            30
+          ]
+        }
+      ],
+      "longueur_mm": 368.5856960671903,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras2_1"
+      ],
+      "support_documente": [
+        "P66",
+        "P64",
+        "bras2"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F04_2_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "LED_2",
+      "groupe": "BRAS_2",
+      "segments": [
+        {
+          "id": "LED_2:terminal",
+          "origine": "LED_2:origine",
+          "destination": "LED_2:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 207.38549151242785,
+          "point_depart_mm": [
+            75,
+            78,
+            43
+          ],
+          "point_arrivee_mm": [
+            224,
+            200,
+            20
+          ]
+        }
+      ],
+      "longueur_mm": 207.38549151242785,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras2_1",
+        "SelleBras2_2",
+        "SelleBras2_3"
+      ],
+      "support_documente": [
+        "P64",
+        "bras2"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_LED_2_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F02_3",
+      "groupe": "BRAS_3",
+      "segments": [
+        {
+          "id": "F02_3:terminal",
+          "origine": "F02_3:origine",
+          "destination": "F02_3:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 224.14988501219923,
+          "point_depart_mm": [
+            32,
+            45,
+            52
+          ],
+          "point_arrivee_mm": [
+            -133.7,
+            133.7,
+            32
+          ]
+        }
+      ],
+      "longueur_mm": 224.14988501219923,
+      "appuis": [
+        "P73_Guide",
+        "SelleBras3_1"
+      ],
+      "support_documente": [
+        "P64",
+        "bras3"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F02_3_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F03_3",
+      "groupe": "BRAS_3",
+      "segments": [
+        {
+          "id": "F03_3:terminal",
+          "origine": "F03_3:origine",
+          "destination": "F03_3:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 60.873319867932025,
+          "point_depart_mm": [
+            -170.5,
+            170.5,
+            32
+          ],
+          "point_arrivee_mm": [
+            -210,
+            210,
+            47
+          ]
+        }
+      ],
+      "longueur_mm": 60.873319867932025,
+      "appuis": [
+        "SelleBras3_2"
+      ],
+      "support_documente": [
+        "bras3"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F03_3_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F04_3",
+      "groupe": "MAIN_ESC",
+      "segments": [
+        {
+          "id": "F04_3:branche_1",
+          "origine": "F04_3:origine",
+          "destination": "GaineMAIN:A",
+          "nature": "branche_individuelle",
+          "longueur_mm": 56.02112123679829,
+          "point_depart_mm": [
+            58,
+            -31,
+            136
+          ],
+          "point_arrivee_mm": [
+            88.0,
+            -31.0,
+            169.0
+          ]
+        },
+        {
+          "id": "GaineMAIN",
+          "origine": "GaineMAIN:A",
+          "destination": "GaineMAIN:B",
+          "nature": "gaine_commune",
+          "longueur_mm": 7.999999999999993,
+          "point_depart_mm": [
+            88.0,
+            -31.0,
+            169.0
+          ],
+          "point_arrivee_mm": [
+            96.0,
+            -31.0,
+            169.0
+          ]
+        },
+        {
+          "id": "F04_3:terminal",
+          "origine": "GaineMAIN:B",
+          "destination": "F04_3:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 461.1397281425051,
+          "point_depart_mm": [
+            96.0,
+            -31.0,
+            169.0
+          ],
+          "point_arrivee_mm": [
+            -127,
+            135,
+            30
+          ]
+        }
+      ],
+      "longueur_mm": 525.1608493793034,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras3_1"
+      ],
+      "support_documente": [
+        "P66",
+        "P64",
+        "bras3"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F04_3_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "LED_3",
+      "groupe": "BRAS_3",
+      "segments": [
+        {
+          "id": "LED_3:terminal",
+          "origine": "LED_3:origine",
+          "destination": "LED_3:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 207.38549151242785,
+          "point_depart_mm": [
+            -75,
+            78,
+            43
+          ],
+          "point_arrivee_mm": [
+            -224,
+            200,
+            20
+          ]
+        }
+      ],
+      "longueur_mm": 207.38549151242785,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras3_1",
+        "SelleBras3_2",
+        "SelleBras3_3"
+      ],
+      "support_documente": [
+        "P64",
+        "bras3"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_LED_3_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F02_4",
+      "groupe": "BRAS_4",
+      "segments": [
+        {
+          "id": "F02_4:terminal",
+          "origine": "F02_4:origine",
+          "destination": "F02_4:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 135.53494357011718,
+          "point_depart_mm": [
+            62,
+            -37,
+            52
+          ],
+          "point_arrivee_mm": [
+            133.7,
+            -133.7,
+            32
+          ]
+        }
+      ],
+      "longueur_mm": 135.53494357011718,
+      "appuis": [
+        "P73_Guide",
+        "SelleBras4_1"
+      ],
+      "support_documente": [
+        "P64",
+        "bras4"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F02_4_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F03_4",
+      "groupe": "BRAS_4",
+      "segments": [
+        {
+          "id": "F03_4:terminal",
+          "origine": "F03_4:origine",
+          "destination": "F03_4:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 60.873319867932025,
+          "point_depart_mm": [
+            170.5,
+            -170.5,
+            32
+          ],
+          "point_arrivee_mm": [
+            210,
+            -210,
+            47
+          ]
+        }
+      ],
+      "longueur_mm": 60.873319867932025,
+      "appuis": [
+        "SelleBras4_2"
+      ],
+      "support_documente": [
+        "bras4"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F03_4_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F04_4",
+      "groupe": "MAIN_ESC",
+      "segments": [
+        {
+          "id": "F04_4:branche_1",
+          "origine": "F04_4:origine",
+          "destination": "GaineMAIN:A",
+          "nature": "branche_individuelle",
+          "longueur_mm": 58.922075746232096,
+          "point_depart_mm": [
+            58,
+            -28,
+            136
+          ],
+          "point_arrivee_mm": [
+            88.0,
+            -28.0,
+            172.0
+          ]
+        },
+        {
+          "id": "GaineMAIN",
+          "origine": "GaineMAIN:A",
+          "destination": "GaineMAIN:B",
+          "nature": "gaine_commune",
+          "longueur_mm": 8.0,
+          "point_depart_mm": [
+            88.0,
+            -28.0,
+            172.0
+          ],
+          "point_arrivee_mm": [
+            96.0,
+            -28.0,
+            172.0
+          ]
+        },
+        {
+          "id": "F04_4:terminal",
+          "origine": "GaineMAIN:B",
+          "destination": "F04_4:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 274.74243324693674,
+          "point_depart_mm": [
+            96.0,
+            -28.0,
+            172.0
+          ],
+          "point_arrivee_mm": [
+            127,
+            -135,
+            30
+          ]
+        }
+      ],
+      "longueur_mm": 341.66450899316885,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras4_1"
+      ],
+      "support_documente": [
+        "P66",
+        "P64",
+        "bras4"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F04_4_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "LED_4",
+      "groupe": "BRAS_4",
+      "segments": [
+        {
+          "id": "LED_4:terminal",
+          "origine": "LED_4:origine",
+          "destination": "LED_4:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 207.38549151242785,
+          "point_depart_mm": [
+            75,
+            -78,
+            43
+          ],
+          "point_arrivee_mm": [
+            224,
+            -200,
+            20
+          ]
+        }
+      ],
+      "longueur_mm": 207.38549151242785,
+      "appuis": [
+        "P75_Cadre",
+        "SelleBras4_1",
+        "SelleBras4_2",
+        "SelleBras4_3"
+      ],
+      "support_documente": [
+        "P64",
+        "bras4"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_LED_4_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "AIRY",
+      "groupe": "AIRY",
+      "segments": [
+        {
+          "id": "AIRY:terminal",
+          "origine": "AIRY:origine",
+          "destination": "Y_AIRY",
+          "nature": "tronc_oem",
+          "longueur_mm": 331.984319786212,
+          "point_depart_mm": [
+            -35,
+            34,
+            -143
+          ],
+          "point_arrivee_mm": [
+            -80,
+            64,
+            120
+          ]
+        }
+      ],
+      "longueur_mm": 331.984319786212,
+      "appuis": [
+        "P72_Guide"
+      ],
+      "support_documente": [
+        "P65/P10",
+        "P73",
+        "P66"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_AIRY_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "AIRY_ETH",
+      "groupe": "AIRY",
+      "segments": [
+        {
+          "id": "AIRY_ETH:terminal",
+          "origine": "Y_AIRY",
+          "destination": "AIRY_ETH:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 171.67326994295263,
+          "point_depart_mm": [
+            -80,
+            64,
+            120
+          ],
+          "point_arrivee_mm": [
+            13,
+            40.5,
+            137
+          ]
+        }
+      ],
+      "longueur_mm": 171.67326994295263,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P75",
+        "porteuse"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_AIRY_ETH_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "AIRY_PWR",
+      "groupe": "AIRY",
+      "segments": [
+        {
+          "id": "AIRY_PWR:terminal",
+          "origine": "Y_AIRY",
+          "destination": "AIRY_PWR:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 267.1315348395224,
+          "point_depart_mm": [
+            -80,
+            64,
+            120
+          ],
+          "point_arrivee_mm": [
+            3,
+            -40,
+            105
+          ]
+        }
+      ],
+      "longueur_mm": 267.1315348395224,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P75"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_AIRY_PWR_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "AIRY_SYNC",
+      "groupe": "AIRY",
+      "segments": [
+        {
+          "id": "AIRY_SYNC:terminal",
+          "origine": "Y_AIRY",
+          "destination": "AIRY_SYNC:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 247.65370931975875,
+          "point_depart_mm": [
+            -80,
+            64,
+            120
+          ],
+          "point_arrivee_mm": [
+            65,
+            17,
+            104
+          ]
+        }
+      ],
+      "longueur_mm": 247.65370931975875,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P75"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_AIRY_SYNC_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F_M8",
+      "groupe": "CAMERA_SYNC",
+      "segments": [
+        {
+          "id": "F_M8:terminal",
+          "origine": "F_M8:origine",
+          "destination": "F_M8:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 296.87739881307846,
+          "point_depart_mm": [
+            74.2,
+            31.1,
+            -90.855
+          ],
+          "point_arrivee_mm": [
+            41,
+            43,
+            103
+          ]
+        }
+      ],
+      "longueur_mm": 296.87739881307846,
+      "appuis": [
+        "P78_RetenueCameraM8"
+      ],
+      "support_documente": [
+        "P65/P10",
+        "P64",
+        "P75"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F_M8_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F16",
+      "groupe": "CAMERA_USB",
+      "segments": [
+        {
+          "id": "F16:terminal",
+          "origine": "F16:origine",
+          "destination": "F16:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 494.607764256343,
+          "point_depart_mm": [
+            109.785,
+            -0.525,
+            -96.82
+          ],
+          "point_arrivee_mm": [
+            7,
+            -79.95,
+            140.5
+          ]
+        }
+      ],
+      "longueur_mm": 494.607764256343,
+      "appuis": [
+        "P73_Guide",
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P73",
+        "P75"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable002",
+      "fichier": "verification/candidats/F16_R50_X200_Z0.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F41",
+      "groupe": "PACK_UART",
+      "segments": [
+        {
+          "id": "F41:terminal",
+          "origine": "F41:origine",
+          "destination": "F41:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 1180.9420885415457,
+          "point_depart_mm": [
+            -79,
+            24,
+            54
+          ],
+          "point_arrivee_mm": [
+            7,
+            -42,
+            131.5
+          ]
+        }
+      ],
+      "longueur_mm": 1180.9420885415457,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P64",
+        "plateau central inférieur",
+        "P73",
+        "P66"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F41_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F09",
+      "groupe": "CALCUL_ALIM",
+      "segments": [
+        {
+          "id": "F09:terminal",
+          "origine": "F09:origine",
+          "destination": "F09:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 140.53981633974485,
+          "point_depart_mm": [
+            -61,
+            -4,
+            106
+          ],
+          "point_arrivee_mm": [
+            -60,
+            27.5,
+            140.5
+          ]
+        }
+      ],
+      "longueur_mm": 140.53981633974485,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide isolant ouest CA01/Holybro",
+        "colonne ouest"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F09_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F06",
+      "groupe": "AVIONIQUE_PRIMAIRE",
+      "segments": [
+        {
+          "id": "F06:terminal",
+          "origine": "F06:origine",
+          "destination": "F06:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 220.30678577619807,
+          "point_depart_mm": [
+            -38,
+            -62,
+            66
+          ],
+          "point_arrivee_mm": [
+            -58.1,
+            -14,
+            138.5
+          ]
+        }
+      ],
+      "longueur_mm": 220.30678577619807,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P64 haut",
+        "colonne(-60,-37)",
+        "guide ouest Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F06_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F32",
+      "groupe": "AVIONIQUE_SECOURS",
+      "segments": [
+        {
+          "id": "F32:terminal",
+          "origine": "F32:origine",
+          "destination": "F32:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 265.3571432101304,
+          "point_depart_mm": [
+            -28,
+            -70,
+            66
+          ],
+          "point_arrivee_mm": [
+            -58.1,
+            4,
+            138.5
+          ]
+        }
+      ],
+      "longueur_mm": 265.3571432101304,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P64 haut",
+        "guide ouest colonne(-60,-37)"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F32_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F31",
+      "groupe": "CAN_PM",
+      "segments": [
+        {
+          "id": "F31:terminal",
+          "origine": "F31:origine",
+          "destination": "F31:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 468.5633179058214,
+          "point_depart_mm": [
+            -18,
+            -76,
+            66
+          ],
+          "point_arrivee_mm": [
+            52.85,
+            -14.5,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 468.5633179058214,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "P64 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F31_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F12",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F12:terminal",
+          "origine": "F12:origine",
+          "destination": "F12:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 183.97922969134586,
+          "point_depart_mm": [
+            -16,
+            41,
+            103
+          ],
+          "point_arrivee_mm": [
+            59.825,
+            12,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 183.97922969134586,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide nord P66",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F12_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F21",
+      "groupe": "NAV_GNSS",
+      "segments": [
+        {
+          "id": "F21:terminal",
+          "origine": "F21:origine",
+          "destination": "F21:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 254.19578251989498,
+          "point_depart_mm": [
+            -5,
+            91,
+            100
+          ],
+          "point_arrivee_mm": [
+            52.85,
+            -4.5,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 254.19578251989498,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "bras GNSS largeur25",
+        "P66 bord nord",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F21_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F36",
+      "groupe": "NAV_GNSS",
+      "segments": [
+        {
+          "id": "F36:terminal",
+          "origine": "F36:origine",
+          "destination": "F36:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 58.03812491229759,
+          "point_depart_mm": [
+            5,
+            91,
+            100
+          ],
+          "point_arrivee_mm": [
+            2,
+            41,
+            103
+          ]
+        }
+      ],
+      "longueur_mm": 58.03812491229759,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "bras GNSS",
+        "guide court nord CA01"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F36_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F24A",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F24A:branche_1",
+          "origine": "F24A:origine",
+          "destination": "GaineSignalNord:B",
+          "nature": "branche_individuelle",
+          "longueur_mm": 65.164491322447,
+          "point_depart_mm": [
+            65,
+            4,
+            102
+          ],
+          "point_arrivee_mm": [
+            65.0,
+            55.0,
+            118.0
+          ]
+        },
+        {
+          "id": "GaineSignalNord",
+          "origine": "GaineSignalNord:B",
+          "destination": "GaineSignalNord:A",
+          "nature": "gaine_commune",
+          "longueur_mm": 30.0,
+          "point_depart_mm": [
+            65.0,
+            55.0,
+            118.0
+          ],
+          "point_arrivee_mm": [
+            35.0,
+            55.0,
+            118.0
+          ]
+        },
+        {
+          "id": "F24A:terminal",
+          "origine": "GaineSignalNord:A",
+          "destination": "F24A:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 150.2355089769107,
+          "point_depart_mm": [
+            35.0,
+            55.0,
+            118.0
+          ],
+          "point_arrivee_mm": [
+            -64,
+            15,
+            125.9
+          ]
+        }
+      ],
+      "longueur_mm": 245.4000002993577,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide est CA01",
+        "guide transversal nord tenu par colonnes",
+        "guide ouest sous Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F24A_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F24B",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F24B:terminal",
+          "origine": "F24B:origine",
+          "destination": "F24B:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 309.7544711649708,
+          "point_depart_mm": [
+            65,
+            -5,
+            102
+          ],
+          "point_arrivee_mm": [
+            -50,
+            -37.5875,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 309.7544711649708,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide sud P66/CA01",
+        "colonnes sud",
+        "guide bord sud Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F24B_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F24C",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F24C:branche_1",
+          "origine": "F24C:origine",
+          "destination": "GaineSignalNord:A",
+          "nature": "branche_individuelle",
+          "longueur_mm": 29.707702517727604,
+          "point_depart_mm": [
+            27,
+            41,
+            103
+          ],
+          "point_arrivee_mm": [
+            35.0,
+            61.0,
+            116.0
+          ]
+        },
+        {
+          "id": "GaineSignalNord",
+          "origine": "GaineSignalNord:A",
+          "destination": "GaineSignalNord:B",
+          "nature": "gaine_commune",
+          "longueur_mm": 30.0,
+          "point_depart_mm": [
+            35.0,
+            61.0,
+            116.0
+          ],
+          "point_arrivee_mm": [
+            65.0,
+            61.0,
+            116.0
+          ]
+        },
+        {
+          "id": "F24C:terminal",
+          "origine": "GaineSignalNord:B",
+          "destination": "F24C:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 254.76990816987248,
+          "point_depart_mm": [
+            65.0,
+            61.0,
+            116.0
+          ],
+          "point_arrivee_mm": [
+            35,
+            -30,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 314.4776106876001,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide nord CA01",
+        "colonne(+60,+37)",
+        "guide sous bord est Holybro",
+        "support extracteur à créer"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F24C_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F33",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F33:terminal",
+          "origine": "F33:origine",
+          "destination": "F33:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 186.26299789465972,
+          "point_depart_mm": [
+            17,
+            41,
+            103
+          ],
+          "point_arrivee_mm": [
+            59.825,
+            -4,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 186.26299789465972,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide nord/est externe",
+        "colonne(+60,+37)",
+        "guide est Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F33_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F35",
+      "groupe": "AVIONIQUE_SIGNAUX",
+      "segments": [
+        {
+          "id": "F35:terminal",
+          "origine": "F35:origine",
+          "destination": "F35:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 123.09038140767306,
+          "point_depart_mm": [
+            65,
+            -16,
+            103
+          ],
+          "point_arrivee_mm": [
+            45.825,
+            -10.5,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 123.09038140767306,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "guide est CA01",
+        "colonne(+60,-37)",
+        "guide accès AD&IO"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F35_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F25",
+      "groupe": "SECURITE",
+      "segments": [
+        {
+          "id": "F25:terminal",
+          "origine": "F25:origine",
+          "destination": "F25:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 273.3940640919881,
+          "point_depart_mm": [
+            0,
+            -86,
+            97.5
+          ],
+          "point_arrivee_mm": [
+            52.825,
+            9.5,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 273.3940640919881,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "bras sécurité X±10",
+        "P66 bord sud",
+        "guide colonne(+60,-37)",
+        "guide est Holybro"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F25_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F20",
+      "groupe": "VENTILATION",
+      "segments": [
+        {
+          "id": "F20:terminal",
+          "origine": "F20:origine",
+          "destination": "F20:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 19.66963641852448,
+          "point_depart_mm": [
+            -52.0,
+            29.1,
+            150.0
+          ],
+          "point_arrivee_mm": [
+            -52.5,
+            38.2,
+            135.5
+          ]
+        }
+      ],
+      "longueur_mm": 19.66963641852448,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "périphérie refroidisseur",
+        "retenue sur support refroidisseur sans obturer entrée air"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F20_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F13A",
+      "groupe": "RF",
+      "segments": [
+        {
+          "id": "F13A:terminal",
+          "origine": "F13A:origine",
+          "destination": "F13A:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 47.18906110630759,
+          "point_depart_mm": [
+            -50,
+            25,
+            106
+          ],
+          "point_arrivee_mm": [
+            -71,
+            28,
+            136
+          ]
+        }
+      ],
+      "longueur_mm": 47.18906110630759,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "supportRF gauche prolongé jusqu’au bord CA01",
+        "montant support antenne verticale"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F13A_Prototype.FCStd",
+      "validation": "À valider"
+    },
+    {
+      "id": "F13B",
+      "groupe": "RF",
+      "segments": [
+        {
+          "id": "F13B:terminal",
+          "origine": "F13B:origine",
+          "destination": "F13B:destination",
+          "nature": "branche_individuelle",
+          "longueur_mm": 46.06311123605831,
+          "point_depart_mm": [
+            -50,
+            15,
+            106
+          ],
+          "point_arrivee_mm": [
+            -71,
+            -15,
+            108
+          ]
+        }
+      ],
+      "longueur_mm": 46.06311123605831,
+      "appuis": [
+        "P75_Cadre"
+      ],
+      "support_documente": [
+        "pontRF isolant côté gauche CA01",
+        "supportRF horizontal"
+      ],
+      "integration": "conservee",
+      "justification": "Axe et interfaces conservés. La décision de groupe et les contrôles restent applicables.",
+      "objet": "Cable",
+      "fichier": "pieces/commerce/W_F13B_Prototype.FCStd",
+      "validation": "À valider"
+    }
+  ]
+}

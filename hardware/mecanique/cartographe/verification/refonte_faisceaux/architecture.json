@@ -1,0 +1,54 @@
+{
+  "schema": "cartographe.architecture-faisceaux.v1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "cadrage": {
+    "priorite": "ORCH-CAO-MASSE-1",
+    "question": "Mutualiser les passages et les protections du prototype complet sans déplacer les équipements ni modifier les interfaces électriques.",
+    "reference": "cartographe_faisceaux_autonome, candidat contrôlé le 8 novembre",
+    "imperatifs": ["Conservation des identités, terminaisons et poses fonctionnelles", "Aucun nouveau recouvrement volumique non expliqué", "Aucune superposition fictive d'axes", "Indépendance des alimentations de secours", "Enveloppes dimensionnées et ouvrables par hypothèse"],
+    "budget_et_arret": "Comparer l'assemblage précédent, le regroupement intégral par zones et les fenêtres de gaine identifiées sur les corridors mesurés. Réserver une seconde passe aux conflits discriminants. Arrêter quand aucun ajout n'est géométriquement défendable sur ces corridors ou qu'une cote réelle commande la décision.",
+    "signal": "Fermeture XLink, couverture, câbles reconstruits ou conservés, longueurs communes réellement modélisées, bilan BRep par variante et données physiques ouvertes."
+  },
+  "groupes": [
+    {"id":"PACK_DECHARGE","label":"Énergie · batterie, BMS et coupure","routes":["F01_NEG","F01_POS","F37_POS","F37_NEG"],"couleur":"#cc553e","zone":"Étage bas","decision":"Chemins existants vers connecteurs et traversées distinctes. Préserver l'accès à la coupure et aux terminaisons de puissance."},
+    {"id":"PACK_MESURE","label":"Énergie · mesure cellule et température","routes":["BALANCE","NTC1","NTC2"],"couleur":"#dea62d","zone":"Étage bas, le long de la cassette","decision":"Mesure analogique séparée de la puissance et de l'UART. Conserver les deux positions de mesure sur le pack."},
+    {"id":"PACK_UART","label":"Énergie · UART isolé du BMS","routes":["F40","F41"],"couleur":"#53a1b3","zone":"Montée isolateur et boucle de réserve USB","decision":"Conserver les cordons de part et d'autre de l'isolation, les supports P72/P75 et la réserve P77."},
+    {"id":"ENERGIE_DISTRIBUTION","label":"Énergie · PM08 et distribution","routes":["F38_POS","F38_NEG","F05_POS","F05_NEG","F08_AMONT","F08_AVAL"],"couleur":"#d87337","zone":"Traversée basse et étage énergie","decision":"Gaine locale F38 sur aller et retour d'un même circuit. Séparer les branches de mesure et garder l'accès au fusible entre F08 amont et aval."},
+    {"id":"AVIONIQUE_PRIMAIRE","label":"Avionique · alimentation primaire","routes":["F06"],"couleur":"#b76138","zone":"Montée ouest vers POWER1","decision":"Alimentation de vol primaire indépendante. Pas de gaine commune avec POWER2 dans la configuration candidate."},
+    {"id":"AVIONIQUE_SECOURS","label":"Avionique · alimentation de secours","routes":["F32"],"couleur":"#a58743","zone":"Montée ouest vers POWER2","decision":"Conserver une gaine distincte. Un corridor voisin n'établit pas la séparation face à un dommage commun."},
+    {"id":"CALCUL_ALIM","label":"Calcul · alimentation Jetson","routes":["F09"],"couleur":"#e88b46","zone":"Montée CA01 vers Jetson","decision":"Garder la terminaison XT30 accessible et isolée des petits signaux."},
+    {"id":"MAIN_ESC","label":"Vol · tronc des commandes ESC","routes":["F04_1","F04_2","F04_3","F04_4"],"couleur":"#4b9f44","zone":"P75, éclatement vers quatre bras","decision":"Quatre voies distinctes de même famille, partage de protection limité au corridor rectiligne du peigne. Limites de dommage commun, retour électrique et CEM à vérifier."},
+    {"id":"BRAS_1","label":"Bras 1 · puissance et balisage sur selles séparées","routes":["F02_1","F03_1","LED_1"],"couleur":"#c65b50","zone":"Bras 1","decision":"Fixation commune sur selle à gorges distinctes. Alimentation ESC et phases moteur distinctes à la borne de l'ESC. Réserve LED conditionnelle."},
+    {"id":"BRAS_2","label":"Bras 2 · puissance et balisage sur selles séparées","routes":["F02_2","F03_2","LED_2"],"couleur":"#c65b50","zone":"Bras 2","decision":"Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."},
+    {"id":"BRAS_3","label":"Bras 3 · puissance et balisage sur selles séparées","routes":["F02_3","F03_3","LED_3"],"couleur":"#c65b50","zone":"Bras 3","decision":"Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."},
+    {"id":"BRAS_4","label":"Bras 4 · puissance et balisage sur selles séparées","routes":["F02_4","F03_4","LED_4"],"couleur":"#c65b50","zone":"Bras 4","decision":"Même architecture de selle, sans gaine commune puissance, balisage et signal. Conserver l'accès ESC."},
+    {"id":"AIRY","label":"Perception · tronc Airy et trois branches","routes":["AIRY","AIRY_ETH","AIRY_PWR","AIRY_SYNC"],"couleur":"#139cab","zone":"Montée LiDAR et éclatement Ethernet/12 V/temps","decision":"Conserver la topologie en Y à trois départs du séparateur OEM. Les quatre volumes sont des enveloppes distinctes et l'intérieur de la jonction reste indéfini."},
+    {"id":"CAMERA_USB","label":"Perception · USB3 caméra suspendue","routes":["F16"],"couleur":"#925ac7","zone":"Boucle mobile sous P73 puis parcours fixe vers P75","decision":"Boucle mobile indépendante de la gaine commune et de F_M8. Conserver la séparation R50 mobile et R24 fixe sur le candidat précédent."},
+    {"id":"CAMERA_SYNC","label":"Perception · synchronisation caméra M8","routes":["F_M8"],"couleur":"#b86acb","zone":"Caméra suspendue puis montée vers CA01","decision":"Conserver le cordon M8 et sa sortie coudée. Sa tenue en mouvement reste à établir indépendamment de F16."},
+    {"id":"CAN_PM","label":"Avionique · DroneCAN puissance","routes":["F31"],"couleur":"#75abc5","zone":"Bord sud et colonne est","decision":"Préserver le départ distinct du réseau GNSS et de la puissance. Interfaces et rayon indépendants à confirmer."},
+    {"id":"NAV_GNSS","label":"Navigation · CAN et temps GNSS","routes":["F21","F36"],"couleur":"#30ad8a","zone":"Bras GNSS et dérivation nord vers CA01 et autopilote","decision":"Cordon GNSS CAN et UART2 sur axes distincts. La cohabitation en gaine reste conditionnée à l'évaluation du couplage et du montage."},
+    {"id":"RF","label":"Radio · coaxiaux de diversité","routes":["F13A","F13B"],"couleur":"#c39639","zone":"Pont isolant ouest et deux antennes","decision":"Deux cordons RF courts. Préserver la séparation des prises, l'orientation des antennes et l'absence de pincement des coaxiaux."},
+    {"id":"SECURITE","label":"Sécurité · commande et signalisation USL","routes":["F25"],"couleur":"#ecab32","zone":"Bras sécurité puis bord sud","decision":"Garder la fonction de sécurité sur son cordon distinct et accessible."},
+    {"id":"AVIONIQUE_SIGNAUX","label":"Avionique · télémétrie et interfaces CA01","routes":["F12","F24A","F24B","F24C","F33","F35"],"couleur":"#617fc6","zone":"Périphérie nord, est et sud de la pile","decision":"Corridors proches avec branches aux ports. Maintenir indépendance des câbles tant que blindages, retours, démontabilité et capacité d'accès ne sont pas établis."},
+    {"id":"VENTILATION","label":"Avionique · cordon du ventilateur","routes":["F20"],"couleur":"#749da4","zone":"Périphérie du refroidisseur","decision":"Garder le branchement court avec accès et sans obturation de l'entrée d'air."}
+  ],
+  "jonctions": [
+    {"id":"Y_AIRY","groupe":"AIRY","entrant":"AIRY","sortants":["AIRY_ETH","AIRY_PWR","AIRY_SYNC"],"point_mm":[-80,64,120],"nature":"éclatement physique OEM candidat, trois fonctions distinctes"},
+    {"id":"FUSIBLE_CA01","groupe":"ENERGIE_DISTRIBUTION","entrant":"F08_AMONT","sortants":["F08_AVAL"],"point_mm":null,"nature":"organe électrique distinct, accès à préserver"}
+  ],
+  "gaines_heritees": [
+    {"id":"ProtectionF38","groupe":"ENERGIE_DISTRIBUTION","membres":["F38_POS","F38_NEG"],"depart_mm":[-30,-99,52],"arrivee_mm":[50,-99,52],"cavite":"Interieur","guide":"P73_Guide","paroi_mm":0.9,"largeur_interieure_mm":18,"hauteur_interieure_mm":8,"reference_candidate":"HellermannTyton Twist-In 19 170-01014, comportement en ovale à vérifier"}
+  ],
+  "fixations_candidats": [
+    {"gaine":"GaineMAIN","support":"P75_Cadre","stations_existantes_x_mm":[79,84.3],"fonction":"Maintien amont des quatre câbles sur peigne. Retenue axiale de la gaine à éprouver."},
+    {"gaine":"GaineSignalNord","support":"P75_Cadre","stations_a_reexaminer":["F24A_AR_35","F24A_AR_65","F24C_AR_40","F24C_AR_65"],"fonction":"Contrôler le serrage autour de la protection et du guide après ouverture. Les positions de colliers communs et le passage des outils restent candidats."},
+    {"gaine":"ProtectionF38","support":"P73_Guide","stations_candidats_x_mm":[-5,40],"fonction":"Deux positions candidates autour de la gaine et du guide. Effort de serrage, portée et isolation à éprouver."},
+    {"gaine":"GaineNTC","support":null,"fonction":"Les appuis P62 restent hors gaine. Fermeture et retenue axiale à déterminer en gardant l'accès au BMS et aux sondes."}
+  ],
+  "sources_fabricants": [
+    {"id":"USB-HF","url":"https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html","applicabilite":"Famille candidate F16, 22 mm statique et 48 mm flexion continue à rattacher au cordon commandé"},
+    {"id":"AIRY-OEM","url":"https://store.robosense.ai/ja/products/airy-splitter-1-to-3-aviation-connector-cable","applicabilite":"Topologie du séparateur fabricant de mise au point. Le modèle ne valide ni le brochage ni la longueur commerciale pour le vol"},
+    {"id":"PET-08","url":"https://www.hellermanntyton.com/au/products/open-woven-sleeves/twist-in-08/170-01001","applicabilite":"Référence comparative de textile ouvrable, épaisseur 0,9 mm. Aucune assimilation automatique entre section circulaire fournisseur et capsule idéalisée"},
+    {"id":"PM08","url":"https://holybro.com/collections/power-modules-pdbs/products/dronecan-pm08-power-module-14s-200a","applicabilite":"AWG8 et limites du module, ampacité réelle en gaine et rayon de montage ouverts"}
+  ]
+}

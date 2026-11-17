@@ -1,0 +1,886 @@
+{
+  "schema": "cartographe.integration-faisceaux-autonomie.v1",
+  "date": "2026-11-08",
+  "status": "CANDIDAT_CONDITIONNEL",
+  "maturite": "Implémenté sur copie / À valider",
+  "copy_root": "hardware/mecanique/cartographe_faisceaux_autonome",
+  "entry": "assemblages/Prototype_Cartographe.FCStd",
+  "entry_sha256": "45245bf5ccdeaf3b5328f52d23b365105c8e259270d335e76c21cc3bc536b259",
+  "scope": "F16, suspension caméra aux poses discrètes, P73 et huit regroupements. Les liaisons autres que F16 gardent leurs parcours.",
+  "source_preservation": {
+    "original": {
+      "sources_unchanged": true,
+      "files_checked": 143
+    },
+    "baseline": {
+      "sources_unchanged": true,
+      "files_checked": 144
+    }
+  },
+  "reopened_documents": 138,
+  "routes_count": 53,
+  "routes_unchanged": 52,
+  "length_total_before_mm": 12125.900339059066,
+  "length_total_after_mm": 12195.334261136763,
+  "f16": {
+    "id": "F16_R50_X200_Z0",
+    "native": "verification\\candidats\\F16_R50_X200_Z0.FCStd",
+    "object": "Cable002",
+    "source_before_length_mm": 425.17384217864503,
+    "length_mm": 494.607764256343,
+    "radius_mobile_mm": 50,
+    "radius_fixed_mm": 24,
+    "mobile_length_mm": 315.4404525859488,
+    "manufactured_length_mm": null,
+    "commercial_reference": null,
+    "estimated_overall_length_mm": 574.107764256343,
+    "estimated_length_assumption": "Même allowance de 79,5 mm que la baseline; convention fabricant inconnue.",
+    "decisions": [
+      "X200 favorise l’emprise latérale; Z0 laisse 25 mm de droit en amont de V75, Z10 et Z20 en laissent 15 et 5 mm.",
+      "Retirer trois doigts du guide P73, conserver la retenue V75 et les quatre stations P75.",
+      "Conserver les connecteurs et axes CAO. Boucle indépendante du M8."
+    ],
+    "clearance_p75_mm": 0.10520158525979001,
+    "acceptable_clearance_mm": null,
+    "clearance_oem079_mm": null,
+    "route_variants": [
+      {
+        "id": "F16_R50_X200_Z-10",
+        "length_mm": 495.9688535431568,
+        "native": "verification\\candidats\\F16_R50_X200_Z-10.FCStd",
+        "proof": "autonomie_F16_R50_X200_Z-10.json",
+        "polyline_feasible": true,
+        "collisions": 1,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X200_Z0",
+        "length_mm": 494.607764256343,
+        "native": "verification\\candidats\\F16_R50_X200_Z0.FCStd",
+        "proof": "autonomie_F16_R50_X200_Z0.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X200_Z10",
+        "length_mm": 493.459234398895,
+        "native": "verification\\candidats\\F16_R50_X200_Z10.FCStd",
+        "proof": "autonomie_F16_R50_X200_Z10.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X200_Z20",
+        "length_mm": 492.4793385972155,
+        "native": "verification\\candidats\\F16_R50_X200_Z20.FCStd",
+        "proof": "autonomie_F16_R50_X200_Z20.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X220_Z-10",
+        "length_mm": 535.9688535431568,
+        "native": "verification\\candidats\\F16_R50_X220_Z-10.FCStd",
+        "proof": "autonomie_F16_R50_X220_Z-10.json",
+        "polyline_feasible": true,
+        "collisions": 1,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X220_Z0",
+        "length_mm": 534.607764256343,
+        "native": "verification\\candidats\\F16_R50_X220_Z0.FCStd",
+        "proof": "autonomie_F16_R50_X220_Z0.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "exploratoire non figée"
+      },
+      {
+        "id": "F16_R50_X220_Z10",
+        "length_mm": 533.459234398895,
+        "native": "verification\\candidats\\F16_R50_X220_Z10.FCStd",
+        "proof": "autonomie_F16_R50_X220_Z10.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X220_Z20",
+        "length_mm": 532.4793385972155,
+        "native": "verification\\candidats\\F16_R50_X220_Z20.FCStd",
+        "proof": "autonomie_F16_R50_X220_Z20.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X240_Z-10",
+        "length_mm": 575.9688535431566,
+        "native": "verification\\candidats\\F16_R50_X240_Z-10.FCStd",
+        "proof": "autonomie_F16_R50_X240_Z-10.json",
+        "polyline_feasible": true,
+        "collisions": 1,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X240_Z0",
+        "length_mm": 574.6077642563429,
+        "native": "verification\\candidats\\F16_R50_X240_Z0.FCStd",
+        "proof": "autonomie_F16_R50_X240_Z0.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X240_Z10",
+        "length_mm": 573.4592343988949,
+        "native": "verification\\candidats\\F16_R50_X240_Z10.FCStd",
+        "proof": "autonomie_F16_R50_X240_Z10.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R50_X240_Z20",
+        "length_mm": 572.4793385972154,
+        "native": "verification\\candidats\\F16_R50_X240_Z20.FCStd",
+        "proof": "autonomie_F16_R50_X240_Z20.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X200_Z-10",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X200_Z-10.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X200_Z0",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X200_Z0.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X200_Z10",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X200_Z10.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X200_Z20",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X200_Z20.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X220_Z-10",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X220_Z-10.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X220_Z0",
+        "length_mm": 532.0325422171122,
+        "native": "verification\\candidats\\F16_R52_X220_Z0.FCStd",
+        "proof": "autonomie_F16_R52_X220_Z0.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X220_Z10",
+        "length_mm": 530.8840123596642,
+        "native": "verification\\candidats\\F16_R52_X220_Z10.FCStd",
+        "proof": "autonomie_F16_R52_X220_Z10.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X220_Z20",
+        "length_mm": 529.9041165579847,
+        "native": "verification\\candidats\\F16_R52_X220_Z20.FCStd",
+        "proof": "autonomie_F16_R52_X220_Z20.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X240_Z-10",
+        "length_mm": null,
+        "native": null,
+        "proof": "autonomie_F16_R52_X240_Z-10.json",
+        "polyline_feasible": false,
+        "collisions": null,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "calcul seulement"
+      },
+      {
+        "id": "F16_R52_X240_Z0",
+        "length_mm": 572.0325422171122,
+        "native": "verification\\candidats\\F16_R52_X240_Z0.FCStd",
+        "proof": "autonomie_F16_R52_X240_Z0.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X240_Z10",
+        "length_mm": 570.8840123596641,
+        "native": "verification\\candidats\\F16_R52_X240_Z10.FCStd",
+        "proof": "autonomie_F16_R52_X240_Z10.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      },
+      {
+        "id": "F16_R52_X240_Z20",
+        "length_mm": 569.9041165579846,
+        "native": "verification\\candidats\\F16_R52_X240_Z20.FCStd",
+        "proof": "autonomie_F16_R52_X240_Z20.json",
+        "polyline_feasible": true,
+        "collisions": 0,
+        "distance_scope": "Dégagement exact à interpréter avec controle_details_autonomie.json",
+        "trace_state": "mesurée"
+      }
+    ]
+  },
+  "motion": {
+    "poses": [
+      {
+        "id": "POSE_NOMINAL",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_NOMINAL.json",
+        "rigid_proof": "suspension_POSE_NOMINAL.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_1",
+        "translation_mm": [
+          -1,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_1.json",
+        "rigid_proof": "suspension_POSE_AXE_1.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_2",
+        "translation_mm": [
+          1,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_2.json",
+        "rigid_proof": "suspension_POSE_AXE_2.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 2,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_3",
+        "translation_mm": [
+          0,
+          -1,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_3.json",
+        "rigid_proof": "suspension_POSE_AXE_3.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_AXE_4",
+        "translation_mm": [
+          0,
+          1,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_4.json",
+        "rigid_proof": "suspension_POSE_AXE_4.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_AXE_5",
+        "translation_mm": [
+          0,
+          0,
+          -1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_5.json",
+        "rigid_proof": "suspension_POSE_AXE_5.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_AXE_6",
+        "translation_mm": [
+          0,
+          0,
+          1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_6.json",
+        "rigid_proof": "suspension_POSE_AXE_6.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 1,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_AXE_7",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          -1,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_7.json",
+        "rigid_proof": "suspension_POSE_AXE_7.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": -5.684341886080802e-14
+      },
+      {
+        "id": "POSE_AXE_8",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          1,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_8.json",
+        "rigid_proof": "suspension_POSE_AXE_8.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_9",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          -1,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_9.json",
+        "rigid_proof": "suspension_POSE_AXE_9.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 5.684341886080802e-14
+      },
+      {
+        "id": "POSE_AXE_10",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          1,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_AXE_10.json",
+        "rigid_proof": "suspension_POSE_AXE_10.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 3,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_11",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          -1
+        ],
+        "f16_proof": "autonomie_POSE_AXE_11.json",
+        "rigid_proof": "suspension_POSE_AXE_11.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 3,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_AXE_12",
+        "translation_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          1
+        ],
+        "f16_proof": "autonomie_POSE_AXE_12.json",
+        "rigid_proof": "suspension_POSE_AXE_12.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 1,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_COMB_13",
+        "translation_mm": [
+          -0.5,
+          -0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          -0.5,
+          -0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_13.json",
+        "rigid_proof": "suspension_POSE_COMB_13.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_COMB_14",
+        "translation_mm": [
+          -0.5,
+          -0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_14.json",
+        "rigid_proof": "suspension_POSE_COMB_14.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 1,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_COMB_15",
+        "translation_mm": [
+          -0.5,
+          0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          0.5,
+          -0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_15.json",
+        "rigid_proof": "suspension_POSE_COMB_15.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 1,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_COMB_16",
+        "translation_mm": [
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_16.json",
+        "rigid_proof": "suspension_POSE_COMB_16.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 4,
+        "length_error_mm": 1.7053025658242404e-13
+      },
+      {
+        "id": "POSE_COMB_17",
+        "translation_mm": [
+          0.5,
+          -0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          -0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_17.json",
+        "rigid_proof": "suspension_POSE_COMB_17.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 3,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_COMB_18",
+        "translation_mm": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_18.json",
+        "rigid_proof": "suspension_POSE_COMB_18.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 2,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_COMB_19",
+        "translation_mm": [
+          0.5,
+          0.5,
+          -0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          0.5,
+          -0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_19.json",
+        "rigid_proof": "suspension_POSE_COMB_19.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 2,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_COMB_20",
+        "translation_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "f16_proof": "autonomie_POSE_COMB_20.json",
+        "rigid_proof": "suspension_POSE_COMB_20.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 6,
+        "length_error_mm": 1.1368683772161603e-13
+      },
+      {
+        "id": "REJET_Z_PLUS_2",
+        "translation_mm": [
+          0,
+          0,
+          2
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_REJET_Z_PLUS_2.json",
+        "rigid_proof": "suspension_REJET_Z_PLUS_2.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 6,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "REJET_X_PLUS_1_5",
+        "translation_mm": [
+          1.5,
+          0,
+          0
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_REJET_X_PLUS_1_5.json",
+        "rigid_proof": "suspension_REJET_X_PLUS_1_5.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 8,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "REJET_Z_MOINS_5",
+        "translation_mm": [
+          0,
+          0,
+          -5
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_REJET_Z_MOINS_5.json",
+        "rigid_proof": "suspension_REJET_Z_MOINS_5.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 4,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_PLAFOND",
+        "translation_mm": [
+          0,
+          0,
+          1
+        ],
+        "rotation_xyz_deg": [
+          0,
+          -0.5,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_PLAFOND.json",
+        "rigid_proof": "suspension_POSE_PLAFOND.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 0.0
+      },
+      {
+        "id": "POSE_PLAFOND_COMB",
+        "translation_mm": [
+          0,
+          0,
+          0.5
+        ],
+        "rotation_xyz_deg": [
+          0.5,
+          -0.5,
+          0.5
+        ],
+        "f16_proof": "autonomie_POSE_PLAFOND_COMB.json",
+        "rigid_proof": "suspension_POSE_PLAFOND_COMB.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 3,
+        "length_error_mm": -1.1368683772161603e-13
+      },
+      {
+        "id": "POSE_SOUS_CHARGE",
+        "translation_mm": [
+          0,
+          0,
+          -0.724
+        ],
+        "rotation_xyz_deg": [
+          0,
+          0,
+          0
+        ],
+        "f16_proof": "autonomie_POSE_SOUS_CHARGE.json",
+        "rigid_proof": "suspension_POSE_SOUS_CHARGE.json",
+        "f16_volume_collisions": 0,
+        "rigid_collisions": 0,
+        "length_error_mm": 5.684341886080802e-14
+      }
+    ],
+    "real_travel_mm": null,
+    "hypothesis": "Déplacements rigides et rotation RzRyRx autour de [10,0,-128.5] mm, 8 combinaisons de signes couplés.",
+    "rigid_collision_poses": 16,
+    "max_abs_f16_length_error_mm": 1.7053025658242404e-13,
+    "added_obstacles_collisions": 0,
+    "added_obstacles_bbox_disjoint_pairs": 1782
+  },
+  "groups": {
+    "F38_POS/F38_NEG": "Enveloppe ovale ouvrable 80 mm, ponts locaux P73 +2 mm, retenues candidates X=-5 et X=40 mm.",
+    "F05_POS/F05_NEG": "Parcours distincts, protection locale selon exposition.",
+    "F37_POS/F37_NEG": "Branches distinctes jusqu’au QS8.",
+    "NTC1/NTC2": "Branches distinctes, gaine 6 mm écartée.",
+    "F24A/F24B/F24C": "Dérivations indépendantes.",
+    "F33/F35": "Corridors distincts.",
+    "F21/F36": "Canaux séparés, gaine 5 mm écartée.",
+    "F16/F_M8": "Boucles distinctes."
+  },
+  "protection_variants": [
+    {
+      "id": "F38_L130",
+      "selected": false,
+      "collisions": 2,
+      "proof": "protection_F38_L130.json",
+      "native": "verification\\candidats\\F38_L130.FCStd",
+      "sha256": "ab1a804ce5be03b0b830e9683e6083c62d493311f39b6c74fa9de1ec07609e55"
+    },
+    {
+      "id": "F38_L80",
+      "selected": false,
+      "collisions": 1,
+      "proof": "protection_F38_L80.json",
+      "native": "verification\\candidats\\F38_L80.FCStd",
+      "sha256": "1746a13488a61b7ceb7084218df6937c7988ca5be3f26cd8dbc479e893728eb8"
+    },
+    {
+      "id": "F38_L40",
+      "selected": false,
+      "collisions": 1,
+      "proof": "protection_F38_L40.json",
+      "native": "verification\\candidats\\F38_L40.FCStd",
+      "sha256": "d072b11cb43c6ef9a392f09b4bc41b47d1f825f0041bd60641d23d7da92be5fd"
+    },
+    {
+      "id": "F38_L20",
+      "selected": false,
+      "collisions": 1,
+      "proof": "protection_F38_L20.json",
+      "native": "verification\\candidats\\F38_L20.FCStd",
+      "sha256": "42370082638df82082bdce123129d77ca2398451f19964a10ff4bd94defe489a"
+    },
+    {
+      "id": "NTC_L6",
+      "selected": false,
+      "collisions": 0,
+      "proof": "protection_NTC_L6.json",
+      "native": "verification\\candidats\\NTC_L6.FCStd",
+      "sha256": "da157c63e21bb6e5df2bdc5e6d5b3df152646a10b3a1d4e79f09648e2d29d5f7"
+    },
+    {
+      "id": "GNSS_L5",
+      "selected": false,
+      "collisions": 0,
+      "proof": "protection_GNSS_L5.json",
+      "native": "verification\\candidats\\GNSS_L5.FCStd",
+      "sha256": "93f2a2eb2abf716dfd5c14e44d4ca2ea0c4a4a00b66cf945087263e6423baefe"
+    },
+    {
+      "id": "F38_OVALE_L80",
+      "selected": true,
+      "collisions": 0,
+      "proof": "protection_F38_OVALE_L80.json",
+      "native": "verification\\candidats\\F38_OVALE_L80.FCStd",
+      "sha256": "f16e5e928949da8ae6fcda81d538d72e7f5167aab1d77aa466fda10682410bc4"
+    }
+  ],
+  "phases": {
+    "offline_calculation": "passed",
+    "native_generation": "passed",
+    "native_recompute": "passed",
+    "final_reopen": "passed",
+    "independent_review": "completed",
+    "interactive": "not_executed",
+    "physical": "not_executed"
+  },
+  "validation_open": [
+    "Mesurer masse/précharge, courses et rotations du bloc suspendu avec les câbles montés et charges représentatives.",
+    "Confirmer auprès du fabricant la longueur utile, les sorties Up, le droit terminal, les tolérances et R48 dynamique du cordon sur mesure. Vérifier effort, fatigue, vibration et USB3 au banc.",
+    "Mesurer jeux montés près de P75 et dégagement de la boucle, accès et montage. Vérifier tenue des ponts P73 et colliers.",
+    "Pour F38, vérifier fermeture et géométrie ovale réelle, profil de courant, températures et échauffement sous gaine."
+  ],
+  "mass_complete_g": null,
+  "proof_sha256": {
+    "integration_autonomie.json": "ef94494bd5e58db593dffa268d80729c25a62a6f5b6861663237204d1411e8fe",
+    "reouverture_autonomie.json": "ab5357694e5aa21c29fb8b4dbcb4a821ce11e91427ffcc347c390ed22ee87540",
+    "delta_poses_autonomie.json": "0c83755f0f2fedc2e20e1567200da3395e5dc0f8e71883ee90dbb5d77edcaee7",
+    "controle_details_autonomie.json": "7fbe05dfa1c966b92404bd637fb096881e44f534c329884799dd50e52cbb7c3d",
+    "guide_autonomie.json": "dbb33208820f7cf703a1bc0378d8f505f3e792cf19840cd886de7b7d8a2a08a7",
+    "execution_integration_autonomie.json": "4790ce9c0fd1052a08322d25f79ca4b1799b373cfb4395c4c19dac18a1eeb290",
+    "recherche_suspension.json": "f31aa782eae0a94003991b3d8f1f6007d36ffb8a31c6da82f8d8fe3e6abf197f",
+    "recherche_groupes.json": "a7d95d5172724f7e548c06861ae9411a3970f0aa574ae4076650208380f8a9f2",
+    "resultat_calcul_groupes.json": "dc5cbb11c03bbb771a4f668341f72f6cf4c09550493b125c74de928eebcde163",
+    "revue_autonomie.json": "d2be0af2ef2c984caaf8b228435ce20f98f0979c7a783fe7041d377f51ca6db2",
+    "probe_autonomie.json": "7e46a7f5d0a41c50702dd0d0b50b3c52d84e170842fc59f6639adf45a49050ea",
+    "tests_calcul_f16.json": "52fd2b2079c24386217f838beb401fb3b6f61baa38314792aee99df7f2cbcb1c",
+    "variantes_autonomie.json": "42bcf669f0f0d0fa0e71768faa5813115b82dd9e5e4660fa4247e89341e42b5d",
+    "poses_autonomie.json": "50ac78bfe9353b5b45d249e55b135b42b2dc1258f8b88c4590edad17b5f93a3f",
+    "vues/04_autonomie_F16_F38.png": "8d8e08bde4af759cf363569b709d93cc37d55973b86efa1f9cb6faed0c3631ce"
+  }
+}

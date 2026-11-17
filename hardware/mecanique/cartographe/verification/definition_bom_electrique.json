@@ -1,0 +1,816 @@
+{
+  "schema_version": 1,
+  "reference": "DEFINITION-BOM-PROTOTYPE-ELECTRIQUE",
+  "date": "2026-10-16",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "manufacturing_ready": false,
+  "objet": "Définitions électriques consolidées dans la BOM prototype et rapprochées de la refonte CAO en cours de contrôle ; aucune qualification physique.",
+  "limites": [
+    "Ce fichier propose des sélections de définition et des quantités de conception, sans attester un matériel reçu, une masse installée ou une compatibilité mesurée.",
+    "Les longueurs de coupe des faisceaux fabriqués doivent être calculées sur le nouvel assemblage puis vérifiées au montage ; aucune longueur du dock historique n'est transférée.",
+    "Les choix de calibres des fusibles sont des candidats de banc, pas une protection démontrée. Courant de mission, température, I²t, courant de court-circuit et sélectivité restent des critères de libération.",
+    "Aucun achat, aucune fabrication ni manipulation du pack ou test électrique n'a été effectué."
+  ],
+  "sources": [
+    {
+      "id": "S-NTC",
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "acces": "Copie OEM déjà présente lue par pypdf ; ouverture web en erreur",
+      "fichier": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "pages": [
+        3,
+        7,
+        12,
+        16
+      ],
+      "fait": "p12 : un ensemble double NTC 10 kΩ B3950 ±1%, 250 mm ; p3 : deux externes/une interne ; p7 : affectation contradictoire ; J7 HY2.0-4P p16."
+    },
+    {
+      "id": "S-RF",
+      "url": "https://www.radiomasterrc.com/products/rp4td-expresslrs-2-4ghz-diversity-receiver",
+      "acces": "Web fabricant consulté",
+      "fait": "Deux antennes T 2,4 GHz 65 mm installées dans le kit RP4TD."
+    },
+    {
+      "id": "S-SD",
+      "url": "https://www.kingston.com/en/memory/search?partid=SDCE%2F32GB",
+      "acces": "Web fabricant consulté",
+      "fait": "SDCE/32GB : microSDHC 32 Go Endurance, C10/U1/A1 ; 95 Mo/s lecture et 30 Mo/s écriture annoncés."
+    },
+    {
+      "id": "S-CELLS",
+      "url": "https://radiomasterrc.com/products/18650-3200mah-3-7v-battery-2pcs-for-tx16s-boxer-tx12-mt12-radios",
+      "acces": "Web fabricant consulté",
+      "fait": "HP0157.18650-3200 : deux 18650 3200 mAh, 3,7 V, compatibilité Pocket annoncée ; 46,22 g par cellule."
+    },
+    {
+      "id": "S-RTK",
+      "url": "https://holybro.com/products/h-rtk-f9p-base",
+      "acces": "Web fabricant consulté",
+      "fait": "SKU12022 inclut HANT-X627A, câble SMA mâle–TNC mâle 5 m, adaptateur 1/4 femelle–5/8-11 mâle et câble USB-C ; trépied exclu. Module 34,8×52,7×12,9 mm ; antenne Ø152×62,2 mm."
+    },
+    {
+      "id": "S-TRIPOD",
+      "url": "https://holybro.com/products/tripod-mount",
+      "acces": "Web fabricant consulté",
+      "fait": "SKU31049 trépied aluminium/carbone filetage 5/8-11, annoncé pour base12022/HANT-X627A ; produit indiqué indisponible au moment de consultation."
+    },
+    {
+      "id": "S-USL",
+      "url": "https://store.cuav.net/shop/c-rtk-usl-expansion-module/",
+      "acces": "Web fabricant consulté",
+      "fait": "CUAV C-RTK USL intègre bouton, buzzer et LED ; 2 câbles inclus ; compatibilité électrique Holybro11072 non publiée sur cette page."
+    },
+    {
+      "id": "S-PORTS",
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+      "acces": "Web fabricant consulté",
+      "fait": "Source du brochage porteuse 11072 ; aucune équivalence avec un câble CUAV présumée."
+    },
+    {
+      "id": "S-MIDI",
+      "url": "https://www.littelfuse.com/assetdocs/passenger-commercial-vehicle-aftermarket-products-catalog?assetguid=97f08453-e60f-4d0e-93a4-5045373479e4",
+      "acces": "Catalogue fabricant consulté par recherche web",
+      "fait": "MIDI 0498080.TXN 80 A, 32 VDC ; fusible retardé à vis, entraxe30 mm, trous5,5 mm ; calibre candidat seulement."
+    },
+    {
+      "id": "S-MIDI-HOLDER",
+      "url": "https://www.littelfuse.com/assetdocs/midi-498-datasheet?assetguid=5a3ddf39-419e-44c6-91bf-270e6a6d560b",
+      "acces": "Fiche fabricant consultée",
+      "fait": "04980900ZXT : porte-fusible MIDI à fixation interne M3, couvercle, rondelles/écrous ; 58 VDC, 150 A continu, goujons M5."
+    },
+    {
+      "id": "S-ATO-HOLDER",
+      "url": "https://info.littelfuse.com/ato-fha-series-landing-page",
+      "acces": "Web fabricant consulté",
+      "fait": "Famille porte-fusibles ATO FHA, référence0FHA0001LXN identifiée ; définition détaillée FHAC protégée nécessite fiche lot."
+    },
+    {
+      "id": "S-USB-CAM",
+      "url": "https://docs.baslerweb.com/basler-cable-usb3-microb-sl-a-s",
+      "acces": "Web fabricant consulté",
+      "fait": "2200000620 : USB3 Type A–Micro-B vissé 1 m, 5 Gbit/s, Ø5,7 mm maximum, rayon28 mm installation fixe, aucune qualification de flexions répétées. Sélection antérieure remplacée par le candidat USBFireWire Up ; ne plus utiliser ses dimensions pour F16 courant.",
+      "historique": true
+    },
+    {
+      "id": "S-ISO-USB",
+      "url": "https://www.waveshare.com/catalog/product/view/id/3629/s/usb-to-rs232-485-ttl/category/37/usb-to-rs232-485-ttl.htm?sku=22547",
+      "acces": "Web fabricant consulté",
+      "fait": "Page famille FT232RNL/CH343G : USB-B et câble~1,2 m inclus ; SKU15817 FT232RNL retenu, ne pas substituer la variante22547 automatiquement."
+    },
+    {
+      "id": "S-FAN",
+      "url": "https://www.waveshare.com/product/orin-fan-pwm.htm",
+      "acces": "Source de la preuve locale déjà vérifiée T-CARTO-FAN-CONN-01",
+      "fait": "Jeu24076 choisi, 5 V0,13 A, câble37±3 mm ; brochage/accouplement Holybro non démontrés."
+    },
+    {
+      "id": "S-GNSS-COAX",
+      "url": "https://holybro.com/products/antenna-extension-cable-for-h-rtk-helical",
+      "acces": "Web fabricant consulté",
+      "fait": "Rallonges OEM H-RTK Helical disponibles en40/80/150 cm ; scénario retenu ici en montage direct sans rallonge."
+    },
+    {
+      "id": "S-CHARGE",
+      "url": "https://www.skyrc.com/files/276/100202%20S100neo%20Instruction%20Manual_V27.pdf",
+      "acces": "Source de la preuve locale T-CARTO-CHARGE-DOC-01",
+      "fait": "S100neo SK-100202 retenu, alimentation secteur intégrée ; référence de cordon dépend région/lot."
+    },
+    {
+      "id": "S-POCKET",
+      "url": "https://radiomasterrc.com/products/pocket-radio-controller-m2",
+      "acces": "Source BOM existante et produit fabricant consulté par recherche",
+      "fait": "Pocket alimentée par deux18650, câble USB fourni ; aucune fonction QGC filaire supposée."
+    },
+    {
+      "id": "S-USB-UP",
+      "url": "https://www.usbfirewire.com/parts/rr-asmuk-xxgrhf.html",
+      "acces": "Source primaire consignée dans la preuve locale des connecteurs",
+      "fait": "RR-ASMUK-20GRHF Up 508 mm ; Ø5,5 mm, R22 statique/R48 continu ; budget conservateur de gaine428,5 mm à confirmer sur lot."
+    },
+    {
+      "id": "S-M8-PHOENIX",
+      "url": "https://www.phoenixcontact.com/en-us/products/sensoractuator-cable-sac-6p-m-8mr-15-pur-sh-1522341",
+      "acces": "Source primaire consignée dans la preuve locale des connecteurs",
+      "fait": "1522341, M8 mâle A6p coudé, blindé,6×0,14 mm²,1,5 m,Ø5,2 mm,R52 ; paires torsadées et engagement non confirmés."
+    },
+    {
+      "id": "S-CAO-CONNECTEURS",
+      "path": "hardware/mecanique/cartographe/verification/connecteurs_coudes_camera_prototype.json",
+      "acces": "Preuve dimensionnelle locale",
+      "fait": "Références et géométries candidates ; polarisation, engagement, tolérances et montage réel À valider."
+    },
+    {
+      "id": "S-CAO-RETENUES",
+      "path": "hardware/mecanique/cartographe/verification/prototype_retenues.py",
+      "acces": "Recettes CAO courantes, avec extensions puissance/capteurs",
+      "fait": "Interfaces de retenue affectées52 (auxiliaires19+P76 1+puissance26+capteurs6) ; nombre posé et affectation complète encore ouverts."
+    }
+  ],
+  "patches": [
+    {
+      "id": "ELEC-NTC",
+      "reference_fabricant": "JBD A01 : ensemble double NTC10K B3950 ±1%, 250mm, HY2.0-4P",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "ELEC-BMS",
+      "definition": "Un faisceau OEM de deux sondes externes ; chaque sonde retenue sur une face externe du softpack, sous protection isolante sans écrasement. Aucun accès aux cellules scellées.",
+      "dimensions": {
+        "longueur_fils_mm": 250,
+        "nombre_sondes_externes_candidat": 2
+      },
+      "sources_ids": [
+        "S-NTC"
+      ],
+      "controle_minimal": "Identifier J7 et chaque voie à température connue ; comparer nombre de sondes livrées à p12, lever contradiction p7 ; vérifier collage/temps de réponse/seuils lot."
+    },
+    {
+      "id": "ELEC-PROTECTION-AMONT",
+      "reference_fabricant": "Littelfuse0498080.TXN80A32VDC +04980900ZXT avec capot",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "definition": "Un fusible MIDI et un porte-fusible isolé sur B+ au plus près de la sortie accessible du pack, avant QS8/PM08 ; 80A est un candidat de dimensionnement. Aucun second anti-étincelle ajouté.",
+      "dimensions": {
+        "fusible_entraxe_mm": 30,
+        "fusible_trous_mm": 5.5,
+        "enveloppe_reservee_cao_mm": [
+          70,
+          35,
+          30
+        ],
+        "nature_enveloppe": "Réservation projet, pas dimension constructeur"
+      },
+      "sources_ids": [
+        "S-MIDI",
+        "S-MIDI-HOLDER"
+      ],
+      "controle_minimal": "Vérifier Icc disponible et pouvoir de coupure de la référence exacte, ampacité8AWG, courbe temps/courant à température, énergieI²t admissible, courants propulsion/appel et coordination BMS. Ne pas libérer80A tant que ces données manquent."
+    },
+    {
+      "id": "ELEC-PROTECTION-W08",
+      "reference_fabricant": "Littelfuse ATOF0287015.L15A32VDC + porte-fusible protégé FHAC0001LXN16AWG",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "definition": "Un fusible15A candidat et un porte-fusible en ligne avec couvercle sur B+ à la sortie XT30 PDB. 15A proposé pour une entrée charge utile candidate123W/(19,8V×0,85)=7,31A, pas une mesure.",
+      "dimensions": {
+        "enveloppe_reservee_cao_mm": [
+          45,
+          25,
+          20
+        ],
+        "nature_enveloppe": "Réservation projet, dimensions lot à relever"
+      },
+      "sources_ids": [
+        "S-ATO-HOLDER"
+      ],
+      "controle_minimal": "Confirmer MPNFHAC/fiche courant et pouvoir de coupure ; Icc, transitoires, inrush, température, protection du16AWG et sélectivité avec CA01/main ; raccourcir et isoler segment avant fusible."
+    },
+    {
+      "id": "AVI-SD",
+      "reference_fabricant": "Kingston SDCE/32GB",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "microSDHC32Go Endurance C10 U1 A1 pour PX4, FAT32 ; réutiliser la carte livrée uniquement si cette référence ou caractéristiques équivalentes contrôlées.",
+      "dimensions": {
+        "standard": "microSD",
+        "enveloppe_mm": [
+          15,
+          11,
+          1
+        ]
+      },
+      "sources_ids": [
+        "S-SD"
+      ],
+      "controle_minimal": "Essai logger PX4 de20min, absence dropouts et relecture fichiers après arrêt propre ; la vitesse commerciale ne qualifie pas les latences du logger."
+    },
+    {
+      "id": "AVI-SAFE",
+      "reference_fabricant": "CUAV C-RTK USL Expansion Module, candidat",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "distinct",
+      "definition": "Un module regroupant bouton sécurité, buzzer et LED, support dédié accessible ; retenir alimentation/commande par fonctions GPS1 Holybro, sans employer ses extensions USB/RTK.",
+      "dimensions": {
+        "enveloppe_reservee_cao_mm": [
+          40,
+          30,
+          20
+        ],
+        "nature_enveloppe": "Réservation projet, pas plan fabricant"
+      },
+      "sources_ids": [
+        "S-USL",
+        "S-PORTS"
+      ],
+      "controle_minimal": "Obtenir/relever brochage et niveaux CUAV face au GPS1 Holybro ; adapter le câble par table point à point. Ne pas brancher les câbles fournis sans preuve de correspondance. Test PX4 bouton/LED/tonalité hors hélices. Indisponibilité commerciale à traiter avant commande."
+    },
+    {
+      "id": "RF-ANT",
+      "reference_fabricant": "RadioMaster antennes T2,4GHz U.FL65mm livrées RP4TD",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "AVI-CA01",
+      "definition": "Conserver les deux antennes OEM montées ; coaxiaux inclus décrits par F13, orientations orthogonales dans supports non conducteurs, dégagées du carbone.",
+      "dimensions": {
+        "longueur_nominale_antenne_mm": 65,
+        "nature": "Dénomination commerciale OEM ; ne pas confondre65mm et largeur du dipôle"
+      },
+      "sources_ids": [
+        "S-RF"
+      ],
+      "controle_minimal": "Mesurer géométrie dipôle et portée coax, contrôler encliquetage/retenueU.FL, distance carbone et réception avec les deux voies."
+    },
+    {
+      "id": "ELEC-F37",
+      "reference_fabricant": "F37-PROT : paire8AWG silicone rouge/noir, QS8-S B9310 côté pack",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "a_fabriquer",
+      "definition": "B+ après fusible principal et C− protégé du JBD vers demi-QS8 source protégé. Terminaison JBD reproduite du lot, sans cosseTE héritée.",
+      "dimensions": {
+        "section_awg": 8,
+        "longueur_coupe_mm": null,
+        "origine_longueur": "Routes nouvel assemblage à fournir par intégration"
+      },
+      "sources_ids": [
+        "S-NTC"
+      ],
+      "controle_minimal": "Continuité/polarité, absenceB− en dérivation, admissibilité/certification fil, sertissage/soudure lot, traction et échauffement."
+    },
+    {
+      "id": "ELEC-F38",
+      "reference_fabricant": "F38-PROT : fils8AWG OEM PM08 IN + demi-QS8-S B9310 côté drone",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "adaptation_inclus",
+      "parent": "ELEC-PM08",
+      "definition": "Réemployer la paire de fils IN étamés du PM08SKU15029 si conforme ; connecteur QS8 compté seulement sur ELEC-CONNECTEUR-MANUEL.",
+      "dimensions": {
+        "section_awg_candidate": 8,
+        "longueur_coupe_mm": null
+      },
+      "sources_ids": [
+        "S-PORTS"
+      ],
+      "controle_minimal": "Relever section/longueur OEM avant coupe ; sensIN/OUT, protection contacts, polarité et traction."
+    },
+    {
+      "id": "ELEC-F05",
+      "reference_fabricant": "F05-PROT : fils OEM PM08 OUT +2cosses cuivre étamé8AWG/visPDB",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "adaptation_inclus",
+      "parent": "ELEC-PM08",
+      "definition": "Un départ positif et un négatif vers bornes de la PDB18138 ; diamètre oeillet conforme à la borne réelle, aucun choix M5 repris du TE.",
+      "dimensions": {
+        "section_awg_candidate": 8,
+        "longueur_coupe_mm": null
+      },
+      "sources_ids": [],
+      "controle_minimal": "Relever goujons PDB et section OEM ; sélectionner cosse exacte puis contrôler compression, couple constructeur et isolement."
+    },
+    {
+      "id": "ELEC-F13",
+      "reference_fabricant": "Coaxiaux U.FL intégrés aux2antennes RadioMaster T65mm",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "RF-ANT",
+      "definition": "Deux coaxiaux OEM, sans raccord rallonge ni deuxième achat ; leur masse appartient au jeu antennes.",
+      "dimensions": {
+        "longueur_nominale_ensemble_mm": 65,
+        "longueur_coax_mesuree_mm": null
+      },
+      "sources_ids": [
+        "S-RF"
+      ],
+      "controle_minimal": "Vérifier portée des65mm avec placement CA01/supports ; si insuffisante, réouvrir antenne+coax comme un ensemble, ne pas inventer de rallonge RF."
+    },
+    {
+      "id": "ELEC-F16",
+      "reference_fabricant": "USBFireWire RR-ASMUK-20GRHF, Micro-B coudé Up à vis / Type A coudé, 508 mm",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Cordon USB 3 complet candidat RR-ASMUK-20GRHF Up de 508 mm, sans coupe. La gaine utile minimale conservative de 428,5 mm sert au contrôle du parcours ; la longueur catalogue totale ne vaut pas longueur de gaine disponible. Retenues sur structure et souplesse locale de la suspension à préserver.",
+      "dimensions": {
+        "longueur_mm": 508,
+        "longueur_catalogue_mm": 508,
+        "longueur_gaine_utile_min_mm": 428.5,
+        "diametre_max_mm": 5.5,
+        "rayon_min_fixe_mm": 22,
+        "rayon_min_continu_mm": 48,
+        "nature_longueur": "Longueur catalogue ; plan Up A1 depuis épaulement Type A, divergence avec plans A3 tip-to-tip.",
+        "budget_gaine": "Borne conservative 508−12,5−40,8−26,2=428,5 mm, sans utiliser la tolérance positive ; réserve de pose à vérifier.",
+        "sortie_gaine_camera_xyz_mm": [
+          109.785,
+          -0.525,
+          -96.82
+        ],
+        "sortie_gaine_type_a_xyz_mm": [
+          7,
+          -79.95,
+          140.5
+        ]
+      },
+      "sources_ids": [
+        "S-USB-UP",
+        "S-CAO-CONNECTEURS"
+      ],
+      "controle_minimal": "Confirmer référence, polarisation, engagement des deux prises, vis M2 et encombrements sur lot ; mesurer la gaine utile et réserver le mou de pose. Vérifier courbures, retenues, absence de traction sur la caméra, débit 5 images/s et endurance vibratoire. La reconstruction CAO ne démontre pas ces compatibilités physiques.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "ELEC-F20",
+      "reference_fabricant": "Cordon4positions inclus Waveshare24076 ; adaptateur/rallongeF20-PROT conditionnel",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus_et_adaptation_conditionnelle",
+      "parent": "MEC-REFROIDISSEMENT-JETSON",
+      "definition": "Conserver cordonOEM37±3mm ; réserver une rallonge4conducteurs28AWG de100mm maximum candidate si portée insuffisante. Extrémité porteuse candidate DF13-4S-1.25C/contacts adaptés, extrémité ventilateur seulement après identification.",
+      "dimensions": {
+        "longueur_oem_mm": 37,
+        "tolerance_oem_mm": 3,
+        "longueur_extension_reserve_mm": 100,
+        "extension_installee": false
+      },
+      "sources_ids": [
+        "S-FAN",
+        "S-PORTS"
+      ],
+      "controle_minimal": "Mesurer besoin sur montage ; vérifier modèle monté, tension, GND/PWM/TACH/V+, pas et sens. Aucun ordre de broches d'une autre carte transféré."
+    },
+    {
+      "id": "ELEC-F22",
+      "reference_fabricant": "Montage direct de l'antenne Helical surSEN-GNSS ; aucune rallonge",
+      "quantite": 0,
+      "unite": "piece",
+      "achat": "non_requis",
+      "definition": "Décision candidate de simplicité : porter ensemble GNSS+antenne sur le support haut, sans SMA intermédiaire ; garder F22 comme retrait explicite traçable.",
+      "dimensions": {
+        "longueur_mm": 0
+      },
+      "sources_ids": [
+        "S-GNSS-COAX"
+      ],
+      "controle_minimal": "Si CAO impose antenne séparée, réouvrir F22 avec OEM40cm et recalcul masse/pertes. Vérifier magnétomètre vis-à-vis batterie/puissance."
+    },
+    {
+      "id": "ELEC-F25",
+      "reference_fabricant": "F25-PROT : adaptateur GPS1 Holybro GH10 vers module CUAV USL",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "a_fabriquer",
+      "definition": "Un faisceau groupé bouton/LED/buzzer ; conserver câbles duUSL comme donneurs si appropriés. GHR-10V-S côtéGPS1 ; ne pas affecterAUX1 à la sécurité.",
+      "dimensions": {
+        "longueur_coupe_mm": null
+      },
+      "sources_ids": [
+        "S-USL",
+        "S-PORTS"
+      ],
+      "controle_minimal": "Table point à point après brochageCUAV, contrôle tension/courant, continuité sans alimentation puis essai sécurisé. Ne pas déclarer plug&play."
+    },
+    {
+      "id": "ELEC-F41",
+      "reference_fabricant": "USB2 TypeA–TypeB inclus Waveshare15817, ~1,2m",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "ELEC-ISO",
+      "definition": "Cordon isolateurUSB vers Jetson fourni ; conserver boucle fixée loin duGNSS. Une référence plus courte peut être décidée si masse/volume refusés, sans court-circuiter isolation.",
+      "dimensions": {
+        "longueur_nominale_mm": 1200
+      },
+      "sources_ids": [
+        "S-ISO-USB"
+      ],
+      "controle_minimal": "Confirmer contenu lot15817 et portée ; aucune alimTTL5V/VDD_BMS ; essaisUSB/absence réalimentation/tenue connecteur."
+    },
+    {
+      "id": "ELEC-F-LED",
+      "reference_fabricant": "F-LED-PROT : faisceauOEM des4WS2812 X650, commandePX4 dédiée",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "MEC-X650-KIT",
+      "definition": "Un jeu couvre les4modules bras et leur distributionOEM ; ne pas additionner4jeux. Commande et alimentation conservées selon câblageX650 après contrôle de révision ; affectationPX4 distincte caméra.",
+      "dimensions": {
+        "nombre_modules": 4,
+        "longueur_coupe_mm": null
+      },
+      "sources_ids": [],
+      "controle_minimal": "Relever connecteurs, schéma/révision et courant total ; vérifier rail5V et portPX4 supportantWS2812 sans prendreAUX1 ni dépasser budgetBEC."
+    },
+    {
+      "id": "ELEC-TERMINAISONS",
+      "reference_fabricant": "TERM-PROT : détail distribué F01/F37/F38/F05 ; cosses8AWG oeillets conformes bornes, épissures isolées",
+      "quantite": 1,
+      "unite": "lot_detaille",
+      "achat": "detail_faisceaux",
+      "definition": "F37 :2terminaisonsQS8 et2BMS selonlot ; F38 :2terminaisonsQS8 sur filsPMOEM ; F05 :2cossesPDB ; fusible principal :2cossesM5 sur8AWG. Les8terminaisons de puissance sont une allocation candidate, comptées dans ces faisceaux ; aucune addition de masse du lot.",
+      "dimensions": {
+        "terminaisons_candidates": 8,
+        "longueurs_mm": null
+      },
+      "sources_ids": [
+        "S-MIDI-HOLDER"
+      ],
+      "controle_minimal": "BMS peut avoir bornes/fils déjà inclus ; réconcilier le détail réel, outil/section, sertissage et couple. MPN cossePDB dépend diamètre réel non publié."
+    },
+    {
+      "id": "ELEC-GAINES",
+      "reference_fabricant": "GAINES-PROT : thermo adhésive3:1 Ø12/4 puissance ; Ø6/2 signaux ; tressePET Ø6/12mm",
+      "quantite": 1,
+      "unite": "lot_detaille",
+      "achat": "a_fabriquer",
+      "definition": "Spécification d'approvisionnement : polyoléfine adhésive isolante pour terminaisons, tressePET abrasion pour faisceaux ; repères permanentsFxx aux deux bouts. Coupe à la nomenclature de routes, pas une masse globale ajoutée.",
+      "dimensions": {
+        "thermo_diametres_avant_apres_mm": [
+          [
+            12,
+            4
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "longueurs_coupe_mm": null
+      },
+      "sources_ids": [],
+      "controle_minimal": "Vérifier diamètre avant/après, température câble/adhésif, tenue humidité et flamme de la référence achetée ; tresse non considérée comme isolation électrique primaire."
+    },
+    {
+      "id": "ELEC-PASSEFILS",
+      "reference_fabricant": "PASSEFILS-PROT : guides P72/P73/P75, berceau F41 P77 et protections d’arête EPDM",
+      "quantite": 1,
+      "unite": "lot_detaille",
+      "achat": "a_fabriquer",
+      "definition": "Lot de guides et reprises P72/P73/P75, peigne MAIN intégré à P75, berceau P77 de réserve F41 fixé dans les lumières OEM existantes et retenue M8 P78 sur P64 sans nouveau perçage. Les dix axes de guides emploient 6 M3×12, 4 M3×16 fraisées, 14 rondelles et 10 écrous ; axes partagés comptés une fois. Aucun perçage OEM ajouté. P76 et ses deux vis partagées sont comptés dans les postes énergie/butées. Les extensions puissance et capteurs ajoutent des interfaces de colliers sur les pièces de support ; leur intégration est en cours de contrôle. Protections d’arête EPDM et affectation complète aux 53 parcours restent à consolider.",
+      "dimensions": {
+        "epaisseur_support_mm": null,
+        "passages_cao_a_compter": true,
+        "guides": [
+          "P72",
+          "P73",
+          "P75"
+        ],
+        "berceau_reserve_f41": "P77",
+        "percages_oem_ajoutes": 0,
+        "vis_guides_m3x12": 6,
+        "vis_guides_fraisees_m3x16": 4,
+        "rondelles_guides": 14,
+        "ecrous_guides": 10,
+        "retenue_m8": "P78",
+        "oeillets_p75": 31,
+        "oeillet_p75_retire": "Avant X0/Z145 pour accès fiche USB3"
+      },
+      "sources_ids": [
+        "S-CAO-RETENUES"
+      ],
+      "controle_minimal": "Contrôler appuis, fixation, accès outil, passage des bandes T50R, protection de chaque arête et absence de traction aux connecteurs. P72/P73/P75/P77 sont des définitions CAO candidates ; les contrôles courants et les essais de tenue, tolérances et vibration restent requis. Ne pas compter les vis de guides dans ELEC-COLLIERS en plus de ce lot.",
+      "parent": null,
+      "detail": [
+        {
+          "reference": "P72 Guide gauche PA12",
+          "quantite": 1
+        },
+        {
+          "reference": "P73 Guide droit PA12",
+          "quantite": 1
+        },
+        {
+          "reference": "P75 Cadre haut PA12 avec peigne MAIN et retenues F41",
+          "quantite": 1
+        },
+        {
+          "reference": "P77 Berceau de réserve F41 PA12, trois selles",
+          "quantite": 1
+        },
+        {
+          "reference": "P78 Retenue M8 caméra PA12 sur P64",
+          "quantite": 1
+        },
+        {
+          "reference": "ISO 4762 M3×12, guides",
+          "quantite": 6
+        },
+        {
+          "reference": "ISO 10642 M3×16 fraisée, guides hauts",
+          "quantite": 4
+        },
+        {
+          "reference": "ISO 7089 M3, guides",
+          "quantite": 14
+        },
+        {
+          "reference": "ISO 10511 M3 écrou frein, guides",
+          "quantite": 10
+        }
+      ],
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "ELEC-CAPOTS",
+      "reference_fabricant": "CAPOTS-PROT :4protections locales bornesBMS/PDB +1bouchonQS8 source lié",
+      "quantite": 5,
+      "unite": "piece",
+      "achat": "a_fabriquer",
+      "definition": "Quatre capots isolants locaux pour B−/C−JBD et +/−PDB ; bouchon de transportQS8 attaché au support pack. Couvercle porte-fusible compris avecholder, capots de soudureQS8 comprisB9310.",
+      "dimensions": {
+        "jeu_radial_candidate_mm": 1,
+        "epaisseur_paroi_candidate_mm": 2
+      },
+      "sources_ids": [
+        "S-MIDI-HOLDER"
+      ],
+      "controle_minimal": "Dimensions sur lot, protection au toucher même débranché et tenue mécanique/thermique ; matériau isolant adapté, aucune tension de tenue certifiée revendiquée."
+    },
+    {
+      "id": "ELEC-COLLIERS",
+      "reference_fabricant": "HellermannTyton 111-05012 T50R-PA612-BK",
+      "quantite": 1,
+      "unite": "lot_100_pieces",
+      "achat": "distinct",
+      "definition": "Approvisionnement candidat : un lot de 100 colliers T50R ; quantité réellement posée encore inconnue. La provision antérieure de 24 est remplacée comme budget et conservée seulement en historique. 52 interfaces de retenue sont affectées : auxiliaires19 (MAIN2, sortie F41 9, liaison P72 2, entrée F41 3, bobine F41 3), P76 1, puissance26 (23 câbles et3 liaisons entre guides), capteurs6 (USB2, M8 gaine3 et piedP78 1). L’affectation générale aux 53 parcours reste à compléter : 52 interfaces ne prouvent pas 52 colliers physiquement posés et ne s’ajoutent pas à l’ancienne provision24. Jamais seule retenue batterie ; aucune compression directe des coaxiaux U.FL.",
+      "dimensions": {
+        "quantite_nature": "Achat : lot candidat 100. Interfaces affectées :52. Pose : inconnue. Ancienne provision24 historique, sans addition.",
+        "largeur_bande_mm": 4.6,
+        "lumiere_guides_cao_mm": [
+          8,
+          4.8
+        ],
+        "affectations_auxiliaires": {
+          "peigne_MAIN": 2,
+          "sortie_F41": 9,
+          "liaison_P72": 2,
+          "entree_F41": 3,
+          "bobine_F41": 3
+        },
+        "affectations_auxiliaires_nombre": 19,
+        "affectation_P76": 1,
+        "affectations_puissance": {
+          "cables": 23,
+          "liaisons_guides": 3
+        },
+        "affectations_capteurs": {
+          "USB": 2,
+          "M8_gaine": 3,
+          "pied_P78": 1
+        },
+        "interfaces_affectees_nombre": 52,
+        "lot_approvisionnement_pieces": 100,
+        "provision_anterieure_pieces": 24,
+        "quantite_posee": null,
+        "quantite_finale": null
+      },
+      "sources_ids": [
+        "S-CAO-RETENUES"
+      ],
+      "controle_minimal": "Établir une affectation par reprise et compter les colliers réellement nécessaires ; contrôler passage de la bande 4,6 mm, notamment les supports RF, vieillissement UV, diamètre de faisceau, décharge de traction et absence de contrainte capteurs/coaxiaux.",
+      "parent": null,
+      "definition_detaillee_a_terminer": true
+    },
+    {
+      "id": "SOL-RADIO-CELLS",
+      "reference_fabricant": "RadioMasterHP0157.18650-3200, un paquet de2",
+      "quantite": 2,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Deux cellules18650 3,7V3200mAh explicitement annoncées compatiblesPocket ; ne pas compter deux paquets.",
+      "dimensions": {
+        "format": "18650",
+        "masse_fabricant_unitaire_g": 46.22
+      },
+      "sources_ids": [
+        "S-CELLS"
+      ],
+      "controle_minimal": "Contrôler polarité, lot et état, chargePocket et autonomie réelle ; conserver paire appairée et protection transport."
+    },
+    {
+      "id": "SOL-RADIO-USB",
+      "reference_fabricant": "CâbleUSB-C fourniRadioMasterPocket",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "SOL-RADIO",
+      "definition": "Un câble de charge fourni avec laPocket ; alimentation5V issueUSBPC au sol selon courant admis. Pas de chargeursecteur supplémentaire imposé.",
+      "dimensions": {
+        "longueur_mm": null
+      },
+      "sources_ids": [
+        "S-POCKET"
+      ],
+      "controle_minimal": "Vérifier typeA/C côtéhôte, courant/charge et portée du cordon reçu ; le lienQGC resteBackpackWiFi."
+    },
+    {
+      "id": "SOL-RTK-USB",
+      "reference_fabricant": "CâbleUSB TypeC fourniHolybro12022",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "inclus",
+      "parent": "SOL-RTK",
+      "definition": "Un câble données/alimentationUSB pour baseRTK versPC ; ne pas acheter un second par défaut.",
+      "dimensions": {
+        "longueur_mm": null
+      },
+      "sources_ids": [
+        "S-RTK"
+      ],
+      "controle_minimal": "PortPC/hôte et longueur reçue, alimentation5V et énumérationUSB/RTCM ; pas de câblecharge seul."
+    },
+    {
+      "id": "SOL-RTK-ANT",
+      "reference_fabricant": "HolybroHANT-X627A incluseSKU12022 +SMA–TNC5m",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "inclus",
+      "parent": "SOL-RTK",
+      "definition": "Antenne+coax5m et adaptateur fileté inclus dans base12022 ; aucune antenne supplémentaire.",
+      "dimensions": {
+        "antenne_diametre_mm": 152,
+        "antenne_hauteur_mm": 62.2,
+        "coax_longueur_mm": 5000
+      },
+      "sources_ids": [
+        "S-RTK"
+      ],
+      "controle_minimal": "Réception contenu et révision, pas de pincementcoax, repère antenne et stabilité du trépied."
+    },
+    {
+      "id": "SOL-TRIPOD",
+      "reference_fabricant": "Holybro31049 Tripod mount5/8-11",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "distinct",
+      "definition": "Trépied de baseRTK OEM compatibleHANT-X627A, pas lemini31145 ; vérifier disponibilité sans substitution improvisée.",
+      "dimensions": {
+        "interface": "5/8-11UNC",
+        "hauteur_mm": null
+      },
+      "sources_ids": [
+        "S-TRIPOD"
+      ],
+      "controle_minimal": "Disponibilité OEM actuellement absente ; hauteur et stabilité réelles, tenuevent et repère géodésique. Ne pas employer métadonnée commerciale5kg comme masse mesurée."
+    },
+    {
+      "id": "SOL-BASE-CASE",
+      "reference_fabricant": "P-RTK-SOL-PROT : berceauPA12 ventilé pour module34,8×52,7×12,9mm",
+      "quantite": 1,
+      "unite": "jeu",
+      "achat": "a_fabriquer",
+      "definition": "Berceau projet sur piedtrépied : cavitéutile56×38×16mm, parois2mm, retenue par2sangles réutilisables ; USB/SMA libres et pare-pluie détachable. Pas d'étanchéitéIP déclarée.",
+      "dimensions": {
+        "cavite_utile_mm": [
+          56,
+          38,
+          16
+        ],
+        "paroi_mm": 2,
+        "sangles_nombre": 2
+      },
+      "sources_ids": [
+        "S-RTK"
+      ],
+      "controle_minimal": "Relever module reçu, accessibilitéUSB/SMA, absence court-circuit/traction et stabilité ; usage sous pluie non qualifié."
+    },
+    {
+      "id": "SOL-PC",
+      "reference_fabricant": "SPEC-TERMINAL-SOL : format à choisir selon ergonomie et fonctions",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "choix_differe",
+      "definition": "Un terminal au sol pour la supervision et les fonctions de terrain. Portable, tablette ou téléphone restent possibles selon ergonomie. Aucun modèle ni système imposé à ce stade ; choix sans effet sur la CAO du drone. Le poste fixe de traitement reste distinct.",
+      "dimensions": {
+        "materiel_identifie": false
+      },
+      "sources_ids": [],
+      "controle_minimal": "Avant usage, vérifier lisibilité et manipulation au terrain, autonomie, supervision, liaison radio/RTK et méthode de transfert. La station Qt desktop existante ne vaut pas implémentation mobile ; répartir les fonctions selon les capacités du terminal choisi.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false,
+      "choix_differe_hors_cao": true
+    },
+    {
+      "id": "SOL-POWER",
+      "reference_fabricant": "POWER-SOL-PROT : chargeur terminal 60 W hypothétiques ; cordon S100neo inclus",
+      "quantite": 1,
+      "unite": "jeu_detaille",
+      "achat": "inclus_et_choix_differe",
+      "definition": "Prévoir un chargeur de terminal de 60 W comme hypothèse utilisateur du 12 octobre 2026. Tension, connectique et protocole à adapter au terminal retenu. Cette puissance ne représente ni une consommation mesurée, ni la puissance du chargeur de batterie du drone. Conserver le cordon secteur inclus du S100neo ; USB Pocket déjà compté séparément.",
+      "dimensions": {
+        "chargeurs_terminal_nombre": 1,
+        "puissance_sortie_chargeur_terminal_hypothese_w": 60,
+        "blocs_dc_chargeur_batterie_nombre": 0,
+        "cordon_s100neo_inclus": true,
+        "cordons_terminal_a_adapter": true
+      },
+      "sources_ids": [
+        "S-CHARGE",
+        "S-POCKET"
+      ],
+      "controle_minimal": "Lors du choix du terminal, vérifier compatibilité électrique et cordon approprié. Vérifier la variante secteur du S100neo à réception. Ces moyens au sol ne conditionnent pas les dimensions ou l’assemblage du drone.",
+      "parent": null,
+      "definition_detaillee_a_terminer": false,
+      "choix_differe_hors_cao": true
+    },
+    {
+      "id": "ELEC-F-M8",
+      "reference_fabricant": "1522341 SAC-6P-M8MR/1,5-PUR SH, M8 mâle coudé A 6p blindé vers fils libres",
+      "quantite": 1,
+      "unite": "piece",
+      "achat": "distinct",
+      "parent": null,
+      "definition": "Un cordon blindé candidat Phoenix 1522341 de 1,5 m vers fils libres, commun à W18/W34 ; terminaison CA01 J502 PHR-6/SPH-002T-P0.5S à réaliser après définition de coupe. M8 pin2 Line1/5V_SYNC, pin3 retour opto commuté, pin4 ExposureActive, pin6 GND_GPIO ; pins1/5 non connectées, pin3 distincte de6. Connecteur PCB déjà compris dans CA01. Engagement e=6 mm utilisé comme hypothèse CAO pour la découpe de P60 et du pad droit.",
+      "dimensions": {
+        "longueur_catalogue_mm": 1500,
+        "longueur_coupe_mm": null,
+        "diametre_max_mm": 5.2,
+        "rayon_min_fixe_mm": 52,
+        "rayon_min_mobile_mm": 52,
+        "conducteurs": 6,
+        "section_mm2": 0.14,
+        "engagement_cao_hypothese_mm": 6,
+        "engagement_fabricant_confirme": false,
+        "paires_torsadees_confirmees": false
+      },
+      "controle_minimal": "Confirmer paires torsadées exigées par Basler, orientation et engagement M8, brochage par continuité, raccordement du blindage et retenue du PH. Le câble blindé 6×0,14 mm² ne démontre pas des paires torsadées ; référence et découpe restent candidates tant que cette exigence et e=6 mm ne sont pas confirmés.",
+      "definition_detaillee_a_terminer": true,
+      "sources_ids": [
+        "S-M8-PHOENIX",
+        "S-CAO-CONNECTEURS"
+      ]
+    }
+  ],
+  "points_discriminants": [
+    "Les sources OEM ferment les inclusionsRF etRTK, la spécificationNTC et les sélectionsSD/cellules ; un inventaire réception reste nécessaire.",
+    "La sélection d'un module sécurité ou d'un ventilateur ne démontre pas la compatibilité de leurs broches. AVI-SAFE/F25 et F20 restent bloqués pour branchement avant documentation ou mesures.",
+    "Protection amont etW08 :2 références candidates apportées, mais libération électrique interdite sans calibre/courbes/Icc et sélectivité validés. L'absence de courant mission empêche une fermeture qualifiée.",
+    "F22 est supprimé par choix d'implantationdirecteGNSS. Ce choix doit être confirmé dans le nouvel assemblage ; sinon utiliser la rallongeOEM et rouvrir bilan masse/RF.",
+    "Confirmer référence, polarisation, engagement des deux prises, vis M2 et encombrements sur lot ; mesurer la gaine utile et réserver le mou de pose. Vérifier courbures, retenues, absence de traction sur la caméra, débit 5 images/s et endurance vibratoire. La reconstruction CAO ne démontre pas ces compatibilités physiques.",
+    "Confirmer paires torsadées exigées par Basler, orientation et engagement M8, brochage par continuité, raccordement du blindage et retenue du PH. Le câble blindé 6×0,14 mm² ne démontre pas des paires torsadées ; référence et découpe restent candidates tant que cette exigence et e=6 mm ne sont pas confirmés.",
+    "Approvisionnement candidat : un lot de 100 colliers T50R ; quantité réellement posée encore inconnue. La provision antérieure de 24 est remplacée comme budget et conservée seulement en historique. 52 interfaces de retenue sont affectées : auxiliaires19 (MAIN2, sortie F41 9, liaison P72 2, entrée F41 3, bobine F41 3), P76 1, puissance26 (23 câbles et3 liaisons entre guides), capteurs6 (USB2, M8 gaine3 et piedP78 1). L’affectation générale aux 53 parcours reste à compléter : 52 interfaces ne prouvent pas 52 colliers physiquement posés et ne s’ajoutent pas à l’ancienne provision24. Jamais seule retenue batterie ; aucune compression directe des coaxiaux U.FL."
+  ],
+  "validation_executee": {
+    "type": "Revue des données primaires déjà consignées et cohérence déclarative avec la configuration CAO candidate du16octobre ; aucune conclusion de contrôle géométrique global.",
+    "materiel": "Aucun",
+    "sources_primaires": true,
+    "quantites_mesurees": false,
+    "qualification_physique": false
+  },
+  "validation_non_executee": [
+    "Banc puissance/protections",
+    "Montage et continuité des connecteurs",
+    "Mesure masses/centrage",
+    "Essais RF/thermiques/vibratoires",
+    "Essais PX4 et qualification du terminal terrain à choisir"
+  ]
+}

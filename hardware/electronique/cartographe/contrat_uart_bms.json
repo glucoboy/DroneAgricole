@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "reference": "BMS-UART-CARTO-01",
+  "date": "2026-10-05",
+  "status": "Planifié / À valider",
+  "manufacturing_ready": false,
+  "software_implemented": false,
+  "bms": {
+    "mpn": "JBD-SP22S003",
+    "variant": "Li-ion A01 100A commun charge/décharge",
+    "revision_confirmed_on_hardware": false,
+    "uart_connector": "HY2.0-4P à verrou J2candidat (remarque constructeur J3 contradictoire)",
+    "pins": [
+      {
+        "pin": 1,
+        "function": "GND",
+        "net": "BAT_MOINS_BRUT_ISOLE"
+      },
+      {
+        "pin": 2,
+        "function": "RXD_BMS",
+        "connect_to": "TXD_ISO"
+      },
+      {
+        "pin": 3,
+        "function": "TXD_BMS",
+        "connect_to": "RXD_ISO"
+      },
+      {
+        "pin": 4,
+        "function": "VDD",
+        "connection": "NC"
+      }
+    ],
+    "logic_voltage_v": null,
+    "ttl_level_candidate_v": 3.3,
+    "uart_isolated_in_bms": false,
+    "can_supported": false
+  },
+  "isolator": {
+    "manufacturer": "Waveshare",
+    "product": "USB TO RS232/485/TTL",
+    "sku": 15817,
+    "chip_candidate": "FT232RNL",
+    "location": "fixe aval cassette",
+    "data_isolation": true,
+    "power_isolation_dc_dc": true,
+    "usb_host": "Jetson aval CA01/JETI",
+    "ttl_gnd": "BAT_MOINS_BRUT_ISOLE",
+    "ttl_5v_connection": "NC",
+    "bms_vdd_connection": "NC",
+    "other_interfaces_used": false,
+    "hardware_verified": false
+  },
+  "serial": {
+    "baud": 9600,
+    "data_bits": 8,
+    "parity": "none",
+    "stop_bits": 1,
+    "flow_control": "none",
+    "source_protocol_revision": "V4 famille JBD, interop lot SP22S003 À valider"
+  },
+  "read_only": true,
+  "allowed_read_commands": [
+    {
+      "hex": "03",
+      "meaning": "état pack",
+      "request_hex": "DD A5 03 00 FF FD 77",
+      "fields": [
+        "tension pack10mV",
+        "courant signé10mA positif charge",
+        "capacité restante/nominale10mAh",
+        "cycles",
+        "SOC%",
+        "NTC0.1K",
+        "état MOS/protections/équilibrage"
+      ]
+    },
+    {
+      "hex": "04",
+      "meaning": "tensions cellules",
+      "request_hex": "DD A5 04 00 FF FC 77",
+      "fields": [
+        "tension cellule mV",
+        "Vmin/Vmax/écart dérivés sur6cellules seulement"
+      ]
+    },
+    {
+      "hex": "05",
+      "meaning": "version matériel",
+      "request_hex": "DD A5 05 00 FF FB 77",
+      "fields": [
+        "identification matériel"
+      ]
+    }
+  ],
+  "write_commands_allowed": false,
+  "response_validation_planned": [
+    "début0xDD et fin0x77",
+    "commande attendue, status=0, longueur annoncée exacte",
+    "checksum16bits constructeur sur données et longueur/statut selon V4, complément à deux",
+    "bornes longueur avant copie/allocation, timeout/fraîcheur et erreurs sans réutiliser valeur ancienne",
+    "nombre cellules6 attendu, NTC conforme lot ; ne pas interpréter chaîne variable comme registre figé"
+  ],
+  "px4_adapter": {
+    "status": "Planifié",
+    "implemented": false,
+    "critical_voltage_source": "PM08-CAN vers PX4 existant",
+    "dronecan_bms_claim": false,
+    "battery_id_soc_priority_defined": false,
+    "motor_command_allowed": false
+  },
+  "safety": {
+    "raw_ground_bypass_allowed": false,
+    "presence_loop_separate_from_raw_ground": true,
+    "charge_negative": "P_MINUS_PROTEGE",
+    "balance_taps_external_blindmate": false,
+    "precharge_in_bms": false,
+    "ultimate_cutoff_powers_off_fcu": true,
+    "thresholds_oem_px4_qualified": false
+  },
+  "cell_adapter": {
+    "status": "À valider, non fabriqué",
+    "pack": "JST-XHR-7P7prises B0…B6 ordre OEM à relever",
+    "bms_6s_candidate": [
+      "BC0=B0",
+      "BC1=B1",
+      "BC2=B2",
+      "BC3=B3",
+      "BC4…BC20=B4 selon tableau6S OEM",
+      "BC21=B5",
+      "BC22=B6"
+    ],
+    "bulk_charge_or_discharge_allowed": false
+  },
+  "sources": [
+    {
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "file": "../../mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7"
+    },
+    {
+      "url": "https://cdn.shopifycdn.net/s/files/1/0606/5199/5298/files/JDB_RS485-RS232-UART-Bluetooth-Communication_Protocol.pdf?v=1682577935",
+      "file": "../../mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD_Protocole_UART_RS485_RS232_V4.pdf",
+      "sha256": "3ba13c2cb4a5960a64dd4fe6cb433c0cb524444b38d58fa1af9351cab96045cb"
+    },
+    {
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817"
+    }
+  ]
+}

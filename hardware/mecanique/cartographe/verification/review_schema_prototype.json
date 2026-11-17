@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "portee": "Revue independante lecture seule du schema de reconstruction, avant assemblage final. Les corrections ulterieures du constructeur ne sont pas encore revues.",
+  "statut": "Constats transmis; revue finale en attente",
+  "sources": {
+    "builder": "hardware\\mecanique\\cartographe\\verification\\build_prototype.py",
+    "builder_sha256_au_depot_revue": "837234dc63c9008ec3e551113a5bab1ee09d86fdef68089f4c03783b9a34ec2c",
+    "oem": "hardware\\mecanique\\cartographe\\pieces\\commerce\\EQ_Chassis_X650.FCStd",
+    "oem_sha256": "1e88f157939f7c3ede7ac39751d8ec33949a2dffda32246963c6fb113baa0909"
+  },
+  "faits_positifs": [
+    "Tri des sourcesOEM explicite avec conservation originales.",
+    "Extraction refroidissement coherente avec hiérarchieImport STEP: deux groupes6 solides superposes,12 exclusions exactes.",
+    "Orin et6X conserves dans porteuse sans occurrence commerciale autonome additionnelle.",
+    "Batterie nominale[-96.5,-38,-85,96.5,38,-27], BMS[-65.25,-32.75,-22,65.25,32.75,-10] permettent marge nominale3mm sous plateauBMS[-24,-22], hors sangles/deflections."
+  ],
+  "findings": [
+    {
+      "id": "REV-PROT-01",
+      "priorite": 1,
+      "sujet": "Invalidite heritee des quatre colonnes OEM 90 mm",
+      "etat": "Cause reproduite en lecture seule",
+      "observation": "EQ_Chassis_X650 racine isValid=False; exactement Part__Feature080 a083 sont invalides parmi les100 enfants conserves. Les96 autres enfants conserves sont valides. Part__Feature080 a1 solide/276 faces, volume965.850249788 mm3; Shape.check(False) signale Self-intersecting wire, Unorientable shape, Invalid imbrication of wires. Copie Shape.fix(1e-7,1e-7,1e-5):False et isValid=False.",
+      "effet": "Le save() strict rejette SA01 meme avec placements de liens corrects.",
+      "correction": "Ne pas modifier la source fabricant. Remplacer uniquement les4 colonnes dans un derive parametrique nominal documente, ou qualifier explicitement cette limite source sans relacher la validite des nouvelles pieces.",
+      "bbox_source_locale_mm": [
+        49.5,
+        -90.21193059196,
+        49.5,
+        54.5,
+        0.21174179172,
+        54.5
+      ]
+    },
+    {
+      "id": "REV-PROT-02",
+      "priorite": 1,
+      "sujet": "CA01 deplacee hors de la pile",
+      "etat": "Critique du builder observe; recontrole requis apres correction",
+      "observation": "CA01_PCB_Revue_20261003.CarteCA01 a bbox locale[0,-80,-1.88,126,0,12.22]. Placement(-63,-40,98) sans rotation produit Y[-120,-40], alors axes de supports sont Y+-37.",
+      "effet": "Carte hors supports/porteuse et percages non alignes.",
+      "correction": "Pour orientation identique, utiliser translationY+40 puis controler bbox[-63,-40,...,63,40,...] et axes des4 fixations; verifier coteZ de substrat."
+    },
+    {
+      "id": "REV-PROT-03",
+      "priorite": 1,
+      "sujet": "Ancrages colonnes BMS interferent avec lumieres de sangles",
+      "etat": "Critique du builder observe; recontrole requis apres correction",
+      "observation": "P60 ne perce pas initialement les colonnes aux axes(+-68,+-45). Ajouter ces perçages seuls coupe les lumieres de sangles: x49..71 et y41..45, trou centre(68,45), et configurations symetriques. ColonneOD6 aY45 atteint bordY48 de semelle.",
+      "effet": "Perçage partage avec lumiere et ligament de bord insuffisant pour une fixation conventionnelle; support non montable comme defini.",
+      "correction": "Replacer les4 colonnes et leurs perçages hors lumières, garder distances de bord, ajuster le plateau BMS et synchroniser BOM140x74 initiale / CAO142x100."
+    },
+    {
+      "id": "REV-PROT-04",
+      "priorite": 2,
+      "sujet": "Butees batterie differentes de la definition",
+      "etat": "Critique du builder observe; recontrole requis apres correction",
+      "observation": "Deux parois de3mm centrees x+-105 donnent entre-faces207mm, contre197mm dans BOM. Piece largeur72 contre80 annoncee. Aucun percage des oreilles ni rayon2mm dans la definition initiale.",
+      "effet": "Calage longitudinal et fixations ne correspondent pas a la BOM resolue.",
+      "correction": "Faces internes x+-98.5 pour jeu197, oreilles vers axes de fixation hors pack, definir perçages et rayons; actualiser quantites/visserie."
+    },
+    {
+      "id": "REV-PROT-05",
+      "priorite": 2,
+      "sujet": "Couverture des fixations a completer ou delimitation explicite",
+      "etat": "Critique du builder observe; recontrole requis apres correction",
+      "observation": "Builder observe genere visAiry et4 ancrages, mais pas les2 vis Basler, les rondelles/ecrous des ancrages, les attaches des butees/colonnes BMS, ni berceaux et fixations PM08/PDB/UART. Support avionic et radio representent des portees sans fixation complete.",
+      "effet": "Presence des enveloppes ne prouve pas montage complet conforme a chaque ligneBOM.",
+      "correction": "Ajouter occurrences des fixations de definition, reference reutilisee pour repetitions; fournir couverture BOM->occurrences distinguant enveloppe, inclusion commerciale, consommable non geometrique et absent explicite."
+    },
+    {
+      "id": "REV-PROT-06",
+      "priorite": 2,
+      "sujet": "Indexation refroidissement doit etre liee a empreinte source",
+      "etat": "Extraction source verifiee; garde builder a renforcer",
+      "observation": "Indices12 solides exacts confirmes pour SHA source cite dans inventaire. Assert2079 solides seul accepte une autre revision avec meme cardinal.",
+      "effet": "Mauvais solides potentiellement retires apres evolution de source.",
+      "correction": "Verifier SHA256 attendu avant indexation et bbox/nombre des solides extraits. Garder Orin et6X inclus; ne pas ajouter natifs commerciaux autonomes. Tester degagement thermique du Waveshare distinct."
+    },
+    {
+      "id": "REV-PROT-07",
+      "priorite": 2,
+      "sujet": "Resultat finalisation_correcte ecrit avant dernier controle",
+      "etat": "Critique du builder observe; recontrole requis apres correction",
+      "observation": "construction_prototype.json est ecrit finalisation_correcte=True avant assertions finales de preservation sources et avant generation des vues.",
+      "effet": "Une erreur posterieure peut laisser une preuve marquee finalisee.",
+      "correction": "Ecrire finalisation_correcte apres preservation des sources et sauvegardes controlees; rendre etat des vues distinct si leur reussite ne fait pas partie de la finalisation native."
+    }
+  ],
+  "tests_executés": [
+    "Ouverture sourceOEM sans sauvegarde",
+    "isValid racine et100 enfants conserves",
+    "Shape.check etShape.fix sur copie deFeature080",
+    "Relecture bboxCA01 depuis inventaire natif"
+  ],
+  "tests_non_executés": [
+    "Assemblage final non sauvegarde au moment du diagnostic",
+    "Pas de controle global collision du futur montage",
+    "Pas de qualification mecanique, thermique, electrique ou vol"
+  ]
+}

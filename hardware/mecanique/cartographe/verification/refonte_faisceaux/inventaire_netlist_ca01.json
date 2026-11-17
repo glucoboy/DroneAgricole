@@ -1,0 +1,125 @@
+{
+  "tool": "KiCad CLI 10.0.6",
+  "command_arguments": [
+    "sch",
+    "export",
+    "netlist",
+    "--format",
+    "kicadxml",
+    "-o",
+    "<temp>",
+    "hardware\\electronique\\cartographe\\carte_avionique\\CA01_Avionique.kicad_sch"
+  ],
+  "exit_code": 0,
+  "runtime_note": "KICAD_CONFIG_HOME redirigé vers un chemin de travail local. Accès registre Windows refusé, fichier XML néanmoins produit et analysé.",
+  "scheme_sources": [
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/01_energie_pm.kicad_sch",
+      "sha256": "2e525e1632156264a1a6e36ccfe02aca29e04179d31d078a6cbea529e31ff3ac"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/02_buck_12v_capteurs.kicad_sch",
+      "sha256": "42b28b09b5b978fc0c17fa399ecda6cc19baf3b82f7049c5ffb492978738ad36"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/03_buck_5v_aux.kicad_sch",
+      "sha256": "c936e544768636172102b4d8027590eb29eb98dc7a937678cbf94265c4aa6de9"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/04_radio.kicad_sch",
+      "sha256": "35755d9a90bcb30836cb4e0107827ceda274b40ce21eaaa75893dbf13536d07c"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/05_synchronisation.kicad_sch",
+      "sha256": "73fd0611090fd6cc9e364eba2a01469151b80d1245c85b30288f22ce6090fff4"
+    },
+    {
+      "path": "hardware/electronique/cartographe/carte_avionique/CA01_Avionique.kicad_sch",
+      "sha256": "79c30f1de73e17d20f48c6bf17621a63b07d9341bf538faae4f9ab67ec87a26b"
+    }
+  ],
+  "netlist_sha256": "508cffadf1a7e066ba596559abecdf83c3314cffabcd3d52c883c0c36e05cdc6",
+  "old_netlist_sha256": "8833c3860c56247ad7ed2bc6b826cfc655343c9688ea23d7b89844ab58674501",
+  "candidate_ca01_netlist_pins": {
+    "J103": {
+      "2": "GND",
+      "1": "VBAT_PAYLOAD"
+    },
+    "J104": {
+      "1": "12V_COMPUTE",
+      "2": "GND"
+    },
+    "J201": {
+      "1": "12V_LIDAR",
+      "2": "GND"
+    },
+    "J301": {
+      "1": "5V_AUX",
+      "2": "GND"
+    },
+    "J402": {
+      "2": "FC_RX_RF",
+      "3": "FC_TX_RF",
+      "1": "GND"
+    },
+    "J501": {
+      "1": "/05_synchronisation/AIRY_SYNC_RAW",
+      "2": "GND"
+    },
+    "J502": {
+      "4": "/05_synchronisation/BASLER_EXPOSURE_RAW",
+      "3": "/05_synchronisation/BASLER_OPTO_RETURN",
+      "2": "5V_SYNC",
+      "6": "GND",
+      "1": "unconnected-(J502-Pin_1-Pad1)",
+      "5": "unconnected-(J502-Pin_5-Pad5)"
+    },
+    "J503": {
+      "3": "/05_synchronisation/GNSS_GPRMC_IN",
+      "5": "/05_synchronisation/GNSS_PPS_IN",
+      "6": "GND",
+      "1": "unconnected-(J503-Pin_1-Pad1)",
+      "2": "unconnected-(J503-Pin_2-Pad2)",
+      "4": "unconnected-(J503-Pin_4-Pad4)"
+    },
+    "J504": {
+      "2": "/05_synchronisation/GPRMC_AIRY",
+      "1": "/05_synchronisation/PPS_AIRY",
+      "3": "GND",
+      "4": "GND"
+    },
+    "J505": {
+      "1": "/05_synchronisation/PPS_ORIN",
+      "2": "GND"
+    },
+    "J506": {
+      "1": "/05_synchronisation/GPRMC_ORIN",
+      "2": "GND"
+    },
+    "J507": {
+      "1": "/05_synchronisation/FCU_AUX1",
+      "2": "GND"
+    },
+    "J508": {
+      "1": "/05_synchronisation/FCU_CAP1",
+      "2": "GND"
+    },
+    "J509": {
+      "1": "3V3_ORIN_IO_REF",
+      "2": "GND"
+    },
+    "MOD401": {
+      "1": "5V_RADIO",
+      "2": "GND",
+      "4": "RP_RX",
+      "3": "RP_TX"
+    }
+  },
+  "compare_selected_ports": {
+    "counts": {
+      "historical": 43,
+      "regenerated": 43
+    },
+    "differences": []
+  }
+}

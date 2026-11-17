@@ -1,0 +1,127 @@
+%% Autorité électrique et détail de chaque liaison : matrice_interconnexion.json.
+%% Les traits pointillés représentent les réserves, les liens radio et les chemins réutilisés.
+%% Les affectations restent à valider sur les lots et les équipements réels.
+flowchart LR
+  subgraph PACK["Batterie et protections"]
+    BAT["Tattu NMC 6S 20 Ah"]
+    BMS["JBD A01 • mesure et coupure sur C−"]
+    NTC["Deux sondes NTC du jeu OEM"]
+    MIDI["MIDI • protection B+ 80 A candidate"]
+    QS8["QS8-S • jonction amovible et anti-étincelle"]
+    BAT -->|"W01.NEG • B− brut"| BMS
+    BAT -->|"W01.POS • B+ brut"| MIDI
+    BAT -->|"W-CELLULES • B0 à B6"| BMS
+    NTC -->|"W-NTC.1 / W-NTC.2 • voies candidat J7"| BMS
+    MIDI -->|"W37.POS • B+ protégé"| QS8
+    BMS -->|"W37.NEG • C− protégé"| QS8
+  end
+
+  subgraph POWER["Distribution embarquée"]
+    PM["PM08-CAN • mesure + BEC1 et BEC2"]
+    PDB["PDB 18138 • quatre départs ESC et un départ CA01"]
+    FUSE["ATOF • positif CA01 • 15 A candidat"]
+    PM -->|"W05 • OUT positif et négatif"| PDB
+    PDB -->|"W08 • positif avant fusible"| FUSE
+  end
+  QS8 -->|"W38 • positif et retour protégé"| PM
+
+  subgraph PROP["Quatre bras • répétition i = 1 à 4"]
+    ESC["ESC 1 à 4"]
+    MOT["Moteurs 1 à 4"]
+    LED["LED WS2812 1 à 4"]
+    LEDIO["Source données et alimentation LED à définir"]
+    ESC -->|"W03.1 / W03.2 / W03.3 / W03.4 • phases U/V/W"| MOT
+    LEDIO -.->|"W-LED-KIT.1 / W-LED-KIT.2 / W-LED-KIT.3 / W-LED-KIT.4"| LED
+  end
+  PDB -->|"W02.1 / W02.2 / W02.3 / W02.4 • alimentation 6S"| ESC
+
+  subgraph AVI["Avionique embarquée"]
+    CAR["Porteuse Holybro 11072"]
+    FCU["Pixhawk 6X • PX4"]
+    CPU["Orin NX • acquisition et diagnostic"]
+    SSD["SSD NVMe M.2"]
+    SD["microSD • journal PX4"]
+    FAN["Ventilateur Orin"]
+    CA["CA01 • 12 V compute, 12 V LiDAR, 5 V auxiliaire • radio et adaptations temps"]
+    RF["RP4TD • ELRS"]
+    A1["Antenne ELRS A"]
+    A2["Antenne ELRS B"]
+    AUX["Réserve 5 V non montée"]
+    CAR ---|"I-CARRIER-FCU • accouplement module"| FCU
+    CAR ---|"I-CARRIER-CPU • accouplement module"| CPU
+    FCU <-->|"W14 • UART interne porteuse"| CPU
+    CPU <-->|"W19 • alimentation et PCIe interne"| SSD
+    FCU ---|"I-FCU-SD • interface directe"| SD
+    CPU <-->|"W20 • FAN, PWM et TACH à relever"| FAN
+    CA ---|"CA01-MOD401 • 5 V et UART, intégré PCB"| RF
+    RF ---|"W13.A • U.FL"| A1
+    RF ---|"W13.B • U.FL"| A2
+    CA -.->|"W26 • J301"| AUX
+    CA <-->|"W12 • UART radio"| FCU
+    CA -->|"W09 • 12 V compute"| CPU
+    CA -->|"W24.A / W24.B • PPS et GPRMC candidats"| CPU
+    CPU -->|"W24.C • référence E/S 3,3 V candidate"| CA
+    FCU -->|"W33 • AUX1 vers J507"| CA
+    CA -->|"W35 • J508 vers CAP1"| FCU
+  end
+
+  PDB -->|"W08 • retour direct hors fusible"| CA
+  FUSE -->|"W08 • positif protégé vers J103"| CA
+  PM -->|"W06 • BEC1, POWER1"| FCU
+  PM -->|"W32 • BEC2, POWER2 indépendant"| FCU
+  PM -->|"W31 • DroneCAN sur CAN1, +5 V NC"| FCU
+  FCU -->|"W04.1 / W04.2 / W04.3 / W04.4 • MAIN1 à MAIN4"| ESC
+
+  subgraph DIAG["Diagnostic batterie isolé"]
+    ISO["Waveshare 15817 • isolation données et alimentation"]
+  end
+  BMS <-->|"W40 / F40 • TTL 9600 8N1 • B− confiné côté TTL"| ISO
+  ISO <-->|"W41 / F41 • USB2 A/B et VBUS côté protégé"| CPU
+
+  subgraph PER["Perception sur platine commune"]
+    SPLIT["Cordon Airy OEM • éclatement sans jonction électrique ajoutée"]
+    AIRY["RoboSense Airy"]
+    BAS["Basler • USB3 et M8"]
+    LENS["Fujinon • interface optique"]
+    SPLIT ---|"W10 / W15 / W23 • tronc commun AIRY"| AIRY
+    LENS --- BAS
+  end
+  CA -->|"W10 • alimentation 12 V, AIRY_PWR"| SPLIT
+  SPLIT <-->|"W15 • Ethernet, AIRY_ETH"| CPU
+  CA -->|"W23 • PPS et GPRMC, AIRY_SYNC"| SPLIT
+  AIRY -.->|"W17 • SYNC_OUT1 réservé, pas de branche montée"| CA
+  CPU <-->|"W16 / F16 • USB3 données et énergie"| BAS
+  CA -->|"W18 / F_M8 • trigger opto contacts 2 et 3"| BAS
+  BAS -->|"W34 / F_M8 • exposition contacts 4 et 6"| CA
+
+  subgraph NAV["Navigation et sécurité"]
+    GNSS["F9P G4 • navigation, compas et PPS"]
+    HEL["Antenne hélicoïdale"]
+    SAFE["CUAV USL • bouton, LED et buzzer"]
+    GNSS ---|"W22 • RF directe, montage à confirmer"| HEL
+  end
+  FCU <-->|"W21 • CAN2 et alimentation GNSS"| GNSS
+  GNSS -->|"W36 • PPS/GPRMC vers J503, +5 V NC"| CA
+  FCU <-->|"W25 • GPS1 ↔ USL, compatibilité ouverte"| SAFE
+
+  subgraph GROUND["Terrain et recharge hors drone"]
+    GRID["Secteur disponible au sol"]
+    BASE["Base RTK 12022"]
+    BASEANT["Antenne base HANT-X627A"]
+    TERM["Terminal terrain"]
+    POCKET["Radio Pocket et Backpack"]
+    CH["SkyRC S100neo"]
+    GRID -->|"SOL-POWER.TERMINAL"| TERM
+    GRID -->|"SOL-POWER.S100NEO"| CH
+    BASEANT ---|"SOL-RTK-ANT • coaxial SMA/TNC"| BASE
+    BASE <-->|"SOL-RTK-USB • RTCM et alimentation"| TERM
+    TERM -->|"SOL-RADIO-USB • charge Pocket"| POCKET
+    TERM -.->|"W28 • Wi-Fi candidat"| POCKET
+  end
+  POCKET -.->|"W27 • ELRS"| RF
+  BASE -.->|"W29 • RTCM, réemploie USB/W28/W27/W21"| GNSS
+  CH -->|"W43 • XT60 vers demi-QS8 pack, drone débranché"| QS8
+
+  subgraph REMOVED["Références retirées du prototype"]
+    REM["W07 ancien départ radio • W11 ancien cordon RP4TD • W30 ancien capteur mesure • W39 JETI/PM • W42 boucle TE • W-JETI-COMMANDE"]
+  end

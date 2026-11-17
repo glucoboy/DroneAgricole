@@ -1,0 +1,660 @@
+{
+  "reference": "T-CARTO-BOM-PROTO-01",
+  "date_utc": "2026-10-26T20:56:01.9307616Z",
+  "presentation_version": 2,
+  "resultat": "Réussi",
+  "qualification_physique": "À valider",
+  "portee": "Deux nomenclatures et leurs exports hiérarchiques ; aucune qualification matérielle",
+  "environnement": {
+    "os": "Microsoft Windows NT 10.0.26300.0",
+    "powershell": "7.6.5",
+    "methode": "JSON/CSV, SHA-256 et XML OpenXML ; sans Excel natif"
+  },
+  "commande": "pwsh -NoProfile -File hardware/mecanique/cartographe/verification/verify_nomenclature_prototype.ps1 -WriteEvidence",
+  "entrees": [
+    {
+      "fichier": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+      "sha256": "0bf86e530b6f104d587c03344336a851d4f50e09dbab4fe76216e36b23d131b0"
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/nomenclature_produit_custom.json",
+      "sha256": "8642f4f6ee4c2c6d1dfcd9f0315bd29ada65c46f53a3a0eb222e4720da38ef39"
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/verification/verify_nomenclature_prototype.ps1",
+      "sha256": "6ca40224a2e28a2b63ab0525e0340804f1e33ba5aee22c164506a23d663fce6a"
+    }
+  ],
+  "exports": [
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/Nomenclature_Prototype_Cartographe.xlsx",
+      "sha256": "f683bb2b718561694c0fb1037c4137214cd34c56dfd81394c170925371305b36",
+      "onglets": [
+        "Vue système",
+        "Structure",
+        "Propulsion",
+        "Énergie",
+        "Avionique",
+        "CA01",
+        "Perception",
+        "Navigation et radio",
+        "Faisceaux",
+        "Sol",
+        "Options et retraits"
+      ],
+      "postes": 134,
+      "principaux": 24,
+      "tables": 13
+    },
+    {
+      "fichier": "hardware/mecanique/cartographe/exports/Nomenclature_Produit_Custom_Cartographe.xlsx",
+      "sha256": "d9cd375467fd7e4b5d2e1c00b7627bcee09e36508067c0edb5000b3a552769fa",
+      "onglets": [
+        "Vue système",
+        "Structure",
+        "Propulsion",
+        "Batterie",
+        "Échange batterie",
+        "Puissance",
+        "Porteuse et calcul",
+        "Acquisition",
+        "Navigation et radio",
+        "Intégration thermique",
+        "Moyens sol"
+      ],
+      "postes": 54,
+      "principaux": 26,
+      "tables": 11
+    }
+  ],
+  "controles": [
+    {
+      "id": "identifiants",
+      "reussi": true,
+      "detail": "Unicité des postes et liaisons"
+    },
+    {
+      "id": "selection",
+      "reussi": true,
+      "detail": "Chaque poste de la sélection source possède un rapprochement"
+    },
+    {
+      "id": "rapprochements",
+      "reussi": true,
+      "detail": "Tous les postes de rapprochement existent"
+    },
+    {
+      "id": "liaisons_source",
+      "reussi": true,
+      "detail": "Tous les Wxx de cablage_global sont couverts"
+    },
+    {
+      "id": "parents",
+      "reussi": true,
+      "detail": "Parentage et inclusion massique résolus"
+    },
+    {
+      "id": "quantites",
+      "reussi": true,
+      "detail": "Quantités positives ou inconnues, retraits à zéro"
+    },
+    {
+      "id": "perimetre",
+      "reussi": true,
+      "detail": "Prototype sans dock ; migration CAO autorisée, achat/fabrication et bilan physique complet non présumés"
+    },
+    {
+      "id": "migration_tracable",
+      "reussi": true,
+      "detail": "Migration déclarée seulement avec une preuve locale identifiée"
+    },
+    {
+      "id": "antenne_gnss_directe",
+      "reussi": true,
+      "detail": "Antenne GNSS montée directement ; aucune rallonge F22 installée"
+    },
+    {
+      "id": "definitions_actives",
+      "reussi": true,
+      "detail": "Références de définition et quantités de postes renseignées ; les détails candidats ne sont pas une qualification"
+    },
+    {
+      "id": "details_ouverts_explicites",
+      "reussi": true,
+      "detail": "Compléments de définition identifiés ; fermeture qualifiée non revendiquée"
+    },
+    {
+      "id": "details_ouverts_coherents",
+      "reussi": true,
+      "detail": "Liste de compléments identique aux indicateurs portés par les postes"
+    },
+    {
+      "id": "details_ouverts_classes",
+      "reussi": true,
+      "detail": "Compléments répartis sans omission ni doublon entre contenu OEM, intégration, interfaces et matériel récupéré"
+    },
+    {
+      "id": "retrait_jeti",
+      "reussi": true,
+      "detail": "JETI, commande et cordon aval exclus de la sélection et de la synthèse"
+    },
+    {
+      "id": "raccord_direct_pm08",
+      "reussi": true,
+      "detail": "W38 et ELEC-F38 portent une seule liaison du connecteur au PM08-CAN IN"
+    },
+    {
+      "id": "liaisons_jeti_exclues",
+      "reussi": true,
+      "detail": "Identifiants source gardés, aucun cordon JETI à monter"
+    },
+    {
+      "id": "fonctions_energie_conservees",
+      "reussi": true,
+      "detail": "Fonctions BMS, PM, distribution, isolation et protections maintenues ; un jeu QS8-S choisi, qualification À valider"
+    },
+    {
+      "id": "source:hardware/electronique/cartographe/carte_avionique/bom_candidate.json",
+      "reussi": true,
+      "detail": "0b357f66377ec467144a8feb30361e88fa3cd4aab01c5720de80ec02ab5d680f"
+    },
+    {
+      "id": "source:hardware/electronique/cartographe/carte_avionique/fabrication/bom_assemblage_candidate.csv",
+      "reussi": true,
+      "detail": "bcefd4e743b0e4343af89b7938b877b7f2b77838df473cda1294eed5a9663921"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/configuration_cible_20261003.json",
+      "reussi": true,
+      "detail": "9c273b45840eb16b84d72531b74875f2a789e5aaa0c46f6418929c485a0cd5da"
+    },
+    {
+      "id": "source:hardware/electronique/cartographe/cablage_global.json",
+      "reussi": true,
+      "detail": "940e091b1dea02f01f1dea3308eb6ef47326e3bcf7435c9fdea456c75667051f"
+    },
+    {
+      "id": "source:hardware/electronique/cartographe/faisceau_systeme_cible_20261003.json",
+      "reussi": true,
+      "detail": "4ee3418d944224a83a098cf78d200a2a8614d9f0af2930e2ba773112e7e5096a"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/bom_dock20Ah_20261002.json",
+      "reussi": true,
+      "detail": "c31a6553fa6359c314c320efda8f5770031c8f66a16fea4fe7914f581624d694"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/definition_bom_mecanique.json",
+      "reussi": true,
+      "detail": "259cff3e04ccda4f3a90e8acacf8dcf7410c8062a0402f0798af0e0b572d82b9"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/definition_bom_electrique.json",
+      "reussi": true,
+      "detail": "1e721d0359518fb65164097727b9dedbaa3a8941e45748fa716f9b655de5b502"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/construction_prototype.json",
+      "reussi": true,
+      "detail": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/retenues_faisceaux_prototype.json",
+      "reussi": true,
+      "detail": "bd524fb4656fd8b920b1bf18a154e5409b68ac376c2c108c1964ca5e68c7617f"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_fixations_equipements_prototype.json",
+      "reussi": true,
+      "detail": "a65693e7f74b1ae0f69d10ec7df9b92bfd64e60827123d54619632660f862f5f"
+    },
+    {
+      "id": "source:hardware/mecanique/cartographe/verification/historique/orch_cao_masse_1/controle_colliers_prototype.json",
+      "reussi": true,
+      "detail": "d923956fe48b033857df5f954daa061813d7ecf6b9916a23edb4d481e59a5806"
+    },
+    {
+      "id": "sources_accessibles",
+      "reussi": true,
+      "detail": 42
+    },
+    {
+      "id": "ca01_empreintes",
+      "reussi": true,
+      "detail": "JSON et CSV identifiés séparément"
+    },
+    {
+      "id": "ca01_comptages",
+      "reussi": true,
+      "detail": "Export CA01 cohérent avec le registre"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:onglets",
+      "reussi": true,
+      "detail": [
+        "Vue système",
+        "Structure",
+        "Propulsion",
+        "Énergie",
+        "Avionique",
+        "CA01",
+        "Perception",
+        "Navigation et radio",
+        "Faisceaux",
+        "Sol",
+        "Options et retraits"
+      ]
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Structure",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Structure",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Structure",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Propulsion",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Propulsion",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Propulsion",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Énergie",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Énergie",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Énergie",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Avionique",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Avionique",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Avionique",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:CA01",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:CA01",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:CA01",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "ca01_detail",
+      "reussi": true,
+      "detail": "151 repères et somme des composants montés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Perception",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Perception",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Perception",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Navigation et radio",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Navigation et radio",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Navigation et radio",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Faisceaux",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Faisceaux",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Faisceaux",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "liaisons_detail",
+      "reussi": true,
+      "detail": "43 identifiants de liaisons tracés ; exclusions à zéro explicites"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Sol",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Sol",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Sol",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:volets:Options et retraits",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:erreurs:Options et retraits",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:detail:Options et retraits",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:couverture_export",
+      "reussi": true,
+      "detail": "Chaque poste une seule fois dans le détail"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:principaux",
+      "reussi": true,
+      "detail": "Principaux IDs uniques et résolus"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:synthese",
+      "reussi": true,
+      "detail": "Synthèse liée aux détails, inconnues préservées"
+    },
+    {
+      "id": "BOM-CARTO-PROTOTYPE:tables",
+      "reussi": true,
+      "detail": "Tables filtrables présentes"
+    },
+    {
+      "id": "custom_unicite",
+      "reussi": true,
+      "detail": "IDs custom uniques"
+    },
+    {
+      "id": "custom_parents",
+      "reussi": true,
+      "detail": "Inclusions entre postes explicites"
+    },
+    {
+      "id": "custom_modules",
+      "reussi": true,
+      "detail": "Seuls 6X et Jetson explicitement conservés"
+    },
+    {
+      "id": "custom_limites",
+      "reussi": true,
+      "detail": "Échange rapide planifié, dimensionnement et achat non acquis"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:onglets",
+      "reussi": true,
+      "detail": [
+        "Vue système",
+        "Structure",
+        "Propulsion",
+        "Batterie",
+        "Échange batterie",
+        "Puissance",
+        "Porteuse et calcul",
+        "Acquisition",
+        "Navigation et radio",
+        "Intégration thermique",
+        "Moyens sol"
+      ]
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Structure",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Structure",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Structure",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Propulsion",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Propulsion",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Propulsion",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Batterie",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Batterie",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Batterie",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Échange batterie",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Échange batterie",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Échange batterie",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Puissance",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Puissance",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Puissance",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Porteuse et calcul",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Porteuse et calcul",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Porteuse et calcul",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Acquisition",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Acquisition",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Acquisition",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Navigation et radio",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Navigation et radio",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Navigation et radio",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Intégration thermique",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Intégration thermique",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Intégration thermique",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:volets:Moyens sol",
+      "reussi": true,
+      "detail": "ID et en-têtes figés"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:erreurs:Moyens sol",
+      "reussi": true,
+      "detail": "Aucune erreur exportée"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:detail:Moyens sol",
+      "reussi": true,
+      "detail": "Toutes les lignes source et leur comptage sont fidèles"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:couverture_export",
+      "reussi": true,
+      "detail": "Chaque poste une seule fois dans le détail"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:principaux",
+      "reussi": true,
+      "detail": "Principaux IDs uniques et résolus"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:synthese",
+      "reussi": true,
+      "detail": "Synthèse liée aux détails, inconnues préservées"
+    },
+    {
+      "id": "BOM-CARTO-PRODUIT-CUSTOM:tables",
+      "reussi": true,
+      "detail": "Tables filtrables présentes"
+    }
+  ],
+  "comptages": {
+    "prototype": 134,
+    "prototype_embarque": 95,
+    "prototype_exclu": 23,
+    "principaux_prototype": 24,
+    "custom": 54,
+    "ca01_reperes": 151,
+    "ca01_montes": 141.0,
+    "liaisons": 43,
+    "liaisons_exclues": 11,
+    "quantites_embarquees_inconnues": 0,
+    "references_embarquees_inconnues": 0,
+    "postes_actifs_initialement_incomplets": 50,
+    "postes_repris": 55,
+    "details_encore_a_terminer": 20,
+    "longueurs_faisceaux_inconnues": 29,
+    "materiel_pc_identifie": false
+  },
+  "non_executes": [
+    "Recalcul dans Excel natif",
+    "Recalcul CAO ou schémas",
+    "Essais physiques ; aucune modification de matériel"
+  ],
+  "conclusion": "Exports cohérents ; produit custom au niveau fonctionnel Planifié, faisabilité physique À valider."
+}

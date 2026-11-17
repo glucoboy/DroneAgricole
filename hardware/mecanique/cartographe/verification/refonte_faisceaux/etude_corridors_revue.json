@@ -1,0 +1,423 @@
+{
+  "schema": "cartographe.refonte.revue-independante.v1",
+  "scope": "Relecture des preuves, mesures BRep sauvegardées et fermeture XLink sans modification de natif.",
+  "partition": {
+    "electrical_catalog_count": 71,
+    "electrical_catalog_unique": 71,
+    "scope_counts": {
+      "faisceau_embarque": 50,
+      "interne_oem": 2,
+      "reserve_non_montee": 2,
+      "interface_directe": 1,
+      "sans_fil": 2,
+      "transport_reutilise": 1,
+      "retire": 6,
+      "au_sol": 6,
+      "interne_pcb": 1
+    },
+    "route_count": 53,
+    "architecture_group_count": 21,
+    "missing": [],
+    "extra": [],
+    "duplicates": []
+  },
+  "physical_limits": [
+    "Un retrait petit et un guide monobloc ne garantissent ni ligament utile, ni rigidité, ni tenue des colliers.",
+    "Enveloppes de gaine idéalisées. Couture, ouverture, maintien axial, tolérances, abrasion et extraction à valider.",
+    "Courant et déclassement F38, immunité PPS/référence CSI et dommage commun des quatre commandes MAIN à caractériser.",
+    "Modes mobiles, mouvements continus, vibrations et fatigue à valider séparément du contrôle nominal.",
+    "Les fichiers sources électriques couvrent plus de liaisons que les volumes CAO. Les lignes non résolues restent ouvertes."
+  ],
+  "decisions_reviewed": [
+    {
+      "subject": "NTC",
+      "verdict": "cohérent pour un candidat nominal",
+      "evidence": "etude_corridors.json",
+      "rationale": "9 mm, marge radiale 0,30 mm et borne aux non-membres 2,25 mm. Retenues distantes conservées; maintien textile propre non démontré."
+    },
+    {
+      "subject": "GNSS",
+      "verdict": "séparation justifiée dans le périmètre",
+      "evidence": "etude_corridors.json",
+      "rationale": "La géométrie permet une gaine courte. Bénéfice limité à 9 mm, et cohabitation DroneCAN/alimentation et UART2/GPRMC/PPS non établie."
+    },
+    {
+      "subject": "MAIN",
+      "verdict": "choix conditionnel à comparer au repli intact",
+      "evidence": "etude_corridors_variante_main_paire.json",
+      "rationale": "Deux branches reroutées sans modifier P75 pour MAIN donnent 8,5 mm avec +24 mm de câble. La solution 8 mm à une branche et retrait de guide réduit l’allongement à +12 mm; comparer accès et résistance."
+    },
+    {
+      "subject": "signal nord",
+      "verdict": "cohérent pour un candidat nominal",
+      "evidence": "SIGNAL_NORD_RELIEF_L30.json",
+      "rationale": "F24A PPS et F24C référence 3,3 V/masse, sans canal vidéo CSI. Retours distincts, accessibilité à l’extracteur et couplage à contrôler."
+    },
+    {
+      "subject": "alimentations de vol",
+      "verdict": "séparation maintenue",
+      "evidence": "architecture.json et etude_corridors_droites.json",
+      "rationale": "Proximité F06/F32 en montée ouest sans gaine commune. La proximité seule ne démontre aucune indépendance face aux dommages."
+    }
+  ],
+  "freecad_version": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "script_sha256": "9ef07f18098a1d535372a8f4104590a9bad1aedd8b305b7914343ebee4daedb0",
+  "saved_copy_reviewed": true,
+  "native": {
+    "closure_count": 141,
+    "closure_matches_receipt": true,
+    "source_baseline_matches": true,
+    "source_original_matches": true,
+    "preserved_placements": 369,
+    "transform_changes": [],
+    "native_groups_issues": [],
+    "native_links_checked": 115,
+    "native_links_issues": [],
+    "native_sleeves_issues": []
+  },
+  "graph": {
+    "route_count": 53,
+    "missing": [],
+    "duplicates": [],
+    "issues": [],
+    "sleeves": [
+      {
+        "gaine": "GaineNTC",
+        "length_mm": 9,
+        "members": [
+          "NTC1",
+          "NTC2"
+        ]
+      },
+      {
+        "gaine": "GaineSignalNord",
+        "length_mm": 30,
+        "members": [
+          "F24A",
+          "F24C"
+        ]
+      },
+      {
+        "gaine": "ProtectionF38",
+        "length_mm": 105,
+        "members": [
+          "F38_POS",
+          "F38_NEG"
+        ]
+      },
+      {
+        "gaine": "GaineMAIN",
+        "length_mm": 8,
+        "members": [
+          "F04_1",
+          "F04_2",
+          "F04_3",
+          "F04_4"
+        ]
+      }
+    ],
+    "common_length_mm": 152,
+    "cumulative_route_length_mm": 12207.334261136766
+  },
+  "reviewed_hashes": {
+    "installation": "ff20c2a9c4705d065f7182b58da4d20942aef9f9981d9c10d7c35280dfe42cf4",
+    "graph": "9480a152ba968bc8153dadd0edb7b7387cc72e1a9aadb12172f766636cf91080",
+    "assembly": "5f4503e05027388c48c5d0607671ebe6a851ed4ac9aae9f7b9bca917e01c0643",
+    "construction": "87e83f58c1faad08bad51c9b997dd815821c30062603f333ce29b547a8e7d3f4"
+  },
+  "final_guide_checks": [
+    {
+      "id": "P75_Cadre",
+      "old_mm3": 76365.02328396958,
+      "new_mm3": 76223.79278143527,
+      "removed_mm3": 141.23047465212585,
+      "added_mm3": -2.7882182621397078e-05,
+      "removed_brep_mm3": 141.22526617436463,
+      "removed_brep_solids": 5,
+      "matches_installation": true,
+      "features_before_relief": [
+        {
+          "feature": "PeigneMAINIncline",
+          "volume_mm3": 503.9999999999992,
+          "removed_overlap_mm3": 28.222954828408724
+        },
+        {
+          "feature": "AppuiPeigneAvant",
+          "volume_mm3": 219.91148575128557,
+          "removed_overlap_mm3": 1.4515981271468863
+        },
+        {
+          "feature": "AppuiPeigneArriere",
+          "volume_mm3": 295.30970943744063,
+          "removed_overlap_mm3": 1.4607892308231003
+        }
+      ]
+    },
+    {
+      "id": "P73_Guide",
+      "old_mm3": 75935.8644478368,
+      "new_mm3": 75746.47946095803,
+      "removed_mm3": 189.38498687876563,
+      "added_mm3": 0.0,
+      "removed_brep_mm3": 189.378405369181,
+      "removed_brep_solids": 4,
+      "matches_installation": true,
+      "features_before_relief": [
+        {
+          "feature": "PontF38Pos",
+          "volume_mm3": 6063.999999999998,
+          "removed_overlap_mm3": 0.0
+        },
+        {
+          "feature": "PontF38Neg",
+          "volume_mm3": 6063.999999999998,
+          "removed_overlap_mm3": 0.0
+        }
+      ]
+    }
+  ],
+  "retention_stations": [
+    {
+      "id": "F24A_AR_35",
+      "cable": "F24A",
+      "guide": "P75_Cadre",
+      "feature": "CaleF24A35",
+      "point_mm": [
+        35,
+        55,
+        118
+      ],
+      "window_mm": [
+        32.7,
+        37.3
+      ],
+      "band_width_class": "documentée",
+      "length_of_window_outside_sleeve_mm": 2.299999999999997,
+      "before_local_guide_volume_mm3": 258.71533477458405,
+      "after_local_guide_volume_mm3": 246.12777013405199,
+      "guide_removed_in_window_mm3": 12.587564640532065,
+      "support_before_in_window_mm3": 25.446900517800458,
+      "support_after_in_window_mm3": 20.64304548748965,
+      "guide_to_cable_before_mm": 0.20000000000000284,
+      "guide_to_cable_after_mm": 0.20000000000000284,
+      "guide_to_candidate_sleeve_after_mm": 0.24999996517787942,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": null,
+      "classification": "CANDIDATE_GAINE_COMMUNE_A_REDEFINIR",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F24A_AR_65",
+      "cable": "F24A",
+      "guide": "P75_Cadre",
+      "feature": "CaleF24A65",
+      "point_mm": [
+        64.5,
+        55,
+        118
+      ],
+      "window_mm": [
+        62.2,
+        66.8
+      ],
+      "band_width_class": "documentée",
+      "length_of_window_outside_sleeve_mm": 1.7999999999999972,
+      "before_local_guide_volume_mm3": 291.48875812356124,
+      "after_local_guide_volume_mm3": 277.98886412661074,
+      "guide_removed_in_window_mm3": 13.499893996950505,
+      "support_before_in_window_mm3": 25.44690049407728,
+      "support_after_in_window_mm3": 20.643045386263456,
+      "guide_to_cable_before_mm": 0.20000000000000284,
+      "guide_to_cable_after_mm": 0.20000000000000284,
+      "guide_to_candidate_sleeve_after_mm": 0.24999997407854727,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": null,
+      "classification": "CANDIDATE_GAINE_COMMUNE_A_REDEFINIR",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F24C_AR_40",
+      "cable": "F24C",
+      "guide": "P75_Cadre",
+      "feature": "LisseF24CArriere",
+      "point_mm": [
+        40,
+        61,
+        116
+      ],
+      "window_mm": [
+        37.7,
+        42.3
+      ],
+      "band_width_class": "documentée",
+      "length_of_window_outside_sleeve_mm": 0,
+      "before_local_guide_volume_mm3": 232.09200179829156,
+      "after_local_guide_volume_mm3": 216.71568544318973,
+      "guide_removed_in_window_mm3": 15.376316355101835,
+      "support_before_in_window_mm3": 32.51556938329072,
+      "support_after_in_window_mm3": 24.55625000712146,
+      "guide_to_cable_before_mm": 0.20000000000000284,
+      "guide_to_cable_after_mm": 1.199999999999991,
+      "guide_to_candidate_sleeve_after_mm": 0.24999999999999575,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": null,
+      "classification": "CANDIDATE_GAINE_COMMUNE_A_REDEFINIR",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F24C_AR_65",
+      "cable": "F24C",
+      "guide": "P75_Cadre",
+      "feature": "LisseF24CArriere",
+      "point_mm": [
+        65,
+        61,
+        116
+      ],
+      "window_mm": [
+        62.7,
+        67.3
+      ],
+      "band_width_class": "documentée",
+      "length_of_window_outside_sleeve_mm": 2.299999999999997,
+      "before_local_guide_volume_mm3": 237.0782557236184,
+      "after_local_guide_volume_mm3": 223.7506066212002,
+      "guide_removed_in_window_mm3": 13.327649102418206,
+      "support_before_in_window_mm3": 32.51548384014049,
+      "support_after_in_window_mm3": 28.103295015022066,
+      "guide_to_cable_before_mm": 0.20000000000000284,
+      "guide_to_cable_after_mm": 0.20000000000000284,
+      "guide_to_candidate_sleeve_after_mm": 0.24999997407854724,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": null,
+      "classification": "CANDIDATE_GAINE_COMMUNE_A_REDEFINIR",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F38_POS_X-5",
+      "cable": "F38_POS",
+      "guide": "P73_Guide",
+      "feature": "PontF38Pos",
+      "point_mm": [
+        -5,
+        -94,
+        52
+      ],
+      "window_mm": [
+        -7.3,
+        -2.7
+      ],
+      "band_width_class": "fenêtre de contrôle hypothétique",
+      "length_of_window_outside_sleeve_mm": 0,
+      "before_local_guide_volume_mm3": 45.99999999999999,
+      "after_local_guide_volume_mm3": 45.99999999999999,
+      "guide_removed_in_window_mm3": 0.0,
+      "support_before_in_window_mm3": 0.0,
+      "support_after_in_window_mm3": 0.0,
+      "guide_to_cable_before_mm": 2.25,
+      "guide_to_cable_after_mm": 2.25,
+      "guide_to_candidate_sleeve_after_mm": 0.5999999999999943,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": 0.5999999999999943,
+      "classification": "SITE_F38_CANDIDAT_GEOMETRIE_PRESERVEE",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F38_NEG_X-5",
+      "cable": "F38_NEG",
+      "guide": "P73_Guide",
+      "feature": "PontF38Neg",
+      "point_mm": [
+        -5,
+        -104,
+        52
+      ],
+      "window_mm": [
+        -7.3,
+        -2.7
+      ],
+      "band_width_class": "fenêtre de contrôle hypothétique",
+      "length_of_window_outside_sleeve_mm": 0,
+      "before_local_guide_volume_mm3": 45.99999999999999,
+      "after_local_guide_volume_mm3": 45.99999999999999,
+      "guide_removed_in_window_mm3": 0.0,
+      "support_before_in_window_mm3": 0.0,
+      "support_after_in_window_mm3": 0.0,
+      "guide_to_cable_before_mm": 2.25,
+      "guide_to_cable_after_mm": 2.25,
+      "guide_to_candidate_sleeve_after_mm": 0.5999999999999943,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": 0.5999999999999943,
+      "classification": "SITE_F38_CANDIDAT_GEOMETRIE_PRESERVEE",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F38_POS_X40",
+      "cable": "F38_POS",
+      "guide": "P73_Guide",
+      "feature": "PontF38Pos",
+      "point_mm": [
+        40,
+        -94,
+        52
+      ],
+      "window_mm": [
+        37.7,
+        42.3
+      ],
+      "band_width_class": "fenêtre de contrôle hypothétique",
+      "length_of_window_outside_sleeve_mm": 0,
+      "before_local_guide_volume_mm3": 46.000000000000014,
+      "after_local_guide_volume_mm3": 46.000000000000014,
+      "guide_removed_in_window_mm3": 0.0,
+      "support_before_in_window_mm3": 0.0,
+      "support_after_in_window_mm3": 0.0,
+      "guide_to_cable_before_mm": 2.25,
+      "guide_to_cable_after_mm": 2.25,
+      "guide_to_candidate_sleeve_after_mm": 0.5999999999999943,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": 0.5999999999999943,
+      "classification": "SITE_F38_CANDIDAT_GEOMETRIE_PRESERVEE",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    },
+    {
+      "id": "F38_NEG_X40",
+      "cable": "F38_NEG",
+      "guide": "P73_Guide",
+      "feature": "PontF38Neg",
+      "point_mm": [
+        40,
+        -104,
+        52
+      ],
+      "window_mm": [
+        37.7,
+        42.3
+      ],
+      "band_width_class": "fenêtre de contrôle hypothétique",
+      "length_of_window_outside_sleeve_mm": 0,
+      "before_local_guide_volume_mm3": 46.000000000000014,
+      "after_local_guide_volume_mm3": 46.000000000000014,
+      "guide_removed_in_window_mm3": 0.0,
+      "support_before_in_window_mm3": 0.0,
+      "support_after_in_window_mm3": 0.0,
+      "guide_to_cable_before_mm": 2.25,
+      "guide_to_cable_after_mm": 2.25,
+      "guide_to_candidate_sleeve_after_mm": 0.5999999999999943,
+      "guide_to_candidate_sleeve_intersection_mm3": 0.0,
+      "guide_to_baseline_sleeve_mm": 0.5999999999999943,
+      "classification": "SITE_F38_CANDIDAT_GEOMETRIE_PRESERVEE",
+      "limits": "Section locale de volumes et distances. Bande, tête, chemin de fermeture, maintien axial et serrage non démontrés."
+    }
+  ],
+  "numerical_scope": "Contrôle nominal des fichiers finalisés. Les appuis documentés sont distincts des efforts de serrage et d’une preuve de maintien."
+}

@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "lot": "ORCH-CAO-MASSE-1",
+  "test_id": "T-ORCH-CAO-MASSE-REVUE-01",
+  "date_utc": "2026-10-25 18:57:50 UTC",
+  "role": "Revue indépendante après consolidation ; propriétaire de cette seule preuve",
+  "statut": "Implémenté",
+  "qualification": "À valider",
+  "revue_finalisee": true,
+  "finalisation_correcte": true,
+  "lot_clos": false,
+  "definition_geometrique_complete": false,
+  "definition_massique_complete": false,
+  "qualification_physique_obtenue": false,
+  "conclusion": "Exécution bornée des recherches, de l'intégration, des calculs et des contrôles vérifiée. Les critères de clôture de la définition restent non conformes : géométrie et masses incomplètes, interférences et interfaces ouvertes. Le lot n'est pas clos.",
+  "sources_sha256": {
+    "hardware/mecanique/cartographe/verification/controle_orch_cao_masse_1.json": "11af7e2d68f0866ec797425ea5cdf591a239b973033e5f806b5ff7972103a214",
+    "hardware/mecanique/cartographe/verification/construction_prototype.json": "367d69019a1eb7424091d01e77e06dec920828dc47264f7d1237a9df18a0ffe6",
+    "hardware/mecanique/cartographe/manifest.json": "2300b05912d2c4c31df8c2cd3132b18c67de4c300ac24e525b9ce53662096654",
+    "hardware/mecanique/cartographe/nomenclature_prototype.json": "0e552a180f4514c23f2098e2bf9c94ff5642bfd3bfae6a305f6d3c6f9f9cadee",
+    "hardware/mecanique/cartographe/verification/orch_cao_masse_geometrie.json": "4a44cc9bdd4bfa1e80046fab404bca280a15f87436ed455cc1e379bb4d5fb7e1",
+    "hardware/mecanique/cartographe/verification/controle_masse_prototype.json": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192",
+    "simulation/gazebo/models/cartographe/geometry/mass_ledger.json": "c0d0909d67d9eb57ae9efbd5164611361a9cd180078220594f0aa0f695498192",
+    "hardware/mecanique/cartographe/verification/couverture_bom_cao_prototype.json": "f775b08ef78e0ae51476de8855579f1da3ef85768948856b65e8804591a9b74f",
+    "hardware/mecanique/cartographe/verification/controle_assemblage_prototype.json": "83c50648fa4e07a6c38855b54155418edfa9400aea94d71073b916c7490bd9df",
+    "hardware/mecanique/cartographe/verification/controle_nomenclature_prototype.json": "68fd8beb1b22df4baf362e8ce4a58b411a53c5f50b191749a5a462e95320d65a",
+    "hardware/mecanique/cartographe/verification/orch_interfaces_equipements.json": "bacc91655832e43b12c3fdf5fe1e1d65cc4228d2eee28307c4a04d38af852d25",
+    "hardware/mecanique/cartographe/verification/orch_integrate_cao.py": "249e9976432e06a084550054e08d955e35dd983c1606d3d6624c1640616e36a8",
+    "hardware/mecanique/cartographe/verification/orch_prepare_registres.py": "78209a9820c8b2b0827f65231fa0af624a9a56767cdfadba1aa81889829df903",
+    "simulation/mass/BomMass.cpp": "5238202c7aaa68e5d042388ca1d0f18c6f1e1f4da7ec7dffb20e3bda9f170fff",
+    "simulation/mass/MassProperties.hpp": "03a6bba0cb0f34f8a1b0f20cc8228e8c9f561889a4da5c02fcbfbe6b90e23d88",
+    "simulation/mass/TestMass.cpp": "025dee99bfbc68bd9352a4caede51c55f0330192ac52294c38024685461737fd"
+  },
+  "protocole": [
+    "Relecture indépendante des adaptateurs d'intégration et de préparation, du calcul C++17, des contrats massiques, des consommateurs BOM/Gazebo et des corrections d'obsolescence UI.",
+    "Lecture directe des Document.xml natifs : comparaison indépendante des liens, objets source, échelles et matrices des 362 occurrences avec le registre.",
+    "Comparaison sémantique des propriétés GUI existantes avec la copie initiale du workspace ; lecture des providers des 16 nouveaux liens.",
+    "Recalcul indépendant des contributions massiques en arithmétique décimale depuis les volumes/densités, volumes de tranchage et longueur/masse linéique conservés.",
+    "Recalcul indépendant du barycentre et du transport de Huygens du seul sous-ensemble supposé homogène, sans extrapolation au drone.",
+    "Vérification des empreintes du contrôle global, du registre massique, des natifs, sources préservées et exports ; lecture des preuves de réouverture, d'interface, de tests et d'export."
+  ],
+  "controles": [
+    {
+      "id": "REV-01",
+      "conclusion": "conforme",
+      "objet": "Péremption des preuves",
+      "empreintes_controle_global_verifiees": 27,
+      "empreintes_entrees_masse_verifiees": 82,
+      "erreurs": []
+    },
+    {
+      "id": "REV-02",
+      "conclusion": "conforme",
+      "objet": "Cohérence des registres et natifs",
+      "natifs_verifies": 132,
+      "sources_preservees_verifiees": 13,
+      "manifest_construction_references_identiques": true,
+      "manifest_construction_occurrences_identiques": true,
+      "ledger_controle_identiques_octet_pour_octet": true
+    },
+    {
+      "id": "REV-03",
+      "conclusion": "conforme",
+      "objet": "Liens et placements natifs",
+      "occurrences_verifiees": 362,
+      "documents_natifs_lus": 130,
+      "ecart_max_matrice": 8.881784197001252e-16,
+      "echelles_unitaires": true,
+      "link_transform_false": true,
+      "erreurs": []
+    },
+    {
+      "id": "REV-04",
+      "conclusion": "conforme",
+      "objet": "Validité des formes dans l'extraction courante",
+      "occurrences_physiques": 506,
+      "formes_sources": 328,
+      "formes_physiques_invalides": 0,
+      "limite": "Contrôle des formes enregistrées et de sa preuve, sans qualification de fabrication ou de montage."
+    },
+    {
+      "id": "REV-05",
+      "conclusion": "conforme",
+      "objet": "Recalcul des masses disponibles",
+      "known_subtotal_g": 1465.7983610143526,
+      "independent_subtotal_g": 1465.7983610143524,
+      "documented_g": 479.7,
+      "candidate_g": 986.0983610143525,
+      "calculated_occurrences": 62,
+      "unknown_items": 90,
+      "unallocated_occurrences": 5,
+      "max_mass_difference_g": 5.684341886080802e-14,
+      "mass_complete_g": null,
+      "unites": "Volumes mm3 ; densités g/cm3 ; masses g ; parcours mm ; masses linéiques g/m",
+      "contributions_calculees_sans_doublon": true,
+      "sommes_sous_systemes_et_sous_assemblages_concordantes": true,
+      "ensemble_sans_contribution_connue_reste_null": [
+        "sous_assemblages/SA01_Prototype_Structure.FCStd"
+      ]
+    },
+    {
+      "id": "REV-06",
+      "conclusion": "conforme",
+      "objet": "Séparation masse et distribution ; inclusions ; bornes",
+      "somme_masse_disponible_independante_de_cg_et_inertie": true,
+      "enfant_connu_conserve_si_parent_inconnu": true,
+      "parent_et_enfants_non_cumules_si_ensemble_couvrant_connu": true,
+      "quantite_inconnue_distincte_zero": true,
+      "maxima_et_valeurs_non_applicables_exclus_du_sous_total": true,
+      "limite": "Une inclusion sans masse globale applicable ne ferme pas la masse du parent ni celle des autres composants."
+    },
+    {
+      "id": "REV-07",
+      "conclusion": "conforme",
+      "objet": "Recalcul du sous-ensemble homogène",
+      "occurrences": 47,
+      "mass_kg": 0.9503088894547083,
+      "centre_m": [
+        0.003837593687794642,
+        -0.000901321110175351,
+        -0.024674740282627675
+      ],
+      "inertia_kg_m2": [
+        [
+          0.009758724415000792,
+          0.00023092398783978145,
+          0.000326568934467206
+        ],
+        [
+          0.00023092398783978145,
+          0.011344728002591665,
+          0.0000483300858995635
+        ],
+        [
+          0.000326568934467206,
+          0.0000483300858995635,
+          0.005528607099407638
+        ]
+      ],
+      "max_delta_centre_m": 0,
+      "max_delta_inertia_kg_m2": 5.204170427930421e-18,
+      "drone_mass_remains_null": true,
+      "drone_cg_remains_null": true,
+      "drone_inertia_remains_null": true,
+      "conversion_inertie": "Inertie volumique mm5 × densité g/cm3 × 1e-12 = kg m2",
+      "limite": "47 occurrences supposées homogènes uniquement ; pièces TPU tranchées, câble et équipements commerciaux exclus. Aucun centrage ni tenseur du drone déduit."
+    },
+    {
+      "id": "REV-08",
+      "conclusion": "conforme",
+      "objet": "Préservation des apparences utiles",
+      "assemblages_compares": 9,
+      "providers_utiles_existants_supprimes": 0,
+      "proprietes_utiles_existantes_modifiees": 0,
+      "nouveaux_providers_p10": 16,
+      "proprietes_comparees": [
+        "Visibility",
+        "OverrideMaterial",
+        "ShapeMaterial",
+        "ShapeAppearance",
+        "LineColor",
+        "PointColor",
+        "DrawStyle",
+        "DisplayMode"
+      ],
+      "differences_residuelles": "Métadonnées ShapeAppearance des axes, plans et origines ; aucune modification relevée sur les objets utiles existants.",
+      "limite": "La recette App conserve les seules données GUI préexistantes, sans réinjecter d'ancienne BRep. Contrôle GUI interactif non exécuté ; les nouveaux liens héritent de l'apparence source."
+    },
+    {
+      "id": "REV-09",
+      "conclusion": "conforme",
+      "objet": "Provenance et reproductibilité",
+      "cles_sources_fichier_objet_distinctes": true,
+      "fermeture_native_et_hash_extracteur_lecteur_controles": true,
+      "tranchage_lie_au_natif_stl_gcode_log_et_profils": true,
+      "provenance_initiale_conservee_au_rejeu_integration": true,
+      "limite": "Grades et procédés de fabrication restent des scénarios candidats ; les tolérances ou distributions internes non publiées restent inconnues."
+    },
+    {
+      "id": "REV-10",
+      "conclusion": "conforme",
+      "objet": "Contrôles et tests observés",
+      "controles_globaux_reussis": 385,
+      "tests_massiques_reexecutes_independamment": 2,
+      "tests_qt_reussis_dans_preuve_finale": 3,
+      "controles_nomenclature_reussis": 108,
+      "exports_empreintes_verifiees": 2,
+      "limite": "Tests limités à Windows AMD64 et aux chemins concernés ; les fixtures temporaires des self-tests n'ont pas modifié les données du prototype."
+    },
+    {
+      "id": "REV-11",
+      "conclusion": "conforme",
+      "objet": "Conservation et portée des simulations",
+      "exports_gazebo_historiques_signales_obsoletes": true,
+      "scenario_synthetique_6kg_non_utilise_pour_definir_les_masses": true,
+      "nouvelle_campagne_gazebo_px4_executee_par_revue": false,
+      "limite": "Le maintien du mode synthétique existant n'autorise aucune reprise de campagne pendant cette priorité."
+    },
+    {
+      "id": "REV-12",
+      "conclusion": "conforme",
+      "objet": "Documentation vivante",
+      "documents_consultes": [
+        "DOC-HLD §1.1",
+        "DOC-MEC §2.2.1 et §6.1",
+        "DOC-ELEC réconciliation prototype",
+        "DOC-VAL §14",
+        "docs/INDEX.md"
+      ],
+      "priorite_completude_et_suspension_explicites": true,
+      "bilan_partiel_et_non_cloture_explicites": true,
+      "limite": "Les preuves historiques ne décrivent pas les dépendances modifiées et ne qualifient pas la géométrie actuelle."
+    }
+  ],
+  "couverture": {
+    "bom": 134,
+    "embarked": 95,
+    "refs": 132,
+    "occurrences": 362,
+    "physical": 506,
+    "source_shapes": 328,
+    "unallocated": 5,
+    "absent_detail": 6
+  },
+  "blocages_cloture": [
+    {
+      "id": "REV-B01",
+      "conclusion": "non conforme",
+      "objet": "Intégration PM08",
+      "constat": "Deux interférences avec UART isolé et fusible CA01, plus une interférence structurelle avec la colonne OEM.",
+      "volumes_communs_mm3": [
+        121.758268,
+        122.967369,
+        19.464933
+      ],
+      "preuve": "hardware/mecanique/cartographe/verification/controle_assemblage_prototype.json",
+      "action_requise": "Reprendre ensemble implantation, fixations et routes sur interfaces documentées, puis contrôler les natifs sauvegardés ; un déplacement isolé non intégré ne ferme pas l'écart."
+    },
+    {
+      "id": "REV-B02",
+      "conclusion": "À valider",
+      "objet": "Réconciliation physique exhaustive",
+      "postes_embarques_sans_detail_cao": 6,
+      "occurrences_sans_proprietaire_massique_unique": 5,
+      "constat": "Quatre petites feuilles OEM non identifiées et l'ensemble Holybro porteuse/6X/Orin restent sans attribution massique géométrique unique ; six postes de consommables/fixations restent sans détail identifié.",
+      "preuve": "hardware/mecanique/cartographe/verification/couverture_bom_cao_prototype.json",
+      "action_requise": "Identifier références, contenu et occurrences sans déduire leur identité d'une étiquette de kit ou d'un résumé."
+    },
+    {
+      "id": "REV-B03",
+      "conclusion": "À valider",
+      "objet": "Masses et distribution du drone",
+      "postes_inconnus_ou_incomplets": 90,
+      "constat": "Le sous-total de 1465,798361 g comprend 479,7 g documentaires applicables et 986,098361 g de calculs candidats. Il ne constitue ni masse complète ni borne garantie.",
+      "preuve": "hardware/mecanique/cartographe/verification/controle_masse_prototype.json",
+      "action_requise": "Obtenir les masses nettes et périmètres exacts manquants par information fabricant ou mesures identifiées ; confirmer matériaux/procédés et longueurs/terminaisons de faisceaux. Calculer le centrage et les inerties du drone seulement avec distributions applicables."
+    },
+    {
+      "id": "REV-B04",
+      "conclusion": "À valider",
+      "objet": "Géométrie commerciale et interfaces",
+      "constat": "QS8 demi-corps/joint et manœuvre, interfaces PM08, GNSS/SMA, engagements SSD et terminaisons/câbles restent ouverts ; les reconstructions partielles et volumes d'encombrement ne deviennent pas des modèles exacts.",
+      "preuves": [
+        "hardware/mecanique/cartographe/verification/orch_interfaces_equipements.json",
+        "hardware/mecanique/cartographe/verification/orch_cao_masse_fabrication.json",
+        "hardware/mecanique/cartographe/verification/orch_cao_masse_equipements.json"
+      ],
+      "action_requise": "Obtenir les cotes, variantes, contenus d'ensemble et interfaces fabricant précisément demandés dans les blocages de domaine, puis modifier et recontrôler les références concernées."
+    },
+    {
+      "id": "REV-B05",
+      "conclusion": "À valider",
+      "objet": "Propulsion, structure et ensembles OEM",
+      "constat": "Variantes d'hélices/fixations, détails de l'ESC précâblé, matière des colonnes et contenu/masses OEM conservés ne sont pas tous établis.",
+      "preuve": "hardware/mecanique/cartographe/verification/orch_cao_masse_structure.json",
+      "action_requise": "Identifier exactement variantes/révisions et contenus conservés avant d'attribuer géométrie ou masse ; ne pas utiliser le kit complet ni une autre variante comme substitut."
+    }
+  ],
+  "prerequis_avant_reprise_simulations": [
+    "Fermer la réconciliation des postes embarqués, occurrences et inclusions de la configuration active.",
+    "Résoudre les interférences PM08 et les interfaces bloquantes, remplacer les représentations insuffisantes ou obtenir les informations fabricant nécessaires.",
+    "Établir un bilan complet reproductible sans double comptage ; justifier le domaine de validité du centrage, des inerties et de la propulsion utilisés.",
+    "Recontrôler et rouvrir les natifs modifiés, finaliser les preuves et la revue, puis régénérer les exports pour cette configuration seulement.",
+    "Conserver la distinction entre validation numérique et qualification physique ; aucun achat, fabrication, raccordement ni essai réel n'est autorisé par cette revue."
+  ],
+  "non_execute": [
+    "Ouverture et inspection GUI interactive de l'assemblage par le relecteur.",
+    "Nouvelle campagne Gazebo/PX4, calcul de vol, consommation ou autonomie.",
+    "Achat, fabrication, pesée, essai de banc, raccordement ou vol réel.",
+    "Qualification physique des interfaces, des matériaux, de la structure, du thermique ou de la propulsion."
+  ],
+  "decision_revue": {
+    "execution_bornee_verifiee": true,
+    "erreurs_outillage_non_corrigees_identifiees": 0,
+    "cloture_du_lot_acceptable": false,
+    "definition_complete_du_drone_demontree": false,
+    "reprise_des_simulations_autorisee_par_cette_preuve": false,
+    "prochaine_decision": "Lever les informations fabricant et écarts d'intégration explicitement bloquants ; conserver le lot ouvert et la priorité de complétude."
+  }
+}
