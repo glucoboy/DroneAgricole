@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GazeboModelPage</class>
+ <widget class="QWidget" name="GazeboModelPage">
+  <layout class="QHBoxLayout" name="pageLayout">
+   <item><widget class="QScrollArea" name="modelSettingsScroll"><property name="minimumSize"><size><width>350</width><height>0</height></size></property><property name="maximumSize"><size><width>460</width><height>16777215</height></size></property><property name="widgetResizable"><bool>true</bool></property>
+    <widget class="QWidget" name="modelSettings"><layout class="QVBoxLayout" name="settingsLayout">
+     <item><widget class="QLabel" name="modelTitle"><property name="text"><string>De la CAO à Gazebo</string></property></widget></item>
+     <item><widget class="QLabel" name="modelDescription"><property name="text"><string>Préparez le prototype cartographe pour vos simulations. Chaque préparation crée un dossier indépendant et conserve les sources.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+     <item><widget class="QGroupBox" name="modelSourceGroup"><property name="title"><string>1 · Modèle source</string></property><layout class="QVBoxLayout" name="modelSourceLayout">
+      <item><widget class="QLabel" name="profileLabel"><property name="text"><string>Prototype cartographe · configuration active</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+      <item><widget class="QLabel" name="sourceLabel"><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
+      <item><widget class="QLabel" name="sourceStateLabel"><property name="wordWrap"><bool>true</bool></property></widget></item>
+     </layout></widget></item>
+     <item><widget class="QGroupBox" name="exportOptionsGroup"><property name="title"><string>2 · Préparation</string></property><layout class="QVBoxLayout" name="exportOptionsLayout">
+      <item><widget class="QCheckBox" name="regenerateCheck"><property name="text"><string>Recréer les maillages depuis la CAO</string></property><property name="checked"><bool>true</bool></property></widget></item>
+      <item><widget class="QLabel" name="cacheHelpLabel"><property name="text"><string>Décochez pour réutiliser un export existant. Ses empreintes seront vérifiées avant utilisation.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+      <item><widget class="QLabel" name="pythonLabel"><property name="text"><string>Python fourni avec FreeCAD</string></property></widget></item>
+      <item><layout class="QHBoxLayout" name="pythonLayout"><item><widget class="QLineEdit" name="pythonEdit"><property name="placeholderText"><string>Détection automatique</string></property></widget></item><item><widget class="QPushButton" name="pythonBrowseButton"><property name="text"><string>Choisir…</string></property></widget></item></layout></item>
+     </layout></widget></item>
+     <item><widget class="QLabel" name="physicsWarningLabel"><property name="text"><string>Physique À valider : masse de scénario 6 kg, inerties et propulsion provisoires. Cet export ne démontre ni la capacité à voler ni l’autonomie réelle.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+     <item><widget class="QLabel" name="exportStatusLabel"><property name="wordWrap"><bool>true</bool></property></widget></item>
+     <item><widget class="QProgressBar" name="exportProgress"><property name="value"><number>0</number></property></widget></item>
+     <item><layout class="QHBoxLayout" name="exportButtons"><item><widget class="QPushButton" name="exportButton"><property name="text"><string>Préparer pour Gazebo</string></property></widget></item><item><widget class="QPushButton" name="cancelExportButton"><property name="text"><string>Annuler</string></property></widget></item></layout></item>
+     <item><widget class="QLabel" name="outputLabel"><property name="text"><string>Le dossier contiendra le véhicule SDF, les maillages, les collisions, l’airframe et les empreintes.</string></property><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
+     <item><widget class="QPushButton" name="openPackageButton"><property name="text"><string>Ouvrir le dossier Gazebo</string></property></widget></item>
+     <item><spacer name="settingsSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>10</height></size></property></spacer></item>
+    </layout></widget>
+   </widget></item>
+   <item><layout class="QVBoxLayout" name="previewLayout" stretch="0,1,0,0">
+    <item><layout class="QHBoxLayout" name="previewToolbar"><item><widget class="QLabel" name="previewTitle"><property name="text"><string>Aperçu du modèle 3D</string></property></widget></item><item><widget class="QPushButton" name="fitModelButton"><property name="text"><string>Centrer</string></property></widget></item><item><widget class="QPushButton" name="topModelButton"><property name="text"><string>Vue de dessus</string></property></widget></item></layout></item>
+    <item><widget class="drone_agricole::ui::TrajectoryView" name="modelPreview"><property name="minimumSize"><size><width>300</width><height>300</height></size></property></widget></item>
+    <item><widget class="QLabel" name="previewNote"><property name="text"><string>Préparez un dossier pour afficher sa géométrie. Rotation : glisser · zoom : molette · dimensions en mètres.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+    <item><widget class="QPlainTextEdit" name="exportLog"><property name="maximumSize"><size><width>16777215</width><height>150</height></size></property><property name="readOnly"><bool>true</bool></property><property name="maximumBlockCount"><number>500</number></property></widget></item>
+   </layout></item>
+  </layout>
+ </widget>
+ <customwidgets><customwidget><class>drone_agricole::ui::TrajectoryView</class><extends>QWidget</extends><header>drone_agricole/ui/TrajectoryView.hpp</header></customwidget></customwidgets>
+ <resources/>
+ <connections/>
+</ui>

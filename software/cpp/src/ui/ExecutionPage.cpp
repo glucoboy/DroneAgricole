@@ -40,10 +40,10 @@ namespace drone_agricole::ui {
 namespace {
 
 const QList<QColor> comparisonColors{
-    QColor(QStringLiteral("#55e2d2")),
-    QColor(QStringLiteral("#c995ff")),
-    QColor(QStringLiteral("#74e3a8")),
-    QColor(QStringLiteral("#ff8fa8")),
+    QColor(QStringLiteral("#087f8c")),
+    QColor(QStringLiteral("#8051b5")),
+    QColor(QStringLiteral("#23834d")),
+    QColor(QStringLiteral("#bf4263")),
 };
 
 QTableWidgetItem* item(const QString& text) {
@@ -69,6 +69,8 @@ void prepareTable(QTableWidget* table) {
 ExecutionPage::ExecutionPage(application::IStationServices& services, QWidget* parent)
     : QWidget(parent), ui_(std::make_unique<Ui::ExecutionPage>()), services_(services) {
   ui_->setupUi(this);
+  ui_->executionSplitter->setSizes({390, 900});
+  ui_->executionSplitter->setChildrenCollapsible(false);
   prepareTable(ui_->liveMetricsTable);
   connect(ui_->simulationCombo, &QComboBox::currentIndexChanged, this, &ExecutionPage::simulationChanged);
   connect(ui_->variantCombo, &QComboBox::currentIndexChanged, this, &ExecutionPage::variantChanged);
@@ -97,7 +99,9 @@ void ExecutionPage::startRun() {
     ui_->trajectoryView->clear();
     ui_->logsEdit->clear();
     liveAteCurve_.clear();
-    services_.execution().start(request);
+    if (services_.execution().start(request)) {
+      ui_->executedRequestEdit->setPlainText(QString::fromUtf8(QJsonDocument(request).toJson(QJsonDocument::Indented)));
+    }
   } catch (const std::exception& error) {
     QMessageBox::warning(this, QStringLiteral("Lancement refusé"), QString::fromUtf8(error.what()));
   }
@@ -114,6 +118,10 @@ void ExecutionPage::updateRunState() {
   ui_->runProgressBar->setRange(0, 100);
   ui_->runProgressBar->setValue(execution.progress());
   ui_->runProgressBar->setFormat(QStringLiteral("%1 · %p %").arg(domain::stateLabel(execution.state())));
+  const auto run = execution.run();
+  ui_->executionTrackingLabel->setText(run
+      ? QStringLiteral("%1 · %2\n%3\n%4").arg(run->runId, domain::stateLabel(execution.state()), execution.message(), run->resultDirectory)
+      : QStringLiteral("Aucun essai lancé dans cette session."));
 }
 
 void ExecutionPage::runCompleted() {
@@ -325,10 +333,10 @@ void ExecutionPage::updateLiveTelemetry() {
     trajectories.append({QStringLiteral("Estimation"), comparisonColors.at(0), snapshot.estimate, false, {}});
   }
   if (!snapshot.truth.isEmpty()) {
-    trajectories.append({QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#ffd166")), snapshot.truth, true, {}});
+    trajectories.append({QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#a26900")), snapshot.truth, true, {}});
   }
   if (!snapshot.px4Path.isEmpty()) {
-    trajectories.append({QStringLiteral("PX4"), QColor(QStringLiteral("#74e3a8")), snapshot.px4Path, false, {}});
+    trajectories.append({QStringLiteral("PX4"), QColor(QStringLiteral("#23834d")), snapshot.px4Path, false, {}});
   }
   ui_->trajectoryView->setPointCloud(snapshot.cloud);
   ui_->trajectoryView->setSeries(trajectories);
@@ -388,23 +396,23 @@ void ExecutionPage::showReplay(const core::ReplayData& replay, const QString& la
     trajectories.append(TrajectorySeries{label, comparisonColors.at(0), replay.estimate, false, {}});
   }
   if (!replay.truth.isEmpty()) {
-    trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#ffd166")), replay.truth, true, {}});
+    trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#a26900")), replay.truth, true, {}});
   }
   if (!replay.px4Path.isEmpty()) {
     trajectories.append(TrajectorySeries{label, comparisonColors.at(0), replay.px4Path, false, {}});
   }
   for (const auto& line : replay.mapPolylines) {
     if (line.role == QStringLiteral("detected_row")) {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#53d8d2")), line.points, false,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#087f8c")), line.points, false,
                                            QStringLiteral("Rangs détectés")});
     } else if (line.role == QStringLiteral("candidate_trajectory")) {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#ff9f68")), line.points, true,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#b56612")), line.points, true,
                                            QStringLiteral("Trajectoires candidates · non qualifiées")});
     } else if (line.role == QStringLiteral("acquisition_trajectory")) {
-      trajectories.append(TrajectorySeries{line.label,QColor(QStringLiteral("#ffbf69")),line.points,false,
+      trajectories.append(TrajectorySeries{line.label,QColor(QStringLiteral("#a26900")),line.points,false,
                                            QStringLiteral("Acquisition estimée · superposition")});
     } else {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#d98cff")), line.points, true,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#8051b5")), line.points, true,
                                            QStringLiteral("Objets cartographiques")});
     }
   }
@@ -439,6 +447,37 @@ void ExecutionPage::selectComboData(QComboBox* combo, const QString& value) {
   const auto index = combo->findData(value);
   if (index >= 0) {
     combo->setCurrentIndex(index);
+  }
+}
+
+void ExecutionPage::selectDataset(const QString& datasetId, const QString& sequenceId) {
+  const auto explain = [this](const QString& message) {
+    ui_->configurationDescriptionLabel->setText(message);
+    appendLog(message);
+  };
+  if (services_.execution().active()) {
+    explain(QStringLiteral("Un essai est actif. Attendez son arrêt pour sélectionner un autre dataset."));
+    return;
+  }
+  if (datasetId.isEmpty() || currentSimulationId().isEmpty() || currentVariantId().isEmpty()) {
+    explain(QStringLiteral("Choisissez un module et une variante compatibles avant d'appliquer ce dataset."));
+    return;
+  }
+  try {
+    const auto compatible = services_.compatibleSequences(currentSimulationId(), currentVariantId());
+    const auto found = std::find_if(compatible.cbegin(), compatible.cend(), [&](const auto& sequence) {
+      return sequence.datasetId == datasetId && (sequenceId.isEmpty() || sequence.sequenceId == sequenceId);
+    });
+    if (found == compatible.cend() || ui_->datasetCombo->findData(datasetId) < 0) {
+      explain(QStringLiteral("Ce dataset ou cette séquence n'est pas compatible avec la configuration actuelle. Choisissez explicitement un autre module ou une autre variante."));
+      return;
+    }
+    selectComboData(ui_->datasetCombo, datasetId);
+    if (!sequenceId.isEmpty()) selectComboData(ui_->sequenceCombo, sequenceId);
+    explain(QStringLiteral("Dataset sélectionné : %1 · %2. Vérifiez les paramètres avant de lancer l'essai.")
+        .arg(datasetId, ui_->sequenceCombo->currentData().toString()));
+  } catch (const std::exception& error) {
+    explain(QStringLiteral("Sélection indisponible : %1").arg(QString::fromUtf8(error.what())));
   }
 }
 

@@ -1,0 +1,516 @@
+{
+  "schema": "drone_agricole.cartographe_sitl_campaign.v1",
+  "lot": "ORCH-GZ-1",
+  "created_at_utc": "2026-10-24T12:39:17.5990957Z",
+  "status": "Implémenté",
+  "physical_fidelity": "À valider",
+  "scope": "Premiers vols exploratoires et régressions de sûreté ; scénario cartographe synthétique 6 kg, sol plat, aucune qualification physique",
+  "target": {
+    "git_dirty": true,
+    "docker_engine": "29.7.2",
+    "git_commit": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "micro_xrce_agent_commit": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "px4_msgs_commit": "598c7aad7b2386f9406ebd2a2f841619fddc3c78",
+    "px4_commit": "83c4f4e580558816f0e398918f66358988004696",
+    "gazebo": "8.14.0",
+    "ros": "Jazzy",
+    "host": "Windows amd64 / Docker Linux amd64"
+  },
+  "safety": {
+    "no_material_test": true,
+    "execute": true,
+    "no_hardware_devices": true,
+    "identity": "verified_container with unique effective airframe",
+    "single_bench": true,
+    "DRONE_AGRICOLE_SITL": "1",
+    "PX4_OFFBOARD_EXECUTE": "true",
+    "no_host_network": true
+  },
+  "tests": {
+    "authorization_negative": {
+      "sitl_env_false_exit_code": 2,
+      "no_flight_commands": true,
+      "network": "none",
+      "execute_false_exit_code": 2
+    },
+    "final_sitl_archives": {
+      "contracts_per_run": 5,
+      "validated": 6
+    },
+    "preflight_airframe": {
+      "passed": true,
+      "fixtures": 7
+    },
+    "ros_linux_ctest": {
+      "proof": "ros_build.log",
+      "note": "colcon total 10 includes duplicate CTest/GTest accounting",
+      "standalone_safety": 1,
+      "passed_executables": 4,
+      "gtest_cases": 6,
+      "failed": 0
+    },
+    "energy_t0_negative": {
+      "passed": true,
+      "cases": 34
+    },
+    "sitl_t0": {
+      "positive": 6,
+      "negative": 29,
+      "passed": true
+    },
+    "native_ctest": {
+      "passed": 7,
+      "failed": 0
+    }
+  },
+  "runs": [
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:30:37.801Z",
+      "reason": "square_completed",
+      "t0_validation_exit_code": 0,
+      "mode": "square",
+      "state": "completed",
+      "flight_elapsed_s": 22.350074662,
+      "landing_confirmed": true,
+      "exit_code": 0,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_square_01",
+      "artifact_sha256": {
+        "run_request.json": "f1bd3345edc88d4f75f80e882b4e59887486d7ef0b81b02e6ffde494682a9bc0",
+        "t0_run_manifest.json": "29b5e34a8c6f6b9a60c1cc19561b63880939651de21dfa002bde07052bb3518d",
+        "t0_metrics.json": "d28fed6616dc6f681b0fbca402f1be20e52056676f5054f8a49689cb2ba875da",
+        "artifacts.json": "dfe7478463017dbcd62ed6f82d152036dad32801c90bf16c7da8050d1c6b729f",
+        "result.json": "a001819a4e94fa0cea96260830d15d536fa38f661bf18f7ba3e4bd1cdca64890",
+        "events.jsonl": "b43797fa6256c23ef5abac67f5702980a1ce03ccd8470e208a3191f5924d3d33",
+        "sitl_status.json": "37fc162b1564662af643efbdf3d19256a20f4d95709a6df4a04a47179aab81c3",
+        "sitl_environment.json": "c9406b13809d20aaa50f4f30d7ebbd0a99326f0b4a73b2df1cbde2ad1bd796ec"
+      },
+      "max_altitude_m": 2.0071029663085938,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_square_01/telemetry.jsonl",
+        "sha256": "d9828d861dce062b27247119a8dd685391fc71e82f587bf63a2d1d4ed24662aa"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_square_01/telemetry_after.json",
+        "sha256": "91c7c8ebe062eb64bff308ed114dd31559c1e8451b1d468a28ea5cc14fe9e435"
+      },
+      "run_id": "gz24_cartographe_square_01",
+      "finished_at": "2026-10-24T12:31:00.454Z",
+      "model": "cartographe",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": null
+    },
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:31:30.605Z",
+      "reason": "offboard_loss_land_observed",
+      "t0_validation_exit_code": 0,
+      "mode": "failsafe",
+      "state": "completed",
+      "flight_elapsed_s": 23.500043353,
+      "landing_confirmed": true,
+      "exit_code": 0,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_failsafe_01",
+      "artifact_sha256": {
+        "run_request.json": "2c76302cee83a1103768c7428ff60fb7e0bf1b899ef504acf36ca8e020905f71",
+        "t0_run_manifest.json": "1646125645e02361c6947beaf0a85041cc009f428876cdd6a8782d9b51c2676a",
+        "t0_metrics.json": "4aafa0ffdc746e372bb96733cc3fb18f242347b60a0a6a49aca6dbe2d03944d3",
+        "artifacts.json": "19809ff4dd2a2eba1a711b7dd54f87318d27bef4303b72ebdee9dd772907baac",
+        "result.json": "589ad1a4c4e7491579e0d842c259c71139ee76d63a584ea6c2c41aaf00a3e734",
+        "events.jsonl": "5e3dd665aad570d831412e4419ca0e99364bceb6f3de7b74715025a52309ede3",
+        "sitl_status.json": "6a0488cfaf126553fec4b036f467660ea0b5664a5eb74ae6e298e2f80fc2e59a",
+        "sitl_environment.json": "b744648a09992d9019723c34345a31cf961010b02b45e0921adc54a5b9e5f01f"
+      },
+      "max_altitude_m": 1.9994125366210938,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_failsafe_01/telemetry.jsonl",
+        "sha256": "abb44ccb4c42f22c94f4a392b03b8c71fb428134e30ade5dd57427cbfa13e02f"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_failsafe_01/telemetry_after.json",
+        "sha256": "5202cd2e29acd8b9b32893c0420297566eb4c573d2faddec087451e239e61389"
+      },
+      "run_id": "gz24_cartographe_failsafe_01",
+      "finished_at": "2026-10-24T12:31:54.398Z",
+      "model": "cartographe",
+      "image_ids": {
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5",
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": 1.0498526870000013
+    },
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:32:21.872Z",
+      "reason": "signal_interrupt",
+      "t0_validation_exit_code": 0,
+      "mode": "cancel",
+      "state": "cancelled",
+      "flight_elapsed_s": 10.100093695,
+      "landing_confirmed": true,
+      "exit_code": 1,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_cancel_01",
+      "artifact_sha256": {
+        "run_request.json": "41d5d7e5bd866eb585e1d9738503b74388a7928dd4fc637cfdc68fe1397b5429",
+        "t0_run_manifest.json": "47da31e3b15dce15047a68f2d385d87c1102107d9c18b04ee969fbcc13ac5a00",
+        "t0_metrics.json": "1160ea95d27f1bc5d25df5332b07213ab6fa246df6425b3d07ddbf15db441223",
+        "artifacts.json": "407c44fb4cf9fefa9dfe1efafd31ad117601cdc200c7b83683736c8627985f6e",
+        "result.json": "70da33af5b13fcfe08ab76f31525f666655660b79bdcc17c77a14363f0e47c50",
+        "events.jsonl": "ab7106d33c3946f3efea0e4b7e4fc981f90e9f114bb39040a83cf01b4ddedbb0",
+        "sitl_status.json": "a1a83d9b7bd70715021bd379126fab6246d2db3584ee007cf5b439f3fed03277",
+        "sitl_environment.json": "b90068881b0b6978a480a029b3d4b60602bbbee4555905b86668dc8201847a73"
+      },
+      "max_altitude_m": 0.9690475463867188,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_cancel_01/telemetry.jsonl",
+        "sha256": "a18f4f53926556472bbeb5eb1c441b9733b4b9aa10270d1acd6c947f0781c12a"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_cancel_01/telemetry_after.json",
+        "sha256": "2dbd0a3faa24de7d11c3e54187ac4a56ae5c3ea2e099f82d4b14ef353a480142"
+      },
+      "run_id": "gz24_cartographe_cancel_01",
+      "finished_at": "2026-10-24T12:32:32.285Z",
+      "model": "cartographe",
+      "image_ids": {
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5",
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": null
+    },
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:33:54.462Z",
+      "reason": "square_completed",
+      "t0_validation_exit_code": 0,
+      "mode": "square",
+      "state": "completed",
+      "flight_elapsed_s": 23.650069953,
+      "landing_confirmed": true,
+      "exit_code": 0,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_square_02",
+      "artifact_sha256": {
+        "run_request.json": "ada7c39d8eef2df7a8874e31bf8eaa24a8748bf2df0b762dfeeb63fcf841287d",
+        "t0_run_manifest.json": "7eb167e67285d5f153c39071a392bc77ff496930d995be71d656efb0936e9e3a",
+        "t0_metrics.json": "73410da5362e434cd578fd75c564f6562cb361f40965ff54756b2641b7d55c46",
+        "artifacts.json": "08dca3502b8d63c8ac62a01e311a005463d816c187f4029cc2d02d0288c5bc1c",
+        "result.json": "df532c76bc9058334dc75db0cb305d27571fe00529b0be7ebe15073989f750c1",
+        "events.jsonl": "3b1b2244e512de4c651d33b915606e3d0c766cb37478a0e32e59a17d8bed54fd",
+        "sitl_status.json": "a7c85452e5f3a4615cc976e7f3bfc31176f7aeff52f68d63a8ae9057b56f4008",
+        "sitl_environment.json": "90ac815fa94ada81e3880ee911c7d9ab89c876c35caa5ebfc2efd88ee6fbba76"
+      },
+      "max_altitude_m": 2.01663601398468,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_square_02/telemetry.jsonl",
+        "sha256": "27565c4c55ef55505ac251eb965b95f9da8fe20e927db48795e184096e784307"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_square_02/telemetry_after.json",
+        "sha256": "d36877a3d32e8adbc13261e307059d1b23b42deb447e0edbeac7c5a0b1a842b8"
+      },
+      "run_id": "gz24_x500_square_02",
+      "finished_at": "2026-10-24T12:34:18.411Z",
+      "model": "x500",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": null
+    },
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:34:26.612Z",
+      "reason": "offboard_loss_land_observed",
+      "t0_validation_exit_code": 0,
+      "mode": "failsafe",
+      "state": "completed",
+      "flight_elapsed_s": 24.850109416,
+      "landing_confirmed": true,
+      "exit_code": 0,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_failsafe_02",
+      "artifact_sha256": {
+        "run_request.json": "2e360ceedf2aad26fa6dfc131ae0aebd40b0320f1eb5d9543f0ae1ffc5dba972",
+        "t0_run_manifest.json": "6f73bfc79bc29b0bc09670d5ba972abef8aee3b25b1a65311225575ff96fb423",
+        "t0_metrics.json": "18db62bdb9f409129f360f633f1098fd0a4d6a850e3f940da968eed015a63e48",
+        "artifacts.json": "2267cb8c9fd8313d097f0e8ac5da0eb2332beb9a39a0092529410af0835c2c3c",
+        "result.json": "c1a532dedfb580b73cde311f656333fa10b3c6ecd4c5aa6354889c666c44cd98",
+        "events.jsonl": "771a114a4cf3cca49ae875719e00d2f1fab5a62c57beabd21bf37affec111de3",
+        "sitl_status.json": "943efb0680121d8f33a6a8454c064b89fede48f3e988f047b80d7cbdaf25a897",
+        "sitl_environment.json": "a1dd82ced30713f24134fb029820ae72971b398e2a81f6fe7ad86e0f06eb8869"
+      },
+      "max_altitude_m": 2.0007312893867493,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_failsafe_02/telemetry.jsonl",
+        "sha256": "afe79c20c0044b17a8523d08f42fc4448b2da323ac8c456e1b55f0ab1357a78b"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_failsafe_02/telemetry_after.json",
+        "sha256": "8a27f0b991f32f2feea8333fc996918b689028cbcebd52ecab1369b6e08fa841"
+      },
+      "run_id": "gz24_x500_failsafe_02",
+      "finished_at": "2026-10-24T12:34:51.825Z",
+      "model": "x500",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": 1.1997138290000002
+    },
+    {
+      "contracts_checked": 5,
+      "started_at": "2026-10-24T12:35:00.215Z",
+      "reason": "signal_interrupt",
+      "t0_validation_exit_code": 0,
+      "mode": "cancel",
+      "state": "cancelled",
+      "flight_elapsed_s": 11.050077475,
+      "landing_confirmed": true,
+      "exit_code": 1,
+      "t0_directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_cancel_02",
+      "artifact_sha256": {
+        "run_request.json": "f4bd7b12f23a1c3a1c757fe6749eb36f20fd29960c2c691c76bd90bf912b82ec",
+        "t0_run_manifest.json": "edef24c62e6ea40b83166445ed823011a9d30b1b4e2ae02eeee3d627f6f0b892",
+        "t0_metrics.json": "0844ef836ae9eafb83c3a7a1ffdbc18c240f14a5c2bdfd4a4a6abce9793ce300",
+        "artifacts.json": "fd6147ee19934f9553ef424528ff44fd385847a015dd4518a76d6b738e198c07",
+        "result.json": "fd3f5a19a09341e36601b65f0fad658d9f5bf237a3bb5e2e7bdd7339c876c97c",
+        "events.jsonl": "ef97c75b6f373e44c4215808e7c5dc1306f713daaf30bc9b56671677f158278a",
+        "sitl_status.json": "d2fd87a2806f14f7b9500484c24dae77b8521f2e203cfacbbeccf7e32fb15d75",
+        "sitl_environment.json": "8d06b5e4d6fbabf1de07b4eacedf85d9d04143272cb9479697db938decef4bcc"
+      },
+      "max_altitude_m": 1.0372698456048965,
+      "telemetry_trace": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_cancel_02/telemetry.jsonl",
+        "sha256": "035db36fd9a7f292e239ae03bf69730fa8aae567046813bd5974459064c96f62"
+      },
+      "display_bridge_terminal_snapshot": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_cancel_02/telemetry_after.json",
+        "sha256": "f14c40ee5422d9dd77158e8dfdd8fff2525bd5815aef801234ea061c88f92c73"
+      },
+      "run_id": "gz24_x500_cancel_02",
+      "finished_at": "2026-10-24T12:35:11.608Z",
+      "model": "x500",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "parameters": {
+        "arming_timeout_s": 10,
+        "global_timeout_s": 100,
+        "hover_s": 3,
+        "landing_timeout_s": 35,
+        "leg_m": 2,
+        "stage_timeout_s": 12,
+        "takeoff_altitude_m": 2,
+        "waiting_data_timeout_s": 12,
+        "warmup_s": 2
+      },
+      "failsafe_action_delay_s": null
+    }
+  ],
+  "motor_command_observation": {
+    "topic": "/cartographe_0/command/motor_speed",
+    "phase_and_duration": "Not determined: messages have no timestamps",
+    "scope": "Command values, not joint RPM, thrust or DC power",
+    "run_id": "gz24_cartographe_square_01",
+    "capture_budget_s": 45,
+    "effective_limit_rad_s": 628,
+    "values": 44932,
+    "at_effective_limit_values": 47,
+    "capture_timeout_expected": true,
+    "maximum_rad_s": 628,
+    "saturation_observed": true
+  },
+  "battery": {
+    "publisher": "PX4 battery_simulator",
+    "endurance_claim_allowed": false,
+    "source": 0,
+    "current_a": -1,
+    "id": 1,
+    "initial_voltage_cartographe_v": 24.3,
+    "coupled_to_propulsion": false,
+    "cells_cartographe": 6,
+    "SIM_BAT_DRAIN": 60,
+    "SIM_BAT_MIN_PCT": 50
+  },
+  "corrections": [
+    "Official Gazebo resource directories retained",
+    "Airframe collision 4010 with stock gz_x500_mono_cam rejected; cartographe now 40000",
+    "Synthetic sensor noise prevents constant-value stuck-sensor rejection; PX4 checks remain enabled",
+    "Offboard telemetry freshness checked before setpoint publication",
+    "Exact API timestamp strings retained during sealing",
+    "Sources archived before execution, unchanged until sealing; later checkout changes tolerated"
+  ],
+  "previous_x500_01": {
+    "current_validation": "Input hash mismatch after source evolution: superseded by _02 snapshots",
+    "rewritten": false,
+    "scope": "Historical executions passed at sealing and were reviewed"
+  },
+  "evidence": [
+    {
+      "path": ".runtime/orch_gz_1/20261024/native_ctest_final.xml",
+      "sha256": "a11d81654521d297fc8a4593ca3b5a10f42d6197aeb8f178aa733d8803c5c137"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/ros_build.log",
+      "sha256": "e65125077f80e6f93909dd9660bb0b7157bf930a9646ee47f99a2acbd8da795a"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/negative_execute.log",
+      "sha256": "30816020752d7449287d92da9b55601e5220e4db17f889c0d0bb561a699dbdb4"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/negative_sitl_env.log",
+      "sha256": "bc68eb7b7b6ea19b54b51854095278a0cd36fdb8ffb376d347a9a84b72ff9ee0"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/preflight_airframe_live.json",
+      "sha256": "78171d28604f6d40d7151098aabdc1118f227b1279f2f02abaa77adaced4fbc2"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/preflight_airframe_selftest.json",
+      "sha256": "0b3e8107498d745940071f9ede63e65b648625af99a48e5f9ae81c1ed8825e68"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_ground_pose.txt",
+      "sha256": "42b85d826b34e3025a2133c45f5541067f83774bb7a752478a12e041c9f81379"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_battery_parameters.txt",
+      "sha256": "e71024ce12a80512b35af9acaa13a43c3eeebbaa141e66819142a0bc7c80fcd2"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_battery_source.txt",
+      "sha256": "a77fb4eb559f45e0a4ccd46a137ea6a366bf69d6a2eafdf38572d8cf86a18d1c"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_square_motor_commands.txt",
+      "sha256": "da25c1b4c975341499c87c3f315d0d74d7cae83f922d77543f0eaac9c1fcaff6"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_airframe_collision.log",
+      "sha256": "42dcedb5cd93082509bde99306a3cee448e8cf359e8abbef50c5eccb19115a3b"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/cartographe_constant_sensor_rejected.log",
+      "sha256": "bfdd92cd42966d1270cdabe0789b93cd1e2354bb456536eaa8c757fcad33a4a2"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/x500_startup_missing_resource.log",
+      "sha256": "37c3b08f632ec55c759a089a154f22d434bf06ddd1a6290f4af8c3a710ce5bdb"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/git_status_initial.txt",
+      "sha256": "be3fbd23994c4b53514ebd129c508c8ff75c8e864e0b06ee014412d538fb0dd1"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/x500_parameters_before.bson",
+      "sha256": "86b54d3f140c16a4697b10b810b1df7856852c8b37662c317b680ca1f7ea3682"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/http_freshness_tests.json",
+      "sha256": "43069332ce393de86ce837eafe07e0254c9b48cdf3fab125e90bcf9ab45e5acd"
+    },
+    {
+      "path": ".runtime/orch_gz_1/20261024/final_standby_preflight.json",
+      "sha256": "2a292cfd2767473a5e43465c652ad2b38aab7f1efc01948b112b6badaeeaaebe"
+    }
+  ],
+  "independent_review": "simulation/px4_sitl/verification/independent_review_20261024.json",
+  "final_supervisor_change": {
+    "fixtures": 4,
+    "source": {
+      "path": "simulation/px4_sitl/run_campaign.ps1",
+      "sha256": "c71ffe5b9ec034a1837cb376c55764954c313f7ba2a331871f6c13f6bc255087"
+    },
+    "live_fresh_unarmed_passed": true,
+    "scope": "Absolute bridge timestamp check added after the flights; no further flight claimed",
+    "proof": ".runtime/orch_gz_1/20261024/http_freshness_tests.json"
+  },
+  "final_standby": {
+    "active_flight_process": false,
+    "sys_autostart": 40000,
+    "proof": ".runtime/orch_gz_1/20261024/final_standby_preflight.json",
+    "armed": false,
+    "model": "cartographe",
+    "identity": "verified_container"
+  },
+  "reproduction": [
+    "docker compose --profile sim --profile viz build px4-runner-api",
+    "docker compose -f compose.yaml -f simulation/compose.cartographe.yaml --profile sim --profile viz up -d --force-recreate px4-runner-api",
+    "pwsh -NoProfile -File simulation/px4_sitl/preflight.ps1 -ComposeOverride simulation/compose.cartographe.yaml -ExpectedModel gz_cartographe -RequireReady",
+    "pwsh -NoProfile -File simulation/px4_sitl/run_campaign.ps1 -Model cartographe -Mode square -RunId NEW_UNIQUE_ID",
+    "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/NEW_UNIQUE_ID"
+  ],
+  "limits": [
+    "Mass/CG/inertia and exact propulsion remain unmeasured",
+    "Battery energy model remains offline; no endurance from PX4 forfait",
+    "No physical holdout evaluation, wind, step-size sensitivity, dedicated steps or dynamic payload/CG/SoC campaign",
+    "Gaussian sensor fixture has no fixed seed; not calibrated prototype sensor performance",
+    "ROS image is content-addressed in each run; rebuilding an unpinned ROS base may produce a different image",
+    "Large traces, meshes and T0 results remain outside Git; preserve them for reproduction"
+  ],
+  "acceptance": {
+    "square": "Each target error <0.35m after >=1s in stage, hover3s, landed/disarmed",
+    "cancel": "signal_interrupt, landed/disarmed, terminal cancelled",
+    "failsafe": "Stream stops, spontaneous AUTO_LAND observed within6s before fallback LAND, landed/disarmed",
+    "finalization": "Five canonical T0 schemas plus hashes, chronology, inputs, source snapshots and semantic checks"
+  }
+}

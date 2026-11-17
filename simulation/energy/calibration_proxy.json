@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "MN4014_15x5CF_22V2_manufacturer_proxy_v1",
+  "role": "calibration_proxy",
+  "maturity": "À valider",
+  "read_date": "2026-10-23",
+  "selected_prototype": {
+    "bom": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "motor": "MN4014 KV330",
+    "propeller": "Gemfan 1555 CW/CCW",
+    "esc": "Tekko32 F4 45A; kit revision and firmware not inventoried",
+    "pack": "TAA200006S5X9S 6S 20Ah",
+    "propeller_nominal_diameter_m": 0.381,
+    "diameter_status": "15 inches × 0.0254 m = 0.381 m; manufacturer PMCF1555-T source, exact kit lot remains unverified. Active CAD 393.7 mm is a provisional envelope, not physical propeller diameter."
+  },
+  "sources": [
+    {"id":"motor_curve","url":"https://store.tmotor.com/product/mn4014-kv330-motor-navigator-type.html","nature":"primary manufacturer; MN4014 KV330, 22.2V, T-MOTOR 15*5CF; reference ESC not identified; not exact Gemfan/Tekko combination"},
+    {"id":"kit","url":"https://holybro.com/products/x650-development-kit","nature":"primary kit supplier; confirms motor, ESC, Gemfan1555; commercial payload figures not acceptance criteria"},
+    {"id":"propeller","url":"https://gemfanhobby.en.hisupplier.com/product-2894109-1555-Carbon-Fiber-Propeller-T-Type-CW-CCW-Prop-for-FPV.html","nature":"manufacturer Gemfan storefront; PMCF1555-T, 15×5.5 inches, 22g; applicability to exact kit lot not measured"},
+    {"id":"esc","url":"https://holybro.com/products/tekko32-f4-45a-esc","nature":"primary manufacturer; current page AM32 target AM32_TEKKO32_F421, 2–6S, 45A design rating; kit firmware unknown"},
+    {"id":"battery","url":"https://gensace.de/collections/semi-solid-state/products/tattu-nmc-20000mah-22-2v-5c-6s1p-lipo-battery-pack-with-xt90-s-plug","nature":"primary manufacturer; nominal20Ah/22.2V/5C/1950±20g; no OCV, impedance or installed usable capacity curve"},
+    {"id":"auxiliary_assumption","path":"docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md#51-enveloppe-de-présélection-du-faisceau","nature":"75W useful /80% historical study assumption, not measured simultaneous consumption"}
+  ],
+  "rotor_count": 4,
+  "reference_voltage_v": 22.2,
+  "propulsion_power_factor": 1.0,
+  "propulsion_curve": [
+    {"thrust_g":830,"dc_power_w":79.92,"rpm":3900},
+    {"thrust_g":1150,"dc_power_w":130.98,"rpm":4600},
+    {"thrust_g":1430,"dc_power_w":173.16,"rpm":5100},
+    {"thrust_g":1690,"dc_power_w":224.22,"rpm":5600},
+    {"thrust_g":1920,"dc_power_w":264.18,"rpm":6000}
+  ],
+  "auxiliaries": [
+    {"id":"all_avionics_inclusive","useful_power_w":75,"efficiency":0.8,"includes":"Jetson module, carrier, SSD, fan, Airy, Basler via USB, Pixhawk, GNSS, radio, synchronization, BMS electronics; no additional typical36.2W or second ESC efficiency is added","provenance":"single aggregate historical assumption; component disaggregation awaits rail measurements"}
+  ],
+  "battery": {
+    "nominal_capacity_ah":20,
+    "capacity_factor":0.9,
+    "pack_resistance_ohm":0.025,
+    "path_resistance_ohm":0.005,
+    "reserve_soc":0.2,
+    "minimum_bus_voltage_v":19.2,
+    "maximum_current_a":100,
+    "ocv":[{"soc":0,"voltage_v":19.2},{"soc":0.2,"voltage_v":21.6},{"soc":0.5,"voltage_v":22.8},{"soc":1,"voltage_v":25.2}],
+    "provenance":"20Ah nominal primary. Capacity factor, OCV curve, Rpack/Rpath,20%reserve and19.2V stopping bound are explicit unmeasured sensitivity assumptions.100A=20Ah×5C published rating, not validated pack/BMS/path current or programmed protection. No physical/PX4 threshold is configured by this file."
+  },
+  "equations": {
+    "interpolation":"piecewise linear thrust→reference DC power/RPM only830..1920g per rotor; below domain rejected, above maximum stops with thrust_saturation",
+    "voltage_proxy":"DC power at fixed thrust assumed equal to reference22.2V; conservative available thrust capped at last table point times min(1,(Vbus/22.2)^2). This off-voltage transfer is unvalidated, not a fitted motor model.",
+    "electrical":"Pbus=Pprop+sum(Puseful/eta); Rtotal=Rpack+Rpath; I=2Pbus/(Voc+sqrt(Voc^2-4RtotalPbus)); Vbus=Voc-I Rtotal; negative discriminant stops",
+    "capacity":"capacity_effective_Ah=20Ah×capacity_factor; dSoC=-I dt/(3600 capacity_effective_Ah); event step shortened to configured reserve",
+    "losses":"Ppack_loss=I²Rpack; Ppath_loss=I²Rpath; kept separate from bus delivered Wh. No second ESC/motor efficiency since reference electrical power already includes its test chain."
+  },
+  "limits": [
+    "Offline load-profile proxy; no Gazebo dynamics, PX4 connection, actual takeoff, position, landing or disarming observed.",
+    "Masses are synthetic sensitivity cases; they do not equal the reconciled prototype mass.",
+    "No experimental evaluation data. Synthetic evaluation profiles are separate from manufacturer calibration points but cannot qualify physical accuracy.",
+    "Exact Gemfan1555/Tekko thrust-current-RPM-torque transients and voltage/temperature dependence remain unmeasured.",
+    "No wind, drag, ground effect, tilt allocation, rotor interference, thermal, hysteresis or cell imbalance model.",
+    "Uncertainty variants are assumptions, not confidence intervals or guaranteed bounds.",
+    "Reserve excludes any separately guaranteed return/landing energy; return and landing are only bounded load phases in the simple profile.",
+    "PX4 battery source must be verified independently; simulated_battery discharge is unrelated to these results."
+  ]
+}

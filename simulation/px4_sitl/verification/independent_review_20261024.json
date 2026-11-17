@@ -1,0 +1,934 @@
+{
+  "schema": "drone_agricole.independent_review.v1",
+  "lot": "ORCH-GZ-1",
+  "reviewer": "/root/review",
+  "verdict": "Conforme au périmètre logiciel et aux six essais SITL examinés ; fidélité physique du prototype et autonomie couplée À valider.",
+  "scope": [
+    "Lecture seule des sources, SDF, airframe, monde et preuves ; aucun banc ni vol lancé par le reviewer.",
+    "Seule écriture durable autorisée au reviewer : ce fichier de preuve.",
+    "Neuf définitions de messages réellement utilisées comparées aux commits exacts ; aucune compatibilité globale des dépôts affirmée.",
+    "Copies de sources archivées et cinq contrats T0 validés pour six exécutions courantes."
+  ],
+  "created_at_utc": "2026-10-24T12:40:37.9943840Z",
+  "source_sha256": {
+    "compose.yaml": "0b57f29d6161e5148886a531657e7c6d404b73b34d7beab2451d907b24777f06",
+    "simulation/compose.cartographe.yaml": "8e7e1c71ef3e5daf7095d03df80f81ded25351eaf53c5072b142b78d1a064415",
+    "simulation/px4_sitl/preflight.ps1": "d63794966fbaf21b6697b179ecb30302702147ecd92dcba9d5a9caffb63af041",
+    "simulation/px4_sitl/run_campaign.ps1": "c71ffe5b9ec034a1837cb376c55764954c313f7ba2a331871f6c13f6bc255087",
+    "software/docker/Dockerfile": "eadb57a485787e6bdc0e80505b5374ece7292698fc55d6830d9bbf994db539fd",
+    "simulation/CMakeLists.txt": "4f6eb2f500ad2d4e2b572ce23ad8f3401a310639c3f938ffe60ad5f0644413fc",
+    "simulation/contracts/Evidence.cpp": "2fda56abb7a66f18a759a0605d6cb975975f49110c75e208289ae35d860f939e",
+    "simulation/gazebo/ModelBuilder.cpp": "e66d845922123bf1404f2231d18400dbe65eaf2cfba6a1de2b924a5995dce31f",
+    "simulation/gazebo/models/cartographe/model.sdf": "dd3ef99c970f3e1527dd668b82b10b717f1a226dc6e29f678b93294a76c02c2e",
+    "simulation/gazebo/worlds/cartographe_flat.sdf": "e91a8f251928ebd17afe04037869b94689792bb0f5b27e751df90c960af23fc6",
+    "simulation/gazebo/models/cartographe/dynamics_preview.json": "0308aae4a485434443ab3706c6bcce389092df2747891cc1385be948ae658104",
+    "simulation/px4_sitl/airframes/40000_gz_cartographe": "17f087e5d2203cfd0166dbdb90899e4253c836e17d38eeb3a3ff096bb6315592",
+    "software/src/drone_agricole_px4_bridge/src/OffboardTest.cpp": "e433e8355023f7fa01c1a61bee864bbde9ecfb40d8a90f17baeb13da074cb763",
+    "software/src/drone_agricole_px4_bridge/src/RunnerServer.cpp": "4d567c386dfca3f0d5233418dadf944712720138476d1b480e3e9a87f7c96e3c",
+    "software/src/drone_agricole_px4_bridge/include/drone_agricole_px4_bridge/OffboardSafety.hpp": "0d3fa104edd61650c62d723c11992e656eaea5e452f6c722eb73b06d0b87a925"
+  },
+  "binary_sha256": {
+    "build/cartographe/cartographe-evidence.exe": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+    "build/cartographe/test_offboard_safety.exe": "67f1488da9476617f295420810e356196c072eee453b7becac3cc49d0939cfab",
+    "build/cartographe/test_mass_properties.exe": "0a2a86553bf70da992e979d50a1a0e79ce6fbddf663853df4a1aaefe0ccef6a1",
+    "build/cartographe/test_cartographe_energy.exe": "39c139eb113b032b1d9a997cea9e31dce50361e7ef9b94e1a0036f56b9ceebad"
+  },
+  "sitl_runs": [
+    {
+      "run_id": "gz24_cartographe_square_01",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_square_01",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_square_01",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "completed",
+      "raw_success": true,
+      "reason": "square_completed",
+      "terminal_elapsed_s": 22.350074662,
+      "observations": {
+        "armed": true,
+        "failsafe": false,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 2.0071029663085938,
+        "offboard_entered": true,
+        "offboard_loss_flag": false
+      },
+      "requested_at_utc": "2026-10-24T12:30:37.744Z",
+      "started_at_utc": "2026-10-24T12:30:37.801Z",
+      "finished_at_utc": "2026-10-24T12:31:00.454Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.200235195,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.200318341,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "command": 21,
+          "elapsed_s": 17.700448558,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 22.300147726,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 22.350074662,
+          "event": "test_finished",
+          "reason": "square_completed",
+          "state": "landing",
+          "success": true
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_cartographe_square_01/result.json",
+      "raw_result_sha256": "a001819a4e94fa0cea96260830d15d536fa38f661bf18f7ba3e4bd1cdca64890",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "f1bd3345edc88d4f75f80e882b4e59887486d7ef0b81b02e6ffde494682a9bc0",
+        "t0_run_manifest.json": "29b5e34a8c6f6b9a60c1cc19561b63880939651de21dfa002bde07052bb3518d",
+        "t0_metrics.json": "d28fed6616dc6f681b0fbca402f1be20e52056676f5054f8a49689cb2ba875da",
+        "events.jsonl": "b43797fa6256c23ef5abac67f5702980a1ce03ccd8470e208a3191f5924d3d33",
+        "artifacts.json": "dfe7478463017dbcd62ed6f82d152036dad32801c90bf16c7da8050d1c6b729f",
+        "result.json": "a001819a4e94fa0cea96260830d15d536fa38f661bf18f7ba3e4bd1cdca64890",
+        "sitl_environment.json": "c9406b13809d20aaa50f4f30d7ebbd0a99326f0b4a73b2df1cbde2ad1bd796ec",
+        "sitl_status.json": "37fc162b1564662af643efbdf3d19256a20f4d95709a6df4a04a47179aab81c3",
+        "source_snapshot/manifest.json": "3b7d490d73d432ae11249d721584164faf8c3af4ae6f4819f24bf442aa567b15"
+      },
+      "source_snapshot_items": 19,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9999465942382812,
+        "timestamp_us": 1792845032051676,
+        "voltage_v": 24.30000114440918,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "entrypoint": "local locked runner API",
+        "PX4_OFFBOARD_EXECUTE": "true",
+        "DRONE_AGRICOLE_SITL": "1",
+        "execute": true
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_square_01/telemetry_after.json",
+        "sha256": "91c7c8ebe062eb64bff308ed114dd31559c1e8451b1d468a28ea5cc14fe9e435",
+        "vehicle_odometry_age_s": 0.0033555290000000003,
+        "armed": true,
+        "vehicle_status_age_s": 0.22721142100000002
+      }
+    },
+    {
+      "run_id": "gz24_cartographe_failsafe_01",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_failsafe_01",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_failsafe_01",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "completed",
+      "raw_success": true,
+      "reason": "offboard_loss_land_observed",
+      "terminal_elapsed_s": 23.500043353,
+      "observations": {
+        "armed": true,
+        "failsafe": true,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 1.9994125366210938,
+        "offboard_entered": true,
+        "offboard_loss_flag": true
+      },
+      "requested_at_utc": "2026-10-24T12:31:30.565Z",
+      "started_at_utc": "2026-10-24T12:31:30.605Z",
+      "finished_at_utc": "2026-10-24T12:31:54.398Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.300266872,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.300371689,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "elapsed_s": 17.800168857,
+          "event": "offboard_stream_stopped",
+          "state": "failsafe_gap"
+        },
+        {
+          "elapsed_s": 18.850021544,
+          "event": "offboard_loss_action",
+          "expected_land": true,
+          "failsafe": true,
+          "nav_state": 18,
+          "state": "failsafe_gap"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 23.450097425,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 23.500043353,
+          "event": "test_finished",
+          "reason": "offboard_loss_land_observed",
+          "state": "landing",
+          "success": true
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_cartographe_failsafe_01/result.json",
+      "raw_result_sha256": "589ad1a4c4e7491579e0d842c259c71139ee76d63a584ea6c2c41aaf00a3e734",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "2c76302cee83a1103768c7428ff60fb7e0bf1b899ef504acf36ca8e020905f71",
+        "t0_run_manifest.json": "1646125645e02361c6947beaf0a85041cc009f428876cdd6a8782d9b51c2676a",
+        "t0_metrics.json": "4aafa0ffdc746e372bb96733cc3fb18f242347b60a0a6a49aca6dbe2d03944d3",
+        "events.jsonl": "5e3dd665aad570d831412e4419ca0e99364bceb6f3de7b74715025a52309ede3",
+        "artifacts.json": "19809ff4dd2a2eba1a711b7dd54f87318d27bef4303b72ebdee9dd772907baac",
+        "result.json": "589ad1a4c4e7491579e0d842c259c71139ee76d63a584ea6c2c41aaf00a3e734",
+        "sitl_environment.json": "b744648a09992d9019723c34345a31cf961010b02b45e0921adc54a5b9e5f01f",
+        "sitl_status.json": "6a0488cfaf126553fec4b036f467660ea0b5664a5eb74ae6e298e2f80fc2e59a",
+        "source_snapshot/manifest.json": "8ceefb297ae89ea0c39cd00620466d7daf260fa2180ecaf477a281ae18764ea3"
+      },
+      "source_snapshot_items": 19,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5",
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9999465942382812,
+        "timestamp_us": 1792845085065017,
+        "voltage_v": 24.30000114440918,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "DRONE_AGRICOLE_SITL": "1",
+        "PX4_OFFBOARD_EXECUTE": "true",
+        "entrypoint": "local locked runner API",
+        "execute": true
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_failsafe_01/telemetry_after.json",
+        "sha256": "5202cd2e29acd8b9b32893c0420297566eb4c573d2faddec087451e239e61389",
+        "vehicle_odometry_age_s": 0.003591084,
+        "armed": true,
+        "vehicle_status_age_s": 0.323006583
+      }
+    },
+    {
+      "run_id": "gz24_cartographe_cancel_01",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_cancel_01",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_cartographe_cancel_01",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "cancelled",
+      "raw_success": false,
+      "reason": "signal_interrupt",
+      "terminal_elapsed_s": 10.100093695,
+      "observations": {
+        "armed": true,
+        "failsafe": false,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 0.9690475463867188,
+        "offboard_entered": true,
+        "offboard_loss_flag": false
+      },
+      "requested_at_utc": "2026-10-24T12:32:21.831Z",
+      "started_at_utc": "2026-10-24T12:32:21.872Z",
+      "finished_at_utc": "2026-10-24T12:32:32.285Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.450272742,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.450367348,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "elapsed_s": 6.254503485,
+          "event": "abort_requested",
+          "reason": "signal_interrupt",
+          "state": "mission_stage"
+        },
+        {
+          "command": 21,
+          "elapsed_s": 6.254621103,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 10.050137078,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 10.100093695,
+          "event": "test_finished",
+          "reason": "signal_interrupt",
+          "state": "landing",
+          "success": false
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_cartographe_cancel_01/result.json",
+      "raw_result_sha256": "70da33af5b13fcfe08ab76f31525f666655660b79bdcc17c77a14363f0e47c50",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "41d5d7e5bd866eb585e1d9738503b74388a7928dd4fc637cfdc68fe1397b5429",
+        "t0_run_manifest.json": "47da31e3b15dce15047a68f2d385d87c1102107d9c18b04ee969fbcc13ac5a00",
+        "t0_metrics.json": "1160ea95d27f1bc5d25df5332b07213ab6fa246df6425b3d07ddbf15db441223",
+        "events.jsonl": "ab7106d33c3946f3efea0e4b7e4fc981f90e9f114bb39040a83cf01b4ddedbb0",
+        "artifacts.json": "407c44fb4cf9fefa9dfe1efafd31ad117601cdc200c7b83683736c8627985f6e",
+        "result.json": "70da33af5b13fcfe08ab76f31525f666655660b79bdcc17c77a14363f0e47c50",
+        "sitl_environment.json": "b90068881b0b6978a480a029b3d4b60602bbbee4555905b86668dc8201847a73",
+        "sitl_status.json": "a1a83d9b7bd70715021bd379126fab6246d2db3584ee007cf5b439f3fed03277",
+        "source_snapshot/manifest.json": "9cbcf1142c69c2d8ab15627aa7b2488e69277211406e2c0271e3f5b1ec59bd4c"
+      },
+      "source_snapshot_items": 19,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5",
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9999465942382812,
+        "timestamp_us": 1792845136076682,
+        "voltage_v": 24.30000114440918,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "DRONE_AGRICOLE_SITL": "1",
+        "entrypoint": "local locked runner API",
+        "execute": true,
+        "PX4_OFFBOARD_EXECUTE": "true"
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_cartographe_cancel_01/telemetry_after.json",
+        "sha256": "2dbd0a3faa24de7d11c3e54187ac4a56ae5c3ea2e099f82d4b14ef353a480142",
+        "vehicle_odometry_age_s": 0.0033129130000000002,
+        "armed": false,
+        "vehicle_status_age_s": 0.10300137200000001
+      }
+    },
+    {
+      "run_id": "gz24_x500_square_02",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_square_02",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_x500_square_02",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "completed",
+      "raw_success": true,
+      "reason": "square_completed",
+      "terminal_elapsed_s": 23.650069953,
+      "observations": {
+        "armed": true,
+        "failsafe": false,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 2.01663601398468,
+        "offboard_entered": true,
+        "offboard_loss_flag": false
+      },
+      "requested_at_utc": "2026-10-24T12:33:54.428Z",
+      "started_at_utc": "2026-10-24T12:33:54.462Z",
+      "finished_at_utc": "2026-10-24T12:34:18.411Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.350229349,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.350316695,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "command": 21,
+          "elapsed_s": 18.950275059,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 23.600184516,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 23.650069953,
+          "event": "test_finished",
+          "reason": "square_completed",
+          "state": "landing",
+          "success": true
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_x500_square_02/result.json",
+      "raw_result_sha256": "df532c76bc9058334dc75db0cb305d27571fe00529b0be7ebe15073989f750c1",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "ada7c39d8eef2df7a8874e31bf8eaa24a8748bf2df0b762dfeeb63fcf841287d",
+        "t0_run_manifest.json": "7eb167e67285d5f153c39071a392bc77ff496930d995be71d656efb0936e9e3a",
+        "t0_metrics.json": "73410da5362e434cd578fd75c564f6562cb361f40965ff54756b2641b7d55c46",
+        "events.jsonl": "3b1b2244e512de4c651d33b915606e3d0c766cb37478a0e32e59a17d8bed54fd",
+        "artifacts.json": "08dca3502b8d63c8ac62a01e311a005463d816c187f4029cc2d02d0288c5bc1c",
+        "result.json": "df532c76bc9058334dc75db0cb305d27571fe00529b0be7ebe15073989f750c1",
+        "sitl_environment.json": "90ac815fa94ada81e3880ee911c7d9ab89c876c35caa5ebfc2efd88ee6fbba76",
+        "sitl_status.json": "a7c85452e5f3a4615cc976e7f3bfc31176f7aeff52f68d63a8ae9057b56f4008",
+        "source_snapshot/manifest.json": "8aa623b0d063c9e1f7e83fa65c90f5a2639a990c4f0b89ea9da79af01e6e1770"
+      },
+      "source_snapshot_items": 14,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9999465942382812,
+        "timestamp_us": 1792845228573605,
+        "voltage_v": 16.200000762939453,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "PX4_OFFBOARD_EXECUTE": "true",
+        "DRONE_AGRICOLE_SITL": "1",
+        "execute": true,
+        "entrypoint": "local locked runner API"
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_square_02/telemetry_after.json",
+        "sha256": "d36877a3d32e8adbc13261e307059d1b23b42deb447e0edbeac7c5a0b1a842b8",
+        "vehicle_odometry_age_s": 0.0050375640000000005,
+        "armed": false,
+        "vehicle_status_age_s": 0.30884019300000004
+      }
+    },
+    {
+      "run_id": "gz24_x500_failsafe_02",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_failsafe_02",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_x500_failsafe_02",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "completed",
+      "raw_success": true,
+      "reason": "offboard_loss_land_observed",
+      "terminal_elapsed_s": 24.850109416,
+      "observations": {
+        "armed": true,
+        "failsafe": true,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 2.0007312893867493,
+        "offboard_entered": true,
+        "offboard_loss_flag": true
+      },
+      "requested_at_utc": "2026-10-24T12:34:26.582Z",
+      "started_at_utc": "2026-10-24T12:34:26.612Z",
+      "finished_at_utc": "2026-10-24T12:34:51.825Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.550278827,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.550381733,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "elapsed_s": 19.200386135,
+          "event": "offboard_stream_stopped",
+          "state": "failsafe_gap"
+        },
+        {
+          "elapsed_s": 20.400099964,
+          "event": "offboard_loss_action",
+          "expected_land": true,
+          "failsafe": true,
+          "nav_state": 18,
+          "state": "failsafe_gap"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 24.80016326,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 24.850109416,
+          "event": "test_finished",
+          "reason": "offboard_loss_land_observed",
+          "state": "landing",
+          "success": true
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_x500_failsafe_02/result.json",
+      "raw_result_sha256": "c1a532dedfb580b73cde311f656333fa10b3c6ecd4c5aa6354889c666c44cd98",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "2e360ceedf2aad26fa6dfc131ae0aebd40b0320f1eb5d9543f0ae1ffc5dba972",
+        "t0_run_manifest.json": "6f73bfc79bc29b0bc09670d5ba972abef8aee3b25b1a65311225575ff96fb423",
+        "t0_metrics.json": "18db62bdb9f409129f360f633f1098fd0a4d6a850e3f940da968eed015a63e48",
+        "events.jsonl": "771a114a4cf3cca49ae875719e00d2f1fab5a62c57beabd21bf37affec111de3",
+        "artifacts.json": "2267cb8c9fd8313d097f0e8ac5da0eb2332beb9a39a0092529410af0835c2c3c",
+        "result.json": "c1a532dedfb580b73cde311f656333fa10b3c6ecd4c5aa6354889c666c44cd98",
+        "sitl_environment.json": "a1dd82ced30713f24134fb029820ae72971b398e2a81f6fe7ad86e0f06eb8869",
+        "sitl_status.json": "943efb0680121d8f33a6a8454c064b89fede48f3e988f047b80d7cbdaf25a897",
+        "source_snapshot/manifest.json": "aa98218a89dd060cf110cb9ddfe3d8b7374d02baadc962fc7f11b5c0668d5624"
+      },
+      "source_snapshot_items": 14,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9684133529663086,
+        "timestamp_us": 1792845260573265,
+        "voltage_v": 16.200000762939453,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "entrypoint": "local locked runner API",
+        "DRONE_AGRICOLE_SITL": "1",
+        "execute": true,
+        "PX4_OFFBOARD_EXECUTE": "true"
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_failsafe_02/telemetry_after.json",
+        "sha256": "8a27f0b991f32f2feea8333fc996918b689028cbcebd52ecab1369b6e08fa841",
+        "vehicle_odometry_age_s": 0.005445117,
+        "armed": false,
+        "vehicle_status_age_s": 0.461262954
+      }
+    },
+    {
+      "run_id": "gz24_x500_cancel_02",
+      "directory": "results/simulation/orch_gz_1/sitl_20261024/gz24_x500_cancel_02",
+      "validation_command": "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/sitl_20261024/gz24_x500_cancel_02",
+      "validation_exit_code": 0,
+      "validation_stdout": "T0 valid",
+      "state": "cancelled",
+      "raw_success": false,
+      "reason": "signal_interrupt",
+      "terminal_elapsed_s": 11.050077475,
+      "observations": {
+        "armed": true,
+        "failsafe": false,
+        "landed": true,
+        "landing_confirmed": true,
+        "max_altitude_m": 1.0372698456048965,
+        "offboard_entered": true,
+        "offboard_loss_flag": false
+      },
+      "requested_at_utc": "2026-10-24T12:35:00.168Z",
+      "started_at_utc": "2026-10-24T12:35:00.215Z",
+      "finished_at_utc": "2026-10-24T12:35:11.608Z",
+      "key_events": [
+        {
+          "command": 176,
+          "elapsed_s": 2.300269156,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 6,
+          "state": "arming"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 2.30034207,
+          "event": "command_sent",
+          "param1": 1,
+          "param2": 0,
+          "state": "arming"
+        },
+        {
+          "elapsed_s": 6.81769988,
+          "event": "abort_requested",
+          "reason": "signal_interrupt",
+          "state": "mission_stage"
+        },
+        {
+          "command": 21,
+          "elapsed_s": 6.817811886,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "command": 400,
+          "elapsed_s": 11.000096056,
+          "event": "command_sent",
+          "param1": 0,
+          "param2": 0,
+          "state": "landing"
+        },
+        {
+          "elapsed_s": 11.050077475,
+          "event": "test_finished",
+          "reason": "signal_interrupt",
+          "state": "landing",
+          "success": false
+        }
+      ],
+      "raw_result_path": "results/simulation/px4_lot_a/gz24_x500_cancel_02/result.json",
+      "raw_result_sha256": "fd3f5a19a09341e36601b65f0fad658d9f5bf237a3bb5e2e7bdd7339c876c97c",
+      "raw_and_sealed_result_equal": true,
+      "file_sha256": {
+        "run_request.json": "f4bd7b12f23a1c3a1c757fe6749eb36f20fd29960c2c691c76bd90bf912b82ec",
+        "t0_run_manifest.json": "edef24c62e6ea40b83166445ed823011a9d30b1b4e2ae02eeee3d627f6f0b892",
+        "t0_metrics.json": "0844ef836ae9eafb83c3a7a1ffdbc18c240f14a5c2bdfd4a4a6abce9793ce300",
+        "events.jsonl": "ef97c75b6f373e44c4215808e7c5dc1306f713daaf30bc9b56671677f158278a",
+        "artifacts.json": "fd6147ee19934f9553ef424528ff44fd385847a015dd4518a76d6b738e198c07",
+        "result.json": "fd3f5a19a09341e36601b65f0fad658d9f5bf237a3bb5e2e7bdd7339c876c97c",
+        "sitl_environment.json": "8d06b5e4d6fbabf1de07b4eacedf85d9d04143272cb9479697db938decef4bcc",
+        "sitl_status.json": "d2fd87a2806f14f7b9500484c24dae77b8521f2e203cfacbbeccf7e32fb15d75",
+        "source_snapshot/manifest.json": "8d8e84e2b1482437bbbebfc1f83a9ba8234b12ef2406166c584bbdc725b42dd0"
+      },
+      "source_snapshot_items": 14,
+      "source_snapshot_scope": "request inputs reference immutable copies; original workspace paths are recorded in reference.source_path",
+      "sealer_binary_sha256": "2c931007187ff4ba78eb6e89388fc0a64c7eb9e2f9b32ad8b8cf0f15166195a0",
+      "px4_version": "HW arch: PX4_SITL\nPX4 git-hash: 83c4f4e580558816f0e398918f66358988004696\nPX4 version: 1.18.0 80 (17956992)\nOS: Linux\nOS version: Release 6.18.33 (101851647)\nBuild datetime: Aug  9 2026 04:08:10\nBuild uri: localhost\nBuild variant: default\nToolchain: GNU GCC, 13.3.0\nPX4GUID: 1006554d49534954414c44494e4f30303030\nUNKNOWN MCU",
+      "image_ids": {
+        "px4": "sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+        "ros": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5"
+      },
+      "battery_before": {
+        "connected": true,
+        "current_a": -1,
+        "remaining": 0.9826364517211914,
+        "timestamp_us": 1792845294572775,
+        "voltage_v": 16.200000762939453,
+        "warning": 0
+      },
+      "authorization_evidence": {
+        "PX4_OFFBOARD_EXECUTE": "true",
+        "DRONE_AGRICOLE_SITL": "1",
+        "entrypoint": "local locked runner API",
+        "execute": true
+      },
+      "independent_bridge_after": {
+        "path": ".runtime/orch_gz_1/20261024/gz24_x500_cancel_02/telemetry_after.json",
+        "sha256": "f14c40ee5422d9dd77158e8dfdd8fff2525bd5815aef801234ea061c88f92c73",
+        "vehicle_odometry_age_s": 0.0052642060000000004,
+        "armed": false,
+        "vehicle_status_age_s": 0.144952711
+      }
+    }
+  ],
+  "additional_proof_sha256": {
+    ".runtime/orch_gz_1/20261024/native_ctest_final.xml": "a11d81654521d297fc8a4593ca3b5a10f42d6197aeb8f178aa733d8803c5c137",
+    ".runtime/orch_gz_1/20261024/cartographe_final.log": "6ffe3aa3761119cf11e8d1e8afb6767363203806ec89ef06cc5ea5528e1ca83a",
+    ".runtime/orch_gz_1/20261024/cartographe_ground_pose.txt": "42b85d826b34e3025a2133c45f5541067f83774bb7a752478a12e041c9f81379",
+    ".runtime/orch_gz_1/20261024/cartographe_battery_source.txt": "a77fb4eb559f45e0a4ccd46a137ea6a366bf69d6a2eafdf38572d8cf86a18d1c",
+    ".runtime/orch_gz_1/20261024/cartographe_battery_parameters.txt": "e71024ce12a80512b35af9acaa13a43c3eeebbaa141e66819142a0bc7c80fcd2",
+    ".runtime/orch_gz_1/20261024/cartographe_square_motor_commands.txt": "da25c1b4c975341499c87c3f315d0d74d7cae83f922d77543f0eaac9c1fcaff6"
+  },
+  "independent_native_tests": [
+    {
+      "command": "build/cartographe/cartographe-evidence.exe self-test",
+      "exit_code": 0,
+      "result": "Fixtures valides acceptées ; 34 cas négatifs rejetés."
+    },
+    {
+      "command": "build/cartographe/cartographe-evidence.exe self-test-sitl",
+      "exit_code": 0,
+      "result": "6 fixtures terminales acceptées ; 29 fixtures adversariales rejetées ; aucune commande de vol émise."
+    },
+    {
+      "command": "build/cartographe/test_offboard_safety.exe",
+      "exit_code": 0,
+      "result": "Autorisations, bornes, fraîcheur, paramètres et finalisation vérifiés."
+    },
+    {
+      "command": "build/cartographe/test_mass_properties.exe",
+      "exit_code": 0,
+      "result": "Transport, rotation, inclusions, inconnues et cas négatifs vérifiés."
+    },
+    {
+      "command": "build/cartographe/test_cartographe_energy.exe",
+      "exit_code": 0,
+      "result": "34 contrôles énergie réussis."
+    }
+  ],
+  "ctest_provided_evidence": {
+    "path": ".runtime/orch_gz_1/20261024/native_ctest_final.xml",
+    "tests": 7,
+    "failures": 0,
+    "scope": "JUnit fourni relu ; les deux tests de génération du modèle non relancés par le reviewer pour préserver les fichiers partagés."
+  },
+  "historical_excluded": {
+    "runs": [
+      "gz24_x500_square_01",
+      "gz24_x500_failsafe_01",
+      "gz24_x500_cancel_01"
+    ],
+    "previous_review": "Résultats bruts et T0 validés indépendamment au scellement initial.",
+    "current_validation": "input hash mismatch après corrections des sources vivantes ; ces premières preuves ne figeaient pas les sources. Elles ne sont pas requalifiées rétroactivement.",
+    "replacement": "Les trois x500 _02 archivent les sources et passent le validateur actuel."
+  },
+  "message_compatibility": {
+    "px4_commit": "83c4f4e580558816f0e398918f66358988004696",
+    "px4_msgs_commit": "598c7aad7b2386f9406ebd2a2f841619fddc3c78",
+    "method": "Deux GET HTTPS aux commits exacts, comparaison textuelle exacte et SHA256 UTF-8 ; sha256sum des neuf fichiers /opt/px4_ros_ws/src/px4_msgs/msg/*.msg dans le conteneur ROS existant.",
+    "remote_comparison_repeated_20261024": true,
+    "installed_hashes_read_20261024": true,
+    "messages": [
+      {
+        "message": "BatteryStatus",
+        "px4_sha256": "cef0162b77d9c9e61c33c0e6214bdda050cdbb7dbae4f61c103b2592e3799f23",
+        "px4_msgs_sha256": "cef0162b77d9c9e61c33c0e6214bdda050cdbb7dbae4f61c103b2592e3799f23",
+        "installed_ros_source_sha256": "cef0162b77d9c9e61c33c0e6214bdda050cdbb7dbae4f61c103b2592e3799f23",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/BatteryStatus.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/BatteryStatus.msg"
+      },
+      {
+        "message": "FailsafeFlags",
+        "px4_sha256": "7dc56dd2cf05e8cbbb9ea1f3f52d4fa40f919571352c7e279d4333fc3367bfb4",
+        "px4_msgs_sha256": "7dc56dd2cf05e8cbbb9ea1f3f52d4fa40f919571352c7e279d4333fc3367bfb4",
+        "installed_ros_source_sha256": "7dc56dd2cf05e8cbbb9ea1f3f52d4fa40f919571352c7e279d4333fc3367bfb4",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/FailsafeFlags.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/FailsafeFlags.msg"
+      },
+      {
+        "message": "OffboardControlMode",
+        "px4_sha256": "8bd6fa373300e5bd35ade9d34ba0e1f470b880bf5d5b2f5c9316957bbe2a40e7",
+        "px4_msgs_sha256": "8bd6fa373300e5bd35ade9d34ba0e1f470b880bf5d5b2f5c9316957bbe2a40e7",
+        "installed_ros_source_sha256": "8bd6fa373300e5bd35ade9d34ba0e1f470b880bf5d5b2f5c9316957bbe2a40e7",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/OffboardControlMode.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/OffboardControlMode.msg"
+      },
+      {
+        "message": "TrajectorySetpoint",
+        "px4_sha256": "d5671f1a094a9183e2337171ab738ae3395442e024b58aaacbf51c2b0188d5e2",
+        "px4_msgs_sha256": "d5671f1a094a9183e2337171ab738ae3395442e024b58aaacbf51c2b0188d5e2",
+        "installed_ros_source_sha256": "d5671f1a094a9183e2337171ab738ae3395442e024b58aaacbf51c2b0188d5e2",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/TrajectorySetpoint.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/TrajectorySetpoint.msg"
+      },
+      {
+        "message": "VehicleCommand",
+        "px4_sha256": "538fa3c94e9a2de85247e1084d817d1f009e21196038e16d6f4dac552a5021c8",
+        "px4_msgs_sha256": "538fa3c94e9a2de85247e1084d817d1f009e21196038e16d6f4dac552a5021c8",
+        "installed_ros_source_sha256": "538fa3c94e9a2de85247e1084d817d1f009e21196038e16d6f4dac552a5021c8",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/VehicleCommand.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/VehicleCommand.msg"
+      },
+      {
+        "message": "VehicleCommandAck",
+        "px4_sha256": "185833dab85d5e9682ac230afc8ef193c2d48ab43804af52bea2fdc4d959a782",
+        "px4_msgs_sha256": "185833dab85d5e9682ac230afc8ef193c2d48ab43804af52bea2fdc4d959a782",
+        "installed_ros_source_sha256": "185833dab85d5e9682ac230afc8ef193c2d48ab43804af52bea2fdc4d959a782",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/VehicleCommandAck.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/VehicleCommandAck.msg"
+      },
+      {
+        "message": "VehicleLandDetected",
+        "px4_sha256": "479ef4ed2bdf80acd4fe1d5cca988ee3dfe49e703494339eb7b62a01f00632f8",
+        "px4_msgs_sha256": "479ef4ed2bdf80acd4fe1d5cca988ee3dfe49e703494339eb7b62a01f00632f8",
+        "installed_ros_source_sha256": "479ef4ed2bdf80acd4fe1d5cca988ee3dfe49e703494339eb7b62a01f00632f8",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/VehicleLandDetected.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/VehicleLandDetected.msg"
+      },
+      {
+        "message": "VehicleOdometry",
+        "px4_sha256": "a528b3d0b4c1a9083a71b32c367bad71a900e959efd82b9d03a9eb0e99fe6017",
+        "px4_msgs_sha256": "a528b3d0b4c1a9083a71b32c367bad71a900e959efd82b9d03a9eb0e99fe6017",
+        "installed_ros_source_sha256": "a528b3d0b4c1a9083a71b32c367bad71a900e959efd82b9d03a9eb0e99fe6017",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/VehicleOdometry.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/VehicleOdometry.msg"
+      },
+      {
+        "message": "VehicleStatus",
+        "px4_sha256": "35984922aa55b55caae393a907ecd1e42a31a2fb94c0cb09a0846d97d69d3e79",
+        "px4_msgs_sha256": "35984922aa55b55caae393a907ecd1e42a31a2fb94c0cb09a0846d97d69d3e79",
+        "installed_ros_source_sha256": "35984922aa55b55caae393a907ecd1e42a31a2fb94c0cb09a0846d97d69d3e79",
+        "exact_bytes_equal": true,
+        "px4_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/83c4f4e580558816f0e398918f66358988004696/msg/versioned/VehicleStatus.msg",
+        "px4_msgs_url": "https://raw.githubusercontent.com/PX4/px4_msgs/598c7aad7b2386f9406ebd2a2f841619fddc3c78/msg/VehicleStatus.msg"
+      }
+    ],
+    "transport_scope": "Topics et commandes observés durant les six vols ; autres messages et autres révisions hors portée."
+  },
+  "findings": [
+    {
+      "id": "resource_paths",
+      "status": "corrigé",
+      "detail": "Répertoires officiels Gazebo conservés ; override cartographe avec PX4_GZ_MODELS et PX4_GZ_WORLDS explicites."
+    },
+    {
+      "id": "airframe_unique",
+      "status": "corrigé et exécuté",
+      "detail": "4010 était déjà fourni par cette image ; 40000_gz_cartographe est désormais unique et SYS_AUTOSTART effectif vaut 40000."
+    },
+    {
+      "id": "rotor_mapping",
+      "status": "cohérent pour le scénario",
+      "detail": "Ordre CAO 4,3,2,1 ; positions et axes FLU vers FRD diag(1,-1,-1), sorties 101..104, deux CCW KM positif et deux CW KM négatif, somme des moments collectifs nulle."
+    },
+    {
+      "id": "ground",
+      "status": "observé",
+      "detail": "21 boîtes et quatre disques de collision ; sol plat uniquement. Repos Gazebo z=0.312505 m, cohérent avec le minimum géométrique -0.3125059585 m."
+    },
+    {
+      "id": "synthetic_control",
+      "status": "exécuté, physique À valider",
+      "detail": "Scénario synthétique 6 kg, corps boîte et quatre disques ; THR_MDL_FAC=0, MPC_THR_HOVER effectif 0.8839, limites effectives 628 rad/s entières. Le point constructeur proxy ne caractérise pas le couple hélice/ESC réel."
+    },
+    {
+      "id": "sensor_noise",
+      "status": "fixture explicite exécutée",
+      "detail": "Gaussien synthétique : gyro 0.001 rad/s, accélération 0.01 m/s², pression 1 Pa, magnétomètre 0.0001 gauss dans le chemin Harmonic de gz_bridge. Évite les valeurs parfaitement constantes ; contrôles PX4 maintenus. Graine non fixée ; aucune calibration capteur ni répétabilité bit à bit."
+    },
+    {
+      "id": "magnetic_field",
+      "status": "limite explicitée",
+      "detail": "Le champ ENU déclaratif corrigé ne constitue pas une cause runtime démontrée du stale : Magnetometer gz-sim8 recalcule un champ géomagnétique avec spherical_coordinates ; chemin Harmonic gauss/NED.",
+      "source": "https://raw.githubusercontent.com/gazebosim/gz-sim/gz-sim8/src/systems/magnetometer/Magnetometer.cc"
+    },
+    {
+      "id": "battery",
+      "status": "forfait confirmé",
+      "detail": "battery_status source=0, id=1, cell_count=6, 24.3 V et current_a=-1 au repos cartographe ; SIM_BAT_DRAIN=60, SIM_BAT_MIN_PCT=50, BAT1_CAPACITY=-1. Calcul énergétique hors ligne distinct ; autonomie réelle et décharge couplée non démontrées."
+    },
+    {
+      "id": "landing_cancel",
+      "status": "observé",
+      "detail": "Runner : landed frais et VehicleStatus désarmé frais requis avant fin. Logs cartographe : trois Landing detected puis trois Disarmed by external command. Snapshots immédiats square/failsafe cartographe parfois armed=true par retard du pont ; les trois x500 _02 confirment aussi désarmement via le pont."
+    },
+    {
+      "id": "t0_snapshot",
+      "status": "corrigé et testé",
+      "detail": "Sources figées avant requête API ; requête<=début<=création résultat<=fin ; résultat API égal au brut, états terminaux et hashes réconciliés. Failsafe réussi exige arrêt de flux puis action LAND attendue."
+    },
+    {
+      "id": "http_freshness",
+      "priority": "P2",
+      "status": "résolu après vols, testé séparément",
+      "file": "simulation/px4_sitl/run_campaign.ps1",
+      "line": 26,
+      "detail": "Fresh refuse bridge_time_ns absent, NaN, infini, âgé de 1 s ou plus, ou futur de plus de 0.1 s ; vérifie aussi les âges odométrie/statut. Attente désarmement bornée à 5 s. Fonction Fresh courante extraite par AST et évaluée isolément : 6/6 cas frais, cache figé 5 s, futur 5 s, absent, NaN, infini. Aucun vol relancé avec cette dernière adaptation du harnais."
+    }
+  ],
+  "actuator_capture": {
+    "path": ".runtime/orch_gz_1/20261024/cartographe_square_motor_commands.txt",
+    "sample_values": 44932,
+    "four_motor_messages": 11233,
+    "maximum_rad_s": 628,
+    "values_at_or_above_627_99_rad_s": 47,
+    "nonzero_values": 20090,
+    "interpretation": "Saturation ponctuelle observée ; absence de timestamps interdit durée, alignement par phase ou énergie de cette capture."
+  },
+  "unresolved_code_findings": [],
+  "physical_limits": [
+    "Masse, centre de gravité et inerties réels inconnus ; les inconnues ne sont pas des zéros.",
+    "Propulsion réelle, rendement ESC, batterie sous charge et capteurs nécessitent les mesures prévues.",
+    "Aucune qualification arm64 ni confrontation expérimentale ; batterie PX4 forfaitaire et calcul énergétique hors ligne distincts."
+  ],
+  "not_executed_by_reviewer": [
+    "Aucun lancement de banc, vol, achat ou essai matériel.",
+    "Aucune réexportation CAO ni régénération du SDF.",
+    "Aucun nouveau vol après le dernier durcissement du harnais HTTP ; ses contrôles ont été testés isolément."
+  ],
+  "consolidation_review": {
+    "documents": [
+      "docs/VALIDATION_QUALIFICATION.md §9.3, §9.4 et traçabilité T-CARTO-GZ-01..04",
+      "simulation/README.md",
+      "simulation/gazebo/models/cartographe/model_manifest.json",
+      "simulation/px4_sitl/verification/campaign_20261024.json"
+    ],
+    "status": "Périmètre, états, limites et six références relus ; empreintes du manifeste à vérifier après ajout de cette preuve par le propriétaire."
+  }
+}

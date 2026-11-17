@@ -1,0 +1,30 @@
+{
+  "schema_version":1,
+  "id":"ORCH_GZ_1_synthetic_evaluation_v1",
+  "role":"synthetic_evaluation",
+  "maturity":"À valider",
+  "time_step_s":1,
+  "maximum_duration_s":2400,
+  "masses_kg":[6,7,8],
+  "mass_provenance":"Synthetic sensitivity grid only; deliberately independent from incomplete historical totals and not asserted prototype mass.",
+  "initial_soc":[1,0.5,0.25],
+  "uncertainty_variants":[
+    {"id":"favorable_assumption","capacity_factor":1,"pack_resistance_ohm":0.015,"path_resistance_ohm":0.003,"propulsion_power_factor":0.85,"auxiliary_power_factor":0.8},
+    {"id":"central_assumption","capacity_factor":0.9,"pack_resistance_ohm":0.025,"path_resistance_ohm":0.005,"propulsion_power_factor":1,"auxiliary_power_factor":1},
+    {"id":"adverse_assumption","capacity_factor":0.8,"pack_resistance_ohm":0.045,"path_resistance_ohm":0.01,"propulsion_power_factor":1.2,"auxiliary_power_factor":1.2}
+  ],
+  "variant_provenance":"Scenarios chosen before execution for software sensitivity; no measured uncertainty, confidence level or qualification envelope.",
+  "profiles":[
+    {"id":"hover","phases":[{"id":"stationary_load","duration_s":2400,"thrust_weight_ratio":1}]},
+    {"id":"simple_mission","phases":[
+      {"id":"takeoff_load","duration_s":15,"thrust_weight_ratio":1.1},
+      {"id":"outbound_load","duration_s":30,"thrust_weight_ratio":1.03},
+      {"id":"mapping_load","duration_s":120,"thrust_weight_ratio":1},
+      {"id":"return_load","duration_s":30,"thrust_weight_ratio":1.03},
+      {"id":"landing_load","duration_s":15,"thrust_weight_ratio":1}
+    ]}
+  ],
+  "profile_provenance":"Thrust/weight factors and durations are synthetic load requests, not reconstructed flight trajectories or measured phases. Offline phase completion does not prove landing.",
+  "reserved_physical_evaluation_data":[],
+  "physical_evaluation_status":"À valider; acquire independent holdout sessions under measurements_protocol.json before physical fidelity conclusion"
+}

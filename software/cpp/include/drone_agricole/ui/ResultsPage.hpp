@@ -1,6 +1,7 @@
 #pragma once
 #include "drone_agricole/application/IStationServices.hpp"
 #include <QWidget>
+#include <QSet>
 #include <memory>
 class QComboBox;
 namespace Ui { class ResultsPage; }
@@ -16,11 +17,17 @@ class ResultsPage final : public QWidget {
   void replayRequested(const QString& id);
   void duplicateRequested(const QJsonObject& request);
   void comparisonRequested(const QStringList& ids);
+  void analysisRequested(const QString& id);
  private:
   std::unique_ptr<Ui::ResultsPage> ui_;
   application::IStationServices& services_;
   QList<core::ResultSummary> visibleResults_;
   QString selectedResultId_;
+  QSet<QString> favoriteResultIds_;
+  bool favoritesAvailable_{true};
+  QString favoriteError_;
+  void refreshFavorites();
+  bool selectVisibleResult(const QString& id);
   void populateFilterChoices();
   core::SearchFilters historyFilters() const;
   void populateHistoryTable(const core::SearchFilters& filters = {});
@@ -29,6 +36,8 @@ class ResultsPage final : public QWidget {
   void historySelectionChanged();
   void showResultDetail(const core::ResultDetail& detail);
   void openSelectedResultFolder();
+  void toggleFavorite();
+  void exportVisibleResults();
   QStringList checkedResultIds() const;
   static void selectComboData(QComboBox* combo, const QString& value);
 };

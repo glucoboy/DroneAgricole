@@ -84,6 +84,7 @@ void printHelp() {
   stream << "drone-agricole-tools — outils C++17 du projet\n\n"
             "Commandes disponibles :\n"
             "  station-run         Exécute une requête T0 avec les mêmes services que la station\n"
+            "  station-workspace   Brouillons locaux, préférences, favoris, BOM et diagnostics\n"
             "  summarize-run       Génère run_manifest.json\n"
             "  summarize-sensitivity Agrège une étude de sensibilité\n"
             "  summarize-campaign  Agrège les répétitions d'une campagne\n"
@@ -99,6 +100,14 @@ void printHelp() {
             "  prepare             Prépare un sous-ensemble BotanicGarden (construction ROS 2)\n"
             "  friulbot-prepare    Isole LiDAR/IMU/captures et RTK d'évaluation dans un MCAP ROS 2\n";
   stream << "  vineyard-map-run    Détecte les rangs et produit une carte EscaYard rechargeable\n";
+  stream << "  gazebo-model        Prépare la CAO active pour Gazebo : --action inspect|export [--reuse-meshes] [--python chemin] [--output nouveau-dossier/cartographe]\n";
+  stream << "\nstation-workspace --action diagnostics|missions|hardware|preferences\n"
+            "  --action preferences --theme professional|premium\n"
+            "  --action favorite-add|favorite-remove --id résultat\n"
+            "  --action mission-import --path brouillon.json\n"
+            "  --action mission-export --id mission --path nouveau-brouillon.json\n"
+            "  --action mission-remove --id mission\n"
+            "Les brouillons restent locaux et non exécutables. --workspace désigne le projet.\n";
   stream << "  friulbot-inspect    Contrôle les topics, scans et images brutes FriûlBot\n"
             "  friulbot-map-run    Détecte les rangs locaux d'un déclenchement LiDAR–caméra\n";
 }
@@ -120,6 +129,10 @@ int main(int argc, char* argv[]) {
     using namespace drone_agricole::core;
     if (command == QStringLiteral("station-run")) {
       return drone_agricole::composition::runStationCommand(options);
+    } else if (command == QStringLiteral("gazebo-model")) {
+      return drone_agricole::composition::runGazeboModelCommand(options);
+    } else if (command == QStringLiteral("station-workspace")) {
+      return drone_agricole::composition::runStationWorkspaceCommand(options);
     } else if (command == QStringLiteral("summarize-run")) {
       summarizeRun(options);
       printFile(options.value(QStringLiteral("output")).toString());

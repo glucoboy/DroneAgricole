@@ -25,17 +25,17 @@ void MetricsPlotWidget::paintEvent(QPaintEvent* event) {
   Q_UNUSED(event)
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing);
-  painter.fillRect(rect(), QColor(QStringLiteral("#0a121c")));
+  painter.fillRect(rect(), QColor(QStringLiteral("#ffffff")));
   const auto plot = rect().adjusted(52, 24, -18, -42);
-  painter.setPen(QPen(QColor(QStringLiteral("#536a84")), 1));
+  painter.setPen(QPen(QColor(QStringLiteral("#aabcc5")), 1));
   painter.drawRect(plot);
   for (int step = 1; step < 5; ++step) {
     const auto y = plot.top() + plot.height() * step / 5.0;
-    painter.setPen(QPen(QColor(QStringLiteral("#223348")), 1));
+    painter.setPen(QPen(QColor(QStringLiteral("#e5ecef")), 1));
     painter.drawLine(plot.left(), y, plot.right(), y);
   }
   if (series_.isEmpty() || std::all_of(series_.cbegin(), series_.cend(), [](const auto& value) { return value.points.isEmpty(); })) {
-    painter.setPen(QColor(QStringLiteral("#b5c2d1")));
+    painter.setPen(QColor(QStringLiteral("#6b7e89")));
     painter.drawText(plot, Qt::AlignCenter, QStringLiteral("Aucune courbe chargée"));
     return;
   }
@@ -74,7 +74,7 @@ void MetricsPlotWidget::paintEvent(QPaintEvent* event) {
     painter.setPen(QPen(series.color, 2.0));
     painter.drawPath(path);
   }
-  painter.setPen(QColor(QStringLiteral("#b5c2d1")));
+  painter.setPen(QColor(QStringLiteral("#6b7e89")));
   painter.drawText(QRect(0, plot.top() - 8, plot.left() - 7, 20), Qt::AlignRight | Qt::AlignVCenter,
                    QString::number(maximumY, 'g', 4));
   painter.drawText(QRect(0, plot.bottom() - 10, plot.left() - 7, 20), Qt::AlignRight | Qt::AlignVCenter,
@@ -87,7 +87,7 @@ void MetricsPlotWidget::paintEvent(QPaintEvent* event) {
   for (const auto& series : series_) {
     painter.setPen(QPen(series.color, 3));
     painter.drawLine(legendX, 13, legendX + 18, 13);
-    painter.setPen(QColor(QStringLiteral("#eef5fc")));
+    painter.setPen(QColor(QStringLiteral("#334d5c")));
     const auto label = series.unit.isEmpty() ? series.label : QStringLiteral("%1 [%2]").arg(series.label, series.unit);
     painter.drawText(legendX + 24, 17, label);
     legendX += 34 + painter.fontMetrics().horizontalAdvance(label);

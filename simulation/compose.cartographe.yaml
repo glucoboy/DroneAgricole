@@ -1,0 +1,13 @@
+# Override explicite ; ne pas lancer en parallèle du banc x500 sur les mêmes ports.
+services:
+  px4-sitl:
+    environment:
+      PX4_SIM_MODEL: gz_cartographe
+      PX4_SYS_AUTOSTART: "40000"
+      PX4_GZ_WORLD: cartographe_flat
+      PX4_GZ_MODELS: /workspace-simulation/gazebo/models
+      PX4_GZ_WORLDS: /workspace-simulation/gazebo/worlds
+    volumes:
+      - type: bind
+        source: ./.runtime/px4-cartographe
+        target: /runtime

@@ -7,7 +7,8 @@
 namespace drone_agricole::composition {
 StationComposition::StationComposition(const QString& workspace)
     : contracts_(workspace), runners_(contracts_), repository_(workspace), comparison_(repository_),
-      execution_(*this, backend_, *this) {
+      execution_(*this, backend_, *this), workspaceStore_(workspace), hardwareInventory_(workspace),
+      workspaceData_(workspaceStore_, hardwareInventory_), gazeboBackend_(workspace), gazeboExport_(gazeboBackend_) {
   contracts_.load();
   repository_.refresh();
 }

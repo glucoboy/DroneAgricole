@@ -89,6 +89,11 @@ void TrajectoryView::setSurface(QList<QVector3D> vertices,QList<std::array<int,3
 }
 void TrajectoryView::setSurfaceVisible(bool visible) {surfaceVisible_=visible;update();}
 void TrajectoryView::setTrajectoriesVisible(bool visible) {trajectoriesVisible_=visible;update();}
+void TrajectoryView::setMinimumFraming(float distance,float radius) {
+  if(std::isfinite(distance)&&std::isfinite(radius)&&distance>=.15F&&radius>0) {
+    minimumDistance_=distance;minimumRadius_=radius;fitToData();
+  }
+}
 
 void TrajectoryView::clear() {
   surfaceVertices_.clear();surfaceTriangles_.clear();surfaceColors_.clear();
@@ -155,9 +160,9 @@ void TrajectoryView::paintEvent(QPaintEvent*) {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing, true);
   QLinearGradient background(0.0, 0.0, 0.0, height());
-  background.setColorAt(0.0, QColor(QStringLiteral("#0d1824")));
-  background.setColorAt(0.58, QColor(QStringLiteral("#08131d")));
-  background.setColorAt(1.0, QColor(QStringLiteral("#071019")));
+  background.setColorAt(0.0, QColor(QStringLiteral("#f4f7f1")));
+  background.setColorAt(0.58, QColor(QStringLiteral("#edf3e9")));
+  background.setColorAt(1.0, QColor(QStringLiteral("#e8f0e4")));
   painter.fillRect(rect(), background);
 
   const auto camera = cameraFrame();
@@ -166,7 +171,7 @@ void TrajectoryView::paintEvent(QPaintEvent*) {
   drawGroundGrid(painter, camera, step);
 
   if (!hasContent()) {
-    painter.setPen(QColor(QStringLiteral("#d4e1ee")));
+    painter.setPen(QColor(QStringLiteral("#526875")));
     QFont titleFont = painter.font();
     titleFont.setPointSizeF(12.0);
     titleFont.setWeight(QFont::DemiBold);
@@ -196,7 +201,7 @@ void TrajectoryView::paintEvent(QPaintEvent*) {
   QFont helpFont = painter.font();
   helpFont.setPointSizeF(8.0);
   painter.setFont(helpFont);
-  painter.setPen(QColor(QStringLiteral("#8fa5ba")));
+  painter.setPen(QColor(QStringLiteral("#667f8b")));
   const auto mode = automaticFit_ ? QStringLiteral("cadrage automatique") : QStringLiteral("navigation libre");
   painter.drawText(plotRect().adjusted(0, 0, -8, -6), Qt::AlignRight | Qt::AlignBottom,
                    QStringLiteral("%1 · azimut %2° · élévation %3°")
@@ -420,13 +425,13 @@ void TrajectoryView::updateAutomaticFit() {
   }
   cameraTarget_ = (bounds.minimum + bounds.maximum) * 0.5F;
   const auto size = bounds.maximum - bounds.minimum;
-  const auto radius = std::max(0.75F, size.length() * 0.5F);
+  const auto radius = std::max(minimumRadius_, size.length() * 0.5F);
   const auto aspect = static_cast<float>(std::max(1.0, plotRect().width())) /
                       static_cast<float>(std::max(1.0, plotRect().height()));
   const auto aspectPenalty = aspect < 1.0F ? 1.0F / aspect : 1.0F;
   cameraDistance_ = std::clamp(radius * aspectPenalty /
                                    (std::tan(radians(fieldOfViewDegrees) * 0.5F) * 0.72F),
-                               3.0F, 1000000.0F);
+                               minimumDistance_, 1000000.0F);
   cameraInitialized_ = true;
 }
 
@@ -453,7 +458,7 @@ void TrajectoryView::drawGroundGrid(QPainter& painter, const CameraFrame& camera
     const auto horizontalStart = project(QVector3D(centerX - span, y, 0.0F), camera);
     const auto horizontalEnd = project(QVector3D(centerX + span, y, 0.0F), camera);
     const auto major = index % 5 == 0;
-    painter.setPen(QPen(major ? QColor(52, 78, 101, 180) : QColor(31, 52, 70, 150), major ? 1.2 : 0.8));
+    painter.setPen(QPen(major ? QColor(156, 177, 162, 180) : QColor(191, 207, 193, 150), major ? 1.2 : 0.8));
     if (verticalStart.valid && verticalEnd.valid) {
       painter.drawLine(verticalStart.position, verticalEnd.position);
     }
@@ -510,8 +515,8 @@ void TrajectoryView::drawPointCloud(QPainter& painter, const CameraFrame& camera
   for (const auto& bucket : buckets) {
     painter.drawPoints(bucket);
   }
-  const QColor low(QStringLiteral("#2c7890"));
-  const QColor high(QStringLiteral("#a5fff2"));
+  const QColor low(QStringLiteral("#548d6a"));
+  const QColor high(QStringLiteral("#286a96"));
   for (int index = 0; index < heightBucketCount; ++index) {
     painter.setPen(QPen(mix(low, high, static_cast<float>(index) / (heightBucketCount - 1), 220), 1.7,
                         Qt::SolidLine, Qt::RoundCap));
@@ -572,7 +577,7 @@ void TrajectoryView::drawCameraProjectedPoints(QPainter& painter, const CameraFr
   painter.setRenderHint(QPainter::Antialiasing, false);
   painter.setPen(QPen(QColor(5, 12, 7, 190), 4.2, Qt::SolidLine, Qt::RoundCap));
   painter.drawPoints(projectedPoints);
-  painter.setPen(QPen(QColor(QStringLiteral("#b7ff62")), 2.4, Qt::SolidLine, Qt::RoundCap));
+  painter.setPen(QPen(QColor(QStringLiteral("#397a35")), 2.4, Qt::SolidLine, Qt::RoundCap));
   painter.drawPoints(projectedPoints);
   painter.setRenderHint(QPainter::Antialiasing, true);
 }
@@ -619,7 +624,7 @@ void TrajectoryView::drawTrajectories(QPainter& painter, const CameraFrame& came
       }
     }
 
-    QPen halo(QColor(3, 8, 13, 225), series.dashed ? 5.0 : 6.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    QPen halo(QColor(255, 255, 255, 225), series.dashed ? 5.0 : 6.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
     painter.setPen(halo);
     painter.setBrush(Qt::NoBrush);
     painter.drawPath(path);
@@ -637,7 +642,7 @@ void TrajectoryView::drawTrajectories(QPainter& painter, const CameraFrame& came
     const auto last = std::find_if(projectedPoints.crbegin(), projectedPoints.crend(),
                                    [](const auto& value) { return value.valid; });
     if (first != projectedPoints.cend()) {
-      painter.setPen(QPen(QColor(QStringLiteral("#071019")), 2.0));
+      painter.setPen(QPen(QColor(QStringLiteral("#e8f0e4")), 2.0));
       painter.setBrush(series.color);
       painter.drawEllipse(first->position, 4.2, 4.2);
     }
@@ -659,13 +664,13 @@ void TrajectoryView::drawLegend(QPainter& painter) const {
     colors.append(QColor(150,175,180));
   } else if (!cloud_.isEmpty()) {
     labels.append(QStringLiteral("Nuage 3D · %1 points").arg(cloud_.size()));
-    colors.append(QColor(QStringLiteral("#72e8dc")));
+    colors.append(QColor(QStringLiteral("#286a96")));
   }
   if (!cameraProjectedPoints_.isEmpty()) {
     labels.append((cameraPointColors_.isEmpty() ? QStringLiteral("Champ caméra · %1 points")
                                                : QStringLiteral("Couleurs caméra RGB · %1 points (à valider)"))
                       .arg(cameraProjectedPoints_.size()));
-    colors.append(QColor(QStringLiteral("#b7ff62")));
+    colors.append(QColor(QStringLiteral("#397a35")));
   }
   if (!referencePoints_.isEmpty()) {
     labels.append(QStringLiteral("Troncs RTK · %1 points").arg(referencePoints_.size()));
@@ -685,6 +690,9 @@ void TrajectoryView::drawLegend(QPainter& painter) const {
       colors.append(series.color);
     }
   }
+  if (!contentLabel_.isEmpty()) {
+    labels = {contentLabel_}; colors = {QColor(QStringLiteral("#8295a6"))};
+  }
   if (labels.isEmpty()) {
     return;
   }
@@ -700,14 +708,14 @@ void TrajectoryView::drawLegend(QPainter& painter) const {
   const QRectF panel(plotRect().left() + 12.0, plotRect().top() + 12.0, textWidth + 48.0,
                      labels.size() * rowHeight + 16.0);
   painter.setPen(QPen(QColor(66, 91, 116, 190), 1.0));
-  painter.setBrush(QColor(8, 18, 28, 220));
+  painter.setBrush(QColor(255, 255, 255, 235));
   painter.drawRoundedRect(panel, 8.0, 8.0);
   for (qsizetype index = 0; index < labels.size(); ++index) {
     const auto y = panel.top() + 10.0 + index * rowHeight + metrics.ascent();
     painter.setPen(QPen(colors.at(index), index == 0 && !cloud_.isEmpty() ? 3.5 : 3.0, Qt::SolidLine,
                         Qt::RoundCap));
     painter.drawLine(QPointF(panel.left() + 12.0, y - 3.0), QPointF(panel.left() + 29.0, y - 3.0));
-    painter.setPen(QColor(QStringLiteral("#eef6fd")));
+    painter.setPen(QColor(QStringLiteral("#334d5c")));
     painter.drawText(QPointF(panel.left() + 36.0, y), labels.at(index));
   }
 }
@@ -715,7 +723,7 @@ void TrajectoryView::drawLegend(QPainter& painter) const {
 void TrajectoryView::drawCompass(QPainter& painter, const CameraFrame& camera) const {
   const QPointF center(plotRect().right() - 35.0, plotRect().top() + 35.0);
   painter.setPen(QPen(QColor(91, 119, 145, 210), 1.0));
-  painter.setBrush(QColor(8, 18, 28, 215));
+  painter.setBrush(QColor(255, 255, 255, 235));
   painter.drawEllipse(center, 24.0, 24.0);
   const auto origin = project(cameraTarget_, camera);
   const auto north = project(cameraTarget_ + QVector3D(0.0F, std::max(1.0F, gridStep()), 0.0F), camera);
@@ -748,7 +756,7 @@ void TrajectoryView::drawScale(QPainter& painter, const CameraFrame& camera) con
   const auto scalePixels = std::clamp(static_cast<double>(scaleWorld / unitsPerPixel), 45.0, 180.0);
   const auto left = plotRect().left() + 18.0;
   const auto bottom = plotRect().bottom() - 18.0;
-  painter.setPen(QPen(QColor(QStringLiteral("#eaf3fb")), 2.0));
+  painter.setPen(QPen(QColor(QStringLiteral("#476574")), 2.0));
   painter.drawLine(QPointF(left, bottom), QPointF(left + scalePixels, bottom));
   painter.drawLine(QPointF(left, bottom - 4.0), QPointF(left, bottom + 4.0));
   painter.drawLine(QPointF(left + scalePixels, bottom - 4.0), QPointF(left + scalePixels, bottom + 4.0));

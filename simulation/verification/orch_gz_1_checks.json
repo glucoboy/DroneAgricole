@@ -1,0 +1,108 @@
+{
+  "schema": "drone_agricole.orch_gz_1_checks.v1",
+  "date_utc": "2026-10-23T11:42:25.7782863Z",
+  "environment": {
+    "architecture": "amd64",
+    "qt": "6.11.2",
+    "standard": "C++17",
+    "os": "Windows 11 25H2",
+    "compiler": "GCC 16.2.0 MSYS2 UCRT64"
+  },
+  "git_commit": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "git_dirty": true,
+  "build": {
+    "exit_code": 0,
+    "command": "cmake --build build/cartographe -j 2"
+  },
+  "ctest": {
+    "command": "ctest --test-dir build/cartographe --output-on-failure --output-junit ../../.runtime/orch_gz_1/ctest_final.xml",
+    "junit": ".runtime/orch_gz_1/ctest_final.xml",
+    "cases": [
+      {
+        "name": "cartographe_t0_contracts",
+        "status": "run",
+        "seconds": "2.45041",
+        "output": "T0: valid fixtures accepted, 34 negative cases rejected; hashes, IDs, terminal state and dates checked\n"
+      },
+      {
+        "name": "cartographe_offboard_safety",
+        "status": "run",
+        "seconds": "0.0103627",
+        "output": "Offboard safety: authorization, deadlines, freshness, parameters and finalization checks passed\n"
+      },
+      {
+        "name": "cartographe_model_generation",
+        "status": "run",
+        "seconds": "0.815018",
+        "output": "Generated SDF preview, 4 motors, source hashes and inertia constraints checked. Physical fidelity unvalidated.\n"
+      },
+      {
+        "name": "cartographe_model_reject_unknown_mass",
+        "status": "run",
+        "seconds": "0.0223587",
+        "output": "physical mode unavailable: mass/CG/inertias and exact propulsion are not identified\n"
+      },
+      {
+        "name": "cartographe_mass_properties",
+        "status": "run",
+        "seconds": "0.0092123",
+        "output": "Mass properties: transport, rotation, inclusion, unknowns and negative cases passed\n"
+      },
+      {
+        "name": "cartographe_energy_model",
+        "status": "run",
+        "seconds": "0.0095327",
+        "output": "PASS 34 energy model checks\n"
+      }
+    ],
+    "junit_sha256": "4a7a72960c6c8c4367c00df0d1b8e8ab99ea7905e71b2385b70f716021da785a",
+    "failures": 0,
+    "tests": 6
+  },
+  "t0_negative_cases": 34,
+  "energy_model_checks": 34,
+  "source_sha256": {
+    "simulation/compose.cartographe.yaml": "99b0d3a0c1560e6886ee16f1c52995dea4711b6faaefdce4da07fb272acafac9",
+    "simulation/contracts/Evidence.cpp": "d5dcc18a1f0f8f1ed52040be2d831dfaa4c34e9ae14a14252b0e12abb777c501",
+    "simulation/energy/energy_main.cpp": "a78446c3c4d4b3c4aebe30c691e56beca7bca70ffb4d71d6510512e287de4872",
+    "simulation/energy/EnergyModel.cpp": "48106f764df80df074ddab827780c6e42336c7e0235d902558584097961524a7",
+    "simulation/energy/EnergyModel.hpp": "9d4c7c2837b76523df697528a0cffad7fe348e201c9a31b9b1e60413d9579847",
+    "simulation/energy/TestEnergy.cpp": "2ce11715d2e6158c5e500f984f2247d8740c8037f65d9f061f9f719abc684800",
+    "simulation/gazebo/ModelBuilder.cpp": "57f6c710930ed05567f9e1a23619e3b66d17cb6ff02dcab3392aac1820c44066",
+    "simulation/gazebo/models/cartographe/model.sdf": "62b016f0816a0f6f499c12a06f8974d777e442d43bfed8f331e0c9bc3111c912",
+    "simulation/gazebo/tools/cad_export_cartographe.py": "067fc72d01b092a3bd828d3d6607e3dd48f074f2320ea81e0af3a08684ff6426",
+    "simulation/gazebo/tools/cad_export_collisions.py": "9fb22537020fcda219480ac7fdc1ee39df8237552578b86164909f51629400f2",
+    "simulation/gazebo/worlds/cartographe_flat.sdf": "1e50e9a92a1ac620cf32ec87f58c33866c7074d0fe7b651430203b637ab6afef",
+    "simulation/mass/MassProperties.hpp": "9c4a9dbb800a48478065c766fbdd1a649f6f88d49d9ce1e89ae2b2d9055ea58e",
+    "simulation/mass/TestMass.cpp": "354c7035746bf4ee17ec61c937c86a6bcc732f04e47024558be7b4b1dc5149bb",
+    "simulation/px4_sitl/preflight.ps1": "2eb9f68f8c380f71ac0753b5aae982fda6ef674d9f476d1437f4bd7a96e10609",
+    "simulation/tests/TestOffboardSafety.cpp": "584c1ac0b8a3b760086e740e908f51842509c098423fd49a5a558e4c72fe769d",
+    "simulation/CMakeLists.txt": "19beb411a21f0449dbdef4985713556a25d6588bad5cabfec9daa86bdd54d1f6",
+    "software/docker/Dockerfile": "eadb57a485787e6bdc0e80505b5374ece7292698fc55d6830d9bbf994db539fd",
+    "software/src/drone_agricole_px4_bridge/CMakeLists.txt": "eaf84a10821341836b8cc727b62c81ea4d5bb4d84068fb628fee59f731b6d0f7",
+    "compose.yaml": "fad8c2016ee64d272c551abda0eb3f9a931fda35258370e656dca247044ecb55"
+  },
+  "binary_sha256": {
+    "cartographe-model": "0aaee15ddb6780829e49094ddfc5325131e3acd709c2d8f3badfb5853f7ff8c3",
+    "cartographe-energy": "c3ffc4b4d9adb9b32db7d829c584e05212c9779de190344f9861ce298597f0c6",
+    "cartographe-evidence": "a7ced69658f357464b8b0a784f2faa335e1fbb6ff803f4e031571aa8f1bdd4ad",
+    "test_mass_properties": "0a2a86553bf70da992e979d50a1a0e79ce6fbddf663853df4a1aaefe0ccef6a1",
+    "test_cartographe_energy": "39c139eb113b032b1d9a997cea9e31dce50361e7ef9b94e1a0036f56b9ceebad",
+    "test_offboard_safety": "37f78d22f17d9c23b3c3394f29d7c30fe97f55c68f463bbf1ac551c7b7eb55ad"
+  },
+  "geometry_proof": "simulation/gazebo/models/cartographe/geometry/geometry_tests.json",
+  "native_preservation": "145 dependency hashes, including CAD sources, matched before and after export; no native saved",
+  "compose": {
+    "cartographe_override_config_exit": 0,
+    "baseline_config_exit": 0
+  },
+  "unexecuted": [
+    "Docker/ROS2 build and runtime topics compatibility",
+    "Gazebo SDF parser and physical solver loading",
+    "hover, square, Offboard loss, landing/disarm and cancellation in SITL",
+    "coupled PX4 battery source and physical calibration/holdout evaluation",
+    "Linux amd64 and arm64 native validation"
+  ],
+  "conclusion": "préliminaire",
+  "physical_fidelity": "À valider"
+}

@@ -1,4 +1,5 @@
 #include "drone_agricole_px4_bridge/RunnerContract.hpp"
+#include "drone_agricole_px4_bridge/OffboardSafety.hpp"
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -58,7 +59,7 @@ class RunManager final : public QObject {
       }
     });
     connect(&process_, qOverload<int, QProcess::ExitStatus>(&QProcess::finished), this,
-            [this](const int exitCode, QProcess::ExitStatus) { processFinished(exitCode); });
+            [this](const int exitCode, const QProcess::ExitStatus exitStatus) { processFinished(exitCode, exitStatus); });
   }
 
   QJsonObject status() const {
@@ -100,6 +101,7 @@ class RunManager final : public QObject {
               << QStringLiteral("result_directory:=%1").arg(request.value(QStringLiteral("result_directory")).toString());
     logs_.clear();
     stopRequested_ = false;
+    supervisorTimedOut_ = false;
     current_ = {{QStringLiteral("state"), QStringLiteral("starting")},
                 {QStringLiteral("run_id"), request.value(QStringLiteral("run_id"))},
                 {QStringLiteral("mode"), request.value(QStringLiteral("mode"))},
@@ -120,6 +122,16 @@ class RunManager final : public QObject {
     }
     current_.insert(QStringLiteral("state"), QStringLiteral("running"));
     current_.insert(QStringLiteral("message"), QStringLiteral("Scénario PX4 SITL en cours."));
+    const auto expectedProcess = process_.processId();
+    // The node has a 100 s mission budget and a 35 s landing budget.
+    // This independent wall-clock watchdog also covers a stuck child.
+    QTimer::singleShot(std::chrono::seconds(150), this, [this, expectedProcess] {
+      if (process_.state() != QProcess::NotRunning && process_.processId() == expectedProcess) {
+        logs_.push_back(QStringLiteral("Délai superviseur dépassé ; arrêt sûr demandé, posé non présumé."));
+        supervisorTimedOut_ = true;
+        stop();
+      }
+    });
     return status();
   }
 
@@ -130,20 +142,28 @@ class RunManager final : public QObject {
     stopRequested_ = true;
     current_.insert(QStringLiteral("state"), QStringLiteral("stopping"));
     current_.insert(QStringLiteral("message"), QStringLiteral("Arrêt sûr PX4 en cours…"));
-    const auto processGroup = QStringLiteral("-%1").arg(process_.processId());
+    const auto expectedProcess = process_.processId();
+    const auto processGroup = QStringLiteral("-%1").arg(expectedProcess);
     QProcess::execute(QStringLiteral("/usr/bin/kill"), {QStringLiteral("-INT"), QStringLiteral("--"), processGroup});
-    QTimer::singleShot(std::chrono::seconds(20), this, [this] {
-      if (process_.state() != QProcess::NotRunning) {
+    QTimer::singleShot(std::chrono::seconds(40), this, [this, expectedProcess] {
+      if (process_.state() != QProcess::NotRunning && process_.processId() == expectedProcess) {
         const auto processGroup = QStringLiteral("-%1").arg(process_.processId());
         QProcess::execute(QStringLiteral("/usr/bin/kill"),
                           {QStringLiteral("-TERM"), QStringLiteral("--"), processGroup});
+      }
+    });
+    QTimer::singleShot(std::chrono::seconds(50), this, [this, expectedProcess] {
+      if (process_.state() != QProcess::NotRunning && process_.processId() == expectedProcess) {
+        logs_.push_back(QStringLiteral("Arrêt forcé du runner SITL bloqué ; atterrissage non confirmé."));
+        QProcess::execute(QStringLiteral("/usr/bin/kill"),
+                          {QStringLiteral("-KILL"), QStringLiteral("--"), QStringLiteral("-%1").arg(expectedProcess)});
       }
     });
     return status();
   }
 
  private:
-  void processFinished(const int exitCode) {
+  void processFinished(const int exitCode, const QProcess::ExitStatus exitStatus) {
     QJsonValue result;
     const auto resultDirectory = current_.value(QStringLiteral("result_directory")).toString();
     QFile file(QDir(workspace_).filePath(resultDirectory + QStringLiteral("/result.json")));
@@ -157,15 +177,20 @@ class RunManager final : public QObject {
     }
     QString state;
     QString message;
-    if (stopRequested_) {
+    const auto observations = result.toObject().value(QStringLiteral("observations")).toObject();
+    const auto outcome = classifyOffboardResult(stopRequested_, exitCode,
+                                                result.isObject() && exitStatus == QProcess::NormalExit && !supervisorTimedOut_,
+                                                result.toObject().value(QStringLiteral("success")).toBool(),
+                                                observations.value(QStringLiteral("landing_confirmed")).toBool());
+    if (outcome == OffboardResultState::Cancelled) {
       state = QStringLiteral("cancelled");
-      message = QStringLiteral("Essai PX4 arrêté ; l'atterrissage de sécurité a été demandé.");
-    } else if (exitCode == 0 && result.isObject() && result.toObject().value(QStringLiteral("success")).toBool()) {
+      message = QStringLiteral("Essai PX4 annulé ; posé et désarmement confirmés.");
+    } else if (outcome == OffboardResultState::Completed) {
       state = QStringLiteral("completed");
       message = QStringLiteral("Essai PX4 SITL terminé avec succès.");
     } else {
       state = QStringLiteral("failed");
-      message = QStringLiteral("Essai PX4 en échec avec le code %1.").arg(exitCode);
+      message = QStringLiteral("Essai PX4 en échec avec le code %1 ; résultat et posé doivent être vérifiés.").arg(exitCode);
     }
     current_.insert(QStringLiteral("state"), state);
     current_.insert(QStringLiteral("message"), message);
@@ -179,6 +204,7 @@ class RunManager final : public QObject {
   std::deque<QString> logs_;
   QJsonObject current_;
   bool stopRequested_{false};
+  bool supervisorTimedOut_{false};
 };
 
 class HttpServer final : public QObject {

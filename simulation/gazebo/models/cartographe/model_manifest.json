@@ -1,0 +1,289 @@
+{
+  "schema": "drone_agricole.cartographe_gazebo_model.v1",
+  "lot": "ORCH-GZ-1",
+  "status": "Implémenté",
+  "implementation_scope": "Dérivation, scénario SDF/airframe et outils hors ligne ; premiers vols Gazebo exécutés, batterie énergétique non couplée",
+  "physical_fidelity": "À valider",
+  "decision": "Données insuffisantes pour conclure sur le vol ou l'autonomie réelle ; poursuivre mesures et tests indépendants",
+  "authority": {
+    "cad_manifest": "hardware/mecanique/cartographe/manifest.json#prototype_cartographe",
+    "assembly": "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd",
+    "bom": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "note": "Ce manifeste ne remplace pas la BOM ni le manifeste CAO ; les 145 dépendances sont détaillées et empreintées dans geometry/geometry_manifest.json"
+  },
+  "geometry": {
+    "manifest": "simulation/gazebo/models/cartographe/geometry/geometry_manifest.json",
+    "collisions": "simulation/gazebo/models/cartographe/geometry/collision_model.json",
+    "fixed_leaf_occurrences": 335,
+    "separate_rotors": 4,
+    "meshes": "simulation/gazebo/models/cartographe/meshes/ : cinq STL, unités m, environ 100 Mo hors Git ; chemins et SHA individuels dans le manifeste géométrique",
+    "scope": "21 boîtes conservatrices et quatre disques, sol plat uniquement ; obstacles/chocs/fortes inclinaisons non évalués"
+  },
+  "units_frames": {
+    "cad_length": "mm",
+    "mesh_sdf_length": "m",
+    "mass": "kg",
+    "inertia": "kg m^2",
+    "force": "N",
+    "power": "W DC",
+    "energy": "Wh",
+    "capacity": "Ah",
+    "time": "s",
+    "source_to_gazebo_scale": 0.001,
+    "source_to_flu": "rotation identité ; origine CAO conservée, distincte du CG",
+    "front": "+X conventionnel SITL ; cap physique À valider",
+    "flu_to_px4_frd": "diag(1,-1,-1)",
+    "rotor_axis_flu": [
+      0,
+      0,
+      1
+    ],
+    "rotor_axis_frd": [
+      0,
+      0,
+      -1
+    ],
+    "sdf_mesh_scale": [
+      1,
+      1,
+      1
+    ],
+    "rotor_velocity_slowdown_sim": 10,
+    "physical_rpm_from_joint_rad_s": "abs(omega_joint) * 10 * 60 / (2*pi)"
+  },
+  "physical_properties": {
+    "mass_complete_kg": null,
+    "centre_of_mass_m": null,
+    "inertia_kg_m2": null,
+    "ledger": "simulation/gazebo/models/cartographe/geometry/mass_ledger.json",
+    "uncertainty": "95 postes, sept masses documentaires, six inclusions ; aucune borne complète démontrée, aucun inconnu compté à zéro",
+    "preview_parameters": "simulation/gazebo/models/cartographe/dynamics_preview.json",
+    "preview_mass_kg": 6,
+    "preview_provenance": "Scénario synthétique : corps boîte homogène équivalente et quatre disques. Propriétés réelles non identifiées ; aucun coefficient physique x500 repris.",
+    "propeller_nominal_candidate_m": 0.381,
+    "propeller_cad_envelope_m": 0.3937,
+    "propeller_source": "https://gemfanhobby.en.hisupplier.com/product-2894109-1555-Carbon-Fiber-Propeller-T-Type-CW-CCW-Prop-for-FPV.html",
+    "propeller_status": "Nominal documentaire résolu ; lot exact, pas et sens À valider. Natifs conservés comme enveloppe provisoire."
+  },
+  "vehicle": {
+    "sdf": "simulation/gazebo/models/cartographe/model.sdf",
+    "world": "simulation/gazebo/worlds/cartographe_flat.sdf",
+    "physics_step_s": 0.004,
+    "noise_seed": "Non fixée ; reproductibilité de procédure, pas de trajectoire bit à bit",
+    "airframe": "simulation/px4_sitl/airframes/40000_gz_cartographe",
+    "sys_autostart": 40000,
+    "model": "gz_cartographe",
+    "world_name": "cartographe_flat",
+    "motor_order_cad": [
+      "Helice_4",
+      "Helice_3",
+      "Helice_2",
+      "Helice_1"
+    ],
+    "motor_functions": [
+      101,
+      102,
+      103,
+      104
+    ],
+    "rotations": [
+      "ccw",
+      "ccw",
+      "cw",
+      "cw"
+    ],
+    "thrust_model_factor": 0,
+    "hover_command": "sqrt(m*g/(4*Tmax)), scénario 6 kg uniquement",
+    "allocation_and_inertia_proof": "simulation/gazebo/models/cartographe/model_checks.json",
+    "runtime": ".runtime/px4-cartographe",
+    "historical_runtime_preserved": ".runtime/px4",
+    "launch_override": "simulation/compose.cartographe.yaml",
+    "gazebo_loaded": true,
+    "authority": "PX4 conserve vol critique, armement, allocation et failsafes",
+    "ground_pose_observed_m": [
+      0,
+      0,
+      0.312505
+    ],
+    "sensor_fixture": {
+      "pressure_stddev_pa": 1,
+      "gyro_stddev_rad_s": 0.001,
+      "provenance": "Fixture synthétique non calibrée ; mesures constantes rejetées par PX4",
+      "accel_stddev_m_s2": 0.01,
+      "seed": null,
+      "source": "simulation/gazebo/ModelBuilder.cpp",
+      "magnetometer_harmonic_stddev_gauss": 0.0001
+    },
+    "static_proof_scope": "model_checks.json est la preuve du générateur sans lancement Gazebo ; chargement et vols dans campaign_20261024.json"
+  },
+  "energy": {
+    "model": "C++17 : courbe DC interpolée, auxiliaires exclusifs, Thévenin, Ah/SoC/Wh, réserve et arrêts",
+    "calibration": "simulation/energy/calibration_proxy.json",
+    "calibration_nature": "Cinq points fabricant MN4014KV330/15x5CF/22.2V ; proxy différent de Gemfan/Tekko. Provenance et inconnues dans le fichier de calibration.",
+    "evaluation": "simulation/energy/evaluation_campaign.json",
+    "evaluation_nature": "54 cas synthétiques séparés de la calibration ; zéro session physique holdout",
+    "battery_source_actually_received_by_px4": "battery_simulator PX4, id=1/source=0 ; SIM_BAT_DRAIN=60, SIM_BAT_MIN_PCT=50, current_a=-1 ; six cellules/24.3V initial cartographe",
+    "baseline_battery_expected": "Constaté le 24 octobre 2026 ; décharge forfaitaire indépendante de la demande propulsive",
+    "model_injection_implemented": false,
+    "gazebo_observer": "Contrat RPM vers batterie C++17 testé, adaptateur non installé",
+    "px4_endurance_claim_allowed": false,
+    "measurement_protocol": "simulation/energy/measurements_protocol.json"
+  },
+  "versions": {
+    "expected_px4_image": "px4io/px4-sitl-gazebo:v1.18.0-beta2@sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+    "expected_px4_msgs_commit": "598c7aad7b2386f9406ebd2a2f841619fddc3c78",
+    "expected_agent_commit": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "expected_agent": "2.4.3 / XRCE v2",
+    "compatibility": "Neuf types utilisés identiques par SHA entre PX4 exécuté, px4_msgs épinglé et fichiers installés ; transport SITL exécuté. Autres messages/cibles non qualifiés.",
+    "observed_native": "Windows 11 25H2 amd64 / FreeCAD 1.1.3 / OCCT 7.8.1 / GCC 16.2.0 C++17 / Qt 6.11.2",
+    "git_dirty": true,
+    "git_commit": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+    "observed_px4_commit": "83c4f4e580558816f0e398918f66358988004696",
+    "observed_gazebo": "8.14.0",
+    "observed_ros_image_id": "sha256:a295a986f640ebdda9e87c133adf708ce5871d749cb69fc369d300bc993f92e5",
+    "observed_docker": "29.7.2 Linux amd64"
+  },
+  "bench": {
+    "ros_domain": 42,
+    "api": "127.0.0.1:8091",
+    "telemetry": "127.0.0.1:8092",
+    "dds_udp": 8888,
+    "mavlink_host_udp": 14550,
+    "identity": "verified_container : image/digest, modèle, processus PX4, airframe effectif unique ; aucun périphérique matériel ni réseau host",
+    "required_authorizations": [
+      "DRONE_AGRICOLE_SITL=1",
+      "execute:=true",
+      "PX4_OFFBOARD_EXECUTE=true au point d'entrée Compose"
+    ],
+    "historical_parameters": "Copie initiale dans .runtime/orch_gz_1/20261024/x500_parameters_before.bson ; le runtime x500 utilisé par les régressions peut autosauvegarder compteurs/paramètres",
+    "initial_parameters_sha256": "86b54d3f140c16a4697b10b810b1df7856852c8b37662c317b680ca1f7ea3682"
+  },
+  "proofs": [
+    "simulation/gazebo/models/cartographe/geometry/geometry_tests.json",
+    "simulation/gazebo/models/cartographe/geometry/collision_model.json",
+    "simulation/gazebo/models/cartographe/model_checks.json",
+    "simulation/verification/orch_gz_1_checks.json",
+    "simulation/verification/energy_checks.json",
+    "simulation/px4_sitl/verification/bench_preflight.json",
+    "simulation/px4_sitl/verification/infrastructure_checks.json",
+    "results/simulation/orch_gz_1/t0_energy/t0_run_manifest.json",
+    "results/simulation/orch_gz_1/t0_energy_cancel_verified/t0_run_manifest.json",
+    "simulation/verification/independent_review.json",
+    "simulation/px4_sitl/verification/campaign_20261024.json",
+    "simulation/px4_sitl/verification/independent_review_20261024.json",
+    "docs/verification/station_gazebo_bridge.json"
+  ],
+  "reproduction": {
+    "guide": "simulation/README.md",
+    "commands": [
+      "FreeCAD Python : simulation/gazebo/tools/cad_export_cartographe.py puis cad_export_collisions.py",
+      "cmake -S simulation -B build/cartographe -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+      "cmake --build build/cartographe -j 2",
+      "ctest --test-dir build/cartographe --output-on-failure",
+      "build/cartographe/cartographe-evidence.exe execute results/simulation/orch_gz_1/NEW_RAW results/simulation/orch_gz_1/NEW_T0",
+      "build/cartographe/cartographe-evidence.exe validate results/simulation/orch_gz_1/NEW_T0",
+      "docker compose --profile sim --profile viz build px4-runner-api",
+      "docker compose -f compose.yaml -f simulation/compose.cartographe.yaml --profile sim --profile viz up -d --force-recreate px4-runner-api",
+      "pwsh -NoProfile -File simulation/px4_sitl/preflight.ps1 -ComposeOverride simulation/compose.cartographe.yaml -ExpectedModel gz_cartographe -RequireReady",
+      "pwsh -NoProfile -File simulation/px4_sitl/run_campaign.ps1 -Model cartographe -Mode square -RunId reprise_carto_square_01",
+      "pwsh -NoProfile -File simulation/px4_sitl/run_campaign.ps1 -Model cartographe -Mode failsafe -RunId reprise_carto_failsafe_01",
+      "pwsh -NoProfile -File simulation/px4_sitl/run_campaign.ps1 -Model cartographe -Mode cancel -RunId reprise_carto_cancel_01",
+      "build/desktop-debug/software/cpp/drone-agricole-dashboard.exe --workspace D:/ProjetGuillaume/DroneAgricole --page bench-model",
+      "build/desktop-debug/software/cpp/drone-agricole-tools.exe gazebo-model --action export"
+    ],
+    "requirements": "Qt6/GCC/Ninja en PATH, FreeCAD avec Part/MeshPart ; pour SITL moteur Docker Linux fonctionnel. Un seul banc sur ces ports, aucune connexion aéronef réel."
+  },
+  "limits": [
+    "Aucune qualification physique, achat ou essai matériel",
+    "Masse complète, CG et inerties inconnus ; scénario 6 kg indépendant de la BOM",
+    "Diamètre/pas/sens exacts des hélices à mesurer ; pales CAO provisoires",
+    "Pas de courbe exacte Gemfan/Tekko ni OCV/R/capacité/auxiliaires mesurés",
+    "Pas de CFD, vent, traînée latérale, effet sol ou interaction rotors identifiés",
+    "Aucune batterie modèle injectée dans PX4, aucune autonomie PX4 calculée",
+    "Vols exploratoires sur sol plat pour scénario synthétique 6 kg ; échelons, vent et variations dynamiques restent à tester",
+    "Commandes moteur à la limite observées ; pas de durée de saturation ni de puissance électrique mesurée par phase"
+  ],
+  "orch_gz_2": {
+    "available": [
+      "Dérivés CAO et empreintes",
+      "SDF/airframe de scénario et sol plat",
+      "Modules masse/énergie et observateur RPM testables",
+      "T0 effectif et préflight borné",
+      "Protocoles de mesures indépendantes",
+      "Image ROS courante reconstruite/testée Linux amd64 et neuf messages vérifiés",
+      "Repos, carré, perte Offboard et annulation cartographe, posé/désarmement et T0 avec sources archivées",
+      "Export du modèle actif depuis Simulations → Modèle 3D, contrôlé et annulable"
+    ],
+    "missing_before_dynamic_sitl": [
+      "Contrôler à chaque reprise identité, airframe unique, paramètres et fraîcheur ; données de scénario explicites",
+      "Définir métriques, graines, petits échelons, sensibilité au pas et variations charge/CG/vent/SoC"
+    ],
+    "missing_before_coupled_endurance": [
+      "Source batterie modèle unique et fraîche reçue par PX4 ; source forfaitaire désactivée après vérification",
+      "Allocation sous tension et réserve retour/atterrissage instrumentées"
+    ],
+    "missing_before_prototype_claim": [
+      "Inventaire, masses/CG/inerties",
+      "Propulsion exacte et batterie/rails mesurées",
+      "Évaluation physique holdout selon critères préalables"
+    ]
+  },
+  "updated_at_utc": "2026-10-24T20:53:36.2925475Z",
+  "files_sha256": {
+    "hardware/mecanique/cartographe/manifest.json": "c89be2dd38a98e7bea6094a12a46c8d674178da2a4b10603458246a6b11885a7",
+    "hardware/mecanique/cartographe/assemblages/Prototype_Cartographe.FCStd": "3718cecc43b435a095c1016bc883871116105654363a60eb8029bb6cecb05e2e",
+    "hardware/mecanique/cartographe/nomenclature_prototype.json": "c0fb2115a3deb329d389023cb414175e43ec60891eef407a2a715b6369d052c9",
+    "simulation/gazebo/models/cartographe/geometry/geometry_manifest.json": "24993e3fc020cd89b4fec7e86b670fb3ccffd2be6a00bef52400fb854544e041",
+    "simulation/gazebo/models/cartographe/geometry/mass_ledger.json": "d292cf0c8bf2b47279657f1e8e2b7bd9726b9e83a1a33cec7d67fb5beaa1d4dd",
+    "simulation/gazebo/models/cartographe/dynamics_preview.json": "0308aae4a485434443ab3706c6bcce389092df2747891cc1385be948ae658104",
+    "simulation/gazebo/models/cartographe/model.sdf": "dd3ef99c970f3e1527dd668b82b10b717f1a226dc6e29f678b93294a76c02c2e",
+    "simulation/gazebo/worlds/cartographe_flat.sdf": "e91a8f251928ebd17afe04037869b94689792bb0f5b27e751df90c960af23fc6",
+    "simulation/energy/calibration_proxy.json": "7ea2003d6191f92cef86da42f8485ab77bde54f0ff210683d35b6546416b1a76",
+    "simulation/energy/evaluation_campaign.json": "0db71e633f3963a209f2372c68be026eff88d84d37c9be7b8fa6fa5cbfae8ca8",
+    "simulation/energy/measurements_protocol.json": "a02dcd87bb4ac7a99db991979e420a9d858b1f1f31ceb368796f96656262c9bb",
+    ".runtime/px4/px4/rootfs/parameters.bson": "ca53cb46557350c80ddfa9d191bd529cb9e2b8c9c28e177a142a0fa15165f2d0",
+    "simulation/gazebo/models/cartographe/geometry/geometry_tests.json": "29f87ef90d2e03a27f5b75eba5d2cce5ff518e86cef0e0fb8efeea21db960c88",
+    "simulation/gazebo/models/cartographe/geometry/collision_model.json": "450055681ac024263cd05fb1d39ca7347fcc20c51bcf5801b25ada8184ca128b",
+    "simulation/gazebo/models/cartographe/model_checks.json": "7a7256e33838571140babf8ac89f6e1aa8a036dba2e86511f7a670b015bafe7a",
+    "simulation/verification/orch_gz_1_checks.json": "d36249195312815e7b3bf4eec39d7451712d65eb0ea8e6eeb7a86516dd7bcc40",
+    "simulation/verification/energy_checks.json": "2ff57b9f3c2aa4f87956f7dc13f05f9a1253da5050eb6e6bfa29033a96c86ccc",
+    "simulation/px4_sitl/verification/bench_preflight.json": "bf73196e1f8fec7eda23f5d1e412658b49baa389a9851e9c7501e905b773de3e",
+    "simulation/px4_sitl/verification/infrastructure_checks.json": "bc7db18ba1c7be8338f5da2f053b9da2f5e8cd1054cde4c8512a137de255a71e",
+    "results/simulation/orch_gz_1/t0_energy/t0_run_manifest.json": "ca620f91344a86dde809d65711f86087dda6b7baf51b25459d2c6d900db8b9bc",
+    "results/simulation/orch_gz_1/t0_energy_cancel_verified/t0_run_manifest.json": "000c0f985d097c5b22ee308e089b263400e76303492ee90912a826b3598b780d",
+    "simulation/verification/independent_review.json": "26133e3763542f1c758a1da95b2a40aac58c74f2a52b0f2626ef6a76fa69729d",
+    "simulation/px4_sitl/airframes/40000_gz_cartographe": "17f087e5d2203cfd0166dbdb90899e4253c836e17d38eeb3a3ff096bb6315592",
+    "simulation/gazebo/ModelBuilder.cpp": "4e20c31a2156cbcf70b44f986cd17d95d15f65bfcfe98e9caaec9220961c9c01",
+    "simulation/px4_sitl/preflight.ps1": "d63794966fbaf21b6697b179ecb30302702147ecd92dcba9d5a9caffb63af041",
+    "simulation/px4_sitl/run_campaign.ps1": "c71ffe5b9ec034a1837cb376c55764954c313f7ba2a331871f6c13f6bc255087",
+    "simulation/contracts/Evidence.cpp": "2fda56abb7a66f18a759a0605d6cb975975f49110c75e208289ae35d860f939e",
+    "compose.yaml": "0b57f29d6161e5148886a531657e7c6d404b73b34d7beab2451d907b24777f06",
+    "simulation/compose.cartographe.yaml": "8e7e1c71ef3e5daf7095d03df80f81ded25351eaf53c5072b142b78d1a064415",
+    "simulation/px4_sitl/verification/campaign_20261024.json": "4688e75eb90bb5a8f25834430aad7161098a26532d328a361c00b9c8af86cd55",
+    "simulation/px4_sitl/verification/independent_review_20261024.json": "1f91035cb1db37f49e095efd1d96a130bf26dc3e73faee5f8ff6ece44abe2b6a",
+    "simulation/gazebo/ModelBuilder.hpp": "ef1a4ac2782554495ec906bc3ab6ef0bb1597ee82bcbace70d41dbbbd38e893b",
+    "simulation/gazebo/tools/cad_export_cartographe.py": "e9b89261c22ac063fd0b4ff3263838369969b27381abb7fe5e2fa982e52e3768",
+    "simulation/gazebo/tools/cad_export_collisions.py": "c13ac7c53a571ce59edbbf4f741fc3ba7b5fbd89e1b98b77cea2f97b97c87629",
+    "docs/verification/station_gazebo_bridge.json": "0bdc9ecc5ec0c52bd9b5d59d29e025c2f696492653611d27fb7d02863ea79063"
+  },
+  "independent_review": "simulation/px4_sitl/verification/independent_review_20261024.json",
+  "proofs_previous_scope": "Les preuves du 23 octobre restent historiques ; la campagne du 24 porte les vols et sources courants. La preuve station_gazebo_bridge couvre ensuite la modularisation et les exports UI/CLI ; elle ne constitue pas une nouvelle campagne de vol.",
+  "station_export": {
+    "status": "Implémenté",
+    "route": "bench-model",
+    "navigation": "Simulations → Modèle 3D",
+    "profile": "Prototype cartographe actif ; import générique STEP/FCStd non implémenté",
+    "service": "software/cpp/include/drone_agricole/application/GazeboExportService.hpp",
+    "backend": "software/cpp/src/adapters/LocalGazeboExportBackend.cpp",
+    "cli": "drone-agricole-tools gazebo-model --action export",
+    "output_root": "results/simulation/model_exports",
+    "package_schema": "drone_agricole.gazebo_export.v1",
+    "contents": "SDF, cinq STL, collisions, airframe, monde de visualisation, manifeste et aperçu échantillonné",
+    "source_policy": "Contrôle des empreintes avant/après ; sources natives conservées sans sauvegarde",
+    "publication": "Répertoire indépendant, publication atomique après contrôles, annulation sans paquet final",
+    "budget_seconds": 900,
+    "starts_px4": false,
+    "proof": "docs/verification/station_gazebo_bridge.json",
+    "physics": "Scénario synthétique inchangé ; aucune nouvelle qualification physique ni autonomie couplée"
+  }
+}

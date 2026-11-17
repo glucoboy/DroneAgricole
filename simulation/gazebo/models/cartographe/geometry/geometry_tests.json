@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "test_id": "T-CARTO-GZ-01",
+  "created_utc": "2026-10-23T11:15:38.1871020Z",
+  "environment": "Windows x64 / FreeCAD 1.1.3 / OCCT7.8.1",
+  "geometry_sha256": "24993e3fc020cd89b4fec7e86b670fb3ccffd2be6a00bef52400fb854544e041",
+  "checks": [
+    {
+      "id": "GEO-COUNTS",
+      "pass": true,
+      "observed": {
+        "native_references": 118,
+        "native_occurrences": 346,
+        "assembly_links_excluded_from_leaf_count": 7,
+        "leaf_occurrences": 339,
+        "body_leaf_occurrences": 335,
+        "rotors": 4,
+        "source_dependencies": 145
+      }
+    },
+    {
+      "id": "MESH-SHA-Helice_1",
+      "pass": true
+    },
+    {
+      "id": "MESH-SHA-Helice_2",
+      "pass": true
+    },
+    {
+      "id": "MESH-SHA-Helice_3",
+      "pass": true
+    },
+    {
+      "id": "MESH-SHA-Helice_4",
+      "pass": true
+    },
+    {
+      "id": "MESH-SHA-BODY",
+      "pass": true
+    },
+    {
+      "id": "GEO-SCALE",
+      "pass": true
+    },
+    {
+      "id": "GEO-GROUND",
+      "pass": true
+    },
+    {
+      "id": "GEO-ENVELOPE",
+      "pass": true,
+      "observed_max_error_mm": 0.01492445000175735
+    },
+    {
+      "id": "MASS-UNKNOWN-PRESERVED",
+      "pass": true
+    },
+    {
+      "id": "MASS-INCLUSION-TARGETS",
+      "pass": true,
+      "count": 6
+    },
+    {
+      "id": "GEO-NEGATIVE-UNKNOWN-WORKSPACE",
+      "pass": true,
+      "exit_code": 1
+    },
+    {
+      "id": "GEO-NEGATIVE-INVALID-DEFLECTION",
+      "pass": true,
+      "exit_code": 1
+    }
+  ],
+  "passed": true,
+  "finalized": true,
+  "qualification": "À valider",
+  "limits": [
+    "Contrôles de dérivation géométrique ; aucune qualification physique.",
+    "STL lourds hors Git, à régénérer avec cad_export_cartographe.py puis cad_export_collisions.py.",
+    "MCP FreeCAD inaccessible pendant cette passe : timeout WinError10060, export local FreeCAD en lecture BREP effectué."
+  ]
+}

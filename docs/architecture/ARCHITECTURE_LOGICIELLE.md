@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 30 septembre 2026 |
+| Dernière mise à jour | 17 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -20,6 +20,10 @@ physiques sont détaillées dans [DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md).
 ## 2. Principes d'architecture
 
 - Toute logique exécutable propriétaire est écrite en C++17.
+  L’action 1 prescrit un moteur de banc électromécanique en Python pour
+  exploiter l’environnement embarqué de FreeCAD et le Workbench Cables.
+  Ce moteur est un outil de conception autonome, hors station et chaîne de
+  vol. Voir son [périmètre dans DOC-MEC](ARCHITECTURE_MECANIQUE.md#moteur-electromecanique).
 - L'interface desktop utilise Qt 6 Widgets ; sa structure est placée au maximum
   dans des fichiers `.ui`.
 - Présentation, application, domaine, algorithmes et adaptateurs sont séparés par
@@ -35,6 +39,159 @@ physiques sont détaillées dans [DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md).
   critiques sont bornés.
 
 Ces principes constituent la référence active pour les évolutions logicielles.
+
+<a id="recherche-technique-l1"></a>
+### 2.1 Recherche technique électromécanique — L1
+
+`technical_research_engine` est **Implémenté** pour instruire les inconnues
+documentaires d’ORCH-CAO-MASSE-1. Le moteur C++17/Qt 6 et son client Python
+permettent au décideur de soumettre et de relire une recherche par `issue_id`.
+Le moteur s’exécute hors FreeCAD. Il confronte les sources locales en premier,
+puis, sur demande, les URL HTTPS du catalogue. Le catalogue identifie les
+autorités et les localisateurs d’extraction. Une découverte de fichiers
+alimente les pistes à instruire.
+
+Le [contrat de rapport](../electromechanical_v2/RESEARCH_REPORT.schema.json)
+réutilise les types L0 pour la question, les preuves et les valeurs. Il porte
+en plus la correspondance d’identité, de révision et de domaine, le registre
+des inconnues et la trace du cache. Une divergence entre preuves comparables
+garde la question ouverte. Les calculs à entrées hypothétiques fournissent
+équation, unités et bornes pour une étude conditionnelle. Le moteur publie
+atomiquement par identifiant et vérifie les empreintes locales à la relecture.
+Les consommateurs utilisent la conclusion et sa portée pour leurs propres
+contrôles. Le gel complet du graphe et des exigences V2 reste **Planifié**.
+[Guide d’utilisation](../../technical_research_engine/README.md) ·
+[Vérification L1](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l1)
+
+### 2.2 Catalogue et validation d’interconnexion — L2
+
+`interconnection_engine` est **Implémenté** en C++17/Qt 6 Core. La CLI
+réutilise le graphe L0 et consomme les rapports L1 par configuration et
+identifiant. Elle calcule des verdicts distincts de compatibilité,
+continuité et géométrie. Les identités des pièces, leurs révisions et la
+table de cavités de la paire sont vérifiées avant le rapprochement des
+conducteurs et circuits. Une modification de pose déclenche une nouvelle
+évaluation sur l’état demandé. La longueur utile déclarée est comparée à
+la longueur développée de la polyligne. Une broche désignant explicitement
+le potentiel opposé d’une paire différentielle produit un défaut de polarité.
+
+Le rapport conserve la table broche–contact–conducteur, la nomenclature
+candidate et les empreintes des entrées. Le convertisseur des lignes vers
+les axes vérifie les relations dans les deux sens et conserve les anomalies
+par source. L’adaptateur FreeCAD reçoit une projection du banc. L’application
+au graphe complet du prototype reste **À valider**.
+[Recette](../../interconnection_engine/README.md) ·
+[Vérification L2](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l2)
+
+<a id="exploration-architecture-l3"></a>
+### 2.3 Exploration d’architectures électromécaniques — L3
+
+`architecture_decision_engine` est **Implémenté** en C++17/Qt 6 Core.
+Il instruit les blocages de service qui subsistent après correction locale.
+Le banc identifie le blocage et ses objets, donne la marge observée et
+déclare les variables et inconnues. Un intervalle affine borne la faisabilité
+sur le domaine déclaré. Le moteur déclenche des variantes paramétrées selon
+le constat et le budget du banc. Il recalcule les contrôles applicables,
+y compris ceux des liaisons incidentes aux équipements modifiés.
+
+Le validateur L2 est lié en bibliothèque pour le banc F31. La CLI L1
+instruit une `ResearchQuestion` L0 et le rapport conserve la piste et sa
+provenance. En cas d’inconnue, le banc réexécute les contrôles géométriques
+sur trois hypothèses de course. Le candidat conserve la valeur inconnue.
+Le banc F40/F41 compare un changement d’implantation et une interface
+déportée. Le contrat électrique de l’interface spécifie le graphe autorisé.
+Les fonctions et les contraintes communes sont évaluées après chaque
+changement et à nouveau lors d’une consolidation.
+
+Les exigences et les entrées sont empreintées séparément des candidats.
+Le front de Pareto utilise les objectifs numériques comparables des
+variantes admissibles et publie les objectifs indisponibles. Le contrat
+de sortie L3 porte le cycle de vie des décisions de banc et les références
+de preuves. Les portes de passage restent décrites par le contrat L0.
+Le moteur publie les artefacts T0 et le manifeste terminal. Les valeurs
+physiques, les références réelles et les solutions CAO restent **À valider**.
+[Recette](../../architecture_decision_engine/README.md) ·
+[Vérification L3](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l3)
+
+<a id="validation-electromecanique-l4"></a>
+### 2.4 Validation électromécanique indépendante — L4
+
+`validation_engine` est **Implémenté** en C++17/Qt 6 Core. L’autorité de
+campagne fige les exigences, la recette, les références L0 à L3, les scripts
+de mesure et l’identité du validateur avant l’évaluation. La CLI reçoit
+l’empreinte du gel par un canal distinct du candidat. La bibliothèque
+réconcilie les circuits et contacts avec les critères L2 et vérifie les
+chemins fonctionnels définis par L3. Elle évalue les constats géométriques
+sur les mesures brutes de l’adaptateur FreeCAD. Chaque fermeture native
+est copiée puis mesurée deux fois dans des processus neufs. Les originaux
+et les mesures sont empreintés. Les projections servent à cibler des
+inspections quantifiées.
+
+La sortie porte `ValidationReport`, `ValidationFinding` et
+`TechnicalEvidence` L0, les tolérances et valeurs structurées, les liens
+de preuve, la couverture et la finalisation T0. L5 vérifie le manifeste
+terminal, les artefacts, l’identité du natif et le gel commun avant de
+comparer des fusions. Un rapport `FAIL` ou
+un contrôle obligatoire ouvert empêche l’admission sur le périmètre évalué.
+Les verdicts historiques portent sur des critères ciblés. Le rapprochement
+entre les références montées et un graphe du prototype complet reste
+**À valider**.
+Un identifiant annoncé sans définition dans le gel laisse le port ouvert.
+Les caractéristiques de cordon fournies sont évaluées contre la demande
+gelée. Une divergence de sélection ou de spécification qui ne donne pas
+d’écart établi empêche de conclure à la compatibilité.
+[Recette](../../validation_engine/README.md) ·
+[Vérification L4](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l4)
+
+La commande `validation_core xlink` gère la fermeture et le calcul par
+lots d’un assemblage FreeCAD multi-documents. Le Python embarqué mesure
+les formes et les placements des occurrences dans des processus dédiés.
+Le cœur C++17 rapproche le graphe L2, calcule le périmètre des paires et
+assemble la couverture T0. Le cache de tâche est indexé par la racine
+sauvegardée, les dépendances, les critères et l’environnement de mesure.
+Un lot expiré laisse des contrôles `NOT_RUN` que le prochain lot peut reprendre.
+[Recette XLink](../electromechanical_v2_1/03_XLINK_VALIDATION.md)
+
+<a id="convergence-electromecanique-l5"></a>
+### 2.5 Convergence électromécanique — L5
+
+`convergence_manager` est **Implémenté** en C++17/Qt 6 Core. L’API de
+campagne et la CLI partagent la machine d’états. Le manifeste fige
+configuration, fichiers et binaires. Le checkpoint atomique conserve
+transitions, décisions, opérations réservées, reçus et budgets. Après
+interruption, une opération sans reçu est isolée et reprise dans un
+nouveau dossier dans la limite configurée. La publication T0 se termine
+par le manifeste terminal.
+La reprise vérifie les rôles, chemins et empreintes de tous les fichiers du
+gel L4 contre la recette déclarée. Pour publier une consolidation, la CLI
+recontrôle les preuves L4 finalisées, l’identité du natif et la couverture
+des liaisons exigées. Le dossier de campagne contient les reçus du moteur
+et relève de l’environnement de confiance du validateur.
+
+L’empreinte des affectations appliquées et de la topologie élimine les
+équivalents sur une grille déclarée. Le diagnostic d’un défaut récurrent
+groupe les constats par objet et état, déclenche L1 et utilise le criblage
+L3 pour ouvrir les alternatives déclarées. Une inconnue fournisseur reste
+attachée aux variantes dépendantes, avec traces de recherche, répétitions
+et prochaine vérification.
+
+Les portefeuilles assemblent les affectations de décisions locales
+admissibles. Le contrôle de fusion applique dépendances, exclusions,
+propriété des affectations et conflits d’écriture. La réalisation native
+de ce banc couvre les routes sur une topologie fixe. Une modification de
+connecteur, brochage, plaque ou cordon demande un constructeur et des
+contrôles applicables avant admission. L4 reçoit le seul natif sauvegardé et
+la référence indépendante. La copie est retenue après couverture des
+liaisons concernées et contrôles communs. Le front de Pareto des fusions
+admissibles utilise les objectifs mesurés sous le même gel. Le jalon
+physique reste **À valider**.
+L’admission native L5 porte sur un seul document FreeCAD. La co-évaluation
+de critères géométriques et électriques a été exercée via L4 sur banc.
+L’admission d’une fusion à dépendances XLink et la traçabilité entre broches,
+conducteurs et géométrie native restent **À valider**.
+
+[Recette](../../convergence_manager/README.md) ·
+[Vérification L5](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l5)
 
 ## 3. Contexte et déploiement
 
@@ -57,6 +214,18 @@ Ces principes constituent la référence active pour les évolutions logicielles
 | Docker `amd64` | ROS 2 Humble/Jazzy, LIO et PX4/Gazebo isolés | implémenté préliminaire |
 | Jetson Orin NX 16 Go `arm64` | JetPack, pilotes hôte et conteneurs ROS 2 sur porteuse Holybro Pixhawk Jetson | déploiement **Planifié** ; exécution et thermique **À valider** |
 | Pixhawk 6X module seul | PX4 et failsafes indépendants du compagnon sur la même porteuse | SITL partiel ; intégration matérielle **À valider** |
+
+**Déploiement sol proposé le 10 octobre 2026.** Un portable de récupération
+est envisagé pour QGroundControl, base RTK, préparation/revue légère et
+transfert des données ; le PC fixe existant assure les traitements lourds.
+La configuration minimale acceptée pour la définition est dans
+[DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#pc-sol-prototype).
+Windows 11 x64 est la première cible proposée pour le portable, selon les
+essais locaux déjà disponibles ; ces essais ne qualifient pas ce matériel
+encore non identifié. La fenêtre actuelle impose 1200 × 760 au minimum dans
+[`main_window.ui`](../../software/cpp/ui/main_window.ui). Affichage, ressources,
+copie des données et déploiement sur le portable restent **À valider**.
+Aucune modification logicielle ni compilation nouvelle dans cette passe.
 
 Compose sépare trois environnements : Ubuntu 22.04 / ROS 2 Humble pour données,
 LIO et télémétrie ; Ubuntu 24.04 / ROS 2 Jazzy pour les ponts et la simulation ;
@@ -156,7 +325,8 @@ applicatifs ne dépendent pas des classes techniques. `Qt Widgets` reste confin�
 | `drone_agricole_catalog` | contrats et catalogue des définitions | support | `test_contract_registry` |
 | `drone_agricole_runners` | résolution des runners et commandes approuvées | catalog, YAML | `test_runner_registry` |
 | `drone_agricole_data_services` | dépôt de résultats et comparaison | catalog, mapping, runtime | `test_result_repository`, `test_comparison_service` |
-| `drone_agricole_application` | cycle commun de tâche via ports | Qt Core | `test_run_service` |
+| `drone_agricole_application` | cycle commun de tâche, brouillons, préférences et inventaire via ports | Qt Core | `test_run_service`, `test_workspace_service` |
+| `drone_agricole_workspace_storage` | état local atomique et lecture de la BOM prototype | application, Qt Core | `test_workspace_service` |
 | `drone_agricole_process` | exécution et annulation de processus derrière un port | application | `test_process_backend` |
 | `drone_agricole_composition` | assemblage des services et commandes UI/CLI | services, runners, process | tests station et dashboard |
 | `drone_agricole_presentation` | navigation, pages, rendu trajectoire/3D et interactions | application, support, Qt Widgets | `test_trajectory_view`, `test_dashboard_mapping`, `test_station_navigation`, `test_dashboard_smoke` |
@@ -196,8 +366,8 @@ obligatoires.
 ### 4.5 Navigation
 
 La navigation est organisée autour des activités et objets métier. Les pages
-actuelles couvrent vue d'ensemble, exécution, résultats, comparaison et détail
-d'un résultat. Une nouvelle fonction n'ajoute pas automatiquement une
+actuelles couvrent les six espaces V3 ci-dessous et le détail d'un résultat.
+Une nouvelle fonction n'ajoute pas automatiquement une
 destination principale : elle fournit contrats, services, actions contextuelles
 et vues spécialisées. Une tâche active reste observable lors d'un changement de
 page. La fermeture de la station demande l'annulation d'un traitement actif et
@@ -212,11 +382,72 @@ Les formulaires principaux sont :
 - `ui/comparison_page.ui` ;
 - `ui/result_view_page.ui`.
 
+### 4.6 Interface métier V3 — 23 octobre 2026
+
+**Cadrage.** Le responsable demande explicitement la refonte selon ses deux
+maquettes MagicPath et la préparation des nouvelles fonctions. Cette passe
+logicielle réversible est bornée aux parcours visibles, à la réutilisation
+des bancs existants et aux services locaux nécessaires. Elle ne clôt ni ne
+remplace la priorité de faisabilité physique du cartographe. Aucun achat,
+déploiement embarqué ni essai physique n'est inclus. Le signal de fin est
+une compilation Windows, des tests de parcours/persistance et une revue des
+captures ; la qualification terrain reste **À valider**.
+
+Les deux maquettes ont le même code fonctionnel : seul le thème diffère.
+Leurs identifiants et révisions exactes sont conservés dans
+[`magicpath_reference.json`](../../configs/station/magicpath_reference.json).
+La transposition conserve C++17/Qt Widgets, les formulaires `.ui`, les vrais
+résultats locaux et les garde-fous des runners. Les nombres, cartes illustrées,
+scores et états « Connecté » fictifs de la maquette ne sont pas importés.
+
+| Espace | Rubriques et comportement |
+|---|---|
+| Accueil | Dashboard, Récents et Favoris ; compteurs locaux, raccourcis, activité et résultats épinglés |
+| Missions | Préparation de brouillons persistants, Supervision des données disponibles du pont, Journal des résultats de banc |
+| Données | Catalogue déclaré, Acquisitions et Import / Export ; recherche, détails des sources et export des métadonnées |
+| Simulations (routes `bench` conservées) | Configuration et Exécution partagent la même page et le même `RunService` ; Résultats, Comparaison et Modèle 3D pour préparer le prototype Gazebo |
+| Analyse | Cartes et Trajectoires réelles, Métriques et Rapports issus des archives, export Markdown ; absence d'artefact explicite |
+| Système | Paramètres des deux thèmes, Matériel lu dans la BOM, Diagnostics et réserves de Maintenance |
+
+`MissionsPage`, `DataPage`, `SystemPage` et `AnalysisPage` possèdent leurs
+formulaires. Le shell compose les pages et les routes ; les brouillons,
+préférences et favoris sont gérés par `WorkspaceService`, partagé avec
+`drone-agricole-tools station-workspace`. Les interfaces `IWorkspaceStore`
+et `IHardwareInventory` isolent le stockage. `JsonWorkspaceStore` écrit
+atomiquement `results/station/workspace.json`, avec verrou et contrôle de
+modification concurrente. Un fichier corrompu est signalé et conservé.
+`BomHardwareInventory` relit la nomenclature canonique du prototype sans
+la modifier ; quantité et masse inconnues restent inconnues. La définition
+matérielle n'est jamais interprétée comme un état de connexion.
+
+Le thème « Clair professionnel » bleu ou « Clair premium sobre » vert
+est choisi dans Système → Paramètres et conservé dans l'état local.
+La navigation conserve la configuration du bench et son traitement actif.
+Les brouillons ont un identifiant, une parcelle, une opération, un drone,
+un dataset/séquence, des notes et contrôles déclaratifs ; altitude/vitesse
+inconnues restent nulles. `execution_allowed=false` et `status=draft`
+interdisent de les confondre avec un paquet de mission exécutable. L'import
+crée une identité locale distincte. Le transfert réel, la géofence validée,
+la planification qualifiée, l'approbation de carte, les pilotes et la commande
+de mission demeurent **Planifiés / À valider**, avec prérequis visibles.
+
+Traçabilité : `UI-V3-001` → shell, routes et thèmes → `test_station_navigation`
+et `test_workspace_pages` ; `UI-V3-002` → service/stockage/BOM →
+`test_workspace_service` ; `UI-V3-003` → archives, comparaison et analyse →
+`test_workbench_pages`. Résultats et limites dans
+[DOC-VAL §10](../VALIDATION_QUALIFICATION.md#station-v3).
+
 ## 5. Contrats et données
 
 Le catalogue décrit séparément datasets, simulations et runners. Les schémas
-JSON sous `configs/visualization/schemas/` valident leurs structures. Les
-adaptateurs historiques normalisent les résultats LIO et PX4 en lecture seule.
+JSON sous `configs/visualization/schemas/` définissent les structures attendues.
+Leur présence et leur chargement ne démontrent pas leur application : la
+validation actuelle est partielle, avec des contrôles codés dans le registre,
+la préparation et la finalisation. La validation intégrale et la cohérence
+croisée des identifiants restent **À valider** ; le message de succès T0 ne
+doit pas être interprété comme une conformité intégrale aux schémas
+([AUD-010](../VALIDATION_QUALIFICATION.md#aud-010)). Les adaptateurs historiques
+normalisent les résultats LIO et PX4 en lecture seule.
 
 Objets métier cibles :
 
@@ -252,6 +483,129 @@ Les paquets inter-étapes contiennent au minimum :
 Le modèle de carte représente terrain, terrasses, rangs, pieds, poteaux, fils,
 murs, obstacles, zones interdites et confiance. Les géométries lourdes peuvent
 être référencées par URI et empreinte plutôt qu'imbriquées dans les messages.
+
+### 5.1 Outils de simulation du cartographe — ORCH-GZ-1
+
+Le CMake autonome [simulation/CMakeLists.txt](../../simulation/CMakeLists.txt)
+compile en C++17 les modules masse et énergie, `cartographe-model`,
+`cartographe-energy` et `cartographe-evidence`, indépendamment de la station.
+Les algorithmes masse/énergie utilisent la bibliothèque standard ; Qt Core
+assure JSON, empreintes et écritures atomiques dans les exécutables. Les
+adaptateurs Python FreeCAD ne portent que l'extraction BREP/maillage et les
+contrôles de dérivation ; aucune logique de vol ou d'énergie n'y est ajoutée.
+
+Le validateur dédié applique les cinq schémas T0 canoniques et les mots-clés
+qu'ils utilisent, puis contrôle identifiants, paramètres/entrées communs,
+empreintes réelles, chemins confinés, dates et événement terminal. Il refuse
+les mots-clés non supportés. Le scellement contrôle également la campagne
+brute, ses configurations, son binaire effectivement exécuté et son CSV.
+Les cas négatifs sont exécutés, sans prétendre corriger tous les producteurs
+historiques de la station : AUD-010 reste ouvert pour ceux-ci.
+
+Le runner Offboard borne armement, mission, atterrissage et supervision.
+Un résultat écrit sans erreur et une observation fraîche posé/désarmé sont
+nécessaires au succès ou à l'annulation ; crash ou dépassement ne confirment
+jamais un posé. Les tests de politique et la compilation native du serveur
+réussissent. Le 24 octobre, le pont et les runners sont reconstruits sous
+ROS 2 Jazzy/Linux amd64 ; les quatre exécutables CTest de ce paquet passent.
+Le runner exige une odométrie de moins de 0,5 s et un statut de moins de
+1 s avant chaque émission de consigne ; valeurs négatives ou non finies
+refusées. La perte de fraîcheur déclenche l'atterrissage borné.
+Le préflight vérifie aussi l'identifiant effectif et l'unicité de l'airframe
+dans l'image : 4010 entrait en collision avec `gz_x500_mono_cam`, d'où
+l'identifiant cartographe 40000. Les capteurs constants sont rejetés par
+PX4 ; une fixture de bruit synthétique permet l'intégration sans désactiver
+ses contrôles. Elle ne calibre pas les capteurs matériels.
+Versions, limites et preuves sont dans DOC-VAL §9.3 et le
+[manifeste du véhicule](../../simulation/gazebo/models/cartographe/model_manifest.json).
+Les commandes d'utilisation sont dans `simulation/README.md`.
+
+### 5.2 Passerelle CAO → Gazebo dans la station — 24 octobre 2026
+
+**Implémenté**, profil du prototype cartographe actif uniquement. La demande
+utilisateur supprime la succession de commandes manuelles du §5.1 en ajoutant
+**Simulations → Modèle 3D**, route `bench-model`. La page possède son formulaire
+`.ui`, un aperçu navigable métrique échantillonné, le choix du Python fourni
+avec FreeCAD, une préparation depuis la CAO ou depuis les maillages contrôlés,
+la progression, l'annulation et l'ouverture du dossier final. Le contexte et
+la progression restent accessibles pendant la navigation. Les STL complets
+sont destinés à Gazebo ; l'aperçu par points n'est pas un nouveau modèle physique.
+
+`GazeboExportService` dépend du port `IGazeboExportBackend` et de Qt Core.
+`LocalGazeboExportBackend` porte fichiers/processus et choisit les adaptateurs
+FreeCAD existants. Le générateur C++17 SDF/airframe est partagé entre la station
+et `cartographe-model`, par la cible `drone_agricole_gazebo_model` ; les contrôles
+de dépendances CMake restent effectifs. La composition injecte le backend ;
+UI et `drone-agricole-tools gazebo-model` consomment le même service. Aucun
+calcul de masse, d'énergie ou de vol n'est déplacé dans la page ou le shell.
+
+La conversion s'effectue dans un dossier temporaire du projet, hors du thread
+UI, avec budget total de 15 minutes et annulation vérifiée par tranches de
+lecture ou attente de processus. Le processus Python est directement détenu
+et arrêté avant publication d'un état terminal. Un verrou interdit deux
+exports simultanés entre instances ; une destination existante est refusée.
+La publication finale renomme le dossier préparé après contrôle des empreintes,
+des sources restées inchangées et des propriétés du scénario. Le signal
+`completed` vient après la fin du worker et permet une nouvelle préparation.
+
+Le dossier `results/simulation/model_exports/<identité>/cartographe` contient
+SDF/config, cinq STL, géométrie/collisions, scénario, airframe 40000, monde,
+aperçu et `export_manifest.json` (`drone_agricole.gazebo_export.v1`). Ce manifeste
+d'artefact référence sources et empreintes ; il ne remplace ni BOM ni manifeste
+CAO. La préparation n'est pas une exécution de mission : aucun T0 de vol n'est
+fabriqué, aucun Docker/PX4 n'est démarré. Import arbitraire STEP/FCStd, édition
+des paramètres physiques et pilotage de Gazebo depuis cette page restent hors
+de ce profil. Tests et limites : DOC-VAL §10.2, `UI-GZ-001` et `T-CARTO-GZ-01`.
+
+### 5.3 Réconciliation CAO et masses — ORCH-CAO-MASSE-1, 25 octobre 2026
+
+La nouvelle priorité suspend les extensions et campagnes Gazebo/PX4. Les
+adaptations logicielles de ce lot servent uniquement la fiabilité des données
+existantes. `cartographe-bom-mass`, en C++17/Qt Core, lit la BOM canonique,
+les sources conservées et l'extraction BRep FreeCAD. Il vérifie les empreintes
+des natifs et des extracteurs, la fermeture conforme au manifeste, les couples
+fichier/objet, les propriétaires physiques et le graphe des inclusions.
+`--publish` actualise en place la BOM, le registre massique et leurs preuves.
+Les adaptateurs Python restent limités à FreeCAD et à la synchronisation
+déclarative ; les sommes, contributions et propriétés massiques sont en C++.
+
+La somme disponible est indépendante de la connaissance du centrage et des
+inerties. Les masses conditionnelles ou maximales ne deviennent pas des masses
+nominales installées ; un enfant d'un ensemble de masse inconnue peut contribuer
+au sous-total sans fermer son parent. Une occurrence sans propriétaire reste
+bloquante. Les fabrications candidates et les ensembles documentés sont
+distingués dans les résultats. Le centrage calculé d'un sous-ensemble homogène
+ne devient pas celui du drone.
+
+La reprise du 26 octobre ajoute les masses documentaires par composant et
+les contributions partielles de périmètre explicite, par exemple le corps
+d'un moteur sans ses cordons. Un parent n'est calculé complet que si son
+contenu est déclaré exhaustif, non vide et entièrement connu. Les inclusions
+sont résolues indépendamment de l'ordre des lignes. Les doublons de
+contributions et le recouvrement entre masse partielle et composants déjà
+comptés sont refusés. Chaque ligne incomplète reçoit `probleme_massique`
+dans la BOM ; une ancienne masse unitaire ne subsiste pas après invalidation
+de ses conditions. Le classeur reprend le problème en clair dans ses notes.
+Les tests couvrent ces cas, les quantités corrigées et les sous-totaux ;
+la publication est vérifiée par une seconde exécution identique sur les cinq
+artefacts dérivés. Les réserves géométriques restent distinctes et ne sont
+pas effacées par la connaissance d'une masse commerciale.
+
+Les estimations OEM peuvent être définies par occurrence physique et objet
+source dans un même fichier CAO : le calcul vérifie propriétaire BOM, fichier,
+objet, empreinte, volume et densité avant addition. Les densités analogues
+restent candidates et ne ferment pas la masse réelle de la ligne. La masse du
+kit d'approvisionnement reste visible hors du total embarqué ; les scénarios
+de propulsion non confirmés restent distincts des contributions additionnées.
+
+La passerelle conserve les exports historiques et signale `preview_stale`
+quand leurs sources ont changé, y compris après rafraîchissement d'un aperçu
+déjà chargé. Son scénario synthétique de 6 kg reste distinct d'une masse
+issue de la BOM. L'inventaire affiche la nature et les réserves de masse.
+Les tests ciblés, les cas négatifs et les limites sont dans
+[la preuve ORCH](../../hardware/mecanique/cartographe/verification/controle_orch_cao_masse_1.json).
+Ces adaptations sont **Implémenté** ; aucune fidélité physique ou campagne
+de simulation nouvelle n'est qualifiée.
 
 ## 6. Chaîne cartographique
 
@@ -389,8 +743,17 @@ intra-processus des flux lourds n'est admise qu'après mesure.
 | `airflow_controller` | assistance d'air et compensation | banc puis essais agronomiques autorisés |
 | `mission_manager` | machine à états applicative | transitions, annulation, reprise et défauts |
 | `safety_supervisor` | invariants et inhibition applicative | injection de chaque défaut critique |
-| `logger_recorder` | manifeste, événements et données de rejeu | intégrité, stockage plein et rejeu déterministe |
+| `logger_recorder` | manifeste, événements et toutes les données brutes LiDAR/caméra acquises pendant la mission, avec horodatages pour rejeu | intégrité, compteurs d'acquisition, débit soutenu à chaud, stockage plein et rejeu déterministe |
 | `benchmark_runner` | campagnes reproductibles hors vol | contrats, empreintes et comparaison multi-runs |
+
+**Besoin d'enregistrement du prototype retenu le 10 octobre :** conserver
+toutes les données brutes LiDAR et caméra pendant toute la mission ; le
+scénario de dimensionnement choisi est caméra à 5 images/s sur 20 minutes.
+Le SSD Samsung MZ-V9S1T0BW 1 To est retenu dans `AVI-SSD` ; le format brut,
+le budget complet et la qualification du stockage restent ouverts dans
+[DOC-ELEC](ARCHITECTURE_ELECTRIQUE_RESEAUX.md#stockage-prototype).
+Cette décision ne prouve pas l'implémentation de `logger_recorder` : acquisition,
+pertes explicites, stockage plein, arrêt propre et rejeu restent **Planifiés / À valider**.
 
 #### 7.1.1 Contrat temporel du cartographe — **Planifié / À valider**
 
@@ -481,6 +844,24 @@ approuvées avant de réactiver la fusion. Les seuils chiffrés, la latence
 d’exposition, la datation par point Airy et le comportement sous chaque défaut
 sont **À valider** par `MAP-FUN-001` et `T-AIRY-SYNC-01` de
 [DOC-VAL §12.8](../VALIDATION_QUALIFICATION.md).
+
+#### 7.1.2 Diagnostic BMS de cassette — Planifié / À valider, 5 octobre 2026
+
+La conception électrique représente JBD-SP22S003 A01 via TE, UART isolé
+Waveshare15817 et USB Jetson. Le décodeur et son intégration restent
+**Planifiés** : aucune nouvelle logique embarquée n'est implémentée par
+la modification CAO. Contrat déclaratif :
+[UART BMS](../../hardware/electronique/cartographe/contrat_uart_bms.json).
+
+Un futur adaptateur C++17 devra vérifier longueur, checksum JBD, unités,
+courant signé, nombre de cellules, délais et fraîcheur. Les lectures03/04/05
+préparent tension, SOC, capacité, cycles, cellules, NTC, protections et MOS ;
+commandes d'écriture et modification des seuils interdites dans le diagnostic.
+PM08 conserve la mesure batterie utilisée par PX4. Identifier et arbitrer
+les producteurs avant publication, sans compter deux batteries pour un
+seul pack. Aucun protocole DroneCAN n'est supposé et aucun moteur commandé.
+Jeux de trames, corruption, perte de port, retard et identité seront testés
+hors ligne puis au banc avant intégration PX4. DOC-ELEC§6.2, DOC-VAL§12.1.9.
 
 ### 7.2 Allocation algorithmique
 
@@ -686,7 +1067,17 @@ sont connus.
 
 ## 11. Extension d'une capacité
 
-Une évolution suit ce chemin :
+Avant toute évolution, appliquer les [préceptes et le cadrage courant](HLD.md#methodologie) :
+besoin observé, distinction réelle portée par la capacité, action minimale,
+réversibilité, coût, arrêt et signal. La priorité est la faisabilité physique
+du cartographe ; un développement de station doit justifier son utilité pour
+la contrainte retenue. Les écarts logiciels sont dans
+[DOC-VAL AUD-010 à AUD-016](../VALIDATION_QUALIFICATION.md#aud-010).
+Le contrat `IStationModule` sans consommateur actuel trouvé et le test de
+booléens de `StationArchitecture` ne constituent pas une preuve de sûreté
+([AUD-013](../VALIDATION_QUALIFICATION.md#aud-013)).
+
+Une évolution justifiée suit ensuite ce chemin :
 
 1. compléter le besoin et le scénario dans `DOC-HLD` si le comportement système
    change ;
@@ -704,10 +1095,17 @@ correcte de son archive restent deux états distincts.
 
 ## 12. Feuille de route capacitaire
 
+Ce tableau décrit le portefeuille cible, pas un engagement de réalisation ni
+une priorité concurrente à [DOC-VAL §14](../VALIDATION_QUALIFICATION.md#recentrage).
+B1 peut fournir le minimum nécessaire au banc cartographe ; ses autres
+fonctions, B2–E1 et toute infrastructure nouvelle attendent un besoin observé
+et une décision bornée. Les garanties de provenance des nouvelles exécutions
+restent partielles : voir [AUD-014](../VALIDATION_QUALIFICATION.md#aud-014).
+
 | Lot | Résultat attendu | État |
 |---|---|---|
 | T0 | contrats génériques, runners, historique, comparaison et rapports | implémenté préliminaire |
-| B1 | `SurveyMissionPackage`, `SurveyRunPackage`, synchronisation et qualité d'acquisition | prochain lot ; planifié |
+| B1 | `SurveyMissionPackage`, `SurveyRunPackage`, synchronisation et qualité d'acquisition | Planifié ; périmètre minimal à justifier pour le banc cartographe |
 | B2 | trajectoire globale, nuage maître et fusion LiDAR–caméra | briques locales préliminaires |
 | B3 | terrain, sémantique, entités, graphe et confiance | planifié |
 | B4 | carte approuvée, mission, planification et simulation | planifié |
@@ -733,10 +1131,60 @@ campagne relèvent de [DOC-VAL](../VALIDATION_QUALIFICATION.md).
 - La configuration de compilation effective dans `software/cpp/CMakeLists.txt`
   prévaut sur les anciennes arborescences décrites dans les documents gelés.
 
+<a id="porte-v21"></a>
+### Porte d’exploration électromécanique V2.1
+
+**Implémenté pour la planification de H-01.** Le gestionnaire de convergence
+publie un préflight séparé de la réception. Dans GO3B, l’autorisation
+documentaire était nécessaire avant de construire le candidat qui devait
+produire certaines des preuves d’admission. Un plan réversible sur copie
+peut être admis pour comparer des corridors, étudier une implantation hors
+tension ou tester la sensibilité à un rayon candidat. Une violation connue
+ferme l’essai concerné. Les recherches et études indépendantes sont mises
+en file avec un coût estimé et une reprise liée au gel.
+
+Le parcours conserve les critères impératifs et l’indépendance de L4.
+La réception de H-01 reste **À valider**, avec une copie intégrée et une
+correspondance approuvée entre les critères GO3A et les mesures exigées.
+[Contrat, états et entrées](../electromechanical_v2_1/01_EXPLORATION_POLICY.md)
+· [Contrôles](../VALIDATION_QUALIFICATION.md#preuve-porte-v21).
+
+La livraison isolée de la [requalification C](../VALIDATION_QUALIFICATION.md#requalification-v21-c)
+ajoute l’action `RELOCATE_EQUIPMENT` au parcours `convergence_core integrate`.
+L3 sélectionne une translation latérale sur le banc synthétique lié. Le
+constructeur FreeCAD déplace la pose du composant, ses repères et ses volumes
+de service et régénère le cordon. La réouverture L2 vérifie les contacts et
+les volumes contre les obstacles liés. L4 remesure le candidat sous les
+critères gelés, avec la seule position d’ancrage autorisée adaptée à la
+pose. La réception du banc reste conditionnelle et le contrôle de H-01
+rend `FINAL_NO_GO`.
+
 ## Journal de modifications
 
 | Date | Modification |
 |---|---|
+| 17 novembre 2026 | Réimplantation latérale sur banc XLink dans la livraison isolée de la mission C. [Validation](../VALIDATION_QUALIFICATION.md#requalification-v21-c). |
+| 15 novembre 2026 | Jointure d’occurrences XLink, fermeture isolée et validation par lots reprenables (§2.4). |
+| 14 novembre 2026 | GO2bis, contrôles de longueur et de polarité L2, provenance de port et de cordon L4, intégrité du gel et publication reprise L5. [Validations et limites](../VALIDATION_QUALIFICATION.md#qualification-moteur-go2bis). |
+| 15 novembre 2026 | Préflight V2.1 pour le dossier H-01 et séparation de sa réception. [Contrat](#porte-v21). |
+| 13 novembre 2026 | Convergence L5, reprise par checkpoint, fusion bornée et admission d’un natif par L4 (§2.5). |
+| 13 novembre 2026 | Validateur indépendant L4, réouverture FreeCAD, projections L0, preuves T0 et interface prévue pour L5 (§2.4). |
+| 13 novembre 2026 | Exploration L3 sur bancs, réemploi L1/L2, consolidation, Pareto et preuve T0 (§2.3). |
+| 12 novembre 2026 | Catalogue, continuité, géométrie et rapprochement L2 en C++17 (§2.2). |
+| 12 novembre 2026 | Moteur de recherche technique L1 C++17, API Python et rapport compatible L0 (§2.1). |
+| 10 novembre 2026 | Périmètre de l’outil Python FreeCAD demandé pour le banc électromécanique de l’action 1 (§2). |
+| 26 octobre 2026 | Calcul massique C++17 étendu aux recettes OEM par occurrence et contrôles de propriétaire (§5.3). |
+| 26 octobre 2026 | Reprise massique : recettes documentaires par composant, contributions partielles, clôture calculée sous condition de contenu exhaustif, inclusions indépendantes de l'ordre et problème explicite dans chaque ligne incomplète ; tests négatifs et publication reproductible (§5.3). |
+| 25 octobre 2026 | ORCH-CAO-MASSE-1 : calcul et couverture C++17 liés à la BOM, inclusions et distributions séparées, détection d'exports obsolètes dans la passerelle existante ; nouvelles capacités et campagnes suspendues (§5.3). |
+| 24 octobre 2026 | Passerelle CAO → Gazebo intégrée à Simulations : service UI/CLI commun, export isolé et contrôlé, aperçu navigable, annulation et tests ; chargement Gazebo réel, physique À valider (DOC-VAL §10.2). |
+| 24 octobre 2026 | ORCH-GZ-1 : banc Docker/ROS reconstruit, airframe 40000 et capteurs synthétiques corrigés ; six essais SITL courants carré/perte Offboard/annulation finalisés, T0 et revue indépendante ; batterie forfaitaire observée, fidélité physique et autonomie couplée À valider (DOC-VAL §9.3). |
+| 23 octobre 2026 | ORCH-GZ-1 : modules/outils de simulation C++17 autonomes, validation T0 effective dédiée et bornes/finalisation Offboard ; tests natifs exécutés, intégration ROS/Gazebo restante (§5.1). |
+| 23 octobre 2026 | Transposition MagicPath V3 en Qt Widgets, six espaces, deux thèmes persistants ; brouillons/favoris/BOM via services communs UI/CLI, distinction des capacités futures et traçabilité §4.6. |
+| 10 octobre 2026 | Configuration minimale du portable acceptée pour la définition ; cible et déploiement matériel restent À valider, aucune modification du logiciel (§3). |
+| 10 octobre 2026 | Déploiement sol : portable de récupération envisagé pour QGC/RTK/revue légère/transfert, PC fixe existant pour traitement ; minimum candidat DOC-ELEC, cible Windows 11 x64 proposée et fenêtre 1200 × 760 constatée, déploiement matériel À valider (§3). |
+| 10 octobre 2026 | Prototype : conservation de toutes les données brutes LiDAR/caméra pendant la mission demandée ; scénario 5 images/s sur 20 minutes et SSD Samsung MZ-V9S1T0BW 1 To retenus ; réalisation de logger_recorder et qualification ouvertes (§7.1). |
+| 8 octobre 2026 | Préceptes et priorité physique reliés aux évolutions ; validation JSON Schema déclarative distinguée des contrôles effectifs, portefeuille et limites de preuve explicités. |
+| 5 octobre 2026 | Contrat UART JBD via TE et interface isolée ; décodeur C++17 en lecture seule Planifié, identité/fraîcheur à tester et PM08 conservé comme source batterie PX4 (§7.1.2) |
 | 30 septembre 2026 | Flux GNSS standard, NMEA direct et tunnel série distingués ; configuration GPRMC UART2 et alternatives de passerelle explicites, aucune disponibilité PX4 ni synchro PPS déduite du GUI |
 | 30 septembre 2026 | Contrat de capture planifié : Jetson/ROS 2 décide, PX4 exécute ; session/demande et états distincts, autorité unique, absence de répétition aveugle, association aux flux continus et limites du transport à qualifier |
 | 25 septembre 2026 | contrat temporel cartographe planifié : PPS/GPRMC GNSS vers Airy/Jetson, trigger AUX PX4 et retour ExposureActive candidat sur FMU_CAP1 à qualifier, correspondance UTC/monotone/événements avec incertitude et états invalides |

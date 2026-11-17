@@ -49,8 +49,21 @@ station_library(drone_agricole_application include/drone_agricole/application/Ru
 target_link_libraries(drone_agricole_application Qt6::Core)
 station_library(drone_agricole_process include/drone_agricole/adapters/ProcessRunBackend.hpp src/adapters/ProcessRunBackend.cpp)
 target_link_libraries(drone_agricole_process drone_agricole_application)
+target_sources(drone_agricole_application PRIVATE src/application/WorkspaceService.cpp)
+target_sources(drone_agricole_application PRIVATE include/drone_agricole/application/GazeboExportService.hpp src/application/GazeboExportService.cpp)
+# Shared with the standalone simulator; retain that generator's Qt options.
+add_library(drone_agricole_gazebo_model STATIC ../../simulation/gazebo/ModelBuilder.cpp)
+target_compile_definitions(drone_agricole_gazebo_model PRIVATE DRONE_AGRICOLE_MODEL_LIBRARY)
+target_include_directories(drone_agricole_gazebo_model PUBLIC ../../simulation/gazebo)
+target_link_libraries(drone_agricole_gazebo_model Qt6::Core)
+station_library(drone_agricole_gazebo_export src/adapters/LocalGazeboExportBackend.cpp)
+target_link_libraries(drone_agricole_gazebo_export drone_agricole_application drone_agricole_gazebo_model)
+station_library(drone_agricole_workspace_storage src/adapters/storage/JsonWorkspaceStore.cpp src/adapters/storage/BomHardwareInventory.cpp)
+target_link_libraries(drone_agricole_workspace_storage drone_agricole_application)
 station_library(drone_agricole_composition src/composition/StationComposition.cpp src/composition/StationCommand.cpp)
-target_link_libraries(drone_agricole_composition drone_agricole_data_services drone_agricole_runners drone_agricole_process)
+target_link_libraries(drone_agricole_composition drone_agricole_data_services drone_agricole_runners drone_agricole_process drone_agricole_workspace_storage)
+target_sources(drone_agricole_composition PRIVATE src/composition/GazeboModelCommand.cpp)
+target_link_libraries(drone_agricole_composition drone_agricole_gazebo_export)
 # Compatibilité des outils historiques ; aucune source n'est compilée dans ce nom.
 add_library(drone_agricole_core INTERFACE)
 target_link_libraries(drone_agricole_core INTERFACE drone_agricole_data_services drone_agricole_runners)
@@ -122,20 +135,32 @@ if(DRONE_AGRICOLE_BUILD_DASHBOARD)
     include/drone_agricole/ui/ResultsPage.hpp
     include/drone_agricole/ui/ComparisonPage.hpp
     include/drone_agricole/ui/ResultViewPage.hpp
+    include/drone_agricole/ui/MissionsPage.hpp
+    include/drone_agricole/ui/DataPage.hpp
+    include/drone_agricole/ui/SystemPage.hpp
+    include/drone_agricole/ui/AnalysisPage.hpp
+    include/drone_agricole/ui/GazeboModelPage.hpp src/ui/GazeboModelPage.cpp ui/gazebo_model_page.ui
     include/drone_agricole/ui/NavigationModel.hpp
     include/drone_agricole/ui/TrajectoryView.hpp
     include/drone_agricole/ui/MetricsPlotWidget.hpp
     src/ui/MainWindow.cpp src/ui/ExecutionPage.cpp src/ui/ResultsPage.cpp
     src/ui/ComparisonPage.cpp src/ui/ResultViewPage.cpp src/ui/NavigationModel.cpp
     src/ui/TrajectoryView.cpp src/ui/MetricsPlotWidget.cpp
-    ui/main_window.ui ui/execution_page.ui ui/results_page.ui ui/comparison_page.ui ui/result_view_page.ui)
+    src/ui/MissionsPage.cpp src/ui/DataPage.cpp src/ui/SystemPage.cpp src/ui/AnalysisPage.cpp
+    ui/main_window.ui ui/execution_page.ui ui/results_page.ui ui/comparison_page.ui ui/result_view_page.ui
+    ui/missions_page.ui ui/data_page.ui ui/system_page.ui ui/analysis_page.ui)
   set_target_properties(drone_agricole_presentation PROPERTIES AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
   # Recompiler les pages dès la modification d'un formulaire, y compris sous Ninja/Windows.
   set_source_files_properties(src/ui/MainWindow.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/main_window.ui")
+  set_source_files_properties(src/ui/GazeboModelPage.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/gazebo_model_page.ui")
   set_source_files_properties(src/ui/ExecutionPage.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/execution_page.ui")
   set_source_files_properties(src/ui/ResultsPage.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/results_page.ui")
   set_source_files_properties(src/ui/ComparisonPage.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/comparison_page.ui")
   set_source_files_properties(src/ui/ResultViewPage.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/result_view_page.ui")
+  foreach(page Missions Data System Analysis)
+    string(TOLOWER "${page}" form)
+    set_source_files_properties(src/ui/${page}Page.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ui/${form}_page.ui")
+  endforeach()
   target_link_libraries(drone_agricole_presentation drone_agricole_application drone_agricole_support Qt6::Widgets)
   qt_add_executable(drone-agricole-dashboard WIN32 src/app/main.cpp resources/dashboard.qrc)
   target_link_libraries(drone-agricole-dashboard PRIVATE drone_agricole_presentation drone_agricole_composition)
@@ -179,12 +204,32 @@ if(DRONE_AGRICOLE_BUILD_TESTS AND BUILD_TESTING)
   target_link_libraries(test_station_architecture PRIVATE drone_agricole_station)
 
   qt_add_executable(test_run_service tests/TestRunService.cpp)
+  qt_add_executable(test_gazebo_export tests/TestGazeboExport.cpp)
+  target_link_libraries(test_gazebo_export PRIVATE drone_agricole_gazebo_export Qt6::Test)
+  add_test(NAME test_gazebo_export COMMAND test_gazebo_export)
+  set_tests_properties(test_gazebo_export PROPERTIES TIMEOUT 30)
   target_link_libraries(test_run_service PRIVATE drone_agricole_application Qt6::Test)
   add_test(NAME test_run_service COMMAND test_run_service)
+  qt_add_executable(test_workspace_service tests/TestWorkspaceService.cpp)
+  target_link_libraries(test_workspace_service PRIVATE drone_agricole_workspace_storage Qt6::Test)
+  target_compile_definitions(test_workspace_service PRIVATE DRONE_AGRICOLE_TEST_WORKSPACE="${CMAKE_SOURCE_DIR}")
+  add_test(NAME test_workspace_service COMMAND test_workspace_service)
   qt_add_executable(test_process_backend tests/TestProcessBackend.cpp)
   target_link_libraries(test_process_backend PRIVATE drone_agricole_process Qt6::Test)
   add_test(NAME test_process_backend COMMAND test_process_backend)
   if(DRONE_AGRICOLE_BUILD_DASHBOARD)
+    qt_add_executable(test_gazebo_model_page tests/TestGazeboModelPage.cpp)
+    target_link_libraries(test_gazebo_model_page PRIVATE drone_agricole_presentation Qt6::Test)
+    add_test(NAME test_gazebo_model_page COMMAND test_gazebo_model_page)
+    set_tests_properties(test_gazebo_model_page PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 20)
+    qt_add_executable(test_workbench_pages tests/TestWorkbenchPages.cpp)
+    target_link_libraries(test_workbench_pages PRIVATE drone_agricole_presentation drone_agricole_composition Qt6::Test)
+    add_test(NAME test_workbench_pages COMMAND test_workbench_pages)
+    set_tests_properties(test_workbench_pages PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    qt_add_executable(test_workspace_pages tests/TestWorkspacePages.cpp)
+    target_link_libraries(test_workspace_pages PRIVATE drone_agricole_presentation drone_agricole_composition Qt6::Test)
+    add_test(NAME test_workspace_pages COMMAND test_workspace_pages)
+    set_tests_properties(test_workspace_pages PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_add_executable(test_trajectory_view tests/TestTrajectoryView.cpp)
     target_link_libraries(test_trajectory_view PRIVATE drone_agricole_presentation Qt6::Test)
     add_test(NAME test_trajectory_view COMMAND test_trajectory_view)

@@ -35,6 +35,8 @@ class TrajectoryView final : public QWidget {
   void setCameraProjectedPoints(QList<QVector3D> points, QList<QColor> colors = {});
   void setReferencePoints(QList<QVector3D> points);
   void setSurface(QList<QVector3D> vertices, QList<std::array<int,3>> triangles, QList<QColor> colors);
+  void setContentLabel(const QString& label) { contentLabel_ = label; update(); }
+  void setMinimumFraming(float distance, float radius);
   [[nodiscard]] qsizetype surfaceTriangleCount() const noexcept { return surfaceTriangles_.size(); }
   void clear();
 
@@ -94,6 +96,8 @@ class TrajectoryView final : public QWidget {
   QList<std::array<int,3>> surfaceTriangles_;
   QList<QColor> surfaceColors_;
   bool surfaceVisible_{true}, trajectoriesVisible_{true};
+  QString contentLabel_;
+  float minimumDistance_{3.0F}, minimumRadius_{0.75F};
   QPoint lastMousePosition_;
   QVector3D cameraTarget_;
   float yawDegrees_{-45.0F};

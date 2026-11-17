@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AnalysisPage</class>
+ <widget class="QWidget" name="AnalysisPage">
+  <layout class="QVBoxLayout" name="analysisLayout" stretch="0,0,1">
+   <property name="spacing"><number>16</number></property>
+   <item><widget class="QFrame" name="analysisHeaderFrame"><property name="panel" stdset="0"><bool>true</bool></property><layout class="QVBoxLayout" name="analysisHeaderLayout">
+    <item><widget class="QLabel" name="analysisTitleLabel"><property name="role" stdset="0"><string>pageTitle</string></property><property name="text"><string>Analyses</string></property></widget></item>
+    <item><widget class="QLabel" name="analysisDescriptionLabel"><property name="text"><string>Cartes, trajectoires, métriques et rapports issus des résultats archivés.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+   </layout></widget></item>
+   <item><widget class="QFrame" name="analysisSelectionFrame"><property name="panel" stdset="0"><bool>true</bool></property><layout class="QHBoxLayout" name="analysisSelectionLayout">
+    <item><widget class="QLabel" name="analysisResultLabel"><property name="text"><string>Résultat</string></property></widget></item>
+    <item><widget class="QComboBox" name="analysisResultCombo"><property name="minimumContentsLength"><number>24</number></property><property name="sizeAdjustPolicy"><enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum></property></widget></item>
+    <item><widget class="QPushButton" name="refreshAnalysisButton"><property name="text"><string>Actualiser</string></property></widget></item>
+    <item><widget class="QLabel" name="analysisStatusLabel"><property name="text"><string>Sélectionnez une archive.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+   </layout></widget></item>
+   <item><widget class="QTabWidget" name="analysisTabs">
+    <widget class="QWidget" name="mapsTab"><attribute name="title"><string>Cartes</string></attribute><layout class="QVBoxLayout" name="mapsLayout">
+     <item><layout class="QHBoxLayout" name="mapActions">
+      <item><widget class="QCheckBox" name="analysisSurfaceCheck"><property name="text"><string>Surface</string></property><property name="checked"><bool>true</bool></property></widget></item>
+      <item><widget class="QCheckBox" name="analysisMapPathsCheck"><property name="text"><string>Trajectoires et objets</string></property><property name="checked"><bool>true</bool></property></widget></item>
+      <item><widget class="QPushButton" name="analysisFitMapButton"><property name="text"><string>Cadrer</string></property></widget></item>
+      <item><widget class="QPushButton" name="analysisTopMapButton"><property name="text"><string>Vue dessus</string></property></widget></item>
+      <item><spacer name="mapActionsSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
+     </layout></item>
+     <item><widget class="drone_agricole::ui::TrajectoryView" name="analysisMapView"/></item>
+     <item><widget class="QLabel" name="mapAvailabilityLabel"><property name="text"><string>Les cartes apparaissent lorsqu'un artefact de rejeu est disponible.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+    </layout></widget>
+    <widget class="QWidget" name="trajectoriesTab"><attribute name="title"><string>Trajectoires</string></attribute><layout class="QVBoxLayout" name="trajectoriesLayout">
+     <item><widget class="drone_agricole::ui::TrajectoryView" name="analysisTrajectoryView"/></item>
+     <item><widget class="QLabel" name="trajectoryAvailabilityLabel"><property name="text"><string>Aucune trajectoire chargée.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+    </layout></widget>
+    <widget class="QWidget" name="metricsTab"><attribute name="title"><string>Métriques</string></attribute><layout class="QVBoxLayout" name="metricsLayout">
+     <item><widget class="QTableWidget" name="analysisMetricsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="columnCount"><number>4</number></property>
+      <column><property name="text"><string>Métrique</string></property></column><column><property name="text"><string>Valeur</string></property></column><column><property name="text"><string>Unité</string></property></column><column><property name="text"><string>Statut</string></property></column>
+     </widget></item>
+     <item><widget class="drone_agricole::ui::MetricsPlotWidget" name="analysisMetricsPlot"><property name="maximumSize"><size><width>16777215</width><height>240</height></size></property></widget></item>
+    </layout></widget>
+    <widget class="QWidget" name="reportsTab"><attribute name="title"><string>Rapports</string></attribute><layout class="QVBoxLayout" name="reportsLayout">
+     <item><layout class="QHBoxLayout" name="reportActions"><item><widget class="QLabel" name="reportDescriptionLabel"><property name="text"><string>Rapport de traçabilité du résultat sélectionné, sans conclusion de qualification automatique.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item><item><widget class="QPushButton" name="exportAnalysisReportButton"><property name="text"><string>Exporter Markdown</string></property><property name="enabled"><bool>false</bool></property></widget></item></layout></item>
+     <item><widget class="QPlainTextEdit" name="analysisReportEdit"><property name="readOnly"><bool>true</bool></property></widget></item>
+    </layout></widget>
+   </widget></item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget><class>drone_agricole::ui::TrajectoryView</class><extends>QWidget</extends><header>drone_agricole/ui/TrajectoryView.hpp</header></customwidget>
+  <customwidget><class>drone_agricole::ui::MetricsPlotWidget</class><extends>QWidget</extends><header>drone_agricole/ui/MetricsPlotWidget.hpp</header></customwidget>
+ </customwidgets>
+</ui>

@@ -10,11 +10,13 @@ class ComparisonPage final : public QWidget {
   explicit ComparisonPage(application::IStationServices& services, QWidget* parent = nullptr);
   ~ComparisonPage() override;
   bool compare(const QStringList& ids);
+  void refreshResults();
  private:
   std::unique_ptr<Ui::ComparisonPage> ui_;
   application::IStationServices& services_;
   QString comparisonReport_;
   void showComparison(const QJsonObject& comparison, const QStringList& resultIds);
   void exportComparisonReport();
+  void compareSelection();
 };
 }

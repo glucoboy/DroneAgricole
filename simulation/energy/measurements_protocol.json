@@ -1,0 +1,67 @@
+{
+  "schema_version":1,
+  "id":"T-CARTO-GZ-04-MEASUREMENTS",
+  "status":"Planifié / À valider",
+  "authorization":"Software and SITL only in ORCH-GZ-1. This protocol does not authorize purchases, wiring, charging, propulsion bench work or flight.",
+  "purpose":"Replace explicit proxy assumptions and evaluate physical prediction on independent sessions; no physical fidelity qualification before these comparisons.",
+  "calibration_data":{
+    "current":"Five manufacturer MN4014KV330/15×5CF/22.2V points in calibration_proxy.json, exact propeller and ESC differ or unconfirmed.",
+    "future":"Named calibration sessions with raw time series, equipment references, firmware/settings, temperature, SoC and sensor uncertainty; freeze fitted model and SHA before opening holdout sessions."
+  },
+  "evaluation_data":{
+    "current":"Synthetic load profiles only in evaluation_campaign.json; no physical comparison available.",
+    "future":"Separate complete sessions, different from fitting sessions, including battery and propulsion holdout points/profiles. Never split correlated samples from one run between fitting and holdout. Preserve raw records and predeclare comparison thresholds."
+  },
+  "preconditions":[
+    "Inventory exact motor, Gemfan propeller marking/diameter/pitch/mass and hub, Tekko hardware/firmware/protocol, pack lot/age/cycles, BMS revision/thresholds, connector/PM08/PDB/CA01 and wire inclusions.",
+    "Reconcile total installed mass and CG; unknown mass is not zero; select BOM leaf versus parent mass exactly once.",
+    "Set acceptance errors, repeat count, thermal/electrical limits, budget and safe stop from approved component limits before any physical execution.",
+    "Follow DOC-VAL progression: unit/contracts, deterministic simulation, PX4 SITL/faults, then independently authorized secure bench and flight."
+  ],
+  "protocols":[
+    {
+      "id":"PROP-EXACT",
+      "status":"Planifié",
+      "input":"Exact MN4014KV330/Gemfan1555/Tekko32 combination with recorded firmware, voltage, ambient/air density and controlled secure bench.",
+      "measure":"Timestamped thrust, reaction torque, RPM, DC voltage/current upstream ESC, temperatures, command and step response. Include known low/mid/high SoC-equivalent voltages and mission thrust region, both CW/CCW.",
+      "calibrate":"Thrust/RPM and torque/RPM coefficients, DC power map versus RPM/voltage, ESC/motor transients; do not reapply motor/ESC efficiency to measured DC input.",
+      "evaluate":"Independent sessions and load steps with model SHA fixed; compare thrust/current/power/RPM and settling time. Acceptance errors null until approved.",
+      "acceptance_errors":null,
+      "stop":"Approved current, RPM, vibration, temperature or fixture limits; loss of telemetry; secure power removal through approved bench procedure."
+    },
+    {
+      "id":"BATTERY-PACK-PATH",
+      "status":"Planifié",
+      "measure":"Pack capacity/Wh at mission-like current and temperature; rested OCV versus charge state, current pulses and loaded voltage, cell voltages, BMS readings and delays. Measure BMS/connector/PM08/PDB/wires separately to partition path I²R.",
+      "calibrate":"Capacity derating versus current/temperature/age; OCV and R or RC battery fit. Nominal20Ah/444Wh is not usable mission energy. No manufacturer discharge rating is used as programmed BMS threshold.",
+      "evaluate":"Separate mission-shaped discharge profiles and sessions; compare integrated Ah/Wh, loaded voltage, reserve timing and protection transitions. No discharge/recharge undertaken in this software lot.",
+      "acceptance_errors":null,
+      "stop":"Approved OEM cell voltage, current and temperature or imbalance limits; BMS fault; observation failure."
+    },
+    {
+      "id":"AUXILIARIES-RAILS",
+      "status":"Planifié",
+      "measure":"Simultaneous battery input and rail output power with real Jetson workload/SSD recording/fan, Airy, camera USB trigger, Pixhawk/GNSS/radio/sync/BMS. Record idle, boot, acquisition, compute and peaks at temperature.",
+      "accounting":"Assign every load to one power branch. Basler through USB belongs once to its supplying rail. POWER1/POWER2 are feeds to the same avionics, not two full consumers. Convert per-rail useful power with measured efficiency once; losses common upstream belong to Rpath or measured aggregate, never both.",
+      "evaluate":"Holdout acquisition workload and start/stop sessions; compare total battery DC energy and branch conservation.",
+      "acceptance_errors":null
+    },
+    {
+      "id":"MASS-CG-INERTIA",
+      "status":"Planifié",
+      "measure":"Complete aircraft and component mass, installed CG under known support reactions, rotor positions and axes, inertia pendulum or independent geometry/density comparison. Preserve exact configuration and units.",
+      "calibrate":"Component mass/CG/inertia with inclusion graph and uncertainty; unknown density or effective material fraction remains explicit.",
+      "evaluate":"Complete installed mass/CG held out from component fit; evaluate inertia with independent method.",
+      "acceptance_errors":null
+    }
+  ],
+  "future_gazebo_observer_contract":{
+    "implementation":"EnergyModel.hpp/.cpp observeRotors(config, previous_state, measured_rpm[4], dt_s); pure C++17, unit-tested, no network or flight commands.",
+    "input":"Gazebo PostUpdate observed joint angular velocities converted by jointVelocityToRpm: abs(omega_joint_rad_per_s)×rotorVelocitySlowdownSim×60/(2π). Current preview SDF slowdown=10, so restore factor10 before physical RPM input. Bind the actual SDF parameter, never assume displayed joint speed is physical rotor speed. Four separately identified rotors; simulation monotonic dt only; reject nonfinite, negative physicalRPM, missing rotors and out-of-curve RPM.",
+    "output":"DC propulsion power from reference RPM table, auxiliary DC power, Thevenin loaded voltage/current, integrated SoC/Ah/Wh and stop request. Proxy fitted to different propeller/unknown ESC remains unvalidated.",
+    "adapter_status":"Not installed or executed against Gazebo. No PX4 battery injection implemented.",
+    "px4_source_gate":"Before coupled endurance: pin exact PX4 commit; prove active battery_status instance/source with telemetry, disable forfait simulated_battery only in SITL, inject one modeled source through supported interface, verify freshness/identity and reserve/failsafe/landing/disarm. External BATTERY_STATUS acceptance and parameters must be checked against pinned MavlinkReceiver, not assumed.",
+    "required_negative_tests":["competing battery sources","stale battery observation","wrong vehicle identity","missing SITL lock","out-of-domain RPM","discontinuity in simulation time","battery power infeasible","return/landing reserve insufficient","cancellation and finalized result"]
+  },
+  "measurement_evidence":"Use T0 run_request/t0_run_manifest/t0_metrics/artifacts/events with config+binary+raw SHA, units and frames, fitting/holdout identities, exact stop/finalization reason and independent schema+semantic validation. Preserve material data outside Git."
+}

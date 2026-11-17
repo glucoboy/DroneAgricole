@@ -22,13 +22,13 @@
           <widget class="QScrollArea" name="configurationScrollArea">
             <property name="minimumSize">
               <size>
-                <width>380</width>
+                <width>360</width>
                 <height>0</height>
               </size>
             </property>
             <property name="maximumSize">
               <size>
-                <width>520</width>
+                <width>440</width>
                 <height>16777215</height>
               </size>
             </property>
@@ -38,9 +38,6 @@
             <widget class="QWidget" name="configurationPanel">
               <property name="autoFillBackground">
                 <bool>true</bool>
-              </property>
-              <property name="styleSheet">
-                <string notr="true">QWidget#configurationPanel { background-color: #0b1017; }</string>
               </property>
               <layout class="QVBoxLayout" name="configurationPanelLayout">
                 <property name="spacing">
@@ -76,7 +73,7 @@
                       <item>
                         <widget class="QLabel" name="configurationTitleLabel">
                           <property name="text">
-                            <string>Nouvelle exécution</string>
+                            <string>Configuration de l'essai</string>
                           </property>
                         </widget>
                       </item>
@@ -284,14 +281,14 @@
                         <item>
                           <widget class="QLabel" name="visualizationTitleLabel">
                             <property name="text">
-                              <string>Vue opérationnelle</string>
+                              <string>Visualisation</string>
                             </property>
                           </widget>
                         </item>
                         <item>
                           <widget class="QLabel" name="visualizationHelpLabel">
                             <property name="text">
-                              <string>Gauche : rotation · droit/central : déplacement · molette : zoom</string>
+                              <string>Rotation : clic gauche · déplacement : clic droit · zoom : molette</string>
                             </property>
                           </widget>
                         </item>
@@ -364,7 +361,7 @@
               <property name="minimumSize">
                 <size>
                   <width>0</width>
-                  <height>260</height>
+                  <height>220</height>
                 </size>
               </property>
               <widget class="QWidget" name="liveMetricsTab">
@@ -417,6 +414,13 @@
                       </property>
                     </widget>
                   </item>
+                </layout>
+              </widget>
+              <widget class="QWidget" name="trackingTab">
+                <attribute name="title"><string>Suivi de l'exécution</string></attribute>
+                <layout class="QVBoxLayout" name="trackingLayout">
+                  <item><widget class="QLabel" name="executionTrackingLabel"><property name="text"><string>Aucun essai lancé dans cette session.</string></property><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
+                  <item><widget class="QPlainTextEdit" name="executedRequestEdit"><property name="readOnly"><bool>true</bool></property><property name="placeholderText"><string>La requête exacte de l'essai sera conservée ici au lancement.</string></property></widget></item>
                 </layout>
               </widget>
             </widget>

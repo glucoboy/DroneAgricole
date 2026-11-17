@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/mission_draft.v1.json",
+  "title": "Brouillon local de mission, sans autorisation de vol",
+  "type": "object",
+  "required": ["schema", "status", "execution_allowed", "id", "name", "operation", "drone", "checklist", "updated_at_utc"],
+  "properties": {
+    "schema": {"const": "drone_agricole.mission_draft.v1"},
+    "status": {"const": "draft"},
+    "execution_allowed": {"const": false},
+    "id": {"$ref": "#/$defs/identifier"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 200},
+    "parcel": {"type": "string", "maxLength": 500},
+    "operation": {"enum": ["survey", "treatment"]},
+    "drone": {"enum": ["cartographer", "sprayer"]},
+    "altitude_meters": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Hypothèse de brouillon ; null signifie inconnue, aucune limite de vol qualifiée."},
+    "speed_meters_per_second": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "dataset_id": {"anyOf": [{"const": ""}, {"$ref": "#/$defs/identifier"}]},
+    "sequence_id": {"anyOf": [{"const": ""}, {"$ref": "#/$defs/identifier"}]},
+    "notes": {"type": "string", "maxLength": 20000},
+    "checklist": {
+      "type": "array",
+      "maxItems": 100,
+      "description": "Déclarations de préparation ; cocher ces lignes ne qualifie pas le matériel et n'autorise aucune exécution.",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "checked"],
+        "properties": {
+          "id": {"$ref": "#/$defs/identifier"},
+          "label": {"type": "string", "minLength": 1, "maxLength": 500},
+          "checked": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "updated_at_utc": {"type": "string", "format": "date-time", "pattern": "(Z|\\+00:00)$", "maxLength": 64}
+  },
+  "$defs": {
+    "identifier": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"}
+  },
+  "additionalProperties": false
+}

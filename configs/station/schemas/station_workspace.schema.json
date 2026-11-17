@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drone-agricole.local/schemas/station_workspace.v1.json",
+  "title": "Espace local de préparation de la station",
+  "type": "object",
+  "required": ["schema", "missions", "preferences"],
+  "properties": {
+    "schema": {"const": "drone_agricole.station_workspace.v1"},
+    "missions": {"type": "array", "maxItems": 1000, "items": {"$ref": "mission_draft.schema.json"}},
+    "preferences": {
+      "type": "object",
+      "required": ["theme_id", "favorite_result_ids"],
+      "properties": {
+        "theme_id": {"enum": ["professional", "premium"]},
+        "favorite_result_ids": {"type": "array", "maxItems": 10000, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 500}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

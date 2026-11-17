@@ -1,0 +1,58 @@
+{
+  "schema": "drone_agricole.sitl_infrastructure_checks.v1",
+  "created_at_utc": "2026-10-23T11:15:13.4219023Z",
+  "target": "Windows amd64 / MSYS2 UCRT64 / C++17",
+  "compiler": "g++.exe (Rev3, Built by MSYS2 project) 16.2.0",
+  "source_sha256": {
+    "software/src/drone_agricole_px4_bridge/src/OffboardTest.cpp": "3091e1d727bbac828d58ed3859b6404b1a4524df795bab5d7504692b9d933eec",
+    "software/src/drone_agricole_px4_bridge/src/RunnerServer.cpp": "4d567c386dfca3f0d5233418dadf944712720138476d1b480e3e9a87f7c96e3c",
+    "software/src/drone_agricole_px4_bridge/include/drone_agricole_px4_bridge/OffboardSafety.hpp": "1a89ef3e270fff22fddbecd5b04b815ab1f0bcade5f8ebc2b263d6da98f2be41",
+    "simulation/tests/TestOffboardSafety.cpp": "584c1ac0b8a3b760086e740e908f51842509c098423fd49a5a558e4c72fe769d"
+  },
+  "checks": [
+    {
+      "id": "offboard_safety",
+      "command": "g++ -std=c++17 -Wall -Wextra -Wpedantic -I software/src/drone_agricole_px4_bridge/include simulation/tests/TestOffboardSafety.cpp -o build/orch-gz-1/test_offboard_safety.exe",
+      "execution": "build/orch-gz-1/test_offboard_safety.exe",
+      "exit_code": 0,
+      "output": "Offboard safety: authorization, deadlines, freshness, parameters and finalization checks passed",
+      "binary_sha256": "d9d48089e79bdd0bddf444c65ae77f6b8ff6e42bfac11ae079ff1a9e4c6091bc",
+      "covered": [
+        "execute false rejected",
+        "SITL env absent or wrong rejected",
+        "bounded direct parameters incl NaN/Inf rejected",
+        "arming deadline independent from retry",
+        "global budget with bounded LAND grace",
+        "fresh landed and disarmed required",
+        "result missing or unconfirmed cannot complete/cancel"
+      ]
+    },
+    {
+      "id": "runner_server_compile",
+      "command": "g++ -std=c++17 -Wall -Wextra -Wpedantic -I software/src/drone_agricole_px4_bridge/include software/src/drone_agricole_px4_bridge/src/RunnerServer.cpp software/src/drone_agricole_px4_bridge/src/RunnerContract.cpp -o build/orch-gz-1/runner_server.exe (pkg-config --cflags --libs Qt6Core Qt6Network)",
+      "exit_code": 0,
+      "binary_sha256": "1ad73294dad1bc7832024aeb0d7a01b5de966c4c88cab7d596cef71991393bd1",
+      "warnings": "Qt6 qchar.h with GCC16.2: Wsfinae-incomplete (third-party headers)",
+      "scope": "Native compile only; Linux setsid/kill process supervision requires Docker evaluation"
+    },
+    {
+      "id": "preflight_requires_engine_identity",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "proof": "simulation/px4_sitl/verification/bench_preflight.json",
+      "result": "conforme: emission prerequisite refused while engine unavailable"
+    }
+  ],
+  "unexecuted": [
+    {
+      "check": "OffboardTest ROS2 compilation / colcon tests / square / failsafe / cancellation and landing",
+      "reason": "Docker Desktop Linux engine API pipe absent. ROS2/colcon/Gazebo not installed in native Windows PATH. No SITL was started."
+    }
+  ],
+  "physical_qualification": "À valider",
+  "reproduce": [
+    "pwsh -NoProfile -File simulation/px4_sitl/preflight.ps1 -RequireReady",
+    "g++ -std=c++17 -Wall -Wextra -Wpedantic -I software/src/drone_agricole_px4_bridge/include simulation/tests/TestOffboardSafety.cpp -o build/orch-gz-1/test_offboard_safety.exe",
+    "build/orch-gz-1/test_offboard_safety.exe"
+  ]
+}

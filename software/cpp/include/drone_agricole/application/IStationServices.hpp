@@ -1,5 +1,7 @@
 #pragma once
 #include "drone_agricole/application/RunService.hpp"
+#include "drone_agricole/application/WorkspaceService.hpp"
+#include "drone_agricole/application/GazeboExportService.hpp"
 #include "drone_agricole/core/Types.hpp"
 #include "drone_agricole/core/LiveTelemetry.hpp"
 
@@ -10,6 +12,8 @@ class IStationServices {
  public:
   virtual ~IStationServices() = default;
   virtual RunService& execution() = 0;
+  virtual WorkspaceService& workspaceData() = 0;
+  virtual GazeboExportService& gazeboExport() = 0;
   virtual QString workspace() const = 0;
   virtual QList<core::SimulationDefinition> simulations() const = 0;
   virtual QList<core::DatasetSequence> datasetSequences() const = 0;

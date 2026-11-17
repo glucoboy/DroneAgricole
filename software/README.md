@@ -27,6 +27,49 @@ L'interface propose une navigation latérale, un historique de navigation et
 un suivi permanent du traitement. Le shell et chaque page possèdent leur
 fichier `.ui` ; les styles communs sont dans `cpp/resources/station.qss`.
 
+La station V3 reprend les six espaces des maquettes MagicPath : Accueil,
+Missions, Données, Simulations (ancien Bench), Analyse et Système. Le choix des thèmes
+**Clair professionnel** et **Clair premium sobre** se fait dans
+**Système → Paramètres**, puis **Appliquer et enregistrer**.
+Préférences, favoris et brouillons sont locaux dans
+`results/station/workspace.json` (hors Git). Un brouillon n'est pas une mission
+exécutable. L'inventaire Matériel relit la nomenclature canonique du prototype.
+
+La CLI utilise les mêmes services :
+
+**Simulations → Modèle 3D** prépare la CAO active du prototype pour Gazebo.
+Laissez la conversion depuis la CAO cochée, puis choisissez **Préparer pour
+Gazebo**. Le Python fourni avec FreeCAD est détecté automatiquement ; indiquez
+son emplacement si nécessaire. La page montre la progression, permet
+l'annulation et affiche un aperçu navigable du dossier produit. Le bandeau
+permanent permet de retrouver la préparation après navigation. **Ouvrir le
+dossier Gazebo** donne accès au SDF, aux cinq STL complets, aux collisions,
+à l'airframe et aux empreintes. Chaque dossier est nouveau ; les sources et
+les anciens exports sont conservés. La physique reste À valider.
+
+La même passerelle est disponible en CLI :
+
+```powershell
+& .\build\desktop-debug\software\cpp\drone-agricole-tools.exe gazebo-model --action inspect
+& .\build\desktop-debug\software\cpp\drone-agricole-tools.exe gazebo-model --action export
+```
+
+`--reuse-meshes` réutilise des maillages dont les empreintes sont contrôlées.
+`--python chemin/python.exe` sélectionne le runtime FreeCAD ; `--output`
+choisit un **nouveau** dossier situé dans le projet et nommé `cartographe`.
+Les instructions Gazebo du paquet sont dans `simulation/README.md`.
+
+```powershell
+& .\build\ci-windows\software\cpp\drone-agricole-tools.exe station-workspace --action diagnostics
+& .\build\ci-windows\software\cpp\drone-agricole-tools.exe station-workspace --action missions
+& .\build\ci-windows\software\cpp\drone-agricole-tools.exe station-workspace --action preferences --theme premium
+```
+
+Le dashboard accepte `--page system-settings` pour ouvrir une rubrique et
+`--theme premium` ou `--theme professional` pour un aperçu sans modifier le
+choix enregistré. `--screenshot chemin.png` conserve son rôle de capture de
+validation puis fermeture.
+
 ```text
 software/
 ├── cpp/             application Qt 6, outils C++17 et tests CTest/Qt Test

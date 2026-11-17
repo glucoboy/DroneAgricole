@@ -1,0 +1,223 @@
+{
+  "schema": "drone_agricole.energy_checks.v1",
+  "date_utc": "2026-10-23T11:35:52.4663848Z",
+  "execution": "offline_deterministic_cpp17",
+  "run_count": 54,
+  "end_reasons": [
+    {
+      "count": 5,
+      "reason": "mission_completed"
+    },
+    {
+      "count": 7,
+      "reason": "reserve_reached"
+    },
+    {
+      "count": 39,
+      "reason": "thrust_saturation"
+    },
+    {
+      "count": 3,
+      "reason": "under_voltage"
+    }
+  ],
+  "raw": {
+    "evaluation_sha256": "0db71e633f3963a209f2372c68be026eff88d84d37c9be7b8fa6fa5cbfae8ca8",
+    "calibration_sha256": "7ea2003d6191f92cef86da42f8485ab77bde54f0ff210683d35b6546416b1a76",
+    "sha256": "e1af57054102a11216a0c878435fa49804da833d9d64a490df077538d223a8f4",
+    "executable_sha256": "c3ffc4b4d9adb9b32db7d829c584e05212c9779de190344f9861ce298597f0c6",
+    "path": "results/simulation/orch_gz_1/energy_t0/energy_raw.json",
+    "csv_sha256": "2c492e75eb526480b386c6173aa6b832ad48b64ec213fe93c771b6165be8c271"
+  },
+  "t0": {
+    "entry_request_validated_before_execution": true,
+    "directory": "results/simulation/orch_gz_1/t0_energy",
+    "all_five_schemas_and_semantics_validated": true,
+    "manifest_sha256": "ca620f91344a86dde809d65711f86087dda6b7baf51b25459d2c6d900db8b9bc"
+  },
+  "central_full_soc": [
+    {
+      "id": "hover_central_assumption_19",
+      "mass_kg": 6,
+      "end_reason": "reserve_reached",
+      "elapsed_s": 1366.9359468175262,
+      "bus_energy_wh": 319.47483679604136,
+      "final_soc": 0.2,
+      "minimum_bus_voltage_v": 20.36280708798259,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 35.59729028170666,
+          "duration_s": 1366.9359468175262,
+          "id": "stationary_load",
+          "pack_loss_wh": 13.686752890612558,
+          "path_loss_wh": 2.737350578122511,
+          "propulsion_wh": 283.87754651434835
+        }
+      ]
+    },
+    {
+      "id": "simple_mission_central_assumption_20",
+      "mass_kg": 6,
+      "end_reason": "mission_completed",
+      "elapsed_s": 210,
+      "bus_energy_wh": 50.160480769230645,
+      "final_soc": 0.8830945145725827,
+      "minimum_bus_voltage_v": 23.56510558863681,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 0.39062500000000006,
+          "duration_s": 15,
+          "id": "takeoff_load",
+          "pack_loss_wh": 0.16668067275971554,
+          "path_loss_wh": 0.033336134551943106,
+          "propulsion_wh": 3.6060769230769245
+        },
+        {
+          "auxiliary_wh": 0.7812499999999998,
+          "duration_s": 30,
+          "id": "outbound_load",
+          "pack_loss_wh": 0.2775176139845589,
+          "path_loss_wh": 0.05550352279691178,
+          "propulsion_wh": 6.524807692307696
+        },
+        {
+          "auxiliary_wh": 3.124999999999996,
+          "duration_s": 120,
+          "id": "mapping_load",
+          "pack_loss_wh": 1.0361527437412543,
+          "path_loss_wh": 0.20723054874825086,
+          "propulsion_wh": 24.920923076923042
+        },
+        {
+          "auxiliary_wh": 0.7812499999999998,
+          "duration_s": 30,
+          "id": "return_load",
+          "pack_loss_wh": 0.2873475550929378,
+          "path_loss_wh": 0.05746951101858756,
+          "propulsion_wh": 6.524807692307696
+        },
+        {
+          "auxiliary_wh": 0.39062500000000006,
+          "duration_s": 15,
+          "id": "landing_load",
+          "pack_loss_wh": 0.13251207321553968,
+          "path_loss_wh": 0.026502414643107933,
+          "propulsion_wh": 3.115115384615385
+        }
+      ]
+    },
+    {
+      "id": "hover_central_assumption_25",
+      "mass_kg": 7,
+      "end_reason": "thrust_saturation",
+      "elapsed_s": 759,
+      "bus_energy_wh": 217.64902500000417,
+      "final_soc": 0.4635352294262863,
+      "minimum_bus_voltage_v": 21.192804260282664,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 19.765625000000025,
+          "duration_s": 759,
+          "id": "stationary_load",
+          "pack_loss_wh": 11.070377646962578,
+          "path_loss_wh": 2.214075529392513,
+          "propulsion_wh": 197.88339999999755
+        }
+      ]
+    },
+    {
+      "id": "simple_mission_central_assumption_26",
+      "mass_kg": 7,
+      "end_reason": "thrust_saturation",
+      "elapsed_s": 0,
+      "bus_energy_wh": 0,
+      "final_soc": 1,
+      "minimum_bus_voltage_v": 25.2,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 0,
+          "duration_s": 0,
+          "id": "takeoff_load",
+          "pack_loss_wh": 0,
+          "path_loss_wh": 0,
+          "propulsion_wh": 0
+        }
+      ]
+    },
+    {
+      "id": "hover_central_assumption_31",
+      "mass_kg": 8,
+      "end_reason": "thrust_saturation",
+      "elapsed_s": 0,
+      "bus_energy_wh": 0,
+      "final_soc": 1,
+      "minimum_bus_voltage_v": 25.2,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 0,
+          "duration_s": 0,
+          "id": "stationary_load",
+          "pack_loss_wh": 0,
+          "path_loss_wh": 0,
+          "propulsion_wh": 0
+        }
+      ]
+    },
+    {
+      "id": "simple_mission_central_assumption_32",
+      "mass_kg": 8,
+      "end_reason": "thrust_saturation",
+      "elapsed_s": 0,
+      "bus_energy_wh": 0,
+      "final_soc": 1,
+      "minimum_bus_voltage_v": 25.2,
+      "phase_energy": [
+        {
+          "auxiliary_wh": 0,
+          "duration_s": 0,
+          "id": "takeoff_load",
+          "pack_loss_wh": 0,
+          "path_loss_wh": 0,
+          "propulsion_wh": 0
+        }
+      ]
+    }
+  ],
+  "cancellation": {
+    "t0": "results/simulation/orch_gz_1/t0_energy_cancel_verified",
+    "validation_exit_code": 0,
+    "all_finalized": true,
+    "end_reasons": [
+      {
+        "count": 19,
+        "reason": "cancelled"
+      },
+      {
+        "count": 32,
+        "reason": "thrust_saturation"
+      },
+      {
+        "count": 3,
+        "reason": "under_voltage"
+      }
+    ],
+    "command": "cartographe-evidence prepare results/simulation/orch_gz_1/t0_energy_cancel_verified puis cartographe-energy --calibration simulation/energy/calibration_proxy.json --campaign simulation/energy/evaluation_campaign.json --output results/simulation/orch_gz_1/energy_cancel_verified --cancel-after 3 puis seal et validate",
+    "entry_request_validated_before_execution": true
+  },
+  "overwrite_refusal_exit_code": 2,
+  "qualification": "À valider",
+  "physical_evaluation_sessions": 0,
+  "px4_connected": false,
+  "landing_observed": false,
+  "limits": [
+    "Offline load-profile proxy; no Gazebo dynamics, PX4 connection, actual takeoff, position, landing or disarming observed.",
+    "Masses are synthetic sensitivity cases; they do not equal the reconciled prototype mass.",
+    "No experimental evaluation data. Synthetic evaluation profiles are separate from manufacturer calibration points but cannot qualify physical accuracy.",
+    "Exact Gemfan1555/Tekko thrust-current-RPM-torque transients and voltage/temperature dependence remain unmeasured.",
+    "No wind, drag, ground effect, tilt allocation, rotor interference, thermal, hysteresis or cell imbalance model.",
+    "Uncertainty variants are assumptions, not confidence intervals or guaranteed bounds.",
+    "Reserve excludes any separately guaranteed return/landing energy; return and landing are only bounded load phases in the simple profile.",
+    "PX4 battery source must be verified independently; simulated_battery discharge is unrelated to these results."
+  ],
+  "historical_cancel_artifact": "results/simulation/orch_gz_1/t0_energy_cancel conservé ; chronologie non conforme, écart découvert par revue ; exclu de la preuve de référence"
+}

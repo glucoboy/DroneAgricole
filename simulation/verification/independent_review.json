@@ -1,0 +1,40 @@
+{
+  "schema": "drone_agricole.orch_gz_1_independent_review.v1",
+  "date_utc": "2026-10-23T11:44:16.4653499Z",
+  "reviewer": "agent indépendant /root/review",
+  "scope": "Périmètre numérique et hors ligne, lecture seule, aucun fichier durable modifié par le reviewer",
+  "conclusion": "conforme",
+  "physical_fidelity": "À valider",
+  "blocking_findings_remaining": 0,
+  "checks": {
+    "energy_checks": 34,
+    "primary_t0": "results/simulation/orch_gz_1/t0_energy",
+    "ctest_failures": 0,
+    "binaries": 6,
+    "mesh_hashes": 5,
+    "sdf_links": 5,
+    "model_manifest_file_hashes": 22,
+    "ctest_tests": 6,
+    "preflight_source_hashes": 11,
+    "cancellation_t0": "results/simulation/orch_gz_1/t0_energy_cancel_verified",
+    "t0_negative_cases": 34,
+    "source_hashes": 19,
+    "sdf_motor_plugins": 4,
+    "sdf_rotor_joints": 4
+  },
+  "corrected_findings": [
+    "PX4_GZ_MODELS/WORLDS déclarés par surcharge",
+    "Entrées brutes périmées et CSV incohérents refusés au scellement",
+    "MPC_THR_HOVER admissible dans le scénario6kg, THR_MDL_FAC explicite",
+    "Conversion du ralentissement des rotors ×10",
+    "Requête avant exécution et chronologie T0 contrôlées ; ancienne annulation exclue"
+  ],
+  "source_proof_sha256": "d36249195312815e7b3bf4eec39d7451712d65eb0ea8e6eeb7a86516dd7bcc40",
+  "energy_proof_sha256": "2ff57b9f3c2aa4f87956f7dc13f05f9a1253da5050eb6e6bfa29033a96c86ccc",
+  "limitations": [
+    "Docker/Gazebo et build ROS non exécutés",
+    "Scénarios SITL, posé et annulation en vol non validés",
+    "Batterie modèle non raccordée à PX4",
+    "Fidélité physique sans comparaison expérimentale"
+  ]
+}

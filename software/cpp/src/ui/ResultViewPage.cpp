@@ -3,12 +3,14 @@
 #include "drone_agricole/ui/MetricsPlotWidget.hpp"
 #include "ui_result_view_page.h"
 namespace drone_agricole::ui {
-namespace { const QList<QColor> comparisonColors{QColor(QStringLiteral("#55e2d2"))}; }
+namespace { const QList<QColor> comparisonColors{QColor(QStringLiteral("#087f8c"))}; }
 ResultViewPage::ResultViewPage(application::IStationServices& services, QWidget* parent)
     : QWidget(parent), ui_(std::make_unique<Ui::ResultViewPage>()), services_(services) {
   ui_->setupUi(this);
   connect(ui_->surfaceCheckBox,&QCheckBox::toggled,ui_->archiveTrajectoryView,&TrajectoryView::setSurfaceVisible);
   connect(ui_->pathCheckBox,&QCheckBox::toggled,ui_->archiveTrajectoryView,&TrajectoryView::setTrajectoriesVisible);
+  connect(ui_->archiveFitButton, &QPushButton::clicked, ui_->archiveTrajectoryView, &TrajectoryView::fitToData);
+  connect(ui_->archiveTopButton, &QPushButton::clicked, ui_->archiveTrajectoryView, &TrajectoryView::setTopView);
 }
 ResultViewPage::~ResultViewPage() = default;
 void ResultViewPage::openResult(const QString& id) {
@@ -30,23 +32,23 @@ void ResultViewPage::showReplay(const core::ReplayData& replay, const QString& l
     trajectories.append(TrajectorySeries{label, comparisonColors.at(0), replay.estimate, false, {}});
   }
   if (!replay.truth.isEmpty()) {
-    trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#ffd166")), replay.truth, true, {}});
+    trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#a26900")), replay.truth, true, {}});
   }
   if (!replay.px4Path.isEmpty()) {
     trajectories.append(TrajectorySeries{label, comparisonColors.at(0), replay.px4Path, false, {}});
   }
   for (const auto& line : replay.mapPolylines) {
     if (line.role == QStringLiteral("detected_row")) {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#53d8d2")), line.points, false,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#087f8c")), line.points, false,
                                            QStringLiteral("Rangs détectés")});
     } else if (line.role == QStringLiteral("candidate_trajectory")) {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#ff9f68")), line.points, true,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#b56612")), line.points, true,
                                            QStringLiteral("Trajectoires candidates · non qualifiées")});
     } else if (line.role == QStringLiteral("acquisition_trajectory")) {
-      trajectories.append(TrajectorySeries{line.label,QColor(QStringLiteral("#ffbf69")),line.points,false,
+      trajectories.append(TrajectorySeries{line.label,QColor(QStringLiteral("#a26900")),line.points,false,
                                            QStringLiteral("Acquisition estimée · superposition")});
     } else {
-      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#d98cff")), line.points, true,
+      trajectories.append(TrajectorySeries{line.label, QColor(QStringLiteral("#8051b5")), line.points, true,
                                            QStringLiteral("Objets cartographiques")});
     }
   }

@@ -1,0 +1,118 @@
+{
+  "schema": "drone_agricole.runner_source_review.v1",
+  "created_at_utc": "2026-10-24T12:10:17.2375414Z",
+  "scope": "Read-only review of current source; no Docker container or flight scenario started by reviewer",
+  "source_sha256": {
+    "software/docker/Dockerfile": "eadb57a485787e6bdc0e80505b5374ece7292698fc55d6830d9bbf994db539fd",
+    "software/src/drone_agricole_px4_bridge/CMakeLists.txt": "eaf84a10821341836b8cc727b62c81ea4d5bb4d84068fb628fee59f731b6d0f7",
+    "software/src/drone_agricole_px4_bridge/src/RunnerServer.cpp": "4d567c386dfca3f0d5233418dadf944712720138476d1b480e3e9a87f7c96e3c",
+    "software/src/drone_agricole_px4_bridge/src/RunnerContract.cpp": "e532f23b7bd5eacb1db6cd00ead5550668b1332061da8475f0dcae07ad814f1f",
+    "software/src/drone_agricole_px4_bridge/src/OffboardTest.cpp": "3091e1d727bbac828d58ed3859b6404b1a4524df795bab5d7504692b9d933eec",
+    "software/src/drone_agricole_px4_bridge/include/drone_agricole_px4_bridge/OffboardSafety.hpp": "1a89ef3e270fff22fddbecd5b04b815ab1f0bcade5f8ebc2b263d6da98f2be41",
+    "compose.yaml": "fad8c2016ee64d272c551abda0eb3f9a931fda35258370e656dca247044ecb55",
+    "simulation/compose.cartographe.yaml": "99b0d3a0c1560e6886ee16f1c52995dea4711b6faaefdce4da07fb272acafac9"
+  },
+  "facts": [
+    {
+      "id": "linux_build_paths",
+      "result": "consistent_by_path_resolution",
+      "details": "ROS package at /opt/px4_ros_ws/src/drone_agricole_px4_bridge; ../../../simulation/tests resolves /opt/simulation/tests; Dockerfile copies TestOffboardSafety.cpp there."
+    },
+    {
+      "id": "api_readiness",
+      "result": "requires_external_readiness_check",
+      "details": "GET health verifies API and DRONE_AGRICOLE_SITL only. It does not verify odometry freshness, PX4 identity, model or image."
+    },
+    {
+      "id": "bounded_node",
+      "result": "implemented_source_not_executed_this_review",
+      "details": "Wall time budgets: waiting data12s, arming10s, global100s, landing35s. Supervisor150s then INT/TERM40s/KILL50s grace. Current Linux binaries still require compilation."
+    },
+    {
+      "id": "failsafe_flag_capture",
+      "result": "possible_observability_race",
+      "details": "offboard_loss_flag only set while failsafe_gap. VehicleStatus AUTO_LAND may be handled before FailsafeFlags; inspect event ordering and independently record flags."
+    },
+    {
+      "id": "cancel_timing",
+      "result": "test_during_armed_mission",
+      "details": "Request stop after armed_and_offboard or mission_stage and before landing. Pre-arm cancel can finalize failure with no confirmed landing; cancel during landing does not replace pending result reason."
+    },
+    {
+      "id": "setsid_ros2_wrapper",
+      "result": "runtime_validation_required",
+      "details": "Signal group includes ros2 run Python wrapper and C++ node. Verify result finalization and absence of child after cancel rather than relying on HTTP accepted or parent exit."
+    },
+    {
+      "id": "stale_telemetry",
+      "result": "monitor_required",
+      "details": "ready checks receive ages before initial warmup only; mission_stage uses last status and odometry without freshness guard. Landing confirmation requires receive ages <1s."
+    },
+    {
+      "id": "raw_parameter_trace",
+      "result": "minor_provenance_gap",
+      "details": "Raw result parameters omit stage_timeout_s and fixed budgets although API status retains requested stage_timeout_s; preserve exact API request and source hashes in execution evidence."
+    }
+  ],
+  "inspection_commands": [
+    "docker compose --profile sim --profile viz config --images",
+    "docker compose --profile sim --profile viz ps",
+    "docker image inspect drone-agricole/px4-ros:1.0.0",
+    "docker compose exec -T px4-runner-api bash -lc 'source /opt/ros/jazzy/setup.bash; source /opt/px4_ros_ws/install/setup.bash; ros2 pkg prefix drone_agricole_px4_bridge; command -v setsid; command -v kill'",
+    "docker compose exec -T px4-state-bridge ros2 topic list -t",
+    "docker compose exec -T px4-state-bridge timeout 6 ros2 topic hz /fmu/out/vehicle_odometry",
+    "docker compose exec -T px4-state-bridge timeout 6 ros2 topic hz /fmu/out/vehicle_status_v4",
+    "docker compose exec -T px4-state-bridge timeout 5 ros2 topic echo /fmu/out/vehicle_land_detected --once",
+    "docker compose exec -T px4-state-bridge timeout 5 ros2 topic echo /fmu/out/battery_status_v1 --once"
+  ],
+  "protocol": {
+    "preconditions": [
+      "Only one isolated SITL model. No devices, privileged or host network. Verify container/image/model preflight and source/binary hashes.",
+      "Fresh NED odometry and VehicleStatus, grounded and disarmed initially. Health sitl_locked=true.",
+      "Use new result directory per attempt; preserve x500 historical runtime and separate cartographe runtime.",
+      "Preserve exact API payload and response; root performs bounded polling and artifact/T0 finalization."
+    ],
+    "request_example": {
+      "run_id": "gz1_square_20261024_01",
+      "mode": "square",
+      "result_directory": "results/simulation/px4_lot_a/gz1_square_20261024_01",
+      "parameters": {
+        "takeoff_altitude_m": 2.0,
+        "leg_m": 2.0,
+        "warmup_s": 2.0,
+        "hover_s": 3.0,
+        "stage_timeout_s": 12.0
+      }
+    },
+    "api_start": "POST http://127.0.0.1:8091/api/run/start Content-Type application/json; expect HTTP202",
+    "api_poll": "GET http://127.0.0.1:8091/api/run/status every <=1s; operator bound210s; request safe stop upon no progress/limit and inspect PX4 state",
+    "square_accept": [
+      "Five target_reached events: takeoff, leg_north/east/south/west; every error_m below0.35m (existing runner regression criterion only).",
+      "reason=square_completed, success=true, offboard_entered=true, armed=true, landing_confirmed=true, state=completed, exit_code=0.",
+      "No unexpected failsafe; result JSON readable, binary/source/image/model hashes preserved; T0 independently validated."
+    ],
+    "failsafe_accept": [
+      "Same mission; stream_stopped event precedes offboard_loss_action with nav_state18 expected_land=true.",
+      "No proprietary NAV_LAND command21 between stream_stopped and observed autonomous AUTO_LAND action.",
+      "Measure loss-to-action latency; max6s is runner cutoff, COM_OF_LOSS_T=1.0 is configured trigger.",
+      "reason=offboard_loss_land_observed, success=true, landing_confirmed=true, completed exit0; record flag race or mismatch explicitly."
+    ],
+    "cancel_accept": [
+      "Start fresh square request; wait armed mission before POST /api/run/stop.",
+      "Observe abort_requested reason signal_interrupt, landing transition, command NAV_LAND21, fresh landed+disarmed.",
+      "Raw success=false reason=signal_interrupt, landing_confirmed=true; API cancelled with normal node exit1, no child process remains.",
+      "No absent/unreadable result, unconfirmed landing, supervisor timeout or crash may count as successful cancellation."
+    ],
+    "negative_cases": [
+      "execute:=false with SITL env1: refuse exit2, no command publication.",
+      "execute:=true with DRONE_AGRICOLE_SITL missing or0: refuse exit2, no command publication.",
+      "API malformed/incomplete parameters or traversal path: HTTP400; unknown field execute is rejected.",
+      "Concurrent valid start while child active: HTTP409; do not overwrite current run."
+    ],
+    "limits": [
+      "No scenario outcome asserted by this review.",
+      "Synthetic cartographe dynamics do not establish prototype physical fidelity.",
+      "No calibrated battery telemetry injected into PX4; default SITL battery does not estimate endurance."
+    ]
+  }
+}

@@ -378,6 +378,7 @@ RUN source /opt/ros/jazzy/setup.bash \
 # Le paquet projet est construit dans une couche séparée : une modification
 # du pont ne régénère donc pas les 64 interfaces PX4.
 COPY software/src/drone_agricole_px4_bridge /opt/px4_ros_ws/src/drone_agricole_px4_bridge
+COPY simulation/tests/TestOffboardSafety.cpp /opt/simulation/tests/TestOffboardSafety.cpp
 RUN source /opt/ros/jazzy/setup.bash \
     && source /opt/px4_ros_ws/install/setup.bash \
     && colcon build \

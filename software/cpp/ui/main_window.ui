@@ -2,60 +2,88 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry"><rect><x>0</x><y>0</y><width>1540</width><height>980</height></rect></property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>1440</width><height>920</height></rect></property>
   <property name="minimumSize"><size><width>1200</width><height>760</height></size></property>
-  <property name="windowTitle"><string>Drone Agricole · Station de mission</string></property>
+  <property name="windowTitle"><string>DroneAgricole V3 · Plateforme métier</string></property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="shellLayout">
+   <layout class="QHBoxLayout" name="shellLayout">
     <property name="spacing"><number>0</number></property>
     <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
-    <item><widget class="QFrame" name="headerFrame"><layout class="QHBoxLayout" name="headerLayout">
-     <item><widget class="QLabel" name="titleLabel"><property name="text"><string>Drone Agricole</string></property></widget></item>
-     <item><widget class="QLabel" name="subtitleLabel"><property name="text"><string>STATION DE MISSION</string></property></widget></item>
-     <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
-     <item><widget class="QLabel" name="workspaceLabel"><property name="text"><string>Projet local</string></property></widget></item>
-    </layout></widget></item>
-    <item><layout class="QHBoxLayout" name="bodyLayout">
-     <item><widget class="QFrame" name="navigationFrame"><property name="minimumSize"><size><width>180</width><height>0</height></size></property><property name="maximumSize"><size><width>210</width><height>16777215</height></size></property><layout class="QVBoxLayout" name="navigationLayout">
+    <item><widget class="QFrame" name="navigationFrame">
+     <property name="minimumSize"><size><width>202</width><height>0</height></size></property><property name="maximumSize"><size><width>202</width><height>16777215</height></size></property>
+     <layout class="QVBoxLayout" name="navigationLayout">
+      <property name="leftMargin"><number>12</number></property><property name="rightMargin"><number>12</number></property>
+      <item><widget class="QFrame" name="brandFrame"><layout class="QHBoxLayout" name="brandLayout">
+       <item><widget class="QLabel" name="brandIcon"><property name="text"><string>◈</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+       <item><layout class="QVBoxLayout" name="brandTextLayout"><item><widget class="QLabel" name="titleLabel"><property name="text"><string>DroneAgricole</string></property></widget></item><item><widget class="QLabel" name="subtitleLabel"><property name="text"><string>Plateforme métier · V3</string></property></widget></item></layout></item>
+      </layout></widget></item>
       <item><widget class="QLabel" name="navigationCaption"><property name="text"><string>ESPACE DE TRAVAIL</string></property></widget></item>
       <item><widget class="QListWidget" name="navigationList"><property name="accessibleName"><string>Navigation principale</string></property></widget></item>
-      <item><widget class="QLabel" name="safetyLabel"><property name="text"><string>PX4 assure le vol critique. La station prépare et analyse les données et les essais.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+      <item><widget class="QLabel" name="localLabel"><property name="text"><string>◉  Environnement local</string></property></widget></item>
+      <item><widget class="QLabel" name="workspaceLabel"><property name="text"><string>Workspace</string></property></widget></item>
+      <item><widget class="QLabel" name="safetyLabel"><property name="text"><string>PX4 assure le vol critique.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+     </layout>
+    </widget></item>
+    <item><layout class="QVBoxLayout" name="workspaceLayout">
+     <property name="spacing"><number>0</number></property>
+     <item><widget class="QFrame" name="headerFrame"><layout class="QHBoxLayout" name="breadcrumbLayout">
+      <property name="leftMargin"><number>26</number></property><property name="rightMargin"><number>26</number></property>
+      <item><widget class="QPushButton" name="backButton"><property name="text"><string>←</string></property><property name="toolTip"><string>Retour à la page précédente (Alt+Gauche)</string></property><property name="shortcut"><string>Alt+Left</string></property></widget></item>
+      <item><widget class="QLabel" name="breadcrumbLabel"><property name="text"><string>Espace de travail › Accueil › Dashboard</string></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
+      <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
+      <item><widget class="QLabel" name="environmentBadge"><property name="text"><string>Données du workspace</string></property></widget></item>
+      <item><widget class="QPushButton" name="settingsShortcut"><property name="text"><string>⚙</string></property><property name="toolTip"><string>Paramètres et thème</string></property><property name="accessibleName"><string>Paramètres et thème</string></property></widget></item>
      </layout></widget></item>
-     <item><layout class="QVBoxLayout" name="workspaceLayout">
-      <item><layout class="QHBoxLayout" name="breadcrumbLayout">
-       <item><widget class="QPushButton" name="backButton"><property name="text"><string>← Retour</string></property><property name="shortcut"><string>Alt+Left</string></property></widget></item>
-       <item><widget class="QLabel" name="breadcrumbLabel"><property name="text"><string>Vue d'ensemble</string></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property></widget></item>
-       <item><spacer name="breadcrumbSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item>
-      </layout></item>
-      <item><widget class="QStackedWidget" name="pageStack">
-       <widget class="QWidget" name="overviewPage"><layout class="QVBoxLayout" name="overviewLayout">
-        <item><widget class="QLabel" name="overviewTitle"><property name="text"><string>Votre espace de travail</string></property></widget></item>
-        <item><widget class="QLabel" name="overviewDescription"><property name="text"><string>Retrouvez vos données, préparez un essai et consultez ses résultats. Les traitements restent accessibles pendant votre navigation.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-        <item><widget class="QLabel" name="overviewCounts"><property name="text"><string>Chargement du catalogue…</string></property></widget></item>
-        <item><layout class="QHBoxLayout" name="quickActions">
-         <item><widget class="QPushButton" name="openAcquisitionsButton"><property name="text"><string>Explorer les acquisitions</string></property></widget></item>
-         <item><widget class="QPushButton" name="openTestsButton"><property name="text"><string>Préparer un essai</string></property></widget></item>
-         <item><widget class="QPushButton" name="openResultsButton"><property name="text"><string>Consulter les résultats</string></property></widget></item>
+     <item><widget class="QTabBar" name="sectionTabs"><property name="expanding"><bool>false</bool></property><property name="drawBase"><bool>false</bool></property><property name="accessibleName"><string>Rubriques de l'espace actif</string></property></widget></item>
+     <item><widget class="QStackedWidget" name="pageStack">
+      <widget class="QWidget" name="overviewPage"><layout class="QVBoxLayout" name="overviewLayout">
+       <property name="leftMargin"><number>26</number></property><property name="topMargin"><number>24</number></property><property name="rightMargin"><number>26</number></property><property name="bottomMargin"><number>22</number></property><property name="spacing"><number>16</number></property>
+       <item><layout class="QHBoxLayout" name="headingLayout" stretch="1,0,0"><item><layout class="QVBoxLayout" name="headingTextLayout">
+        <item><widget class="QLabel" name="overviewTitle"><property name="text"><string>Vue d'ensemble</string></property></widget></item>
+        <item><widget class="QLabel" name="overviewDescription"><property name="text"><string>Votre espace de travail pour préparer, simuler et analyser vos opérations.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+       </layout></item><item><spacer name="headingSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint"><size><width>30</width><height>20</height></size></property></spacer></item>
+       <item><widget class="QPushButton" name="createMissionButton"><property name="text"><string>＋ Nouvelle mission</string></property></widget></item></layout></item>
+       <item><layout class="QHBoxLayout" name="statsLayout">
+        <item><widget class="QFrame" name="missionStat"><property name="class" stdset="0"><string>statCard</string></property><layout class="QVBoxLayout" name="missionStatLayout"><item><widget class="QLabel" name="missionStatCaption"><property name="text"><string>Missions locales</string></property><property name="class" stdset="0"><string>muted</string></property></widget></item><item><widget class="QLabel" name="missionStatValue"><property name="text"><string>—</string></property><property name="class" stdset="0"><string>statValue</string></property></widget></item><item><widget class="QLabel" name="missionStatHelp"><property name="text"><string>Brouillons de préparation</string></property><property name="class" stdset="0"><string>muted</string></property><property name="wordWrap"><bool>true</bool></property></widget></item></layout></widget></item>
+        <item><widget class="QFrame" name="dataStat"><property name="class" stdset="0"><string>statCard</string></property><layout class="QVBoxLayout" name="dataStatLayout"><item><widget class="QLabel" name="dataStatCaption"><property name="text"><string>Séquences de données</string></property><property name="class" stdset="0"><string>muted</string></property></widget></item><item><widget class="QLabel" name="dataStatValue"><property name="text"><string>—</string></property><property name="class" stdset="0"><string>statValue</string></property></widget></item><item><widget class="QLabel" name="dataStatHelp"><property name="text"><string>Catalogue déclaré</string></property><property name="class" stdset="0"><string>muted</string></property><property name="wordWrap"><bool>true</bool></property></widget></item></layout></widget></item>
+        <item><widget class="QFrame" name="resultStat"><property name="class" stdset="0"><string>statCard</string></property><layout class="QVBoxLayout" name="resultStatLayout"><item><widget class="QLabel" name="resultStatCaption"><property name="text"><string>Résultats archivés</string></property><property name="class" stdset="0"><string>muted</string></property></widget></item><item><widget class="QLabel" name="resultStatValue"><property name="text"><string>—</string></property><property name="class" stdset="0"><string>statValue</string></property></widget></item><item><widget class="QLabel" name="resultStatHelp"><property name="text"><string>Historique du workspace</string></property><property name="class" stdset="0"><string>muted</string></property><property name="wordWrap"><bool>true</bool></property></widget></item></layout></widget></item>
+        <item><widget class="QFrame" name="systemStat"><property name="class" stdset="0"><string>statCard</string></property><layout class="QVBoxLayout" name="systemStatLayout"><item><widget class="QLabel" name="systemStatCaption"><property name="text"><string>État du système</string></property><property name="class" stdset="0"><string>muted</string></property></widget></item><item><widget class="QLabel" name="systemStatValue"><property name="text"><string>—</string></property><property name="class" stdset="0"><string>statValue</string></property></widget></item><item><widget class="QLabel" name="systemStatHelp"><property name="text"><string>Aucune connexion inférée de la BOM</string></property><property name="class" stdset="0"><string>muted</string></property><property name="wordWrap"><bool>true</bool></property></widget></item></layout></widget></item>
+       </layout></item>
+       <item><layout class="QHBoxLayout" name="dashboardLayout" stretch="3,2">
+        <item><layout class="QVBoxLayout" name="mainCardsLayout">
+         <item><widget class="QGroupBox" name="quickGroup"><property name="title"><string>Accès rapide</string></property><layout class="QGridLayout" name="quickLayout">
+          <item row="0" column="0"><widget class="QPushButton" name="openMissionsButton"><property name="text"><string>↗  Préparer une mission</string></property></widget></item>
+          <item row="0" column="1"><widget class="QPushButton" name="openAcquisitionsButton"><property name="text"><string>▤  Parcourir les acquisitions</string></property></widget></item>
+          <item row="1" column="0"><widget class="QPushButton" name="openTestsButton"><property name="text"><string>▷  Lancer un bench</string></property></widget></item>
+          <item row="1" column="1"><widget class="QPushButton" name="openResultsButton"><property name="text"><string>◷  Consulter les résultats</string></property></widget></item>
+         </layout></widget></item>
+         <item><widget class="QGroupBox" name="recentGroup"><property name="title"><string>Activité récente</string></property><layout class="QVBoxLayout" name="recentLayout">
+          <item><widget class="QTableWidget" name="recentResultsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property><column><property name="text"><string>Date</string></property></column><column><property name="text"><string>Exécution</string></property></column><column><property name="text"><string>Domaine</string></property></column><column><property name="text"><string>État</string></property></column></widget></item>
+          <item><widget class="QLabel" name="recentEmptyLabel"><property name="text"><string>Aucun résultat archivé. Préparez un premier bench.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+         </layout></widget></item>
         </layout></item>
-        <item><widget class="QLabel" name="recentLabel"><property name="text"><string>Résultats récents · double-cliquez pour ouvrir la fiche</string></property></widget></item>
-        <item><widget class="QTableWidget" name="recentResultsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><column><property name="text"><string>Date</string></property></column><column><property name="text"><string>Traitement</string></property></column><column><property name="text"><string>État</string></property></column></widget></item>
-        <item><widget class="QLabel" name="roadmapLabel"><property name="text"><string>À venir : édition et approbation des cartes, préparation de missions, transferts et rapports opérationnels. Ces fonctions ne sont pas encore disponibles.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-       </layout></widget>
-       <widget class="QWidget" name="acquisitionsPage"><layout class="QVBoxLayout" name="acquisitionsLayout">
-        <item><widget class="QLabel" name="acquisitionsTitle"><property name="text"><string>Acquisitions · catalogue des données</string></property></widget></item>
-        <item><widget class="QLabel" name="acquisitionsDescription"><property name="text"><string>Séquences et capacités déclarées pour les essais. Le statut du catalogue ne constitue pas un contrôle d'intégrité ; l'import de paquets d'acquisition reste à implémenter.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-        <item><widget class="QTableWidget" name="acquisitionsTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><column><property name="text"><string>Dataset</string></property></column><column><property name="text"><string>Séquence</string></property></column><column><property name="text"><string>Statut déclaré</string></property></column><column><property name="text"><string>Capacités</string></property></column></widget></item>
-       </layout></widget>
-      </widget></item>
-     </layout></item>
+        <item><layout class="QVBoxLayout" name="sideCardsLayout">
+         <item><widget class="QGroupBox" name="systemGroup"><property name="title"><string>État du système</string></property><layout class="QVBoxLayout" name="systemLayout">
+          <item><widget class="QLabel" name="systemStateLabel"><property name="text"><string>État matériel non mesuré</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+          <item><widget class="QPushButton" name="openHardwareButton"><property name="text"><string>Voir les équipements →</string></property></widget></item>
+         </layout></widget></item>
+         <item><widget class="QGroupBox" name="followGroup"><property name="title"><string>À suivre</string></property><layout class="QVBoxLayout" name="followLayout">
+          <item><widget class="QLabel" name="followLabel"><property name="text"><string>Préparation locale, contrôles et résultats restent traçables.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+          <item><widget class="QPushButton" name="openDiagnosticsButton"><property name="text"><string>Ouvrir les diagnostics →</string></property></widget></item>
+         </layout></widget></item>
+         <item><spacer name="sideSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>40</height></size></property></spacer></item>
+        </layout></item>
+       </layout></item>
+      </layout></widget>
+     </widget></item>
+     <item><widget class="QFrame" name="treatmentFrame"><layout class="QHBoxLayout" name="treatmentLayout" stretch="1,0,0,0,0">
+      <item><widget class="QLabel" name="treatmentLabel"><property name="text"><string>Aucun traitement actif</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+      <item><widget class="QProgressBar" name="treatmentProgress"><property name="maximumSize"><size><width>180</width><height>20</height></size></property><property name="value"><number>0</number></property></widget></item>
+      <item><widget class="QPushButton" name="showTreatmentButton"><property name="text"><string>Voir le traitement</string></property></widget></item>
+      <item><widget class="QPushButton" name="openTreatmentResultButton"><property name="text"><string>Ouvrir le résultat</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+      <item><widget class="QPushButton" name="cancelTreatmentButton"><property name="text"><string>Annuler</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+     </layout></widget></item>
     </layout></item>
-    <item><widget class="QFrame" name="treatmentFrame"><layout class="QHBoxLayout" name="treatmentLayout">
-     <item><widget class="QLabel" name="treatmentLabel"><property name="text"><string>Aucun traitement</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
-     <item><widget class="QProgressBar" name="treatmentProgress"><property name="maximumSize"><size><width>220</width><height>24</height></size></property><property name="value"><number>0</number></property></widget></item>
-     <item><widget class="QPushButton" name="showTreatmentButton"><property name="text"><string>Voir le traitement</string></property></widget></item>
-     <item><widget class="QPushButton" name="openTreatmentResultButton"><property name="text"><string>Ouvrir le résultat</string></property><property name="enabled"><bool>false</bool></property></widget></item>
-     <item><widget class="QPushButton" name="cancelTreatmentButton"><property name="text"><string>Annuler</string></property><property name="enabled"><bool>false</bool></property></widget></item>
-    </layout></widget></item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

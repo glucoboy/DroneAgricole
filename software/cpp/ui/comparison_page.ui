@@ -1,7 +1,7 @@
 <ui version="4.0">
   <class>ComparisonPage</class>
   <widget class="QWidget" name="ComparisonPage">
-    <layout class="QVBoxLayout" name="comparisonLayout" stretch="0,1">
+    <layout class="QVBoxLayout" name="comparisonLayout" stretch="0,0,1">
       <property name="leftMargin">
         <number>16</number>
       </property>
@@ -44,7 +44,7 @@
                 <item>
                   <widget class="QLabel" name="comparisonStatusLabel">
                     <property name="text">
-                      <string>Sélectionnez de deux à quatre archives compatibles dans l’historique.</string>
+                      <string>Sélectionnez deux à quatre archives. La compatibilité est contrôlée avant toute comparaison.</string>
                     </property>
                     <property name="wordWrap">
                       <bool>true</bool>
@@ -76,6 +76,23 @@
                 </property>
               </widget>
             </item>
+          </layout>
+        </widget>
+      </item>
+      <item>
+        <widget class="QFrame" name="comparisonSelectionFrame">
+          <property name="panel" stdset="0"><bool>true</bool></property>
+          <layout class="QGridLayout" name="comparisonSelectionLayout">
+            <item row="0" column="0"><widget class="QLabel" name="firstResultLabel"><property name="text"><string>Résultat A</string></property></widget></item>
+            <item row="0" column="1"><widget class="QComboBox" name="firstResultCombo"><property name="minimumContentsLength"><number>18</number></property><property name="sizeAdjustPolicy"><enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum></property></widget></item>
+            <item row="0" column="2"><widget class="QLabel" name="secondResultLabel"><property name="text"><string>Résultat B</string></property></widget></item>
+            <item row="0" column="3"><widget class="QComboBox" name="secondResultCombo"><property name="minimumContentsLength"><number>18</number></property><property name="sizeAdjustPolicy"><enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum></property></widget></item>
+            <item row="0" column="4"><widget class="QPushButton" name="compareSelectionButton"><property name="text"><string>Comparer</string></property><property name="enabled"><bool>false</bool></property><property name="role" stdset="0"><string>primary</string></property></widget></item>
+            <item row="1" column="0"><widget class="QLabel" name="thirdResultLabel"><property name="text"><string>Résultat C</string></property></widget></item>
+            <item row="1" column="1"><widget class="QComboBox" name="thirdResultCombo"><property name="minimumContentsLength"><number>18</number></property><property name="sizeAdjustPolicy"><enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum></property></widget></item>
+            <item row="1" column="2"><widget class="QLabel" name="fourthResultLabel"><property name="text"><string>Résultat D</string></property></widget></item>
+            <item row="1" column="3"><widget class="QComboBox" name="fourthResultCombo"><property name="minimumContentsLength"><number>18</number></property><property name="sizeAdjustPolicy"><enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum></property></widget></item>
+            <item row="1" column="4"><widget class="QPushButton" name="refreshComparisonButton"><property name="text"><string>Actualiser</string></property></widget></item>
           </layout>
         </widget>
       </item>

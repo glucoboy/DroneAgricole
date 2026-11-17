@@ -53,6 +53,10 @@ int main(int argc, char* argv[]) {
   parser.addOption(workspaceOption);
   parser.addOption(smokeOption);
   parser.addOption(screenshotOption);
+  const QCommandLineOption pageOption(QStringLiteral("page"), QStringLiteral("Route initiale de la station"), QStringLiteral("route"));
+  const QCommandLineOption themeOption(QStringLiteral("theme"), QStringLiteral("Aperçu du thème sans modifier la préférence (professional ou premium)"), QStringLiteral("theme"));
+  parser.addOption(pageOption);
+  parser.addOption(themeOption);
   parser.process(application);
   auto workspace = parser.value(workspaceOption);
   if (workspace.isEmpty()) {
@@ -71,6 +75,12 @@ int main(int argc, char* argv[]) {
     return 2;
   }
   drone_agricole::ui::MainWindow window(*services);
+  if (parser.isSet(pageOption) && !window.navigate(parser.value(pageOption))) return 2;
+  if (parser.isSet(themeOption)) {
+    const auto theme = parser.value(themeOption);
+    if (theme != QStringLiteral("professional") && theme != QStringLiteral("premium")) return 2;
+    window.previewTheme(theme);
+  }
   window.show();
   if (parser.isSet(screenshotOption)) {
     const auto screenshotPath = QFileInfo(parser.value(screenshotOption)).absoluteFilePath();

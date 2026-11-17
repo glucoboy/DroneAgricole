@@ -241,6 +241,8 @@ services:
     environment:
       PX4_SIM_MODEL: "${PX4_SIM_MODEL:-gz_x500}"
       PX4_GZ_WORLD: "${PX4_GZ_WORLD:-default}"
+      PX4_SYS_AUTOSTART: "${PX4_SYS_AUTOSTART:-4001}"
+      GZ_SIM_RESOURCE_PATH: "/workspace-simulation/gazebo/models:/workspace-simulation/gazebo/worlds:/opt/px4-gazebo/share/gz/models:/opt/px4-gazebo/share/gz/worlds"
       HEADLESS: "${PX4_HEADLESS:-1}"
       # Le script officiel PX4 recopie cette variable dans UXRCE_DDS_DOM_ID
       # juste avant de démarrer le client DDS.
@@ -265,5 +267,15 @@ services:
     # publié par le service Agent ci-dessus afin de rester reproductible.
     volumes:
       - type: bind
-        source: ./.runtime/px4
+        source: ${PX4_RUNTIME_DIR:-./.runtime/px4}
         target: /runtime
+      - type: bind
+        source: ./simulation
+        target: /workspace-simulation
+        read_only: true
+      - type: bind
+        source: ./simulation/px4_sitl/airframes/40000_gz_cartographe
+        target: /opt/px4-gazebo/etc/init.d-posix/airframes/40000_gz_cartographe
+        read_only: true
+        bind:
+          create_host_path: false

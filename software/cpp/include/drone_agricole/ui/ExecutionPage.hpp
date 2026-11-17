@@ -13,6 +13,7 @@ class ExecutionPage final : public QWidget {
   explicit ExecutionPage(application::IStationServices& services, QWidget* parent = nullptr);
   ~ExecutionPage() override;
   void applyRequest(const QJsonObject& request);
+  void selectDataset(const QString& datasetId, const QString& sequenceId);
   void showReplay(const core::ReplayData& replay, const QString& label);
  signals:
   void resultAvailable(const QString& id);

@@ -1,0 +1,123 @@
+{
+  "schema": "drone_agricole.sitl_preflight.v1",
+  "created_at_utc": "2026-10-23T11:39:16.5305896Z",
+  "host": {
+    "os": "Microsoft Windows 10.0.26200",
+    "architecture": "X64",
+    "powershell_version": "7.6.5"
+  },
+  "git_revision": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80",
+  "sources_sha256": {
+    "compose.yaml": "fad8c2016ee64d272c551abda0eb3f9a931fda35258370e656dca247044ecb55",
+    "simulation/compose.cartographe.yaml": "99b0d3a0c1560e6886ee16f1c52995dea4711b6faaefdce4da07fb272acafac9",
+    "software/docker/Dockerfile": "eadb57a485787e6bdc0e80505b5374ece7292698fc55d6830d9bbf994db539fd",
+    "simulation/README.md": "f5a3ed1da22f3c380a9cfa15bc2f9b4ba88073ab35e7a48d55d2ce18d1aec81b",
+    "simulation/px4_sitl/preflight.ps1": "2eb9f68f8c380f71ac0753b5aae982fda6ef674d9f476d1437f4bd7a96e10609",
+    "simulation/px4_sitl/airframes/4010_gz_cartographe": "0f58333d533ec1b51fd96387efb9ce596ffd826ea0fed6caf7f4f142db4b4226",
+    "simulation/gazebo/models/cartographe/model.sdf": "62b016f0816a0f6f499c12a06f8974d777e442d43bfed8f331e0c9bc3111c912",
+    "simulation/gazebo/models/cartographe/dynamics_preview.json": "0308aae4a485434443ab3706c6bcce389092df2747891cc1385be948ae658104",
+    "software/src/drone_agricole_px4_bridge/src/OffboardTest.cpp": "3091e1d727bbac828d58ed3859b6404b1a4524df795bab5d7504692b9d933eec",
+    "software/src/drone_agricole_px4_bridge/src/RunnerServer.cpp": "4d567c386dfca3f0d5233418dadf944712720138476d1b480e3e9a87f7c96e3c",
+    "software/src/drone_agricole_px4_bridge/include/drone_agricole_px4_bridge/OffboardSafety.hpp": "1a89ef3e270fff22fddbecd5b04b815ab1f0bcade5f8ebc2b263d6da98f2be41"
+  },
+  "docker_available": false,
+  "identity": {
+    "status": "unavailable",
+    "expected_service": "px4-sitl",
+    "expected_model": "gz_cartographe",
+    "expected_image": "px4io/px4-sitl-gazebo:v1.18.0-beta2@sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8",
+    "source": "docker_container_and_image_inspect",
+    "commands_published": false
+  },
+  "violations": [
+    "docker_engine_unavailable"
+  ],
+  "limits": [
+    "Container identity does not prove ROS telemetry freshness; inspect state and odometry before emission.",
+    "No hardware devices or host network are accepted.",
+    "No container, parameter or historical runtime was modified."
+  ],
+  "commands": [
+    {
+      "program": "git",
+      "arguments": [
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.036,
+      "stdout": "4463ffeee77653ae92dca59fae4cf6c16c6f2f80\n",
+      "stderr": ""
+    },
+    {
+      "program": "docker",
+      "arguments": [
+        "version",
+        "--format",
+        "{{json .}}"
+      ],
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_s": 0.131,
+      "stdout": "{\"Client\":{\"Version\":\"29.7.2\",\"ApiVersion\":\"1.55\",\"DefaultAPIVersion\":\"1.55\",\"GitCommit\":\"a7dcaa6\",\"GoVersion\":\"go1.26.5\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Aug  5 18:31:33 2026\",\"Context\":\"desktop-linux\"},\"Server\":null}\n",
+      "stderr": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: Le fichier spécifié est introuvable.\n"
+    },
+    {
+      "program": "docker",
+      "arguments": [
+        "compose",
+        "version"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.117,
+      "stdout": "Docker Compose version v5.5.0\n",
+      "stderr": ""
+    },
+    {
+      "program": "docker",
+      "arguments": [
+        "compose",
+        "-f",
+        "compose.yaml",
+        "-f",
+        "simulation/compose.cartographe.yaml",
+        "--profile",
+        "sim",
+        "--profile",
+        "flight-test",
+        "config",
+        "--images"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.285,
+      "stdout": "drone-agricole/px4-ros:1.0.0\ndrone-agricole/px4-ros:1.0.0\ndrone-agricole/ros-jazzy-sim:0.1.0\ndrone-agricole/ros-humble:1.0.0\npx4io/px4-sitl-gazebo:v1.18.0-beta2@sha256:bcf8278e3321948be2266568528107dbfd94eb6fa703171cb013bc4d54dc8ef8\ndrone-agricole/px4-ros:1.0.0\ndrone-agricole/px4-ros:1.0.0\n",
+      "stderr": ""
+    },
+    {
+      "program": "docker",
+      "arguments": [
+        "info",
+        "--format",
+        "{{json .}}"
+      ],
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_s": 0.33,
+      "stdout": "{\"ID\":\"\",\"Containers\":0,\"ContainersRunning\":0,\"ContainersPaused\":0,\"ContainersStopped\":0,\"Images\":0,\"Driver\":\"\",\"DriverStatus\":null,\"Plugins\":{\"Volume\":null,\"Network\":null,\"Authorization\":null,\"Log\":null},\"MemoryLimit\":false,\"SwapLimit\":false,\"CpuCfsPeriod\":false,\"CpuCfsQuota\":false,\"CPUShares\":false,\"CPUSet\":false,\"PidsLimit\":false,\"IPv4Forwarding\":false,\"Debug\":false,\"NFd\":0,\"OomKillDisable\":false,\"NGoroutines\":0,\"SystemTime\":\"\",\"LoggingDriver\":\"\",\"CgroupDriver\":\"\",\"NEventsListener\":0,\"KernelVersion\":\"\",\"OperatingSystem\":\"\",\"OSVersion\":\"\",\"OSType\":\"\",\"Architecture\":\"\",\"IndexServerAddress\":\"\",\"RegistryConfig\":null,\"NCPU\":0,\"MemTotal\":0,\"GenericResources\":null,\"DockerRootDir\":\"\",\"HttpProxy\":\"\",\"HttpsProxy\":\"\",\"NoProxy\":\"\",\"Name\":\"\",\"Labels\":null,\"ExperimentalBuild\":false,\"ServerVersion\":\"\",\"Runtimes\":null,\"DefaultRuntime\":\"\",\"Swarm\":{\"NodeID\":\"\",\"NodeAddr\":\"\",\"LocalNodeState\":\"\",\"ControlAvailable\":false,\"Error\":\"\",\"RemoteManagers\":null},\"LiveRestoreEnabled\":false,\"Isolation\":\"\",\"InitBinary\":\"\",\"ContainerdCommit\":{\"ID\":\"\"},\"RuncCommit\":{\"ID\":\"\"},\"InitCommit\":{\"ID\":\"\"},\"SecurityOptions\":null,\"CDISpecDirs\":null,\"Warnings\":null,\"ClientInfo\":{\"Debug\":false,\"Version\":\"29.7.2\",\"DefaultAPIVersion\":\"1.55\",\"GitCommit\":\"a7dcaa6\",\"GoVersion\":\"go1.26.5\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Aug  5 18:31:33 2026\",\"Context\":\"desktop-linux\",\"Plugins\":[{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v1.127.0\",\"ShortDescription\":\"Docker AI Agent Runner\",\"Name\":\"agent\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-agent.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v1.30.0\",\"ShortDescription\":\"Docker AI Agent - Ask Gordon\",\"Name\":\"ai\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-ai.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.36.1-desktop.1\",\"ShortDescription\":\"Docker Buildx\",\"Name\":\"buildx\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-buildx.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v5.5.0\",\"ShortDescription\":\"Docker Compose\",\"Name\":\"compose\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-compose.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"0.0.47\",\"ShortDescription\":\"Get a shell into any image or container\",\"Name\":\"debug\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-debug.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.4.3\",\"ShortDescription\":\"Docker Desktop commands\",\"Name\":\"desktop\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-desktop.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.0.7\",\"ShortDescription\":\"CLI for managing Docker Hardened Images\",\"Name\":\"dhi\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-dhi.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.2.31\",\"ShortDescription\":\"Manages Docker extensions\",\"Name\":\"extension\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-extension.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v1.4.0\",\"ShortDescription\":\"Creates Docker-related starter files for your project\",\"Name\":\"init\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-init.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.43.3\",\"ShortDescription\":\"Docker MCP Plugin\",\"Name\":\"mcp\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-mcp.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v1.2.6\",\"ShortDescription\":\"Docker Model Runner\",\"Name\":\"model\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-model.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.6.13\",\"ShortDescription\":\"Docker Offload\",\"Name\":\"offload\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-offload.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.2.2\",\"ShortDescription\":\"Docker Pass Secrets Manager Plugin (beta)\",\"Name\":\"pass\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-pass.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v0.13.0\",\"ShortDescription\":\"\\\"docker sandbox\\\" is deprecated, use Docker Sandboxes instead\",\"URL\":\"https://www.docker.com/products/docker-sandboxes\",\"Hidden\":true,\"Name\":\"sandbox\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-sandbox.exe\"},{\"SchemaVersion\":\"0.1.0\",\"Vendor\":\"Docker Inc.\",\"Version\":\"v1.24.0\",\"ShortDescription\":\"Docker Scout\",\"Name\":\"scout\",\"Path\":\"C:\\\\Program Files\\\\Docker\\\\cli-plugins\\\\docker-scout.exe\"}],\"Warnings\":null}}\n",
+      "stderr": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: Le fichier spécifié est introuvable.\n"
+    }
+  ],
+  "host_startup_diagnostic": {
+    "observed_utc": "2026-10-23T11:08:35Z",
+    "source": "Docker Desktop host backend log read outside sandbox",
+    "docker_desktop_version": "4.89.0",
+    "wsl_status_outside_sandbox": "Ubuntu-24.04, WSL2 available",
+    "error": "starting services: initializing Ingest server: listening on unix://C:/Users/Utilisateur/AppData/Local/Docker/run/sailor-ingest.sock: rename sailor-ingest.sock -> sailor-ingest.sock.stale: Le système ne peut pas accéder au fichier.",
+    "attempt": "Desktop started with hidden window after initial absent process; backend failed before Linux engine",
+    "factory_reset_performed": false,
+    "historical_runtime_modified": false
+  }
+}

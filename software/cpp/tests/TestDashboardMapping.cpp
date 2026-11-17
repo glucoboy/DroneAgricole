@@ -65,7 +65,7 @@ class TestDashboardMapping final : public QObject {
 
     drone_agricole::composition::StationComposition services(workspace);
     MainWindow window(services);
-    window.findChild<QListWidget*>(QStringLiteral("navigationList"))->setCurrentRow(2);
+    window.navigate(QStringLiteral("tests"));
     window.resize(1440, 900);
     window.show();
 
@@ -97,13 +97,13 @@ class TestDashboardMapping final : public QObject {
     QVERIFY(!start->isEnabled());
     auto* navigation = window.findChild<QListWidget*>(QStringLiteral("navigationList"));
     auto* pages = window.findChild<QStackedWidget*>(QStringLiteral("pageStack"));
-    navigation->setCurrentRow(1);
-    QCOMPARE(pages->currentWidget()->objectName(), QStringLiteral("acquisitionsPage"));
+    window.navigate(QStringLiteral("acquisitions"));
+    QCOMPARE(pages->currentWidget()->objectName(), QStringLiteral("DataPage"));
     QVERIFY(services.execution().active());
     QTRY_VERIFY_WITH_TIMEOUT(start->isEnabled(), 30000);
-    QCOMPARE(pages->currentWidget()->objectName(), QStringLiteral("acquisitionsPage"));
+    QCOMPARE(pages->currentWidget()->objectName(), QStringLiteral("DataPage"));
     QCOMPARE(services.execution().state(), drone_agricole::domain::RunState::Completed);
-    navigation->setCurrentRow(2);
+    window.navigate(QStringLiteral("tests"));
     QTRY_VERIFY_WITH_TIMEOUT(view->pointCloudSize() > 1000, 10000);
     QCOMPARE(view->referencePointCount(), 138);
     QVERIFY(logs->toPlainText().contains(QStringLiteral("Résultat affiché automatiquement dans la carte 3D.")));
@@ -166,7 +166,7 @@ class TestDashboardMapping final : public QObject {
     window.resize(1440, 900);
     window.show();
     auto* navigation = window.findChild<QListWidget*>(QStringLiteral("navigationList"));
-    navigation->setCurrentRow(2);
+    window.navigate(QStringLiteral("tests"));
     auto* simulations = window.findChild<QComboBox*>(QStringLiteral("simulationCombo"));
     const auto index = simulations->findData(QStringLiteral("vineyard_capture_mapping"));
     QVERIFY(index >= 0);
@@ -180,11 +180,11 @@ class TestDashboardMapping final : public QObject {
     }
     QTest::mouseClick(window.findChild<QPushButton*>(QStringLiteral("startButton")), Qt::LeftButton);
     QVERIFY(services.execution().active());
-    navigation->setCurrentRow(1);
+    window.navigate(QStringLiteral("acquisitions"));
     QTRY_VERIFY_WITH_TIMEOUT(!services.execution().active(), 180000);
     QCOMPARE(services.execution().state(), drone_agricole::domain::RunState::Completed);
-    QCOMPARE(navigation->currentRow(), 1);
-    navigation->setCurrentRow(2);
+    QCOMPARE(navigation->currentRow(), 2);
+    window.navigate(QStringLiteral("tests"));
     auto* view = window.findChild<TrajectoryView*>(QStringLiteral("trajectoryView"));
     QVERIFY(view->pointCloudSize() > 1000);
     QVERIFY(view->cameraColorCount() > 100);

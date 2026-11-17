@@ -1,4 +1,5 @@
 #include "drone_agricole_px4_bridge/OffboardPlan.hpp"
+#include "drone_agricole_px4_bridge/OffboardSafety.hpp"
 
 #include <px4_msgs/msg/failsafe_flags.hpp>
 #include <px4_msgs/msg/offboard_control_mode.hpp>
@@ -35,6 +36,7 @@ namespace {
 
 using Clock = std::chrono::steady_clock;
 double secondsSince(const Clock::time_point start) {
+  if (start == Clock::time_point::min()) return std::numeric_limits<double>::infinity();
   return std::chrono::duration<double>(Clock::now() - start).count();
 }
 
@@ -58,21 +60,21 @@ class OffboardTest final : public rclcpp::Node {
     missionMode_ = declare_parameter<std::string>("mission_mode", "square");
     altitude_ = declare_parameter<double>("takeoff_altitude_m", 2.0);
     leg_ = declare_parameter<double>("leg_m", 2.0);
-    warmupSeconds_ = std::max(1.0, declare_parameter<double>("warmup_s", 2.0));
-    hoverSeconds_ = std::max(1.0, declare_parameter<double>("hover_s", 3.0));
-    stageTimeoutSeconds_ = std::max(5.0, declare_parameter<double>("stage_timeout_s", 12.0));
+    warmupSeconds_ = declare_parameter<double>("warmup_s", 2.0);
+    hoverSeconds_ = declare_parameter<double>("hover_s", 3.0);
+    stageTimeoutSeconds_ = declare_parameter<double>("stage_timeout_s", 12.0);
+    requireBoundedOffboardParameter(altitude_, 0.5, 10.0, "takeoff_altitude_m");
+    requireBoundedOffboardParameter(leg_, 0.5, 20.0, "leg_m");
+    requireBoundedOffboardParameter(warmupSeconds_, 1.0, 10.0, "warmup_s");
+    requireBoundedOffboardParameter(hoverSeconds_, 1.0, 15.0, "hover_s");
+    requireBoundedOffboardParameter(stageTimeoutSeconds_, 5.0, 30.0, "stage_timeout_s");
     const auto resultRoot = declare_parameter<std::string>("result_root", "results/simulation/px4_lot_a");
     const auto configuredDirectory = declare_parameter<std::string>("result_directory", "");
     if (missionMode_ != "square" && missionMode_ != "failsafe") {
       throw std::invalid_argument("mission_mode doit valoir square ou failsafe");
     }
-    if (!execute) {
-      throw std::runtime_error("Essai refusé : execute:=true est requis.");
-    }
     const auto* sitl = std::getenv("DRONE_AGRICOLE_SITL");
-    if (sitl == nullptr || std::string(sitl) != "1") {
-      throw std::runtime_error("Essai refusé : le verrou d'environnement SITL est absent.");
-    }
+    requireOffboardAuthorization(execute, sitl == nullptr ? "" : sitl);
     static_cast<void>(squareMissionNed({0.0, 0.0, 0.0}, altitude_, leg_));
     configureResultDirectory(resultRoot, configuredDirectory);
 
@@ -107,7 +109,10 @@ class OffboardTest final : public rclcpp::Node {
         });
     landSubscription_ = create_subscription<px4_msgs::msg::VehicleLandDetected>(
         "/fmu/out/vehicle_land_detected", qos,
-        [this](px4_msgs::msg::VehicleLandDetected::UniquePtr message) { landDetected_ = std::move(message); });
+        [this](px4_msgs::msg::VehicleLandDetected::UniquePtr message) {
+          landDetected_ = std::move(message);
+          lastLandDetected_ = Clock::now();
+        });
     ackSubscription_ = create_subscription<px4_msgs::msg::VehicleCommandAck>(
         "/fmu/out/vehicle_command_ack_v1", qos, [this](px4_msgs::msg::VehicleCommandAck::UniquePtr message) {
           QJsonObject ack{{QStringLiteral("command"), static_cast<double>(message->command)},
@@ -169,7 +174,7 @@ class OffboardTest final : public rclcpp::Node {
   }
 
   bool ready() const {
-    return status_ && odometry_ && secondsSince(lastStatus_) < 1.0 && secondsSince(lastOdometry_) < 0.5 &&
+    return status_ && odometry_ && offboardTelemetryFresh(secondsSince(lastStatus_), secondsSince(lastOdometry_)) &&
            odometry_->pose_frame == px4_msgs::msg::VehicleOdometry::POSE_FRAME_NED &&
            finiteVector(odometry_->position) && finiteQuaternion(odometry_->q);
   }
@@ -227,6 +232,7 @@ class OffboardTest final : public rclcpp::Node {
   }
 
   void sendOffboardAndArm() {
+    armRequested_ = true;
     sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1.0F, 6.0F);
     sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0F);
   }
@@ -248,7 +254,9 @@ class OffboardTest final : public rclcpp::Node {
       return;
     }
     event(QStringLiteral("abort_requested"), {{QStringLiteral("reason"), reason}});
-    if (armed()) {
+    // After an arm request, a missing status must not be treated as proof
+    // that PX4 stayed disarmed. Request LAND and wait for fresh confirmation.
+    if (armed() || armRequested_) {
       beginLanding(false, reason, true);
     } else {
       finish(false, reason);
@@ -289,21 +297,32 @@ class OffboardTest final : public rclcpp::Node {
         {QStringLiteral("parameters"), QJsonObject{{QStringLiteral("takeoff_altitude_m"), altitude_},
                                                     {QStringLiteral("leg_m"), leg_},
                                                     {QStringLiteral("warmup_s"), warmupSeconds_},
-                                                    {QStringLiteral("hover_s"), hoverSeconds_}}},
+                                                    {QStringLiteral("hover_s"), hoverSeconds_},
+                                                    {QStringLiteral("stage_timeout_s"), stageTimeoutSeconds_},
+                                                    {QStringLiteral("global_timeout_s"), deadlines_.globalSeconds},
+                                                    {QStringLiteral("arming_timeout_s"), deadlines_.armingSeconds},
+                                                    {QStringLiteral("landing_timeout_s"), deadlines_.landingSeconds},
+                                                    {QStringLiteral("waiting_data_timeout_s"), deadlines_.waitingDataSeconds}}},
         {QStringLiteral("observations"), QJsonObject{{QStringLiteral("offboard_entered"), offboardEntered_},
                                                       {QStringLiteral("armed"), armedObserved_},
                                                       {QStringLiteral("failsafe"), failsafeObserved_},
                                                       {QStringLiteral("offboard_loss_flag"), offboardLossObserved_},
                                                       {QStringLiteral("max_altitude_m"), maxAltitude_},
-                                                      {QStringLiteral("landed"), landDetected_ && landDetected_->landed}}},
+                                                      {QStringLiteral("landed"), landDetected_ && landDetected_->landed &&
+                                                                                     secondsSince(lastLandDetected_) < 1.0},
+                                                      {QStringLiteral("landing_confirmed"), landingConfirmed(
+                                                          landDetected_ && landDetected_->landed, armed(),
+                                                          secondsSince(lastLandDetected_), secondsSince(lastStatus_))}}},
         {QStringLiteral("origin_ned_m"), originSet_ ? QJsonValue(QJsonArray{origin_[0], origin_[1], origin_[2]}) : QJsonValue()},
         {QStringLiteral("events"), events_},
         {QStringLiteral("command_acks"), acknowledgements_}};
     const auto resultPath = QDir(resultDirectory_).filePath(QStringLiteral("result.json"));
     QSaveFile file(resultPath);
-    if (file.open(QIODevice::WriteOnly)) {
-      file.write(QJsonDocument(result).toJson(QJsonDocument::Indented));
-      file.commit();
+    const auto serialized = QJsonDocument(result).toJson(QJsonDocument::Indented);
+    if (!file.open(QIODevice::WriteOnly) || file.write(serialized) != serialized.size() || !file.commit()) {
+      success_ = false;
+      RCLCPP_ERROR(get_logger(), "PX4_OFFBOARD_FINALIZATION_FAILED=%s", file.errorString().toStdString().c_str());
+      return;
     }
     RCLCPP_INFO(get_logger(), "PX4_OFFBOARD_RESULT=%s", resultPath.toStdString().c_str());
   }
@@ -312,8 +331,17 @@ class OffboardTest final : public rclcpp::Node {
     if (finished_) {
       return;
     }
-    if (secondsSince(started_) > 100.0 && state_ != "landing") {
+    const auto deadline = expiredOffboardDeadline(state_, secondsSince(started_), stateElapsed(), deadlines_);
+    if (deadline == OffboardDeadline::Landing) {
+      finish(false, QStringLiteral("landing_timeout_unconfirmed"));
+      return;
+    }
+    if (deadline == OffboardDeadline::Global) {
       abort(QStringLiteral("global_timeout"));
+      return;
+    }
+    if (deadline == OffboardDeadline::Arming) {
+      abort(QStringLiteral("arming_or_offboard_rejected"));
       return;
     }
     if (state_ == "waiting_for_data") {
@@ -328,9 +356,13 @@ class OffboardTest final : public rclcpp::Node {
         targetSet_ = true;
         publishEnabled_ = true;
         transition("warmup", {{QStringLiteral("origin_ned"), QJsonArray{origin_[0], origin_[1], origin_[2]}}});
-      } else if (stateElapsed() > 12.0) {
+      } else if (stateElapsed() >= deadlines_.waitingDataSeconds) {
         abort(QStringLiteral("px4_data_unavailable"));
       }
+      return;
+    }
+    if (requiresLiveOffboardTelemetry(state_) && !ready()) {
+      abort(QStringLiteral("px4_data_stale_or_invalid"));
       return;
     }
     publishSetpoint();
@@ -346,8 +378,6 @@ class OffboardTest final : public rclcpp::Node {
         startMissionStage(0);
       } else if (secondsSince(lastCommand_) >= 1.0) {
         sendOffboardAndArm();
-      } else if (stateElapsed() > 10.0) {
-        abort(QStringLiteral("arming_or_offboard_rejected"));
       }
     } else if (state_ == "mission_stage") {
       if (status_ && status_->nav_state != px4_msgs::msg::VehicleStatus::NAVIGATION_STATE_OFFBOARD) {
@@ -380,8 +410,8 @@ class OffboardTest final : public rclcpp::Node {
         beginLanding(false, QStringLiteral("offboard_loss_not_detected"), true);
       }
     } else if (state_ == "landing") {
-      const auto landed = landDetected_ && landDetected_->landed;
-      if (landed && !armed()) {
+      const auto landed = landDetected_ && landDetected_->landed && secondsSince(lastLandDetected_) < 1.0;
+      if (landingConfirmed(landed, armed(), secondsSince(lastLandDetected_), secondsSince(lastStatus_))) {
         finish(pendingSuccess_, pendingReason_);
       } else if (landed && armed() && secondsSince(lastCommand_) >= 2.0) {
         sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 0.0F);
@@ -397,12 +427,14 @@ class OffboardTest final : public rclcpp::Node {
   double warmupSeconds_{2.0};
   double hoverSeconds_{3.0};
   double stageTimeoutSeconds_{12.0};
+  OffboardDeadlines deadlines_{};
   QString resultDirectory_;
   std::string state_{"waiting_for_data"};
   Clock::time_point started_{Clock::now()};
   Clock::time_point stateStarted_{Clock::now()};
   Clock::time_point lastStatus_{Clock::time_point::min()};
   Clock::time_point lastOdometry_{Clock::time_point::min()};
+  Clock::time_point lastLandDetected_{Clock::time_point::min()};
   Clock::time_point lastCommand_{Clock::time_point::min()};
   px4_msgs::msg::VehicleStatus::UniquePtr status_;
   px4_msgs::msg::VehicleOdometry::UniquePtr odometry_;
@@ -422,6 +454,7 @@ class OffboardTest final : public rclcpp::Node {
   QString pendingReason_;
   bool offboardEntered_{false};
   bool armedObserved_{false};
+  bool armRequested_{false};
   bool failsafeObserved_{false};
   bool offboardLossObserved_{false};
   double maxAltitude_{0.0};

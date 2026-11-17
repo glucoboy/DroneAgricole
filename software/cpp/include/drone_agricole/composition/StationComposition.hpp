@@ -1,6 +1,9 @@
 #pragma once
 #include "drone_agricole/application/IStationServices.hpp"
 #include "drone_agricole/adapters/ProcessRunBackend.hpp"
+#include "drone_agricole/adapters/JsonWorkspaceStore.hpp"
+#include "drone_agricole/adapters/BomHardwareInventory.hpp"
+#include "drone_agricole/adapters/LocalGazeboExportBackend.hpp"
 #include "drone_agricole/core/ContractRegistry.hpp"
 #include "drone_agricole/core/RunnerRegistry.hpp"
 #include "drone_agricole/core/ComparisonService.hpp"
@@ -12,6 +15,8 @@ class StationComposition final : public application::IStationServices,
  public:
   explicit StationComposition(const QString& workspace);
   application::RunService& execution() override { return execution_; }
+  application::WorkspaceService& workspaceData() override { return workspaceData_; }
+  application::GazeboExportService& gazeboExport() override { return gazeboExport_; }
   QString workspace() const override { return contracts_.workspace(); }
   QList<core::SimulationDefinition> simulations() const override { return contracts_.simulations(); }
   QList<core::DatasetSequence> datasetSequences() const override { return contracts_.datasetSequences(); }
@@ -42,6 +47,11 @@ class StationComposition final : public application::IStationServices,
   std::unique_ptr<core::LiveTelemetry> telemetry_;
   adapters::ProcessRunBackend backend_;
   application::RunService execution_;
+  adapters::JsonWorkspaceStore workspaceStore_;
+  adapters::BomHardwareInventory hardwareInventory_;
+  application::WorkspaceService workspaceData_;
+  adapters::LocalGazeboExportBackend gazeboBackend_;
+  application::GazeboExportService gazeboExport_;
   domain::PreparedRun prepare(const QJsonObject& request) override;
   void finalize(const domain::PreparedRun& run) override;
 };

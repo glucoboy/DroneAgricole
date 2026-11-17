@@ -25,6 +25,7 @@
 
 
 #include <QSignalBlocker>
+#include <QSet>
 #include <QSpinBox>
 #include <QStyle>
 #include <QTableWidgetItem>
@@ -40,10 +41,10 @@ namespace drone_agricole::ui {
 namespace {
 
 const QList<QColor> comparisonColors{
-    QColor(QStringLiteral("#55e2d2")),
-    QColor(QStringLiteral("#c995ff")),
-    QColor(QStringLiteral("#74e3a8")),
-    QColor(QStringLiteral("#ff8fa8")),
+    QColor(QStringLiteral("#087f8c")),
+    QColor(QStringLiteral("#8051b5")),
+    QColor(QStringLiteral("#23834d")),
+    QColor(QStringLiteral("#bf4263")),
 };
 
 QTableWidgetItem* item(const QString& text) {
@@ -71,12 +72,87 @@ ComparisonPage::ComparisonPage(application::IStationServices& services, QWidget*
   ui_->setupUi(this);
   for (auto* table : {ui_->comparisonMetricsTable, ui_->comparisonParametersTable, ui_->comparisonVersionsTable}) prepareTable(table);
   connect(ui_->exportReportButton, &QPushButton::clicked, this, &ComparisonPage::exportComparisonReport);
+  connect(ui_->compareSelectionButton, &QPushButton::clicked, this, &ComparisonPage::compareSelection);
+  connect(ui_->refreshComparisonButton, &QPushButton::clicked, this, [this] {
+    try { services_.refresh(); refreshResults(); }
+    catch (const std::exception& error) {
+      QMessageBox::warning(this, QStringLiteral("Actualisation impossible"), QString::fromUtf8(error.what()));
+    }
+  });
+  for (auto* combo : {ui_->firstResultCombo, ui_->secondResultCombo, ui_->thirdResultCombo, ui_->fourthResultCombo}) {
+    connect(combo, &QComboBox::currentIndexChanged, this, [this] {
+      QStringList ids;
+      for (const auto* selector : {ui_->firstResultCombo, ui_->secondResultCombo, ui_->thirdResultCombo, ui_->fourthResultCombo}) {
+        const auto id = selector->currentData().toString();
+        if (!id.isEmpty()) ids.append(id);
+      }
+      const QSet<QString> distinct(ids.cbegin(), ids.cend());
+      ui_->compareSelectionButton->setEnabled(ids.size() >= 2 && distinct.size() == ids.size());
+      comparisonReport_.clear();
+      ui_->exportReportButton->setEnabled(false);
+      ui_->comparisonReportEdit->clear();
+      ui_->comparisonMetricsTable->setRowCount(0);
+      ui_->comparisonParametersTable->setRowCount(0);
+      ui_->comparisonVersionsTable->setRowCount(0);
+      ui_->comparisonTrajectoryView->clear();
+      ui_->comparisonMetricsPlot->setSeries({});
+      ui_->comparisonStatusLabel->setText(QStringLiteral("Sélectionnez deux à quatre archives, puis lancez la comparaison."));
+    });
+  }
+  refreshResults();
 }
 ComparisonPage::~ComparisonPage() = default;
+
+void ComparisonPage::refreshResults() {
+  const auto results = services_.search();
+  QStringList previousIds;
+  QStringList selectedIds;
+  for (auto* combo : {ui_->firstResultCombo, ui_->secondResultCombo, ui_->thirdResultCombo, ui_->fourthResultCombo}) {
+    const auto current = combo->currentData().toString();
+    previousIds.append(current);
+    const QSignalBlocker blocker(combo);
+    combo->clear();
+    combo->addItem(QStringLiteral("Sélectionner une archive"), QString{});
+    for (const auto& result : results) {
+      combo->addItem(QStringLiteral("%1 · %2 · %3").arg(result.variantId, result.runId, result.domain), result.resultId);
+    }
+    combo->setCurrentIndex(std::max(0, combo->findData(current)));
+    const auto selected = combo->currentData().toString();
+    if (!selected.isEmpty()) selectedIds.append(selected);
+  }
+  const QSet<QString> distinct(selectedIds.cbegin(), selectedIds.cend());
+  ui_->compareSelectionButton->setEnabled(selectedIds.size() >= 2 && distinct.size() == selectedIds.size());
+  previousIds.removeAll(QString{});
+  if (selectedIds != previousIds) {
+    comparisonReport_.clear();
+    ui_->exportReportButton->setEnabled(false);
+    ui_->comparisonReportEdit->clear();
+    ui_->comparisonMetricsTable->setRowCount(0);
+    ui_->comparisonParametersTable->setRowCount(0);
+    ui_->comparisonVersionsTable->setRowCount(0);
+    ui_->comparisonTrajectoryView->clear();
+    ui_->comparisonMetricsPlot->setSeries({});
+    ui_->comparisonStatusLabel->setText(QStringLiteral("Une archive sélectionnée n'est plus disponible. Choisissez une nouvelle sélection."));
+  }
+}
+
+void ComparisonPage::compareSelection() {
+  QStringList ids;
+  for (const auto* combo : {ui_->firstResultCombo, ui_->secondResultCombo, ui_->thirdResultCombo, ui_->fourthResultCombo}) {
+    const auto id = combo->currentData().toString();
+    if (!id.isEmpty()) ids.append(id);
+  }
+  compare(ids);
+}
 
 bool ComparisonPage::compare(const QStringList& ids) {
   try {
     const auto comparison = services_.compare(ids);
+    refreshResults();
+    const QList<QComboBox*> combos{ui_->firstResultCombo, ui_->secondResultCombo, ui_->thirdResultCombo, ui_->fourthResultCombo};
+    for (qsizetype index = 0; index < combos.size(); ++index) {
+      combos.at(index)->setCurrentIndex(index < ids.size() ? std::max(0, combos.at(index)->findData(ids.at(index))) : 0);
+    }
     comparisonReport_ = comparison.markdownReport;
     showComparison(comparison.preview, ids);
     ui_->comparisonReportEdit->setPlainText(comparisonReport_);
@@ -127,8 +203,8 @@ void ComparisonPage::showComparison(const QJsonObject& comparison, const QString
       auto* cell = item(displayValue(value.value(QStringLiteral("value"))));
       if (best.contains(value.value(QStringLiteral("result_id")))) {
         cell->setText(cell->text() + QStringLiteral(" ★"));
-        cell->setBackground(QColor(QStringLiteral("#14533f")));
-        cell->setForeground(QColor(QStringLiteral("#ffffff")));
+        cell->setBackground(QColor(QStringLiteral("#dcfce7")));
+        cell->setForeground(QColor(QStringLiteral("#166534")));
       }
       ui_->comparisonMetricsTable->setItem(row, 2 + column, cell);
     }
@@ -182,11 +258,11 @@ void ComparisonPage::showComparison(const QJsonObject& comparison, const QString
       for (qsizetype index = 0; index < resultIds.size(); ++index) {
         QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
         const auto replay = services_.replay(resultIds.at(index));
-        const auto color = comparisonColors.at(index);
+        const auto color = comparisonColors.at(index % comparisonColors.size());
         const auto points = replay.domain == QStringLiteral("localization") ? replay.estimate : replay.px4Path;
         trajectories.append(TrajectorySeries{runLabels.at(index), color, points, false, {}});
         if (!truthAdded && !replay.truth.isEmpty()) {
-          trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#ffd166")), replay.truth, true, {}});
+          trajectories.append(TrajectorySeries{QStringLiteral("Vérité terrain"), QColor(QStringLiteral("#a26900")), replay.truth, true, {}});
           truthAdded = true;
         }
         if (!replay.curve.isEmpty()) {

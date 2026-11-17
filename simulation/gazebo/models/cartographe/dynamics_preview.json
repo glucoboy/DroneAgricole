@@ -1,0 +1,20 @@
+{
+  "status": "À valider",
+  "purpose": "Scénario numérique de développement SITL, aucune masse du prototype prédite",
+  "total_mass_kg": 6.0,
+  "rotor_mass_kg": 0.022,
+  "rotor_nominal_radius_m": 0.1905,
+  "body_equivalent_box_m": [0.46, 0.46, 0.25],
+  "body_centre_m": [0.0, 0.0, 0.0],
+  "mass_provenance": "6 kg = hypothèse de scénario choisie pour un point stationnaire admissible dans le domaine MPC_THR_HOVER ; inconnues du mass_ledger jamais remplacées par zéro. 22 g = fiche Gemfan candidate, lot à mesurer.",
+  "inertia_provenance": "Corps boîte homogène équivalente de scénario + quatre disques, calcul analytique ; ne représente pas les distributions internes réelles",
+  "max_rpm": 6000.0,
+  "max_thrust_per_rotor_n": 18.828768,
+  "propulsion_provenance": "MN4014 KV330, 15x5CF, 22.2 V, point fabricant 1920 gf/6000 RPM ; proxy différent de Gemfan1555/Tekko32. kT calculé sur ce seul point, pas ajusté au x500.",
+  "moment_constant_m": 0.02,
+  "response_up_s": 0.05,
+  "response_down_s": 0.05,
+  "motor_assumptions": "kM=0.02 m et réponse 50 ms hypothétiques, à identifier ; traînée latérale et couple de roulement à zéro dans cet aperçu sans vent, pas des mesures",
+  "rotor_order_cad": [4, 3, 2, 1],
+  "battery_source": "PX4 battery_simulator forfaitaire pour aperçu uniquement ; modèle énergie hors ligne distinct, autonomie PX4 interdite tant que source couplée non vérifiée"
+}
