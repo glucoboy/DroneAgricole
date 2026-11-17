@@ -14,7 +14,7 @@ Utiliser `hardware/` comme répertoire de travail matériel par défaut. Toute C
 - `exports/` : STL et STEP dérivés, à régénérer après modification.
 - `verification/` : contrôles et limites connues.
 
-Les occurrences répétées réutilisent une référence. Conserver les noms et faire évoluer les fichiers en place. Sauvegarder et transférer toute l'arborescence pour conserver les liens. Les petits natifs du dock batterie et leurs dépendances sont explicitement suivis par les exceptions de `.gitignore` ; sources fabricant lourdes, archives et exports restent exclus de Git.
+Les occurrences répétées réutilisent une référence. Conserver les noms et faire évoluer les fichiers en place. Sauvegarder et transférer toute l'arborescence pour conserver les liens. Les natifs `.FCStd`, y compris ceux des variantes et archives, sont suivis par Git avec leurs dépendances ; les sauvegardes `.FCStd1` et `.FCBak`, les répertoires `sources_fabricants/` et les exports restent exclus.
 
 Application : [cartographe](cartographe/README.md). La convention pérenne et
 l'exigence `MEC-ARC-001` sont définies dans [DOC-MEC](../../docs/architecture/ARCHITECTURE_MECANIQUE.md).

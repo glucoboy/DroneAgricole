@@ -29,12 +29,20 @@ règles suivantes :
 - sous-assemblages séparés et assemblage final par liens externes `App::Link` ;
 - réutilisation d'une même référence pour les occurrences répétées ;
 - sources fabricant conservées inchangées ;
-- exports dérivés régénérables et fichiers CAO lourds exclus de Git ;
+- natifs FreeCAD `.FCStd` suivis dans Git avec leurs dépendances ;
+- sauvegardes FreeCAD, sources fabricant lourdes et exports dérivés exclus de Git ;
 - placements, références et occurrences décrits dans `manifest.json`.
 
 Le manifeste est l'autorité pour les noms de fichiers et matrices de placement.
 Ce document explique l'intention et la nomenclature, sans recopier toutes les
 coordonnées.
+
+**Suivi Git — 17 novembre 2026.** À la demande du responsable du projet,
+les natifs `.FCStd` existants sont intégrés au dépôt, y compris les variantes
+et archives, pour conserver les montages et leurs liens externes lors d'un
+transfert du dépôt. Cette intégration préserve les fichiers en place et ne
+modifie pas leur état de qualification. Les répertoires `sources_fabricants/`
+et `exports/`, ainsi que les sauvegardes `.FCStd1` et `.FCBak`, restent exclus.
 
 ### 2.1 Catalogue historique et archives — 4 octobre 2026
 
@@ -2805,6 +2813,7 @@ présentée comme référence.
 
 ## Journal de modifications
 
+- **17 novembre 2026** — Suivi Git des natifs FreeCAD existants, variantes et archives comprises, avec leurs liens externes ; exclusions des sources fabricant, exports et sauvegardes conservées (§2).
 - **17 novembre 2026** — Reconstruction GO3B, six variantes et une consolidée native. Défauts mesurés et réception NO_GO motivée. [Résultat](#cartographe-go3b-reconstruction).
 - **17 novembre 2026** — Portefeuille GO3A V2.1 sur l’actif gelé. Trois décisions d’implantation et de service à comparer sur copies (§2.2.2).
 
