@@ -14,6 +14,8 @@ namespace {
 const QString go3a = "docs/verification/go3a/";
 const QString go3b = "docs/verification/go3b/";
 const QString policyPath = "convergence_manager/fixtures/v21_evidence_plan.json";
+const QString releasesPath = "convergence_manager/fixtures/h01_releases/manifest.json";
+const QString releasesSha = "00e91cb582195bfbb792134d895d42d9361bc18c39312feadd91c4765b538495";
 const QSet<QString> statuses{"UNKNOWN", "INCONCLUSIVE", "NOT_RUN", "FAIL", "PASS"};
 
 struct Authority {
@@ -21,6 +23,7 @@ struct Authority {
     QJsonObject sources;
     QJsonObject history;
     QJsonObject gaps;
+    QJsonObject release;
     QString candidate;
     QString reference;
     int budget;
@@ -40,7 +43,7 @@ void verifyFiles(const QDir &root, const QJsonObject &files)
     }
 }
 
-Authority loadAuthority(const QDir &root)
+Authority loadAuthority(const QDir &root, const QString &sourceRelease)
 {
     Authority result;
     const auto sourcesPath = go3b + "GO3B_SOURCE_MANIFEST.json";
@@ -52,8 +55,36 @@ Authority loadAuthority(const QDir &root)
     const QString sourcesSha = "56416edb6caa2f6601baf0fe68b619e9ac6d33408a901b24d899ba99393cf29d";
     const QString historySha = "b5bb1d3ab901e300b12558ba9cd33558210a9dee343520a0f0085257a7d58521";
     result.sources = checked(root, sourcesPath, sourcesSha).value("files").toObject();
-    require(!result.sources.isEmpty(), "Inventaire GO3B absent");
+    const auto releases = checked(root, releasesPath, releasesSha);
+    const auto closureSha = [&] { return digest(QJsonDocument(result.sources).toJson(QJsonDocument::Compact)); };
+    require(releases.value("schema") == "drone_agricole.h01_source_releases.v1" &&
+            releases.value("historical_manifest").toObject() == QJsonObject{{"path", sourcesPath}, {"sha256", sourcesSha}} &&
+            releases.value("frozen_file_count").toInt() == result.sources.size() &&
+            releases.value("historical_closure_sha256") == closureSha(), "Fermeture historique incompatible");
+    const auto worker = releases.value("worker").toObject();
+    const auto workerPath = worker.value("path").toString();
+    const auto archivedWorker = worker.value("v2").toObject();
+    const auto archivedPath = archivedWorker.value("path").toString();
+    const auto archivedSha = archivedWorker.value("sha256");
+    require(result.sources.contains(workerPath) && result.sources.value(workerPath) == archivedSha,
+            "Worker historique hors du gel");
+    result.hashes.insert(archivedPath, archivedSha);
+    result.hashes.insert(releasesPath, releasesSha);
+    if (sourceRelease == "v2.1") {
+        const auto current = worker.value("v21").toObject();
+        const auto evidence = current.value("evidence").toObject();
+        const auto evidencePath = evidence.value("path").toString();
+        const auto evidenceSha = evidence.value("sha256");
+        const auto coverage = checked(root, evidencePath, evidenceSha);
+        require(coverage.value("inputs_sha256").toObject().value(workerPath) == current.value("sha256"),
+                "Provenance du worker V2.1 incompatible");
+        result.sources.insert(workerPath, current.value("sha256"));
+        require(releases.value("v21_closure_sha256") == closureSha(), "Fermeture V2.1 incompatible");
+        result.hashes.insert(evidencePath, evidenceSha);
+    }
+    result.release = {{"id", sourceRelease}, {"closure_sha256", closureSha()}};
     verifyFiles(root, result.sources);
+    verifyFiles(root, result.hashes);
     const auto manifest = checked(root, manifestPath, result.sources.value(manifestPath));
     const auto requirements = checked(root, requirementsPath, result.sources.value(requirementsPath));
     const auto decisions = checked(root, decisionsPath, result.sources.value(decisionsPath));
@@ -92,7 +123,9 @@ Authority loadAuthority(const QDir &root)
     result.history = {{"verdict", "NO_GO_MOTIVE"}, {"status", status}, {"autorisation_go3b", authorization},
         {"front_admissible_cartographe", front}, {"built", 0}, {"build_limit", result.budget}};
 
-    const auto policy = load(fileInside(root, policyPath));
+    const auto policyPin = releases.value("policy").toObject();
+    require(policyPin.value("path") == policyPath, "Plan de preuve hors du gel");
+    const auto policy = checked(root, policyPath, policyPin.value("sha256"));
     require(policy.value("schema") == "drone_agricole.evidence_plan.v2.1", "Plan de preuve incompatible");
     const auto activities = policy.value("evidence_gap").toObject();
     QJsonObject recorded;
@@ -121,13 +154,16 @@ Authority loadAuthority(const QDir &root)
     }
     require(result.gaps.size() == 8 && recorded.size() == 8 && activities.size() == 8,
             "Couverture incomplète des exigences GO3A");
-    for (const auto &path : {sourcesPath, manifestPath, requirementsPath, modelPath, decisionsPath, historyPath, policyPath}) {
-        result.hashes.insert(path, fileDigest(fileInside(root, path)));
+    for (const auto &path : {manifestPath, requirementsPath, modelPath, decisionsPath}) {
+        result.hashes.insert(path, result.sources.value(path));
     }
+    result.hashes.insert(sourcesPath, sourcesSha);
+    result.hashes.insert(historyPath, historySha);
+    result.hashes.insert(policyPath, policyPin.value("sha256"));
     return result;
 }
 
-QJsonArray explorationBlocks(const QDir &output, const QJsonObject &plan)
+QJsonArray explorationBlocks(const QDir &output, const QJsonObject &plan, const QJsonObject &gaps)
 {
     QJsonArray blocks;
     for (const auto &field : {"preserve_connectivity", "constraints_enabled", "unpowered", "private_copy"}) {
@@ -145,11 +181,18 @@ QJsonArray explorationBlocks(const QDir &output, const QJsonObject &plan)
     }
     const auto findings = plan.value("trial_findings");
     require(findings.isObject(), "Constats de la variante requis");
-    for (const auto &entry : findings.toObject().keys()) {
-        const auto status = findings.toObject().value(entry).toString();
-        require(statuses.contains(status), "État de constat invalide : " + entry);
+    if (plan.contains("evidence_gap")) {
+        blocks.append("MANDATORY_EVIDENCE_IN_TRIAL");
+    }
+    const auto trial = findings.toObject();
+    for (auto it = trial.begin(); it != trial.end(); ++it) {
+        const auto status = it.value().toString();
+        require(statuses.contains(status), "État de constat invalide : " + it.key());
         if (status == "FAIL") {
-            blocks.append("KNOWN_VIOLATION:" + entry);
+            blocks.append("KNOWN_VIOLATION:" + it.key());
+        }
+        if (status == "PASS" && gaps.contains(it.key())) {
+            blocks.append("MANDATORY_TRIAL_PASS:" + it.key());
         }
     }
     return blocks;
@@ -242,13 +285,17 @@ QJsonObject finalReception(const QDir &root, const Authority &authority, const Q
 } // namespace
 
 QJsonObject preflight(const QDir &root, const QDir &output, const QString &mode,
-                      const QString &planPath, const QString &receiptPath, int steps)
+                      const QString &planPath, const QString &receiptPath, int steps,
+                      const QString &sourceRelease)
 {
-    const auto authority = loadAuthority(root);
+    require(sourceRelease == "v2.1" || (sourceRelease == "v2" && mode == "historical"),
+            "Version des sources incompatible avec cette porte");
+    const auto authority = loadAuthority(root, sourceRelease);
     QJsonObject result{{"schema", "drone_agricole.preflight.v2.1"}, {"mode", mode},
         {"candidate_id", authority.candidate}, {"authority_sha256", authority.hashes},
         {"reference_sha256", authority.reference}, {"historical", authority.history},
-        {"source_files_verified", authority.sources.size()}, {"evidence_gap", authority.gaps}};
+        {"source_files_verified", authority.sources.size()}, {"source_release", authority.release},
+        {"evidence_gap", authority.gaps}};
     if (mode == "historical") {
         result.insert("verdict", authority.history.value("verdict"));
     } else if (mode == "final") {
@@ -263,16 +310,24 @@ QJsonObject preflight(const QDir &root, const QDir &output, const QString &mode,
         require(plan.value("schema") == "drone_agricole.exploration_request.v2.1" &&
                 plan.value("candidate_id") == authority.candidate &&
                 plan.value("reference_sha256") == authority.reference, "Demande hors périmètre du gel");
-        const auto blocks = explorationBlocks(output, plan);
+        const auto blocks = explorationBlocks(output, plan, authority.gaps);
         result.insert("plan_sha256", digest(bytes));
         result.insert("blocks", blocks);
-        result.insert("trial_findings", plan.value("trial_findings"));
+        if (blocks.contains("MANDATORY_EVIDENCE_IN_TRIAL") ||
+            std::any_of(blocks.begin(), blocks.end(), [](const auto &block) {
+                return block.toString().startsWith("MANDATORY_TRIAL_PASS:");
+            })) {
+            result.insert("trial_findings", QJsonObject{});
+        } else {
+            result.insert("trial_findings", plan.value("trial_findings"));
+        }
         result.insert("verdict", blocks.isEmpty() ? "EXPLORATION_ALLOWED" : "EXPLORATION_BLOCKED");
         result.insert("budget", QJsonObject{{"variant_limit", authority.budget}, {"variants_built", 0}});
         const auto checkpoint = output.filePath("preflight.json");
         QJsonArray queue;
         if (QFileInfo::exists(checkpoint)) {
             const auto previous = load(checkpoint);
+            require(previous.value("queue").isArray(), "File d'activités absente du point de reprise");
             queue = previous.value("queue").toArray();
             auto identity = previous;
             identity.remove("queue");
@@ -280,7 +335,8 @@ QJsonObject preflight(const QDir &root, const QDir &output, const QString &mode,
             require(identity == result, "Reprise refusée : demande, gel ou contraintes modifiés");
         }
         const auto ids = authority.gaps.keys();
-        require(queue.size() <= ids.size(), "File d'activités incohérente");
+        require(queue.size() <= ids.size() && (blocks.isEmpty() || queue.isEmpty()),
+                "File d'activités incohérente");
         for (qsizetype i = 0; blocks.isEmpty() && i < ids.size(); ++i) {
             const auto activity = authority.gaps.value(ids[i]).toObject();
             const QJsonObject row{{"requirement_id", ids[i]}, {"action", activity.value("next_experiment")},

@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-HLD` |
 | Nature | document vivant |
-| Dernière mise à jour | 17 novembre 2026 |
+| Dernière mise à jour | 18 novembre 2026 |
 | Statut | architecture système préliminaire ; capacités qualifiées indiquées explicitement |
 
 ## 1. Objet et périmètre
@@ -200,6 +200,14 @@ capable d'interrompre la puissance de propulsion. Les natifs et schémas avec
 dock/JETI sont conservés comme définition héritée ; le prototype reconstruit
 en est distinct, sans qualification du nouveau montage ni modification du
 périmètre du produit custom.
+
+La passe V3-A prolonge ORCH-CAO-MASSE-1 après le constat GO3B. La décision
+utile porte sur les informations nécessaires avant de déplacer l’isolateur
+ou ses retenues. La passe est bornée à une fermeture XLink, un inventaire
+réconcilié et trois opérations virtuelles vérifiées contre un oracle.
+Une divergence d’identité, un effet critique omis ou une régression
+critique ferme l’admission. Les domaines de pose et preuves physiques
+restent des conditions d’une passe ultérieure. [Réception V3-A](../VALIDATION_QUALIFICATION.md#cartographe-v3-a)
 
 ### 1.2 Application proportionnée à chaque évolution
 
@@ -1743,6 +1751,7 @@ la pièce jointe : `49872e3caadea148a8ecb2f1edd9953bdd95c1debe26b63b7edb21069aed
 | Date | Modification |
 |---|---|
 | 17 novembre 2026 | GO3B construit sur copies, contre-validation et décision NO_GO motivée. Reprise appui/diagnostic définie au §1.1. |
+| 18 novembre 2026 | V3-A borne la reprise F40/F41 à l’observation de la fermeture et aux dépendances d’opérations virtuelles (§1.1). |
 | 17 novembre 2026 | GO3A V2.1 ouvre trois essais d’architecture sur copies sous les contraintes du prototype sans dock (§1.1). |
 | 14 novembre 2026 | Clôture de GO3B à l’admission, prérequis d’intégration H-01 ouverts (§1.1). |
 | 14 novembre 2026 | Cible d’instruction H-01 sous condition pour la complétude électromécanique et massique (§1.1). |

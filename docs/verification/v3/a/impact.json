@@ -1,0 +1,146 @@
+{
+  "schema": "v3.impact-receipt/1",
+  "status": "PASS",
+  "oracle": {
+    "path": "docs/verification/v3/a/impact_oracle.json",
+    "sha256": "298df30d6bdb1acceb6906d20bc0cf617aafa83ee69b30fb9fc547daa1d821a8"
+  },
+  "bench_oracle": {
+    "path": "electromechanical_graph/tests/bench_oracle.json",
+    "sha256": "69c6c8b52f409754536308d9a3ca28804c0d35e4ed3f5cda027614066c6bb8eb"
+  },
+  "raw_receipt": {
+    "path": ".runtime/v3-a/sealed/checks.json",
+    "sha256": "2b241ce1328ea41df55d1e37cacb36055f0e8ea64b3c453b67af320020ed1c1b"
+  },
+  "graph_byte_identical_after_transfer": true,
+  "cases": {
+    "bench": [
+      {
+        "additional_nodes": 3,
+        "artifact": "bench-move.json",
+        "operation": "MOVE",
+        "required_checks_found": 1,
+        "required_nodes_found": 2,
+        "sha256": "eda357169e69eee85c86998a9013bb4fb48c1ad4f6e42d1d500519508d3e1161",
+        "status": "PASS",
+        "target": "equipment-7"
+      },
+      {
+        "additional_nodes": 2,
+        "artifact": "bench-retention.json",
+        "operation": "RETENTION",
+        "required_checks_found": 1,
+        "required_nodes_found": 1,
+        "sha256": "667cc8667fd289c19eef3f5bb804ff9b88f574fe14d927cb190ab143fc22c2e9",
+        "status": "PASS",
+        "target": "guide-4"
+      },
+      {
+        "additional_nodes": 2,
+        "artifact": "bench-frame.json",
+        "operation": "FRAME",
+        "required_checks_found": 1,
+        "required_nodes_found": 1,
+        "sha256": "668387f02e4666ff55bb31bea737c7b3760a2f243bb7c5d5e3d294cba128419a",
+        "status": "PASS",
+        "target": "datum-7"
+      }
+    ],
+    "cartographe": [
+      {
+        "additional_nodes": 164,
+        "artifact": "cartographe-move.json",
+        "operation": "MOVE",
+        "required_checks_found": 10,
+        "required_nodes_found": 34,
+        "sha256": "3b6574b7d91c0953c96536d444eca151926432cb46bc87e4d37fad45bb3f4de7",
+        "status": "PASS",
+        "target": "iso"
+      },
+      {
+        "additional_nodes": 160,
+        "artifact": "cartographe-retention.json",
+        "operation": "RETENTION",
+        "required_checks_found": 8,
+        "required_nodes_found": 21,
+        "sha256": "2aca2fb262a6528f4a0c3bd876e8b79db6b467fef9727a7d56de6fbec78adc09",
+        "status": "PASS",
+        "target": "p72"
+      },
+      {
+        "additional_nodes": 173,
+        "artifact": "cartographe-frame.json",
+        "operation": "FRAME",
+        "required_checks_found": 5,
+        "required_nodes_found": 10,
+        "sha256": "7ff65882802a21a107709d4662e4fb581ae7ef56c86d85775ffab52db27e3385",
+        "status": "PASS",
+        "target": "ttl-reference"
+      }
+    ],
+    "transfer": [
+      {
+        "additional_nodes": 164,
+        "artifact": "transfer-move.json",
+        "operation": "MOVE",
+        "required_checks_found": 10,
+        "required_nodes_found": 34,
+        "sha256": "3b6574b7d91c0953c96536d444eca151926432cb46bc87e4d37fad45bb3f4de7",
+        "status": "PASS",
+        "target": "iso"
+      },
+      {
+        "additional_nodes": 160,
+        "artifact": "transfer-retention.json",
+        "operation": "RETENTION",
+        "required_checks_found": 8,
+        "required_nodes_found": 21,
+        "sha256": "2aca2fb262a6528f4a0c3bd876e8b79db6b467fef9727a7d56de6fbec78adc09",
+        "status": "PASS",
+        "target": "p72"
+      },
+      {
+        "additional_nodes": 173,
+        "artifact": "transfer-frame.json",
+        "operation": "FRAME",
+        "required_checks_found": 5,
+        "required_nodes_found": 10,
+        "sha256": "7ff65882802a21a107709d4662e4fb581ae7ef56c86d85775ffab52db27e3385",
+        "status": "PASS",
+        "target": "ttl-reference"
+      }
+    ]
+  },
+  "artifact_root": ".runtime/v3-a/sealed/",
+  "rejections": {
+    "altered_graph_sha256": ".runtime/v3-a/sealed/invalid-missing_anchor.json : empreinte SHA-256 divergente",
+    "altered_native_sha256": ".runtime/v3-a/sealed/invalid-native.json : empreinte SHA-256 divergente",
+    "axis_as_port_authority": "Un repère de port indépendant est requis : mating_frame",
+    "existing_output": ".runtime/v3-a/sealed/cartographe-graph.json : une nouvelle destination JSON est requise",
+    "failed_transfer": "Inventaire XLink incomplet",
+    "forbidden_operation_subject": "Cible sans fonction de retenue : port:W40/A",
+    "incomplete_connector": "Inventaire de port incomplet : port:W40/B/mating_frame",
+    "missing_anchor": "Relation sans nœuds distincts : anchor:iso-carrier / surface:p64-candidate",
+    "missing_route": "Relation d'autorité absente : link:W40 ROUTING:link:W40->axis:F40",
+    "missing_topology": "Topologie obligatoire : link:W40"
+  },
+  "conservative_review": [
+    "Voisinage de la baie CAN1/diagnostic, PDB et PM08.",
+    "Retenues et ancrages candidats, troncs partagés et états de service.",
+    "Une relation tracée produit une obligation de relecture, y compris en l’absence de collision démontrée."
+  ],
+  "t0": {
+    "state": "completed",
+    "run_id": "electromechanical_v3_a_395f05f0470949a7acf732de2209e0b5",
+    "independent_validator": "PASS",
+    "manifest": {
+      "path": ".runtime/v3-a/sealed/t0_run_manifest.json",
+      "sha256": "461021651ead9698b365325c17c5e04499f93d4f248a112606af73e78e6ea719"
+    },
+    "artifacts": {
+      "path": ".runtime/v3-a/sealed/artifacts.json",
+      "sha256": "6e505156f5a2db567495dfe5449f1816184121f5fcbc6f2a8247860509b90bc4"
+    }
+  }
+}

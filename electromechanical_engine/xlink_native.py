@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 import os
@@ -10,6 +11,8 @@ from pathlib import Path
 import sys
 import traceback
 from uuid import uuid4
+import xml.etree.ElementTree as ET
+import zipfile
 
 from .freecad import PROJECT, guard
 
@@ -26,6 +29,27 @@ def read(path):
 
 def hash_copy(root, receipt):
     return {name: guard.sha256(guard.relative_file(root, name)) for name in receipt['inputs_sha256']}
+
+
+def saved_root_content(path):
+    """Fingerprint of FCStd members, ignoring the generated document save date."""
+    with zipfile.ZipFile(path) as archive:
+        names = archive.namelist()
+        if len(names) != len(set(names)) or 'Document.xml' not in names:
+            raise ValueError('Structure du natif FCStd ambiguë.')
+        members = {}
+        for name in sorted(names):
+            content = archive.read(name)
+            if name == 'Document.xml':
+                document = ET.fromstring(content)
+                dates = document.findall('./Properties/Property[@name="LastModifiedDate"]'
+                                         '[@type="App::PropertyString"]/String')
+                if len(dates) != 1 or set(dates[0].attrib) != {'value'}:
+                    raise ValueError('Date de dernière sauvegarde FCStd ambiguë.')
+                dates[0].set('value', '')
+                content = ET.tostring(document, encoding='utf-8')
+            members[name] = hashlib.sha256(content).hexdigest()
+    return hashlib.sha256(json.dumps(members, sort_keys=True).encode('utf-8')).hexdigest()
 
 
 def check_files(root, receipt):
@@ -112,7 +136,7 @@ def collect(doc, root, hashes):
                     limits = native.bounds(shape)
                     if not all(math.isfinite(value) for corner in limits for value in corner):
                         raise ValueError('Boîte englobante non finie.')
-                    record.update(terminal_shape=True, bounds_mm=limits,
+                    record.update(terminal_shape=True, bounds_mm=limits, shape_sha256=native.geometry.shape_sha256(shape),
                                   geometry_scope='solid' if visible else 'hidden_solid')
                     shapes[ident] = shape
                 elif (visible and definition.isDerivedFrom('Part::Feature')
@@ -254,9 +278,18 @@ def route_measurement(record, obj, criteria=None):
     return observed
 
 
-def measure(tasks, destination, records, shapes, objects, criteria, cache_key):
+def measurement_identity(records):
+    keys = ('object', 'definition', 'document_sha256', 'definition_sha256', 'matrix', 'shape_sha256',
+            'status', 'visible', 'geometry_scope', 'terminal_shape', 'bounds_mm', 'route')
+    identity = {name: {key: value[key] for key in keys if key in value} for name, value in records.items()}
+    canonical = json.dumps(identity, sort_keys=True, separators=(',', ':'), allow_nan=False)
+    return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+
+def measure(tasks, records, shapes, objects, criteria, cache_key):
     from . import freecad_worker as native
 
+    observations = []
     for task in tasks:
         ident, a = task['id'], task['a']
         print(f'{ident}: {a} {task.get("b", "")}', flush=True)
@@ -276,11 +309,11 @@ def measure(tasks, destination, records, shapes, objects, criteria, cache_key):
                 raise ValueError(f'Tâche native inconnue : {task["kind"]}')
         except (AttributeError, IndexError, KeyError, RuntimeError, TypeError, ValueError) as error:
             result = {'status': 'unknown', 'reason': str(error)}
-        publish(destination / (ident + '.json'), {'cache_key': cache_key, 'task': task,
-                                                   'observation': result, 'worker_pid': os.getpid()})
+        observations.append({'cache_key': cache_key, 'task': task, 'observation': result, 'worker_pid': os.getpid()})
+    return observations
 
 
-def execute(request, output):
+def execute(request):
     action = request['action']
     if action == 'projection':
         register = guard.inside(PROJECT, request['register'])
@@ -301,6 +334,18 @@ def execute(request, output):
         extras = request.get('extras', [])
         return guard.stage(source, request['entry'], root, extras, parameters={'extras': extras})
     receipt = read(root / 'experiment.json')
+    if action == 'audit_saved_root':
+        reference = guard.inside(PROJECT, request['reference_copy'])
+        reference_receipt = read(reference / 'experiment.json')
+        entry = receipt['entry']
+        if (root == reference or reference_receipt['entry'] != entry or
+                check_files(root, receipt) != request['native_sha256'] or
+                check_files(reference, reference_receipt) != request['reference_native_sha256']):
+            raise ValueError('Fermeture de l’audit de sauvegarde incohérente.')
+        observed = saved_root_content(guard.relative_file(root, entry))
+        expected = saved_root_content(guard.relative_file(reference, entry))
+        return {'equivalent': observed == expected, 'saved_content_sha256': observed,
+                'reference_content_sha256': expected}
     if action == 'verify':
         return {'after_sha256': check_files(root, receipt), **guard.verify_sources(receipt)}
     doc, report = reopen(root, receipt, action == 'save')
@@ -312,11 +357,14 @@ def execute(request, output):
         raise ValueError('Environnement FreeCAD différent de celui de l’inventaire.')
     print('Lecture des occurrences et formes terminales', flush=True)
     records, shapes, objects = collect(doc, root, report['before_sha256'])
+    report['measurement_identity_sha256'] = measurement_identity(records)
     if action == 'inventory':
         report.update(occurrences=records, occurrence_count=len(records), root=receipt['entry'])
     elif action == 'measure':
-        checkpoints = guard.inside(output.parent.parent / 'cache', request['checkpoints'])
-        measure(request['tasks'], checkpoints, records, shapes, objects, request['criteria'], request['cache_key'])
+        if report['measurement_identity_sha256'] != request['measurement_identity_sha256']:
+            raise ValueError('Occurrences, poses ou formes différentes de l’inventaire.')
+        report['observations'] = measure(request['tasks'], records, shapes, objects,
+                                         request['criteria'], request['cache_key'])
     else:
         raise ValueError(f'Opération native inconnue : {action}')
     if check_files(root, receipt) != report['before_sha256']:
@@ -326,13 +374,23 @@ def execute(request, output):
 
 def main():
     request, output = map(Path, sys.argv[1:])
+    channel = os.environ.get('DRONE_XLINK_RESULT_CHANNEL')
+    received_sha = None
     try:
-        report = execute(read(request), output)
+        request_bytes = request.read_bytes()
+        received_sha = hashlib.sha256(request_bytes).hexdigest()
+        if channel and received_sha != os.environ.get('DRONE_XLINK_REQUEST_SHA256'):
+            raise ValueError('Empreinte de la requête native divergente.')
+        report = execute(json.loads(request_bytes))
         report['finalized'] = True
     except Exception:
         report = {'finalized': False, 'reason': traceback.format_exc()}
-    report.update(pid=os.getpid(), worker_id=uuid4().hex)
-    publish(output, report)
+    report.update(pid=os.getpid(), worker_id=uuid4().hex, request_sha256=received_sha)
+    if channel:
+        # Le processus appelant reçoit le lot complet par son propre canal.
+        print(channel + json.dumps(report, ensure_ascii=False, allow_nan=False), flush=True)
+    else:
+        publish(output, report)
     sys.stdout.flush()
     sys.stderr.flush()
     os._exit(0 if report['finalized'] else 1)

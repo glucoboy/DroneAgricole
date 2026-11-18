@@ -172,6 +172,7 @@ int main(int argc, char **argv)
     options.addPositionalArgument("command", "run (par défaut) ou preflight");
     options.addOptions({
         {"mode", "Porte preflight : historical, explore ou final", "mode"},
+        {"source-release", "Gel des outils : v2.1, ou v2 pour le rejeu historique", "release", "v2.1"},
         {"plan", "Plan de variante preflight", "path", "convergence_manager/fixtures/v21_h01_exploration.json"},
         {"receipt", "Reçu indépendant de réception V2.1", "path"},
         {"root", "Racine du dépôt", "path", "."},
@@ -188,7 +189,8 @@ int main(int argc, char **argv)
     try {
         const auto command = options.positionalArguments();
         if (command.isEmpty() || command == QStringList{"run"}) {
-            require(!options.isSet("mode") && !options.isSet("receipt") && !options.isSet("plan"),
+            require(!options.isSet("mode") && !options.isSet("receipt") && !options.isSet("plan") &&
+                    !options.isSet("source-release"),
                     "Les options de porte requièrent la commande preflight");
             return run(options);
         }
@@ -214,7 +216,8 @@ int main(int argc, char **argv)
             require(entry == ".publication.lock" ||
                     (entry == "preflight.json" && info.isFile() && !info.isSymLink()), "Sortie déjà occupée : " + entry);
         }
-        const auto report = preflight(root, output, mode, options.value("plan"), options.value("receipt"), steps);
+        const auto report = preflight(root, output, mode, options.value("plan"), options.value("receipt"), steps,
+                                      options.value("source-release"));
         const auto previous = QFileInfo::exists(checkpoint) ? load(checkpoint) : QJsonObject{};
         if (previous != report) {
             require(previous.isEmpty() || mode == "explore", "Sortie déjà utilisée par un autre préflight");

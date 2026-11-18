@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:electromechanical:v3:graph:1",
+  "title": "Graphe électromécanique XLink V3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "configuration", "sources", "nodes", "edges", "constraints", "issues"],
+  "properties": {
+    "schema": {"const": "v3.graph/1"},
+    "configuration": {"$ref": "#/$defs/text"},
+    "sources": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {"path": {"$ref": "#/$defs/text"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+        "additionalProperties": false
+      }
+    },
+    "nodes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/node"}},
+    "edges": {"type": "array", "items": {"$ref": "#/$defs/edge"}},
+    "constraints": {"type": "array", "items": {"$ref": "#/$defs/constraint"}},
+    "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+    "reconciliation": {"type": "object"}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "evidence": {
+      "type": "object",
+      "required": ["state", "source", "locator", "scope", "unit", "reception"],
+      "properties": {
+        "state": {"enum": ["DOCUMENTED", "MEASURED", "ASSUMED", "UNKNOWN"]},
+        "source": {"$ref": "#/$defs/text"},
+        "locator": {"$ref": "#/$defs/text"},
+        "scope": {"$ref": "#/$defs/text"},
+        "unit": {"type": ["string", "null"]},
+        "reception": {"enum": ["PASS", "FAIL", "INCONCLUSIVE", "NOT_RUN"]}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["key", "value", "evidence"],
+      "properties": {"key": {"$ref": "#/$defs/text"}, "value": {}, "evidence": {"$ref": "#/$defs/evidence"}},
+      "additionalProperties": false
+    },
+    "matrix": {
+      "description": "Matrice homogène 4×4 par lignes, translation en mm, appliquée à un vecteur colonne.",
+      "type": ["array", "null"],
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {"type": "number"}
+    },
+    "occurrence": {
+      "type": "object",
+      "required": ["id", "object", "definition", "visible", "matrix", "local_matrix"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"},
+        "object": {"$ref": "#/$defs/text"},
+        "definition": {"$ref": "#/$defs/text"},
+        "object_source": {"$ref": "#/$defs/text"},
+        "definition_source": {"$ref": "#/$defs/text"},
+        "parent": {"type": ["string", "null"]},
+        "visible": {"type": "boolean"},
+        "matrix": {"$ref": "#/$defs/matrix"},
+        "local_matrix": {"$ref": "#/$defs/matrix"}
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "kind", "version", "claims", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"},
+        "kind": {
+          "enum": [
+            "DEVICE", "PORT", "RECEPTACLE", "PLUG", "CONTACT", "CONDUCTOR", "HARNESS_SEGMENT",
+            "JUNCTION", "BUNDLE", "SUPPORT", "ANCHOR", "FASTENER", "STRUCTURE", "KEEP_OUT",
+            "MOTION_DOMAIN", "SERVICE_ENVELOPE", "CONTROL", "OBSERVATION", "ELECTRICAL_LINK"
+          ]
+        },
+        "version": {"const": 1},
+        "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "evidence": {"$ref": "#/$defs/evidence"},
+        "occurrence": {"$ref": "#/$defs/occurrence"}
+      },
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "required": ["id", "kind", "from", "to", "impact", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"},
+        "kind": {
+          "enum": [
+            "MATES", "ELECTRICAL", "WIRE_EXIT", "ROUTING", "CONTAINS", "FASTENS", "RETAINS",
+            "MEMBER_OF", "TRANSFORMS", "DEPENDS_ON", "ACCESS", "MOTION", "OBSERVES", "VERIFIES"
+          ]
+        },
+        "from": {"$ref": "#/$defs/text"},
+        "to": {"$ref": "#/$defs/text"},
+        "impact": {"enum": ["FORWARD", "REVERSE", "BOTH", "NONE"]},
+        "terminal": {"type": "boolean"},
+        "order": {"type": "integer", "minimum": 0},
+        "sense": {"enum": ["direct", "inverse"]},
+        "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    },
+    "subjects": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/text"}},
+    "constraint": {
+      "type": "object",
+      "required": ["id", "policy", "subjects", "state", "criticality", "authority", "threshold", "unit", "tolerance", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"},
+        "policy": {"enum": ["HARD_FIXED", "HARD_REQUIREMENT", "SOFT_OBJECTIVE", "DESIGN_VARIABLE", "UNKNOWN"]},
+        "subjects": {"$ref": "#/$defs/subjects"},
+        "state": {"enum": ["NOMINAL", "SERVICE", "MOBILE"]},
+        "criticality": {"$ref": "#/$defs/text"},
+        "authority": {"$ref": "#/$defs/text"},
+        "threshold": {},
+        "condition": {"$ref": "#/$defs/text"},
+        "unit": {"type": ["string", "null"]},
+        "tolerance": {},
+        "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    },
+    "issue": {
+      "type": "object",
+      "required": ["id", "severity", "subjects", "detail", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"},
+        "severity": {"$ref": "#/$defs/text"},
+        "subjects": {"$ref": "#/$defs/subjects"},
+        "detail": {"$ref": "#/$defs/text"},
+        "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    }
+  }
+}

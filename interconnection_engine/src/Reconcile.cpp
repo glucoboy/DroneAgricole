@@ -27,6 +27,7 @@ const auto netlistPath = inventoryFolder + u"/inventaire_netlist_ca01.json";
 const auto wiringPath = u"hardware/electronique/cartographe/cablage_global.json"_s;
 const auto onboard = u"faisceau_embarque"_s;
 const auto configuration = u"prototype_cartographe_sans_dock"_s;
+const auto mechanicalManifest = mechanicalRoot + u"/manifest.json";
 
 void require(bool condition, const QString &context)
 {
@@ -55,7 +56,7 @@ QJsonObject object(const QJsonObject &parent, const QString &key)
 
 class Sources {
 public:
-    explicit Sources(const QString &root) : root_(QDir(root).canonicalPath())
+    explicit Sources(const QString &root, bool v3 = false) : root_(QDir(root).canonicalPath()), v3_(v3)
     {
         require(!root.isEmpty() && !root_.isEmpty(), u"Racine du projet introuvable"_s);
     }
@@ -99,8 +100,24 @@ public:
 
     void verify(const QString &path, const QString &expectedHash)
     {
-        if (!hashes_.contains(path))
+        if (v3_ && path == mechanicalManifest) {
+            const auto bytes = read(path);
+            const auto actual = hash(path, bytes);
+            if (actual != expectedHash && !bytes.contains('\r')) {
+                QByteArray historical(bytes);
+                historical.replace("\n", "\r\n");
+                const auto restored = QString::fromLatin1(QCryptographicHash::hash(historical, QCryptographicHash::Sha256).toHex());
+                if (restored == expectedHash) {
+                    lineEndings_ = {{u"path"_s, path}, {u"source_sha256"_s, actual},
+                                    {u"historical_sha256"_s, expectedHash},
+                                    {u"normalization"_s, u"LF_TO_CRLF"_s},
+                                    {u"line_count"_s, static_cast<qint64>(bytes.count('\n'))}};
+                    return;
+                }
+            }
+        } else if (!hashes_.contains(path)) {
             hash(path, read(path));
+        }
         require(hashes_.value(path) == expectedHash, u"Empreinte SHA-256 divergente : "_s + path);
     }
 
@@ -110,10 +127,13 @@ public:
     }
 
     QJsonObject manifest() const { return hashes_; }
+    QJsonObject lineEndings() const { return lineEndings_; }
 
 private:
     QString root_;
+    bool v3_;
     QJsonObject hashes_;
+    QJsonObject lineEndings_;
 };
 
 struct IndexedRecord {
@@ -196,9 +216,9 @@ QJsonObject counts(const QMap<QString, int> &values)
 
 } // namespace
 
-QJsonObject reconcileInterconnections(const QString &root)
+static QJsonObject reconcileInterconnections(const QString &root, bool v3)
 {
-    Sources sources(root);
+    Sources sources(root, v3);
     const auto baseline = sources.json(baselinePath);
     require(baseline.value(u"schema_version"_s).toInt() == 1
             && baseline.value(u"configuration_id"_s) == u"prototype_cartographe"_s
@@ -448,14 +468,21 @@ QJsonObject reconcileInterconnections(const QString &root)
             {u"active_axis_hashes_differing_from_november_8_copy"_s, divergingAxes},
             {u"unresolved_onboard_lines_in_november_8_copy"_s, unresolvedCopy}
         }},
-        {u"source_sha256"_s, sources.manifest()},
+        {u"source_sha256"_s, sources.manifest()}, {u"line_endings"_s, sources.lineEndings()},
         {u"lines"_s, resultRows}, {u"axes"_s, resultAxes}, {u"cords"_s, resultCords}
     };
 }
 
-QJsonObject inspectCartographeInterfaces(const QString &root)
+QJsonObject reconcileInterconnections(const QString &root)
 {
-    const auto reconciled = reconcileInterconnections(root);
+    auto result = reconcileInterconnections(root, false);
+    result.remove(u"line_endings"_s);
+    return result;
+}
+
+static QJsonObject inspectCartographeInterfaces(const QString &root, bool v3)
+{
+    const auto reconciled = reconcileInterconnections(root, v3);
     Sources sources(root);
     const auto go3a = u"docs/verification/go3a/"_s;
     const auto go3b = u"docs/verification/go3b/"_s;
@@ -557,10 +584,23 @@ QJsonObject inspectCartographeInterfaces(const QString &root)
     const auto added = sources.manifest();
     for (auto it = added.begin(); it != added.end(); ++it)
         hashes.insert(it.key(), it.value());
-    return {{u"schema"_s, u"drone-agricole.l2.cartographe-interfaces.v1"_s},
+    QJsonObject result{{u"schema"_s, u"drone-agricole.l2.cartographe-interfaces.v1"_s},
             {u"configuration_id"_s, configuration}, {u"status"_s, u"INCONCLUSIVE"_s},
             {u"summary"_s, coverage}, {u"interfaces"_s, interfaces}, {u"line_interfaces"_s, lineInterfaces},
             {u"lines"_s, reconciled.value(u"lines"_s)}, {u"axes"_s, axisInterfaces}, {u"source_sha256"_s, hashes}};
+    if (v3)
+        result.insert(u"line_endings"_s, reconciled.value(u"line_endings"_s));
+    return result;
+}
+
+QJsonObject inspectCartographeInterfaces(const QString &root)
+{
+    return inspectCartographeInterfaces(root, false);
+}
+
+QJsonObject inspectCartographeInterfacesV3(const QString &root)
+{
+    return inspectCartographeInterfaces(root, true);
 }
 
 } // namespace interconnection

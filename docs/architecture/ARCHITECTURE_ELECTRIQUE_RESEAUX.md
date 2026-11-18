@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-ELEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 17 novembre 2026 |
+| Dernière mise à jour | 18 novembre 2026 |
 | Statut | architecture candidate ; schémas, faisceaux et qualifications **À valider** |
 
 ## 1. Objet
@@ -2177,6 +2177,13 @@ charge, sertissage, vibration et thermique restent **À valider**.
 Schéma et registre courants : §4.3. Implantation : DOC-MEC§4.1.3.3.
 Validation : DOC-VAL§12.1.9. La définition sans BMS du §6.1 est historique.
 
+La projection V3-A trace le diagnostic JBD → F40 → Waveshare 15817 → F41
+→ Holybro et sépare les fonctions électriques, les réservations d’axes et
+les repères indépendants. Le choix J2/J3 et la concordance des références,
+la déconnexion TE ou manuelle, les brochages installés et le cordon USB
+restent **À valider**. Le retour brut isolé et les alimentations laissées
+NC suivent le contrat UART. [Autorités, contraintes et écarts](../electromechanical_v3/cartographe.json)
+
 ## 7. Architecture réseau et données
 
 ```text
@@ -2893,6 +2900,8 @@ intégrité USB3 du cordon sur mesure restent à valider.
 [Gaine Twist-In19 170-01014](https://www.hellermanntyton.com/products/open-woven-sleeves/twist-in-19-2-m/170-01014).
 
 ## Journal de modifications
+
+- **18 novembre 2026** — Réconciliation V3-A du diagnostic BMS et des incertitudes F40/F41 à partir des autorités existantes.
 
 - **17 novembre 2026** — Contrôles GO3B du graphe et des copies, TELEM1, réservations de diagnostic et BOM dérivée. Réception CAO NO_GO et essais électriques ouverts (§4.3).
 - **17 novembre 2026** — Reprise GO3A V2.1. Graphe et invariants communs des trois exécutions sur copies, références et preuves d’interface à établir (§4.3).

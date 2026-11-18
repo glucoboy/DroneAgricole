@@ -3,6 +3,7 @@
 import argparse
 from collections import Counter, defaultdict
 import hashlib
+from itertools import combinations
 import json
 import math
 from pathlib import Path
@@ -15,6 +16,36 @@ def load(path):
 def digest(path):
     with path.open('rb') as stream:
         return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def verify_broad_phase(run, geometry, criteria, occurrences, measurement_key):
+    if 'aabb_exclusion_proof' not in geometry:
+        return
+    proof = load(run / geometry['aabb_exclusion_proof'])
+    assert proof['measurement_key'] == measurement_key
+    assert proof['inventory_sha256'] == digest(run / 'inventory.result.json')
+    cutoff = criteria['clearance_mm'] + criteria['distance_tolerance_mm']
+    assert proof['cutoff_mm'] == cutoff
+    visible = {name: row for name, row in occurrences.items()
+               if row['visible'] and row['terminal_shape'] and row['status'] == 'PASS'}
+    expected = {(a, b) for a, b in combinations(sorted(visible), 2)
+                if 'route' in visible[a] or 'route' in visible[b]}
+    exclusions = {}
+    for a, b, lower_bound in proof['exclusions']:
+        pair = tuple(sorted((a, b)))
+        assert pair in expected and pair not in exclusions
+        lo1, hi1 = visible[a]['bounds_mm']
+        lo2, hi2 = visible[b]['bounds_mm']
+        distance = math.hypot(*(max(0, x - v, u - y) for x, y, u, v in zip(lo1, hi1, lo2, hi2)))
+        assert cutoff < lower_bound <= distance or (
+            cutoff < lower_bound and math.isclose(lower_bound, distance, rel_tol=1e-15))
+        exclusions[pair] = lower_bound
+    candidates = [tuple(sorted((task['a'], task['b']))) for task in
+                  (row['task'] for row in geometry['checks']) if task['kind'] == 'pair']
+    assert len(candidates) == len(set(candidates)) == geometry['possible_brep_pairs']
+    assert len(exclusions) == geometry['pairs_screened_out']
+    assert not set(candidates) & set(exclusions)
+    assert expected == set(candidates) | set(exclusions)
 
 
 def verify(workspace, run, graph_path, closure_path):
@@ -102,10 +133,12 @@ def verify(workspace, run, graph_path, closure_path):
     assert geometry['solid_occurrences'] == 565 and geometry['route_occurrences'] == 53
     assert geometry['expected_pairs'] == 28514 and geometry['possible_brep_pairs'] == 1609
     assert geometry['pairs_screened_out'] == 26905 and geometry['exclusions']
-    assert geometry['pairs_examined'] > 0 and geometry['pairs_not_run'] > 0
+    assert geometry['pairs_examined'] > 0
+    verify_broad_phase(run, geometry, configuration['criteria'], occurrences, closure['cache_key'])
     measured_pids = set()
     measured = 0
     not_run = 0
+    pending_reasons = Counter()
     for row in geometry['checks']:
         evidence = row['native_evidence']
         if evidence:
@@ -114,15 +147,20 @@ def verify(workspace, run, graph_path, closure_path):
         if row['task']['kind'] == 'pair' and row['status'] == 'NOT_RUN':
             assert evidence is None
             not_run += 1
+            pending_reasons[row.get('reason')] += 1
         if row['task']['kind'] == 'pair' and evidence:
             observation = evidence['observation']
-            measured += int('intersection_mm3' in observation and 'clearance_mm' in observation)
+            measured += int(observation['status'] in {'pass', 'fail'} and
+                            isinstance(observation.get('intersection_mm3'), (int, float)) and
+                            isinstance(observation.get('clearance_mm'), (int, float)))
             assert row['status'] != 'PASS'  # The frozen prototype policy treats this as screening.
     assert measured == geometry['pairs_examined'] and not_run == geometry['pairs_not_run']
     assert not measured_pids & {closure['saved_pid'], closure['reopened_pid']}
     assert Counter(row['status'] for row in geometry['checks']) == Counter(geometry['counts'])
     assert geometry['pairs_attempted'] + not_run == geometry['possible_brep_pairs']
     assert geometry['pairs_attempted'] - measured == geometry['pairs_unmeasurable']
+    if 'pairs_not_run_by_reason' in geometry:
+        assert None not in pending_reasons and pending_reasons == Counter(geometry['pairs_not_run_by_reason'])
     assert report['open_checks'] == configuration['open_checks']
     open_checks = {row['id']: row for row in report['open_checks']}
     assert sum(row['status'] == 'NOT_RUN' for row in open_checks.values()) == 4
@@ -134,6 +172,10 @@ def verify(workspace, run, graph_path, closure_path):
         'associations_in_l2_by_sense': associations, 'occurrences': len(occurrences),
         'equipment_bindings': sum(map(len, equipment_index.values())),
         'measured_pids': sorted(measured_pids), 'pairs_examined': measured, 'pairs_not_run': not_run,
+        'pairs_not_run_by_reason': geometry.get('pairs_not_run_by_reason'),
+        'pairs_forbidden_intersections': geometry.get('pairs_forbidden_intersections'),
+        'pairs_below_clearance': geometry.get('pairs_below_clearance'),
+        'pairs_unmeasurable': geometry['pairs_unmeasurable'],
         'exclusions_by_reason': Counter(geometry['exclusions'].values()), 'open_checks': open_checks,
     }, ensure_ascii=False, indent=2))
 

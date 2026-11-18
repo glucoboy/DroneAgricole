@@ -47,6 +47,20 @@ bool verifiedArtifact(const QJsonObject &proof)
            QString::fromLatin1(hash.result().toHex()) == digest;
 }
 
+bool supplierAttestationMatches(const QJsonObject &attestation, const QJsonObject &reference,
+                                const QJsonObject &proof)
+{
+    const auto kind = attestation.value("document_kind").toString();
+    const QSet<QString> kinds{"MANUFACTURER_DRAWING", "MANUFACTURER_DATASHEET", "MANUFACTURER_STEP"};
+    return attestation.value("status") == "SUPPLIER_DOCUMENT_VERIFIED" &&
+        attestation.value("mpn") == reference.value("value") &&
+        attestation.value("revision") == reference.value("revision") &&
+        !attestation.value("manufacturer").toString().trimmed().isEmpty() &&
+        !attestation.value("source_url").toString().trimmed().isEmpty() &&
+        kinds.contains(kind) && attestation.value("artifact_path") == proof.value("artifact_path") &&
+        attestation.value("sha256") == proof.value("sha256") && attestation.value("locator") == proof.value("locator");
+}
+
 } // namespace
 
 Index index(const QJsonValue &records, const QString &collection)
@@ -92,9 +106,12 @@ bool sourced(const QJsonObject &value, const Index &evidence, bool synthetic)
     return false;
 }
 
-ConnectorCatalog::ConnectorCatalog(const QJsonObject &dossier, Index evidence, bool synthetic)
+ConnectorCatalog::ConnectorCatalog(const QJsonObject &dossier, Index evidence, bool synthetic,
+                                   const InterfaceAuthority &authority)
     : parts_(index(dossier.value("catalog").toObject().value("parts"), "catalog.parts")),
-      evidence_(std::move(evidence)), synthetic_(synthetic)
+      evidence_(std::move(evidence)), synthetic_(synthetic),
+      supplierDocuments_(authority.document.value("origin") == "SUPPLIER_DOCUMENT_VERIFIED"
+                         ? authority.document.value("supplier_documents").toArray() : QJsonArray{})
 {
     const auto pairs = dossier.value("catalog").toObject().value("pairs");
     if (!pairs.isArray()) {
@@ -140,6 +157,38 @@ bool ConnectorCatalog::hasSource(const QJsonObject &value) const
     return sourced(value, evidence_, synthetic_);
 }
 
+QString ConnectorCatalog::provenance(const QJsonObject &partRecord) const
+{
+    const auto reference = partRecord.value("reference").toObject();
+    if (synthetic_) {
+        return documentedReference(reference) && hasSource(reference) ? "SYNTHETIC_BENCH" : "UNKNOWN";
+    }
+    const auto origin = partRecord.value("origin").toString();
+    if (origin == "APPROXIMATE_MODEL" || origin == "APPROXIMATION") {
+        return "APPROXIMATE_MODEL";
+    }
+    bool localCad = origin == "LOCAL_CAD";
+    const QSet<QString> cadExtensions{"fcstd", "step", "stp", "iges", "igs", "brep", "stl"};
+    for (const auto &id : reference.value("evidence_ids").toArray()) {
+        const auto proof = evidence_.value(id.toString());
+        const auto suffix = QFileInfo(proof.value("artifact_path").toString()).suffix().toLower();
+        localCad |= cadExtensions.contains(suffix);
+        if ((origin != "SUPPLIER" && origin != "SUPPLIER_DOCUMENT_VERIFIED") ||
+            !documentedReference(reference) || proof.value("kind") != "SOURCE" ||
+            proof.value("domain") != "DOCUMENT" || proof.value("hypothetical") != false ||
+            proof.value("revision") != reference.value("revision") || reference.value("status") != "SOURCED" ||
+            proof.value("locator").toString().trimmed().isEmpty()) {
+            continue;
+        }
+        for (const auto &document : supplierDocuments_) {
+            if (supplierAttestationMatches(document.toObject(), reference, proof) && verifiedArtifact(proof)) {
+                return "SUPPLIER_DOCUMENT_VERIFIED";
+            }
+        }
+    }
+    return localCad ? "LOCAL_CAD" : "UNKNOWN";
+}
+
 QJsonObject ConnectorCatalog::pair(const QString &receptacle, const QString &mate) const
 {
     return pairs_.value(qMakePair(receptacle, mate));
@@ -156,12 +205,12 @@ Findings ConnectorCatalog::checkPair(const QString &receptacle, const QString &m
     const auto b = part(mate);
     const auto ra = a.value("reference").toObject();
     const auto rb = b.value("reference").toObject();
-    const bool identity = documentedReference(ra) && documentedReference(rb) &&
-        hasSource(ra) && hasSource(rb) &&
-        (synthetic_ || (a.value("origin") == "SUPPLIER" && b.value("origin") == "SUPPLIER"));
+    const auto aProvenance = provenance(a);
+    const auto bProvenance = provenance(b);
+    const QString requiredProvenance = synthetic_ ? "SYNTHETIC_BENCH" : "SUPPLIER_DOCUMENT_VERIFIED";
+    const bool identity = aProvenance == requiredProvenance && bProvenance == requiredProvenance;
     add("PART_PROVENANCE", identity ? pass : unknown,
-        identity ? "Références et révisions documentées dans le périmètre déclaré"
-                 : "Référence, révision ou preuve applicable manquante");
+        QString("Provenance de l’embase : %1 ; provenance de la fiche : %2").arg(aProvenance, bProvenance));
 
     for (const auto &key : {"family", "keying", "ways", "polarity", "locking", "signal_profile"}) {
         const auto av = attribute(a, key);
@@ -242,7 +291,7 @@ QJsonArray ConnectorCatalog::bom(const QMap<QString, int> &used) const
         }
         lines.append(QJsonObject{{"part_id", it.key()}, {"quantity", it.value()},
             {"role", partRecord.value("role")}, {"reference", reference}, {"sources", sources},
-            {"status", synthetic_ ? "SYNTHETIC" : "CANDIDATE"},
+            {"status", synthetic_ ? "SYNTHETIC" : "CANDIDATE"}, {"provenance", provenance(partRecord)},
             {"reference_sourced", documentedReference(reference) && hasSource(reference)}});
     }
     return lines;
@@ -277,12 +326,14 @@ QJsonArray ConnectorCatalog::matches(const QString &receptacle) const
     return result;
 }
 
-QJsonObject findCompatibleMates(const QJsonObject &dossier, const QString &receptacleId)
+QJsonObject findCompatibleMates(const QJsonObject &dossier, const QString &receptacleId,
+                               const InterfaceAuthority &authority)
 {
     const auto model = dossier.value("model").toObject();
     const auto records = model.value("records").toObject();
     const bool synthetic = dossier.value("mode") == "SYNTHETIC_BENCH";
-    const ConnectorCatalog catalog(dossier, index(records.value("technical_evidence"), "technical_evidence"), synthetic);
+    const ConnectorCatalog catalog(dossier, index(records.value("technical_evidence"), "technical_evidence"), synthetic,
+                                   authority);
     return {{"receptacle_part_id", receptacleId}, {"mode", dossier.value("mode")},
             {"candidates", catalog.matches(receptacleId)}};
 }

@@ -541,7 +541,12 @@ int main(int argc, char **argv)
         {"candidates", "Dossier des entrées électriques de réception", "path"},
         {"native-timeout-ms", "Délai d’ouverture/sauvegarde XLink", "ms", "60000"},
         {"batch-timeout-ms", "Délai par lot de mesures XLink", "ms", "90000"},
-        {"max-native-tasks", "Nombre maximal de tâches par lot XLink", "count", "500"}});
+        {"max-native-tasks", "Nombre maximal de nouvelles tâches XLink par exécution", "count", "500"},
+        {"native-batch-size", "Nombre maximal de tâches par lot XLink", "count", "500"},
+        {"max-native-retries", "Nombre maximal de reprises isolées par tâche XLink", "count", "0"},
+        {"measurement-timeout-ms", "Budget total des lots de mesure XLink", "ms", "900000"},
+        {"checkpoint", "Point de reprise XLink produit par le validateur", "file"},
+        {"checkpoint-sha256", "Empreinte du point de reprise fournie par l’autorité de campagne", "sha256"}});
     options.process(app);
     try {
         const auto rootPath = QDir(options.value("root")).canonicalPath();

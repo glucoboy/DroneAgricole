@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 17 novembre 2026 |
+| Dernière mise à jour | 18 novembre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -475,6 +475,7 @@ paires B.2 en échec restent à instruire sur chacune des copies construites.
 [Prise en main](../electromechanical_v2_1/05_GO3A_ARCHITECTURES.md)
 
 <a id="cartographe-go3b-reconstruction"></a>
+
 **Reconstruction GO3B V2.1 — Implémenté, 17 novembre 2026.** Six
 variantes natives des familles H-03, H-02 et H-01 ont été sauvegardées
 et rouvertes sur une copie du gel actif. Les huit tentatives incluent deux
@@ -536,6 +537,15 @@ connectique limitent l’interprétation des paires. Les retenues, l’accès au
 fiches et les enveloppes de mouvement restent **À valider**.
 
 <a id="reconstruction-faisceaux"></a>
+Le [gel XLink V3-A](../verification/v3/a/native_receipt.json) reproduit sur
+deux emplacements les 137 natifs du prototype et distingue définitions
+partagées, occurrences et réservations géométriques. Pour F40/F41, l’appui
+de l’isolateur, son ancrage, les reprises P72/P73 vers P66, les surfaces
+candidates et les volumes de retrait portent leur niveau de preuve dans
+[les autorités du graphe](../electromechanical_v3/cartographe.json). La
+tenue en charge, les domaines de modification et le montage restent
+**À valider**.
+
 #### 2.2.3 Reconstruction des faisceaux sur copie
 
 <a id="faisceaux-modulaires"></a>
@@ -2812,6 +2822,8 @@ présentée comme référence.
   et fichiers machine-lisibles de `verification/`.
 
 ## Journal de modifications
+
+- **18 novembre 2026** — Fermeture et transfert XLink V3-A, traçabilité des appuis, ancrages et réservations F40/F41.
 
 - **17 novembre 2026** — Suivi Git des natifs FreeCAD existants, variantes et archives comprises, avec leurs liens externes ; exclusions des sources fabricant, exports et sauvegardes conservées (§2).
 - **17 novembre 2026** — Reconstruction GO3B, six variantes et une consolidée native. Défauts mesurés et réception NO_GO motivée. [Résultat](#cartographe-go3b-reconstruction).

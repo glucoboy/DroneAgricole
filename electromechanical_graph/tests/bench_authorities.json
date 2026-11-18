@@ -1,0 +1,23 @@
+{
+  "schema": "v3.authorities/1",
+  "configuration": "xlink-shared-placement",
+  "sources": {"fixture": "validation_engine/tests/test_xlink_native.py"},
+  "bindings": {
+    "assemblies/Root.FCStd#First": {"kind": "DEVICE", "alias": "equipment-7"},
+    "assemblies/Root.FCStd#Second": {"kind": "DEVICE", "alias": "equipment-9"},
+    "assemblies/Root.FCStd#Root/First/Contact": {"kind": "OBSERVATION", "alias": "datum-7"},
+    "assemblies/Root.FCStd#Root/Second/Contact": {"kind": "OBSERVATION", "alias": "datum-9"}
+  },
+  "nodes": [
+    {"id": "guide-4", "kind": "SUPPORT", "claims": [], "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Scénario de retenue logique superposé au banc XLink", "unit": null, "reception": "NOT_RUN"}},
+    {"id": "route-2", "kind": "HARNESS_SEGMENT", "claims": [], "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Liaison logique de test vers la première occurrence", "unit": null, "reception": "NOT_RUN"}},
+    {"id": "inspect-1", "kind": "CONTROL", "claims": [], "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Relecture de la première occurrence", "unit": null, "reception": "NOT_RUN"}}
+  ],
+  "edges": [
+    {"id": "first-route", "kind": "DEPENDS_ON", "from": "datum-7", "to": "route-2", "impact": "FORWARD", "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Chemin logique du scénario", "unit": null, "reception": "NOT_RUN"}},
+    {"id": "guide-route", "kind": "RETAINS", "from": "guide-4", "to": "route-2", "impact": "FORWARD", "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Retenue logique du scénario", "unit": null, "reception": "NOT_RUN"}},
+    {"id": "check-route", "kind": "VERIFIES", "from": "route-2", "to": "inspect-1", "impact": "FORWARD", "evidence": {"state": "ASSUMED", "source": "fixture", "locator": "#FIRST", "scope": "Contrôle de route logique du scénario", "unit": null, "reception": "NOT_RUN"}}
+  ],
+  "constraints": [],
+  "issues": []
+}

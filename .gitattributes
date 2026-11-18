@@ -14,3 +14,11 @@
 hardware/electronique/cartographe/sources_fabricants/** -text -whitespace
 # Préserver les octets des instantanés CAO et leurs empreintes de provenance.
 hardware/mecanique/cartographe/archives/** -text -whitespace
+# Conserver les octets des workers épinglés par le gel H-01.
+electromechanical_engine/freecad_worker.py -text
+convergence_manager/fixtures/h01_releases/freecad_worker_v2.py -text whitespace=cr-at-eol
+# Conserver la forme LF des sources entrées dans le gel du graphe V3.
+electromechanical_graph/** text eol=lf
+electromechanical_engine/v3_native.py text eol=lf
+electromechanical_engine/tests/test_v3_native.py text eol=lf
+interconnection_engine/src/Reconcile.* text eol=lf

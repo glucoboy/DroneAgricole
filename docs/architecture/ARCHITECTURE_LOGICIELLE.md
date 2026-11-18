@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 17 novembre 2026 |
+| Dernière mise à jour | 18 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -192,6 +192,21 @@ conducteurs et géométrie native restent **À valider**.
 
 [Recette](../../convergence_manager/README.md) ·
 [Vérification L5](../VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l5)
+
+### 2.6 Graphe électromécanique XLink V3-A — Implémenté
+
+Le pont FreeCAD réutilise la fermeture et la réouverture L0/L4 sur copies.
+Le module C++17/Qt 6 Core projette les occurrences, les autorités et le
+rapprochement L2 dans le contrat `v3.graph/1`. Il vérifie les identités,
+les chemins de liaison ordonnés, les preuves et les contraintes. La clé
+d’occurrence reste liée à la chaîne de liens. Plusieurs occurrences
+peuvent partager la même définition et présenter des poses distinctes.
+L’API et la CLI calculent la fermeture orientée à partir d’une cible typée.
+Une arête terminale expose un voisin pour relecture et arrête la
+propagation par ce chemin. L’opération filtre le type admissible de cible.
+Pour une cible commune la fermeture reste conservatrice.
+[Contrat et recette](../electromechanical_v3/README.md) ·
+[Réception](../VALIDATION_QUALIFICATION.md#cartographe-v3-a)
 
 ## 3. Contexte et déploiement
 
@@ -1160,6 +1175,8 @@ pose. La réception du banc reste conditionnelle et le contrôle de H-01
 rend `FINAL_NO_GO`.
 
 ## Journal de modifications
+
+- **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
 
 | Date | Modification |
 |---|---|

@@ -43,6 +43,17 @@ QString option(QStringList &args, const QString &key, const QString &fallback = 
     return args.takeAt(position);
 }
 
+interconnection::InterfaceAuthority interfaceAuthority(QStringList &args)
+{
+    const auto path = option(args, "--interface-authority");
+    const auto sha256 = option(args, "--interface-authority-sha256");
+    if (path.isEmpty() != sha256.isEmpty()) {
+        throw std::runtime_error("--interface-authority et --interface-authority-sha256 sont indissociables");
+    }
+    return path.isEmpty() ? interconnection::defaultInterfaceAuthority()
+                          : interconnection::loadInterfaceAuthority(path, sha256);
+}
+
 } // namespace
 
 int main(int argc, char **argv)
@@ -52,6 +63,7 @@ int main(int argc, char **argv)
     if (args.isEmpty() || args == QStringList{"--help"}) {
         std::puts("interconnection_core validate DOSSIER [--state ID] [--research RAPPORT]... [--output JSON]\n"
                   "interconnection_core mates DOSSIER EMBASE [--output JSON]\n"
+                  "validate, mates : [--interface-authority JSON --interface-authority-sha256 SHA256]\n"
                   "interconnection_core reconcile --root DEPOT [--output JSON]\n"
                   "interconnection_core inspect-cartographe --root DEPOT [--output JSON]");
         return args.isEmpty() ? 1 : 0;
@@ -61,6 +73,7 @@ int main(int argc, char **argv)
         const auto output = option(args, "--output");
         QJsonObject report;
         if (command == "validate") {
+            const auto authority = interfaceAuthority(args);
             const auto state = option(args, "--state", "nominal");
             QJsonArray research, digests;
             while (args.contains("--research")) {
@@ -74,14 +87,19 @@ int main(int argc, char **argv)
             }
             QString sha;
             const auto dossier = read(args.first(), sha);
-            report = interconnection::validate(dossier, state, research);
+            report = interconnection::validate(dossier, state, research, authority);
             report.insert("input_sha256", sha);
             report.insert("research_sha256", digests);
-        } else if (command == "mates" && args.size() == 2) {
+        } else if (command == "mates") {
+            const auto authority = interfaceAuthority(args);
+            if (args.size() != 2) {
+                throw std::runtime_error("mates attend un dossier JSON et une embase");
+            }
             QString sha;
             const auto dossier = read(args.first(), sha);
-            report = interconnection::findCompatibleMates(dossier, args.last());
+            report = interconnection::findCompatibleMates(dossier, args.last(), authority);
             report.insert("input_sha256", sha);
+            report.insert("interface_reference_sha256", authority.sha256);
         } else if (command == "reconcile" || command == "inspect-cartographe") {
             const auto root = option(args, "--root", ".");
             if (!args.isEmpty()) {

@@ -1,0 +1,3940 @@
+{
+  "schema": "v3.authorities/1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "sources": {
+    "electrical-plan": "hardware/electronique/cartographe/cablage_global.json",
+    "uart-contract": "hardware/electronique/cartographe/contrat_uart_bms.json",
+    "mechanical-manifest": "hardware/mecanique/cartographe/manifest.json",
+    "bom": "hardware/mecanique/cartographe/nomenclature_prototype.json",
+    "harness-inventory": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+    "harness-layout": "hardware/mecanique/cartographe/verification/refonte_faisceaux/architecture.json",
+    "deconnection-probe": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire_uart_deconnexion.json",
+    "connector-inventory": "docs/verification/v21_connector_inventory.csv",
+    "manufacturer-register": "docs/verification/v21_connector_sources.json",
+    "manufacturer-research": "docs/verification/v21_connector_research_catalog.json",
+    "go3b-electrical": "docs/verification/v21_go3b/electrical_evidence.json",
+    "go3b-interfaces": "docs/verification/v21_go3b/interfaces_review.json",
+    "go3b-independent": "docs/verification/v21_go3b/independent_evidence.json",
+    "go3b-admission": "docs/verification/v21_go3b_validation.json",
+    "mechanical-architecture": "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+    "electrical-architecture": "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md",
+    "isolator-native": "hardware/mecanique/cartographe/pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd",
+    "p72-native": "hardware/mecanique/cartographe/pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd",
+    "p73-native": "hardware/mecanique/cartographe/pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd"
+  },
+  "bindings": {
+    "sous_assemblages/SA02_Prototype_Batterie.FCStd#BMS": {
+      "kind": "DEVICE",
+      "alias": "bms"
+    },
+    "sous_assemblages/SA02_Prototype_Batterie.FCStd#PlateauBMS": {
+      "kind": "SUPPORT",
+      "alias": "p62"
+    },
+    "sous_assemblages/SA02_Prototype_Batterie.FCStd#Protection_amont": {
+      "kind": "DEVICE",
+      "alias": "midi-protection"
+    },
+    "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation": {
+      "kind": "STRUCTURE",
+      "alias": "p64"
+    },
+    "sous_assemblages/SA03_Prototype_Energie.FCStd#PM08": {
+      "kind": "DEVICE",
+      "alias": "pm08"
+    },
+    "sous_assemblages/SA03_Prototype_Energie.FCStd#PDB": {
+      "kind": "DEVICE",
+      "alias": "pdb"
+    },
+    "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole": {
+      "kind": "DEVICE",
+      "alias": "iso"
+    },
+    "sous_assemblages/SA03_Prototype_Energie.FCStd#Fusible_CA01": {
+      "kind": "DEVICE",
+      "alias": "ca01-protection"
+    },
+    "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface": {
+      "kind": "STRUCTURE",
+      "alias": "p66"
+    },
+    "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin": {
+      "kind": "DEVICE",
+      "alias": "holybro"
+    },
+    "sous_assemblages/SA05_Prototype_Avionique.FCStd#CA01": {
+      "kind": "DEVICE",
+      "alias": "ca01"
+    },
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide": {
+      "kind": "SUPPORT",
+      "alias": "p72"
+    },
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide": {
+      "kind": "SUPPORT",
+      "alias": "p73"
+    },
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P75_Cadre": {
+      "kind": "SUPPORT",
+      "alias": "p75"
+    },
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P77_BerceauReserveUSB": {
+      "kind": "SUPPORT",
+      "alias": "p77"
+    },
+    "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#VisGuideHaut0": {
+      "kind": "FASTENER",
+      "alias": "guide-upper-fastener-0"
+    },
+    "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_BornierTTL": {
+      "kind": "OBSERVATION",
+      "alias": "ttl-reference"
+    },
+    "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_USB_B": {
+      "kind": "OBSERVATION",
+      "alias": "usb-reference"
+    },
+    "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_PlatineFixation": {
+      "kind": "ANCHOR",
+      "alias": "iso-native-plate"
+    },
+    "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd#PatteP66": {
+      "kind": "ANCHOR",
+      "alias": "p72-p66-tab"
+    },
+    "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd#PatteP66": {
+      "kind": "ANCHOR",
+      "alias": "p73-p66-tab"
+    }
+  },
+  "nodes": [
+    {
+      "id": "bms",
+      "kind": "DEVICE",
+      "claims": [
+        {
+          "key": "model",
+          "value": "JBD-SP22S003 Li-ion A01 100 A",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "uart-contract",
+            "locator": "/bms/variant",
+            "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "lot_revision",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "uart-contract",
+            "locator": "/bms/revision_confirmed_on_hardware",
+            "scope": "Lot et révision BMS installée.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "iso",
+      "kind": "DEVICE",
+      "claims": [
+        {
+          "key": "selection",
+          "value": {
+            "manufacturer": "Waveshare",
+            "sku": 15817
+          },
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "uart-contract",
+            "locator": "/isolator",
+            "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "dof",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/2",
+            "scope": "Pose fixe en service documentée. Domaine de réimplantation en conception à justifier par supports, ancrages et accès.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        },
+        {
+          "key": "installed_revision",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "manufacturer-register",
+            "locator": "id=WAVESHARE-BASE;id=WAVESHARE-MANUAL",
+            "scope": "FT232RL historique, FT232RNL/CH343G annoncés. Variante du lot inconnue.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "holybro",
+      "kind": "DEVICE",
+      "claims": [
+        {
+          "key": "model",
+          "value": "Holybro Pixhawk Jetson Baseboard 11072",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/B",
+            "scope": "Cible projet. La révision et le port USB diagnostic exact sont à identifier.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "port:W40/A",
+      "kind": "PORT",
+      "claims": [
+        {
+          "key": "connector_id_candidates",
+          "value": [
+            "J2",
+            "J3"
+          ],
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "manufacturer-register",
+            "locator": "id=JBD-A01",
+            "scope": "§7.1 p. 14 à 16. Désignation J2 dans la table HY2.0-4P, mention J3-UART dans la remarque. Aucun lot inspecté.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "logic_level_v",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "uart-contract",
+            "locator": "/bms/logic_voltage_v",
+            "scope": "Niveau électrique de la révision BMS.",
+            "unit": "V",
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "port:W40/B",
+      "kind": "PORT",
+      "claims": [
+        {
+          "key": "port_reference",
+          "value": "ttl-reference",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "isolator-native",
+            "locator": "Document.xml#ORCH_BornierTTL",
+            "scope": "Proxy de face indépendant de la réservation d'axe. Origine et direction de connectique installée inconnues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "ttl_level_candidate_v",
+          "value": 3.3,
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "uart-contract",
+            "locator": "/bms/ttl_level_candidate_v",
+            "scope": "Niveau à confirmer sur lot, avant raccordement.",
+            "unit": "V",
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "port:W41/A",
+      "kind": "PORT",
+      "claims": [
+        {
+          "key": "port_reference",
+          "value": "usb-reference",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "isolator-native",
+            "locator": "Document.xml#ORCH_USB_B",
+            "scope": "Proxy de face indépendant de la réservation d'axe. Origine et direction de connectique installée inconnues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "port:W41/B",
+      "kind": "PORT",
+      "claims": [
+        {
+          "key": "assembly_datum",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/B",
+            "scope": "Port hôte USB-A exact, repère orienté et retrait sur la porteuse.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "receptacle:bms-uart",
+      "kind": "RECEPTACLE",
+      "claims": [
+        {
+          "key": "family",
+          "value": "HY2.0-4P à verrou",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "manufacturer-register",
+            "locator": "id=JBD-A01",
+            "scope": "Famille de la table constructeur pour J2. Désignation J2/J3 contradictoire.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "receptacle:iso-ttl",
+      "kind": "RECEPTACLE",
+      "claims": [
+        {
+          "key": "mpn",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/B",
+            "scope": "Bornier et contacts du lot 15817. Corps, pas, dégagement de l'outil et ordre réel à mesurer.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "receptacle:iso-usb",
+      "kind": "RECEPTACLE",
+      "claims": [
+        {
+          "key": "interface",
+          "value": "USB Type B femelle",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Type documentaire. Corps réel, variante et tolérances de retrait à relever.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "receptacle:host-usb",
+      "kind": "RECEPTACLE",
+      "claims": [
+        {
+          "key": "interface",
+          "value": "USB Type A femelle",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/B",
+            "scope": "Famille hôte documentaire. Affectation au port du lot à établir.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plug:bms-uart",
+      "kind": "PLUG",
+      "claims": [
+        {
+          "key": "mpn",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/A",
+            "scope": "Fiche BMS et détrompage non établis sur le lot.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plug:iso-usb",
+      "kind": "PLUG",
+      "claims": [
+        {
+          "key": "interface",
+          "value": "USB Type B mâle",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Cordon OEM. Embout coudé reste candidat, longueur et ferrite réelles inconnues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plug:host-usb",
+      "kind": "PLUG",
+      "claims": [
+        {
+          "key": "interface",
+          "value": "USB Type A mâle",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/B",
+            "scope": "Cordon OEM. Géométrie de corps/traction à établir.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "junction:uart-manual",
+      "kind": "JUNCTION",
+      "claims": [
+        {
+          "key": "alternative_location",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/junctions/4",
+            "scope": "Déconnexion manuelle. Position et MPN absents, continuité de l'enveloppe F40 et 5 contacts TE concurrents.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        },
+        {
+          "key": "jwpf_candidate",
+          "value": [
+            "03T-JWPF-VSLE-S",
+            "03R-JWPF-VSLE-S"
+          ],
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "deconnection-probe",
+            "locator": "/supplier",
+            "scope": "JWPF comme hypothèse de criblage d'un boîtier majorant, colis réel et extraction inconnus.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bundle:pack-uart",
+      "kind": "BUNDLE",
+      "claims": [
+        {
+          "key": "role",
+          "value": "Groupement de parcours mécanique côté diagnostic, cordons distincts de part et d'autre de l'isolation",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "harness-inventory",
+            "locator": "/connections/50/group_ids",
+            "scope": "Groupe nominal PACK_UART.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "harness:f40",
+      "kind": "HARNESS_SEGMENT",
+      "claims": [
+        {
+          "key": "role",
+          "value": "Enveloppe de réservation des trois conducteurs UART",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "harness-inventory",
+            "locator": "/routes/10",
+            "scope": "Périmètre nominal CAO continu et intention électrique W40.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "nominal_outside_diameter_mm",
+          "value": 2.8,
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "harness-inventory",
+            "locator": "/routes/10/nominal_outside_diameter",
+            "scope": "Diamètre d'enveloppe CAO hypothétique.",
+            "unit": "mm",
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "cut_length_mm",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/routes/10/cut_length",
+            "scope": "Longueur utile avec terminaisons et réserve réelle.",
+            "unit": "mm",
+            "reception": "NOT_RUN"
+          }
+        },
+        {
+          "key": "static_dynamic_minimum_radius_mm",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/routes/10/geometry_findings",
+            "scope": "Rayons requis par la fourniture, y compris séparation batterie.",
+            "unit": "mm",
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "harness:f41",
+      "kind": "HARNESS_SEGMENT",
+      "claims": [
+        {
+          "key": "role",
+          "value": "Cordon OEM USB 2.0 complet",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "harness-inventory",
+            "locator": "/connections/51",
+            "scope": "Segment CAO et intention cordon USB données + énergie hôte.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "oem_length_candidate_mm",
+          "value": 1200,
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "harness-inventory",
+            "locator": "/connections/51/conductors_or_pins",
+            "scope": "Longueur annoncée approximative. Vérifier longueur utile, ferrite, embouts et réserve.",
+            "unit": "mm",
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "nominal_outside_diameter_mm",
+          "value": 5,
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "harness-inventory",
+            "locator": "/routes/36/nominal_outside_diameter",
+            "scope": "Diamètre d'enveloppe CAO hypothétique.",
+            "unit": "mm",
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "static_dynamic_minimum_radius_mm",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/routes/36/geometry_findings",
+            "scope": "Rayons statique et service requis pour le cordon livré.",
+            "unit": "mm",
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p72",
+      "kind": "SUPPORT",
+      "claims": [
+        {
+          "key": "dof",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Déplacement admissible ou fixité structurelle demandent une analyse des autres reprises, fixations et charges. Aucun débattement chiffré.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        },
+        {
+          "key": "support_surfaces",
+          "value": [
+            "p72-p66-tab",
+            "LongeF40",
+            "AppuiF41CoudeBas",
+            "RepriseF41SortieReserve"
+          ],
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "p72-native",
+            "locator": "Document.xml#P72AvecRetenuesReserves",
+            "scope": "Objets de conception CAO. Le contact, le serrage, la capacité de charge et la tenue sont à établir.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p73",
+      "kind": "SUPPORT",
+      "claims": [
+        {
+          "key": "dof",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Marges de déplacement ou fixité structurelle à établir avec reprises en commun, fixations et charge.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        },
+        {
+          "key": "support_surfaces",
+          "value": [
+            "p73-p66-tab",
+            "AppuiTerminalP72",
+            "RepriseP73Echelle"
+          ],
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "p73-native",
+            "locator": "Document.xml#ResultatPassagesReprise",
+            "scope": "Références natives. Appui/chemin d'effort physique non reçu.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p75",
+      "kind": "SUPPORT",
+      "claims": [
+        {
+          "key": "role",
+          "value": "Appui de cheminement et réserve USB conditionnels",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "harness-inventory",
+            "locator": "/routes/36/candidate/appuis",
+            "scope": "Description de l'appui F41. Accès/tenue non reçus.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p77",
+      "kind": "SUPPORT",
+      "claims": [
+        {
+          "key": "role",
+          "value": "Berceau de réserve USB",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-manifest",
+            "locator": "/prototype_cartographe/occurrences/231",
+            "scope": "Berceau nominal; fixation, tolérance de l'attache et effort admissible à établir.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p72-p66-tab",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "interface",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "p72-native",
+            "locator": "Document.xml#PatteP66",
+            "scope": "Patte native. Identifier la contre-surface P66, l'organe de fixation, la correspondance de trous et le chemin d'effort.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p73-p66-tab",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "interface",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "p73-native",
+            "locator": "Document.xml#PatteP66",
+            "scope": "Patte native. Identifier la contre-surface P66, l'organe de fixation, la correspondance de trous et le chemin d'effort.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "guide-upper-fastener-0",
+      "kind": "FASTENER",
+      "claims": [
+        {
+          "key": "engagement",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "mechanical-manifest",
+          "locator": "/prototype_cartographe/occurrences/274",
+            "scope": "Vis de guide présente en CAO. L'appartenance à un ancrage précis ne se déduit pas de sa proximité.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "iso-native-plate",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "interface",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "isolator-native",
+            "locator": "Document.xml#ORCH_PlatineFixation",
+            "scope": "Platine et réservations ORCH_Lumiere_0…3 modélisées. Relever dimensions, visserie et contre-appuis sur la révision.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "anchor:iso-carrier",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "mounting_pair",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/2",
+            "scope": "Aucun couple appui/ancrage porteur démontré pour l'essai H03 ni identifié sur la définition active. Candidats P64/P66 à recouper.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "surface:p64-candidate",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "surface",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "mechanical-manifest",
+            "locator": "/prototype_cartographe/occurrences/136",
+            "scope": "Plateau énergie isolant visible en CAO. Sélection de face, perçages disponibles, charge et dégagement à établir.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "surface:p66-candidate",
+      "kind": "ANCHOR",
+      "claims": [
+        {
+          "key": "surface",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/2",
+            "scope": "Platine avionique visible en CAO. L'appui H03 situé à 28,01785 mm ne démontre pas un contact ni une fixation.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "service:ttl-mating",
+      "kind": "SERVICE_ENVELOPE",
+      "claims": [
+        {
+          "key": "geometry",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/3",
+            "scope": "Accouplement/retrait/outillage TTL. Neuf boîtes ASSUMED locales et PDB ; géométrie réelle à mesurer.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "service:usb-withdrawal",
+      "kind": "SERVICE_ENVELOPE",
+      "claims": [
+        {
+          "key": "geometry",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/4",
+            "scope": "Retrait USB-B et dégagement du corps, longueur et rayon de la ferrite à mesurer.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "service:usb-reserve",
+      "kind": "SERVICE_ENVELOPE",
+      "claims": [
+        {
+          "key": "geometry",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/connections/51/reason",
+            "scope": "Réserve du cordon, pose/dépose et maintien à établir.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "motion:battery-service",
+      "kind": "MOTION_DOMAIN",
+      "claims": [
+        {
+          "key": "domain",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "harness-inventory",
+            "locator": "/connections/50/reason",
+            "scope": "Dégagement de séparation de la batterie, séquence de déconnexion manuelle et traction admissible à établir.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "keepout:power-diagnostic",
+      "kind": "KEEP_OUT",
+      "claims": [
+        {
+          "key": "geometry",
+          "value": null,
+          "evidence": {
+            "state": "UNKNOWN",
+            "source": "go3b-interfaces",
+            "locator": "/checks/3",
+            "scope": "Zone combinée protections et accès à recomposer; garder PDB/PM08, P64/P66, P72/P73 et F31/F35 comme voisins à vérifier.",
+            "unit": null,
+            "reception": "NOT_RUN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ttl-reference",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "assembly_datum",
+          "value": {
+            "method": "bbox_face_center",
+            "face": "XMax",
+            "local_origin_mm": [
+              90,
+              53,
+              11.5
+            ],
+            "signed_outward": [
+              1,
+              0,
+              0
+            ]
+          },
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "isolator-native",
+            "locator": "Document.xml#ORCH_BornierTTL",
+            "scope": "XMax centre de face dans le repère équipement. Proxy géométrique, direction du conducteur non reçue.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "usb-reference",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "assembly_datum",
+          "value": {
+            "method": "bbox_face_center",
+            "face": "XMin",
+            "local_origin_mm": [
+              9.2,
+              5.925,
+              12
+            ],
+            "signed_outward": [
+              -1,
+              0,
+              0
+            ]
+          },
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "isolator-native",
+            "locator": "Document.xml#ORCH_USB_B",
+            "scope": "XMin centre de face dans le repère équipement. Proxy géométrique, direction de retrait réelle à valider.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obs:ttl-axis-gap",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "historic_baseline_gap_mm",
+          "value": 98.87112824277874,
+          "evidence": {
+            "state": "MEASURED",
+            "source": "go3b-electrical",
+            "locator": "/cases/baseline/diagnostic/checks/F40",
+            "scope": "Réservation historique F40 par rapport au proxy indépendant, pose nominale de GO3B.",
+            "unit": "mm",
+            "reception": "FAIL"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obs:usb-axis-gap",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "historic_baseline_gap_mm",
+          "value": 53.63926383723028,
+          "evidence": {
+            "state": "MEASURED",
+            "source": "go3b-electrical",
+            "locator": "/cases/baseline/diagnostic/checks/F41",
+            "scope": "Réservation historique F41 par rapport au proxy indépendant, pose nominale de GO3B.",
+            "unit": "mm",
+            "reception": "FAIL"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obs:iso-support-go3b",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "h03_candidate",
+          "value": {
+            "gap_to_module_mm": 0.3,
+            "overlap_p72_mm3": 109.73357,
+            "gap_to_p66_mm": 28.01785,
+            "anchor_identified": false
+          },
+          "evidence": {
+            "state": "MEASURED",
+            "source": "go3b-interfaces",
+            "locator": "/native_reviews",
+            "scope": "Copies GO3B H03. Résultat comparatif historique, pas une géométrie active.",
+            "unit": null,
+            "reception": "FAIL"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obs:deconnection-p72",
+      "kind": "OBSERVATION",
+      "claims": [
+        {
+          "key": "historical_jwpf_screening",
+          "value": {
+            "probed_placements": 10,
+            "placements_with_overlap_witness": 10
+          },
+          "evidence": {
+            "state": "MEASURED",
+            "source": "deconnection-probe",
+            "locator": "/result",
+            "scope": "Dans la copie de refonte, dix enveloppes JWPF candidates sur F40 contiennent un point à l'intérieur de P72. Le connecteur physique et ses vides restent inconnus.",
+            "unit": null,
+            "reception": "FAIL"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:ttl-proxy",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Repère TTL indépendant et écart F40",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Recomposer le repère à partir du document natif et comparer au bout d'axe sans le réutiliser.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:usb-proxy",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Repère USB-B indépendant et écart F41",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Recomposer le repère à partir du document natif et comparer au bout d'axe.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:ttl-access",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Accès au bornier TTL et séparation batterie",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Accouplement, outil, retrait, déconnexion manuelle et voisinage PDB.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:usb-access",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Accouplement et retrait USB-B",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Corps, ferrite, course et voisinage du guide.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:usb-reserve",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Réserve et tenue F41",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Vérifier service, longueur disponible, rayon et absence d'effort transmis à la fiche.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:mount",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Appui, contre-appuis et ancrage porteur",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Identifier appui conjoint, organes, chemin d'effort et preuves de tenue.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:clearance",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Interférences, protection et voisinage CAN1",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Contrôler PDB, PM08, P64, P66, P72/P73 et F31/F35. Conserver les séparations.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:retention",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Retenues et déplacements guide",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Vérifier contacts, points de prise, ancrages, charge et câbles associés.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:isolation",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Continuité, domaine brut/USB et broches NC",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Vérifier les deux domaines, le croisement RX/TX et l'interdiction de pontage après actualisation éventuelle des interfaces.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check:radius",
+      "kind": "CONTROL",
+      "claims": [
+        {
+          "key": "description",
+          "value": "Rayons, longueurs et traction",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "go3b-admission",
+            "locator": "/test_id",
+            "scope": "Famille de contrôles de la campagne d'intégration.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        },
+        {
+          "key": "scope",
+          "value": "Vérifier les deux cordons avec les limites applicables à leur fourniture.",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "mechanical-architecture",
+            "locator": "#cartographe-go3b-reconstruction",
+            "scope": "Contrôle à reconduire selon changement et données disponibles.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:bms-1",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "GND brut",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/0",
+            "scope": "Table candidate de J2. Affectations physiques du lot non établies.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:bms-2",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "RXD_BMS",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/1",
+            "scope": "Table candidate de J2. Affectations physiques du lot non établies.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:bms-3",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "TXD_BMS",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/2",
+            "scope": "Table candidate de J2. Affectations physiques du lot non établies.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:bms-4",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "VDD NC",
+          "evidence": {
+            "state": "ASSUMED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/3",
+            "scope": "Table candidate de J2. Affectations physiques du lot non établies.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-gnd",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "GND_ISO = BAT_MOINS_BRUT_ISOLE",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/B",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-tx",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "TXD_ISO",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/B",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-rx",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "RXD_ISO",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/B",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-vcc",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "VCC TTL NC",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W40/B",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-usb-vbus",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "USB VBUS",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-usb-d-",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "USB D−",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-usb-d+",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "USB D+",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-usb-gnd",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "USB GND",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact:iso-usb-shield",
+      "kind": "CONTACT",
+      "claims": [
+        {
+          "key": "assignment",
+          "value": "blindage USB séparé du brut",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "connector-inventory",
+            "locator": "cle_interface=W41/A",
+            "scope": "Fonction documentaire. Index, géométrie et affectation du lot non mesurés.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conductor:raw-return",
+      "kind": "CONDUCTOR",
+      "claims": [
+        {
+          "key": "role",
+          "value": "BAT_MOINS_BRUT_ISOLE",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/0",
+            "scope": "Affectation projet du conducteur W40. Terminaisons et continuité physique non reçues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conductor:bms-rx",
+      "kind": "CONDUCTOR",
+      "claims": [
+        {
+          "key": "role",
+          "value": "TXD_ISO vers RXD_BMS",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/1",
+            "scope": "Affectation projet du conducteur W40. Terminaisons et continuité physique non reçues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conductor:bms-tx",
+      "kind": "CONDUCTOR",
+      "claims": [
+        {
+          "key": "role",
+          "value": "TXD_BMS vers RXD_ISO",
+          "evidence": {
+            "state": "DOCUMENTED",
+            "source": "uart-contract",
+            "locator": "/bms/pins/2",
+            "scope": "Affectation projet du conducteur W40. Terminaisons et continuité physique non reçues.",
+            "unit": null,
+            "reception": "INCONCLUSIVE"
+          }
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "keepout-port-W31/B",
+      "kind": "ACCESS",
+      "from": "keepout:power-diagnostic",
+      "to": "port:W31/B",
+      "impact": "FORWARD",
+      "terminal": true,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W31/B et W35/B",
+        "scope": "Interfaces sur la porteuse voisine. Leur accouplement et leurs dégagements restent à vérifier lors d'une modification dans la baie.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "keepout-port-W35/B",
+      "kind": "ACCESS",
+      "from": "keepout:power-diagnostic",
+      "to": "port:W35/B",
+      "impact": "FORWARD",
+      "terminal": true,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W31/B et W35/B",
+        "scope": "Interfaces sur la porteuse voisine. Leur accouplement et leurs dégagements restent à vérifier lors d'une modification dans la baie.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-invalidates-jwpf-screening",
+      "kind": "OBSERVES",
+      "from": "p72",
+      "to": "obs:deconnection-p72",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "MEASURED",
+        "source": "deconnection-probe",
+        "locator": "/result",
+        "scope": "Dans la copie de refonte, dix enveloppes JWPF candidates sur F40 contiennent un point à l'intérieur de P72. Le connecteur physique et ses vides restent inconnus.",
+        "unit": null,
+        "reception": "FAIL"
+      }
+    },
+    {
+      "id": "disconnect-invalidates-jwpf-screening",
+      "kind": "OBSERVES",
+      "from": "junction:uart-manual",
+      "to": "obs:deconnection-p72",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "MEASURED",
+        "source": "deconnection-probe",
+        "locator": "/result",
+        "scope": "Dans la copie de refonte, dix enveloppes JWPF candidates sur F40 contiennent un point à l'intérieur de P72. Le connecteur physique et ses vides restent inconnus.",
+        "unit": null,
+        "reception": "FAIL"
+      }
+    },
+    {
+      "id": "p72-impacts-candidate-anchor",
+      "kind": "DEPENDS_ON",
+      "from": "p72",
+      "to": "anchor:iso-carrier",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Les appuis H03 historiques recoupent P72. Revoir les ancrages candidats si la retenue change.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "keepout-shared-bay",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "holybro",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "electrical-plan",
+        "locator": "/connections/27 et /connections/37",
+        "scope": "CAN1 et USB de diagnostic partagent la porteuse. Vérifier les dégagements des ports concernés.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "iso-owns-ttl",
+      "kind": "CONTAINS",
+      "from": "iso",
+      "to": "port:W40/B",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Port côté isolé.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-owns-usb",
+      "kind": "CONTAINS",
+      "from": "iso",
+      "to": "port:W41/A",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Port USB côté hôte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-owns-uart",
+      "kind": "CONTAINS",
+      "from": "bms",
+      "to": "port:W40/A",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Port de diagnostic brut.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "host-owns-usb",
+      "kind": "CONTAINS",
+      "from": "holybro",
+      "to": "port:W41/B",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/B",
+        "scope": "Port de diagnostic du calculateur.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-transforms-ttl",
+      "kind": "TRANSFORMS",
+      "from": "iso",
+      "to": "ttl-reference",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-transforms-usb",
+      "kind": "TRANSFORMS",
+      "from": "iso",
+      "to": "usb-reference",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-reference-port",
+      "kind": "TRANSFORMS",
+      "from": "ttl-reference",
+      "to": "port:W40/B",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-reference-axis",
+      "kind": "WIRE_EXIT",
+      "from": "ttl-reference",
+      "to": "axis:F40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-reference-obs",
+      "kind": "OBSERVES",
+      "from": "ttl-reference",
+      "to": "obs:ttl-axis-gap",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-reference-check",
+      "kind": "VERIFIES",
+      "from": "ttl-reference",
+      "to": "check:ttl-proxy",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-reference-access",
+      "kind": "ACCESS",
+      "from": "ttl-reference",
+      "to": "service:ttl-mating",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-reference-port",
+      "kind": "TRANSFORMS",
+      "from": "usb-reference",
+      "to": "port:W41/A",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-reference-axis",
+      "kind": "WIRE_EXIT",
+      "from": "usb-reference",
+      "to": "axis:F41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-reference-obs",
+      "kind": "OBSERVES",
+      "from": "usb-reference",
+      "to": "obs:usb-axis-gap",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-reference-check",
+      "kind": "VERIFIES",
+      "from": "usb-reference",
+      "to": "check:usb-proxy",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-reference-access",
+      "kind": "ACCESS",
+      "from": "usb-reference",
+      "to": "service:usb-withdrawal",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/6",
+        "scope": "Association comparative GO3B. Impact de correction sur le modèle nominal à contrôler.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-embase",
+      "kind": "CONTAINS",
+      "from": "port:W40/A",
+      "to": "receptacle:bms-uart",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-mating",
+      "kind": "MATES",
+      "from": "receptacle:bms-uart",
+      "to": "plug:bms-uart",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-embase",
+      "kind": "CONTAINS",
+      "from": "port:W40/B",
+      "to": "receptacle:iso-ttl",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-embase",
+      "kind": "CONTAINS",
+      "from": "port:W41/A",
+      "to": "receptacle:iso-usb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-mating",
+      "kind": "MATES",
+      "from": "receptacle:iso-usb",
+      "to": "plug:iso-usb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "host-usb-embase",
+      "kind": "CONTAINS",
+      "from": "port:W41/B",
+      "to": "receptacle:host-usb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/B",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "host-usb-mating",
+      "kind": "MATES",
+      "from": "receptacle:host-usb",
+      "to": "plug:host-usb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/B",
+        "scope": "Définition de famille candidate ; réception physique ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-1-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:bms-uart",
+      "to": "contact:bms-1",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-2-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:bms-uart",
+      "to": "contact:bms-2",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-3-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:bms-uart",
+      "to": "contact:bms-3",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-4-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:bms-uart",
+      "to": "contact:bms-4",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-gnd-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-ttl",
+      "to": "contact:iso-gnd",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-tx-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-ttl",
+      "to": "contact:iso-tx",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-rx-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-ttl",
+      "to": "contact:iso-rx",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-vcc-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-ttl",
+      "to": "contact:iso-vcc",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W40/B",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-vbus-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-usb",
+      "to": "contact:iso-usb-vbus",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-d--membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-usb",
+      "to": "contact:iso-usb-d-",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-d+-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-usb",
+      "to": "contact:iso-usb-d+",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-gnd-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-usb",
+      "to": "contact:iso-usb-gnd",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-usb-shield-membership",
+      "kind": "CONTAINS",
+      "from": "receptacle:iso-usb",
+      "to": "contact:iso-usb-shield",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/A",
+        "scope": "Rôle/contact documentaire; affectation installée ouverte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "raw-return-inside-harness",
+      "kind": "CONTAINS",
+      "from": "harness:f40",
+      "to": "conductor:raw-return",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/0",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "raw-return-start",
+      "kind": "ELECTRICAL",
+      "from": "contact:bms-1",
+      "to": "conductor:raw-return",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/0",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "raw-return-end",
+      "kind": "ELECTRICAL",
+      "from": "conductor:raw-return",
+      "to": "contact:iso-gnd",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/0",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-rx-inside-harness",
+      "kind": "CONTAINS",
+      "from": "harness:f40",
+      "to": "conductor:bms-rx",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/1",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-rx-start",
+      "kind": "ELECTRICAL",
+      "from": "contact:iso-tx",
+      "to": "conductor:bms-rx",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/1",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-rx-end",
+      "kind": "ELECTRICAL",
+      "from": "conductor:bms-rx",
+      "to": "contact:bms-2",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/1",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-tx-inside-harness",
+      "kind": "CONTAINS",
+      "from": "harness:f40",
+      "to": "conductor:bms-tx",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/2",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-tx-start",
+      "kind": "ELECTRICAL",
+      "from": "contact:bms-3",
+      "to": "conductor:bms-tx",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/2",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "bms-tx-end",
+      "kind": "ELECTRICAL",
+      "from": "conductor:bms-tx",
+      "to": "contact:iso-rx",
+      "impact": "NONE",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins/2",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-part-of-pack",
+      "kind": "MEMBER_OF",
+      "from": "harness:f40",
+      "to": "bundle:pack-uart",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "f40-axis-harness",
+      "kind": "ROUTING",
+      "from": "axis:F40",
+      "to": "harness:f40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-port-harness",
+      "kind": "ROUTING",
+      "from": "port:W40/B",
+      "to": "harness:f40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-harness-line",
+      "kind": "ROUTING",
+      "from": "harness:f40",
+      "to": "link:W40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "f40-check-radius",
+      "kind": "VERIFIES",
+      "from": "harness:f40",
+      "to": "check:radius",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-check-isolation",
+      "kind": "VERIFIES",
+      "from": "harness:f40",
+      "to": "check:isolation",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/safety/raw_ground_bypass_allowed",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-part-of-pack",
+      "kind": "MEMBER_OF",
+      "from": "harness:f41",
+      "to": "bundle:pack-uart",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "f41-axis-harness",
+      "kind": "ROUTING",
+      "from": "axis:F41",
+      "to": "harness:f41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-port-harness",
+      "kind": "ROUTING",
+      "from": "port:W41/A",
+      "to": "harness:f41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-harness-line",
+      "kind": "ROUTING",
+      "from": "harness:f41",
+      "to": "link:W41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "f41-check-radius",
+      "kind": "VERIFIES",
+      "from": "harness:f41",
+      "to": "check:radius",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-check-isolation",
+      "kind": "VERIFIES",
+      "from": "harness:f41",
+      "to": "check:isolation",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/safety/raw_ground_bypass_allowed",
+        "scope": "Définition projet BMS-UART-CARTO-01. Réception physique à effectuer.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-manual-separation",
+      "kind": "DEPENDS_ON",
+      "from": "harness:f40",
+      "to": "junction:uart-manual",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f40-ttl-service",
+      "kind": "ACCESS",
+      "from": "harness:f40",
+      "to": "service:ttl-mating",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/3",
+        "scope": "Service TTL local et protection PDB.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-usb-service",
+      "kind": "ACCESS",
+      "from": "harness:f41",
+      "to": "service:usb-withdrawal",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/4",
+        "scope": "Corps, ferrite et retrait USB.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "f41-reserve",
+      "kind": "ACCESS",
+      "from": "harness:f41",
+      "to": "service:usb-reserve",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "disconnect-battery-service",
+      "kind": "MOTION",
+      "from": "junction:uart-manual",
+      "to": "motion:battery-service",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "battery-service-ttl-check",
+      "kind": "VERIFIES",
+      "from": "motion:battery-service",
+      "to": "check:ttl-access",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Trajets et fonction de la ligne W40.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-access-recheck",
+      "kind": "VERIFIES",
+      "from": "service:ttl-mating",
+      "to": "check:ttl-access",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/3",
+        "scope": "Dégagement TTL et PDB.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-access-pdb",
+      "kind": "ACCESS",
+      "from": "service:ttl-mating",
+      "to": "pdb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/3",
+        "scope": "Les neuf enveloppes candidates recoupent la PDB sur l'implantation fixe.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "usb-access-recheck",
+      "kind": "VERIFIES",
+      "from": "service:usb-withdrawal",
+      "to": "check:usb-access",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/4",
+        "scope": "Dégagement USB-B et ferrite.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "reserve-recheck",
+      "kind": "VERIFIES",
+      "from": "service:usb-reserve",
+      "to": "check:usb-reserve",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/connections/51",
+        "scope": "Trajets et fonction de la ligne W41.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-candidate-anchor",
+      "kind": "DEPENDS_ON",
+      "from": "iso",
+      "to": "anchor:iso-carrier",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-local-anchor",
+      "kind": "CONTAINS",
+      "from": "iso",
+      "to": "iso-native-plate",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "isolator-native",
+        "locator": "Document.xml#ORCH_PlatineFixation",
+        "scope": "Surface candidate à recouper sur le lot.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-anchor-p64",
+      "kind": "DEPENDS_ON",
+      "from": "anchor:iso-carrier",
+      "to": "surface:p64-candidate",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-anchor-p66",
+      "kind": "DEPENDS_ON",
+      "from": "anchor:iso-carrier",
+      "to": "surface:p66-candidate",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "surface-p64",
+      "kind": "MEMBER_OF",
+      "from": "surface:p64-candidate",
+      "to": "p64",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-manifest",
+        "locator": "/prototype_cartographe/occurrences/136",
+        "scope": "Occurrence CAO nominale. Les dimensions et la tenue matérielles restent à établir.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "surface-p66",
+      "kind": "MEMBER_OF",
+      "from": "surface:p66-candidate",
+      "to": "p66",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-manifest",
+        "locator": "/prototype_cartographe/occurrences/174",
+        "scope": "Occurrence CAO nominale. Les dimensions et la tenue matérielles restent à établir.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "iso-anchorage-check",
+      "kind": "VERIFIES",
+      "from": "anchor:iso-carrier",
+      "to": "check:mount",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-mount-observation",
+      "kind": "OBSERVES",
+      "from": "anchor:iso-carrier",
+      "to": "obs:iso-support-go3b",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "iso-neighbor-keepout",
+      "kind": "DEPENDS_ON",
+      "from": "iso",
+      "to": "keepout:power-diagnostic",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-neighbor-keepout",
+      "kind": "DEPENDS_ON",
+      "from": "p72",
+      "to": "keepout:power-diagnostic",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "ttl-neighbor-keepout",
+      "kind": "DEPENDS_ON",
+      "from": "service:ttl-mating",
+      "to": "keepout:power-diagnostic",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "usb-neighbor-keepout",
+      "kind": "DEPENDS_ON",
+      "from": "service:usb-withdrawal",
+      "to": "keepout:power-diagnostic",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "keepout-pdb",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "pdb",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-pm08",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "pm08",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-p64",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "p64",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-p66",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "p66",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-p73",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "p73",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-axis:F31",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "axis:F31",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-axis:F35",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "axis:F35",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-ca01",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "ca01",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-ca01-protection",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "ca01-protection",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-midi-protection",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "midi-protection",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "keepout-clearance",
+      "kind": "VERIFIES",
+      "from": "keepout:power-diagnostic",
+      "to": "check:clearance",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "keepout-p72",
+      "kind": "DEPENDS_ON",
+      "from": "keepout:power-diagnostic",
+      "to": "p72",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-change-f40-p72",
+      "kind": "RETAINS",
+      "from": "p72",
+      "to": "axis:F40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f40-p72",
+      "kind": "RETAINS",
+      "from": "harness:f40",
+      "to": "p72",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-change-f40-p62",
+      "kind": "RETAINS",
+      "from": "p62",
+      "to": "axis:F40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f40-p62",
+      "kind": "RETAINS",
+      "from": "harness:f40",
+      "to": "p62",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "retention-change-f40-p64",
+      "kind": "RETAINS",
+      "from": "p64",
+      "to": "axis:F40",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f40-p64",
+      "kind": "RETAINS",
+      "from": "harness:f40",
+      "to": "p64",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "retention-change-f41-p72",
+      "kind": "RETAINS",
+      "from": "p72",
+      "to": "axis:F41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f41-p72",
+      "kind": "RETAINS",
+      "from": "harness:f41",
+      "to": "p72",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-change-f41-p73",
+      "kind": "RETAINS",
+      "from": "p73",
+      "to": "axis:F41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f41-p73",
+      "kind": "RETAINS",
+      "from": "harness:f41",
+      "to": "p73",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "retention-change-f41-p75",
+      "kind": "RETAINS",
+      "from": "p75",
+      "to": "axis:F41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f41-p75",
+      "kind": "RETAINS",
+      "from": "harness:f41",
+      "to": "p75",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "retention-change-f41-p77",
+      "kind": "RETAINS",
+      "from": "p77",
+      "to": "axis:F41",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "retention-review-f41-p77",
+      "kind": "RETAINS",
+      "from": "harness:f41",
+      "to": "p77",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "p72-tab",
+      "kind": "CONTAINS",
+      "from": "p72",
+      "to": "p72-p66-tab",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "p72-native",
+        "locator": "Document.xml#PatteP66",
+        "scope": "Patte visible dans la définition. L'appariement et l'engagement exact restent à établir.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-p66-tab-check",
+      "kind": "VERIFIES",
+      "from": "p72-p66-tab",
+      "to": "check:retention",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-p66-tab-p66",
+      "kind": "DEPENDS_ON",
+      "from": "p72-p66-tab",
+      "to": "p66",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "p73-tab",
+      "kind": "CONTAINS",
+      "from": "p73",
+      "to": "p73-p66-tab",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "p73-native",
+        "locator": "Document.xml#PatteP66",
+        "scope": "Patte visible dans la définition. L'appariement et l'engagement exact restent à établir.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p73-p66-tab-check",
+      "kind": "VERIFIES",
+      "from": "p73-p66-tab",
+      "to": "check:retention",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p73-p66-tab-p66",
+      "kind": "DEPENDS_ON",
+      "from": "p73-p66-tab",
+      "to": "p66",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "p72-fastener-candidate",
+      "kind": "DEPENDS_ON",
+      "from": "p72",
+      "to": "guide-upper-fastener-0",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "p72-coupling",
+      "kind": "DEPENDS_ON",
+      "from": "p72",
+      "to": "p73",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "ASSUMED",
+        "source": "p73-native",
+        "locator": "Document.xml#AppuiTerminalP72",
+        "scope": "Contact nominal représenté. Relation mécanique, capture et fixation à vérifier.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      },
+      "terminal": true
+    },
+    {
+      "id": "p72-retention-check",
+      "kind": "VERIFIES",
+      "from": "p72",
+      "to": "check:retention",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-retention-invalidates-ttl",
+      "kind": "OBSERVES",
+      "from": "p72",
+      "to": "obs:ttl-axis-gap",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/10/candidate",
+        "scope": "Appuis de cheminement F40 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-retention-invalidates-usb",
+      "kind": "OBSERVES",
+      "from": "p72",
+      "to": "obs:usb-axis-gap",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "harness-inventory",
+        "locator": "/routes/36/candidate",
+        "scope": "Appuis de cheminement F41 documentés au stade de la conception.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "p72-retention-invalidates-appui",
+      "kind": "OBSERVES",
+      "from": "p72",
+      "to": "obs:iso-support-go3b",
+      "impact": "FORWARD",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "id": "uart-raw-ground-boundary",
+      "condition": "Séparer électriquement B− brut et côté USB, avionique et structure.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "harness:f40",
+        "harness:f41",
+        "contact:iso-gnd",
+        "contact:iso-usb-gnd",
+        "contact:iso-usb-shield",
+        "iso"
+      ],
+      "state": "NOMINAL",
+      "criticality": "CRITICAL",
+      "authority": "uart-contract",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/safety/raw_ground_bypass_allowed",
+        "scope": "Le retour brut reste confiné au TTL isolé; aucun pont vers USB, avionique ou structure.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "uart-unused-power-nc",
+      "condition": "Laisser VDD BMS et VCC TTL non connectés.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "iso",
+        "contact:bms-4",
+        "contact:iso-vcc"
+      ],
+      "state": "NOMINAL",
+      "criticality": "CRITICAL",
+      "authority": "uart-contract",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/isolator",
+        "scope": "VDD BMS et 5 V/VCC TTL restent non connectés.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "uart-function-crossed",
+      "condition": "Raccorder les fonctions TX et RX croisées avec leur retour isolé.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "conductor:bms-rx",
+        "conductor:bms-tx",
+        "harness:f40"
+      ],
+      "state": "NOMINAL",
+      "criticality": "HIGH",
+      "authority": "uart-contract",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/bms/pins",
+        "scope": "Fonction croisée RX vers TX. Les indices 2/3 restent des candidats du document.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "network-voltage-and-drive",
+      "condition": "Conserver les chemins protégés de puissance et de contrôle de vol.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "pm08",
+        "pdb",
+        "ca01-protection",
+        "midi-protection",
+        "harness:f40",
+        "harness:f41"
+      ],
+      "state": "NOMINAL",
+      "criticality": "CRITICAL",
+      "authority": "electrical-plan",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "electrical-plan",
+        "locator": "/connections/4, /connections/6, /connections/27, /connections/35 et /connections/36",
+        "scope": "Préserver l'indépendance du diagnostic, la fonction PM08, le retour protégé et les protections de branche.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "isolator-protected-fixation",
+      "condition": "Vérifier un appui effectif, un ancrage porteur et l’accès en service.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "iso",
+        "iso-native-plate",
+        "anchor:iso-carrier"
+      ],
+      "state": "NOMINAL",
+      "criticality": "HIGH",
+      "authority": "mechanical-architecture",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Appui effectif et ancrage porteur vérifié avant acceptation, avec tenue et accessibilité.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "isolation-module-in-service",
+      "condition": "Conserver le module fixe par rapport à la structure pendant le service nominal.",
+      "policy": "HARD_FIXED",
+      "subjects": [
+        "iso"
+      ],
+      "state": "NOMINAL",
+      "criticality": "HIGH",
+      "authority": "uart-contract",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "uart-contract",
+        "locator": "/isolator/location",
+        "scope": "Équipement fixe en service. Le choix de sa pose de montage reste révisable à l'instruction.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "isolation-module-design-pose",
+      "policy": "UNKNOWN",
+      "subjects": [
+        "iso"
+      ],
+      "state": "SERVICE",
+      "criticality": "HIGH",
+      "authority": "mechanical-architecture",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "UNKNOWN",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Domaine admissible de pose à établir à partir de l'appui, des ancrages, des accès et des protections. La requête virtuelle n'accorde aucun déplacement.",
+        "unit": null,
+        "reception": "NOT_RUN"
+      }
+    },
+    {
+      "id": "guide-design-domain",
+      "policy": "UNKNOWN",
+      "subjects": [
+        "p72",
+        "p73",
+        "p72-p66-tab",
+        "p73-p66-tab"
+      ],
+      "state": "SERVICE",
+      "criticality": "HIGH",
+      "authority": "mechanical-architecture",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "UNKNOWN",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Domaine admissible des guides ou preuves de fixité selon portée, ancrage et charge.",
+        "unit": null,
+        "reception": "NOT_RUN"
+      }
+    },
+    {
+      "id": "service-access",
+      "condition": "Permettre les gestes de montage, de débranchement et de retrait prévus.",
+      "policy": "HARD_REQUIREMENT",
+      "subjects": [
+        "service:ttl-mating",
+        "service:usb-withdrawal",
+        "service:usb-reserve",
+        "junction:uart-manual"
+      ],
+      "state": "SERVICE",
+      "criticality": "HIGH",
+      "authority": "mechanical-architecture",
+      "threshold": null,
+      "unit": null,
+      "tolerance": null,
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Accès, débranchement en séquence et retrait possibles. Dimensions réelles et seuils encore indisponibles.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "battery-motion-domain",
+      "policy": "UNKNOWN",
+      "subjects": [
+        "motion:battery-service",
+        "harness:f40"
+      ],
+      "state": "MOBILE",
+      "criticality": "HIGH",
+      "authority": "harness-inventory",
+      "threshold": null,
+      "unit": "mm",
+      "tolerance": null,
+      "evidence": {
+        "state": "UNKNOWN",
+        "source": "harness-inventory",
+        "locator": "/connections/50",
+        "scope": "Déplacement et efforts admissibles en retrait batterie.",
+        "unit": null,
+        "reception": "NOT_RUN"
+      }
+    },
+    {
+      "id": "cord-radii",
+      "policy": "UNKNOWN",
+      "subjects": [
+        "harness:f40",
+        "harness:f41"
+      ],
+      "state": "SERVICE",
+      "criticality": "HIGH",
+      "authority": "harness-inventory",
+      "threshold": null,
+      "unit": "mm",
+      "tolerance": null,
+      "evidence": {
+        "state": "UNKNOWN",
+        "source": "harness-inventory",
+        "locator": "/routes",
+        "scope": "Rayons minimum réels statique, dynamique et de service.",
+        "unit": null,
+        "reception": "NOT_RUN"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "id": "UART-TOP-001",
+      "severity": "HIGH",
+      "subjects": [
+        "link:W40",
+        "harness:f40",
+        "junction:uart-manual"
+      ],
+      "detail": "W40 associe cinq contacts TE dans la définition électrique. Le prototype sans dock de l'inventaire refonte décrit une déconnexion manuelle non résolue, tandis que F40 possède un axe et un corps continus. Garder les deux autorités et exiger le choix de révision avant construction.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "electrical-plan",
+        "locator": "/connections/36",
+        "scope": "Confronter le câblage W40 à /connections/50 et /junctions/4 de l'inventaire refonte.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-JBD-001",
+      "severity": "HIGH",
+      "subjects": [
+        "port:W40/A",
+        "receptacle:bms-uart",
+        "plug:bms-uart"
+      ],
+      "detail": "J2 HY2.0-4P dans la table, J3 dans la remarque de la notice. Lot, verrou, niveaux et brochage physique à identifier.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "manufacturer-register",
+        "locator": "id=JBD-A01",
+        "scope": "Notice JBD-SP22S003 Li-ion A01, §7.1 p.14–16. Contradiction documentaire conservée.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-ISO-001",
+      "severity": "HIGH",
+      "subjects": [
+        "iso",
+        "port:W40/B",
+        "port:W41/A"
+      ],
+      "detail": "FT232RL historique, FT232RNL/CH343G annoncés. Bornier et corps USB exacts, contacts, limite de traction, desserte et ferrite inconnus sur le lot.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "manufacturer-register",
+        "locator": "id=WAVESHARE-MANUAL;id=WAVESHARE-BASE",
+        "scope": "Révisions constructeur; aucun rapprochement par marquage sur pièce.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-AXIS-001",
+      "severity": "HIGH",
+      "subjects": [
+        "port:W40/B",
+        "port:W41/A",
+        "axis:F40",
+        "axis:F41",
+        "obs:ttl-axis-gap",
+        "obs:usb-axis-gap"
+      ],
+      "detail": "Le témoin GO3B présente deux écarts géométriques contre des faces indépendantes. Le modèle ne fournit aucun repère d'accouplement ou de sortie monté. Transporter ce constat avec ses empreintes, puis remesurer sur le gel V3.",
+      "evidence": {
+        "state": "MEASURED",
+        "source": "go3b-electrical",
+        "locator": "/cases/baseline",
+        "scope": "Comparaison historique sur copie, pas mesure physique.",
+        "unit": "mm",
+        "reception": "FAIL"
+      }
+    },
+    {
+      "id": "UART-MOUNT-001",
+      "severity": "HIGH",
+      "subjects": [
+        "iso",
+        "iso-native-plate",
+        "anchor:iso-carrier",
+        "surface:p64-candidate",
+        "surface:p66-candidate",
+        "p72",
+        "p73"
+      ],
+      "detail": "Le support H03 est une réservation rejetée sans ancrage; les pattes, trous et vis proches ne démontrent ni engagement ni tenue. Vérifier surfaces et fixations disponibles avant optimisation.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/2",
+        "scope": "Portée GO3B H03. Contrôle révisable et preuve de montage requise.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-ACCESS-001",
+      "severity": "HIGH",
+      "subjects": [
+        "service:ttl-mating",
+        "service:usb-withdrawal",
+        "service:usb-reserve",
+        "pdb",
+        "p72",
+        "p77"
+      ],
+      "detail": "Interactions PDB/TTL et P72/USB observées sur gabarits de criblage. Les corps, extraction, outil, rayon des cordons et capacité de la retenue restent à établir.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "go3b-interfaces",
+        "locator": "/checks/3",
+        "scope": "Copies et sondes locales; informations F41 au contrôle IF-05.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-HOST-001",
+      "severity": "HIGH",
+      "subjects": [
+        "holybro",
+        "port:W41/B",
+        "receptacle:host-usb",
+        "plug:host-usb"
+      ],
+      "detail": "USB Type A documentaire. L'embase exacte et le geste de retrait dans la baie partagée CAN1/diagnostic restent à confirmer.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "connector-inventory",
+        "locator": "cle_interface=W41/B",
+        "scope": "Données de catalogue et CAO.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    },
+    {
+      "id": "UART-GUIDES-001",
+      "severity": "HIGH",
+      "subjects": [
+        "p72",
+        "p73",
+        "p66",
+        "axis:F31",
+        "axis:F35"
+      ],
+      "detail": "Les degrés de liberté et le chemin d'effort des guides sont ouverts. Revoir les passages voisins, l'accès aux fixations et les protections si une retenue est modifiée.",
+      "evidence": {
+        "state": "DOCUMENTED",
+        "source": "mechanical-architecture",
+        "locator": "#cartographe-go3b-reconstruction",
+        "scope": "Voisinage à revoir en analyse d'impact. La relation n'atteste aucune collision hors des conditions mesurées.",
+        "unit": null,
+        "reception": "INCONCLUSIVE"
+      }
+    }
+  ]
+}

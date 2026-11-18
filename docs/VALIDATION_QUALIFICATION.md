@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 17 novembre 2026 |
+| Dernière mise à jour | 18 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -2674,6 +2674,38 @@ physiques restent hors de cette autorisation. Les sept interférences,
 les contacts installés et les preuves de service propres au montage
 conditionnent une reprise sur le prototype. [Clôture B.2](#qualification-xlink-v21-b2)
 
+<a id="cartographe-v3-a"></a>
+
+#### Référentiel XLink et graphe électromécanique V3-A — 18 novembre 2026
+
+**`V3_A_GO_CONDITIONNEL`** sur Windows amd64 avec FreeCAD 1.1.3,
+OCCT 7.8.1, Cables 0.3.7 et Qt 6.11.2. La couverture admise porte sur
+l’inventaire de la référence sans dock et les trois analyses virtuelles
+de dépendances F40/F41. [Acceptation structurée](verification/v3/a/acceptance.json)
+
+| Exigence | Composant et contrôle | Résultat |
+|---|---|---|
+| `V3-A-01` Fermeture, identité et sources | `T-CARTO-V3-A-NATIVE`, réouverture et recalcul sur deux copies, composition indépendante et sept cas natifs | 137 natifs, 3 733 définitions, 2 772 poses et 53 axes. Le transfert conserve les résultats. 142 fichiers sources identiques avant et après. [Reçu](verification/v3/a/native_receipt.json) |
+| `V3-A-02` Traçabilité, topologie et autorités | `v3_graph_contract`, migration L2 et contre-épreuves de projection | 71 liaisons, 142 côtés, 53 axes, 56 associations et 21 lignes sans axe motivées. Le manifeste mécanique LF reproduit l’empreinte CRLF historique par conversion des 51 110 fins de ligne. [Réconciliation](verification/v3/a/reconciliation.json) |
+| `V3-A-03` Fermeture d’impact | Oracle indépendant et requêtes `MOVE iso`, `RETENTION p72` et `FRAME ttl-reference` sur les deux copies et un banc XLink | Les neuf cas retrouvent tous les nœuds et contrôles attendus. Les dépendances de voisinage incertaines restent incluses pour revue. [Reçu](verification/v3/a/impact.json) |
+| `V3-A-04` Refus adversariaux et preuves | Tests V3, L0–L5 et validation T0 | Dix contre-épreuves d’intégration V3 rejetées. Les gardes de repère +3 mm, provenance fournisseur, cache et worker V2.1 ont été rejouées. Le rapprochement L2 historique passe sur la copie scellée CRLF. [Régressions](verification/v3/a/regressions.json) |
+
+Les deux réservations masquées de l’isolateur sont à 98,871 mm côté TTL
+et 53,639 mm côté USB des extrémités des axes correspondants. Ces valeurs
+décrivent les représentations CAO. L’inventaire conserve les contradictions
+sur J2/J3, la déconnexion F40, les NC et les références à confirmer ainsi
+que les inconnues sur l’ancrage, le domaine P72/P73 et les gestes d’accès.
+[Autorités et écarts](electromechanical_v3/cartographe.json)
+
+À l’entrée de B, la lecture du gel et l’analyse virtuelle de ces trois
+opérations sont admises pour instruire les observations discriminantes.
+La recherche de poses, la relaxation de contraintes, la génération CAO ou
+la réception de variantes exigent des repères d’interface indépendants, des
+domaines de modification et des ancrages étayés, ainsi que des critères
+d’accès et d’isolation explicites. La conformité du cartographe demeure
+**À valider**. Réception physique `NOT_RUN`.
+[Entrées exactes et restrictions](verification/v3/a/acceptance.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4680,6 +4712,8 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 
 ## 16. Journal de modifications
+
+- **18 novembre 2026** — V3-A sur le cartographe sans dock. Fermeture, graphe et impact vérifiés sur copies et banc. Admission conditionnelle au périmètre numérique décrit au §12.1.13.
 
 - **17 novembre 2026** — Contrôles locaux avant sauvegarde et intégration Git : compilations réussies, échecs et tests incomplets conservés, périmètre de publication explicité (§6.3).
 - **17 novembre 2026** — GO3B exécuté sur copies natives, consolidation et contre-validation. [Verdict NO_GO et couverture](#cartographe-go3b-reconstruction).

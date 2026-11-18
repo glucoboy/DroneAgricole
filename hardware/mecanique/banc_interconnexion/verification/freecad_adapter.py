@@ -17,6 +17,8 @@ import xmlrpc.client
 
 ROOT = Path(__file__).resolve().parents[4]
 BUILDER = ROOT / "hardware/mecanique/cartographe/verification/cable_workbench_prototype.py"
+REFERENCE = ROOT / "interconnection_engine/fixtures/banc_l2_interface_reference.json"
+REFERENCE_SHA256 = "19bd3be4272740a446a00dbca70c1c065a74eb9ac74b7c362ab2991f748a615b"
 POSITION_TOL_MM = 1e-6
 VOLUME_TOL_MM3 = 1e-6
 POSE_TOL = 1e-8
@@ -376,7 +378,64 @@ def attached_to(obj, parent):
             and obj.AttachmentSupport[0][0] == parent)
 
 
+def load_reference(plan):
+    data = REFERENCE.read_bytes()
+    require(hashlib.sha256(data).hexdigest() == REFERENCE_SHA256,
+            "Empreinte du référentiel d'interface indépendante divergente")
+    authority = json.loads(data)
+    require(authority.get("schema") == "drone_agricole.interface_authority.v1" and
+            authority.get("origin") == "SYNTHETIC_BENCH", "Domaine du référentiel d'interface invalide")
+    require(plan["configuration_id"] in authority["configurations"] and
+            plan["state_id"] in authority["configurations"][plan["configuration_id"]],
+            "État sans référentiel d'interface indépendant")
+    return authority, authority["configurations"][plan["configuration_id"]][plan["state_id"]]
+
+
+def angle_degrees(left, right):
+    return math.degrees(math.atan2(left.cross(right).Length, left.dot(right)))
+
+
+def compare_independent_pose(obj, expected_world, expected_local, observed_parent, authority, frame_id):
+    observed_world = obj.getGlobalPlacement()
+    observed_local = observed_parent.inverse().multiply(observed_world)
+    errors = {}
+    for scope, observed, expected in (("world", observed_world, expected_world),
+                                       ("local", observed_local, expected_local)):
+        translation = (observed.Base - expected.Base).Length
+        rotation = max(angle_degrees(observed.Rotation.multVec(axis), expected.Rotation.multVec(axis))
+                       for axis in (App.Vector(1, 0, 0), App.Vector(0, 1, 0), App.Vector(0, 0, 1)))
+        require(translation <= authority["position_tolerance_mm"] and rotation <= authority["angle_tolerance_deg"],
+                f"Repère indépendant {frame_id} ({scope}) divergent : {translation:.9g} mm, {rotation:.9g} deg")
+        errors[scope] = {"translation_mm": translation, "rotation_deg": rotation,
+                         "observed": list(observed.toMatrix().A), "expected": list(expected.toMatrix().A)}
+    return observed_world, errors
+
+
+def compare_independent_axis(wire, exit_frame, authority):
+    shape = check_shape(wire, 0)
+    departure = exit_frame.Base
+    tangents = []
+    for edge in shape.Wires[0].Edges:
+        for parameter, sign in ((edge.FirstParameter, 1), (edge.LastParameter, -1)):
+            if (edge.valueAt(parameter) - departure).Length <= authority["position_tolerance_mm"]:
+                tangents.append(edge.tangentAt(parameter) * sign)
+    require(len(tangents) == 1, "L'axe natif ne possède pas une extrémité unique sur la sortie indépendante")
+    error = angle_degrees(tangents[0], exit_frame.Rotation.multVec(App.Vector(0, 0, 1)))
+    require(error <= authority["angle_tolerance_deg"], f"Sens de sortie de l'axe natif divergent : {error:.9g} deg")
+    return error
+
+
+def check_independent_sweep(required, actual, position_tol):
+    required_bounds, actual_bounds = box_bounds(required), box_bounds(actual)
+    bounds_match = all(actual_bounds[i] <= required_bounds[i] + position_tol and
+                       actual_bounds[i + 3] >= required_bounds[i + 3] - position_tol for i in range(3))
+    missing_volume = required.cut(actual).Volume
+    return {"status": "PASS" if bounds_match and missing_volume <= VOLUME_TOL_MM3 else "FAIL",
+            "bounds_cover_required": bounds_match, "missing_volume_mm3": missing_volume}
+
+
 def revalidate(plan, digest, directory):
+    authority, references = load_reference(plan)
     model = directory / MODEL
     before = sha256(model)
     doc = App.openDocument(str(model))
@@ -396,7 +455,12 @@ def revalidate(plan, digest, directory):
     obstacles = [obj for obj in doc.Objects if hasattr(obj, "L2ObstacleId")]
     solids = []
     interfaces = []
+    minimum_sweeps = []
     for index, spec in enumerate(plan["interfaces"], start=1):
+        reference = references.get(spec["interface_id"])
+        require(reference and all(spec.get(key) == reference.get(key)
+                                 for key in ("equipment_id", "port_id", "receptacle_id", "mate_id")),
+                "Identité de l'interface différente du référentiel indépendant")
         device = object_by_id(doc, spec.get("equipment_id", spec["port_id"]),
                               "ArchElectricalDevice", spec["end_id"])
         receptacle = object_by_id(doc, spec["receptacle_id"], "ArchCableConnector", spec["end_id"])
@@ -406,17 +470,36 @@ def revalidate(plan, digest, directory):
         solids.extend((device, receptacle, plug))
         for obj in (device, receptacle, plug):
             check_shape(obj, 1)
-            require(obj.Visibility, f"Corps du banc masqué : {obj.Name}")
+            require(obj.Visibility and obj.L2Port == reference["port_id"],
+                    f"Corps du banc masqué ou port différent du référentiel : {obj.Name}")
         frames = {}
+        independent_poses = {}
+        expected_world = position(reference["world_from_equipment"])
+        observed_parent = expected_world
+        expected_frames = {}
+        datum_keys = {"mount": "equipment_from_mount", "receptacle_mating": "mount_from_receptacle_contact",
+                      "mate_mating": "receptacle_contact_from_mate_contact", "exit": "mate_contact_from_exit"}
         for key, name, parent in (("mount", "Mount", device),
                                   ("receptacle_mating", "ReceptacleMating", receptacle),
                                   ("mate_mating", "MateMating", plug), ("exit", "WireExit", plug)):
             obj = doc.getObject(name + str(index))
             require(attached_to(obj, parent), f"Repère détaché : {obj.Name}")
             frames[key] = {**check_pose(obj, spec[key]), "attachment": parent.Name}
+            expected_local = position(reference[datum_keys[key]])
+            expected_world = expected_world.multiply(expected_local)
+            observed_parent, independent_poses[key] = compare_independent_pose(
+                obj, expected_world, expected_local, observed_parent, authority, f"{spec['interface_id']}/{key}")
+            expected_frames[key] = expected_world
         require(all(result["status"] == "PASS" for result in frames.values()), "Repères natifs divergents")
+        axis_angle_error = compare_independent_axis(jacket.Base, expected_frames["exit"], authority)
         contacts = []
+        expected_contacts = {item["receptacle_contact_id"]: item for item in reference["contacts"]}
+        require(len(expected_contacts) == len(spec["contacts"]), "Nombre de contacts de référence divergent")
         for item in spec["contacts"]:
+            contact = expected_contacts.pop(item["receptacle_contact_id"], {})
+            require(contact and all(item.get(field) == contact.get(field)
+                                   for field in ("mate_contact_id", "pin_id", "pin_number", "cavity", "mate_cavity")),
+                    "Appariement ou indexation différent du brochage indépendant")
             female = object_by_id(doc, item["receptacle_contact_id"], "CableTerminal")
             male = object_by_id(doc, item["mate_contact_id"], "CableTerminal")
             gap = (female.Placement.Base - male.Placement.Base).Length
@@ -425,6 +508,11 @@ def revalidate(plan, digest, directory):
                     and male.L2MatedContact == female and gap <= POSITION_TOL_MM
                     and female.Visibility and male.Visibility,
                     "Contacts natifs mal accouplés")
+            contact_local = position(contact["contact_from_terminal"])
+            for terminal, key in ((female, "receptacle_mating"), (male, "mate_mating")):
+                require(terminal.PinName == contact["pin_id"], "Indexation de la borne native différente")
+                compare_independent_pose(terminal, expected_frames[key].multiply(contact_local), contact_local,
+                    position(frames[key]["matrix"]), authority, terminal.Name)
             contacts.append({"mate_contact_id": male.L2Id, "receptacle_contact_id": female.L2Id,
                              "native_pair": [female.Name, male.Name], "gap_mm": gap,
                              "position_mm": vector_list(male.Placement.Base)})
@@ -432,12 +520,24 @@ def revalidate(plan, digest, directory):
         exit_frame = doc.getObject(f"WireExit{index}")
         require(envelope.Visibility and exit_frame.Visibility,
                 "Enveloppe ou sortie de câble masquée")
+        minimum_sweep = box(reference["extraction_box_local_mm"])
+        minimum_sweep.Placement = expected_frames["receptacle_mating"]
+        actual_sweep = check_shape(envelope, 1)
+        position_tol = authority["position_tolerance_mm"]
+        independent_sweep = check_independent_sweep(minimum_sweep, actual_sweep, position_tol)
+        require(math.isclose(spec["extraction_travel_mm"], reference["extraction_travel_mm"],
+                             rel_tol=0, abs_tol=position_tol) and
+                independent_sweep["status"] == "PASS",
+                "Volume ou course de retrait inférieur au référentiel indépendant")
+        minimum_sweeps.append(minimum_sweep)
         pull = check_pull_envelope(plug, envelope, exit_frame, spec["extraction_travel_mm"])
         require(pull["status"] == "PASS", "Retrait de la fiche hors de l'enveloppe")
         interfaces.append({"end_id": spec["end_id"], "port_id": spec["port_id"],
                            "device": device.Name, "receptacle": receptacle.Name, "plug": plug.Name,
                            "frames": frames, "contacts": contacts, "envelope": envelope.Name,
-                           "pull_envelope": pull})
+                           "pull_envelope": pull, "independent_poses": independent_poses,
+                           "independent_sweep": independent_sweep,
+                           "independent_axis_direction_error_deg": axis_angle_error})
     for index, (interface, spec) in enumerate(zip(interfaces, plan["interfaces"]), start=1):
         envelope = doc.getObject(interface["envelope"])
         # La fiche retirée et son cordon mobile sont exclus du contrôle d'obstacles fixes.
@@ -460,6 +560,9 @@ def revalidate(plan, digest, directory):
                 f"Conducteur natif {spec['id']} non raccordé : {result}")
         conductors.append({"id": spec["id"], **result})
     require(len(jacket.L2Conductors) == len(expected_wires), "Liste de conducteurs incomplète")
+    require(sorted(sorted(item["contact_ids"]) for item in conductors) ==
+            sorted(sorted(pair) for pair in authority["continuity"]),
+            "Continuité des conducteurs différente du référentiel indépendant")
 
     # Défauts dans la copie réouverte, sans réécriture du natif positif.
     first = interfaces[0]
@@ -469,6 +572,11 @@ def revalidate(plan, digest, directory):
     blocker = feature(doc, "BlockerTest", Part.makeBox(1, 1, 1, App.Vector(*center)), (1.0, 0.0, 0.0))
     obstructed = extraction(envelope, [blocker])
     require(obstructed["status"] == "FAIL", "Obstacle de retrait ignoré")
+    hollow = envelope.Shape.cut(blocker.Shape)
+    require(values_close(box_bounds(hollow), bounds, POSITION_TOL_MM), "Le retrait creusé change de boîte englobante")
+    incomplete_sweep = check_independent_sweep(minimum_sweeps[0], hollow, authority["position_tolerance_mm"])
+    require(incomplete_sweep["bounds_cover_required"] and incomplete_sweep["status"] == "FAIL",
+            "Le retrait creusé doit échouer même avec une boîte englobante inchangée")
     wire = object_by_id(doc, expected_wires[0]["id"], "WireFlex")
     original_start = wire.Vrtx_start
     point = feature(doc, "GenericVertex", Part.Vertex(vertex_from(original_start)), (1.0, 0.0, 0.0))
@@ -498,8 +606,10 @@ def revalidate(plan, digest, directory):
     App.closeDocument(doc.Name)
     require(sha256(model) == before, "La réouverture a modifié le fichier du banc")
     return {"status": "PASS", "pid": os.getpid(), "fcstd_sha256": before,
+            "interface_reference_sha256": REFERENCE_SHA256,
             "interfaces": interfaces, "jacket": jacket_geometry, "jacket_endpoints": route,
             "conductors": conductors, "faults": {"extraction_blocked": obstructed,
+            "withdrawal_same_bounds_missing_volume": incomplete_sweep,
             "generic_endpoint_same_position": generic,
             "rotated_equipment": {"frozen_pose": mount_after, "wire": moved_wire,
                                   "terminal_displacement_mm": displacement}}}
@@ -554,7 +664,7 @@ def run(args):
     projection = args.projection.resolve()
     load_plan(projection)
     adapter = Path(__file__).resolve()
-    sources = {path: sha256(path) for path in (projection, adapter, BUILDER)}
+    sources = {path: sha256(path) for path in (projection, adapter, BUILDER, REFERENCE)}
     args.directory.mkdir(parents=True, exist_ok=False)
     rpc = rpc_status()
     executable = str(args.freecad.resolve())
@@ -570,10 +680,13 @@ def run(args):
     build, reopen = phases["build"], phases["reopen"]
     require(build["pid"] != reopen["pid"] and build["fcstd_sha256"] == reopen["fcstd_sha256"]
             and build["environment"] == reopen["environment"], "Phases natives non réconciliées")
+    require(reopen["interface_reference_sha256"] == sources[REFERENCE] == REFERENCE_SHA256,
+            "Référentiel de mesure native divergent")
     require(all(sha256(path) == expected for path, expected in sources.items()), "Source native modifiée")
     publish_json(directory / "native_l2.json", {"status": "PASS", "scope": "SYNTHETIC",
                  "projection_sha256": sources[projection], "adapter_sha256": sources[adapter],
                  "builder_sha256": sources[BUILDER], "rpc": rpc,
+                 "interface_reference_sha256": sources[REFERENCE],
                  "tolerances": {"position_mm": POSITION_TOL_MM, "volume_mm3": VOLUME_TOL_MM3,
                                 "pose_matrix_components": POSE_TOL},
                  "phases": phases, "interactive": "NOT_EXECUTED", "physical": "NOT_EXECUTED"})

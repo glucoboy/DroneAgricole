@@ -289,6 +289,18 @@ QJsonArray bindInterfaces(const QJsonObject &dossier, const Model &model, const 
         native.insert("equipment_id", equipment.value("id"));
         native.insert("port_id", portId);
         native.insert("receptacle_id", receptacle.value("id"));
+        QJsonObject identity;
+        for (const auto &item : {qMakePair(QStringLiteral("equipment"), equipmentRef),
+                                 qMakePair(QStringLiteral("receptacle"), receptacle.value("part_reference").toObject()),
+                                 qMakePair(QStringLiteral("mate"), mate.value("part_reference").toObject())}) {
+            identity.insert(item.first + "_mpn", item.second.value("value"));
+            identity.insert(item.first + "_revision", item.second.value("revision"));
+        }
+        const auto attributes = catalog.part(matePart).value("attributes").toObject();
+        for (const auto &key : {"keying", "polarity"}) {
+            identity.insert(key, attributes.value(key).toObject().value("value"));
+        }
+        native.insert("identity", identity);
         native.insert("contacts", bindContacts(model, receptacle, mate, pair, entry.value("receptacle_pinout").toObject(), cableId, endId,
             catalog.part(receptaclePart), catalog.part(matePart), catalog, bom, bindings, findings, synthetic));
         projection.append(native);
@@ -623,7 +635,8 @@ QJsonObject Finding::json() const
     return {{"domain", domain}, {"code", code}, {"subject_id", subject}, {"status", status}, {"reason", reason}};
 }
 
-QJsonObject validate(const QJsonObject &dossier, const QString &stateId, const QJsonArray &researchReports)
+QJsonObject validate(const QJsonObject &dossier, const QString &stateId, const QJsonArray &researchReports,
+                     const InterfaceAuthority &authority)
 {
     const auto model = dossier.value("model").toObject();
     const auto config = model.value("configuration_id").toString();
@@ -638,7 +651,7 @@ QJsonObject validate(const QJsonObject &dossier, const QString &stateId, const Q
     if (!states.contains(stateId)) {
         throw std::runtime_error("État de contrôle inconnu");
     }
-    const ConnectorCatalog catalog(dossier, records.evidence, synthetic);
+    const ConnectorCatalog catalog(dossier, records.evidence, synthetic, authority);
     Findings findings;
     ContactBindings bindings;
     QMap<QString, int> bom;
@@ -651,7 +664,7 @@ QJsonObject validate(const QJsonObject &dossier, const QString &stateId, const Q
     checkPinMapping(records, bindings, catalog, findings, synthetic);
     checkSignalGroups(dossier, records, findings);
     checkCables(dossier, records, catalog, bom, findings);
-    const auto nativePlan = checkGeometry(dossier, states.value(stateId), interfaces, findings);
+    const auto nativePlan = checkGeometry(dossier, states.value(stateId), interfaces, findings, authority);
     QJsonArray continuity;
     for (const auto &circuit : records.circuits) {
         for (const auto &spanValue : circuit.value("spans").toArray()) {
@@ -686,7 +699,7 @@ QJsonObject validate(const QJsonObject &dossier, const QString &stateId, const Q
         {"mode", dossier.value("mode")}, {"status", verdict(findings)}, {"electrical", verdict(findings, "electrical")},
         {"compatibility", verdict(findings, "compatibility")}, {"geometry", verdict(findings, "geometry")},
         {"findings", evidence}, {"continuity", continuity}, {"candidate_bom", catalog.bom(bom)},
-        {"research", research}, {"native_plan", nativePlan}};
+        {"research", research}, {"native_plan", nativePlan}, {"interface_reference_sha256", authority.sha256}};
 }
 
 } // namespace interconnection

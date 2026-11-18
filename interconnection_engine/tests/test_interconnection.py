@@ -146,6 +146,7 @@ class InterconnectionTest(unittest.TestCase):
         exit_frame["parent_from_local"] = [[1, 0, 0, 0], [0, 0, 1, 3], [0, -1, 0, 5], [0, 0, 0, 1]]
         self.records["routes"][0]["points_mm"] = [[9, 3, 0], [9, 5, 0], [18, 5, 0], [30, 0, 0], [86, 0, 0]]
         self.dossier["cable_parts"]["cordon"]["specifications"]["length_mm"]["value"] = 90
+        self.dossier["model"]["configuration_id"] = "banc-l2-lateral"
         report = self.run_cli()
         self.finding(report, "EXTRACTION_ENVELOPE", "PASS")
         self.finding(report, "WIRE_EXIT", "PASS")
@@ -219,6 +220,35 @@ class InterconnectionTest(unittest.TestCase):
     def test_generic_cad_axis_endpoint(self):
         self.records["routes"][0]["points_mm"][0] = [14, 0, 1]
         self.finding(self.run_cli(status=2), "WIRE_EXIT", "FAIL")
+
+    def test_coordinated_exit_and_axis_displacement(self):
+        frame = next(item for item in self.dossier["model"]["frames"] if item["id"] == "exit-a")
+        frame["parent_from_local"][2][3] = 7
+        self.records["routes"][0]["points_mm"][0] = [11, 0, 0]
+        self.dossier["cable_parts"]["cordon"]["specifications"]["length_mm"]["value"] = 75
+        report = self.run_cli(status=2)
+        self.finding(report, "INTERFACE_REFERENCE_POSE", "FAIL")
+        self.finding(report, "WIRE_EXIT", "FAIL")
+        exit_check = report["native_plan"]["interfaces"][0]["interface_reference"]["poses"]["mate_contact_from_exit"]
+        self.assertEqual((exit_check["expected_local"][11], exit_check["observed_local"][11]), (10, 7))
+        self.assertEqual((exit_check["expected_world"][3], exit_check["observed_world"][3]), (14, 11))
+
+    def test_external_authority_must_match_the_campaign_digest(self):
+        path = ROOT / "interconnection_engine/fixtures/banc_l2_interface_reference.json"
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        report = self.run_cli("validate", "--interface-authority", path, "--interface-authority-sha256", digest)
+        self.assertEqual(report["interface_reference_sha256"], digest)
+        self.run_cli("validate", "--interface-authority", path, "--interface-authority-sha256", "0" * 64, status=1)
+
+    def test_synthetic_authority_cannot_issue_supplier_attestations(self):
+        fixture = ROOT / "interconnection_engine/fixtures/banc_l2_interface_reference.json"
+        authority = json.loads(fixture.read_text(encoding="utf-8"))
+        authority["supplier_documents"] = [{"status": "SUPPLIER_DOCUMENT_VERIFIED", "mpn": "BANC-embase"}]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "authority.json"
+            path.write_text(json.dumps(authority), encoding="utf-8")
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            self.run_cli("validate", "--interface-authority", path, "--interface-authority-sha256", digest, status=1)
 
     def test_unknown_pinout(self):
         self.records["pins"][0]["evidence_ids"] = []

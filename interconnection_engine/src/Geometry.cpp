@@ -69,7 +69,8 @@ Vec axis(const Matrix &m, std::size_t col) { return {m[col], m[4 + col], m[8 + c
 
 double angle(const Vec &a, const Vec &b)
 {
-    return std::acos(std::clamp(dot(a, b) / (norm(a) * norm(b)), -1.0, 1.0)) * 180 / pi;
+    const Vec cross{a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]};
+    return std::atan2(norm(cross), dot(a, b)) * 180 / pi;
 }
 
 Matrix multiply(const Matrix &a, const Matrix &b)
@@ -263,19 +264,34 @@ struct GeometryChecks {
     const QJsonObject &dossier;
     const QJsonObject &state;
     Findings &findings;
+    const InterfaceAuthority &authority;
     Frames frames;
     Index obstacles;
     Index evidence;
+    QJsonObject references;
     double positionTolerance, angleTolerance, serviceClearance;
 
-    GeometryChecks(const QJsonObject &input, const QJsonObject &selected, Findings &results)
-        : dossier(input), state(selected), findings(results),
+    GeometryChecks(const QJsonObject &input, const QJsonObject &selected, Findings &results,
+                   const InterfaceAuthority &referenceAuthority)
+        : dossier(input), state(selected), findings(results), authority(referenceAuthority),
           frames(input.value("model").toObject().value("frames"), selected.value("frame_overrides").toArray()),
           obstacles(index(input.value("geometry").toObject().value("obstacles"), "geometry.obstacles")),
           evidence(index(input.value("model").toObject().value("records").toObject().value("technical_evidence"),
                          "technical_evidence")),
+          references(authorizedInterfaces()),
           positionTolerance(tolerance("position_tolerance_mm")), angleTolerance(tolerance("angle_tolerance_deg")),
           serviceClearance(tolerance("service_clearance_mm")) {}
+
+    QJsonObject authorizedInterfaces() const
+    {
+        const bool synthetic = dossier.value("mode") == "SYNTHETIC_BENCH";
+        if (synthetic != (authority.document.value("origin") == "SYNTHETIC_BENCH")) {
+            return {};
+        }
+        const auto configuration = dossier.value("model").toObject().value("configuration_id").toString();
+        return authority.document.value("configurations").toObject().value(configuration).toObject()
+            .value(state.value("id").toString()).toObject();
+    }
 
     double tolerance(const QString &key) const
     {
@@ -326,8 +342,7 @@ struct GeometryChecks {
             finding("GEOMETRY_SOURCE", id, "INCONCLUSIVE", kind + " : classe ou dimensions absentes ou invalides");
             return false;
         }
-        const bool established = (origin == "SUPPLIER" || (synthetic && origin == "CONSERVATIVE_ENVELOPE")) &&
-            sourced(dimensions, evidence, synthetic);
+        const bool established = synthetic && origin == "CONSERVATIVE_ENVELOPE" && sourced(dimensions, evidence, true);
         finding("GEOMETRY_SOURCE", id, established ? "PASS" : "INCONCLUSIVE",
                 kind + " : " + origin + (established ? " avec preuve" : " sans preuve applicable à la réception"));
         return established;
@@ -429,6 +444,116 @@ struct GeometryChecks {
                 {"source_geometry", geometry}};
     }
 
+    QJsonObject compareReference(const QJsonObject &entry, const Matrix &equipment, const Matrix &mount,
+                                 const Matrix &receptacle, const Matrix &mate, const Matrix &exit,
+                                 const std::optional<Box> &sweep, double travel)
+    {
+        const auto id = entry.value("id").toString();
+        const auto reference = references.value(id).toObject();
+        if (reference.isEmpty()) {
+            const auto domain = dossier.value("mode") == "SYNTHETIC_BENCH" && references.isEmpty()
+                ? "reference" : "geometry";
+            findings.append({domain, "INTERFACE_REFERENCE", id, "INCONCLUSIVE",
+                             "Aucune interface indépendante pour cet équipement et cet état"});
+            return {};
+        }
+        const auto position = authority.document.value("position_tolerance_mm").toDouble(-1);
+        const auto rotation = authority.document.value("angle_tolerance_deg").toDouble(-1);
+        if (!std::isfinite(position) || position < 0 || !std::isfinite(rotation) || rotation < 0 || rotation >= 90) {
+            throw std::runtime_error("Tolérance du référentiel d'interface invalide");
+        }
+        const auto identityFields = entry.value("identity").toObject();
+        bool identityMatches = true;
+        const auto compareIdentity = [&reference, &identityMatches](const QString &key, const QJsonObject &observed) {
+            const auto value = reference.value(key);
+            if (value.toString().trimmed().isEmpty()) {
+                throw std::runtime_error("Identité obligatoire absente du référentiel d'interface");
+            }
+            identityMatches &= observed.value(key) == value;
+        };
+        for (const auto &key : {"equipment_id", "port_id", "receptacle_id", "mate_id"}) {
+            compareIdentity(key, entry);
+        }
+        for (const auto &key : {"equipment_mpn", "equipment_revision", "receptacle_mpn", "receptacle_revision",
+                                "mate_mpn", "mate_revision", "keying", "polarity"}) {
+            compareIdentity(key, identityFields);
+        }
+        finding("INTERFACE_REFERENCE_IDENTITY", id, identityMatches ? "PASS" : "FAIL",
+                identityMatches ? "Identité, révisions, clé et polarité de l'interface de référence"
+                                : "Conflit équipement, port, référence, révision, détrompage ou polarité");
+
+        const auto expectedContacts = reference.value("contacts").toArray();
+        const auto actualContacts = entry.value("contacts").toArray();
+        Index contactsByPin;
+        for (const auto &contact : actualContacts) {
+            const auto record = contact.toObject();
+            contactsByPin.insert(record.value("pin_id").toString(), record);
+        }
+        bool contactsMatch = !expectedContacts.isEmpty() && expectedContacts.size() == actualContacts.size() &&
+            contactsByPin.size() == actualContacts.size();
+        for (const auto &value : expectedContacts) {
+            const auto expected = value.toObject();
+            const auto pinId = expected.value("pin_id").toString();
+            const auto contact = contactsByPin.take(pinId);
+            contactsMatch &= !pinId.isEmpty() && !contact.isEmpty();
+            for (const auto &key : {"pin_number", "cavity", "mate_cavity", "receptacle_contact_id", "mate_contact_id"}) {
+                contactsMatch &= !expected.value(key).toString().isEmpty() && contact.value(key) == expected.value(key);
+            }
+        }
+        findings.append({"electrical", "INTERFACE_REFERENCE_CONTACTS", id, contactsMatch ? "PASS" : "FAIL",
+                         contactsMatch ? "Broches, cavités et indexation de l'interface de référence"
+                                       : "Contacts de l'interface différents du brochage de référence"});
+
+        struct Datum { QString key; Matrix observed; };
+        const std::array<Datum, 5> chain{{
+            {"world_from_equipment", equipment}, {"equipment_from_mount", mount},
+            {"mount_from_receptacle_contact", receptacle}, {"receptacle_contact_from_mate_contact", mate},
+            {"mate_contact_from_exit", exit}
+        }};
+        Matrix expectedWorld = identity;
+        Matrix expectedContactPose = identity;
+        Matrix observedParent = identity;
+        QJsonObject comparisons;
+        bool posesMatch = true;
+        for (const auto &datum : chain) {
+            const auto local = numbers<16>(reference.value(datum.key));
+            if (!local || !rigid(*local)) {
+                throw std::runtime_error("Matrice non rigide ou absente du référentiel d'interface");
+            }
+            expectedWorld = multiply(expectedWorld, *local);
+            if (datum.key == "mount_from_receptacle_contact") {
+                expectedContactPose = expectedWorld;
+            }
+            const auto measuredLocal = multiply(inverseRigid(observedParent), datum.observed);
+            const bool matches = near(expectedWorld, datum.observed, position, rotation) &&
+                near(*local, measuredLocal, position, rotation);
+            posesMatch &= matches;
+            comparisons.insert(datum.key, QJsonObject{
+                {"expected_local", json(*local)}, {"observed_local", json(measuredLocal)},
+                {"expected_world", json(expectedWorld)}, {"observed_world", json(datum.observed)},
+                {"status", matches ? "PASS" : "FAIL"}});
+            observedParent = datum.observed;
+        }
+        finding("INTERFACE_REFERENCE_POSE", id, posesMatch ? "PASS" : "FAIL",
+                posesMatch ? "Repères locaux et mondiaux conformes au référentiel indépendant"
+                           : "Translation ou rotation d'un repère différente du référentiel indépendant");
+
+        const auto minimumSweep = box(reference.value("extraction_box_local_mm"));
+        const auto requiredTravel = reference.value("extraction_travel_mm").toDouble(-1);
+        if (!minimumSweep || requiredTravel <= 0) {
+            throw std::runtime_error("Volume ou course de retrait absent du référentiel d'interface");
+        }
+        const bool withdrawalMatches = sweep && contains(*sweep, transformedBox(expectedContactPose, *minimumSweep), position)
+            && std::abs(travel - requiredTravel) <= position;
+        finding("INTERFACE_REFERENCE_WITHDRAWAL", id, !sweep || travel <= 0 ? "INCONCLUSIVE" : withdrawalMatches ? "PASS" : "FAIL",
+                withdrawalMatches ? "Volume minimal et course de retrait couverts"
+                                  : "Volume minimal ou course de retrait de référence non démontrés");
+        return {{"reference_id", authority.document.value("reference_id")}, {"sha256", authority.sha256},
+                {"origin", authority.document.value("origin")}, {"source", authority.document.value("source")},
+                {"position_tolerance_mm", position}, {"angle_tolerance_deg", rotation}, {"poses", comparisons},
+                {"expected_exit_world", json(expectedWorld)}};
+    }
+
     QJsonObject buildMatingFrames(const QJsonObject &entry, const QJsonObject &port, const QJsonObject &receptacle)
     {
         const auto id = entry.value("id").toString();
@@ -438,9 +563,9 @@ struct GeometryChecks {
         const auto mateId = entry.value("mate_mating_frame_id").toString();
         const auto exitId = entry.value("exit_frame_id").toString();
         const auto mount = frames.get(mountId), receptaclePose = frames.get(receptacleId);
-        const auto mate = frames.get(mateId), exit = frames.get(exitId);
+        const auto mate = frames.get(mateId), exit = frames.get(exitId), equipment = frames.get(equipmentFrame);
         if (positionTolerance < 0 || angleTolerance < 0 || angleTolerance >= 90 ||
-            !frames.get(equipmentFrame) || !mount || !receptaclePose || !mate || !exit) {
+            !equipment || !mount || !receptaclePose || !mate || !exit) {
             finding("MATING_FRAMES", id, "INCONCLUSIVE", "Repère équipement, montage, accouplement ou sortie inconnu");
             return {};
         }
@@ -488,33 +613,47 @@ struct GeometryChecks {
             tooling = checkEnvelope(id, *receptaclePose, entry.value("tool_box_local_mm"), "TOOL_ENVELOPE");
             checkSweep(id, entry.value("extraction_box_local_mm"), box(entry.value("plug_body_box_local_mm")), travel, synthetic);
         }
+        const auto measuredTravel = entry.contains("physical_geometry")
+            ? entry.value("physical_geometry").toObject().value("extraction_sweep").toObject()
+                  .value("travel").toObject().value("value") : entry.value("extraction_travel_mm");
+        const auto independent = compareReference(entry, *equipment, *mount, *receptaclePose, *mate, *exit,
+                                                  extraction, measuredTravel.toDouble(-1));
         return {{"interface_id", entry.value("id")}, {"end_id", entry.value("end_id")}, {"equipment_id", entry.value("equipment_id")},
             {"port_id", entry.value("port_id")}, {"receptacle_id", entry.value("receptacle_id")},
             {"mate_id", entry.value("mate_id")}, {"mount", json(*mount)}, {"receptacle_mating", json(*receptaclePose)},
             {"mate_mating", json(*mate)}, {"exit", json(*exit)}, {"contacts", entry.value("contacts")},
+            {"interface_reference", independent.isEmpty() ? QJsonValue::Null : QJsonValue(independent)},
             {"physical_geometry", physical.isEmpty() ? QJsonValue::Null : QJsonValue(physical)},
             {"extraction_box_mm", extraction ? QJsonValue(json(*extraction)) : QJsonValue::Null},
-            {"extraction_travel_mm", entry.contains("physical_geometry")
-                ? entry.value("physical_geometry").toObject().value("extraction_sweep").toObject()
-                      .value("travel").toObject().value("value") : entry.value("extraction_travel_mm")},
+            {"extraction_travel_mm", measuredTravel},
             {"tool_box_mm", tooling ? QJsonValue(json(*tooling)) : QJsonValue::Null}};
     }
 
-    void checkWireExit(const QString &subject, const Matrix &frame, const Vec &point, const Vec &direction)
+    void checkWireExit(const QString &subject, const QJsonObject &interface, const Matrix &frame,
+                       const Vec &point, const Vec &direction)
     {
-        const bool matches = norm(direction) > 0 && norm(sub(origin(frame), point)) <= positionTolerance &&
+        bool matches = norm(direction) > 0 && norm(sub(origin(frame), point)) <= positionTolerance &&
             angle(axis(frame, 2), direction) <= angleTolerance;
-        finding("WIRE_EXIT", subject, matches ? "PASS" : "FAIL",
-                matches ? "Extrémité et tangente sur la sortie déclarée" : "Sortie de fil désaxée ou raccord à un point générique");
+        const auto reference = interface.value("interface_reference").toObject();
+        const auto expected = numbers<16>(reference.value("expected_exit_world"));
+        if (expected) {
+            matches = matches && norm(sub(origin(*expected), point)) <= reference.value("position_tolerance_mm").toDouble()
+                && angle(axis(*expected, 2), direction) <= reference.value("angle_tolerance_deg").toDouble();
+        }
+        const bool tentative = !expected && dossier.value("mode") != "SYNTHETIC_BENCH";
+        finding("WIRE_EXIT", subject, !matches ? "FAIL" : tentative ? "INCONCLUSIVE" : "PASS",
+                !matches ? "Extrémité ou tangente incompatible avec la sortie du connecteur"
+                         : expected ? "Extrémité et tangente sur la sortie indépendante"
+                                    : "Extrémité et tangente cohérentes avec la sortie déclarée du modèle");
     }
 };
 
 } // namespace
 
 QJsonObject checkGeometry(const QJsonObject &dossier, const QJsonObject &state,
-                          const QJsonArray &interfaces, Findings &findings)
+                         const QJsonArray &interfaces, Findings &findings, const InterfaceAuthority &authority)
 {
-    GeometryChecks checks(dossier, state, findings);
+    GeometryChecks checks(dossier, state, findings, authority);
     const auto model = dossier.value("model").toObject();
     const auto records = model.value("records").toObject();
     const auto cables = index(records.value("cables"), "cables");
@@ -566,14 +705,16 @@ QJsonObject checkGeometry(const QJsonObject &dossier, const QJsonObject &state,
             points.append(transform(*frame, *p));
             projected.append(json(points.last()));
         }
-        const auto a = numbers<16>(ends.value({id, endIds[0].toString()}).value("exit"));
-        const auto b = numbers<16>(ends.value({id, endIds[1].toString()}).value("exit"));
+        const auto first = ends.value({id, endIds[0].toString()});
+        const auto last = ends.value({id, endIds[1].toString()});
+        const auto a = numbers<16>(first.value("exit"));
+        const auto b = numbers<16>(last.value("exit"));
         if (points.size() < 2 || !a || !b || route.value("geometry_kind") != "POLYLINE") {
             checks.finding("WIRE_EXIT", id, "INCONCLUSIVE", "Sorties ou points de route inaccessibles pour ce contrôle");
             continue;
         }
-        checks.checkWireExit(id + "/" + endIds[0].toString(), *a, points.first(), sub(points[1], points.first()));
-        checks.checkWireExit(id + "/" + endIds[1].toString(), *b, points.last(), sub(points[points.size() - 2], points.last()));
+        checks.checkWireExit(id + "/" + endIds[0].toString(), first, *a, points.first(), sub(points[1], points.first()));
+        checks.checkWireExit(id + "/" + endIds[1].toString(), last, *b, points.last(), sub(points[points.size() - 2], points.last()));
         const auto length = dossier.value("cable_parts").toObject().value(id).toObject()
             .value("specifications").toObject().value("length_mm").toObject();
         const auto declaredLength = length.value("value").toDouble(-1);

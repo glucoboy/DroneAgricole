@@ -1,0 +1,64 @@
+{
+  "schema": "v3.impact-oracle/1",
+  "scope": "Fermeture minimale attendue pour trois opérations hypothétiques sur le modèle natif du cartographe. Établie à partir des autorités projet et des contre-mesures GO3B avant exécution des requêtes V3.",
+  "sources": {
+    "native": "hardware/mecanique/cartographe/manifest.json#/prototype_cartographe/occurrences",
+    "electrical": "hardware/electronique/cartographe/contrat_uart_bms.json",
+    "routes": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+    "supports": "hardware/mecanique/cartographe/verification/refonte_faisceaux/architecture.json",
+    "review": "docs/verification/v21_go3b/interfaces_review.json#/checks",
+    "body": "docs/verification/v21_go3b/electrical_evidence.json#/cases/baseline/diagnostic",
+    "zones": "docs/architecture/ARCHITECTURE_MECANIQUE.md#cartographe-go3b-reconstruction"
+  },
+  "acceptance": "Tous les nœuds et contrôles attendus doivent apparaître. Tout supplément doit rester traçable à un chemin d'impact. Un même voisin peut être conservé par prudence même si le chevauchement réel est indéterminé.",
+  "cases": [
+    {
+      "operation": "MOVE",
+      "target": "iso",
+      "derivation": "DOC-MEC prescrit de régénérer les deux extrémités et leurs volumes de service après réimplantation. IF-03 impose de recontrôler l'appui et son ancrage, IF-04/05 les gestes avec PDB et guides. La baie commune CAN1/diagnostic rend PM08, F31, F35 et la porteuse voisins à surveiller.",
+      "required_nodes": [
+        "ttl-reference", "usb-reference", "port:W40/B", "port:W41/A",
+        "axis:F40", "axis:F41", "harness:f40", "harness:f41", "junction:uart-manual",
+        "service:ttl-mating", "service:usb-withdrawal", "service:usb-reserve",
+        "motion:battery-service", "anchor:iso-carrier", "iso-native-plate",
+        "surface:p64-candidate", "surface:p66-candidate", "p64", "p66", "p72", "p73",
+        "pdb", "pm08", "holybro", "axis:F31", "axis:F35", "port:W31/B", "port:W35/B", "p75", "p77",
+        "obs:ttl-axis-gap", "obs:usb-axis-gap", "obs:iso-support-go3b", "obs:deconnection-p72"
+      ],
+      "required_checks": [
+        "check:ttl-proxy", "check:usb-proxy", "check:mount", "check:clearance",
+        "check:ttl-access", "check:usb-access", "check:usb-reserve",
+        "check:radius", "check:isolation", "check:retention"
+      ],
+      "forbidden_nodes": ["axis:LED_1"]
+    },
+    {
+      "operation": "RETENTION",
+      "target": "p72",
+      "derivation": "P72 intègre les reprises F40 et F41 avec pattes vers P66. La revue IF-03/05 lie ce support à la collision d'appui et au retrait USB. La continuité mécanique P72/P73 est candidate; le témoin de vis suffit à déclencher la revue, avec reprise de chemin d'effort à établir.",
+      "required_nodes": [
+        "p72-p66-tab", "guide-upper-fastener-0", "p66", "p73",
+        "axis:F40", "axis:F41", "harness:f40", "harness:f41", "p75", "p77",
+        "junction:uart-manual", "service:ttl-mating", "service:usb-withdrawal",
+        "service:usb-reserve", "axis:F31", "axis:F35", "anchor:iso-carrier",
+        "obs:ttl-axis-gap", "obs:usb-axis-gap", "obs:iso-support-go3b", "obs:deconnection-p72"
+      ],
+      "required_checks": [
+        "check:retention", "check:clearance", "check:radius", "check:mount",
+        "check:ttl-access", "check:usb-access", "check:usb-reserve", "check:isolation"
+      ],
+      "forbidden_nodes": ["axis:LED_1"]
+    },
+    {
+      "operation": "FRAME",
+      "target": "ttl-reference",
+      "derivation": "Le calcul GO3B compose la face native ORCH_BornierTTL à la pose du module et la compare au bout F40 issu de WireFlex. Une modification hypothétique du repère réouvre la correspondance, l'accès TTL, la déconnexion batterie et les tests de voisinage PDB/CAN1. Une dépendance F41 peut réapparaître par la retenue partagée P72.",
+      "required_nodes": [
+        "port:W40/B", "receptacle:iso-ttl", "axis:F40", "harness:f40", "obs:ttl-axis-gap",
+        "junction:uart-manual", "motion:battery-service", "service:ttl-mating", "pdb", "p72"
+      ],
+      "required_checks": ["check:ttl-proxy", "check:ttl-access", "check:clearance", "check:radius", "check:isolation"],
+      "forbidden_nodes": ["axis:LED_1"]
+    }
+  ]
+}

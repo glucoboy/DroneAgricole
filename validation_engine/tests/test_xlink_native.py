@@ -1,6 +1,7 @@
 """Native XLink occurrence tests using a separate FreeCAD Python process."""
 
 import json
+from copy import deepcopy
 import os
 from pathlib import Path
 import subprocess
@@ -9,6 +10,7 @@ import tempfile
 import unittest
 
 from electromechanical_engine.freecad import FreeCADAdapter, PROJECT, guard
+from electromechanical_engine.xlink_native import measurement_identity
 
 
 ENTRY = 'assemblies/Root.FCStd'
@@ -17,6 +19,23 @@ CONTACT = DEPENDENCY + '#Contact'
 FIRST = ENTRY + '#Root/First/Contact'
 SECOND = ENTRY + '#Root/Second/Contact'
 ARRAY_ELEMENTS = [ENTRY + '#Root/Array/0', ENTRY + '#Root/Array/1']
+
+
+class XLinkMeasurementIdentityTests(unittest.TestCase):
+    def test_occurrence_identity_binds_definition_pose_and_shape(self):
+        pose = [1, 0, 0, 7, 0, 1, 0, 0, 0, 0, 1, 13, 0, 0, 0, 1]
+        record = {'definition': CONTACT, 'definition_sha256': 'a' * 64, 'matrix': pose,
+                  'shape_sha256': 'b' * 64, 'visible': True}
+        records = {FIRST: record, SECOND: dict(record)}
+        expected = measurement_identity(records)
+        self.assertEqual(expected, measurement_identity(dict(reversed(tuple(records.items())))))
+        self.assertNotEqual(expected, measurement_identity({FIRST: record}))
+        for field, value in [('definition', ENTRY + '#Other'), ('definition_sha256', 'c' * 64),
+                             ('matrix', [*pose[:3], 10, *pose[4:]]), ('shape_sha256', 'd' * 64), ('visible', False)]:
+            with self.subTest(field=field):
+                changed = deepcopy(records)
+                changed[FIRST][field] = value
+                self.assertNotEqual(expected, measurement_identity(changed))
 
 
 def create_fixture(root):
