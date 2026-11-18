@@ -2719,12 +2719,12 @@ mesuré après réouverture, avec contrôle électrique, géométrique et T0.
 
 | Exigence | Composant et essai | Résultat et preuve |
 |---|---|---|
-| `V3-A1-01` Autorité d’exécution et portée | `evaluateAdmissionScope` → `l5_v3_admission_policy` et `l5_v3_admission_entry` | Quatre opérations admises sur le banc scellé. Un reçu, un élargissement de l’effet et une demande composite ne donnent aucun droit. [Contre-épreuves](verification/v3/a1/adversarial.json) |
-| `V3-A1-02` Référence et transfert | Rejeu natif FreeCAD et contrôle des copies L5 | Deux documents, huit liens externes et neuf poses sur deux copies. Les originaux du banc conservent leurs empreintes. Les écarts de version, de signature et d’octets ferment l’admission. [Reçu natif](electromechanical_v3/bench_a1/native_receipt.json) |
+| `V3-A1-01` Autorité d’exécution et portée | `evaluateAdmissionScope` → `l5_v3_admission_policy` et `l5_v3_admission_entry` | Quatre opérations admises sur le banc scellé. L5 refuse le déplacement d’iso, la réception physique, les effets composites, les reçus utilisés comme demandes et les clés JSON dupliquées. [Contre-épreuves](verification/v3/a1/adversarial.json) |
+| `V3-A1-02` Référence et transfert | Rejeu natif FreeCAD et contrôle des copies L5 | Deux documents, huit liens externes et neuf poses sur deux copies. Les originaux du banc conservent leurs empreintes. Les écarts de version, de signature et d’octets, l’absence ou l’altération du reçu natif et les copies inscriptibles ferment l’admission. [Reçu natif](electromechanical_v3/bench_a1/native_receipt.json) |
 | `V3-A1-03` Confinement et régression | Scellés A, graphe V3, L2/L4/L5 et gardes Q1/Q2/Q3 | Sources CAO et gel A conservés. Les preuves B.2 restent historiques et les inconnues UART du cartographe restent ouvertes. [Régressions](verification/v3/a1/regressions.json) · [Commandes](verification/v3/a1/REPORT.md) |
 
-Les trois analyses virtuelles de V3-A restent admissibles dans leur portée
-de lecture. L’ouverture d’une expérience CAO sur une copie du cartographe
+Les trois analyses virtuelles de V3-A restent admissibles sur des copies
+en lecture seule. L’ouverture d’une expérience CAO sur une copie du cartographe
 reste conditionnée à des garanties locales d’ancrage, de repères, de
 cheminement et de service. Les autorités de conception, dont J2/J3, le
 brochage du lot retenu et la préservation des isolations, des NC et des

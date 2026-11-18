@@ -10,6 +10,7 @@ QByteArray read(const QString &path);
 QString digest(const QByteArray &bytes);
 QString fileDigest(const QString &path);
 QJsonObject parse(const QByteArray &bytes, const QString &source);
+QJsonObject parseUniqueObject(const QByteArray &bytes, const QString &source);
 QJsonObject load(const QString &path);
 QString write(const QString &path, const QByteArray &bytes);
 QString write(const QString &path, const QJsonObject &object);

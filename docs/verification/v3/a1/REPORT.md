@@ -11,7 +11,7 @@ V3-B est le reçu `docs/verification/v3/b/acceptance.json` du commit
 |---|---|
 | Validité du modèle V3-A | Le gel couvre l’inventaire, la migration et l’impact virtuel dans son périmètre. [Acceptation V3-A](../a/acceptance.json) |
 | Essai d’opérateurs sur banc | `ALLOW / BENCH_TEST_ONLY` pour quatre opérations sur une copie du banc scellé. `NOT_IMPLEMENTED` au dispatch natif. [Reçu V3-A.1](admission.json) |
-| CAO exploratoire sur copie cartographe | Les trois analyses d’impact sont admises en lecture. Toute mutation reste bloquée en attente des préconditions locales. Un futur essai conditionnel devra lier explicitement son hypothèse, les garanties vérifiées et les contrôles de la copie. |
+| CAO exploratoire sur copie cartographe | Les trois analyses d’impact sont admises sur des copies en lecture seule. Toute mutation reste bloquée en attente des préconditions locales. Un futur essai conditionnel devra lier explicitement son hypothèse, les garanties vérifiées et les contrôles de la copie. |
 | Admission de conception du cartographe | `DENY`. V3-A.2 doit établir les connecteurs du lot retenu, J2/J3, les repères indépendants, le brochage, les ancrages, le rayon dynamique et les gestes de service. Les huit issues UART et les défauts hérités restent dans les preuves. |
 | Réception physique | `NOT_RUN`. Exige essais du matériel et protocole GO4. |
 
@@ -22,6 +22,7 @@ et reprend les valeurs exactes de chaque opérateur dans le
 [sceau](../../../electromechanical_v3/bench_a1/seal.json). Une demande
 porte une opération et une occurrence. Les valeurs numériques sont exprimées
 en millimètres, degrés ou millimètres cubes selon la contrainte.
+L5 vérifie l’empreinte du reçu natif du banc et son rattachement au sceau.
 
 | Opération | Occurrence | Effet soumis à la porte | Contrôle supplémentaire |
 |---|---|---|---|
@@ -65,6 +66,9 @@ ils couvrent aussi les trois demandes virtuelles sur le cartographe.
 Les tests liés au banc utilisent uniquement les fixtures versionnées.
 Le contrôle de jonction Windows et celui de lien physique exigent la
 permission de créer ces entrées dans le répertoire temporaire du test.
+Ils se rejouent avec le filtre CTest `^l5_v3_admission_(entry|policy)$`.
+Les oracles du cartographe sont rejoués sur une nouvelle copie byte-exacte
+en lecture seule, préparée par les tests à partir du témoin V3-A.
 
 Pour soumettre une demande exacte au point d’entrée L5, utiliser un nouveau
 dossier de travail et préparer une copie XLink d’entrée en lecture seule.
@@ -110,9 +114,11 @@ $LASTEXITCODE
 Le code 3 indique `ALLOW / NOT_IMPLEMENTED` avec zéro transaction et
 `construction_result: NOT_RUN`. Le code 2 couvre les décisions
 `DENY` ou `UNSUPPORTED`, le code 0 une admission de lecture seule et le
-code 1 une erreur d’entrée ou de publication. La preuve de porte est dans
-`$caseDir/output/admission.json`. L’analyse virtuelle se calcule via les
-outils V3-A. Toute construction et sa validation T0 relèvent de B.1.
+code 1 une erreur d’entrée ou de publication. Les demandes contenant
+des clés JSON dupliquées sont rejetées avant la création de la sortie.
+La preuve de porte est dans `$caseDir/output/admission.json`. L’analyse
+virtuelle se calcule via les outils V3-A. Toute construction et sa
+validation T0 relèvent de B.1.
 
 ## Rejeu des gardes historiques
 

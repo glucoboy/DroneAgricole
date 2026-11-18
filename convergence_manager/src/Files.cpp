@@ -3,9 +3,11 @@
 #include <QCryptographicHash>
 #include <QFile>
 #include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QRegularExpression>
 #include <QSaveFile>
+#include <QSet>
 #include <stdexcept>
 
 namespace convergence {
@@ -45,6 +47,39 @@ QJsonObject parse(const QByteArray &bytes, const QString &source)
     const auto document = QJsonDocument::fromJson(bytes, &error);
     require(document.isObject(), "Objet JSON attendu : " + source + " (" + error.errorString() + ')');
     return document.object();
+}
+
+QJsonObject parseUniqueObject(const QByteArray &bytes, const QString &source)
+{
+    const auto object = parse(bytes, source);
+    QList<QSet<QString>> memberNames;
+    // Qt has validated the syntax and retained only one value for each name.
+    // Scan the original tokens to check uniqueness within every object.
+    for (qsizetype index = 0; index < bytes.size(); ++index) {
+        const auto token = bytes.at(index);
+        if (token == '{') {
+            memberNames.emplaceBack();
+        } else if (token == '}') {
+            memberNames.removeLast();
+        } else if (token == '"') {
+            const auto start = index++;
+            while (bytes.at(index) != '"') {
+                index += bytes.at(index) == '\\' ? 2 : 1;
+            }
+            auto next = index + 1;
+            while (next < bytes.size() && QByteArrayView(" \t\r\n").contains(bytes.at(next))) {
+                ++next;
+            }
+            if (next < bytes.size() && bytes.at(next) == ':') {
+                const auto nameToken = bytes.sliced(start, index - start + 1);
+                const auto name = QJsonDocument::fromJson('[' + nameToken + ']').array().at(0).toString();
+                auto &names = memberNames.last();
+                require(!names.contains(name), "Champ JSON dupliqué : " + name);
+                names.insert(name);
+            }
+        }
+    }
+    return object;
 }
 
 QJsonObject load(const QString &path)

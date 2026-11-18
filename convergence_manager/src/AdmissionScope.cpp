@@ -15,6 +15,7 @@ namespace {
 const QString version = "v3.admission_scope/1";
 const QString benchDirectory = "docs/electromechanical_v3/bench_a1/";
 const QString benchSealSha = "cf321988adf7169e122de0523c013079e0e3892891475ea5e7710290702e3db8";
+const QString benchNativeReceiptSha = "76cd9c058fc779da1ae5e8396fd2725605a190425dce919dd10a4568086fbbb3";
 const QString v3aDirectory = "docs/verification/v3/a/";
 const QString freezeSha = "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981";
 const QString acceptanceSha = "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31";
@@ -126,7 +127,7 @@ bool privateSandbox(const QDir &root, const QDir &sandbox)
         sandbox.canonicalPath() == sandbox.absolutePath();
 }
 
-void verifyDependencies(const QDir &sandbox, const QJsonObject &dependencies, bool readOnly = false)
+void verifyDependencies(const QDir &sandbox, const QJsonObject &dependencies, bool readOnly)
 {
     for (auto it = dependencies.begin(); it != dependencies.end(); ++it) {
         const auto path = exactFile(sandbox, it.key());
@@ -211,6 +212,7 @@ QJsonObject evaluateBench(const QDir &root, const QDir &sandbox, const QJsonObje
     QJsonObject authority;
     QString authorityPath;
     QString authoritySha;
+    const auto nativePath = benchDirectory + "native_receipt.json";
     try {
         seal = sealedObject(root, benchDirectory + "seal.json", benchSealSha);
         require(seal.value("schema") == "v3.admission_bench_seal/1", "Version de sceau incompatible");
@@ -218,10 +220,16 @@ QJsonObject evaluateBench(const QDir &root, const QDir &sandbox, const QJsonObje
         authoritySha = seal.value("authority").toObject().value("sha256").toString();
         authority = sealedObject(root, authorityPath, authoritySha);
         sealedObject(root, benchDirectory + "geometry.json", seal.value("geometry_sha256").toString());
+        const auto native = sealedObject(root, nativePath, benchNativeReceiptSha);
+        require(native.value("schema") == "v3.admission_bench_native_receipt/1" &&
+            native.value("finalized") == true && native.value("status") == "PASS" &&
+            native.value("seal").toObject().value("sha256") == benchSealSha,
+            "Réception de la fermeture XLink du banc incompatible");
     } catch (const std::exception &) {
         return result.stop("TRUSTED_BENCH_EVIDENCE_MISMATCH");
     }
     result.bind("BENCH_SEAL", ref(benchDirectory + "seal.json", benchSealSha));
+    result.bind("BENCH_NATIVE_RECEIPT", ref(nativePath, benchNativeReceiptSha));
     result.bind("BENCH_GEOMETRY", ref(benchDirectory + "geometry.json", seal.value("geometry_sha256").toString()));
     result.verified("BENCH_EVIDENCE_SEALED");
     if (request.value("model_id") != seal.value("model_id") || request.value("model_version") != seal.value("model_version"))
@@ -262,7 +270,7 @@ QJsonObject evaluateBench(const QDir &root, const QDir &sandbox, const QJsonObje
     if (!privateSandbox(root, sandbox))
         return result.stop("PRIVATE_COPY_REQUIRED");
     try {
-        verifyDependencies(QDir(root.filePath(benchDirectory)), dependencies);
+        verifyDependencies(QDir(root.filePath(benchDirectory)), dependencies, false);
     } catch (const std::exception &) {
         return result.stop("BENCH_SOURCE_DEPENDENCY_MISMATCH");
     }
@@ -352,7 +360,7 @@ QJsonObject evaluateCartographer(const QDir &root, const QDir &sandbox, const QJ
     if (!privateSandbox(root, sandbox))
         return result.stop("PRIVATE_COPY_REQUIRED");
     try {
-        verifyDependencies(sandbox, dependencies);
+        verifyDependencies(sandbox, dependencies, true);
     } catch (const std::exception &) {
         return result.stop("XLINK_DEPENDENCY_MISMATCH");
     }

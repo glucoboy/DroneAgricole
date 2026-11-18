@@ -628,5 +628,68 @@
     "Gazebo_SITL": "NOT_RUN. Auxiliaires hors de la campagne. Le diagnostic historique Gazebo/SITL reste dans le reçu V3-A.",
     "couverture_B2_complete": "NOT_RUN. Empreintes historiques authentifiées, zéro paire remesurée.",
     "V3_B_construction_et_reception_physique": "NOT_RUN. C4 utilise le binaire et le banc historiques V2.1."
+  },
+  "revalidation": {
+    "v3a_and_b2_hashes": {
+      "status": "PASS",
+      "v3a_refs_and_native_inputs_checked": 387,
+      "b2_historical_refs_checked": 14,
+      "implementation_differences": [
+        "convergence_manager/src/Main.cpp"
+      ]
+    },
+    "graphe_ctest": {
+      "path": ".runtime/v3-a1/replay-l5/replay-graph.xml",
+      "sha256": "660c83e4ae104d8621527730f90f5ea682e6bb87a652fd200bc7a104167b88f3"
+    },
+    "graphe_oracles": {
+      "path": ".runtime/v3-a1/replay-l5/graph/checks.json",
+      "sha256": "f80b2c044a9193bdf4e11f8c78f225951ef40bc68648f21a7e4645ee47f2e6f1"
+    },
+    "graphe_t0": {
+      "path": ".runtime/v3-a1/replay-l5/graph/t0_run_manifest.json",
+      "sha256": "4af40066e9d7ce54e18c7379980c27725df30f04fdb578db080d2a6901b57a4f"
+    },
+    "l2_l4_checkout": {
+      "result": {
+        "path": ".runtime/v3-a1/replay-l5/replay-l4-l2.xml",
+        "sha256": "0d938327ad9f04185f258d9b2ab328473cd69be03879e9347aa8de77ea165631"
+      },
+      "l2_active_manifest": "FAIL_HISTORICAL_SEAL_MISMATCH",
+      "l2_private_byte_exact_passed": 7,
+      "v21_xlink_cli": {
+        "path": ".runtime/v3-a1/replay-l5/replay-l4-cli.xml",
+        "sha256": "9d5b31e6817d5d999f82065e0b92f19ac65e06a61d293afd20e8536eeff26d4f"
+      }
+    },
+    "l5_ctest": {
+      "path": ".runtime/v3-a1/verified-l5/l5-tests.xml",
+      "sha256": "abf3a2a9d9fa19333fcee84d074de452a0f1195c863721fe333a894f6bde0b01"
+    },
+    "q1_private": {
+      "path": ".runtime/v3-a1/verified-l5/q1-private.log",
+      "sha256": "bc2c9c41d43119d9b8bcb065b2572f039a8e4a6e63a7ad361a86720266a735d3"
+    },
+    "q2": {
+      "path": ".runtime/v3-a1/replay-l5/q2/evidence.json",
+      "sha256": "3d1f4e2fd9c967ee5171a97124049daa52a31822528eae7f583c890152bb1950"
+    },
+    "q3": {
+      "path": ".runtime/v3-a1/replay-l5/q3/result.json",
+      "sha256": "8d0293bfc27442ed86379b924753e59976b3548ce0ad6b69ea139fe5d75bfd76",
+      "initial_t0": "PASS",
+      "resumed_t0": "PASS"
+    },
+    "c4_historique": {
+      "path": ".runtime/v3-a1/regressions/c4-private/.runtime/v3-a1-replay-current/evidence.json",
+      "sha256": "4df7b9c897b2c7591410c11c73ae92d0ad62b205c832ca65e8d5ce27787e8cbe"
+    },
+    "v3_native": {
+      "tests_passed": 7,
+      "bench": {
+        "path": ".runtime/v3-a1/replay-l5/bench-native.json",
+        "sha256": "219c54718cd2fb6f20974af9ed5f7b6c1cf83623d53cde887950e91be4a42b25"
+      }
+    }
   }
 }

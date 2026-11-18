@@ -2,6 +2,7 @@
 
 #include "Files.hpp"
 
+#include <QFile>
 #include <QFileInfo>
 #include <QJsonArray>
 
@@ -9,6 +10,45 @@ namespace admission_test {
 
 inline const QString benchPath = "docs/electromechanical_v3/bench_a1";
 inline const QString v3aPath = "docs/verification/v3/a";
+
+class ReadOnlyCopy {
+public:
+    ReadOnlyCopy(const QDir &directory, const QDir &source, const QJsonObject &dependencies)
+        : directory_(directory), dependencies_(dependencies)
+    {
+        const auto writePermissions = QFileDevice::WriteOwner | QFileDevice::WriteUser |
+            QFileDevice::WriteGroup | QFileDevice::WriteOther;
+        for (const auto &name : dependencies_.keys()) {
+            const auto path = directory_.filePath(name);
+            convergence::require(directory_.mkpath(QFileInfo(name).path()) && QFile::copy(source.filePath(name), path),
+                "Copie XLink de test inaccessible : " + name);
+            convergence::require(QFile::setPermissions(path, QFile::permissions(path) & ~writePermissions),
+                "Copie XLink de test impossible à sceller : " + name);
+        }
+    }
+
+    ~ReadOnlyCopy()
+    {
+        for (const auto &name : dependencies_.keys()) {
+            const auto path = directory_.filePath(name);
+            QFile::setPermissions(path, QFile::permissions(path) | QFileDevice::WriteOwner);
+        }
+    }
+
+    const QDir &directory() const { return directory_; }
+
+    void verify() const
+    {
+        for (auto it = dependencies_.constBegin(); it != dependencies_.constEnd(); ++it) {
+            convergence::require(convergence::fileDigest(directory_.filePath(it.key())) == it.value(),
+                "Copie XLink de test divergente : " + it.key());
+        }
+    }
+
+private:
+    QDir directory_;
+    QJsonObject dependencies_;
+};
 
 inline QJsonObject benchRequest(const QDir &root, const QString &operation)
 {

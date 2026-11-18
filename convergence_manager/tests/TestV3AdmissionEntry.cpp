@@ -2,9 +2,9 @@
 #include "Files.hpp"
 
 #include <QCoreApplication>
-#include <QFile>
 #include <QFileInfo>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QProcess>
 #include <QTemporaryDir>
 #include <cstdio>
@@ -15,46 +15,7 @@ using namespace convergence;
 using admission_test::benchRequest;
 using admission_test::cartographerRequest;
 using admission_test::cartographerSandbox;
-
-const auto writePermissions = QFileDevice::WriteOwner | QFileDevice::WriteUser |
-    QFileDevice::WriteGroup | QFileDevice::WriteOther;
-
-class BenchCopy {
-public:
-    BenchCopy(const QDir &directory, const QDir &source, const QJsonObject &dependencies)
-        : directory_(directory), dependencies_(dependencies)
-    {
-        for (auto it = dependencies_.constBegin(); it != dependencies_.constEnd(); ++it) {
-            const auto path = directory_.filePath(it.key());
-            require(directory_.mkpath(QFileInfo(it.key()).path()) && QFile::copy(source.filePath(it.key()), path),
-                    "Copie XLink du banc inaccessible : " + it.key());
-            require(QFile::setPermissions(path, QFile::permissions(path) & ~writePermissions),
-                    "Source du banc impossible à sceller : " + it.key());
-        }
-        verify();
-    }
-
-    ~BenchCopy()
-    {
-        for (const auto &name : dependencies_.keys()) {
-            const auto path = directory_.filePath(name);
-            QFile::setPermissions(path, QFile::permissions(path) | QFileDevice::WriteOwner);
-        }
-    }
-
-    const QDir &directory() const { return directory_; }
-
-    void verify() const
-    {
-        for (auto it = dependencies_.constBegin(); it != dependencies_.constEnd(); ++it) {
-            require(fileDigest(directory_.filePath(it.key())) == it.value(), "Source du banc divergente : " + it.key());
-        }
-    }
-
-private:
-    QDir directory_;
-    QJsonObject dependencies_;
-};
+using admission_test::ReadOnlyCopy;
 
 struct ProcessResult {
     int code;
@@ -120,6 +81,18 @@ public:
 
     const QJsonArray &trace() const { return trace_; }
 
+    void rejectDuplicate(const QString &name, const QByteArray &bytes, const QDir &sandbox)
+    {
+        const auto requestPath = workspace_.filePath(name + ".json");
+        const auto output = workspace_.filePath(name);
+        write(requestPath, bytes);
+        const auto result = execute(executable_, arguments(requestPath, sandbox, output));
+        require(result.code == 1 && result.diagnostic.contains("JSON dupliqu") && !QFileInfo::exists(output),
+            "Le CLI doit rejeter les membres JSON dupliqués avant publication : " + name + " / " + result.diagnostic);
+        trace_.append(QJsonObject{{"case", name}, {"exit_code", result.code}, {"status", "BLOCKED_BEFORE_DISPATCH"},
+            {"request_sha256", digest(bytes)}, {"output_created", false}});
+    }
+
 private:
     QString executable_;
     QDir root_, workspace_;
@@ -136,8 +109,8 @@ QJsonObject testEntry(const QString &executable)
     const QDir fixture(root.filePath("docs/electromechanical_v3/bench_a1"));
     const auto request = benchRequest(root, "REPOSITION_DEVICE");
     const auto dependencies = request.value("xlink_dependencies").toObject();
-    const BenchCopy first(QDir(work.filePath("bench-a")), fixture, dependencies);
-    const BenchCopy second(QDir(work.filePath("bench-b")), fixture, dependencies);
+    const ReadOnlyCopy first(QDir(work.filePath("bench-a")), fixture, dependencies);
+    const ReadOnlyCopy second(QDir(work.filePath("bench-b")), fixture, dependencies);
     AdmissionRun run(executable, root, work);
 
     const auto valid = run.check("allow", request, first.directory(), 3, "ALLOW", "NOT_IMPLEMENTED");
@@ -151,6 +124,18 @@ QJsonObject testEntry(const QString &executable)
     forgedRequest.insert("allowed", true);
     run.check("auto-attestation", forgedRequest, first.directory(), 2, "DENY", "BLOCKED");
 
+    const auto requestBytes = QJsonDocument(request).toJson(QJsonDocument::Compact);
+    run.rejectDuplicate("duplicate-operation",
+        R"({"operation":"CHANGE_INTERFACE_TOPOLOGY","source_mode":"WRITE_SOURCE",)" + requestBytes.mid(1),
+        first.directory());
+    run.rejectDuplicate("escaped-duplicate-operation",
+        R"({"oper\u0061tion":"CHANGE_INTERFACE_TOPOLOGY",)" + requestBytes.mid(1), first.directory());
+    auto duplicateEffect = requestBytes;
+    const QByteArray placement = R"("placement_mm":[24,20,4])";
+    require(duplicateEffect.contains(placement), "Effet témoin absent de la demande du banc");
+    duplicateEffect.replace(placement, R"("placement_mm":[24,20,7],)" + placement);
+    run.rejectDuplicate("duplicate-nested-effect", duplicateEffect, first.directory());
+
     auto forgedReport = valid;
     auto forgedAdmission = forgedReport.value("admission").toObject();
     forgedAdmission.insert("allowed", true);
@@ -160,9 +145,29 @@ QJsonObject testEntry(const QString &executable)
     require(load(work.filePath("allow/admission.json")) == forgedReport, "Un reçu altéré a été utilisé à la reprise");
     run.check("receipt-as-request", forgedReport, first.directory(), 2, "UNSUPPORTED", "BLOCKED");
 
-    const auto cartographer = cartographerSandbox(root);
-    if (cartographer.exists()) {
-        run.check("virtual-impact", cartographerRequest(root), cartographer, 0, "ALLOW", "READ_ONLY");
+    const auto virtualRequest = cartographerRequest(root);
+    auto mutation = virtualRequest;
+    mutation.insert("operation", "REPOSITION_DEVICE");
+    mutation.insert("output", "PRIVATE_CANDIDATE");
+    mutation.insert("rollback", "DISCARD_PRIVATE_COPY");
+    const auto refused = run.check("cartographer-move-iso", mutation, first.directory(), 2, "DENY", "BLOCKED")
+        .value("admission").toObject();
+    require(refused.value("reason") == "CARTOGRAPHER_AUTHORITIES_UNRESOLVED" &&
+        refused.value("unmet_preconditions").toArray().contains("isolation-module-design-pose") &&
+        refused.value("open_issues").toArray().size() == 8, "Le refus L5 doit conserver les préconditions du cartographe");
+    auto physical = mutation;
+    physical.insert("domain", "PHYSICAL_RECEPTION");
+    physical.insert("operation", "RECEIVE_PHYSICAL");
+    const auto reception = run.check("physical-reception", physical, first.directory(), 2, "DENY", "BLOCKED");
+    require(reception.value("admission").toObject().value("reason") == "PHYSICAL_RECEPTION_NOT_RUN",
+        "Le refus L5 doit conserver la réception physique à NOT_RUN");
+
+    const auto witness = cartographerSandbox(root);
+    if (witness.exists() && QFileInfo::exists(root.filePath(".runtime/v3-a/sealed/cartographe-graph.json"))) {
+        const ReadOnlyCopy cartographer(QDir(work.filePath("cartographer")), witness,
+            virtualRequest.value("xlink_dependencies").toObject());
+        run.check("virtual-impact", virtualRequest, cartographer.directory(), 0, "ALLOW", "READ_ONLY");
+        cartographer.verify();
     }
 
     const auto approvedRequest = work.filePath("allow.json");

@@ -68,11 +68,17 @@ void testCartographer(Suite &suite, const QDir &root, const QDir &bench, const Q
     const auto virtualRequest = cartographerRequest(root);
     const auto witness = cartographerSandbox(root);
     if (witness.exists() && QFileInfo::exists(root.filePath(".runtime/v3-a/sealed/cartographe-graph.json"))) {
-        suite.check("VIRTUAL_MOVE_ISO", root, witness, virtualRequest, "ALLOW", "FROZEN_VIRTUAL_IMPACT");
-        suite.check("VIRTUAL_RETENTION_P72", root, witness, change(change(virtualRequest, "occurrence", "p72"),
+        const auto dependencies = virtualRequest.value("xlink_dependencies").toObject();
+        const ReadOnlyCopy copy(QDir(staging.filePath("cartographer")), witness, dependencies);
+        suite.check("VIRTUAL_MOVE_ISO", root, copy.directory(), virtualRequest, "ALLOW", "FROZEN_VIRTUAL_IMPACT");
+        suite.check("VIRTUAL_RETENTION_P72", root, copy.directory(), change(change(virtualRequest, "occurrence", "p72"),
             "effect", QJsonObject{{"hypothetical_operation", "RETENTION"}}), "ALLOW", "FROZEN_VIRTUAL_IMPACT");
-        suite.check("VIRTUAL_FRAME_TTL", root, witness, change(change(virtualRequest, "occurrence", "ttl-reference"),
+        suite.check("VIRTUAL_FRAME_TTL", root, copy.directory(), change(change(virtualRequest, "occurrence", "ttl-reference"),
             "effect", QJsonObject{{"hypothetical_operation", "FRAME"}}), "ALLOW", "FROZEN_VIRTUAL_IMPACT");
+        const auto dependency = copy.directory().filePath(dependencies.keys().first());
+        readOnly(dependency, false);
+        suite.check("VIRTUAL_WRITABLE_INPUT_FILE", root, copy.directory(), virtualRequest,
+            "DENY", "XLINK_DEPENDENCY_MISMATCH");
     } else {
         suite.notRun("VIRTUAL_ORACLES", "Copie et graphe V3-A historiques à reproduire");
     }
@@ -128,7 +134,8 @@ QJsonArray run(const QDir &root)
         const auto request = benchRequest(root, op);
         const auto decision = suite.check("BENCH_" + QString(op), root, copyA, request, "ALLOW", "SEALED_SYNTHETIC_BENCH");
         require(decision.value("mandatory_checks") == request.value("validations") &&
-            decision.value("resolved_authorities").toObject().size() == request.value("authorities").toObject().size() + 2,
+            decision.value("resolved_authorities").toObject().size() == request.value("authorities").toObject().size() + 3 &&
+            decision.value("resolved_authorities").toObject().contains("BENCH_NATIVE_RECEIPT"),
             "Contrôles et preuves évalués incomplets");
     }
     const auto second = suite.check("SECOND_IDENTICAL_XLINK_COPY", root, copyB, move, "ALLOW", "SEALED_SYNTHETIC_BENCH");
@@ -211,6 +218,12 @@ QJsonArray run(const QDir &root)
         readOnly(privateCopy.filePath(name));
         copyFile(source, QDir(stage.filePath(benchPath)), name);
     }
+    const auto nativeReceipt = stage.filePath(benchPath + "/native_receipt.json");
+    suite.check("BENCH_NATIVE_RECEIPT_MISSING", stage, privateCopy, move, "DENY", "TRUSTED_BENCH_EVIDENCE_MISMATCH");
+    write(nativeReceipt, change(load(source.filePath("native_receipt.json")), "status", "FAIL"));
+    suite.check("BENCH_NATIVE_RECEIPT_TAMPERED", stage, privateCopy, move, "DENY", "TRUSTED_BENCH_EVIDENCE_MISMATCH");
+    write(nativeReceipt, read(source.filePath("native_receipt.json")));
+    suite.check("BENCH_NATIVE_RECEIPT_RESTORED", stage, privateCopy, move, "ALLOW", "SEALED_SYNTHETIC_BENCH");
     const auto authority = stage.filePath(benchPath + "/authority.json");
     write(authority, change(load(authority), "independent_frames", QJsonObject{{"origin_offset_mm", QJsonArray{3, 0, 0}}}));
     suite.check("FORGED_INDEPENDENT_FRAME_PLUS_3_MM", stage, privateCopy, move, "DENY", "TRUSTED_BENCH_EVIDENCE_MISMATCH");

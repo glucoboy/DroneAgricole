@@ -200,7 +200,7 @@ int runV3Admission(const QCommandLineParser &options)
     relative(root, sandboxPath);
     const auto requestPath = fileInside(root, options.value("request"));
     const auto bytes = read(requestPath);
-    const auto request = parse(bytes, requestPath);
+    const auto request = parseUniqueObject(bytes, requestPath);
     const auto output = outputDirectory(root, options.value("output"), sandboxPath);
     QLockFile lock(output.filePath(".publication.lock"));
     lock.setStaleLockTime(0);

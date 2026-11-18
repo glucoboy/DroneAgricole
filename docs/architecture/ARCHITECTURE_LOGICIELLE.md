@@ -216,15 +216,16 @@ Le service C++17 `evaluateAdmissionScope` vérifie le contrat
 à l’identité du modèle, au sceau, à la fermeture XLink, à une occurrence,
 à un effet et aux contrôles de l’opération. Les contraintes et autorités
 utilisées pour le banc sont vérifiées contre des artefacts épinglés par
-SHA-256. Le reçu de décision est produit après évaluation et ne sert pas de
-preuve d’entrée. Le chemin de campagne historique est distinct.
+SHA-256, dont le reçu natif rattaché au sceau. Le CLI rejette les clés JSON
+dupliquées avant le dispatch et produit le reçu de décision après évaluation.
+Le chemin de campagne historique est distinct.
 
 Les quatre opérations du banc atteignent la frontière de dispatch
 `BENCH_TEST_ONLY`. Les opérateurs CAO natifs sont **Planifiés** pour B.1,
 qui devra vérifier les entrées au début de la transaction, travailler sur
 une copie de travail dédiée et valider le candidat après réouverture.
-L’admission virtuelle du cartographe reste en lecture seule. Sa variante
-d’exploration native et son admission de conception restent **À valider**.
+L’admission virtuelle du cartographe exige une copie fermée en lecture
+seule. L’exploration native et l’admission de conception restent **À valider**.
 [Schéma](../electromechanical_v3/admission_scope.schema.json) ·
 [Validation et recette](../VALIDATION_QUALIFICATION.md#cartographe-v3-a1)
 
