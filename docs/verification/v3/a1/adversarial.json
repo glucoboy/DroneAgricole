@@ -1,0 +1,693 @@
+{
+  "schema": "v3.a1.adversarial/1",
+  "test_id": "T-CARTO-V3-A1-ADMISSION",
+  "finalized": true,
+  "environment": {
+    "os": "Windows",
+    "architecture": "amd64",
+    "cpp": "GNU MinGW UCRT 16.2.0, C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2"
+  },
+  "executable": {
+    "path": ".runtime/v3-a1/delivery-l5/convergence_core.exe",
+    "sha256": "fee1530318b234ab59329577cea9df3f7daa95f30f627dfa969be680ee452fdf"
+  },
+  "policy_trace": {
+    "path": ".runtime/v3-a1/delivery-l5/trace-policy.json",
+    "sha256": "3c1b787394c440998843dec3f9a8312d5ebeeacefcd24834c2ca010d1d130f35"
+  },
+  "policy_cases": [
+    {
+      "id": "BENCH_REPOSITION_DEVICE",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1"
+    },
+    {
+      "id": "BENCH_REROUTE_HARNESS",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "58d6f85b789d54fdb7c8975116ef0aedf067a05d24c18565cf34fe46ecd3da3d"
+    },
+    {
+      "id": "BENCH_RELOCATE_SUPPORT",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "79f550bde6558e279312e41b0245e2f7195bd815317d363007b2e0e0df9762d2"
+    },
+    {
+      "id": "BENCH_CREATE_SUPPORT",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "59b48ab07e3143e2d77ab6d189092026130ad73455606e79d5b3a58ef0e9a9df"
+    },
+    {
+      "id": "SECOND_IDENTICAL_XLINK_COPY",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1"
+    },
+    {
+      "id": "MODEL_VERSION_CHANGED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "MODEL_ID_OR_VERSION_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "d055714b7e9f29b635dc33b118e810f38332d80ed1c1470e891029bf46807dbe",
+      "unmet_preconditions": [
+        "MODEL_ID_OR_VERSION_MISMATCH"
+      ]
+    },
+    {
+      "id": "GEOMETRY_SIGNATURE_CHANGED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "GEOMETRY_SIGNATURE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "1f9f411ebdbb3edf9222e44ba8eb0808b45161c18838152be58bd87e92e4f01b",
+      "unmet_preconditions": [
+        "GEOMETRY_SIGNATURE_MISMATCH"
+      ]
+    },
+    {
+      "id": "OUTSIDE_XLINK_PATH",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "INVALID_XLINK_PATH_OR_HASH",
+      "scope": "NONE",
+      "context_sha256": "06208261a83c7d7ec530120c6cf57fa526d949c853dabdb60b24aa4c219ebb66",
+      "unmet_preconditions": [
+        "INVALID_XLINK_PATH_OR_HASH"
+      ]
+    },
+    {
+      "id": "INCOMPLETE_XLINK_CLOSURE",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "XLINK_CLOSURE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "d5403b7496fcff645d912c197c3efda04b43312596dfb992a2b90b20e34ee1d0",
+      "unmet_preconditions": [
+        "XLINK_CLOSURE_MISMATCH"
+      ]
+    },
+    {
+      "id": "WINDOWS_ALTERNATE_STREAM",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "INVALID_XLINK_PATH_OR_HASH",
+      "scope": "NONE",
+      "context_sha256": "60ad9b90df223e51ef022c28fc52398b82c97ccaae603b3ba457f9a6fe0e4675",
+      "unmet_preconditions": [
+        "INVALID_XLINK_PATH_OR_HASH"
+      ]
+    },
+    {
+      "id": "SOURCE_WRITE_REQUEST",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "SOURCE_WRITE_FORBIDDEN",
+      "scope": "NONE",
+      "context_sha256": "f94e0fd22027c01d81cd6e784cbb4e329fb555b39b8eedad4f98a01ae23b76fe",
+      "unmet_preconditions": [
+        "SOURCE_WRITE_FORBIDDEN"
+      ]
+    },
+    {
+      "id": "FORGED_FREEZE_SHA256",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "FREEZE_SHA_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "6655961994863d88c43fbf0594f8b2ac757516d3f99283ad65bd80713968b9c8",
+      "unmet_preconditions": [
+        "FREEZE_SHA_MISMATCH"
+      ]
+    },
+    {
+      "id": "FOREIGN_MODEL_UNDER_BENCH_DOMAIN",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "MODEL_ID_OR_VERSION_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "0f1768060c98a16f100bfc653efe26c9905bdd583f4e7ed4be1dee1d8bded8ef",
+      "unmet_preconditions": [
+        "MODEL_ID_OR_VERSION_MISMATCH"
+      ]
+    },
+    {
+      "id": "PROTECTED_VALIDATION_REMOVED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "VALIDATION_SET_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "c52981ebc1b7f53309752549216b933f0d04db9eb39e018c7632c8f3f39c20d9",
+      "unmet_preconditions": [
+        "VALIDATION_SET_MISMATCH"
+      ]
+    },
+    {
+      "id": "ROLLBACK_REMOVED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "BENCH_SCOPE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "e235d45bb43fd73f996417d873551c1a4923ee4477d40e681b4d370c1e6a8866",
+      "unmet_preconditions": [
+        "BENCH_SCOPE_MISMATCH"
+      ]
+    },
+    {
+      "id": "FAKE_VENDOR_AUTHORITY",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "AUTHORITY_SET_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "5b4d85b8be0f928dd4b59a01ea3b0ddf5c7764add3b2d38adacd6f8342a05ed8",
+      "unmet_preconditions": [
+        "AUTHORITY_SET_MISMATCH"
+      ]
+    },
+    {
+      "id": "RELAXED_TOLERANCE",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CONSTRAINT_SET_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "a20533d8e972cb2d06a0e884b7bed865aec79a1f832c0778ab1371d4f4d910d0",
+      "unmet_preconditions": [
+        "CONSTRAINT_SET_MISMATCH"
+      ]
+    },
+    {
+      "id": "ISOLATION_CONSTRAINT_REMOVED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CONSTRAINT_SET_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "62a09a3f5dc9b549816828fe503a9387323cef1799afd122c0a90a5c11d1a30c",
+      "unmet_preconditions": [
+        "CONSTRAINT_SET_MISMATCH"
+      ]
+    },
+    {
+      "id": "FRAME_PLUS_3_MM",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "OCCURRENCE_OR_EFFECT_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "b79e8e511de0ce843a3bc5107362d687575dfa0a0fa93402a2908a616f1fa7a4",
+      "unmet_preconditions": [
+        "OCCURRENCE_OR_EFFECT_MISMATCH"
+      ]
+    },
+    {
+      "id": "CONNECTIVITY_HIDDEN_IN_EFFECT",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "OCCURRENCE_OR_EFFECT_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "00b0d2a5cb8da5cd08b5690883177f46287df2d2666d4ff06e5e878a1cdbaf12",
+      "unmet_preconditions": [
+        "OCCURRENCE_OR_EFFECT_MISMATCH"
+      ]
+    },
+    {
+      "id": "COMPOSITE_EFFECT",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "OCCURRENCE_OR_EFFECT_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "b62a465c8f45e61c17f798c39c268367dc417a5c37e1e7a04a48c57007beb60e",
+      "unmet_preconditions": [
+        "OCCURRENCE_OR_EFFECT_MISMATCH"
+      ]
+    },
+    {
+      "id": "PREVIOUS_RECEIPT_AS_ALLOW_FLAG",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "INVALID_REQUEST",
+      "scope": "NONE",
+      "context_sha256": "8105ce658f6f6e2ba7e0b9b5e841c130b816f62bc19f63f5a83057d35d01d8fd",
+      "unmet_preconditions": [
+        "INVALID_REQUEST"
+      ]
+    },
+    {
+      "id": "MALFORMED_ASSUMPTION",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "INVALID_REQUEST",
+      "scope": "NONE",
+      "context_sha256": "c496ea238f310be1ac52655fc70bb402de065bb1719e995f6e8473d516499579",
+      "unmet_preconditions": [
+        "INVALID_REQUEST"
+      ]
+    },
+    {
+      "id": "UNSUPPORTED_COMPOSITE",
+      "status": "PASS",
+      "decision": "UNSUPPORTED",
+      "reason": "DOMAIN_OR_OPERATION_UNSUPPORTED",
+      "scope": "NONE",
+      "context_sha256": "03e71c4191f37b748afad9871959c49d56a67d2371c3c84137d10ba5f0a86201",
+      "unmet_preconditions": [
+        "DOMAIN_OR_OPERATION_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "UNSUPPORTED_TOPOLOGY_ON_BENCH",
+      "status": "PASS",
+      "decision": "UNSUPPORTED",
+      "reason": "BENCH_OPERATION_UNSUPPORTED",
+      "scope": "NONE",
+      "context_sha256": "a3facdf90a3421c10be81848a5dff5301146819959b032360aeced26f6081aef",
+      "unmet_preconditions": [
+        "BENCH_OPERATION_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "CANONICAL_SOURCE_AS_SANDBOX",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "PRIVATE_COPY_REQUIRED",
+      "scope": "NONE",
+      "context_sha256": "f16b32e1fd3cbfb0ec6f1603df081515336ea057f4d5f0863a7431a1ec50738a",
+      "unmet_preconditions": [
+        "PRIVATE_COPY_REQUIRED"
+      ]
+    },
+    {
+      "id": "WRITABLE_INPUT_FILE",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "XLINK_DEPENDENCY_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "17bbe596b20498ad87eac2c190ad3e0caff14e32022251f6f0bb1794a1ca6eb5",
+      "unmet_preconditions": [
+        "XLINK_DEPENDENCY_MISMATCH"
+      ]
+    },
+    {
+      "id": "NATIVE_GEOMETRY_BYTES_CHANGED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "XLINK_DEPENDENCY_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "17bbe596b20498ad87eac2c190ad3e0caff14e32022251f6f0bb1794a1ca6eb5",
+      "unmet_preconditions": [
+        "XLINK_DEPENDENCY_MISMATCH"
+      ]
+    },
+    {
+      "id": "HARD_LINK_TO_SOURCE",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "XLINK_DEPENDENCY_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "17bbe596b20498ad87eac2c190ad3e0caff14e32022251f6f0bb1794a1ca6eb5",
+      "unmet_preconditions": [
+        "XLINK_DEPENDENCY_MISMATCH"
+      ]
+    },
+    {
+      "id": "SEALED_BENCH_MANIFEST_TAMPERED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "TRUSTED_BENCH_EVIDENCE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "ce3e5f6e5ac9d31024e46b8046e1d58ac77385689447b30d66073787422a24c0",
+      "unmet_preconditions": [
+        "TRUSTED_BENCH_EVIDENCE_MISMATCH"
+      ]
+    },
+    {
+      "id": "TAMPERER_REHASHED_BENCH_MANIFEST",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "FREEZE_SHA_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "5430a51d557d28b34023e9a8afdb9c79005aa103d8ac1daf4cbf5bada89c3c9d",
+      "unmet_preconditions": [
+        "FREEZE_SHA_MISMATCH"
+      ]
+    },
+    {
+      "id": "FORGED_INDEPENDENT_FRAME_PLUS_3_MM",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "TRUSTED_BENCH_EVIDENCE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "ce3e5f6e5ac9d31024e46b8046e1d58ac77385689447b30d66073787422a24c0",
+      "unmet_preconditions": [
+        "TRUSTED_BENCH_EVIDENCE_MISMATCH"
+      ]
+    },
+    {
+      "id": "SEALED_BENCH_SOURCE_ALTERED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "BENCH_SOURCE_DEPENDENCY_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "d00739b8826fc0faebab87f4bb66c68f9c96e5ce859ffeb5190e2efa9414e5d8",
+      "unmet_preconditions": [
+        "BENCH_SOURCE_DEPENDENCY_MISMATCH"
+      ]
+    },
+    {
+      "id": "VIRTUAL_MOVE_ISO",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "FROZEN_VIRTUAL_IMPACT",
+      "scope": "READ_ONLY_IMPACT",
+      "context_sha256": "d7a89059a8004c851b35fdb47a7739ac9367efd91dae386c5e75d5df3d2f964c",
+      "open_issues_count": 8
+    },
+    {
+      "id": "VIRTUAL_RETENTION_P72",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "FROZEN_VIRTUAL_IMPACT",
+      "scope": "READ_ONLY_IMPACT",
+      "context_sha256": "e3ce3de4ba85d17592e0702874830b673ec3105a8e67abb58a74f55559dc210d",
+      "open_issues_count": 8
+    },
+    {
+      "id": "VIRTUAL_FRAME_TTL",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "FROZEN_VIRTUAL_IMPACT",
+      "scope": "READ_ONLY_IMPACT",
+      "context_sha256": "5696e21caf39d8d5b4393a39ba8052f690111d922924090426bf04c819e09fc9",
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_MOVE_ISO",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "408015eea81d14d014434c2ffd4ab2e5fa07a5645b06dde8012d8570040af89e",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "isolation-module-design-pose"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_MOVE_P72",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "00de39ba2027324d869cf8ea616976255ffd56ace961bbe64657591035e544c4",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "guide-design-domain"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_MOVE_P73",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "3c83fea6bcf8d16e9fd59bfb76a8a583ce672314e04cad13212370788495d328",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "guide-design-domain"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_SUPPORT_UNANCHORED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "c8c6de86c8b7500c8a6473183a8732c59e4c439f7090febee6e8cce71a5c6396",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "VERIFIED_SUPPORT_ANCHOR_REQUIRED"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_CONNECT_J2_J3",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "37c902542ef33ded47206a6605d16df07d0d4169961fb1010118bfedf034b590",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "CONNECTOR_PROVENANCE_REQUIRED",
+        "PINOUT_AND_ISOLATION_REQUIRED"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_VARIANT_WITHOUT_PINOUT",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "6dfde4076505d634cb1aacefa988970044bbad84f18014dc0a9bf8d0a68a6e90",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "CONNECTOR_PROVENANCE_REQUIRED",
+        "PINOUT_AND_ISOLATION_REQUIRED"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_REROUTE_F16",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "f2e58d7878d4e992bd1738c83182eee31e908ce57fb0016f92831b0ff01a182a",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "BEND_RADIUS_REQUIRED",
+        "DYNAMIC_SERVICE_CONSTRAINTS_REQUIRED"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "CARTOGRAPHER_DESIGN_INDEPENDENT",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "CARTOGRAPHER_AUTHORITIES_UNRESOLVED",
+      "scope": "NONE",
+      "context_sha256": "8eefd44f20b49f78019302d368f8465e9341da8cc2525217dae4a3a0dbd60b58",
+      "unmet_preconditions": [
+        "V3_A_NATIVE_MUTATION_NOT_AUTHORIZED",
+        "isolation-module-design-pose"
+      ],
+      "open_issues_count": 8
+    },
+    {
+      "id": "BENCH_AFTER_CARTOGRAPHER_DENY",
+      "status": "PASS",
+      "decision": "ALLOW",
+      "reason": "SEALED_SYNTHETIC_BENCH",
+      "scope": "BENCH_TEST_ONLY",
+      "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1"
+    },
+    {
+      "id": "PHYSICAL_NO_GO4_DATA",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "PHYSICAL_RECEPTION_NOT_RUN",
+      "scope": "NONE",
+      "context_sha256": "e83f7d16a5ed70f94d5d8fb2b31889fdef88ce379e29609cd207f6a15561e360",
+      "unmet_preconditions": [
+        "GO4_HARDWARE_EVIDENCE_REQUIRED"
+      ]
+    },
+    {
+      "id": "V3_A_FREEZE_BYTES_ALTERED",
+      "status": "PASS",
+      "decision": "DENY",
+      "reason": "TRUSTED_V3_A_EVIDENCE_MISMATCH",
+      "scope": "NONE",
+      "context_sha256": "10c2a96d430bb7cd1d2a98e1dee938deb5ece2bba3d95622f3ffd51562c7cd21",
+      "unmet_preconditions": [
+        "TRUSTED_V3_A_EVIDENCE_MISMATCH"
+      ]
+    }
+  ],
+  "admission_ctest": {
+    "path": ".runtime/v3-a1/delivery-l5/v3-admission.xml",
+    "sha256": "e9b9be180244bee666a155938a308eb25a76145b1b551ba8338b73b37cc07cd9"
+  },
+  "cli_trace": {
+    "path": ".runtime/v3-a1/delivery-l5/trace-entry.json",
+    "sha256": "cf88f78707677f88a028fd1d353ff2dfde000fd38316eb43fbfebbbea9acfcaa"
+  },
+  "cli_cases": {
+    "cases": [
+      {
+        "candidate_transactions": 0,
+        "case": "allow",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1",
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "exit_code": 3,
+        "reason": "SEALED_SYNTHETIC_BENCH",
+        "receipt_sha256": "938052b8c96fb9121a547d1984537106a8d081045a451bfa0ae17b9540477d84"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "transfer",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1",
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "exit_code": 3,
+        "reason": "SEALED_SYNTHETIC_BENCH",
+        "receipt_sha256": "938052b8c96fb9121a547d1984537106a8d081045a451bfa0ae17b9540477d84"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "REROUTE_HARNESS",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "58d6f85b789d54fdb7c8975116ef0aedf067a05d24c18565cf34fe46ecd3da3d",
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "exit_code": 3,
+        "reason": "SEALED_SYNTHETIC_BENCH",
+        "receipt_sha256": "3bb7410a70753a4015d5eb026ce51765f4f41f56045a70c249ab81ca6cc6116e"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "RELOCATE_SUPPORT",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "79f550bde6558e279312e41b0245e2f7195bd815317d363007b2e0e0df9762d2",
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "exit_code": 3,
+        "reason": "SEALED_SYNTHETIC_BENCH",
+        "receipt_sha256": "dcd69c3a9b12187776a28462577fdb5aff3ed9247f404b03b6fb573daa0b56de"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "CREATE_SUPPORT",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "59b48ab07e3143e2d77ab6d189092026130ad73455606e79d5b3a58ef0e9a9df",
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "exit_code": 3,
+        "reason": "SEALED_SYNTHETIC_BENCH",
+        "receipt_sha256": "4d5fdbccc7ab6149b573558651ab502900768f86682fc2a5d3012508832a6c0b"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "auto-attestation",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "8105ce658f6f6e2ba7e0b9b5e841c130b816f62bc19f63f5a83057d35d01d8fd",
+        "decision": "DENY",
+        "dispatch_status": "BLOCKED",
+        "exit_code": 2,
+        "reason": "INVALID_REQUEST",
+        "receipt_sha256": "a99eee8badc69d9502c4045df952a2fd708312e35c2cbc940fdece982d1b70cc"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "receipt-as-request",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "8660c0421e3fe53c964251be84e5409ebe1f5cafeabaeddcc5fdf0d8bf169b14",
+        "decision": "UNSUPPORTED",
+        "dispatch_status": "BLOCKED",
+        "exit_code": 2,
+        "reason": "CONTRACT_VERSION_UNSUPPORTED",
+        "receipt_sha256": "6e87861389e2448e0a9c4c043c57efa7a8da9eb3bd0741d1b63868b22e4079f2"
+      },
+      {
+        "candidate_transactions": 0,
+        "case": "virtual-impact",
+        "construction_result": "NOT_RUN",
+        "context_sha256": "d7a89059a8004c851b35fdb47a7739ac9367efd91dae386c5e75d5df3d2f964c",
+        "decision": "ALLOW",
+        "dispatch_status": "READ_ONLY",
+        "exit_code": 0,
+        "reason": "FROZEN_VIRTUAL_IMPACT",
+        "receipt_sha256": "1b039f9d9862963c12e224b50b59861f2a41c587b3ca9109848ca6236ed082a6"
+      }
+    ],
+    "junction_diagnostic": "",
+    "junction_redirections": "PASS",
+    "legacy_configuration": "BLOCKED",
+    "sandbox_output_redirections": "BLOCKED",
+    "schema": "v3.l5_admission_entry_trace/1",
+    "source_bytes_unchanged": true,
+    "tampered_receipt_reuse": "BLOCKED"
+  },
+  "schema_validation": {
+    "status": "PASS",
+    "tool": "PowerShell Test-Json",
+    "schema": {
+      "path": "docs/electromechanical_v3/admission_scope.schema.json",
+      "sha256": "aff014c8c1e3d67973bc62d5255b4c13ca6ee634157366cbb3b893a926fd1efe"
+    },
+    "reproduced_request": {
+      "path": ".runtime/v3-a1/replay-bf7838879286412089245df5fdf4f119/request.json",
+      "sha256": "6a83da792def51a3f7bd548e77ca5d4ff2610726087a28c0ea33cc1bc80caeb9"
+    },
+    "reproduced_receipt": {
+      "path": ".runtime/v3-a1/replay-bf7838879286412089245df5fdf4f119/output/admission.json",
+      "sha256": "4215a243da2214fa1037453e29fbda6e26d9f7e4265c156c55bf23e7c419004c"
+    },
+    "successful_decision_validations": 47
+  },
+  "l5_historical_campaign": {
+    "status": "PASS",
+    "tests": [
+      "l5_Campaign",
+      "l5_Selection",
+      "l5_cli"
+    ],
+    "result": {
+      "path": ".runtime/v3-a1/delivery-l5/legacy-l5.xml",
+      "sha256": "5f20c64a4c8f50e7f655c7eefe1f5e228475b3a4741a0be34dbf374697e39fe0"
+    }
+  },
+  "q1": {
+    "active_checkout": "FAIL_HISTORICAL_SEAL_MISMATCH",
+    "active_trace": {
+      "path": ".runtime/v3-a1/entry-l5/l5.junit.xml",
+      "sha256": "4bd748387b6bfd986a6ac6545be10a21acbd31ed6897ab52357cd7f47b44d0f0"
+    },
+    "sealed_copy": "PASS",
+    "cases_passed": 11,
+    "trace": {
+      "path": ".runtime/v3-a1/delivery-l5/q1-private.log",
+      "sha256": "332c34975c8ca2d70a242dfa6f9e07810c39f7a84725bf0b9bb88ec524e39636"
+    }
+  },
+  "review": {
+    "status": "PASS_IN_SCOPE",
+    "findings": [
+      "Contrôle indépendant des domaines, du sceau compilé, des contraintes, des autorités et du chemin de construction L5.",
+      "Le contrôle des liens physiques, de l'attribut lecture seule et des octets sources est testé avec des fichiers réels.",
+      "Redirection de la sortie par jonction Windows reproduite sur une copie de test puis bloquée par un contrôle des composants du chemin. Trois variantes rejouées avec une jonction réelle. Les noms terminés par un point ou une espace sont aussi refusés.",
+      "Le reçu serait insuffisant comme jeton de mutation. B.1 doit réauthentifier les entrées au point d'exécution dans une transaction privée et revérifier les sources."
+    ]
+  }
+}

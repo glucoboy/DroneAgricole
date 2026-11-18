@@ -1,4 +1,5 @@
 #include "ProcessBackend.hpp"
+#include "AdmissionScope.hpp"
 #include "Files.hpp"
 #include "ResearchAdapter.hpp"
 
@@ -290,6 +291,38 @@ QJsonObject ProcessBackend::explore(const QDir &operation)
     return {{"alternatives", alternatives}, {"conflicts", conflicts},
         {"evidence", relative(output_, out.filePath("t0_run_manifest.json"))},
         {"evidence_sha256", fileDigest(out.filePath("t0_run_manifest.json"))}};
+}
+
+QJsonObject ProcessBackend::buildV3(const QDir &root, const QDir &sandbox, const QJsonObject &request)
+{
+    const auto admission = evaluateAdmissionScope(root, sandbox, request);
+    const auto decision = admission.value("decision");
+    const auto scope = admission.value("execution_scope");
+    const auto domain = request.value("domain");
+    const auto operation = request.value("operation");
+    const auto output = request.value("output");
+    QJsonObject report{{"schema", "v3.l5_admission_receipt/1"}, {"admission", admission},
+        {"dispatch_status", "BLOCKED"}, {"candidate_transactions", 0}, {"construction_result", "NOT_RUN"}};
+
+    if (decision != "ALLOW" || admission.value("allowed_operations") != QJsonArray{operation}) {
+        return report;
+    }
+    if (operation == "ANALYZE_IMPACT") {
+        if (scope == "READ_ONLY_IMPACT" && domain == "CARTOGRAPHER_PRIVATE_CAD" && output == "IMPACT_REPORT") {
+            report.insert("dispatch_status", "READ_ONLY");
+        }
+        return report;
+    }
+    const QStringList benchOperations{"REPOSITION_DEVICE", "REROUTE_HARNESS", "RELOCATE_SUPPORT", "CREATE_SUPPORT"};
+    if (scope != "BENCH_TEST_ONLY" || domain != "SYNTHETIC_BENCH" || output != "PRIVATE_CANDIDATE" ||
+            !benchOperations.contains(operation.toString())) {
+        return report;
+    }
+
+    // This is the dispatch boundary for future V3 operators. The legacy builder
+    // below generates a static model and has no authority over XLink copies.
+    report.insert("dispatch_status", "NOT_IMPLEMENTED");
+    return report;
 }
 
 QJsonObject ProcessBackend::build(const QJsonObject &assignments, const QDir &operation)

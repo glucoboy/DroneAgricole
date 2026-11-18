@@ -73,6 +73,24 @@ QString relative(const QDir &root, const QString &path)
     return name;
 }
 
+bool hasRedirectedComponent(const QDir &root, const QString &absolutePath)
+{
+    auto path = root.absolutePath();
+    for (const auto &part : relative(root, absolutePath).split('/')) {
+#ifdef Q_OS_WIN
+        if (part.endsWith('.') || part.endsWith(' ') || part.contains(':')) {
+            return true;
+        }
+#endif
+        path += '/' + part;
+        const QFileInfo info(path);
+        if (info.isSymLink() || info.isJunction()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 QString fileInside(const QDir &root, const QString &path)
 {
     const QFileInfo info(root.absoluteFilePath(path));

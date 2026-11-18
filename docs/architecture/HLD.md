@@ -209,6 +209,14 @@ Une divergence d’identité, un effet critique omis ou une régression
 critique ferme l’admission. Les domaines de pose et preuves physiques
 restent des conditions d’une passe ultérieure. [Réception V3-A](../VALIDATION_QUALIFICATION.md#cartographe-v3-a)
 
+V3-A.1 ouvre les essais d’opérateurs sur un banc XLink synthétique scellé.
+Cette expérience réversible prépare les contrôles nécessaires aux futures
+reprises d’appui et de cheminement d’ORCH-CAO-MASSE-1. Le prototype sans dock
+reste en lecture et analyse d’impact dans le périmètre V3-A. Une opération
+CAO exploratoire sur copie demandera des préconditions locales étayées.
+L’admission de conception et la réception GO4 ont leurs propres critères.
+[Validation V3-A.1](../VALIDATION_QUALIFICATION.md#cartographe-v3-a1)
+
 ### 1.2 Application proportionnée à chaque évolution
 
 **Demande du 23 octobre 2026 :** le responsable ouvre une refonte de la station
@@ -1752,6 +1760,7 @@ la pièce jointe : `49872e3caadea148a8ecb2f1edd9953bdd95c1debe26b63b7edb21069aed
 |---|---|
 | 17 novembre 2026 | GO3B construit sur copies, contre-validation et décision NO_GO motivée. Reprise appui/diagnostic définie au §1.1. |
 | 18 novembre 2026 | V3-A borne la reprise F40/F41 à l’observation de la fermeture et aux dépendances d’opérations virtuelles (§1.1). |
+| 18 novembre 2026 | V3-A.1 autorise les essais d’opérateurs sur banc XLink synthétique scellé (§1.1). |
 | 17 novembre 2026 | GO3A V2.1 ouvre trois essais d’architecture sur copies sous les contraintes du prototype sans dock (§1.1). |
 | 14 novembre 2026 | Clôture de GO3B à l’admission, prérequis d’intégration H-01 ouverts (§1.1). |
 | 14 novembre 2026 | Cible d’instruction H-01 sous condition pour la complétude électromécanique et massique (§1.1). |

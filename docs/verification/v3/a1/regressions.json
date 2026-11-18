@@ -1,0 +1,632 @@
+{
+  "schema": "v3.a1.regressions/1",
+  "base_git": "742a5ac4f167bba0ef03b65053412bddbde0ecc9",
+  "environnement": {
+    "os": "Windows",
+    "architecture": "amd64",
+    "cxx": "GNU MinGW UCRT 16.2.0 C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "ctest_python": "3.14.7",
+    "runner_python": "3.14.4",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "QT_QPA_PLATFORM": "offscreen",
+    "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+  },
+  "gel_v3a": {
+    "acceptance": {
+      "path": "docs/verification/v3/a/acceptance.json",
+      "sha256": "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31"
+    },
+    "freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "groupes": {
+      "acceptance_inputs": {
+        "entries_checked": 6,
+        "differences": []
+      },
+      "acceptance_proofs": {
+        "entries_checked": 4,
+        "differences": []
+      },
+      "freeze_inputs": {
+        "entries_checked": 211,
+        "differences": []
+      },
+      "freeze_historical": {
+        "entries_checked": 6,
+        "differences": []
+      },
+      "freeze_criteria": {
+        "entries_checked": 4,
+        "differences": []
+      },
+      "freeze_artifacts": {
+        "entries_checked": 14,
+        "differences": []
+      },
+      "freeze_implementation": {
+        "entries_checked": 55,
+        "differences": [
+          {
+            "path": "convergence_manager/src/Main.cpp",
+            "sha256_gel_v3a": "aba30f242f11ad37fde3815c8a2aea0a42f820b04390149e0f8b541ac47e6ca9",
+            "sha256_checkout_base": "aba30f242f11ad37fde3815c8a2aea0a42f820b04390149e0f8b541ac47e6ca9",
+            "status": "A1_CODE_EVOLUTION"
+          }
+        ]
+      },
+      "native_inputs": {
+        "entries_checked": 142,
+        "differences": []
+      },
+      "b2_historical": {
+        "entries_checked": 14,
+        "differences": []
+      }
+    },
+    "reconstitution_code_historique": "git cat-file --filters <base>:<chemin> sous core.autocrlf=true restitue les octets du checkout V3-A. Les empreintes des fichiers d’implémentation sont historiques et le gel est inchangé.",
+    "suivi_git": {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "742a5ac4f167bba0ef03b65053412bddbde0ecc9",
+        "--",
+        "docs/verification/v3/a",
+        "hardware"
+      ],
+      "exit_code": 0
+    }
+  },
+  "v3_b_historique": {
+    "revision": "e0906927c53e7079e65ca1027d46702e6d3a3a17",
+    "path": "docs/verification/v3/b/acceptance.json",
+    "sha256": "ce3c668235636ca0baaa4254eba6c8c62854f73a4bbc42ded59cb00a9f59d300",
+    "verdict": "V3_B_NO_GO",
+    "stopped_at": "V3_A_ADMISSION",
+    "candidate_transactions": 0
+  },
+  "b2_historique": {
+    "couverture": {
+      "path": "docs/verification/v21_b2/coverage.json",
+      "sha256": "dbadbac0d99efd37dd800c224060ec1c29440e1153cd16fae50dc8424c3275fa"
+    },
+    "paires": 1609,
+    "collisions": 7,
+    "paires_remesurees": 0,
+    "statut": "HISTORICAL_ONLY",
+    "preuves_verifiees": 14,
+    "empreintes": [
+      {
+        "path": "docs/verification/v21_b2/pairs.json",
+        "sha256": "0b3e122d35e07ff743e0bf7e574a3d9cf7a3b7d8376e5d0a50aa4e3ac691f141"
+      },
+      {
+        "path": "docs/verification/v21_b2/interferences.json",
+        "sha256": "e413882d0028ef9da2d96ff7f21d2483e51a71c6ebcf612d8709511b92da37b3"
+      },
+      {
+        "path": "docs/verification/v21_b2/lots.json",
+        "sha256": "0fd29434a11fd9d4e8db1a7f83421c606360a95d9bb138a2314d7d657ddd8a8f"
+      },
+      {
+        "path": "docs/verification/v21_b2/inconclusive.json",
+        "sha256": "b7cd61298a4a0b5b3ff576d11186728ec25924f23ab42459d89ea3305cf62838"
+      },
+      {
+        "path": "docs/verification/v21_b2/regressions.json",
+        "sha256": "c380a51b95c2959735a4e452c9c6d604460181cf8e666e40aacff55c69298f46"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-audit/baseline.json",
+        "sha256": "a34497f735d89326049b2cbee3edcbd8aeb1fdf9591a836f350af36f3f9630f6"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-execution/restart-test.json",
+        "sha256": "91ca0da74534678222d17295267cdb5d7cb7fb64b40085dc6377bf22c960437a"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/checkpoint.json",
+        "sha256": "10542a143132b2085696da19d80bb9f52886949204138574ae536a22c0c8e953"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/campaign.json",
+        "sha256": "c4f7a9bd903aeee8b744429d78a0699b75728b71f17384135f3b6fa0ad523364"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/aabb_exclusions.json",
+        "sha256": "52a39dc6ef0e1af0656bb2c6f39b3405e6e4e5b40d5c6ca17b4cefe1019b9c78"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/fix-b-coverage/prototype-final/run-e12251ac-dad7-4a35-bfd5-0d57a2422e0c/t0_run_manifest.json",
+        "sha256": "d42aed587e5a0ff752a1d76475c495024debbd9e96998856a8e4e17e70611666"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-audit/independent-reopening.json",
+        "sha256": "f21b256ca59e9aeac03da06f8614d483089acd3d3b3c63dbc311970d83e4e571"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-audit/final-provenance.json",
+        "sha256": "0811f129a847c04cb829a848e564322fd463fcfbb24877e5f1dc7629bcdcde42"
+      },
+      {
+        "path": ".runtime/fix-b/.runtime/b2-audit/assembly.json",
+        "sha256": "466c6df14e599262b835e7b2c19200c6b1408c0092b7659d3f40077cdf6e0efa"
+      }
+    ]
+  },
+  "rejeu": {
+    "Graphe_CTest": {
+      "id": "graphe-ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a1/regressions/build-graph",
+        "-R",
+        "v3_graph_contract|^l2_interconnection$",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-a1/regressions/graphe-ctest.xml"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/graphe-ctest.log",
+        "sha256": "55766795bb264de6e525969671b914aade4591678dbc45c61211e22ac5fbad24"
+      },
+      "junit": {
+        "path": ".runtime/v3-a1/regressions/graphe-ctest.xml",
+        "sha256": "06b5426113ce77b45098fecd3b26ca3256b7db781151ae5a98706d6aded26cab"
+      },
+      "tests": {
+        "v3_graph_contract": "PASS",
+        "l2_interconnection": "PASS"
+      }
+    },
+    "Graphe_V3_A_et_T0": {
+      "id": "graphe-reference",
+      "argv": [
+        "python",
+        "-B",
+        "electromechanical_graph/tests/verify_reference.py",
+        "--core",
+        ".runtime/v3-a1/regressions/build-graph/electromechanical_graph_core.exe",
+        "--native",
+        ".runtime/v3-a/native.json",
+        "--transfer-report",
+        ".runtime/v3-a/native-20261118-065605213/transfer.json",
+        "--bench-native",
+        ".runtime/v3-a/bench-final.json",
+        "--t0-validator",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--out",
+        ".runtime/v3-a1/regressions/graphe"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/graphe-reference.log",
+        "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+      },
+      "preuves": [
+        {
+          "path": ".runtime/v3-a1/regressions/graphe/checks.json",
+          "sha256": "46d163e91e206216bf7ce129225a6173a5bca72d8763e5f9c027e077773160bc"
+        },
+        {
+          "path": ".runtime/v3-a1/regressions/graphe/t0_run_manifest.json",
+          "sha256": "3199c769905ab239209256ce8957490b541ad31346d1be1854dc2fb6a8f2aa2c"
+        }
+      ],
+      "graphes_reproduits": [
+        {
+          "path": ".runtime/v3-a1/regressions/graphe/cartographe-graph.json",
+          "sha256": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+        },
+        {
+          "path": ".runtime/v3-a1/regressions/graphe/transfer-graph.json",
+          "sha256": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+        },
+        {
+          "path": ".runtime/v3-a1/regressions/graphe/bench-graph.json",
+          "sha256": "53b9b268e39fcb274a8df4641e67d9944bee12b4701fc9ccec1939e597a27dbe"
+        }
+      ],
+      "impact_passed": 9,
+      "negative_checks_rejected": [
+        "altered_graph_sha256",
+        "altered_native_sha256",
+        "axis_as_port_authority",
+        "existing_output",
+        "failed_transfer",
+        "forbidden_operation_subject",
+        "incomplete_connector",
+        "missing_anchor",
+        "missing_route",
+        "missing_topology"
+      ],
+      "t0_status": "PASS"
+    },
+    "L4_L2_CTest": {
+      "id": "l4-l2-ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a1/regressions/build-l4",
+        "-j",
+        "2",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-a1/regressions/l4-l2-ctest.xml"
+      ],
+      "cwd": ".",
+      "exit_code": 8,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/l4-l2-ctest.log",
+        "sha256": "e8518452b7298a47f89f71ce15988f03abf7188dfce14e5693b62d0dd0e045cc"
+      },
+      "junit": {
+        "path": ".runtime/v3-a1/regressions/l4-l2-ctest.xml",
+        "sha256": "c289d56babbba31044a048ecc688b2dcc052ed98723c5b2a285c07a725fd0bd5"
+      },
+      "tests": {
+        "l4_mechanical_rules": "PASS",
+        "v21_xlink_electrical": "PASS",
+        "v21_xlink_native": "PASS",
+        "v21_xlink_cli": "PASS",
+        "l4_contract": "PASS",
+        "l2_interconnection": "PASS",
+        "l2_reconcile": "FAIL"
+      },
+      "cause_unique_du_code_8": "l2_reconcile refuse les octets LF actifs : empreinte historique CRLF divergente."
+    },
+    "L2_rapprochement_CRLF": {
+      "id": "l2-historique",
+      "argv": [
+        "python",
+        "-B",
+        ".runtime/v3-a1/regressions/l2-private/interconnection_engine/tests/test_reconcile.py",
+        ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "-v"
+      ],
+      "cwd": ".runtime/v3-a1/regressions/l2-private",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/l2-historique.log",
+        "sha256": "16f0fd2a080df7c9744e37aa3dcb4b40a37112883772cc8a62eb71cce2e70f18"
+      },
+      "copies_sources_inchangees": 117,
+      "manifestes": {
+        "actif": {
+          "path": "hardware/mecanique/cartographe/manifest.json",
+          "sha256": "4f8f071106d862a34292214dc17d6f9d078f9067b8149288103fd8e1ebca90e6"
+        },
+        "temoin_historique": {
+          "path": ".runtime/v3-a1/regressions/l2-private/hardware/mecanique/cartographe/manifest.json",
+          "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8"
+        },
+        "crlf_temoin": 51110,
+        "equivalence_en_memoire": true
+      },
+      "tests_passed": 7
+    },
+    "Q2": {
+      "id": "q2",
+      "argv": [
+        "python",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        ".runtime/v3-a1/regressions/q2-history",
+        "--binary",
+        ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-a1/regressions/q2"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/q2.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preuves": {
+        "path": ".runtime/v3-a1/regressions/q2/evidence.json",
+        "sha256": "e71ab995e10b52a0b7b516efbb73c64df1daf8e26ed979b2aeca99a45b2f0182"
+      },
+      "etat": "PASS",
+      "cas": {
+        "nominal": "PASS",
+        "f12-bad-port": "PASS",
+        "swapped-conductors": "PASS",
+        "bad-key": "PASS",
+        "unmatched-exit": "PASS",
+        "matched-fictional-exit": "PASS",
+        "blocked-withdrawal": "PASS",
+        "unverified-mpn": "PASS",
+        "hardware-revision-conflict": "PASS",
+        "missing-contact": "PASS",
+        "approximate-model": "PASS",
+        "cad-as-supplier-proof": "PASS"
+      },
+      "oracle_sha256": "d209c8e11e3f428571f689e4b385d11a881f67c57fc3e42307a6aff62b1f6d80",
+      "integrite": true,
+      "cas_natifs": {
+        "nominal": "PASS",
+        "matched-fictional-exit": "PASS"
+      },
+      "repere_fictif_plus_3mm": {
+        "expected_local": 10,
+        "observed_local": 7,
+        "expected_world": 14,
+        "observed_world": 11
+      },
+      "preuve_fournisseur_fictive": {
+        "before": [
+          "PASS"
+        ],
+        "after": [
+          "INCONCLUSIVE"
+        ],
+        "origins": {
+          "cable": "LOCAL_CAD",
+          "embase": "LOCAL_CAD",
+          "fiche": "LOCAL_CAD",
+          "serre-cable": "LOCAL_CAD"
+        }
+      },
+      "reouverture_independante": {
+        "test_status": "PASS",
+        "process_code": 1,
+        "reopened_in_freecad": true,
+        "native_receipt_published": false,
+        "reopen_log_sha256": "da40dc2e29ebaf4da117abe06aaabf974752dda5902a5272f84556818193e26c"
+      }
+    },
+    "Q3": {
+      "id": "q3",
+      "argv": [
+        "python",
+        "-B",
+        "validation_engine/tests/probe_xlink_checkpoint.py",
+        ".runtime/v3-a1/regressions/build-l4/validation_core.exe",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        ".runtime/v3-a1/regressions/q3"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/q3.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preuves": {
+        "path": ".runtime/v3-a1/regressions/q3/result.json",
+        "sha256": "c3bea7a73874d11fbf56243ca534e2a51452be9d0c68ecfa702c0b2c0d8c3374"
+      },
+      "etat": "PASS",
+      "initial_intersection_mm3": 7.652891819924148,
+      "initial_t0": {
+        "id": "q3-t0-initial",
+        "argv": [
+          ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+          "validate",
+          ".runtime/v3-a1/regressions/q3/campaign/run-059b1d2c-9291-48ba-b962-39bebb5bac78",
+          "."
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-a1/regressions/q3-t0-initial.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        }
+      },
+      "resumed_intersection_mm3": 7.652891819924148,
+      "resumed_t0": {
+        "id": "q3-t0-resumed",
+        "argv": [
+          ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+          "validate",
+          ".runtime/v3-a1/regressions/q3/campaign/run-694d8c34-2cd7-48f4-88d1-3c6b66e47c22",
+          "."
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-a1/regressions/q3-t0-resumed.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        }
+      },
+      "resumed_tasks": 0
+    },
+    "C4_historique": {
+      "id": "c4",
+      "argv": [
+        "python",
+        "-B",
+        ".runtime/v3-a1/regressions/c4-private/convergence_manager/tests/test_xlink_relocation.py",
+        "--core",
+        ".runtime/fix-c/.runtime/build-l5-c2/convergence_core.exe",
+        "--l1",
+        ".runtime/v3-a-regressions/build-l1-l3/research/technical_research_core.exe",
+        "--l2",
+        ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "--l3",
+        ".runtime/v3-a-regressions/build-l1-l3/architecture_decision_core.exe",
+        "--l4",
+        ".runtime/v3-a1/regressions/build-l4/validation_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--output",
+        ".runtime/v3-a1/regressions/c4-private/.runtime/v3-a1-reprise"
+      ],
+      "cwd": ".runtime/v3-a1/regressions/c4-private",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/c4.log",
+        "sha256": "8d3318e654ef30b861acb578cee05de443aba2671b8c08b1b7666b5b828a9b0f"
+      },
+      "perimetre": "Binaire L5 C4 historique sur banc indépendant. Aucun passage par le constructeur V3-B. L2 et L4 recompilés pour A.1.",
+      "recu_historique": {
+        "path": ".runtime/fix-c/.runtime/q4-relocation-final/evidence.json",
+        "sha256": "9f85607ce91e963f7c02a2b0e05d0dad6dc37d1ef5489e4550126b8b9bb7e8c6"
+      },
+      "natif_historique": {
+        "path": ".runtime/fix-c/.runtime/q4-h01-original/candidate-etcpWL/candidate/Banc_Interconnexion.FCStd",
+        "sha256": "23951347c6edf0a2964709f2458e5efb7cf558382a466996e2eae48130c9e656"
+      },
+      "copies_sources_inchangees": 228,
+      "binaire_c4": {
+        "path": ".runtime/fix-c/.runtime/build-l5-c2/convergence_core.exe",
+        "sha256": "1998df3fde976df034d21f94b1debe043010a44ae01f5422af1650e2f5c74b75"
+      },
+      "preuves": {
+        "path": ".runtime/v3-a1/regressions/c4-private/.runtime/v3-a1-reprise/evidence.json",
+        "sha256": "d1fe99e2ef7917c1a633b57154b8e831b05acbf702abda5895f9a130235c80c2"
+      },
+      "status": "PASS",
+      "decision": "CANDIDATE_CONDITIONAL",
+      "connector_contacts": 8,
+      "conductors": 4,
+      "geometry": {
+        "FAIL": 0,
+        "INCONCLUSIVE": 0,
+        "NOT_RUN": 0,
+        "PASS": 15
+      },
+      "empreintes_historiques_verifiees": 7,
+      "critere_affaibli_refuse": true
+    },
+    "V3_XLink_natif": {
+      "argv": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "electromechanical_engine.tests.test_v3_native",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "tests_passed": 7,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/v3-native-tests.log",
+        "sha256": "5e1e65bac400eff0a2d443ab3f71d4691d41a60baa8aae08a0d01160433e41c7"
+      }
+    }
+  },
+  "outils": [
+    {
+      "path": ".runtime/v3-a1/regressions/build-graph/electromechanical_graph_core.exe",
+      "sha256": "181daf29352f2f3c59b73958d2a29f121b8989d82dd7c1a9cff50d408a8b62d5"
+    },
+    {
+      "path": ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+      "sha256": "4305bb0e7611e49a07f2c1d0ecd83ec57ad96144182ea7c40a4394c3e8fa40c6"
+    },
+    {
+      "path": ".runtime/v3-a1/regressions/build-l4/validation_core.exe",
+      "sha256": "abb145ccb097dabfc509e747dd762fb74f949ae8f6ec862650b4ed0e73b7cc8a"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d"
+    }
+  ],
+  "qualification": "PASS_CRITICAL_REGRESSIONS_WITH_KNOWN_ACTIVE_L2_DIVERGENCE",
+  "compilation": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "electromechanical_graph",
+        "-B",
+        ".runtime/v3-a1/regressions/build-graph",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        ".runtime/v3-a1/regressions/build-graph",
+        "--parallel",
+        "3"
+      ],
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/build-graph.log",
+        "sha256": "3f7c1cb07e750d96bc285f78896375941fda32ab1c9cc18b34dd5856bdea2134"
+      }
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "validation_engine",
+        "-B",
+        ".runtime/v3-a1/regressions/build-l4",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        ".runtime/v3-a1/regressions/build-l4",
+        "--parallel",
+        "3"
+      ],
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a1/regressions/build-l4.log",
+        "sha256": "ae3de4168515b40607f675f4ce1f8889bface5e20b6a5888063a31dea1f7e153"
+      }
+    }
+  ],
+  "reproduction": {
+    "adaptation": "Résoudre les chemins d’artefacts et d’arguments indiqués à partir de la racine du dépôt. Les chemins de sortie doivent être neufs. Utiliser les répertoires cwd indiqués pour les sous-processus.",
+    "entrees_privees": [
+      {
+        "source": ".runtime/v3-a-regressions/l2-private",
+        "destination": ".runtime/v3-a1/regressions/l2-private",
+        "copy": "byte-exacte"
+      },
+      {
+        "source": ".runtime/v3-a-regressions/q2-history",
+        "destination": ".runtime/v3-a1/regressions/q2-history",
+        "copy": "byte-exacte"
+      },
+      {
+        "source": ".runtime/v3-a-regressions/c4-private-runtime",
+        "destination": ".runtime/v3-a1/regressions/c4-private",
+        "exclude": ".runtime/replay",
+        "copy": "byte-exacte"
+      }
+    ],
+    "sources_epinglees_recette": "docs/verification/v3/a/regressions.json#/reproduction",
+    "path": "C:/msys64/ucrt64/bin"
+  },
+  "hors_perimetre": {
+    "L5_Q1": "Mesuré séparément dans la preuve d’admission V3-A.1 du binaire L5 courant.",
+    "Gazebo_SITL": "NOT_RUN. Auxiliaires hors de la campagne. Le diagnostic historique Gazebo/SITL reste dans le reçu V3-A.",
+    "couverture_B2_complete": "NOT_RUN. Empreintes historiques authentifiées, zéro paire remesurée.",
+    "V3_B_construction_et_reception_physique": "NOT_RUN. C4 utilise le binaire et le banc historiques V2.1."
+  }
+}

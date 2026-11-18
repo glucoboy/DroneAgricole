@@ -1,0 +1,51 @@
+{
+  "schema": "v3.admission_bench_native_receipt/1",
+  "test_id": "T-CARTO-V3-A1-BENCH-XLINK",
+  "date": "2026-11-18",
+  "finalized": true,
+  "status": "PASS",
+  "environment": {
+    "os": "Windows amd64",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "worker_python": "3.11.14"
+  },
+  "scope": "Fermeture, poses et transfert en lecture seule de la référence d’essai numérique.",
+  "seal": {
+    "path": "docs/electromechanical_v3/bench_a1/seal.json",
+    "sha256": "cf321988adf7169e122de0523c013079e0e3892891475ea5e7710290702e3db8"
+  },
+  "command": "python -B -m electromechanical_engine.v3_native --freecad-python 'C:/Program Files/FreeCAD 1.1/bin/python.exe' --source docs/electromechanical_v3/bench_a1 --entry model/assemblies/Root.FCStd --work '.runtime/v3-a1/bench-fixture/native-a' --output '.runtime/v3-a1/bench-fixture/native-a.json'",
+  "observations": {
+    "documents": 2,
+    "external_links": 8,
+    "broken_links": 0,
+    "placement_checks_passed": 9,
+    "visible_solids": 5,
+    "hidden_anchor_datums": 3,
+    "port_frame_position_max_difference_mm": 0,
+    "port_frame_direction_max_component_difference": 0,
+    "transfer": "PASS",
+    "transfer_comparison_differences": [],
+    "distinct_processes": true,
+    "originals_unchanged": 2,
+    "native_save_performed": false
+  },
+  "local_artifacts": [
+    {
+      "path": ".runtime/v3-a1/bench-fixture/native-a.json",
+      "sha256": "e741e6274274868a11a1f411d330addd0926893380cd1d7f9b194f78d0883ba6"
+    },
+    {
+      "path": ".runtime/v3-a1/bench-fixture/native-a/staged.json",
+      "sha256": "4f6af6cc7931119594186965f7c2067ae42c924bf59fda7f90796fe15a03047f"
+    },
+    {
+      "path": ".runtime/v3-a1/bench-fixture/native-a/transfer.json",
+      "sha256": "cee044bd44318dae18cc6e91274f8c6173ee3e1fc2575a57236dc75108bddae3"
+    }
+  ],
+  "construction": "NOT_RUN",
+  "physical_reception": "NOT_RUN"
+}

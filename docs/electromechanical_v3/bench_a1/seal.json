@@ -1,0 +1,322 @@
+{
+  "schema": "v3.admission_bench_seal/1",
+  "model_id": "xlink-synthetic-a1",
+  "model_version": "1",
+  "entry": "model/assemblies/Root.FCStd",
+  "geometry_sha256": "33cd08fbbe53e215e4f04c540dba728c24ee49fe023a1612877506af85047efa",
+  "xlink_dependencies": {
+    "model/assemblies/Root.FCStd": "7941fa2018b31a76662e05d1cb418f85ea50aa2e75f18e4f9c5e034d26836a3a",
+    "model/parts/Assets.FCStd": "907496911d8c80e589301f526a38a33e34b630cd637b4571709ffe2edfede309"
+  },
+  "authority": {
+    "path": "authority.json",
+    "sha256": "a79f5ca74697309e6fd2878b924d526d2c034ddf50f16f38e382ccd37862c9f4"
+  },
+  "operations": {
+    "REPOSITION_DEVICE": {
+      "occurrence": "bench:device",
+      "effect": {
+        "placement_mm": [
+          24,
+          20,
+          4
+        ]
+      },
+      "constraints": {
+        "BMS_USB_STRUCTURE_ISOLATION": {
+          "required": true,
+          "evidence": "/electrical/isolated_domains"
+        },
+        "NC": {
+          "must_stay_open": true,
+          "evidence": "/electrical/nc"
+        },
+        "TX_RX": {
+          "must_preserve_crossing": true,
+          "evidence": "/electrical/nets"
+        },
+        "PROTECTIONS": {
+          "must_preserve": true,
+          "evidence": "/electrical/protections"
+        },
+        "PINOUT": {
+          "locked": true,
+          "evidence": "/electrical/ports"
+        },
+        "INDEPENDENT_FRAMES": {
+          "position_tolerance_mm": 0.001,
+          "direction_tolerance_deg": 0.01,
+          "evidence": "/independent_frames"
+        },
+        "GEOMETRY": {
+          "interference_tolerance_mm3": 0.001,
+          "evidence": "/geometry_control"
+        },
+        "SUPPORT_ANCHOR": {
+          "required": true,
+          "evidence": "/anchors"
+        },
+        "SERVICE": {
+          "minimum_clearance_mm": 2,
+          "evidence": "/service"
+        },
+        "IMMUTABLE_SOURCES": {
+          "source_write": "DENY",
+          "evidence": "/source_immutability"
+        },
+        "DYNAMIC_BEND_RADIUS": {
+          "minimum_mm": 6,
+          "evidence": "/routes"
+        }
+      },
+      "validations": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_DYNAMIC_BEND_RADIUS"
+      ],
+      "authorities": {
+        "BMS_USB_STRUCTURE_ISOLATION": "/constraints/BMS_USB_STRUCTURE_ISOLATION",
+        "NC": "/constraints/NC",
+        "TX_RX": "/constraints/TX_RX",
+        "PROTECTIONS": "/constraints/PROTECTIONS",
+        "PINOUT": "/constraints/PINOUT",
+        "INDEPENDENT_FRAMES": "/constraints/INDEPENDENT_FRAMES",
+        "GEOMETRY": "/constraints/GEOMETRY",
+        "SUPPORT_ANCHOR": "/constraints/SUPPORT_ANCHOR",
+        "SERVICE": "/constraints/SERVICE",
+        "IMMUTABLE_SOURCES": "/constraints/IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS": "/constraints/DYNAMIC_BEND_RADIUS"
+      }
+    },
+    "REROUTE_HARNESS": {
+      "occurrence": "bench:harness",
+      "effect": {
+        "corridor": "BENCH_CORRIDOR_B"
+      },
+      "constraints": {
+        "BMS_USB_STRUCTURE_ISOLATION": {
+          "required": true,
+          "evidence": "/electrical/isolated_domains"
+        },
+        "NC": {
+          "must_stay_open": true,
+          "evidence": "/electrical/nc"
+        },
+        "TX_RX": {
+          "must_preserve_crossing": true,
+          "evidence": "/electrical/nets"
+        },
+        "PROTECTIONS": {
+          "must_preserve": true,
+          "evidence": "/electrical/protections"
+        },
+        "PINOUT": {
+          "locked": true,
+          "evidence": "/electrical/ports"
+        },
+        "INDEPENDENT_FRAMES": {
+          "position_tolerance_mm": 0.001,
+          "direction_tolerance_deg": 0.01,
+          "evidence": "/independent_frames"
+        },
+        "GEOMETRY": {
+          "interference_tolerance_mm3": 0.001,
+          "evidence": "/geometry_control"
+        },
+        "SUPPORT_ANCHOR": {
+          "required": true,
+          "evidence": "/anchors"
+        },
+        "SERVICE": {
+          "minimum_clearance_mm": 2,
+          "evidence": "/service"
+        },
+        "IMMUTABLE_SOURCES": {
+          "source_write": "DENY",
+          "evidence": "/source_immutability"
+        },
+        "DYNAMIC_BEND_RADIUS": {
+          "minimum_mm": 6,
+          "evidence": "/routes"
+        }
+      },
+      "validations": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_DYNAMIC_BEND_RADIUS"
+      ],
+      "authorities": {
+        "BMS_USB_STRUCTURE_ISOLATION": "/constraints/BMS_USB_STRUCTURE_ISOLATION",
+        "NC": "/constraints/NC",
+        "TX_RX": "/constraints/TX_RX",
+        "PROTECTIONS": "/constraints/PROTECTIONS",
+        "PINOUT": "/constraints/PINOUT",
+        "INDEPENDENT_FRAMES": "/constraints/INDEPENDENT_FRAMES",
+        "GEOMETRY": "/constraints/GEOMETRY",
+        "SUPPORT_ANCHOR": "/constraints/SUPPORT_ANCHOR",
+        "SERVICE": "/constraints/SERVICE",
+        "IMMUTABLE_SOURCES": "/constraints/IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS": "/constraints/DYNAMIC_BEND_RADIUS"
+      }
+    },
+    "RELOCATE_SUPPORT": {
+      "occurrence": "bench:support",
+      "effect": {
+        "anchor": "bench:anchor-relocate"
+      },
+      "constraints": {
+        "BMS_USB_STRUCTURE_ISOLATION": {
+          "required": true,
+          "evidence": "/electrical/isolated_domains"
+        },
+        "NC": {
+          "must_stay_open": true,
+          "evidence": "/electrical/nc"
+        },
+        "TX_RX": {
+          "must_preserve_crossing": true,
+          "evidence": "/electrical/nets"
+        },
+        "PROTECTIONS": {
+          "must_preserve": true,
+          "evidence": "/electrical/protections"
+        },
+        "PINOUT": {
+          "locked": true,
+          "evidence": "/electrical/ports"
+        },
+        "INDEPENDENT_FRAMES": {
+          "position_tolerance_mm": 0.001,
+          "direction_tolerance_deg": 0.01,
+          "evidence": "/independent_frames"
+        },
+        "GEOMETRY": {
+          "interference_tolerance_mm3": 0.001,
+          "evidence": "/geometry_control"
+        },
+        "SUPPORT_ANCHOR": {
+          "required": true,
+          "evidence": "/anchors"
+        },
+        "SERVICE": {
+          "minimum_clearance_mm": 2,
+          "evidence": "/service"
+        },
+        "IMMUTABLE_SOURCES": {
+          "source_write": "DENY",
+          "evidence": "/source_immutability"
+        },
+        "DYNAMIC_BEND_RADIUS": {
+          "minimum_mm": 6,
+          "evidence": "/routes"
+        }
+      },
+      "validations": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_SUPPORT_ANCHOR"
+      ],
+      "authorities": {
+        "BMS_USB_STRUCTURE_ISOLATION": "/constraints/BMS_USB_STRUCTURE_ISOLATION",
+        "NC": "/constraints/NC",
+        "TX_RX": "/constraints/TX_RX",
+        "PROTECTIONS": "/constraints/PROTECTIONS",
+        "PINOUT": "/constraints/PINOUT",
+        "INDEPENDENT_FRAMES": "/constraints/INDEPENDENT_FRAMES",
+        "GEOMETRY": "/constraints/GEOMETRY",
+        "SUPPORT_ANCHOR": "/constraints/SUPPORT_ANCHOR",
+        "SERVICE": "/constraints/SERVICE",
+        "IMMUTABLE_SOURCES": "/constraints/IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS": "/constraints/DYNAMIC_BEND_RADIUS"
+      }
+    },
+    "CREATE_SUPPORT": {
+      "occurrence": "bench:anchor-new",
+      "effect": {
+        "support": "bench:support-new",
+        "design": "BENCH_CLIP"
+      },
+      "constraints": {
+        "BMS_USB_STRUCTURE_ISOLATION": {
+          "required": true,
+          "evidence": "/electrical/isolated_domains"
+        },
+        "NC": {
+          "must_stay_open": true,
+          "evidence": "/electrical/nc"
+        },
+        "TX_RX": {
+          "must_preserve_crossing": true,
+          "evidence": "/electrical/nets"
+        },
+        "PROTECTIONS": {
+          "must_preserve": true,
+          "evidence": "/electrical/protections"
+        },
+        "PINOUT": {
+          "locked": true,
+          "evidence": "/electrical/ports"
+        },
+        "INDEPENDENT_FRAMES": {
+          "position_tolerance_mm": 0.001,
+          "direction_tolerance_deg": 0.01,
+          "evidence": "/independent_frames"
+        },
+        "GEOMETRY": {
+          "interference_tolerance_mm3": 0.001,
+          "evidence": "/geometry_control"
+        },
+        "SUPPORT_ANCHOR": {
+          "required": true,
+          "evidence": "/anchors"
+        },
+        "SERVICE": {
+          "minimum_clearance_mm": 2,
+          "evidence": "/service"
+        },
+        "IMMUTABLE_SOURCES": {
+          "source_write": "DENY",
+          "evidence": "/source_immutability"
+        },
+        "DYNAMIC_BEND_RADIUS": {
+          "minimum_mm": 6,
+          "evidence": "/routes"
+        }
+      },
+      "validations": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_SUPPORT_ANCHOR"
+      ],
+      "authorities": {
+        "BMS_USB_STRUCTURE_ISOLATION": "/constraints/BMS_USB_STRUCTURE_ISOLATION",
+        "NC": "/constraints/NC",
+        "TX_RX": "/constraints/TX_RX",
+        "PROTECTIONS": "/constraints/PROTECTIONS",
+        "PINOUT": "/constraints/PINOUT",
+        "INDEPENDENT_FRAMES": "/constraints/INDEPENDENT_FRAMES",
+        "GEOMETRY": "/constraints/GEOMETRY",
+        "SUPPORT_ANCHOR": "/constraints/SUPPORT_ANCHOR",
+        "SERVICE": "/constraints/SERVICE",
+        "IMMUTABLE_SOURCES": "/constraints/IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS": "/constraints/DYNAMIC_BEND_RADIUS"
+      }
+    }
+  }
+}

@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "v3.admission_scope/1",
+  "description": "Demande et réponse d’admission électromécanique V3. Les sceaux et les conditions exécutables sont vérifiés par L5.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/decision"
+    }
+  ],
+  "$defs": {
+    "nonBlank": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonBlank"
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "locator"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "locator": {
+          "type": "string"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "domain",
+        "model_id",
+        "model_version",
+        "occurrence",
+        "objective",
+        "context",
+        "output",
+        "source_mode",
+        "rollback",
+        "operation",
+        "freeze_sha256",
+        "geometry_sha256",
+        "xlink_dependencies",
+        "effect",
+        "validations",
+        "authorities",
+        "constraints",
+        "assumptions",
+        "risks"
+      ],
+      "properties": {
+        "schema": {
+          "const": "v3.admission_scope/1"
+        },
+        "domain": {
+          "enum": [
+            "SYNTHETIC_BENCH",
+            "CARTOGRAPHER_PRIVATE_CAD",
+            "CARTOGRAPHER_DESIGN_ADMISSION",
+            "PHYSICAL_RECEPTION"
+          ]
+        },
+        "model_id": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "model_version": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "occurrence": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "objective": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "context": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "output": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "source_mode": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "rollback": {
+          "$ref": "#/$defs/nonBlank"
+        },
+        "operation": {
+          "enum": [
+            "ANALYZE_IMPACT",
+            "REPOSITION_DEVICE",
+            "REROUTE_HARNESS",
+            "RELOCATE_SUPPORT",
+            "CREATE_SUPPORT",
+            "CHANGE_CONNECTOR_VARIANT",
+            "CHANGE_INTERFACE_TOPOLOGY",
+            "RECEIVE_PHYSICAL"
+          ]
+        },
+        "freeze_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "geometry_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "xlink_dependencies": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:\\u0000]+$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "effect": {
+          "type": "object"
+        },
+        "validations": {
+          "$ref": "#/$defs/uniqueStrings"
+        },
+        "authorities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^/"
+          }
+        },
+        "constraints": {
+          "type": "object"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/uniqueStrings"
+        },
+        "risks": {
+          "$ref": "#/$defs/uniqueStrings",
+          "minItems": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "REPOSITION_DEVICE"
+              },
+              "domain": {
+                "const": "SYNTHETIC_BENCH"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "placement_mm"
+                ],
+                "properties": {
+                  "placement_mm": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "REROUTE_HARNESS"
+              },
+              "domain": {
+                "const": "SYNTHETIC_BENCH"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "corridor"
+                ],
+                "properties": {
+                  "corridor": {
+                    "$ref": "#/$defs/nonBlank"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "RELOCATE_SUPPORT"
+              },
+              "domain": {
+                "const": "SYNTHETIC_BENCH"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "anchor"
+                ],
+                "properties": {
+                  "anchor": {
+                    "$ref": "#/$defs/nonBlank"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "CREATE_SUPPORT"
+              },
+              "domain": {
+                "const": "SYNTHETIC_BENCH"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "support",
+                  "design"
+                ],
+                "properties": {
+                  "support": {
+                    "$ref": "#/$defs/nonBlank"
+                  },
+                  "design": {
+                    "$ref": "#/$defs/nonBlank"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "ANALYZE_IMPACT"
+              },
+              "domain": {
+                "const": "CARTOGRAPHER_PRIVATE_CAD"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "hypothetical_operation"
+                ],
+                "properties": {
+                  "hypothetical_operation": {
+                    "enum": [
+                      "MOVE",
+                      "RETENTION",
+                      "FRAME"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "decision",
+        "reason",
+        "execution_scope",
+        "domain",
+        "model_id",
+        "operation",
+        "occurrence",
+        "verified_preconditions",
+        "unmet_preconditions",
+        "assumptions",
+        "risks",
+        "allowed_operations",
+        "blocked_operations",
+        "mandatory_checks",
+        "open_issues",
+        "resolved_authorities",
+        "context_sha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "v3.admission_scope/1"
+        },
+        "decision": {
+          "enum": [
+            "ALLOW",
+            "ALLOW_CONDITIONAL_EXPERIMENT",
+            "DENY",
+            "UNSUPPORTED"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]+$"
+        },
+        "execution_scope": {
+          "enum": [
+            "NONE",
+            "BENCH_TEST_ONLY",
+            "READ_ONLY_IMPACT",
+            "PRIVATE_CAD_EXPERIMENT"
+          ]
+        },
+        "domain": {
+          "type": "string"
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "occurrence": {
+          "type": "string"
+        },
+        "verified_preconditions": {
+          "$ref": "#/$defs/strings"
+        },
+        "unmet_preconditions": {
+          "$ref": "#/$defs/strings"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/strings"
+        },
+        "risks": {
+          "$ref": "#/$defs/strings"
+        },
+        "allowed_operations": {
+          "$ref": "#/$defs/strings"
+        },
+        "blocked_operations": {
+          "$ref": "#/$defs/strings"
+        },
+        "mandatory_checks": {
+          "$ref": "#/$defs/strings"
+        },
+        "open_issues": {
+          "$ref": "#/$defs/strings"
+        },
+        "resolved_authorities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/authority"
+          }
+        },
+        "context_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

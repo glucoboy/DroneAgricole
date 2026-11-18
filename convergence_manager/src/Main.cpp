@@ -11,15 +11,28 @@
 #include <QLockFile>
 #include <QTemporaryDir>
 #include <cstdio>
+#include <filesystem>
 
 namespace {
 
 using namespace convergence;
 
-QDir outputDirectory(const QDir &root, const QString &name)
+bool containsDirectory(const QDir &ancestor, QDir child)
+{
+    do {
+        if (std::filesystem::equivalent(ancestor.filesystemAbsolutePath(), child.filesystemAbsolutePath())) {
+            return true;
+        }
+    } while (!child.isRoot() && child.cdUp());
+    return false;
+}
+
+QDir outputDirectory(const QDir &root, const QString &name, const QString &sandbox = {})
 {
     require(!name.isEmpty(), "Dossier de sortie requis");
-    const QFileInfo info(QDir::cleanPath(root.absoluteFilePath(name)));
+    const auto requested = QDir::cleanPath(root.absoluteFilePath(name));
+    require(sandbox.isEmpty() || !hasRedirectedComponent(root, requested), "Chemin de sortie V3 redirigé");
+    const QFileInfo info(requested);
     const auto canonicalParent = QDir(info.absolutePath()).canonicalPath();
     require(!canonicalParent.isEmpty(), "Le dossier parent doit exister");
     const QDir parent(canonicalParent);
@@ -27,6 +40,12 @@ QDir outputDirectory(const QDir &root, const QString &name)
     const auto subpath = relative(root, absolute);
     require(subpath.startsWith(".runtime/") || subpath.startsWith("results/"),
             "Choisir un dossier de campagne isolé sous .runtime/ ou results/");
+    if (!sandbox.isEmpty()) {
+        const QDir reference(sandbox);
+        require(!containsDirectory(reference, parent) &&
+                (!info.isDir() || !containsDirectory(QDir(absolute), reference)),
+                "La sortie L5 et le sandbox XLink doivent être disjoints");
+    }
     require(!info.isSymLink() && !info.isJunction() && (info.isDir() || parent.mkdir(info.fileName())) &&
             QDir(absolute).canonicalPath() == absolute, "Sortie de campagne inaccessible ou redirigée");
     return QDir(absolute);
@@ -131,6 +150,9 @@ int run(const QCommandLineParser &options)
     const QDir root(rootPath);
     const auto configPath = fileInside(root, options.value("config"));
     const auto config = load(configPath);
+    require(!config.value("schema").toString().startsWith("v3."),
+            "Un contrat V3 requiert la commande v3-admission");
+    require(config.value("version") == 1, "Version de campagne invalide");
     bool validSteps = false;
     const auto steps = options.value("steps").toInt(&validSteps);
     require(validSteps && steps >= -1, "Nombre d'étapes invalide");
@@ -161,6 +183,43 @@ int run(const QCommandLineParser &options)
     return code;
 }
 
+int runV3Admission(const QCommandLineParser &options)
+{
+    for (const auto &legacy : {"mode", "receipt", "plan", "source-release", "config", "steps",
+                              "l1", "l3", "l4", "python", "freecad-python"}) {
+        require(!options.isSet(legacy), "Option incompatible avec v3-admission : " + QString(legacy));
+    }
+    require(options.isSet("request") && options.isSet("sandbox"), "Demande et sandbox XLink requis");
+    const auto rootPath = QDir(options.value("root")).canonicalPath();
+    require(!rootPath.isEmpty(), "Racine de travail absente");
+    const QDir root(rootPath);
+    const auto requestedSandbox = QDir::cleanPath(root.absoluteFilePath(options.value("sandbox")));
+    require(!hasRedirectedComponent(root, requestedSandbox), "Chemin de sandbox XLink redirigé");
+    const auto sandboxPath = QDir(requestedSandbox).canonicalPath();
+    require(!sandboxPath.isEmpty(), "Sandbox XLink absent");
+    relative(root, sandboxPath);
+    const auto requestPath = fileInside(root, options.value("request"));
+    const auto bytes = read(requestPath);
+    const auto request = parse(bytes, requestPath);
+    const auto output = outputDirectory(root, options.value("output"), sandboxPath);
+    QLockFile lock(output.filePath(".publication.lock"));
+    lock.setStaleLockTime(0);
+    require(lock.tryLock(), "Admission V3 déjà en cours");
+    const auto entries = output.entryList(QDir::AllEntries | QDir::System | QDir::Hidden | QDir::NoDotAndDotDot);
+    require(entries == QStringList{".publication.lock"}, "Un dossier de sortie neuf est requis pour chaque admission V3");
+
+    auto report = ProcessBackend::buildV3(root, QDir(sandboxPath), request);
+    report.insert("request_sha256", digest(bytes));
+    write(output.filePath("admission.json"), report);
+    const auto decision = report.value("admission").toObject().value("decision").toString();
+    const auto status = report.value("dispatch_status").toString();
+    std::printf("%s %s\n", decision.toLatin1().constData(), status.toLatin1().constData());
+    if (status == "READ_ONLY") {
+        return 0;
+    }
+    return status == "NOT_IMPLEMENTED" ? 3 : 2;
+}
+
 } // namespace
 
 int main(int argc, char **argv)
@@ -169,7 +228,7 @@ int main(int argc, char **argv)
     QCommandLineParser options;
     options.setApplicationDescription("Campagne électromécanique L5 bornée et reprenable");
     options.addHelpOption();
-    options.addPositionalArgument("command", "run (par défaut) ou preflight");
+    options.addPositionalArgument("command", "run (par défaut), preflight ou v3-admission");
     options.addOptions({
         {"mode", "Porte preflight : historical, explore ou final", "mode"},
         {"source-release", "Gel des outils : v2.1, ou v2 pour le rejeu historique", "release", "v2.1"},
@@ -177,6 +236,8 @@ int main(int argc, char **argv)
         {"receipt", "Reçu indépendant de réception V2.1", "path"},
         {"root", "Racine du dépôt", "path", "."},
         {"config", "Configuration de campagne", "path", "convergence_manager/fixtures/campaign.json"},
+        {"request", "Demande d'action v3.admission_scope/1", "path"},
+        {"sandbox", "Copie de référence XLink pour la demande V3", "path"},
         {"output", "Dossier de campagne neuf ou à reprendre", "path"},
         {"l1", "Exécutable de recherche L1", "path"},
         {"l3", "Exécutable d'exploration L3", "path"},
@@ -188,6 +249,11 @@ int main(int argc, char **argv)
     options.process(app);
     try {
         const auto command = options.positionalArguments();
+        if (command == QStringList{"v3-admission"}) {
+            return runV3Admission(options);
+        }
+        require(!options.isSet("request") && !options.isSet("sandbox"),
+                "Les options de demande V3 requièrent la commande v3-admission");
         if (command.isEmpty() || command == QStringList{"run"}) {
             require(!options.isSet("mode") && !options.isSet("receipt") && !options.isSet("plan") &&
                     !options.isSet("source-release"),

@@ -1,0 +1,438 @@
+{
+  "schema": "v3.admission_bench_authority/1",
+  "model_id": "xlink-synthetic-a1",
+  "model_version": "1",
+  "scope": "Définition interne de la fixture numérique fermée. Matériel absent. Validité exclusive au banc.",
+  "physical_reception": "NOT_RUN",
+  "constraints": {
+    "BMS_USB_STRUCTURE_ISOLATION": {
+      "required": true,
+      "evidence": "/electrical/isolated_domains"
+    },
+    "NC": {
+      "must_stay_open": true,
+      "evidence": "/electrical/nc"
+    },
+    "TX_RX": {
+      "must_preserve_crossing": true,
+      "evidence": "/electrical/nets"
+    },
+    "PROTECTIONS": {
+      "must_preserve": true,
+      "evidence": "/electrical/protections"
+    },
+    "PINOUT": {
+      "locked": true,
+      "evidence": "/electrical/ports"
+    },
+    "INDEPENDENT_FRAMES": {
+      "position_tolerance_mm": 0.001,
+      "direction_tolerance_deg": 0.01,
+      "evidence": "/independent_frames"
+    },
+    "GEOMETRY": {
+      "interference_tolerance_mm3": 0.001,
+      "evidence": "/geometry_control"
+    },
+    "SUPPORT_ANCHOR": {
+      "required": true,
+      "evidence": "/anchors"
+    },
+    "SERVICE": {
+      "minimum_clearance_mm": 2,
+      "evidence": "/service"
+    },
+    "IMMUTABLE_SOURCES": {
+      "source_write": "DENY",
+      "evidence": "/source_immutability"
+    },
+    "DYNAMIC_BEND_RADIUS": {
+      "minimum_mm": 6,
+      "evidence": "/routes"
+    }
+  },
+  "electrical": {
+    "isolated_domains": {
+      "domain_ids": [
+        "BENCH_BMS_UART",
+        "BENCH_USB",
+        "BENCH_STRUCTURE"
+      ],
+      "forbidden_galvanic_pairs": [
+        [
+          "BENCH_BMS_UART",
+          "BENCH_USB"
+        ],
+        [
+          "BENCH_BMS_UART",
+          "BENCH_STRUCTURE"
+        ],
+        [
+          "BENCH_USB",
+          "BENCH_STRUCTURE"
+        ]
+      ]
+    },
+    "nc": [
+      "BENCH-DEVICE-PORT:4",
+      "BENCH-HOST-PORT:4"
+    ],
+    "ports": {
+      "BENCH-DEVICE-PORT": {
+        "domain": "BENCH_BMS_UART",
+        "key": "BENCH_KEY_A",
+        "pins": {
+          "1": "TX",
+          "2": "RX",
+          "3": "UART_GND",
+          "4": "NC"
+        }
+      },
+      "BENCH-HOST-PORT": {
+        "domain": "BENCH_BMS_UART",
+        "key": "BENCH_KEY_A",
+        "pins": {
+          "1": "TX",
+          "2": "RX",
+          "3": "UART_GND",
+          "4": "NC"
+        }
+      }
+    },
+    "nets": [
+      {
+        "id": "BENCH_DEVICE_TX",
+        "pins": [
+          "BENCH-DEVICE-PORT:1",
+          "BENCH-HOST-PORT:2"
+        ]
+      },
+      {
+        "id": "BENCH_HOST_TX",
+        "pins": [
+          "BENCH-HOST-PORT:1",
+          "BENCH-DEVICE-PORT:2"
+        ]
+      },
+      {
+        "id": "BENCH_UART_GND",
+        "pins": [
+          "BENCH-DEVICE-PORT:3",
+          "BENCH-HOST-PORT:3"
+        ]
+      }
+    ],
+    "protections": [
+      {
+        "id": "BENCH_DEVICE_CLAMP",
+        "type": "CLAMP_MODEL",
+        "nets": [
+          "BENCH_DEVICE_TX",
+          "BENCH_UART_GND"
+        ]
+      },
+      {
+        "id": "BENCH_HOST_CLAMP",
+        "type": "CLAMP_MODEL",
+        "nets": [
+          "BENCH_HOST_TX",
+          "BENCH_UART_GND"
+        ]
+      },
+      {
+        "id": "BENCH_ISOLATION_BOUNDARY",
+        "type": "GALVANIC_BARRIER_MODEL",
+        "sides": [
+          "BENCH_BMS_UART",
+          "BENCH_USB"
+        ]
+      }
+    ]
+  },
+  "independent_frames": {
+    "method": "Coordonnées et normales signées définies analytiquement dans Root. Origines distinctes des axes déclaratifs de câblage.",
+    "ports": {
+      "BENCH-DEVICE-PORT": {
+        "origin_mm": [
+          32,
+          25,
+          8
+        ],
+        "outward": [
+          1,
+          0,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "BENCH-HOST-PORT": {
+        "origin_mm": [
+          96,
+          25,
+          8
+        ],
+        "outward": [
+          -1,
+          0,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "native_comparison": "geometry.json#/independent_frame_comparison"
+  },
+  "geometry_control": {
+    "pose_limits_mm": {
+      "bench:device": {
+        "x": [
+          20,
+          24
+        ],
+        "y": [
+          20,
+          20
+        ],
+        "z": [
+          4,
+          4
+        ]
+      }
+    },
+    "rotation_change_deg": 0,
+    "forbidden_volume_mm": {
+      "min": [
+        0,
+        50,
+        4
+      ],
+      "max": [
+        120,
+        80,
+        30
+      ]
+    },
+    "permitted_surface_contacts": [
+      {
+        "parts": [
+          "bench:base",
+          "bench:device"
+        ],
+        "plane_z_mm": 4
+      },
+      {
+        "parts": [
+          "bench:base",
+          "bench:host"
+        ],
+        "plane_z_mm": 4
+      },
+      {
+        "parts": [
+          "bench:base",
+          "bench:support"
+        ],
+        "plane_z_mm": 4
+      },
+      {
+        "parts": [
+          "bench:base",
+          "bench:support-new"
+        ],
+        "plane_z_mm": 4
+      },
+      {
+        "parts": [
+          "bench:harness",
+          "bench:support"
+        ],
+        "plane_z_mm": 7
+      },
+      {
+        "parts": [
+          "bench:harness",
+          "bench:support-new"
+        ],
+        "plane_z_mm": 7
+      }
+    ],
+    "note": "Le contrôle du candidat inclut les extrémités, les formes et les collisions. Un essai admis peut échouer sur ces critères."
+  },
+  "anchors": {
+    "bench:anchor-current": {
+      "carrier": "bench:base",
+      "origin_mm": [
+        60,
+        24,
+        4
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "state": "OCCUPIED"
+    },
+    "bench:anchor-relocate": {
+      "carrier": "bench:base",
+      "origin_mm": [
+        64,
+        24,
+        4
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "state": "FREE"
+    },
+    "bench:anchor-new": {
+      "carrier": "bench:base",
+      "origin_mm": [
+        80,
+        24,
+        4
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "state": "FREE"
+    },
+    "BENCH_CLIP": {
+      "footprint_mm": [
+        4,
+        4
+      ],
+      "height_mm": 3,
+      "fastening": "FIXED_SYNTHETIC",
+      "load_direction": [
+        0,
+        0,
+        -1
+      ],
+      "applied_load_n": 2,
+      "limit_n": 5,
+      "support_contact": "FULL_FOOTPRINT_ON_BASE"
+    }
+  },
+  "service": {
+    "port_extraction": [
+      {
+        "port": "BENCH-DEVICE-PORT",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "stroke_mm": 4,
+        "tool_radius_mm": 2,
+        "permitted_occupants": [
+          "bench:harness"
+        ]
+      },
+      {
+        "port": "BENCH-HOST-PORT",
+        "direction": [
+          -1,
+          0,
+          0
+        ],
+        "stroke_mm": 4,
+        "tool_radius_mm": 2,
+        "permitted_occupants": [
+          "bench:harness"
+        ]
+      }
+    ],
+    "support_access": {
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "stroke_mm": 8,
+      "tool_radius_mm": 1,
+      "offset_from_anchor_mm": [
+        2,
+        3,
+        3
+      ]
+    }
+  },
+  "routes": {
+    "bench:harness": {
+      "ports": [
+        "BENCH-DEVICE-PORT",
+        "BENCH-HOST-PORT"
+      ],
+      "nominal_radius_mm": 1,
+      "motion_samples_mm": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ]
+      ],
+      "motion_applies_to": "BENCH-DEVICE-PORT"
+    },
+    "BENCH_CORRIDOR_B": {
+      "construction": "Rayonner les coudes du polygone nominal et vérifier les deux poses.",
+      "waypoints_mm": [
+        [
+          32,
+          25,
+          8
+        ],
+        [
+          44,
+          25,
+          8
+        ],
+        [
+          44,
+          37,
+          8
+        ],
+        [
+          84,
+          37,
+          8
+        ],
+        [
+          84,
+          25,
+          8
+        ],
+        [
+          96,
+          25,
+          8
+        ]
+      ],
+      "fillet_radius_mm": 6
+    }
+  },
+  "source_immutability": {
+    "policy": "NON_WRITABLE_SOURCES_PRIVATE_COPY",
+    "xlink_closure": [
+      "model/assemblies/Root.FCStd",
+      "model/parts/Assets.FCStd"
+    ],
+    "baseline_geometry": "geometry.json"
+  }
+}

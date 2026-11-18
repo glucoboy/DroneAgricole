@@ -208,6 +208,26 @@ Pour une cible commune la fermeture reste conservatrice.
 [Contrat et recette](../electromechanical_v3/README.md) ·
 [Réception](../VALIDATION_QUALIFICATION.md#cartographe-v3-a)
 
+#### Admission des opérateurs XLink V3-A.1 — Implémenté
+
+`convergence_core v3-admission` entre dans `ProcessBackend::buildV3`.
+Le service C++17 `evaluateAdmissionScope` vérifie le contrat
+`v3.admission_scope/1` avant le dispatch. Il lie l’autorisation au domaine,
+à l’identité du modèle, au sceau, à la fermeture XLink, à une occurrence,
+à un effet et aux contrôles de l’opération. Les contraintes et autorités
+utilisées pour le banc sont vérifiées contre des artefacts épinglés par
+SHA-256. Le reçu de décision est produit après évaluation et ne sert pas de
+preuve d’entrée. Le chemin de campagne historique est distinct.
+
+Les quatre opérations du banc atteignent la frontière de dispatch
+`BENCH_TEST_ONLY`. Les opérateurs CAO natifs sont **Planifiés** pour B.1,
+qui devra vérifier les entrées au début de la transaction, travailler sur
+une copie de travail dédiée et valider le candidat après réouverture.
+L’admission virtuelle du cartographe reste en lecture seule. Sa variante
+d’exploration native et son admission de conception restent **À valider**.
+[Schéma](../electromechanical_v3/admission_scope.schema.json) ·
+[Validation et recette](../VALIDATION_QUALIFICATION.md#cartographe-v3-a1)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1177,6 +1197,7 @@ rend `FINAL_NO_GO`.
 ## Journal de modifications
 
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
+- **18 novembre 2026** — Admission V3-A.1 intégrée au point de construction L5 sur banc XLink scellé (§2.6).
 
 | Date | Modification |
 |---|---|

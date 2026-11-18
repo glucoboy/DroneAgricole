@@ -1,0 +1,281 @@
+{
+  "schema": "v3.a1.admission/1",
+  "test_id": "T-CARTO-V3-A1-ADMISSION",
+  "date": "2026-11-18",
+  "finalized": true,
+  "verdict": "V3_A1_ENGINE_TEST_ADMISSION_GO",
+  "base_revision": "742a5ac4f167bba0ef03b65053412bddbde0ecc9",
+  "v3a": {
+    "model_status": "PASS_RESTRICTED",
+    "verdict": "V3_A_GO_CONDITIONNEL",
+    "gate_locator": "/next_gate",
+    "acceptance": {
+      "path": "docs/verification/v3/a/acceptance.json",
+      "sha256": "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31"
+    },
+    "freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "native_receipt": {
+      "path": "docs/verification/v3/a/native_receipt.json",
+      "sha256": "f7b4d421f301cb62b4c59dadc900d4dad535af6788efdc8a1a335e9a2e30e7b8"
+    },
+    "reconciliation": {
+      "path": "docs/verification/v3/a/reconciliation.json",
+      "sha256": "8065a61eeb807174f1ab45c140e80f7fee26f60453c7dfad2f5ec2e697048b74"
+    },
+    "impact": {
+      "path": "docs/verification/v3/a/impact.json",
+      "sha256": "1f8ad02c2da2f16309f6bcd5e281a81bdb29260b381d644b7e5460eb9bba5242"
+    },
+    "regressions": {
+      "path": "docs/verification/v3/a/regressions.json",
+      "sha256": "0775a5a8c9000bbb53b90324beab5ff6fc45f42c5471727f3a9c86eedee392a8"
+    }
+  },
+  "bench": {
+    "domain": "SYNTHETIC_BENCH",
+    "execution_scope": "BENCH_TEST_ONLY",
+    "hardware": "ABSENT",
+    "sealed_model": "xlink-synthetic-a1",
+    "version": "1",
+    "seal": {
+      "path": "docs/electromechanical_v3/bench_a1/seal.json",
+      "sha256": "cf321988adf7169e122de0523c013079e0e3892891475ea5e7710290702e3db8"
+    },
+    "native": {
+      "path": "docs/electromechanical_v3/bench_a1/native_receipt.json",
+      "sha256": "76cd9c058fc779da1ae5e8396fd2725605a190425dce919dd10a4568086fbbb3"
+    },
+    "geometry": {
+      "path": "docs/electromechanical_v3/bench_a1/geometry.json",
+      "sha256": "33cd08fbbe53e215e4f04c540dba728c24ee49fe023a1612877506af85047efa"
+    },
+    "authority": {
+      "path": "docs/electromechanical_v3/bench_a1/authority.json",
+      "sha256": "a79f5ca74697309e6fd2878b924d526d2c034ddf50f16f38e382ccd37862c9f4"
+    },
+    "xlink_dependencies": {
+      "model/assemblies/Root.FCStd": "7941fa2018b31a76662e05d1cb418f85ea50aa2e75f18e4f9c5e034d26836a3a",
+      "model/parts/Assets.FCStd": "907496911d8c80e589301f526a38a33e34b630cd637b4571709ffe2edfede309"
+    },
+    "verified_preconditions": [
+      "REQUEST_SHAPE",
+      "IMMUTABLE_SOURCE_MODE",
+      "BENCH_EVIDENCE_SEALED",
+      "OPERATION_TARGET_EFFECT_BOUND",
+      "NON_RELAXABLE_CONSTRAINTS_BOUND",
+      "VALIDATION_AND_ROLLBACK_BOUND",
+      "BENCH_SOURCE_BYTES_VERIFIED",
+      "PRIVATE_XLINK_COPY_VERIFIED"
+    ],
+    "constraint_ids": [
+      "BMS_USB_STRUCTURE_ISOLATION",
+      "NC",
+      "TX_RX",
+      "PROTECTIONS",
+      "PINOUT",
+      "INDEPENDENT_FRAMES",
+      "GEOMETRY",
+      "SUPPORT_ANCHOR",
+      "SERVICE",
+      "IMMUTABLE_SOURCES",
+      "DYNAMIC_BEND_RADIUS"
+    ],
+    "operations": [
+      {
+        "operation": "REPOSITION_DEVICE",
+        "occurrence": "bench:device",
+        "effect": {
+          "placement_mm": [
+            24,
+            20,
+            4
+          ]
+        },
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "mandatory_checks": [
+          "REOPEN_XLINK",
+          "L2_TOPOLOGY",
+          "L4_GEOMETRY",
+          "L4_SERVICE",
+          "VERIFY_IMMUTABLE_SOURCES",
+          "VALIDATE_T0",
+          "L4_DYNAMIC_BEND_RADIUS"
+        ],
+        "context_sha256": "cb8b1617b4727145b5662acd20dcd784d13c763f3e4cd638479597fa8390aef1",
+        "l5_receipt_sha256": "938052b8c96fb9121a547d1984537106a8d081045a451bfa0ae17b9540477d84"
+      },
+      {
+        "operation": "REROUTE_HARNESS",
+        "occurrence": "bench:harness",
+        "effect": {
+          "corridor": "BENCH_CORRIDOR_B"
+        },
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "mandatory_checks": [
+          "REOPEN_XLINK",
+          "L2_TOPOLOGY",
+          "L4_GEOMETRY",
+          "L4_SERVICE",
+          "VERIFY_IMMUTABLE_SOURCES",
+          "VALIDATE_T0",
+          "L4_DYNAMIC_BEND_RADIUS"
+        ],
+        "context_sha256": "58d6f85b789d54fdb7c8975116ef0aedf067a05d24c18565cf34fe46ecd3da3d",
+        "l5_receipt_sha256": "3bb7410a70753a4015d5eb026ce51765f4f41f56045a70c249ab81ca6cc6116e"
+      },
+      {
+        "operation": "RELOCATE_SUPPORT",
+        "occurrence": "bench:support",
+        "effect": {
+          "anchor": "bench:anchor-relocate"
+        },
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "mandatory_checks": [
+          "REOPEN_XLINK",
+          "L2_TOPOLOGY",
+          "L4_GEOMETRY",
+          "L4_SERVICE",
+          "VERIFY_IMMUTABLE_SOURCES",
+          "VALIDATE_T0",
+          "L4_SUPPORT_ANCHOR"
+        ],
+        "context_sha256": "79f550bde6558e279312e41b0245e2f7195bd815317d363007b2e0e0df9762d2",
+        "l5_receipt_sha256": "dcd69c3a9b12187776a28462577fdb5aff3ed9247f404b03b6fb573daa0b56de"
+      },
+      {
+        "operation": "CREATE_SUPPORT",
+        "occurrence": "bench:anchor-new",
+        "effect": {
+          "support": "bench:support-new",
+          "design": "BENCH_CLIP"
+        },
+        "decision": "ALLOW",
+        "dispatch_status": "NOT_IMPLEMENTED",
+        "mandatory_checks": [
+          "REOPEN_XLINK",
+          "L2_TOPOLOGY",
+          "L4_GEOMETRY",
+          "L4_SERVICE",
+          "VERIFY_IMMUTABLE_SOURCES",
+          "VALIDATE_T0",
+          "L4_SUPPORT_ANCHOR"
+        ],
+        "context_sha256": "59b48ab07e3143e2d77ab6d189092026130ad73455606e79d5b3a58ef0e9a9df",
+        "l5_receipt_sha256": "4d5fdbccc7ab6149b573558651ab502900768f86682fc2a5d3012508832a6c0b"
+      }
+    ]
+  },
+  "cartographer": {
+    "private_copy_mutation": "DENY",
+    "design_admission": "DENY",
+    "physical_reception": "NOT_RUN",
+    "conditional_experiment_operations": [],
+    "virtual_impact": [
+      {
+        "hypothetical_operation": "MOVE",
+        "occurrence": "iso"
+      },
+      {
+        "hypothetical_operation": "RETENTION",
+        "occurrence": "p72"
+      },
+      {
+        "hypothetical_operation": "FRAME",
+        "occurrence": "ttl-reference"
+      }
+    ],
+    "virtual_scope": "READ_ONLY_IMPACT",
+    "open_issues": [
+      "UART-TOP-001",
+      "UART-JBD-001",
+      "UART-ISO-001",
+      "UART-AXIS-001",
+      "UART-MOUNT-001",
+      "UART-ACCESS-001",
+      "UART-HOST-001",
+      "UART-GUIDES-001"
+    ],
+    "historical_b2_interferences": 7,
+    "historical_b2_pairs_remeasured": 0,
+    "pending_authority_mission": "V3-A.2"
+  },
+  "capability_matrix": [
+    {
+      "operation": "REPOSITION_DEVICE",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    },
+    {
+      "operation": "REROUTE_HARNESS",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    },
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    },
+    {
+      "operation": "CREATE_SUPPORT",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    },
+    {
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "IMPLEMENTED": "NOT_IMPLEMENTED",
+      "TESTED_ON_BENCH": "NOT_RUN",
+      "TESTED_ON_CARTOGRAPHER_COPY": "NOT_RUN",
+      "QUALIFIED_FOR_DESIGN": "NOT_RUN",
+      "PHYSICALLY_VERIFIED": "NOT_RUN"
+    }
+  ],
+  "next_gate": {
+    "mission": "V3-B.1",
+    "admitted_work": "Développer et tester les quatre opérateurs sur le banc XLink fermé par le dispatch L5.",
+    "transaction_controls": "Recalculer la décision sur les entrées scellées, borner l'effet à la copie privée, réouvrir, valider et abandonner la copie si le résultat est non conforme.",
+    "candidate_transactions": 0,
+    "candidate_conformance": "NOT_RUN"
+  },
+  "contract_schema": {
+    "path": "docs/electromechanical_v3/admission_scope.schema.json",
+    "sha256": "aff014c8c1e3d67973bc62d5255b4c13ca6ee634157366cbb3b893a926fd1efe"
+  },
+  "adversarial": {
+    "path": "docs/verification/v3/a1/adversarial.json",
+    "sha256": "65db10ee136ac27bb75163b0f5e8d93ebe4d9d43aa6b114210ccc0a2fcb6f49a"
+  },
+  "regression_proof": {
+    "path": "docs/verification/v3/a1/regressions.json",
+    "sha256": "8e9ecf0176000c1c211d305c925e4684f3b1a1271c73c058cb348095a39c4274"
+  },
+  "recipe": {
+    "path": "docs/verification/v3/a1/REPORT.md",
+    "sha256": "a245943a5b61cc2b14b4fa0b2d3bc4a642dedc4bbe624ee3051883319bdad3fa"
+  }
+}

@@ -2706,6 +2706,32 @@ d’accès et d’isolation explicites. La conformité du cartographe demeure
 **À valider**. Réception physique `NOT_RUN`.
 [Entrées exactes et restrictions](verification/v3/a/acceptance.json)
 
+<a id="cartographe-v3-a1"></a>
+#### Admission d’essais d’opérateurs V3-A.1 — 18 novembre 2026
+
+**`V3_A1_ENGINE_TEST_ADMISSION_GO`** pour l’admission sur banc numérique
+fermé, sur Windows amd64. Le préflight historique V3-B s’était arrêté au
+`next_gate` du cartographe avant toute transaction. V3-A.1 résout ce
+blocage à la frontière de construction L5 avec un sceau de banc indépendant
+et quatre scénarios typés. Le jalon de B.1 est un résultat transactionnel
+mesuré après réouverture, avec contrôle électrique, géométrique et T0.
+[Reçu V3-A.1](verification/v3/a1/admission.json)
+
+| Exigence | Composant et essai | Résultat et preuve |
+|---|---|---|
+| `V3-A1-01` Autorité d’exécution et portée | `evaluateAdmissionScope` → `l5_v3_admission_policy` et `l5_v3_admission_entry` | Quatre opérations admises sur le banc scellé. Un reçu, un élargissement de l’effet et une demande composite ne donnent aucun droit. [Contre-épreuves](verification/v3/a1/adversarial.json) |
+| `V3-A1-02` Référence et transfert | Rejeu natif FreeCAD et contrôle des copies L5 | Deux documents, huit liens externes et neuf poses sur deux copies. Les originaux du banc conservent leurs empreintes. Les écarts de version, de signature et d’octets ferment l’admission. [Reçu natif](electromechanical_v3/bench_a1/native_receipt.json) |
+| `V3-A1-03` Confinement et régression | Scellés A, graphe V3, L2/L4/L5 et gardes Q1/Q2/Q3 | Sources CAO et gel A conservés. Les preuves B.2 restent historiques et les inconnues UART du cartographe restent ouvertes. [Régressions](verification/v3/a1/regressions.json) · [Commandes](verification/v3/a1/REPORT.md) |
+
+Les trois analyses virtuelles de V3-A restent admissibles dans leur portée
+de lecture. L’ouverture d’une expérience CAO sur une copie du cartographe
+reste conditionnée à des garanties locales d’ancrage, de repères, de
+cheminement et de service. Les autorités de conception, dont J2/J3, le
+brochage du lot retenu et la préservation des isolations, des NC et des
+protections, relèvent de V3-A.2. Les défauts B.2 et les incertitudes de
+service sont conservés. Construction native et réception physique `NOT_RUN`
+pour V3-A.1.
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4054,6 +4080,12 @@ raccordement F40/F41. La prochaine expérience d’appui/cheminement doit
 précéder la clôture des terminaisons, des masses et la réception. Le
 programme GO4 conserve la progression du §2.
 
+[V3-A.1](#cartographe-v3-a1) admet les essais indépendants de construction
+sur banc numérique en soutien de cette reprise. Pour le cartographe,
+V3-A.2 doit établir les autorités locales avant de rouvrir la porte de
+mutation. Cette décision soutient les contrôles utiles à l’appui et au
+cheminement sous ORCH-CAO-MASSE-1.
+
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
 préflight du gestionnaire de convergence a rejoué `NO_GO_MOTIVE` à 0
@@ -4713,6 +4745,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)
 - **18 novembre 2026** — V3-A sur le cartographe sans dock. Fermeture, graphe et impact vérifiés sur copies et banc. Admission conditionnelle au périmètre numérique décrit au §12.1.13.
 
 - **17 novembre 2026** — Contrôles locaux avant sauvegarde et intégration Git : compilations réussies, échecs et tests incomplets conservés, périmètre de publication explicité (§6.3).
