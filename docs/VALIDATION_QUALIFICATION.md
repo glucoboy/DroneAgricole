@@ -2732,6 +2732,34 @@ protections, relèvent de V3-A.2. Les défauts B.2 et les incertitudes de
 service sont conservés. Construction native et réception physique `NOT_RUN`
 pour V3-A.1.
 
+<a id="cartographe-v3-a2"></a>
+#### Preuves d’interfaces et d’ancrages V3-A.2 — 18 novembre 2026
+
+**`V3_A2_EVIDENCE_CONDITIONAL`** pour le prototype sans dock. Le registre
+documente huit issues ouvertes et zéro révision physique confirmée.
+L’applicabilité au lot, les repères d’accouplement et de sortie,
+les appuis porteurs et les gestes restent **À valider**.
+[Registre](verification/v3/a2/evidence_register.json) ·
+[Fiche de relevés](verification/v3/a2/measurement_requests.md)
+
+| Exigence | Composant et contrôle | Résultat et preuve |
+|---|---|---|
+| `CAB-CARTO-001` | W40/W41 et interfaces → confrontation des documents et des natifs désignés → `T-CARTO-V3-A2-EVIDENCE` | Divergence TE/déconnexion manuelle conservée. Le PDF JBD LiFePO₄ A.1 explicite J2 pour cette variante. La contradiction J2/J3 de la notice Li-ion candidate et l’identification des lots restent ouvertes. [Registre des huit issues](verification/v3/a2/evidence_register.json) |
+| `MEC-INT-001` | Isolateur, guides, porteurs et voisins → réouverture FreeCAD, poses, BRep et gabarits → `T-CARTO-V3-A2-NATIVE` | Mesures du modèle et des témoins GO3B. Les repères des proxies et les axes restent des représentations CAO. [Reçu natif et portée IF-03 à IF-07](verification/v3/a2/cad_interface_measurements.json) |
+| `V3-A1-01`, `METH-001` | Dossier par opération → admission L5 et contre-épreuves de provenance et de métrologie | Les trois demandes d’impact A.1 sont admissibles sur copie scellée en lecture seule. Aucun domaine de pose ou de cheminement n’est autorisé pour la mutation cartographe. [Scopes](verification/v3/a2/operation_scopes.json) · [Contrôles](verification/v3/a2/REPORT.md) |
+
+La mesure d’un proxy permet de réfuter une configuration géométrique
+dans le périmètre du gabarit utilisé. L’autorité d’un connecteur exige
+l’identité de lot et les datums applicables. Les preuves de montage exigent
+également l’engagement des fixations, les cas de charge, les volumes balayés
+et les rayons documentés. Le B− brut, les NC, les protections et le voisinage
+CAN1/F31/F35 restent des contraintes impératives.
+
+Les octets des sources scellées A et A.1 servent à leur rejeu sur la branche,
+y compris les éditions DOC-MEC et DOC-ELEC référencées par le graphe A.
+Le test sur banc B.1 conserve sa portée propre. Construction cartographe,
+candidats B.1, V3-C, V3-D et GO4 sont `NOT_RUN` dans cette campagne.
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -3937,6 +3965,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, METH-001 | Architecture du prototype sans dock et validation des interfaces | T-CARTO-GO3A | [Résultat](#cartographe-go3a), [critères](verification/go3a/GO3A_REQUIREMENTS.yaml) | Dossier **Implémenté**. H-01 **À valider**, GO3B suspendu aux données et contrôles critiques. |
 | CAB-CARTO-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Admission du dossier H-01, interconnexion L2, natifs XLink et portée du validateur L4/L5 | T-CARTO-GO3B-ADM | [Résultat](#cartographe-go3b), [preuve](verification/go3b/GO3B_ADMISSION.json) | `NO_GO_MOTIVE` à l’admission. Couverture documentaire vérifiée. Reconstruction et rétrovalidation `NOT_RUN`. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Construction native des trois familles et consolidation avec contre-validation indépendante | T-CARTO-V21-GO3B | [Résultat](#cartographe-go3b-reconstruction), [preuves](verification/v21_go3b_validation.json) | `GO3B_CAO_NO_GO_MOTIVE`. Six variantes sauvegardées, une consolidée de diagnostic et défauts mesurés. Montage et GO4 **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01 | Confrontation des autorités UART, réouverture XLink sur copies et contrôles d’admission L5 | T-CARTO-V3-A2-EVIDENCE, T-CARTO-V3-A2-NATIVE | [Résultat](#cartographe-v3-a2). `V3_A2_EVIDENCE_CONDITIONAL`, huit issues ouvertes, mutation cartographe suspendue. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4081,10 +4110,12 @@ précéder la clôture des terminaisons, des masses et la réception. Le
 programme GO4 conserve la progression du §2.
 
 [V3-A.1](#cartographe-v3-a1) admet les essais indépendants de construction
-sur banc numérique en soutien de cette reprise. Pour le cartographe,
-V3-A.2 doit établir les autorités locales avant de rouvrir la porte de
-mutation. Cette décision soutient les contrôles utiles à l’appui et au
-cheminement sous ORCH-CAO-MASSE-1.
+sur banc numérique en soutien de cette reprise. [V3-A.2](#cartographe-v3-a2)
+identifie les exclusions et les autorités à obtenir pour l’appui et le
+cheminement. Reprendre la décision de mutation après identification du lot,
+relevé signé des interfaces et des ancrages, puis démonstration d’un domaine
+compatible avec le service et les protections. Ces contrôles servent la
+clôture de géométrie et de nomenclature sous ORCH-CAO-MASSE-1.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4746,6 +4777,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 ## 16. Journal de modifications
 
 - **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)
+- **18 novembre 2026** — V3-A.2 documente les exclusions et les preuves requises pour les huit issues UART. [Résultat](#cartographe-v3-a2)
 - **18 novembre 2026** — V3-A sur le cartographe sans dock. Fermeture, graphe et impact vérifiés sur copies et banc. Admission conditionnelle au périmètre numérique décrit au §12.1.13.
 
 - **17 novembre 2026** — Contrôles locaux avant sauvegarde et intégration Git : compilations réussies, échecs et tests incomplets conservés, périmètre de publication explicité (§6.3).

@@ -217,6 +217,14 @@ CAO exploratoire sur copie demandera des préconditions locales étayées.
 L’admission de conception et la réception GO4 ont leurs propres critères.
 [Validation V3-A.1](../VALIDATION_QUALIFICATION.md#cartographe-v3-a1)
 
+V3-A.2 borne les exclusions pour la reprise F40/F41 sous ORCH-CAO-MASSE-1.
+Les mesures sur copies XLink et les notices de familles permettent
+d’écarter des hypothèses d’appui et de service. Les huit issues UART
+restent ouvertes. La prochaine décision sur un essai de pose ou de
+cheminement dépend du rapprochement des lots, des repères d’interface
+et des ancrages. L’admission B.1 sur banc scellé suit sa propre preuve.
+[Résultat V3-A.2 et contrôles de reprise](../VALIDATION_QUALIFICATION.md#cartographe-v3-a2)
+
 ### 1.2 Application proportionnée à chaque évolution
 
 **Demande du 23 octobre 2026 :** le responsable ouvre une refonte de la station
@@ -1761,6 +1769,7 @@ la pièce jointe : `49872e3caadea148a8ecb2f1edd9953bdd95c1debe26b63b7edb21069aed
 | 17 novembre 2026 | GO3B construit sur copies, contre-validation et décision NO_GO motivée. Reprise appui/diagnostic définie au §1.1. |
 | 18 novembre 2026 | V3-A borne la reprise F40/F41 à l’observation de la fermeture et aux dépendances d’opérations virtuelles (§1.1). |
 | 18 novembre 2026 | V3-A.1 autorise les essais d’opérateurs sur banc XLink synthétique scellé (§1.1). |
+| 18 novembre 2026 | V3-A.2 étaye les exclusions et précise les relevés requis avant toute mutation F40/F41 (§1.1). |
 | 17 novembre 2026 | GO3A V2.1 ouvre trois essais d’architecture sur copies sous les contraintes du prototype sans dock (§1.1). |
 | 14 novembre 2026 | Clôture de GO3B à l’admission, prérequis d’intégration H-01 ouverts (§1.1). |
 | 14 novembre 2026 | Cible d’instruction H-01 sous condition pour la complétude électromécanique et massique (§1.1). |
