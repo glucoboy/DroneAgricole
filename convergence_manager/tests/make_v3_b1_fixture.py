@@ -67,7 +67,7 @@ def make_fixture(output):
     stud.Radius, stud.Height = 0.7, 1
     stud.Placement = placement(62, -2.8, -6)
     for field, kind, value in [('Anchor', 'Link', anchors[0]), ('Carrier', 'Link', carrier),
-                               ('Retains', 'LinkList', [doc.Cable]), ('Fasteners', 'LinkList', [stud])]:
+                               ('Retains', 'LinkListGlobal', [doc.Cable]), ('Fasteners', 'LinkList', [stud])]:
         support.addProperty('App::Property' + kind, 'B1_' + field, 'V3 B.1')
         setattr(support, 'B1_' + field, value)
     doc.recompute()

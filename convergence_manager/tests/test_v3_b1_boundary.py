@@ -47,6 +47,18 @@ def external_case(args, area, profile, name, flag):
     return result.stderr.strip()
 
 
+def failed_worker(args, area, profile):
+    case = area / 'worker-no-report'
+    sandbox = setup(case, profile, request(profile, case.name))
+    # A valid executable that exits without producing a FreeCAD report.
+    broken = argparse.Namespace(core=args.core, freecad=args.core, t0=args.t0)
+    result, receipt, report = run(broken, case, sandbox)
+    assert result.returncode == 4 and report['status'] == 'INCONCLUSIVE', receipt
+    assert report['construction_result'] == 'NOT_RUN' and report['candidate_state'] == 'ROLLED_BACK', receipt
+    assert report['candidate_transactions'] == 0 and not (receipt.parent / 'cad').exists(), receipt
+    return report['reason']
+
+
 def interrupt(args, area, profile):
     case = area / 'interrupted'
     sandbox = setup(case, profile, request(profile, case.name))
@@ -133,6 +145,7 @@ def main():
 
     outcomes['input-outside'] = external_case(args, area, profile, 'input-outside', '--sandbox')
     outcomes['output-outside'] = external_case(args, area, profile, 'output-outside', '--output')
+    outcomes['worker-no-report'] = failed_worker(args, area, profile)
     outcomes['interruption'] = interrupt(args, area, profile)
     assert all(digest(ROOT / profile['source'] / name) == sha for name, sha in profile['dependencies'].items())
     write(area / 'checks.json', outcomes)

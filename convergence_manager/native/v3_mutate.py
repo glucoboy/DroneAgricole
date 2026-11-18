@@ -237,8 +237,10 @@ def is_native_cable(obj):
     return type(getattr(obj, 'Proxy', None)).__name__ == 'ArchCable'
 
 
-def set_native_link(obj, property_name, target, plural=False):
+def set_native_link(obj, property_name, target, plural=False, across_groups=False):
     type_name = 'App::PropertyLinkList' if plural else 'App::PropertyLink'
+    if across_groups:
+        type_name += 'Global'
     if property_name not in obj.PropertiesList:
         obj.addProperty(type_name, property_name, 'V3 B.1')
     require(obj.getTypeIdOfProperty(property_name) == type_name, f'Lien natif incompatible : {property_name}.')
@@ -338,7 +340,8 @@ def reroute(assembly, action, model):
 def support_links(assembly, support, params, fasteners):
     for field, prop in (('anchor', 'B1_Anchor'), ('carrier', 'B1_Carrier')):
         set_native_link(support, prop, assembly.occurrence(params[field]))
-    set_native_link(support, 'B1_Retains', [assembly.occurrence(name) for name in params['retains']], True)
+    set_native_link(support, 'B1_Retains', [assembly.occurrence(name) for name in params['retains']],
+                    plural=True, across_groups=True)
     set_native_link(support, 'B1_Fasteners', fasteners, True)
 
 
