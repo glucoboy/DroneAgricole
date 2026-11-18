@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QMap>
 #include <QRegularExpression>
 #include <QSet>
 #include <filesystem>
@@ -30,6 +31,11 @@ const QString copyDomain = "CARTOGRAPHER_PRIVATE_CAD";
 const QString designDomain = "CARTOGRAPHER_DESIGN_ADMISSION";
 const QString physicalDomain = "PHYSICAL_RECEPTION";
 const QString analysis = "ANALYZE_IMPACT";
+const QMap<QString, QString> mutationProfiles{
+    // Reviewed profiles are pinned here, outside of the plan supplied by the caller.
+    {"8228b1ac16f15319b22cc9e5f6abe02a62694ffd96f3d41441f09c88acdaeb66", "docs/electromechanical_v3/bench_b1_c4/profile.json"},
+    {"83c15f00654e2265e5484182e67ec4d5a5836250b4a470f120121deb18b05e91", "docs/electromechanical_v3/bench_b1_workholding/profile.json"},
+};
 
 const QSet<QString> domains{benchDomain, copyDomain, designDomain, physicalDomain};
 const QSet<QString> operations{analysis, "REPOSITION_DEVICE", "REROUTE_HARNESS", "RELOCATE_SUPPORT",
@@ -284,6 +290,57 @@ QJsonObject evaluateBench(const QDir &root, const QDir &sandbox, const QJsonObje
     return result.allow("SEALED_SYNTHETIC_BENCH", "BENCH_TEST_ONLY");
 }
 
+QJsonObject evaluateMutationBench(const QDir &root, const QDir &sandbox, const QJsonObject &request, Decision &result)
+{
+    const auto sha = request.value("freeze_sha256").toString();
+    QJsonObject profile;
+    try {
+        profile = loadMutationProfile(root, sha);
+    } catch (const std::exception &) {
+        return result.stop("TRUSTED_BENCH_EVIDENCE_MISMATCH");
+    }
+    result.bind("BENCH_MUTATION_PROFILE", ref(mutationProfiles.value(sha), sha));
+    result.verified("BENCH_EVIDENCE_SEALED");
+    bool operationSupported = false;
+    bool matches = false;
+    for (const auto &entry : profile.value("actions").toArray()) {
+        const auto action = entry.toObject();
+        if (action.value("operation") == request.value("operation")) {
+            operationSupported = true;
+            matches |= request == mutationAdmissionRequest(profile, sha, action);
+        }
+    }
+    if (!operationSupported)
+        return result.stop("BENCH_OPERATION_UNSUPPORTED", {}, "UNSUPPORTED");
+    if (!matches)
+        return result.stop("BENCH_MUTATION_SCOPE_MISMATCH");
+    result.controls(request.value("validations").toArray());
+    result.verified("OPERATION_TARGET_EFFECT_BOUND");
+    result.verified("NON_RELAXABLE_CONSTRAINTS_BOUND");
+    result.verified("VALIDATION_AND_ROLLBACK_BOUND");
+    const auto dependencies = profile.value("dependencies").toObject();
+    if (dependencies.isEmpty() || !dependencies.contains(profile.value("entry").toString()))
+        return result.stop("XLINK_CLOSURE_MISMATCH");
+    if (!privateSandbox(root, sandbox))
+        return result.stop("PRIVATE_COPY_REQUIRED");
+    const auto source = root.filePath(profile.value("source").toString());
+    try {
+        require(!hasRedirectedComponent(root, source) && QDir(source).canonicalPath() == source,
+                "Racine du banc redirigée");
+        verifyDependencies(QDir(source), dependencies, false);
+    } catch (const std::exception &) {
+        return result.stop("BENCH_SOURCE_DEPENDENCY_MISMATCH");
+    }
+    result.verified("BENCH_SOURCE_BYTES_VERIFIED");
+    try {
+        verifyDependencies(sandbox, dependencies, true);
+    } catch (const std::exception &) {
+        return result.stop("XLINK_DEPENDENCY_MISMATCH");
+    }
+    result.verified("PRIVATE_XLINK_COPY_VERIFIED");
+    return result.allow("SEALED_SYNTHETIC_BENCH", "BENCH_TEST_ONLY");
+}
+
 QJsonArray cartographerBlockers(const QJsonObject &request, const QJsonObject &authority)
 {
     const auto target = request.value("occurrence").toString();
@@ -381,6 +438,39 @@ QJsonObject evaluateCartographer(const QDir &root, const QDir &sandbox, const QJ
 
 } // namespace
 
+QJsonObject loadMutationProfile(const QDir &root, const QString &sha)
+{
+    const auto path = mutationProfiles.value(sha);
+    require(!path.isEmpty(), "Sceau de banc B.1 inconnu");
+    const auto profile = sealedObject(root, path, sha);
+    require(profile.value("schema") == "v3.b1.bench_profile/1" &&
+            canonicalRelative(profile.value("source").toString()), "Profil de banc B.1 incompatible");
+    return profile;
+}
+
+QJsonObject mutationAdmissionRequest(const QJsonObject &profile, const QString &sha, const QJsonObject &action)
+{
+    const auto operation = action.value("operation");
+    QJsonArray checks{"REOPEN_XLINK", "L2_TOPOLOGY", "L4_GEOMETRY", "L4_SERVICE",
+                      "VERIFY_IMMUTABLE_SOURCES", "VALIDATE_T0"};
+    if (operation == "REPOSITION_DEVICE" || operation == "REROUTE_HARNESS")
+        checks.append("L4_DYNAMIC_BEND_RADIUS");
+    if (operation == "RELOCATE_SUPPORT" || operation == "CREATE_SUPPORT")
+        checks.append("L4_SUPPORT_ANCHOR");
+    QJsonObject authorities;
+    const auto constraints = profile.value("constraints").toObject();
+    for (auto it = constraints.begin(); it != constraints.end(); ++it)
+        authorities.insert(it.key(), "/constraints/" + it.key());
+    return {{"schema", version}, {"domain", benchDomain}, {"model_id", profile.value("model_id")},
+            {"model_version", profile.value("model_version")}, {"freeze_sha256", sha}, {"geometry_sha256", sha},
+            {"occurrence", action.value("occurrence")}, {"operation", operation},
+            {"objective", "Évaluer une mutation native bornée"}, {"context", "B1_CLOSED_BENCH"},
+            {"output", "PRIVATE_CANDIDATE"}, {"source_mode", "IMMUTABLE"}, {"rollback", "DISCARD_PRIVATE_COPY"},
+            {"xlink_dependencies", profile.value("dependencies")}, {"effect", action.value("effect")},
+            {"authorities", authorities}, {"constraints", constraints}, {"validations", checks},
+            {"assumptions", QJsonArray{}}, {"risks", QJsonArray{"GEOMETRY_FAILURE"}}};
+}
+
 QJsonObject evaluateAdmissionScope(const QDir &root, const QDir &sandbox, const QJsonObject &request)
 {
     Decision result(request);
@@ -400,6 +490,8 @@ QJsonObject evaluateAdmissionScope(const QDir &root, const QDir &sandbox, const 
     result.verified("IMMUTABLE_SOURCE_MODE");
     if (domain == physicalDomain || operation == "RECEIVE_PHYSICAL")
         return result.stop("PHYSICAL_RECEPTION_NOT_RUN", {"GO4_HARDWARE_EVIDENCE_REQUIRED"});
+    if (domain == benchDomain && mutationProfiles.contains(request.value("freeze_sha256").toString()))
+        return evaluateMutationBench(root, sandbox, request, result);
     if (domain == benchDomain)
         return evaluateBench(root, sandbox, request, result);
     return evaluateCartographer(root, sandbox, request, result);

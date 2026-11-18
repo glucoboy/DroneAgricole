@@ -1,0 +1,1378 @@
+{
+  "schema": "v3.b1.bench_profile/1",
+  "model_id": "xlink-workholding-b1",
+  "model_version": "1",
+  "source": "docs/electromechanical_v3/bench_b1_workholding/model",
+  "entry": "Banc_Interconnexion.FCStd",
+  "dependencies": {
+    "Banc_Interconnexion.FCStd": "913f1dee7b6e1600f51c2177cba1fac68560e2538aa6ea8b4c24ff856f49785f",
+    "parts/FixtureAssets.FCStd": "bdd53f928467df269a027d5295ad05f7e53e435e7bc2ee8dac2a09f019e8108d",
+    "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+  },
+  "graph": "docs/electromechanical_v3/bench_b1_workholding/graph.json",
+  "graph_sha256": "629009a0c5dcc93fee85be8b69f70ec2bd94e8c940fe7854fd7150215d342ee3",
+  "constraints": {
+    "BMS_USB_STRUCTURE_ISOLATION": {
+      "applicable": false,
+      "scope": "Banc synthétique C4 sans BMS ou USB."
+    },
+    "NC": {
+      "expected_contacts": [],
+      "scope": "Quatre voies raccordées seulement."
+    },
+    "TX_RX": {
+      "conserve_synthetic_pairs": true,
+      "scope": "Continuité des quatre voies de la référence indépendante."
+    },
+    "PROTECTIONS": {
+      "preserve": "Cordon_L2",
+      "diameter_mm": 4
+    },
+    "PINOUT": {
+      "authority": "interface_authority.json",
+      "mated_pairs": 8,
+      "conductors": 4
+    },
+    "INDEPENDENT_FRAMES": {
+      "authority": "interface_authority.json",
+      "position_tolerance_mm": 1e-06,
+      "direction_tolerance_deg": 0.0001
+    },
+    "GEOMETRY": {
+      "interference_tolerance_mm3": 1e-06
+    },
+    "SUPPORT_ANCHOR": {
+      "applicable": true,
+      "evidence": "model.validation.supports"
+    },
+    "SERVICE": {
+      "minimum_clearance_mm": 2,
+      "scope": "Extraction TTL synthétique et accès aux nouvelles fixations."
+    },
+    "IMMUTABLE_SOURCES": {
+      "source_write": "DENY"
+    },
+    "DYNAMIC_BEND_RADIUS": {
+      "minimum_mm": 5,
+      "scope": "Courbure nominale du C4 hors tension."
+    }
+  },
+  "model": {
+    "occurrences": {
+      "device-a": "ElectricalDevice",
+      "device-b": "ElectricalDevice001",
+      "cordon": "HarnessInventory/Cable",
+      "receptacle-a": "CableConnector",
+      "mate-a": "CableConnector001",
+      "receptacle-b": "CableConnector002",
+      "mate-b": "CableConnector003",
+      "local-obstacle": "Obstacle",
+      "service-obstacle": "ServiceObstacle",
+      "remote-obstacle": "RemoteObstacle",
+      "service-extraction-a": "ServiceReservations/Extraction1",
+      "service-extraction-b": "ServiceReservations/Extraction2",
+      "service-tool-a": "ServiceReservations/ToolAccess1",
+      "service-tool-b": "ServiceReservations/ToolAccess2",
+      "carrier": "Workholding/Carrier",
+      "anchor-before": "Workholding/AnchorBefore",
+      "anchor-relocate": "Workholding/AnchorRelocate",
+      "anchor-new": "Workholding/AnchorNew",
+      "plate-existing": "Workholding/ExistingPlate",
+      "stud-existing": "Workholding/ExistingStud",
+      "plate-new": "Workholding/NewPlate",
+      "stud-new": "Workholding/NewStud",
+      "payload": "FixtureRig/Payload",
+      "sibling": "FixtureRig/Sibling"
+    },
+    "moving_with": {
+      "device-b": [
+        "service-extraction-b",
+        "service-tool-b"
+      ]
+    },
+    "validation": {
+      "tolerances": {
+        "position_mm": 1e-06,
+        "direction_deg": 0.0001,
+        "volume_mm3": 1e-06,
+        "distance_mm": 1e-06
+      },
+      "ports": {
+        "port-a": {
+          "equipment": "device-a",
+          "frame": "WireExit1",
+          "local_pose": {
+            "translation_mm": [
+              0,
+              0,
+              14
+            ],
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Clé-A",
+          "domain": "cordon",
+          "mating_pair": [
+            "ReceptacleMating1",
+            "MateMating1"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "MateMating1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            }
+          ]
+        },
+        "port-b": {
+          "equipment": "device-b",
+          "frame": "WireExit2",
+          "local_pose": {
+            "translation_mm": [
+              0,
+              0,
+              14
+            ],
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Clé-A",
+          "domain": "cordon",
+          "mating_pair": [
+            "ReceptacleMating2",
+            "MateMating2"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "MateMating2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "routes": {
+        "cordon": {
+          "ports": [
+            "port-a",
+            "port-b"
+          ],
+          "diameter_mm": 4,
+          "minimum_radius_mm": 5,
+          "conductor_sections_mm2": [
+            0.2,
+            0.2,
+            0.2,
+            0.2
+          ]
+        }
+      },
+      "contacts": {
+        "ma1": {
+          "receptacle": "ra1",
+          "pin": "pa1",
+          "port": "port-a"
+        },
+        "ma2": {
+          "receptacle": "ra2",
+          "pin": "pa2",
+          "port": "port-a"
+        },
+        "ma3": {
+          "receptacle": "ra3",
+          "pin": "pa3",
+          "port": "port-a"
+        },
+        "ma4": {
+          "receptacle": "ra4",
+          "pin": "pa4",
+          "port": "port-a"
+        },
+        "mb1": {
+          "receptacle": "rb1",
+          "pin": "pb1",
+          "port": "port-b"
+        },
+        "mb2": {
+          "receptacle": "rb2",
+          "pin": "pb2",
+          "port": "port-b"
+        },
+        "mb3": {
+          "receptacle": "rb3",
+          "pin": "pb3",
+          "port": "port-b"
+        },
+        "mb4": {
+          "receptacle": "rb4",
+          "pin": "pb4",
+          "port": "port-b"
+        }
+      },
+      "nets": {
+        "c1": {
+          "route": "cordon",
+          "contacts": [
+            "ma1",
+            "mb1"
+          ]
+        },
+        "c2": {
+          "route": "cordon",
+          "contacts": [
+            "ma2",
+            "mb2"
+          ]
+        },
+        "c3": {
+          "route": "cordon",
+          "contacts": [
+            "ma3",
+            "mb3"
+          ]
+        },
+        "c4": {
+          "route": "cordon",
+          "contacts": [
+            "ma4",
+            "mb4"
+          ]
+        }
+      },
+      "nc": [],
+      "isolated_domains": [],
+      "service": [
+        {
+          "object": "ServiceReservations/Extraction1",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/Extraction2",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/ToolAccess1",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/ToolAccess2",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "anchor": "anchor-before",
+          "offset_local_mm": [
+            2,
+            1.2,
+            3
+          ],
+          "radius_mm": 0.4,
+          "stroke_mm": 7,
+          "obstacles": [
+            "cordon",
+            "payload"
+          ],
+          "clearance_mm": 0.2,
+          "required_action": null
+        },
+        {
+          "anchor": "anchor-relocate",
+          "offset_local_mm": [
+            2,
+            1.2,
+            3
+          ],
+          "radius_mm": 0.4,
+          "stroke_mm": 7,
+          "obstacles": [
+            "cordon",
+            "payload"
+          ],
+          "clearance_mm": 0.2,
+          "required_action": "relocate"
+        },
+        {
+          "anchor": "anchor-new",
+          "offset_local_mm": [
+            4,
+            1.2,
+            3
+          ],
+          "radius_mm": 0.4,
+          "stroke_mm": 7,
+          "obstacles": [
+            "cordon",
+            "payload"
+          ],
+          "clearance_mm": 0.2,
+          "required_action": "create"
+        }
+      ],
+      "non_physical": [
+        "ServiceReservations/Extraction1",
+        "ServiceReservations/Extraction2",
+        "ServiceReservations/ToolAccess1",
+        "ServiceReservations/ToolAccess2"
+      ],
+      "allowed_interferences": [
+        {
+          "parts": [
+            "carrier",
+            "stud-existing"
+          ],
+          "max_volume_mm3": 2,
+          "reason": "Engagement du goujon dans le porteur."
+        },
+        {
+          "parts": [
+            "carrier",
+            "stud-new"
+          ],
+          "max_volume_mm3": 2,
+          "reason": "Engagement du goujon dans le porteur."
+        }
+      ],
+      "supports": {
+        "plate-existing": {
+          "anchor": "anchor-before",
+          "carrier": "carrier",
+          "retains": [
+            "cordon"
+          ],
+          "min_contact_area_mm2": 55,
+          "min_fasteners": 1,
+          "retention_max_gap_mm": 0.001
+        },
+        "plate-new": {
+          "anchor": "anchor-new",
+          "carrier": "carrier",
+          "retains": [
+            "cordon"
+          ],
+          "created_only": true,
+          "min_contact_area_mm2": 61,
+          "min_fasteners": 1,
+          "retention_max_gap_mm": 0.001
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "id": "move-root",
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "payload",
+      "effect": {
+        "fixture_case": "move-root"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "placement": {
+          "translation_mm": [
+            78,
+            42,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.9238795325112867,
+            0.38268343236508984
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            75,
+            41,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            78,
+            42,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.9238795325112867,
+            0.38268343236508984
+          ]
+        }
+      },
+      "affected": [
+        "payload",
+        "sibling"
+      ],
+      "domain_limits": {
+        "pose_autorisee": {
+          "translation_mm": [
+            78,
+            42,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.9238795325112867,
+            0.38268343236508984
+          ]
+        },
+        "frame": "ROOT"
+      },
+      "graph_operation": "MOVE",
+      "graph_target": "payload"
+    },
+    {
+      "id": "move-parent",
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "payload",
+      "effect": {
+        "fixture_case": "move-parent"
+      },
+      "parameters": {
+        "frame": "PARENT",
+        "placement": {
+          "translation_mm": [
+            12,
+            -3,
+            2
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            -0.25881904510252074,
+            0.9659258262890683
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            75,
+            41,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            78,
+            45,
+            8
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.49999999999999994,
+            0.8660254037844387
+          ]
+        }
+      },
+      "affected": [
+        "payload",
+        "sibling"
+      ],
+      "domain_limits": {
+        "pose_autorisee": {
+          "translation_mm": [
+            12,
+            -3,
+            2
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            -0.25881904510252074,
+            0.9659258262890683
+          ]
+        },
+        "frame": "PARENT"
+      },
+      "graph_operation": "MOVE",
+      "graph_target": "payload"
+    },
+    {
+      "id": "collision",
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "payload",
+      "effect": {
+        "fixture_case": "collision"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "placement": {
+          "translation_mm": [
+            75,
+            55,
+            6
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            75,
+            41,
+            7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            75,
+            55,
+            6
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        }
+      },
+      "affected": [
+        "payload",
+        "sibling"
+      ],
+      "domain_limits": {
+        "pose_autorisee": {
+          "translation_mm": [
+            75,
+            55,
+            6
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.7071067811865476,
+            0.7071067811865476
+          ]
+        },
+        "frame": "ROOT"
+      },
+      "graph_operation": "MOVE",
+      "graph_target": "payload"
+    },
+    {
+      "id": "route",
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "cordon",
+      "effect": {
+        "fixture_case": "route"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ],
+        "diameter_mm": 4,
+        "bend_radius_mm": 5,
+        "minimum_radius_mm": 5,
+        "conductor_sections_mm2": [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "start_axis": [
+          1,
+          0,
+          0
+        ],
+        "end_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "expected_before": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected_after": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "affected": [
+        "cordon",
+        "route-axis",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "domain_limits": {
+        "minimum_radius_mm": 5,
+        "diameter_mm": 4
+      },
+      "graph_operation": "FRAME",
+      "graph_target": "port-b"
+    },
+    {
+      "id": "radius-low",
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "cordon",
+      "effect": {
+        "fixture_case": "radius-low"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ],
+        "diameter_mm": 4,
+        "bend_radius_mm": 3.5,
+        "minimum_radius_mm": 5,
+        "conductor_sections_mm2": [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "start_axis": [
+          1,
+          0,
+          0
+        ],
+        "end_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "expected_before": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected_after": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "affected": [
+        "cordon",
+        "route-axis",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "domain_limits": {
+        "minimum_radius_mm": 5,
+        "diameter_mm": 4
+      },
+      "graph_operation": "FRAME",
+      "graph_target": "port-b"
+    },
+    {
+      "id": "duplicates",
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "cordon",
+      "effect": {
+        "fixture_case": "duplicates"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ],
+        "diameter_mm": 4,
+        "bend_radius_mm": 5,
+        "minimum_radius_mm": 5,
+        "conductor_sections_mm2": [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "start_axis": [
+          1,
+          0,
+          0
+        ],
+        "end_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "expected_before": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected_after": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            27,
+            0,
+            0
+          ],
+          [
+            34,
+            9,
+            0
+          ],
+          [
+            46,
+            9,
+            0
+          ],
+          [
+            55,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "affected": [
+        "cordon",
+        "route-axis",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "domain_limits": {
+        "minimum_radius_mm": 5,
+        "diameter_mm": 4
+      },
+      "graph_operation": "FRAME",
+      "graph_target": "port-b"
+    },
+    {
+      "id": "relocate",
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate-existing",
+      "effect": {
+        "fixture_case": "relocate"
+      },
+      "parameters": {
+        "anchor": "anchor-relocate",
+        "carrier": "carrier",
+        "retains": [
+          "cordon"
+        ],
+        "fasteners": [
+          "stud-existing"
+        ],
+        "placement": {
+          "translation_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            60,
+            -4,
+            -5
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            68,
+            -4,
+            -5
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "affected": [
+        "plate-existing",
+        "stud-existing",
+        "anchor-before",
+        "anchor-relocate",
+        "carrier",
+        "cordon"
+      ],
+      "domain_limits": {
+        "anchors": [
+          "anchor-relocate"
+        ]
+      },
+      "graph_operation": "RETENTION",
+      "graph_target": "plate-existing"
+    },
+    {
+      "id": "create",
+      "operation": "CREATE_SUPPORT",
+      "occurrence": "anchor-new",
+      "effect": {
+        "fixture_case": "create"
+      },
+      "parameters": {
+        "anchor": "anchor-new",
+        "carrier": "carrier",
+        "support": "plate-new",
+        "retains": [
+          "cordon"
+        ],
+        "placement": {
+          "translation_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        },
+        "size_mm": [
+          8,
+          8,
+          3
+        ],
+        "fasteners": [
+          {
+            "id": "stud-new",
+            "center_mm": [
+              4,
+              1.2
+            ],
+            "hole_diameter_mm": 1.5,
+            "diameter_mm": 1.5,
+            "embed_mm": 1
+          }
+        ]
+      },
+      "expected_before": {
+        "exists": false
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            78,
+            -4,
+            -5
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "affected": [
+        "plate-new",
+        "stud-new",
+        "anchor-new",
+        "carrier",
+        "cordon"
+      ],
+      "domain_limits": {
+        "anchor": "anchor-new",
+        "max_size_mm": [
+          8,
+          8,
+          3
+        ]
+      },
+      "graph_operation": "RETENTION",
+      "graph_target": "anchor-new"
+    },
+    {
+      "id": "floating",
+      "operation": "CREATE_SUPPORT",
+      "occurrence": "anchor-new",
+      "effect": {
+        "fixture_case": "floating"
+      },
+      "parameters": {
+        "anchor": "anchor-new",
+        "carrier": "carrier",
+        "support": "plate-new",
+        "retains": [
+          "cordon"
+        ],
+        "placement": {
+          "translation_mm": [
+            0,
+            0,
+            0.3
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        },
+        "size_mm": [
+          8,
+          8,
+          3
+        ],
+        "fasteners": [
+          {
+            "id": "stud-new",
+            "center_mm": [
+              4,
+              1.2
+            ],
+            "hole_diameter_mm": 1.5,
+            "diameter_mm": 1.5,
+            "embed_mm": 1
+          }
+        ]
+      },
+      "expected_before": {
+        "exists": false
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            78,
+            -4,
+            -4.7
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "affected": [
+        "plate-new",
+        "stud-new",
+        "anchor-new",
+        "carrier",
+        "cordon"
+      ],
+      "domain_limits": {
+        "anchor": "anchor-new",
+        "max_size_mm": [
+          8,
+          8,
+          3
+        ]
+      },
+      "graph_operation": "RETENTION",
+      "graph_target": "anchor-new"
+    }
+  ],
+  "compositions": [
+    [
+      "move-root",
+      "route",
+      "relocate",
+      "create"
+    ],
+    [
+      "move-parent",
+      "route",
+      "relocate",
+      "create"
+    ],
+    [
+      "collision"
+    ],
+    [
+      "radius-low"
+    ],
+    [
+      "move-root",
+      "duplicates"
+    ],
+    [
+      "floating"
+    ]
+  ],
+  "replay": {
+    "3": {
+      "status": "FAIL",
+      "construction": "PASS"
+    },
+    "4": {
+      "status": "FAIL",
+      "construction": "PASS"
+    },
+    "5": {
+      "status": "FAIL",
+      "construction": "FAIL"
+    },
+    "6": {
+      "status": "FAIL",
+      "construction": "PASS"
+    }
+  }
+}

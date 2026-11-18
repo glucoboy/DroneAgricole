@@ -2,6 +2,7 @@
 #include "AdmissionScope.hpp"
 #include "Files.hpp"
 #include "ResearchAdapter.hpp"
+#include "V3Transaction.hpp"
 
 #include <QCoreApplication>
 #include <QFileInfo>
@@ -319,10 +320,17 @@ QJsonObject ProcessBackend::buildV3(const QDir &root, const QDir &sandbox, const
         return report;
     }
 
-    // This is the dispatch boundary for future V3 operators. The legacy builder
-    // below generates a static model and has no authority over XLink copies.
+    // A single admission request has no typed effects or transaction parameters.
     report.insert("dispatch_status", "NOT_IMPLEMENTED");
     return report;
+}
+
+QJsonObject ProcessBackend::buildV3(const QDir &root, const QDir &sandbox, const QDir &output,
+                                    const QByteArray &planBytes, const QJsonObject &plan,
+                                    const QString &freecadPython, const QString &t0Validator)
+{
+    return runV3Mutation(root, sandbox, output, planBytes, plan,
+                         executable(root, freecadPython), executable(root, t0Validator));
 }
 
 QJsonObject ProcessBackend::build(const QJsonObject &assignments, const QDir &operation)

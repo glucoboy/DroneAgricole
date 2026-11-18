@@ -3,6 +3,9 @@ project(convergence_manager VERSION 1.0.0 LANGUAGES CXX)
 
 include(CTest)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+if(NOT TARGET electromechanical_graph)
+    add_subdirectory(../electromechanical_graph graph)
+endif()
 
 add_library(convergence STATIC src/AdmissionScope.cpp src/Campaign.cpp src/Files.cpp src/Selection.cpp)
 target_compile_features(convergence PUBLIC cxx_std_17)
@@ -10,10 +13,10 @@ set_target_properties(convergence PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(convergence PUBLIC src)
 target_link_libraries(convergence PUBLIC Qt6::Core)
 
-add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp
+add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp src/V3Transaction.cpp
     ../architecture_decision_engine/src/ResearchAdapter.cpp ../architecture_decision_engine/src/Evidence.cpp)
 target_include_directories(convergence_core PRIVATE ../architecture_decision_engine/src)
-target_link_libraries(convergence_core PRIVATE convergence)
+target_link_libraries(convergence_core PRIVATE convergence electromechanical_graph)
 
 if(BUILD_TESTING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
@@ -45,6 +48,14 @@ if(BUILD_TESTING)
     set(L5_L4_EXECUTABLE "" CACHE FILEPATH "Binaire de validation L4")
     set(L5_FREECAD_PYTHON "" CACHE FILEPATH "Interpréteur FreeCAD pour la réception native")
     set(L5_T0_VALIDATOR "" CACHE FILEPATH "Validateur indépendant des preuves T0")
+    if(L5_FREECAD_PYTHON)
+        foreach(worker mutate verify)
+            add_test(NAME l5_v3_native_${worker} COMMAND "${Python3_EXECUTABLE}" -B
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_${worker}.py" --freecad "${L5_FREECAD_PYTHON}" -v)
+            set_tests_properties(l5_v3_native_${worker} PROPERTIES TIMEOUT 180
+                WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")
+        endforeach()
+    endif()
     if(L5_L1_EXECUTABLE AND L5_L3_EXECUTABLE AND L5_L4_EXECUTABLE)
         set(integration_args --core "$<TARGET_FILE:convergence_core>"
             --l1 "${L5_L1_EXECUTABLE}" --l3 "${L5_L3_EXECUTABLE}" --l4 "${L5_L4_EXECUTABLE}")

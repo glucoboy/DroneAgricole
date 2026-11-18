@@ -12,6 +12,9 @@ class ProcessBackend final : public Backend {
 public:
     ProcessBackend(QDir root, QDir output, QJsonObject config, ToolPaths tools);
     static QJsonObject buildV3(const QDir &root, const QDir &sandbox, const QJsonObject &request);
+    static QJsonObject buildV3(const QDir &root, const QDir &sandbox, const QDir &output,
+                              const QByteArray &planBytes, const QJsonObject &plan,
+                              const QString &freecadPython, const QString &t0Validator);
     QJsonObject freeze(const QString &configPath);
     void verify() const;
     void verifyConsolidation(const QJsonObject &outcome) const;

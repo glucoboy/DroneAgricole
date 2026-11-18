@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.mutation_plan:1",
+  "title": "Plan de mutation XLink V3 B.1",
+  "description": "Les actions sont soumises à la porte A.1 à partir du profil scellé. Une signature de contexte identifie la sélection, sans accorder de droits.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "plan_id", "domain", "profile_sha256", "context_sha256", "actions"],
+  "properties": {
+    "schema": {"const": "v3.mutation_plan/1"},
+    "plan_id": {"$ref": "#/$defs/id"},
+    "domain": {"const": "SYNTHETIC_BENCH"},
+    "profile_sha256": {"$ref": "#/$defs/sha256", "description": "Lie la source, les contraintes, le modèle d'autorité, le graphe et les compositions autorisées."},
+    "context_sha256": {"$ref": "#/$defs/sha256", "description": "SHA-256 UTF-8 du profil, de l'identifiant du plan et des identifiants d'action ordonnés, séparés par LF sans LF terminal."},
+    "actions": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/action"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "occurrence": {"type": "string", "minLength": 1},
+    "occurrences": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/occurrence"}},
+    "vector": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "quaternion": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": -1, "maximum": 1}},
+    "pose": {
+      "type": "object", "additionalProperties": false,
+      "required": ["translation_mm", "rotation_xyzw"],
+      "properties": {"translation_mm": {"$ref": "#/$defs/vector"}, "rotation_xyzw": {"$ref": "#/$defs/quaternion"}}
+    },
+    "points": {"type": "array", "minItems": 2, "maxItems": 256, "items": {"$ref": "#/$defs/vector"}},
+    "positive": {"type": "number", "exclusiveMinimum": 0},
+    "state": {
+      "type": "object", "minProperties": 1, "additionalProperties": false,
+      "properties": {"exists": {"type": "boolean"}, "placement": {"$ref": "#/$defs/pose"},
+        "points_mm": {"$ref": "#/$defs/points"}, "shape_sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "move": {
+      "type": "object", "additionalProperties": false, "required": ["frame", "placement"],
+      "properties": {"frame": {"enum": ["ROOT", "PARENT"]}, "placement": {"$ref": "#/$defs/pose"}}
+    },
+    "route": {
+      "type": "object", "additionalProperties": false,
+      "required": ["frame", "points_mm", "diameter_mm", "bend_radius_mm", "minimum_radius_mm", "start_axis", "end_axis"],
+      "oneOf": [{"required": ["conductor_sections_mm2"]}, {"required": ["conductor_section_mm2"]}],
+      "properties": {"frame": {"const": "ROOT"}, "points_mm": {"$ref": "#/$defs/points"},
+        "diameter_mm": {"$ref": "#/$defs/positive"}, "bend_radius_mm": {"$ref": "#/$defs/positive"},
+        "minimum_radius_mm": {"$ref": "#/$defs/positive"}, "start_axis": {"$ref": "#/$defs/vector"},
+        "end_axis": {"$ref": "#/$defs/vector"}, "conductor_section_mm2": {"$ref": "#/$defs/positive"},
+        "conductor_sections_mm2": {"type": "array", "minItems": 1, "maxItems": 128, "items": {"$ref": "#/$defs/positive"}}}
+    },
+    "fastener": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "center_mm", "hole_diameter_mm", "diameter_mm", "embed_mm"],
+      "properties": {"id": {"$ref": "#/$defs/occurrence"},
+        "center_mm": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "hole_diameter_mm": {"$ref": "#/$defs/positive"}, "diameter_mm": {"$ref": "#/$defs/positive"},
+        "embed_mm": {"$ref": "#/$defs/positive"}}
+    },
+    "support": {
+      "type": "object", "additionalProperties": false,
+      "required": ["anchor", "carrier", "retains", "placement", "fasteners"],
+      "properties": {"anchor": {"$ref": "#/$defs/occurrence"}, "carrier": {"$ref": "#/$defs/occurrence"},
+        "retains": {"$ref": "#/$defs/occurrences"}, "placement": {"$ref": "#/$defs/pose", "description": "Pose dans le repère de l'ancrage."},
+        "support": {"$ref": "#/$defs/occurrence"}, "size_mm": {"$ref": "#/$defs/vector"},
+        "fasteners": {"type": "array", "maxItems": 8}}
+    },
+    "connector": {
+      "type": "object", "additionalProperties": false,
+      "required": ["receptacle", "plug", "manufacturer_part", "provenance_sha256", "pinout_sha256", "frames_sha256"],
+      "properties": {"receptacle": {"$ref": "#/$defs/occurrence"}, "plug": {"$ref": "#/$defs/occurrence"},
+        "manufacturer_part": {"type": "string", "minLength": 1}, "provenance_sha256": {"$ref": "#/$defs/sha256"},
+        "pinout_sha256": {"$ref": "#/$defs/sha256"}, "frames_sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "topology": {
+      "type": "object", "additionalProperties": false,
+      "required": ["edits", "nets_sha256", "nc_sha256", "isolation_sha256", "compatibility_sha256"],
+      "properties": {"nets_sha256": {"$ref": "#/$defs/sha256"}, "nc_sha256": {"$ref": "#/$defs/sha256"},
+        "isolation_sha256": {"$ref": "#/$defs/sha256"}, "compatibility_sha256": {"$ref": "#/$defs/sha256"},
+        "edits": {"type": "array", "minItems": 1, "maxItems": 32, "items": {
+          "type": "object", "additionalProperties": false, "required": ["kind", "subject", "ends"],
+          "properties": {"kind": {"enum": ["JUNCTION", "OFFSET", "SEGMENT"]},
+            "subject": {"$ref": "#/$defs/occurrence"}, "ends": {"$ref": "#/$defs/occurrences", "minItems": 2}}}}}
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "operation", "occurrence", "effect", "parameters", "expected_before", "expected_after", "affected", "domain_limits", "graph_operation", "graph_target"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "occurrence": {"$ref": "#/$defs/occurrence"},
+        "operation": {"enum": ["REPOSITION_DEVICE", "REROUTE_HARNESS", "RELOCATE_SUPPORT", "CREATE_SUPPORT", "CHANGE_CONNECTOR_VARIANT", "CHANGE_INTERFACE_TOPOLOGY"]},
+        "effect": {"type": "object", "minProperties": 1}, "parameters": {"type": "object"},
+        "expected_before": {"$ref": "#/$defs/state"}, "expected_after": {"$ref": "#/$defs/state"},
+        "affected": {"$ref": "#/$defs/occurrences", "minItems": 1}, "domain_limits": {"type": "object", "minProperties": 1},
+        "graph_operation": {"enum": ["MOVE", "FRAME", "RETENTION"]}, "graph_target": {"$ref": "#/$defs/occurrence"}},
+      "allOf": [
+        {"if": {"properties": {"operation": {"const": "REPOSITION_DEVICE"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/move"}}}},
+        {"if": {"properties": {"operation": {"const": "REROUTE_HARNESS"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/route"}}}},
+        {"if": {"properties": {"operation": {"const": "RELOCATE_SUPPORT"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/support", "properties": {"fasteners": {"$ref": "#/$defs/occurrences"}}}}}},
+        {"if": {"properties": {"operation": {"const": "CREATE_SUPPORT"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/support", "required": ["support", "size_mm"], "properties": {"fasteners": {"minItems": 1, "items": {"$ref": "#/$defs/fastener"}}}}}}},
+        {"if": {"properties": {"operation": {"const": "CHANGE_CONNECTOR_VARIANT"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/connector"}}}},
+        {"if": {"properties": {"operation": {"const": "CHANGE_INTERFACE_TOPOLOGY"}}}, "then": {"properties": {"parameters": {"$ref": "#/$defs/topology"}}}}
+      ]
+    }
+  }
+}

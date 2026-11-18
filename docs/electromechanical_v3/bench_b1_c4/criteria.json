@@ -1,0 +1,62 @@
+{
+  "scope": "banc_interconnexion_xlink_v21",
+  "source": "",
+  "entry": "Banc_Interconnexion.FCStd",
+  "native_count": 2,
+  "equipment_mapping": "convergence_manager/fixtures/xlink_b/equipment_mapping.json",
+  "criteria": {
+    "requirements": [
+      "G3A-01",
+      "G3A-02",
+      "G3A-08"
+    ],
+    "state": "banc_l2_nominal_hors_tension",
+    "source": "convergence_manager/fixtures/xlink_b/bench.json",
+    "screening_only": false,
+    "clearance_mm": 2,
+    "distance_tolerance_mm": 1e-06,
+    "volume_tolerance_mm3": 1e-06,
+    "contacts": [
+      {
+        "kind": "functional_contact",
+        "inner_id": "Banc_Interconnexion.FCStd#Cable",
+        "outer_id": "Banc_Interconnexion.FCStd#CableConnector001",
+        "justification": "Contact de la gaine avec le plan de sortie de la fiche A au repère indépendant WireExit1."
+      },
+      {
+        "kind": "functional_contact",
+        "inner_id": "Banc_Interconnexion.FCStd#Cable",
+        "outer_id": "Banc_Interconnexion.FCStd#CableConnector003",
+        "justification": "Contact de la gaine avec le plan de sortie de la fiche B au repère indépendant WireExit2."
+      }
+    ],
+    "route_criteria": {
+      "Banc_Interconnexion.FCStd#Cable": {
+        "minimum_radius_mm": 5,
+        "start_mm": [
+          14,
+          0,
+          0
+        ],
+        "end_mm": [
+          86,
+          12,
+          0
+        ],
+        "start_axis": [
+          1,
+          0,
+          0
+        ],
+        "end_axis": [
+          -1,
+          0,
+          0
+        ],
+        "position_tolerance_mm": 1e-06,
+        "tangent_tolerance_deg": 0.0001
+      }
+    }
+  },
+  "open_checks": []
+}

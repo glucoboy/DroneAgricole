@@ -183,12 +183,14 @@ int run(const QCommandLineParser &options)
     return code;
 }
 
-int runV3Admission(const QCommandLineParser &options)
+int runV3(const QCommandLineParser &options, bool mutation)
 {
     for (const auto &legacy : {"mode", "receipt", "plan", "source-release", "config", "steps",
-                              "l1", "l3", "l4", "python", "freecad-python"}) {
-        require(!options.isSet(legacy), "Option incompatible avec v3-admission : " + QString(legacy));
+                              "l1", "l3", "l4", "python"}) {
+        require(!options.isSet(legacy), "Option incompatible avec V3 : " + QString(legacy));
     }
+    require(mutation == options.isSet("freecad-python") && mutation == options.isSet("t0-validator"),
+            "v3-build requiert FreeCAD Python et le validateur T0 indépendant");
     require(options.isSet("request") && options.isSet("sandbox"), "Demande et sandbox XLink requis");
     const auto rootPath = QDir(options.value("root")).canonicalPath();
     require(!rootPath.isEmpty(), "Racine de travail absente");
@@ -199,12 +201,20 @@ int runV3Admission(const QCommandLineParser &options)
     require(!sandboxPath.isEmpty(), "Sandbox XLink absent");
     relative(root, sandboxPath);
     const auto requestPath = fileInside(root, options.value("request"));
+    require(!hasRedirectedComponent(root, root.absoluteFilePath(options.value("request"))), "Demande V3 redirigée");
     const auto bytes = read(requestPath);
     const auto request = parseUniqueObject(bytes, requestPath);
     const auto output = outputDirectory(root, options.value("output"), sandboxPath);
     QLockFile lock(output.filePath(".publication.lock"));
     lock.setStaleLockTime(0);
     require(lock.tryLock(), "Admission V3 déjà en cours");
+    if (mutation) {
+        const auto result = ProcessBackend::buildV3(root, QDir(sandboxPath), output, bytes, request,
+            options.value("freecad-python"), options.value("t0-validator"));
+        const auto status = result.value("status").toString();
+        std::printf("%s\n", status.toLatin1().constData());
+        return status == "PASS" ? 0 : status == "FAIL" ? 2 : status == "INCONCLUSIVE" ? 4 : 3;
+    }
     const auto entries = output.entryList(QDir::AllEntries | QDir::System | QDir::Hidden | QDir::NoDotAndDotDot);
     require(entries == QStringList{".publication.lock"}, "Un dossier de sortie neuf est requis pour chaque admission V3");
 
@@ -228,7 +238,7 @@ int main(int argc, char **argv)
     QCommandLineParser options;
     options.setApplicationDescription("Campagne électromécanique L5 bornée et reprenable");
     options.addHelpOption();
-    options.addPositionalArgument("command", "run (par défaut), preflight ou v3-admission");
+    options.addPositionalArgument("command", "run (par défaut), preflight, v3-admission ou v3-build");
     options.addOptions({
         {"mode", "Porte preflight : historical, explore ou final", "mode"},
         {"source-release", "Gel des outils : v2.1, ou v2 pour le rejeu historique", "release", "v2.1"},
@@ -236,7 +246,7 @@ int main(int argc, char **argv)
         {"receipt", "Reçu indépendant de réception V2.1", "path"},
         {"root", "Racine du dépôt", "path", "."},
         {"config", "Configuration de campagne", "path", "convergence_manager/fixtures/campaign.json"},
-        {"request", "Demande d'action v3.admission_scope/1", "path"},
+        {"request", "Demande v3.admission_scope/1 ou plan v3.mutation_plan/1", "path"},
         {"sandbox", "Copie de référence XLink pour la demande V3", "path"},
         {"output", "Dossier de campagne neuf ou à reprendre", "path"},
         {"l1", "Exécutable de recherche L1", "path"},
@@ -244,16 +254,17 @@ int main(int argc, char **argv)
         {"l4", "Exécutable de validation indépendante L4", "path"},
         {"python", "Interpréteur de l'adaptateur FreeCAD", "path", "python"},
         {"freecad-python", "Interpréteur embarqué de FreeCAD", "path"},
+        {"t0-validator", "Validateur indépendant de preuve T0 pour v3-build", "path"},
         {"steps", "Nombre maximal de transitions avant pause, -1 pour terminer", "count", "-1"}
     });
     options.process(app);
     try {
         const auto command = options.positionalArguments();
-        if (command == QStringList{"v3-admission"}) {
-            return runV3Admission(options);
+        if (command == QStringList{"v3-admission"} || command == QStringList{"v3-build"}) {
+            return runV3(options, command.front() == "v3-build");
         }
-        require(!options.isSet("request") && !options.isSet("sandbox"),
-                "Les options de demande V3 requièrent la commande v3-admission");
+        require(!options.isSet("request") && !options.isSet("sandbox") && !options.isSet("t0-validator"),
+                "Les options de demande V3 requièrent v3-admission ou v3-build");
         if (command.isEmpty() || command == QStringList{"run"}) {
             require(!options.isSet("mode") && !options.isSet("receipt") && !options.isSet("plan") &&
                     !options.isSet("source-release"),
