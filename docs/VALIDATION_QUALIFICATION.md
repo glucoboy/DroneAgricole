@@ -2706,6 +2706,38 @@ d’accès et d’isolation explicites. La conformité du cartographe demeure
 **À valider**. Réception physique `NOT_RUN`.
 [Entrées exactes et restrictions](verification/v3/a/acceptance.json)
 
+<a id="cartographe-v3-b"></a>
+#### Admission du constructeur XLink V3-B — 18 novembre 2026
+
+**`V3_B_NO_GO` à l’entrée.** Le gel V3-A sur le cartographe sans dock
+admet l’observation et les analyses virtuelles `MOVE iso`,
+`RETENTION p72` et `FRAME ttl-reference`. L’autorisation de générer et
+sauvegarder des candidats reste bloquée. La revue des preuves d’interface
+n’a pas permis de lever cette restriction. [Reçu V3-B](verification/v3/b/acceptance.json)
+
+Le préflight Windows amd64 a contrôlé les empreintes du gel, de ses preuves
+et des 142 fichiers sources. Deux processus FreeCAD 1.1.3 ont recalculé
+et inspecté des copies témoins à des emplacements distincts. Les 137
+documents, 2 772 poses et 53 axes concordent avec V3-A. L’import reproduit
+les trois graphes scellés. Les neuf cas d’impact, les dix refus du graphe
+et la vérification T0 réussissent. Six tests existants de graphe, L2, L4 et
+L5 réussissent. Les empreintes du banc C4 et du lot B.2 concordent. Les
+1 609 paires B.2 n’ont pas été remesurées.
+
+| Autorité à établir | Observations pour la reprise |
+|---|---|
+| Révisions, brochage et repères indépendants F40/F41 | La définition W40 prévoit une déconnexion TE et l’inventaire du prototype sans dock indique une déconnexion manuelle sans référence établie. J2/J3, la continuité sur le lot retenu et les repères signés des terminaisons et du port hôte restent ouverts. Les faces CAO côté isolateur sont à 98,871 mm (TTL) et 53,639 mm (USB) de leurs extrémités d’axes. [Autorités V3-A](electromechanical_v3/cartographe.json) |
+| Appui, domaine de pose et accès | Le support témoin H03 est sans ancrage et rencontre P72 sur 109,734 mm³. Les neuf gabarits de portée TTL testés recoupent la PDB. Le criblage USB ne fixe pas le geste de retrait ni les limites de modification de P72/P73. [Revue d’interfaces](verification/v21_go3b/interfaces_review.json) |
+
+Le constructeur générique V3-B est **Planifié** pour six opérations.
+Les transactions natives, leurs contre-épreuves, la validation de candidat
+L2/L4/T0 et la réception physique restent `NOT_RUN`. Le banc C4 demeure
+un témoin historique distinct. Le prochain passage d’admission doit lier les
+repères et la topologie aux révisions retenues, justifier les ancrages et
+le domaine de pose et fournir les critères testables de service et
+d’isolation. Consigner le périmètre de mutation admissible dans un reçu
+V3-A appuyé sur ces preuves avant d’engager la construction V3-B.
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -3917,6 +3949,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Validateur L4 scellé, couverture BRep des paires, exclusions AABB et réouverture | T-CARTO-V21-XLINK-B2 | [Résultat](#qualification-xlink-v21-b2), [preuve](verification/v21_b2/coverage.json) | `GO_B` sur Windows `amd64`. Cartographe nominal **non conforme** sur les sept intersections. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Préflight, connectique L2, validation XLink L4 et convergence L5 | T-CARTO-V21-QUAL · Q1 à Q5 | [Résultat](#qualification-integree-v21), [preuve](verification/v21_qualification_results.json) | `V21_EXPLORATION_NO_GO` pour l’intégration, sur Windows `amd64`. Conditions de reprise et démonstrations locales tracées. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Admission H-01, L2 et L4 XLink, réimplantation L5, témoins historiques | T-CARTO-V21-FIX-C · C0 et Q1 à Q5 | [Requalification](#requalification-v21-c), [reçu](verification/v21_fix_c_qualification.json) | `GO_CONDITIONNEL_V21_CORRECTIF` sur Windows `amd64`, périmètre numérique borné. |
+| METH-001, V3-A-01 à V3-A-04 | Gel V3-A, fermeture XLink et impact du graphe avant ouverture de V3-B | T-CARTO-V3-B-ADMISSION | [Résultat](#cartographe-v3-b), [reçu](verification/v3/b/acceptance.json) | `V3_B_NO_GO` à l’entrée. Autorités d’interface, ancrage et service **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, EM-INT-01/02, EM-GEO-01/02, EM-COL-01/02, EM-GRP-01 | Registre de connectivité et SA07 de la copie de refonte | Export KiCad, fermeture XLink, comparaison BRep nominale, mobilité discrète | [§12.1.12](#validation-refonte-faisceaux), [variantes et couverture](../hardware/mecanique/cartographe/verification/refonte_faisceaux/validation_variantes.json) | Candidat **Implémenté** sur copie, neuf définitions embarquées et intégration physique **À valider** |
 | CAB-CARTO-001, MEC-INT-001, EM-INT-01/02, EM-GEO-01/02, EM-COL-01/02, EM-GRP-01 | SA07 modulaire, P60/P64/P68 et supports locaux | Fermeture XLink, recalcul à cache vidé, intersections BRep et inclusion F38 | [§12.1.12](#validation-faisceaux-modulaires) | Architecture **Implémenté** sur copie, maintien, montage et qualification physique **À valider** |
 | MEC-ARC-001 | dérivation CAO, collisions, SDF/allocation | T-CARTO-GZ-01 | §§9.3 et 10.2 ; geometry_tests.json, model_checks.json, campaign_20261024.json et station_gazebo_bridge.json via manifeste | **Implémenté**, contrôles numériques, chargement et allocation effective réussis ; fidélité physique **À valider** |
@@ -4053,6 +4086,12 @@ Elle confirme les sept défauts B.2 et les reprises nécessaires au
 raccordement F40/F41. La prochaine expérience d’appui/cheminement doit
 précéder la clôture des terminaisons, des masses et la réception. Le
 programme GO4 conserve la progression du §2.
+
+L’[admission V3-B](#cartographe-v3-b) confirme que les repères de raccordement,
+le choix de la déconnexion F40 et l’appui ancré avec accès de service sont
+les prochains éléments discriminants pour ORCH-CAO-MASSE-1. Le résultat
+reste `V3_B_NO_GO` tant que le gel V3-A ne couvre pas les opérations natives
+requises.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4713,6 +4752,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **18 novembre 2026** — Préflight V3-B sur le gel V3-A. Fermeture et impact reproduits, admission à la construction bloquée par les autorités d’interface, d’ancrage et de service. [Résultat](#cartographe-v3-b)
 - **18 novembre 2026** — V3-A sur le cartographe sans dock. Fermeture, graphe et impact vérifiés sur copies et banc. Admission conditionnelle au périmètre numérique décrit au §12.1.13.
 
 - **17 novembre 2026** — Contrôles locaux avant sauvegarde et intégration Git : compilations réussies, échecs et tests incomplets conservés, périmètre de publication explicité (§6.3).

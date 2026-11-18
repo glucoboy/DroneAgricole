@@ -1,0 +1,160 @@
+{
+  "schema": "v3.b.admission/1",
+  "test_id": "T-CARTO-V3-B-ADMISSION",
+  "date": "2026-11-18",
+  "finalized": true,
+  "scope": "Admission V3-B et vérification en lecture seule de la référence XLink V3-A du cartographe sans dock.",
+  "verdict": "V3_B_NO_GO",
+  "stopped_at": "V3_A_ADMISSION",
+  "environment": "Windows amd64, FreeCAD 1.1.3, OCCT 7.8.1, Cables 0.3.7, Qt 6.11.2",
+  "reference": {
+    "revision": "742a5ac4f167bba0ef03b65053412bddbde0ecc9",
+    "verdict": "V3_A_GO_CONDITIONNEL",
+    "acceptance": {
+      "path": "docs/verification/v3/a/acceptance.json",
+      "sha256": "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31"
+    },
+    "freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "allowed_virtual_actions": ["MOVE iso", "RETENTION p72", "FRAME ttl-reference"],
+    "candidate_generation_authorized": false,
+    "gate_locator": "/next_gate",
+    "requalified": false
+  },
+  "checks": {
+    "hashes": {
+      "status": "PASS",
+      "entries_checked_including_overlaps": 451,
+      "mismatches": 0,
+      "path": ".runtime/v3-b/preflight-20261118-081332416/integrity.json",
+      "sha256": "5d721f92b7c35b0a7834782f69f7b0e634ccac61c9d99e6e26c38dedbadbc9d7"
+    },
+    "native": {
+      "status": "PASS",
+      "source_files_unchanged": 142,
+      "documents": 137,
+      "placements": 2772,
+      "axes": 53,
+      "fresh_process_per_copy": true,
+      "save_performed": false,
+      "path": ".runtime/v3-b/preflight-20261118-081332416/native.json",
+      "sha256": "fd0fb81c8510c33d01ffbad1fa79c84bc20760a15d14ff5263040eec1411af06",
+      "transfer_report": {
+        "path": ".runtime/v3-b/preflight-20261118-081332416/native/transfer.json",
+        "sha256": "c2f98b7360f028432c538f8872211ca09cd1ccb2cfa796697cc0e324171ada14"
+      }
+    },
+    "graph_and_impact": {
+      "status": "PASS",
+      "graphs_matching_seal": 3,
+      "impact_cases_passed": 9,
+      "invalid_inputs_rejected": 10,
+      "path": ".runtime/v3-b/preflight-20261118-081332416/reference-fresh/checks.json",
+      "sha256": "2025d1e61fd2b611e43b921843bcd572af8e3771ceaee5e06f2f635a57c78991",
+      "t0": {
+        "status": "PASS",
+        "path": ".runtime/v3-b/preflight-20261118-081332416/reference-fresh/t0_run_manifest.json",
+        "sha256": "8b109aac9ec065196818882623e511bb66278108adb2add7ca0179501755c869"
+      }
+    },
+    "existing_unit_tests": [
+      {
+        "status": "PASS",
+        "tests": ["v3_graph_contract", "l2_interconnection"],
+        "build": ".runtime/v3-a/build",
+        "path": ".runtime/v3-b/preflight-20261118-081332416/graph-unit.xml",
+        "sha256": "12d6b9675d3a528c77c5807986bf048d1aa5ddb58a0e90fe6d5ecf4b32bf2678"
+      },
+      {
+        "status": "PASS",
+        "tests": ["l4_mechanical_rules", "v21_xlink_electrical"],
+        "build": ".runtime/v3-a-regressions/build-l4",
+        "path": ".runtime/v3-b/preflight-20261118-081332416/l4-unit.xml",
+        "sha256": "4dbe38a620420982e3fa209fb517f15375d31a71f44dd9c5caa4d5898e0589f3"
+      },
+      {
+        "status": "PASS",
+        "tests": ["l5_Campaign", "l5_Selection"],
+        "build": ".runtime/v3-a-regressions/build-l5",
+        "path": ".runtime/v3-b/preflight-20261118-081332416/l5-unit.xml",
+        "sha256": "0d4f50e87698586452c261ab238b60bfde68121a63daf149da83b54689b2d78b"
+      }
+    ]
+  },
+  "authority_review": [
+    {
+      "domain": "Électrique",
+      "status": "UNRESOLVED",
+      "issues": ["UART-TOP-001", "UART-JBD-001", "UART-ISO-001", "UART-AXIS-001", "UART-HOST-001"],
+      "evidence": [
+        "hardware/electronique/cartographe/contrat_uart_bms.json",
+        "docs/verification/v21_connector_sources.json",
+        "docs/verification/v21_go3b/electrical_evidence.json"
+      ],
+      "findings": "Le contrat UART conserve les révisions et le brochage candidats. Cinq originaux fabricant correspondent au registre. Ils ne rattachent pas les références au lot effectivement retenu. L’écart CAO aux axes et la contradiction entre déconnexion TE et déconnexion manuelle demeurent.",
+      "required_evidence": "Identifier les révisions retenues, le brochage, la continuité RX/TX/GND, les NC et la frontière isolée. Étayer le choix de déconnexion et les repères signés d’embase, d’accouplement et de sortie fil."
+    },
+    {
+      "domain": "Mécanique",
+      "status": "UNRESOLVED",
+      "issues": ["UART-MOUNT-001", "UART-ACCESS-001", "UART-GUIDES-001"],
+      "evidence": [
+        "docs/electromechanical_v3/cartographe.json",
+        "docs/verification/v21_go3b/interfaces_review.json",
+        "docs/verification/v21_go3b/interfaces_go4.json"
+      ],
+      "findings": "IF-03 échoue sur l’appui des témoins H03-A/B. IF-04 échoue sur l’accès TTL de l’isolateur fixe. IF-05 reste inconclusif. Les domaines de pose et de modification des guides et la chaîne d’appui restent à établir.",
+      "required_evidence": "Justifier les appuis, ancrages, fixations et charges applicables, les domaines de pose et les enveloppes de geste TTL, USB et outil. Lier les critères testables d’isolation et de service aux révisions et états retenus."
+    }
+  ],
+  "comparisons": {
+    "l5": "Campaign.cpp et ProcessBackend.cpp filtrent les affectations route:*. construction.py exécute des plans GO3B spécifiques. Ces trois fichiers sont identiques entre la base du gel et le commit V3-A.",
+    "c4": {
+      "status": "HISTORICAL_BENCH_AVAILABLE",
+      "receipt": "docs/verification/v21_fix_c_qualification.json",
+      "native_candidate": {
+        "path": ".runtime/fix-c/.runtime/q4-h01-original/candidate-etcpWL/candidate/Banc_Interconnexion.FCStd",
+        "sha256": "23951347c6edf0a2964709f2458e5efb7cf558382a466996e2eae48130c9e656"
+      },
+      "receipt_and_dependency_match": true,
+      "replayed_through_v3_b": false
+    },
+    "b2": {
+      "coverage": "docs/verification/v21_b2/coverage.json",
+      "status": "HISTORICAL_SEAL_VERIFIED",
+      "entries_verified": 14,
+      "historical_pairs": 1609,
+      "historical_interferences": 7,
+      "pairs_remeasured": 0,
+      "observations_transferred_to_candidate": 0,
+      "path": ".runtime/v3-b/preflight-20261118-081332416/b2-seal.json",
+      "sha256": "5696ec73e1146d823be541390eb765df1371667b4d096912d8dc3d917666b7c4"
+    }
+  },
+  "operations": {
+    "REPOSITION_DEVICE": "NOT_RUN",
+    "REROUTE_HARNESS": "NOT_RUN",
+    "RELOCATE_SUPPORT": "NOT_RUN",
+    "CREATE_SUPPORT": "NOT_RUN",
+    "CHANGE_CONNECTOR_VARIANT": "NOT_RUN",
+    "CHANGE_INTERFACE_TOPOLOGY": "NOT_RUN"
+  },
+  "pipeline": {
+    "l5_generic_builder": "NOT_IMPLEMENTED",
+    "candidate_transactions": 0,
+    "combined_transaction": "NOT_RUN",
+    "candidate_reopening_and_l2_l4_t0": "NOT_RUN",
+    "candidate_adversarial_tests_and_rollback": "NOT_RUN",
+    "physical_reception": "NOT_RUN"
+  },
+  "next_gate": {
+    "v3_c": "BLOCKED",
+    "v3_d": "NOT_RUN",
+    "go3a_go3b_go4": "NOT_RUN",
+    "condition": "Une nouvelle décision V3-A fondée sur les preuves d’interface et d’ancrage doit identifier les occurrences, les opérations et les contrôles explicitement admissibles. V3-B devra alors démontrer et qualifier la chaîne L5 générique avant toute admission de V3-C."
+  },
+  "replay_recipe": "docs/electromechanical_v3/README.md",
+  "markdown": "docs/VALIDATION_QUALIFICATION.md#cartographe-v3-b"
+}
