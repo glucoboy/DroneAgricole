@@ -2732,6 +2732,31 @@ protections, relèvent de V3-A.2. Les défauts B.2 et les incertitudes de
 service sont conservés. Construction native et réception physique `NOT_RUN`
 pour V3-A.1.
 
+<a id="cartographe-v3-b1"></a>
+#### Construction XLink V3 B.1 — 19 novembre 2026
+
+Le verdict `V3_B1_ENGINE_GO` est **Qualifié** sur les profils de banc
+scellés sous Windows amd64. Les opérateurs `REPOSITION_DEVICE`,
+`REROUTE_HARNESS`, `RELOCATE_SUPPORT` et `CREATE_SUPPORT` sont
+**Implémentés** dans L5. Le rejeu C4 et deux compositions distinctes
+mesurent les effets sauvegardés depuis une copie de réouverture. Le
+contrôle soutient les reprises d’appui et de cheminement de
+`ORCH-CAO-MASSE-1`. [Reçu d’acceptation B.1](verification/v3/b1/acceptance.json)
+
+| Exigence | Chaîne de vérification | Preuve |
+|---|---|---|
+| `V3-B1-01` Effet admis et impact fermé | `evaluateAdmissionScope` → moteur V3-A → L5 avant mutation | Autorités, plan, fermeture d’impact et empreintes dans les reçus des deux bancs. |
+| `V3-B1-02` Effets conservés après transfert | `v3_mutate` → sauvegarde → `v3_verify` en processus neuf → validation T0 | C4 à +12 mm avec quatre conducteurs et huit contacts, deux poses `App::Link` avec définition partagée, faisceau et deux platines. |
+| `V3-B1-03` Détection des écarts | Mesures FreeCAD/OCCT, vérificateur et reprise L5 | Refus d’autorité et d’intégrité, collisions, rayon inférieur au seuil, ancrage flottant et rollback. |
+| `V3-B1-04` Préservation des références | Rejeu de lecture seule V3-A, L2/L4/L5, Q1/Q2/Q3 et comparaison SHA | 137 documents, 2 772 poses et 142 fichiers sources conservés. Les sept interférences et les 1 609 paires B.2 conservent leur statut historique. |
+
+La mutation expérimentale du cartographe et la réception physique sont
+`NOT_RUN`. L’admission de conception reste `NO_GO` et les domaines de pose
+et d’ancrage restent **À valider**. Les deux extensions de connectique
+et de topologie rendent `UNSUPPORTED` à l’entrée L5.
+[Recette et périmètre](verification/v3/b1/REPORT.md) ·
+[Matrice des capacités](verification/v3/b1/capabilities.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4081,7 +4106,8 @@ précéder la clôture des terminaisons, des masses et la réception. Le
 programme GO4 conserve la progression du §2.
 
 [V3-A.1](#cartographe-v3-a1) admet les essais indépendants de construction
-sur banc numérique en soutien de cette reprise. Pour le cartographe,
+sur banc numérique en soutien de cette reprise. [V3 B.1](#cartographe-v3-b1)
+vérifie la construction et l’appui sur banc scellé. Pour le cartographe,
 V3-A.2 doit établir les autorités locales avant de rouvrir la porte de
 mutation. Cette décision soutient les contrôles utiles à l’appui et au
 cheminement sous ORCH-CAO-MASSE-1.
@@ -4745,6 +4771,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — V3 B.1 exécute les mutations XLink sur deux bancs et vérifie les candidats sauvegardés. [Résultat](#cartographe-v3-b1)
 - **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)
 - **18 novembre 2026** — V3-A sur le cartographe sans dock. Fermeture, graphe et impact vérifiés sur copies et banc. Admission conditionnelle au périmètre numérique décrit au §12.1.13.
 

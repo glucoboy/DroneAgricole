@@ -1,0 +1,698 @@
+{
+  "schema": "v3.b1.acceptance/1",
+  "test_id": "T-CARTO-V3-B1",
+  "date": "2026-11-19",
+  "finalized": true,
+  "branch": "codex/v3-b1-xlink-builder",
+  "base_git": "2b83b176b19136b57888b670b3e816c2f0b46bd0",
+  "code_git": "86a2c499a8370091d17b07aaea7fcf768d358234",
+  "engine": "V3_B1_ENGINE_GO",
+  "cartographer_experimental_cad": "NOT_RUN",
+  "cartographer_design_admission": "NO_GO",
+  "physical_reception": "NOT_RUN",
+  "scope": "Bancs synthétiques scellés Windows amd64. A.1 exige des autorités locales avant mutation cartographe.",
+  "environment": {
+    "os": "Windows amd64",
+    "cxx": "MinGW UCRT 16.2.0 C++17",
+    "Qt": "6.11.2",
+    "FreeCAD": "1.1.3",
+    "OCCT": "7.8.1",
+    "Cables": "0.3.7"
+  },
+  "references": {
+    "admission": {
+      "path": "docs/verification/v3/a1/admission.json",
+      "sha256": "013d4c49842db5eafcdaa3420841844119eadaac199141228a3a4f850f084afb"
+    },
+    "freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "first_b": {
+      "path": "docs/verification/v3/b/acceptance.json",
+      "sha256": "ce3c668235636ca0baaa4254eba6c8c62854f73a4bbc42ded59cb00a9f59d300"
+    },
+    "schema": {
+      "path": "docs/electromechanical_v3/mutation_plan.schema.json",
+      "sha256": "dc1106776dd868f39dae2f7504953908ab2d2cc589fbe3707b0cf9db528411dc"
+    },
+    "c4_profile": {
+      "path": "docs/electromechanical_v3/bench_b1_c4/profile.json",
+      "sha256": "8228b1ac16f15319b22cc9e5f6abe02a62694ffd96f3d41441f09c88acdaeb66"
+    },
+    "workholding_profile": {
+      "path": "docs/electromechanical_v3/bench_b1_workholding/profile.json",
+      "sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4"
+    }
+  },
+  "tests": {
+    "B1-1": {
+      "status": "PASS",
+      "plan": "xlink-historical-c4-1",
+      "displacement_y_mm": 12,
+      "conductors": 4,
+      "contacts": 8,
+      "historical_crosscheck": {
+        "path": ".runtime/v3-b1/regressions/c4-independent.json",
+        "sha256": "d1e102a02c80e5475aedecc837e5f076221db88b0171490439896f4f785dd19f"
+      }
+    },
+    "B1-2": {
+      "status": "PASS",
+      "poses": [
+        {
+          "plan_id": "xlink-workholding-b1-1",
+          "world_matrix": [
+            -0.7071067811865475,
+            -0.7071067811865479,
+            0.0,
+            78.00000000000001,
+            0.7071067811865479,
+            -0.7071067811865475,
+            0.0,
+            42.0,
+            0.0,
+            0.0,
+            1.0,
+            7.000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "before_shape_sha256": "b37945f5dd2087093f9a7577ad4ddde1a2a19715b387f55b5d68fc9db938b96d",
+          "after_shape_sha256": "fd1615971a19da18195961c66c826cb52d88b69f36807c9a089e19186b444689"
+        },
+        {
+          "plan_id": "xlink-workholding-b1-2",
+          "world_matrix": [
+            0.49999999999999983,
+            -0.866025403784439,
+            0.0,
+            78.00000000000001,
+            0.866025403784439,
+            0.49999999999999983,
+            0.0,
+            45.0,
+            0.0,
+            0.0,
+            1.0,
+            8.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "before_shape_sha256": "b37945f5dd2087093f9a7577ad4ddde1a2a19715b387f55b5d68fc9db938b96d",
+          "after_shape_sha256": "791412e954f99298a20f51b21ac8c61b3d8fbb3c42d9f5bbe4d5190b5d75ee05"
+        }
+      ],
+      "independent_shared_occurrence": true
+    },
+    "B1-3": {
+      "status": "PASS",
+      "plans": [
+        "xlink-workholding-b1-1",
+        "xlink-workholding-b1-2"
+      ],
+      "bearing_area_mm2": {
+        "plate-existing": 55.999999999999986,
+        "plate-new": 62.23285413235574
+      }
+    },
+    "B1-4": {
+      "status": "PASS",
+      "boundary_probes": 15,
+      "boundary_result": {
+        "path": ".runtime/v3-b1/boundary-release/checks.json",
+        "sha256": "e32907b2defcca910a6fe1594c359f6471b218d52befee9698b1ba7af39f666a"
+      },
+      "native_verifier": "4 cas exécutés via l5_v3_native_verify, repère +3 mm, faux pinout, cache et appui.",
+      "measured_low_radius_mm": 3.4999999999999982,
+      "measured_support_gap_mm": 0.2999999999999998,
+      "plans": [
+        "xlink-workholding-b1-3",
+        "xlink-workholding-b1-4",
+        "xlink-workholding-b1-5",
+        "xlink-workholding-b1-6"
+      ]
+    },
+    "B1-5": {
+      "status": "NOT_RUN",
+      "read_only": "PASS",
+      "documents": 137,
+      "placements": 2772,
+      "source_files_byte_identical": 142,
+      "source_hashes": {
+        "path": "docs/verification/v3/b1/sources_cartographe.json",
+        "sha256": "c441060018e216a1d175db672155944b0e53892b6355ac8c94feb5e0786a5204"
+      },
+      "blockers": [
+        "isolation-module-design-pose",
+        "guide-design-domain"
+      ]
+    }
+  },
+  "plans": [
+    {
+      "plan_id": "xlink-historical-c4-1",
+      "status": "PASS",
+      "actions": [
+        "c4-move",
+        "c4-route"
+      ],
+      "construction": "PASS",
+      "candidate_state": "CANDIDATE",
+      "validation": "PASS",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/invocation.json",
+        "sha256": "203a48c7a34147307e67a1d7da547c0a698999c9326570670662d68a19fabeba"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/mutation-plan.json",
+        "sha256": "65135c8557cf2c53dd0c6c636449b47aa3888c6d537f62b8ba63fd7bd4852974"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/campaign.json",
+        "sha256": "fbc8f62bd98f33549d369c4a1e62a872e67ff301336271f376f90d7bb43f9f57"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/journal.json",
+        "sha256": "ec3ddbc2fe50d6b578696040aa9803f97fcb8521118db4af8b2ae73ed9f0643b"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/build.json",
+        "sha256": "8948ae7c7edb749bc5a31e7867000ad1d0b659ae7a63f9dd387d57f26e58d89e"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/baseline-validation.json",
+        "sha256": "68ab857796c0efbc3e6877b7fc87bb76bac2151d8e842fc555a2602ac10a93cb"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/t0_run_manifest.json",
+        "sha256": "22c30261d0782c19d94fcbe1944dadd2d23cf29c39b8bd160a344710b55744d9"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/t0-crosscheck.json",
+        "sha256": "878d6f6c9dc21a775c6f1c6be3fb7e826f2f44d3068031165bb6e162f5b7f207"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/candidate-validation.json",
+        "sha256": "eaf058812e7d2c57506b4d5740cf881700148608228d740101eecaebdbfb97fa"
+      },
+      "reopened_pid": 39740,
+      "builder_pid": 36824,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "f6280bca2d84ec6678d04f1df354e9f986cfd34fab3c1ca5daf09b4717ed0562"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-historical-c4-1/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "PASS",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "NOT_RUN",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS"
+      }
+    },
+    {
+      "plan_id": "xlink-workholding-b1-1",
+      "status": "PASS",
+      "actions": [
+        "move-root",
+        "route",
+        "relocate",
+        "create"
+      ],
+      "construction": "PASS",
+      "candidate_state": "CANDIDATE",
+      "validation": "PASS",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/invocation.json",
+        "sha256": "cc6e3a359592ad8ebbd1fb4cfb99657b2392bc73e2fa0076dcfde4254815e541"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/mutation-plan.json",
+        "sha256": "db7b61b35e2766923bb61c1ca48aa88d8f2b759764ab8d02840d07b4c39fa14f"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/campaign.json",
+        "sha256": "6920bba79c41d98fc522304a069c8088c874c75fbbfd9a4242deee6908a4d78f"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/journal.json",
+        "sha256": "c5402928c276f09f26aba4e52e9b1529640b8f98f6a491de9789a39e945f0692"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/build.json",
+        "sha256": "a4e40d1affdec69353b0fe7711b1c08d84d03ca6d4d6e178ed9073f9c4966ddc"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/baseline-validation.json",
+        "sha256": "34c8a05b416e2554719cc0f260f06feb21692182222dfdb56caabd485817b4b7"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/t0_run_manifest.json",
+        "sha256": "094e032f692ce6f6c817ef7f9f04e9d610ce6a1732f53c63286be01d013df94b"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/t0-crosscheck.json",
+        "sha256": "4c35824c431c4a5de4a4429d52f242569a624f78bfb9e1102f3f7bf51a75b692"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/candidate-validation.json",
+        "sha256": "690a16e8bd4182151df60f872bfa1c256b0837d2022c8e7090ea5a3d339a6125"
+      },
+      "reopened_pid": 37984,
+      "builder_pid": 33016,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "65ae5183125fe9db901a7f75d9a251f36dc10e4092476902f6d7bc8898e14796"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/cad/parts/FixtureAssets.FCStd",
+          "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-1/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "PASS",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS"
+      }
+    },
+    {
+      "plan_id": "xlink-workholding-b1-2",
+      "status": "PASS",
+      "actions": [
+        "move-parent",
+        "route",
+        "relocate",
+        "create"
+      ],
+      "construction": "PASS",
+      "candidate_state": "CANDIDATE",
+      "validation": "PASS",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/invocation.json",
+        "sha256": "c3d30ebf41993021f71934ac716dd5905a7640658372224abd61e40a53f33bdd"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/mutation-plan.json",
+        "sha256": "23d0745c671bec69db5eaa4a3eff52315326ff1e455159fb65b7bfba8583010b"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/campaign.json",
+        "sha256": "8d55766ecae701f935710bb27b139d5c36d20d66f1264a882cb28b8803341f35"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/journal.json",
+        "sha256": "799781c203317dfa58eaff067eb5c9ae6ac5741ad7660112cdddfc86f39e6240"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/build.json",
+        "sha256": "22099d9a428bb4b0953409095a5d182bd1f11497426a6561e2dec2e6ffafa02b"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/baseline-validation.json",
+        "sha256": "9b2fdabf95bd8b4eff92bea0ac773070d18f43cb01e9d0bd24e0d2538e19e15b"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/t0_run_manifest.json",
+        "sha256": "fc252b02a9b2dccb71d08db8f058b39e0a16a8c1a28ad2bf0fd47565a623c2a9"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/t0-crosscheck.json",
+        "sha256": "8981f3a623b1fc8bfd10cb5d2760ec85dcf9dbfb8508ba221d623159bfb238bf"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/candidate-validation.json",
+        "sha256": "d251cef2a36899c62f05ccee045f5ee72a4ac34cf681a48d728ec756ef16ddb7"
+      },
+      "reopened_pid": 9696,
+      "builder_pid": 40800,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "9e2fe95a7ef05daf84f6f5228e21e185d13bc2e925e70765aa4db0acd9c4b6b9"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/cad/parts/FixtureAssets.FCStd",
+          "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-2/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "PASS",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS"
+      }
+    },
+    {
+      "plan_id": "xlink-workholding-b1-3",
+      "status": "FAIL",
+      "actions": [
+        "collision"
+      ],
+      "construction": "PASS",
+      "candidate_state": "MEASURED_REJECTED",
+      "validation": "FAIL",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/invocation.json",
+        "sha256": "3b2bf421d75543765ee2f6fdf957e9de62fe6698589ac9df96a546975d02c419"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/mutation-plan.json",
+        "sha256": "224b3a13987e6445e999cace3fb27c3d88c7d33ee9629ffb7550a4a9f8f90e17"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/campaign.json",
+        "sha256": "b2c405271ff46a1ed047d38b45ecdbe2fbe9e5342f1b76bc0bd5cce3f47b355c"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/journal.json",
+        "sha256": "e241db2522d9e68102d63e93d3b92b470f4bec64ff9ca4e362fe6f8a305b7045"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/build.json",
+        "sha256": "2887bafad21f0af7b6238f68cb339b98ae6214a3ed746300952536aabe356b0d"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/baseline-validation.json",
+        "sha256": "4bcb4bfd93b310e8c7f82e465f50d67ad7ecdc6be5c93f5b32be9528a5d87042"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/t0_run_manifest.json",
+        "sha256": "7c76d8f40ec1a1dc3b3f9a197a8e119558d42933c7e869787fc2e0db9c758292"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/t0-crosscheck.json",
+        "sha256": "ff33a763594605bb98d09a2a4ab007c118a609162ee79277b9b1e034c53f0874"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/candidate-validation.json",
+        "sha256": "0103e1f853cc15ed7a732a82c985a66032c82293e6ff24bc84b6ab0ee2b6adf5"
+      },
+      "reopened_pid": 41672,
+      "builder_pid": 40204,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "216bc61e25880cb4b079eb8fe1d0a95c6ae5fc9a5979f78c79c3bfc4a911262c"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/cad/parts/FixtureAssets.FCStd",
+          "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-3/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS"
+      }
+    },
+    {
+      "plan_id": "xlink-workholding-b1-4",
+      "status": "FAIL",
+      "actions": [
+        "radius-low"
+      ],
+      "construction": "PASS",
+      "candidate_state": "MEASURED_REJECTED",
+      "validation": "FAIL",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/invocation.json",
+        "sha256": "47be5bff6059324a92d852dcbf4f7b7fc4bb6532ba17bb8d698256e5dd0a5049"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/mutation-plan.json",
+        "sha256": "222e869188bf993baf4815f82588ebd91ae01495c5e91394fc05b99cdb726b91"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/campaign.json",
+        "sha256": "c12ec196a701b196e0dc1bc934adb293d42f86502e1ea4280accf50609607084"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/journal.json",
+        "sha256": "3edac43b7759b98726229d19f2bb138e629c807457b621181c50ed222edd5033"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/build.json",
+        "sha256": "0fcd12f19e5df0a723a6bcf42b64fb34d39d73f2e18d3ee5adb14ec9991c7ccb"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/baseline-validation.json",
+        "sha256": "ec10d655d096a43b4561fbfafc4b5a0b01a5c171676a1469b113cc3df8e7ec86"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/t0_run_manifest.json",
+        "sha256": "70598757fdad9a7deb18aabecf7857b19f840aaae87a90a098b1c51497b3ea3c"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/t0-crosscheck.json",
+        "sha256": "a79a890798186ee64448e7e4f66f3e0fec74ddaf1317b529a34f2749efc2875f"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/candidate-validation.json",
+        "sha256": "2289137643ba9e7f5de26f30c67135f809138876241b0e9ceaeef16851db56c2"
+      },
+      "reopened_pid": 24372,
+      "builder_pid": 32940,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "ecf9146b065f42dd1cf0b990db4bb04e78d1c0f626cd06400e88d18c00d2c112"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/cad/parts/FixtureAssets.FCStd",
+          "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-4/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "PASS",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "FAIL"
+      }
+    },
+    {
+      "plan_id": "xlink-workholding-b1-5",
+      "status": "FAIL",
+      "actions": [
+        "move-root",
+        "duplicates"
+      ],
+      "construction": "FAIL",
+      "candidate_state": "ROLLED_BACK",
+      "validation": "NOT_RUN",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/invocation.json",
+        "sha256": "6614ca0cb9a30660f0f04ebae2df2bbda1b1913a727b2b7d9f40f35d135a95ce"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/mutation-plan.json",
+        "sha256": "640f01999ae01c281386152d6f60dd2788402493ab5844d9f907f83f754136bf"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/campaign.json",
+        "sha256": "442c5ef795e466f6b27d192a7adf4aaa7661cea7701a420ca3350ef80ddd12e5"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/journal.json",
+        "sha256": "a5a2d191d27a113bc442c386a155c7165717e0f3f837be2e802a22b7f46efd24"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/build.json",
+        "sha256": "d291f7effafca4e63b5b28d3352af5162469110d13323015369941625a6bc90f"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/baseline-validation.json",
+        "sha256": "d80da1842353e9ded6d9d4abc181d7a6d311c8909e3679513aaf68157ea19bdb"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/t0_run_manifest.json",
+        "sha256": "85d73e5681a791db91492952cab251f644c00c8bf3456a598d0698e30336b189"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-5/output/transaction/t0-crosscheck.json",
+        "sha256": "93749758e941d6067001f02e312f3074f87a15ea2103893214e6d2a23ef46542"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reason": "Deux points du parcours sont confondus."
+    },
+    {
+      "plan_id": "xlink-workholding-b1-6",
+      "status": "FAIL",
+      "actions": [
+        "floating"
+      ],
+      "construction": "PASS",
+      "candidate_state": "MEASURED_REJECTED",
+      "validation": "FAIL",
+      "invocation": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/invocation.json",
+        "sha256": "83e900f01c12c2df8990fca34ab90eaf73ec1d3b04917c8e3052fdd27e91700f"
+      },
+      "plan": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/mutation-plan.json",
+        "sha256": "ef314d3afd5401f0ff20ad4b7e3489615b1010d909360534dd70d6c1d24c1986"
+      },
+      "receipt": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/campaign.json",
+        "sha256": "47933a693e34998703263fa8c4c68861ced935a1b872dfec9244f62e3648a2fb"
+      },
+      "journal": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/journal.json",
+        "sha256": "1d2c3551932025bb247e550363ba789bac9046db25eb38ee059bd64e7b953e40"
+      },
+      "builder": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/build.json",
+        "sha256": "8fce99f2864ae8a91d2581e4d4d46f88ee053ffb1b7abaea9fef70f20cf01a24"
+      },
+      "baseline": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/baseline-validation.json",
+        "sha256": "f7fb89fb93966365195e443d097263cf01dda3808e4790f498b3696ce21f6124"
+      },
+      "t0": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/t0_run_manifest.json",
+        "sha256": "21235f4bed587b27b982d3ef8fd7341ead2f2f5efabe2d201d62320cf18d88b6"
+      },
+      "t0_crosscheck": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/t0-crosscheck.json",
+        "sha256": "ce20cc7a463af3162f796ec23c55987b0af69a779f6408c0ca80451b1f7086c9"
+      },
+      "native_mutation": {
+        "builder_sha256": "16cae0fbe8d9d415548e5341a984723004f5969baba716f721143ade6aa290ce",
+        "freecad_python_sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+        "l5_sha256": "07ac78f8c2a08a3db1a897aa422b0fbcd59bb0d4c6615537409d08d939221307",
+        "t0_validator_sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d",
+        "verifier_sha256": "25dd541ee400ed674fb9d8e08c851b006da67e732de176f563c14213b03a45ed"
+      },
+      "reopened": {
+        "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/candidate-validation.json",
+        "sha256": "b4a97b1c4501647033c6e7e318d04bb78c70e425ef6cee76563e3dfac1ed9be9"
+      },
+      "reopened_pid": 38740,
+      "builder_pid": 26116,
+      "native": [
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/cad/Banc_Interconnexion.FCStd",
+          "sha256": "b45601aa159118dd0c9ef34693453ff9d10da741d9b75d2b8d5ed4851295beab"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/cad/parts/FixtureAssets.FCStd",
+          "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+        },
+        {
+          "path": ".runtime/v3-b1/verified/xlink-workholding-b1-6/output/transaction/cad/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      ],
+      "native_checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "FAIL",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS"
+      }
+    }
+  ],
+  "capabilities": {
+    "path": "docs/verification/v3/b1/capabilities.json",
+    "sha256": "f89dd475e6338f78736c73e7fc65def42028e2a8ea47cfe7fcc9ac77fbe93310"
+  },
+  "artifact_manifest": {
+    "path": "docs/verification/v3/b1/artifacts.json",
+    "sha256": "c6b34090618f5bd67b30edae4ba006640a5a7b9cee3ad5a935aaa9e74d56fec4"
+  },
+  "regressions": {
+    "path": "docs/verification/v3/b1/regressions.json",
+    "sha256": "5dc741b07e91a04657213befeec466c6f7594bf6a43a1a6d56281a2260b2f241"
+  },
+  "b2_historical": {
+    "pairs": 1609,
+    "collisions": 7,
+    "remeasured": 0,
+    "reused": 0
+  },
+  "next_gate": {
+    "v3_c": "BENCH_SCOPE_ONLY",
+    "v3_d": "NOT_RUN",
+    "go3a_go3b_go4": "NOT_RUN",
+    "requirement": "Nouveaux profils et autorités avant de proposer des mutations hors des bancs scellés."
+  }
+}

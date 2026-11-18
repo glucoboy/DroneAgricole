@@ -1,0 +1,687 @@
+{
+  "schema": "v3.b1.regressions/1",
+  "base_git": "742a5ac4f167bba0ef03b65053412bddbde0ecc9",
+  "environnement": {
+    "os": "Windows",
+    "architecture": "amd64",
+    "cxx": "GNU MinGW UCRT 16.2.0 C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "ctest_python": "3.14.7",
+    "runner_python": "3.14.7",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "QT_QPA_PLATFORM": "offscreen",
+    "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+  },
+  "gel_v3a": {
+    "acceptance": {
+      "path": "docs/verification/v3/a/acceptance.json",
+      "sha256": "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31"
+    },
+    "freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "groupes": {
+      "acceptance_inputs": {
+        "entries_checked": 6,
+        "differences": []
+      },
+      "acceptance_proofs": {
+        "entries_checked": 4,
+        "differences": []
+      },
+      "freeze_inputs": {
+        "entries_checked": 211,
+        "differences": []
+      },
+      "freeze_historical": {
+        "entries_checked": 6,
+        "differences": []
+      },
+      "freeze_criteria": {
+        "entries_checked": 4,
+        "differences": []
+      },
+      "freeze_artifacts": {
+        "entries_checked": 14,
+        "differences": []
+      },
+      "freeze_implementation": {
+        "entries_checked": 55,
+        "differences": [
+          {
+            "path": "convergence_manager/src/Main.cpp",
+            "expected_sha256": "aba30f242f11ad37fde3815c8a2aea0a42f820b04390149e0f8b541ac47e6ca9",
+            "actual_sha256": "6dfcb09f42b6db541026e3885532d5908341fa7b742b5f121563f38f742b5c98",
+            "base_git_blob_sha256": "58308bb1bfda529b1350f560748e86680317b2aa96f255063db4c3d09953bbf5"
+          }
+        ]
+      },
+      "native_inputs": {
+        "entries_checked": 142,
+        "differences": []
+      },
+      "b2_historical": {
+        "entries_checked": 14,
+        "differences": []
+      }
+    }
+  },
+  "rejeu": {
+    "Graphe_CTest": {
+      "id": "graphe-ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-b1/regressions/build-graph",
+        "-R",
+        "v3_graph_contract|^l2_interconnection$",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-b1/regressions/graphe-ctest.xml"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/graphe-ctest.log",
+        "sha256": "8b45eccbc53f64b939601a60ee46600b023cff0a0c51e3bfd4cc9ae1c901d865"
+      },
+      "junit": {
+        "path": ".runtime/v3-b1/regressions/graphe-ctest.xml",
+        "sha256": "44284a7ac77c25633e141934f169bac23acb3b81fff5b6772bd51dc355a74c82"
+      },
+      "tests": {
+        "v3_graph_contract": "PASS",
+        "l2_interconnection": "PASS"
+      }
+    },
+    "Graphe_V3_A_et_T0": {
+      "id": "graphe-reference",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "electromechanical_graph/tests/verify_reference.py",
+        "--core",
+        ".runtime/v3-b1/regressions/build-graph/electromechanical_graph_core.exe",
+        "--native",
+        ".runtime/v3-b1/regressions/native.json",
+        "--transfer-report",
+        ".runtime/v3-b1/regressions/native/transfer.json",
+        "--bench-native",
+        ".runtime/v3-a/bench-final.json",
+        "--t0-validator",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--out",
+        ".runtime/v3-b1/regressions/graphe"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/graphe-reference.log",
+        "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+      },
+      "preuves": [
+        {
+          "path": ".runtime/v3-b1/regressions/graphe/checks.json",
+          "sha256": "644f52837cd1c549f99243bdf9135762fe4e72dc22f653d95a059ac3997036d1"
+        },
+        {
+          "path": ".runtime/v3-b1/regressions/graphe/t0_run_manifest.json",
+          "sha256": "522b4c84aa13a000e3471f0a0a9b6d1d290164ff805b8d451f50d1f4426e309c"
+        }
+      ],
+      "graphes_reproduits": [
+        {
+          "path": ".runtime/v3-b1/regressions/graphe/cartographe-graph.json",
+          "sha256": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+        },
+        {
+          "path": ".runtime/v3-b1/regressions/graphe/transfer-graph.json",
+          "sha256": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+        },
+        {
+          "path": ".runtime/v3-b1/regressions/graphe/bench-graph.json",
+          "sha256": "53b9b268e39fcb274a8df4641e67d9944bee12b4701fc9ccec1939e597a27dbe"
+        }
+      ],
+      "observations": {
+        "bench_oracle_sha256": "69c6c8b52f409754536308d9a3ca28804c0d35e4ed3f5cda027614066c6bb8eb",
+        "cases": {
+          "bench": [
+            {
+              "additional_nodes": 3,
+              "artifact": "bench-move.json",
+              "operation": "MOVE",
+              "required_checks_found": 1,
+              "required_nodes_found": 2,
+              "sha256": "eda357169e69eee85c86998a9013bb4fb48c1ad4f6e42d1d500519508d3e1161",
+              "status": "PASS",
+              "target": "equipment-7"
+            },
+            {
+              "additional_nodes": 2,
+              "artifact": "bench-retention.json",
+              "operation": "RETENTION",
+              "required_checks_found": 1,
+              "required_nodes_found": 1,
+              "sha256": "667cc8667fd289c19eef3f5bb804ff9b88f574fe14d927cb190ab143fc22c2e9",
+              "status": "PASS",
+              "target": "guide-4"
+            },
+            {
+              "additional_nodes": 2,
+              "artifact": "bench-frame.json",
+              "operation": "FRAME",
+              "required_checks_found": 1,
+              "required_nodes_found": 1,
+              "sha256": "668387f02e4666ff55bb31bea737c7b3760a2f243bb7c5d5e3d294cba128419a",
+              "status": "PASS",
+              "target": "datum-7"
+            }
+          ],
+          "cartographe": [
+            {
+              "additional_nodes": 164,
+              "artifact": "cartographe-move.json",
+              "operation": "MOVE",
+              "required_checks_found": 10,
+              "required_nodes_found": 34,
+              "sha256": "3b6574b7d91c0953c96536d444eca151926432cb46bc87e4d37fad45bb3f4de7",
+              "status": "PASS",
+              "target": "iso"
+            },
+            {
+              "additional_nodes": 160,
+              "artifact": "cartographe-retention.json",
+              "operation": "RETENTION",
+              "required_checks_found": 8,
+              "required_nodes_found": 21,
+              "sha256": "2aca2fb262a6528f4a0c3bd876e8b79db6b467fef9727a7d56de6fbec78adc09",
+              "status": "PASS",
+              "target": "p72"
+            },
+            {
+              "additional_nodes": 173,
+              "artifact": "cartographe-frame.json",
+              "operation": "FRAME",
+              "required_checks_found": 5,
+              "required_nodes_found": 10,
+              "sha256": "7ff65882802a21a107709d4662e4fb581ae7ef56c86d85775ffab52db27e3385",
+              "status": "PASS",
+              "target": "ttl-reference"
+            }
+          ],
+          "transfer": [
+            {
+              "additional_nodes": 164,
+              "artifact": "transfer-move.json",
+              "operation": "MOVE",
+              "required_checks_found": 10,
+              "required_nodes_found": 34,
+              "sha256": "3b6574b7d91c0953c96536d444eca151926432cb46bc87e4d37fad45bb3f4de7",
+              "status": "PASS",
+              "target": "iso"
+            },
+            {
+              "additional_nodes": 160,
+              "artifact": "transfer-retention.json",
+              "operation": "RETENTION",
+              "required_checks_found": 8,
+              "required_nodes_found": 21,
+              "sha256": "2aca2fb262a6528f4a0c3bd876e8b79db6b467fef9727a7d56de6fbec78adc09",
+              "status": "PASS",
+              "target": "p72"
+            },
+            {
+              "additional_nodes": 173,
+              "artifact": "transfer-frame.json",
+              "operation": "FRAME",
+              "required_checks_found": 5,
+              "required_nodes_found": 10,
+              "sha256": "7ff65882802a21a107709d4662e4fb581ae7ef56c86d85775ffab52db27e3385",
+              "status": "PASS",
+              "target": "ttl-reference"
+            }
+          ]
+        },
+        "graph_sha256": {
+          "bench": "53b9b268e39fcb274a8df4641e67d9944bee12b4701fc9ccec1939e597a27dbe",
+          "cartographe": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f",
+          "transfer": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+        },
+        "oracle_sha256": "298df30d6bdb1acceb6906d20bc0cf617aafa83ee69b30fb9fc547daa1d821a8",
+        "rejected": {
+          "altered_graph_sha256": "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-b1/regressions/graphe/invalid-missing_anchor.json : empreinte SHA-256 divergente",
+          "altered_native_sha256": "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-b1/regressions/graphe/invalid-native.json : empreinte SHA-256 divergente",
+          "axis_as_port_authority": "Un repère de port indépendant est requis : mating_frame",
+          "existing_output": "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-b1/regressions/graphe/cartographe-graph.json : une nouvelle destination JSON est requise",
+          "failed_transfer": "Inventaire XLink incomplet",
+          "forbidden_operation_subject": "Cible sans fonction de retenue : port:W40/A",
+          "incomplete_connector": "Inventaire de port incomplet : port:W40/B/mating_frame",
+          "missing_anchor": "Relation sans nœuds distincts : anchor:iso-carrier / surface:p64-candidate",
+          "missing_route": "Relation d'autorité absente : link:W40 ROUTING:link:W40->axis:F40",
+          "missing_topology": "Topologie obligatoire : link:W40"
+        },
+        "schema": "v3.reference-checks/1",
+        "status": "PASS"
+      }
+    },
+    "L4_L2_CTest": {
+      "id": "l4-l2-ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-b1/regressions/build-l4",
+        "-j",
+        "2",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-b1/regressions/l4-l2-ctest.xml"
+      ],
+      "cwd": ".",
+      "exit_code": 8,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/l4-l2-ctest.log",
+        "sha256": "12aa195b8ba0378d73c8516eee29bdd34bf2d1d2a376d781ea5387e0480d75e0"
+      },
+      "junit": {
+        "path": ".runtime/v3-b1/regressions/l4-l2-ctest.xml",
+        "sha256": "4ffa934d8846a9306f7765f5f04103d06417e29e1284946c3f716f5e7e9126fc"
+      },
+      "tests": {
+        "l4_mechanical_rules": "PASS",
+        "v21_xlink_electrical": "PASS",
+        "v21_xlink_native": "PASS",
+        "v21_xlink_cli": "PASS",
+        "l4_contract": "PASS",
+        "l2_interconnection": "PASS",
+        "l2_reconcile": "FAIL"
+      }
+    },
+    "L2_rapprochement_CRLF": {
+      "id": "l2-historique",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        ".runtime/v3-b1/regressions/l2-private/interconnection_engine/tests/test_reconcile.py",
+        ".runtime/v3-b1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "-v"
+      ],
+      "cwd": ".runtime/v3-b1/regressions/l2-private",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/l2-historique.log",
+        "sha256": "bd6b00066cd96e0ec3a92921ebf7c641b507b9e1160eab63719e1c9395c08f5f"
+      },
+      "copies_sources_inchangees": 117,
+      "manifestes": {
+        "actif": {
+          "path": "hardware/mecanique/cartographe/manifest.json",
+          "sha256": "4f8f071106d862a34292214dc17d6f9d078f9067b8149288103fd8e1ebca90e6"
+        },
+        "temoin_historique": {
+          "path": ".runtime/v3-b1/regressions/l2-private/hardware/mecanique/cartographe/manifest.json",
+          "sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8"
+        },
+        "crlf_temoin": 51110,
+        "equivalence_en_memoire": true
+      },
+      "tests_passed": 7
+    },
+    "Q2": {
+      "id": "q2",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        ".runtime/v3-b1/regressions/q2-history",
+        "--binary",
+        ".runtime/v3-b1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-b1/regressions/q2"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/q2.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preuves": {
+        "path": ".runtime/v3-b1/regressions/q2/evidence.json",
+        "sha256": "aa3391b7dde4470a8f7d69edff5aff973d4da0bbd6c159138d27e198aebde5db"
+      },
+      "etat": "PASS",
+      "cas": {
+        "nominal": "PASS",
+        "f12-bad-port": "PASS",
+        "swapped-conductors": "PASS",
+        "bad-key": "PASS",
+        "unmatched-exit": "PASS",
+        "matched-fictional-exit": "PASS",
+        "blocked-withdrawal": "PASS",
+        "unverified-mpn": "PASS",
+        "hardware-revision-conflict": "PASS",
+        "missing-contact": "PASS",
+        "approximate-model": "PASS",
+        "cad-as-supplier-proof": "PASS"
+      }
+    },
+    "Q3": {
+      "id": "q3",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "validation_engine/tests/probe_xlink_checkpoint.py",
+        ".runtime/v3-b1/regressions/build-l4/validation_core.exe",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        ".runtime/v3-b1/regressions/q3"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/q3.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preuves": {
+        "path": ".runtime/v3-b1/regressions/q3/result.json",
+        "sha256": "4ada9ccc654c297965157b934cf276eaf9f3390b1f4e4d61822dcc1d94eb94c8"
+      },
+      "etat": "PASS",
+      "initial_intersection_mm3": 7.652891819924148,
+      "initial_t0": {
+        "id": "q3-t0-initial",
+        "argv": [
+          ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+          "validate",
+          ".runtime/v3-b1/regressions/q3/campaign/run-0ee370be-1c87-449b-961b-fa0e09508665",
+          "."
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/q3-t0-initial.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        }
+      },
+      "resumed_intersection_mm3": 7.652891819924148,
+      "resumed_t0": {
+        "id": "q3-t0-resumed",
+        "argv": [
+          ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+          "validate",
+          ".runtime/v3-b1/regressions/q3/campaign/run-47c0e501-402c-4761-9f81-95cfbedb303b",
+          "."
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/q3-t0-resumed.log",
+          "sha256": "f3645caf0eb3c6274bdc74861ba0782fa666c4e39e51340cc04ac303429c09d2"
+        }
+      },
+      "resumed_tasks": 0
+    },
+    "V3_XLink_natif": {
+      "id": "v3-native-tests",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "electromechanical_engine.tests.test_v3_native",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/v3-native-tests.log",
+        "sha256": "a99a6773e278c9796e67da3fa5c98f61099a95869ae6fbe24eac8255f1c7e719"
+      },
+      "tests_passed": 7
+    },
+    "Cables_natif": {
+      "id": "electromechanical-native-tests",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "electromechanical_engine/tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/electromechanical-native-tests.log",
+        "sha256": "7bd36b88ce902550c79d6d17f7656e34ec08ee02d537ff2e2bd0141e66167231"
+      },
+      "tests_passed": 84
+    },
+    "Q1": {
+      "status": "PASS",
+      "tests": 11,
+      "cwd": ".runtime/v3-a-regressions/q1-private",
+      "argv": [
+        "python",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\tests\\test_admission.py",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-b1\\build\\convergence_core.exe",
+        "-v"
+      ],
+      "log": {
+        "path": ".runtime/v3-b1/regressions/q1-current.log",
+        "sha256": "8f503c02cc4531db4b86edb0078bf8a4d4259fbff58495fe67b6c5fa66b13096"
+      }
+    },
+    "L5_final": {
+      "status": "PASS",
+      "tests": {
+        "l5_Campaign": "PASS",
+        "l5_Selection": "PASS",
+        "l5_v3_admission_entry": "PASS",
+        "l5_v3_admission_policy": "PASS",
+        "l5_v3_native_mutate": "PASS",
+        "l5_v3_native_verify": "PASS",
+        "l5_cli": "PASS",
+        "v3_graph_contract": "PASS",
+        "l2_interconnection": "PASS"
+      },
+      "proof": {
+        "path": ".runtime/v3-b1/regressions/sealed-l5.xml",
+        "sha256": "d612e97d715f0454b3726599c98868c469a11c0e7a839ad6aa9e175b32fb70c8"
+      },
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-b1/final-build",
+        "-R",
+        "^(l5_|v3_graph_contract|l2_interconnection)",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-b1/regressions/sealed-l5.xml",
+        "-j",
+        "4"
+      ]
+    },
+    "plans_schema": {
+      "status": "PASS",
+      "tool": "PowerShell Test-Json",
+      "plans": 7
+    },
+    "t0_after_publication": {
+      "status": "PASS",
+      "manifests": 7,
+      "log": {
+        "path": ".runtime/v3-b1/regressions/t0-published.log",
+        "sha256": "99b37fe8c545f783d7992fb688c8b6f35bf119d6cf4b477c4e9f5fddf2589bb8"
+      }
+    }
+  },
+  "cartographe_natif": {
+    "id": "cartographer-native",
+    "argv": [
+      "C:\\msys64\\ucrt64\\bin\\python.exe",
+      "-B",
+      "-m",
+      "electromechanical_engine.v3_native",
+      "--freecad-python",
+      "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+      "--source",
+      "hardware/mecanique/cartographe",
+      "--entry",
+      "assemblages/Prototype_Cartographe.FCStd",
+      "--work",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-b1\\regressions\\native",
+      "--output",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-b1\\regressions\\native.json",
+      "--extra",
+      "manifest.json",
+      "--extra",
+      "nomenclature_prototype.json",
+      "--extra",
+      "verification/refonte_faisceaux/inventaire.json",
+      "--extra",
+      "verification/routes_prototype.json",
+      "--extra",
+      "verification/construction_prototype.json",
+      "--timeout",
+      "180"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "log": {
+      "path": ".runtime/v3-b1/regressions/cartographer-native.log",
+      "sha256": "43d18f8c98dad79702ca6131a990626fd0615a56ef2cf225d19f726c5b5d71c2"
+    },
+    "proof": {
+      "path": ".runtime/v3-b1/regressions/native.json",
+      "sha256": "a3d63df6327d5864b31c6de455c922147df64e614a7be6f38321bd66630bdd4f"
+    },
+    "source_files_unchanged": 142,
+    "native_documents": 137,
+    "placements": 2772,
+    "transfer": {
+      "path": ".runtime/v3-b1/regressions/native/transfer.json",
+      "sha256": "bbc2a9fbed7814c99d2fae478e81250839e3167605e0e743cc9071987f76ea3b"
+    }
+  },
+  "compilations": {
+    "electromechanical_graph": [
+      {
+        "id": "build-graph-configure",
+        "argv": [
+          "cmake",
+          "-S",
+          "electromechanical_graph",
+          "-B",
+          ".runtime/v3-b1/regressions/build-graph",
+          "-G",
+          "Ninja",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_CXX_STANDARD=17",
+          "-DCMAKE_CXX_STANDARD_REQUIRED=ON"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/build-graph-configure.log",
+          "sha256": "7ab7f9ba9cee8eb05662eba91c3f0d7d2de57d56a8463b085d9b00dfb2009cd5"
+        }
+      },
+      {
+        "id": "build-graph-compile",
+        "argv": [
+          "cmake",
+          "--build",
+          ".runtime/v3-b1/regressions/build-graph",
+          "--parallel",
+          "4"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/build-graph-compile.log",
+          "sha256": "71aa391ec7d7e291b419a7f40fba91919e14ac2394ab4e8b66ed126e267d70f6"
+        }
+      }
+    ],
+    "validation_engine": [
+      {
+        "id": "build-l4-configure",
+        "argv": [
+          "cmake",
+          "-S",
+          "validation_engine",
+          "-B",
+          ".runtime/v3-b1/regressions/build-l4",
+          "-G",
+          "Ninja",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_CXX_STANDARD=17",
+          "-DCMAKE_CXX_STANDARD_REQUIRED=ON"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/build-l4-configure.log",
+          "sha256": "f8db5532a3251efcc504d974328bfb44b770e008b9cfe13f892936af0f260c17"
+        }
+      },
+      {
+        "id": "build-l4-compile",
+        "argv": [
+          "cmake",
+          "--build",
+          ".runtime/v3-b1/regressions/build-l4",
+          "--parallel",
+          "4"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "log": {
+          "path": ".runtime/v3-b1/regressions/build-l4-compile.log",
+          "sha256": "71aa391ec7d7e291b419a7f40fba91919e14ac2394ab4e8b66ed126e267d70f6"
+        }
+      }
+    ]
+  },
+  "b2_historique": {
+    "couverture": {
+      "path": "docs/verification/v21_b2/coverage.json",
+      "sha256": "dbadbac0d99efd37dd800c224060ec1c29440e1153cd16fae50dc8424c3275fa"
+    },
+    "paires": 1609,
+    "collisions": 7,
+    "paires_remesurees": 0,
+    "statut": "HISTORICAL_ONLY",
+    "observations_reused": 0,
+    "historical_proof_entries_checked": 14
+  },
+  "outils": [
+    {
+      "path": ".runtime/v3-b1/regressions/build-graph/electromechanical_graph_core.exe",
+      "sha256": "b312e9d41ed177a333e937978ebf5dbae5b6eb325792339ed6fb37fce240c7f6"
+    },
+    {
+      "path": ".runtime/v3-b1/regressions/build-l4/interconnection/interconnection_core.exe",
+      "sha256": "339aeb0f39c2f6f647b076b32f1373ed95e38adcc3b9a8921be9c2e38d1de4e0"
+    },
+    {
+      "path": ".runtime/v3-b1/regressions/build-l4/validation_core.exe",
+      "sha256": "0a7fc6c3a02c3aab41899dea0c95cf653d2a28403c1b25ebb3fe67b8e8f3d29d"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d"
+    }
+  ]
+}

@@ -221,13 +221,37 @@ dupliquées avant le dispatch et produit le reçu de décision après évaluatio
 Le chemin de campagne historique est distinct.
 
 Les quatre opérations du banc atteignent la frontière de dispatch
-`BENCH_TEST_ONLY`. Les opérateurs CAO natifs sont **Planifiés** pour B.1,
-qui devra vérifier les entrées au début de la transaction, travailler sur
-une copie de travail dédiée et valider le candidat après réouverture.
+`BENCH_TEST_ONLY`. Le reçu A.1 consigne l’admission seule. Le chemin de
+construction est disponible via `v3-build` à partir de B.1.
 L’admission virtuelle du cartographe exige une copie fermée en lecture
 seule. L’exploration native et l’admission de conception restent **À valider**.
 [Schéma](../electromechanical_v3/admission_scope.schema.json) ·
 [Validation et recette](../VALIDATION_QUALIFICATION.md#cartographe-v3-a1)
+
+#### Construction transactionnelle XLink V3 B.1 — Implémenté
+
+`convergence_core v3-build` passe par `ProcessBackend::buildV3` puis
+`runV3Mutation`. Le CLI vérifie l’identité du plan et sa composition.
+La politique A.1 compare chaque action à un profil de banc épinglé par
+SHA-256. Le profil porte les paramètres, la portée et les autorités.
+L5 appelle le moteur V3-A pour fermer l’impact de chaque action avant
+la copie et revalide les empreintes des documents natifs.
+
+Le worker FreeCAD applique les opérateurs à un document d’entrée possédé
+par la transaction. Les définitions XLink partagées sont référencées par
+leurs octets d’origine. Un autre processus recalcule les documents depuis
+une seconde copie et mesure les repères, les contacts, les conducteurs,
+les solides, les rayons, les appuis et les volumes de service. L5 publie
+la transaction par renommage après validation T0 indépendante. Une
+interruption laisse un dossier privé journalisé et permet une reprise
+dans un dossier de travail neuf. Les cas géométriques mesurés et rejetés
+restent inspectables.
+
+Le dispatch couvre les quatre opérateurs du banc. Les changements de
+variante de connecteur et de topologie ont un contrat et rendent
+`UNSUPPORTED`. Le domaine d’exécution est `SYNTHETIC_BENCH`.
+[Schéma](../electromechanical_v3/mutation_plan.schema.json) ·
+[Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-b1)
 
 ## 3. Contexte et déploiement
 
@@ -1198,6 +1222,7 @@ rend `FINAL_NO_GO`.
 ## Journal de modifications
 
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
+- **19 novembre 2026** — Constructeur XLink B.1 et validation indépendante raccordés à L5 sur profils de banc scellés (§2.6).
 - **18 novembre 2026** — Admission V3-A.1 intégrée au point de construction L5 sur banc XLink scellé (§2.6).
 
 | Date | Modification |
