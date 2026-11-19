@@ -1,0 +1,391 @@
+{
+  "schema": "v3.a3.regressions/1",
+  "date": "2026-11-19",
+  "environment": "Windows amd64, Qt 6.11.2, FreeCAD 1.1.3 / OCCT 7.8.1 / Cables 0.3.7",
+  "tools": {
+    "convergence_core": {
+      "path": ".runtime/v3-i/build/convergence_core.exe",
+      "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+    },
+    "test_A1_entry": {
+      "path": ".runtime/v3-i/build/test_l5_v3_admission_entry.exe",
+      "sha256": "64e554a7c4519899275776ba1ca83e90269be0b9ac02209bd610c0f48f93dc4e"
+    },
+    "test_A1_policy": {
+      "path": ".runtime/v3-i/build/test_l5_AdmissionScope.exe",
+      "sha256": "0e2b3fccb2778bed056847eada467e9008b5a636994b4968ae5c0176072307fa"
+    },
+    "interconnection_core_Q2": {
+      "path": ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+      "sha256": "4305bb0e7611e49a07f2c1d0ecd83ec57ad96144182ea7c40a4394c3e8fa40c6"
+    },
+    "t0": {
+      "path": ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d"
+    },
+    "python": {
+      "path": "C:\\Users\\Utilisateur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "sha256": "7ca24f26d6e3f463419ee4f537ddd3acd312c38fe45e678cce08572f26a8bd1a"
+    },
+    "freecad_python": {
+      "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+    }
+  },
+  "actual_tests": {
+    "native_checkout_first_attempt": {
+      "cwd": ".",
+      "argv": [
+        "python",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        ".runtime/v3-a3/native"
+      ],
+      "exit_code": 1,
+      "status": "EXPECTED_SEAL_REFUSAL",
+      "limit": "Les trois auxiliaires divergent à cause des fins de ligne, avant toute ouverture."
+    },
+    "native_replay": {
+      "cwd": ".runtime/v3-a3/replica",
+      "argv": [
+        "python",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        ".runtime/rejeu-a3"
+      ],
+      "exit_code": 0,
+      "status": "MEASURED",
+      "reopened_cases": [
+        "reference",
+        "H03-A",
+        "H03-B",
+        "consolidee"
+      ],
+      "proof": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/measurements.json",
+        "sha256": "e6b8a21b8083c2220e5a98e9f2bf4a8402c00c677bd916ebcd7ca3f2d65219d6"
+      }
+    },
+    "screen_replay": {
+      "cwd": ".runtime/v3-a3/replica",
+      "argv": [
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "-B",
+        "hardware/mecanique/cartographe/verification/go3b/interfaces_screen.py",
+        ".runtime/criblage-a3",
+        ".runtime/criblage-a3.json",
+        "--routes"
+      ],
+      "exit_code": 0,
+      "status": "INCONCLUSIVE_PHYSICAL",
+      "signals": {
+        "TTL_probes_with_PDB": 9,
+        "USB_50mm_probes_with_P72": 5,
+        "routes_with_intersections": 12
+      },
+      "proof": {
+        "path": ".runtime/v3-a3/replica/.runtime/criblage-a3.json",
+        "sha256": "a6d05722b4041edcfcd99afb15250bd32710f0d84159eaaa1fe385e76379ec4c"
+      },
+      "limit": "Criblage de gabarits et routes temporaires, avertissements de congé."
+    },
+    "A1_policy": {
+      "argv": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\test_l5_AdmissionScope.exe",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a3-worktree",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a3-worktree\\.runtime\\v3-a3\\a1-policy.json"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a3/a1-policy.json",
+        "sha256": "9ed4ec098f9ea5e48d4c891e88059353db7c4a32b648b1e48dfe54ef711088bf"
+      },
+      "cases_not_run": [
+        {
+          "id": "HARD_LINK_TO_SOURCE",
+          "reason": "Acc�s refus�",
+          "status": "NOT_RUN"
+        },
+        {
+          "id": "VIRTUAL_ORACLES",
+          "reason": "Copie et graphe V3-A historiques à reproduire",
+          "status": "NOT_RUN"
+        }
+      ],
+      "limit": "Les trois observations virtuelles sont vérifiées dans le test de portée A.3. La garde de lien physique a également un témoin distinct dans le rejeu V3-I."
+    },
+    "A1_entry": {
+      "argv": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\test_l5_v3_admission_entry.exe",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\convergence_core.exe",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a3-worktree\\.runtime\\v3-a3\\a1-entry.json"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a3/a1-entry.json",
+        "sha256": "3eac7cd943d9194b01c48320bd0410572edad9e3290e7973279b92810035ea1a"
+      },
+      "junction_redirections": "NOT_RUN",
+      "limit": "Jonction Windows refusée par l’OS dans le worktree. Le rejeu V3-I couvre cette garde."
+    },
+    "B1": {
+      "argv": [
+        "python",
+        "-B",
+        "convergence_manager/tests/replay_v3_b1.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\convergence_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a-regressions\\build-t0\\cartographe-evidence.exe",
+        "--profile",
+        "docs/electromechanical_v3/bench_b1_c4/profile.json",
+        "--profile",
+        "docs/electromechanical_v3/bench_b1_workholding/profile.json",
+        "--output",
+        ".runtime/v3-a3/b1"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a3/b1/replay.json",
+        "sha256": "5bb45acd80eb80204902f54250d11a3081a672d386246847ac64758797ecc6be"
+      },
+      "cases": [
+        {
+          "plan_id": "xlink-historical-c4-1",
+          "status": "PASS",
+          "operations": [
+            "c4-move",
+            "c4-route"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-historical-c4-1/output/transaction/campaign.json",
+          "sha256": "7bbbca4aec82a94a060d6fb39d981abe822eba6b9f8d45e0f64d0009d26e37d1",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-historical-c4-1/invocation.json",
+            "sha256": "b36bd4e5b490c2a0020f725ef09fa1f9943f1685810f7cc5386a92daeb91aec3"
+          },
+          "exit_code": 0
+        },
+        {
+          "plan_id": "xlink-workholding-b1-1",
+          "status": "PASS",
+          "operations": [
+            "move-root",
+            "route",
+            "relocate",
+            "create"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-1/output/transaction/campaign.json",
+          "sha256": "19dd1194496606ea50f6852b29e2688095f7809cc6881b5d7a4bd447c736af97",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-1/invocation.json",
+            "sha256": "5f275f9ae6330914594d32dfaeba98e74d78424a6ba7118f1bf6322c82b3f339"
+          },
+          "exit_code": 0
+        },
+        {
+          "plan_id": "xlink-workholding-b1-2",
+          "status": "PASS",
+          "operations": [
+            "move-parent",
+            "route",
+            "relocate",
+            "create"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-2/output/transaction/campaign.json",
+          "sha256": "22ef4d40389693582d1fa85b06f7efd9230de278a3604d30f088b5814e5a3e3e",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-2/invocation.json",
+            "sha256": "86e81078defcd5fce1fdcdfe52451d1568f4418be40091fee96af7644bc62ec4"
+          },
+          "exit_code": 0
+        },
+        {
+          "plan_id": "xlink-workholding-b1-3",
+          "status": "FAIL",
+          "operations": [
+            "collision"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-3/output/transaction/campaign.json",
+          "sha256": "dd62f7a125300347fb66d58702443a0df83435eef71d670c8002218c851d6e89",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-3/invocation.json",
+            "sha256": "42cc887c7ba14f45342d202b0e60e620c9f69883f0fb1e92e55ea2d392fae361"
+          },
+          "exit_code": 2
+        },
+        {
+          "plan_id": "xlink-workholding-b1-4",
+          "status": "FAIL",
+          "operations": [
+            "radius-low"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-4/output/transaction/campaign.json",
+          "sha256": "f9b3126d0a330803445b067daf3670a388af85da9c4a0d57c36ffa2942d24bad",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-4/invocation.json",
+            "sha256": "e8c907b4f38c0e39423b36a03fb279b70f688cc11dba9f34d74a77d80e05cd36"
+          },
+          "exit_code": 2
+        },
+        {
+          "plan_id": "xlink-workholding-b1-5",
+          "status": "FAIL",
+          "operations": [
+            "move-root",
+            "duplicates"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-5/output/transaction/campaign.json",
+          "sha256": "c25b5013a1faf323c72d29fd6c728d2008331de4002aab242d67337444105e32",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-5/invocation.json",
+            "sha256": "f6e2f4d0492b757535c2b94db5130d36f810937735733a29b13008dfe3b6eb1a"
+          },
+          "exit_code": 2
+        },
+        {
+          "plan_id": "xlink-workholding-b1-6",
+          "status": "FAIL",
+          "operations": [
+            "floating"
+          ],
+          "receipt": ".runtime/v3-a3/b1/xlink-workholding-b1-6/output/transaction/campaign.json",
+          "sha256": "29430848b3a59f1b3e5b9dc3b180e85938bd0c574449cd049fb61d3272cf4d50",
+          "invocation": {
+            "path": ".runtime/v3-a3/b1/xlink-workholding-b1-6/invocation.json",
+            "sha256": "f394bbafec673dd2fec0dda3effe3b3ddc1d61301fb9229a7d86462b7c77c0a5"
+          },
+          "exit_code": 2
+        }
+      ]
+    },
+    "Q2": {
+      "argv": [
+        "python",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a1\\regressions\\q2-history",
+        "--binary",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a1\\regressions\\build-l4\\interconnection\\interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-a3/q2"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a3/q2/evidence.json",
+        "sha256": "94cc22b66ea9413c918ea0a25ce1ea69fee0d919a67d9fc425a6d7c5e98f634b"
+      },
+      "case_count": 12
+    },
+    "scope": {
+      "argv": [
+        "python",
+        "-B",
+        "convergence_manager/tests/test_v3_a3_authorities.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\convergence_core.exe",
+        "--source",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a3-worktree\\.runtime\\v3-a3\\replica\\hardware\\mecanique\\cartographe",
+        "--out",
+        ".runtime/v3-a3/scope-qualified"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a3/scope-qualified/scope_checks.json",
+        "sha256": "726b759ddb2e540d1e43e442ec3134ebf89a775b00f54a4b3aa65a27089d5aaa"
+      },
+      "positive_read_cases": 3,
+      "occurrences_tested": 12,
+      "dossier_requests_refused": 2,
+      "adversarial_cases_refused": 19
+    }
+  },
+  "reused_proofs": {
+    "L2_and_Q1_V3_I": {
+      "proof": {
+        "path": ".runtime/v3-i/historical/executions.json",
+        "sha256": "a046bb3d2cfa07c40a2772eb85ca6eb4791c0134c43ee17ee1cb91940a40aa72"
+      },
+      "runs": [
+        {
+          "id": "l2-sealed",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\l2-sealed\\interconnection_engine\\tests\\test_reconcile.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\graph\\interconnection\\interconnection_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\l2-sealed",
+          "started_utc": "2026-11-19T07:36:59.173393+00:00",
+          "ended_utc": "2026-11-19T07:37:01.459478+00:00",
+          "exit_code": 0,
+          "binary_sha256": "c800971988e251e472d1b2b6ea2dc1fc2bb8c8e5f1c0e1492d4b33482ec50292",
+          "runner_sha256": "0d25d03373bda8e1d0537006b2f388de79be2c4789ec71e2a426a8a61b7c7e0a",
+          "manifest_sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+          "log": ".runtime/v3-i/historical/l2-sealed.log",
+          "log_sha256": "d55666b17248bec1676c366aa0755b5ce695ced9a2de492f097d089df0cfc73c"
+        },
+        {
+          "id": "q1-sealed",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\tests\\test_admission.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\convergence_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\q1-sealed",
+          "started_utc": "2026-11-19T07:37:01.588941+00:00",
+          "ended_utc": "2026-11-19T07:37:39.415966+00:00",
+          "exit_code": 0,
+          "binary_sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2",
+          "runner_sha256": "05a8f08fa703734f881bb635e6185855573e1f5ee307b96b6ccd3ae7bfa666cb",
+          "manifest_sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+          "log": ".runtime/v3-i/historical/q1-sealed.log",
+          "log_sha256": "73043d883b1047a8a8cad7dd5b8f5f04bc276d0d1b73b7ad439b06d71b486ea7"
+        },
+        {
+          "id": "l2-active-control",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\interconnection_engine\\tests\\test_reconcile.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\graph\\interconnection\\interconnection_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+          "started_utc": "2026-11-19T07:37:39.421811+00:00",
+          "ended_utc": "2026-11-19T07:37:39.710917+00:00",
+          "exit_code": 1,
+          "binary_sha256": "c800971988e251e472d1b2b6ea2dc1fc2bb8c8e5f1c0e1492d4b33482ec50292",
+          "runner_sha256": "0d25d03373bda8e1d0537006b2f388de79be2c4789ec71e2a426a8a61b7c7e0a",
+          "manifest_sha256": "4f8f071106d862a34292214dc17d6f9d078f9067b8149288103fd8e1ebca90e6",
+          "log": ".runtime/v3-i/historical/l2-active-control.log",
+          "log_sha256": "383ee6c8c67fb58569564cce7704cf789609b4ff8bd03802a74b95b3cb1a3349"
+        }
+      ],
+      "expected_rejection": "Le gel L2 historique refuse le manifeste actif LF avant exécution des cas."
+    },
+    "rechecked_local_logs_sha256": true,
+    "L2_limit": "Recevabilité du manifeste historique CRLF, refus du manifeste actif LF. Aucun changement des sources ni du reçu."
+  },
+  "not_run": [
+    "inspection matérielle",
+    "réception physique, GO4",
+    "mutation cartographe",
+    "simulations Gazebo/PX4"
+  ]
+}

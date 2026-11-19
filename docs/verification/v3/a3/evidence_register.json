@@ -1,0 +1,506 @@
+{
+  "schema": "v3.a3.evidence_register/1",
+  "date": "2026-11-19",
+  "base_commit": "9c72169d6148b12862026031aa3d55e43bd37b3c",
+  "configuration": "prototype_cartographe_sans_dock",
+  "lot_inspection": "LOT_NOT_INSPECTED",
+  "physical_reception": "NOT_RUN",
+  "physical_revisions_confirmed": 0,
+  "applicable_signed_physical_records": [],
+  "classification": [
+    "MANUFACTURER_APPLICABLE",
+    "DOCUMENTED_NONAPPLICABLE",
+    "CAD_MEASURED",
+    "PROXY_ASSUMED",
+    "PHYSICAL_MEASURED_SIGNED",
+    "UNKNOWN"
+  ],
+  "manufacturer_records": [
+    {
+      "id": "JBD-A01",
+      "manufacturer": "Jiabaida",
+      "mpn": "JBD-SP22S003",
+      "subreference": "Li-ion 100 A commun charge/décharge, candidat",
+      "document_revision": "A01 du 19 avril 2022",
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://cdn-files.myshopline.com/file/store/1720492677212/JBD-SP22S003-Li-ion-A01-2.pdf",
+      "consulted_at": "2026-11-15",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD-SP22S003-Li-ion-A01.pdf",
+      "sha256": "14f1a3df0a0e6a538c1d00d8c59b41125c131463c0d457941bb82c755a69c7e7",
+      "local_path_origin": "primary_workspace",
+      "locator": "§7.1 p. 14 à 16",
+      "document_observation": "J2 HY2.0-4P à verrou, 1 GND, 2 RX, 3 TX, 4 VDD issu de la table. La remarque p. 16 nomme J3-UART, référence B− non isolée. J4/J5 non réinterprétés pour le 6S sans relevé du lot.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "WAVESHARE-BASE",
+      "manufacturer": "Waveshare",
+      "mpn": "15817",
+      "subreference": "FT232RNL et variantes de catalogue",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817",
+      "consulted_at": "2026-11-15",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/orch_reprise_masses_equipements/Waveshare_15817.html",
+      "sha256": "c0cb168a78f044326e7cfb9ec276edd6bd2118df10f759a17ae9699b70479326",
+      "local_path_origin": "primary_workspace",
+      "locator": "SKU 15817, interface, ressources",
+      "document_observation": "La page produit indexée annonce FT232RNL/CH343G. Cela ne démontre pas quel circuit ni quelle population figure sur le lot retenu.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "WAVESHARE-MANUAL",
+      "manufacturer": "Waveshare",
+      "mpn": "USB TO RS232/485/TTL",
+      "subreference": "ancienne génération FT232RL",
+      "document_revision": "manuel initial FT232RL",
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://files.waveshare.com/wiki/USB-TO-RS232-485-TTL/manual/USB_TO_RS232_485_TTL_-user-manual-en.pdf",
+      "consulted_at": "2026-11-15",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/waveshare_uart_iso/USB_TO_RS232_485_TTL_manuel_original.pdf",
+      "sha256": "1790424bcad3d318cdbd27b6762cc0802ef72e861c3f567a15e2be52f2f18bfa",
+      "local_path_origin": "primary_workspace",
+      "locator": "Overview / interface et isolation, p. 2–4",
+      "document_observation": "Ancienne génération avec isolation. USB-B et bornier TTL à identifier sur le lot, sans déduire la révision du SKU seul.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "HOLYBRO-BASE",
+      "manufacturer": "Holybro",
+      "mpn": "11072",
+      "subreference": "Pixhawk Jetson Baseboard",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/overview-and-specification",
+      "consulted_at": "2026-11-19",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Overview_20261010.md",
+      "sha256": "8d0e7c08eb49ab65cd5dc8b8766d041fe26bbfd53dd5ece6ea0c37566526fb84",
+      "local_path_origin": "primary_workspace",
+      "locator": "Jetson Orin NX/Nano Connectors, Flight Controller Connectors",
+      "document_observation": "TELEM et GPIO GH6, CAN GH4, CSI FFC 22 positions, ports USB hôte type A et limite FAN de 0,35 A. Orientation et références d’assemblage non publiées ici.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "HOLYBRO-PINOUT",
+      "manufacturer": "Holybro",
+      "mpn": "11072",
+      "subreference": "CAN1/CAN2",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout",
+      "consulted_at": "2026-11-19",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Holybro_Pixhawk_Jetson_Baseboard_Ports_20261010.md",
+      "sha256": "99ce5f23bce055a8c010631569027918f91c4ea9147ccd0679ae98abb57cfc35",
+      "local_path_origin": "primary_workspace",
+      "locator": "Tel1/Tel3, GPS2, CAN1/2, Orin GPIO, Orin Debug, Orin Camera0/1, FMU PWM",
+      "document_observation": "TELEM1 TX7/RX7 aux cavités 2/3 et GND en 6. GPS2 TX8/RX8 et I²C 4/5. CAN1 +5 V sortie en 1, H/L en 2/3 et GND en 4. GPIO_07 en 2 et masse en 6. Debug 1 mm SH. CSI VDD en 22 et masse en 1, 4, 7, 10, 13, 16, 19.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "HOLYBRO-STEP",
+      "manufacturer": "Holybro",
+      "mpn": "11072",
+      "subreference": "modèle rapproché RC02",
+      "document_revision": "modèle compatible avec le rapprochement RC02",
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://docs.holybro.com/autopilot/pixhawk-baseboards/download",
+      "consulted_at": "2026-11-15",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/Pixhawk-Jetson-Baseboard-3D.stp",
+      "sha256": "dfee72717b735c4b10089435ae1019482878f6607051f1a3b8397da7721ed6ee",
+      "local_path_origin": "primary_workspace",
+      "locator": "Pixhawk-Jetson-Baseboard-3D.stp et entité #89692",
+      "document_observation": "Géométrie fournisseur de la porteuse avec étiquettes internes de composants. L’association à un port et au lot doit être établie.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "JBD-A1-LIFEPO4",
+      "manufacturer": "Jiabaida",
+      "mpn": "JBD-SP22S003",
+      "subreference": "LiFePO₄ 40–100 A",
+      "document_revision": "A.1, 2022-05-20",
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://cdn.shopify.com/s/files/1/0606/5199/5298/files/JBD-SP22S003_37ea5c42-0b2f-4c30-bb4a-3ba411fcb66e.pdf?v=1664433389",
+      "consulted_at": "2026-11-19",
+      "local_path": ".runtime/v3-a2-sources/JBD-SP22S003-LiFePO4-A1.pdf",
+      "sha256": "0a5432385a788bfe668bc089d7fcdb4dd0302f4f4ecfc4dc150888f993e0493f",
+      "local_path_origin": "primary_workspace",
+      "locator": "Couverture et §7.1 p. 14–16",
+      "document_observation": "La variante LiFePO₄ distingue J2 et donne la référence B− du port non isolé.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "EXCLUDED_DIFFERENT_CHEMISTRY_AND_REVISION",
+      "evidence_class": "DOCUMENTED_NONAPPLICABLE"
+    },
+    {
+      "id": "JBD-UART-V4",
+      "manufacturer": "Jiabaida",
+      "mpn": "JBD-SP22S003",
+      "subreference": "protocole de famille",
+      "document_revision": "V4",
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://cdn.shopifycdn.net/s/files/1/0606/5199/5298/files/JDB_RS485-RS232-UART-Bluetooth-Communication_Protocol.pdf?v=1682577935",
+      "consulted_at": "2026-11-18",
+      "local_path": "hardware/mecanique/cartographe/sources_fabricants/jbd_bms/originale/JBD_Protocole_UART_RS485_RS232_V4.pdf",
+      "sha256": "3ba13c2cb4a5960a64dd4fe6cb433c0cb524444b38d58fa1af9351cab96045cb",
+      "local_path_origin": "primary_workspace",
+      "locator": "Format des trames",
+      "document_observation": "Document de famille, compatibilité et niveau électrique du lot distincts.",
+      "value_verification": "SOURCE_BYTES_VERIFIED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "TE-1650161-1",
+      "manufacturer": "TE Connectivity",
+      "mpn": "1650161-1",
+      "subreference": "ELCON",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.te.com/en/product-1650161-1.html",
+      "consulted_at": "2026-11-19",
+      "local_path": null,
+      "sha256": null,
+      "local_path_origin": null,
+      "locator": "Fiche produit ; définition W40",
+      "document_observation": "Référence catalogue de la définition W40 à cinq contacts, aucune preuve de la jonction montée.",
+      "value_verification": "ONLINE_TEXT_CHECKED",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "TE-1650155-1",
+      "manufacturer": "TE Connectivity",
+      "mpn": "1650155-1",
+      "subreference": "ELCON",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.te.com/en/product-1650155-1.html",
+      "consulted_at": "2026-11-18",
+      "local_path": null,
+      "sha256": null,
+      "local_path_origin": null,
+      "locator": "Fiche produit ; définition W40",
+      "document_observation": "Référence catalogue de la définition W40 à cinq contacts, aucune preuve de la jonction montée.",
+      "value_verification": "A2_REFERENCE",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "TE-1650162-2",
+      "manufacturer": "TE Connectivity",
+      "mpn": "1650162-2",
+      "subreference": "ELCON",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.te.com/en/product-1650162-2.html",
+      "consulted_at": "2026-11-18",
+      "local_path": null,
+      "sha256": null,
+      "local_path_origin": null,
+      "locator": "Fiche produit ; définition W40",
+      "document_observation": "Référence catalogue de la définition W40 à cinq contacts, aucune preuve de la jonction montée.",
+      "value_verification": "A2_REFERENCE",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "TE-1648325-1",
+      "manufacturer": "TE Connectivity",
+      "mpn": "1648325-1",
+      "subreference": "ELCON",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.te.com/en/product-1648325-1.html",
+      "consulted_at": "2026-11-18",
+      "local_path": null,
+      "sha256": null,
+      "local_path_origin": null,
+      "locator": "Fiche produit ; définition W40",
+      "document_observation": "Référence catalogue de la définition W40 à cinq contacts, aucune preuve de la jonction montée.",
+      "value_verification": "A2_REFERENCE",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    },
+    {
+      "id": "JST-JWPF-3",
+      "manufacturer": "JST",
+      "mpn": "03T-JWPF-VSLE-S / 03R-JWPF-VSLE-S",
+      "subreference": "couple candidat du criblage F40",
+      "document_revision": null,
+      "hardware_revision": null,
+      "lot_or_marking": null,
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eJWPF.pdf",
+      "consulted_at": "2026-11-18",
+      "local_path": null,
+      "sha256": null,
+      "local_path_origin": null,
+      "locator": "Série JWPF / inventaire UART déconnexion",
+      "document_observation": "Le candidat est un couple catalogue utilisé pour un gabarit. Le prototype sans dock ne l’identifie pas comme jonction montée.",
+      "value_verification": "A2_REFERENCE",
+      "applicability_to_target": "LOT_NOT_INSPECTED",
+      "evidence_class": "UNKNOWN"
+    }
+  ],
+  "issues": [
+    {
+      "id": "UART-TOP-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "Les sources concordent sur le diagnostic isolé. Le type de jonction et son emplacement divergent entre définition électrique et inventaire du prototype.",
+      "manufacturer_records": [
+        "JBD-A01",
+        "WAVESHARE-MANUAL",
+        "JST-JWPF-3",
+        "TE-1650161-1",
+        "TE-1650155-1",
+        "TE-1650162-2",
+        "TE-1648325-1"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Axe continu et obstacles mesurables. Le contact à contact et le geste réels exigent des pièces identifiées.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [],
+      "missing": "Jonction installée ou choix de montage justifié, références des deux demi-connecteurs et contacts, détrompage, cavité ↔ conducteur, séquence de déconnexion et enveloppe de retrait batterie.",
+      "operator_steps": [
+        1,
+        4
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-TOP-001"
+      }
+    },
+    {
+      "id": "UART-JBD-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "J2 apparaît dans les deux tableaux. Le libellé J3 de la notice Li-ion demeure contradictoire pour la variante visée. La notice LiFePO4 éclaire cette divergence et reste hors périmètre d'acceptation.",
+      "manufacturer_records": [
+        "JBD-A01",
+        "JBD-A1-LIFEPO4",
+        "JBD-UART-V4"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Pose de la carte et bout d'axe mesurables. Les cavités, le verrou, le niveau logique et le retour réel restent à établir.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [],
+      "missing": "MPN et révision de PCB, variante et lot, marquage J2/J3, notice Li-ion applicable, embase et fiche exactes, tension et seuils TTL, attache GND et pinout orienté.",
+      "operator_steps": [
+        1,
+        3
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-JBD-001"
+      }
+    },
+    {
+      "id": "UART-ISO-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "L'isolation est documentée pour le produit. Le SKU seul laisse ouvertes la population PCB, la version du bornier et la forme des terminaisons.",
+      "manufacturer_records": [
+        "WAVESHARE-MANUAL",
+        "WAVESHARE-BASE"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Poses et enveloppes natives mesurables. Les objets ORCH sont des proxies d'interface.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [],
+      "missing": "Révision PCB et puce installée, réglage TTL, étiquettes et références du bornier/USB-B, embase, fiche, sortie et ferrite, limites de courant, traction et isolement applicables.",
+      "operator_steps": [
+        1,
+        3
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-ISO-001"
+      }
+    },
+    {
+      "id": "UART-AXIS-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "Les écarts CAO motivent un nouveau cheminement dès que les repères réels seront établis. L'alignement historique des variantes H03 porte sur les représentations.",
+      "manufacturer_records": [
+        "JBD-A01",
+        "WAVESHARE-MANUAL",
+        "HOLYBRO-STEP"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Compare-frames ou BRep sur géométrie sourcée. Une boîte, une tangente d'axe, un décalage +3 mm ou une face proxy ne suffisent pas pour définir le mating.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [
+        "IF-07",
+        "F40/F41"
+      ],
+      "missing": "Repères indépendants de l'embase et de la fiche, trièdres d'accouplement et de sortie fil signés, orientation de l'outil et course de retrait, avec autorité compatible avec le lot.",
+      "operator_steps": [
+        3
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-AXIS-001"
+      }
+    },
+    {
+      "id": "UART-MOUNT-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "Les surfaces voisines permettent de localiser des exclusions géométriques. Le plan de fixation et le chemin d'effort restent à établir.",
+      "manufacturer_records": [
+        "WAVESHARE-MANUAL"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Mesurer BRep appui/isolateur, dégagement et intersection guide, distances aux porteurs et positions des faces et trous. Limites de charge et appui réel demandent des données complémentaires.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [
+        "IF-03",
+        "P64/P66"
+      ],
+      "missing": "Surface porteuse effective, preuves de contact et d'engagement, cotes de trous, matériaux, entretoises, sollicitations et tenue, isolement de la fixation, domaine de pose justifié.",
+      "operator_steps": [
+        2
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-MOUNT-001"
+      }
+    },
+    {
+      "id": "UART-ACCESS-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "L'espace local des hypothèses GO3B présente des conflits. Les volumes nécessaires au geste complet restent inconnus.",
+      "manufacturer_records": [
+        "WAVESHARE-MANUAL",
+        "WAVESHARE-BASE"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Intersection BRep de gabarits et obstacles, puis volume balayé si la cinématique réelle est fournie.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [
+        "IF-04",
+        "IF-05",
+        "IF-06",
+        "IF-07"
+      ],
+      "missing": "Gabarits exacts d'insertion/extraction TTL et USB-B, outillage, ferrite et sortie, course et réserve, rayons statique/dynamique, protection durant le retrait batterie.",
+      "operator_steps": [
+        3,
+        4
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-ACCESS-001"
+      }
+    },
+    {
+      "id": "UART-HOST-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "Le Type A est documenté par le fabricant et l'inventaire. La révision et l'index du port hôte utilisé restent inconnus.",
+      "manufacturer_records": [
+        "HOLYBRO-BASE",
+        "HOLYBRO-PINOUT",
+        "HOLYBRO-STEP"
+      ],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Poses et solides de porteuse et voisins mesurables. Confirmer l'index du port avant d'en dériver un repère indépendant.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [],
+      "missing": "Marquage PCB de la porteuse, port exact et fonction hôte, desserte et alimentation du prototype, origine et normale de l'embase retenue, corps de fiche et extraction en présence de CAN1/F31/F35.",
+      "operator_steps": [
+        3,
+        4
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-HOST-001"
+      }
+    },
+    {
+      "id": "UART-GUIDES-001",
+      "status": "OPEN",
+      "evidence_class": "UNKNOWN",
+      "lot_status": "LOT_NOT_INSPECTED",
+      "documentary_value": "Les pattes et fixations visibles documentent le voisinage. L'engagement réel et les translations ou rotations admissibles n'en découlent pas. Guides et porteurs internes sans notice fabricant propre.",
+      "manufacturer_records": [],
+      "applicability": "Aucun rattachement démontré à la pièce montée.",
+      "measured_on_cad": "Mesurer pattes, normales, trous, distances et obstacles, puis vérifier un domaine borné après identification des fixations et charges.",
+      "cad_evidence_class": "CAD_MEASURED",
+      "proxy_or_targeted_checks": [
+        "IF-03",
+        "P72/P73",
+        "F31/F35"
+      ],
+      "missing": "Engagement des vis, interfaces d'appui et degrés de liberté permis, enveloppes de déplacement, efforts, dégagement de PDB, CAN1/F31/F35 ainsi que cheminement et retrait de la batterie.",
+      "operator_steps": [
+        2,
+        4
+      ],
+      "a2_origin": {
+        "path": "docs/verification/v3/a2/evidence_register.json",
+        "id": "UART-GUIDES-001"
+      }
+    }
+  ],
+  "search_scope": "Registre fabricant, contrat UART, inventaire des liaisons, photos et archives locales ciblées F40/F41. Aucun marquage de lot attribuable aux occurrences. Waveshare web 403, cache et manuel préexistants vérifiés. Archive RAR du schéma A/B Jiabaida non restituée par l’outil web.",
+  "electrical_reconciliation": {
+    "authorities": [
+      "hardware/electronique/cartographe/contrat_uart_bms.json",
+      "hardware/electronique/cartographe/cablage_global.json#/connections/36",
+      "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json#/junctions/4",
+      "docs/verification/v21_connector_inventory.csv#W40/A,W40/B,W41/A,W41/B,W31/B"
+    ],
+    "functional_constraints": {
+      "BMS_USB_STRUCTURE_ISOLATION": "Le retour B− brut reste confiné au côté TTL isolé. Interdire tout pont vers GND USB, blindage USB, retours avioniques ou structure, ainsi que tout chemin de faisceau ou de fixation contournant le BMS entre B− brut et P− protégé.",
+      "NC": "VDD BMS et VCC TTL restent non connectés.",
+      "TX_RX": "Conserver le croisement des fonctions TX/RX et le retour dédié.",
+      "PROTECTIONS": "Conserver PM08/CAN1, les protections MIDI/CA01, les chemins protégés de puissance et l'autorité PX4.",
+      "PINOUT": "Appliquer la preuve orientée de la révision montée, avec indexage des cavités et contrôle des continuités.",
+      "INDEPENDENT_FRAMES": "Utiliser des repères indépendants pour embase, fiche, accouplement, sortie et geste. Les axes F40/F41 décrivent les chemins virtuels.",
+      "GEOMETRY": "Résoudre les XLinks et vérifier les solides, dégagements, tolérances et voisinages concernés.",
+      "SUPPORT_ANCHOR": "Exiger un appui effectif, un engagement de fixation et un chemin d'effort démontré avant admission.",
+      "SERVICE": "Préserver accès TTL, USB-B, hôte USB et maintien des réserves, ainsi que le retrait batterie avec séquence hors tension.",
+      "IMMUTABLE_SOURCES": "Ne modifier que la copie privée autorisée. La transaction est bornée à une opération et une occurrence, avec abandon de la copie en cas de refus.",
+      "DYNAMIC_BEND_RADIUS": "Respecter les limites statique et dynamique applicables au cordon, y compris en insertion, extraction et retrait batterie."
+    },
+    "TX_RX": "RXD_BMS vers TXD_ISO et TXD_BMS vers RXD_ISO, exigence fonctionnelle ; cavités du lot inconnues.",
+    "NC": "VDD JBD et VCC isolateur ouverts. CAN1 conserve H/L/GND et +5 V NC, indépendamment de la présence du +5 V en sortie sur la porteuse.",
+    "SEPARATION": "Le B− brut reste uniquement côté TTL isolé. Maintien de la séparation avec P−, GND USB, blindage, châssis et fixations. USB VBUS/D±/GND du côté protégé.",
+    "JUNCTION": "TE ELCON selon schéma W40 et une déconnexion manuelle dans l’inventaire sans dock. MPN, contacts et emplacement réel non réconciliés. Le gabarit JST ne tranche pas.",
+    "HOST": "Holybro documente deux hôtes USB-A. L’embase W41/B, la révision PCB, l’enveloppe de fiche et l’accès CAN1 restent ouverts.",
+    "SERVICE": "Vérification hors tension sur gabarit batterie inerte. La conformité fonctionnelle et la tenue diélectrique relèvent d’un protocole distinct."
+  }
+}
