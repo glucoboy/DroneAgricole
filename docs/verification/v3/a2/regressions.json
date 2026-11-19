@@ -1,0 +1,541 @@
+{
+  "schema": "v3.a2.regressions/1",
+  "test_id": "T-CARTO-V3-A2-INTEGRITY",
+  "status": "PASS",
+  "base_revision": "2b83b176b19136b57888b670b3e816c2f0b46bd0",
+  "environment": {
+    "os": "Windows amd64",
+    "python": "CPython 3.14.7 MSYS2 UCRT",
+    "cxx": "GCC 16.2.0 C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "freecad": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+    "path_prepend": "C:/msys64/ucrt64/bin",
+    "QT_QPA_PLATFORM": "offscreen",
+    "ELECTROMECHANICAL_FREECAD_PYTHON": "C:/Program Files/FreeCAD 1.1/bin/python.exe"
+  },
+  "protected_baselines": {
+    "git_check": {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "2b83b176b19136b57888b670b3e816c2f0b46bd0",
+        "--",
+        "docs/verification/v3/a",
+        "docs/verification/v3/a1",
+        "docs/electromechanical_v3",
+        "hardware",
+        "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+        "docs/architecture/ARCHITECTURE_ELECTRIQUE_RESEAUX.md"
+      ],
+      "exit_code": 0
+    },
+    "sha256_groups": {
+      "A_freeze_inputs": {
+        "checked": 211,
+        "mismatches": []
+      },
+      "A_historical_reports": {
+        "checked": 6,
+        "mismatches": []
+      },
+      "A_criteria": {
+        "checked": 4,
+        "mismatches": []
+      },
+      "A_artifacts": {
+        "checked": 14,
+        "mismatches": []
+      },
+      "A_native_inputs": {
+        "checked": 142,
+        "mismatches": []
+      },
+      "A1_bench_XLink_dependencies": {
+        "checked": 2,
+        "mismatches": []
+      },
+      "A1_bench_seal_receipt_geometry_authority": {
+        "checked": 4,
+        "mismatches": []
+      },
+      "A_implementation_historical": {
+        "checked": 55,
+        "mismatches": [
+          ".gitattributes",
+          "convergence_manager/src/Main.cpp"
+        ],
+        "causes": {
+          "convergence_manager/src/Main.cpp": "Évolution A.1 antérieure à la branche A.2.",
+          ".gitattributes": "A.2 ajoute deux règles LF pour ses nouveaux scripts. Les règles historiques sont conservées."
+        }
+      }
+    },
+    "A_acceptance": {
+      "path": "docs/verification/v3/a/acceptance.json",
+      "sha256": "9d8bba426e3e62970f4d6206b06f7fd2b2ffa2ae5be1bf4320c987a2c7039b31"
+    },
+    "A_freeze": {
+      "path": "docs/verification/v3/a/freeze.json",
+      "sha256": "f324a2a0e2feeb1d68df906927306c25ae625b325488677dafcba73256794981"
+    },
+    "A1_admission": {
+      "path": "docs/verification/v3/a1/admission.json",
+      "sha256": "013d4c49842db5eafcdaa3420841844119eadaac199141228a3a4f850f084afb"
+    }
+  },
+  "A2_integrity": {
+    "argv": [
+      "python",
+      "-B",
+      "convergence_manager/tests/verify_v3_a2_evidence.py",
+      "--core",
+      ".runtime/v3-a2/replay/build-l5/convergence_core.exe",
+      "--out",
+      ".runtime/v3-a2/replay/integrity-lf"
+    ],
+    "exit_code": 0,
+    "receipt": {
+      "path": ".runtime/v3-a2/replay/integrity-lf/integrity.json",
+      "sha256": "218375500bd2990f8516f766e34a241c09e73d85c09d51bec8f6f26f42c4c477"
+    },
+    "scope_requests_schema": {
+      "command": "Test-Json -LiteralPath <request> -SchemaFile docs/electromechanical_v3/admission_scope.schema.json",
+      "schema": {
+        "path": "docs/electromechanical_v3/admission_scope.schema.json",
+        "sha256": "aff014c8c1e3d67973bc62d5255b4c13ca6ee634157366cbb3b893a926fd1efe"
+      },
+      "cases_passed": [
+        "MOVE",
+        "RETENTION",
+        "FRAME"
+      ]
+    },
+    "result": {
+      "schema": "v3.a2.integrity_test/1",
+      "status": "PASS",
+      "inputs_sha256": {
+        "docs/verification/v3/a2/operation_scopes.json": "1a6090f20070b12b7fa70e6c3ed50380e4950c21323a2e2d8b1644fccdd4e427",
+        "docs/verification/v3/a2/cad_interface_measurements.json": "5e815c901b93fc0a7bc68faa0ce6dad82ada2fc5f28386e88e269e8f938bf66f",
+        "docs/verification/v3/a2/evidence_register.json": "6f29dcf22b1c6b21413fa9259429c539fd8ad192809b926b939f82e62aa211b3",
+        "convergence_manager/tests/verify_v3_a2_evidence.py": "817aef61494689fabf580805fc94e5034ef02c93031fd0ef44fe821b9f35043e"
+      },
+      "verified_source_and_copy_files": 142,
+      "verified_register_source_refs": 17,
+      "verified_cad_source_and_copy_files_by_case": {
+        "reference": 142,
+        "H03-A": 139,
+        "H03-B": 139,
+        "consolidee": 138
+      },
+      "a1_observations": [
+        {
+          "case": "MOVE",
+          "occurrence": "iso",
+          "exit_code": 0,
+          "request_sha256": "95d2a86ace878c0c0007e33c2df0dd28c249dd8795ec46d2663625152704fd7e",
+          "receipt_sha256": "e6d7a9bd1cbc3830e8db56211a3c88ec25fe7e8a7ca5877951d5fb6646a93866",
+          "decision": "ALLOW",
+          "reason": "FROZEN_VIRTUAL_IMPACT",
+          "execution_scope": "READ_ONLY_IMPACT",
+          "candidate_transactions": 0
+        },
+        {
+          "case": "RETENTION",
+          "occurrence": "p72",
+          "exit_code": 0,
+          "request_sha256": "f0f49ea8ca82df74694cc221e9e23a8e525bf1019598fd03bf4e65a8ba25498b",
+          "receipt_sha256": "4c2f4d1eed62b48ba69dec81f111b7533887bd7d852ece0d52d94cfd119d4560",
+          "decision": "ALLOW",
+          "reason": "FROZEN_VIRTUAL_IMPACT",
+          "execution_scope": "READ_ONLY_IMPACT",
+          "candidate_transactions": 0
+        },
+        {
+          "case": "FRAME",
+          "occurrence": "ttl-reference",
+          "exit_code": 0,
+          "request_sha256": "7a1d04a3baab97c03638b28f53883abdbe320ca2fb91542c805524ae5ad4ca56",
+          "receipt_sha256": "45745e8bd5828826eff5ce8b00b0d3ba0812244530d8fe2c895d5892000802cb",
+          "decision": "ALLOW",
+          "reason": "FROZEN_VIRTUAL_IMPACT",
+          "execution_scope": "READ_ONLY_IMPACT",
+          "candidate_transactions": 0
+        }
+      ],
+      "metrology_required_fields": {
+        "positive_fixture_format": "PASS",
+        "negative_cases": [
+          {
+            "omission": "signature",
+            "missing_fields": [
+              "signature"
+            ],
+            "status": "PASS"
+          },
+          {
+            "omission": "raw_evidence_ref",
+            "missing_fields": [
+              "raw_evidence_ref"
+            ],
+            "status": "PASS"
+          },
+          {
+            "omission": "lot_evidence_ref",
+            "missing_fields": [
+              "lot_evidence_ref"
+            ],
+            "status": "PASS"
+          }
+        ],
+        "scope": "Complétude des champs A2, hors authentification et admission L5"
+      }
+    }
+  },
+  "adversarial": {
+    "Q2": {
+      "argv": [
+        "python",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        ".runtime/v3-a1/regressions/q2-history",
+        "--binary",
+        ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-a2/replay/q2"
+      ],
+      "exit_code": 0,
+      "receipt": {
+        "path": ".runtime/v3-a2/replay/q2/evidence.json",
+        "sha256": "e522f2eddd76e7e9854f5b8f556004b572d2f99169694e9465e0d19b7a8e0960"
+      },
+      "cases_passed": 12,
+      "source_bytes_unchanged": true,
+      "other_hardware_revision": {
+        "test_status": "PASS",
+        "before": "INCONCLUSIVE",
+        "after": "FAIL",
+        "process_code": 2,
+        "detail": {},
+        "report": "hardware-revision-conflict.json",
+        "report_sha256": "6f4f4ca91a0c11546f380c530e27136ade853962cdc2e13fe4281f115d5c000b",
+        "finding": "INTERFACE_REFERENCE_IDENTITY/FAIL"
+      },
+      "fabricated_face_plus_3_mm": {
+        "test_status": "PASS",
+        "before": "PASS",
+        "after": "FAIL",
+        "process_code": 2,
+        "detail": {
+          "expected_local": 10,
+          "observed_local": 7,
+          "expected_world": 14,
+          "observed_world": 11
+        },
+        "report": "matched-fictional-exit.json",
+        "report_sha256": "0f089e37d2a33f148f73b24ead50b0beea431995ae88068b577181e3f6083609"
+      },
+      "fabricated_face_independent_reopening": {
+        "test_status": "PASS",
+        "process_code": 1,
+        "reopened_in_freecad": true,
+        "native_receipt_published": false,
+        "reopen_log_sha256": "da40dc2e29ebaf4da117abe06aaabf974752dda5902a5272f84556818193e26c"
+      },
+      "local_CAD_claimed_as_supplier_proof": {
+        "test_status": "PASS",
+        "before": "INCONCLUSIVE",
+        "after": "INCONCLUSIVE",
+        "process_code": 3,
+        "detail": {
+          "before": [
+            "PASS"
+          ],
+          "after": [
+            "INCONCLUSIVE"
+          ],
+          "origins": {
+            "cable": "LOCAL_CAD",
+            "embase": "LOCAL_CAD",
+            "fiche": "LOCAL_CAD",
+            "serre-cable": "LOCAL_CAD"
+          }
+        },
+        "report": "cad-as-supplier-proof.json",
+        "report_sha256": "549966aa7bad6fc2fd687867131134b30f45bb101ca11d7140bc09a552a03b19"
+      }
+    },
+    "unsigned_physical_measurement": {
+      "tested_at": "Contrat de complétude de métrologie A2",
+      "case": {
+        "omission": "signature",
+        "missing_fields": [
+          "signature"
+        ],
+        "status": "PASS"
+      },
+      "scope": "Vérification documentaire. L5 A.1 ne lit pas le dossier A2 et conserve le refus générique de toute mutation cartographe."
+    }
+  },
+  "non_regression": {
+    "L5_A1": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a2/replay/build-l5",
+        "-R",
+        "l5_",
+        "--output-on-failure",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a2/replay/l5-junit.xml"
+      ],
+      "exit_code": 0,
+      "tests": {
+        "l5_Campaign": "PASS",
+        "l5_Selection": "PASS",
+        "l5_v3_admission_entry": "PASS",
+        "l5_v3_admission_policy": "PASS",
+        "l5_cli": "PASS"
+      },
+      "junit": {
+        "path": ".runtime/v3-a2/replay/l5-junit.xml",
+        "sha256": "3620b3980035f4c6677d115525e8193b17a917e332f3e2f8258b4afadccbd410"
+      }
+    },
+    "L5_A1_link_guards": {
+      "status": "PASS",
+      "hard_link_to_source": "PASS",
+      "windows_junction_redirections": "PASS",
+      "policy_cases_passed": 51,
+      "policy_trace": {
+        "path": ".runtime/v3-a2/replay/trace-policy-link-guards.json",
+        "sha256": "1f5bbb36638f6eb50340c47686850fbf7ad2d7e3e047db8acddc9361622806e7"
+      },
+      "entry_trace": {
+        "path": ".runtime/v3-a2/replay/trace-entry-link-guards.json",
+        "sha256": "ed88ec66ab324e1f600d4ec392f6e01494f6ad2f7e6ed0aaebd311e9215d9df7"
+      },
+      "recipe": "Rejouer test_l5_AdmissionScope <racine> <trace-politique> et test_l5_v3_admission_entry <convergence_core> <trace-entree> avec la permission de créer les liens et jonctions temporaires sous .runtime."
+    },
+    "L2_and_graph": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a1/regressions/build-graph",
+        "-R",
+        "v3_graph_contract|^l2_interconnection$",
+        "--output-on-failure",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a2/replay/graph-junit.xml"
+      ],
+      "exit_code": 0,
+      "tests": {
+        "v3_graph_contract": "PASS",
+        "l2_interconnection": "PASS"
+      },
+      "junit": {
+        "path": ".runtime/v3-a2/replay/graph-junit.xml",
+        "sha256": "f133325c7ecf5683d350d286069dd7a4b8cdf1740d5bc0b36707a71594c06b38"
+      }
+    },
+    "graph_oracles_and_T0": {
+      "argv": [
+        "python",
+        "-B",
+        "electromechanical_graph/tests/verify_reference.py",
+        "--core",
+        ".runtime/v3-a1/regressions/build-graph/electromechanical_graph_core.exe",
+        "--native",
+        ".runtime/v3-a/native.json",
+        "--transfer-report",
+        ".runtime/v3-a/native-20261118-065605213/transfer.json",
+        "--bench-native",
+        ".runtime/v3-a/bench-final.json",
+        "--t0-validator",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--out",
+        ".runtime/v3-a2/replay/graph-validated"
+      ],
+      "exit_code": 0,
+      "checks": {
+        "path": ".runtime/v3-a2/replay/graph-validated/checks.json",
+        "sha256": "b6cf9ee32044448518772ab93434afeb1d30f065795d17549d23b24af49c49e0"
+      },
+      "t0_manifest": {
+        "path": ".runtime/v3-a2/replay/graph-validated/t0_run_manifest.json",
+        "sha256": "4e423fd98844fd82ceef6d1a6ed5086531daf7480b5c2ad41e0952c40dfd34fa"
+      },
+      "t0_status": "PASS",
+      "oracles_passed": 9,
+      "adversarial_cases": [
+        "altered_graph_sha256",
+        "altered_native_sha256",
+        "axis_as_port_authority",
+        "existing_output",
+        "failed_transfer",
+        "forbidden_operation_subject",
+        "incomplete_connector",
+        "missing_anchor",
+        "missing_route",
+        "missing_topology"
+      ],
+      "graph_sha256": {
+        "bench": "53b9b268e39fcb274a8df4641e67d9944bee12b4701fc9ccec1939e597a27dbe",
+        "cartographe": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f",
+        "transfer": "9e73d314b74a14ca482fed4c146e58d9e051310a9924bc41af8f09cc9b5ef79f"
+      }
+    },
+    "A_native": {
+      "argv": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "electromechanical_engine.tests.test_v3_native",
+        "-v"
+      ],
+      "exit_code": 0,
+      "cases_passed": 7,
+      "log": {
+        "path": ".runtime/v3-a2/replay/v3-native.log",
+        "sha256": "59811ceb46308fd61be7f6cc94a61536d6eb35d7c91bdc5ea47e44528da1543f"
+      }
+    },
+    "L4_offline": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a1/regressions/build-l4",
+        "-R",
+        "^(l4_contract|l4_mechanical_rules|v21_xlink_electrical|v21_xlink_native|v21_xlink_cli)$",
+        "--output-on-failure",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a2/replay/l4-junit.xml"
+      ],
+      "exit_code": 0,
+      "tests": {
+        "l4_mechanical_rules": "PASS",
+        "v21_xlink_electrical": "PASS",
+        "v21_xlink_native": "PASS",
+        "v21_xlink_cli": "SKIP",
+        "l4_contract": "PASS"
+      },
+      "junit": {
+        "path": ".runtime/v3-a2/replay/l4-junit.xml",
+        "sha256": "f7d248b72d59c76b66f1eef3c1b57f85e76f1c7bb7436e23d2749adb931d3cbb"
+      }
+    },
+    "L4_native_CLI": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a1/regressions/build-l4",
+        "-R",
+        "^v21_xlink_cli$",
+        "--output-on-failure",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a2/replay/l4-cli-junit.xml"
+      ],
+      "exit_code": 0,
+      "tests": {
+        "v21_xlink_cli": "PASS"
+      },
+      "junit": {
+        "path": ".runtime/v3-a2/replay/l4-cli-junit.xml",
+        "sha256": "e58928dee7d4450d5b98e6e1a5bcf21366be53e2d4e57b8a1a4fe0d605f49898"
+      }
+    },
+    "L2_historical": {
+      "cwd": ".runtime/v3-a1/regressions/l2-private",
+      "argv": [
+        "python",
+        "-B",
+        "interconnection_engine/tests/test_reconcile.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "-v"
+      ],
+      "cases_passed": 7,
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a2/replay/l2-private.log",
+        "sha256": "df23e863839985fd58998a74a40e44520b7dd445f6add649d4bdf5ca05d89980"
+      },
+      "scope": "Copie CRLF byte-exacte historique A.1. Le manifeste actif LF est conservé."
+    },
+    "Q1": {
+      "cwd": ".runtime/v3-a-regressions/q1-private",
+      "argv": [
+        "python",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/convergence_manager/tests/test_admission.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-a2/replay/build-l5/convergence_core.exe",
+        "-v"
+      ],
+      "cases_passed": 11,
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/v3-a2/replay/q1-private.log",
+        "sha256": "561fb9ca6363c84009a4e7c484f71d293e4c4aad93e26ae2e69a80ef7d60ef4b"
+      }
+    }
+  },
+  "B1_independence": {
+    "status": "PASS",
+    "policy": "BENCH_AFTER_CARTOGRAPHER_DENY/ALLOW",
+    "sealed_operations_allowed": 4,
+    "dispatch": "NOT_IMPLEMENTED",
+    "construction": "NOT_RUN",
+    "candidate_transactions": 0,
+    "proof": {
+      "path": ".runtime/v3-a2/replay/trace-entry-link-guards.json",
+      "sha256": "ed88ec66ab324e1f600d4ec392f6e01494f6ad2f7e6ed0aaebd311e9215d9df7"
+    }
+  },
+  "L5_build": {
+    "configure": [
+      "cmake",
+      "-S",
+      "convergence_manager",
+      "-B",
+      ".runtime/v3-a2/replay/build-l5",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_CXX_STANDARD=17",
+      "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+      "-DL5_L1_EXECUTABLE=<repo>/.runtime/v3-a-regressions/build-l1-l3/research/technical_research_core.exe",
+      "-DL5_L3_EXECUTABLE=<repo>/.runtime/v3-a-regressions/build-l1-l3/architecture_decision_core.exe",
+      "-DL5_L4_EXECUTABLE=<repo>/.runtime/v3-a1/regressions/build-l4/validation_core.exe",
+      "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "-DL5_T0_VALIDATOR=<repo>/.runtime/v3-a-regressions/build-t0/cartographe-evidence.exe"
+    ],
+    "build": [
+      "cmake",
+      "--build",
+      ".runtime/v3-a2/replay/build-l5",
+      "--parallel",
+      "4"
+    ],
+    "exit_code": 0,
+    "core": {
+      "path": ".runtime/v3-a2/replay/build-l5/convergence_core.exe",
+      "sha256": "a62761e09a7b56ff628c400131e3f89f4c7d6887e03c8be55dcd77429b25c799"
+    },
+    "log": {
+      "path": ".runtime/v3-a2/replay/build-l5.log",
+      "sha256": "36ebb2ee2d33053b043606c3884153f24190bdac88b4573565c0f2674633ee09"
+    }
+  },
+  "not_run": [
+    "Construction V3-B.1",
+    "Campagnes V3-C et V3-D",
+    "GO4",
+    "Essais physiques",
+    "Gazebo/PX4 SITL"
+  ]
+}
