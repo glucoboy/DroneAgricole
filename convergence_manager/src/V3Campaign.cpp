@@ -273,13 +273,14 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     }
 
     QMap<QString, QString> published;
-    QJsonArray events;
-    QByteArray trace;
+    const auto tracePath = output.filePath("candidate_trace.jsonl");
+    QFile trace(tracePath);
+    require(trace.open(QIODevice::WriteOnly | QIODevice::NewOnly), "Trace de convergence V3 inaccessible");
+    int sequence = 0;
     const auto record = [&](const QString &stage, const QJsonObject &detail = {}) {
-        const QJsonObject row{{"stage", stage}, {"sequence", events.size()+1}, {"detail", detail}};
-        events.append(row);
-        trace += QJsonDocument(row).toJson(QJsonDocument::Compact) + '\n';
-        write(output.filePath("candidate_trace.jsonl"), trace);
+        const QJsonObject row{{"stage", stage}, {"sequence", ++sequence}, {"detail", detail}};
+        const auto line = QJsonDocument(row).toJson(QJsonDocument::Compact) + '\n';
+        require(trace.write(line) == line.size() && trace.flush(), "Écriture de la trace de convergence V3 impossible");
     };
     const auto save = [&](const QString &name, const QJsonObject &object) {
         published.insert(name, write(output.filePath(name), object));
@@ -508,7 +509,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     }
     save("family_transitions.json", {{"transitions", transitions}});
     save("pareto.json", {{"front", front}, {"admissible", measured}, {"tie_break", "OBJECTIVE_ORDER_THEN_CANDIDATE_ID"}});
-    add(output.filePath("candidate_trace.jsonl"));
+    trace.close();
+    add(tracePath);
     const QDir source(root.filePath(profile.value("source").toString()));
     for (auto it = dependencies.begin(); it != dependencies.end(); ++it)
         require(fileDigest(source.filePath(it.key())) == it.value(), "Source V3 modifiée : " + it.key());
