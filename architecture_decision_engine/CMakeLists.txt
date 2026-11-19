@@ -11,6 +11,7 @@ add_executable(architecture_decision_core
     src/Exploration.cpp
     src/Evidence.cpp
     src/InterconnectionAdapter.cpp
+    src/ProblemSpec.cpp
     src/ResearchAdapter.cpp
 )
 set_target_properties(architecture_decision_core PROPERTIES
@@ -28,5 +29,10 @@ if(BUILD_TESTING)
         COMMAND "${Python3_EXECUTABLE}" -B "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_decisions.py"
         "$<TARGET_FILE:architecture_decision_core>" "$<TARGET_FILE:technical_research_core>")
     set_tests_properties(l3_architecture_decision PROPERTIES TIMEOUT 120
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")
+    add_test(NAME l3_v3_problem_spec
+        COMMAND "${Python3_EXECUTABLE}" -B "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_problem.py"
+        "$<TARGET_FILE:architecture_decision_core>")
+    set_tests_properties(l3_v3_problem_spec PROPERTIES TIMEOUT 120
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")
 endif()

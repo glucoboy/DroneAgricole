@@ -230,6 +230,30 @@ int runV3(const QCommandLineParser &options, bool mutation)
     return status == "NOT_IMPLEMENTED" ? 3 : 2;
 }
 
+int convergeV3(const QCommandLineParser &options)
+{
+    require(options.isSet("request") && options.isSet("observation") && options.isSet("freecad-python") &&
+            options.isSet("t0-validator") && !options.isSet("sandbox"), "Entrées de convergence V3 incomplètes");
+    for (const auto &legacy : {"mode", "receipt", "plan", "source-release", "config", "steps", "l1", "l3", "l4"})
+        require(!options.isSet(legacy), QString("Option hors mode v3-converge : ") + legacy);
+    const auto rootPath = QDir(options.value("root")).canonicalPath();
+    require(!rootPath.isEmpty(), "Racine de travail absente");
+    const QDir root(rootPath);
+    const auto output = outputDirectory(root, options.value("output"));
+    require(!hasRedirectedComponent(root, root.absoluteFilePath(options.value("output"))), "Sortie de convergence redirigée");
+    QLockFile lock(output.filePath(".publication.lock"));
+    lock.setStaleLockTime(0);
+    require(lock.tryLock(), "Convergence V3 déjà en cours");
+    require(output.entryList(QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot) ==
+            QStringList{".publication.lock"}, "Un dossier de convergence V3 neuf est requis");
+    const auto result = Campaign::runV3(root, output, options.value("request"), options.value("observation"),
+                                       options.value("base-problem"), options.value("freecad-python"),
+                                       options.value("python"), options.value("t0-validator"));
+    const auto verdict = result.value("verdict").toString();
+    std::printf("%s\n", verdict.toLatin1().constData());
+    return verdict == "V3_C_PASS" ? 0 : 4;
+}
+
 } // namespace
 
 int main(int argc, char **argv)
@@ -238,7 +262,7 @@ int main(int argc, char **argv)
     QCommandLineParser options;
     options.setApplicationDescription("Campagne électromécanique L5 bornée et reprenable");
     options.addHelpOption();
-    options.addPositionalArgument("command", "run (par défaut), preflight, v3-admission ou v3-build");
+    options.addPositionalArgument("command", "run (par défaut), preflight, v3-admission, v3-build ou v3-converge");
     options.addOptions({
         {"mode", "Porte preflight : historical, explore ou final", "mode"},
         {"source-release", "Gel des outils : v2.1, ou v2 pour le rejeu historique", "release", "v2.1"},
@@ -247,6 +271,8 @@ int main(int argc, char **argv)
         {"root", "Racine du dépôt", "path", "."},
         {"config", "Configuration de campagne", "path", "convergence_manager/fixtures/campaign.json"},
         {"request", "Demande v3.admission_scope/1 ou plan v3.mutation_plan/1", "path"},
+        {"observation", "Observation de référence FreeCAD pour v3-converge", "path"},
+        {"base-problem", "Problème T1 scellé pour un rejeu T2", "path"},
         {"sandbox", "Copie de référence XLink pour la demande V3", "path"},
         {"output", "Dossier de campagne neuf ou à reprendre", "path"},
         {"l1", "Exécutable de recherche L1", "path"},
@@ -260,6 +286,11 @@ int main(int argc, char **argv)
     options.process(app);
     try {
         const auto command = options.positionalArguments();
+        if (command == QStringList{"v3-converge"}) {
+            return convergeV3(options);
+        }
+        require(!options.isSet("observation") && !options.isSet("base-problem"),
+                "Les observations de référence requièrent v3-converge");
         if (command == QStringList{"v3-admission"} || command == QStringList{"v3-build"}) {
             return runV3(options, command.front() == "v3-build");
         }

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.mutation_plan:2",
+  "title": "Proposition XLink dans un domaine autorisé",
+  "description": "L'autorité et le domaine sont le même fichier scellé dans cette version. La transaction vérifie leur égalité, les limites, le corridor, les extrémités et les tangentes. Les poses attendues et les opérations viennent du profil scellé et de la projection vérifiée.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "domain", "plan_id", "authority_sha256", "domain_sha256", "values"],
+  "properties": {
+    "schema": {"const": "v3.mutation_plan/2"},
+    "domain": {"const": "SYNTHETIC_BENCH"},
+    "plan_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "authority_sha256": {"$ref": "#/$defs/sha256"},
+    "domain_sha256": {"$ref": "#/$defs/sha256"},
+    "values": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["translation_mm", "route_points_mm", "bend_radius_mm"],
+      "properties": {
+        "translation_mm": {"$ref": "#/$defs/point"},
+        "route_points_mm": {"type": "array", "minItems": 2, "maxItems": 16, "items": {"$ref": "#/$defs/point"}},
+        "bend_radius_mm": {"type": "number", "exclusiveMinimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "point": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}
+  }
+}

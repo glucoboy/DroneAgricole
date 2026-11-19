@@ -5,6 +5,7 @@
 #include "Files.hpp"
 #include "Graph.hpp"
 #include "ProcessBackend.hpp"
+#include "V3Domain.hpp"
 
 #include <QCoreApplication>
 #include <QDateTime>
@@ -294,12 +295,26 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
             {"reference", QJsonObject{{"path", relative(root, exactFile(source, it.key()))}}},
             {"checksums", QJsonObject{{"sha256", it.value()}}}});
     }
-    architecture_decision::Evidence evidence(published.absolutePath(), inputs,
-        {{"plan_id", planId}, {"plan_sha256", report.value("plan_sha256")}, {"profile_sha256", plan.value("profile_sha256")}},
-        tools, {"v3_b1", "convergence_core", "xlink", "SYNTHETIC_BENCH", "Transaction native V3 B.1 préparée",
-                "Transaction native V3 B.1 finalisée"});
     QMap<QString, QString> artifacts;
     artifacts.insert("mutation-plan.json", write(published.filePath("mutation-plan.json"), planBytes));
+    QJsonObject evidenceParameters{{"plan_id", planId}, {"plan_sha256", report.value("plan_sha256")},
+                                   {"profile_sha256", plan.value("profile_sha256")}};
+    if (report.value("plan_schema") == v3ParametricPlanSchema) {
+        const auto domainSha = plan.value("domain_sha256").toString();
+        const auto domainPath = v3DomainPath(domainSha);
+        const auto expandedSha = write(published.filePath("expanded-plan.json"), plan);
+        artifacts.insert("expanded-plan.json", expandedSha);
+        report.insert("expanded_plan_sha256", expandedSha);
+        evidenceParameters.insert("authority_sha256", domainSha);
+        evidenceParameters.insert("domain_sha256", domainSha);
+        evidenceParameters.insert("expanded_plan_sha256", expandedSha);
+        inputs.append(QJsonObject{{"input_id", "authority-domain"}, {"kind", "other"},
+            {"reference", QJsonObject{{"path", domainPath}}},
+            {"checksums", QJsonObject{{"sha256", domainSha}}}});
+    }
+    architecture_decision::Evidence evidence(published.absolutePath(), inputs, evidenceParameters,
+        tools, {"v3_b1", "convergence_core", "xlink", "SYNTHETIC_BENCH", "Transaction native V3 B.1 préparée",
+                "Transaction native V3 B.1 finalisée"});
     QString status = "INCONCLUSIVE";
     QJsonObject resultingFiles;
     try {
@@ -424,19 +439,34 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
     QJsonObject report{{"schema", "v3.b1.transaction/1"}, {"plan_id", plan.value("plan_id")},
         {"plan_sha256", planSha}, {"construction_result", "NOT_RUN"}, {"validation_status", "NOT_RUN"},
         {"candidate_transactions", 0}, {"execution_scope", "NONE"}};
-    if (plan.value("schema") != planSchema)
+    const bool parametric = plan.value("schema") == v3ParametricPlanSchema;
+    if (!parametric && plan.value("schema") != planSchema)
         return refusal(output, report, "UNSUPPORTED", "CONTRACT_VERSION_UNSUPPORTED");
     if (plan.value("domain") != "SYNTHETIC_BENCH")
         return refusal(output, report, "FAIL", "MUTATION_DOMAIN_DENIED");
-    for (const auto &value : plan.value("actions").toArray()) {
-        if (!implemented.contains(value.toObject().value("operation").toString()))
-            return refusal(output, report, "UNSUPPORTED", "OPERATION_UNSUPPORTED");
-    }
-    const auto profileSha = plan.value("profile_sha256").toString();
+    QJsonObject executablePlan = plan;
     QJsonObject profile;
     try {
-        profile = loadMutationProfile(root, profileSha);
-        const auto sequence = validatePlan(plan, profile);
+        QJsonArray parametricDecisions;
+        QStringList sequence;
+        if (parametric) {
+            const auto admitted = admitV3Plan(root, sandbox, plan);
+            profile = admitted.profile;
+            executablePlan = admitted.expandedPlan;
+            parametricDecisions = admitted.decisions;
+            for (const auto &value : executablePlan.value("actions").toArray())
+                sequence.append(identifier(value.toObject().value("id")));
+            report.insert("plan_schema", v3ParametricPlanSchema);
+            report.insert("authority_sha256", executablePlan.value("authority_sha256"));
+            report.insert("domain_sha256", executablePlan.value("domain_sha256"));
+        } else {
+            for (const auto &value : plan.value("actions").toArray()) {
+                if (!implemented.contains(value.toObject().value("operation").toString()))
+                    return refusal(output, report, "UNSUPPORTED", "OPERATION_UNSUPPORTED");
+            }
+            profile = loadMutationProfile(root, plan.value("profile_sha256").toString());
+            sequence = validatePlan(plan, profile);
+        }
         const auto constraints = profile.value("constraints").toObject();
         const auto constraintKeys = constraints.keys();
         require(QSet<QString>(constraintKeys.begin(), constraintKeys.end()) == QSet<QString>{
@@ -444,12 +474,14 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
             "GEOMETRY", "SUPPORT_ANCHOR", "SERVICE", "IMMUTABLE_SOURCES", "DYNAMIC_BEND_RADIUS"},
             "Registre des contraintes A.1 incomplet");
         report.insert("operations", QJsonArray::fromStringList(sequence));
-        report.insert("context_sha256", plan.value("context_sha256"));
+        report.insert("context_sha256", executablePlan.value("context_sha256"));
         QJsonArray admissions;
-        for (const auto &value : plan.value("actions").toArray()) {
-            const auto action = value.toObject();
-            const auto request = mutationAdmissionRequest(profile, profileSha, action);
-            const auto admission = evaluateAdmissionScope(root, sandbox, request);
+        const auto actions = executablePlan.value("actions").toArray();
+        const auto profileSha = executablePlan.value("profile_sha256").toString();
+        for (qsizetype index = 0; index < actions.size(); ++index) {
+            const auto action = actions.at(index).toObject();
+            const auto admission = parametric ? parametricDecisions.at(index).toObject()
+                : evaluateAdmissionScope(root, sandbox, mutationAdmissionRequest(profile, profileSha, action));
             admissions.append(admission);
             report.insert("admissions", admissions);
             require(admission.value("decision") == "ALLOW" && admission.value("execution_scope") == "BENCH_TEST_ONLY" &&
@@ -457,11 +489,11 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
                     "Admission A.1 : " + admission.value("reason").toString());
         }
         report.insert("execution_scope", "BENCH_TEST_ONLY");
-        report.insert("impact", calculateImpact(root, profile, plan.value("actions").toArray()));
+        report.insert("impact", calculateImpact(root, profile, actions));
     } catch (const std::exception &error) {
         return refusal(output, report, "FAIL", QString::fromUtf8(error.what()));
     }
-    return execute(root, sandbox, output, planBytes, plan, profile, freecadPython, t0Validator, report, abandoned);
+    return execute(root, sandbox, output, planBytes, executablePlan, profile, freecadPython, t0Validator, report, abandoned);
 }
 
 } // namespace convergence

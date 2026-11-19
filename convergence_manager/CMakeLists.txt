@@ -7,13 +7,13 @@ if(NOT TARGET electromechanical_graph)
     add_subdirectory(../electromechanical_graph graph)
 endif()
 
-add_library(convergence STATIC src/AdmissionScope.cpp src/Campaign.cpp src/Files.cpp src/Selection.cpp)
+add_library(convergence STATIC src/AdmissionScope.cpp src/Campaign.cpp src/Files.cpp src/Selection.cpp src/V3Domain.cpp src/V3Search.cpp)
 target_compile_features(convergence PUBLIC cxx_std_17)
 set_target_properties(convergence PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(convergence PUBLIC src)
 target_link_libraries(convergence PUBLIC Qt6::Core)
 
-add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp src/V3Transaction.cpp
+add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp src/V3Transaction.cpp src/V3Campaign.cpp
     ../architecture_decision_engine/src/ResearchAdapter.cpp ../architecture_decision_engine/src/Evidence.cpp)
 target_include_directories(convergence_core PRIVATE ../architecture_decision_engine/src)
 target_link_libraries(convergence_core PRIVATE convergence electromechanical_graph)
@@ -43,6 +43,8 @@ if(BUILD_TESTING)
     add_test(NAME l5_v3_admission_policy COMMAND test_l5_AdmissionScope
         "${CMAKE_CURRENT_SOURCE_DIR}/.." "${CMAKE_CURRENT_BINARY_DIR}/trace-policy.json")
     set_tests_properties(l5_v3_admission_policy PROPERTIES TIMEOUT 90 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")
+    add_executable(test_l5_V3Search tests/TestV3Search.cpp)
+    target_link_libraries(test_l5_V3Search PRIVATE convergence)
     set(L5_L1_EXECUTABLE "" CACHE FILEPATH "Binaire de recherche L1")
     set(L5_L3_EXECUTABLE "" CACHE FILEPATH "Binaire d'exploration L3")
     set(L5_L4_EXECUTABLE "" CACHE FILEPATH "Binaire de validation L4")

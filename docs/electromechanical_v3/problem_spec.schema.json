@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Problème paramétrique V3 sur banc synthétique",
+  "description": "L3 vérifie les entrées et publie le problème. L5 vérifie l'autorité du domaine et les paramètres avant tout essai natif.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "phase", "domain_sha256", "model_sha256", "observation_sha256", "seed", "budget", "narrowing", "objectives"],
+  "properties": {
+    "schema": {"const": "v3.problem_spec/1"},
+    "phase": {
+      "enum": ["T0", "T1", "T2", "T3"],
+      "description": "T0 pré-engagement, T1 recherche initiale, T2 restriction stricte de T1, T3 transfert sur un autre banc."
+    },
+    "domain_sha256": {"$ref": "#/$defs/sha256"},
+    "model_sha256": {"$ref": "#/$defs/sha256"},
+    "observation_sha256": {"$ref": "#/$defs/sha256"},
+    "base_problem_sha256": {"$ref": "#/$defs/sha256"},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 2147483647},
+    "budget": {
+      "type": "object",
+      "required": ["max_proposals", "max_native"],
+      "additionalProperties": false,
+      "properties": {
+        "max_proposals": {"type": "integer", "minimum": 3, "maximum": 512},
+        "max_native": {"type": "integer", "minimum": 1, "maximum": 16}
+      },
+      "description": "Le moteur vérifie également max_native inférieur ou égal à max_proposals."
+    },
+    "narrowing": {
+      "type": "object",
+      "required": ["translation_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "translation_mm": {
+          "type": "object",
+          "required": ["min", "max"],
+          "additionalProperties": false,
+          "properties": {"min": {"$ref": "#/$defs/point"}, "max": {"$ref": "#/$defs/point"}},
+          "description": "Bornes XYZ fermées dans le repère de placement de l'autorité."
+        },
+        "support_zones": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1},
+          "description": "Restriction d'ancrages préparatoire L3. La composition qualifiée V3-C conserve tous ses ancrages scellés."
+        }
+      }
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/objective"},
+      "description": "Dimensions Pareto ordonnées. L'ordre déclaré départage les candidats du front de Pareto selon les mesures effectivement disponibles."
+    }
+  },
+  "if": {"properties": {"phase": {"const": "T2"}}},
+  "then": {"required": ["base_problem_sha256"]},
+  "else": {"not": {"required": ["base_problem_sha256"]}},
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "point": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "objective": {
+      "type": "object",
+      "required": ["metric", "direction"],
+      "additionalProperties": false,
+      "properties": {
+        "metric": {"enum": ["route_length_mm", "service_clearance_mm", "support_count"]},
+        "direction": {"enum": ["MIN", "MAX"]}
+      },
+      "if": {"properties": {"metric": {"const": "service_clearance_mm"}}},
+      "then": {"properties": {"direction": {"const": "MAX"}}},
+      "else": {"properties": {"direction": {"const": "MIN"}}}
+    }
+  }
+}

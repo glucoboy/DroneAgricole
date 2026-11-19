@@ -1,0 +1,49 @@
+{
+  "schema": "v3.parametric_domain/1",
+  "domain": "SYNTHETIC_BENCH",
+  "model_id": "xlink-workholding-b1",
+  "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+  "composition": ["move-root", "route", "relocate", "create"],
+  "scene": {
+    "device_occurrence": "FixtureRig/Payload",
+    "cable_occurrence": "HarnessInventory/Cable",
+    "ports": ["port-a", "port-b"],
+    "moving_with": []
+  },
+  "placement": {
+    "frame": "ROOT",
+    "translation_min_mm": [77, 40, 7],
+    "translation_max_mm": [81, 48, 9],
+    "rotation_xyzw": [0, 0, 0.9238795325112867, 0.38268343236508984]
+  },
+  "route": {
+    "corridor_min_mm": [14, -18, 0],
+    "corridor_max_mm": [86, 18, 0],
+    "start_mm": [14, 0, 0],
+    "end_reference_mm": [86, 0, 0],
+    "terminal_mode": "FIXED",
+    "device_reference_mm": [75, 41, 7],
+    "radius_min_mm": 5,
+    "radius_max_mm": 6.5,
+    "min_points": 2,
+    "max_points": 16
+  },
+  "supports": [
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate-existing",
+      "anchor": "anchor-relocate",
+      "anchor_path": "Workholding/AnchorRelocate",
+      "support_path": "Workholding/ExistingPlate",
+      "carrier_path": "Workholding/Carrier"
+    },
+    {
+      "operation": "CREATE_SUPPORT",
+      "occurrence": "anchor-new",
+      "anchor": "anchor-new",
+      "anchor_path": "Workholding/AnchorNew",
+      "support_path": "Workholding/NewPlate",
+      "carrier_path": "Workholding/Carrier"
+    }
+  ]
+}

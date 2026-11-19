@@ -310,6 +310,11 @@ def case_result(args, area, replay, profiles):
     transaction = receipt.parent
     native, plan = load(receipt), load(transaction / 'mutation-plan.json')
     proposal = native['plan_sha256']
+    if plan['schema'] == 'v3.mutation_plan/2':
+        expanded_path = transaction / 'expanded-plan.json'
+        if digest(expanded_path) != native['expanded_plan_sha256'] or plan['domain_sha256'] != native['domain_sha256']:
+            raise ValueError(f'Expansion d’admission divergente : {receipt}')
+        plan = load(expanded_path)
     profile_path = profiles[plan['profile_sha256']]
     profile = load(profile_path)
     origin = ROOT / profile['source']

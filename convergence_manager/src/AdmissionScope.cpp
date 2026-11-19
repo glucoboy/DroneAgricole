@@ -1,5 +1,6 @@
 #include "AdmissionScope.hpp"
 #include "Files.hpp"
+#include "V3Domain.hpp"
 
 #include <QFile>
 #include <QFileInfo>
@@ -291,30 +292,9 @@ QJsonObject evaluateBench(const QDir &root, const QDir &sandbox, const QJsonObje
     return result.allow("SEALED_SYNTHETIC_BENCH", "BENCH_TEST_ONLY");
 }
 
-QJsonObject evaluateMutationBench(const QDir &root, const QDir &sandbox, const QJsonObject &request, Decision &result)
+QJsonObject verifyMutationBench(const QDir &root, const QDir &sandbox, const QJsonObject &request,
+                                const QJsonObject &profile, Decision &result, const QString &reason)
 {
-    const auto sha = request.value("freeze_sha256").toString();
-    QJsonObject profile;
-    try {
-        profile = loadMutationProfile(root, sha);
-    } catch (const std::exception &) {
-        return result.stop("TRUSTED_BENCH_EVIDENCE_MISMATCH");
-    }
-    result.bind("BENCH_MUTATION_PROFILE", ref(mutationProfiles.value(sha), sha));
-    result.verified("BENCH_EVIDENCE_SEALED");
-    bool operationSupported = false;
-    bool matches = false;
-    for (const auto &entry : profile.value("actions").toArray()) {
-        const auto action = entry.toObject();
-        if (action.value("operation") == request.value("operation")) {
-            operationSupported = true;
-            matches |= request == mutationAdmissionRequest(profile, sha, action);
-        }
-    }
-    if (!operationSupported)
-        return result.stop("BENCH_OPERATION_UNSUPPORTED", {}, "UNSUPPORTED");
-    if (!matches)
-        return result.stop("BENCH_MUTATION_SCOPE_MISMATCH");
     result.controls(request.value("validations").toArray());
     result.verified("OPERATION_TARGET_EFFECT_BOUND");
     result.verified("NON_RELAXABLE_CONSTRAINTS_BOUND");
@@ -339,7 +319,34 @@ QJsonObject evaluateMutationBench(const QDir &root, const QDir &sandbox, const Q
         return result.stop("XLINK_DEPENDENCY_MISMATCH");
     }
     result.verified("PRIVATE_XLINK_COPY_VERIFIED");
-    return result.allow("SEALED_SYNTHETIC_BENCH", "BENCH_TEST_ONLY");
+    return result.allow(reason, "BENCH_TEST_ONLY");
+}
+
+QJsonObject evaluateMutationBench(const QDir &root, const QDir &sandbox, const QJsonObject &request, Decision &result)
+{
+    const auto sha = request.value("freeze_sha256").toString();
+    QJsonObject profile;
+    try {
+        profile = loadMutationProfile(root, sha);
+    } catch (const std::exception &) {
+        return result.stop("TRUSTED_BENCH_EVIDENCE_MISMATCH");
+    }
+    result.bind("BENCH_MUTATION_PROFILE", ref(mutationProfiles.value(sha), sha));
+    result.verified("BENCH_EVIDENCE_SEALED");
+    bool operationSupported = false;
+    bool matches = false;
+    for (const auto &entry : profile.value("actions").toArray()) {
+        const auto action = entry.toObject();
+        if (action.value("operation") == request.value("operation")) {
+            operationSupported = true;
+            matches |= request == mutationAdmissionRequest(profile, sha, action);
+        }
+    }
+    if (!operationSupported)
+        return result.stop("BENCH_OPERATION_UNSUPPORTED", {}, "UNSUPPORTED");
+    if (!matches)
+        return result.stop("BENCH_MUTATION_SCOPE_MISMATCH");
+    return verifyMutationBench(root, sandbox, request, profile, result, "SEALED_SYNTHETIC_BENCH");
 }
 
 QJsonArray cartographerBlockers(const QJsonObject &request, const QJsonObject &authority)
@@ -470,6 +477,33 @@ QJsonObject mutationAdmissionRequest(const QJsonObject &profile, const QString &
             {"xlink_dependencies", profile.value("dependencies")}, {"effect", action.value("effect")},
             {"authorities", authorities}, {"constraints", constraints}, {"validations", checks},
             {"assumptions", QJsonArray{}}, {"risks", QJsonArray{"GEOMETRY_FAILURE"}}};
+}
+
+QString v3BaseProfilePath(const QJsonObject &domain)
+{
+    const auto path = mutationProfiles.value(domain.value("profile_sha256").toString());
+    require(!path.isEmpty(), "Profil de base paramétrique inconnu");
+    return path;
+}
+
+V3ParametricAdmission admitV3Plan(const QDir &root, const QDir &sandbox, const QJsonObject &plan)
+{
+    const auto domainSha = plan.value("domain_sha256").toString();
+    const auto domain = loadV3Domain(root, domainSha);
+    const auto profileSha = domain.value("profile_sha256").toString();
+    const auto profile = loadMutationProfile(root, profileSha);
+    const auto expanded = validateV3Plan(domain, profile, domainSha, plan);
+    QJsonArray decisions;
+    for (const auto &value : expanded.value("actions").toArray()) {
+        const auto request = mutationAdmissionRequest(profile, profileSha, value.toObject());
+        Decision result(request);
+        result.bind("BENCH_MUTATION_PROFILE", ref(v3BaseProfilePath(domain), profileSha));
+        result.bind("PARAMETRIC_DOMAIN", ref(v3DomainPath(domainSha), domainSha));
+        result.verified("BENCH_EVIDENCE_SEALED");
+        result.verified("PARAMETRIC_VALUES_AND_COMPOSITION_BOUND");
+        decisions.append(verifyMutationBench(root, sandbox, request, profile, result, "SEALED_PARAMETRIC_BENCH"));
+    }
+    return {profile, expanded, decisions};
 }
 
 QJsonObject evaluateAdmissionScope(const QDir &root, const QDir &sandbox, const QJsonObject &request)

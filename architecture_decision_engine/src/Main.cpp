@@ -1,6 +1,7 @@
 #include "Evidence.hpp"
 #include "Exploration.hpp"
 #include "InterconnectionAdapter.hpp"
+#include "ProblemSpec.hpp"
 #include "ResearchAdapter.hpp"
 
 #include <QCommandLineParser>
@@ -11,6 +12,7 @@
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QLockFile>
 #include <QSaveFile>
 #include <QSysInfo>
 #include <cstdio>
@@ -40,6 +42,14 @@ QByteArray read(const QString &path)
 QString sha(const QByteArray &bytes)
 {
     return QString::fromLatin1(QCryptographicHash::hash(bytes, QCryptographicHash::Sha256).toHex());
+}
+
+QString fileSha(const QString &path)
+{
+    QFile file(path);
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    require(file.open(QIODevice::ReadOnly) && hash.addData(&file), "Empreinte impossible : " + path);
+    return QString::fromLatin1(hash.result().toHex());
 }
 
 QJsonObject json(const QByteArray &bytes, const QString &source)
@@ -91,6 +101,47 @@ struct Inputs {
         }
     }
 };
+
+int runProblemSpec(const QCommandLineParser &options)
+{
+    for (const auto &key : {"request", "domain", "model", "observation", "output"}) {
+        require(options.isSet(key), "Option requise : --" + QString(key));
+    }
+    const QFileInfo workspace(options.value("root"));
+    require(workspace.isDir(), "Racine du dépôt absente");
+    const QDir root(workspace.canonicalFilePath());
+    const QFileInfo output(QDir::cleanPath(root.absoluteFilePath(options.value("output"))));
+    relative(root, output.absoluteFilePath());
+    const QFileInfo parent(output.absolutePath());
+    require(parent.isDir() && parent.canonicalFilePath() == parent.absoluteFilePath(),
+            "Dossier parent absent ou redirigé");
+    QLockFile lock(output.absoluteFilePath() + ".lock");
+    require(lock.tryLock(), "Publication du problème déjà en cours");
+    require(!output.exists() && !output.isSymLink(), "Un fichier de sortie neuf est requis");
+
+    Inputs inputs{root, {}, {}};
+    const auto requestBytes = inputs.capture("v3_problem_request", options.value("request"));
+    const auto domainBytes = inputs.capture("v3_parametric_domain", options.value("domain"));
+    const auto observation = inputs.capture("v3_native_observation", options.value("observation"));
+    parseProblemObject(observation, options.value("observation"));
+    const QFileInfo model(root.absoluteFilePath(options.value("model")));
+    require(model.isFile() && model.size() > 0, "Natif XLink absent ou vide");
+    const auto modelPath = model.canonicalFilePath();
+    relative(root, modelPath);
+    const ProblemSources sources{parseProblemObject(domainBytes, options.value("domain")),
+                                 sha(domainBytes), fileSha(modelPath), sha(observation)};
+    std::optional<BaseProblem> base;
+    if (options.isSet("base-problem")) {
+        const auto bytes = inputs.capture("v3_base_problem", options.value("base-problem"));
+        base = BaseProblem{parseProblemObject(bytes, options.value("base-problem")), sha(bytes)};
+    }
+    const auto problem = validateProblemSpec(parseProblemObject(requestBytes, options.value("request")), sources, base);
+    inputs.verify();
+    require(fileSha(modelPath) == sources.modelSha256, "Natif XLink modifié pendant la préparation");
+    const auto outputSha = write(output.absoluteFilePath(), problem);
+    std::printf("%s\n", outputSha.toLatin1().constData());
+    return 0;
+}
 
 QJsonObject indexedBenches(const QJsonObject &source)
 {
@@ -261,16 +312,27 @@ int main(int argc, char **argv)
     QCommandLineParser options;
     options.setApplicationDescription("Bancs d’exploration d’architectures électromécaniques L3");
     options.addHelpOption();
+    options.addPositionalArgument("commande", "Tests historiques (par défaut) ou v3-problem");
     options.addOptions({
         {"root", "Racine du dépôt", "path", "."},
-        {"output", "Dossier de sortie neuf", "path"},
+        {"output", "Dossier historique ou fichier problem_spec.json neuf", "path"},
         {"l1", "Exécutable du moteur L1", "path"},
         {"benches", "Définition des bancs", "path", fixture + "benches.json"},
         {"requirements", "Exigences des bancs", "path", fixture + "requirements.json"},
-        {"acceptance", "Critères de réception", "path", fixture + "acceptance.json"}
+        {"acceptance", "Critères de réception", "path", fixture + "acceptance.json"},
+        {"request", "Paramètres du problème V3", "path"},
+        {"domain", "Domaine paramétrique scellé", "path"},
+        {"model", "Fichier natif racine du modèle XLink", "path"},
+        {"observation", "Observation indépendante de géométrie de référence", "path"},
+        {"base-problem", "Problem_spec T1 pour une restriction T2", "path"}
     });
     options.process(application);
     try {
+        const auto commands = options.positionalArguments();
+        if (commands == QStringList{"v3-problem"}) {
+            return runProblemSpec(options);
+        }
+        require(commands.isEmpty(), "Commande L3 inconnue");
         return run(options);
     } catch (const std::exception &error) {
         std::fprintf(stderr, "%s\n", error.what());

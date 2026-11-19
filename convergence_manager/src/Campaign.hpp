@@ -20,6 +20,9 @@ class Campaign {
 public:
     Campaign(QDir output, QJsonObject config, QJsonObject manifest, Backend &backend);
     int run(int steps = -1);
+    static QJsonObject runV3(const QDir &root, const QDir &output, const QString &problemPath,
+                            const QString &observationPath, const QString &baseProblemPath,
+                            const QString &freecad, const QString &python, const QString &t0);
 
 private:
     void advance();

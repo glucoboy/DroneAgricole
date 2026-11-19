@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.parametric_domain:1",
+  "title": "Autorité d'exploration paramétrique XLink",
+  "description": "Le binaire épingle les octets de l'autorité. Le profil B.1 conserve les occurrences, les ancrages et leurs contrôles. Les intervalles déclarent le domaine de recherche en millimètres.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "domain", "model_id", "profile_sha256", "composition", "scene", "placement", "route", "supports"],
+  "properties": {
+    "schema": {"const": "v3.parametric_domain/1"},
+    "domain": {"const": "SYNTHETIC_BENCH"},
+    "model_id": {"$ref": "#/$defs/id"},
+    "profile_sha256": {"$ref": "#/$defs/sha256"},
+    "composition": {"type": "array", "minItems": 2, "maxItems": 8, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["device_occurrence", "cable_occurrence", "ports", "moving_with"],
+      "properties": {
+        "device_occurrence": {"$ref": "#/$defs/occurrence_path"},
+        "cable_occurrence": {"$ref": "#/$defs/occurrence_path"},
+        "ports": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "moving_with": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/occurrence_path"}}
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame", "translation_min_mm", "translation_max_mm", "rotation_xyzw"],
+      "properties": {
+        "frame": {"const": "ROOT"},
+        "translation_min_mm": {"$ref": "#/$defs/point"},
+        "translation_max_mm": {"$ref": "#/$defs/point"},
+        "rotation_xyzw": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": {"type": "number", "minimum": -1, "maximum": 1}
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corridor_min_mm", "corridor_max_mm", "start_mm", "end_reference_mm", "terminal_mode",
+        "device_reference_mm", "radius_min_mm", "radius_max_mm", "min_points", "max_points"],
+      "properties": {
+        "corridor_min_mm": {"$ref": "#/$defs/point"},
+        "corridor_max_mm": {"$ref": "#/$defs/point"},
+        "start_mm": {"$ref": "#/$defs/point"},
+        "end_reference_mm": {"$ref": "#/$defs/point"},
+        "terminal_mode": {"enum": ["FIXED", "FOLLOW_TRANSLATION"]},
+        "device_reference_mm": {"$ref": "#/$defs/point"},
+        "radius_min_mm": {"type": "number", "exclusiveMinimum": 0},
+        "radius_max_mm": {"type": "number", "exclusiveMinimum": 0},
+        "min_points": {"type": "integer", "minimum": 2, "maximum": 16},
+        "max_points": {"type": "integer", "minimum": 2, "maximum": 16}
+      }
+    },
+    "supports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["operation", "occurrence", "anchor", "anchor_path", "support_path", "carrier_path"],
+        "properties": {
+          "operation": {"enum": ["RELOCATE_SUPPORT", "CREATE_SUPPORT"]},
+          "occurrence": {"$ref": "#/$defs/id"},
+          "anchor": {"$ref": "#/$defs/id"},
+          "anchor_path": {"$ref": "#/$defs/occurrence_path"},
+          "support_path": {"$ref": "#/$defs/occurrence_path"},
+          "carrier_path": {"$ref": "#/$defs/occurrence_path"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "occurrence_path": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*(/[A-Za-z_][A-Za-z0-9_]*)*$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "point": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}
+  }
+}

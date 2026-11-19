@@ -45,3 +45,34 @@ cmake --build $validatorBuild --target cartographe-evidence
 
 [Réception L3](../docs/electromechanical_v2/L3_RESULT.md) ·
 [Périmètre des résultats](../docs/VALIDATION_QUALIFICATION.md#moteur-electromecanique-v2-l3)
+
+## Problème paramétrique V3
+
+Préparer la demande [v3.problem_spec/1](../docs/electromechanical_v3/problem_spec.schema.json)
+avec les SHA-256 du domaine synthétique, du natif racine et de
+l'observation indépendante. Indiquer la graine entière, les plafonds de
+propositions et de créations natives, la boîte de translation et les
+objectifs Pareto dans l'ordre de départage. Les bornes XYZ sont fermées
+et exprimées en millimètres dans le repère de placement du domaine.
+`support_zones` prépare une restriction des identifiants d'ancrages en L3.
+La campagne V3-C utilise les ancrages imposés par le domaine de composition
+et refuse une demande qui renseigne ce champ.
+
+```powershell
+& "$build/architecture_decision_core.exe" v3-problem --root . --request $request `
+    --domain $domain --model $nativeRoot --observation $observation --output "$run/problem_spec.json"
+```
+
+Le parent du fichier de sortie doit exister. Avec le code `0`, la CLI
+publie le fichier neuf et retourne son SHA-256. Une demande invalide
+retourne `1`. La compilation du problème reste en lecture des entrées.
+L5 vérifie l'autorité, les budgets, la fermeture et chaque proposition
+avant la construction. Le problème donne un domaine de recherche et
+les critères de comparaison à L5.
+
+| Phase | Usage |
+|---|---|
+| `T0` | Préparer les données à engager avant la recherche. |
+| `T1` | Chercher dans le domaine de départ déclaré. |
+| `T2` | Fournir aussi `--base-problem <problem_spec T1>`. Le SHA du fichier T1 est inscrit dans `base_problem_sha256`. Le modèle, l'observation, le domaine, la graine, le budget et les objectifs restent ceux de T1. La campagne V3-C restreint strictement la boîte de translation. |
+| `T3` | Appliquer le même contrat à un autre banc synthétique déjà autorisé. La preuve de campagne compare l'identité des bancs. |
