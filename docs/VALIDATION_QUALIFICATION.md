@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 18 novembre 2026 |
+| Dernière mise à jour | 19 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -2785,6 +2785,30 @@ y compris les éditions DOC-MEC et DOC-ELEC référencées par le graphe A.
 Le test sur banc B.1 conserve sa portée propre. Construction cartographe,
 candidats B.1, V3-C, V3-D et GO4 sont `NOT_RUN` dans cette campagne.
 
+<a id="cartographe-v3-i"></a>
+#### Intégration V3-I — 19 novembre 2026
+
+`V3_INTEGRATION_GO` sur Windows amd64. Le constructeur B.1 et le dossier
+A.2 cohabitent sur une fusion à deux parents issue d’A.1. Les reçus scellés
+restent rattachés à leur révision d’origine. La jonction conserve les
+règles d’empreinte des workers et autorités C4, ainsi que les natifs.
+[Reçu d’intégration](verification/v3/i/acceptance.json) ·
+[Manifeste Git et empreintes](verification/v3/i/merge_manifest.json).
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-A1-01`, `V3-B1-01` à `V3-B1-04` | `T-CARTO-V3-I` → compilation C++17/Qt6, CTest et rejeux scellés B.1 | Trois candidats admis, quatre cas rejetés et quinze contre-épreuves de frontière exécutées. Deux clones locaux reproduisent les octets des trois fermetures de banc. |
+| `CAB-CARTO-001`, `MEC-INT-001` | `T-CARTO-V3-I` → intégrité et réouverture indépendante A.2 | Référence et trois témoins GO3B observés en lecture seule. Trois analyses d’impact admises. Huit issues UART ouvertes et zéro révision physique confirmée. |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-I` → non-escalade et rejeux historiques privés | Le dossier A.2 brut est refusé comme contrat d’entrée. Les six opérations testées à raison d’une occurrence chacune sont refusées avec zéro transaction. L2 réussit sur son témoin CRLF et refuse le manifeste actif LF, qui conserve son empreinte. |
+
+V3-B.2 sur banc et la collecte V3-A.3 peuvent suivre en soutien de
+`ORCH-CAO-MASSE-1`. Pour le cartographe, `READ_ONLY_IMPACT` reste la portée
+d’observation, la mutation et l’admission de conception restent `DENY`,
+et la réception physique `NOT_RUN`. Les 1 609 paires et sept interférences
+V2.1 B.2 restent historiques dans cette passe.
+[Régressions](verification/v3/i/regressions.json) ·
+[Recette](verification/v3/i/REPORT.md) · [Portées](verification/v3/i/scope_matrix.json).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4142,6 +4166,8 @@ cheminement. Reprendre la décision de mutation après identification du lot,
 relevé signé des interfaces et des ancrages, puis démonstration d’un domaine
 compatible avec le service et les protections. Ces contrôles servent la
 clôture de géométrie et de nomenclature sous ORCH-CAO-MASSE-1.
+[V3-I](#cartographe-v3-i) réunit le constructeur et les preuves A.2.
+La contre-validation sur banc et la collecte par occurrence peuvent avancer.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4802,6 +4828,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — Rejeux d’intégration V3-I sur banc scellé et vérification de la portée A.2 en lecture seule. [Résultat](#cartographe-v3-i)
 - **19 novembre 2026** — V3 B.1 exécute les mutations XLink sur deux bancs et vérifie les candidats sauvegardés. [Résultat](#cartographe-v3-b1)
 - **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)
 - **18 novembre 2026** — V3-A.2 documente les exclusions et les preuves requises pour les huit issues UART. [Résultat](#cartographe-v3-a2)

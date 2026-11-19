@@ -1,0 +1,673 @@
+{
+  "schema": "v3.i.regressions/1",
+  "source_commit": "24fd5f5119c6789acb5db77d8b9caea43431b158",
+  "environment": {
+    "system": "Windows 10.0.26300.0",
+    "arch": "amd64",
+    "cxx": "GNU MinGW UCRT 16.2.0, C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "runner_python": "3.14.7",
+    "freecad": "1.1.3",
+    "freecad_python": "3.11.14",
+    "occt": "7.8.1",
+    "cables": "0.3.7"
+  },
+  "actual_tests": {
+    "compilation": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        ".runtime/v3-i/build",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:35:44.182403+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/cmake.exe",
+        "sha256": "6ce961df7f5500677dfad524644d0c248796b9387389f1bba2b0bd0d11e36407"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/build.log",
+          "sha256": "b2e87da474ea9749f29fa1244ed37e2d8849a4652848eba17d4398c7d111eae3"
+        }
+      ],
+      "limit": null
+    },
+    "ctest": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        ".runtime/v3-i/build",
+        "-R",
+        "^(l5_|v3_graph_contract|l2_interconnection)",
+        "--output-on-failure",
+        "--output-junit",
+        "v3-i.xml"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:42:13.653328+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/ctest.exe",
+        "sha256": "06dc51bc41fea7836376d08ff3fbd20ed36a8e9d43c3d503736b74898e5db325"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/build/v3-i.xml",
+          "sha256": "6320f0079e80a857964a428e0278df86604abd8d9f33df8d8ebb6524e22c9a63"
+        }
+      ],
+      "limit": null,
+      "cases": {
+        "l5_Campaign": "run",
+        "l5_Selection": "run",
+        "l5_v3_admission_entry": "run",
+        "l5_v3_admission_policy": "run",
+        "l5_v3_native_mutate": "run",
+        "l5_v3_native_verify": "run",
+        "l5_cli": "run",
+        "v3_graph_contract": "run",
+        "l2_interconnection": "run"
+      }
+    },
+    "windows_path_guards": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        ".runtime/v3-i/build",
+        "-R",
+        "^l5_v3_admission_(entry|policy)$",
+        "--output-on-failure",
+        "--output-junit",
+        "v3-i-native-paths.xml"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:39:02.765749+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/ctest.exe",
+        "sha256": "06dc51bc41fea7836376d08ff3fbd20ed36a8e9d43c3d503736b74898e5db325"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/build/v3-i-native-paths.xml",
+          "sha256": "1a80d4bd7f11ac7fb8c42a8d023aaccf8a789afa2a5eefe91acf2066e69fc4bb"
+        }
+      ],
+      "limit": null,
+      "cases": {
+        "l5_v3_admission_entry": "run",
+        "l5_v3_admission_policy": "run"
+      },
+      "traces": [
+        {
+          "path": ".runtime/v3-i/build/trace-entry.json",
+          "sha256": "ed88ec66ab324e1f600d4ec392f6e01494f6ad2f7e6ed0aaebd311e9215d9df7"
+        },
+        {
+          "path": ".runtime/v3-i/build/trace-policy.json",
+          "sha256": "1f5bbb36638f6eb50340c47686850fbf7ad2d7e3e047db8acddc9361622806e7"
+        }
+      ],
+      "first_run_limit": "Le bac à sable a initialement empêché la création du lien physique. Le test autorisé a exécuté la contre-épreuve."
+    },
+    "b1": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_b1.py",
+        "--core",
+        ".runtime/v3-i/build/convergence_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--profile",
+        "docs/electromechanical_v3/bench_b1_c4/profile.json",
+        "--profile",
+        "docs/electromechanical_v3/bench_b1_workholding/profile.json",
+        "--output",
+        ".runtime/v3-i/b1"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:37:20.016459+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/b1/replay.json",
+          "sha256": "085e5d5952141d12f6e956e2dc91af2b3b58ccb31795440429e30b3cf9a45031"
+        }
+      ],
+      "limit": null,
+      "cases": [
+        {
+          "plan_id": "xlink-historical-c4-1",
+          "status": "PASS",
+          "operations": [
+            "c4-move",
+            "c4-route"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-historical-c4-1/output/transaction/campaign.json",
+          "sha256": "9f39ec975fc72f0694bc41ba9b2d25822a002e679c783be0ef68f7cadc0156c6",
+          "exit_code": 0,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-historical-c4-1/invocation.json",
+            "sha256": "578261cd78a076d6de7519756ca6482863362bfb57e1e19ac10bc53a6761f02a"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-historical-c4-1/plan.json",
+            "sha256": "65135c8557cf2c53dd0c6c636449b47aa3888c6d537f62b8ba63fd7bd4852974"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-historical-c4-1/output/transaction/t0-crosscheck.json",
+            "sha256": "54f4dc3eeb84f228a2780680ad2958fe84fcb361b9b64855d44332e1fd051c6e"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-historical-c4-1/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "116c4cb8760eb71799a2205947f1c280144cd09ce206941ea8339cd8eb40ac80"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-historical-c4-1/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        },
+        {
+          "plan_id": "xlink-workholding-b1-1",
+          "status": "PASS",
+          "operations": [
+            "move-root",
+            "route",
+            "relocate",
+            "create"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-1/output/transaction/campaign.json",
+          "sha256": "04d5602d580973339308e436749a7747c124b02f3dfbefe4cab9fed4f03d03da",
+          "exit_code": 0,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/invocation.json",
+            "sha256": "be9c85f51b111d2d74afe0f12932b144f1f8e838294e40ed4c9233cae89c7d41"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/plan.json",
+            "sha256": "db7b61b35e2766923bb61c1ca48aa88d8f2b759764ab8d02840d07b4c39fa14f"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/output/transaction/t0-crosscheck.json",
+            "sha256": "03badf0950b82a1f6b4a2b283ddba1ec3421cde1965580b736ee33f28d35a11e"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "395e05d78a379dd9bb055b83e1cc74640c921a77773fe0fa3598f91f9d559ee0"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/output/transaction/cad/parts/FixtureAssets.FCStd",
+              "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-1/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        },
+        {
+          "plan_id": "xlink-workholding-b1-2",
+          "status": "PASS",
+          "operations": [
+            "move-parent",
+            "route",
+            "relocate",
+            "create"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-2/output/transaction/campaign.json",
+          "sha256": "33d6aab6f7b42286c08b3522cb1b16d5627ee3693f68d50979403b47e14fdf4f",
+          "exit_code": 0,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/invocation.json",
+            "sha256": "c358e0b0b6ab40c07e0cde4245390752edac51a67715560bcc196e112dc4e243"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/plan.json",
+            "sha256": "23d0745c671bec69db5eaa4a3eff52315326ff1e455159fb65b7bfba8583010b"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/output/transaction/t0-crosscheck.json",
+            "sha256": "7739a54d09e01e7fa5fc0b9ed34e061e1d64125d7db54d78a9c5756208820250"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "705fa013a4e58df45f476390a1cf53f9b267b3e2ab4d77651cd3c1046a5e8c75"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/output/transaction/cad/parts/FixtureAssets.FCStd",
+              "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-2/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        },
+        {
+          "plan_id": "xlink-workholding-b1-3",
+          "status": "FAIL",
+          "operations": [
+            "collision"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-3/output/transaction/campaign.json",
+          "sha256": "b3de19379208451463857e67a9a9420124f4045c54f4daf20b0ef734421b011a",
+          "exit_code": 2,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/invocation.json",
+            "sha256": "783282f1dd972666e4d9a74fc1d8d4ddeaa3eabdcde2db6bac08a8693842c935"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/plan.json",
+            "sha256": "224b3a13987e6445e999cace3fb27c3d88c7d33ee9629ffb7550a4a9f8f90e17"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/output/transaction/t0-crosscheck.json",
+            "sha256": "0bc764c3f104633baa61077ce6c85571c9001f5e9beebe4e09fb17741dc43ccb"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "6eaeb360274f12d48eba6dd0a31a432d8bc8c08816bfdbb5081d618977909d9b"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/output/transaction/cad/parts/FixtureAssets.FCStd",
+              "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-3/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        },
+        {
+          "plan_id": "xlink-workholding-b1-4",
+          "status": "FAIL",
+          "operations": [
+            "radius-low"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-4/output/transaction/campaign.json",
+          "sha256": "238736711b8f859d9dd828519ef7778f2f5344d5219be3de2a7b04ff2c97184e",
+          "exit_code": 2,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/invocation.json",
+            "sha256": "9b4c79e24f3355a198594aec8e24b323bbb477afdbeb2f0e45b5eb7626ab6154"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/plan.json",
+            "sha256": "222e869188bf993baf4815f82588ebd91ae01495c5e91394fc05b99cdb726b91"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/output/transaction/t0-crosscheck.json",
+            "sha256": "5a718ab2dc9de704101ed168fdf9bc336c3e00fa6dc052494da53c444b077a7f"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "307b7d54896b55cdaa2c2dab6c40c46e2947fbb948649badf1e057188fe57fa7"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/output/transaction/cad/parts/FixtureAssets.FCStd",
+              "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-4/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        },
+        {
+          "plan_id": "xlink-workholding-b1-5",
+          "status": "FAIL",
+          "operations": [
+            "move-root",
+            "duplicates"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-5/output/transaction/campaign.json",
+          "sha256": "c25b5013a1faf323c72d29fd6c728d2008331de4002aab242d67337444105e32",
+          "exit_code": 2,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-5/invocation.json",
+            "sha256": "d61be3e5f368ed4024d9a34b0173317be0fed4e177a3e7feab89700c41aad371"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-5/plan.json",
+            "sha256": "640f01999ae01c281386152d6f60dd2788402493ab5844d9f907f83f754136bf"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-5/output/transaction/t0-crosscheck.json",
+            "sha256": "b8fb85aaf0b839b8d93dc9181c16d18bf6e80a80c603dfafb30e2fe60dc3d8f9"
+          },
+          "published_natives": []
+        },
+        {
+          "plan_id": "xlink-workholding-b1-6",
+          "status": "FAIL",
+          "operations": [
+            "floating"
+          ],
+          "receipt": ".runtime/v3-i/b1/xlink-workholding-b1-6/output/transaction/campaign.json",
+          "sha256": "0a6263dee9168e4397be3d46c36200c2f63e5065a33560f05db9e47f43a53bcc",
+          "exit_code": 2,
+          "invocation": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/invocation.json",
+            "sha256": "22286c3a6ae083a66beb2fc5b0df2c921bc7b3742de986f947c234d77a3bb19d"
+          },
+          "plan": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/plan.json",
+            "sha256": "ef314d3afd5401f0ff20ad4b7e3489615b1010d909360534dd70d6c1d24c1986"
+          },
+          "T0": {
+            "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/output/transaction/t0-crosscheck.json",
+            "sha256": "c8ac44cea290e46faef10fb838ebbf7f62a1f9dff2d73043e492c748a99981ab"
+          },
+          "published_natives": [
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/output/transaction/cad/Banc_Interconnexion.FCStd",
+              "sha256": "4ce98dd7ff5bde66c94accf3036146a92868ddf42893ffe35c7af34b80ab6152"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/output/transaction/cad/parts/FixtureAssets.FCStd",
+              "sha256": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5"
+            },
+            {
+              "path": ".runtime/v3-i/b1/xlink-workholding-b1-6/output/transaction/cad/parts/Obstacle.FCStd",
+              "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          ]
+        }
+      ]
+    },
+    "b1_boundary": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_b1_boundary.py",
+        "--core",
+        ".runtime/v3-i/build/convergence_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--output",
+        ".runtime/v3-i/b1-boundary"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:36:27.657816+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/b1-boundary/checks.json",
+          "sha256": "dd23ccdc0eaef714c06c58fdf4897d67d3aacb3f2195eb21f27bbcba78b0b1ae"
+        }
+      ],
+      "limit": null
+    },
+    "a2_integrity": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/verify_v3_a2_evidence.py",
+        "--core",
+        ".runtime/v3-i/build/convergence_core.exe",
+        "--out",
+        ".runtime/v3-i/a2-integrity"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:36:11.198363+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/a2-integrity/integrity.json",
+          "sha256": "218375500bd2990f8516f766e34a241c09e73d85c09d51bec8f6f26f42c4c477"
+        }
+      ],
+      "limit": "Intégrité du reçu historique et trois nouvelles admissions d’observation."
+    },
+    "a2_native": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        ".runtime/v3-i/a2-native"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:40:58.078882+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "binary_under_test": {
+        "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/a2-native/measurements.json",
+          "sha256": "599359bf6c65f58c7521bd6b636a1abc9bea77f217ef4c59504c913714df1443"
+        }
+      ],
+      "limit": "Mesures sur copies et repères CAO. Les observations ne confirment aucune révision physique.",
+      "cases": {
+        "reference": {
+          "dependencies_verified": 142,
+          "receipt": {
+            "path": ".runtime/v3-i/a2-native/reference/cad/experiment.json",
+            "sha256": "2ef86e249fb62c6811b70b0841d10a2de762df4e5418c9d9005ca248bc44f068"
+          },
+          "closure_map_sha256": "839f29e2913711335669b9fa2a5f771567c51121447df6038cf14f940875fe5f"
+        },
+        "H03-A": {
+          "dependencies_verified": 139,
+          "receipt": {
+            "path": ".runtime/v3-i/a2-native/H03-A/cad/experiment.json",
+            "sha256": "779fe3b47e76b525b49e21d774b26bec95942021d2bbf6bdca7a82deb5e7c6ab"
+          },
+          "closure_map_sha256": "ff410150b32ef384b46b56886784023df7ecd5cf0217b4891a2bc8cf004d55a1"
+        },
+        "H03-B": {
+          "dependencies_verified": 139,
+          "receipt": {
+            "path": ".runtime/v3-i/a2-native/H03-B/cad/experiment.json",
+            "sha256": "ef129433bbadd2476511bd210afd85b8d655bc775edda4aa2c97b82175b1ccf5"
+          },
+          "closure_map_sha256": "9174fabbc49a2eb2ecb6fe10206cab1a1185dc0400d319020923e57d540bab8d"
+        },
+        "consolidee": {
+          "dependencies_verified": 138,
+          "receipt": {
+            "path": ".runtime/v3-i/a2-native/consolidee/cad/experiment.json",
+            "sha256": "556fc7edbdb4fafe735c5638f6ad94fc7d8fb316395f313a7f060d3183ddbb42"
+          },
+          "closure_map_sha256": "fc9ccd3bafb40f6c73b5ce36ccd0b1382fc1e0928c37e0a91d9111228e56c372"
+        }
+      }
+    },
+    "non_escalation": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_i_scope.py",
+        "--core",
+        ".runtime/v3-i/build/convergence_core.exe",
+        "--integrity",
+        ".runtime/v3-i/a2-integrity",
+        "--out",
+        ".runtime/v3-i/scope"
+      ],
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T07:37:34.337604+00:00",
+      "result": "PASS",
+      "program": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "binary_under_test": {
+        "path": ".runtime/v3-i/build/convergence_core.exe",
+        "sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2"
+      },
+      "proofs": [
+        {
+          "path": ".runtime/v3-i/scope/scope_checks.json",
+          "sha256": "3552a868c6185695335e3019f3dc6807f98216f77a1a4b3a58648b1b3e41f612"
+        }
+      ],
+      "limit": "Dossier brut et une occurrence représentative pour chacune des six opérations."
+    },
+    "independent_checkouts": {
+      "exit_code": 0,
+      "result": "PASS",
+      "proof": {
+        "path": ".runtime/v3-i/checkouts.json",
+        "sha256": "8186cde0ff0fbd52db743762410e2848c15c921a58cf1b69f522c610fe2142bd"
+      },
+      "commands": [
+        "git clone --shared --no-checkout --local -- . <checkout>",
+        "git -C <checkout> sparse-checkout set --cone docs/electromechanical_v3",
+        "git -C <checkout> checkout --detach 24fd5f5119c6789acb5db77d8b9caea43431b158"
+      ],
+      "limit": "Comparaison SHA-256 des fermetures et JSON scellés dans deux clones locaux. Rejeux natifs consignés séparément."
+    },
+    "historical_replays": {
+      "proof": {
+        "path": ".runtime/v3-i/historical/executions.json",
+        "sha256": "a046bb3d2cfa07c40a2772eb85ca6eb4791c0134c43ee17ee1cb91940a40aa72"
+      },
+      "runs": [
+        {
+          "id": "l2-sealed",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\l2-sealed\\interconnection_engine\\tests\\test_reconcile.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\graph\\interconnection\\interconnection_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\l2-sealed",
+          "started_utc": "2026-11-19T07:36:59.173393+00:00",
+          "ended_utc": "2026-11-19T07:37:01.459478+00:00",
+          "exit_code": 0,
+          "binary_sha256": "c800971988e251e472d1b2b6ea2dc1fc2bb8c8e5f1c0e1492d4b33482ec50292",
+          "runner_sha256": "0d25d03373bda8e1d0537006b2f388de79be2c4789ec71e2a426a8a61b7c7e0a",
+          "manifest_sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+          "log": ".runtime/v3-i/historical/l2-sealed.log",
+          "log_sha256": "d55666b17248bec1676c366aa0755b5ce695ced9a2de492f097d089df0cfc73c"
+        },
+        {
+          "id": "q1-sealed",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\tests\\test_admission.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\convergence_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\historical\\q1-sealed",
+          "started_utc": "2026-11-19T07:37:01.588941+00:00",
+          "ended_utc": "2026-11-19T07:37:39.415966+00:00",
+          "exit_code": 0,
+          "binary_sha256": "159b894919ed58230adfac75af9d6153cc8b17f6090dee82b0a154f04d44a4e2",
+          "runner_sha256": "05a8f08fa703734f881bb635e6185855573e1f5ee307b96b6ccd3ae7bfa666cb",
+          "manifest_sha256": "e99388f6d89c4ca6609766b9166695142e66402cffb5edb53419ae167b789fd8",
+          "log": ".runtime/v3-i/historical/q1-sealed.log",
+          "log_sha256": "73043d883b1047a8a8cad7dd5b8f5f04bc276d0d1b73b7ad439b06d71b486ea7"
+        },
+        {
+          "id": "l2-active-control",
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\interconnection_engine\\tests\\test_reconcile.py",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-i\\build\\graph\\interconnection\\interconnection_core.exe",
+            "-v"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+          "started_utc": "2026-11-19T07:37:39.421811+00:00",
+          "ended_utc": "2026-11-19T07:37:39.710917+00:00",
+          "exit_code": 1,
+          "binary_sha256": "c800971988e251e472d1b2b6ea2dc1fc2bb8c8e5f1c0e1492d4b33482ec50292",
+          "runner_sha256": "0d25d03373bda8e1d0537006b2f388de79be2c4789ec71e2a426a8a61b7c7e0a",
+          "manifest_sha256": "4f8f071106d862a34292214dc17d6f9d078f9067b8149288103fd8e1ebca90e6",
+          "log": ".runtime/v3-i/historical/l2-active-control.log",
+          "log_sha256": "383ee6c8c67fb58569564cce7704cf789609b4ff8bd03802a74b95b3cb1a3349"
+        }
+      ],
+      "expected_rejection": "Le gel L2 historique refuse le manifeste actif LF avant exécution des cas."
+    }
+  },
+  "preexisting_tools_used": [
+    {
+      "path": ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-l1-l3/research/technical_research_core.exe",
+      "sha256": "b86bec23ffe07dc22c8b1191aeeddf5da42a30bfaeb32a4d223e3dd82e533e57"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-l1-l3/architecture_decision_core.exe",
+      "sha256": "7db75b0b3eb278164f652a56a9b4b712f428df93a56d148186424a058f538fe3"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-l4/validation_core.exe",
+      "sha256": "d441a4c342d0ca1a89cfa63d94258c2fe86b454edbab8d52d84a411523a34ce1"
+    }
+  ],
+  "historical_unreplayed": [
+    "B.2 V2.1 : 1 609 paires et sept intersections",
+    "Criblage IF-04 à IF-06 de V3-A.2"
+  ]
+}

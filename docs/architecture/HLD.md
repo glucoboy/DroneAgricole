@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-HLD` |
 | Nature | document vivant |
-| Dernière mise à jour | 18 novembre 2026 |
+| Dernière mise à jour | 19 novembre 2026 |
 | Statut | architecture système préliminaire ; capacités qualifiées indiquées explicitement |
 
 ## 1. Objet et périmètre
