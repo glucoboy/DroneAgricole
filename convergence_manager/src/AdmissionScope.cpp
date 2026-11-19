@@ -35,6 +35,7 @@ const QMap<QString, QString> mutationProfiles{
     // Reviewed profiles are pinned here, outside of the plan supplied by the caller.
     {"8228b1ac16f15319b22cc9e5f6abe02a62694ffd96f3d41441f09c88acdaeb66", "docs/electromechanical_v3/bench_b1_c4/profile.json"},
     {"0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4", "docs/electromechanical_v3/bench_b1_workholding/profile.json"},
+    {"a6bcd031d44682299eb22a539386417bd0be201e2b6c01c4079276b13cb51a80", "docs/electromechanical_v3/bench_b2_variations.json"},
 };
 
 const QSet<QString> domains{benchDomain, copyDomain, designDomain, physicalDomain};

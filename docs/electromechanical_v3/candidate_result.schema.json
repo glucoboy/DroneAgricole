@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.candidate_result:1",
+  "title": "Résultat de contre-validation d’un candidat XLink",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "scope", "candidate_id", "proposal_sha256", "source_model_sha256", "native_receipt",
+    "measurements", "validator_by_domain", "independent_disagreements", "blocking_issues", "candidate_state",
+    "rollback", "coverage", "cost_proxy", "final_verdict"
+  ],
+  "properties": {
+    "schema": {"const": "v3.candidate_result/1"},
+    "scope": {"const": "SYNTHETIC_BENCH"},
+    "candidate_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "proposal_sha256": {"$ref": "#/$defs/sha256"},
+    "source_model_sha256": {"$ref": "#/$defs/sha256"},
+    "native_receipt": {"$ref": "#/$defs/artifact"},
+    "measurements": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]},
+    "validator_by_domain": {
+      "type": "object",
+      "required": ["B1_TRANSACTION", "B2_NATIVE", "T0"],
+      "additionalProperties": {"$ref": "#/$defs/validator"}
+    },
+    "independent_disagreements": {"$ref": "#/$defs/reasons"},
+    "blocking_issues": {"$ref": "#/$defs/reasons"},
+    "candidate_state": {"enum": ["CANDIDATE", "QUARANTINED", "ROLLED_BACK"]},
+    "rollback": {"enum": ["NOT_REQUIRED", "QUARANTINED_PRIVATE_COPY", "DISCARDED_PRIVATE_COPY"]},
+    "coverage": {"type": "object"},
+    "cost_proxy": {"type": ["object", "null"]},
+    "final_verdict": {"$ref": "#/$defs/state"}
+  },
+  "if": {"properties": {"final_verdict": {"const": "PASS"}}},
+  "then": {
+    "properties": {
+      "measurements": {"$ref": "#/$defs/artifact"},
+      "candidate_state": {"const": "CANDIDATE"},
+      "rollback": {"const": "NOT_REQUIRED"},
+      "independent_disagreements": {"maxItems": 0},
+      "blocking_issues": {"maxItems": 0},
+      "validator_by_domain": {
+        "properties": {
+          "B1_TRANSACTION": {"properties": {"status": {"const": "PASS"}}},
+          "B2_NATIVE": {"properties": {"status": {"const": "PASS"}}},
+          "T0": {"properties": {"status": {"const": "PASS"}}}
+        }
+      }
+    }
+  },
+  "else": {"properties": {"candidate_state": {"enum": ["QUARANTINED", "ROLLED_BACK"]}}},
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reasons": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "artifact": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "state": {"enum": ["PASS", "FAIL", "INCONCLUSIVE", "NOT_RUN", "UNSUPPORTED", "NOT_APPLICABLE"]},
+    "validator": {
+      "type": "object", "required": ["status", "contract", "tool", "receipt"],
+      "properties": {
+        "status": {"$ref": "#/$defs/state"},
+        "mode": {"enum": ["DIRECT", "ADAPTED", "OUT_OF_SCOPE"]},
+        "contract": {"type": "string", "minLength": 1},
+        "tool": {"type": "string", "minLength": 1},
+        "receipt": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]}
+      }
+    }
+  }
+}

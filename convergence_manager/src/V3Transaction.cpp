@@ -103,6 +103,39 @@ QJsonArray stringKeys(const QJsonObject &object)
     return QJsonArray::fromStringList(object.keys());
 }
 
+bool consistentNativeChecks(const QJsonObject &job, const QJsonObject &observation)
+{
+    static const QSet<QString> states{"PASS", "FAIL", "INCONCLUSIVE", "NOT_RUN", "UNSUPPORTED", "NOT_APPLICABLE"};
+    QMap<QString, QString> checks;
+    for (const auto &value : observation.value("checks").toArray()) {
+        const auto check = value.toObject();
+        const auto id = check.value("id").toString();
+        const auto status = check.value("status").toString();
+        if (id.isEmpty() || checks.contains(id) || !states.contains(status))
+            return false;
+        checks.insert(id, status);
+    }
+    QSet<QString> required{"REOPEN_XLINK", "L2_TOPOLOGY", "L4_GEOMETRY", "L4_SERVICE", "L4_DYNAMIC_BEND_RADIUS"};
+    for (const auto &check : job.value("mandatory_checks").toArray())
+        required.insert(check.toString());
+    required.remove("VERIFY_IMMUTABLE_SOURCES");
+    required.remove("VALIDATE_T0");
+    if (checks.contains("NATIVE_MEASUREMENT"))
+        required.insert("NATIVE_MEASUREMENT");
+
+    bool failed = false;
+    bool incomplete = false;
+    for (const auto &id : required) {
+        if (!checks.contains(id))
+            return false;
+        const auto status = checks.value(id);
+        failed |= status == "FAIL";
+        incomplete |= status != "PASS";
+    }
+    const QString computed = failed ? "FAIL" : incomplete ? "INCONCLUSIVE" : "PASS";
+    return observation.value("status") == computed;
+}
+
 QJsonObject inspect(const QDir &repo, const QDir &published, const QDir &working, const QDir &stage,
                     QJsonObject &journal, const QString &python, const QString &phase, QJsonObject job)
 {
@@ -116,11 +149,12 @@ QJsonObject inspect(const QDir &repo, const QDir &published, const QDir &working
     const auto observation = load(exactFile(published, phase + "-validation.json"));
     const auto dependencies = job.value("dependencies").toObject();
     require(observation.value("schema") == "v3.native_validation/1" && observation.value("finalized") == true &&
+            observation.value("documents_closed") == true && observation.value("pid").toInt() > 0 &&
             observation.value("stage") == phase && observation.value("job_sha256") == jobSha &&
             observation.value("plan_id") == job.value("plan_id") && observation.value("reopened") == true &&
             observation.value("inputs_sha256") == dependencies && observation.value("open_documents") == stringKeys(dependencies) &&
             !observation.value("worker_id").toString().isEmpty() &&
-            QStringList{"PASS", "FAIL", "INCONCLUSIVE"}.contains(observation.value("status").toString()) &&
+            consistentNativeChecks(job, observation) &&
             hashes(working, dependencies) == dependencies, "Réouverture indépendante incohérente : " + phase);
     return observation;
 }
