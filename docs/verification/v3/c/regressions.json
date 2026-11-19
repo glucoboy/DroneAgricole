@@ -1,0 +1,190 @@
+{
+  "schema": "v3.c.regressions/1",
+  "source_commit": "ffc0a96d18b9571183ef5b08f0b4c028964d78c5",
+  "tests": {
+    "compile_l5": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        ".runtime/v3-c/qual-build",
+        "--parallel",
+        "4"
+      ],
+      "tool": {
+        "path": "C:/msys64/ucrt64/bin/cmake.exe",
+        "sha256": "6ce961df7f5500677dfad524644d0c248796b9387389f1bba2b0bd0d11e36407"
+      },
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T11:26:49.202968+00:00",
+      "result": {
+        "path": ".runtime/v3-c/qual-build-trace.log",
+        "sha256": "fbfe6faa30d877b9d9d06efcf25dd77da70282a6b0017525a17d172184ddd293"
+      }
+    },
+    "qualification": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c.py",
+        "--core",
+        ".runtime/v3-c/qual-build/convergence_core.exe",
+        "--l3",
+        ".runtime/v3-c/l3/build/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+        "--output",
+        ".runtime/v3-c/qualification-final"
+      ],
+      "tool": {
+        "path": "C:/msys64/ucrt64/bin/python.exe",
+        "sha256": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab"
+      },
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T11:31:40.663145+00:00",
+      "result": {
+        "path": ".runtime/v3-c/qualification-final/generalization.json",
+        "sha256": "8018b80edcafe2034cc9a58e62abcc3d40d1f8ac146c4f579a7ffd32ca2183f3"
+      }
+    },
+    "l5": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        ".runtime/v3-c/qual-build",
+        "-R",
+        "^(l5_|v3_graph_contract|l2_interconnection)",
+        "--output-on-failure",
+        "--output-junit",
+        "v3-c-post-trace.xml"
+      ],
+      "tool": {
+        "path": "C:/msys64/ucrt64/bin/ctest.exe",
+        "sha256": "06dc51bc41fea7836376d08ff3fbd20ed36a8e9d43c3d503736b74898e5db325"
+      },
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T11:29:26.987467+00:00",
+      "result": {
+        "path": ".runtime/v3-c/qual-build/v3-c-post-trace.xml",
+        "sha256": "2d33ba2c4c08868f8f6f02051fb2592fe4e4855e31545ed5bde2e074d0b38ddb"
+      },
+      "test_names": [
+        "l5_Campaign",
+        "l5_Selection",
+        "l5_v3_admission_entry",
+        "l5_v3_admission_policy",
+        "l5_v3_native_mutate",
+        "l5_v3_native_verify",
+        "v3_graph_contract",
+        "l2_interconnection"
+      ]
+    },
+    "l3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        ".runtime/v3-c/l3/build",
+        "-R",
+        "^l3_",
+        "--output-on-failure",
+        "--output-junit",
+        "v3-c-l3-final.xml"
+      ],
+      "tool": {
+        "path": "C:/msys64/ucrt64/bin/ctest.exe",
+        "sha256": "06dc51bc41fea7836376d08ff3fbd20ed36a8e9d43c3d503736b74898e5db325"
+      },
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T11:24:45.338039+00:00",
+      "result": {
+        "path": ".runtime/v3-c/l3/build/v3-c-l3-final.xml",
+        "sha256": "6fb2f3dfaeccad70c9dfc630b2b2cc43b587f3c83f2b8cf2280f66bfcdb1595e"
+      },
+      "test_names": [
+        "l3_architecture_decision",
+        "l3_v3_problem_spec"
+      ]
+    },
+    "windows_paths": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        ".runtime/v3-c/qual-build",
+        "-R",
+        "^l5_v3_admission_(entry|policy)$",
+        "--output-on-failure",
+        "--output-junit",
+        "v3-c-native-paths.xml"
+      ],
+      "tool": {
+        "path": "C:/msys64/ucrt64/bin/ctest.exe",
+        "sha256": "06dc51bc41fea7836376d08ff3fbd20ed36a8e9d43c3d503736b74898e5db325"
+      },
+      "exit_code": 0,
+      "completed_at_utc_from_artifact": "2026-11-19T11:29:32.972956+00:00",
+      "result": {
+        "path": ".runtime/v3-c/qual-build/v3-c-native-paths.xml",
+        "sha256": "5dd0930efdf1a45abd0222ea761e4168119eec94f32225a3c0aad33f99037e43"
+      },
+      "test_names": [
+        "l5_v3_admission_entry",
+        "l5_v3_admission_policy"
+      ]
+    },
+    "b1_exact_profile_replay": {
+      "result": {
+        "path": ".runtime/v3-c/b1-regression/replay.json",
+        "sha256": "0d76fe33492c17ee1065b5e51a6141a494cfc2488d73d4a5f0ad575a7ef04cdb"
+      },
+      "cases": {
+        "PASS": 3,
+        "FAIL": 4
+      },
+      "scope": "Binaire C avant le correctif d’écriture de trace de v3-converge. Le chemin v3-build est identique."
+    },
+    "search_cpp": {
+      "tool": {
+        "path": ".runtime/v3-c/qual-build/test_l5_V3Search.exe",
+        "sha256": "c75273f4be23d9ef9fe05dd1e3e4973ce16125971a5fbae729eeb17210aea563"
+      },
+      "exit_code": 0,
+      "observations": [
+        {
+          "path": ".runtime/v3-b2/native-dev/final-xlink-workholding-b1-1-input.json",
+          "sha256": "29033afaeb9ab35eff1960aa2ab1cb678709efe8235616607d190d2bf9bb39d5"
+        },
+        {
+          "path": ".runtime/v3-b2/native-dev/final-xlink-historical-c4-1-input.json",
+          "sha256": "f328b58b8d3789b38cafb33634e9a452e395b297450e2bc1ff104ce091c1636f"
+        }
+      ],
+      "result": "Déduplication, graine, couverture partielle, restriction et transfert."
+    }
+  },
+  "initial_failed_run": {
+    "reason": "Windows refusait le remplacement atomique du journal pendant sa lecture.",
+    "evidence": {
+      "path": ".runtime/v3-c/qualification/workholding/T1-l5-invocation.json",
+      "sha256": "9b2a35965078138260d7ae724019c062a9c93bd13397c54516ee718f29413aee"
+    },
+    "fix_commit": "ffc0a96d18b9571183ef5b08f0b4c028964d78c5"
+  },
+  "reused_evidence": [
+    {
+      "path": "docs/verification/v3/b2/adversarial.json",
+      "sha256": "33b627560168fabe4d98fc2f7fa4f4d3aa91000a7929379d7a3d5cf34c947ead"
+    },
+    {
+      "path": "docs/verification/v3/b2/regressions.json",
+      "sha256": "86d9ee8f67602d7581c864c1eed3eec85f167a518b95eb57b0a4c3f2c06980c5"
+    }
+  ],
+  "limits": [
+    "T2 resserre la boîte de translation à partir du témoin de faisabilité. Les solides, seuils et binaires sont identiques.",
+    "Les repères +3 mm et pinouts sont aussi éprouvés par injections natives B.2. T4 vérifie le garde du contrat v2.",
+    "L2 historique conserve son résultat sur copie CRLF. Cartographe et réception physique NOT_RUN pour V3-C."
+  ]
+}

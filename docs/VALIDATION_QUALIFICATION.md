@@ -2831,6 +2831,29 @@ reste `NOT_RUN`.
 [Matrice croisée](verification/v3/b2/cross_validation_matrix.json) ·
 [Contre-épreuves](verification/v3/b2/adversarial.json).
 
+<a id="cartographe-v3-c"></a>
+#### Convergence paramétrique V3-C — 19 novembre 2026
+
+`V3_C_AUTONOMY_GO` est **Qualifié** sur les deux bancs synthétiques
+scellés sous Windows amd64. L3 et L5 génèrent des poses et des parcours
+dans les domaines d’autorité, criblent les obstacles observés, construisent
+les candidats et les rouvrent pour contre-validation B.2 et validation T0.
+[Acceptation](verification/v3/c/acceptance.json) · [Recette](verification/v3/c/REPORT.md).
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-B1-01` à `V3-B1-04` | `T-CARTO-V3-C` → génération, admission v2, FreeCAD et B.2 | T1, T2 et T3 évaluent respectivement 30, 30 et 15 propositions. Six candidats par phase sont construits, rouverts et admis par B.2. Les témoins de faisabilité Workholding et C4 sont exécutés séparément. |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-C` → gel T0, perturbation T2, contre-épreuves T4 | Workholding retient `[79, 44, 8]` mm en T1 et `[79, 41.5, 8]` mm en T2 après resserrement de la boîte. T4 obtient sept refus avant transaction. |
+
+L’essai varie la translation et le parcours. Les rotations et les ancrages
+de supportage sont fixés par les domaines scellés. T2 modifie seulement
+la boîte de translation. Les données, les binaires et les seuils conservent
+leurs empreintes. La preuve soutient la reprise géométrique sous
+`ORCH-CAO-MASSE-1`. L’admission cartographe relève des autorités A.3 par
+occurrence et opération. La réception physique reste `NOT_RUN`.
+[Scénarios et natifs](verification/v3/c/generalization.json) ·
+[Régressions](verification/v3/c/regressions.json).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4192,6 +4215,9 @@ clôture de géométrie et de nomenclature sous ORCH-CAO-MASSE-1.
 La contre-validation sur banc et la collecte par occurrence peuvent avancer.
 [V3 B.2](#cartographe-v3-b2) vérifie les effets sauvegardés et ouvre
 l’orchestration V3-C dans le périmètre des bancs scellés.
+[V3-C](#cartographe-v3-c) éprouve la recherche paramétrique et la
+contre-validation sur ces bancs. L’exploration du cartographe dépend des
+preuves d’autorité relatives aux opérations envisagées.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4852,6 +4878,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — Qualification V3-C sur Workholding et C4, avec resserrement après gel et alternative mesurée. [Résultat](#cartographe-v3-c)
 - **19 novembre 2026** — Contre-validation croisée V3 B.2 des plans XLink, garde des reçus et variantes de rayon sur banc. [Résultat](#cartographe-v3-b2)
 - **19 novembre 2026** — Rejeux d’intégration V3-I sur banc scellé et vérification de la portée A.2 en lecture seule. [Résultat](#cartographe-v3-i)
 - **19 novembre 2026** — V3 B.1 exécute les mutations XLink sur deux bancs et vérifie les candidats sauvegardés. [Résultat](#cartographe-v3-b1)

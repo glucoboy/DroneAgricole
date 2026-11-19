@@ -270,6 +270,23 @@ une mesure indépendante et un T0 valides. La quarantaine et le rollback
 sont représentés explicitement. L’orchestration de ces étapes par L5 est
 prévue pour V3-C.
 
+#### Convergence paramétrique XLink V3-C — Implémenté
+
+`architecture_decision_core v3-problem` publie le problème L3 lié au
+domaine, au modèle et à l’observation. `convergence_core v3-converge`
+vérifie ces entrées et recalcule la fermeture de référence. Le solveur
+produit les translations et parcours dans le domaine autorisé. Le criblage
+utilise les enveloppes des obstacles mesurés. Les contraintes actives
+guident la poursuite dans une famille de détour.
+
+La campagne L5 appelle la transaction XLink pour chaque proposition admise.
+Le contrat `v3.mutation_plan/2` fournit des valeurs brutes. L5 construit les
+actions avec les opérateurs et la composition scellés, puis fait relire
+les copies par B.2. La sélection applique les contraintes dures avant
+le front de Pareto et l’ordre des objectifs. Les plans exacts B.1 et la
+voie historique `route:*` restent accessibles par leurs entrées propres.
+[Qualification et CLI](../VALIDATION_QUALIFICATION.md#cartographe-v3-c)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1238,6 +1255,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **19 novembre 2026** — Ajout du problème L3, de l’admission paramétrique par domaine et du rejeu L5 avec contre-validation (§2.6).
 - **19 novembre 2026** — V3 B.2 vérifie l’agrégat natif, compare les mesures après une réouverture indépendante et versionne le reçu candidat (§2.6).
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
 - **19 novembre 2026** — Constructeur XLink B.1 et validation indépendante raccordés à L5 sur profils de banc scellés (§2.6).

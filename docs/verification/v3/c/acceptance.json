@@ -1,0 +1,110 @@
+{
+  "schema": "v3.c.acceptance/1",
+  "date": "2026-11-19",
+  "verdict": "V3_C_AUTONOMY_GO",
+  "scope": "SYNTHETIC_BENCH",
+  "source_commit": "ffc0a96d18b9571183ef5b08f0b4c028964d78c5",
+  "integration_commit": "9c72169d6148b12862026031aa3d55e43bd37b3c",
+  "b2_commit": "1b8730cf100d3fb80d74a0fada603c3853e84460",
+  "b2_acceptance": {
+    "path": "docs/verification/v3/b2/acceptance.json",
+    "sha256": "72a24a061e4099056223d74a5c97028b34637c06cde59f6f922ebf6ae0d2f6f6"
+  },
+  "counts": {
+    "T1": {
+      "proposals": 30,
+      "native_attempts": 6,
+      "qualified_candidates": 6,
+      "native_non_admitted": 0,
+      "distinct_poses": 10,
+      "construction_ms": 57599,
+      "counter_validation_ms": 29213
+    },
+    "T2": {
+      "proposals": 30,
+      "native_attempts": 6,
+      "qualified_candidates": 6,
+      "native_non_admitted": 0,
+      "distinct_poses": 10,
+      "construction_ms": 60134,
+      "counter_validation_ms": 29906
+    },
+    "T3": {
+      "proposals": 15,
+      "native_attempts": 6,
+      "qualified_candidates": 6,
+      "native_non_admitted": 0,
+      "distinct_poses": 5,
+      "construction_ms": 52668,
+      "counter_validation_ms": 25176
+    }
+  },
+  "tools": [
+    {
+      "path": ".runtime/v3-c/qual-build/convergence_core.exe",
+      "sha256": "04a23ede5279ae8f629a2617e95d5da0b8bb13093aa4740b65d6607cd0cb66e5"
+    },
+    {
+      "path": ".runtime/v3-c/l3/build/architecture_decision_core.exe",
+      "sha256": "ad1f1fd1affdde9537e074055207af5150677a52607230a1258e9d6c94044d7d"
+    },
+    {
+      "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+    },
+    {
+      "path": ".runtime/v3-a-regressions/build-t0/cartographe-evidence.exe",
+      "sha256": "59bdc53b6554da54df2e73c1db12136496fe585ede0c0fc55ffb6291267ef45d"
+    }
+  ],
+  "perturbation": {
+    "type": "TRANSLATION_BOX_RESTRICTION",
+    "original_excluded": [
+      79,
+      44,
+      8
+    ],
+    "alternative": [
+      79,
+      41.5,
+      8
+    ]
+  },
+  "unsupported": [
+    "CHANGE_CONNECTOR_VARIANT",
+    "CHANGE_INTERFACE_TOPOLOGY"
+  ],
+  "cartographer_mutation": "DENY",
+  "physical_reception": "NOT_RUN",
+  "proofs": [
+    {
+      "path": "docs/verification/v3/c/perturbation_freeze.json",
+      "sha256": "1f16b15a6c0a70f1f0325bdfe7427d4cc67f29f8259a4e1d68fc8e8016f706b5"
+    },
+    {
+      "path": "docs/verification/v3/c/domain_contract.json",
+      "sha256": "fe842dd12d9a1aa447639844ec6538b07419910192448dafdbe33cc593542d22"
+    },
+    {
+      "path": "docs/verification/v3/c/candidate_trace.jsonl",
+      "sha256": "7ed1c31143c8d61de0295288d93b1bbd8cad4c6c84f5c28fece91261f44b4d98"
+    },
+    {
+      "path": "docs/verification/v3/c/family_transitions.json",
+      "sha256": "cec95c633cd9032666b10967a900253a0db392914f50abca6e5eba827b75614a"
+    },
+    {
+      "path": "docs/verification/v3/c/pareto.json",
+      "sha256": "5222fe91082ba0f0c5dee82fd076280fde5f3f559aa6c5be137c6134de8d60e9"
+    },
+    {
+      "path": "docs/verification/v3/c/generalization.json",
+      "sha256": "b4c4203fdfa71750c1c2074318e5aaa7c6888eca29131e7fe912fecbc0b46be9"
+    },
+    {
+      "path": "docs/verification/v3/c/regressions.json",
+      "sha256": "07a178e72db0e362e98c18557fdadded5ccd309cd1d71a94bb60ade0d6ea43d9"
+    }
+  ],
+  "next": "V3-D, sous autorité d’opération séparée A.3."
+}
