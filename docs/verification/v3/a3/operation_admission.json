@@ -1,0 +1,993 @@
+{
+  "schema": "v3.a3.operation_admission/1",
+  "date": "2026-11-19",
+  "base_commit": "9c72169d6148b12862026031aa3d55e43bd37b3c",
+  "configuration": "prototype_cartographe_sans_dock",
+  "mutation": "DENY",
+  "design": "DENY",
+  "physical_reception": "NOT_RUN",
+  "bounded_experiments": [],
+  "observations": {
+    "domain": "CARTOGRAPHER_PRIVATE_CAD",
+    "scope": "READ_ONLY_IMPACT",
+    "authority": "docs/verification/v3/a2/operation_scopes.json#/observation_requests"
+  },
+  "non_relaxable_constraints": {
+    "BMS_USB_STRUCTURE_ISOLATION": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/BMS_USB_STRUCTURE_ISOLATION",
+      "definition": "Le retour B− brut reste confiné au côté TTL isolé. Interdire tout pont vers GND USB, blindage USB, retours avioniques ou structure, ainsi que tout chemin de faisceau ou de fixation contournant le BMS entre B− brut et P− protégé."
+    },
+    "NC": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/NC",
+      "definition": "VDD BMS et VCC TTL restent non connectés."
+    },
+    "TX_RX": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/TX_RX",
+      "definition": "Conserver le croisement des fonctions TX/RX et le retour dédié."
+    },
+    "PROTECTIONS": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/PROTECTIONS",
+      "definition": "Conserver PM08/CAN1, les protections MIDI/CA01, les chemins protégés de puissance et l'autorité PX4."
+    },
+    "PINOUT": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/PINOUT",
+      "definition": "Appliquer la preuve orientée de la révision montée, avec indexage des cavités et contrôle des continuités."
+    },
+    "INDEPENDENT_FRAMES": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/INDEPENDENT_FRAMES",
+      "definition": "Utiliser des repères indépendants pour embase, fiche, accouplement, sortie et geste. Les axes F40/F41 décrivent les chemins virtuels."
+    },
+    "GEOMETRY": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/GEOMETRY",
+      "definition": "Résoudre les XLinks et vérifier les solides, dégagements, tolérances et voisinages concernés."
+    },
+    "SUPPORT_ANCHOR": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/SUPPORT_ANCHOR",
+      "definition": "Exiger un appui effectif, un engagement de fixation et un chemin d'effort démontré avant admission."
+    },
+    "SERVICE": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/SERVICE",
+      "definition": "Préserver accès TTL, USB-B, hôte USB et maintien des réserves, ainsi que le retrait batterie avec séquence hors tension."
+    },
+    "IMMUTABLE_SOURCES": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/IMMUTABLE_SOURCES",
+      "definition": "Ne modifier que la copie privée autorisée. La transaction est bornée à une opération et une occurrence, avec abandon de la copie en cas de refus."
+    },
+    "DYNAMIC_BEND_RADIUS": {
+      "status": "REQUIRED",
+      "applicable_physical_evidence": "UNKNOWN",
+      "source": "docs/verification/v3/a2/operation_scopes.json#/non_relaxable_constraints/DYNAMIC_BEND_RADIUS",
+      "definition": "Respecter les limites statique et dynamique applicables au cordon, y compris en insertion, extraction et retrait batterie."
+    }
+  },
+  "zone_map": [
+    {
+      "zone": "structure",
+      "fixed": [
+        "P64",
+        "P66",
+        "PDB",
+        "PM08",
+        "protections 6S",
+        "porteuse 11072"
+      ],
+      "hypotheses": [
+        "appui isolateur P64 ou P66"
+      ],
+      "bounds": null,
+      "missing": "faces porteuses, charge, accès, perçages, engagement, tenue et isolation"
+    },
+    {
+      "zone": "cassette",
+      "fixed": [
+        "connexions puissance protégées",
+        "attaches définies"
+      ],
+      "potentially_mobile": [
+        "batterie inerte",
+        "branche W40 en service"
+      ],
+      "bounds": null,
+      "missing": "identité de jonction, séquence, course, rayons et volumes balayés"
+    },
+    {
+      "zone": "diagnostic",
+      "fixed": [
+        "isolateur en service",
+        "embases JBD et Holybro dans leur ensemble"
+      ],
+      "potentially_mobile": [
+        "terminaisons TTL",
+        "cordon USB et sa ferrite",
+        "P72/P73 par étude de fixation"
+      ],
+      "bounds": null,
+      "missing": "repères applicables, fixation, garde CAN1/F31/F35 et rayon du lot"
+    }
+  ],
+  "occurrences": [
+    {
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "iso",
+      "zone": "isolateur",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Pose rigide et faces ORCH mesurables. Fixe en service. Aucun ddl borné pour une nouvelle pose.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "harness:f40",
+      "zone": "TTL/JBD",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Axe F40 et enveloppe BRep. Corridor au droit de la PDB et P72 à établir avec jonction manuelle ou TE, rayons et reprise aux guides.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "harness:f41",
+      "zone": "USB/port hôte",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Axe F41 et enveloppe BRep. Course USB-B et USB-A, ferrite, rayon, réserve et voisinage CAN1/F31/F35 à établir.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "p72",
+      "zone": "guide",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Pattes P60/P64/P66, faces et entrefer numériques. IF-03 recoupe cette occurrence avec le support candidat. Ancrage, gorge et déplacement inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "p73",
+      "zone": "guide",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Pattes P60/P64/P66, faces et voisinage numériques. Charge, ancrage, course et accès propres à P73 inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CREATE_SUPPORT",
+      "occurrence": "anchor:iso-carrier",
+      "zone": "porteur",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "P64 et P66 sont deux surfaces candidates distinctes. Aucun empiètement, perçage ou domaine d’ancrage admis.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-ISO-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W40/A",
+      "zone": "embase JBD",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "J2 dans la table Li-ion et J3 dans la remarque. HY2.0-4P candidat. Appariement, détrompage et brochage orienté inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W40/B",
+      "zone": "bornier TTL",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Variante Waveshare inconnue. Bornier, vis, accès latéral, repère d’entrée et marquage TX/RX/VCC à relever.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W41/A",
+      "zone": "USB-B isolateur",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "USB-B représenté par face ORCH. Fiche, surmoulage, ferrite, état accouplé et retrait inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W41/B",
+      "zone": "USB-A 11072",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Deux ports USB-A dans la documentation. Affectation W41/B, orientation, course et dégagement CAN1 inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "occurrence": "link:W40",
+      "zone": "liaison diagnostic",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Conservation du croisement TX/RX, GND brut dédié, NC et protection. Connexions au lot et impact physique inconnus.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    },
+    {
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "occurrence": "junction:uart-manual",
+      "zone": "séparation cassette",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "engine_capability": "UNSUPPORTED",
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "limits": "Divergence TE/manuelle. Rattacher chaque demi-fiche à la partie fixe/mobile, puis prouver cavités, reprise d’effort et geste.",
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "evidence": {
+        "cad": "native_observations.json",
+        "lot": "evidence_register.json",
+        "operator": "measurements_required.md"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "invariants": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ]
+    }
+  ],
+  "future_L5_consumption": {
+    "status": "PLANNED",
+    "current_schema_recognized_by_L5": false,
+    "required_independent_receipt": [
+      "publisher_and_signature",
+      "lot_identity_and_applicable_revision",
+      "canonical_proof_paths_and_sha256",
+      "authority_version",
+      "code_and_geometry_seal",
+      "operation_id",
+      "occurrence_id",
+      "authorized_object_set",
+      "degrees_of_freedom_and_bounds",
+      "check_ids_and_acceptance_criteria",
+      "immutable_private_copy",
+      "rollback_and_T0"
+    ],
+    "capability_binding": "Identifiant reconnu par le code, constructeur et validateur séparés. Un futur reçu d’autorité vérifié peut ouvrir une seule opération et une seule occurrence sur copie."
+  }
+}

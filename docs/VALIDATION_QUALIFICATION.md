@@ -2809,6 +2809,32 @@ V2.1 B.2 restent historiques dans cette passe.
 [Régressions](verification/v3/i/regressions.json) ·
 [Recette](verification/v3/i/REPORT.md) · [Portées](verification/v3/i/scope_matrix.json).
 
+<a id="cartographe-v3-a3"></a>
+#### Autorités opérationnelles du cartographe V3‑A.3 — 19 novembre 2026
+
+Le dossier livré conclut `V3_A3_EVIDENCE_CONDITIONAL` pour le prototype
+cartographe sans dock. Il couvre douze couples occurrence–opération sur
+six opérations. Le lot reste `LOT_NOT_INSPECTED`, avec huit issues UART
+ouvertes, zéro révision montée et zéro ancrage physique confirmé.
+L’observation reste `READ_ONLY_IMPACT`. La mutation et l’admission de
+conception restent `DENY`. La réception physique est `NOT_RUN`.
+[Acceptation A.3](verification/v3/a3/acceptance.json) ·
+[Matrice par occurrence](verification/v3/a3/operation_admission.json)
+
+| Exigence | Contrôle et résultat | Preuve |
+|---|---|---|
+| `CAB-CARTO-001` | Rapprochement W40/W41, JBD, Waveshare, Holybro et séparateur. La notice LiFePO₄ A.1 éclaire J2 et reste écartée de la cible Li-ion. Le choix TE ou manuel, J2/J3 Li-ion et l’embase W41/B restent **À valider**. | [Registre](verification/v3/a3/evidence_register.json) |
+| `MEC-INT-001` | Réouverture XLink et reprise IF-03 à IF-07 sur quatre copies. Les supports H03 ont un jeu de 0,300 mm au module et une intersection P72 de 109,734 mm³. Les faces des porteurs et l’accès aux interfaces restent **À valider**. | [Observations](verification/v3/a3/native_observations.json) |
+| `V3-A1-01`, `V3-B1-01` | L5 refuse deux dossiers soumis comme demandes, les douze mutations et dix-neuf injections. Les trois témoins de lecture et les bancs A.1/B.1 maintiennent leur portée. | [Régressions](verification/v3/a3/regressions.json) · [Injections](verification/v3/a3/adversarial.json) |
+
+L’action minimale porte sur l’identité des pièces et leurs cavités,
+les datums de l’appui P64/P66, les interfaces TTL/USB et le geste de
+retrait sur batterie inerte. Un relevé signé et rattaché au lot doit
+établir une autorité et un domaine propres au couple occurrence et
+opération avant une nouvelle décision. Le résultat numérique soutient
+ORCH-CAO-MASSE-1 et laisse les essais sur banc V3 indépendants.
+[Fiche opérateur](verification/v3/a3/measurements_required.md)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4015,6 +4041,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Admission du dossier H-01, interconnexion L2, natifs XLink et portée du validateur L4/L5 | T-CARTO-GO3B-ADM | [Résultat](#cartographe-go3b), [preuve](verification/go3b/GO3B_ADMISSION.json) | `NO_GO_MOTIVE` à l’admission. Couverture documentaire vérifiée. Reconstruction et rétrovalidation `NOT_RUN`. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Construction native des trois familles et consolidation avec contre-validation indépendante | T-CARTO-V21-GO3B | [Résultat](#cartographe-go3b-reconstruction), [preuves](verification/v21_go3b_validation.json) | `GO3B_CAO_NO_GO_MOTIVE`. Six variantes sauvegardées, une consolidée de diagnostic et défauts mesurés. Montage et GO4 **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01 | Confrontation des autorités UART, réouverture XLink sur copies et contrôles d’admission L5 | T-CARTO-V3-A2-EVIDENCE, T-CARTO-V3-A2-NATIVE | [Résultat](#cartographe-v3-a2). `V3_A2_EVIDENCE_CONDITIONAL`, huit issues ouvertes, mutation cartographe suspendue. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Dossier UART, réouverture XLink, contrôles L5 et collecte hors tension | T-CARTO-V3-A3-AUTH | [Résultat](#cartographe-v3-a3). V3_A3_EVIDENCE_CONDITIONAL, douze mutations bloquées et collecte physique À valider. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4167,6 +4194,8 @@ relevé signé des interfaces et des ancrages, puis démonstration d’un domain
 compatible avec le service et les protections. Ces contrôles servent la
 clôture de géométrie et de nomenclature sous ORCH-CAO-MASSE-1.
 [V3-I](#cartographe-v3-i) réunit le constructeur et les preuves A.2.
+[V3-A.3](#cartographe-v3-a3) confirme les exclusions d’appui et de service et
+rend le relevé opérateur utilisable pour les douze couples occurrence–opération.
 La contre-validation sur banc et la collecte par occurrence peuvent avancer.
 
 <a id="preuve-porte-v21"></a>
@@ -4828,6 +4857,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — V3-A.3 instruit les autorités UART par occurrence, rejoue les contrôles numériques et prépare les relevés hors tension. [Résultat](#cartographe-v3-a3)
 - **19 novembre 2026** — Rejeux d’intégration V3-I sur banc scellé et vérification de la portée A.2 en lecture seule. [Résultat](#cartographe-v3-i)
 - **19 novembre 2026** — V3 B.1 exécute les mutations XLink sur deux bancs et vérifie les candidats sauvegardés. [Résultat](#cartographe-v3-b1)
 - **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)

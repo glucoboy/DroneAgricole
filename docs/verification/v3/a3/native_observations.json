@@ -1,0 +1,3558 @@
+{
+  "schema": "v3.a3.native_observations/1",
+  "date": "2026-11-19",
+  "status": "MEASURED_WITH_LIMITS",
+  "environment": {
+    "FreeCAD": "1.1.3",
+    "OCCT": "7.8.1",
+    "Python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+    "Cables": {
+      "nom": "Cables Workbench",
+      "version": "0.3.7",
+      "dossier": "C:\\Users\\Utilisateur\\AppData\\Roaming\\FreeCAD\\v1-1\\Mod\\Cables",
+      "sha256_modules": {
+        "archCable.py": "964709f67b10530c7e01d373964a06c7ef4d4d85dbb5c561642ca5072c4630d2",
+        "wireFlex.py": "16d1248c5016f4813d67bd3db77421c82f5a3d698f2923e0b3051bcffa7d1954",
+        "wireutils.py": "0b9cf81b2ba4316515d2c0908c6f83465b79c7a8ca7287e862185a21295c78cc",
+        "version.py": "265dcf5eb90aefe128c7874a20cc61380eee56d481d020bba8e7f834042a6bfb",
+        "archCableConduit.py": "a97d4051f6326954e218e030ecf29470db2b65260e0b3bee42ea58f1d94bddce",
+        "compoundPath.py": "1ec41e48816c6984ef17368067bc38d1e789ee84211e37e27b0816a13d60263c"
+      },
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "api": {
+        "make_wireflex_from_vectors": "(vectorlist)",
+        "makeCable": "(selectlist=None, baseobj=None, profileobj=None, gauge=0, length=0, placement=None, name=None)",
+        "make_compoundpath": "(plist=None)",
+        "makeCableConduit": "(selectlist=None, gauge=0, length=0, placement=None, name=None)"
+      }
+    }
+  },
+  "scope": "Quatre fermetures privées en lecture seule et gabarits reconstruits en mémoire. Grandeurs dans le repère racine XYZ.",
+  "historical_comparison_absolute_tolerance": 1e-06,
+  "placement_matrix_tolerance": 1e-07,
+  "inputs_integrity": {
+    "reference": {
+      "verified_entries": 142,
+      "archive_origin": "hardware/mecanique/cartographe",
+      "verified_original_and_private_source_and_copy": true,
+      "root_fcstd_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "closure_map_sha256": "839f29e2913711335669b9fa2a5f771567c51121447df6038cf14f940875fe5f",
+      "stage_receipt": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/reference/cad/experiment.json",
+        "sha256": "f78835cd8ca84d53f42a992896a867560c31946ea61a16b63b3fbc500a570526"
+      }
+    },
+    "H03-A": {
+      "verified_entries": 139,
+      "archive_origin": "hardware/mecanique/cartographe/verification/go3b/artefacts/H03-A/cad",
+      "verified_original_and_private_source_and_copy": true,
+      "root_fcstd_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "closure_map_sha256": "ff410150b32ef384b46b56886784023df7ecd5cf0217b4891a2bc8cf004d55a1",
+      "stage_receipt": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-A/cad/experiment.json",
+        "sha256": "fa58b41abd692aedd39fd9725ff49ee71e1d9a0c26635c72841c873be51491f2"
+      }
+    },
+    "H03-B": {
+      "verified_entries": 139,
+      "archive_origin": "hardware/mecanique/cartographe/verification/go3b/artefacts/H03-B/cad",
+      "verified_original_and_private_source_and_copy": true,
+      "root_fcstd_sha256": "87eec08311e206cdaadb85911afd2aec0cf5386ee206b764a1749016e2cfecaa",
+      "closure_map_sha256": "9174fabbc49a2eb2ecb6fe10206cab1a1185dc0400d319020923e57d540bab8d",
+      "stage_receipt": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-B/cad/experiment.json",
+        "sha256": "7bb70bd773446e57d5ee20118b44f36f76078f56fcc6991f4f73eb6da00b8524"
+      }
+    },
+    "consolidee": {
+      "verified_entries": 138,
+      "archive_origin": "hardware/mecanique/cartographe/verification/go3b/artefacts/consolidee/cad",
+      "verified_original_and_private_source_and_copy": true,
+      "root_fcstd_sha256": "8bede4b337231f1b9be1374afeb3f7bb17037b6aebe9b2ec81fb86e5cb0f8982",
+      "closure_map_sha256": "fc9ccd3bafb40f6c73b5ce36ccd0b1382fc1e0928c37e0a91d9111228e56c372",
+      "stage_receipt": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/consolidee/cad/experiment.json",
+        "sha256": "c527f4ed79430646877f6c0d6ac8c876a82327b1b339bf59699bd86679b8fc26"
+      }
+    }
+  },
+  "cases": {
+    "reference": {
+      "closure_files": 142,
+      "loaded_documents": 137,
+      "positions_and_breps_matched": 17,
+      "brep_pairs_matched": 27,
+      "verified_occurrences": {
+        "UART_isole": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole",
+          "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+          "definition_sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            -78.0,
+            0.0,
+            1.0,
+            0.0,
+            -34.5,
+            0.0,
+            0.0,
+            1.0,
+            39.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            -78.0,
+            0.0,
+            1.0,
+            0.0,
+            -34.5,
+            0.0,
+            0.0,
+            1.0,
+            39.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "98624a08f036aafb3bc74b4eda60dab0b215963d002aef4b3ad3e10b9a07dc6a",
+          "volume_mm3": 154814.656,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Isolation": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/Isolation",
+          "definition": "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd#Ensemble",
+          "definition_sha256": "27406d66fa7ec506be5dfd455b3ff0a352d692f38f3c91023ebbb29dfc17a1a8",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "3c74493d329f97d7a7276aacdbedf9b69ecef6ff245f7ec61bc6f8b69333513b",
+          "volume_mm3": 88452.68106958608,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Interface": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/Interface",
+          "definition": "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd#Ensemble",
+          "definition_sha256": "eab33964597674737709c5ac436579b28aa8ddbcca9966e5850ebbf7dba84f62",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "076ca344f307acf48ab49bfcf3ba2164b53d5b257dc22210aa3351c7b56d4bf1",
+          "volume_mm3": 39144.85097500741,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P72_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P72_Guide",
+          "definition": "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd#Ensemble",
+          "definition_sha256": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "eca2c820b2a4e8847143785c3bcaac2e4ebf9e22e2110cfe5df84052d11a1e95",
+          "volume_mm3": 43853.79292817322,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P73_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide",
+          "definition": "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd#Ensemble",
+          "definition_sha256": "d4fe607d2dd90038882daca7a33ded51e7352cb6c20f8a6003da2c78c23e1472",
+          "local_matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "8ba4e308c2dd034a52536d8e74fc7ca86f8f267c764610ad70841c3b2c6a2ab3",
+          "volume_mm3": 75368.0617454978,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F40": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40",
+          "definition": "pieces/commerce/W_F40_Prototype.FCStd#Ensemble",
+          "definition_sha256": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "846fb0315b970bf5db9d4dd389eeec068ae2e0c4d3596aaada2a3abb8e541358",
+          "volume_mm3": 896.7059925298622,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F41": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41",
+          "definition": "pieces/commerce/W_F41_Prototype.FCStd#Ensemble",
+          "definition_sha256": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "b06a2c9ddb3d93ef0610cf26530134c1968d706c9596f683aa951fe913fc3837",
+          "volume_mm3": 23187.743685481848,
+          "evidence_class": "CAD_MEASURED"
+        }
+      },
+      "interface_observations": {
+        "F40": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_BornierTTL",
+          "face_frame_proxy": {
+            "local_mm": [
+              9.2,
+              13.0,
+              6.5
+            ],
+            "global_mm": [
+              11.999999999999996,
+              18.5,
+              50.5
+            ],
+            "outward_global": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40/Cable",
+          "axis_ends_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -79.0,
+              -20.0,
+              54.0
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 98.87112824277874,
+          "proxy_to_axis_angle_deg": 160.5599651718238
+        },
+        "F41": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_USB_B",
+          "face_frame_proxy": {
+            "local_mm": [
+              0.0,
+              4.0,
+              5.0
+            ],
+            "global_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "outward_global": [
+              -1.0,
+              -0.0,
+              -0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41/Cable",
+          "axis_ends_mm": [
+            [
+              -79.0,
+              24.0,
+              54.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 53.63926383723028,
+          "proxy_to_axis_angle_deg": 0.0
+        }
+      },
+      "opening": {
+        "recompute_ok": true,
+        "broken_native_links": [],
+        "broken_serialized_links": [],
+        "invalid_objects": [],
+        "save_performed": false
+      },
+      "raw": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/reference/native.json",
+        "sha256": "5bf64c2d997b45587b1045cd6fea4ca7ddcef5e389ea04ceecbd0947be873900"
+      },
+      "log": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/reference/worker.log",
+        "sha256": "f86feecd48b0da9cba250cd7cdde0df794a247f93fb3c390ec66f3291d388656"
+      }
+    },
+    "H03-A": {
+      "closure_files": 139,
+      "loaded_documents": 139,
+      "positions_and_breps_matched": 18,
+      "brep_pairs_matched": 9,
+      "verified_occurrences": {
+        "UART_isole": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole",
+          "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+          "definition_sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+          "local_matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            -69.4,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            42.0,
+            0.0,
+            0.0,
+            1.0,
+            57.3,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            -69.4,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            42.0,
+            0.0,
+            0.0,
+            1.0,
+            57.3,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "27a147c1fa6c5ec593c4f413628c8b15e9ab66ada728c0632c93c8c5cfe25e5c",
+          "volume_mm3": 154814.65600000002,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Isolation": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/Isolation",
+          "definition": "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd#Ensemble",
+          "definition_sha256": "27406d66fa7ec506be5dfd455b3ff0a352d692f38f3c91023ebbb29dfc17a1a8",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "3c74493d329f97d7a7276aacdbedf9b69ecef6ff245f7ec61bc6f8b69333513b",
+          "volume_mm3": 88452.68106958608,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Interface": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/Interface",
+          "definition": "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd#Ensemble",
+          "definition_sha256": "eab33964597674737709c5ac436579b28aa8ddbcca9966e5850ebbf7dba84f62",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "076ca344f307acf48ab49bfcf3ba2164b53d5b257dc22210aa3351c7b56d4bf1",
+          "volume_mm3": 39144.85097500741,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P72_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P72_Guide",
+          "definition": "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd#Ensemble",
+          "definition_sha256": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "eca2c820b2a4e8847143785c3bcaac2e4ebf9e22e2110cfe5df84052d11a1e95",
+          "volume_mm3": 43853.79292817322,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P73_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide",
+          "definition": "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd#Ensemble",
+          "definition_sha256": "d4fe607d2dd90038882daca7a33ded51e7352cb6c20f8a6003da2c78c23e1472",
+          "local_matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "8ba4e308c2dd034a52536d8e74fc7ca86f8f267c764610ad70841c3b2c6a2ab3",
+          "volume_mm3": 75368.0617454978,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F40": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40",
+          "definition": "pieces/commerce/W_F40_Prototype.FCStd#Ensemble",
+          "definition_sha256": "bde438b5ef23c5adf26241e7079ac2afa21c2fc22a57138d3f30125bc40aba37",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "e455f4ed2e3ccd01af02ae805ea068613270878f4d5bb865b2101fdea1887b2a",
+          "volume_mm3": 1421.414479127523,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F41": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41",
+          "definition": "pieces/commerce/W_F41_Prototype.FCStd#Ensemble",
+          "definition_sha256": "2d2d163fba3d727829539f9ce7ef3cf860fff30812913d5bd7d0f6531c454e6b",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "d327a1ecde7eb40ed99d54466e62c394724a75ae0f1b109a48d4b9c6c85fd962",
+          "volume_mm3": 13238.289723314138,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "ASSUMED_ServiceGO3B": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/ASSUMED_ServiceGO3B",
+          "definition": "pieces/fabriquees/ASSUMED_GO3B_Service.FCStd#Ensemble",
+          "definition_sha256": "8cdb6ac34cf8af486bf3c1d3097c6b496ecf9858ec3fe55fbc869b580857bc9d",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "cd310f6dc3931adc03905b6f1ef72a02c045d4cbe03bf922d4325c1c2bfe415d",
+          "volume_mm3": 5775.999999999998,
+          "evidence_class": "PROXY_ASSUMED"
+        }
+      },
+      "interface_observations": {
+        "F40": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_BornierTTL",
+          "face_frame_proxy": {
+            "local_mm": [
+              9.2,
+              13.0,
+              6.5
+            ],
+            "global_mm": [
+              -159.39999999999998,
+              -10.999999999999991,
+              68.8
+            ],
+            "outward_global": [
+              -1.0,
+              1.2246467991473532e-16,
+              0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40/Cable",
+          "axis_ends_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -159.4,
+              -10.999999999999996,
+              68.8
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 2.8916994303251375e-14,
+          "proxy_to_axis_angle_deg": 0.0
+        },
+        "F41": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_USB_B",
+          "face_frame_proxy": {
+            "local_mm": [
+              0.0,
+              4.0,
+              5.0
+            ],
+            "global_mm": [
+              -78.60000000000001,
+              36.075,
+              69.3
+            ],
+            "outward_global": [
+              1.0,
+              -1.2246467991473532e-16,
+              -0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41/Cable",
+          "axis_ends_mm": [
+            [
+              -78.60000000000001,
+              36.074999999999996,
+              69.3
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 7.105427357601002e-15,
+          "proxy_to_axis_angle_deg": 0.0
+        }
+      },
+      "opening": {
+        "recompute_ok": true,
+        "broken_native_links": [],
+        "broken_serialized_links": [],
+        "invalid_objects": [],
+        "save_performed": false
+      },
+      "raw": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-A/native.json",
+        "sha256": "7abb943ab863def6baa80f04a0125310a3536755533d31ee9e11d78efc314c9e"
+      },
+      "log": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-A/worker.log",
+        "sha256": "f86feecd48b0da9cba250cd7cdde0df794a247f93fb3c390ec66f3291d388656"
+      }
+    },
+    "H03-B": {
+      "closure_files": 139,
+      "loaded_documents": 139,
+      "positions_and_breps_matched": 18,
+      "brep_pairs_matched": 9,
+      "verified_occurrences": {
+        "UART_isole": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole",
+          "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+          "definition_sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+          "local_matrix": [
+            -2.220446049250313e-16,
+            1.0,
+            0.0,
+            -159.0,
+            -1.0,
+            -2.220446049250313e-16,
+            0.0,
+            51.600000000000016,
+            0.0,
+            0.0,
+            1.0,
+            57.3,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -2.220446049250313e-16,
+            1.0,
+            0.0,
+            -159.0,
+            -1.0,
+            -2.220446049250313e-16,
+            0.0,
+            51.600000000000016,
+            0.0,
+            0.0,
+            1.0,
+            57.3,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "03014f2780c32171e0e9af8e8205bfa6512e27e51e8cca7a42cf5c303bdafd80",
+          "volume_mm3": 154814.656,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Isolation": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/Isolation",
+          "definition": "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd#Ensemble",
+          "definition_sha256": "27406d66fa7ec506be5dfd455b3ff0a352d692f38f3c91023ebbb29dfc17a1a8",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "3c74493d329f97d7a7276aacdbedf9b69ecef6ff245f7ec61bc6f8b69333513b",
+          "volume_mm3": 88452.68106958608,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Interface": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/Interface",
+          "definition": "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd#Ensemble",
+          "definition_sha256": "eab33964597674737709c5ac436579b28aa8ddbcca9966e5850ebbf7dba84f62",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "076ca344f307acf48ab49bfcf3ba2164b53d5b257dc22210aa3351c7b56d4bf1",
+          "volume_mm3": 39144.85097500741,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P72_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P72_Guide",
+          "definition": "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd#Ensemble",
+          "definition_sha256": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "eca2c820b2a4e8847143785c3bcaac2e4ebf9e22e2110cfe5df84052d11a1e95",
+          "volume_mm3": 43853.79292817322,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P73_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide",
+          "definition": "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd#Ensemble",
+          "definition_sha256": "d4fe607d2dd90038882daca7a33ded51e7352cb6c20f8a6003da2c78c23e1472",
+          "local_matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "8ba4e308c2dd034a52536d8e74fc7ca86f8f267c764610ad70841c3b2c6a2ab3",
+          "volume_mm3": 75368.0617454978,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F40": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40",
+          "definition": "pieces/commerce/W_F40_Prototype.FCStd#Ensemble",
+          "definition_sha256": "97a26a19a96a3f268ee584c0f91995fa6822fdc74143701baa305cfe5f808139",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "edf52328e0bd39adf90e7e60ff6bb3364db31d1d71ccdaf554daad893c14bc79",
+          "volume_mm3": 1770.6164968103265,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F41": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41",
+          "definition": "pieces/commerce/W_F41_Prototype.FCStd#Ensemble",
+          "definition_sha256": "7923c6a3d3bf5cb8c1f54080fcbf1dc9d7045f41dd7ccef9b8eea500ee4ead87",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "468dbbd461e2077c4d9747f473c7d59de7b0b3073af25108912d25a054cc4e4b",
+          "volume_mm3": 11875.311193018493,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "ASSUMED_ServiceGO3B": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/ASSUMED_ServiceGO3B",
+          "definition": "pieces/fabriquees/ASSUMED_GO3B_Service.FCStd#Ensemble",
+          "definition_sha256": "a6e6363cdfa6a54598c5c79c903f66d441ac704acb0882f5dff5ccd4791160c8",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "cd310f6dc3931adc03905b6f1ef72a02c045d4cbe03bf922d4325c1c2bfe415d",
+          "volume_mm3": 5775.999999999998,
+          "evidence_class": "PROXY_ASSUMED"
+        }
+      },
+      "interface_observations": {
+        "F40": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_BornierTTL",
+          "face_frame_proxy": {
+            "local_mm": [
+              9.2,
+              13.0,
+              6.5
+            ],
+            "global_mm": [
+              -106.00000000000003,
+              -38.4,
+              68.8
+            ],
+            "outward_global": [
+              -1.942890293094024e-16,
+              -1.0,
+              0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40/Cable",
+          "axis_ends_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -106.0,
+              -38.400000000000006,
+              68.8
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 2.929642751054232e-14,
+          "proxy_to_axis_angle_deg": 0.0
+        },
+        "F41": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_USB_B",
+          "face_frame_proxy": {
+            "local_mm": [
+              0.0,
+              4.0,
+              5.0
+            ],
+            "global_mm": [
+              -153.075,
+              42.40000000000002,
+              69.3
+            ],
+            "outward_global": [
+              2.220446049250313e-16,
+              1.0,
+              -0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41/Cable",
+          "axis_ends_mm": [
+            [
+              -153.075,
+              42.4,
+              69.3
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 2.1316282072803006e-14,
+          "proxy_to_axis_angle_deg": 0.0
+        }
+      },
+      "opening": {
+        "recompute_ok": true,
+        "broken_native_links": [],
+        "broken_serialized_links": [],
+        "invalid_objects": [],
+        "save_performed": false
+      },
+      "raw": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-B/native.json",
+        "sha256": "17fcc1cff2397e0d46a23de17f22b2514c99653d7ff36e59d45aa7269dfcd6b1"
+      },
+      "log": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/H03-B/worker.log",
+        "sha256": "f86feecd48b0da9cba250cd7cdde0df794a247f93fb3c390ec66f3291d388656"
+      }
+    },
+    "consolidee": {
+      "closure_files": 138,
+      "loaded_documents": 138,
+      "positions_and_breps_matched": 17,
+      "brep_pairs_matched": 0,
+      "verified_occurrences": {
+        "UART_isole": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole",
+          "definition": "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#Reference",
+          "definition_sha256": "569999ee5b46ed4ec274403f6f8ed015141f76289bdc22f60f3a53177cd13ee6",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            -78.0,
+            0.0,
+            1.0,
+            0.0,
+            -34.5,
+            0.0,
+            0.0,
+            1.0,
+            39.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            -78.0,
+            0.0,
+            1.0,
+            0.0,
+            -34.5,
+            0.0,
+            0.0,
+            1.0,
+            39.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "98624a08f036aafb3bc74b4eda60dab0b215963d002aef4b3ad3e10b9a07dc6a",
+          "volume_mm3": 154814.656,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Isolation": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/Isolation",
+          "definition": "pieces/fabriquees/P64_Plateau_Energie_Prototype.FCStd#Ensemble",
+          "definition_sha256": "27406d66fa7ec506be5dfd455b3ff0a352d692f38f3c91023ebbb29dfc17a1a8",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            36.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "3c74493d329f97d7a7276aacdbedf9b69ecef6ff245f7ec61bc6f8b69333513b",
+          "volume_mm3": 88452.68106958608,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "Interface": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/Interface",
+          "definition": "pieces/fabriquees/P66_Platine_Avionique_Prototype.FCStd#Ensemble",
+          "definition_sha256": "eab33964597674737709c5ac436579b28aa8ddbcca9966e5850ebbf7dba84f62",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            85.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "076ca344f307acf48ab49bfcf3ba2164b53d5b257dc22210aa3351c7b56d4bf1",
+          "volume_mm3": 39144.85097500741,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P72_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P72_Guide",
+          "definition": "pieces/fabriquees/P72_Guide_Faisceau_Gauche_Prototype.FCStd#Ensemble",
+          "definition_sha256": "5648116173ce14961a60ad93b3d413c3bcb1d940039528c1134814bef259fdaa",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "eca2c820b2a4e8847143785c3bcaac2e4ebf9e22e2110cfe5df84052d11a1e95",
+          "volume_mm3": 43853.79292817322,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "P73_Guide": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide",
+          "definition": "pieces/fabriquees/P73_Guide_Faisceau_Droit_Prototype.FCStd#Ensemble",
+          "definition_sha256": "d4fe607d2dd90038882daca7a33ded51e7352cb6c20f8a6003da2c78c23e1472",
+          "local_matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            -1.0,
+            -1.2246467991473532e-16,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "8ba4e308c2dd034a52536d8e74fc7ca86f8f267c764610ad70841c3b2c6a2ab3",
+          "volume_mm3": 75368.0617454978,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F40": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40",
+          "definition": "pieces/commerce/W_F40_Prototype.FCStd#Ensemble",
+          "definition_sha256": "05dc891ff6f9996080eca8ed1450bef9153c1003126cab618fc62cc312f3376a",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "846fb0315b970bf5db9d4dd389eeec068ae2e0c4d3596aaada2a3abb8e541358",
+          "volume_mm3": 896.7059925298622,
+          "evidence_class": "CAD_MEASURED"
+        },
+        "F41": {
+          "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41",
+          "definition": "pieces/commerce/W_F41_Prototype.FCStd#Ensemble",
+          "definition_sha256": "780997c34848a6425a19a0faed816ef124fa4f5fdb70ee16942e2e67ed699251",
+          "local_matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "placement_check": {
+            "status": "PASS",
+            "maximum_absolute_difference": 0.0
+          },
+          "brep_sha256": "b06a2c9ddb3d93ef0610cf26530134c1968d706c9596f683aa951fe913fc3837",
+          "volume_mm3": 23187.743685481848,
+          "evidence_class": "CAD_MEASURED"
+        }
+      },
+      "interface_observations": {
+        "F40": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_BornierTTL",
+          "face_frame_proxy": {
+            "local_mm": [
+              9.2,
+              13.0,
+              6.5
+            ],
+            "global_mm": [
+              11.999999999999996,
+              18.5,
+              50.5
+            ],
+            "outward_global": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F40/Cable",
+          "axis_ends_mm": [
+            [
+              -66.25,
+              -10.0,
+              -13.0
+            ],
+            [
+              -79.0,
+              -20.0,
+              54.0
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 98.87112824277874,
+          "proxy_to_axis_angle_deg": 160.5599651718238
+        },
+        "F41": {
+          "face_evidence_class": "PROXY_ASSUMED",
+          "face_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/UART_isole/ORCH_USB_B",
+          "face_frame_proxy": {
+            "local_mm": [
+              0.0,
+              4.0,
+              5.0
+            ],
+            "global_mm": [
+              -68.8,
+              -28.575000000000003,
+              51.0
+            ],
+            "outward_global": [
+              -1.0,
+              -0.0,
+              -0.0
+            ]
+          },
+          "axis_evidence_class": "CAD_MEASURED",
+          "axis_occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F41/Cable",
+          "axis_ends_mm": [
+            [
+              -79.0,
+              24.0,
+              54.0
+            ],
+            [
+              7.0,
+              -42.0,
+              131.5
+            ]
+          ],
+          "nearest_axis_to_proxy_mm": 53.63926383723028,
+          "proxy_to_axis_angle_deg": 0.0
+        }
+      },
+      "opening": {
+        "recompute_ok": true,
+        "broken_native_links": [],
+        "broken_serialized_links": [],
+        "invalid_objects": [],
+        "save_performed": false
+      },
+      "raw": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/consolidee/native.json",
+        "sha256": "8ee352da75aabddfe3634224f34cf6772d85de0a41949bdc41101ba003c139c4"
+      },
+      "log": {
+        "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/consolidee/worker.log",
+        "sha256": "f86feecd48b0da9cba250cd7cdde0df794a247f93fb3c390ec66f3291d388656"
+      }
+    }
+  },
+  "native_raw": {
+    "path": ".runtime/v3-a3/replica/.runtime/rejeu-a3/measurements.json",
+    "sha256": "e6b8a21b8083c2220e5a98e9f2bf4a8402c00c677bd916ebcd7ca3f2d65219d6"
+  },
+  "screen_raw": {
+    "path": ".runtime/v3-a3/replica/.runtime/criblage-a3.json",
+    "sha256": "a6d05722b4041edcfcd99afb15250bd32710f0d84159eaaa1fe385e76379ec4c"
+  },
+  "screen_stage": {
+    "path": ".runtime/v3-a3/replica/.runtime/criblage-a3/experiment.json",
+    "sha256": "4e4ef0283ad28b8957bb359f9d3a089e51fb391f2025a791141ff5fb7a0bf4e9"
+  },
+  "independent_interface_frames": {
+    "W40/A": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "W40/B": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "W41/A": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "W41/B": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "J-UART-DECONNEXION": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "iso-to-P64": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "iso-to-P66": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "P72": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    },
+    "P73": {
+      "status": "UNKNOWN",
+      "receptacle_frame": null,
+      "mating_frame": null,
+      "wire_exit_frame": null,
+      "tool_frame": null,
+      "access_sweep": null,
+      "fastening_datums": null
+    }
+  },
+  "support_candidates": {
+    "P64": {
+      "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA03_Prototype_Energie/Isolation",
+      "evidence_class": "CAD_MEASURED",
+      "nominal_planar_faces": {
+        "Z+": [
+          {
+            "face_in_measured_brep": "Face2",
+            "area_mm2": 31596.43666465496,
+            "center_mm": [
+              -0.0027724836822158876,
+              0.0206307467225606,
+              39.0
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -94.0,
+                -88.0,
+                39.0
+              ],
+              [
+                94.0,
+                88.0,
+                39.0
+              ]
+            ]
+          }
+        ],
+        "Z-": [
+          {
+            "face_in_measured_brep": "Face4",
+            "area_mm2": 31561.753481759326,
+            "center_mm": [
+              0.01590575455343257,
+              0.08603791503610125,
+              36.2
+            ],
+            "normal_global": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -94.0,
+                -88.0,
+                36.2
+              ],
+              [
+                94.0,
+                88.0,
+                36.2
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face97",
+            "area_mm2": 17.34159144781566,
+            "center_mm": [
+              -43.95,
+              -59.5,
+              36.7
+            ],
+            "normal_global": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -46.85,
+                -62.4,
+                36.7
+              ],
+              [
+                -41.050000000000004,
+                -56.6,
+                36.7
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face98",
+            "area_mm2": 17.34159144781566,
+            "center_mm": [
+              9.95,
+              -59.5,
+              36.7
+            ],
+            "normal_global": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                7.049999999999999,
+                -62.4,
+                36.7
+              ],
+              [
+                12.85,
+                -56.6,
+                36.7
+              ]
+            ]
+          }
+        ]
+      },
+      "construction_primitives": {
+        "class": "PROXY_ASSUMED",
+        "features": {
+          "Percage001": {
+            "bounds_mm": [
+              [
+                -55.3,
+                48.7,
+                35.2
+              ],
+              [
+                -48.7,
+                55.3,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -52.0,
+              52.0,
+              37.6
+            ],
+            "brep_sha256": "8bf66b8850f55fb5d1b373d36d1691a5b47bd20a321e3cc23095a75e483dcd43"
+          },
+          "Percage003": {
+            "bounds_mm": [
+              [
+                48.7,
+                48.7,
+                35.2
+              ],
+              [
+                55.3,
+                55.3,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              52.0,
+              52.0,
+              37.6
+            ],
+            "brep_sha256": "ff53c86f0da7f45974277882a52f493bb10578c8d63191bb10a394df53c263e6"
+          },
+          "Percage": {
+            "bounds_mm": [
+              [
+                -55.3,
+                -55.3,
+                35.2
+              ],
+              [
+                -48.7,
+                -48.7,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -52.0,
+              -52.0,
+              37.6
+            ],
+            "brep_sha256": "652dc44d23b4c72c5cf00fa0034a86c4947a8b0587d279bd3c34316f2ec18dc2"
+          },
+          "Percage002": {
+            "bounds_mm": [
+              [
+                48.7,
+                -55.3,
+                35.2
+              ],
+              [
+                55.3,
+                -48.7,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              52.0,
+              -52.0,
+              37.6
+            ],
+            "brep_sha256": "17c6bf33fc4d798b4d6e3d6261046b3b784c8240b9e5f0a565a0c755675c0fc4"
+          },
+          "Percage007": {
+            "bounds_mm": [
+              [
+                -16.8,
+                72.8,
+                35.2
+              ],
+              [
+                -10.2,
+                79.39999999999999,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -13.5,
+              76.1,
+              37.6
+            ],
+            "brep_sha256": "751eb829e8d1783c26676cc90bac5c1ea435fba583f4d2bf8001501bba9cf414"
+          },
+          "Percage006": {
+            "bounds_mm": [
+              [
+                -16.8,
+                47.800000000000004,
+                35.2
+              ],
+              [
+                -10.2,
+                54.4,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -13.5,
+              51.1,
+              37.6
+            ],
+            "brep_sha256": "43f58338960fe02267c737a49c8d35049ce939b4774cf86764b85ba654667fa4"
+          },
+          "Percage005": {
+            "bounds_mm": [
+              [
+                -16.8,
+                -54.4,
+                35.2
+              ],
+              [
+                -10.2,
+                -47.800000000000004,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -13.5,
+              -51.1,
+              37.6
+            ],
+            "brep_sha256": "01041fb106ddd6e93c47183e43b6765c62c0950b88ac4e4945d9909512b1fef5"
+          },
+          "Percage004": {
+            "bounds_mm": [
+              [
+                -16.8,
+                -79.39999999999999,
+                35.2
+              ],
+              [
+                -10.2,
+                -72.8,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -13.5,
+              -76.1,
+              37.6
+            ],
+            "brep_sha256": "bc86b4c217fbfb7ab876e5f0e98fb2ab6bdb4981f1006616a1a48903b5138147"
+          },
+          "Percage009": {
+            "bounds_mm": [
+              [
+                10.2,
+                -54.4,
+                35.2
+              ],
+              [
+                16.8,
+                -47.800000000000004,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              13.5,
+              -51.1,
+              37.6
+            ],
+            "brep_sha256": "5b6de07ef2391dd416fa3c2402d20ad690f0f9a10ca70f57e41c8f6a1828773e"
+          },
+          "Percage011": {
+            "bounds_mm": [
+              [
+                10.2,
+                72.8,
+                35.2
+              ],
+              [
+                16.8,
+                79.39999999999999,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              13.5,
+              76.1,
+              37.6
+            ],
+            "brep_sha256": "f91841b6d8700053e19090d472d247927f9c84b7165fe8e8ff6373651454bc39"
+          },
+          "Percage013": {
+            "bounds_mm": [
+              [
+                -81.6,
+                54.4,
+                35.2
+              ],
+              [
+                -78.4,
+                57.6,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -80.0,
+              56.0,
+              37.6
+            ],
+            "brep_sha256": "a98b1be421c8693e99e73fd19d5f32a0f51cfef300b2bba7ee635970a89330f4"
+          },
+          "Percage008": {
+            "bounds_mm": [
+              [
+                10.2,
+                -79.39999999999999,
+                35.2
+              ],
+              [
+                16.8,
+                -72.8,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              13.5,
+              -76.1,
+              37.6
+            ],
+            "brep_sha256": "8877ea287914053c6229115f75b8e7ae11cc2bb4445412f28306a6368b05646a"
+          },
+          "Percage010": {
+            "bounds_mm": [
+              [
+                10.2,
+                47.800000000000004,
+                35.2
+              ],
+              [
+                16.8,
+                54.4,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              13.5,
+              51.1,
+              37.6
+            ],
+            "brep_sha256": "8f0afa8a5bfa32ec8417b5d3391861154637a795e7c87eb250502b8918cf887b"
+          },
+          "Percage012": {
+            "bounds_mm": [
+              [
+                78.4,
+                -57.6,
+                35.2
+              ],
+              [
+                81.6,
+                -54.4,
+                40.0
+              ]
+            ],
+            "bbox_center_mm": [
+              80.0,
+              -56.0,
+              37.6
+            ],
+            "brep_sha256": "9998c33513522faf4f4dcfa39646a12c9e8d96c6ffbb8c953a1c4d8416abeb55"
+          }
+        },
+        "nearest_xy_spacings_mm": [
+          {
+            "features": [
+              "Percage007",
+              "Percage006"
+            ],
+            "xy_center_spacing_mm": 24.999999999999993
+          },
+          {
+            "features": [
+              "Percage005",
+              "Percage004"
+            ],
+            "xy_center_spacing_mm": 24.999999999999993
+          },
+          {
+            "features": [
+              "Percage009",
+              "Percage008"
+            ],
+            "xy_center_spacing_mm": 24.999999999999993
+          }
+        ]
+      },
+      "physical_contact": null,
+      "fastener_engagement_mm": null,
+      "load_path": null,
+      "tool_clearance": null,
+      "insulation_at_fastener": null,
+      "caveat": "Centres de boîtes de primitives et entraxes projetés XY. La fixation, les contacts et les trous utilisables restent à vérifier."
+    },
+    "P66": {
+      "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA05_Prototype_Avionique/Interface",
+      "evidence_class": "CAD_MEASURED",
+      "nominal_planar_faces": {
+        "Z+": [
+          {
+            "face_in_measured_brep": "Face3",
+            "area_mm2": 13080.454874011106,
+            "center_mm": [
+              -4.440892098500626e-15,
+              -5.736292324615291e-16,
+              88.0
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -70.0,
+                -47.0,
+                88.0
+              ],
+              [
+                70.0,
+                47.0,
+                88.0
+              ]
+            ]
+          }
+        ],
+        "Z-": [
+          {
+            "face_in_measured_brep": "Face5",
+            "area_mm2": 12962.185220337007,
+            "center_mm": [
+              -5.995204332975845e-15,
+              -4.736152996282871e-16,
+              85.0
+            ],
+            "normal_global": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -70.0,
+                -47.0,
+                85.0
+              ],
+              [
+                70.0,
+                47.0,
+                85.0
+              ]
+            ]
+          }
+        ]
+      },
+      "construction_primitives": {
+        "class": "PROXY_ASSUMED",
+        "features": {
+          "Percage001": {
+            "bounds_mm": [
+              [
+                -61.6,
+                35.4,
+                84.0
+              ],
+              [
+                -58.4,
+                38.6,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -60.0,
+              37.0,
+              86.5
+            ],
+            "brep_sha256": "78b2af47e43227f7eb2d5c4302ec23b73817a289bd0891e3ddde0b5f3de32ed3"
+          },
+          "Percage": {
+            "bounds_mm": [
+              [
+                -61.6,
+                -38.6,
+                84.0
+              ],
+              [
+                -58.4,
+                -35.4,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -60.0,
+              -37.0,
+              86.5
+            ],
+            "brep_sha256": "1da460b2ea83b1b2a6821fdb9a4bea997499b2e3579a1d9771e312a09d162785"
+          },
+          "Percage003": {
+            "bounds_mm": [
+              [
+                58.4,
+                35.4,
+                84.0
+              ],
+              [
+                61.6,
+                38.6,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              60.0,
+              37.0,
+              86.5
+            ],
+            "brep_sha256": "5fdb71e8fbbbce3cd54c361dd0da532fa0a6db535e92a8dc294bee62a1367139"
+          },
+          "Percage002": {
+            "bounds_mm": [
+              [
+                58.4,
+                -38.6,
+                84.0
+              ],
+              [
+                61.6,
+                -35.4,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              60.0,
+              -37.0,
+              86.5
+            ],
+            "brep_sha256": "3512f68360c9320c1f5d0416545e0f1a07987b64923c30648211d7d8957e2047"
+          },
+          "Percage004": {
+            "bounds_mm": [
+              [
+                -44.1,
+                -30.1,
+                84.0
+              ],
+              [
+                -41.9,
+                -27.9,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -43.0,
+              -29.0,
+              86.5
+            ],
+            "brep_sha256": "8270a4fc562982f64c2f18a97cd845376ad3c8093cd75c75826bcfadb7b56799"
+          },
+          "Percage005": {
+            "bounds_mm": [
+              [
+                -44.1,
+                27.9,
+                84.0
+              ],
+              [
+                -41.9,
+                30.1,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -43.0,
+              29.0,
+              86.5
+            ],
+            "brep_sha256": "49a3b8e1d6395e53c8094fb6097910aceb9b2d30879380dd4843ca77911e50c6"
+          },
+          "Percage006": {
+            "bounds_mm": [
+              [
+                41.9,
+                -30.1,
+                84.0
+              ],
+              [
+                44.1,
+                -27.9,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              43.0,
+              -29.0,
+              86.5
+            ],
+            "brep_sha256": "8ef86e4f01722044d5f1cbea0b4759055d243232f7c772dacd2391c41bdd5c60"
+          },
+          "Percage010": {
+            "bounds_mm": [
+              [
+                64.4,
+                -44.6,
+                84.0
+              ],
+              [
+                67.6,
+                -41.4,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              66.0,
+              -43.0,
+              86.5
+            ],
+            "brep_sha256": "a661ea3b6424ea15cf7132e40d0d728b3e10ff6c4a54df45b3ec714b58848195"
+          },
+          "Percage007": {
+            "bounds_mm": [
+              [
+                41.9,
+                27.9,
+                84.0
+              ],
+              [
+                44.1,
+                30.1,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              43.0,
+              29.0,
+              86.5
+            ],
+            "brep_sha256": "5d4412566aed460adb5447a55fdc3f939d989bfa9656439267bfee8d774b104a"
+          },
+          "Percage008": {
+            "bounds_mm": [
+              [
+                -67.6,
+                -44.6,
+                84.0
+              ],
+              [
+                -64.4,
+                -41.4,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -66.0,
+              -43.0,
+              86.5
+            ],
+            "brep_sha256": "e4537c18f780c14a0c2a94855be03da5b5937f48d74e9b8116e0f7e1326be856"
+          },
+          "Percage009": {
+            "bounds_mm": [
+              [
+                -67.6,
+                41.4,
+                84.0
+              ],
+              [
+                -64.4,
+                44.6,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -66.0,
+              43.0,
+              86.5
+            ],
+            "brep_sha256": "a25da6282a197f1bcf446808db67df656e6e4bca34c5476b8c2e899f48879158"
+          },
+          "Percage011": {
+            "bounds_mm": [
+              [
+                64.4,
+                41.4,
+                84.0
+              ],
+              [
+                67.6,
+                44.6,
+                89.0
+              ]
+            ],
+            "bbox_center_mm": [
+              66.0,
+              43.0,
+              86.5
+            ],
+            "brep_sha256": "fc9099fb6a7f21f4060d463458131a3f5433aee5d1c7195aa508e888b98503e7"
+          }
+        },
+        "nearest_xy_spacings_mm": [
+          {
+            "features": [
+              "Percage001",
+              "Percage009"
+            ],
+            "xy_center_spacing_mm": 8.48528137423857
+          },
+          {
+            "features": [
+              "Percage",
+              "Percage008"
+            ],
+            "xy_center_spacing_mm": 8.48528137423857
+          },
+          {
+            "features": [
+              "Percage003",
+              "Percage011"
+            ],
+            "xy_center_spacing_mm": 8.48528137423857
+          }
+        ]
+      },
+      "physical_contact": null,
+      "fastener_engagement_mm": null,
+      "load_path": null,
+      "tool_clearance": null,
+      "insulation_at_fastener": null,
+      "caveat": "Centres de boîtes de primitives et entraxes projetés XY. La fixation, les contacts et les trous utilisables restent à vérifier."
+    },
+    "P72": {
+      "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P72_Guide",
+      "evidence_class": "CAD_MEASURED",
+      "nominal_planar_faces": {
+        "Z+": [
+          {
+            "face_in_measured_brep": "Face79",
+            "area_mm2": 633.0,
+            "center_mm": [
+              -91.03870458135862,
+              -26.687993680884677,
+              66.5
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -93.0,
+                -106.0,
+                66.5
+              ],
+              [
+                -89.0,
+                58.0,
+                66.5
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face138",
+            "area_mm2": 519.8446115974208,
+            "center_mm": [
+              -73.83655755045812,
+              51.08432389664416,
+              91.0
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -86.0,
+                39.0,
+                91.0
+              ],
+              [
+                -62.0,
+                63.0,
+                91.0
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face115",
+            "area_mm2": 462.0,
+            "center_mm": [
+              -110.31709956709956,
+              17.757575757575758,
+              -2.5
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -114.5,
+                -38.0,
+                -2.5
+              ],
+              [
+                -90.0,
+                58.0,
+                -2.5
+              ]
+            ]
+          }
+        ],
+        "Z-": [
+          {
+            "face_in_measured_brep": "Face137",
+            "area_mm2": 527.8446115974208,
+            "center_mm": [
+              -74.01332839844302,
+              51.15882576322159,
+              88.0
+            ],
+            "normal_global": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -86.0,
+                39.0,
+                88.0
+              ],
+              [
+                -62.0,
+                63.0,
+                88.0
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face221",
+            "area_mm2": 495.11991039726337,
+            "center_mm": [
+              -90.93268899496023,
+              -42.628744055828015,
+              62.5
+            ],
+            "normal_global": [
+              0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -93.00000000000001,
+                -106.0,
+                62.5
+              ],
+              [
+                -88.99999999999989,
+                33.91274608753852,
+                62.5
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face118",
+            "area_mm2": 447.12130199318347,
+            "center_mm": [
+              -110.26125086912921,
+              19.106499887776362,
+              -10.5
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -114.5,
+                -38.0,
+                -10.5
+              ],
+              [
+                -90.0,
+                58.0,
+                -10.5
+              ]
+            ]
+          }
+        ]
+      },
+      "construction_primitives": {
+        "class": "PROXY_ASSUMED",
+        "features": {
+          "PatteP60": {
+            "bounds_mm": [
+              [
+                -101.0,
+                39.0,
+                -87.0
+              ],
+              [
+                -84.0,
+                63.0,
+                -84.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -92.5,
+              51.0,
+              -85.5
+            ],
+            "brep_sha256": "62e1b0b0079fec86e95060c46bcc9b5224b5e079703a7f07f49045c4de317792"
+          },
+          "PatteP64": {
+            "bounds_mm": [
+              [
+                -90.0,
+                49.0,
+                39.0
+              ],
+              [
+                -76.0,
+                63.0,
+                42.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -83.0,
+              56.0,
+              40.5
+            ],
+            "brep_sha256": "cd764fe13068942b206ea154e55c6cc22f35299f7b9e10d4a0eb17d1b50b85ae"
+          },
+          "PatteP66": {
+            "bounds_mm": [
+              [
+                -90.0,
+                39.0,
+                88.0
+              ],
+              [
+                -62.0,
+                63.0,
+                91.0
+              ]
+            ],
+            "bbox_center_mm": [
+              -76.0,
+              51.0,
+              89.5
+            ],
+            "brep_sha256": "8dd2680979e95a0d5cc01c70966d15e42da1ee8f1a9b0d0dbb182be6109bc70e"
+          }
+        },
+        "nearest_xy_spacings_mm": []
+      },
+      "physical_contact": null,
+      "fastener_engagement_mm": null,
+      "load_path": null,
+      "tool_clearance": null,
+      "insulation_at_fastener": null,
+      "caveat": "Centres de boîtes de primitives et entraxes projetés XY. La fixation, les contacts et les trous utilisables restent à vérifier."
+    },
+    "P73": {
+      "occurrence": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide",
+      "evidence_class": "CAD_MEASURED",
+      "nominal_planar_faces": {
+        "Z+": [
+          {
+            "face_in_measured_brep": "Face3",
+            "area_mm2": 2106.999999999999,
+            "center_mm": [
+              52.64463692453725,
+              -71.20977693402943,
+              -52.0
+            ],
+            "normal_global": [
+              -0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                17.5,
+                -86.00000000000001,
+                -52.0
+              ],
+              [
+                90.0,
+                -56.0,
+                -52.0
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face19",
+            "area_mm2": 1596.0,
+            "center_mm": [
+              9.731829573934853,
+              -98.21428571428571,
+              63.5
+            ],
+            "normal_global": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -89.0,
+                -106.00000000000003,
+                63.5
+              ],
+              [
+                98.0,
+                -73.0,
+                63.5
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face86",
+            "area_mm2": 736.0,
+            "center_mm": [
+              -5.999999999999999,
+              -44.000000000000014,
+              -8.5
+            ],
+            "normal_global": [
+              -0.0,
+              0.0,
+              1.0
+            ],
+            "bounds_mm": [
+              [
+                -98.0,
+                -46.00000000000002,
+                -8.5
+              ],
+              [
+                86.0,
+                -42.0,
+                -8.5
+              ]
+            ]
+          }
+        ],
+        "Z-": [
+          {
+            "face_in_measured_brep": "Face5",
+            "area_mm2": 2106.999999999999,
+            "center_mm": [
+              52.64463692453725,
+              -71.20977693402943,
+              -55.0
+            ],
+            "normal_global": [
+              0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                17.5,
+                -86.00000000000001,
+                -55.0
+              ],
+              [
+                90.0,
+                -56.0,
+                -55.0
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face121",
+            "area_mm2": 990.8255647029769,
+            "center_mm": [
+              0.42989930297654766,
+              -101.85621936605155,
+              55.5
+            ],
+            "normal_global": [
+              0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -89.0,
+                -106.00000000000003,
+                55.5
+              ],
+              [
+                98.0,
+                -91.99765049331003,
+                55.5
+              ]
+            ]
+          },
+          {
+            "face_in_measured_brep": "Face87",
+            "area_mm2": 736.0,
+            "center_mm": [
+              -5.999999999999999,
+              -43.99999999999999,
+              -16.5
+            ],
+            "normal_global": [
+              0.0,
+              -0.0,
+              -1.0
+            ],
+            "bounds_mm": [
+              [
+                -98.0,
+                -46.00000000000002,
+                -16.5
+              ],
+              [
+                86.0,
+                -42.0,
+                -16.5
+              ]
+            ]
+          }
+        ]
+      },
+      "construction_primitives": {
+        "class": "PROXY_ASSUMED",
+        "features": {
+          "PatteP60": {
+            "bounds_mm": [
+              [
+                84.0,
+                -63.000000000000014,
+                -87.0
+              ],
+              [
+                101.0,
+                -39.000000000000014,
+                -84.0
+              ]
+            ],
+            "bbox_center_mm": [
+              92.5,
+              -51.000000000000014,
+              -85.5
+            ],
+            "brep_sha256": "c7f78c80d51b42c1d1326055b6e097ab84fa3d393ef176b77410517975cdb6e0"
+          },
+          "PatteP64": {
+            "bounds_mm": [
+              [
+                76.0,
+                -63.000000000000014,
+                39.0
+              ],
+              [
+                90.0,
+                -49.000000000000014,
+                42.0
+              ]
+            ],
+            "bbox_center_mm": [
+              83.0,
+              -56.000000000000014,
+              40.5
+            ],
+            "brep_sha256": "228d4cc0248c4baa3ce0ed8c40a33e65c071323d7ff30d7bf88ba4437e4983b8"
+          },
+          "PatteP66": {
+            "bounds_mm": [
+              [
+                62.0,
+                -63.000000000000014,
+                88.0
+              ],
+              [
+                90.0,
+                -39.000000000000014,
+                91.0
+              ]
+            ],
+            "bbox_center_mm": [
+              76.0,
+              -51.000000000000014,
+              89.5
+            ],
+            "brep_sha256": "e4b0ac2017c8bad3190ec77cf8d0676c4da3a87362f65c9ca175bed7be61a453"
+          }
+        },
+        "nearest_xy_spacings_mm": []
+      },
+      "physical_contact": null,
+      "fastener_engagement_mm": null,
+      "load_path": null,
+      "tool_clearance": null,
+      "insulation_at_fastener": null,
+      "caveat": "Centres de boîtes de primitives et entraxes projetés XY. La fixation, les contacts et les trous utilisables restent à vérifier."
+    }
+  },
+  "checks": {
+    "IF-03": {
+      "status": "REFUTED_ON_CAD",
+      "retained": false,
+      "support_shape_class": "PROXY_ASSUMED",
+      "observations": {
+        "H03-A": {
+          "module_gap_mm": 0.29999999999999716,
+          "P72_intersection_mm3": 109.73356956019354,
+          "P66_gap_mm": 28.0178514522438,
+          "P64_gap_mm": 16.0,
+          "actual_native_UART_body_P72_intersection_mm3": 72.38234318815354,
+          "actual_native_F40_P72_intersection_mm3": 18.25772492110116
+        },
+        "H03-B": {
+          "module_gap_mm": 0.29999999999999716,
+          "P72_intersection_mm3": 109.73356956019354,
+          "P66_gap_mm": 28.0178514522438,
+          "P64_gap_mm": 16.0,
+          "actual_native_UART_body_P72_intersection_mm3": 146.75628727691623,
+          "actual_native_F40_P72_intersection_mm3": 24.317456106612795
+        }
+      }
+    },
+    "IF-04": {
+      "status": "REPRODUCED",
+      "scope": "PROXY_ASSUMED",
+      "PDB_intersections_by_TTL_probe": {
+        "TTL-l3-y-6": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 8.490514076837439,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l3-y+0": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 6.848104897407766,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l3-y+6": [
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 6.826041853658778,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l5-y-6": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 83.19560627589485,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.702058432609967,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l5-y+0": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 59.54368286180433,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.70205843260996,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l5-y+6": [
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 59.37004660668263,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/23/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 4.702058432610095,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l15-y-6": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 438.45464801073615,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 52.97981851013828,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l15-y+0": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 283.48104467355296,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/20/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 36.75801013790086,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 17.3619763268142,
+            "gap_mm": 0.0
+          }
+        ],
+        "TTL-l15-y+6": [
+          {
+            "occurrence": "PDB/18/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 17.59955709471261,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/21/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 283.193498311739,
+            "gap_mm": 0.0
+          },
+          {
+            "occurrence": "PDB/23/sous_assemblages/SA03_Prototype_Energie.FCStd#PDB",
+            "volume_mm3": 36.65840807695133,
+            "gap_mm": 0.0
+          }
+        ]
+      }
+    },
+    "IF-05": {
+      "status": "REPRODUCED",
+      "scope": "PROXY_ASSUMED",
+      "P72_intersections_by_50mm_USB_probe": {
+        "USB-B-droit-l50": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 131.27400000000014,
+            "gap_mm": 0.0
+          }
+        ],
+        "USB-B-ASSUMED-Sud-l50": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 212.16000000000017,
+            "gap_mm": 0.0
+          }
+        ],
+        "USB-B-ASSUMED-Nord-l50": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 131.27400000000014,
+            "gap_mm": 0.0
+          }
+        ],
+        "USB-B-ASSUMED-Bas-l50": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 323.0370000000004,
+            "gap_mm": 0.0
+          }
+        ],
+        "USB-B-ASSUMED-Haut-l50": [
+          {
+            "occurrence": "P72_Guide/1/sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide",
+            "volume_mm3": 588.482646999807,
+            "gap_mm": 0.0
+          }
+        ]
+      },
+      "all_USB_profiles_screened": 15
+    },
+    "IF-06": {
+      "status": "REPRODUCED",
+      "scope": "PROXY_ASSUMED",
+      "route_collision_occurrences": {
+        "-1-edge--112": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 335.3727796076938,
+          "unresolved_pairs": 0
+        },
+        "-1-edge--130": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 362.78870614359175,
+          "unresolved_pairs": 0
+        },
+        "-1-edge--145": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 392.78870614359175,
+          "unresolved_pairs": 0
+        },
+        "-1-below--112": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P73_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 326.7887061435917,
+          "unresolved_pairs": 0
+        },
+        "-1-below--130": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P73_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 362.78870614359175,
+          "unresolved_pairs": 0
+        },
+        "-1-below--145": {
+          "collision_occurrences": [
+            "F04_1",
+            "P72_Guide",
+            "P73_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 392.78870614359175,
+          "unresolved_pairs": 0
+        },
+        "+1-edge--112": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide"
+          ],
+          "length_mm": 571.9387061435917,
+          "unresolved_pairs": 0
+        },
+        "+1-edge--130": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide",
+            "P75_Cadre"
+          ],
+          "length_mm": 599.3546326794897,
+          "unresolved_pairs": 0
+        },
+        "+1-edge--145": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide"
+          ],
+          "length_mm": 629.3546326794897,
+          "unresolved_pairs": 0
+        },
+        "+1-below--112": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide"
+          ],
+          "length_mm": 563.3546326794897,
+          "unresolved_pairs": 0
+        },
+        "+1-below--130": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide"
+          ],
+          "length_mm": 599.3546326794897,
+          "unresolved_pairs": 0
+        },
+        "+1-below--145": {
+          "collision_occurrences": [
+            "P72_Guide",
+            "P73_Guide"
+          ],
+          "length_mm": 629.3546326794897,
+          "unresolved_pairs": 0
+        }
+      },
+      "saved_as_native": false,
+      "warning": "FreeCAD a signalé des échecs de congé à 20 mm sur certains profils, le solide frais reste distinct d’un rayon qualifié."
+    },
+    "IF-07": {
+      "status": "REPRODUCED",
+      "scope": "PROXY_ASSUMED",
+      "see": "cases/*/interface_observations"
+    }
+  }
+}

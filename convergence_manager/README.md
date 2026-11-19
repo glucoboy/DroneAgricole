@@ -95,3 +95,29 @@ d’entrée ou de publication. `--plan` sélectionne une autre demande
 d’exploration. `--receipt` accepte un reçu de réception pour vérifier son
 rattachement à L4. Le préflight ordonne la préparation d’essais et la
 commande `run` exécute la campagne L5 historique.
+
+<a id="autorites-cartographe-v3-a3"></a>
+## Autorités cartographe V3-A.3
+
+Le dossier `v3.a3.operation_admission/1` associe chaque occurrence et
+opération à ses préconditions. L’entrée actuelle accepte les demandes
+`v3.admission_scope/1` et, pour la construction, les plans
+`v3.mutation_plan/1` dans les périmètres scellés. L’analyse d’impact
+du cartographe conserve sa voie en lecture seule. Le dossier A.3
+soumis comme demande retourne `CONTRACT_VERSION_UNSUPPORTED` et ses
+références déclarées dans une demande de mutation du cartographe
+retournent `CARTOGRAPHER_AUTHORITIES_UNRESOLVED`.
+
+Une future admission requiert un reçu indépendant. Il liera l’émetteur
+et sa signature, la provenance et les empreintes des pièces, le lot et
+la révision applicables, la version d’autorité, le sceau géométrique et
+l’identifiant de la capacité à une occurrence et une opération. La
+preuve contiendra les objets autorisés, les bornes dans leurs repères,
+les contrôles et seuils applicables, la copie privée, la réouverture,
+le rollback et le reçu T0. Le constructeur et le validateur vérifieront
+indépendamment leur périmètre et refuseront une provenance, un objet,
+une capacité ou un sceau divergents. Cette consommation est **Planifié**.
+
+La recette de non-escalade utilise le binaire V3-I et une fermeture
+privée scellée. Elle soumet le dossier A.3, sa variante avec auto-autorisation
+et toutes les occurrences de sa matrice. [Recette A.3](../docs/verification/v3/a3/REPORT.md)
