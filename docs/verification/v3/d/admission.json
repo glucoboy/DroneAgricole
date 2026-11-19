@@ -1,0 +1,684 @@
+{
+  "schema": "v3.d.admission/1",
+  "decision": "V3_D_CARTO_NOT_ADMITTED",
+  "scope": "READ_ONLY_IMPACT",
+  "merge_commit": "f37c026f12cb4b32768378e986c1903c29fb2ce0",
+  "merge_base": "9c72169d6148b12862026031aa3d55e43bd37b3c",
+  "parents": {
+    "C": "086a6eff4e542966236bd1da890c74e44e9ab2d5",
+    "A3": "1d9dc32a7f72bd23ad1809031d4f9583cff1d82d"
+  },
+  "resolutions": {
+    ".gitattributes": "Union des règles LF liées aux preuves C et A.3.",
+    "docs/VALIDATION_QUALIFICATION.md": "Ajouts et journaux C/B.2 et A.3 conservés, avec leurs références."
+  },
+  "engine_gate": {
+    "receipt": {
+      "path": "docs/verification/v3/c/acceptance.json",
+      "sha256": "35ff6be16b6006182d5b3a8d92d612aeaaf98c4c810e30b0009ea94d2ee903ef"
+    },
+    "verdict": "V3_C_AUTONOMY_GO",
+    "scope": "SYNTHETIC_BENCH",
+    "binary": {
+      "path": ".runtime/v3-c/qual-build/convergence_core.exe",
+      "sha256": "04a23ede5279ae8f629a2617e95d5da0b8bb13093aa4740b65d6607cd0cb66e5"
+    }
+  },
+  "cartographer_gate": {
+    "receipt": {
+      "path": "docs/verification/v3/a3/acceptance.json",
+      "sha256": "8d50b23e04d84a780faa72bbec8f9409bfc0030dbf376515785f935ef417a68d"
+    },
+    "verdict": "V3_A3_EVIDENCE_CONDITIONAL",
+    "authorities": {
+      "path": "docs/verification/v3/a3/operation_admission.json",
+      "sha256": "c18858731db34658a67a34c519c55cfcd27c8fac83e0faa240d2026ce7cbeb85"
+    },
+    "signed_applicable_domains": 0,
+    "lot": "LOT_NOT_INSPECTED"
+  },
+  "checks": {
+    "path": ".runtime/v3-d/admission/scope_checks.json",
+    "sha256": "b9e1df8c14b4c8781c4b3ede610f1ebaac88b2e6a56a45fff6643173f24c9e22"
+  },
+  "open_uart_issues": [
+    "UART-TOP-001",
+    "UART-JBD-001",
+    "UART-ISO-001",
+    "UART-AXIS-001",
+    "UART-MOUNT-001",
+    "UART-ACCESS-001",
+    "UART-HOST-001",
+    "UART-GUIDES-001"
+  ],
+  "occurrences": [
+    {
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "iso",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-00/output/admission.json",
+        "sha256": "49a27c4938e4386bac4b35e5ec58a6ad2bdd275f40d8dff23d9fd41de95585be"
+      }
+    },
+    {
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "harness:f40",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-01/output/admission.json",
+        "sha256": "483061f14044cf3373fd326a82d4af40e5d9019f379c314e194eb1564ede7ef1"
+      }
+    },
+    {
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "harness:f41",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-02/output/admission.json",
+        "sha256": "b96710626faa0931814facdaf8e58f14b7d1bb4d90c67759f9c492e1dbb90c3a"
+      }
+    },
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "p72",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-03/output/admission.json",
+        "sha256": "88cf3fa1d82f3c79cc663e7f0af75aed4ecc73280c1ba001c58573348299cd28"
+      }
+    },
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "p73",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-04/output/admission.json",
+        "sha256": "a26949433eaa21e38261c866478361d60d425c33186234869f7a2d142c358886"
+      }
+    },
+    {
+      "operation": "CREATE_SUPPORT",
+      "occurrence": "anchor:iso-carrier",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-ISO-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SUPPORT_LOAD_PATH": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SUPPORT_LOAD_PATH"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-05/output/admission.json",
+        "sha256": "d243251b05f44c0d8a39b274e7f0b90d63e4bbbb625b8b5f3f70607a4500c6c7"
+      }
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W40/A",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-06/output/admission.json",
+        "sha256": "4409e58f2569f0007231caf98c999748304c64023095e785b9f3697123c84479"
+      }
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W40/B",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-07/output/admission.json",
+        "sha256": "2d331f6a2d29bfbe4146a1418b93138e690b3d8c95d8b8572071590e3c654701"
+      }
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W41/A",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-08/output/admission.json",
+        "sha256": "01fc473667f431c45d270ff41aedd634655495aaec91f6ef44ce1d6cedf518ef"
+      }
+    },
+    {
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "occurrence": "port:W41/B",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-09/output/admission.json",
+        "sha256": "39986e8e855c1173b72186efff92fe8f8cfe88c6b5c79a6992692fa78eaca335"
+      }
+    },
+    {
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "occurrence": "link:W40",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-10/output/admission.json",
+        "sha256": "11ecbaa0c6ccb70d307686cd3b6c549f4b47607fe802aa33c583c6ddc4631b36"
+      }
+    },
+    {
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "occurrence": "junction:uart-manual",
+      "scope": "BLOCKED",
+      "decision": "DENY",
+      "domain_bound": null,
+      "authority": {
+        "status": "UNKNOWN",
+        "applicable_signed_record": null,
+        "source": "docs/verification/v3/a2/operation_scopes.json"
+      },
+      "uncertainties": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "conditions": {
+        "LOT_DOCUMENT_MATCH": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/LOT_DOCUMENT_MATCH"
+        },
+        "TOPOLOGY_AND_PINOUT": {
+          "status": "INCONCLUSIVE",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/TOPOLOGY_AND_PINOUT"
+        },
+        "INDEPENDENT_MATING_FRAME": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/INDEPENDENT_MATING_FRAME"
+        },
+        "SIGNED_PHYSICAL_MEASUREMENT": {
+          "status": "NOT_RUN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SIGNED_PHYSICAL_MEASUREMENT"
+        },
+        "SERVICE_ENVELOPES_AND_RADII": {
+          "status": "UNKNOWN",
+          "source": "docs/verification/v3/a2/operation_scopes.json#/evidence_requirements/SERVICE_ENVELOPES_AND_RADII"
+        }
+      },
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "receipt": {
+        "path": ".runtime/v3-d/admission/occurrence-11/output/admission.json",
+        "sha256": "35881aadf5316a7964b6a57a768279983731dcf2c6e922ca17ea039735e13545"
+      }
+    }
+  ]
+}

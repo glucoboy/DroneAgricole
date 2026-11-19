@@ -2880,6 +2880,28 @@ opération avant une nouvelle décision. Le résultat numérique soutient
 ORCH-CAO-MASSE-1 et laisse les essais sur banc V3 indépendants.
 [Fiche opérateur](verification/v3/a3/measurements_required.md)
 
+<a id="cartographe-v3-d"></a>
+#### Admission du démonstrateur cartographe V3-D — 19 novembre 2026
+
+`V3_D_CARTO_NOT_ADMITTED` · `PREPARATION_ONLY`. La jonction vérifie le
+reçu V3-C sur banc et les décisions A.3 par occurrence. L5 admet trois
+analyses en lecture seule et refuse les douze demandes de mutation. Les
+huit issues UART et l’absence de révision ou d’ancrage confirmés maintiennent
+le montage **À valider**. [Admission](verification/v3/d/admission.json) ·
+[Acceptation](verification/v3/d/acceptance.json).
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-D` → jonction, revue des SHA et rejeu de la porte | Quatorze refus de portée, dix-neuf injections bloquées et zéro transaction. Les verdicts C et A.3 gardent leur portée. |
+| `CAB-CARTO-001`, `MEC-INT-001` | `T-CARTO-V3-D` → fermetures V3-A/GO3B, gabarits de service et paires héritées | Les quatre fermetures reproduisent A.2 en lecture seule. Les sept interférences V2.1 concordent. Le criblage hypothétique retrouve neuf gabarits TTL en conflit avec PDB, cinq gabarits USB-B de 50 mm en conflit avec P72 et douze parcours temporaires avec interférence. Soixante paires GO3B restent `NOT_RUN`. |
+
+La reprise sous `ORCH-CAO-MASSE-1` dépend des relevés hors tension sur
+les lots, les datums, les appuis et le geste batterie. Les valeurs de pose
+admissibles et la réception physique restent respectivement inconnues et
+`NOT_RUN`. Le budget de création native cartographe est nul dans cette
+passe. [Diagnostic](verification/v3/d/independent_validation.json) ·
+[Relevés et critères de reprise](verification/v3/d/measurement_actions.md).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4247,6 +4269,8 @@ l’orchestration V3-C dans le périmètre des bancs scellés.
 [V3-C](#cartographe-v3-c) éprouve la recherche paramétrique et la
 contre-validation sur ces bancs. L’exploration du cartographe dépend des
 preuves d’autorité relatives aux opérations envisagées.
+[V3-D](#cartographe-v3-d) maintient la lecture seule du cartographe et fixe
+la collecte préalable à une décision sur le support et les cheminements.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4907,6 +4931,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — Jonction V3-D et contrôle de la non-admission cartographe, avec reprise des observations en lecture seule. [Résultat](#cartographe-v3-d)
 - **19 novembre 2026** — Qualification V3-C sur Workholding et C4, avec resserrement après gel et alternative mesurée. [Résultat](#cartographe-v3-c)
 - **19 novembre 2026** — Contre-validation croisée V3 B.2 des plans XLink, garde des reçus et variantes de rayon sur banc. [Résultat](#cartographe-v3-b2)
 - **19 novembre 2026** — V3-A.3 instruit les autorités UART par occurrence, rejoue les contrôles numériques et prépare les relevés hors tension. [Résultat](#cartographe-v3-a3)

@@ -1,0 +1,138 @@
+{
+  "schema": "v3.d.regressions/1",
+  "merge_commit": "f37c026f12cb4b32768378e986c1903c29fb2ce0",
+  "actual_tests": {
+    "admission": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_a3_authorities.py",
+        "--core",
+        ".runtime/v3-c/qual-build/convergence_core.exe",
+        "--source",
+        "hardware/mecanique/cartographe",
+        "--out",
+        ".runtime/v3-d/admission"
+      ],
+      "binary": {
+        "path": ".runtime/v3-c/qual-build/convergence_core.exe",
+        "sha256": "04a23ede5279ae8f629a2617e95d5da0b8bb13093aa4740b65d6607cd0cb66e5"
+      },
+      "exit_code": 0,
+      "result": {
+        "path": ".runtime/v3-d/admission/scope_checks.json",
+        "sha256": "b9e1df8c14b4c8781c4b3ede610f1ebaac88b2e6a56a45fff6643173f24c9e22"
+      },
+      "limit": null,
+      "completed_at_utc_from_artifact": "2026-11-19T11:34:47.402072+00:00"
+    },
+    "native_read_only": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        ".runtime/v3-d/native"
+      ],
+      "binary": {
+        "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+      },
+      "exit_code": 0,
+      "result": {
+        "path": ".runtime/v3-d/native/measurements.json",
+        "sha256": "c1624ac572f333fe5ae0b77215c65f9550ad00277291ab40a636968ed2b2de71"
+      },
+      "limit": null,
+      "completed_at_utc_from_artifact": "2026-11-19T11:40:01.267159+00:00"
+    },
+    "screen": {
+      "argv": [
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "-B",
+        "hardware/mecanique/cartographe/verification/go3b/interfaces_screen.py",
+        ".runtime/v3-d/screen-copy",
+        ".runtime/v3-d/screen.json",
+        "--routes"
+      ],
+      "binary": {
+        "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+      },
+      "exit_code": 0,
+      "result": {
+        "path": ".runtime/v3-d/screen.json",
+        "sha256": "5021bb1ad7b3102e600e507aa6f30c99121fd0d0a77cb34659e2a2bc37403a1a"
+      },
+      "limit": "PYTHONPATH est la racine du dépôt.",
+      "completed_at_utc_from_artifact": "2026-11-19T11:43:28.624439+00:00"
+    },
+    "legacy_pairs": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/recheck_v3_d_legacy.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-d/legacy-final"
+      ],
+      "binary": {
+        "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+      },
+      "exit_code": 0,
+      "result": {
+        "path": ".runtime/v3-d/legacy-final/legacy_pair_comparison.json",
+        "sha256": "190fa5698ef60fa08cd0d5285940bd93814dc602e5ede066a3b1e8469d212910"
+      },
+      "limit": null,
+      "completed_at_utc_from_artifact": "2026-11-19T11:38:36.336816+00:00"
+    }
+  },
+  "reused_qualified_build": {
+    "proof": {
+      "path": "docs/verification/v3/c/acceptance.json",
+      "sha256": "35ff6be16b6006182d5b3a8d92d612aeaaf98c4c810e30b0009ea94d2ee903ef"
+    },
+    "binary": {
+      "path": ".runtime/v3-c/qual-build/convergence_core.exe",
+      "sha256": "04a23ede5279ae8f629a2617e95d5da0b8bb13093aa4740b65d6607cd0cb66e5"
+    },
+    "source_delta": []
+  },
+  "local_retries": [
+    {
+      "step": "screen",
+      "exit_code": 1,
+      "cause": "PYTHONPATH absent",
+      "previous_log": {
+        "path": ".runtime/v3-d/screen.log",
+        "sha256": "3464f04c320bc32ed090872b0fd82f4b72127711b965a06b0975f6bce6df979a"
+      }
+    },
+    {
+      "step": "legacy_pairs",
+      "exit_code": 1,
+      "cause": "Indexation d’une liste de mesures par identifiant",
+      "previous_log": {
+        "path": ".runtime/v3-d/legacy.log",
+        "sha256": "fd12a926938a32baa6560e0583708b0ab108b8e544f709b9b84819deed1551ba"
+      }
+    }
+  ],
+  "historical_coverage": {
+    "GO3B_NOT_RUN": 60,
+    "B2_V21_repeated": 7,
+    "B2_V21_total_historical": 1609
+  },
+  "not_executed": [
+    "recherche et mutation cartographe",
+    "contre-validation d’un candidat cartographe",
+    "perturbation de conception",
+    "réception physique GO4"
+  ]
+}
