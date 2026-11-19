@@ -2809,6 +2809,28 @@ V2.1 B.2 restent historiques dans cette passe.
 [Régressions](verification/v3/i/regressions.json) ·
 [Recette](verification/v3/i/REPORT.md) · [Portées](verification/v3/i/scope_matrix.json).
 
+<a id="cartographe-v3-b2"></a>
+#### Contre-validation XLink V3 B.2 — 19 novembre 2026
+
+`V3_B2_VALIDATION_GO` est **Qualifié** sur bancs synthétiques scellés sous
+Windows amd64. Les sept plans B.1 reproduisent trois admissions et quatre
+rejets. Deux nouvelles compositions conservent les poses, seuils et sources
+du banc Workholding et explorent des rayons de 5,2 et 5,4 mm.
+[Reçu](verification/v3/b2/acceptance.json) · [Recette](verification/v3/b2/REPORT.md).
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-B1-01` à `V3-B1-04` | `T-CARTO-V3-B2` → `v3-build`, contre-mesure FreeCAD sur fermeture distincte, rapprochement et T0 | Neuf plans, cinq candidats admissibles, trois mesures rejetées en quarantaine et un rollback sans natif. Les deux variantes et les sept plans ont une preuve T0. |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-B2` → garde d’agrégation, réouverture, défauts injectés et reprise | Détection des repères et contacts divergents, cache géométrique, collision, rayon et appui. Un rapport contradictoire, une empreinte altérée et l’interruption avant sauvegarde bloquent la publication du natif. |
+| `CAB-CARTO-001`, `MEC-INT-001` | `T-CARTO-V3-B2` → L2 historique, projection L4 XLink et Q1–Q3 | L2 vérifie quatre conducteurs et huit contrôles de contact sur le dossier C4 historique. L’adaptateur L4 mesure la paire câble/obstacle et le rayon. Les règles globales de dégagement L4 et l’appui Workholding ont des portées distinctes. Les 1 609 mesures du cartographe V2.1 restent historiques. |
+
+La suite admise est V3-C sur banc scellé. Les résultats soutiennent la
+reprise d’appui et de cheminement sous `ORCH-CAO-MASSE-1`. L’autorité
+cartographe se décide par occurrence et opération. La réception physique
+reste `NOT_RUN`.
+[Matrice croisée](verification/v3/b2/cross_validation_matrix.json) ·
+[Contre-épreuves](verification/v3/b2/adversarial.json).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4168,6 +4190,8 @@ compatible avec le service et les protections. Ces contrôles servent la
 clôture de géométrie et de nomenclature sous ORCH-CAO-MASSE-1.
 [V3-I](#cartographe-v3-i) réunit le constructeur et les preuves A.2.
 La contre-validation sur banc et la collecte par occurrence peuvent avancer.
+[V3 B.2](#cartographe-v3-b2) vérifie les effets sauvegardés et ouvre
+l’orchestration V3-C dans le périmètre des bancs scellés.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4828,6 +4852,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **19 novembre 2026** — Contre-validation croisée V3 B.2 des plans XLink, garde des reçus et variantes de rayon sur banc. [Résultat](#cartographe-v3-b2)
 - **19 novembre 2026** — Rejeux d’intégration V3-I sur banc scellé et vérification de la portée A.2 en lecture seule. [Résultat](#cartographe-v3-i)
 - **19 novembre 2026** — V3 B.1 exécute les mutations XLink sur deux bancs et vérifie les candidats sauvegardés. [Résultat](#cartographe-v3-b1)
 - **18 novembre 2026** — V3-A.1 rejoue l’admission L5 sur banc XLink scellé et vérifie les refus sur le cartographe. [Résultat](#cartographe-v3-a1)

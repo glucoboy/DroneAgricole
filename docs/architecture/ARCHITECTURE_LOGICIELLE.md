@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 18 novembre 2026 |
+| Dernière mise à jour | 19 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -252,6 +252,23 @@ variante de connecteur et de topologie ont un contrat et rendent
 `UNSUPPORTED`. Le domaine d’exécution est `SYNTHETIC_BENCH`.
 [Schéma](../electromechanical_v3/mutation_plan.schema.json) ·
 [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-b1)
+
+#### Contre-validation XLink V3 B.2 — Implémenté
+
+`v3-build` vérifie que les contrôles natifs obligatoires sont uniques et
+que leurs statuts justifient le verdict agrégé. La recette de qualification
+rouvre une copie distincte dans `v3_cross_measure.py`. Elle confronte les
+observations géométriques aux critères scellés et au reçu de transaction,
+avec une validation T0 à l’emplacement de publication. Les comparaisons
+L2/L4 portent chacune leur contrat et leur périmètre.
+[Résultats et recette](../VALIDATION_QUALIFICATION.md#cartographe-v3-b2)
+
+Le schéma [`v3.candidate_result/1`](../electromechanical_v3/candidate_result.schema.json)
+identifie le candidat, la proposition, le modèle source, les mesures, les
+outils de validation et les écarts. Un reçu `PASS` exige une transaction,
+une mesure indépendante et un T0 valides. La quarantaine et le rollback
+sont représentés explicitement. L’orchestration de ces étapes par L5 est
+prévue pour V3-C.
 
 ## 3. Contexte et déploiement
 
@@ -1221,6 +1238,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **19 novembre 2026** — V3 B.2 vérifie l’agrégat natif, compare les mesures après une réouverture indépendante et versionne le reçu candidat (§2.6).
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
 - **19 novembre 2026** — Constructeur XLink B.1 et validation indépendante raccordés à L5 sur profils de banc scellés (§2.6).
 - **18 novembre 2026** — Admission V3-A.1 intégrée au point de construction L5 sur banc XLink scellé (§2.6).

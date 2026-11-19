@@ -1,0 +1,67 @@
+{
+  "schema": "v3.b2.acceptance/1",
+  "date": "2026-11-19",
+  "verdict": "V3_B2_VALIDATION_GO",
+  "scope": "SYNTHETIC_BENCH",
+  "source_commit": "1d95d44d366307f568ac73152d6da5f3ebd5cb17",
+  "integration_commit": "9c72169d6148b12862026031aa3d55e43bd37b3c",
+  "integration_receipt": {
+    "path": "docs/verification/v3/i/acceptance.json",
+    "sha256": "e498ad02003a736398c78f6895e83b5a70539c3453011c949665c33eec8118e9"
+  },
+  "validation": {
+    "PASS": 5,
+    "FAIL": 4
+  },
+  "independent_pair_evaluations": 1635,
+  "comparison": {
+    "b1_plan_replay": 7,
+    "sealed_variations": 2,
+    "disagreements_on_common_native_metrics": 0,
+    "l4_cases_adapted": 4,
+    "l2_historical_dossier": "PASS",
+    "candidate_t0": 9
+  },
+  "actual_tests": [
+    "cmake_build",
+    "ctest",
+    "windows_links",
+    "plans",
+    "cross_replay",
+    "boundary",
+    "adversarial_receipts",
+    "adversarial_natives",
+    "legacy_l4"
+  ],
+  "proofs": [
+    {
+      "path": "docs/verification/v3/b2/cross_validation_matrix.json",
+      "sha256": "2bba0688720e1b14a250589d0013428b0675416e87d8cdf20221d16f90eb4590"
+    },
+    {
+      "path": "docs/verification/v3/b2/native_replay.json",
+      "sha256": "7c826f9df7ee25822c2eb8e371889d4a065f3c0b19f31ede11e35b210d32c798"
+    },
+    {
+      "path": "docs/verification/v3/b2/adversarial.json",
+      "sha256": "33b627560168fabe4d98fc2f7fa4f4d3aa91000a7929379d7a3d5cf34c947ead"
+    },
+    {
+      "path": "docs/verification/v3/b2/regressions.json",
+      "sha256": "86d9ee8f67602d7581c864c1eed3eec85f167a518b95eb57b0a4c3f2c06980c5"
+    }
+  ],
+  "constructed_operations": [
+    "REPOSITION_DEVICE",
+    "REROUTE_HARNESS",
+    "RELOCATE_SUPPORT",
+    "CREATE_SUPPORT"
+  ],
+  "unsupported": [
+    "CHANGE_CONNECTOR_VARIANT",
+    "CHANGE_INTERFACE_TOPOLOGY"
+  ],
+  "cartographer_mutation": "DENY",
+  "physical_reception": "NOT_RUN",
+  "next_authorized": "V3-C sur banc synthétique scellé"
+}

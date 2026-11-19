@@ -1,0 +1,366 @@
+{
+  "schema": "v3.b2.adversarial/1",
+  "source_commit": "1d95d44d366307f568ac73152d6da5f3ebd5cb17",
+  "case_matrix": {
+    "false_expected_after": {
+      "prediction": "FAIL en géométrie (+3 mm dans expected_after), constructeur historique PASS",
+      "actual": "FAIL",
+      "position_error_mm": 3.0,
+      "receipt": {
+        "path": ".runtime/v3-b2/evidence-faults-4/false-expected-after/output.json",
+        "sha256": "c120d915fde109f37381974bbf6ea02c0b2a960c866329ccd372d33618388818"
+      },
+      "invocation": {
+        "path": ".runtime/v3-b2/evidence-faults-4/false-expected-after/freecad-invocation.json",
+        "sha256": "d10c112dc5cd742b76feb203e03715bd73f3dd2ac95ae594538d04f0166a5970"
+      }
+    },
+    "forged_published_receipt": {
+      "prediction": "Le reçu modifié est refusé avant qu’il serve à une reprise.",
+      "actual": "FAIL",
+      "exit_code": 1,
+      "receipt": {
+        "path": ".runtime/v3-b2/evidence-faults-4/forged-published-receipt/transaction/candidate-validation.json",
+        "sha256": "8ee2b58a391bce3d81d95716190f0956479906cfdc629d2dd00c6a1146667846"
+      },
+      "invocation": {
+        "path": ".runtime/v3-b2/evidence-faults-4/forged-published-receipt/t0-invocation.json",
+        "sha256": "83ce322aebf26e1c7e6db1ae7deb6710e9a5d543ebb28084665bfa0c33e82e37"
+      }
+    },
+    "inconsistent_native_report": {
+      "prediction": "INCONCLUSIVE si PASS agrégé contredit un contrôle obligatoire FAIL",
+      "actual": "INCONCLUSIVE",
+      "receipt": {
+        "path": ".runtime/v3-b2/evidence-faults-4/inconsistent-native-report/repo/.runtime/output/transaction/campaign.json",
+        "sha256": "d38aee2a8b01ac972a29e2732c5c68e3d80bdb4ac5b6d2d50716ce6cfe38f084"
+      },
+      "invocation": {
+        "path": ".runtime/v3-b2/evidence-faults-4/inconsistent-native-report/v3-build-invocation.json",
+        "sha256": "bd2443830b092e396c06306813c46348d1f7a45940a613e1f5ee99b95eb9765c"
+      }
+    },
+    "forged_abandoned_publication": {
+      "prediction": "La publication abandonnée est ignorée. Reprise avec nouveau constructeur et nouvelle validation.",
+      "actual": "NEW_TRANSACTION",
+      "receipt": {
+        "path": ".runtime/v3-b2/evidence-faults-4/forged-abandoned-publication/repo/.runtime/output/transaction/campaign.json",
+        "sha256": "f0047434ab259f55ec98ba77f187b314cfd5eeea1fd17447e6e57cf5c26fc68e"
+      },
+      "invocation": {
+        "path": ".runtime/v3-b2/evidence-faults-4/forged-abandoned-publication/v3-build-invocation.json",
+        "sha256": "490a066352d6ef261b544804077c9ca5860703a288e51f5b68bd707f7f51a75f"
+      }
+    },
+    "interruption_after_in_memory_mutation": {
+      "prediction": "Sortie brutale après mutation mémoire, avant sauvegarde. Aucun natif publié.",
+      "actual": "ROLLED_BACK",
+      "builder_exit_code": 73,
+      "receipt": {
+        "path": ".runtime/v3-b2/evidence-faults-4/interrupted-in-memory/repo/.runtime/output/transaction/campaign.json",
+        "sha256": "9d65c2b8b03518ca11e27b94bdb5625e1cae7494994588de3593d837b33d8b67"
+      },
+      "journal": {
+        "path": ".runtime/v3-b2/evidence-faults-4/interrupted-in-memory/repo/.runtime/output/transaction/journal.json",
+        "sha256": "e0eb00eca6967f5934c7a0333acd2b8bdf5cf5f1f4d886e70734821ab9679b34"
+      },
+      "invocation": {
+        "path": ".runtime/v3-b2/evidence-faults-4/interrupted-in-memory/v3-build-invocation.json",
+        "sha256": "e89b7289552875651de7b7e52e84a6598a17b0eba2ba7795345647c2981f1628"
+      }
+    }
+  },
+  "receipt_faults": {
+    "path": ".runtime/v3-b2/evidence-faults-4/checks.json",
+    "sha256": "6c241e62a8158a3a2b94d9ba090a5f2cd284f6acf4674709c5b8aa3dd43a6eaf"
+  },
+  "native_faults": {
+    "path": ".runtime/v3-b2/native-dev/adversarial-b2/adversarial.json",
+    "sha256": "128895781fa5374d6eb412d568b84e164b98cf5174bf7ec0cad55e031d26fe8a"
+  },
+  "boundary": {
+    "path": ".runtime/v3-b2/boundary/checks.json",
+    "sha256": "279f69f7a31cc251f31a33cd0660d5ed3e4d27ae6603685c50de3381fb2b0007"
+  },
+  "expected_plan_rejections": [
+    {
+      "candidate": "xlink-workholding-b1-3",
+      "status": "FAIL",
+      "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+      "source_model_sha256": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+      "proposal_sha256": "224b3a13987e6445e999cace3fb27c3d88c7d33ee9629ffb7550a4a9f8f90e17",
+      "checks": 202,
+      "standalone_check_result": [
+        {
+          "id": "pair/FixtureRig/Payload/FixtureRig/Sibling",
+          "status": "FAIL",
+          "observed": 120.00000000000007,
+          "criterion": {
+            "minimum": null,
+            "maximum": 1e-06,
+            "unit": "mm³"
+          },
+          "baseline_mm3": 0.0
+        }
+      ],
+      "validator_by_domain": {
+        "B1_TRANSACTION": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.b1.transaction/1",
+          "tool": "convergence_core v3-build",
+          "receipt": {
+            "path": ".runtime/v3-b2/replay/xlink-workholding-b1-3/output/transaction/campaign.json",
+            "sha256": "70a2d7bf4be85b8299ab7112433e86f883c15e1c02388aeed09032b39b92dcf1"
+          }
+        },
+        "B2_NATIVE": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.cross_measurement/1",
+          "tool": "FreeCAD + v3_cross_measure.py",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-3/candidate-observation.json",
+            "sha256": "077f06d263e6d1c23f60794aab41d578d9d3d2152e0dd7ebce598fe947db11ce"
+          }
+        },
+        "T0": {
+          "status": "PASS",
+          "mode": "DIRECT",
+          "contract": "drone_agricole.run_manifest.v1",
+          "tool": "cartographe-evidence validate",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-3/t0-invocation.json",
+            "sha256": "4033a8ac796b90aca0094eecbac408b4af09afd26305e0fedd3aef0b901a0f52"
+          }
+        }
+      },
+      "coverage": {
+        "checks": 202,
+        "comparison": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-3/comparisons.json",
+          "sha256": "5061b27ccc2acfa6f364db30c359498cab1c506744c454b50bf952b69f3cc86c"
+        },
+        "assessment": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-3/assessment.json",
+          "sha256": "5a828913e0558e8e3470ae5624742b46c069b139b3ba3ccdc28fefaf84fe2c33"
+        },
+        "fixed_scope": "SYNTHETIC_BENCH"
+      },
+      "disagreements": [],
+      "blocking_issues": [
+        "pair/FixtureRig/Payload/FixtureRig/Sibling"
+      ]
+    },
+    {
+      "candidate": "xlink-workholding-b1-4",
+      "status": "FAIL",
+      "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+      "source_model_sha256": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+      "proposal_sha256": "222e869188bf993baf4815f82588ebd91ae01495c5e91394fc05b99cdb726b91",
+      "checks": 201,
+      "standalone_check_result": [
+        {
+          "id": "route/cordon/minimum-radius",
+          "status": "FAIL",
+          "observed": 3.4999999999999982,
+          "criterion": {
+            "minimum": 4.999999,
+            "maximum": null,
+            "unit": "mm"
+          }
+        }
+      ],
+      "validator_by_domain": {
+        "B1_TRANSACTION": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.b1.transaction/1",
+          "tool": "convergence_core v3-build",
+          "receipt": {
+            "path": ".runtime/v3-b2/replay/xlink-workholding-b1-4/output/transaction/campaign.json",
+            "sha256": "469b05f21434dc415fb4566543df39b319a1aae3457ee9a8759dabc336fbf0c5"
+          }
+        },
+        "B2_NATIVE": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.cross_measurement/1",
+          "tool": "FreeCAD + v3_cross_measure.py",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-4/candidate-observation.json",
+            "sha256": "05cf5ef42960478163a1b087d3a50754a7ee160a47788863d08a375c02a79209"
+          }
+        },
+        "T0": {
+          "status": "PASS",
+          "mode": "DIRECT",
+          "contract": "drone_agricole.run_manifest.v1",
+          "tool": "cartographe-evidence validate",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-4/t0-invocation.json",
+            "sha256": "510a39f62f61b77412c95b4d213822c36e9e47c32406e4aeb6bc9a5a93e55be7"
+          }
+        }
+      },
+      "coverage": {
+        "checks": 201,
+        "comparison": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-4/comparisons.json",
+          "sha256": "81fa5d8d87b6783249db4d3b4dbcf53c5049f8c7b01078ecf4272a5bef8683ad"
+        },
+        "assessment": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-4/assessment.json",
+          "sha256": "3c36dab2f983510aeb8c46a3f89f54310f117f46b55d984f6745d51ce1ab89bc"
+        },
+        "fixed_scope": "SYNTHETIC_BENCH"
+      },
+      "disagreements": [],
+      "blocking_issues": [
+        "route/cordon/minimum-radius"
+      ]
+    },
+    {
+      "candidate": "xlink-workholding-b1-5",
+      "status": "FAIL",
+      "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+      "source_model_sha256": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+      "proposal_sha256": "640f01999ae01c281386152d6f60dd2788402493ab5844d9f907f83f754136bf",
+      "checks": 0,
+      "standalone_check_result": [],
+      "validator_by_domain": {
+        "B1_TRANSACTION": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.b1.transaction/1",
+          "tool": "convergence_core v3-build",
+          "receipt": {
+            "path": ".runtime/v3-b2/replay/xlink-workholding-b1-5/output/transaction/campaign.json",
+            "sha256": "2d5a7ebd4e339fa9b0bafdc2c844e48554534a054ef9bd88edcd46739aa4492a"
+          }
+        },
+        "B2_NATIVE": {
+          "status": "NOT_RUN",
+          "mode": "DIRECT",
+          "contract": "v3.cross_measurement/1",
+          "tool": "FreeCAD + v3_cross_measure.py",
+          "receipt": null
+        },
+        "T0": {
+          "status": "PASS",
+          "mode": "DIRECT",
+          "contract": "drone_agricole.run_manifest.v1",
+          "tool": "cartographe-evidence validate",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-5/t0-invocation.json",
+            "sha256": "a3ed3b960d8373d8b4c8695b930cdd4e2539fc5104151e60a22bbb967ebdfe0e"
+          }
+        }
+      },
+      "coverage": {
+        "checks": 0,
+        "comparison": null,
+        "assessment": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-5/assessment.json",
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "fixed_scope": "SYNTHETIC_BENCH"
+      },
+      "disagreements": [],
+      "blocking_issues": [
+        "CONSTRUCTOR_REJECTED"
+      ]
+    },
+    {
+      "candidate": "xlink-workholding-b1-6",
+      "status": "FAIL",
+      "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+      "source_model_sha256": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+      "proposal_sha256": "ef314d3afd5401f0ff20ad4b7e3489615b1010d909360534dd70d6c1d24c1986",
+      "checks": 222,
+      "standalone_check_result": [
+        {
+          "id": "pair/HarnessInventory/Cable/Workholding/NewPlate",
+          "status": "FAIL",
+          "observed": 3.4254639514825604,
+          "criterion": {
+            "minimum": null,
+            "maximum": 1e-06,
+            "unit": "mm³"
+          },
+          "baseline_mm3": null
+        },
+        {
+          "id": "support/plate-new/bearing-area",
+          "status": "FAIL",
+          "observed": 0.0,
+          "criterion": {
+            "minimum": 60.999999,
+            "maximum": null,
+            "unit": "mm²"
+          }
+        },
+        {
+          "id": "support/plate-new/gap",
+          "status": "FAIL",
+          "observed": 0.2999999999999998,
+          "criterion": {
+            "minimum": null,
+            "maximum": 1e-06,
+            "unit": "mm"
+          }
+        }
+      ],
+      "validator_by_domain": {
+        "B1_TRANSACTION": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.b1.transaction/1",
+          "tool": "convergence_core v3-build",
+          "receipt": {
+            "path": ".runtime/v3-b2/replay/xlink-workholding-b1-6/output/transaction/campaign.json",
+            "sha256": "bb5164b6cf422d6d97ab946dee75e5df53eba69f27d4932ea60b117799ff3ed0"
+          }
+        },
+        "B2_NATIVE": {
+          "status": "FAIL",
+          "mode": "DIRECT",
+          "contract": "v3.cross_measurement/1",
+          "tool": "FreeCAD + v3_cross_measure.py",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-6/candidate-observation.json",
+            "sha256": "27846915dfd1aedb4e51205f3e65785e999cef1cae6f9ca4fff82ace21c117e0"
+          }
+        },
+        "T0": {
+          "status": "PASS",
+          "mode": "DIRECT",
+          "contract": "drone_agricole.run_manifest.v1",
+          "tool": "cartographe-evidence validate",
+          "receipt": {
+            "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-6/t0-invocation.json",
+            "sha256": "2ba6e4e829776730a0b025bf0e1f3e62a38a2c96c5ce871ad272f8ec139923f0"
+          }
+        }
+      },
+      "coverage": {
+        "checks": 222,
+        "comparison": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-6/comparisons.json",
+          "sha256": "12b3f1f6a8584e46899abfea6b0117160bef3b35e358d9e309cf938488ecd36a"
+        },
+        "assessment": {
+          "path": ".runtime/v3-b2/cross-3/xlink-workholding-b1-6/assessment.json",
+          "sha256": "624eae6a19cb1b20f4f6563f4868339fa112f9c9d80639837c787da3b523a7ca"
+        },
+        "fixed_scope": "SYNTHETIC_BENCH"
+      },
+      "disagreements": [],
+      "blocking_issues": [
+        "pair/HarnessInventory/Cable/Workholding/NewPlate",
+        "support/plate-new/bearing-area",
+        "support/plate-new/gap"
+      ]
+    }
+  ]
+}
