@@ -79,7 +79,7 @@ def main():
                                           "--l3", l3, "--python", python, "--output", c_results],
                         c_results / "generalization.json")
         junit_l3, junit_l5 = area / "l3.xml", area / "l5.xml"
-        l3_test = recorded("L3", [ctest, "--test-dir", args.build_l3.resolve(), "--output-on-failure",
+        l3_test = recorded("L3", [ctest, "--test-dir", args.build_l3.resolve(), "-R", "^l3_", "--output-on-failure",
                                   "--output-junit", junit_l3], junit_l3)
         l5_test = recorded("L5", [ctest, "--test-dir", args.build_l5.resolve(), "-R", "^(l5_|v3_graph_contract|l2_interconnection)",
                                   "--output-on-failure", "--output-junit", junit_l5], junit_l5)

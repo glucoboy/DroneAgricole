@@ -2,6 +2,7 @@
 
 import argparse
 from itertools import combinations
+import json
 from pathlib import Path
 import shutil
 
@@ -57,6 +58,8 @@ def main():
     parser.add_argument("--campaign", type=Path, required=True)
     parser.add_argument("--regressions", type=Path, required=True)
     parser.add_argument("--native-faults", type=Path)
+    parser.add_argument("--review", type=Path,
+                        help="Reçu de revue indépendante, lié au commit gelé et à la campagne")
     args = parser.parse_args()
     area, regressions = args.campaign.resolve(), args.regressions.resolve()
     dest = ROOT / "docs/verification/v3/c1"
@@ -73,7 +76,12 @@ def main():
     selected = load(area / "coupling_proofs.json")
     freeze = load(area / "perturbation_freeze.json")
     contract = area / "domain_contract.json"
-    t0 = load(contract)["T0"] if contract.is_file() else {}
+    contract_data = load(contract) if contract.is_file() else {}
+    t0 = contract_data.get("T0", {})
+    for record in t0.values():
+        record["versions"] = load(ROOT / record["observation"]["path"])["environment"]
+    if contract_data:
+        write(dest / "domain_contract.json", contract_data)
     pareto_path = dest / "pareto.json"
     pareto = load(pareto_path)
     witnesses = tradeoff(pareto, freeze["objectives"])
@@ -93,16 +101,34 @@ def main():
     checks["regressions"] = "PASS" if all(status == "PASS" for status in regressions_status) else "INCONCLUSIVE"
     checks["plan_faults"] = "PASS" if len(faults) == 7 else "INCONCLUSIVE"
     checks["native_faults"] = native_faults_status
-    checks["review"] = "NOT_RUN"
+    if args.review:
+        review = args.review.resolve()
+        record = load(review)
+        if (record["source_commit"] != freeze["commit"] or
+                record["generalization"] != artifact(area / "generalization.json")):
+            raise ValueError("Revue indépendante hors de ce gel ou de cette campagne")
+        shutil.copyfile(review, dest / "independent_review.json")
+        checks["review"] = record["status"]
+    else:
+        checks["review"] = "NOT_RUN"
     refs = [artifact(path) for path in sorted(dest.iterdir())
             if path.name not in {"acceptance.json", "artifacts.json", "REPORT.md"}]
-    refs.extend({"path": name, "sha256": sha} for name, sha in freeze["files_sha256"].items())
+    for name, sha in freeze["files_sha256"].items():
+        path = Path(name)
+        refs.append({"path": path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.as_posix(),
+                     "sha256": sha})
     write(dest / "artifacts.json", {"schema": "v3.c1.artifacts/1", "sources": refs})
+    counts = {}
+    for name, row in phases.items():
+        trace = ROOT / row["trace"]["path"]
+        events = [json.loads(line)["stage"] for line in trace.read_text(encoding="utf-8").splitlines()]
+        counts[name] = {key: row[key] for key in ("proposals", "native_attempts", "qualified_candidates")}
+        counts[name].update(constructed_and_reopened=events.count("REOPEN"),
+                            independently_checked=events.count("VALIDATE"))
     write(dest / "acceptance.json", {
         "schema": "v3.c1.acceptance/1", "scope": "SYNTHETIC_BENCH", "verdict": accepted(checks),
         "source_commit": freeze["commit"], "checks": checks, "errors": generalization["errors"],
-        "counts": {name: {key: row[key] for key in ("proposals", "native_attempts", "qualified_candidates")}
-                   for name, row in phases.items()},
+        "counts": counts,
         "physical_qualification": "NOT_RUN", "cartographer_mutation": "DENY",
         "unsupported": ["CHANGE_CONNECTOR_VARIANT", "CHANGE_INTERFACE_TOPOLOGY", "VARIABLE_ROTATION"],
         "artifacts": artifact(dest / "artifacts.json")

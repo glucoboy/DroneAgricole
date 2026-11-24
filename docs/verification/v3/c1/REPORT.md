@@ -56,3 +56,9 @@ $transaction = "$work/campaign/t1/T1/candidates/$winner/construction/transaction
 Les preuves brutes sous `.runtime` comprennent les copies privées, les
 journaux et les résultats natifs. Les métriques et la portée de la
 qualification sont référencées depuis DOC-VAL.
+
+Pour joindre une revue au calcul d’acceptation, utiliser `--review` avec
+un reçu produit sur ce rejeu. Relever le commit gelé, les SHA de la campagne
+et des observations, les couples de processus constructeur/B.2 et les
+contrôles de restriction, de couplage et de classement. Le
+[reçu publié](independent_review.json) indique les champs à renseigner.

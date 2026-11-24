@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 19 novembre 2026 |
+| Dernière mise à jour | 24 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -2854,6 +2854,36 @@ occurrence et opération. La réception physique reste `NOT_RUN`.
 [Scénarios et natifs](verification/v3/c/generalization.json) ·
 [Régressions](verification/v3/c/regressions.json).
 
+<a id="cartographe-v3-c1"></a>
+#### Convergence couplée V3-C.1 — 24 novembre 2026
+
+`V3_C1_COUPLED_ENGINE_GO`, **Qualifié** sur les deux bancs
+`SYNTHETIC_BENCH` sous Windows amd64, FreeCAD 1.1.3, OCCT 7.8.1 et
+Cables 0.3.7. Le couplage sert la reprise géométrique sous
+`ORCH-CAO-MASSE-1`. Le cartographe reste `DENY` et GO4 `NOT_RUN`.
+[Acceptation](verification/v3/c1/acceptance.json) ·
+[Recette](verification/v3/c1/REPORT.md)
+
+| Phase | Propositions | Construits, rouverts et contre-mesurés | Admis | Longueur retenue | Dégagement du parcours |
+|---|---:|---:|---:|---:|---:|
+| T0 | 0 | 0 | 0 | Repères et autorités des deux fermetures mesurés | — |
+| T1 | 29 | 4 | 3 | 76,529 mm | 1,250 mm |
+| T2 | 30 | 6 | 5 | 79,529 mm | 1,250 mm |
+| T3 | 30 | 6 | 2 | 88,538 mm | 4,341 mm |
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-B1-01` à `V3-B1-04`, `MEC-INT-001` | `T-CARTO-V3-C1` → pose du lien, datum natif, câble Cables, retenue et réouvertures B.1/B.2 | Le port fixe et le port mobile orientent le parcours. L’appui sur Face6 mesure 48 mm², l’engagement du goujon 1,131 mm³ et le rayon analytique minimal 5 mm pour les trois sélections. Le maximum brut des volumes communs comprend l’engagement autorisé du goujon. Les processus constructeur et lecteur indépendant sont distincts. [Mesures](verification/v3/c1/coupling_proofs.json) |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-C1` → gel, restriction, sensibilité et Pareto | La restriction scellée de x à 104 mm au minimum exclut le gagnant T1 à 102 mm. T2 reconstruit à 105 mm, translate le port et augmente la longueur mesurée de 3 mm. Le front T1 contient un parcours de 76,529 mm et un détour de 79,686 mm avec des dégagements respectifs de 1,250 et 4,450 mm. [Gel](verification/v3/c1/perturbation_freeze.json) · [Sensibilité](verification/v3/c1/sensitivity.json) · [Pareto](verification/v3/c1/pareto.json) |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-C1` → refus, régression et contrôle tiers | Sept plans refusés avant construction et cinq défauts détectés après réouverture. V3-I, B.1, B.2, C et les suites ciblées L3/L5 repassent. La revue indépendante vérifie les SHA du gel, les dix candidats admis et la restriction T2. [Injections](verification/v3/c1/adversarial.json) · [Régressions](verification/v3/c1/regressions.json) · [Revue](verification/v3/c1/independent_review.json) |
+
+Le deuxième banc ajoute un obstacle latéral et un niveau de parentage
+XLink au port mobile. La recherche de parcours est plane, avec translation
+bornée et orientation fixe. Les rotations variables et les changements
+de connectique ou de topologie restent `UNSUPPORTED`. La restriction T2
+entre dans L3/L5 après gel. Son fichier préenregistré était consultable
+dans le dépôt, ce qui limite l’aveuglement à la séquence d’exécution.
+
 <a id="cartographe-v3-a3"></a>
 #### Autorités opérationnelles du cartographe V3‑A.3 — 19 novembre 2026
 
@@ -4269,6 +4299,8 @@ l’orchestration V3-C dans le périmètre des bancs scellés.
 [V3-C](#cartographe-v3-c) éprouve la recherche paramétrique et la
 contre-validation sur ces bancs. L’exploration du cartographe dépend des
 preuves d’autorité relatives aux opérations envisagées.
+[V3-C.1](#cartographe-v3-c1) démontre le couplage de la pose, du port, du
+parcours et du support en banc avec un domaine restreint après gel.
 [V3-D](#cartographe-v3-d) maintient la lecture seule du cartographe et fixe
 la collecte préalable à une décision sur le support et les cheminements.
 
@@ -4931,6 +4963,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **24 novembre 2026** — Qualification logicielle V3-C.1 sur deux bancs, couplage et contre-validation après restriction préenregistrée. [Résultat](#cartographe-v3-c1)
 - **19 novembre 2026** — Jonction V3-D et contrôle de la non-admission cartographe, avec reprise des observations en lecture seule. [Résultat](#cartographe-v3-d)
 - **19 novembre 2026** — Qualification V3-C sur Workholding et C4, avec resserrement après gel et alternative mesurée. [Résultat](#cartographe-v3-c)
 - **19 novembre 2026** — Contre-validation croisée V3 B.2 des plans XLink, garde des reçus et variantes de rayon sur banc. [Résultat](#cartographe-v3-b2)
