@@ -15,7 +15,8 @@ from replay_v3_b1 import ROOT, digest, load, write
 PROFILES = ROOT / 'docs/electromechanical_v3'
 MEASURER = ROOT / 'convergence_manager/native/v3_cross_measure.py'
 PROFILE_FILES = [PROFILES / path for path in ('bench_b1_c4/profile.json', 'bench_b1_workholding/profile.json',
-                                             'bench_b2_variations.json')]
+                                             'bench_b2_variations.json', 'bench_c1_coupled/profile.json',
+                                             'bench_c1_coupled_secondary/profile.json')]
 # Les tolérances de distance, angle et volume viennent du profil scellé.
 # L'égalité des aires calculées par deux opérations OCC admet 1e-6 mm².
 AREA_TOLERANCE_MM2 = 1e-6
@@ -75,6 +76,22 @@ def multiply(left, right):
     return [sum(left[4*row+i]*right[4*i+col] for i in range(4)) for row in range(4) for col in range(4)]
 
 
+def inverse_rigid(pose):
+    inverse = [pose[4*col+row] if row < 3 and col < 3 else 0.0 for row in range(4) for col in range(4)]
+    for row in range(3):
+        inverse[4*row+3] = -sum(inverse[4*row+col]*pose[4*col+3] for col in range(3))
+    inverse[15] = 1.0
+    return inverse
+
+
+def angle_between(left, right):
+    if len(left) != 3 or len(right) != 3 or not math.isclose(math.hypot(*left), 1, abs_tol=1e-7) or not math.isclose(
+            math.hypot(*right), 1, abs_tol=1e-7):
+        return None
+    cosine = sum(a*b for a, b in zip(left, right))
+    return math.degrees(math.acos(max(-1, min(1, cosine))))
+
+
 def pose_errors(actual, expected):
     distance = math.dist([actual[i] for i in [3, 7, 11]], [expected[i] for i in [3, 7, 11]])
     trace = sum(actual[i]*expected[i] for i in [0, 1, 2, 4, 5, 6, 8, 9, 10])
@@ -89,6 +106,7 @@ def pair_id(pair):
 class Assessment:
     def __init__(self, profile):
         model = profile['model']
+        self.companions = model.get('moving_with', {})
         self.rules = model['validation']
         self.paths = model['occurrences']
         limits = self.rules['tolerances']
@@ -131,6 +149,13 @@ class Assessment:
             elif params['frame'] == 'PARENT':
                 expected = multiply(baseline['parent_matrices'][key.rsplit('/', 1)[0]], expected)
             self.pose(f'pose/{subject}', records[key]['matrix'], expected)
+            if operation == 'REPOSITION_DEVICE' and any('datum' in port for port in self.rules['ports'].values()):
+                original = baseline['occurrences']
+                delta = multiply(expected, inverse_rigid(original[key]['matrix']))
+                for companion in self.companions.get(subject, []):
+                    path = self.paths[companion]
+                    self.pose(f'pose/{subject}/companion/{companion}', records[path]['matrix'],
+                              multiply(delta, original[path]['matrix']))
         if 'sibling' in self.paths:
             key = self.paths['sibling']
             retained, original = records[key], baseline['occurrences'][key]
@@ -144,6 +169,17 @@ class Assessment:
             port = observed['ports'][name]
             carrier = observed['occurrences'][self.paths[authority['equipment']]]['matrix']
             self.pose(f'port/{name}/wire-exit', port['matrix'], multiply(carrier, matrix(authority['local_pose'])))
+            if 'datum' in authority:
+                datum = port.get('datum')
+                definition = port.get('datum_definition', '')
+                self.boolean(f'port/{name}/native-datum', isinstance(datum, str) and datum != authority['frame'] and
+                             datum.split('/')[-1] == authority['datum'] and definition.endswith('#' + authority['datum']),
+                             [datum, definition], authority['datum'])
+                self.pose(f'port/{name}/independent-attachment', port['attachment_matrix'], port['matrix'])
+                for key, local in [('normal', authority['outward_local']),
+                                   ('outward', authority.get('tangent_local', authority['outward_local']))]:
+                    direction = [sum(port['matrix'][4*row+col]*local[col] for col in range(3)) for row in range(3)]
+                    self.limit(f'port/{name}/{key}', angle_between(port.get(key, []), direction), upper=self.angle, unit='deg')
             for frame in authority['mating_frames']:
                 path = frame['path']
                 actual = observed['occurrences'][path]['matrix']
@@ -183,6 +219,9 @@ class Assessment:
                 self.limit(f'route/{name}/radius-change', None if radius is None else abs(radius-requested[name]['bend_radius_mm']),
                            upper=self.distance, unit='mm')
             self.limit(f'route/{name}/diameter', abs(route['diameter_mm']-rule['diameter_mm']), upper=self.distance, unit='mm')
+            if 'minimum_length_mm' in rule or 'maximum_length_mm' in rule:
+                self.limit(f'route/{name}/length', route['length_mm'], lower=rule['minimum_length_mm'],
+                           upper=rule['maximum_length_mm'], unit='mm')
             self.limit(f'route/{name}/saved-sweep', route['sweep_difference_mm3'], upper=self.volume, unit='mm³')
             sections = rule.get('conductor_sections_mm2', baseline['routes'][name]['conductor_sections_mm2'])
             if not sections and name in requested:
@@ -197,6 +236,11 @@ class Assessment:
                 frame = observed['ports'][port]['matrix']
                 self.limit(f'route/{name}/endpoint{index}', math.dist(route['endpoints_mm'][index], [frame[i] for i in [3, 7, 11]]),
                            upper=self.position, unit='mm')
+                if 'datum' in self.rules['ports'][port]:
+                    tangent = (route['edges'][0]['start_tangent'] if index == 0 else
+                               [-component for component in route['edges'][-1]['end_tangent']])
+                    self.limit(f'route/{name}/tangent{index}', angle_between(tangent, observed['ports'][port]['outward']),
+                               upper=self.angle, unit='deg')
 
     def geometry(self, baseline, observed, actions):
         previous = {pair_id(row['pair']): row['intersection_mm3'] for row in baseline['pairs']}
@@ -235,6 +279,14 @@ class Assessment:
             self.limit(f'support/{name}/bearing-area', support['bearing_area_mm2'], lower=rule['min_contact_area_mm2']-AREA_TOLERANCE_MM2, unit='mm²')
             self.limit(f'support/{name}/gap', support['gap_mm'], upper=self.distance, unit='mm')
             self.limit(f'support/{name}/intersection', support['intersection_mm3'], upper=self.volume, unit='mm³')
+            if 'carrier_face' in rule:
+                surface = support.get('carrier_face', {})
+                self.boolean(f'support/{name}/carrier-face', surface.get('face') == rule['carrier_face'],
+                             surface.get('face'), rule['carrier_face'])
+                self.limit(f'support/{name}/face-gap', surface.get('gap_mm'), upper=self.position, unit='mm')
+                self.limit(f'support/{name}/face-normal', surface.get('normal_error_deg'), upper=self.angle, unit='deg')
+                self.limit(f'support/{name}/face-contact', surface.get('bearing_area_mm2'),
+                           lower=rule['min_contact_area_mm2']-AREA_TOLERANCE_MM2, unit='mm²')
             anchor = selected.get(name, rule)['anchor']
             self.boolean(f'support/{name}/links', support['anchor'] == self.paths[anchor] and support['carrier'] == self.paths[rule['carrier']] and
                          set(support['retains']) == {self.paths[key] for key in rule['retains']},
@@ -293,6 +345,15 @@ def compare(first, third, profile):
             difference(subject+'/gap', old.get('clearance_mm'), current['gap_mm'], tolerance['distance_mm'], 'mm')
     for name, row in checks['L2_TOPOLOGY']['contacts'].items():
         difference(f'pin/{name}', row['observed_pin'], third['contacts'][name]['pin'], 0, '1')
+    for name, rule in profile['model']['validation']['ports'].items():
+        if 'datum' not in rule:
+            continue
+        original = checks['L2_TOPOLOGY']['ports'][name]
+        independent = third['ports'][name]
+        position, angle = pose_errors(original['matrix'], independent['matrix'])
+        difference(f'port/{name}/datum', original['datum'], independent['datum'], 0, '1')
+        difference(f'port/{name}/position', 0, position, tolerance['position_mm'], 'mm')
+        difference(f'port/{name}/orientation', 0, angle, tolerance['direction_deg'], 'deg')
     return comparisons
 
 

@@ -50,7 +50,7 @@
     "objectives": {
       "type": "array",
       "minItems": 1,
-      "maxItems": 3,
+      "maxItems": 4,
       "uniqueItems": true,
       "items": {"$ref": "#/$defs/objective"},
       "description": "Dimensions Pareto ordonnées. L'ordre déclaré départage les candidats du front de Pareto selon les mesures effectivement disponibles."
@@ -67,10 +67,10 @@
       "required": ["metric", "direction"],
       "additionalProperties": false,
       "properties": {
-        "metric": {"enum": ["route_length_mm", "service_clearance_mm", "support_count"]},
+        "metric": {"enum": ["route_length_mm", "service_clearance_mm", "support_count", "route_clearance_mm"]},
         "direction": {"enum": ["MIN", "MAX"]}
       },
-      "if": {"properties": {"metric": {"const": "service_clearance_mm"}}},
+      "if": {"properties": {"metric": {"enum": ["service_clearance_mm", "route_clearance_mm"]}}},
       "then": {"properties": {"direction": {"const": "MAX"}}},
       "else": {"properties": {"direction": {"const": "MIN"}}}
     }

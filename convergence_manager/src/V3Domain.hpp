@@ -4,9 +4,17 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+#include <stdexcept>
+
 namespace convergence {
 
 inline constexpr auto v3ParametricPlanSchema = "v3.mutation_plan/2";
+inline constexpr auto v3NativePortMode = "NATIVE_PORT";
+
+// The coupled route solver supports translation with a locked orientation.
+struct V3UnsupportedPose : std::runtime_error {
+    V3UnsupportedPose() : std::runtime_error("ROTATION_DOMAIN_UNSUPPORTED") {}
+};
 
 QString v3DomainPath(const QString &sha);
 QString v3BaseProfilePath(const QJsonObject &domain);

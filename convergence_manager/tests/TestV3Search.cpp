@@ -1,4 +1,5 @@
 #include "V3Search.hpp"
+#include "V3Domain.hpp"
 
 #include <QFile>
 #include <QJsonArray>
@@ -6,6 +7,7 @@
 #include <QSet>
 #include <QTextStream>
 
+#include <cmath>
 #include <stdexcept>
 
 namespace {
@@ -86,14 +88,70 @@ void transfer(const QJsonObject &domain, const QJsonObject &baseline)
           "Une provenance non mesurée ouvre la recherche");
 }
 
+void coupled(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &profile)
+{
+    const auto direct = accepted(convergence::generateV3Proposals(domain, baseline, {}, 2026, "DIRECT"));
+    const auto alternatives = accepted(convergence::generateV3Proposals(domain, baseline, {}, 2026, "DIRECT", 1));
+    check(direct.size() >= 2 && alternatives.size() >= 2, "Couverture des routes couplées insuffisante");
+    const auto first = direct.first().toObject().value("values").toObject();
+    bool variantFound = false;
+    for (const auto &entry : alternatives) {
+        const auto candidate = entry.toObject().value("values").toObject();
+        variantFound |= first.value("translation_mm") == candidate.value("translation_mm") &&
+                        first.value("route_points_mm") != candidate.value("route_points_mm");
+    }
+    check(variantFound, "Aucune variante intra-famille à pose identique");
+    const QString authorityHash(64, 'a');
+    const auto expanded = convergence::validateV3Plan(domain, profile, authorityHash,
+        convergence::makeV3Plan("coupled-test", authorityHash, first));
+    const auto actions = expanded.value("actions").toArray();
+    check(actions.size() == 3, "Composition pose-câble-support incomplète");
+    const auto before = profile.value("actions").toArray().at(2).toObject().value("expected_after").toObject()
+                            .value("placement").toObject().value("translation_mm").toArray();
+    const auto after = actions.at(2).toObject().value("expected_after").toObject().value("placement").toObject()
+                           .value("translation_mm").toArray();
+    const auto nominal = domain.value("route").toObject().value("device_reference_mm").toArray();
+    const auto translated = first.value("translation_mm").toArray();
+    for (int axis = 0; axis < 3; ++axis) {
+        const auto expected = before.at(axis).toDouble() + translated.at(axis).toDouble() - nominal.at(axis).toDouble();
+        check(std::abs(after.at(axis).toDouble() - expected) <= 1e-6, "Appui désolidarisé de son ancrage");
+    }
+
+    auto stale = first;
+    auto points = first.value("route_points_mm").toArray();
+    points.replace(points.size()-1, domain.value("route").toObject().value("end_reference_mm"));
+    stale.insert("route_points_mm", points);
+    bool refused = false;
+    try {
+        convergence::validateV3Plan(domain, profile, authorityHash, convergence::makeV3Plan("stale", authorityHash, stale));
+    } catch (const std::runtime_error &) {
+        refused = true;
+    }
+    check(refused, "Extrémité obsolète acceptée pour un port mobile");
+
+    auto rotation = first;
+    rotation.insert("rotation_xyzw", QJsonArray{0, 0, 0, 1});
+    refused = false;
+    try {
+        convergence::validateV3Plan(domain, profile, authorityHash, convergence::makeV3Plan("rotated", authorityHash, rotation));
+    } catch (const convergence::V3UnsupportedPose &) {
+        refused = true;
+    }
+    check(refused, "Une rotation hors périmètre doit être déclarée UNSUPPORTED");
+}
+
 } // namespace
 
 int main(int argc, char **argv)
 {
     try {
-        check(argc == 5, "Usage : test_v3_search <domaine workholding> <observation> <domaine C4> <observation>");
+        check(argc == 5 || argc == 8,
+              "Usage : test_v3_search <domaine workholding> <observation> <domaine C4> <observation> [domaine C.1, observation, profil]");
         workholding(object(QString::fromLocal8Bit(argv[1])), object(QString::fromLocal8Bit(argv[2])));
         transfer(object(QString::fromLocal8Bit(argv[3])), object(QString::fromLocal8Bit(argv[4])));
+        if (argc == 8)
+            coupled(object(QString::fromLocal8Bit(argv[5])), object(QString::fromLocal8Bit(argv[6])),
+                    object(QString::fromLocal8Bit(argv[7])));
         QTextStream(stdout) << "Recherche, restriction, reproductibilité et transfert vérifiés\n";
         return 0;
     } catch (const std::exception &error) {

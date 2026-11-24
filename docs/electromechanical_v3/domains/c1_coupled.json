@@ -1,0 +1,86 @@
+{
+  "schema": "v3.parametric_domain/1",
+  "domain": "SYNTHETIC_BENCH",
+  "model_id": "xlink-c1-coupled",
+  "profile_sha256": "0d7b7cf49d0d684281f5cb7891adb52d7ad3060b88b5855cdab536cb5b9925d0",
+  "composition": [
+    "c1-move",
+    "c1-route",
+    "c1-support"
+  ],
+  "scene": {
+    "device_occurrence": "FixtureRig/Payload",
+    "cable_occurrence": "HarnessInventory/Cable",
+    "ports": [
+      "port-a",
+      "port-b"
+    ],
+    "moving_with": [
+      "ElectricalDevice001",
+      "ServiceReservations/Extraction2",
+      "ServiceReservations/ToolAccess2",
+      "Workholding/Anchor"
+    ]
+  },
+  "placement": {
+    "frame": "ROOT",
+    "translation_min_mm": [
+      98,
+      2,
+      0
+    ],
+    "translation_max_mm": [
+      106,
+      9,
+      0
+    ],
+    "rotation_xyzw": [
+      0,
+      -0.7071067811865476,
+      0,
+      0.7071067811865476
+    ]
+  },
+  "route": {
+    "corridor_min_mm": [
+      14,
+      -19,
+      0
+    ],
+    "corridor_max_mm": [
+      92,
+      15,
+      0
+    ],
+    "start_mm": [
+      14,
+      0,
+      0
+    ],
+    "end_reference_mm": [
+      86,
+      0,
+      0
+    ],
+    "terminal_mode": "NATIVE_PORT",
+    "device_reference_mm": [
+      100,
+      0,
+      0
+    ],
+    "radius_min_mm": 5,
+    "radius_max_mm": 6.5,
+    "min_points": 2,
+    "max_points": 16
+  },
+  "supports": [
+    {
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate",
+      "anchor": "anchor",
+      "anchor_path": "Workholding/Anchor",
+      "support_path": "Workholding/Plate",
+      "carrier_path": "Workholding/Carrier"
+    }
+  ]
+}

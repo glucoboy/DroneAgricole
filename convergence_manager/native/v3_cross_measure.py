@@ -9,6 +9,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import sys
 from uuid import uuid4
 from xml.etree.ElementTree import ParseError
@@ -25,6 +26,8 @@ SCHEMA = "v3.cross_measurement/1"
 PROFILES = {
     PROJECT / "docs/electromechanical_v3/bench_b1_c4/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_b1_workholding/profile.json",
+    PROJECT / "docs/electromechanical_v3/bench_c1_coupled/profile.json",
+    PROJECT / "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_b2_variations.json",
 }
 GROUPS = {"App::Part", "App::DocumentObjectGroup"}
@@ -170,25 +173,40 @@ class Observation:
 
     def world(self):
         reported, shapes = {}, {}
-        excluded = set(self.rules["non_physical"])
+        excluded = {self.identities.get(name, name) for name in self.rules["non_physical"]}
+
+        def record(path, visible, nested=False):
+            top, child = self.selector(path)
+            obj, occurrence_matrix = top.getSubObject(child, 1, App.Matrix(), True)
+            shape = Part.getShape(top, child)
+            definition = obj.getLinkedObject(True) if obj.TypeId == "App::Link" else obj
+            children = obj.getSubObjects() if definition.TypeId in GROUPS else ()
+            if not children and definition.TypeId in GROUPS:
+                children = definition.getSubObjects()
+            matrix = occurrence_matrix if nested and obj.TypeId != "App::Link" else self.pose(path).toMatrix()
+            row = {"matrix": list(matrix.A), "definition": self.ref(definition),
+                   "type": obj.TypeId, "visible": visible}
+            if not shape.isNull() and shape.Solids:
+                require(solid(shape), f"Solide invalide : {path}")
+                row.update(shape_sha256=shape_hash(shape), bounds_mm=bounds(shape), volume_mm3=shape.Volume)
+                if not children and visible and path not in excluded:
+                    shapes[path] = shape
+            reported[path] = row
+            for child_name in children:
+                member = child_name.rstrip(".")
+                child_obj = top.getSubObject(child + child_name, 1)
+                occurrence_visibility = obj.isElementVisible(member)
+                shown = bool(occurrence_visibility) if occurrence_visibility >= 0 else child_obj.Visibility
+                record(path + "/" + member, visible and shown, nested=True)
+
         for obj in self.doc.Objects:
             if obj.TypeId in GROUPS or not (obj.TypeId == "App::Link" or hasattr(obj, "getGlobalPlacement")):
                 continue
             path = self.occurrence_path(obj)
             if path.startswith("Origin"):
                 continue
-            shape = self.shape(path)
-            definition = obj.getLinkedObject(True) if obj.TypeId == "App::Link" else obj
             chain = [self.doc.getObject(name) for name in path.split("/")]
-            visible = all(item.Visibility for item in chain)
-            row = {"matrix": list(self.pose(path).toMatrix().A), "definition": self.ref(definition),
-                   "type": obj.TypeId, "visible": visible}
-            if not shape.isNull() and shape.Solids:
-                require(solid(shape), f"Solide invalide : {path}")
-                row.update(shape_sha256=shape_hash(shape), bounds_mm=bounds(shape), volume_mm3=shape.Volume)
-                if visible and path not in excluded:
-                    shapes[path] = shape
-            reported[path] = row
+            record(path, all(item.Visibility for item in chain))
         require(0 < len(shapes) <= 128, "Nombre de solides hors périmètre")
         pairs = [{"pair": [left, right], **relation(shapes[left], shapes[right])}
                  for left, right in combinations(sorted(shapes), 2)]
@@ -214,7 +232,8 @@ class Observation:
             mate = getattr(obj, "L2MatedContact", None)
             connector = obj.ParentElement
             port = getattr(connector, "L2Port", None)
-            equipment = self.occurrence(self.rules["ports"][port]["equipment"]) if port in self.rules["ports"] else None
+            rule = self.rules["ports"].get(port)
+            equipment = self.occurrence(rule.get("attachment_equipment", rule["equipment"])) if rule else None
             current, visited = attached(obj), set()
             if current != connector:
                 port = None
@@ -252,17 +271,53 @@ class Observation:
                                  "length_mm": path.Length, "shape_sha256": shape_hash(path)}
         return result
 
+    def native_datum(self, spec, equipment, attachment):
+        identifier, name = spec["equipment"], spec["datum"]
+        require(isinstance(name, str) and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name),
+                f"Nom de repère natif invalide : {name}")
+        owner = self.occurrence(identifier)
+        definition = owner.getLinkedObject(True) if owner.TypeId == "App::Link" else owner
+        if definition.TypeId == "App::Part":
+            path = f"{self.identities.get(identifier, identifier)}/{name}"
+            datum = self.occurrence(path)
+            require(datum is not None and datum.TypeId == "PartDesign::CoordinateSystem" and
+                    datum in definition.Group and datum.MapMode == "Deactivated" and not datum.AttachmentSupport,
+                    f"Repère {path} sans placement rigide dans l’équipement.")
+            frame = equipment.multiply(datum.Placement)
+        else:
+            path = name
+            datum = self.occurrence(path)
+            require(datum is not None and datum.TypeId == "PartDesign::CoordinateSystem" and owner == definition and
+                    datum.MapMode == "ObjectXY" and tuple(datum.AttachmentSupport) == ((owner, ("",)),),
+                    f"Repère {path} sans attache rigide à l’équipement.")
+            frame = datum.getGlobalPlacement()
+        require(datum != attachment, f"Le repère {path} provient de l’attache WireFlex.")
+        return frame, {"datum": path, "datum_definition": self.ref(datum)}
+
     def ports(self):
         records = {}
         for identifier, spec in self.rules["ports"].items():
-            frame = self.pose(spec["frame"])
+            equipment = self.pose(spec["equipment"])
+            attachment_pose = self.pose(spec["frame"])
+            frame, evidence = attachment_pose, {}
+            if "datum" in spec:
+                frame, evidence = self.native_datum(spec, equipment, self.occurrence(spec["frame"]))
+                normal = App.Vector(*spec["outward_local"])
+                tangent = App.Vector(*spec.get("tangent_local", spec["outward_local"]))
+                require(abs(normal.Length - 1) <= 1e-8 and abs(tangent.Length - 1) <= 1e-8,
+                        f"Normale ou tangente non unitaire : {identifier}")
+                evidence.update(attachment_matrix=list(attachment_pose.toMatrix().A),
+                                normal=point(frame.Rotation.multVec(normal)))
+            else:
+                tangent = App.Vector(0, 0, 1)
             records[identifier] = {
-                "equipment_matrix": list(self.pose(spec["equipment"]).toMatrix().A),
+                "equipment_matrix": list(equipment.toMatrix().A),
                 "frame": spec["frame"],
                 "matrix": list(frame.toMatrix().A),
-                "outward": point(frame.Rotation.multVec(App.Vector(0, 0, 1))),
+                "outward": point(frame.Rotation.multVec(tangent)),
                 "mating_frames": {datum["path"]: list(self.pose(datum["path"]).toMatrix().A)
                                   for datum in spec.get("mating_frames", [])},
+                **evidence,
             }
         return records
 
@@ -304,14 +359,20 @@ class Observation:
             "native_endpoint_refs": [self.ref(getattr(cable.Base, key)[0]) for key in ("Vrtx_start", "Vrtx_end")],
         }
 
-    def service(self):
+    def service(self, ports):
         records = []
         for spec in self.rules["service"]:
-            name = spec.get("anchor") or spec["object"]
+            name = spec.get("anchor") or spec.get("port") or spec["object"]
             if "anchor" in spec:
                 frame = self.pose(name)
                 origin = frame.multVec(App.Vector(*spec["offset_local_mm"]))
                 axis = frame.Rotation.multVec(App.Vector(0, 0, 1))
+                zone = Part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, axis)
+            elif "port" in spec:
+                port = ports[name]
+                axis = App.Vector(*port["outward"])
+                matrix = port["matrix"]
+                origin = App.Vector(matrix[3], matrix[7], matrix[11]) + axis * spec.get("offset_mm", 0)
                 zone = Part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, axis)
             else:
                 zone = self.shape(name)
@@ -345,6 +406,19 @@ class Observation:
                                "support_gap_mm": shape.distToShape(self.shape(self.occurrence_path(item)))[0]}
                               for item in obj.B1_Fasteners],
             }
+            if face_name := spec.get("carrier_face"):
+                require(re.fullmatch(r"Face[1-9][0-9]*", face_name), f"Face porteuse invalide : {face_name}")
+                face = getattr(carrier, face_name)
+                require(isinstance(face.Surface, Part.Plane), f"Face porteuse non plane : {face_name}")
+                normal = face.normalAt(*face.Surface.parameter(face.CenterOfMass))
+                anchor = self.pose(self.occurrence_path(obj.B1_Anchor))
+                vertical = anchor.Rotation.multVec(App.Vector(0, 0, 1))
+                records[identifier]["carrier_face"] = {
+                    "face": face_name, "gap_mm": face.distToShape(Part.Vertex(anchor.Base))[0],
+                    "normal_error_deg": math.degrees(normal.getAngle(vertical)),
+                    "bearing_area_mm2": sum(foot.common(face).Area for foot in shape.Faces
+                                            if isinstance(foot.Surface, Part.Plane)),
+                }
         return records
 
     def measure(self):
@@ -358,9 +432,10 @@ class Observation:
             observed = self.conductors(identifier, cable)
             require(not conductors.keys() & observed.keys(), "Identifiant de conducteur partagé")
             conductors.update(observed)
+        ports = self.ports()
         return dict(occurrences=occurrences, parent_matrices=parents, pairs=pairs, contacts=self.contacts(),
-                    conductors=conductors, ports=self.ports(), routes=routes,
-                    service=self.service(), supports=self.supports())
+                    conductors=conductors, ports=ports, routes=routes,
+                    service=self.service(ports), supports=self.supports())
 
 
 def run(root, profile_path, result):

@@ -122,10 +122,12 @@ ProblemGeometry problemGeometry(const QJsonObject &request, const QJsonObject &d
     return {restricted, supportZones(narrowing, authorizedZones)};
 }
 
-void validateObjectives(const QJsonArray &objectives)
+void validateObjectives(const QJsonArray &objectives, const QJsonObject &domain)
 {
-    static const QMap<QString, QString> directions{{"route_length_mm", "MIN"}, {"service_clearance_mm", "MAX"},
+    QMap<QString, QString> directions{{"route_length_mm", "MIN"}, {"service_clearance_mm", "MAX"},
         {"support_count", "MIN"}};
+    if (domain.value("route").toObject().value("terminal_mode") == "NATIVE_PORT")
+        directions.insert("route_clearance_mm", "MAX");
     require(!objectives.isEmpty(), "Au moins un objectif Pareto est requis");
     QSet<QString> metrics;
     for (const auto &value : objectives) {
@@ -159,7 +161,7 @@ ProblemGeometry validate(const QJsonObject &request, const ProblemSources &sourc
     const auto proposals = integer(budget.value("max_proposals"), 3, 512, "max_proposals");
     const auto nativeBuilds = integer(budget.value("max_native"), 1, 16, "max_native");
     require(nativeBuilds <= proposals, "Budget max_native supérieur à max_proposals");
-    validateObjectives(request.value("objectives").toArray());
+    validateObjectives(request.value("objectives").toArray(), sources.domain);
     return problemGeometry(request, sources.domain);
 }
 

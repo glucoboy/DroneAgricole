@@ -490,6 +490,8 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
         }
         report.insert("execution_scope", "BENCH_TEST_ONLY");
         report.insert("impact", calculateImpact(root, profile, actions));
+    } catch (const V3UnsupportedPose &error) {
+        return refusal(output, report, "UNSUPPORTED", QString::fromUtf8(error.what()));
     } catch (const std::exception &error) {
         return refusal(output, report, "FAIL", QString::fromUtf8(error.what()));
     }

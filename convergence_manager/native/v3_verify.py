@@ -96,9 +96,9 @@ class Measurement:
         require(obj is not None, f"Occurrence non résolue : {identifier}")
         return obj
 
-    def transform(self, identifier):
+    def transform(self, identifier, records=None):
         key = self.key(identifier)
-        row = self.rows.get(key, {})
+        row = self.rows.get(key, {}) if records is None else records[key]
         if row.get("matrix"):
             matrix = self.app.Matrix()
             matrix.A = tuple(row["matrix"])
@@ -136,16 +136,41 @@ class Measurement:
                 "position_error_mm": position, "direction_error_deg": direction,
                 "observed_matrix": list(observed.toMatrix().A), "expected_matrix": list(expected.toMatrix().A)}
 
+    def native_datum(self, spec):
+        name = spec["datum"]
+        require(isinstance(name, str) and NATIVE_NAME.fullmatch(name), "Nom de repère natif invalide")
+        owner = self.instance(spec["equipment"])
+        definition = owner.getLinkedObject(True) if owner.TypeId == "App::Link" else owner
+        grouped = definition.TypeId == "App::Part"
+        equipment_path = self.key(spec["equipment"]).split("#", 1)[1]
+        path = f"{equipment_path}/{name}" if grouped else name
+        datum = self.instance(path)
+        independent = datum.TypeId == "PartDesign::CoordinateSystem" and datum != self.instance(spec["frame"])
+        if grouped:
+            independent &= (datum in definition.Group and datum.MapMode == "Deactivated"
+                            and not datum.AttachmentSupport)
+        else:
+            independent &= (owner == definition and datum.MapMode == "ObjectXY"
+                            and tuple(datum.AttachmentSupport) == ((owner, ("",)),))
+        return path, self.transform(path), independent
+
     def independent_frames(self):
         ports = {}
         for identifier, spec in self.rules.get("ports", {}).items():
             equipment = self.transform(spec["equipment"])
             expected = equipment.multiply(self.pose(spec["local_pose"]))
-            axis = expected.Rotation.multVec(self.native.vector(spec["outward_local"]))
-            require(abs(axis.Length - 1) < 1e-7, f"Normale de port non unitaire : {identifier}")
+            measured, datum_path = expected, None
             measurements = []
+            if "datum" in spec:
+                datum_path, measured, independent = self.native_datum(spec)
+                measurements.append({"status": "PASS" if independent else "FAIL", "native_datum": datum_path})
+                measurements.append(self.pose_error(expected, measured))
+            normal = measured.Rotation.multVec(self.native.vector(spec["outward_local"]))
+            axis = measured.Rotation.multVec(self.native.vector(spec.get("tangent_local", spec["outward_local"])))
+            require(abs(normal.Length - 1) < 1e-7 and abs(axis.Length - 1) < 1e-7,
+                    f"Normale ou tangente de port non unitaire : {identifier}")
             if "frame" in spec:
-                measurements.append(self.pose_error(expected, self.transform(spec["frame"])))
+                measurements.append(self.pose_error(measured, self.transform(spec["frame"])))
             else:
                 # A datum-less model can establish a port on a native planar face.
                 face_matches = []
@@ -169,9 +194,12 @@ class Measurement:
                                      "keying": observed_keys})
             ports[identifier] = {
                 "status": summarize(*(row["status"] for row in measurements)),
-                "origin_mm": self.native.coordinates(expected.Base),
+                "origin_mm": self.native.coordinates(measured.Base),
                 "outward": self.native.coordinates(axis), "measurements": measurements,
             }
+            if datum_path is not None:
+                ports[identifier].update(matrix=list(measured.toMatrix().A), datum=datum_path,
+                                         normal=self.native.coordinates(normal))
         return ports
 
     def contact_checks(self):
@@ -295,13 +323,20 @@ class Measurement:
             native_sections = list(getattr(cable, "B1_ConductorSections", []))
             size_ok = abs(diameter - spec["diameter_mm"]) <= self.position and (
                 expected_sections is None or expected_sections == native_sections)
+            length_ok = True
+            if "minimum_length_mm" in spec or "maximum_length_mm" in spec:
+                lower = finite(spec["minimum_length_mm"])
+                upper = finite(spec["maximum_length_mm"], lower)
+                length = observation.get("length_mm")
+                length_ok = length is not None and lower - self.distance <= length <= upper + self.distance
+                observation["native_length_bounds_mm"] = [lower, upper]
             observation.update(diameter_mm=diameter, conductor_sections_mm2=native_sections,
                                cache_cleared_rebuild=regenerated, saved_brep_sha256=previous_solid,
                                rebuilt_brep_sha256=fresh_solid, symmetric_difference_mm3=difference,
                                native_ends_bound=bool(bound), route_proxy=proxy, scope="NOMINAL_SAVED_GEOMETRY",
                                status=summarize(native_status(observation["status"]),
                                                 native_status(regenerated["status"]),
-                                                "PASS" if size_ok and bound and shape_ok and
+                                                "PASS" if size_ok and bound and shape_ok and length_ok and
                                                 proxy in {"Wire", "WireFlex", "_Wire"} else "FAIL"))
             result[identifier] = observation
         return result
@@ -369,18 +404,32 @@ class Measurement:
                     volume_tolerance_mm3=self.volume, distance_tolerance_mm=self.distance))
         return measurements
 
-    def bearing_area(self, support, carrier):
+    def bearing_area(self, support, carrier, surface=None):
         overlap = 0.0
+        surfaces = [surface] if surface is not None else carrier.Faces
         for foot in support.Faces:
             if not isinstance(foot.Surface, self.part.Plane):
                 continue
             foot_dir = foot.normalAt(*foot.Surface.parameter(foot.CenterOfMass))
-            for surface in carrier.Faces:
+            for surface in surfaces:
                 if isinstance(surface.Surface, self.part.Plane) and foot.distToShape(surface)[0] <= self.position:
                     surf_dir = surface.normalAt(*surface.Surface.parameter(surface.CenterOfMass))
                     if math.degrees(foot_dir.getAngle(-surf_dir)) <= self.angle:
                         overlap += foot.common(surface).Area
         return overlap
+
+    def anchor_surface(self, spec, carrier):
+        face_name = spec["carrier_face"]
+        require(re.fullmatch(r"Face[1-9][0-9]*", face_name), f"Nom de face porteuse invalide : {face_name}")
+        face = carrier.getElement(face_name)
+        require(isinstance(face.Surface, self.part.Plane), "Face d'ancrage non plane")
+        anchor = self.transform(spec["anchor"])
+        gap = face.distToShape(self.part.Vertex(anchor.Base))[0]
+        normal = face.normalAt(*face.Surface.parameter(face.CenterOfMass))
+        axis = anchor.Rotation.multVec(self.app.Vector(0, 0, 1))
+        angle = math.degrees(normal.getAngle(axis))
+        return face, {"face": face_name, "gap_mm": gap, "normal_error_deg": angle,
+                      "status": "PASS" if gap <= self.position and angle <= self.angle else "FAIL"}
 
     def supports(self):
         contracts = dict(self.rules.get("supports", {}))
@@ -410,7 +459,8 @@ class Measurement:
             retained = set(getattr(support, "B1_Retains", [])) == set(retains)
             engagement = {name: self.shape(name).distToShape(solid)[0] for name in spec.get("retains", [])}
             max_gap = finite(spec.get("retention_max_gap_mm", self.position))
-            area = self.bearing_area(solid, carrier)
+            surface, surface_check = self.anchor_surface(spec, carrier) if "carrier_face" in spec else (None, None)
+            area = self.bearing_area(solid, carrier, surface)
             gap = solid.distToShape(carrier)[0]
             fasteners = []
             for fastener in getattr(support, "B1_Fasteners", []):
@@ -434,11 +484,14 @@ class Measurement:
             status = "PASS" if (links and retained and fastened and gap <= self.position
                                 and area >= spec.get("min_contact_area_mm2", self.position)
                                 and (anchor_pose is None or anchor_pose["status"] == "PASS")
+                                and (surface_check is None or surface_check["status"] == "PASS")
                                 and all(distance <= max_gap for distance in engagement.values())) else "FAIL"
             observed[identifier] = {"status": status, "bearing_area_mm2": area, "gap_mm": gap,
                                     "native_anchor_carrier_links": links, "native_retention_links": retained,
                                     "retention_gaps_mm": engagement, "fasteners": fasteners,
                                     "anchor_pose": anchor_pose}
+            if surface_check is not None:
+                observed[identifier]["carrier_face"] = surface_check
         return observed
 
     def pose_checks(self):
@@ -461,9 +514,12 @@ class Measurement:
                 definition = before[key]["definition"]
                 for sibling, row in before.items():
                     if sibling not in affected and row.get("definition") == definition:
-                        actual = self.rows.get(sibling, {})
-                        unchanged = all(row.get(field) == actual.get(field) for field in
-                                        ("definition", "matrix", "shape_sha256", "bounds_mm", "visible"))
+                        fields = ("definition", "matrix", "shape_sha256", "bounds_mm", "visible")
+                        original = {name: [record.get(field) for field in fields]
+                                    for name, record in before.items() if name == sibling or name.startswith(sibling + "/")}
+                        actual = {name: [record.get(field) for field in fields]
+                                  for name, record in self.rows.items() if name == sibling or name.startswith(sibling + "/")}
+                        unchanged = original == actual
                         decisions.append({"occurrence": sibling, "independent_instance": True,
                                           "status": "PASS" if unchanged else "FAIL"})
             for action in self.actions:
@@ -471,8 +527,8 @@ class Measurement:
                     continue
                 target = action["occurrence"]
                 for companion in self.model.get("moving_with", {}).get(target, []):
-                    before_target = self.pose(before[self.key(target)]["matrix"])
-                    before_companion = self.pose(before[self.key(companion)]["matrix"])
+                    before_target = self.transform(target, before)
+                    before_companion = self.transform(companion, before)
                     expected = self.transform(target).multiply(before_target.inverse()).multiply(before_companion)
                     decisions.append({"occurrence": companion, "attached_volume": True,
                                       **self.pose_error(expected, self.transform(companion))})

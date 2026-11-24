@@ -47,7 +47,10 @@
         "corridor_max_mm": {"$ref": "#/$defs/point"},
         "start_mm": {"$ref": "#/$defs/point"},
         "end_reference_mm": {"$ref": "#/$defs/point"},
-        "terminal_mode": {"enum": ["FIXED", "FOLLOW_TRANSLATION"]},
+        "terminal_mode": {
+          "enum": ["FIXED", "FOLLOW_TRANSLATION", "NATIVE_PORT"],
+          "description": "NATIVE_PORT lie l’extrémité au datum indépendant du port du dispositif mobile défini par le profil scellé. La pose est rigide et son orientation fixe."
+        },
         "device_reference_mm": {"$ref": "#/$defs/point"},
         "radius_min_mm": {"type": "number", "exclusiveMinimum": 0},
         "radius_max_mm": {"type": "number", "exclusiveMinimum": 0},

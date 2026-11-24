@@ -291,6 +291,47 @@ def replace_linked_reservation(assembly, ident, link, points, diameter, radius, 
     return cable, route
 
 
+def port_datums(assembly, ident, model):
+    rules = model.get('validation', {})
+    ports = [rules['ports'][name] for name in rules.get('routes', {}).get(ident, {}).get('ports', [])]
+    if not any('datum' in port for port in ports):
+        return []
+    require(len(ports) == 2 and all('datum' in port for port in ports),
+            'Deux repères natifs indépendants sont requis pour le couplage.')
+    observations = []
+    for port in ports:
+        owner_id, datum_name = port['equipment'], port['datum']
+        require(NATIVE_NAME.fullmatch(datum_name), f'Nom de repère de port invalide : {datum_name}.')
+        owner = assembly.occurrence(owner_id)
+        definition = assembly.native_definition(owner)
+        if definition.TypeId == 'App::Part':
+            datum, measured = assembly.resolve([*assembly.chain(owner_id), datum_name])
+            require(datum in definition.Group and datum.MapMode == 'Deactivated' and not datum.AttachmentSupport,
+                    f'Repère {datum_name} sans placement rigide dans la définition.')
+        else:
+            datum, measured = assembly.resolve([datum_name])
+            require(owner == definition and datum.MapMode == 'ObjectXY' and
+                    datum.AttachmentSupport == [(owner, ('',))],
+                    f'Repère {datum_name} sans attache rigide à son équipement.')
+        require(datum.TypeId == 'PartDesign::CoordinateSystem', f'Repère de port natif requis : {datum_name}.')
+        expected = assembly.world(owner_id).multiply(pose(port['local_pose']).toMatrix())
+        require(equal_matrix(measured, expected), f'Pose locale scellée divergente : {datum_name}.')
+        terminal_path = assembly.occurrences.get(port['frame'], port['frame']).split('/')
+        require(all(NATIVE_NAME.fullmatch(name) for name in terminal_path), 'Chemin de terminaison invalide.')
+        terminal, attachment_pose = assembly.resolve(terminal_path)
+        require(terminal != datum and equal_matrix(measured, attachment_pose),
+                f'Terminaison WireFlex divergente du repère natif : {datum_name}.')
+        placement = App.Placement(measured)
+        normal = placement.Rotation.multVec(vector(port['outward_local'], 'normale de port'))
+        tangent = placement.Rotation.multVec(vector(port.get('tangent_local', port['outward_local']),
+                                                     'tangente de sortie locale'))
+        require(abs(normal.Length - 1) <= 1e-8 and abs(tangent.Length - 1) <= 1e-8,
+                f'Normale ou tangente de port non unitaire : {datum_name}.')
+        observations.append({'datum': datum_name, 'matrix': list(measured.A), 'origin': placement.Base,
+                             'normal': normal, 'tangent': tangent, 'terminal': terminal})
+    return observations
+
+
 def reroute(assembly, action, model):
     ident, parameters = action['occurrence'], action['parameters']
     require(parameters['frame'] == 'ROOT', 'Le parcours doit être donné dans le repère ROOT.')
@@ -311,6 +352,14 @@ def reroute(assembly, action, model):
     end_axis = vector(parameters['end_axis'], 'axe de sortie fin')
     require(abs(start_axis.Length - 1) <= 1e-8 and abs(end_axis.Length - 1) <= 1e-8,
             'Les deux tangentes signées doivent être unitaires.')
+    ports = port_datums(assembly, ident, model)
+    for index, axis, port in zip((0, -1), (start_axis, end_axis), ports):
+        require((points[index] - port['origin']).Length <= PLACEMENT_TOLERANCE
+                and (axis - port['tangent']).Length <= PLACEMENT_TOLERANCE,
+                f'Extrémité ou axe déclaré divergent du port natif : {port["datum"]}.')
+        points[index] = port['origin']
+    if ports:
+        start_axis, end_axis = (port['tangent'] for port in ports)
     native.builder._check_polyline(points, diameter, radius)
     occurrence = assembly.writable(ident)
     if is_native_cable(occurrence):
@@ -319,6 +368,10 @@ def reroute(assembly, action, model):
     else:
         require(occurrence.TypeId == LINK, f'Réservation XLink ou câble natif requis : {ident}.')
         cable, route = replace_linked_reservation(assembly, ident, occurrence, points, diameter, radius, model)
+    for name, port in zip(('Vrtx_start', 'Vrtx_end'), ports):
+        binding = getattr(route, name, None)
+        require(binding and binding[0] == port['terminal'] and list(binding[1]) == ['Vertex1'],
+                f'Attache WireFlex étrangère au port : {port["datum"]}.')
     conductors = getattr(cable, 'L2Conductors', [])
     require(not conductors or len(conductors) == len(sections), 'Sections et conducteurs natifs en nombre différent.')
     if 'B1_ConductorSections' not in cable.PropertiesList:
@@ -333,8 +386,15 @@ def reroute(assembly, action, model):
     wire = native.builder.effective_wire(cable).transformShape(cable_to_world, True, True)
     check = native.geometry.inspect_route(wire, minimum, start_axis, end_axis,
                                           start_position=points[0], end_position=points[-1])
-    return {'path': route.Name, 'cable': cable.Name, 'fresh_solid': fresh, 'route_diagnostic': check,
-            'diameter_mm': actual_diameter, 'conductor_sections_mm2': sections}
+    result = {'path': route.Name, 'cable': cable.Name, 'fresh_solid': fresh, 'route_diagnostic': check,
+              'diameter_mm': actual_diameter, 'conductor_sections_mm2': sections}
+    if ports:
+        result['native_ports'] = [
+            {'datum': port['datum'], 'matrix': port['matrix'], 'origin_mm': list(port['origin']),
+             'normal': list(port['normal']), 'outward': list(port['tangent']), 'attachment': port['terminal'].Name}
+            for port in ports
+        ]
+    return result
 
 
 def support_links(assembly, support, params, fasteners):

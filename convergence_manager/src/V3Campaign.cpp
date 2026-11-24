@@ -17,6 +17,7 @@
 #include <QSet>
 #include <QStandardPaths>
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 
@@ -172,7 +173,15 @@ bool dominates(const Candidate &left, const Candidate &right, const QJsonArray &
     return strictlyBetter;
 }
 
-QJsonObject metrics(const QJsonObject &measurement, const QJsonObject &assessment)
+double observedNumber(const QJsonValue &value, const QString &label)
+{
+    require(value.isDouble() && std::isfinite(value.toDouble()) && value.toDouble() >= 0,
+            "Mesure native obligatoire indisponible : " + label);
+    return value.toDouble();
+}
+
+QJsonObject metrics(const QJsonObject &measurement, const QJsonObject &assessment, const QJsonObject &domain,
+                    const QJsonObject &profile)
 {
     const auto routes = measurement.value("routes").toObject();
     require(!routes.isEmpty(), "Longueur native requise pour le classement");
@@ -192,8 +201,84 @@ QJsonObject metrics(const QJsonObject &measurement, const QJsonObject &assessmen
         minimumGap = std::min(minimumGap, distance.toDouble());
     }
     require(std::isfinite(minimumGap), "Dégagement de service requis pour le classement");
-    return {{"route_length_mm", length}, {"service_clearance_mm", minimumGap},
-            {"support_count", measurement.value("supports").toObject().size()}};
+    const auto supports = measurement.value("supports").toObject();
+    QJsonObject result{{"route_length_mm", length}, {"service_clearance_mm", minimumGap},
+                       {"support_count", supports.size()}};
+    if (domain.value("route").toObject().value("terminal_mode") != v3NativePortMode)
+        return result;
+
+    double radius = std::numeric_limits<double>::infinity();
+    for (const auto &route : routes)
+        radius = std::min(radius, observedNumber(route.toObject().value("minimum_radius_mm"), "rayon minimal"));
+    double contact = std::numeric_limits<double>::infinity();
+    for (const auto &support : supports)
+        contact = std::min(contact, observedNumber(support.toObject().value("bearing_area_mm2"), "appui"));
+    require(std::isfinite(contact), "Appui natif couplé absent");
+    double maximumInterference = 0;
+    const auto pairs = measurement.value("pairs").toArray();
+    require(!pairs.isEmpty(), "Paires d’interférences natives absentes");
+    for (const auto &pair : pairs)
+        maximumInterference = std::max(maximumInterference,
+            observedNumber(pair.toObject().value("intersection_mm3"), "interférence"));
+
+    const auto portIds = domain.value("scene").toObject().value("ports").toArray();
+    const auto ports = measurement.value("ports").toObject();
+    const auto measuredRoute = routes.begin().value().toObject();
+    const auto endpoints = measuredRoute.value("endpoints_mm").toArray();
+    const auto edges = measuredRoute.value("edges").toArray();
+    require(portIds.size() == 2 && endpoints.size() == 2 && !edges.isEmpty(), "Mesure de connexion native absente");
+    double endpointGap = 0, orientationError = 0;
+    for (int index = 0; index < 2; ++index) {
+        const auto port = ports.value(portIds.at(index).toString()).toObject();
+        const auto frame = port.value("matrix").toArray(), outward = port.value("outward").toArray();
+        const auto endpoint = endpoints.at(index).toArray();
+        const auto tangent = (index == 0 ? edges.first().toObject().value("start_tangent") :
+                              edges.last().toObject().value("end_tangent")).toArray();
+        require(frame.size() == 16 && outward.size() == 3 && endpoint.size() == 3 && tangent.size() == 3,
+                "Port ou tangente native incomplet");
+        double distanceSquared = 0, cosine = 0;
+        for (int coordinate = 0; coordinate < 3; ++coordinate) {
+            const double distance = frame.at(coordinate * 4 + 3).toDouble() - endpoint.at(coordinate).toDouble();
+            distanceSquared += distance * distance;
+            cosine += outward.at(coordinate).toDouble() * tangent.at(coordinate).toDouble();
+        }
+        endpointGap = std::max(endpointGap, std::sqrt(distanceSquared));
+        const auto oriented = index == 0 ? cosine : -cosine;
+        orientationError = std::max(orientationError,
+            std::acos(std::clamp(oriented, -1.0, 1.0)) * 180 / std::acos(-1.0));
+    }
+    result.insert("minimum_bend_radius_mm", radius);
+    result.insert("minimum_support_bearing_area_mm2", contact);
+    result.insert("maximum_interference_mm3", maximumInterference);
+    result.insert("maximum_endpoint_gap_mm", endpointGap);
+    result.insert("maximum_tangent_error_deg", orientationError);
+    const auto model = profile.value("model").toObject();
+    const auto occurrences = model.value("occurrences").toObject();
+    const auto routeRule = model.value("validation").toObject().value("routes").toObject().value(routes.begin().key()).toObject();
+    const auto requestedObstacles = routeRule.value("clearance_obstacles").toArray();
+    if (!requestedObstacles.isEmpty()) {
+        const auto cable = occurrences.value(routes.begin().key()).toString();
+        QSet<QString> pending;
+        for (const auto &entry : requestedObstacles) {
+            const auto path = occurrences.value(entry.toString()).toString();
+            require(!path.isEmpty() && path != cable && !pending.contains(path),
+                    "Obstacle de dégagement du câble ambigu");
+            pending.insert(path);
+        }
+        double routeClearance = std::numeric_limits<double>::infinity();
+        for (const auto &entry : pairs) {
+            const auto pair = entry.toObject();
+            const auto subjects = pair.value("pair").toArray();
+            if (subjects.size() != 2 || !subjects.contains(cable))
+                continue;
+            const auto obstacle = (subjects.first() == cable ? subjects.last() : subjects.first()).toString();
+            if (pending.remove(obstacle))
+                routeClearance = std::min(routeClearance, observedNumber(pair.value("gap_mm"), "dégagement câble"));
+        }
+        require(pending.isEmpty() && std::isfinite(routeClearance), "Dégagement câble non couvert par les paires natives");
+        result.insert("route_clearance_mm", routeClearance);
+    }
+    return result;
 }
 
 QJsonObject applicableServices(const QJsonObject &measurement, const QJsonObject &plan)
@@ -221,7 +306,15 @@ QString chooseFamily(const QStringList &pending, const QJsonArray &diagnoses, co
 {
     if (!pending.contains("DETOUR_POSITIVE") || !pending.contains("DETOUR_NEGATIVE"))
         return pending.first();
-    const auto axis = domain.value("route").toObject().value("start_mm").toArray().at(1).toDouble();
+    const auto route = domain.value("route").toObject();
+    const auto axis = route.value("start_mm").toArray().at(1).toDouble();
+    const bool coupled = route.value("terminal_mode") == v3NativePortMode;
+    const auto firstPort = domain.value("scene").toObject().value("ports").toArray().at(0).toString();
+    const auto start = route.value("start_mm").toArray();
+    const auto outward = baseline.value("ports").toObject().value(firstPort).toObject().value("outward").toArray();
+    const double fx = outward.at(0).toDouble(), fy = outward.at(1).toDouble(), fz = outward.at(2).toDouble();
+    const std::array<double, 3> lateral = std::abs(fz) < 0.9 ? std::array<double, 3>{-fy, fx, 0} :
+                                                                 std::array<double, 3>{fz, 0, -fx};
     const auto occurrences = baseline.value("occurrences").toObject();
     QSet<QString> considered;
     double offset = 0.0;
@@ -232,8 +325,17 @@ QString chooseFamily(const QStringList &pending, const QJsonArray &diagnoses, co
                 continue;
             considered.insert(key);
             const auto bounds = occurrences.value(key.mid(6)).toObject().value("bounds_mm").toArray();
-            if (bounds.size() == 2)
-                offset += (bounds.at(0).toArray().at(1).toDouble() + bounds.at(1).toArray().at(1).toDouble())/2 - axis;
+            if (bounds.size() != 2)
+                continue;
+            const auto lower = bounds.first().toArray(), upper = bounds.last().toArray();
+            if (coupled) {
+                for (std::size_t coordinate = 0; coordinate < lateral.size(); ++coordinate)
+                    offset += lateral[coordinate] *
+                              ((lower.at(coordinate).toDouble() + upper.at(coordinate).toDouble()) / 2 -
+                               start.at(coordinate).toDouble());
+            } else {
+                offset += (lower.at(1).toDouble() + upper.at(1).toDouble()) / 2 - axis;
+            }
         }
     }
     return offset > 0 ? "DETOUR_NEGATIVE" : pending.first();
@@ -252,6 +354,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     const auto problem = parseUniqueObject(problemBytes, problemFile);
     const auto domainSha = problem.value("domain_sha256").toString();
     const auto domain = loadV3Domain(root, domainSha);
+    const bool coupled = domain.value("route").toObject().value("terminal_mode") == v3NativePortMode;
     const auto profileSha = domain.value("profile_sha256").toString();
     const auto profile = loadMutationProfile(root, profileSha);
     const auto narrowed = verifyProblem(root, problem, domain, baseProblemPath, obsHash, profile);
@@ -262,7 +365,9 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     const auto seed = integer(problem.value("seed"), 0, 2147483647, "seed");
     const auto objectives = problem.value("objectives").toArray();
     require(!objectives.isEmpty(), "Objectifs mesurables requis");
-    const QMap<QString, QString> directions{{"route_length_mm", "MIN"}, {"service_clearance_mm", "MAX"}, {"support_count", "MIN"}};
+    QMap<QString, QString> directions{{"route_length_mm", "MIN"}, {"service_clearance_mm", "MAX"}, {"support_count", "MIN"}};
+    if (coupled)
+        directions.insert("route_clearance_mm", "MAX");
     QSet<QString> metricNames;
     for (const auto &objective : objectives) {
         const auto row = objective.toObject();
@@ -338,25 +443,39 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     int proposals = 0, builds = 0;
     QString previousFamily;
     bool nativeBudgetReached = false;
+    QString refinementFamily;
+    int refinementCeiling = 0;
+    QJsonArray refinementEvidence;
     QStringList pendingFamilies{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
-    while (!pendingFamilies.isEmpty() && proposals < proposalsBudget) {
+    while ((!pendingFamilies.isEmpty() || !refinementFamily.isEmpty()) && proposals < proposalsBudget) {
+        const bool refining = !refinementFamily.isEmpty();
+        const auto family = refining ? refinementFamily : chooseFamily(pendingFamilies, diagnoses, baseline, domain);
+        const qsizetype remainingFamilies = pendingFamilies.size() + (refining ? 1 : 0);
+        const int proposalsPerFamily = (proposalsBudget - proposals + remainingFamilies - 1) / remainingFamilies;
+        const int nativePerFamily = (nativeBudget - builds + remainingFamilies - 1) / remainingFamilies;
+        const bool mayRefine = coupled && !refining && proposalsPerFamily >= 2 && nativePerFamily >= 2;
+        const auto buildCeiling = refining ? refinementCeiling : builds + nativePerFamily - (mayRefine ? 1 : 0);
         auto restricted = problem;
         auto familyBudget = budget;
-        const int proposalsPerFamily = (proposalsBudget-proposals+pendingFamilies.size()-1) / pendingFamilies.size();
-        familyBudget.insert("max_proposals", proposalsPerFamily);
+        familyBudget.insert("max_proposals", proposalsPerFamily - (mayRefine ? 1 : 0));
         restricted.insert("budget", familyBudget);
-        const auto family = chooseFamily(pendingFamilies, diagnoses, baseline, domain);
-        const auto generated = generateV3Proposals(domain, baseline, restricted, seed, family);
-        pendingFamilies.removeAll(family);
-        const auto buildCeiling = builds + (nativeBudget-builds+pendingFamilies.size()) / (pendingFamilies.size()+1);
-        if (!previousFamily.isEmpty()) {
+        const auto generated = generateV3Proposals(domain, baseline, restricted, seed, family, refining ? 1 : 0);
+        if (refining) {
+            record("REFINE_FAMILY", {{"family", family}, {"criterion", "SEEK_ROUTE_CLEARANCE"},
+                                      {"observations", refinementEvidence}});
+            refinementFamily.clear();
+            refinementEvidence = {};
+        } else if (!previousFamily.isEmpty()) {
             const QJsonObject move{{"from", previousFamily}, {"to", family},
                 {"cause", candidates.isEmpty() ? "CONSTRAINTS_ACTIVE" : "PARETO_ALTERNATIVE"}, {"diagnoses", diagnoses}};
             transitions.append(move);
             record("CHANGE_FAMILY", move);
         }
+        if (!refining) {
+            pendingFamilies.removeAll(family);
+            diagnoses = {};
+        }
         previousFamily = family;
-        diagnoses = {};
         coverage.append(QJsonObject{{"family", family}, {"coverage", generated.value("coverage")}, {"status", generated.value("status")}});
         if (generated.value("proposals").toArray().isEmpty()) {
             const QJsonObject failure{{"family", family}, {"blocking_issues", generated.value("unknowns")},
@@ -364,6 +483,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             diagnoses.append(failure);
             record("DIAGNOSE", failure);
         }
+        QJsonArray observations;
         for (const auto &entry : generated.value("proposals").toArray()) {
             if (proposals == proposalsBudget)
                 break;
@@ -382,6 +502,12 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             record("GENERATE", {{"candidate", id}, {"family", family}, {"translation_mm", point}, {"values", values},
                                 {"geometry_signature", signature}, {"value_sha256", jsonDigest(values)}});
             record("SCREEN", {{"candidate", id}, {"family", family}, {"screen", screen}});
+            if (coupled && !screen.value("blocking_issues").toArray().isEmpty() && screen.contains("estimated_route_length_mm")) {
+                const QJsonObject hint{{"candidate", id}, {"reason", "AABB_HINT"},
+                                       {"blocking_issues", screen.value("blocking_issues")}};
+                observations.append(hint);
+                diagnoses.append(hint);
+            }
             if (screen.value("status") != "ELIGIBLE") {
                 const QJsonObject failure{{"candidate", id}, {"reason", screen.value("status")},
                                           {"blocking_issues", screen.value("blocking_issues")}};
@@ -416,6 +542,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
                                           {"status", native.value("status")}, {"duration_ms", nativeDuration}};
                 diagnoses.append(failure);
                 record("DIAGNOSE", failure);
+                if (coupled)
+                    observations.append(failure);
                 const auto refusal = transaction.filePath("refusal.json");
                 if (QFileInfo::exists(refusal))
                     add(refusal);
@@ -453,6 +581,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
                                           {"independent_disagreements", checked.value("independent_disagreements")}};
                 diagnoses.append(failure);
                 record("DIAGNOSE", failure);
+                if (coupled)
+                    observations.append(failure);
                 continue;
             }
             require(native.value("status") == "PASS" && native.value("source_integrity").toObject().value("status") == "PASS" &&
@@ -467,8 +597,18 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             add(path);
             const auto measurement = load(path);
             const auto expanded = load(QFileInfo(receipt).absolutePath() + "/expanded-plan.json");
-            candidates.append({id, metrics(measurement, applicableServices(measurement, expanded)), relative(output, crossResult),
+            const auto measured = metrics(measurement, applicableServices(measurement, expanded), domain, profile);
+            for (const auto &name : metricNames)
+                require(measured.contains(name), "Objectif sans couverture de mesure native : " + name);
+            candidates.append({id, measured, relative(output, crossResult),
                                fileDigest(crossResult), native.value("native_sha256").toObject(), values});
+            if (coupled)
+                observations.append(QJsonObject{{"candidate", id}, {"native_metrics", candidates.last().measures}});
+        }
+        if (mayRefine && !observations.isEmpty()) {
+            refinementFamily = family;
+            refinementCeiling = buildCeiling + 1;
+            refinementEvidence = observations;
         }
         if (proposals >= proposalsBudget)
             break;
@@ -517,7 +657,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     require(fileDigest(workerPath) == workerSha && fileDigest(replayPath) == replaySha && fileDigest(problemFile) == bytesHash &&
             fileDigest(observationFile) == obsHash && fileDigest(freecad) == freecadSha && fileDigest(t0) == t0Sha &&
             fileDigest(python) == pythonSha, "Gel V3 modifié pendant l’exploration");
-    const auto stopped = retained.isEmpty() ? nativeBudgetReached || proposals >= proposalsBudget ? "SEARCH_BUDGET_EXHAUSTED" :
+    const auto stopped = retained.isEmpty() ? nativeBudgetReached || proposals >= proposalsBudget ?
+        (coupled ? "NOT_FOUND_WITHIN_BUDGET" : "SEARCH_BUDGET_EXHAUSTED") :
         proposals == 0 ? "CONSTRAINT_UNKNOWN" : "NO_FEASIBLE_CANDIDATE_FOUND" : "RANKED_FEASIBLE_CANDIDATES";
     const QJsonObject campaign{{"schema", "v3.convergence_campaign/1"}, {"finalized", true}, {"scope", "SYNTHETIC_BENCH"},
         {"phase", problem.value("phase")}, {"domain_sha256", domainSha}, {"seed", seed}, {"budget", budget},

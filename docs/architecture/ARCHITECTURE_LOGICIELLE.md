@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 19 novembre 2026 |
+| Dernière mise à jour | 24 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -286,6 +286,23 @@ les copies par B.2. La sélection applique les contraintes dures avant
 le front de Pareto et l’ordre des objectifs. Les plans exacts B.1 et la
 voie historique `route:*` restent accessibles par leurs entrées propres.
 [Qualification et CLI](../VALIDATION_QUALIFICATION.md#cartographe-v3-c)
+
+#### Ports mobiles et supports couplés V3-C.1 — Implémenté
+
+Le mode `NATIVE_PORT` du domaine paramétrique lie le moteur aux repères
+natifs du port fixe et du port mobile. Le profil scellé rattache le datum
+au corps dans la définition XLink ou par une attache rigide à l’équipement.
+L5 développe la translation en repère monde, le parcours et la pose attendue
+du support. Le plan garde l’ordre corps, câble, support. La contre-validation
+B.2 reprend les datums, l’axe WireFlex et l’appui du support sur la face nommée
+dans un processus distinct. Les volumes de service suivent les occurrences
+déclarées et la définition externe est vérifiée par SHA.
+
+La recherche peut varier le cheminement d’une même famille selon les
+diagnostics mesurés. Les métriques de Pareto utilisent le câble rouvert et
+les dégagements BRep. Le déplacement est borné dans le plan du corridor
+avec une orientation fixe. La rotation variable est `UNSUPPORTED`.
+[Preuves et portée](../VALIDATION_QUALIFICATION.md#cartographe-v3-c1)
 
 ## 3. Contexte et déploiement
 
@@ -1255,6 +1272,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **24 novembre 2026** — V3-C.1 ajoute le mode à repères natifs, un support dépendant de la pose et un classement issu des mesures B.2 (§2.6).
 - **19 novembre 2026** — Ajout du problème L3, de l’admission paramétrique par domaine et du rejeu L5 avec contre-validation (§2.6).
 - **19 novembre 2026** — V3 B.2 vérifie l’agrégat natif, compare les mesures après une réouverture indépendante et versionne le reçu candidat (§2.6).
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).
