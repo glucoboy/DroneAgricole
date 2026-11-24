@@ -1,0 +1,919 @@
+{
+  "schema": "v3.a4.operation_admission/1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "mutation": "DENY",
+  "reference": {
+    "domain": "CARTOGRAPHER_PRIVATE_CAD",
+    "scope": "READ_ONLY_IMPACT",
+    "authority": "docs/verification/v3/a2/operation_scopes.json#/observation_requests"
+  },
+  "constraints_ref": "docs/verification/v3/a3/operation_admission.json#/non_relaxable_constraints",
+  "scope": "Autorité strictement liée à une occurrence, une opération, un lot et au domaine prouvé.",
+  "occurrences": [
+    {
+      "occurrence": "iso",
+      "operation": "REPOSITION_DEVICE",
+      "zone": "isolateur",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole"
+      ],
+      "xlink_scope": "Occurrence nominale et source",
+      "impacted_relationships": [
+        "iso-owns-ttl",
+        "iso-owns-usb",
+        "iso-transforms-ttl",
+        "iso-transforms-usb",
+        "iso-candidate-anchor",
+        "iso-local-anchor",
+        "iso-neighbor-keepout"
+      ],
+      "impacted_graph_nodes": [
+        "anchor:iso-carrier",
+        "iso-native-plate",
+        "keepout:power-diagnostic",
+        "port:W40/B",
+        "port:W41/A",
+        "ttl-reference",
+        "usb-reference"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "operator_lots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/0",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Pose rigide et faces ORCH mesurables. Fixe en service. Aucun ddl borné pour une nouvelle pose."
+    },
+    {
+      "occurrence": "harness:f40",
+      "operation": "REROUTE_HARNESS",
+      "zone": "TTL/JBD",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F40",
+        "pieces/commerce/W_F40_Prototype.FCStd"
+      ],
+      "xlink_scope": "Occurrence nominale et source",
+      "impacted_relationships": [
+        "raw-return-inside-harness",
+        "bms-rx-inside-harness",
+        "bms-tx-inside-harness",
+        "f40-part-of-pack",
+        "f40-axis-harness",
+        "f40-port-harness",
+        "f40-harness-line",
+        "f40-check-radius",
+        "f40-check-isolation",
+        "f40-manual-separation",
+        "f40-ttl-service",
+        "retention-review-f40-p72",
+        "retention-review-f40-p62",
+        "retention-review-f40-p64"
+      ],
+      "impacted_graph_nodes": [
+        "axis:F40",
+        "bundle:pack-uart",
+        "check:isolation",
+        "check:radius",
+        "conductor:bms-rx",
+        "conductor:bms-tx",
+        "conductor:raw-return",
+        "junction:uart-manual",
+        "link:W40",
+        "p62",
+        "p64",
+        "p72",
+        "port:W40/B",
+        "service:ttl-mating"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "operator_lots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/1",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Axe F40 et enveloppe BRep. Corridor au droit de la PDB et P72 à établir avec jonction manuelle ou TE, rayons et reprise aux guides."
+    },
+    {
+      "occurrence": "harness:f41",
+      "operation": "REROUTE_HARNESS",
+      "zone": "USB/port hôte",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F41",
+        "pieces/commerce/W_F41_Prototype.FCStd"
+      ],
+      "xlink_scope": "Occurrence nominale et source",
+      "impacted_relationships": [
+        "f41-part-of-pack",
+        "f41-axis-harness",
+        "f41-port-harness",
+        "f41-harness-line",
+        "f41-check-radius",
+        "f41-check-isolation",
+        "f41-usb-service",
+        "f41-reserve",
+        "retention-review-f41-p72",
+        "retention-review-f41-p73",
+        "retention-review-f41-p75",
+        "retention-review-f41-p77"
+      ],
+      "impacted_graph_nodes": [
+        "axis:F41",
+        "bundle:pack-uart",
+        "check:isolation",
+        "check:radius",
+        "link:W41",
+        "p72",
+        "p73",
+        "p75",
+        "p77",
+        "port:W41/A",
+        "service:usb-reserve",
+        "service:usb-withdrawal"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "operator_lots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/2",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Axe F41 et enveloppe BRep. Course USB-B et USB-A, ferrite, rayon, réserve et voisinage CAN1/F31/F35 à établir."
+    },
+    {
+      "occurrence": "p72",
+      "operation": "RELOCATE_SUPPORT",
+      "zone": "guide",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P72_Guide"
+      ],
+      "xlink_scope": "Occurrence nominale et source",
+      "impacted_relationships": [
+        "p72-invalidates-jwpf-screening",
+        "p72-impacts-candidate-anchor",
+        "p72-neighbor-keepout",
+        "keepout-p72",
+        "retention-change-f40-p72",
+        "retention-review-f40-p72",
+        "retention-change-f41-p72",
+        "retention-review-f41-p72",
+        "p72-tab",
+        "p72-fastener-candidate",
+        "p72-coupling",
+        "p72-retention-check",
+        "p72-retention-invalidates-ttl",
+        "p72-retention-invalidates-usb",
+        "p72-retention-invalidates-appui"
+      ],
+      "impacted_graph_nodes": [
+        "anchor:iso-carrier",
+        "axis:F40",
+        "axis:F41",
+        "check:retention",
+        "guide-upper-fastener-0",
+        "harness:f40",
+        "harness:f41",
+        "keepout:power-diagnostic",
+        "obs:deconnection-p72",
+        "obs:iso-support-go3b",
+        "obs:ttl-axis-gap",
+        "obs:usb-axis-gap",
+        "p72-p66-tab",
+        "p73"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "operator_lots": [
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/3",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Pattes P60/P64/P66, faces et entrefer numériques. IF-03 recoupe cette occurrence avec le support candidat. Ancrage, gorge et déplacement inconnus."
+    },
+    {
+      "occurrence": "p73",
+      "operation": "RELOCATE_SUPPORT",
+      "zone": "guide",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#P73_Guide"
+      ],
+      "xlink_scope": "Occurrence nominale et source",
+      "impacted_relationships": [
+        "keepout-p73",
+        "retention-change-f41-p73",
+        "retention-review-f41-p73",
+        "p73-tab",
+        "p72-coupling"
+      ],
+      "impacted_graph_nodes": [
+        "axis:F41",
+        "harness:f41",
+        "keepout:power-diagnostic",
+        "p72",
+        "p73-p66-tab"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "operator_lots": [
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/4",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Pattes P60/P64/P66, faces et voisinage numériques. Charge, ancrage, course et accès propres à P73 inconnus."
+    },
+    {
+      "occurrence": "anchor:iso-carrier",
+      "operation": "CREATE_SUPPORT",
+      "zone": "porteur",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+        "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_PlatineFixation",
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "p72-impacts-candidate-anchor",
+        "iso-candidate-anchor",
+        "iso-anchor-p64",
+        "iso-anchor-p66",
+        "iso-anchorage-check",
+        "iso-mount-observation"
+      ],
+      "impacted_graph_nodes": [
+        "check:mount",
+        "iso",
+        "obs:iso-support-go3b",
+        "p72",
+        "surface:p64-candidate",
+        "surface:p66-candidate"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "SYNTHETIC_BENCH_ONLY",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_DYNAMIC_BEND_RADIUS"
+      ],
+      "blocking_issues": [
+        "UART-ISO-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "operator_lots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/5",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "P64 et P66 sont deux surfaces candidates distinctes. Aucun empiètement, perçage ou domaine d’ancrage admis."
+    },
+    {
+      "occurrence": "port:W40/A",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "zone": "embase JBD",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA02_Prototype_Batterie.FCStd#BMS"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "bms-owns-uart",
+        "bms-embase"
+      ],
+      "impacted_graph_nodes": [
+        "bms",
+        "receptacle:bms-uart"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/6",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "J2 dans la table Li-ion et J3 dans la remarque. HY2.0-4P candidat. Appariement, détrompage et brochage orienté inconnus."
+    },
+    {
+      "occurrence": "port:W40/B",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "zone": "bornier TTL",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+        "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_BornierTTL"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "iso-owns-ttl",
+        "ttl-reference-port",
+        "ttl-embase",
+        "f40-port-harness"
+      ],
+      "impacted_graph_nodes": [
+        "harness:f40",
+        "iso",
+        "receptacle:iso-ttl",
+        "ttl-reference"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/7",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Variante Waveshare inconnue. Bornier, vis, accès latéral, repère d’entrée et marquage TX/RX/VCC à relever."
+    },
+    {
+      "occurrence": "port:W41/A",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "zone": "USB-B isolateur",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA03_Prototype_Energie.FCStd#UART_isole",
+        "pieces/commerce/EQ_Waveshare15817_UART_Isole.FCStd#ORCH_USB_B"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "iso-owns-usb",
+        "usb-reference-port",
+        "iso-usb-embase",
+        "f41-port-harness"
+      ],
+      "impacted_graph_nodes": [
+        "harness:f41",
+        "iso",
+        "receptacle:iso-usb",
+        "usb-reference"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/8",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "USB-B représenté par face ORCH. Fiche, surmoulage, ferrite, état accouplé et retrait inconnus."
+    },
+    {
+      "occurrence": "port:W41/B",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "zone": "USB-A 11072",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA05_Prototype_Avionique.FCStd#Holybro6XOrin"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "host-owns-usb",
+        "host-usb-embase"
+      ],
+      "impacted_graph_nodes": [
+        "holybro",
+        "receptacle:host-usb"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/9",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Deux ports USB-A dans la documentation. Affectation W41/B, orientation, course et dégagement CAN1 inconnus."
+    },
+    {
+      "occurrence": "link:W40",
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "zone": "liaison diagnostic",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [
+        "sous_assemblages/SA07_Prototype_Faisceaux.FCStd#F40"
+      ],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "f40-harness-line"
+      ],
+      "impacted_graph_nodes": [
+        "harness:f40"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/10",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Conservation du croisement TX/RX, GND brut dédié, NC et protection. Connexions au lot et impact physique inconnus."
+    },
+    {
+      "occurrence": "junction:uart-manual",
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "zone": "séparation cassette",
+      "model_entry": "assemblages/Prototype_Cartographe.FCStd",
+      "xlink_occurrence_paths": [],
+      "xlink_scope": "Parent, proxy ou candidat",
+      "impacted_relationships": [
+        "disconnect-invalidates-jwpf-screening",
+        "f40-manual-separation",
+        "disconnect-battery-service"
+      ],
+      "impacted_graph_nodes": [
+        "harness:f40",
+        "motion:battery-service",
+        "obs:deconnection-p72"
+      ],
+      "decision": "DENY",
+      "authority_status": "PENDING_EVIDENCE",
+      "physical_approval": null,
+      "domain_bound": null,
+      "degrees_of_freedom": "UNKNOWN",
+      "surfaces_and_tolerances": null,
+      "engine_capability": "UNSUPPORTED",
+      "equipment_lot": "LOT_NOT_INSPECTED",
+      "constraints": [
+        "BMS_USB_STRUCTURE_ISOLATION",
+        "NC",
+        "TX_RX",
+        "PROTECTIONS",
+        "PINOUT",
+        "INDEPENDENT_FRAMES",
+        "GEOMETRY",
+        "SUPPORT_ANCHOR",
+        "SERVICE",
+        "IMMUTABLE_SOURCES",
+        "DYNAMIC_BEND_RADIUS"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "operator_lots": [
+        1,
+        3,
+        4
+      ],
+      "evidence_sources": {
+        "a3": "docs/verification/v3/a3/operation_admission.json#/occurrences/11",
+        "physical_register": "docs/verification/v3/a4/evidence_register.json",
+        "manufacturer": "docs/verification/v3/a4/manufacturer_reconciliation.json"
+      },
+      "remaining_uncertainties": "Divergence TE/manuelle. Rattacher chaque demi-fiche à la partie fixe/mobile, puis prouver cavités, reprise d’effort et geste."
+    }
+  ],
+  "physical_reception": "NOT_RUN",
+  "approved_operations": []
+}

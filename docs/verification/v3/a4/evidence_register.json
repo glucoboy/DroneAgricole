@@ -1,0 +1,160 @@
+{
+  "schema": "v3.a4.evidence_register/1",
+  "date": "2026-11-24",
+  "configuration": "prototype_cartographe_sans_dock",
+  "lot_status": "LOT_NOT_INSPECTED",
+  "proof_classes": [
+    "CAD_OBSERVED",
+    "MANUFACTURER_DOCUMENTED",
+    "PHYSICAL_MEASURED",
+    "PHYSICAL_APPROVED",
+    "ASSUMED",
+    "UNKNOWN",
+    "CONFLICTING",
+    "NOT_RUN"
+  ],
+  "issues": [
+    {
+      "id": "UART-TOP-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/0",
+      "documentary_contradictions": "Les sources concordent sur le diagnostic isolé. Le type de jonction et son emplacement divergent entre définition électrique et inventaire du prototype.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Axe continu et obstacles mesurables. Le contact à contact et le geste réels exigent des pièces identifiées.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Jonction installée ou choix de montage justifié, références des deux demi-connecteurs et contacts, détrompage, cavité ↔ conducteur, séquence de déconnexion et enveloppe de retrait batterie.",
+      "operator_lots": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "UART-JBD-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/1",
+      "documentary_contradictions": "J2 apparaît dans les deux tableaux. Le libellé J3 de la notice Li-ion demeure contradictoire pour la variante visée. La notice LiFePO4 éclaire cette divergence et reste hors périmètre d'acceptation.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Pose de la carte et bout d'axe mesurables. Les cavités, le verrou, le niveau logique et le retour réel restent à établir.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "MPN et révision de PCB, variante et lot, marquage J2/J3, notice Li-ion applicable, embase et fiche exactes, tension et seuils TTL, attache GND et pinout orienté.",
+      "operator_lots": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "UART-ISO-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/2",
+      "documentary_contradictions": "L'isolation est documentée pour le produit. Le SKU seul laisse ouvertes la population PCB, la version du bornier et la forme des terminaisons.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Poses et enveloppes natives mesurables. Les objets ORCH sont des proxies d'interface.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Révision PCB et puce installée, réglage TTL, étiquettes et références du bornier/USB-B, embase, fiche, sortie et ferrite, limites de courant, traction et isolement applicables.",
+      "operator_lots": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "UART-AXIS-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/3",
+      "documentary_contradictions": "Les écarts CAO motivent un nouveau cheminement dès que les repères réels seront établis. L'alignement historique des variantes H03 porte sur les représentations.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Compare-frames ou BRep sur géométrie sourcée. Une boîte, une tangente d'axe, un décalage +3 mm ou une face proxy ne suffisent pas pour définir le mating.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Repères indépendants de l'embase et de la fiche, trièdres d'accouplement et de sortie fil signés, orientation de l'outil et course de retrait, avec autorité compatible avec le lot.",
+      "operator_lots": [
+        3
+      ]
+    },
+    {
+      "id": "UART-MOUNT-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/4",
+      "documentary_contradictions": "Les surfaces voisines permettent de localiser des exclusions géométriques. Le plan de fixation et le chemin d'effort restent à établir.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Mesurer BRep appui/isolateur, dégagement et intersection guide, distances aux porteurs et positions des faces et trous. Limites de charge et appui réel demandent des données complémentaires.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Surface porteuse effective, preuves de contact et d'engagement, cotes de trous, matériaux, entretoises, sollicitations et tenue, isolement de la fixation, domaine de pose justifié.",
+      "operator_lots": [
+        2
+      ]
+    },
+    {
+      "id": "UART-ACCESS-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/5",
+      "documentary_contradictions": "L'espace local des hypothèses GO3B présente des conflits. Les volumes nécessaires au geste complet restent inconnus.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Intersection BRep de gabarits et obstacles, puis volume balayé si la cinématique réelle est fournie.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Gabarits exacts d'insertion/extraction TTL et USB-B, outillage, ferrite et sortie, course et réserve, rayons statique/dynamique, protection durant le retrait batterie.",
+      "operator_lots": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "UART-HOST-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/6",
+      "documentary_contradictions": "Le Type A est documenté par le fabricant et l'inventaire. La révision et l'index du port hôte utilisé restent inconnus.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Poses et solides de porteuse et voisins mesurables. Confirmer l'index du port avant d'en dériver un repère indépendant.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Marquage PCB de la porteuse, port exact et fonction hôte, desserte et alimentation du prototype, origine et normale de l'embase retenue, corps de fiche et extraction en présence de CAN1/F31/F35.",
+      "operator_lots": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "UART-GUIDES-001",
+      "status": "OPEN",
+      "physical_measurement": "NOT_RUN",
+      "physical_approval": "NOT_RUN",
+      "history": "docs/verification/v3/a3/evidence_register.json#/issues/7",
+      "documentary_contradictions": "Les pattes et fixations visibles documentent le voisinage. L'engagement réel et les translations ou rotations admissibles n'en découlent pas. Guides et porteurs internes sans notice fabricant propre.",
+      "cad": {
+        "evidence_class": "CAD_OBSERVED",
+        "scope": "Mesurer pattes, normales, trous, distances et obstacles, puis vérifier un domaine borné après identification des fixations et charges.",
+        "source": "docs/verification/v3/a3/native_observations.json#/checks"
+      },
+      "missing": "Engagement des vis, interfaces d'appui et degrés de liberté permis, enveloppes de déplacement, efforts, dégagement de PDB, CAN1/F31/F35 ainsi que cheminement et retrait de la batterie.",
+      "operator_lots": [
+        2,
+        4
+      ]
+    }
+  ]
+}

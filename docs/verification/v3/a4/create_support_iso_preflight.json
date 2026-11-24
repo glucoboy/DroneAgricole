@@ -1,0 +1,67 @@
+{
+  "schema": "v3.a4.create_support_iso_preflight/1",
+  "date": "2026-11-24",
+  "operation": "CREATE_SUPPORT",
+  "occurrence": "anchor:iso-carrier",
+  "common_name": "CREATE_SUPPORT(iso)",
+  "decision": "DENY",
+  "construction": "NOT_RUN",
+  "candidate_count": 0,
+  "physical_evidence": "NOT_RUN",
+  "domain_bound": null,
+  "porters": [
+    "p64",
+    "p66"
+  ],
+  "operator_requests": [
+    {
+      "order": 1,
+      "request": "Isolateur exact et lot, distinction FT232RL/RNL/CH343G, vues port et surfaces du boîtier.",
+      "issue": "UART-ISO-001"
+    },
+    {
+      "order": 2,
+      "request": "P64 ou P66: appui identifié par deux datums, matière/épaisseur/perçage/vis et engagement utile, accès outil et cas de charge.",
+      "issue": "UART-MOUNT-001"
+    },
+    {
+      "order": 3,
+      "request": "Geste de vis TTL et USB-B, garde PDB/CAN1/P72/P73, point et tangente de sortie, marge et incertitude.",
+      "issue": "UART-ACCESS-001"
+    },
+    {
+      "order": 4,
+      "request": "Geste de retrait du gabarit batterie inerte et géométrie des cordons/retours sur la course; rayons applicables.",
+      "issue": "UART-GUIDES-001"
+    },
+    {
+      "order": 5,
+      "request": "Revue habilitée des données et du domaine par occurrence et opération.",
+      "issue": null
+    }
+  ],
+  "guards": [
+    "BMS_USB_STRUCTURE_ISOLATION",
+    "NC",
+    "TX_RX",
+    "PROTECTIONS",
+    "PINOUT",
+    "INDEPENDENT_FRAMES",
+    "GEOMETRY",
+    "SUPPORT_ANCHOR",
+    "SERVICE",
+    "IMMUTABLE_SOURCES",
+    "DYNAMIC_BEND_RADIUS"
+  ],
+  "mandatory_checks": [
+    "REOPEN_XLINK",
+    "L2_TOPOLOGY",
+    "L4_GEOMETRY",
+    "L4_SUPPORT_ANCHOR",
+    "L4_SERVICE",
+    "VERIFY_IMMUTABLE_SOURCES",
+    "VALIDATE_T0",
+    "L4_DYNAMIC_BEND_RADIUS"
+  ],
+  "operation_ref": "docs/verification/v3/a4/operation_admission.json"
+}

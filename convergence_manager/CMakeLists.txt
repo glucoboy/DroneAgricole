@@ -18,8 +18,14 @@ add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBacken
 target_include_directories(convergence_core PRIVATE ../architecture_decision_engine/src)
 target_link_libraries(convergence_core PRIVATE convergence electromechanical_graph)
 
+add_executable(cartographe_material_evidence src/MaterialEvidence.cpp)
+target_link_libraries(cartographe_material_evidence PRIVATE convergence)
+
 if(BUILD_TESTING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    add_test(NAME l5_v3_a4_material_evidence COMMAND "${Python3_EXECUTABLE}" -B
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_a4_evidence.py"
+        --validator "$<TARGET_FILE:cartographe_material_evidence>")
     option(L5_V21_GO3A_TEST "Rejouer la porte V2.1 avec les archives GO3A/GO3B et leurs 180 dépendances" OFF)
     if(L5_V21_GO3A_TEST)
         add_test(NAME v21_gate COMMAND "${Python3_EXECUTABLE}" -B

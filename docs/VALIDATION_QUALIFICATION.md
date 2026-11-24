@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 19 novembre 2026 |
+| Dernière mise à jour | 24 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -2902,6 +2902,32 @@ admissibles et la réception physique restent respectivement inconnues et
 passe. [Diagnostic](verification/v3/d/independent_validation.json) ·
 [Relevés et critères de reprise](verification/v3/d/measurement_actions.md).
 
+<a id="cartographe-v3-a4"></a>
+#### Autorités du lot cartographe V3-A.4 — 24 novembre 2026
+
+`V3_A4_EVIDENCE_CONDITIONAL`. L'import préliminaire C++17/Qt6 est
+**Implémenté**. Les huit issues UART restent ouvertes, les douze couples
+occurrence–opération ont la décision `DENY` et leurs domaines restent
+indéterminés. Aucun lot installé, aucune révision physique et aucun
+ancrage ne sont confirmés. La réception physique GO4 reste `NOT_RUN`.
+[Acceptation](verification/v3/a4/acceptance.json) ·
+[Matrice](verification/v3/a4/operation_admission.json)
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-A4-IMPORT` → identité/révision, preuves brutes, repères, unités et incertitudes | 41 cas d'import réussis et un refus `MUTATION_DOMAIN_DENIED` avant construction, avec conservation de la fermeture de 142 sources. Le contenu des photos et la chaîne de revue authentifiée restent **À valider**. |
+| `CAB-CARTO-001`, `MEC-INT-001` | `T-CARTO-V3-A4-REGRESSION` → A.1, A.2, A.3 et D sur Windows amd64/FreeCAD 1.1.3 | Quatre fermetures rouvertes en lecture seule, sept paires historiques concordantes, douze cas Q2 réussis, trois analyses admises et 33 refus d'admission rejoués. Les gabarits de service restent hypothétiques. |
+
+Le premier dossier à instruire sous `ORCH-CAO-MASSE-1` concerne
+`CREATE_SUPPORT(iso)` pour `anchor:iso-carrier`. La quantité d'information
+suffisante pour décider dépend d'un lot identifié, d'un appui et de ses
+fixations sur P64 ou P66, des volumes de service et du geste batterie. Les
+observations brutes et une revue habilitée sont requises avant de borner
+le domaine de l'opération. Les autorisations restent propres à l'occurrence,
+à l'opération et à la révision du lot. [Collecte opérateur](verification/v3/a4/measurement_packet.md) ·
+[Préflight](verification/v3/a4/create_support_iso_preflight.json) ·
+[Rejeu](verification/v3/a4/REPORT.md)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4109,6 +4135,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Construction native des trois familles et consolidation avec contre-validation indépendante | T-CARTO-V21-GO3B | [Résultat](#cartographe-go3b-reconstruction), [preuves](verification/v21_go3b_validation.json) | `GO3B_CAO_NO_GO_MOTIVE`. Six variantes sauvegardées, une consolidée de diagnostic et défauts mesurés. Montage et GO4 **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01 | Confrontation des autorités UART, réouverture XLink sur copies et contrôles d’admission L5 | T-CARTO-V3-A2-EVIDENCE, T-CARTO-V3-A2-NATIVE | [Résultat](#cartographe-v3-a2). `V3_A2_EVIDENCE_CONDITIONAL`, huit issues ouvertes, mutation cartographe suspendue. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Dossier UART, réouverture XLink, contrôles L5 et collecte hors tension | T-CARTO-V3-A3-AUTH | [Résultat](#cartographe-v3-a3). V3_A3_EVIDENCE_CONDITIONAL, douze mutations bloquées et collecte physique À valider. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Collecte opérateur, contrôle des paquets de preuve et refus L5 avant construction | T-CARTO-V3-A4-IMPORT, T-CARTO-V3-A4-REGRESSION | [Résultat](#cartographe-v3-a4), [preuves](verification/v3/a4/acceptance.json) | `V3_A4_EVIDENCE_CONDITIONAL`, domaine et revue habilitée **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4271,6 +4298,9 @@ contre-validation sur ces bancs. L’exploration du cartographe dépend des
 preuves d’autorité relatives aux opérations envisagées.
 [V3-D](#cartographe-v3-d) maintient la lecture seule du cartographe et fixe
 la collecte préalable à une décision sur le support et les cheminements.
+[V3-A.4](#cartographe-v3-a4) fournit le formulaire et l'import préliminaire
+de ces relevés. Le budget de construction du cartographe reste nul tant que
+le dossier du couple `CREATE_SUPPORT(iso)` n'est pas admis.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4931,6 +4961,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **24 novembre 2026** — V3-A.4 structure la collecte et la validation de provenance des preuves physiques par occurrence–opération. [Résultat](#cartographe-v3-a4)
 - **19 novembre 2026** — Jonction V3-D et contrôle de la non-admission cartographe, avec reprise des observations en lecture seule. [Résultat](#cartographe-v3-d)
 - **19 novembre 2026** — Qualification V3-C sur Workholding et C4, avec resserrement après gel et alternative mesurée. [Résultat](#cartographe-v3-c)
 - **19 novembre 2026** — Contre-validation croisée V3 B.2 des plans XLink, garde des reçus et variantes de rayon sur banc. [Résultat](#cartographe-v3-b2)

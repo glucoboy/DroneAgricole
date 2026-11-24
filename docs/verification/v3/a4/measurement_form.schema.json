@@ -1,0 +1,412 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "V3-A.4 Paquet de relevés bruts",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "v3.a4.measurement_packet/1"
+    },
+    "configuration": {
+      "const": "prototype_cartographe_sans_dock"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+          },
+          "evidence_class": {
+            "const": "PHYSICAL_MEASURED"
+          },
+          "issue": {
+            "enum": [
+              "UART-TOP-001",
+              "UART-JBD-001",
+              "UART-ISO-001",
+              "UART-AXIS-001",
+              "UART-MOUNT-001",
+              "UART-ACCESS-001",
+              "UART-HOST-001",
+              "UART-GUIDES-001"
+            ]
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "check_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "identity": {
+            "type": "object",
+            "properties": {
+              "manufacturer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "mpn": {
+                "type": "string",
+                "minLength": 1
+              },
+              "variant": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lot_or_serial": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "manufacturer",
+              "mpn",
+              "variant",
+              "revision",
+              "lot_or_serial"
+            ],
+            "additionalProperties": false
+          },
+          "sources": {
+            "type": "object",
+            "properties": {
+              "raw": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "photo": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "identity_photo": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "manufacturer_document": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "tolerance_document": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "manufacturer_locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "manufacturer_revision": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "raw",
+              "photo",
+              "identity_photo",
+              "manufacturer_document",
+              "tolerance_document",
+              "manufacturer_locator",
+              "manufacturer_revision"
+            ],
+            "additionalProperties": false
+          },
+          "capture": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "string",
+                "minLength": 1
+              },
+              "measured_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "view": {
+                "type": "string",
+                "minLength": 1
+              },
+              "orientation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "power_state": {
+                "const": "DEENERGIZED"
+              },
+              "detached": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "author",
+              "measured_at",
+              "view",
+              "orientation",
+              "scale",
+              "power_state",
+              "detached"
+            ],
+            "additionalProperties": false
+          },
+          "frame": {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "type": "string",
+                "minLength": 1
+              },
+              "datum": {
+                "type": "string",
+                "minLength": 1
+              },
+              "local_to_parent": {
+                "type": "array",
+                "minItems": 16,
+                "maxItems": 16,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "parent_to_local": {
+                "type": "array",
+                "minItems": 16,
+                "maxItems": 16,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "parent",
+              "datum",
+              "local_to_parent",
+              "parent_to_local"
+            ],
+            "additionalProperties": false
+          },
+          "measurement": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "minLength": 1
+              },
+              "method": {
+                "type": "string",
+                "minLength": 1
+              },
+              "instrument": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resolution": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "value": {
+                "type": "number"
+              },
+              "unit": {
+                "enum": [
+                  "mm",
+                  "cm",
+                  "in",
+                  "N",
+                  "deg",
+                  "ohm"
+                ]
+              },
+              "uncertainty": {
+                "type": "number",
+                "minimum": 0
+              },
+              "tolerance": {
+                "type": "object",
+                "properties": {
+                  "comparison": {
+                    "enum": [
+                      "LE",
+                      "GE"
+                    ]
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "comparison",
+                  "limit",
+                  "unit",
+                  "source"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "kind",
+              "method",
+              "instrument",
+              "resolution",
+              "value",
+              "unit",
+              "uncertainty",
+              "tolerance"
+            ],
+            "additionalProperties": false
+          },
+          "facts": {
+            "type": "object"
+          },
+          "review": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "reviewer": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "detached_signature": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "reviewer",
+                  "detached_signature"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "record_id",
+          "evidence_class",
+          "issue",
+          "subject",
+          "check_id",
+          "identity",
+          "sources",
+          "capture",
+          "frame",
+          "measurement",
+          "facts",
+          "review"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "configuration",
+    "records"
+  ],
+  "additionalProperties": false
+}
