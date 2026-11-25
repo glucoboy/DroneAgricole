@@ -1,0 +1,3083 @@
+{
+  "schema": "v3.int2.regressions/1",
+  "tested_commit": "5cb111c2d37aedacd2f8ec68c2d300ba6cad93ae",
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "toolchain": "MSYS2 UCRT64 / MinGW / C++17 (Release)",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "gcc": "16.2.0",
+    "qt": "6.11.2",
+    "openssl": "3.6.4",
+    "ucrt_python": "3.14.7",
+    "qt_qpa_platform": "offscreen",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "freecad_python": "3.11.14"
+  },
+  "binaries": {
+    "l3/architecture_decision_core.exe": {
+      "path": ".runtime/int2-cxx17/l3/architecture_decision_core.exe",
+      "sha256": "18ce6d5157303050a319063cba43bbd5a4f92451493e42fe9ddd7494b196b347",
+      "bytes": 1163332
+    },
+    "l3/interconnection/interconnection_core.exe": {
+      "path": ".runtime/int2-cxx17/l3/interconnection/interconnection_core.exe",
+      "sha256": "d57e92865e3f5cf8ca04a78a801355003382c17891104ec75c0fc8cd5af5dbdb",
+      "bytes": 917703
+    },
+    "l3/research/technical_research_core.exe": {
+      "path": ".runtime/int2-cxx17/l3/research/technical_research_core.exe",
+      "sha256": "709210c95efcdbec08046268b405f28670d335bf66a49343d6ff4c45e2f04143",
+      "bytes": 372042
+    },
+    "l4/validation_core.exe": {
+      "path": ".runtime/int2-cxx17/l4/validation_core.exe",
+      "sha256": "313f62b2e89dd70d0c97aef05f300cb57d24cf27e73c64ce3e0f72ad6c06feeb",
+      "bytes": 1493427
+    },
+    "l4/interconnection/interconnection_core.exe": {
+      "path": ".runtime/int2-cxx17/l4/interconnection/interconnection_core.exe",
+      "sha256": "b92f01923c851ae9315995f564eb61d052f5df6c2490a331a87efc76fefd1700",
+      "bytes": 917703
+    },
+    "l5/convergence_core.exe": {
+      "path": ".runtime/int2-cxx17/l5/convergence_core.exe",
+      "sha256": "4b1f9d09773f6a90a8905b76838eb99d064449eb3cce45dcb5e690d18662d05c",
+      "bytes": 1880861
+    },
+    "l5/cartographe_material_evidence.exe": {
+      "path": ".runtime/int2-cxx17/l5/cartographe_material_evidence.exe",
+      "sha256": "278c74ff43e26fa85f9f2ba3f1699fe0fb3ae2a7c7b945075cc1e65a150da8fc",
+      "bytes": 374949
+    },
+    "l5/test_l5_V3Search.exe": {
+      "path": ".runtime/int2-cxx17/l5/test_l5_V3Search.exe",
+      "sha256": "92f2157e0d040da5e028b826e56c6b7342fc851abf849b3ed07ec75733f642fd",
+      "bytes": 533712
+    },
+    "l5-no-crypto/convergence_core.exe": {
+      "path": ".runtime/int2-cxx17/l5-no-crypto/convergence_core.exe",
+      "sha256": "1e2367933919d60c11daaa0a4f3b60dd21daf493314c17d5fd8b821fe7aeac0b",
+      "bytes": 1878444
+    },
+    "t0/cartographe-evidence.exe": {
+      "path": ".runtime/int2-cxx17/t0/cartographe-evidence.exe",
+      "sha256": "c7e50415edc57e7d5922a71a0daf300dfc9d334744279186ea179e96db500b34",
+      "bytes": 469611
+    }
+  },
+  "steps": {
+    "a-q2": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        ".runtime/v3-a1/regressions/q2-history",
+        "--binary",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l4/interconnection/interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a-q2"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:22:50.4485248Z",
+      "finished_utc": "2026-11-25T21:23:16.0798402Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a-q2.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "a2-native": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a2-native"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:16:09.2762667Z",
+      "finished_utc": "2026-11-25T21:21:48.1110002Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a2-native.log",
+        "sha256": "e5b874140d5e8a565b7ed1471e522dd07851da38c52393d4c72a5b080bec25f1",
+        "bytes": 145
+      }
+    },
+    "a3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_a3_authorities.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--source",
+        "hardware/mecanique/cartographe",
+        "--out",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/admission"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:15:54.5084495Z",
+      "finished_utc": "2026-11-25T21:16:07.9128771Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a3.log",
+        "sha256": "853485828ac020e69daeede20ee06234d8829e893e94f6ec00c908ec44d129b8",
+        "bytes": 78
+      }
+    },
+    "a4": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/convergence_manager/tests/test_v3_a4_evidence.py",
+        "--validator",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/cartographe_material_evidence.exe",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--reference-root",
+        "D:/ProjetGuillaume/DroneAgricole",
+        "--transaction-out",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a4-txn",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--out",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a4-adversarial.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:16:08.0229876Z",
+      "finished_utc": "2026-11-25T21:16:09.2686736Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a4.log",
+        "sha256": "d52781cc885d23a48a1e352f46db3c88857693d8b3dc5e97d3fa877a876954ee",
+        "bytes": 41
+      }
+    },
+    "a5-adversarial": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_a5_authority.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--openssl",
+        "C:/msys64/ucrt64/bin/openssl.exe",
+        "--out",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a5-adversarial.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:17:08.3571368Z",
+      "finished_utc": "2026-11-25T21:17:18.2002068Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a5-adversarial.log",
+        "sha256": "7c780fa0c7a7f3f6c56afbdf2ae71ae9b9a31d9fde2ec2fd85068c64160c131a",
+        "bytes": 52
+      }
+    },
+    "a5-no-crypto": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a5_no_crypto.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5-no-crypto/convergence_core.exe",
+        "C:/msys64/ucrt64/bin/openssl.exe",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/a5-no-crypto.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:17:18.2094562Z",
+      "finished_utc": "2026-11-25T21:17:18.9522055Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/a5-no-crypto.log",
+        "sha256": "1df089f8d7f8749fc4541347481b8620d08ed37800210e003aec8cec1d689696",
+        "bytes": 86
+      }
+    },
+    "build-l3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "--parallel",
+        "4"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:56.9792186Z",
+      "finished_utc": "2026-11-25T21:14:10.0868394Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/build-l3.log",
+        "bytes": 1742,
+        "sha256": "9539af39527be428e6310c1fa1b3257e302bf8ece896c867d18f1d5b0cd6768b"
+      }
+    },
+    "build-l4": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l4",
+        "--parallel",
+        "4",
+        "--target",
+        "validation_core",
+        "interconnection_core"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:56.5290677Z",
+      "finished_utc": "2026-11-25T21:14:10.8104525Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "690973f308c817ea907089651375ab21d969cdd716a2ace28994d3b70a2d28e9",
+        "bytes": 1661,
+        "path": ".runtime/int2-cxx17/steps/build-l4.log"
+      }
+    },
+    "build-l5-no-crypto": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5-no-crypto",
+        "--parallel",
+        "4",
+        "--target",
+        "convergence_core"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:39.5521323Z",
+      "finished_utc": "2026-11-25T21:14:51.5698437Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "7c8499b2263a910f11302140ad934b34c5c9e5309b25d7af3247b5672fd97de0",
+        "bytes": 1672,
+        "path": ".runtime/int2-cxx17/steps/build-l5-no-crypto.log"
+      }
+    },
+    "build-l5": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "--parallel",
+        "4"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:56.7495027Z",
+      "finished_utc": "2026-11-25T21:14:20.2042080Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/build-l5.log",
+        "bytes": 3801,
+        "sha256": "57f5ff10e3e0244d7dd5bdbc73afe22827e47f60b2f11d39bede66060aad428b"
+      }
+    },
+    "build-t0": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0",
+        "--parallel",
+        "4",
+        "--target",
+        "cartographe-evidence"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:55.9311527Z",
+      "finished_utc": "2026-11-25T21:14:03.1543420Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/build-t0.log",
+        "bytes": 145,
+        "sha256": "807b96d32faaded485f0c094239c8c1805752719501a4dc4dd3fc8e67751c376"
+      }
+    },
+    "c1-native-faults": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_c1_native_faults.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--transaction",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c1/t1/T1/candidates/v3-c-010/construction/transaction",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c1-faults"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:29:26.3406688Z",
+      "finished_utc": "2026-11-25T21:29:43.9588658Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/c1-native-faults.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "c1": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c1.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c1"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:25:14.2162254Z",
+      "finished_utc": "2026-11-25T21:29:26.3257769Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/c1.log",
+        "bytes": 63,
+        "sha256": "f98d3f3e2cce5c73f84082f62f8798783c773c54df2a6cce6d77d33fe504cc30"
+      }
+    },
+    "c2-boundaries": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_c2_boundaries.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--t1",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2/t1",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2-boundaries"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:18:54.2480506Z",
+      "finished_utc": "2026-11-25T21:18:56.3989333Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 27,
+        "sha256": "253b92d6051b4fdf44f46107d5f2518604bf851d3f6807d9f8beb1d422fe6057",
+        "path": ".runtime/int2-cxx17/steps/c2-boundaries.log"
+      }
+    },
+    "c2-native-faults": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_c2_native_faults.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--profile",
+        "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+        "--transaction",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-044/construction/transaction",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2-native-faults"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:18:56.4130603Z",
+      "finished_utc": "2026-11-25T21:19:51.9931355Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": ".runtime/int2-cxx17/steps/c2-native-faults.log"
+      }
+    },
+    "c2-review": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/review_c2.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2-review.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:18:53.7011329Z",
+      "finished_utc": "2026-11-25T21:18:54.2419498Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 25,
+        "sha256": "065245a0ff4b513fc9c42d9d70d7cc3f0a47c843c3769d5bfb5deb79de732c4c",
+        "path": ".runtime/int2-cxx17/steps/c2-review.log"
+      }
+    },
+    "c2-search-t1": {
+      "argv": [
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/test_l5_V3Search.exe",
+        "--multiharness",
+        "docs/electromechanical_v3/domains/c2_multiharness.json",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2/t1/reference-observation.json",
+        "docs/electromechanical_v3/bench_c2_multiharness/profile.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:19:51.9955477Z",
+      "finished_utc": "2026-11-25T21:19:52.0591547Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 49,
+        "sha256": "b5268c0e38ead67705bc43a83d37649003a8e466ad7f6f78a6d1e40c0322016b",
+        "path": ".runtime/int2-cxx17/steps/c2-search-t1.log"
+      }
+    },
+    "c2-search-t3": {
+      "argv": [
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/test_l5_V3Search.exe",
+        "--multiharness",
+        "docs/electromechanical_v3/domains/c2_multiharness_secondary.json",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2/t3/reference-observation.json",
+        "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:19:52.0640127Z",
+      "finished_utc": "2026-11-25T21:19:52.1053667Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 49,
+        "sha256": "b5268c0e38ead67705bc43a83d37649003a8e466ad7f6f78a6d1e40c0322016b",
+        "path": ".runtime/int2-cxx17/steps/c2-search-t3.log"
+      }
+    },
+    "c2-T1": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2",
+        "--phase",
+        "T1"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:39.6327980Z",
+      "finished_utc": "2026-11-25T21:16:53.7956334Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 21,
+        "sha256": "fa56025437f9fe732e5755982aec9b28a5826259fd23cfcfea11b8fa5a4a0cac",
+        "path": ".runtime/int2-cxx17/steps/c2-T1.log"
+      }
+    },
+    "c2-T3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/c2",
+        "--phase",
+        "T3"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:16:53.8215263Z",
+      "finished_utc": "2026-11-25T21:18:53.6933810Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 21,
+        "sha256": "8ad3cefe93052c1a35cfaa0c3264b875ac6dca145610decd4763c3b0fd9768a4",
+        "path": ".runtime/int2-cxx17/steps/c2-T3.log"
+      }
+    },
+    "cmake-version": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--version"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.1137912Z",
+      "finished_utc": "2026-11-25T21:14:37.2108015Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "7aac2bf98b909c6366c8829c0ff0b50a72e75e587666e1975248101cb88b1d26",
+        "path": ".runtime/int2-cxx17/steps/cmake-version.log",
+        "bytes": 93
+      }
+    },
+    "configure-l3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "architecture_decision_engine",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:53.3273177Z",
+      "finished_utc": "2026-11-25T21:13:56.9436262Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/configure-l3.log",
+        "bytes": 791,
+        "sha256": "b9f98e8fadea220072457d95126db6615e5bb81f9be5f5c116cc890422515229"
+      }
+    },
+    "configure-l4": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "validation_engine",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l4",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:53.3273695Z",
+      "finished_utc": "2026-11-25T21:13:56.5001529Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "84999351e9848b1246f46bab895d689cb7602ccefad1344421fffdaf2aaad119",
+        "bytes": 791,
+        "path": ".runtime/int2-cxx17/steps/configure-l4.log"
+      }
+    },
+    "configure-l5-no-crypto": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "convergence_manager",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5-no-crypto",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+        "-DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE",
+        "-DBUILD_TESTING=OFF",
+        "-DL5_A5_PHYSICAL_TRUST_SHA256="
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.1150687Z",
+      "finished_utc": "2026-11-25T21:14:39.5012256Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "d275fbfd7a8a7274e6b701d982517cf93a8d2e0f02a648183c9942eb5cadf0ed",
+        "bytes": 816,
+        "path": ".runtime/int2-cxx17/steps/configure-l5-no-crypto.log"
+      }
+    },
+    "configure-l5": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "convergence_manager",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+        "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "-DL5_L1_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/research/technical_research_core.exe",
+        "-DL5_L3_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "-DL5_L4_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l4/validation_core.exe",
+        "-DL5_T0_VALIDATOR=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "-DL5_A5_OPENSSL_EXECUTABLE=C:/msys64/ucrt64/bin/openssl.exe",
+        "-DL5_A5_PHYSICAL_TRUST_SHA256="
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:53.3273140Z",
+      "finished_utc": "2026-11-25T21:13:56.7166890Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/configure-l5.log",
+        "bytes": 791,
+        "sha256": "afc6db97a912082bcb2b6bf8c92369e013673c2527aa726ac01fbef2aabe7122"
+      }
+    },
+    "configure-t0": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "simulation",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:13:53.3274713Z",
+      "finished_utc": "2026-11-25T21:13:55.9042511Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/configure-t0.log",
+        "bytes": 806,
+        "sha256": "2ce37d0c658aa98f4c35611881a43676d86ae54af402067822ab061e94af25ac"
+      }
+    },
+    "d-historical": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/recheck_v3_d_legacy.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/d-historical"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:21:48.1140449Z",
+      "finished_utc": "2026-11-25T21:22:50.4453093Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/d-historical.log",
+        "sha256": "b07084b053bb9f5fbc3d247e2e1518aa979c8d2d0f828bd4a989d6d55e22631f",
+        "bytes": 55
+      }
+    },
+    "gcc-version": {
+      "argv": [
+        "g++.exe",
+        "--version"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.2379368Z",
+      "finished_utc": "2026-11-25T21:14:37.2561306Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "cd0be1113ba1a5c94c6e504050108d0d5535a617bc910e90a1b70c5ecaeec8fa",
+        "path": ".runtime/int2-cxx17/steps/gcc-version.log",
+        "bytes": 253
+      }
+    },
+    "int1-regressions": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c1_regressions.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "--ctest",
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--build-l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "--build-l5",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "--historical-root",
+        "D:/ProjetGuillaume/DroneAgricole",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/old-regressions"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:18:40.1507549Z",
+      "finished_utc": "2026-11-25T21:25:14.1948620Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/int1-regressions.log",
+        "bytes": 103,
+        "sha256": "bbc7b1f4c2d842d65f648457c8ee191e1e31a0fcc0d9c88acd18c95b4a397ff7"
+      }
+    },
+    "int2-boundaries": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/integration_boundaries.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5/convergence_core.exe"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:19:43.8111678Z",
+      "finished_utc": "2026-11-25T21:19:44.8548714Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "a6710fe66f5ed899c197ca3b527bd501aba881734d4dcd862bab1b64c023a1bd",
+        "bytes": 94,
+        "path": ".runtime/int2-cxx17/steps/int2-boundaries.log"
+      }
+    },
+    "l1-sealed": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "technical_research_engine/tests",
+        "-v"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "started_utc": "2026-11-25T21:15:36.0165365Z",
+      "finished_utc": "2026-11-25T21:15:39.3811960Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 4150,
+        "sha256": "746cdfdb6193ff6d04b6e0898ea9125d752e7787c3afae9a16c0307d36b41849",
+        "path": ".runtime/int2-cxx17/steps/l1-sealed.log"
+      },
+      "environment": {
+        "TECHNICAL_RESEARCH_CORE": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l3\\research\\technical_research_core.exe"
+      }
+    },
+    "l2-checkout": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "-R",
+        "^l2_reconcile$",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:04.2419928Z",
+      "finished_utc": "2026-11-25T21:15:04.4868733Z",
+      "exit_code": 8,
+      "log": {
+        "bytes": 1081,
+        "sha256": "063bde7a303a0e33d5ed2baac5f09993c52a154e301a0d2a7cf0f598caa31c6c",
+        "path": ".runtime/int2-cxx17/steps/l2-checkout.log"
+      }
+    },
+    "l2-sealed": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "interconnection_engine/tests/test_reconcile.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3/interconnection/interconnection_core.exe",
+        "-v"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-b2\\historical\\l2-sealed",
+      "started_utc": "2026-11-25T21:15:34.2618854Z",
+      "finished_utc": "2026-11-25T21:15:36.0078778Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 989,
+        "sha256": "b99b8644f61a180f8d22d48ac8c2198694502ee5b1b506e6657f065292b49174",
+        "path": ".runtime/int2-cxx17/steps/l2-sealed.log"
+      }
+    },
+    "l3-full": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:04.4965748Z",
+      "finished_utc": "2026-11-25T21:15:34.2480296Z",
+      "exit_code": 8,
+      "log": {
+        "bytes": 6442,
+        "sha256": "d4011a6e7a5dad10ec4f8c3e21419620ef1723e801447cdf454048a102732f83",
+        "path": ".runtime/int2-cxx17/steps/l3-full.log"
+      }
+    },
+    "l3-targeted": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l3",
+        "-R",
+        "^l3_",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.1145666Z",
+      "finished_utc": "2026-11-25T21:15:04.2175995Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 377,
+        "sha256": "d65c0be736a799b475727f81a96e2cb09665ea7c87e26d9de8fe180a0223b99a",
+        "path": ".runtime/int2-cxx17/steps/l3-targeted.log"
+      }
+    },
+    "l5-discovery": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "-N"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:54.5067486Z",
+      "finished_utc": "2026-11-25T21:15:54.6091277Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "94152cbfea78a600f4bbf835445b061e2a6e624c8f85137a27af1a65051a0018",
+        "path": ".runtime/int2-cxx17/steps/l5-discovery.log",
+        "bytes": 484
+      }
+    },
+    "l5-reconcile": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "-R",
+        "^l2_reconcile$",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:54.6343940Z",
+      "finished_utc": "2026-11-25T21:15:54.9122221Z",
+      "exit_code": 8,
+      "log": {
+        "sha256": "f181c4e38a53de65671372e9eeff19a2a1a3080d88f63241e9761e53cdbbfc31",
+        "path": ".runtime/int2-cxx17/steps/l5-reconcile.log",
+        "bytes": 1083
+      }
+    },
+    "l5-targeted": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/l5",
+        "-R",
+        "^l5_(Campaign|Selection|v3_a[45]_|v3_admission_)",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:54.5067226Z",
+      "finished_utc": "2026-11-25T21:17:08.3303943Z",
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/int2-cxx17/steps/l5-targeted.log",
+        "sha256": "d99b1bfba8a3ec4e26a25a60d66797f24b3ceee6de62c731c0e7e8f56e7fcd44",
+        "bytes": 785
+      }
+    },
+    "native-environment": {
+      "argv": [
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/probe_native.py"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.3491954Z",
+      "finished_utc": "2026-11-25T21:14:38.8797209Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "8cedefc0003bd9dc5d354fed0765b9a033939f20a179dce144f82bceecf960ca",
+        "path": ".runtime/int2-cxx17/steps/native-environment.log",
+        "bytes": 139
+      }
+    },
+    "ninja-version": {
+      "argv": [
+        "ninja.exe",
+        "--version"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.2627060Z",
+      "finished_utc": "2026-11-25T21:14:37.2760336Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "f7204ca4d4bbe623e6045a5088ac906c5e1966b4fd2a11af9d156bad3327526f",
+        "path": ".runtime/int2-cxx17/steps/ninja-version.log",
+        "bytes": 8
+      }
+    },
+    "openssl-version": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/openssl.exe",
+        "version"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.3102728Z",
+      "finished_utc": "2026-11-25T21:14:37.3271061Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "1bbb376856e8808bf5ce4f40f337a958b65bcfec47090f32962f3c1660f9563e",
+        "path": ".runtime/int2-cxx17/steps/openssl-version.log",
+        "bytes": 64
+      }
+    },
+    "python-version": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--version"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.3297020Z",
+      "finished_utc": "2026-11-25T21:14:37.3436483Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "9fc9968e3ae8d82284d7426a87e1426e07246027c7706b0803a1c8d9c60c7a4d",
+        "path": ".runtime/int2-cxx17/steps/python-version.log",
+        "bytes": 15
+      }
+    },
+    "qt-version": {
+      "argv": [
+        "qmake6.exe",
+        "-v"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.2813939Z",
+      "finished_utc": "2026-11-25T21:14:37.3073700Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "080e310d9c2899ce10b6abb877e38e28f90528107295b07a0a2e78e499aec4fa",
+        "path": ".runtime/int2-cxx17/steps/qt-version.log",
+        "bytes": 68
+      }
+    },
+    "t0-cartographe": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0",
+        "-R",
+        "^cartographe_t0_contracts$",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:14:37.1140058Z",
+      "finished_utc": "2026-11-25T21:14:41.0573230Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "7de0f8c9de149013983213128b0a32ef803f494b0bc87c0015bd99c26de17841",
+        "bytes": 274,
+        "path": ".runtime/int2-cxx17/steps/t0-cartographe.log"
+      }
+    },
+    "t0-quiet": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0",
+        "-R",
+        "^cartographe_(sitl_)?t0_contracts$",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:26:33.2327284Z",
+      "finished_utc": "2026-11-25T21:27:04.4564376Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 388,
+        "sha256": "26df15d5d058467db572f1a69ef880de9d572490fb2c58aa11915ee34fb69953",
+        "path": ".runtime/int2-cxx17/steps/t0-quiet.log"
+      }
+    },
+    "t0-sitl-direct": {
+      "argv": [
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int2-worktree/.runtime/int2-cxx17/t0/cartographe-evidence.exe",
+        "self-test-sitl"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+      "started_utc": "2026-11-25T21:15:54.5070196Z",
+      "finished_utc": "2026-11-25T21:16:53.8687006Z",
+      "exit_code": 0,
+      "log": {
+        "sha256": "29b2cec630b97876cefb52894111b8705ea697e2fbc218bb29440b4f186e49a5",
+        "bytes": 104,
+        "path": ".runtime/int2-cxx17/steps/t0-sitl-direct.log"
+      }
+    }
+  },
+  "actual_standard_checks": {
+    "l3": {
+      "command": [
+        "C:/msys64/ucrt64/bin/ninja.exe",
+        "-C",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l3",
+        "-t",
+        "compdb"
+      ],
+      "compile_commands": 15,
+      "standard_flag": "-std=c++17"
+    },
+    "l4": {
+      "command": [
+        "C:/msys64/ucrt64/bin/ninja.exe",
+        "-C",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l4",
+        "-t",
+        "compdb"
+      ],
+      "compile_commands": 16,
+      "standard_flag": "-std=c++17"
+    },
+    "t0": {
+      "command": [
+        "C:/msys64/ucrt64/bin/ninja.exe",
+        "-C",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\t0",
+        "-t",
+        "compdb"
+      ],
+      "compile_commands": 8,
+      "standard_flag": "-std=c++17"
+    },
+    "l5": {
+      "command": [
+        "C:/msys64/ucrt64/bin/ninja.exe",
+        "-C",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l5",
+        "-t",
+        "compdb"
+      ],
+      "compile_commands": 31,
+      "standard_flag": "-std=c++17"
+    },
+    "l5-no-crypto": {
+      "command": [
+        "C:/msys64/ucrt64/bin/ninja.exe",
+        "-C",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l5-no-crypto",
+        "-t",
+        "compdb"
+      ],
+      "compile_commands": 25,
+      "standard_flag": "-std=c++17"
+    }
+  },
+  "local_replay_helpers": [
+    {
+      "path": ".runtime/int2-cxx17/a5_no_crypto.py",
+      "sha256": "b130f8775cc47c63c8bc36844e3ab6d4855acba7e24ac01e898513082d6a552e",
+      "bytes": 896
+    },
+    {
+      "path": ".runtime/int2-cxx17/consolidate.py",
+      "sha256": "eeaa14f8ce4879b902d5ea508ed6265cf9e8c3d96d3787811b299369ea43b0fa",
+      "bytes": 19741
+    },
+    {
+      "path": ".runtime/int2-cxx17/document.ps1",
+      "sha256": "96dbcaa12f2a1960cce16a3b5e315db90e639104d2730f845de7a58adc0fd893",
+      "bytes": 2746
+    },
+    {
+      "path": ".runtime/int2-cxx17/integration_boundaries.py",
+      "sha256": "4d0bdceaeafc8919f412885850655e086f55cbf54553d3f1735f03d9d97cef93",
+      "bytes": 4736
+    },
+    {
+      "path": ".runtime/int2-cxx17/integrity.py",
+      "sha256": "7e98109ce24f8bb276ae6c0da047cbd2e3501b9afd9938f6d180939f3a11f220",
+      "bytes": 3350
+    },
+    {
+      "path": ".runtime/int2-cxx17/probe_native.py",
+      "sha256": "6172570ce97fab8aafdc5ae7d8862a94cb7900d46dc1ebb51aee434184fbda14",
+      "bytes": 423
+    },
+    {
+      "path": ".runtime/int2-cxx17/review_c2.py",
+      "sha256": "5c08e7d3ebfb68d30ef322a4f51e6a70825908956e1d28e2d5556e04c79968a8",
+      "bytes": 2968
+    },
+    {
+      "path": ".runtime/int2-cxx17/run.ps1",
+      "sha256": "dffff221a3f12d41eaa7b9ff87a34a8122939cfad99ad7543d37aa6affbf197a",
+      "bytes": 11107
+    }
+  ],
+  "ctest": {
+    "L3_checkout": {
+      "l3_architecture_decision": "PASS",
+      "l3_v3_problem_spec": "PASS",
+      "l2_interconnection": "PASS",
+      "l2_reconcile": "FAIL",
+      "technical_research_engine": "FAIL"
+    },
+    "L5_checkout": {
+      "l5_v3_a4_material_evidence": "PASS",
+      "l5_v3_a5_authority": "PASS",
+      "l5_Campaign": "PASS",
+      "l5_Selection": "PASS",
+      "l5_v3_admission_entry": "PASS",
+      "l5_v3_admission_policy": "PASS",
+      "l5_v3_native_mutate": "PASS",
+      "l5_v3_native_verify": "PASS",
+      "l5_cli": "PASS",
+      "v3_graph_contract": "PASS",
+      "l2_interconnection": "PASS",
+      "l2_reconcile": "FAIL"
+    },
+    "L5_grouped_xml": {
+      "path": ".runtime/int2-cxx17/old-regressions/l5.xml",
+      "sha256": "2a6b12c91af85a6f23bffe1ed556d1000196e7e45c487a848e7b34fab65e1651",
+      "bytes": 6071
+    },
+    "T0_attempts": {
+      "t0-quiet": {
+        "cartographe_t0_contracts": "PASS",
+        "cartographe_sitl_t0_contracts": "PASS"
+      }
+    }
+  },
+  "sealed_reference": {
+    "l2": "V3-D .runtime/v3-b2/historical/l2-sealed",
+    "l2_unittests_passed": 7,
+    "l1": "V3-D checkout 551db0d",
+    "l1_unittests_passed": 24,
+    "line_endings": {
+      "docs/verification/cartographe_action3_interconnexions.json": {
+        "checkout_sha256": "356fa28aeebeae7710fa111e41b893fe396d59fded17426d3a910c3961a4ab90",
+        "sealed_sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d",
+        "crlf_count": 3431,
+        "checkout_bytes": 113576,
+        "sealed_bytes": 117007
+      },
+      "hardware/mecanique/cartographe/verification/routes_prototype.json": {
+        "checkout_sha256": "ae6701abafb935bcc9856c8ce627320208322a7254594c360e7de9a0b7307d1e",
+        "sealed_sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+        "crlf_count": 10294,
+        "checkout_bytes": 253927,
+        "sealed_bytes": 264221
+      }
+    },
+    "unchanged_since_INT1_merge_base": [
+      "technical_research_engine",
+      "interconnection_engine",
+      "docs/electromechanical_v2/BASELINE_MANIFEST.json",
+      "docs/verification/cartographe_action3_interconnexions.json",
+      "hardware/mecanique/cartographe/verification/routes_prototype.json"
+    ]
+  },
+  "grouped_int1": {
+    "receipt": {
+      "path": ".runtime/int2-cxx17/old-regressions/regressions.json",
+      "sha256": "388c9827367d37b69537b18a06a78d6fb719f978ffc2e04dbccddfe5d608664e",
+      "bytes": 5748
+    },
+    "tests": {
+      "L3": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/L3-invocation.json",
+          "sha256": "fc3760a62ec1995627cf6d7ba0c33c6ee2cbf70b1b05391b3834dc0b2f1dac9e"
+        },
+        "started_utc": "2026-11-25T21:18:40.295858+00:00",
+        "completed_utc": "2026-11-25T21:19:11.226833+00:00",
+        "duration_seconds": 30.930975,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/l3.xml",
+          "sha256": "c6a0cbb21af82f338050ed6ac6286641bcd3a3444396438708b8c279c84b91e5"
+        }
+      },
+      "L5": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/L5-invocation.json",
+          "sha256": "3dfd844e687f7943bb2895de4ade066504120f1e8ae3cf6e3174f5ea0cedeb93"
+        },
+        "started_utc": "2026-11-25T21:19:11.231425+00:00",
+        "completed_utc": "2026-11-25T21:25:14.166896+00:00",
+        "duration_seconds": 362.935471,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/l5.xml",
+          "sha256": "2a6b12c91af85a6f23bffe1ed556d1000196e7e45c487a848e7b34fab65e1651"
+        }
+      },
+      "B.1": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/B.1-invocation.json",
+          "sha256": "31a7c40e46f5bfba01131ded2e973b41a3426f7a390a4bfa7e02c4f3a39b2b35"
+        },
+        "started_utc": "2026-11-25T21:18:40.294775+00:00",
+        "completed_utc": "2026-11-25T21:20:21.429445+00:00",
+        "duration_seconds": 101.13467,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/b1/replay.json",
+          "sha256": "6d3fda26a19ea89c3143eb494de1d3bd39954f6822a4e9b20a5a9640d1e5546a"
+        }
+      },
+      "B.2": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/B.2-invocation.json",
+          "sha256": "ee563563817447df0b0130004fb48c9b078db74aaff363ea353253f233ab5a85"
+        },
+        "started_utc": "2026-11-25T21:20:21.443504+00:00",
+        "completed_utc": "2026-11-25T21:21:00.853214+00:00",
+        "duration_seconds": 39.40971,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/b2/index.json",
+          "sha256": "218332666dc476ef45200e149c30e0dab5167d8f5a49b0b59bd2d38cd00117d1"
+        }
+      },
+      "A.2": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/A.2-invocation.json",
+          "sha256": "5af20f0580296bb03c5a53818555e8e6396af68b51c7f0223a6ef8da1196b417"
+        },
+        "started_utc": "2026-11-25T21:18:40.295024+00:00",
+        "completed_utc": "2026-11-25T21:18:45.695826+00:00",
+        "duration_seconds": 5.400802,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/a2/integrity.json",
+          "sha256": "218375500bd2990f8516f766e34a241c09e73d85c09d51bec8f6f26f42c4c477"
+        }
+      },
+      "I": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/V3-I-invocation.json",
+          "sha256": "2657dac0de3c891316f41a21fe975b964d71f175d37180d72c3613fba9e02bb5"
+        },
+        "started_utc": "2026-11-25T21:18:45.705193+00:00",
+        "completed_utc": "2026-11-25T21:18:47.220842+00:00",
+        "duration_seconds": 1.515649,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/i/scope_checks.json",
+          "sha256": "4877aad757868aa27d93794666b54efff89eaa181cbdb0fab6e7f3d510e1e4b7"
+        }
+      },
+      "B.1-guards": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/B.1-guards-invocation.json",
+          "sha256": "d32b056083e24a8ccad182c9d4d610a26142c093f4eece2b1b51c95451deded5"
+        },
+        "started_utc": "2026-11-25T21:18:47.229624+00:00",
+        "completed_utc": "2026-11-25T21:19:06.394245+00:00",
+        "duration_seconds": 19.164621,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/b1-boundary/checks.json",
+          "sha256": "db6e1dcad2723a502f7a901f4a99d55b784867f4d62848d2875e207da37a22d2"
+        }
+      },
+      "C": {
+        "status": "PASS",
+        "exit_code": 0,
+        "invocation": {
+          "path": ".runtime/int2-cxx17/old-regressions/V3-C-invocation.json",
+          "sha256": "28edd7d355b9849cdae4c94be8903af9a07c4d03efec29663499e30e85831fa0"
+        },
+        "started_utc": "2026-11-25T21:18:40.295299+00:00",
+        "completed_utc": "2026-11-25T21:23:52.935208+00:00",
+        "duration_seconds": 312.639909,
+        "result": {
+          "path": ".runtime/int2-cxx17/old-regressions/historical-c/generalization.json",
+          "sha256": "df27bda98625cc95e47c5c04c4cd503e3cf6c9628a9b8428b24a31dab05d80c6"
+        }
+      }
+    }
+  },
+  "C.1": {
+    "freeze": {
+      "path": ".runtime/int2-cxx17/c1/perturbation_freeze.json",
+      "sha256": "ac8df250d210a3060ce3654f765e543cbe7fc6670c00ba64823d84b9a901735c",
+      "bytes": 7752
+    },
+    "receipt": {
+      "path": ".runtime/int2-cxx17/c1/generalization.json",
+      "sha256": "f4dd14e467e8587ae343dfea56fde6b4d61c94e82f27f82c300cda0f3a41ada8",
+      "bytes": 22919
+    },
+    "phases": {
+      "T1": {
+        "budget": {
+          "max_native": 6,
+          "max_proposals": 30
+        },
+        "coverage": [
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 9,
+              "evaluated_pose_family_count": 9,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 7,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 6,
+              "evaluated_pose_family_count": 6,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 4,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 0,
+              "evaluated_pose_family_count": 3,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_NEGATIVE",
+            "status": "NO_FEASIBLE_CANDIDATE_FOUND"
+          }
+        ],
+        "domain_sha256": "12997df87840fd5fb929a54da42945d009b1c10ec4f1cd81e70c7310b5889b76",
+        "finalized": true,
+        "native_attempts": 4,
+        "phase": "T1",
+        "proposals": 29,
+        "qualified_candidates": 3,
+        "reason": "RANKED_FEASIBLE_CANDIDATES",
+        "retained": {
+          "candidate_id": "v3-c-010",
+          "metrics": {
+            "maximum_endpoint_gap_mm": 4.7207330545682824e-15,
+            "maximum_interference_mm3": 1.1309733552923285,
+            "maximum_tangent_error_deg": 0,
+            "minimum_bend_radius_mm": 4.999999999999993,
+            "minimum_support_bearing_area_mm2": 48,
+            "route_clearance_mm": 1.25,
+            "route_length_mm": 76.52942102045735,
+            "service_clearance_mm": 0.5499999999999883,
+            "support_count": 1
+          },
+          "native_sha256": {
+            "Banc_Interconnexion.FCStd": "acc70e00714c2933bc230ec7bbfba21aa6aee34fa7385bf4eed0f45485318dbc",
+            "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+            "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+          },
+          "result": "candidates/v3-c-010/cross/v3-c-010/candidate-result.json",
+          "result_sha256": "ed2af6f4067ad476346abb365cfc39a43a1c353ac106906bd39cf6ab37104b31",
+          "values": {
+            "bend_radius_mm": 5,
+            "route_points_mm": [
+              [
+                14,
+                0,
+                0
+              ],
+              [
+                28.25,
+                0,
+                0
+              ],
+              [
+                35.75,
+                7.25,
+                0
+              ],
+              [
+                88,
+                7.25,
+                0
+              ]
+            ],
+            "translation_mm": [
+              102,
+              7.25,
+              0
+            ]
+          }
+        },
+        "schema": "v3.convergence_campaign/1",
+        "scope": "SYNTHETIC_BENCH",
+        "seed": 2026,
+        "verdict": "V3_C_PASS",
+        "campaign": {
+          "path": ".runtime/int2-cxx17/c1/t1/T1/campaign.json",
+          "sha256": "9c689c74289f1f5b84b76fcab2e8520b858543c19b99469ec1826c014bd339e3"
+        },
+        "trace": {
+          "path": ".runtime/int2-cxx17/c1/t1/T1/candidate_trace.jsonl",
+          "sha256": "cc8eef05d81c82ca5af2f0362df20212b6a08c8632114bb2808ddc27b6f1caf4"
+        },
+        "pareto": {
+          "path": ".runtime/int2-cxx17/c1/t1/T1/pareto.json",
+          "sha256": "5612108fc55623acc29e9bbb5c5c07db0a89a54faad0a5942c69eb474df06b7e"
+        },
+        "family_transitions": {
+          "path": ".runtime/int2-cxx17/c1/t1/T1/family_transitions.json",
+          "sha256": "abd50566e1f31dc1fa47f3836c4f75ed1383381efc9964d769f005859b65c04b"
+        },
+        "t0": {
+          "path": ".runtime/int2-cxx17/c1/t1/T1/t0-crosscheck.json",
+          "sha256": "62d7d87cfa0b80624a59db871935535df005713031fac7115407f0e6f424f4c8"
+        },
+        "discovered_poses": [
+          [
+            100,
+            3.75,
+            0
+          ],
+          [
+            100,
+            5.5,
+            0
+          ],
+          [
+            100,
+            7.25,
+            0
+          ],
+          [
+            100,
+            9,
+            0
+          ],
+          [
+            102,
+            3.75,
+            0
+          ],
+          [
+            102,
+            5.5,
+            0
+          ],
+          [
+            102,
+            7.25,
+            0
+          ],
+          [
+            102,
+            9,
+            0
+          ],
+          [
+            104,
+            3.75,
+            0
+          ],
+          [
+            104,
+            5.5,
+            0
+          ],
+          [
+            104,
+            7.25,
+            0
+          ],
+          [
+            104,
+            9,
+            0
+          ],
+          [
+            106,
+            7.25,
+            0
+          ]
+        ],
+        "started_utc": "2026-11-25T21:25:14.587238+00:00",
+        "completed_utc": "2026-11-25T21:26:18.140197+00:00"
+      },
+      "T2": {
+        "budget": {
+          "max_native": 6,
+          "max_proposals": 30
+        },
+        "coverage": [
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 9,
+              "evaluated_pose_family_count": 9,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 7,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 6,
+              "evaluated_pose_family_count": 6,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 4,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 1,
+              "evaluated_pose_family_count": 3,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_NEGATIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 1,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                104,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_NEGATIVE",
+            "status": "GENERATED"
+          }
+        ],
+        "domain_sha256": "12997df87840fd5fb929a54da42945d009b1c10ec4f1cd81e70c7310b5889b76",
+        "finalized": true,
+        "native_attempts": 6,
+        "phase": "T2",
+        "proposals": 30,
+        "qualified_candidates": 5,
+        "reason": "RANKED_FEASIBLE_CANDIDATES",
+        "retained": {
+          "candidate_id": "v3-c-010",
+          "metrics": {
+            "maximum_endpoint_gap_mm": 7.755684626330685e-15,
+            "maximum_interference_mm3": 1.1309733552923296,
+            "maximum_tangent_error_deg": 0,
+            "minimum_bend_radius_mm": 4.999999999999993,
+            "minimum_support_bearing_area_mm2": 48,
+            "route_clearance_mm": 1.25,
+            "route_length_mm": 79.52942102045735,
+            "service_clearance_mm": 0.5499999999999883,
+            "support_count": 1
+          },
+          "native_sha256": {
+            "Banc_Interconnexion.FCStd": "52918d1303dd64ccf99a79d2b6e3d6a2bcf74e8bdf1abf8a02dcb39b7c3d9fd7",
+            "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+            "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+          },
+          "result": "candidates/v3-c-010/cross/v3-c-010/candidate-result.json",
+          "result_sha256": "8b3b83def6e57250d270d7115e8f6ffce962d77fa1290fc92df167425d75588c",
+          "values": {
+            "bend_radius_mm": 5,
+            "route_points_mm": [
+              [
+                14,
+                0,
+                0
+              ],
+              [
+                28.4,
+                0,
+                0
+              ],
+              [
+                35.9,
+                7.25,
+                0
+              ],
+              [
+                91,
+                7.25,
+                0
+              ]
+            ],
+            "translation_mm": [
+              105,
+              7.25,
+              0
+            ]
+          }
+        },
+        "schema": "v3.convergence_campaign/1",
+        "scope": "SYNTHETIC_BENCH",
+        "seed": 2026,
+        "verdict": "V3_C_PASS",
+        "campaign": {
+          "path": ".runtime/int2-cxx17/c1/t2/T2/campaign.json",
+          "sha256": "7c74d09a09af46cd3228d02144b64f7a67ca446d24410bc0dc19006104eca751"
+        },
+        "trace": {
+          "path": ".runtime/int2-cxx17/c1/t2/T2/candidate_trace.jsonl",
+          "sha256": "79bffb333f9f3fbc2c0b614f25e02947f895e8ed24e8b5a2b3a2d42678d59266"
+        },
+        "pareto": {
+          "path": ".runtime/int2-cxx17/c1/t2/T2/pareto.json",
+          "sha256": "4e3fa7b4b71d937d871d9c134a78c32b97a9e2160b4b112fefbdf4e760f0280c"
+        },
+        "family_transitions": {
+          "path": ".runtime/int2-cxx17/c1/t2/T2/family_transitions.json",
+          "sha256": "14db7134d7c21bbed746cdd2e11f2f2c3e03995aa77dea0b9e4bc454009dac93"
+        },
+        "t0": {
+          "path": ".runtime/int2-cxx17/c1/t2/T2/t0-crosscheck.json",
+          "sha256": "cd854b6ec90279fa8b6915b2360fd1d199ed4138ad5b8a7ea26265ed4c5defda"
+        },
+        "discovered_poses": [
+          [
+            104.5,
+            3.75,
+            0
+          ],
+          [
+            104.5,
+            5.5,
+            0
+          ],
+          [
+            104.5,
+            7.25,
+            0
+          ],
+          [
+            104.5,
+            9,
+            0
+          ],
+          [
+            105,
+            3.75,
+            0
+          ],
+          [
+            105,
+            5.5,
+            0
+          ],
+          [
+            105,
+            7.25,
+            0
+          ],
+          [
+            105,
+            9,
+            0
+          ],
+          [
+            105.5,
+            3.75,
+            0
+          ],
+          [
+            105.5,
+            5.5,
+            0
+          ],
+          [
+            105.5,
+            7.25,
+            0
+          ],
+          [
+            105.5,
+            9,
+            0
+          ],
+          [
+            106,
+            5.5,
+            0
+          ],
+          [
+            106,
+            7.25,
+            0
+          ]
+        ],
+        "started_utc": "2026-11-25T21:26:18.177712+00:00",
+        "completed_utc": "2026-11-25T21:27:51.537494+00:00"
+      },
+      "T3": {
+        "budget": {
+          "max_native": 6,
+          "max_proposals": 30
+        },
+        "coverage": [
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 9,
+              "evaluated_pose_family_count": 9,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 7,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DIRECT",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 2,
+              "evaluated_pose_family_count": 8,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_NEGATIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 5,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_NEGATIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 3,
+              "evaluated_pose_family_count": 3,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          },
+          {
+            "coverage": {
+              "budget_limited": true,
+              "determination": "SCREEN_ONLY",
+              "eligible": 1,
+              "evaluated_pose_family_count": 25,
+              "grid_levels_per_variable_axis": 5,
+              "possible_pose_count": 25,
+              "region_max_mm": [
+                106,
+                9,
+                0
+              ],
+              "region_min_mm": [
+                98,
+                2,
+                0
+              ],
+              "route_screen": "TUBE_ENVELOPE_VS_OBSERVED_AABB"
+            },
+            "family": "DETOUR_POSITIVE",
+            "status": "GENERATED"
+          }
+        ],
+        "domain_sha256": "2de090aa20940fad9651d3d3b185857721aeec19ed535f1cc76faf316e7914d1",
+        "finalized": true,
+        "native_attempts": 6,
+        "phase": "T3",
+        "proposals": 30,
+        "qualified_candidates": 2,
+        "reason": "RANKED_FEASIBLE_CANDIDATES",
+        "retained": {
+          "candidate_id": "v3-c-015",
+          "metrics": {
+            "maximum_endpoint_gap_mm": 6.951095629092365e-15,
+            "maximum_interference_mm3": 1.1309733552923278,
+            "maximum_tangent_error_deg": 0,
+            "minimum_bend_radius_mm": 4.99999999999999,
+            "minimum_support_bearing_area_mm2": 48,
+            "route_clearance_mm": 4.34065473267741,
+            "route_length_mm": 88.53810939957728,
+            "service_clearance_mm": 0.5500000000000043,
+            "support_count": 1
+          },
+          "native_sha256": {
+            "Banc_Interconnexion.FCStd": "e30feb7a4c534f7bba8415937be153156538a9709e16b0a076c444bb3b292c3b",
+            "parts/CoupledAssets.FCStd": "eb16c796e1835583b0d31eed7e05bcdfd392804f09f884336e09ac426ef55766",
+            "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+          },
+          "result": "candidates/v3-c-015/cross/v3-c-015/candidate-result.json",
+          "result_sha256": "5285b3474c65a283d686c9005bea81ca9e0d8c08dcdf3f0a2c87cd4f04f2b4de",
+          "values": {
+            "bend_radius_mm": 5,
+            "route_points_mm": [
+              [
+                14,
+                0,
+                0
+              ],
+              [
+                26,
+                0,
+                0
+              ],
+              [
+                35.32,
+                -11.65,
+                0
+              ],
+              [
+                54,
+                -11.65,
+                0
+              ],
+              [
+                67.72,
+                5.5,
+                0
+              ],
+              [
+                90,
+                5.5,
+                0
+              ]
+            ],
+            "translation_mm": [
+              104,
+              5.5,
+              0
+            ]
+          }
+        },
+        "schema": "v3.convergence_campaign/1",
+        "scope": "SYNTHETIC_BENCH",
+        "seed": 2026,
+        "verdict": "V3_C_PASS",
+        "campaign": {
+          "path": ".runtime/int2-cxx17/c1/t3/T3/campaign.json",
+          "sha256": "a9b0a0603aebb71550b0c253e132fa385d69a86ac68c7f0afb5b761ac78a7037"
+        },
+        "trace": {
+          "path": ".runtime/int2-cxx17/c1/t3/T3/candidate_trace.jsonl",
+          "sha256": "094198311ddc66e0c4b24485d61e5408211e06cb62b00fdfc0a7060e811f2501"
+        },
+        "pareto": {
+          "path": ".runtime/int2-cxx17/c1/t3/T3/pareto.json",
+          "sha256": "7ee04e378b898e3c66cb87356ab94310cfcbc1663ef37a6e3e16d339d98e85c1"
+        },
+        "family_transitions": {
+          "path": ".runtime/int2-cxx17/c1/t3/T3/family_transitions.json",
+          "sha256": "51a7eb14bac89ff26ff85db94eb80b8cb832eb61f0ca44aaa5a08003bdd0c04d"
+        },
+        "t0": {
+          "path": ".runtime/int2-cxx17/c1/t3/T3/t0-crosscheck.json",
+          "sha256": "71a50f1641ce70d2608d930cc7638b922660fcd4a2b8eb4120fd167f36ac13a3"
+        },
+        "discovered_poses": [
+          [
+            100,
+            3.75,
+            0
+          ],
+          [
+            100,
+            5.5,
+            0
+          ],
+          [
+            100,
+            7.25,
+            0
+          ],
+          [
+            100,
+            9,
+            0
+          ],
+          [
+            102,
+            2,
+            0
+          ],
+          [
+            102,
+            3.75,
+            0
+          ],
+          [
+            102,
+            5.5,
+            0
+          ],
+          [
+            102,
+            7.25,
+            0
+          ],
+          [
+            102,
+            9,
+            0
+          ],
+          [
+            104,
+            3.75,
+            0
+          ],
+          [
+            104,
+            5.5,
+            0
+          ],
+          [
+            104,
+            7.25,
+            0
+          ],
+          [
+            106,
+            5.5,
+            0
+          ],
+          [
+            106,
+            7.25,
+            0
+          ]
+        ],
+        "started_utc": "2026-11-25T21:27:51.572944+00:00",
+        "completed_utc": "2026-11-25T21:29:25.329661+00:00"
+      }
+    }
+  },
+  "C.2": {
+    "review": {
+      "path": ".runtime/int2-cxx17/c2-review.json",
+      "sha256": "928bb20d91ffb548b48ac72b3a26fccee19ac22663d8871527d74116ac0f3a24",
+      "bytes": 67759
+    },
+    "freeze": {
+      "path": ".runtime/int2-cxx17/c2/freeze.json",
+      "sha256": "077d14af706c4bfd54a4791ddb3a00d8c71fd219e3f009ac161ea3a6e0d6134a"
+    },
+    "verified_fingerprints": 37,
+    "phases": {
+      "T1": {
+        "domain": {
+          "path": "docs/electromechanical_v3/domains/c2_multiharness.json",
+          "sha256": "7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5"
+        },
+        "profile": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+          "sha256": "250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604"
+        },
+        "summary": {
+          "path": ".runtime/int2-cxx17/c2/t1/summary.json",
+          "sha256": "514ef1f49e5a2b5f3ae2fc7a26747d097a2c1e4296f09a58922c32fad2613db9"
+        },
+        "proposals": 79,
+        "native_attempts": 7,
+        "qualified_candidates": 3,
+        "winner": "v3-c-044",
+        "tradeoff": true,
+        "candidates": [
+          {
+            "candidate": "v3-c-043",
+            "support": "plate",
+            "bearing_area_mm2": 198.0,
+            "engagement": {
+              "pair": [
+                "Workholding/Carrier",
+                "Workholding/Stud"
+              ],
+              "intersection_mm3": 1.3273228961416927,
+              "gap_mm": 0.0,
+              "status": "PASS",
+              "role": "FASTENER_CARRIER_ENGAGEMENT",
+              "support": "plate",
+              "authority_reason": "Engagement contrôlé du goujon dans la face porteuse du banc.",
+              "min_volume_mm3": 1.2,
+              "max_volume_mm3": 1.36,
+              "bearing_area_mm2": 198.0,
+              "fastener": {
+                "intersection_mm3": 1.3273228961416872,
+                "gap_mm": 0.0,
+                "name": "Workholding/Stud",
+                "support_gap_mm": 0.0
+              }
+            },
+            "cables": {
+              "cordon": {
+                "electrical_id": "F1",
+                "ports": [
+                  "port-a",
+                  "port-b"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  3.1086244689504383e-15,
+                  1.4654943925052066e-14
+                ],
+                "length_mm": 86.82648430806921,
+                "minimum_radius_mm": 4.9999999999999885,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 4.0,
+                "clearance_mm": 2.0500000000000007,
+                "maximum_tangent_error_deg": 0
+              },
+              "cordon-b": {
+                "electrical_id": "F2",
+                "ports": [
+                  "port-c",
+                  "port-d"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  9.156648107846652e-15,
+                  1.4719145764886102e-14
+                ],
+                "length_mm": 81.17013107879424,
+                "minimum_radius_mm": 7.000000000000022,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 3.0,
+                "clearance_mm": 2.363890297323315,
+                "maximum_tangent_error_deg": 8.537736462515939e-07
+              }
+            },
+            "maximum_forbidden_interference_mm3": 0,
+            "cross_harness": {
+              "pair": [
+                "HarnessInventory/Cable",
+                "HarnessInventory/Cable001"
+              ],
+              "intersection_mm3": 0.0,
+              "gap_mm": 3.9570581113044527,
+              "minimum_clearance_mm": 0.8,
+              "status": "PASS"
+            },
+            "builder_pid": 2176,
+            "independent_pid": 27696,
+            "t0_rechecked_exit_code": 0,
+            "receipt": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-043/cross/v3-c-043/candidate-result.json",
+              "sha256": "9c5a9e286bb37c0405595e34afd03cdcec12f7ef65ce35500c638187ca9b47fd"
+            },
+            "measurement": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-043/cross/v3-c-043/candidate-observation.json",
+              "sha256": "2044a502114333eec02c49ee6b573b3debeb7a5e75d7c555f17b43c27780dcd3"
+            }
+          },
+          {
+            "candidate": "v3-c-044",
+            "support": "plate-b",
+            "bearing_area_mm2": 272.0,
+            "engagement": {
+              "pair": [
+                "Workholding/Carrier",
+                "Workholding/StudB"
+              ],
+              "intersection_mm3": 1.3273228961416892,
+              "gap_mm": 0.0,
+              "status": "PASS",
+              "role": "FASTENER_CARRIER_ENGAGEMENT",
+              "support": "plate-b",
+              "authority_reason": "Engagement contrôlé du goujon dans la face porteuse du banc.",
+              "min_volume_mm3": 1.2,
+              "max_volume_mm3": 1.36,
+              "bearing_area_mm2": 272.0,
+              "fastener": {
+                "intersection_mm3": 1.327322896141687,
+                "gap_mm": 0.0,
+                "name": "Workholding/StudB",
+                "support_gap_mm": 0.0
+              }
+            },
+            "cables": {
+              "cordon": {
+                "electrical_id": "F1",
+                "ports": [
+                  "port-a",
+                  "port-b"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  3.1086244689504383e-15,
+                  1.4654943925052066e-14
+                ],
+                "length_mm": 86.82648430806921,
+                "minimum_radius_mm": 4.9999999999999885,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 4.0,
+                "clearance_mm": 2.0500000000000007,
+                "maximum_tangent_error_deg": 0
+              },
+              "cordon-b": {
+                "electrical_id": "F2",
+                "ports": [
+                  "port-c",
+                  "port-d"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  9.156648107846652e-15,
+                  1.4719145764886102e-14
+                ],
+                "length_mm": 81.17013107879424,
+                "minimum_radius_mm": 7.000000000000022,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 3.0,
+                "clearance_mm": 2.363890297323315,
+                "maximum_tangent_error_deg": 8.537736462515939e-07
+              }
+            },
+            "maximum_forbidden_interference_mm3": 0,
+            "cross_harness": {
+              "pair": [
+                "HarnessInventory/Cable",
+                "HarnessInventory/Cable001"
+              ],
+              "intersection_mm3": 0.0,
+              "gap_mm": 3.9570581113044527,
+              "minimum_clearance_mm": 0.8,
+              "status": "PASS"
+            },
+            "builder_pid": 4400,
+            "independent_pid": 17928,
+            "t0_rechecked_exit_code": 0,
+            "receipt": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-044/cross/v3-c-044/candidate-result.json",
+              "sha256": "011d7b01681cc7dabd8118afa7e8c1edce6ba4885d169411431e98d402617736"
+            },
+            "measurement": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-044/cross/v3-c-044/candidate-observation.json",
+              "sha256": "86ac2a3393e90643a956696669effce3c455c1c7c3b69880b42b5d9a127e8511"
+            }
+          },
+          {
+            "candidate": "v3-c-061",
+            "support": "plate-b",
+            "bearing_area_mm2": 272.0,
+            "engagement": {
+              "pair": [
+                "Workholding/Carrier",
+                "Workholding/StudB"
+              ],
+              "intersection_mm3": 1.3273228961416892,
+              "gap_mm": 0.0,
+              "status": "PASS",
+              "role": "FASTENER_CARRIER_ENGAGEMENT",
+              "support": "plate-b",
+              "authority_reason": "Engagement contrôlé du goujon dans la face porteuse du banc.",
+              "min_volume_mm3": 1.2,
+              "max_volume_mm3": 1.36,
+              "bearing_area_mm2": 272.0,
+              "fastener": {
+                "intersection_mm3": 1.327322896141687,
+                "gap_mm": 0.0,
+                "name": "Workholding/StudB",
+                "support_gap_mm": 0.0
+              }
+            },
+            "cables": {
+              "cordon": {
+                "electrical_id": "F1",
+                "ports": [
+                  "port-a",
+                  "port-b"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  3.1086244689504383e-15,
+                  1.4654943925052066e-14
+                ],
+                "length_mm": 86.82648430806921,
+                "minimum_radius_mm": 4.9999999999999885,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 4.0,
+                "clearance_mm": 2.0500000000000007,
+                "maximum_tangent_error_deg": 0
+              },
+              "cordon-b": {
+                "electrical_id": "F2",
+                "ports": [
+                  "port-c",
+                  "port-d"
+                ],
+                "mobile_port_delta_mm": [
+                  2.0,
+                  5.500000000000012,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  9.156648107846652e-15,
+                  1.4719145764886102e-14
+                ],
+                "length_mm": 88.19521052886122,
+                "minimum_radius_mm": 6.999999999999996,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 3.0,
+                "clearance_mm": 3.1745778920017003,
+                "maximum_tangent_error_deg": 8.537736462515939e-07
+              }
+            },
+            "maximum_forbidden_interference_mm3": 0,
+            "cross_harness": {
+              "pair": [
+                "HarnessInventory/Cable",
+                "HarnessInventory/Cable001"
+              ],
+              "intersection_mm3": 0.0,
+              "gap_mm": 7.266930547945553,
+              "minimum_clearance_mm": 0.8,
+              "status": "PASS"
+            },
+            "builder_pid": 3548,
+            "independent_pid": 15608,
+            "t0_rechecked_exit_code": 0,
+            "receipt": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-061/cross/v3-c-061/candidate-result.json",
+              "sha256": "009413f7f7922466e85404b50336bec241b99594d0766b502b6eda3df469d47a"
+            },
+            "measurement": {
+              "path": ".runtime/int2-cxx17/c2/t1/T1/candidates/v3-c-061/cross/v3-c-061/candidate-observation.json",
+              "sha256": "20d7e39ec868228a666ec5e4741d9250b14632787832cfe63ac01e36eb0de546"
+            }
+          }
+        ]
+      },
+      "T3": {
+        "domain": {
+          "path": "docs/electromechanical_v3/domains/c2_multiharness_secondary.json",
+          "sha256": "2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be"
+        },
+        "profile": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json",
+          "sha256": "4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4"
+        },
+        "summary": {
+          "path": ".runtime/int2-cxx17/c2/t3/summary.json",
+          "sha256": "4f35e430dd196850919a01b9c7deeee1f229594b6ac886763f5b13055f532a32"
+        },
+        "proposals": 79,
+        "native_attempts": 7,
+        "qualified_candidates": 2,
+        "winner": "v3-c-046",
+        "tradeoff": false,
+        "candidates": [
+          {
+            "candidate": "v3-c-045",
+            "support": "plate",
+            "bearing_area_mm2": 216.0,
+            "engagement": {
+              "pair": [
+                "Workholding/Carrier",
+                "Workholding/Stud"
+              ],
+              "intersection_mm3": 1.3273228961416912,
+              "gap_mm": 0.0,
+              "status": "PASS",
+              "role": "FASTENER_CARRIER_ENGAGEMENT",
+              "support": "plate",
+              "authority_reason": "Engagement contrôlé du goujon dans la face porteuse du banc.",
+              "min_volume_mm3": 1.2,
+              "max_volume_mm3": 1.36,
+              "bearing_area_mm2": 216.0,
+              "fastener": {
+                "intersection_mm3": 1.327322896141687,
+                "gap_mm": 0.0,
+                "name": "Workholding/Stud",
+                "support_gap_mm": 0.0
+              }
+            },
+            "cables": {
+              "cordon": {
+                "electrical_id": "F1",
+                "ports": [
+                  "port-a",
+                  "port-b"
+                ],
+                "mobile_port_delta_mm": [
+                  1.9999999999999716,
+                  5.500000000000021,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  3.1086244689504383e-15,
+                  3.1086244689504383e-15
+                ],
+                "length_mm": 86.82648430806923,
+                "minimum_radius_mm": 4.99999999999999,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 4.0,
+                "clearance_mm": 2.0500000000000007,
+                "maximum_tangent_error_deg": 0
+              },
+              "cordon-b": {
+                "electrical_id": "F2",
+                "ports": [
+                  "port-c",
+                  "port-d"
+                ],
+                "mobile_port_delta_mm": [
+                  1.9999999999999716,
+                  5.500000000000023,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  5.875797014453728e-15,
+                  4.325269890634888e-14
+                ],
+                "length_mm": 83.10012451957647,
+                "minimum_radius_mm": 7.000000000000006,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 3.0,
+                "clearance_mm": 2.915734121946869,
+                "maximum_tangent_error_deg": 8.537736462515939e-07
+              }
+            },
+            "maximum_forbidden_interference_mm3": 0,
+            "cross_harness": {
+              "pair": [
+                "HarnessInventory/Cable",
+                "HarnessInventory/Cable001"
+              ],
+              "intersection_mm3": 0.0,
+              "gap_mm": 6.971033124901689,
+              "minimum_clearance_mm": 0.8,
+              "status": "PASS"
+            },
+            "builder_pid": 1248,
+            "independent_pid": 7896,
+            "t0_rechecked_exit_code": 0,
+            "receipt": {
+              "path": ".runtime/int2-cxx17/c2/t3/T3/candidates/v3-c-045/cross/v3-c-045/candidate-result.json",
+              "sha256": "2ec2fe77834aa2ce94ed6209d593c623a6bee90b29d70549a02e976de0bbc591"
+            },
+            "measurement": {
+              "path": ".runtime/int2-cxx17/c2/t3/T3/candidates/v3-c-045/cross/v3-c-045/candidate-observation.json",
+              "sha256": "2c259934c0777f1423035b090b08be0e3a45dd8f08384bf9eea433764390d0a9"
+            }
+          },
+          {
+            "candidate": "v3-c-046",
+            "support": "plate-b",
+            "bearing_area_mm2": 296.0,
+            "engagement": {
+              "pair": [
+                "Workholding/Carrier",
+                "Workholding/StudB"
+              ],
+              "intersection_mm3": 1.3273228961416883,
+              "gap_mm": 0.0,
+              "status": "PASS",
+              "role": "FASTENER_CARRIER_ENGAGEMENT",
+              "support": "plate-b",
+              "authority_reason": "Engagement contrôlé du goujon dans la face porteuse du banc.",
+              "min_volume_mm3": 1.2,
+              "max_volume_mm3": 1.36,
+              "bearing_area_mm2": 296.0,
+              "fastener": {
+                "intersection_mm3": 1.327322896141687,
+                "gap_mm": 0.0,
+                "name": "Workholding/StudB",
+                "support_gap_mm": 0.0
+              }
+            },
+            "cables": {
+              "cordon": {
+                "electrical_id": "F1",
+                "ports": [
+                  "port-a",
+                  "port-b"
+                ],
+                "mobile_port_delta_mm": [
+                  1.9999999999999716,
+                  5.500000000000021,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  3.1086244689504383e-15,
+                  3.1086244689504383e-15
+                ],
+                "length_mm": 86.82648430806923,
+                "minimum_radius_mm": 4.99999999999999,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 4.0,
+                "clearance_mm": 2.0500000000000007,
+                "maximum_tangent_error_deg": 0
+              },
+              "cordon-b": {
+                "electrical_id": "F2",
+                "ports": [
+                  "port-c",
+                  "port-d"
+                ],
+                "mobile_port_delta_mm": [
+                  1.9999999999999716,
+                  5.500000000000023,
+                  0.0
+                ],
+                "endpoint_error_mm": [
+                  5.875797014453728e-15,
+                  4.325269890634888e-14
+                ],
+                "length_mm": 83.10012451957647,
+                "minimum_radius_mm": 7.000000000000006,
+                "radius_evidence": "ANALYTIC",
+                "diameter_mm": 3.0,
+                "clearance_mm": 2.915734121946869,
+                "maximum_tangent_error_deg": 8.537736462515939e-07
+              }
+            },
+            "maximum_forbidden_interference_mm3": 0,
+            "cross_harness": {
+              "pair": [
+                "HarnessInventory/Cable",
+                "HarnessInventory/Cable001"
+              ],
+              "intersection_mm3": 0.0,
+              "gap_mm": 6.971033124901689,
+              "minimum_clearance_mm": 0.8,
+              "status": "PASS"
+            },
+            "builder_pid": 21732,
+            "independent_pid": 11024,
+            "t0_rechecked_exit_code": 0,
+            "receipt": {
+              "path": ".runtime/int2-cxx17/c2/t3/T3/candidates/v3-c-046/cross/v3-c-046/candidate-result.json",
+              "sha256": "a78a5574d399221a94b99e27b82adb7d7f2309d8150a7a9cbd68a535c12b4c81"
+            },
+            "measurement": {
+              "path": ".runtime/int2-cxx17/c2/t3/T3/candidates/v3-c-046/cross/v3-c-046/candidate-observation.json",
+              "sha256": "6328325aeaf1b9bb50759dc64458b1810054353b72fda7e650c14106658bf634"
+            }
+          }
+        ]
+      }
+    },
+    "T2": {
+      "status": "NOT_RUN",
+      "historical_receipt": {
+        "path": "docs/verification/v3/c2/generalization.json",
+        "sha256": "4154cb514bac2c64cbefcffb392105f35d61881634aa802f54370feb783466f4",
+        "bytes": 14911
+      }
+    }
+  },
+  "material": {
+    "a2_four_closures": {
+      "path": ".runtime/int2-cxx17/a2-native/measurements.json",
+      "sha256": "f71091fed23fc4bbeec1f8ac7de47a491d8f16d03d400eae028e69df9f73889a",
+      "bytes": 324254
+    },
+    "a3": {
+      "path": ".runtime/int2-cxx17/admission/scope_checks.json",
+      "sha256": "948a69c5cc4154b4f972dec8f5baed0c7ae320ed6c41e98a1921196836edcfbf",
+      "bytes": 54720
+    },
+    "a4": {
+      "path": ".runtime/int2-cxx17/a4-adversarial.json",
+      "sha256": "429b911c7db1d8bb1815e1c66e17094172720fa629cf51b5578e836a94576886",
+      "bytes": 7733
+    },
+    "q2": {
+      "path": ".runtime/int2-cxx17/a-q2/evidence.json",
+      "sha256": "ae51564febcafa01e2db77a3d59cfb9db7165a6238bb39b5f0367aede90df1eb",
+      "bytes": 31493
+    },
+    "seven_historical_intersections": {
+      "receipt": {
+        "path": ".runtime/int2-cxx17/d-historical/legacy_pair_comparison.json",
+        "sha256": "57fa2af28cf5e3b303681776966afcd784b2c342a2b1d8289a7656bd9a67bb68",
+        "bytes": 14246
+      },
+      "agreements": 7,
+      "candidate_count": 0,
+      "pairs": [
+        {
+          "id": "6e87855e86a4bcb3f219933d22f52acfa80e444eb2feb06d2dbeb5d41aa07bf2",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+          "historic": {
+            "id": "6e87855e86a4bcb3f219933d22f52acfa80e444eb2feb06d2dbeb5d41aa07bf2",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 22.56622964394539,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "point initial authentifié"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "intersection_mm3": 22.56622964394539,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 22.56622964394539,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "a44e534498c191fff3bd59c6f00f84c0444a3c005d9eb9a73249e37f2835d332",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+          "historic": {
+            "id": "a44e534498c191fff3bd59c6f00f84c0444a3c005d9eb9a73249e37f2835d332",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 16.00606354388959,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "point initial authentifié"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "intersection_mm3": 16.00606354388959,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 16.00606354388959,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "9c1a926f5473839427c0736a3d375227176e2e430226d85471dd70db69a9ec37",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+          "historic": {
+            "id": "9c1a926f5473839427c0736a3d375227176e2e430226d85471dd70db69a9ec37",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 1.0850694439200599,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "point initial authentifié"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "intersection_mm3": 1.0850694439200599,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 1.0850694439200599,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "595cdccbe1dcf9bc9caccc5674862cc0c57fb8e2bb12a9875802afe670595484",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+          "historic": {
+            "id": "595cdccbe1dcf9bc9caccc5674862cc0c57fb8e2bb12a9875802afe670595484",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 17.2682862384885,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "lot parallèle"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "intersection_mm3": 17.2682862384885,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 17.2682862384885,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "bc80fb9b8573b034dc4c39ec824395e4b80fc0c23ef63bfe65b2a218d2c9f637",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+          "historic": {
+            "id": "bc80fb9b8573b034dc4c39ec824395e4b80fc0c23ef63bfe65b2a218d2c9f637",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 6.570377899808104,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "lot parallèle"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "intersection_mm3": 6.570377899808104,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_ETH/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 6.570377899808104,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "aaf3e668dcbe8e056eeb25948bda0d7c0a0c027da65cb8cf9ccb528657c3da90",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+          "historic": {
+            "id": "aaf3e668dcbe8e056eeb25948bda0d7c0a0c027da65cb8cf9ccb528657c3da90",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 1.572718060041036,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "lot parallèle"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable",
+            "intersection_mm3": 1.572718060041036,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_PWR/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/AIRY_SYNC/Cable"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 1.572718060041036,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        },
+        {
+          "id": "327401a6f449581387a79b855d15c075eeb4e1cefc9a5427589609a5bbafecd7",
+          "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F37_POS/Cable",
+          "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide/ResultatPassagesReprise",
+          "historic": {
+            "id": "327401a6f449581387a79b855d15c075eeb4e1cefc9a5427589609a5bbafecd7",
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F37_POS/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide/ResultatPassagesReprise",
+            "status": "FAIL",
+            "prototype_admission_status": "FAIL",
+            "intersection_mm3": 2.837338912059994e-08,
+            "clearance_mm": 0,
+            "reason": null,
+            "source": "lot parallèle"
+          },
+          "measured": {
+            "a": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F37_POS/Cable",
+            "b": "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide/ResultatPassagesReprise",
+            "intersection_mm3": 2.837338912059994e-08,
+            "outer_representation": null,
+            "stage": "integration",
+            "pair": [
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/F37_POS/Cable",
+              "assemblages/Prototype_Cartographe.FCStd#Ensemble/SA07_Prototype_Faisceaux/P73_Guide/ResultatPassagesReprise"
+            ],
+            "failures": [
+              "forbidden_interference"
+            ],
+            "unknowns": [],
+            "authorized_relation": false,
+            "intersection_volume_mm3": 2.837338912059994e-08,
+            "clearance_mm": 0.0,
+            "status": "fail"
+          },
+          "comparison": "AGREES"
+        }
+      ]
+    }
+  },
+  "preliminary_default_standard": {
+    "use": "Diagnostic. GCC 16 utilise son mode par défaut sur les cibles sans option de standard stricte.",
+    "grouped_l5": {
+      "path": ".runtime/int2/old-regressions/l5.xml",
+      "sha256": "92836aa72e94cedaaa328412956c29c4d4280843dada3e80d015c1f5d5b00da9",
+      "bytes": 6070
+    },
+    "t0_ctest_timeout": {
+      "path": ".runtime/int2/steps/t0-contracts-retry.log",
+      "sha256": "6525a7529fbd91893b61236d1dd4ab441ca775fa6bc87896cee9c8fc19ab11bd",
+      "bytes": 506
+    }
+  },
+  "not_run": {
+    "C.2 T2": "Aucune nouvelle perturbation indépendante après le gel INT.2. Le résultat C.2 historique reste rattaché à son commit.",
+    "V2.1 v21_gate (option facultative de CTest L5)": "Les scénarios historiques de ce lot sont bornés aux rejeux groupés et à Q2.",
+    "PX4 SITL réel, Linux/arm64, matériel et vol": "Périmètre Windows amd64 sur bancs numériques et contrôle de contrats T0."
+  }
+}

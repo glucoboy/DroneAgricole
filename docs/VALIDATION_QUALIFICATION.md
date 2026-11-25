@@ -3063,6 +3063,48 @@ pas établis. La collecte précède la qualification matérielle.
 [Matrice de collecte](verification/v3/a5/lot_and_measurement_matrix.json) ·
 [Disponibilité du support](verification/v3/a5/create_support_iso_readiness.json)
 
+<a id="cartographe-v3-int2"></a>
+#### Consolidation V3-INT.2 — 25 novembre 2026
+
+`V3_INT2_CONDITIONAL` sur le commit de fusion `5cb111c` sous Windows
+amd64, MSYS2 UCRT64, C++17 explicite et Qt 6. Les cinq builds neufs
+couvrent L3, L4, L5, T0 et un L5 sans OpenSSL. Les réouvertures
+FreeCAD 1.1.3/OCCT 7.8.1/Cables 0.3.7 se font sur copies privées.
+
+C.2 T1 et T3 reproduisent 79 propositions et 7 constructions chacun.
+Les 3 et 2 candidates admises sur banc ont deux câbles mesurés et un
+appui `plate` ou `plate-b` avec engagement de fixation identifié.
+Les vérifications indépendantes mesurent zéro interférence interdite
+sur ce périmètre et revérifient T0. L’épreuve T2 reste rattachée au
+commit C.2 historique en l’absence d’une nouvelle perturbation après
+le gel INT.2.
+
+A.5 rejoue 48 refus et deux préadmissions signées `TEST_ONLY`, dont
+un contrôle d’usage concurrent. La même demande est refusée sans
+OpenSSL. La perte d’une pièce XLink sur une copie de candidat bloque
+la vérification. Les 137 natifs XLink concordent avec le gel du
+cartographe et les 142 fichiers protégés ont été comparés avant et
+après. Trois différences avec le gel V3-A concernent la normalisation
+LF d’auxiliaires. Les sept intersections historiques ont été
+reproduites en lecture seule.
+
+Le checkout donne 3/5 pour L3 et 11/12 pour L5, en deux commandes pour
+L5. `l2_reconcile` et `technical_research_engine` retrouvent l’écart
+historique LF/CRLF. Les 7 tests L2 et 24 tests L1 passent sur les
+références scellées avec les binaires neufs. Le CTest global garde
+son échec. Les deux tests de contrat T0 passent en CTest C++17. Le
+reçu conserve aussi les délais dépassés lors du diagnostic préalable
+et l’exécution directe des fixtures SITL.
+
+La jonction reste **À valider** pour le passage C.3/A.6. Le cartographe
+garde `READ_ONLY_IMPACT`, mutation `DENY` et zéro candidat. L’opération
+`CREATE_SUPPORT(anchor:iso-carrier)` sur P64 ou P66 attend des preuves
+matérielles et une revue habilitée. La réception physique et le vol
+restent `NOT_RUN`. D.1 attend une base C.3/A.6 intégrée et qualifiée.
+[Verdict](verification/v3/int2/acceptance.json) ·
+[Rejeux et empreintes](verification/v3/int2/regressions.json) ·
+[Refus](verification/v3/int2/adversarial.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4274,6 +4316,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01, METH-001 | Jonction de la recherche sur banc, de la contre-validation et de l’import des preuves | T-CARTO-V3-INT1 | [Résultat](#cartographe-v3-int1), [verdict calculé](verification/v3/int1/acceptance.json) | `V3_INT1_GO`, jonction **Qualifié** sur banc synthétique Windows amd64. Réception et autorité physique **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Transaction à deux câbles, appui scellé, classification des contacts et mesure après réouverture | T-CARTO-V3-C2 | [Résultat](#cartographe-v3-c2), [revue](verification/v3/c2/independent_review.json) | `V3_C2_MULTIHARNESS_ENGINE_GO` sur banc synthétique. Applicabilité au cartographe **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Import A.4, registre et revue authentifiés, préadmission L5 | T-CARTO-V3-A5-AUTHORITY | [Résultat](#cartographe-v3-a5), [refus](verification/v3/a5/adversarial.json) | `V3_A5_AUTHORITY_PIPELINE_GO` en `TEST_ONLY`. Autorité réelle **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Coexistence du solveur C.2, de la préadmission A.5 et des gardes du cartographe | T-CARTO-V3-INT2 | [Résultat](#cartographe-v3-int2), [acceptation](verification/v3/int2/acceptance.json) | `V3_INT2_CONDITIONAL` sur Windows amd64. Suites complètes et passage C.3/A.6 **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4447,6 +4490,10 @@ conditions de passage pour les travaux synthétiques et la revue habilitée.
 choix d’appui. L’instruction des interfaces réelles conserve ses portes.
 [V3-A.5](#cartographe-v3-a5) rend vérifiable la revue de test et maintient
 la collecte du lot réel avant une décision d'ancrage sur P64 ou P66.
+
+[V3-INT.2](#cartographe-v3-int2) réunit ces deux capacités sur banc, avec
+un verdict conditionnel sur les suites larges. Les mesures et la revue
+du lot réel restent nécessaires pour décider de l'appui de l'isolateur.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5106,6 +5153,8 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 
 ## 16. Journal de modifications
+
+- **25 novembre 2026** — V3-INT.2 rejoue C.2 et A.5 sur la fusion C++17. [Résultat et suites](#cartographe-v3-int2)
 
 - **25 novembre 2026** — V3-C.2 qualifie la convergence de deux faisceaux sur banc, avec perturbation externe après gel. [Résultat](#cartographe-v3-c2)
 - **25 novembre 2026** — V3-A.5 qualifie la préadmission signée de test et précise les relevés qui conditionnent une décision réelle. [Résultat](#cartographe-v3-a5)

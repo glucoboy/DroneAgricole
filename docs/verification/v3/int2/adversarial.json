@@ -1,0 +1,1150 @@
+{
+  "schema": "v3.int2.adversarial/1",
+  "tested_commit": "5cb111c2d37aedacd2f8ec68c2d300ba6cad93ae",
+  "cartographer_candidate_count": 0,
+  "A.5": {
+    "report": {
+      "path": ".runtime/int2-cxx17/a5-adversarial.json",
+      "sha256": "e567f862408422fc77ace75fed30dd2eeaafeb2df0293b022a41d53792902e77",
+      "bytes": 58845
+    },
+    "refusals": 48,
+    "test_preadmissions": 2,
+    "cases": [
+      {
+        "case": "not-configured",
+        "exit_code": 2,
+        "reason": "REVIEW_NOT_CONFIGURED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "f539444b5b04fa99fd809c073b480fc9c4d21b9fa127519fe37523c8042c3022"
+      },
+      {
+        "case": "before-review",
+        "exit_code": 2,
+        "reason": "SIGNED_REVIEW_REQUIRED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "7cc9a2f41cf1c87e4e933ab44e2f25afe694a6beabff0eed82df3669c793c4b8",
+        "receipt_sha256": "2a0bbf2af94363cda660c3eeaa3a20ddbbe0398828b33f7363734ab5264ff8f5"
+      },
+      {
+        "case": "wrong-trust-pin",
+        "exit_code": 2,
+        "reason": "TRUST_SHA256_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "af3e935a340feab3d8f9ac9027e842758d9d9916de97deaf5d8b6e181f7d2aaf"
+      },
+      {
+        "case": "self-issued-trust",
+        "exit_code": 2,
+        "reason": "TRUST_INSIDE_SUBMISSION_OR_REDIRECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "ccc60bc9a4103ca6571360885c3675f6c67d7fca3691bc25d7a8a98035814cdd"
+      },
+      {
+        "case": "tampered-material-policy",
+        "exit_code": 2,
+        "reason": "MATERIAL_POLICY_SHA256_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "8c2470443022020d3ee4665e841b0d361ae54448c3ba73b06a69f9357f37e829"
+      },
+      {
+        "case": "fake-signer",
+        "exit_code": 2,
+        "reason": "SIGNATURE_INVALID",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "59818f9dec188536cbbe1d3d7949e4ce407d4c09d0123bdad4091b036a15033c"
+      },
+      {
+        "case": "self-declared-reviewer",
+        "exit_code": 2,
+        "reason": "REVIEWER_OR_DISPOSITION_NOT_APPROVED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "f16b44e9fa2671fa6a837ea81498fa3c538fac942c8ba09acd51b96d9d7d93fe"
+      },
+      {
+        "case": "signature-unverified",
+        "exit_code": 2,
+        "reason": "SIGNATURE_INVALID",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "59818f9dec188536cbbe1d3d7949e4ce407d4c09d0123bdad4091b036a15033c"
+      },
+      {
+        "case": "signed-wrong-policy",
+        "exit_code": 2,
+        "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "1523fe26e928e7d1034003452903d92e7fb24a5b774bb63dccf29f5f27bc0c22"
+      },
+      {
+        "case": "review-from-future",
+        "exit_code": 2,
+        "reason": "REVIEW_EXPIRED_OR_IN_FUTURE",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "33d34cdcdb059e115e4383836b799077cae823eb5bec9c60aac1d2a76bf002fa"
+      },
+      {
+        "case": "expired",
+        "exit_code": 2,
+        "reason": "REVIEW_EXPIRED_OR_IN_FUTURE",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "b40f3077e02abf3b7de68596d037017cd7c6ae8214a37fe181cd250a5d67dd67"
+      },
+      {
+        "case": "different-occurrence",
+        "exit_code": 2,
+        "reason": "TRUST_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "63dc624da8361f9ad4431d6f1f74bb054785005fe7ca20aeff005492af9b4847",
+        "receipt_sha256": "bcecaa134c9125b06d0a7dc80554bee9166fbe8714879d87fa07151535509c8a"
+      },
+      {
+        "case": "different-operation",
+        "exit_code": 2,
+        "reason": "TRUST_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "4f61423c2f2ea0200445b752766359d5eb0a614d0017a17385e868a86f37a0ea",
+        "receipt_sha256": "15ccd87fd9cafb2a73a6d2012421d0655d4d33908998d6327924bf8180a50cf3"
+      },
+      {
+        "case": "different-lot-binding",
+        "exit_code": 2,
+        "reason": "TRUST_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "0e3bcb8941609b2d30175d11ba485bc59400680386038805498dcb3e6c79711c",
+        "receipt_sha256": "dd06a8525bab9e8a893a4155048939619fb1de896fbcb2f07d3b232756b5f72a"
+      },
+      {
+        "case": "different-model-commit",
+        "exit_code": 2,
+        "reason": "TRUST_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "1bd66a56d31d5548256586b07624c720b12e950a02faed31ecd1ae936b6534e1",
+        "receipt_sha256": "3c88c750604ba7e7ac89dd23e2bb99bc78e1df4a90c158761ab7d3fb55c1d2eb"
+      },
+      {
+        "case": "omitted-receiving-check",
+        "exit_code": 2,
+        "reason": "TRUST_BINDING_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "d0147742570e17fa3dfcb7780b7a7acc45ab512ea216186b0ffd7cc6130e7d59",
+        "receipt_sha256": "bc8bfd6f3599dd9bb6c1c784e9d310c67e81060c1028144ba19eea2e43466f61"
+      },
+      {
+        "case": "raw-sha-changed",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c6c0faac00c28fbfe97ed425f853e49d1dca2fabfb37b9ed6b51b35f07dc7a94"
+      },
+      {
+        "case": "manufacturer-not-applicable",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "7394b5b5e823c9b0d6ee3ea165bb50f14516f8a36c1bc9bbc72f60dc3dcadf77"
+      },
+      {
+        "case": "different-lot",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "373ab0f057d4a0470f28f2f6b641a7ad6e0540ad44f8547d9b80a30c4011c8f0"
+      },
+      {
+        "case": "different-revision",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "373ab0f057d4a0470f28f2f6b641a7ad6e0540ad44f8547d9b80a30c4011c8f0"
+      },
+      {
+        "case": "datum-matrix-altered",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "0c633d1f99d2dadb31b66a2bdbb6f7ddf44809536623702949acdecee2e0aa1e"
+      },
+      {
+        "case": "nonrigid-matrix",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "8105ea5ab4c840a7d3b0d0d916b81737dacce60d11bb35bb2be6b020ea642172"
+      },
+      {
+        "case": "tolerance-document-missing",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "6b8e685a6d6a5797a143dcfa6e47d888ee91c4769ab74af9bdaeaca9aa2169fc"
+      },
+      {
+        "case": "nc-connected",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "1db9c89bb2aab04f13b36b5fb6b09df15d82850700914d94c6a29662da77eafd"
+      },
+      {
+        "case": "j2-j3-ambiguous",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "1db9c89bb2aab04f13b36b5fb6b09df15d82850700914d94c6a29662da77eafd"
+      },
+      {
+        "case": "normal-inverted",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "00371da9a916714bcfb3f3a8843439c2f30c3da0dac882519c16fe279c59c5a3"
+      },
+      {
+        "case": "reviewer-is-submitter",
+        "exit_code": 2,
+        "reason": "REVIEWER_IS_SUBMITTER",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "f3dd6bfd51e1ddb6e2c78d4d0c6810b4b408ba860a931478fcbdd6c5c877f641"
+      },
+      {
+        "case": "uncertainty-covers-limit",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_INCONCLUSIVE",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "a504d54c91498d80aa379d956b260ea15c543cc83e68c1955a918e3f0d7e9c57"
+      },
+      {
+        "case": "floating-anchor",
+        "exit_code": 2,
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "40cc85cf812869f44cfc0367dddc0253a501dc57bfd4d75489a2135ce45b7736"
+      },
+      {
+        "case": "fraudulent-carrier",
+        "exit_code": 2,
+        "reason": "CARRIER_NOT_APPROVED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "083a6cff8ca90daa35c31216fd09be8abe3c33840374accdab8490f27e9031f6",
+        "receipt_sha256": "425cb387ec93fc9d7d505797adb9334e149fd6bfe975d8b420dcc1c4bc29e1b6"
+      },
+      {
+        "case": "outside-pose",
+        "exit_code": 2,
+        "reason": "TRANSLATION_OUTSIDE_BOUNDED_DOMAIN",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "68f4a254bf606195dd8faa4ee30b2fe8f6f227114194a553fdbe4e62f3f5aa38",
+        "receipt_sha256": "f3d795c27ba8c460ef5fec99a6417af75bffe757af6dc9703ba07eece121b3a1"
+      },
+      {
+        "case": "wrong-rotation",
+        "exit_code": 2,
+        "reason": "ROTATION_NOT_APPROVED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "3deb3fe134420fbd5203c6dbcecb34c5ff01b70aac232fb0277867e244023674",
+        "receipt_sha256": "d4ad70182cdea49af3abc89bfa829aecf70feda06cc22ffe95ac8597708f21d8"
+      },
+      {
+        "case": "signed-widened-pose",
+        "exit_code": 2,
+        "reason": "TRANSLATION_OUTSIDE_BOUNDED_DOMAIN",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c379a1a3076c047cf0fa4b30dbf58fe0f32f6bb0e5320b4a33930bb7cab9d5ec"
+      },
+      {
+        "case": "xlink-profile-revised-after-review",
+        "exit_code": 2,
+        "reason": "NATIVE_PROFILE_SHA256_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c3306866fd799818ad49e3809e73091f090796d4ef802479ed282386a1089439"
+      },
+      {
+        "case": "xlink-copy-revised-after-review",
+        "exit_code": 2,
+        "reason": "XLINK_DEPENDENCY_SHA256_MISMATCH",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "138e947c95249a3024110e38652f03a1bdfda5c4fbcd578aae5c9bdabac16eb1"
+      },
+      {
+        "case": "try-construction-on-active-reference",
+        "exit_code": 2,
+        "reason": "ACTIVE_REFERENCE_OR_NONPRIVATE_SANDBOX",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c4a876e60ed9264bc507f84e28e669f834184b9061fa80d27e5229b39ca8ea98"
+      },
+      {
+        "case": "test-only-domain-escalation",
+        "exit_code": 2,
+        "reason": "EVIDENCE_CLASS_OR_DOMAIN_DENIED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "5451bcc9181c849112cc88e238fd3b7920915f075f13857a8900a9eb505e6407",
+        "receipt_sha256": "70eb78b10d4fece510eede3d6954b2b95f2d669c781e8b5092d992904897db0a"
+      },
+      {
+        "case": "test-key-as-physical-authority",
+        "exit_code": 2,
+        "reason": "REVIEW_NOT_CONFIGURED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "34e0ffbe3ba9aae764be85654a785bf31e3a5c16a724a3c19a34e1b43d21a415",
+        "receipt_sha256": "37b60645dea6c67eea3df08d0b1cbedf8fe2c02a08449dbf042ff80d1aa60054"
+      },
+      {
+        "case": "duplicate-signed-id",
+        "exit_code": 2,
+        "reason": "DUPLICATE_DECISION_ID",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "f1dd471acf123630972e772074b1356c9895cfb9d0375f3afecb2ebb70a47d2c"
+      },
+      {
+        "case": "signed-but-unregistered",
+        "exit_code": 2,
+        "reason": "DECISION_NOT_REGISTERED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c47232b4dfc533bd60a518e3a83ab4ae5f809d7a58b3bd59d8f1fa477b830438"
+      },
+      {
+        "case": "missing-consumption-state",
+        "exit_code": 2,
+        "reason": "REPLAY_STATE_NOT_PROVISIONED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "c4408ac4c6e764c3e6076388dca00311a576049fb0a82f18dce1d3af45883c4f"
+      },
+      {
+        "case": "test-admission-does-not-execute-native",
+        "exit_code": 2,
+        "reason": "TEST_ONLY_ADMISSION_NO_CONSTRUCTION",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "525bb10f02bc5b062c1c3f4bf66e8c1b9ee01291cb490692e2001b843947181d"
+      },
+      {
+        "case": "registered-synthetic-admission",
+        "exit_code": 0,
+        "reason": null,
+        "decision": "ALLOW",
+        "scope": "TEST_ONLY",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "1bc66bb3771bd96ded0653f4fc03c04682d6a09ac5af422cddafd2603719b02a"
+      },
+      {
+        "case": "copy-synthetic-admission-to-cartographer",
+        "exit_code": 2,
+        "reason": "EVIDENCE_CLASS_OR_DOMAIN_DENIED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "db0a6febfc7c6803765f21651def131c752afa4e3c593317b190a69c2bb4357a",
+        "receipt_sha256": "e37277cca9697916ecadf1558edd9786cb63a7e7734078ef05d06a3803da41b6"
+      },
+      {
+        "case": "double-use",
+        "exit_code": 2,
+        "reason": "DECISION_ALREADY_USED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "1133dcebce58013bee42d11fe4c2c6adb0306a2254b5e4ade6a85ae7545a8e5c"
+      },
+      {
+        "case": "signed-revocation",
+        "exit_code": 2,
+        "reason": "DECISION_REVOKED",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "008932910325cce5833ab1edccd1502b92d84044e7d3e4fd415d2e724753d2ab"
+      },
+      {
+        "case": "registry-rollback",
+        "exit_code": 2,
+        "reason": "REGISTRY_ROLLBACK",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "7f2a6c13b5db28f6baf5e65f9462cf74da56af240b8d584ee65dead26041789f"
+      },
+      {
+        "case": "clock-rollback",
+        "exit_code": 2,
+        "reason": "CLOCK_ROLLBACK",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "19289e91018a75c6354cd3c2ab45e40823791b3750ed870891f02245181da71d",
+        "receipt_sha256": "bfcc342ef27fb33db75321100aba23ae8745d7b2353043633925d8dbfcb52687"
+      },
+      {
+        "case": "concurrent-consumption-a",
+        "exit_code": 2,
+        "reason": "AUTHORITY_STATE_BUSY",
+        "decision": "DENY",
+        "scope": "READ_ONLY_IMPACT",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "83769310390c35132711c8fb8859f4a0cdf739fee7fffa6596838e75f832865e",
+        "receipt_sha256": "3dd9f3796a41716a3309161e34e8d79263089ad41539d633f57bb8ad95c6986a"
+      },
+      {
+        "case": "concurrent-consumption-b",
+        "exit_code": 0,
+        "reason": null,
+        "decision": "ALLOW",
+        "scope": "TEST_ONLY",
+        "candidate_transactions": 0,
+        "construction": "NOT_RUN",
+        "request_sha256": "83769310390c35132711c8fb8859f4a0cdf739fee7fffa6596838e75f832865e",
+        "receipt_sha256": "6516049b50b6b70b62005163ae571b40b7355337921b1a2e2980609f9583b4ef"
+      }
+    ]
+  },
+  "without_OpenSSL": {
+    "report": {
+      "path": ".runtime/int2-cxx17/a5-no-crypto.json",
+      "sha256": "a7f3ae5a1caa24042d5743f06e9bb2f01966df594076c9a63b728f5187239fbf",
+      "bytes": 3177
+    },
+    "same_signed_request": "df540c1795d46088cb1712d69c2f748a604d520098bfa5e01179bf066c22d7cf",
+    "with_crypto": "ALLOW_TEST_ONLY",
+    "without_crypto": "REVIEW_NOT_CONFIGURED",
+    "candidate_transactions": 0
+  },
+  "A.4_cartographer": {
+    "status": "PASS",
+    "command": [
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l5\\convergence_core.exe",
+      "v3-build",
+      "--root",
+      "D:\\ProjetGuillaume\\DroneAgricole",
+      "--request",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\a4-txn\\request.json",
+      "--sandbox",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\admission\\input",
+      "--output",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\a4-txn\\transaction-output",
+      "--freecad-python",
+      "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+      "--t0-validator",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\t0\\cartographe-evidence.exe"
+    ],
+    "exit_code": 2,
+    "started_at_utc": "2026-11-25T21:16:08.581787+00:00",
+    "seconds": 0.672805,
+    "receipt_sha256": "f2fd04f3a9c3b693bef0e95c75e22649f75a8178285eb6464810ad109ba1116f",
+    "reason": "MUTATION_DOMAIN_DENIED",
+    "verified_sources": 142,
+    "construction": "NOT_RUN",
+    "candidate_transactions": 0
+  },
+  "C.2_boundaries": {
+    "report": {
+      "path": ".runtime/int2-cxx17/c2-boundaries/adversarial.json",
+      "sha256": "9e927f159aa3b6a6c2697d3a756c2662a36b7f35a6f41fa1bfad6773bac1e147",
+      "bytes": 5955
+    },
+    "cases": {
+      "cartographer-injection": {
+        "fault": "Domaine cartographe fourni avec un sceau synthétique",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "MUTATION_DOMAIN_DENIED",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/cartographer-injection/output/refusal.json",
+          "sha256": "8b7f5c8c7aa3af7bb174aa40fc12b63989f43c9202684b15d188f64e81099516"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/cartographer-injection/build-invocation.json",
+          "sha256": "daa98eecfa6a3be115e17a1c13da91eeb37ba464563b2fea064da165bfab4910"
+        }
+      },
+      "foreign-lot": {
+        "fault": "Lot fourni dans un plan de banc",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Plan multi-faisceaux divergent du contrat v3",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/foreign-lot/output/refusal.json",
+          "sha256": "7711b1f7dc110c19f492cf6e678087a868500dd15308aee18f1303d890f18586"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/foreign-lot/build-invocation.json",
+          "sha256": "ec516ed1e1317124fb23625cc9819b3c32674df5ab275d22c37f3376763ea6f9"
+        }
+      },
+      "foreign-authority": {
+        "fault": "Sceau d’un autre domaine",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Plan multi-faisceaux divergent du contrat v3",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/foreign-authority/output/refusal.json",
+          "sha256": "6630607865e1c89f27ef8a2bc93dacc30bc30af83897d8eb279ee5677a4a3a88"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/foreign-authority/build-invocation.json",
+          "sha256": "0732ea6ad3d5b46837caacb7b5fca522fb07faa7cd57c16405b09c31c0f7328b"
+        }
+      },
+      "missing-harness": {
+        "fault": "Second câble absent",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Composition atomique multi-faisceaux incomplète",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/missing-harness/output/refusal.json",
+          "sha256": "8b027b3a025403d88f61e93d9037c862997623d43254bfe1d378190f9e7eb3a8"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/missing-harness/build-invocation.json",
+          "sha256": "bad49d16a29a0870b567af7945158a3414fbab8eaa90ba7767b19fd875d48504"
+        }
+      },
+      "support-outside-catalog": {
+        "fault": "Ancrage hors du domaine scellé",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Supportage hors de l'autorité paramétrique",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/support-outside-catalog/output/refusal.json",
+          "sha256": "360bf80138ccc8df9e42c8108dd3095b54c88112723f9cb8fa3e629ca0ad9f36"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/support-outside-catalog/build-invocation.json",
+          "sha256": "c37ceb47eca1b8eaf1df374c14ecfcc5e3a7dfc13a55feba14bc0f880622b334"
+        }
+      },
+      "radius-below-limit": {
+        "fault": "Rayon du second câble inférieur à la limite",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Rayon de proposition hors des limites scellées",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/radius-below-limit/output/refusal.json",
+          "sha256": "a7deeb82ea439fde7b834a84d1acc4637c7a3fece433f75578bd4f2616847c55"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/radius-below-limit/build-invocation.json",
+          "sha256": "b3e83e4cdf68404c136fff46aa95ce936cf3ddd63ecd849d618b77898a61ed7f"
+        }
+      },
+      "broken-xlink": {
+        "fault": "XLink manquant",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/broken-xlink/output/refusal.json",
+          "sha256": "4e419ae90cb04ba537a20d9e1b2285ba4f5efd10ddf02952243acc7ee1b94e89"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/broken-xlink/build-invocation.json",
+          "sha256": "10e22f87e25e5adefd7188fc759c26b441fca38fc0c0a765382cb2506041fb88"
+        }
+      },
+      "corrupted-xlink": {
+        "fault": "XLink corrompu",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/corrupted-xlink/output/refusal.json",
+          "sha256": "cffd340f18a4c2f8d666e8241b4fe7fb3760fb84d09d032baab875e1d1bf8fdf"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/corrupted-xlink/build-invocation.json",
+          "sha256": "b3957e3c2a694ca8f9921e7a2c207469fc8de6ba05e4c4e414c38cf3ab6b1b85"
+        }
+      },
+      "countercheck-budget": {
+        "fault": "max_counterchecks supérieur à max_native",
+        "exit_code": 1,
+        "stderr": "Entier hors limites : max_counterchecks\n",
+        "candidate_transactions": 0,
+        "construction_result": "NOT_RUN",
+        "invocation": {
+          "path": ".runtime/int2-cxx17/c2-boundaries/countercheck-budget/budget-invocation.json",
+          "sha256": "5da8c637f8f6140adab6aef846844f6aabb82d744c8058b008311fbde9c225d7"
+        }
+      }
+    }
+  },
+  "C.2_native_faults": {
+    "report": {
+      "path": ".runtime/int2-cxx17/c2-native-faults/adversarial.json",
+      "sha256": "bfbe0b913571ca2b421c2c1412387e54e96f66825fb518291a8a7f41352f0fb8",
+      "bytes": 12366
+    },
+    "cases": {
+      "harness-b-hits-obstacle": {
+        "status": "DETECTED",
+        "check": "L4_GEOMETRY",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/injection.json",
+          "sha256": "e620a5688df7487b78d44a4631f1940d1e5d2d08d2ccd656a4b16b15ce28a178"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/verification.json",
+          "sha256": "ed9fd566c2ae6ae1b5c0f75db0ddeb0b7804dc5388027c9960616dd1c6fdec07"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/inject-invocation.json",
+            "sha256": "375405433d4531f44301bd97c3e73d4924fcb4c6c9f82b5b73611aa094b18ab2"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/verify-invocation.json",
+            "sha256": "89d9fd97217c56a0de23fceba9de63bbffe0221b4217afeff4ce63636fcd0f0b"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/cross-invocation.json",
+            "sha256": "7c4cd259aef897a4499768e38230060dc08ff0c4e4efb4fb0baa1adf8a371697"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harness-b-hits-obstacle/cross.json",
+          "sha256": "a119da33bcc46931340c37bce4653153fe7733e9c259b7d29b23914eafab4d36"
+        }
+      },
+      "stale-port-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/stale-port-b/injection.json",
+          "sha256": "e033e5a9067a064b4798df097d4b785ec9e8fb0919c387b1d801c931a295d68f"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/stale-port-b/verification.json",
+          "sha256": "b68209c4fa5978938a8c29b9db6db87a0e9bdf2e81bbe15705fcdc5b6a2c9752"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/stale-port-b/inject-invocation.json",
+            "sha256": "f3f3ef075891686b6be50ed602c9eb96cb2c3e5bd485f963c4fb9dbd0a8c527c"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/stale-port-b/verify-invocation.json",
+            "sha256": "c56952898eb937d74a5e2750e54e644621cbdc1cc73bf4a402ec9ee5938d6019"
+          }
+        ]
+      },
+      "permuted-pins-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/permuted-pins-b/injection.json",
+          "sha256": "10178f96867dd02676de259bbf6b25f381f41567a3e0178c3b2f74a2297d36d9"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/permuted-pins-b/verification.json",
+          "sha256": "8d7c17b78565d0e41013d88c81ceb35d53428e6ff2ab4060ffa8e883aa0f655b"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/permuted-pins-b/inject-invocation.json",
+            "sha256": "ae6dc74b6a6d0dc1f4d21e20d96222cbe2e96fd36589bda513b8089095db4da8"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/permuted-pins-b/verify-invocation.json",
+            "sha256": "7fd9f65b8c47907fee00468d95535bb5e76d5d738fbac6453a6f59149767aee9"
+          }
+        ]
+      },
+      "lost-continuity-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/lost-continuity-b/injection.json",
+          "sha256": "6a07a8ddbe36c0e1caaae1dde26007caa6dfd9c137432e5dfd06add6b5ecd469"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/lost-continuity-b/verification.json",
+          "sha256": "eb8ba703495960cd36ed8f211efd4fe023e08b9c2b7c47d74ac302e8b3baccce"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/lost-continuity-b/inject-invocation.json",
+            "sha256": "791f95938704bf0a7624992547097a7c3d9d883402a07af57351077f9b5d7f89"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/lost-continuity-b/verify-invocation.json",
+            "sha256": "e681b74ecdd6613e97940182b37c6cfebb9df1f702a5846cf2fdae0935b0679e"
+          }
+        ]
+      },
+      "negative-service-clearance": {
+        "status": "DETECTED",
+        "check": "L4_SERVICE",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/negative-service-clearance/injection.json",
+          "sha256": "e0e5909fdf23ffd547547ee2745611b09069505893ee42852cdb8e089ac5de94"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/negative-service-clearance/verification.json",
+          "sha256": "4a1e664c562b054abb23b6f828c58eb0f78f5cd24ad13c7333dbac1bc2e1bc0e"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/negative-service-clearance/inject-invocation.json",
+            "sha256": "8dd1d840664d6bbf21f61acdf2c67172f4a7b27f669e4e689aac9f124ea90500"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/negative-service-clearance/verify-invocation.json",
+            "sha256": "0ba64c2c3e1e64278baa0f943ef0cb31ea171a94e4a5c163af6b0eb74f965026"
+          }
+        ]
+      },
+      "radius-under-limit-b": {
+        "status": "DETECTED",
+        "check": "L4_DYNAMIC_BEND_RADIUS",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/radius-under-limit-b/injection.json",
+          "sha256": "13b7dfe60736b2de66ff697d741821297be42be385e45b29cf8fdf7a09cdba39"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/radius-under-limit-b/verification.json",
+          "sha256": "1d115544935d86563a4b8fe7fd24eeffb72c6f7d911c20fbf3a82b7af51ff7c2"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/radius-under-limit-b/inject-invocation.json",
+            "sha256": "a43620b8a5cffc22a4b1ce6205c432963feb4855fcf71ff21f8e00bfa7498df2"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/radius-under-limit-b/verify-invocation.json",
+            "sha256": "f7ae58eafa7bf938680786c142d5c9d86a1d8f6b1164d922cb5fd40dd8c6291d"
+          }
+        ]
+      },
+      "floating-support": {
+        "status": "DETECTED",
+        "check": "L4_SUPPORT_ANCHOR",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/floating-support/injection.json",
+          "sha256": "e5c0cec77adf8797a164afb609d98dd85001c6e4a45fde174a76c8f9cbecaddc"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/floating-support/verification.json",
+          "sha256": "14afe6a623c78afaca9223550ff524b013a61087ed728f621070f7dea1399aed"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/floating-support/inject-invocation.json",
+            "sha256": "ee9c6f6592aa541ceda1e3503c5033fd0848c330c38d8724757e97e14973e9ce"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/floating-support/verify-invocation.json",
+            "sha256": "4591969b33087d0a2cd92e437cffa59aa87ed4eaf26d39b5e21fcbd272767fb1"
+          }
+        ]
+      },
+      "harnesses-collide": {
+        "status": "DETECTED",
+        "check": "L4_GEOMETRY",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/injection.json",
+          "sha256": "275d5a97149d21098ca134b0f984729326c53c8b6d937e088b68a201935e025c"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/verification.json",
+          "sha256": "9d07554419b1a405a10d3a9d7c8d419276cc7b57955e4c30173b8f971ce6f2cc"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/inject-invocation.json",
+            "sha256": "820b6cd6892edd3f487f7d267a7b82da82e4578041901c578c3aa345b1ba88af"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/verify-invocation.json",
+            "sha256": "d11b70fabb1bec70a4a1c15a9d53da41d178581f0cce1e34a92cccc16256a47f"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/cross-invocation.json",
+            "sha256": "51b4a6106a7e574b7fd1f71ddd55f062f4bcf119edae2d4eca82cdd9ff2d0207"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/harnesses-collide/cross.json",
+          "sha256": "a50a77e03a568a40b1aa6af7e06bc92c9cd7e0f17458b5f6c0fc5c9a7cfc02a3"
+        }
+      },
+      "missing-fastener-engagement": {
+        "status": "DETECTED",
+        "check": "L4_SUPPORT_ANCHOR",
+        "injection": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/injection.json",
+          "sha256": "d43d41109a856f94e59524d13e97abdfa23d23da325462a2191c88e2667b202d"
+        },
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/verification.json",
+          "sha256": "a50dc2766e3db44f42379fd0f17543180310d97e1abe8b16c15c356c57605f88"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/inject-invocation.json",
+            "sha256": "a6c7d58ef7de9033512bd18800d4bcba70946f2d94cd9656b714ff0ad62bd133"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/verify-invocation.json",
+            "sha256": "8fa289ac653591790a2ac5feb0496a1231cacd32119c7d63bdc60c77abc95bdd"
+          },
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/cross-invocation.json",
+            "sha256": "0427fda0ece371d5fa0c9981d3e828bdbc4888f4c85f2f837aed5ff3f55fc312"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/missing-fastener-engagement/cross.json",
+          "sha256": "07c04a929ff87acf36238b232f78034c24a63100006a370c4ccc3758848899d4"
+        }
+      },
+      "forged-engagement-authority": {
+        "status": "DETECTED",
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/forged-engagement-authority/verification.json",
+          "sha256": "a683623260e61d0e60f235cebe291766c435b3105cd8c5155cbf29469ecb51d3"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/forged-engagement-authority/reject-invocation.json",
+            "sha256": "089d2b5710f49b0ecc8e18a6b2418e4f5858c3f86f6e34277f5050ea26e1c39a"
+          }
+        ]
+      },
+      "rollback-after-first-harness": {
+        "status": "DETECTED",
+        "verification": {
+          "path": ".runtime/int2-cxx17/c2-native-faults/rollback-after-first-harness/build.json",
+          "sha256": "5f136cecd7bc1e54158527af0148c3cbd343cc5ad882a28554c87c14959b4ae6"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/int2-cxx17/c2-native-faults/rollback-after-first-harness/rollback-invocation.json",
+            "sha256": "08460ad2c3f8b27bd4923168f149e78cc5c0fb4562aac6079d233eb61935b5f2"
+          }
+        ]
+      }
+    }
+  },
+  "B.1_guards": {
+    "report": {
+      "path": ".runtime/int2-cxx17/old-regressions/b1-boundary/checks.json",
+      "sha256": "db6e1dcad2723a502f7a901f4a99d55b784867f4d62848d2875e207da37a22d2",
+      "bytes": 1273
+    },
+    "cases": {
+      "schema-version": "CONTRACT_VERSION_UNSUPPORTED",
+      "forged-cartographer": "MUTATION_DOMAIN_DENIED",
+      "unknown-seal": "Sceau de banc B.1 inconnu",
+      "forged-cache": "Champs du plan V3 non autorisés ou absents",
+      "forged-provenance": "Action hors du domaine A.1 : c4-move",
+      "false-frame-plus-3mm": "Action hors du domaine A.1 : c4-move",
+      "out-of-scope-component": "Action hors du domaine A.1 : c4-move",
+      "connector-unsupported": "OPERATION_UNSUPPORTED",
+      "topology-unsupported": "OPERATION_UNSUPPORTED",
+      "altered-xlink-sha": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+      "missing-xlink": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+      "altered-source": "Admission A.1 : BENCH_SOURCE_DEPENDENCY_MISMATCH",
+      "altered-profile": "Empreinte de preuve divergente : docs/electromechanical_v3/bench_b1_c4/profile.json",
+      "input-outside": "Chemin hors périmètre : D:/ProjetGuillaume/DroneAgricole/.runtime",
+      "output-outside": "Chemin hors périmètre : D:/ProjetGuillaume/DroneAgricole/.runtime/v3-b1-outside-probe",
+      "worker-no-report": "Réouverture indépendante non finalisée : baseline",
+      "interruption": [
+        {
+          "attempt": ".attempt-LQeqTY",
+          "journal_sha256": "d8afe9598ec2712a0252b3704f3900e59159a30b8e3209e462a6fee68f698e2f"
+        }
+      ]
+    }
+  },
+  "merge_guards": {
+    "report": {
+      "path": ".runtime/int2-cxx17/bridge-boundaries/checks.json",
+      "sha256": "e7583306b3caceed02c97b512c4f0f439e0892d7026119a785f0df3d795817cf",
+      "bytes": 4541
+    },
+    "cases": {
+      "xlink_loss_after_build": {
+        "argv": [
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\convergence_manager\\native\\v3_verify.py",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\cad",
+          "--job",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\candidate-job.json",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\validation.json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "log": ".runtime/int2-cxx17/bridge-boundaries/xlink-loss.log",
+        "diagnostic": "",
+        "status": "PASS",
+        "result": "NOT_ADMITTED",
+        "failure": {
+          "id": "NATIVE_MEASUREMENT",
+          "status": "INCONCLUSIVE",
+          "details": "Dépendance absente : D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\cad\\parts\\Obstacle.FCStd"
+        },
+        "xlink_reopen": "NOT_RUN",
+        "missing_dependency": "parts/Obstacle.FCStd",
+        "immutable_original": {
+          "Banc_Interconnexion.FCStd": "8b9be031f2ce9c060ab4a85a41537041466bdab9bc991c07010e0a100716a80c",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "receipt_sha256": "c47aae7c3221bf04903c7d7db165ec1c02e65796ffc0f87dd196acabcfeb9385"
+      },
+      "foreign_trust_flag": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l5\\convergence_core.exe",
+          "v3-converge",
+          "--a5-trust-sha256",
+          "0000000000000000000000000000000000000000000000000000000000000000"
+        ],
+        "exit_code": 1,
+        "log_sha256": "37d5c4267c68504fde6040f0b920626f6c00256e9e56d85c955e9627f2a21796",
+        "log": ".runtime/int2-cxx17/bridge-boundaries/trust-flag-outside-admission.log",
+        "diagnostic": "Les options de confiance requièrent v3-admission ou v3-build\r\n",
+        "status": "PASS",
+        "result": "REJECTED_BEFORE_CAMPAIGN"
+      },
+      "diameter_override": {
+        "fault": "Diamètre substitué dans le plan",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Valeurs de parcours absentes ou non reconnues",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/int2-cxx17/bridge-boundaries/int2-diameter-override/output/refusal.json",
+          "sha256": "e54fbb4feebdb5d5c915c0b490fd78e661d98aa5771eef63a370c6273e7a85d1"
+        },
+        "invocation": {
+          "path": ".runtime/int2-cxx17/bridge-boundaries/int2-diameter-override/build-invocation.json",
+          "sha256": "d8b888f43376ae5eb9f556939e599eb0de44e5ba247459c7c14592f7b900a6f0"
+        }
+      },
+      "trust_options_on_bench_plan": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\trust-on-bench-plan\\plan.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\trust-on-bench-plan\\input",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\bridge-boundaries\\trust-on-bench-plan\\output",
+          "--freecad-python",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+          "--t0-validator",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17\\t0\\cartographe-evidence.exe",
+          "--a5-trust-sha256",
+          "0000000000000000000000000000000000000000000000000000000000000000"
+        ],
+        "exit_code": 1,
+        "log_sha256": "7f6ad74c61fde390a266ee74476061053137f392026d297f6cb2d3fd9a45ed50",
+        "log": ".runtime/int2-cxx17/bridge-boundaries/trust-on-bench-plan.log",
+        "diagnostic": "Contrat d'admission A.5 requis\r\n",
+        "status": "PASS",
+        "result": "REJECTED_BEFORE_CONSTRUCTION",
+        "candidate_transactions": 0
+      }
+    }
+  },
+  "global_CTest_PASS_refused": {
+    "observed": {
+      "l3_architecture_decision": "PASS",
+      "l3_v3_problem_spec": "PASS",
+      "l2_interconnection": "PASS",
+      "l2_reconcile": "FAIL",
+      "technical_research_engine": "FAIL"
+    },
+    "l2_checkout_exit_code": 8,
+    "l2_sealed_exit_code": 0,
+    "global_PASS": false
+  }
+}

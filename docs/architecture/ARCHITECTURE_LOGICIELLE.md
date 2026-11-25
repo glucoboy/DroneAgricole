@@ -368,6 +368,20 @@ P66, un lot identifié et sa preuve de montage. `v3-build` n'exécute pas
 de construction issue de la préadmission A.5. [Contrat A.5](../verification/v3/a5/admission_contract.schema.json) ·
 [Résultat](../VALIDATION_QUALIFICATION.md#cartographe-v3-a5)
 
+#### Consolidation C.2 et A.5 V3-INT.2 — Implémenté
+
+L5 réunit le domaine multi-faisceaux et la préadmission signée dans un
+même binaire. Les plans C.2 passent par l’autorité de banc scellée
+`SYNTHETIC_BENCH`. Le contrat A.5 reste une préadmission `TEST_ONLY`.
+Le registre, les signatures et le calcul C.2 ont été exercés sur le
+même commit. Sans OpenSSL, la demande signée de test est refusée.
+Le pin matériel reste vide et le point d’entrée de construction
+refuse la mutation du cartographe.
+
+La suite large garde les écarts d’empreinte des références historiques.
+L’enchaînement C.3 et A.6 attend un GO INT.2.
+[Qualification et limites](../VALIDATION_QUALIFICATION.md#cartographe-v3-int2)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1335,6 +1349,8 @@ pose. La réception du banc reste conditionnelle et le contrôle de H-01
 rend `FINAL_NO_GO`.
 
 ## Journal de modifications
+
+- **25 novembre 2026** — V3-INT.2 réunit le solveur C.2 et la préadmission A.5 dans le même build (§2.6).
 
 - **25 novembre 2026** — V3-C.2 ajoute les plans multi-faisceaux atomiques, la sélection d’appui et la classification indépendante des contacts sur banc (§2.6).
 - **25 novembre 2026** — A.5 introduit la revue et le registre signés, avec préadmission bornée vérifiée en `TEST_ONLY` (§2.6).

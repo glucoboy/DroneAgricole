@@ -1,0 +1,62 @@
+{
+  "schema": "v3.int2.acceptance/1",
+  "branch": "codex/v3-int2-consolidation",
+  "tested_commit": "5cb111c2d37aedacd2f8ec68c2d300ba6cad93ae",
+  "merge_base": "52c767d1b44ddb1c04bd4f64a9bbd5cbeefb62f0",
+  "parents": [
+    "b4f8b4d326de4497d2ada6aa5eb57058f7e89d9c",
+    "294e44a65e8ee49027eb3f85963c104c357fd19d"
+  ],
+  "verdict": "V3_INT2_CONDITIONAL",
+  "critical_checks": {
+    "fresh_builds": "PASS",
+    "runtime_versions": "PASS",
+    "source_integrity": "PASS",
+    "targeted_L3_L5_T0": "PASS",
+    "explicit_CXX17": "PASS",
+    "native_T1_T3": "PASS",
+    "signed_review_and_fail_closed": "PASS",
+    "adversarial_and_reference_protection": "PASS",
+    "integrated_regressions": "PASS",
+    "sealed_L2_and_L1": "PASS",
+    "T0_SITL_fixtures": "PASS"
+  },
+  "broad_checkout_checks": {
+    "L3": "FAIL",
+    "L5": "FAIL",
+    "T0_registered_contracts": "PASS"
+  },
+  "global_CTest": "FAIL",
+  "broad_failures_are_outside_C2_A5": true,
+  "decision_rule": "NO_GO si un contrôle critique manque ou échoue. CONDITIONAL si les contrôles critiques passent et qu'une suite large conserve un écart hors C.2/A.5. GO lorsque les contrôles critiques et les suites larges passent.",
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "next_stages": {
+    "C.3": "BLOCKED_REQUIRES_INT2_GO",
+    "A.6": "BLOCKED_REQUIRES_INT2_GO",
+    "D.1": "BLOCKED_REQUIRES_INTEGRATED_C3_A6"
+  },
+  "evidence": [
+    {
+      "path": "merge_manifest.json",
+      "sha256": "ec798b6128ffbe7c73ebb0b6bc69a938e288b11049f6127448a05a71f7478af0",
+      "bytes": 21661
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "baab83f4d99541035745ca2260adf539a35310d80530c8922bfff409f285204c",
+      "bytes": 111766
+    },
+    {
+      "path": "adversarial.json",
+      "sha256": "001b7997e0202a385ccdc3b68521667e8a7dd38d3c6cb8b30a5be73d76d0e50c",
+      "bytes": 49761
+    },
+    {
+      "path": "capability_matrix.json",
+      "sha256": "85ee626bd4c4cea355bcabc3c3e4405328dc4f6b4645d9a6698b5f93c2794a0e",
+      "bytes": 875
+    }
+  ]
+}
