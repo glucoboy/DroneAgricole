@@ -1,0 +1,2281 @@
+{
+  "cartographer_mutation": "DENY",
+  "case_count": 50,
+  "cases": [
+    {
+      "case": "not-configured",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEW_NOT_CONFIGURED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "REVIEW_NOT_CONFIGURED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "3a0ded5609c30f2be515d37316a2fce740def4f7bd99b7b48898672bad3fe213",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "before-review",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "SIGNED_REVIEW_REQUIRED",
+        "request_sha256": "a1f53317092209db0b0b8926fc45e17a988373a73158db064ec6f24823d40a91",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "16f0eafbe952fb8d4de9c91a2ad3c7ce080af23b3c81d210e017c648dfade517",
+      "request_sha256": "a1f53317092209db0b0b8926fc45e17a988373a73158db064ec6f24823d40a91"
+    },
+    {
+      "case": "wrong-trust-pin",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_SHA256_MISMATCH",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "7bfa888237ac47fceb3fc40eefbdb9c8ef4293e32d6949d9a49f1554bbc4ec76",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "self-issued-trust",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_INSIDE_SUBMISSION_OR_REDIRECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "811f8fbfbfb00e82dda21ffac2f0958d9df21007418f4c410c4d086fbddaf947",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "tampered-material-policy",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "MATERIAL_POLICY_SHA256_MISMATCH",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "0135c6abdf98ae3368a34be7b3a98a78775cd6404172d52fa5e5b562e0485060",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "fake-signer",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "SIGNATURE_INVALID",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "REJECTED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "6da4021e7f2100980ea33221e9bca6b7119ff1365d9d52c4d51847795d806b13",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "self-declared-reviewer",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEWER_OR_DISPOSITION_NOT_APPROVED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "4aa1aa49096c344da63c75d13d18912e08fb3f14d224a1aa8de879fe1cb1da85",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "5b37d612650c7aaca350c775e45ab271cdafd08c02b254798f53504f72e952f4",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "signature-unverified",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "SIGNATURE_INVALID",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "REJECTED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "6da4021e7f2100980ea33221e9bca6b7119ff1365d9d52c4d51847795d806b13",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "signed-wrong-policy",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "6a2e207ea872c9fd96fd4d64c57c24cdbb70f3aef40e8828c4c0f9421143c3ec",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "e993baa69f3d0ff6ee5ec08b9cca864c5c91d22521a2df3ecac7a749def9d828",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "review-from-future",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEW_EXPIRED_OR_IN_FUTURE",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "301755e0165c2081dc2a66f08006c358c584262993dff68b9e6e550a9b8ac1f0",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "2030e380a1b3cb3bd6c07e16be782428947743d5e97cb905dafc2249c1ba18b4",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "expired",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEW_EXPIRED_OR_IN_FUTURE",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "abe29a5f6490cae7df46dae3cf5600646d2d85c714e1ca5620f82c77dffc54e5",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "d5bc3ce82a95ef942d75f386141e89eba66a338366b7fbaa096ffff604d25188",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "different-occurrence",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_BINDING_MISMATCH",
+        "request_sha256": "ccf9f53af387e6160c1b305c3ca9ca27f51e4554330c3e8527c477f129e46d2c",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "075905832c885d0bc5cb8416b6f3acad45f56382e9e32fbb3f05a2b88a40149b",
+      "request_sha256": "ccf9f53af387e6160c1b305c3ca9ca27f51e4554330c3e8527c477f129e46d2c"
+    },
+    {
+      "case": "different-operation",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_BINDING_MISMATCH",
+        "request_sha256": "9e89697c4ca62f5f340fd6d7b564e2cbe75e74410d3a648207923daa57e3323e",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "dd0ed4e52e0b540327d996ab88e1e6bda0b00a4aa684273823bd9b9c7b69d462",
+      "request_sha256": "9e89697c4ca62f5f340fd6d7b564e2cbe75e74410d3a648207923daa57e3323e"
+    },
+    {
+      "case": "different-lot-binding",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_BINDING_MISMATCH",
+        "request_sha256": "ca83d9b8f960ae0aeb4035610ee6aa858edb5d0bf310d516538391f9b385d82d",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "0f43c8dcf9922bdde27a59e9ea55868b1f8e8c37902154a6b518efc5926b1bad",
+      "request_sha256": "ca83d9b8f960ae0aeb4035610ee6aa858edb5d0bf310d516538391f9b385d82d"
+    },
+    {
+      "case": "different-model-commit",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_BINDING_MISMATCH",
+        "request_sha256": "8477cdcb7d2a7732582a5c20e29a92f003942c35514257bef87e42e9c62a3fea",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "1bc5543bc7eb21fdeeae2fe6991164e18549ca2bb90294d6f7fa00dc6ff0fde4",
+      "request_sha256": "8477cdcb7d2a7732582a5c20e29a92f003942c35514257bef87e42e9c62a3fea"
+    },
+    {
+      "case": "omitted-receiving-check",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TRUST_BINDING_MISMATCH",
+        "request_sha256": "dcc82335b3c5447d32110e73cf9272ec255e80cabe05044acd69b38dc850cfce",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "9ab12b944b953d1c1707a149ac859edd8a00e8c6e0ad1d1511173c8a4cb664d3",
+      "request_sha256": "dcc82335b3c5447d32110e73cf9272ec255e80cabe05044acd69b38dc850cfce"
+    },
+    {
+      "case": "raw-sha-changed",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "SOURCE_SHA256_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "1f6b3818c6be86509c98a86d584e45b092a28ba6f773fc13b4eb29717384b33c",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "manufacturer-not-applicable",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "MANUFACTURER_DOCUMENT_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "c22674184949f1572539ac193e6d88bb37071d78b2cf59c4727e7e8e11ed5799",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "different-lot",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "LOT_VARIANT_OR_REVISION_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "95fc8371e970f1ddfb820b18b4a8d61ac6bf48fd44f606e096c5f9b403a79ad4",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "different-revision",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "LOT_VARIANT_OR_REVISION_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "95fc8371e970f1ddfb820b18b4a8d61ac6bf48fd44f606e096c5f9b403a79ad4",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "datum-matrix-altered",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "FRAME_INVERSE_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "23a8a27594b6473d5302f3f89b4c88a37e037345af847ed8c3f98fd676891360",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "nonrigid-matrix",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "NON_RIGID_FRAME",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "6bd1f233f34df1e14f98af62fb4bfa311b5e5881c94907a0f03629cbc3e7831a",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "tolerance-document-missing",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "Fichier absent : absent.fixture",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "d38bc3fd22d88b1b329c6bff00f96a9c94f1b1defa51283ce409632ebbc20984",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "nc-connected",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "TOPOLOGY_OR_APPLICABILITY_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "76e42e5d13a01ffddcd49f25113f9e3fdef024692749ab740e0d3fd7f4129df7",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "j2-j3-ambiguous",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "TOPOLOGY_OR_APPLICABILITY_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "76e42e5d13a01ffddcd49f25113f9e3fdef024692749ab740e0d3fd7f4129df7",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "normal-inverted",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "reason": "FRAME_ORIENTATION_MISMATCH",
+              "record_id": "test-record",
+              "status": "REJECTED",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 1,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "181ddc6d91b25e7f7c831354eff8a2a6b90734d283102289b06ee6df5e642551",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "reviewer-is-submitter",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEWER_IS_SUBMITTER",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "ef2446ed186fa4cc618b1ce3d0445abf985ccbe3bbd1f8b96142adebd6feb18d",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "uncertainty-covers-limit",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_INCONCLUSIVE",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.105,
+                "limit": 0.1,
+                "low": 0.085,
+                "status": "INCONCLUSIVE",
+                "unit": "mm"
+              },
+              "reason": "TOLERANCE_INTERVAL",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "INCONCLUSIVE",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "INCONCLUSIVE",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "dd7ec402b0d239bcd614c396bcb8fe2c1fa0a2c2e3b66e291c758bc254cae6d0",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "floating-anchor",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "TECHNICAL_REVIEW_REJECTED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.31,
+                "limit": 0.1,
+                "low": 0.29,
+                "status": "FAIL",
+                "unit": "mm"
+              },
+              "reason": "TOLERANCE_INTERVAL",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "FAIL",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "REJECTED",
+          "validated_physical_approvals": 0
+        }
+      },
+      "receipt_sha256": "e622a46b3b0b416361aaf8869ceba3b07aa61649fb032b1fc47319193bbfae55",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "fraudulent-carrier",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "CARRIER_NOT_APPROVED",
+        "request_sha256": "9b246656ea6c81a7552e56039b178ff0074903dc6a65bd04e896485c27349000",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "2984c6de059743230b028037b80fb26ee6bf1bf8f6ea9612532b5d7d471c00e0",
+      "request_sha256": "9b246656ea6c81a7552e56039b178ff0074903dc6a65bd04e896485c27349000"
+    },
+    {
+      "case": "outside-pose",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "TRANSLATION_OUTSIDE_BOUNDED_DOMAIN",
+        "request_sha256": "0ab2874e01859bcab360f2dcb986f5372c0077af9b8a9f306ce9003099a9003e",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "ea15f2d143c70bf5ad16d7f2d540386cb494d52cde68b3911150470b245a329d",
+      "request_sha256": "0ab2874e01859bcab360f2dcb986f5372c0077af9b8a9f306ce9003099a9003e"
+    },
+    {
+      "case": "wrong-rotation",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "ROTATION_NOT_APPROVED",
+        "request_sha256": "3ca8ba2faa54e9f6327d018859273a13fbafb18e4f63125d11adfa0dc60d281a",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "0678d389be3289ded6a1484373176bdf1bcde0d4c321c778756257582f0d65c9",
+      "request_sha256": "3ca8ba2faa54e9f6327d018859273a13fbafb18e4f63125d11adfa0dc60d281a"
+    },
+    {
+      "case": "signed-widened-pose",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "TRANSLATION_OUTSIDE_BOUNDED_DOMAIN",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "a637a277b4e9ff17a0f6167891e98825e96876318bec52c63c552339966e2f46",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "4c42c4d99cf569af485c7ab5c3ed490b1f4c2d9cc52c6ba91a2894dc892b9f3f",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "xlink-profile-revised-after-review",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "NATIVE_PROFILE_SHA256_MISMATCH",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "a7855822d34fda77015a6c452a0a1259f1ee46e5fc7c8460a4bf86d2eb107e09",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "xlink-copy-revised-after-review",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "XLINK_DEPENDENCY_SHA256_MISMATCH",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "74b4ec67306ed0636539b5d6d2c8867974d0fed9a234d8514b701983e9dd4a34",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "try-construction-on-active-reference",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "ACTIVE_REFERENCE_OR_NONPRIVATE_SANDBOX",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "8df2dcac7bec493236670a2b029675b4f134ebb810a5b88b170a2f29991629a5",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "test-only-domain-escalation",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "EVIDENCE_CLASS_OR_DOMAIN_DENIED",
+        "request_sha256": "62345a6d7bdb29e360040d44fb687e126482902c9eee02646166c8c00901089a",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "cc0d99f30c07908be7b66a6ca275519284ffc1dbf46495a446528fd10d420da4",
+      "request_sha256": "62345a6d7bdb29e360040d44fb687e126482902c9eee02646166c8c00901089a"
+    },
+    {
+      "case": "test-key-as-physical-authority",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "REVIEW_NOT_CONFIGURED",
+        "request_sha256": "d93ebb9a88da98aac5fa55a1160737bc6cccd26f683fbc8a674e7b57ab82caf6",
+        "review": {
+          "status": "REVIEW_NOT_CONFIGURED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "e60ec226249e21dc8d66296be1d8b7f4467ff7f7062add55f50dcda5aa874d1b",
+      "request_sha256": "d93ebb9a88da98aac5fa55a1160737bc6cccd26f683fbc8a674e7b57ab82caf6"
+    },
+    {
+      "case": "duplicate-signed-id",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "DUPLICATE_DECISION_ID",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "4235ba454214697efd4f3fc6ad49b3beb98fd4400152306ecce0a65809487a0c",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "signed-but-unregistered",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "DECISION_NOT_REGISTERED",
+        "registry_sha256": "8167d74293b99a3c5c94d0cd719dbbe713f8a8ee53fc44d75e013357dfd4a918",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "2ec19821553c0b232421257dba19778a0db8ac4bfd2bf6e117dc38888e146a04",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "missing-consumption-state",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "REPLAY_STATE_NOT_PROVISIONED",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "66a4e0f91428deea9992929e1578d08e6547fc138f24bf7c14b39c58f3364512",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "test-admission-does-not-execute-native",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "TEST_ONLY_ADMISSION_NO_CONSTRUCTION",
+        "registry_sha256": "47ba2e9d96eaaed50565f1a525c6633516d71dbda07b7a69ebdb4767f4f18fa5",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "721ea07a8546b5c05792e13feb953e29b4a0e3d9466f500d35fc72e240c613a4",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "registered-synthetic-admission",
+      "exit_code": 0,
+      "receipt": {
+        "admission": {
+          "bindings": {
+            "configuration": "TEST_ONLY_fixture",
+            "lot_sha256": "a3d1503c9c7480646705aaa0cf9c70ae01e652d02793a904eb5e0775942f9c47",
+            "model_version": "1",
+            "occurrence": "anchor:fixture",
+            "operation": "CREATE_SUPPORT",
+            "profile_sha256": "0d7b7cf49d0d684281f5cb7891adb52d7ad3060b88b5855cdab536cb5b9925d0",
+            "required_checks": [
+              "REOPEN_XLINK",
+              "L2_TOPOLOGY",
+              "L4_GEOMETRY",
+              "L4_SUPPORT_ANCHOR",
+              "L4_SERVICE",
+              "L4_DYNAMIC_BEND_RADIUS",
+              "VERIFY_IMMUTABLE_SOURCES",
+              "VALIDATE_T0"
+            ],
+            "xlink_dependencies": {
+              "Banc_Interconnexion.FCStd": "2977dd1e39502be1c176f2fd2d420cc37ad37dd2ed1af74815b6b561aefacbba",
+              "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+              "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          },
+          "consumed": true,
+          "decision": "ALLOW",
+          "decision_id": "test-decision",
+          "effect": {
+            "carrier": "P64",
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "translation_mm": [
+              1,
+              1,
+              1
+            ]
+          },
+          "execution_scope": "TEST_ONLY"
+        },
+        "authority": "TEST_ONLY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "registry_sha256": "47ba2e9d96eaaed50565f1a525c6633516d71dbda07b7a69ebdb4767f4f18fa5",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "299d88e126b2ae3197e92ebde8823093cba97daafa569e344f6c5fdc71b5004c",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "copy-synthetic-admission-to-cartographer",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "physical_reception": "NOT_RUN",
+        "reason": "EVIDENCE_CLASS_OR_DOMAIN_DENIED",
+        "request_sha256": "9d3e60195c052aca233bdcd6f792c4697dbdae51b6541836c15fd5d8608591cc",
+        "review": {
+          "status": "NOT_RUN"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "status": "NOT_RUN"
+        }
+      },
+      "receipt_sha256": "8aaf8d29f0db07b65ac358323d46875834f77726f4756010ca811e1c4f851c6e",
+      "request_sha256": "9d3e60195c052aca233bdcd6f792c4697dbdae51b6541836c15fd5d8608591cc"
+    },
+    {
+      "case": "double-use",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "DECISION_ALREADY_USED",
+        "registry_sha256": "47ba2e9d96eaaed50565f1a525c6633516d71dbda07b7a69ebdb4767f4f18fa5",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "fbbca27b4ed96b22d0c280c395e9a29c8627acce519c3392f6f2e2f39211772b",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "signed-revocation",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "DECISION_REVOKED",
+        "registry_sha256": "87a611fe2a899eeaefe7f457f95e8c1b10de611ee39bd48dcc73472fbf503f6a",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "861e0e6e38522e6a5c5d9fe27b02978cc9c4634b429ad97d41a6721635df86f5",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "registry-rollback",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "REGISTRY_ROLLBACK",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "7392061d668674f77f787e776870b359e6eee22fa9414acea368217c6c7d3904",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "clock-rollback",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "CLOCK_ROLLBACK",
+        "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "ba198d150391449126eea427d5cc25d46f038dc1c040842146148a6497a9fb90"
+      },
+      "receipt_sha256": "eb43998ec837d8438495789efb053d982ef2faede7beefb3ce9055936a9d9719",
+      "request_sha256": "edb7f5827add271e5b480d5a73d3505bee9a74ca5d8aa27b67363bdc44180dfe"
+    },
+    {
+      "case": "concurrent-consumption-a",
+      "exit_code": 2,
+      "receipt": {
+        "admission": {
+          "decision": "DENY",
+          "execution_scope": "READ_ONLY_IMPACT"
+        },
+        "authority": "DENY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "reason": "AUTHORITY_STATE_BUSY",
+        "request_sha256": "368c2a25c9eb56bd9457a2ac02f5d9391450fa1a9e5ae0cb0ee0d5ff1e64f01a",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "6f4962b751d67515ff279a1fe329114fddbb2958990521d7e7309766800c9fb7"
+      },
+      "receipt_sha256": "033032da08b24ecd5c7d18ded205325275ad1a04b94b613dc458b3d7160ce351",
+      "request_sha256": "368c2a25c9eb56bd9457a2ac02f5d9391450fa1a9e5ae0cb0ee0d5ff1e64f01a"
+    },
+    {
+      "case": "concurrent-consumption-b",
+      "exit_code": 0,
+      "receipt": {
+        "admission": {
+          "bindings": {
+            "configuration": "TEST_ONLY_fixture",
+            "lot_sha256": "a3d1503c9c7480646705aaa0cf9c70ae01e652d02793a904eb5e0775942f9c47",
+            "model_version": "1",
+            "occurrence": "anchor:fixture",
+            "operation": "CREATE_SUPPORT",
+            "profile_sha256": "0d7b7cf49d0d684281f5cb7891adb52d7ad3060b88b5855cdab536cb5b9925d0",
+            "required_checks": [
+              "REOPEN_XLINK",
+              "L2_TOPOLOGY",
+              "L4_GEOMETRY",
+              "L4_SUPPORT_ANCHOR",
+              "L4_SERVICE",
+              "L4_DYNAMIC_BEND_RADIUS",
+              "VERIFY_IMMUTABLE_SOURCES",
+              "VALIDATE_T0"
+            ],
+            "xlink_dependencies": {
+              "Banc_Interconnexion.FCStd": "2977dd1e39502be1c176f2fd2d420cc37ad37dd2ed1af74815b6b561aefacbba",
+              "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+              "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+            }
+          },
+          "consumed": true,
+          "decision": "ALLOW",
+          "decision_id": "test-decision",
+          "effect": {
+            "carrier": "P64",
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "translation_mm": [
+              1,
+              1,
+              1
+            ]
+          },
+          "execution_scope": "TEST_ONLY"
+        },
+        "authority": "TEST_ONLY",
+        "candidate_transactions": 0,
+        "cartographer_mutation": "DENY",
+        "construction_result": "NOT_RUN",
+        "finalized": true,
+        "material_policy_sha256": "14989a363a72742e73beba4be9a43280966b3b2216971f7293474d7e28959556",
+        "packet_sha256": "74af6f90dd03e5174980409284e86fdac3f25cf641b195b29a56a6be0b5da615",
+        "physical_reception": "NOT_RUN",
+        "registry_sha256": "47ba2e9d96eaaed50565f1a525c6633516d71dbda07b7a69ebdb4767f4f18fa5",
+        "request_sha256": "368c2a25c9eb56bd9457a2ac02f5d9391450fa1a9e5ae0cb0ee0d5ff1e64f01a",
+        "review": {
+          "reviewer_id": "test-reviewer",
+          "sha256": "7c5122257704ff6954bd9b78888fb5860e66697ad01bb1e7005348fad974418b",
+          "signature_algorithm": "Ed25519",
+          "status": "SIGNATURE_VERIFIED"
+        },
+        "schema": "v3.a5.admission_result/1",
+        "technical": {
+          "authority": "DENY",
+          "records": [
+            {
+              "authority": "DENY",
+              "issue": "UART-MOUNT-001",
+              "measurement": {
+                "comparison": "LE",
+                "high": 0.060000000000000005,
+                "limit": 0.1,
+                "low": 0.04,
+                "status": "PASS",
+                "unit": "mm"
+              },
+              "reason": "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
+              "record_id": "test-record",
+              "review_status": "NOT_SUBMITTED",
+              "status": "PENDING_AUTHORIZED_REVIEW",
+              "subject": "anchor:fixture"
+            }
+          ],
+          "rejected": 0,
+          "schema": "v3.a4.evidence_validation/1",
+          "status": "PENDING_AUTHORIZED_REVIEW",
+          "validated_physical_approvals": 0
+        },
+        "trust_sha256": "6f4962b751d67515ff279a1fe329114fddbb2958990521d7e7309766800c9fb7"
+      },
+      "receipt_sha256": "486ed1abae102ca8f4ff2e9d817c223aac9fd97b7ba5ddb5bdf9b22328286c0d",
+      "request_sha256": "368c2a25c9eb56bd9457a2ac02f5d9391450fa1a9e5ae0cb0ee0d5ff1e64f01a"
+    }
+  ],
+  "core_sha256": "ef85c07f632c253159819bbee7c66563c9c52ab4f8c850e551224c866f77dada",
+  "evidence_class": "TEST_ONLY",
+  "physical_reception": "NOT_RUN",
+  "schema": "v3.a5.adversarial/1",
+  "status": "PASS"
+}

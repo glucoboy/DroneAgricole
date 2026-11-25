@@ -329,6 +329,25 @@ consomme la même base intégrée, dans les périmètres définis pour C.2 et A.
 [Contrat de passage](../verification/v3/int1/next_stage_contract.md) ·
 [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-int1)
 
+#### Revue authentifiée et préadmission V3-A.5 — Implémenté
+
+L'entrée `v3-admission` reconnaît le contrat `v3.a5.admission_request/1`.
+Elle réexécute l'import technique A.4, puis vérifie avec OpenSSL les
+signatures Ed25519 de la revue et du registre sous deux clés de confiance
+distinctes. La décision lie la preuve et sa politique au lot, à la
+configuration, au profil, à la fermeture XLink et à un couple
+occurrence–opération. Le contrôle borne la translation, la rotation et
+le porteur. Le verrou local protège les préfixes de registre et la
+consommation d'un identifiant. Une reprise détecte la révocation et la
+double utilisation.
+
+L'admission qualifiée concerne `CREATE_SUPPORT` en `TEST_ONLY`. La racine
+de confiance physique est absente du build livré. Le prochain couple réel
+à instruire reste `CREATE_SUPPORT` sur `anchor:iso-carrier`, avec P64 ou
+P66, un lot identifié et sa preuve de montage. `v3-build` n'exécute pas
+de construction issue de la préadmission A.5. [Contrat A.5](../verification/v3/a5/admission_contract.schema.json) ·
+[Résultat](../VALIDATION_QUALIFICATION.md#cartographe-v3-a5)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1297,6 +1316,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **25 novembre 2026** — A.5 introduit la revue et le registre signés, avec préadmission bornée vérifiée en `TEST_ONLY` (§2.6).
 - **25 novembre 2026** — V3-INT.1 réunit l'orchestration C.1 et l'import A.4 dans le même build, avec leurs gardes d'admission et régressions (§2.6).
 - **24 novembre 2026** — V3-C.1 ajoute le mode à repères natifs, un support dépendant de la pose et un classement issu des mesures B.2 (§2.6).
 - **24 novembre 2026** — Ajout de l'import de relevés V3-A.4 en lecture seule et de la vérification de leur provenance.

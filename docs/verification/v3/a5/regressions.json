@@ -1,0 +1,308 @@
+{
+  "schema": "v3.a5.regressions/1",
+  "base_commit": "52c767d1b44ddb1c04bd4f64a9bbd5cbeefb62f0",
+  "tested_commit": "859d063ba13c14f63abfeca45717cf926ddd9895",
+  "environment": {
+    "os": "Windows amd64",
+    "cxx": "GCC 16.2.0, C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "openssl": "3.6.4",
+    "freecad": "1.1.3",
+    "physical_trust_pin": null
+  },
+  "checks": {
+    "compiled_core": "PASS",
+    "a4_import": "PASS",
+    "l5_regressions": "PASS",
+    "without_crypto": "PASS"
+  },
+  "configure": {
+    "argv": [
+      "cmake",
+      "-S",
+      "convergence_manager",
+      "-B",
+      ".runtime/a5-build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+      "-DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/c++.exe",
+      "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+      "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "-DL5_L1_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int1-worktree/.runtime/int1/l3/research/technical_research_core.exe",
+      "-DL5_L3_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int1-worktree/.runtime/int1/l3/architecture_decision_core.exe",
+      "-DL5_L4_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int1-worktree/.runtime/int1/l4/validation_core.exe",
+      "-DL5_T0_VALIDATOR=D:/ProjetGuillaume/DroneAgricole/.runtime/v3-int1-worktree/.runtime/int1/t0/cartographe-evidence.exe"
+    ],
+    "exit_code": 0,
+    "cache": {
+      "path": ".runtime/a5-build/CMakeCache.txt",
+      "sha256": "e9d85d303ff03b5d05561a3c1c49b3b5cfb15e534a63e6259fb8bc876fa95d73"
+    }
+  },
+  "build": {
+    "argv": [
+      "cmake",
+      "--build",
+      ".runtime/a5-build",
+      "--parallel",
+      "4"
+    ],
+    "exit_code": 0,
+    "log": {
+      "path": ".runtime/a5-run/build.log",
+      "sha256": "628fe8f4fae51449d419bb6eb1a606da4ee976d58df590c5944c52bfba86a3e4"
+    },
+    "core": {
+      "path": ".runtime/a5-build/convergence_core.exe",
+      "sha256": "ef85c07f632c253159819bbee7c66563c9c52ab4f8c850e551224c866f77dada"
+    },
+    "material_importer": {
+      "path": ".runtime/a5-build/cartographe_material_evidence.exe",
+      "sha256": "6c1cc87e90dff3299443d1f4f245ec3c872fd2246fad21dfa29c5843ee5fa2f4"
+    }
+  },
+  "a4_imports": [
+    {
+      "name": "empty",
+      "argv": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-build\\cartographe_material_evidence.exe",
+        "--raw-root",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-run\\a4-raw",
+        "--packet",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\docs\\verification\\v3\\a4\\measurement_form.json",
+        "--policy",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\docs\\verification\\v3\\a4\\review_policy.json",
+        "--policy-sha256",
+        "86c67ba11f11100f365005bbde75c26905ae2a86c8ec0b4b8260e7790bcd7d1f"
+      ],
+      "exit_code": 0,
+      "stdout": ".runtime/a5-run/a4-empty.stdout",
+      "sha256": "576693364444e3f1090161c242c04aaa5577b483cfe8367655afda1088dd5424"
+    },
+    {
+      "name": "example",
+      "argv": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-build\\cartographe_material_evidence.exe",
+        "--raw-root",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-run\\a4-raw",
+        "--packet",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\docs\\verification\\v3\\a4\\example_not_authority.json",
+        "--policy",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\docs\\verification\\v3\\a4\\review_policy.json",
+        "--policy-sha256",
+        "86c67ba11f11100f365005bbde75c26905ae2a86c8ec0b4b8260e7790bcd7d1f"
+      ],
+      "exit_code": 2,
+      "stdout": ".runtime/a5-run/a4-example.stdout",
+      "sha256": "1f7b3b5a936bbb7448a1b476db997dc791a42fbe24738efcbd467846a4315dc3"
+    },
+    {
+      "name": "adversarial",
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_a4_evidence.py",
+        "--validator",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-build\\cartographe_material_evidence.exe",
+        "--out",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-run\\a4-adversarial.json"
+      ],
+      "exit_code": 0,
+      "receipt": ".runtime/a5-run/a4-adversarial.json",
+      "sha256": "4a7baf515bdfb480edb0be2bde594b77483164834fd7fd0d8e63a2539b84e209"
+    }
+  ],
+  "blank_form": {
+    "argv": [
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-build\\cartographe_material_evidence.exe",
+      "--raw-root",
+      ".runtime/a5-run/a4-raw",
+      "--packet",
+      "docs/verification/v3/a5/measurement_form.json",
+      "--policy",
+      "docs/verification/v3/a4/review_policy.json",
+      "--policy-sha256",
+      "86c67ba11f11100f365005bbde75c26905ae2a86c8ec0b4b8260e7790bcd7d1f"
+    ],
+    "exit_code": 0,
+    "status": "NOT_RUN",
+    "receipt": {
+      "path": ".runtime/a5-run/a5-blank-import.json",
+      "sha256": "576693364444e3f1090161c242c04aaa5577b483cfe8367655afda1088dd5424"
+    }
+  },
+  "signed_scenarios": {
+    "argv": [
+      "C:/msys64/ucrt64/bin/python.exe",
+      "-B",
+      "convergence_manager/tests/test_v3_a5_authority.py",
+      "--core",
+      ".runtime/a5-build/convergence_core.exe",
+      "--openssl",
+      "C:/msys64/ucrt64/bin/openssl.exe",
+      "--out",
+      ".runtime/a5-run/adversarial.json"
+    ],
+    "exit_code": 0,
+    "receipt": {
+      "path": ".runtime/a5-run/adversarial.json",
+      "sha256": "9307941ec3ca30cb1fd35bc11c596d8ee9594acfcd822676eb69450154d106f7"
+    },
+    "cases": 50
+  },
+  "ctest": {
+    "argv": [
+      "ctest",
+      "--test-dir",
+      ".runtime/a5-build",
+      "--output-on-failure",
+      "--output-junit",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-a5-worktree\\.runtime\\a5-run\\ctest-full.xml"
+    ],
+    "exit_code": 8,
+    "cases": {
+      "l5_v3_a4_material_evidence": "PASS",
+      "l5_v3_a5_authority": "PASS",
+      "l5_Campaign": "PASS",
+      "l5_Selection": "PASS",
+      "l5_v3_admission_entry": "PASS",
+      "l5_v3_admission_policy": "PASS",
+      "l5_v3_native_mutate": "PASS",
+      "l5_v3_native_verify": "PASS",
+      "l5_cli": "PASS",
+      "v3_graph_contract": "PASS",
+      "l2_interconnection": "PASS",
+      "l2_reconcile": "FAIL"
+    },
+    "log": {
+      "path": ".runtime/a5-run/ctest-full.log",
+      "sha256": "9128287d33f8919e689127964fdb0c96e451c10ed57dfb029db00a18f5b3c7d5"
+    },
+    "junit": {
+      "path": ".runtime/a5-run/ctest-full.xml",
+      "sha256": "c2ca9982d0fec33081163045d781ee5bb9a6a82f6662e6e134928b403b854b1f"
+    },
+    "l2_cause": {
+      "path": "docs/verification/cartographe_action3_interconnexions.json",
+      "historical_ref": {
+        "path": "D:/ProjetGuillaume/DroneAgricole/docs/verification/cartographe_action3_interconnexions.json",
+        "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d"
+      },
+      "checkout_ref": {
+        "path": "docs/verification/cartographe_action3_interconnexions.json",
+        "sha256": "356fa28aeebeae7710fa111e41b893fe396d59fded17426d3a910c3961a4ab90"
+      },
+      "only_crlf_to_lf": true
+    }
+  },
+  "l2_sealed": {
+    "argv": [
+      "C:/msys64/ucrt64/bin/python.exe",
+      "-B",
+      "../../.runtime/v3-b2/historical/l2-sealed/interconnection_engine/tests/test_reconcile.py",
+      ".runtime/a5-build/graph/interconnection/interconnection_core.exe",
+      "-v"
+    ],
+    "exit_code": 0,
+    "cases": 7,
+    "log": {
+      "path": ".runtime/a5-run/l2-sealed.log",
+      "sha256": "5132a0e069a5d94cedcd56e088e5a0c491e6112cf9c2cbcfac16cd67cff937d8"
+    }
+  },
+  "no_openssl": {
+    "configure": {
+      "argv": [
+        "cmake",
+        "-S",
+        "convergence_manager",
+        "-B",
+        ".runtime/a5-no-openssl",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/a5-run/no-crypto-configure.log",
+        "sha256": "86a6f4ddc8cec7cfd55680c8d053846558ec0ecbb014545482144bf53fb66027"
+      }
+    },
+    "build": {
+      "argv": [
+        "cmake",
+        "--build",
+        ".runtime/a5-no-openssl",
+        "--target",
+        "convergence_core",
+        "--parallel",
+        "2"
+      ],
+      "exit_code": 0,
+      "log": {
+        "path": ".runtime/a5-run/no-crypto-build.log",
+        "sha256": "f4862a566fdd18f5bf592768806cb272a8b29de9dd4a4bb0b6831b1ca8e12620"
+      },
+      "core": {
+        "path": ".runtime/a5-no-openssl/convergence_core.exe",
+        "sha256": "9a29cc2bfa6e4d74e22c22052cf5e570f0c202875b06fc1a72b46e7ff7e39603"
+      }
+    },
+    "check": {
+      "exit_code": 2,
+      "reason": "REVIEW_NOT_CONFIGURED",
+      "receipt_sha256": "72df9044e9d6022db172f74aa248938758706813afc43bcfdd735c35ed70ba24",
+      "receipt": {
+        "path": ".runtime/a5-run/no-crypto/result/admission.json",
+        "sha256": "72df9044e9d6022db172f74aa248938758706813afc43bcfdd735c35ed70ba24"
+      }
+    }
+  },
+  "physical_reference": {
+    "git_tree": "02d62e8b47473d773e84aea931a9f8e8105f0bd3",
+    "native_files": 137,
+    "historical_auxiliary_line_endings": [
+      {
+        "checkout": {
+          "path": "hardware/mecanique/cartographe/verification/construction_prototype.json",
+          "sha256": "b856b7a1519348053bb30fb664af6642b3300789d080d35f8457571d98fced6a"
+        },
+        "scelle": {
+          "path": "D:/ProjetGuillaume/DroneAgricole/hardware/mecanique/cartographe/verification/construction_prototype.json",
+          "sha256": "e6550941b56d4c722264083e34671cacc944db2f18817e28b707df2c7a397ca9"
+        }
+      },
+      {
+        "checkout": {
+          "path": "hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+          "sha256": "95eebb3ac0b6bf38ed18527a823f840917e3a31f73df7a3cb4f64848319763bc"
+        },
+        "scelle": {
+          "path": "D:/ProjetGuillaume/DroneAgricole/hardware/mecanique/cartographe/verification/refonte_faisceaux/inventaire.json",
+          "sha256": "69e4da296bc8cc79878ed3efdaad584c4717930886ce10dcc5835b22d943dabe"
+        }
+      },
+      {
+        "checkout": {
+          "path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+          "sha256": "ae6701abafb935bcc9856c8ce627320208322a7254594c360e7de9a0b7307d1e"
+        },
+        "scelle": {
+          "path": "D:/ProjetGuillaume/DroneAgricole/hardware/mecanique/cartographe/verification/routes_prototype.json",
+          "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae"
+        }
+      }
+    ]
+  },
+  "not_run": [
+    "Inspection de lot, revue habilitée réelle et réception physique",
+    "Construction A.5 sur cartographe"
+  ]
+}

@@ -2997,6 +2997,34 @@ réception physique reste `NOT_RUN`. Le cartographe garde `DENY` pour la
 mutation. La suite C.2/A.5 est soumise au verdict INT.1 et au
 [contrat de passage](verification/v3/int1/next_stage_contract.md).
 
+<a id="cartographe-v3-a5"></a>
+#### Revue et admission V3-A.5 — 25 novembre 2026
+
+`V3_A5_AUTHORITY_PIPELINE_GO`. Le circuit de revue authentifiée et de
+préadmission est **Qualifié** pour le témoin `TEST_ONLY` sous Windows
+amd64, Qt 6.11.2 et OpenSSL 3.6.4. Les 50 cas donnent 48 refus et deux
+admissions signées sur banc, dont une seule lors de deux demandes concurrentes.
+Les gardes vérifient les signatures, la séparation de la confiance, les
+empreintes, la période de validité, la révocation, la consommation unique,
+les bornes de pose et la fermeture XLink. Le build sans OpenSSL rend
+`REVIEW_NOT_CONFIGURED`. A.4 passe ses 43 cas et ses imports de référence.
+[Acceptation](verification/v3/a5/acceptance.json) · [Rejeux](verification/v3/a5/regressions.json)
+
+Le CTest complet rend 8 avec 11 tests réussis, dont `l5_cli`. L'empreinte
+de `cartographe_action3_interconnexions.json` change avec la normalisation
+LF du checkout de `l2_reconcile`. Les sept tests L2 réussissent sur les
+octets de référence. Les 137 natifs du cartographe concordent avec le gel
+historique. Pour le précontrôle d'une future copie, les trois auxiliaires
+du gel V3-A requièrent les octets scellés documentés dans INT.1.
+
+`V3_A5_EVIDENCE_CONDITIONAL`. Huit sujets restent à instruire, avec zéro
+lot inspecté, zéro autorisation cartographe et réception `NOT_RUN`.
+`CREATE_SUPPORT` sur `anchor:iso-carrier` reste `DENY` tant que le lot,
+l'appui, la visserie, le geste de service et la revue habilitée ne sont
+pas établis. La collecte précède la qualification matérielle.
+[Matrice de collecte](verification/v3/a5/lot_and_measurement_matrix.json) ·
+[Disponibilité du support](verification/v3/a5/create_support_iso_readiness.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4206,6 +4234,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Dossier UART, réouverture XLink, contrôles L5 et collecte hors tension | T-CARTO-V3-A3-AUTH | [Résultat](#cartographe-v3-a3). V3_A3_EVIDENCE_CONDITIONAL, douze mutations bloquées et collecte physique À valider. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Collecte opérateur, contrôle des paquets de preuve et refus L5 avant construction | T-CARTO-V3-A4-IMPORT, T-CARTO-V3-A4-REGRESSION | [Résultat](#cartographe-v3-a4), [preuves](verification/v3/a4/acceptance.json) | `V3_A4_EVIDENCE_CONDITIONAL`, domaine et revue habilitée **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01, METH-001 | Jonction de la recherche sur banc, de la contre-validation et de l’import des preuves | T-CARTO-V3-INT1 | [Résultat](#cartographe-v3-int1), [verdict calculé](verification/v3/int1/acceptance.json) | `V3_INT1_GO`, jonction **Qualifié** sur banc synthétique Windows amd64. Réception et autorité physique **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Import A.4, registre et revue authentifiés, préadmission L5 | T-CARTO-V3-A5-AUTHORITY | [Résultat](#cartographe-v3-a5), [refus](verification/v3/a5/adversarial.json) | `V3_A5_AUTHORITY_PIPELINE_GO` en `TEST_ONLY`. Autorité réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4375,6 +4404,8 @@ de ces relevés. Le budget de construction du cartographe reste nul tant que
 le dossier du couple `CREATE_SUPPORT(iso)` n'est pas admis.
 [V3-INT.1](#cartographe-v3-int1) consolide les deux voies et fixe les
 conditions de passage pour les travaux synthétiques et la revue habilitée.
+[V3-A.5](#cartographe-v3-a5) rend vérifiable la revue de test et maintient
+la collecte du lot réel avant une décision d'ancrage sur P64 ou P66.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5035,6 +5066,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **25 novembre 2026** — V3-A.5 qualifie la préadmission signée de test et précise les relevés qui conditionnent une décision réelle. [Résultat](#cartographe-v3-a5)
 - **25 novembre 2026** — Fusion V3-INT.1 et vérification commune sur banc des protections du cartographe. [Résultat](#cartographe-v3-int1)
 - **24 novembre 2026** — Qualification logicielle V3-C.1 sur deux bancs, couplage et contre-validation après restriction préenregistrée. [Résultat](#cartographe-v3-c1)
 - **24 novembre 2026** — V3-A.4 structure la collecte et la validation de provenance des preuves physiques par occurrence–opération. [Résultat](#cartographe-v3-a4)

@@ -1,7 +1,8 @@
 # Rejouer le témoin logiciel V3-A.5
 
 [Dossier de collecte](measurement_packet.md) · [Revue](review_protocol.md) ·
-[Contrat](admission_contract.schema.json) · [Opération préalable](create_support_iso_readiness.json)
+[Contrat](admission_contract.schema.json) · [Opération préalable](create_support_iso_readiness.json) ·
+[Rejeux](regressions.json) · [Acceptation](acceptance.json)
 
 Compiler `convergence_manager` en C++17 avec Qt 6 Core et OpenSSL.
 La recette Windows amd64 part de la branche A.5 et de la référence
@@ -14,6 +15,7 @@ $env:Path = 'C:/msys64/ucrt64/bin;' + $env:Path
 $build = '.runtime/v3-a5-build'
 cmake -S convergence_manager -B $build -G Ninja -DCMAKE_BUILD_TYPE=Release `
   -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64 `
+  -DL5_A5_OPENSSL_EXECUTABLE=C:/msys64/ucrt64/bin/openssl.exe `
   -DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe
 cmake --build $build --parallel 4
 ctest --test-dir $build -R 'a5|a4_material_evidence' --output-on-failure
@@ -39,3 +41,10 @@ dans le dossier privé. Les refus gardent leur motif et zéro transaction.
 La campagne physique commence par [les relevés de lot](measurement_packet.md)
 et dépend du responsable habilité. Les autorisations publiques courantes
 figurent dans [les décisions](authority_decisions.json).
+
+Le [verdict](acceptance.json) se recalcule sur un fichier de sortie neuf.
+
+```powershell
+python -B convergence_manager/tests/evaluate_v3_a5.py --receipts docs/verification/v3/a5 `
+  --output .runtime/a5-acceptance-recalculated.json
+```
