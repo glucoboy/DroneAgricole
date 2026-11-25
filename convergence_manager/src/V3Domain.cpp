@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QMap>
+#include <QSet>
 #include <array>
 #include <cmath>
 #include <filesystem>
@@ -17,6 +18,8 @@ const QMap<QString, QString> domainPins{
     {"cbdeb65419ee71b08806990171f58f060a605896af7b5747480b9a0c68e98e43", "docs/electromechanical_v3/domains/c4.json"},
     {"12997df87840fd5fb929a54da42945d009b1c10ec4f1cd81e70c7310b5889b76", "docs/electromechanical_v3/domains/c1_coupled.json"},
     {"2de090aa20940fad9651d3d3b185857721aeec19ed535f1cc76faf316e7914d1", "docs/electromechanical_v3/domains/c1_coupled_secondary.json"},
+    {"7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5", "docs/electromechanical_v3/domains/c2_multiharness.json"},
+    {"2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be", "docs/electromechanical_v3/domains/c2_multiharness_secondary.json"},
 };
 constexpr auto domainSchema = "v3.parametric_domain/1";
 constexpr auto bench = "SYNTHETIC_BENCH";
@@ -246,20 +249,124 @@ QJsonObject loadV3Domain(const QDir &root, const QString &sha)
     const auto bytes = read(canonical);
     require(digest(bytes) == sha, "Empreinte de l'autorité paramétrique divergente");
     const auto domain = parseUniqueObject(bytes, canonical);
-    require(domain.value("schema") == domainSchema && domain.value("domain") == bench,
+    require((domain.value("schema") == domainSchema || domain.value("schema") == v3MultiHarnessDomainSchema) &&
+            domain.value("domain") == bench,
             "Contrat de domaine V3 incompatible");
     return domain;
 }
 
 QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values)
 {
-    return {{"schema", v3ParametricPlanSchema}, {"domain", bench}, {"plan_id", identifier(planId)},
+    const auto schema = values.contains("harnesses") ? v3MultiHarnessPlanSchema : v3ParametricPlanSchema;
+    return {{"schema", schema}, {"domain", bench}, {"plan_id", identifier(planId)},
             {"authority_sha256", domainSha}, {"domain_sha256", domainSha}, {"values", values}};
+}
+
+static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJsonObject &profile,
+                                           const QString &domainSha, const QJsonObject &plan)
+{
+    const auto id = identifier(plan.value("plan_id"));
+    const auto values = plan.value("values").toObject();
+    if (values.contains("rotation_xyzw") || domain.value("placement").toObject().contains("rotation_bounds"))
+        throw V3UnsupportedPose();
+    require(plan == makeV3Plan(id, domainSha, values) &&
+            values.keys() == QStringList{"harnesses", "support_option", "translation_mm"},
+            "Plan multi-faisceaux divergent du contrat v3");
+    require(domain.value("domain") == bench && domain.value("model_id") == profile.value("model_id"),
+            "Modèle multi-faisceaux hors de l'autorité paramétrique");
+    const auto harnesses = domain.value("harnesses").toObject();
+    const auto routes = values.value("harnesses").toObject();
+    const auto options = domain.value("support_options").toObject();
+    require(harnesses.size() >= 2 && harnesses.size() <= 6 && routes.keys() == harnesses.keys() &&
+            options.size() >= 2 && options.size() <= 8, "Composition atomique multi-faisceaux incomplète");
+    const auto choice = identifier(values.value("support_option"));
+    require(options.contains(choice), "Supportage hors de l'autorité paramétrique");
+    const auto support = options.value(choice).toObject();
+    require(support.value("occurrence") == choice, "Identité de l'option d'appui divergente");
+    const auto moveId = identifier(domain.value("move_action"));
+    const auto supportId = identifier(support.value("action"));
+    const auto model = profile.value("model").toObject();
+    const auto modelRoutes = model.value("validation").toObject().value("routes").toObject();
+    const auto modelPorts = model.value("validation").toObject().value("ports").toObject();
+    const auto occurrences = model.value("occurrences").toObject();
+    require(modelRoutes.keys() == harnesses.keys(), "La fermeture ne couvre pas tous les câbles scellés");
+    QSet<QString> identities, ports, datums, paths;
+    QJsonArray composition{moveId};
+    QJsonObject move, supportAction;
+    QJsonArray expandedRoutes;
+    for (auto it = harnesses.begin(); it != harnesses.end(); ++it) {
+        const auto harness = it.value().toObject();
+        const auto occurrence = identifier(it.key());
+        const auto action = identifier(harness.value("action"));
+        const auto path = harness.value("occurrence_path").toString();
+        const auto electricalId = identifier(harness.value("electrical_id"));
+        const auto sealedRoute = modelRoutes.value(occurrence).toObject();
+        const auto portIds = harness.value("ports").toArray();
+        const auto rule = harness.value("route").toObject();
+        require(!path.isEmpty() && !paths.contains(path) && occurrences.value(occurrence) == path &&
+                !identities.contains(electricalId) && sealedRoute.value("electrical_id") == electricalId &&
+                portIds.size() == 2 && sealedRoute.value("ports") == portIds &&
+                number(harness.value("diameter_mm")) > 0 && harness.value("diameter_mm") == sealedRoute.value("diameter_mm") &&
+                number(harness.value("minimum_length_mm")) > 0 &&
+                number(harness.value("maximum_length_mm")) >= number(harness.value("minimum_length_mm")) &&
+                harness.value("minimum_length_mm") == sealedRoute.value("minimum_length_mm") &&
+                harness.value("maximum_length_mm") == sealedRoute.value("maximum_length_mm") &&
+                harness.value("evidence_scope") == bench &&
+                rule.value("terminal_mode") == v3NativePortMode,
+                "Occurrence, port, domaine ou connectivité d'un faisceau incompatible");
+        identities.insert(electricalId);
+        paths.insert(path);
+        for (const auto &portValue : portIds) {
+            const auto port = identifier(portValue);
+            const auto authority = modelPorts.value(port).toObject();
+            const auto localDatum = authority.value("datum").toString();
+            const auto datum = authority.value("equipment").toString() + '/' + localDatum;
+            require(!ports.contains(port) && !localDatum.isEmpty() && !datums.contains(datum) &&
+                    authority.value("domain") == occurrence, "Datums ou identité électrique de port ambigus");
+            ports.insert(port);
+            datums.insert(datum);
+        }
+        const auto routeValues = routes.value(occurrence).toObject();
+        require(routeValues.keys() == QStringList{"bend_radius_mm", "route_points_mm"},
+                "Valeurs de parcours absentes ou non reconnues");
+        auto scene = domain.value("scene").toObject();
+        scene.insert("cable_occurrence", path);
+        scene.insert("ports", portIds);
+        const QJsonArray singleComposition{moveId, action, supportId};
+        auto projectionProfile = profile;
+        projectionProfile.insert("compositions", QJsonArray{singleComposition});
+        const QJsonObject projection{{"schema", domainSchema}, {"domain", bench},
+            {"model_id", domain.value("model_id")}, {"profile_sha256", domain.value("profile_sha256")},
+            {"scene", scene}, {"placement", domain.value("placement")}, {"route", rule},
+            {"composition", singleComposition}, {"supports", QJsonArray{support}}};
+        auto singleValues = routeValues;
+        singleValues.insert("translation_mm", values.value("translation_mm"));
+        const auto single = validateV3Plan(projection, projectionProfile, domainSha,
+            makeV3Plan(id, domainSha, singleValues)).value("actions").toArray();
+        const auto route = single.at(1).toObject();
+        require(route.value("occurrence") == occurrence, "Action de câblage hors occurrence scellée");
+        move = single.first().toObject();
+        supportAction = single.last().toObject();
+        expandedRoutes.append(route);
+        composition.append(action);
+    }
+    composition.append(supportId);
+    require(profile.value("compositions").toArray().contains(composition), "Composition multi-faisceaux non scellée");
+    QJsonArray actions{move};
+    for (const auto &route : expandedRoutes)
+        actions.append(route);
+    actions.append(supportAction);
+    return {{"schema", "v3.expanded_mutation_plan/1"}, {"domain", bench}, {"plan_id", id},
+            {"authority_sha256", domainSha}, {"domain_sha256", domainSha},
+            {"profile_sha256", domain.value("profile_sha256")}, {"support_option", choice}, {"actions", actions},
+            {"context_sha256", digest(QJsonDocument(plan).toJson(QJsonDocument::Compact))}};
 }
 
 QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile, const QString &domainSha,
                           const QJsonObject &plan)
 {
+    if (domain.value("schema") == v3MultiHarnessDomainSchema)
+        return validateMultiHarnessPlan(domain, profile, domainSha, plan);
     const auto id = identifier(plan.value("plan_id"));
     const auto values = plan.value("values").toObject();
     const auto routeRules = domain.value("route").toObject();

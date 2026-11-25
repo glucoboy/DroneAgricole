@@ -114,6 +114,12 @@ ProblemGeometry problemGeometry(const QJsonObject &request, const QJsonObject &d
     const auto restricted = box(translation.value("min"), translation.value("max"), "Translation");
     require(inside(restricted, bounds), "Restriction hors domaine de translation scellé");
     QSet<QString> authorizedZones;
+    const auto options = domain.value("support_options").toObject();
+    if (domain.value("schema") == "v3.parametric_domain/2") {
+        require(options.size() >= 2, "Catalogue d'appuis multi-faisceaux incomplet");
+        for (auto it = options.begin(); it != options.end(); ++it)
+            authorizedZones.insert(it.key());
+    }
     for (const auto &support : domain.value("supports").toArray()) {
         const auto anchor = support.toObject().value("anchor").toString();
         require(!anchor.isEmpty() && !authorizedZones.contains(anchor), "Ancrage ambigu dans le domaine scellé");
@@ -128,11 +134,29 @@ void validateObjectives(const QJsonArray &objectives, const QJsonObject &domain)
         {"support_count", "MIN"}};
     if (domain.value("route").toObject().value("terminal_mode") == "NATIVE_PORT")
         directions.insert("route_clearance_mm", "MAX");
+    const bool multi = domain.value("schema") == "v3.parametric_domain/2";
+    if (multi) {
+        directions.insert("route_clearance_mm", "MAX");
+        directions.insert("minimum_inter_harness_gap_mm", "MAX");
+        directions.insert("minimum_support_bearing_area_mm2", "MAX");
+        directions.insert("maximum_forbidden_interference_mm3", "MIN");
+        const auto routes = domain.value("harnesses").toObject();
+        for (auto it = routes.begin(); it != routes.end(); ++it) {
+            const auto prefix = "harness/" + it.key() + '/';
+            directions.insert(prefix + "length_mm", "MIN");
+            directions.insert(prefix + "clearance_mm", "MAX");
+            directions.insert(prefix + "minimum_radius_mm", "MAX");
+        }
+    }
     require(!objectives.isEmpty(), "Au moins un objectif Pareto est requis");
     QSet<QString> metrics;
     for (const auto &value : objectives) {
         const auto objective = value.toObject();
-        fields(objective, {"metric", "direction"}, {}, "Objectif Pareto");
+        const auto required = multi ? QStringList{"metric", "direction", "tolerance"} : QStringList{"metric", "direction"};
+        fields(objective, required, {}, "Objectif Pareto");
+        const auto tolerance = objective.value("tolerance");
+        require(!multi || (tolerance.isDouble() && std::isfinite(tolerance.toDouble()) && tolerance.toDouble() > 0),
+                "Tolérance Pareto multi-faisceaux manquante ou invalide");
         const auto metric = objective.value("metric").toString();
         require(directions.contains(metric) && directions.value(metric) == objective.value("direction").toString() &&
                 !metrics.contains(metric), "Objectif Pareto inconnu, inversé ou dupliqué : " + metric);
@@ -144,7 +168,9 @@ ProblemGeometry validate(const QJsonObject &request, const ProblemSources &sourc
 {
     fields(request, {"schema", "phase", "domain_sha256", "model_sha256", "observation_sha256",
                      "seed", "budget", "narrowing", "objectives"}, {"base_problem_sha256"}, "Problème V3");
-    require(request.value("schema") == "v3.problem_spec/1", "Version du problème V3 inconnue");
+    const bool multi = sources.domain.value("schema") == "v3.parametric_domain/2";
+    require(request.value("schema") == (multi ? "v3.problem_spec/2" : "v3.problem_spec/1"),
+            "Version du problème V3 incompatible avec son domaine");
     const auto phase = request.value("phase").toString();
     require(QStringList{"T0", "T1", "T2", "T3"}.contains(phase), "Phase de généralisation inconnue");
     require((phase == "T2") == request.contains("base_problem_sha256"), "Référence T1 requise seulement pour T2");
@@ -157,10 +183,16 @@ ProblemGeometry validate(const QJsonObject &request, const ProblemSources &sourc
             "Empreinte de l'observation divergente");
     integer(request.value("seed"), 0, 2147483647, "graine");
     const auto budget = request.value("budget").toObject();
-    fields(budget, {"max_proposals", "max_native"}, {}, "Budget");
+    const auto required = multi ? QStringList{"max_proposals", "max_native", "max_seconds", "max_counterchecks"} :
+                                  QStringList{"max_proposals", "max_native"};
+    fields(budget, required, {}, "Budget");
     const auto proposals = integer(budget.value("max_proposals"), 3, 512, "max_proposals");
     const auto nativeBuilds = integer(budget.value("max_native"), 1, 16, "max_native");
     require(nativeBuilds <= proposals, "Budget max_native supérieur à max_proposals");
+    if (multi) {
+        integer(budget.value("max_seconds"), 1, 3600, "max_seconds");
+        integer(budget.value("max_counterchecks"), 1, nativeBuilds, "max_counterchecks");
+    }
     validateObjectives(request.value("objectives").toArray(), sources.domain);
     return problemGeometry(request, sources.domain);
 }
@@ -203,7 +235,8 @@ QJsonObject parseProblemObject(const QByteArray &bytes, const QString &source)
 QJsonObject validateProblemSpec(const QJsonObject &request, const ProblemSources &sources,
                                 const std::optional<BaseProblem> &base)
 {
-    require(sources.domain.value("schema") == "v3.parametric_domain/1" &&
+    require((sources.domain.value("schema") == "v3.parametric_domain/1" ||
+             sources.domain.value("schema") == "v3.parametric_domain/2") &&
             sources.domain.value("domain") == "SYNTHETIC_BENCH", "Domaine paramétrique de banc requis");
     const auto geometry = validate(request, sources);
     require((request.value("phase") == "T2") == base.has_value(), "Fichier de référence T1 requis seulement pour T2");

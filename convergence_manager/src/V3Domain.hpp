@@ -9,7 +9,14 @@
 namespace convergence {
 
 inline constexpr auto v3ParametricPlanSchema = "v3.mutation_plan/2";
+inline constexpr auto v3MultiHarnessPlanSchema = "v3.mutation_plan/3";
+inline constexpr auto v3MultiHarnessDomainSchema = "v3.parametric_domain/2";
 inline constexpr auto v3NativePortMode = "NATIVE_PORT";
+
+inline bool isV3ParametricPlan(const QJsonValue &schema)
+{
+    return schema == v3ParametricPlanSchema || schema == v3MultiHarnessPlanSchema;
+}
 
 // The coupled route solver supports translation with a locked orientation.
 struct V3UnsupportedPose : std::runtime_error {

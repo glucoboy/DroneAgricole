@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.parametric_domain:2",
+  "title": "Domaine synthétique de mutation multi-faisceaux",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "domain", "model_id", "profile_sha256", "move_action", "scene", "placement", "harnesses", "support_options"],
+  "properties": {
+    "schema": {"const": "v3.parametric_domain/2"},
+    "domain": {"const": "SYNTHETIC_BENCH"},
+    "model_id": {"$ref": "#/$defs/id"},
+    "profile_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "move_action": {"$ref": "#/$defs/id"},
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["device_occurrence", "moving_with"],
+      "properties": {
+        "device_occurrence": {"$ref": "#/$defs/path"},
+        "moving_with": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/path"}}
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame", "translation_min_mm", "translation_max_mm", "rotation_xyzw"],
+      "properties": {
+        "frame": {"const": "ROOT"},
+        "translation_min_mm": {"$ref": "#/$defs/point"},
+        "translation_max_mm": {"$ref": "#/$defs/point"},
+        "rotation_xyzw": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": -1, "maximum": 1}}
+      }
+    },
+    "harnesses": {
+      "type": "object",
+      "description": "Les clés sont les occurrences de câble dans le profil. Le profil lie les nets, les datums et les réservations aux câbles.",
+      "minProperties": 2,
+      "maxProperties": 6,
+      "propertyNames": {"$ref": "#/$defs/id"},
+      "additionalProperties": {"$ref": "#/$defs/harness"}
+    },
+    "support_options": {
+      "type": "object",
+      "description": "Les clés sont les occurrences de support. Une composition scellée contient la pose, tous les câbles par identifiant trié et un seul appui parmi ces options.",
+      "minProperties": 2,
+      "maxProperties": 8,
+      "propertyNames": {"$ref": "#/$defs/id"},
+      "additionalProperties": {"$ref": "#/$defs/support"}
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "path": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*(/[A-Za-z_][A-Za-z0-9_]*)*$"},
+    "point": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "length": {"type": "number", "exclusiveMinimum": 0},
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corridor_min_mm", "corridor_max_mm", "start_mm", "end_reference_mm", "terminal_mode", "device_reference_mm", "radius_min_mm", "radius_max_mm", "min_points", "max_points"],
+      "properties": {
+        "corridor_min_mm": {"$ref": "#/$defs/point"},
+        "corridor_max_mm": {"$ref": "#/$defs/point"},
+        "start_mm": {"$ref": "#/$defs/point"},
+        "end_reference_mm": {"$ref": "#/$defs/point"},
+        "terminal_mode": {"const": "NATIVE_PORT"},
+        "device_reference_mm": {"$ref": "#/$defs/point"},
+        "radius_min_mm": {"$ref": "#/$defs/length"},
+        "radius_max_mm": {"$ref": "#/$defs/length"},
+        "min_points": {"type": "integer", "minimum": 2, "maximum": 16},
+        "max_points": {"type": "integer", "minimum": 2, "maximum": 16}
+      }
+    },
+    "harness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "occurrence_path", "ports", "route", "diameter_mm", "electrical_id", "minimum_length_mm", "maximum_length_mm", "evidence_scope"],
+      "properties": {
+        "action": {"$ref": "#/$defs/id"},
+        "occurrence_path": {"$ref": "#/$defs/path"},
+        "ports": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "route": {"$ref": "#/$defs/route"},
+        "diameter_mm": {"$ref": "#/$defs/length"},
+        "electrical_id": {"$ref": "#/$defs/id"},
+        "minimum_length_mm": {"$ref": "#/$defs/length"},
+        "maximum_length_mm": {"$ref": "#/$defs/length"},
+        "evidence_scope": {"const": "SYNTHETIC_BENCH"}
+      }
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "operation", "occurrence", "anchor", "anchor_path", "support_path", "carrier_path"],
+      "properties": {
+        "action": {"$ref": "#/$defs/id"},
+        "operation": {"enum": ["RELOCATE_SUPPORT", "CREATE_SUPPORT"]},
+        "occurrence": {"$ref": "#/$defs/id"},
+        "anchor": {"$ref": "#/$defs/id"},
+        "anchor_path": {"$ref": "#/$defs/path"},
+        "support_path": {"$ref": "#/$defs/path"},
+        "carrier_path": {"$ref": "#/$defs/path"}
+      }
+    }
+  }
+}

@@ -28,6 +28,8 @@ PROFILES = {
     PROJECT / "docs/electromechanical_v3/bench_b1_workholding/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_c1_coupled/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json",
+    PROJECT / "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+    PROJECT / "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_b2_variations.json",
 }
 GROUPS = {"App::Part", "App::DocumentObjectGroup"}
@@ -124,7 +126,9 @@ def overlap(a, b):
 
 def relation(a, b):
     require(solid(a) and solid(b), "Solide de mesure invalide")
-    return {"intersection_mm3": overlap(a, b), "gap_mm": a.distToShape(b)[0]}
+    gap = a.distToShape(b)[0]
+    require(math.isfinite(gap) and gap >= 0, "Distance BRep invalide")
+    return {"intersection_mm3": overlap(a, b), "gap_mm": gap}
 
 
 class Observation:
@@ -391,7 +395,9 @@ class Observation:
             shape, carrier = self.shape(identifier), self.shape(spec["carrier"])
             touch = relation(shape, carrier)
             area = None
-            if touch["intersection_mm3"] == 0:
+            if spec.get("selected_only") and touch["gap_mm"] > self.rules["tolerances"]["distance_mm"]:
+                area = 0.0
+            elif touch["intersection_mm3"] == 0:
                 fused = shape.fuse(carrier)
                 require(solid(fused), f"Union BRep invalide : {identifier}")
                 area = max(0.0, (shape.Area + carrier.Area - fused.Area) / 2)
@@ -421,6 +427,79 @@ class Observation:
                 }
         return records
 
+    def interference_classification(self, pairs, supports):
+        thresholds = self.rules["tolerances"]
+        epsilon, distance = thresholds["volume_mm3"], thresholds["distance_mm"]
+        paths = lambda names: tuple(sorted(self.identities.get(name, name) for name in names))
+        indexed = {tuple(row["pair"]): row for row in pairs}
+        cross = self.rules["cross_harness"]
+        cable_pair = paths(cross["harnesses"])
+        require(len(cable_pair) == 2 and len(set(cable_pair)) == 2 and cable_pair in indexed,
+                "Paire de faisceaux indépendante absente")
+        interactions = indexed[cable_pair]
+        clearance = cross["minimum_clearance_mm"]
+        require(math.isfinite(clearance) and clearance > 0, "Seuil de garde inter-faisceaux absent")
+        cross_pass = interactions["gap_mm"] >= clearance - distance and interactions["intersection_mm3"] <= epsilon
+        allowed, declared, engagement = set(), set(), []
+        for rule in self.rules["allowed_interferences"]:
+            name = rule["support"]
+            spec = self.rules["supports"][name]
+            pair = paths(rule["parts"])
+            require(pair not in declared and pair in indexed and pair != cable_pair and rule["reason"].strip()
+                    and rule["role"] == "FASTENER_CARRIER_ENGAGEMENT"
+                    and pair in {paths([spec["carrier"], stud]) for stud in spec["fasteners"]}
+                    and 0 < rule["min_volume_mm3"] <= rule["max_volume_mm3"],
+                    "Autorité de recoupement sans paire mécanique scellée")
+            declared.add(pair)
+            measurement = indexed[pair]
+            volume = measurement["intersection_mm3"]
+            if volume <= epsilon:
+                continue
+            support = supports[name]
+            fasteners = {stud["name"]: stud for stud in support["fasteners"]}
+            carrier = self.identities[spec["carrier"]]
+            engaged_stud = next(stud for stud in pair if stud != carrier)
+            fastener = fasteners.get(engaged_stud)
+            status = (support["bearing_area_mm2"] is not None
+                      and support["bearing_area_mm2"] >= spec["min_contact_area_mm2"]
+                      and support["gap_mm"] <= distance and support["anchor"] == self.identities[spec["anchor"]]
+                      and support["carrier"] == carrier and tuple(support["retains"]) == paths(spec["retains"])
+                      and all(gap <= spec["retention_max_gap_mm"] for gap in support["retention_gaps_mm"].values())
+                      and fastener is not None and fastener["support_gap_mm"] <= distance
+                      and abs(fastener["intersection_mm3"] - volume) <= epsilon
+                      and rule["min_volume_mm3"] - epsilon <= volume <= rule["max_volume_mm3"] + epsilon)
+            engagement.append({**measurement, "status": "PASS" if status else "FAIL", "role": rule["role"],
+                               "support": name, "authority_reason": rule["reason"],
+                               "min_volume_mm3": rule["min_volume_mm3"], "max_volume_mm3": rule["max_volume_mm3"],
+                               "bearing_area_mm2": support["bearing_area_mm2"], "fastener": fastener})
+            if status:
+                allowed.add(pair)
+        forbidden = [row for pair, row in indexed.items() if pair not in allowed and row["intersection_mm3"] > epsilon]
+        active = {row["support"] for row in engagement if row["status"] == "PASS"}
+        active_actions = {rule["required_action"] for rule in self.rules["allowed_interferences"] if rule["support"] in active}
+        contacts = {}
+        for rule in self.rules["allowed_surface_contacts"]:
+            pair = paths(rule["parts"])
+            require(pair not in contacts and pair in indexed and pair != cable_pair and rule["reason"].strip(),
+                    "Contact de surface sans paire unique mesurable")
+            if not rule.get("required_action") or rule["required_action"] in active_actions:
+                contacts[pair] = rule
+        measured, unexpected = [], []
+        for pair, row in indexed.items():
+            if row["intersection_mm3"] > epsilon or row["gap_mm"] > distance:
+                continue
+            rule = contacts.get(pair)
+            if rule is None:
+                unexpected.append(row)
+            else:
+                measured.append({**row, "role": rule["role"], "authority_reason": rule["reason"]})
+        return {"status": "PASS" if not forbidden and not unexpected and cross_pass else "FAIL",
+                "maximum_forbidden_interference_mm3": max((row["intersection_mm3"] for row in forbidden), default=0),
+                "forbidden_interferences": forbidden, "authorized_engagements": engagement,
+                "surface_contacts": measured, "unexpected_surface_contacts": unexpected,
+                "cross_harness": {**interactions, "minimum_clearance_mm": clearance,
+                                  "status": "PASS" if cross_pass else "FAIL"}}
+
     def measure(self):
         occurrences, pairs = self.world()
         parents = {self.occurrence_path(obj): list(obj.getGlobalPlacement().toMatrix().A)
@@ -433,9 +512,11 @@ class Observation:
             require(not conductors.keys() & observed.keys(), "Identifiant de conducteur partagé")
             conductors.update(observed)
         ports = self.ports()
+        supports = self.supports()
+        classification = {"interference_classification": self.interference_classification(pairs, supports)} if "cross_harness" in self.rules else {}
         return dict(occurrences=occurrences, parent_matrices=parents, pairs=pairs, contacts=self.contacts(),
                     conductors=conductors, ports=ports, routes=routes,
-                    service=self.service(ports), supports=self.supports())
+                    service=self.service(ports), supports=supports, **classification)
 
 
 def run(root, profile_path, result):

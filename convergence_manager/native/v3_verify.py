@@ -343,22 +343,65 @@ class Measurement:
 
     def pairs(self):
         allowed = {}
+        cross_harness = self.rules.get("cross_harness")
+        cable_pair = None
+        clearance = 0
+        if cross_harness is not None:
+            cable_pair = tuple(sorted(self.key(name) for name in cross_harness["harnesses"]))
+            require(len(cable_pair) == 2 and len(set(cable_pair)) == 2, "Deux faisceaux distincts requis")
+            clearance = finite(cross_harness["minimum_clearance_mm"], self.distance)
+        actions = {action["id"]: action for action in self.actions} if self.stage == "candidate" else {}
         for rule in self.rules.get("allowed_interferences", []):
             pair = tuple(sorted(self.key(identifier) for identifier in rule["parts"]))
             require(len(pair) == 2 and pair[0] != pair[1] and pair not in allowed and rule["reason"].strip(),
                     "Autorisation d’interférence ambiguë")
+            if cross_harness is not None:
+                action = actions.get(rule["required_action"])
+                if action is None:
+                    continue
+                spec = self.rules["supports"][rule["support"]]
+                expected = {tuple(sorted((self.key(spec["carrier"]), self.key(stud))))
+                            for stud in spec["fasteners"]}
+                require(rule["role"] == "FASTENER_CARRIER_ENGAGEMENT" and pair in expected
+                        and pair != cable_pair and action["occurrence"] == rule["support"],
+                        "Autorité de recoupement sans engagement de fixation applicable")
+                finite(rule["max_volume_mm3"], finite(rule["min_volume_mm3"], self.volume))
             allowed[pair] = rule
         excluded = {self.key(identifier) for identifier in self.rules.get("non_physical", [])}
         shapes = sorted(self.shapes.keys() - excluded)
         require(0 < len(shapes) <= 128, "Nombre de solides du banc hors budget")
+        if cross_harness is not None:
+            require(all(key in shapes for key in {*cable_pair, *(name for pair in allowed for name in pair)}),
+                    "Une paire requise manque dans la mesure des solides natifs")
+        surface_contacts = {}
+        for rule in self.rules.get("allowed_surface_contacts", []):
+            pair = tuple(sorted(self.key(identifier) for identifier in rule["parts"]))
+            require(len(pair) == 2 and len(set(pair)) == 2 and pair != cable_pair and pair not in surface_contacts
+                    and all(key in shapes for key in pair) and rule["reason"].strip(),
+                    "Contact de surface sans paire unique mesurable")
+            if not rule.get("required_action") or rule["required_action"] in actions:
+                surface_contacts[pair] = rule
         result = []
         for left, right in itertools.combinations(shapes, 2):
-            permission = allowed.get((left, right))
+            pair = left, right
+            permission = allowed.get(pair)
             limit = self.volume + (finite(permission["max_volume_mm3"]) if permission else 0)
             report = self.native.geometry.inspect_pair(self.shapes[left], self.shapes[right], left, right,
-                                                       volume_tolerance_mm3=limit)
+                clearance_mm=clearance if pair == cable_pair else 0,
+                volume_tolerance_mm3=limit, distance_tolerance_mm=self.distance)
             if permission:
                 report["sealed_overlap_permission"] = permission
+                if cross_harness is not None and report["status"] == "pass" and (
+                        report["intersection_volume_mm3"] < permission["min_volume_mm3"] - self.volume):
+                    report["failures"].append("insufficient_fastener_engagement")
+                    report["status"] = "fail"
+            elif cross_harness is not None and report["status"] == "pass" and report["clearance_mm"] <= self.distance:
+                contact = surface_contacts.get(pair)
+                if contact is None:
+                    report["failures"].append("unexpected_surface_contact")
+                    report["status"] = "fail"
+                else:
+                    report["sealed_surface_contact"] = contact
             result.append(report)
         for bounds in self.rules.get("forbidden_volumes", []):
             lower = self.native.vector(bounds["min_mm"])
@@ -448,7 +491,7 @@ class Measurement:
                     changed.add(identifier)
         observed = {}
         for identifier, spec in contracts.items():
-            if spec.get("created_only") and identifier not in changed:
+            if (spec.get("created_only") or spec.get("selected_only")) and identifier not in changed:
                 continue
             support = self.instance(identifier)
             solid, carrier = self.shape(identifier), self.shape(spec["carrier"])
@@ -477,6 +520,9 @@ class Measurement:
                                   bearing_distance <= self.position else "FAIL"})
             fastened = len(fasteners) >= spec.get("min_fasteners", 0) and all(
                 item["status"] == "PASS" for item in fasteners)
+            if "fasteners" in spec:
+                fastened = fastened and {item["name"] for item in fasteners} == {
+                    self.instance(identity).Name for identity in spec["fasteners"]}
             anchor_pose = None
             if "anchor_pose" in spec:
                 expected = self.transform(spec["anchor"]).multiply(self.pose(spec["anchor_pose"]))

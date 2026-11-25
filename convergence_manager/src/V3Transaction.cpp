@@ -273,6 +273,11 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     require(published.mkpath("."), "Préparation de la publication impossible");
     QJsonObject job{{"plan_id", planId}, {"entry", entry}, {"dependencies", dependencies},
                     {"model", profile.value("model")}, {"actions", actions}};
+    const bool multiharness = report.value("plan_schema") == v3MultiHarnessPlanSchema;
+    if (multiharness) {
+        job.insert("support_option", plan.value("support_option"));
+        report.insert("support_option", plan.value("support_option"));
+    }
     QSet<QString> mandatory;
     for (const auto &value : report.value("admissions").toArray()) {
         for (const auto &check : value.toObject().value("mandatory_checks").toArray())
@@ -299,7 +304,7 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     artifacts.insert("mutation-plan.json", write(published.filePath("mutation-plan.json"), planBytes));
     QJsonObject evidenceParameters{{"plan_id", planId}, {"plan_sha256", report.value("plan_sha256")},
                                    {"profile_sha256", plan.value("profile_sha256")}};
-    if (report.value("plan_schema") == v3ParametricPlanSchema) {
+    if (isV3ParametricPlan(report.value("plan_schema"))) {
         const auto domainSha = plan.value("domain_sha256").toString();
         const auto domainPath = v3DomainPath(domainSha);
         const auto expandedSha = write(published.filePath("expanded-plan.json"), plan);
@@ -363,7 +368,8 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
             status = candidate.value("status").toString();
             report.insert("reason", "INDEPENDENT_NATIVE_VALIDATION");
             report.insert("validation_status", status);
-            resultingFiles = after;
+            if (!multiharness || status == "PASS")
+                resultingFiles = after;
         }
     } catch (const std::exception &error) {
         report.insert("reason", QString::fromUtf8(error.what()));
@@ -439,7 +445,7 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
     QJsonObject report{{"schema", "v3.b1.transaction/1"}, {"plan_id", plan.value("plan_id")},
         {"plan_sha256", planSha}, {"construction_result", "NOT_RUN"}, {"validation_status", "NOT_RUN"},
         {"candidate_transactions", 0}, {"execution_scope", "NONE"}};
-    const bool parametric = plan.value("schema") == v3ParametricPlanSchema;
+    const bool parametric = isV3ParametricPlan(plan.value("schema"));
     if (!parametric && plan.value("schema") != planSchema)
         return refusal(output, report, "UNSUPPORTED", "CONTRACT_VERSION_UNSUPPORTED");
     if (plan.value("domain") != "SYNTHETIC_BENCH")
@@ -456,7 +462,7 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
             parametricDecisions = admitted.decisions;
             for (const auto &value : executablePlan.value("actions").toArray())
                 sequence.append(identifier(value.toObject().value("id")));
-            report.insert("plan_schema", v3ParametricPlanSchema);
+            report.insert("plan_schema", plan.value("schema"));
             report.insert("authority_sha256", executablePlan.value("authority_sha256"));
             report.insert("domain_sha256", executablePlan.value("domain_sha256"));
         } else {

@@ -16,7 +16,9 @@ PROFILES = ROOT / 'docs/electromechanical_v3'
 MEASURER = ROOT / 'convergence_manager/native/v3_cross_measure.py'
 PROFILE_FILES = [PROFILES / path for path in ('bench_b1_c4/profile.json', 'bench_b1_workholding/profile.json',
                                              'bench_b2_variations.json', 'bench_c1_coupled/profile.json',
-                                             'bench_c1_coupled_secondary/profile.json')]
+                                             'bench_c1_coupled_secondary/profile.json',
+                                             'bench_c2_multiharness/profile.json',
+                                             'bench_c2_multiharness_secondary/profile.json')]
 # Les tolérances de distance, angle et volume viennent du profil scellé.
 # L'égalité des aires calculées par deux opérations OCC admet 1e-6 mm².
 AREA_TOLERANCE_MM2 = 1e-6
@@ -244,13 +246,32 @@ class Assessment:
 
     def geometry(self, baseline, observed, actions):
         previous = {pair_id(row['pair']): row['intersection_mm3'] for row in baseline['pairs']}
+        action_ids = {action['id'] for action in actions}
         exemptions = {pair_id([self.paths.get(name, name) for name in rule['parts']]): rule['max_volume_mm3']
-                      for rule in self.rules['allowed_interferences']}
+                      for rule in self.rules['allowed_interferences']
+                      if not rule.get('required_action') or rule['required_action'] in action_ids}
         for row in observed['pairs']:
             pair = pair_id(row['pair'])
             self.limit(f'pair/{pair[0]}/{pair[1]}', row['intersection_mm3'], upper=exemptions.get(pair, 0)+self.volume, unit='mm³')
             self.rows[-1]['baseline_mm3'] = previous.get(pair)
-        action_ids = {action['id'] for action in actions}
+        if 'cross_harness' in self.rules:
+            classification = observed.get('interference_classification')
+            expected = {rule['support'] for rule in self.rules['allowed_interferences']
+                        if rule['required_action'] in action_ids}
+            if classification is None:
+                self.add('interference-classification', 'INCONCLUSIVE', None, 'Classification BRep requise')
+            else:
+                entries = classification['authorized_engagements']
+                measured = {row['support'] for row in entries if row['status'] == 'PASS'}
+                self.boolean('interference/classification', classification['status'] == 'PASS', classification['status'], 'PASS')
+                self.boolean('interference/active-engagement', measured == expected and len(entries) == len(expected),
+                             sorted(measured), sorted(expected))
+                self.limit('interference/forbidden-volume', classification['maximum_forbidden_interference_mm3'],
+                           upper=self.volume, unit='mm³')
+                cross = classification['cross_harness']
+                self.limit('harnesses/clearance', cross['gap_mm'],
+                           lower=self.rules['cross_harness']['minimum_clearance_mm']-self.distance, unit='mm')
+                self.limit('harnesses/intersection', cross['intersection_mm3'], upper=self.volume, unit='mm³')
         limits = {pair_id([rule.get('anchor') or rule['object'], obstacle]): rule['clearance_mm']
                   for rule in self.rules['service'] for obstacle in rule['obstacles']}
         for row in observed['service']:
@@ -272,6 +293,8 @@ class Assessment:
         if not self.rules['supports']:
             self.add('support', 'NOT_APPLICABLE', None, 'Aucun support de maintien dans le modèle C4')
         for name, rule in self.rules['supports'].items():
+            if rule.get('selected_only') and name not in selected:
+                continue
             if rule.get('created_only') and name not in selected:
                 self.add(f'support/{name}', 'NOT_APPLICABLE', None, 'Aucune création de ce support dans le plan scellé')
                 continue
@@ -328,6 +351,8 @@ def compare(first, third, profile):
         for field in ['length_mm', 'minimum_radius_mm']:
             difference(f'{subject}/{field}', original[field], route[field], tolerance['distance_mm'], 'mm')
     for subject, support in third['supports'].items():
+        if profile['model']['validation']['supports'].get(subject, {}).get('selected_only') and subject not in checks['L4_SUPPORT_ANCHOR']:
+            continue
         original = checks['L4_SUPPORT_ANCHOR'][subject]
         difference(f'{subject}/bearing_area', original['bearing_area_mm2'], support['bearing_area_mm2'], AREA_TOLERANCE_MM2, 'mm²')
         difference(f'{subject}/gap', original['gap_mm'], support['gap_mm'], tolerance['distance_mm'], 'mm')
@@ -371,7 +396,7 @@ def case_result(args, area, replay, profiles):
     transaction = receipt.parent
     native, plan = load(receipt), load(transaction / 'mutation-plan.json')
     proposal = native['plan_sha256']
-    if plan['schema'] == 'v3.mutation_plan/2':
+    if plan['schema'] in {'v3.mutation_plan/2', 'v3.mutation_plan/3'}:
         expanded_path = transaction / 'expanded-plan.json'
         if digest(expanded_path) != native['expanded_plan_sha256'] or plan['domain_sha256'] != native['domain_sha256']:
             raise ValueError(f'Expansion d’admission divergente : {receipt}')

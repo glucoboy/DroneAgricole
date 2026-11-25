@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drone-agricole:v3.mutation_plan:3",
+  "title": "Mutation atomique de plusieurs faisceaux sur banc",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "domain", "plan_id", "authority_sha256", "domain_sha256", "values"],
+  "properties": {
+    "schema": {"const": "v3.mutation_plan/3"},
+    "domain": {"const": "SYNTHETIC_BENCH"},
+    "plan_id": {"$ref": "#/$defs/id"},
+    "authority_sha256": {"$ref": "#/$defs/sha256"},
+    "domain_sha256": {"$ref": "#/$defs/sha256"},
+    "values": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["translation_mm", "harnesses", "support_option"],
+      "properties": {
+        "translation_mm": {"$ref": "#/$defs/point"},
+        "harnesses": {
+          "type": "object",
+          "minProperties": 2,
+          "maxProperties": 6,
+          "propertyNames": {"$ref": "#/$defs/id"},
+          "additionalProperties": {"$ref": "#/$defs/route"}
+        },
+        "support_option": {"$ref": "#/$defs/id"}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "point": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["route_points_mm", "bend_radius_mm"],
+      "properties": {
+        "route_points_mm": {"type": "array", "minItems": 2, "maxItems": 16, "items": {"$ref": "#/$defs/point"}},
+        "bend_radius_mm": {"type": "number", "exclusiveMinimum": 0}
+      }
+    }
+  }
+}

@@ -39,6 +39,8 @@ const QMap<QString, QString> mutationProfiles{
     {"a6bcd031d44682299eb22a539386417bd0be201e2b6c01c4079276b13cb51a80", "docs/electromechanical_v3/bench_b2_variations.json"},
     {"0d7b7cf49d0d684281f5cb7891adb52d7ad3060b88b5855cdab536cb5b9925d0", "docs/electromechanical_v3/bench_c1_coupled/profile.json"},
     {"23dd28c51743d35df076844dfde82d21f01b619207baac6967f6b594027e0bb2", "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json"},
+    {"250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604", "docs/electromechanical_v3/bench_c2_multiharness/profile.json"},
+    {"4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4", "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json"},
 };
 
 const QSet<QString> domains{benchDomain, copyDomain, designDomain, physicalDomain};
@@ -333,6 +335,8 @@ QJsonObject evaluateMutationBench(const QDir &root, const QDir &sandbox, const Q
     } catch (const std::exception &) {
         return result.stop("TRUSTED_BENCH_EVIDENCE_MISMATCH");
     }
+    if (profile.value("model").toObject().value("validation").toObject().value("routes").toObject().size() > 1)
+        return result.stop("MULTI_HARNESS_ATOMIC_PLAN_REQUIRED");
     result.bind("BENCH_MUTATION_PROFILE", ref(mutationProfiles.value(sha), sha));
     result.verified("BENCH_EVIDENCE_SEALED");
     bool operationSupported = false;
@@ -494,6 +498,8 @@ V3ParametricAdmission admitV3Plan(const QDir &root, const QDir &sandbox, const Q
     const auto domain = loadV3Domain(root, domainSha);
     const auto profileSha = domain.value("profile_sha256").toString();
     const auto profile = loadMutationProfile(root, profileSha);
+    const bool multi = profile.value("model").toObject().value("validation").toObject().value("routes").toObject().size() > 1;
+    require(multi == (domain.value("schema") == v3MultiHarnessDomainSchema), "Contrat d'autorité incompatible avec les faisceaux");
     const auto expanded = validateV3Plan(domain, profile, domainSha, plan);
     QJsonArray decisions;
     for (const auto &value : expanded.value("actions").toArray()) {

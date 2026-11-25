@@ -501,7 +501,7 @@ std::vector<RouteSample> searchRoutes(const Scene &scene, Vector end, const QStr
 QJsonObject blockedPose(Vector pose, const QString &family, const QString &reason)
 {
     return {{"family", family}, {"sample_translation_mm", json(pose)}, {"screen", QJsonObject{
-                {"status", "BLOCKED"}, {"blocking_issues", QJsonArray{reason}}, {"route_trials", 0}}}};
+                {"status", "SCREEN_REJECT"}, {"blocking_issues", QJsonArray{reason}}, {"route_trials", 0}}}};
 }
 
 QJsonObject makeProposal(Scene scene, Vector pose, const QString &family, int routeAlternative)
@@ -564,7 +564,7 @@ QJsonObject makeProposal(Scene scene, Vector pose, const QString &family, int ro
         points.append(json(point));
     QJsonObject values{{"translation_mm", json(pose)}, {"route_points_mm", points}, {"bend_radius_mm", scene.bendRadius}};
     return {{"family", family}, {"values", values}, {"screen", QJsonObject{
-                {"status", best.issues.isEmpty() || scene.coupled ? "ELIGIBLE" : "BLOCKED"},
+                {"status", best.issues.isEmpty() ? "SCREEN_PASS" : scene.coupled ? "NEEDS_NATIVE_CHECK" : "SCREEN_REJECT"},
                 {"blocking_issues", QJsonArray::fromStringList(best.issues)},
                 {"minimum_clearance_mm", std::isfinite(best.clearance) ? QJsonValue(best.clearance) : QJsonValue(QJsonValue::Null)},
                 {"estimated_route_length_mm", best.route.length}, {"route_trials", static_cast<int>(routes.size())}}}};
@@ -578,13 +578,214 @@ QString signature(const QJsonObject &values)
             coordinate = std::round(coordinate / epsilon);
         return json(point);
     };
-    QJsonArray points;
-    for (const auto value : values.value("route_points_mm").toArray())
-        points.append(quantize(value));
-    const QJsonObject geometry{{"translation", quantize(values.value("translation_mm"))}, {"path", points},
-                               {"radius", std::round(values.value("bend_radius_mm").toDouble() / epsilon)}};
+    const auto pathGeometry = [&quantize](const QJsonObject &route) {
+        QJsonArray points;
+        for (const auto &point : route.value("route_points_mm").toArray())
+            points.append(quantize(point));
+        return QJsonObject{{"path", points},
+            {"radius", std::round(route.value("bend_radius_mm").toDouble() / epsilon)}};
+    };
+    QJsonObject geometry{{"translation", quantize(values.value("translation_mm"))}};
+    if (values.contains("harnesses")) {
+        const auto harnesses = values.value("harnesses").toObject();
+        QJsonObject paths;
+        for (auto it = harnesses.begin(); it != harnesses.end(); ++it)
+            paths.insert(it.key(), pathGeometry(it.value().toObject()));
+        geometry.insert("harnesses", paths);
+        geometry.insert("support_option", values.value("support_option"));
+    } else {
+        const auto path = pathGeometry(values);
+        geometry.insert("path", path.value("path"));
+        geometry.insert("radius", path.value("radius"));
+    }
     return QString::fromLatin1(QCryptographicHash::hash(QJsonDocument(geometry).toJson(QJsonDocument::Compact),
                                                        QCryptographicHash::Sha256).toHex());
+}
+
+double pointSegmentDistance(Vector point, Vector first, Vector last)
+{
+    const auto step = subtract(last, first);
+    const auto projection = dot(subtract(point, first), step) / dot(step, step);
+    return norm(subtract(point, add(first, scale(step, std::clamp(projection, 0.0, 1.0)))));
+}
+
+double segmentDistance(Vector a, Vector b, Vector c, Vector d)
+{
+    const auto u = subtract(b, a), v = subtract(d, c), offset = subtract(a, c);
+    const auto uu = dot(u, u), vv = dot(v, v), uv = dot(u, v);
+    const auto determinant = uu * vv - uv * uv;
+    if (determinant > epsilon * uu * vv) {
+        const auto du = dot(u, offset), dv = dot(v, offset);
+        const auto s = (uv * dv - vv * du) / determinant;
+        const auto t = (uu * dv - uv * du) / determinant;
+        if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+            return norm(subtract(add(a, scale(u, s)), add(c, scale(v, t))));
+    }
+    return std::min({pointSegmentDistance(a, c, d), pointSegmentDistance(b, c, d),
+                     pointSegmentDistance(c, a, b), pointSegmentDistance(d, a, b)});
+}
+
+double routeGap(const QJsonArray &left, const QJsonArray &right, double radii)
+{
+    double distance = std::numeric_limits<double>::infinity();
+    for (qsizetype i = 1; i < left.size(); ++i)
+        for (qsizetype j = 1; j < right.size(); ++j)
+            distance = std::min(distance, segmentDistance(numbers<3>(left.at(i - 1)), numbers<3>(left.at(i)),
+                                                          numbers<3>(right.at(j - 1)), numbers<3>(right.at(j))));
+    return distance - radii;
+}
+
+struct HarnessScene {
+    QString id;
+    Scene scene;
+};
+
+QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem,
+                         int seed, const QString &family, int routeAlternative)
+{
+    const QStringList families{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
+    require(family.isEmpty() || families.contains(family), "Famille multi-faisceaux inconnue");
+    require(routeAlternative >= 0 && routeAlternative <= 1, "Raffinement multi-faisceaux hors budget");
+    const auto harnesses = domain.value("harnesses").toObject();
+    const auto options = domain.value("support_options").toObject();
+    require(harnesses.size() >= 2 && harnesses.size() <= 6 && options.size() >= 2 && options.size() <= 8,
+            "Domaine multi-faisceaux incomplet");
+    const auto restricted = problem.value("narrowing").toObject().value("support_zones").toArray();
+    QStringList supportIds;
+    QJsonArray supports;
+    for (auto it = options.begin(); it != options.end(); ++it) {
+        supports.append(it.value());
+        if (restricted.isEmpty() || restricted.contains(it.key()))
+            supportIds.append(it.key());
+    }
+    require(!supportIds.isEmpty() && (restricted.isEmpty() || supportIds.size() == restricted.size()),
+            "Restriction de support hors du domaine scellé");
+    const auto observations = baseline.value("routes").toObject();
+    require(observations.keys() == harnesses.keys(), "Observation multi-faisceaux incomplète");
+    std::vector<HarnessScene> scenes;
+    for (auto it = harnesses.begin(); it != harnesses.end(); ++it) {
+        const auto cable = it.value().toObject();
+        auto scene = domain.value("scene").toObject();
+        scene.insert("cable_occurrence", cable.value("occurrence_path"));
+        scene.insert("ports", cable.value("ports"));
+        auto projection = domain;
+        projection.insert("scene", scene);
+        projection.insert("supports", supports);
+        projection.insert("route", cable.value("route"));
+        auto measured = baseline;
+        const auto route = observations.value(it.key());
+        require(route.toObject().value("diameter_mm") == cable.value("diameter_mm"),
+                "Diamètre natif divergent du faisceau scellé");
+        measured.insert("routes", QJsonObject{{it.key(), route}});
+        auto obstacles = baseline.value("occurrences").toObject();
+        for (const auto &other : harnesses)
+            obstacles.remove(other.toObject().value("occurrence_path").toString());
+        measured.insert("occurrences", obstacles);
+        auto routeScene = readScene(projection, measured, problem);
+        require(routeScene.coupled, "Port mobile indépendant requis pour chaque faisceau");
+        // A plate can retain a curved segment. Only the independent native
+        // contact check is authoritative for the selected multi-harness support.
+        routeScene.anchors.clear();
+        scenes.push_back({it.key(), std::move(routeScene)});
+    }
+    const auto poses = samplePoses(scenes.front().scene.translation, seed);
+    const auto budget = problem.value("budget").toObject().value("max_proposals").toInt();
+    require(budget > 0 && budget <= 512, "Budget de propositions multi-faisceaux invalide");
+    const auto activeFamilies = family.isEmpty() ? families : QStringList{family};
+    QSet<QString> signatures;
+    QJsonArray proposals;
+    int eligible = 0;
+    for (const auto &pose : poses) {
+        if (proposals.size() >= budget)
+            break;
+        for (const auto &primary : activeFamilies) {
+            if (proposals.size() >= budget)
+                break;
+            const auto priority = families.indexOf(primary);
+            const auto first = makeProposal(scenes.front().scene, pose.point, primary, routeAlternative);
+            if (!first.contains("values")) {
+                auto rejected = first;
+                auto screen = rejected.value("screen").toObject();
+                screen.insert("status", "SCREEN_REJECT");
+                rejected.insert("screen", screen);
+                proposals.append(rejected);
+                continue;
+            }
+            QVector<QJsonObject> combinations;
+            for (qsizetype strategy = 0; strategy < families.size(); ++strategy) {
+                QJsonObject routes;
+                QStringList issues;
+                double estimatedLength = 0;
+                double minimumGap = std::numeric_limits<double>::infinity();
+                int trials = 0;
+                for (std::size_t index = 0; index < scenes.size(); ++index) {
+                    const auto &harness = scenes[index];
+                    const auto sign = families.at((priority + strategy + static_cast<qsizetype>(index) - 1 + families.size())
+                                                  % families.size());
+                    const auto proposal = index == 0 ? first : makeProposal(harness.scene, pose.point, sign, routeAlternative);
+                    const auto screen = proposal.value("screen").toObject();
+                    trials += screen.value("route_trials").toInt();
+                    for (const auto &issue : screen.value("blocking_issues").toArray())
+                        issues.append(harness.id + '/' + issue.toString());
+                    if (!proposal.contains("values"))
+                        break;
+                    auto route = proposal.value("values").toObject();
+                    route.remove("translation_mm");
+                    for (std::size_t other = 0; other < index; ++other) {
+                        const auto gap = routeGap(route.value("route_points_mm").toArray(),
+                            routes.value(scenes[other].id).toObject().value("route_points_mm").toArray(),
+                            harness.scene.cableRadius + scenes[other].scene.cableRadius);
+                        minimumGap = std::min(gap, minimumGap);
+                        if (gap <= epsilon)
+                            issues.append("inter-harness/" + scenes[other].id + '/' + harness.id);
+                    }
+                    routes.insert(harness.id, route);
+                    estimatedLength += screen.value("estimated_route_length_mm").toDouble();
+                }
+                if (routes.size() != harnesses.size())
+                    continue;
+                const QJsonObject screen{{"status", issues.isEmpty() ? "SCREEN_PASS" : "NEEDS_NATIVE_CHECK"},
+                    {"blocking_issues", QJsonArray::fromStringList(issues)}, {"route_trials", trials},
+                    {"estimated_route_length_mm", estimatedLength}, {"polyline_inter_harness_gap_mm", minimumGap}};
+                combinations.append(QJsonObject{{"family", primary}, {"routes", routes}, {"screen", screen}});
+            }
+            std::stable_sort(combinations.begin(), combinations.end(), [](const auto &left, const auto &right) {
+                const auto first = left.value("screen").toObject();
+                const auto second = right.value("screen").toObject();
+                return std::pair{first.value("blocking_issues").toArray().size(), first.value("estimated_route_length_mm").toDouble()}
+                     < std::pair{second.value("blocking_issues").toArray().size(), second.value("estimated_route_length_mm").toDouble()};
+            });
+            if (combinations.isEmpty()) {
+                auto rejected = blockedPose(pose.point, primary, "NO_COMPLETE_HARNESS_COMPOSITION");
+                auto screen = rejected.value("screen").toObject();
+                screen.insert("status", "SCREEN_REJECT");
+                rejected.insert("screen", screen);
+                proposals.append(rejected);
+            }
+            for (const auto &candidate : combinations) {
+                for (qsizetype option = 0; option < supportIds.size() && proposals.size() < budget; ++option) {
+                    const auto choice = supportIds.at((option + priority + routeAlternative) % supportIds.size());
+                    const QJsonObject values{{"translation_mm", json(pose.point)},
+                        {"harnesses", candidate.value("routes")}, {"support_option", choice}};
+                    const auto identity = signature(values);
+                    if (signatures.contains(identity))
+                        continue;
+                    signatures.insert(identity);
+                    auto portfolio = candidate;
+                    portfolio.insert("values", values);
+                    portfolio.insert("signature", identity);
+                    portfolio.remove("routes");
+                    proposals.append(portfolio);
+                    ++eligible;
+                }
+            }
+        }
+    }
+    return {{"status", eligible ? "GENERATED" : "NO_FEASIBLE_CANDIDATE_FOUND"}, {"proposals", proposals},
+            {"coverage", QJsonObject{{"route_screen", "TUBE_ENVELOPE_AND_POLYLINE_GAP"},
+                {"eligible", eligible}, {"possible_pose_count", static_cast<int>(poses.size())},
+                {"budget_limited", proposals.size() == budget}, {"determination", "SCREEN_ONLY"}}},
+            {"unknowns", QJsonArray{"SERVICE_SWEEPS", "CONTACT_ENGAGEMENT", "BRep_INTERFERENCE"}}};
 }
 
 } // namespace
@@ -593,6 +794,8 @@ QJsonObject generateV3Proposals(const QJsonObject &domain, const QJsonObject &ba
                                const QJsonObject &problem, int seed, const QString &family, int routeAlternative)
 {
     try {
+        if (domain.value("schema") == v3MultiHarnessDomainSchema)
+            return multiharness(domain, baseline, problem, seed, family, routeAlternative);
         const QStringList families{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
         require(family.isEmpty() || families.contains(family), "Famille de recherche inconnue");
         const auto scene = readScene(domain, baseline, problem);
@@ -623,7 +826,7 @@ QJsonObject generateV3Proposals(const QJsonObject &domain, const QJsonObject &ba
                 if (refining) {
                     screened.append(proposal);
                 } else {
-                    if (proposal.value("screen").toObject().value("status") == "ELIGIBLE")
+                    if (proposal.value("screen").toObject().value("status") != "SCREEN_REJECT")
                         ++eligible;
                     proposals.append(proposal);
                 }
@@ -634,7 +837,7 @@ QJsonObject generateV3Proposals(const QJsonObject &domain, const QJsonObject &ba
         if (refining) {
             const auto risk = [](const QJsonObject &proposal) {
                 const auto report = proposal.value("screen").toObject();
-                return std::pair{report.value("status") != "ELIGIBLE",
+                return std::pair{report.value("status") == "SCREEN_REJECT",
                                  report.value("blocking_issues").toArray().size()};
             };
             std::stable_sort(screened.begin(), screened.end(), [&risk](const auto &first, const auto &second) {
@@ -643,7 +846,7 @@ QJsonObject generateV3Proposals(const QJsonObject &domain, const QJsonObject &ba
             for (const auto &proposal : screened) {
                 if (proposals.size() == budget)
                     break;
-                if (proposal.value("screen").toObject().value("status") == "ELIGIBLE")
+                if (proposal.value("screen").toObject().value("status") != "SCREEN_REJECT")
                     ++eligible;
                 proposals.append(proposal);
             }
