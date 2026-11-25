@@ -99,6 +99,7 @@ def main():
     area = args.output.resolve()
     assert area.is_relative_to(ROOT / '.runtime')
     area.mkdir(parents=True)
+    sealed_profile = digest(PROFILE)
     profile = load(PROFILE)
     outcomes = {}
     probes = {
@@ -123,30 +124,58 @@ def main():
     assert report['admissions'][0]['reason'] == 'XLINK_DEPENDENCY_MISMATCH', receipt
     outcomes[case.name] = report['reason']
 
-    case = area / 'altered-source'
+    case = area / 'missing-xlink'
     sandbox = setup(case, profile, request(profile, case.name))
-    replica = case / 'repo'
-    origin = replica / profile['source']
-    shutil.copytree(ROOT / profile['source'], origin)
-    shutil.copyfile(PROFILE, replica / PROFILE.relative_to(ROOT))
-    corrupt(origin / profile['entry'])
-    private = replica / '.runtime/input'
-    private.parent.mkdir()
-    shutil.copytree(sandbox, private)
-    shutil.copyfile(case / 'plan.json', replica / 'plan.json')
-    argv = [str(args.core.resolve()), 'v3-build', '--root', str(replica), '--request', 'plan.json',
-            '--sandbox', '.runtime/input', '--output', '.runtime/output',
-            '--freecad-python', str(args.freecad.resolve()), '--t0-validator', str(args.t0.resolve())]
-    result = subprocess.run(argv, cwd=ROOT, capture_output=True, timeout=30)
-    refusal = load(replica / '.runtime/output/refusal.json')
-    assert result.returncode == 2 and refusal['admissions'][0]['reason'] == 'BENCH_SOURCE_DEPENDENCY_MISMATCH'
-    write(case / 'invocation.json', dict(argv=argv, code=result.returncode))
-    outcomes[case.name] = refusal['reason']
+    dependency = sandbox / 'parts/Obstacle.FCStd'
+    dependency.chmod(stat.S_IREAD | stat.S_IWRITE)
+    dependency.unlink()
+    result, receipt, report = run(args, case, sandbox)
+    assert result.returncode == 2 and report['status'] == 'FAIL' and report['finalized'], receipt
+    assert report['admissions'][0]['reason'] == 'XLINK_DEPENDENCY_MISMATCH', receipt
+    assert report['construction_result'] == 'NOT_RUN' and report['candidate_transactions'] == 0, receipt
+    assert not (case / 'output' / 'transaction').exists(), receipt
+    outcomes[case.name] = report['reason']
+
+    for name in ('altered-source', 'altered-profile'):
+        case = area / name
+        plan = request(profile, name)
+        sandbox = setup(case, profile, plan)
+        replica = case / 'repo'
+        profile_path = PROFILE.relative_to(ROOT)
+        bench = replica / profile_path.parent
+        shutil.copytree(PROFILE.parent, bench)
+        if name == 'altered-source':
+            corrupt(replica / profile['source'] / profile['entry'])
+        else:
+            altered = {**profile, 'model_version': '2'}
+            write(replica / profile_path, altered)
+            assert digest(replica / profile_path) != plan['profile_sha256'] == sealed_profile
+        private = replica / '.runtime/input'
+        private.parent.mkdir()
+        shutil.copytree(sandbox, private)
+        shutil.copyfile(case / 'plan.json', replica / 'plan.json')
+        argv = [str(args.core.resolve()), 'v3-build', '--root', str(replica), '--request', 'plan.json',
+                '--sandbox', '.runtime/input', '--output', '.runtime/output',
+                '--freecad-python', str(args.freecad.resolve()), '--t0-validator', str(args.t0.resolve())]
+        result = subprocess.run(argv, cwd=ROOT, capture_output=True, timeout=30)
+        write(case / 'invocation.json', dict(argv=argv, code=result.returncode))
+        output = replica / '.runtime/output'
+        receipt = output / 'refusal.json'
+        refusal = load(receipt)
+        assert result.returncode == 2 and refusal['status'] == 'FAIL' and refusal['finalized'], receipt
+        assert refusal['construction_result'] == 'NOT_RUN' and refusal['candidate_transactions'] == 0, receipt
+        assert not (output / 'transaction').exists(), receipt
+        if name == 'altered-source':
+            assert refusal['admissions'][0]['reason'] == 'BENCH_SOURCE_DEPENDENCY_MISMATCH', receipt
+        else:
+            assert refusal['reason'] == f'Empreinte de preuve divergente : {profile_path.as_posix()}', receipt
+        outcomes[name] = refusal['reason']
 
     outcomes['input-outside'] = external_case(args, area, profile, 'input-outside', '--sandbox')
     outcomes['output-outside'] = external_case(args, area, profile, 'output-outside', '--output')
     outcomes['worker-no-report'] = failed_worker(args, area, profile)
     outcomes['interruption'] = interrupt(args, area, profile)
+    assert digest(PROFILE) == sealed_profile
     assert all(digest(ROOT / profile['source'] / name) == sha for name, sha in profile['dependencies'].items())
     write(area / 'checks.json', outcomes)
     print(f'{len(outcomes)} scénarios L5 vérifiés')

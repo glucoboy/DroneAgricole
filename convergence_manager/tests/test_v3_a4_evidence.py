@@ -202,6 +202,9 @@ def exercise(executable, folder):
         "cord-lot": {"lot_or_serial": "TEST-02"},
     }.items():
         case(name, "REJECTED", "LOT_VARIANT_OR_REVISION_MISMATCH", {"identity": changes})
+    case("lot-identity-other-source", "REJECTED", "LOT_IDENTITY_SOURCE_MISMATCH", {
+        "sources": {"identity_photo": references["other"]},
+    })
     for name, changes in {
         "cavities-reversed": {"cavities": list(reversed(facts["cavities"]))},
         "ambiguous-usb-a": {"port": "USB_A_UNKNOWN"},
@@ -245,8 +248,9 @@ def exercise(executable, folder):
     case("unconfigured-reviewer", "REJECTED", "REVIEWER_NOT_CONFIGURED", {None: {"review": {
         "reviewer": "submitter", "detached_signature": references["signature"],
     }}})
+    review = {"reviewer": "test-reviewed", "detached_signature": references["signature"]}
     case("unverifiable-signature", "PENDING_AUTHORIZED_REVIEW", "NO_AUTHENTICATED_REVIEW_INFRASTRUCTURE",
-         {None: {"review": {"reviewer": "test-reviewed", "detached_signature": references["signature"]}}})
+         {None: {"review": review}})
     case("domain-widened", "REJECTED", "UNEXPECTED_domain_bound", {None: {"domain_bound": [-100, 100]}})
     case("raw-altered", "REJECTED", "SOURCE_SHA256_MISMATCH", {
         "sources": {"raw": {**references["raw"], "sha256": "0" * 64}},
@@ -295,6 +299,24 @@ def exercise(executable, folder):
                                    "--policy-sha256", policy_sha], capture_output=True, timeout=30)
     assert local_policy.returncode == 2 and b"POLICY_INSIDE_SUBMISSION_OR_REDIRECTED" in local_policy.stderr
     checked.append({"case": "policy-in-submission", "status": "PASS", "observed": "REJECTED"})
+
+    no_reviewers_policy = folder / "policy-no-reviewers.json"
+    no_reviewers_sha = write(no_reviewers_policy, {**policy, "reviewer_ids": []})
+    reviewed_packet = raw / "submission-with-review.json"
+    reviewed_sha = write(reviewed_packet, {**packet, "records": [{**base, "review": review}]})
+    no_reviewers = subprocess.run([str(executable), "--raw-root", str(raw), "--packet", str(reviewed_packet),
+                                  "--policy", str(no_reviewers_policy), "--policy-sha256", no_reviewers_sha],
+                                 capture_output=True, timeout=30)
+    assert no_reviewers.returncode == 2, no_reviewers.stderr.decode(errors="replace")
+    proof = json.loads(no_reviewers.stdout)
+    assert proof["authority"] == "DENY" and proof["validated_physical_approvals"] == 0, proof
+    assert proof["packet_sha256"] == reviewed_sha and proof["policy_sha256"] == no_reviewers_sha, proof
+    assert len(proof["records"]) == 1, proof
+    observation = proof["records"][0]
+    assert observation["record_id"] == base["record_id"] and observation["authority"] == "DENY", observation
+    assert observation["status"] == "REJECTED" and observation["reason"] == "REVIEWER_NOT_CONFIGURED", observation
+    checked.append({"case": "empty-reviewer-list", "status": "PASS", "observed": observation["status"],
+                    "reason": observation["reason"]})
     return {"schema": "v3.a4.adversarial/1", "status": "PASS", "evidence_class": "EXAMPLE_NOT_AUTHORITY",
             "case_count": len(checked), "cases": checked, "mutation": "DENY"}
 
