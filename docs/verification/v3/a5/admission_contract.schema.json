@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "V3-A.5 demande, enveloppes et charges utiles signées",
+  "oneOf": [
+    { "$ref": "#/$defs/request" },
+    { "$ref": "#/$defs/envelope" },
+    { "$ref": "#/$defs/review" },
+    { "$ref": "#/$defs/registry" },
+    { "$ref": "#/$defs/trust" }
+  ],
+  "$defs": {
+    "identifier": { "type": "string", "minLength": 1 },
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "relativePath": { "type": "string", "pattern": "^(?!/|[A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\]+$" },
+    "evidenceClass": { "enum": ["TEST_ONLY", "PHYSICAL_MEASURED"] },
+    "domain": { "enum": ["SYNTHETIC_BENCH", "CARTOGRAPHER_PRIVATE_CAD"] },
+    "xyz": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "xyzw": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
+    "utc": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "checks": {
+      "const": ["REOPEN_XLINK", "L2_TOPOLOGY", "L4_GEOMETRY", "L4_SUPPORT_ANCHOR", "L4_SERVICE",
+                "L4_DYNAMIC_BEND_RADIUS", "VERIFY_IMMUTABLE_SOURCES", "VALIDATE_T0"]
+    },
+    "bindings": {
+      "type": "object",
+      "required": ["configuration", "model_version", "occurrence", "operation", "lot_sha256", "profile_sha256",
+                   "xlink_dependencies", "required_checks"],
+      "properties": {
+        "configuration": { "$ref": "#/$defs/identifier" },
+        "model_version": { "$ref": "#/$defs/identifier" },
+        "occurrence": { "$ref": "#/$defs/identifier" },
+        "operation": { "const": "CREATE_SUPPORT" },
+        "lot_sha256": { "$ref": "#/$defs/digest" },
+        "profile_sha256": { "$ref": "#/$defs/digest" },
+        "xlink_dependencies": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/$defs/relativePath" },
+          "additionalProperties": { "$ref": "#/$defs/digest" }
+        },
+        "required_checks": { "$ref": "#/$defs/checks" }
+      },
+      "additionalProperties": false
+    },
+    "effect": {
+      "type": "object",
+      "required": ["carrier", "translation_mm", "rotation_xyzw"],
+      "properties": {
+        "carrier": { "$ref": "#/$defs/identifier" },
+        "translation_mm": { "$ref": "#/$defs/xyz" },
+        "rotation_xyzw": { "$ref": "#/$defs/xyzw" }
+      },
+      "additionalProperties": false
+    },
+    "bounds": {
+      "type": "object",
+      "required": ["carrier", "min_translation_mm", "max_translation_mm", "rotation_xyzw"],
+      "properties": {
+        "carrier": { "$ref": "#/$defs/identifier" },
+        "min_translation_mm": { "$ref": "#/$defs/xyz" },
+        "max_translation_mm": { "$ref": "#/$defs/xyz" },
+        "rotation_xyzw": { "$ref": "#/$defs/xyzw" }
+      },
+      "additionalProperties": false
+    },
+    "submission": {
+      "type": "object",
+      "required": ["raw_root", "packet", "review"],
+      "properties": {
+        "raw_root": { "$ref": "#/$defs/relativePath" },
+        "packet": { "$ref": "#/$defs/relativePath" },
+        "review": { "oneOf": [{ "$ref": "#/$defs/relativePath" }, { "type": "null" }] }
+      },
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "required": ["schema", "evidence_class", "domain", "bindings", "effect", "submission"],
+      "properties": {
+        "schema": { "const": "v3.a5.admission_request/1" },
+        "evidence_class": { "$ref": "#/$defs/evidenceClass" },
+        "domain": { "$ref": "#/$defs/domain" },
+        "bindings": { "$ref": "#/$defs/bindings" },
+        "effect": { "$ref": "#/$defs/effect" },
+        "submission": { "$ref": "#/$defs/submission" }
+      },
+      "allOf": [{ "$ref": "#/$defs/scope" }],
+      "additionalProperties": false
+    },
+    "scope": {
+      "if": { "required": ["evidence_class"], "properties": { "evidence_class": { "const": "TEST_ONLY" } } },
+      "then": { "properties": { "domain": { "const": "SYNTHETIC_BENCH" } } },
+      "else": { "properties": { "domain": { "const": "CARTOGRAPHER_PRIVATE_CAD" } } }
+    },
+    "envelope": {
+      "type": "object",
+      "required": ["schema", "payload_b64", "signature_b64"],
+      "properties": {
+        "schema": { "enum": ["v3.a5.signed_review/1", "v3.a5.signed_registry/1"] },
+        "payload_b64": { "type": "string", "minLength": 1, "contentEncoding": "base64" },
+        "signature_b64": { "type": "string", "minLength": 88, "maxLength": 88, "contentEncoding": "base64" }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["schema", "id", "reviewer_id", "evidence_class", "domain", "bindings", "packet_sha256",
+                   "policy_sha256", "issued_at_utc", "expires_at_utc", "disposition", "bounds"],
+      "properties": {
+        "schema": { "const": "v3.a5.review/1" },
+        "id": { "$ref": "#/$defs/identifier" },
+        "reviewer_id": { "$ref": "#/$defs/identifier" },
+        "evidence_class": { "$ref": "#/$defs/evidenceClass" },
+        "domain": { "$ref": "#/$defs/domain" },
+        "bindings": { "$ref": "#/$defs/bindings" },
+        "packet_sha256": { "$ref": "#/$defs/digest" },
+        "policy_sha256": { "$ref": "#/$defs/digest" },
+        "issued_at_utc": { "$ref": "#/$defs/utc" },
+        "expires_at_utc": { "$ref": "#/$defs/utc" },
+        "disposition": { "const": "APPROVE_BOUNDED_EXPERIMENT" },
+        "bounds": { "$ref": "#/$defs/bounds" }
+      },
+      "allOf": [{ "$ref": "#/$defs/scope" }],
+      "additionalProperties": false
+    },
+    "registry": {
+      "type": "object",
+      "required": ["schema", "evidence_class", "events"],
+      "properties": {
+        "schema": { "const": "v3.a5.registry/1" },
+        "evidence_class": { "$ref": "#/$defs/evidenceClass" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "id", "review_sha256", "at_utc"],
+            "properties": {
+              "kind": { "enum": ["ISSUED", "REVOKED"] },
+              "id": { "$ref": "#/$defs/identifier" },
+              "review_sha256": { "$ref": "#/$defs/digest" },
+              "at_utc": { "$ref": "#/$defs/utc" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "trust": {
+      "type": "object",
+      "required": ["schema", "trusted_root", "evidence_class", "domain", "bindings", "bounds", "material_policy",
+                   "material_policy_sha256", "profile", "source_root", "reviewer_id", "reviewer_public_key_hex",
+                   "registry", "registry_public_key_hex", "required_record_checks"],
+      "properties": {
+        "schema": { "const": "v3.a5.trust/1" },
+        "trusted_root": { "$ref": "#/$defs/identifier", "description": "Chemin absolu de la racine de confiance locale." },
+        "evidence_class": { "$ref": "#/$defs/evidenceClass" },
+        "domain": { "$ref": "#/$defs/domain" },
+        "bindings": { "$ref": "#/$defs/bindings" },
+        "bounds": { "$ref": "#/$defs/bounds" },
+        "material_policy": { "$ref": "#/$defs/relativePath" },
+        "material_policy_sha256": { "$ref": "#/$defs/digest" },
+        "profile": { "$ref": "#/$defs/relativePath" },
+        "source_root": { "$ref": "#/$defs/relativePath" },
+        "reviewer_id": { "$ref": "#/$defs/identifier" },
+        "reviewer_public_key_hex": { "$ref": "#/$defs/digest" },
+        "registry": { "$ref": "#/$defs/relativePath" },
+        "registry_public_key_hex": { "$ref": "#/$defs/digest" },
+        "required_record_checks": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identifier" }
+        }
+      },
+      "allOf": [{ "$ref": "#/$defs/scope" }],
+      "additionalProperties": false
+    }
+  }
+}

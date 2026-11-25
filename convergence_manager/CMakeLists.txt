@@ -3,6 +3,7 @@ project(convergence_manager VERSION 1.0.0 LANGUAGES CXX)
 
 include(CTest)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(OpenSSL 3 QUIET COMPONENTS Crypto)
 if(NOT TARGET electromechanical_graph)
     add_subdirectory(../electromechanical_graph graph)
 endif()
@@ -14,11 +15,25 @@ target_include_directories(convergence PUBLIC src)
 target_link_libraries(convergence PUBLIC Qt6::Core)
 
 add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp src/V3Transaction.cpp src/V3Campaign.cpp
+    src/AuthorityReview.cpp src/MaterialEvidence.cpp
     ../architecture_decision_engine/src/ResearchAdapter.cpp ../architecture_decision_engine/src/Evidence.cpp)
 target_include_directories(convergence_core PRIVATE ../architecture_decision_engine/src)
 target_link_libraries(convergence_core PRIVATE convergence electromechanical_graph)
+set(L5_A5_PHYSICAL_TRUST_SHA256 "" CACHE STRING "SHA-256 provisionné de la racine de confiance matérielle A.5")
+if(L5_A5_PHYSICAL_TRUST_SHA256)
+    string(LENGTH "${L5_A5_PHYSICAL_TRUST_SHA256}" a5_trust_hash_length)
+    if(NOT a5_trust_hash_length EQUAL 64 OR NOT L5_A5_PHYSICAL_TRUST_SHA256 MATCHES "^[0-9a-f]+$")
+        message(FATAL_ERROR "Empreinte de confiance A.5 invalide")
+    endif()
+endif()
+target_compile_definitions(convergence_core PRIVATE V3_A5_PHYSICAL_TRUST_SHA256="${L5_A5_PHYSICAL_TRUST_SHA256}")
+if(TARGET OpenSSL::Crypto)
+    target_compile_definitions(convergence_core PRIVATE V3_A5_CRYPTO)
+    target_link_libraries(convergence_core PRIVATE OpenSSL::Crypto)
+endif()
 
 add_executable(cartographe_material_evidence src/MaterialEvidence.cpp)
+target_compile_definitions(cartographe_material_evidence PRIVATE V3_A4_IMPORT_EXECUTABLE)
 target_link_libraries(cartographe_material_evidence PRIVATE convergence)
 
 if(BUILD_TESTING)
@@ -26,6 +41,15 @@ if(BUILD_TESTING)
     add_test(NAME l5_v3_a4_material_evidence COMMAND "${Python3_EXECUTABLE}" -B
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_a4_evidence.py"
         --validator "$<TARGET_FILE:cartographe_material_evidence>")
+    if(TARGET OpenSSL::Crypto)
+        find_program(L5_A5_OPENSSL_EXECUTABLE openssl HINTS "${OPENSSL_ROOT_DIR}/bin")
+        if(L5_A5_OPENSSL_EXECUTABLE AND NOT L5_A5_PHYSICAL_TRUST_SHA256)
+            add_test(NAME l5_v3_a5_authority COMMAND "${Python3_EXECUTABLE}" -B
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_a5_authority.py"
+                --core "$<TARGET_FILE:convergence_core>" --openssl "${L5_A5_OPENSSL_EXECUTABLE}")
+            set_tests_properties(l5_v3_a5_authority PROPERTIES TIMEOUT 120)
+        endif()
+    endif()
     option(L5_V21_GO3A_TEST "Rejouer la porte V2.1 avec les archives GO3A/GO3B et leurs 180 dépendances" OFF)
     if(L5_V21_GO3A_TEST)
         add_test(NAME v21_gate COMMAND "${Python3_EXECUTABLE}" -B

@@ -1,0 +1,588 @@
+{
+  "schema": "v3.a5.lot_and_measurement_matrix/1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "physical_status": "MISSING_PHYSICAL_EVIDENCE",
+  "lot_inspected": 0,
+  "physical_approvals": 0,
+  "physical_reception": "NOT_RUN",
+  "cartographer_mutation": "DENY",
+  "sources": [
+    {
+      "path": "../a4/lot_inventory.json",
+      "sha256": "041fc7571be442d2fad78295dedae645d974505b610f6fbf5eaabcd4a428521b"
+    },
+    {
+      "path": "../a4/manufacturer_reconciliation.json",
+      "sha256": "51786eae5029d24c55579dc4ee8edb61b1e529fdb057d64051d44a2ed896b672"
+    },
+    {
+      "path": "../a4/evidence_register.json",
+      "sha256": "659c2d261bab690707a5ba440b35fccc19bf1ebf128ef6d4e07d02d971924156"
+    },
+    {
+      "path": "../a4/operation_admission.json",
+      "sha256": "21affe264842e48cd1d08592f1245a87b6310ab91604fd61230fc81d12b7488a"
+    },
+    {
+      "path": "../a4/measurement_form.schema.json",
+      "sha256": "c0dce65374bda6dca275b2edc152f78590569c4032678f98080d2f7bee623df7"
+    },
+    {
+      "path": "../a4/create_support_iso_preflight.json",
+      "sha256": "a60ef817237568fd27c4063168803cc3be1893bdf36292b209fe8108711b79ed"
+    }
+  ],
+  "issues": [
+    {
+      "issue": "UART-TOP-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/0",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/0",
+        "../a4/lot_inventory.json#/items/1",
+        "../a4/lot_inventory.json#/items/3",
+        "../a4/lot_inventory.json#/items/4"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/0",
+        "../a4/manufacturer_reconciliation.json#/reconciliations/2"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Observer la jonction TE cinq voies ou manuelle. Rattacher cavité 1, NC et conducteurs, puis relever la séquence de retrait.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Dossier de connectique du câblage et documentation des contacts du lot identifié.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        1,
+        4
+      ],
+      "l5_decision": "DENY",
+      "effect": "Le cheminement ne peut reprendre que sur une topologie et un geste de déconnexion identifiés."
+    },
+    {
+      "issue": "UART-JBD-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/1",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/0",
+        "../a4/lot_inventory.json#/items/3"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/0"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Photographier PCB et étiquette, identifier chimie, suffixe, J2/J3 et broches orientées. Vérifier les cavités du cordon intégralement détaché.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Notice et plan de connectique de la révision Li-ion réellement montée.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        1,
+        3
+      ],
+      "l5_decision": "DENY",
+      "effect": "La définition W40/A et les niveaux TTL restent à instruire."
+    },
+    {
+      "issue": "UART-ISO-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/2",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/1",
+        "../a4/lot_inventory.json#/items/3",
+        "../a4/lot_inventory.json#/items/4"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/1"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Distinguer FT232RL, FT232RNL ou CH343G, bornier TTL, USB-B et population PCB. Relever identité, sens et surfaces du boîtier.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Notice du produit et fiche du bornier et de l'embase correspondant au lot.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        1,
+        3
+      ],
+      "l5_decision": "DENY",
+      "effect": "Une pose ou un support exige l'isolateur réellement retenu et ses interfaces applicables."
+    },
+    {
+      "issue": "UART-AXIS-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/3",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/0",
+        "../a4/lot_inventory.json#/items/1",
+        "../a4/lot_inventory.json#/items/2",
+        "../a4/lot_inventory.json#/items/3",
+        "../a4/lot_inventory.json#/items/4"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/2"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Relever origine, normale et deux directions indépendantes sur embase, fiche engagée et sortie fil, puis la course de retrait.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Enveloppes et dimensions applicables de chaque embase, fiche accouplée et cordon.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        3
+      ],
+      "l5_decision": "DENY",
+      "effect": "Les datums de cheminement et d'accouplement restent à attester."
+    },
+    {
+      "issue": "UART-MOUNT-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/4",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/1",
+        "../a4/lot_inventory.json#/items/5",
+        "../a4/lot_inventory.json#/items/6",
+        "../a4/lot_inventory.json#/items/7",
+        "../a4/lot_inventory.json#/items/8"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/4"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Relever face d'appui et seconde référence, épaisseur, perçage, vis, engagement, chemin des efforts et accès.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Plan de fabrication, dossier matière et fiches de visserie applicables avec cas de charge.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        2
+      ],
+      "l5_decision": "DENY",
+      "effect": "P64 et P66 restent candidats. Une face ou un trou CAO seul ne permet aucune décision d'ancrage."
+    },
+    {
+      "issue": "UART-ACCESS-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/5",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/1",
+        "../a4/lot_inventory.json#/items/2",
+        "../a4/lot_inventory.json#/items/3",
+        "../a4/lot_inventory.json#/items/4",
+        "../a4/lot_inventory.json#/items/7",
+        "../a4/lot_inventory.json#/items/8"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/3"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Mesurer surmoulage, ferrite, geste d'outil et retrait TTL/USB-B. Contrôler les gardes PDB/CAN1/F31/F35 avec guides en place.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Fiches de cordons et limites de dépose issues du montage et des documents applicables.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        3,
+        4
+      ],
+      "l5_decision": "DENY",
+      "effect": "La pose, le support et les cheminements dépendent des volumes de service et des rayons réels."
+    },
+    {
+      "issue": "UART-HOST-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/6",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/2",
+        "../a4/lot_inventory.json#/items/4"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/3"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Identifier le port USB-A hôte W41/B par marquage, fonction, normale et contexte d'extraction.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Documentation de la porteuse Holybro 11072 de la révision observée et fiche de la fiche USB.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        3,
+        4
+      ],
+      "l5_decision": "DENY",
+      "effect": "Le cordon W41 et les changements d'interface dépendent du port effectivement retenu."
+    },
+    {
+      "issue": "UART-GUIDES-001",
+      "status": "MISSING_PHYSICAL_EVIDENCE",
+      "fact_ref": "../a4/evidence_register.json#/issues/7",
+      "lot_refs": [
+        "../a4/lot_inventory.json#/items/5",
+        "../a4/lot_inventory.json#/items/6",
+        "../a4/lot_inventory.json#/items/7",
+        "../a4/lot_inventory.json#/items/8",
+        "../a4/lot_inventory.json#/items/3",
+        "../a4/lot_inventory.json#/items/4"
+      ],
+      "manufacturer_refs": [
+        "../a4/manufacturer_reconciliation.json#/reconciliations/4"
+      ],
+      "identified_lot": null,
+      "mounted_revision": null,
+      "applicable_manufacturer_document": null,
+      "physical_mounting_proof": null,
+      "collection_method": "Relever P72/P73, engagement et appuis, puis les états limites du gabarit batterie inerte, longueurs libres et volumes balayés.",
+      "tolerance": {
+        "value": null,
+        "source_to_obtain": "Plans des porteurs, fixation applicable et limites statique et dynamique pour chaque cordon.",
+        "status": "À valider"
+      },
+      "evidence_roles": {
+        "collect": "Opérateur de relevé",
+        "review": "Responsable matériel habilité à désigner"
+      },
+      "collection_steps": [
+        2,
+        4
+      ],
+      "l5_decision": "DENY",
+      "effect": "Un mouvement de guide, un ancrage et un cheminement requièrent une course et des gardes bornées."
+    }
+  ],
+  "occurrence_operation": [
+    {
+      "occurrence": "iso",
+      "operation": "REPOSITION_DEVICE",
+      "blocking_issues": [
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/0"
+    },
+    {
+      "occurrence": "harness:f40",
+      "operation": "REROUTE_HARNESS",
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/1"
+    },
+    {
+      "occurrence": "harness:f41",
+      "operation": "REROUTE_HARNESS",
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001",
+        "UART-GUIDES-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/2"
+    },
+    {
+      "occurrence": "p72",
+      "operation": "RELOCATE_SUPPORT",
+      "blocking_issues": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/3"
+    },
+    {
+      "occurrence": "p73",
+      "operation": "RELOCATE_SUPPORT",
+      "blocking_issues": [
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/4"
+    },
+    {
+      "occurrence": "anchor:iso-carrier",
+      "operation": "CREATE_SUPPORT",
+      "blocking_issues": [
+        "UART-ISO-001",
+        "UART-MOUNT-001",
+        "UART-ACCESS-001",
+        "UART-GUIDES-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SUPPORT_ANCHOR",
+        "L4_SERVICE",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0",
+        "L4_DYNAMIC_BEND_RADIUS"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/5"
+    },
+    {
+      "occurrence": "port:W40/A",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/6"
+    },
+    {
+      "occurrence": "port:W40/B",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/7"
+    },
+    {
+      "occurrence": "port:W41/A",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/8"
+    },
+    {
+      "occurrence": "port:W41/B",
+      "operation": "CHANGE_CONNECTOR_VARIANT",
+      "blocking_issues": [
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-AXIS-001",
+        "UART-ACCESS-001",
+        "UART-HOST-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/9"
+    },
+    {
+      "occurrence": "link:W40",
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/10"
+    },
+    {
+      "occurrence": "junction:uart-manual",
+      "operation": "CHANGE_INTERFACE_TOPOLOGY",
+      "blocking_issues": [
+        "UART-TOP-001",
+        "UART-JBD-001",
+        "UART-ISO-001",
+        "UART-ACCESS-001"
+      ],
+      "mandatory_checks": [
+        "REOPEN_XLINK",
+        "L2_TOPOLOGY",
+        "L4_GEOMETRY",
+        "L4_SERVICE",
+        "L4_DYNAMIC_BEND_RADIUS",
+        "VERIFY_IMMUTABLE_SOURCES",
+        "VALIDATE_T0"
+      ],
+      "l5_decision": "DENY",
+      "domain_bound": null,
+      "a4_ref": "../a4/operation_admission.json#/occurrences/11"
+    }
+  ]
+}
