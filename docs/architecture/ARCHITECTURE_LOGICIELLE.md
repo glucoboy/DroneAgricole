@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 24 novembre 2026 |
+| Dernière mise à jour | 25 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -313,6 +313,21 @@ proviennent du responsable, hors du dossier de collecte. Un calcul
 compatible reste `PENDING_AUTHORIZED_REVIEW` tant que l'approbation
 authentifiée manque. Le résultat d'import n'ouvre aucune transaction L5 ni
 aucun droit pour une autre occurrence ou opération. [Contrat et rejeu](../verification/v3/a4/REPORT.md)
+
+#### Jonction V3-INT.1 — Implémenté
+
+Le build CMake de `convergence_manager` produit les deux exécutables
+`convergence_core` et `cartographe_material_evidence`. Le premier conserve
+l'orchestration du plan typé, le profil de banc scellé et la réouverture
+B.2 avant publication T0. Le second contrôle un paquet et rend un résultat
+d'import qui conserve `authority=DENY`. Le verdict de l’import ne figure
+pas parmi les entrées autorisant une transaction L5. Le contrôle du domaine
+cartographe demeure à l'entrée du constructeur, avant le lancement FreeCAD.
+
+Le passage vers des contraintes multi-faisceaux et une revue authentifiée
+consomme la même base intégrée, dans les périmètres définis pour C.2 et A.5.
+[Contrat de passage](../verification/v3/int1/next_stage_contract.md) ·
+[Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-int1)
 
 ## 3. Contexte et déploiement
 
@@ -1282,6 +1297,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **25 novembre 2026** — V3-INT.1 réunit l'orchestration C.1 et l'import A.4 dans le même build, avec leurs gardes d'admission et régressions (§2.6).
 - **24 novembre 2026** — V3-C.1 ajoute le mode à repères natifs, un support dépendant de la pose et un classement issu des mesures B.2 (§2.6).
 - **24 novembre 2026** — Ajout de l'import de relevés V3-A.4 en lecture seule et de la vérification de leur provenance.
 

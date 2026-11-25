@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 24 novembre 2026 |
+| Dernière mise à jour | 25 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -2958,6 +2958,45 @@ le domaine de l'opération. Les autorisations restent propres à l'occurrence,
 [Préflight](verification/v3/a4/create_support_iso_preflight.json) ·
 [Rejeu](verification/v3/a4/REPORT.md)
 
+<a id="cartographe-v3-int1"></a>
+#### Intégration V3-INT.1 — 25 novembre 2026
+
+La fusion `b00d371` réunit C.1 et A.4 à partir de la référence V3-D.
+Le verdict calculé `V3_INT1_GO` qualifie la jonction sur banc synthétique
+Windows amd64.
+Les deux cas supplémentaires de l’import et les deux fautes de fermeture
+privée ont été figés dans `b99cd86`, avec les mêmes sources C++ compilées.
+Le rejeu de cette base est borné aux budgets C.1 existants et aux
+régressions A.4. Il fournit les contrôles nécessaires à l’étude des
+cheminements et de l’ancrage prévues par `ORCH-CAO-MASSE-1`.
+[Acceptation calculée](verification/v3/int1/acceptance.json) ·
+[Provenance](verification/v3/int1/merge_manifest.json)
+
+| Exigence | Contrôle | Résultat |
+|---|---|---|
+| `V3-B1-01`, `CAB-CARTO-001` | `T-CARTO-V3-INT1` · constructions T1/T2/T3, réouverture B.2 et validateur T0 neuf ; restriction T2, sensibilité et Pareto | 29/30/30 propositions, 4/6/6 constructions et 3/5/2 candidates qualifiées. Revue et validation T0 des dix candidates sur Windows amd64, FreeCAD 1.1.3, OCCT 7.8.1 et Cables 0.3.7. La restriction T2 est préenregistrée et visible dans Git. |
+| `V3-A1-01`, `METH-001` | `T-CARTO-V3-INT1` · import A.4, refus L5 et invariance des fermetures | 43 cas A.4 vérifiés, 17 contrôles B.1, 7 refus de plans C.1 et 5 fautes natives détectées. Le paquet vide rend `NOT_RUN`, l’exemple est refusé et zéro transaction cartographe est publiée. |
+| `CAB-CARTO-001`, `MEC-INT-001` | `T-CARTO-V3-INT1` · A.2/A.3/D et Q2 | Quatre fermetures rouvertes, sept paires D et douze cas Q2 concordants. Les 24 sondes et 12 routes reproduisent un criblage `INCONCLUSIVE`. |
+
+Le CTest L3 large rend 8 avec les deux écarts historiques de `l2_reconcile`
+et `technical_research_engine`. La conversion CRLF vers LF des entrées
+scellées explique les divergences d’empreinte du checkout neuf. Les 7 tests
+L2 et 24 tests Research réussissent avec les octets de référence et les
+binaires intégrés. Les résultats initiaux et les reprises sont conservés.
+Le CTest L5 initial rend 8 avec `l5_cli` en échec. Les deux assertions
+concernent la même tentative `upper`, observée `ERROR` en nominal et
+`PASS` à la reprise. Le CTest `l5_cli` exécuté seul passe en 277,09 s. La
+cause exacte de l'erreur initiale demeure **À valider**. Les campagnes
+natives se chevauchaient lors du premier essai.
+[Commandes, codes et empreintes](verification/v3/int1/regressions.json) ·
+[Preuves des refus](verification/v3/int1/adversarial.json)
+
+A.4 conserve `V3_A4_EVIDENCE_CONDITIONAL`. Les huit issues restent ouvertes,
+zéro lot a été inspecté, zéro couple occurrence–opération est admis et la
+réception physique reste `NOT_RUN`. Le cartographe garde `DENY` pour la
+mutation. La suite C.2/A.5 est soumise au verdict INT.1 et au
+[contrat de passage](verification/v3/int1/next_stage_contract.md).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4166,6 +4205,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01 | Confrontation des autorités UART, réouverture XLink sur copies et contrôles d’admission L5 | T-CARTO-V3-A2-EVIDENCE, T-CARTO-V3-A2-NATIVE | [Résultat](#cartographe-v3-a2). `V3_A2_EVIDENCE_CONDITIONAL`, huit issues ouvertes, mutation cartographe suspendue. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Dossier UART, réouverture XLink, contrôles L5 et collecte hors tension | T-CARTO-V3-A3-AUTH | [Résultat](#cartographe-v3-a3). V3_A3_EVIDENCE_CONDITIONAL, douze mutations bloquées et collecte physique À valider. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Collecte opérateur, contrôle des paquets de preuve et refus L5 avant construction | T-CARTO-V3-A4-IMPORT, T-CARTO-V3-A4-REGRESSION | [Résultat](#cartographe-v3-a4), [preuves](verification/v3/a4/acceptance.json) | `V3_A4_EVIDENCE_CONDITIONAL`, domaine et revue habilitée **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01, METH-001 | Jonction de la recherche sur banc, de la contre-validation et de l’import des preuves | T-CARTO-V3-INT1 | [Résultat](#cartographe-v3-int1), [verdict calculé](verification/v3/int1/acceptance.json) | `V3_INT1_GO`, jonction **Qualifié** sur banc synthétique Windows amd64. Réception et autorité physique **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4333,6 +4373,8 @@ la collecte préalable à une décision sur le support et les cheminements.
 [V3-A.4](#cartographe-v3-a4) fournit le formulaire et l'import préliminaire
 de ces relevés. Le budget de construction du cartographe reste nul tant que
 le dossier du couple `CREATE_SUPPORT(iso)` n'est pas admis.
+[V3-INT.1](#cartographe-v3-int1) consolide les deux voies et fixe les
+conditions de passage pour les travaux synthétiques et la revue habilitée.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -4993,6 +5035,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **25 novembre 2026** — Fusion V3-INT.1 et vérification commune sur banc des protections du cartographe. [Résultat](#cartographe-v3-int1)
 - **24 novembre 2026** — Qualification logicielle V3-C.1 sur deux bancs, couplage et contre-validation après restriction préenregistrée. [Résultat](#cartographe-v3-c1)
 - **24 novembre 2026** — V3-A.4 structure la collecte et la validation de provenance des preuves physiques par occurrence–opération. [Résultat](#cartographe-v3-a4)
 - **19 novembre 2026** — Jonction V3-D et contrôle de la non-admission cartographe, avec reprise des observations en lecture seule. [Résultat](#cartographe-v3-d)
