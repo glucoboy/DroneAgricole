@@ -1,0 +1,328 @@
+{
+  "schema": "v3.c2.domain_contract/1",
+  "source_commit": "772732c457b377a8baac25396e149c0732516401",
+  "contracts": {
+    "v3.parametric_domain/2": {
+      "path": "docs/electromechanical_v3/parametric_domain_v2.schema.json",
+      "sha256": "458b4ad2ed70fcb6b3b37f2f459701f9c20822503e6a286d7f68046e5b575361"
+    },
+    "v3.problem_spec/2": {
+      "path": "docs/electromechanical_v3/problem_spec_v2.schema.json",
+      "sha256": "babd341c79b1ede8894088bc763761cfb63367790d12278c6e5d9f2a596d22b9"
+    },
+    "v3.mutation_plan/3": {
+      "path": "docs/electromechanical_v3/mutation_plan_v3.schema.json",
+      "sha256": "4c3fda3c7dacfdfc05f3f1ed627829a8e71a3129eeeaf8448f02cf2ef27c42ac"
+    },
+    "v3.candidate_result/1": {
+      "path": "docs/electromechanical_v3/candidate_result.schema.json",
+      "sha256": "003972393870531605d4ef514348d782627f2067d93ee8eab3bc0e3e512c7832"
+    }
+  },
+  "benches": {
+    "c2_multiharness": {
+      "domain": {
+        "path": "docs/electromechanical_v3/domains/c2_multiharness.json",
+        "sha256": "7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5"
+      },
+      "profile": {
+        "path": "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+        "sha256": "250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604"
+      },
+      "graph": {
+        "path": "docs/electromechanical_v3/bench_c2_multiharness/graph.json",
+        "sha256": "2c93e61b4e3e28bf9199e7d6afd2657afcc4d3d6f00dfa3feb95333a1a0e9034"
+      },
+      "harnesses": {
+        "cordon": {
+          "action": "c2-route-a",
+          "occurrence_path": "HarnessInventory/Cable",
+          "ports": [
+            "port-a",
+            "port-b"
+          ],
+          "route": {
+            "corridor_min_mm": [
+              12,
+              -27,
+              0
+            ],
+            "corridor_max_mm": [
+              97,
+              15,
+              0
+            ],
+            "start_mm": [
+              14,
+              0,
+              0
+            ],
+            "end_reference_mm": [
+              86,
+              0,
+              0
+            ],
+            "terminal_mode": "NATIVE_PORT",
+            "device_reference_mm": [
+              100,
+              0,
+              0
+            ],
+            "radius_min_mm": 5,
+            "radius_max_mm": 6.5,
+            "min_points": 2,
+            "max_points": 16
+          },
+          "diameter_mm": 4,
+          "electrical_id": "F1",
+          "minimum_length_mm": 60,
+          "maximum_length_mm": 115,
+          "evidence_scope": "SYNTHETIC_BENCH"
+        },
+        "cordon-b": {
+          "action": "c2-route-b",
+          "occurrence_path": "HarnessInventory/Cable001",
+          "ports": [
+            "port-c",
+            "port-d"
+          ],
+          "route": {
+            "corridor_min_mm": [
+              12,
+              6,
+              -0.5
+            ],
+            "corridor_max_mm": [
+              97,
+              46,
+              -0.5
+            ],
+            "start_mm": [
+              13.522961568046956,
+              19.6234666314353,
+              -0.5000000000000053
+            ],
+            "end_reference_mm": [
+              86.47703843195305,
+              12.376533368564706,
+              -0.5000000000000018
+            ],
+            "terminal_mode": "NATIVE_PORT",
+            "device_reference_mm": [
+              100,
+              0,
+              0
+            ],
+            "radius_min_mm": 7,
+            "radius_max_mm": 9,
+            "min_points": 2,
+            "max_points": 16
+          },
+          "diameter_mm": 3,
+          "electrical_id": "F2",
+          "minimum_length_mm": 65,
+          "maximum_length_mm": 145,
+          "evidence_scope": "SYNTHETIC_BENCH"
+        }
+      },
+      "support_options": {
+        "plate": {
+          "action": "c2-support-a",
+          "operation": "RELOCATE_SUPPORT",
+          "occurrence": "plate",
+          "anchor": "anchor",
+          "anchor_path": "Workholding/Anchor",
+          "support_path": "Workholding/Plate",
+          "carrier_path": "Workholding/Carrier"
+        },
+        "plate-b": {
+          "action": "c2-support-b",
+          "operation": "RELOCATE_SUPPORT",
+          "occurrence": "plate-b",
+          "anchor": "anchor-b",
+          "anchor_path": "Workholding/AnchorB",
+          "support_path": "Workholding/PlateB",
+          "carrier_path": "Workholding/Carrier"
+        }
+      },
+      "dependence_native": {
+        "Banc_Interconnexion.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness/model/Banc_Interconnexion.FCStd",
+          "sha256": "4b17d30fcb00ef7b1407dee34fdd8e87c020db652052e9a124725c3b9853ac6a"
+        },
+        "parts/CoupledAssets.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness/model/parts/CoupledAssets.FCStd",
+          "sha256": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3"
+        },
+        "parts/Obstacle.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness/model/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      }
+    },
+    "c2_multiharness_secondary": {
+      "domain": {
+        "path": "docs/electromechanical_v3/domains/c2_multiharness_secondary.json",
+        "sha256": "2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be"
+      },
+      "profile": {
+        "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json",
+        "sha256": "4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4"
+      },
+      "graph": {
+        "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/graph.json",
+        "sha256": "b6e5934b25e0c3ae1a902cc062831ca18d6dd18e0ab508d50df26aecd72521ed"
+      },
+      "harnesses": {
+        "cordon": {
+          "action": "c2-route-a",
+          "occurrence_path": "HarnessInventory/Cable",
+          "ports": [
+            "port-a",
+            "port-b"
+          ],
+          "route": {
+            "corridor_min_mm": [
+              12,
+              -27,
+              0
+            ],
+            "corridor_max_mm": [
+              97,
+              15,
+              0
+            ],
+            "start_mm": [
+              14,
+              0,
+              0
+            ],
+            "end_reference_mm": [
+              86,
+              0,
+              0
+            ],
+            "terminal_mode": "NATIVE_PORT",
+            "device_reference_mm": [
+              100,
+              0,
+              0
+            ],
+            "radius_min_mm": 5,
+            "radius_max_mm": 6.5,
+            "min_points": 2,
+            "max_points": 16
+          },
+          "diameter_mm": 4,
+          "electrical_id": "F1",
+          "minimum_length_mm": 60,
+          "maximum_length_mm": 115,
+          "evidence_scope": "SYNTHETIC_BENCH"
+        },
+        "cordon-b": {
+          "action": "c2-route-b",
+          "occurrence_path": "HarnessInventory/Cable001",
+          "ports": [
+            "port-c",
+            "port-d"
+          ],
+          "route": {
+            "corridor_min_mm": [
+              12,
+              6,
+              -0.5
+            ],
+            "corridor_max_mm": [
+              97,
+              46,
+              -0.5
+            ],
+            "start_mm": [
+              13.155696691002717,
+              23.788282006559367,
+              -0.5
+            ],
+            "end_reference_mm": [
+              86.8443033089973,
+              14.211717993440635,
+              -0.5000000000000031
+            ],
+            "terminal_mode": "NATIVE_PORT",
+            "device_reference_mm": [
+              100,
+              0,
+              0
+            ],
+            "radius_min_mm": 7,
+            "radius_max_mm": 9,
+            "min_points": 2,
+            "max_points": 16
+          },
+          "diameter_mm": 3,
+          "electrical_id": "F2",
+          "minimum_length_mm": 65,
+          "maximum_length_mm": 145,
+          "evidence_scope": "SYNTHETIC_BENCH"
+        }
+      },
+      "support_options": {
+        "plate": {
+          "action": "c2-support-a",
+          "operation": "RELOCATE_SUPPORT",
+          "occurrence": "plate",
+          "anchor": "anchor",
+          "anchor_path": "Workholding/Anchor",
+          "support_path": "Workholding/Plate",
+          "carrier_path": "Workholding/Carrier"
+        },
+        "plate-b": {
+          "action": "c2-support-b",
+          "operation": "RELOCATE_SUPPORT",
+          "occurrence": "plate-b",
+          "anchor": "anchor-b",
+          "anchor_path": "Workholding/AnchorB",
+          "support_path": "Workholding/PlateB",
+          "carrier_path": "Workholding/Carrier"
+        }
+      },
+      "dependence_native": {
+        "Banc_Interconnexion.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/model/Banc_Interconnexion.FCStd",
+          "sha256": "b1c6d4a0f4833fb7d10b0a57c317fe56527cc8826f0b49fd43a9fbb85090162f"
+        },
+        "parts/CoupledAssets.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/model/parts/CoupledAssets.FCStd",
+          "sha256": "e39e6f41d807938451e93a939aa768f49699331302c3b36b4915f58cf70870c4"
+        },
+        "parts/Obstacle.FCStd": {
+          "path": "docs/electromechanical_v3/bench_c2_multiharness_secondary/model/parts/Obstacle.FCStd",
+          "sha256": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        }
+      }
+    }
+  },
+  "budget": {
+    "max_proposals": 80,
+    "max_native": 10,
+    "max_seconds": 540,
+    "max_counterchecks": 10
+  },
+  "seed": 2026,
+  "objectives": [
+    {
+      "metric": "route_length_mm",
+      "direction": "MIN",
+      "tolerance": 1e-06
+    },
+    {
+      "metric": "minimum_inter_harness_gap_mm",
+      "direction": "MAX",
+      "tolerance": 1e-06
+    },
+    {
+      "metric": "minimum_support_bearing_area_mm2",
+      "direction": "MAX",
+      "tolerance": 1e-06
+    }
+  ]
+}

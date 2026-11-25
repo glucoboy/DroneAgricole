@@ -10,6 +10,18 @@ from replay_v3_b2 import artifact, closure, invoke
 from replay_v3_c2 import authority
 
 
+EXPECTED_REASONS = {
+    "cartographer-injection": "MUTATION_DOMAIN_DENIED",
+    "foreign-lot": "Plan multi-faisceaux divergent du contrat v3",
+    "foreign-authority": "Plan multi-faisceaux divergent du contrat v3",
+    "missing-harness": "Composition atomique multi-faisceaux incomplète",
+    "support-outside-catalog": "Supportage hors de l'autorité paramétrique",
+    "radius-below-limit": "Rayon de proposition hors des limites scellées",
+    "broken-xlink": "XLINK_DEPENDENCY_MISMATCH",
+    "corrupted-xlink": "XLINK_DEPENDENCY_MISMATCH",
+}
+
+
 def refused(args, case, profile, plan, fault):
     private = setup(case, profile, plan)
     if fault in ("XLink manquant", "XLink corrompu"):
@@ -30,6 +42,7 @@ def refused(args, case, profile, plan, fault):
     assert result.returncode in (2, 3) and receipt.is_file(), (fault, result.returncode, result.stderr)
     report = load(receipt)
     assert report["candidate_transactions"] == 0 and report["construction_result"] == "NOT_RUN", report
+    assert EXPECTED_REASONS[case.name] in report["reason"], (fault, report["reason"])
     assert not (output / "transaction").exists(), output
     return {"fault": fault, "exit_code": result.returncode, "status": report["status"], "reason": report["reason"],
             "construction_result": report["construction_result"], "candidate_transactions": report["candidate_transactions"],
@@ -47,6 +60,7 @@ def budget_refused(args, area, domain, profile, t1):
             "--domain", domain, "--model", model, "--observation", t1 / "reference-observation.json"]
     result = invoke(area, "budget", list(map(str, argv)))
     assert result.returncode != 0 and not output.is_file(), (result.returncode, result.stdout, result.stderr)
+    assert "Entier hors limites : max_counterchecks" in result.stderr, result.stderr
     return {"fault": "max_counterchecks supérieur à max_native", "exit_code": result.returncode,
             "stderr": result.stderr, "candidate_transactions": 0, "construction_result": "NOT_RUN",
             "invocation": artifact(area / "budget-invocation.json")}

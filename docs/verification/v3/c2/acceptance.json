@@ -1,0 +1,71 @@
+{
+  "schema": "v3.c2.acceptance/1",
+  "tested_commit": "772732c457b377a8baac25396e149c0732516401",
+  "verdict": "V3_C2_MULTIHARNESS_ENGINE_GO",
+  "scope": "SYNTHETIC_BENCH",
+  "checks": {
+    "T1_two_variants": true,
+    "two_support_options": true,
+    "T2_new_native": true,
+    "T3_other_bench": true,
+    "measured_tradeoff": true,
+    "frozen_sources": true,
+    "admission_guard": true,
+    "adversarial": true,
+    "regressions": true,
+    "builds": true
+  },
+  "campaigns": {
+    "T1": {
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 3,
+      "options": [
+        "plate",
+        "plate-b"
+      ]
+    },
+    "T2": {
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 3,
+      "options": [
+        "plate"
+      ]
+    },
+    "T3": {
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 2,
+      "options": [
+        "plate",
+        "plate-b"
+      ]
+    }
+  },
+  "blocked_checks": [],
+  "cartographer_mutation": "DENY",
+  "physical_reception": "NOT_RUN",
+  "evidence": [
+    {
+      "path": "baseline.json",
+      "sha256": "b3eac9649b6481a9b5f3b69ede8d6f9cf287684f5a582a3d9a2aa674b28f32bc"
+    },
+    {
+      "path": "independent_review.json",
+      "sha256": "7562eae16fbe4d349e818d0585f948e090374ab6763144c3f1bf612877d1baac"
+    },
+    {
+      "path": "adversarial.json",
+      "sha256": "f87f210a41eb69591178c042595b0f0cefbdcad87f817ec5311c1c80fa3567ae"
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "e90e91db1a2452af040181fb495ae0e5be34263ea0af346a048aa6dd997e1717"
+    },
+    {
+      "path": "generalization.json",
+      "sha256": "4154cb514bac2c64cbefcffb392105f35d61881634aa802f54370feb783466f4"
+    }
+  ]
+}

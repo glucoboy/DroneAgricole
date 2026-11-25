@@ -40,3 +40,15 @@ campagne finalisée sans candidat admissible. Lire la trace, le rapport
 T0, les mesures B.2 et le journal de rollback avant toute interprétation.
 Comparer les câbles et supports par occurrence et repère dans le natif
 sauvegardé. La portée est `SYNTHETIC_BENCH`.
+
+Les vérifications et leurs empreintes figurent dans les
+[régressions](regressions.json) et les [refus](adversarial.json). Utiliser
+une destination neuve pour la revue indépendante et pour le recalcul du
+[verdict](acceptance.json).
+
+```powershell
+& $python -B convergence_manager/tests/collect_v3_c2_evidence.py --campaign $run `
+  --t0 '<T0>/cartographe-evidence.exe' --output "${run}-review"
+& $python -B convergence_manager/tests/evaluate_v3_c2.py --receipts docs/verification/v3/c2 `
+  --output "$run/acceptance-recalculated.json"
+```

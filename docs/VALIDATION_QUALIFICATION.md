@@ -2997,6 +2997,44 @@ réception physique reste `NOT_RUN`. Le cartographe garde `DENY` pour la
 mutation. La suite C.2/A.5 est soumise au verdict INT.1 et au
 [contrat de passage](verification/v3/int1/next_stage_contract.md).
 
+<a id="cartographe-v3-c2"></a>
+#### Convergence multi-faisceaux V3-C.2 — 25 novembre 2026
+
+`V3_C2_MULTIHARNESS_ENGINE_GO`. Le moteur est **Qualifié** sur les deux
+bancs `SYNTHETIC_BENCH` sous Windows amd64, FreeCAD 1.1.3, OCCT 7.8.1
+et Cables 0.3.7. Le gel `772732c` conserve les profils et les six natifs
+XLink. Deux câbles distincts et leurs quatre ports sont mesurés en B.2
+sur les huit candidates, puis chaque candidate repasse T0. Les profils
+du cartographe restent hors de ce périmètre.
+[Acceptation](verification/v3/c2/acceptance.json) ·
+[Fermetures et domaines](verification/v3/c2/domain_contract.json)
+
+| Phase | Propositions | Constructions | Candidates qualifiées | Appui retenu | Longueur totale | Garde entre câbles |
+| --- | ---: | ---: | ---: | --- | ---: | ---: |
+| T1, banc primaire | 79 | 7 | 3 | `plate-b` | 168,00 mm | 3,96 mm |
+| T2, restriction externe | 79 | 7 | 3 | `plate` | 168,00 mm | 3,96 mm |
+| T3, second banc XLink | 79 | 7 | 2 | `plate-b` | 169,93 mm | 6,97 mm |
+
+T1 a admis les deux options d’appui. Le front conserve un compromis de
+longueur et de garde. Après le gel et la finalisation de T1, l’évaluateur
+a retiré `plate-b` du domaine T2 dans un fichier empreinté. Le moteur a
+construit, rouvert et classé une variante distincte avec `plate`. Les
+trois résultats retenus mesurent 0 mm³ d’interférence interdite. Les
+engagements autorisés et contacts attendus sont contrôlés individuellement.
+[Perturbation et résultats](verification/v3/c2/generalization.json) ·
+[Contacts et interférences](verification/v3/c2/interference_classification.json) ·
+[Classement](verification/v3/c2/pareto.json)
+
+Les 9 refus de contrat et 11 injections natives vérifient notamment la
+continuité, la terminaison mobile, les collisions et le rollback complet.
+C.1 reproduit 3/5/2 candidates qualifiées. B.1, B.2, C, A.4 et les gardes
+L5 applicables passent. Le budget de temps borne l’admission. Une
+transaction atomique déjà engagée peut se terminer après l’échéance et
+reste exclue du classement. Le cartographe conserve `DENY`, avec
+réception physique `NOT_RUN`.
+[Rejeu et refus](verification/v3/c2/adversarial.json) ·
+[Régressions](verification/v3/c2/regressions.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4206,6 +4244,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Dossier UART, réouverture XLink, contrôles L5 et collecte hors tension | T-CARTO-V3-A3-AUTH | [Résultat](#cartographe-v3-a3). V3_A3_EVIDENCE_CONDITIONAL, douze mutations bloquées et collecte physique À valider. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Collecte opérateur, contrôle des paquets de preuve et refus L5 avant construction | T-CARTO-V3-A4-IMPORT, T-CARTO-V3-A4-REGRESSION | [Résultat](#cartographe-v3-a4), [preuves](verification/v3/a4/acceptance.json) | `V3_A4_EVIDENCE_CONDITIONAL`, domaine et revue habilitée **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01, METH-001 | Jonction de la recherche sur banc, de la contre-validation et de l’import des preuves | T-CARTO-V3-INT1 | [Résultat](#cartographe-v3-int1), [verdict calculé](verification/v3/int1/acceptance.json) | `V3_INT1_GO`, jonction **Qualifié** sur banc synthétique Windows amd64. Réception et autorité physique **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Transaction à deux câbles, appui scellé, classification des contacts et mesure après réouverture | T-CARTO-V3-C2 | [Résultat](#cartographe-v3-c2), [revue](verification/v3/c2/independent_review.json) | `V3_C2_MULTIHARNESS_ENGINE_GO` sur banc synthétique. Applicabilité au cartographe **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4375,6 +4414,8 @@ de ces relevés. Le budget de construction du cartographe reste nul tant que
 le dossier du couple `CREATE_SUPPORT(iso)` n'est pas admis.
 [V3-INT.1](#cartographe-v3-int1) consolide les deux voies et fixe les
 conditions de passage pour les travaux synthétiques et la revue habilitée.
+[V3-C.2](#cartographe-v3-c2) éprouve la convergence de deux câbles et le
+choix d’appui. L’instruction des interfaces réelles conserve ses portes.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5035,6 +5076,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **25 novembre 2026** — V3-C.2 qualifie la convergence de deux faisceaux sur banc, avec perturbation externe après gel. [Résultat](#cartographe-v3-c2)
 - **25 novembre 2026** — Fusion V3-INT.1 et vérification commune sur banc des protections du cartographe. [Résultat](#cartographe-v3-int1)
 - **24 novembre 2026** — Qualification logicielle V3-C.1 sur deux bancs, couplage et contre-validation après restriction préenregistrée. [Résultat](#cartographe-v3-c1)
 - **24 novembre 2026** — V3-A.4 structure la collecte et la validation de provenance des preuves physiques par occurrence–opération. [Résultat](#cartographe-v3-a4)

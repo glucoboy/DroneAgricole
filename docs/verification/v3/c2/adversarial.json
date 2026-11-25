@@ -1,0 +1,459 @@
+{
+  "schema": "v3.c2.adversarial/1",
+  "source_commit": "772732c457b377a8baac25396e149c0732516401",
+  "status": "PASS",
+  "cartographer_mutation": "DENY",
+  "critical_failure": false,
+  "contract_guards": {
+    "schema": "v3.c2.admission_boundaries/1",
+    "status": "PASS",
+    "cases": {
+      "cartographer-injection": {
+        "fault": "Domaine cartographe fourni avec un sceau synthétique",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "MUTATION_DOMAIN_DENIED",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/cartographer-injection/output/refusal.json",
+          "sha256": "8b7f5c8c7aa3af7bb174aa40fc12b63989f43c9202684b15d188f64e81099516"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/cartographer-injection/build-invocation.json",
+          "sha256": "dc2d2adadf3ac6faa834dcca2387ac4f742b5894da7e871a5fb0131284cf228b"
+        }
+      },
+      "foreign-lot": {
+        "fault": "Lot fourni dans un plan de banc",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Plan multi-faisceaux divergent du contrat v3",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/foreign-lot/output/refusal.json",
+          "sha256": "7711b1f7dc110c19f492cf6e678087a868500dd15308aee18f1303d890f18586"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/foreign-lot/build-invocation.json",
+          "sha256": "2edf4f7f45442677ce1740755181529cd3dd86281ea826fa61a2599204d96d0d"
+        }
+      },
+      "foreign-authority": {
+        "fault": "Sceau d’un autre domaine",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Plan multi-faisceaux divergent du contrat v3",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/foreign-authority/output/refusal.json",
+          "sha256": "6630607865e1c89f27ef8a2bc93dacc30bc30af83897d8eb279ee5677a4a3a88"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/foreign-authority/build-invocation.json",
+          "sha256": "1d41317eeb3ae2e4cc94a6493b3fb86740991f40b6778eac8f64547b9ae3e6ea"
+        }
+      },
+      "missing-harness": {
+        "fault": "Second câble absent",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Composition atomique multi-faisceaux incomplète",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/missing-harness/output/refusal.json",
+          "sha256": "8b027b3a025403d88f61e93d9037c862997623d43254bfe1d378190f9e7eb3a8"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/missing-harness/build-invocation.json",
+          "sha256": "3b2dadfe8a6545372e622c5f043127a6f253d14747e5da916a5aea28917f85d8"
+        }
+      },
+      "support-outside-catalog": {
+        "fault": "Ancrage hors du domaine scellé",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Supportage hors de l'autorité paramétrique",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/support-outside-catalog/output/refusal.json",
+          "sha256": "360bf80138ccc8df9e42c8108dd3095b54c88112723f9cb8fa3e629ca0ad9f36"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/support-outside-catalog/build-invocation.json",
+          "sha256": "bf63fedb6e12977f533b7f3f26a5ca09ac419a412ab6e8e1e4b2a1105e352f28"
+        }
+      },
+      "radius-below-limit": {
+        "fault": "Rayon du second câble inférieur à la limite",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Rayon de proposition hors des limites scellées",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/radius-below-limit/output/refusal.json",
+          "sha256": "a7deeb82ea439fde7b834a84d1acc4637c7a3fece433f75578bd4f2616847c55"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/radius-below-limit/build-invocation.json",
+          "sha256": "4d800b95b9d3d59eaafe4e38a8553ad8e16c240f49eacb30de5471d068fdd897"
+        }
+      },
+      "broken-xlink": {
+        "fault": "XLink manquant",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/broken-xlink/output/refusal.json",
+          "sha256": "4e419ae90cb04ba537a20d9e1b2285ba4f5efd10ddf02952243acc7ee1b94e89"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/broken-xlink/build-invocation.json",
+          "sha256": "e9681ff345d417852b9ff904635dd119c0b25734daf4f1add5b464c01dc85858"
+        }
+      },
+      "corrupted-xlink": {
+        "fault": "XLink corrompu",
+        "exit_code": 2,
+        "status": "FAIL",
+        "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+        "construction_result": "NOT_RUN",
+        "candidate_transactions": 0,
+        "receipt": {
+          "path": ".runtime/c2-boundaries-final/corrupted-xlink/output/refusal.json",
+          "sha256": "cffd340f18a4c2f8d666e8241b4fe7fb3760fb84d09d032baab875e1d1bf8fdf"
+        },
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/corrupted-xlink/build-invocation.json",
+          "sha256": "6f5103e87337bcad3756dbf06240fae1cf9f6fc85b221a4d658e6224bfeaf174"
+        }
+      },
+      "countercheck-budget": {
+        "fault": "max_counterchecks supérieur à max_native",
+        "exit_code": 1,
+        "stderr": "Entier hors limites : max_counterchecks\n",
+        "candidate_transactions": 0,
+        "construction_result": "NOT_RUN",
+        "invocation": {
+          "path": ".runtime/c2-boundaries-final/countercheck-budget/budget-invocation.json",
+          "sha256": "cf69571085e3cd7e6b581e5c9bb06a8bdf167faca0eae40e28c7ba7729f557cb"
+        }
+      }
+    }
+  },
+  "native_guards": {
+    "schema": "v3.c2.native_faults/1",
+    "status": "PASS",
+    "cases": {
+      "harness-b-hits-obstacle": {
+        "status": "DETECTED",
+        "check": "L4_GEOMETRY",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/injection.json",
+          "sha256": "e621b0bd13af8b09b316f459c81534c48d841e706a31147f0a350c19eac0d4e8"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/verification.json",
+          "sha256": "0c4f413bcef7b13a472662b4484865a34c97bc822621eb9bddac2ae7d0d40af9"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/inject-invocation.json",
+            "sha256": "964aad045038bb6895bfa3f4cfe5fa8fb259cdcdd06e67a3f8f2f57656705e4e"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/verify-invocation.json",
+            "sha256": "33dfc9517cb86465e528c519f2a3e98d4dd2dd65d258e072d7628337ae0aaba9"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/cross-invocation.json",
+            "sha256": "4977d84e66b135c71944aa71f969ddfe2d9be7fba0aeb4925bfb71469da85b8a"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/c2-native-injections-t1/harness-b-hits-obstacle/cross.json",
+          "sha256": "90a6d037c024184a1310f7d4dfe6814c352255db78f3e8d34019c99020a63aeb"
+        }
+      },
+      "stale-port-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/stale-port-b/injection.json",
+          "sha256": "7795d3d2bae1c03aeb93ac6a55139ca90802f31285fc3e04439e7307c86bbaae"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/stale-port-b/verification.json",
+          "sha256": "c8747c3b5b9537807d2c560138f9f1a05766f0bbc0ada0a397b63f4101af9af3"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/stale-port-b/inject-invocation.json",
+            "sha256": "481de59718a703a20be83f0df0f702d476cd588cc305e904ec402826d619d73f"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/stale-port-b/verify-invocation.json",
+            "sha256": "20584d76e167fae9752dfa973ca2776b4ea55f2dc8e494f352d605385537914b"
+          }
+        ]
+      },
+      "permuted-pins-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/permuted-pins-b/injection.json",
+          "sha256": "ec4af66c047ddf2a2685e542656b597e72553ae192009b52bf81a091ccf0dfd2"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/permuted-pins-b/verification.json",
+          "sha256": "880b71cdc46572c5d85d8e29eed8b83d83dce2dfd8c6833f45ad63774eb9a709"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/permuted-pins-b/inject-invocation.json",
+            "sha256": "fe8929a9c690583b1b44803ab5430d6b78f2c1777515f7137a0b36573e9b5d14"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/permuted-pins-b/verify-invocation.json",
+            "sha256": "702696adc257bd01b49afe1a09a9811762865c336fc57aa7e7d77dea0c5d09d9"
+          }
+        ]
+      },
+      "lost-continuity-b": {
+        "status": "DETECTED",
+        "check": "L2_TOPOLOGY",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/lost-continuity-b/injection.json",
+          "sha256": "2b614b66c98dbc436a0d83440b54c815bd26294533447ea087bf10ad197227e2"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/lost-continuity-b/verification.json",
+          "sha256": "d9db236f7f1d4151026f0216e517438634a248f85870dc57fffd6ad3dd65fd8e"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/lost-continuity-b/inject-invocation.json",
+            "sha256": "4d01102090b59bba62530b5e4b291e24f1151a641030bc0d3304c8da3c0d29bc"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/lost-continuity-b/verify-invocation.json",
+            "sha256": "87be0402c111c72b6b970e58c451fb9531b4cd087d2c186beb0e01d485c17d40"
+          }
+        ]
+      },
+      "negative-service-clearance": {
+        "status": "DETECTED",
+        "check": "L4_SERVICE",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/negative-service-clearance/injection.json",
+          "sha256": "0533b3bc15cd596d1cdd0d5f348ca62398ed2f5101cc6a785b906cda018bd4a4"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/negative-service-clearance/verification.json",
+          "sha256": "51b1601034f2b5215b23580e95c9d484b5398660f22798fdacacae91d4508922"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/negative-service-clearance/inject-invocation.json",
+            "sha256": "64f31a550188e6f02f8c087892dff7740e8adc1e9eebe824b9ee22cfa0647c42"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/negative-service-clearance/verify-invocation.json",
+            "sha256": "33101be71ecf85e1c461e245ab18c38af9b1140d660651c0433a30ae3dd78763"
+          }
+        ]
+      },
+      "radius-under-limit-b": {
+        "status": "DETECTED",
+        "check": "L4_DYNAMIC_BEND_RADIUS",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/radius-under-limit-b/injection.json",
+          "sha256": "4d98ce1a66827c444a71adb78106e57bbeadbb6a45d61ccad4bd6076a29c04a9"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/radius-under-limit-b/verification.json",
+          "sha256": "1bcf9b17587ddc2e62bb4b38cce85516cf88240a9b0cf3341de0c93c9abf0faa"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/radius-under-limit-b/inject-invocation.json",
+            "sha256": "84dc205bcc2d16de35f2608cd00958efcb9cb48e6555febc8cc1fa594fd168b8"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/radius-under-limit-b/verify-invocation.json",
+            "sha256": "f54dede318bb87b39c21c59f98aba67ce404b856e1e67ba5043a9f4254bfed69"
+          }
+        ]
+      },
+      "floating-support": {
+        "status": "DETECTED",
+        "check": "L4_SUPPORT_ANCHOR",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/floating-support/injection.json",
+          "sha256": "57145960d6f28557301636cfad8b8a27974a2c741d2539c129e77a1138b6994e"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/floating-support/verification.json",
+          "sha256": "e7f9e63fbe1cd6c0ecccb1316c552d4b485aa702c02989808d2ce4555cfdfbcd"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/floating-support/inject-invocation.json",
+            "sha256": "1e2f2c48dd9008a2dbf24d27eab76988e3672c5caeafcfd3348864e51392af4d"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/floating-support/verify-invocation.json",
+            "sha256": "6c7f3819606272f7a83df55214b6db7144b77a95b8b461fc086a7839b93c46d9"
+          }
+        ]
+      },
+      "harnesses-collide": {
+        "status": "DETECTED",
+        "check": "L4_GEOMETRY",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/harnesses-collide/injection.json",
+          "sha256": "33e4ae0d60318338101d3496244b3e2971ef92d8119b7c82053a8e60f46715fb"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/harnesses-collide/verification.json",
+          "sha256": "9fcecd5e8529e7d35761ec1cc6c48b2d09c7a297800855213ff7ec8fd5b63aea"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/harnesses-collide/inject-invocation.json",
+            "sha256": "d82a3934e14b4d5ad10a209192e8942d94d428ae6297954f13e7b3578ac1b5e6"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/harnesses-collide/verify-invocation.json",
+            "sha256": "c050df6d242623ce96a81fa5b731f39c9d93a23f30f296dad996258fa28b5ef1"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/harnesses-collide/cross-invocation.json",
+            "sha256": "a8e6ce33788a0fdffcdba85b34b4992114edf0729d31ccb7a3c5d6e17bf6b649"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/c2-native-injections-t1/harnesses-collide/cross.json",
+          "sha256": "4efbeec8ebd501077f9d819b9fc947ba93d9105a959d3dd1903fb25912cd651d"
+        }
+      },
+      "missing-fastener-engagement": {
+        "status": "DETECTED",
+        "check": "L4_SUPPORT_ANCHOR",
+        "injection": {
+          "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/injection.json",
+          "sha256": "dfca691b88ec2f0385ca8dce795a520d49b24e37388f38b44785031feb537171"
+        },
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/verification.json",
+          "sha256": "79451efd94606c79f81b060b8d854274a70021241065f10668be87218381d39f"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/inject-invocation.json",
+            "sha256": "4dbbf181225f47f58a4d16f8bb01bdde5519309ab8ae395f21adff45adefcd33"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/verify-invocation.json",
+            "sha256": "e42b9d6be4916efc21c353ea635dc94469ee0bc8d9314a59fef7f3672f8af3fb"
+          },
+          {
+            "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/cross-invocation.json",
+            "sha256": "9d690f5db7a6cf46013e8339b30318ef65173d52e7eedbde99f43b14b3b32b1a"
+          }
+        ],
+        "independent_brep": {
+          "path": ".runtime/c2-native-injections-t1/missing-fastener-engagement/cross.json",
+          "sha256": "2a68cee39e0d6aa4cf42309c29b7182230183bfde872f6e48690e1e5b8b1be77"
+        }
+      },
+      "forged-engagement-authority": {
+        "status": "DETECTED",
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/forged-engagement-authority/verification.json",
+          "sha256": "f0d22e3262f0b6e2068d92959d858748bd2a5ce587bbb47247349600618fd19a"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/forged-engagement-authority/reject-invocation.json",
+            "sha256": "5eb4c950ace356e62aa65e598773bc780fed70d296478dee8d5aaff3d810e18c"
+          }
+        ]
+      },
+      "rollback-after-first-harness": {
+        "status": "DETECTED",
+        "verification": {
+          "path": ".runtime/c2-native-injections-t1/rollback-after-first-harness/build.json",
+          "sha256": "3a403b096a15ddffff79f08e2b6870a5413cf466dc273105bfead5df7169ee0b"
+        },
+        "invocations": [
+          {
+            "path": ".runtime/c2-native-injections-t1/rollback-after-first-harness/rollback-invocation.json",
+            "sha256": "c4e7b79c2e36ca73136ae3afd0fe2073714c7e22385aa63e0103636329192c31"
+          }
+        ]
+      }
+    },
+    "profile": {
+      "path": "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+      "sha256": "250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604"
+    },
+    "candidate_validation": {
+      "path": ".runtime/c2-qualification/t1/T1/candidates/v3-c-043/construction/transaction/candidate-validation.json",
+      "sha256": "11325394a9ab54189e2812d16a678c8abef85ff2909e73e93a57ca424a257316"
+    },
+    "transaction": {
+      "path": ".runtime/c2-qualification/t1/T1/candidates/v3-c-043/construction/transaction/campaign.json",
+      "sha256": "3d62b373fd22807d224115389e81b62dccc25e3550626c7f20c020c195fd45ee"
+    },
+    "candidate_sha256": {
+      "Banc_Interconnexion.FCStd": "2bb4ab538c0b992e0d8785db622243c7fd1de56e1afd6ef20b75dcb0b0ba9e12",
+      "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+      "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+    },
+    "shared_source_sha256": {
+      "Banc_Interconnexion.FCStd": "4b17d30fcb00ef7b1407dee34fdd8e87c020db652052e9a124725c3b9853ac6a",
+      "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+      "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+    }
+  },
+  "pilot_deadline": {
+    "proof": {
+      "path": ".runtime/c2-deadline/T1/campaign.json",
+      "sha256": "415c1ab702c006e486f95272bf713bf43181e04fe0728859a697c5e37f636fcf"
+    },
+    "scope": "ADMISSION_WITH_ATOMIC_TRANSACTION_COMPLETION",
+    "elapsed_ms": 3872,
+    "qualified_candidates": 0,
+    "invocation": {
+      "path": ".runtime/c2-deadline/T1-l5-invocation.json",
+      "sha256": "dbdfd44f991cb7d99488d9dfbeab94cd7412ab606ec207d881265b576424934c"
+    }
+  },
+  "runtime_proofs": [
+    {
+      "path": ".runtime/c2-boundaries-final/adversarial.json",
+      "sha256": "50b26d8ef9b0eff9be1684c2bb38fdf51368df7a684b88080ffd816a532630b7"
+    },
+    {
+      "path": ".runtime/c2-native-injections-t1/adversarial.json",
+      "sha256": "d8edc5dd7a54cf7a51331d55ff2c1d9c03e7431dc0df27ec292e421832ecf05e"
+    }
+  ],
+  "initial_guard_assertion": {
+    "exit_code": 1,
+    "proof": {
+      "path": ".runtime/c2-qual-build/boundaries.log",
+      "sha256": "c4731b012b7a19e78e876928fbeba83b24ce1d884beafe9100dfc00095289c85"
+    },
+    "cause": "Apostrophe typographique attendue par le test, apostrophe ASCII dans le reçu de refus."
+  }
+}

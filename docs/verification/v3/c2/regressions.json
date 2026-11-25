@@ -1,0 +1,607 @@
+{
+  "schema": "v3.c2.regressions/1",
+  "source_commit": "772732c457b377a8baac25396e149c0732516401",
+  "status": "PASS",
+  "builds_status": "PASS",
+  "executables": {
+    "L3": {
+      "path": ".runtime/c2-qual-build/l3/architecture_decision_core.exe",
+      "sha256": "efe60a3af924920da8471d317dfc96fd0520b4d7490feced14b960871680b59f"
+    },
+    "L5": {
+      "path": ".runtime/c2-qual-build/l5/convergence_core.exe",
+      "sha256": "c278c80b0aca5b800babf67e273096b4dfb064e93cb13acf5fdad0e5830beb83"
+    },
+    "T0": {
+      "path": ".runtime/c2-build/t0/cartographe-evidence.exe",
+      "sha256": "da2fbe0a06f0e203e2001d298d48765bf6856214545dced5a42533cda851e4e1"
+    },
+    "FreeCAD": {
+      "path": "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "sha256": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39"
+    },
+    "material_evidence": {
+      "path": ".runtime/c2-qual-build/l5/cartographe_material_evidence.exe",
+      "sha256": "175e8cee997e630fb3882a2e42638c619fb6753b2f1329a41b564f1722647ea1"
+    }
+  },
+  "environment": {
+    "os": "Windows amd64",
+    "cxx": "GCC 16.2.0, C++17",
+    "qt": "6.11.2",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7"
+  },
+  "builds": {
+    "l3": {
+      "configure": {
+        "argv": [
+          "cmake",
+          "-S",
+          "architecture_decision_engine",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3",
+          "-G",
+          "Ninja",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+          "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-qual-build/configure-l3.log",
+          "sha256": "32a04a2cd155915838c545c5281d49fa11a51cc772cb94b4d527d39fb6d9d167"
+        }
+      },
+      "build": {
+        "argv": [
+          "cmake",
+          "--build",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3",
+          "--parallel",
+          "4"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-qual-build/build-l3.log",
+          "sha256": "12fda6571c027fb794db3effef8f29d8933af02191f4461eff2dd674c23c09d9"
+        }
+      }
+    },
+    "l5": {
+      "configure": {
+        "argv": [
+          "cmake",
+          "-S",
+          "convergence_manager",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5",
+          "-G",
+          "Ninja",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+          "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+          "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-qual-build/configure-l5.log",
+          "sha256": "03705f8f320e3aae39d48de6f7dcfdb2c331c6ded61141957fce59382ae03d28"
+        }
+      },
+      "build": {
+        "argv": [
+          "cmake",
+          "--build",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5",
+          "--parallel",
+          "4"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-qual-build/build-l5.log",
+          "sha256": "163d4e6dca84d96ac81cefffe1916c8bb17b74ec0f62449a2873c16707b83d65"
+        }
+      }
+    },
+    "t0": {
+      "configure": {
+        "argv": [
+          "cmake",
+          "-S",
+          "simulation",
+          "-B",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0",
+          "-G",
+          "Ninja",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+          "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-build/t0-configure.log",
+          "sha256": "8ed7880c2e4b0cff7002942dd3a0792bef98499330e9271eaa98cd14b3eee139"
+        }
+      },
+      "build": {
+        "argv": [
+          "cmake",
+          "--build",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0",
+          "--parallel",
+          "3",
+          "--target",
+          "cartographe-evidence"
+        ],
+        "exit_code": 0,
+        "proof": {
+          "path": ".runtime/c2-build/t0-build.log",
+          "sha256": "807b96d32faaded485f0c094239c8c1805752719501a4dc4dd3fc8e67751c376"
+        }
+      }
+    }
+  },
+  "campaigns": {
+    "T1": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--l3",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3\\architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qualification",
+        "--phase",
+        "T1"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/c2-qual-build/T1.log",
+        "sha256": "fa56025437f9fe732e5755982aec9b28a5826259fd23cfcfea11b8fa5a4a0cac"
+      },
+      "L3": {
+        "path": ".runtime/c2-qualification/t1/L3-invocation.json",
+        "sha256": "b1fc848c01a25dc6449932634c7c8a45aa1d007bc777ac4242140f341566994e"
+      },
+      "L5": {
+        "path": ".runtime/c2-qualification/t1/T1-l5-invocation.json",
+        "sha256": "b5c1cdbe515408e0915969e4fd15006242b779b53ceeda96b6380fbb1e97b143"
+      }
+    },
+    "T2": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--l3",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3\\architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qualification",
+        "--phase",
+        "T2",
+        "--perturbation",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-evaluator\\restriction.json",
+        "--perturbation-sha256",
+        "f89d02e81e6c0bd2c0133845c365200fccbceae64381c7cd8cd3a2b3aff19bcf"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/c2-qual-build/T2.log",
+        "sha256": "849e44df41d335805d71399c57f8eadde42b274810c804e0c69371897dac90b4"
+      },
+      "L3": {
+        "path": ".runtime/c2-qualification/t2/L3-invocation.json",
+        "sha256": "d5e7b3b3e0c7c083f2d9b13bcf5bf6b6ae92eeb27d1f0bcd5a375e6b57244d4e"
+      },
+      "L5": {
+        "path": ".runtime/c2-qualification/t2/T2-l5-invocation.json",
+        "sha256": "d235445633b6ebdb1fe09cd1ff5113fd9ea95edd6da033398a0193668f95f746"
+      }
+    },
+    "T3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--l3",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3\\architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qualification",
+        "--phase",
+        "T3"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/c2-qual-build/T3.log",
+        "sha256": "8ad3cefe93052c1a35cfaa0c3264b875ac6dca145610decd4763c3b0fd9768a4"
+      },
+      "L3": {
+        "path": ".runtime/c2-qualification/t3/L3-invocation.json",
+        "sha256": "f4caf0c0b34192333af348a65456921b5650156a54ff629226bee4ff84b98a14"
+      },
+      "L5": {
+        "path": ".runtime/c2-qualification/t3/T3-l5-invocation.json",
+        "sha256": "5648113ac20fdfee141bea28bc3eff115ffbe9185337bd2b2fd10a398701ad5a"
+      }
+    }
+  },
+  "legacy": {
+    "L3": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/L3-invocation.json",
+        "sha256": "f63505e8172dca92d9e5a64d4999d70abfdd9e7bff442308d082ba217538a813"
+      },
+      "started_utc": "2026-11-25T13:26:42.335533+00:00",
+      "completed_utc": "2026-11-25T13:27:18.026577+00:00",
+      "duration_seconds": 35.691044,
+      "result": {
+        "path": ".runtime/c2-regressions/l3.xml",
+        "sha256": "e990d9c05613cbd0fc2c19a3656dd322e5e2a28e161dcddecb7486caca4c83b5"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+        "--test-dir",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3",
+        "-R",
+        "^l3_",
+        "--output-on-failure",
+        "--output-junit",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\l3.xml"
+      ]
+    },
+    "L5": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/L5-invocation.json",
+        "sha256": "d7897b206853199d870fc4cd4805321f03d69e21aa8caa7a5c99b57837bc3053"
+      },
+      "started_utc": "2026-11-25T13:27:18.030776+00:00",
+      "completed_utc": "2026-11-25T13:28:32.888824+00:00",
+      "duration_seconds": 74.858048,
+      "result": {
+        "path": ".runtime/c2-regressions/l5.xml",
+        "sha256": "5d5c0fb06a8b764162de9a0be66fb218ad0129101e382772f9ab89ce015c9510"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+        "--test-dir",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5",
+        "-R",
+        "^(l5_|v3_graph_contract|l2_interconnection)",
+        "--output-on-failure",
+        "--output-junit",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\l5.xml"
+      ]
+    },
+    "B.1": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/B.1-invocation.json",
+        "sha256": "4b0ca0447c8dd6fe84b5e20eee37b5cf8eba65fe9a9ae91d9e51f6121f0c3ef1"
+      },
+      "started_utc": "2026-11-25T13:26:42.334473+00:00",
+      "completed_utc": "2026-11-25T13:28:29.445894+00:00",
+      "duration_seconds": 107.111421,
+      "result": {
+        "path": ".runtime/c2-regressions/b1/replay.json",
+        "sha256": "e8139613e66b4236070f0177749b1513e4763410243db45b91d53d25b1f18f33"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\convergence_manager\\tests\\replay_v3_b1.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--freecad",
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--profile",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\docs\\electromechanical_v3\\bench_b1_c4\\profile.json",
+        "--profile",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\docs\\electromechanical_v3\\bench_b1_workholding\\profile.json",
+        "--profile",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\docs\\electromechanical_v3\\bench_b2_variations.json",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\b1"
+      ]
+    },
+    "B.2": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/B.2-invocation.json",
+        "sha256": "05eaccf7227d11b2f8946e62d762be6549fc72eca24e33363251ae6bb64d1ee4"
+      },
+      "started_utc": "2026-11-25T13:28:29.453254+00:00",
+      "completed_utc": "2026-11-25T13:29:09.558841+00:00",
+      "duration_seconds": 40.105587,
+      "result": {
+        "path": ".runtime/c2-regressions/b2/index.json",
+        "sha256": "abf4a3ec132cc06e22ad000fe729c645c4d20a7b825b04a4d6f404ddf55af40b"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\convergence_manager\\tests\\replay_v3_b2.py",
+        "--replay",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\b1\\replay.json",
+        "--freecad",
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\b2"
+      ]
+    },
+    "A.2": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/A.2-invocation.json",
+        "sha256": "c23bb99c2cbea236eb43cc3fce3d0b43cbf19fdd48e4fb96bfea11572d54f857"
+      },
+      "started_utc": "2026-11-25T13:26:42.334729+00:00",
+      "completed_utc": "2026-11-25T13:26:51.133603+00:00",
+      "duration_seconds": 8.798874,
+      "result": {
+        "path": ".runtime/c2-regressions/a2/integrity.json",
+        "sha256": "218375500bd2990f8516f766e34a241c09e73d85c09d51bec8f6f26f42c4c477"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\tests\\verify_v3_a2_evidence.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--out",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\a2"
+      ]
+    },
+    "I": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/V3-I-invocation.json",
+        "sha256": "db180e057398262a09ca88187f246889b2e18f58bab7a16677196f76768f6f54"
+      },
+      "started_utc": "2026-11-25T13:26:51.142843+00:00",
+      "completed_utc": "2026-11-25T13:26:52.671474+00:00",
+      "duration_seconds": 1.528631,
+      "result": {
+        "path": ".runtime/c2-regressions/i/scope_checks.json",
+        "sha256": "f7fa32d8e4acfac1789505d04998c94803bccdd8d7c71472eced2b9a8fe7535c"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\convergence_manager\\tests\\test_v3_i_scope.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--integrity",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\a2",
+        "--out",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\i"
+      ]
+    },
+    "B.1-guards": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/B.1-guards-invocation.json",
+        "sha256": "bac78ff30da68570cec365cc07cd82e04b471d8cdf77566391f71e9c50aedbed"
+      },
+      "started_utc": "2026-11-25T13:26:52.680150+00:00",
+      "completed_utc": "2026-11-25T13:27:13.153913+00:00",
+      "duration_seconds": 20.473763,
+      "result": {
+        "path": ".runtime/c2-regressions/b1-boundary/checks.json",
+        "sha256": "681768413bc194aed79d924e0f197680bf8768252efdff7d09b3e3d8e781a084"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\convergence_manager\\tests\\test_v3_b1_boundary.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--freecad",
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\b1-boundary"
+      ]
+    },
+    "C": {
+      "status": "PASS",
+      "exit_code": 0,
+      "invocation": {
+        "path": ".runtime/c2-regressions/V3-C-invocation.json",
+        "sha256": "a749c0549b495c19b843db62944830ccb34c54e358980e12788523dc488291f6"
+      },
+      "started_utc": "2026-11-25T13:26:42.335070+00:00",
+      "completed_utc": "2026-11-25T13:32:06.000836+00:00",
+      "duration_seconds": 323.665766,
+      "result": {
+        "path": ".runtime/c2-regressions/historical-c/generalization.json",
+        "sha256": "f394e7cc6b8d874cc361388f8317f5764f5a3096b77bbea8bb5854fdee0a0684"
+      },
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\convergence_manager\\tests\\replay_v3_c.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l5\\convergence_core.exe",
+        "--freecad",
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-build\\t0\\cartographe-evidence.exe",
+        "--l3",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-qual-build\\l3\\architecture_decision_core.exe",
+        "--python",
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-c2-worktree\\.runtime\\c2-regressions\\historical-c"
+      ]
+    }
+  },
+  "l5_ctest": {
+    "l5_v3_a4_material_evidence": "run",
+    "l5_Campaign": "run",
+    "l5_Selection": "run",
+    "l5_v3_admission_entry": "run",
+    "l5_v3_admission_policy": "run",
+    "l5_v3_native_mutate": "run",
+    "l5_v3_native_verify": "run",
+    "v3_graph_contract": "run",
+    "l2_interconnection": "run"
+  },
+  "direct_search": [
+    {
+      "name": "c1_coupled",
+      "argv": [
+        ".runtime/c2-qual-build/l5/test_l5_V3Search.exe",
+        "docs/electromechanical_v3/domains/workholding.json",
+        ".runtime/c2-regressions/historical-c/workholding/reference-observation.json",
+        "docs/electromechanical_v3/domains/c4.json",
+        ".runtime/c2-regressions/historical-c/c4/reference-observation.json",
+        "docs/electromechanical_v3/domains/c1_coupled.json",
+        ".runtime/c2-replay-c1/t1/reference-observation.json",
+        "docs/electromechanical_v3/bench_c1_coupled/profile.json"
+      ],
+      "exit_code": 0,
+      "output": "Recherche, restriction, reproductibilité et transfert vérifiés"
+    },
+    {
+      "name": "c1_coupled_secondary",
+      "argv": [
+        ".runtime/c2-qual-build/l5/test_l5_V3Search.exe",
+        "docs/electromechanical_v3/domains/workholding.json",
+        ".runtime/c2-regressions/historical-c/workholding/reference-observation.json",
+        "docs/electromechanical_v3/domains/c4.json",
+        ".runtime/c2-regressions/historical-c/c4/reference-observation.json",
+        "docs/electromechanical_v3/domains/c1_coupled_secondary.json",
+        ".runtime/c2-replay-c1/t3/reference-observation.json",
+        "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json"
+      ],
+      "exit_code": 0,
+      "output": "Recherche, restriction, reproductibilité et transfert vérifiés"
+    },
+    {
+      "name": "c2_multiharness",
+      "argv": [
+        ".runtime/c2-qual-build/l5/test_l5_V3Search.exe",
+        "--multiharness",
+        "docs/electromechanical_v3/domains/c2_multiharness.json",
+        ".runtime/c2-qualification/t1/reference-observation.json",
+        "docs/electromechanical_v3/bench_c2_multiharness/profile.json"
+      ],
+      "exit_code": 0,
+      "output": "Composition et refus multi-faisceaux vérifiés"
+    },
+    {
+      "name": "c2_multiharness_secondary",
+      "argv": [
+        ".runtime/c2-qual-build/l5/test_l5_V3Search.exe",
+        "--multiharness",
+        "docs/electromechanical_v3/domains/c2_multiharness_secondary.json",
+        ".runtime/c2-qualification/t3/reference-observation.json",
+        "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json"
+      ],
+      "exit_code": 0,
+      "output": "Composition et refus multi-faisceaux vérifiés"
+    }
+  ],
+  "l2_sealed": {
+    "argv": [
+      "C:/msys64/ucrt64/bin/python.exe",
+      "-B",
+      "../../.runtime/v3-b2/historical/l2-sealed/interconnection_engine/tests/test_reconcile.py",
+      ".runtime/c2-qual-build/l5/graph/interconnection/interconnection_core.exe",
+      "-v"
+    ],
+    "exit_code": 0,
+    "proof": {
+      "path": ".runtime/c2-qual-build/l2-sealed.log",
+      "sha256": "5dc8908094c52b6afdbab86feeadb72c7c9b8e39270d85fdbaaeb660a25f37a6"
+    }
+  },
+  "c1": {
+    "exit_code": 0,
+    "generalization": {
+      "path": ".runtime/c2-replay-c1/generalization.json",
+      "sha256": "882b10efe56894d87072a78f29ee8f359d15691023a644752264ab82ee3e6d46"
+    },
+    "sensitivity": {
+      "path": ".runtime/c2-replay-c1/sensitivity.json",
+      "sha256": "0e944804b9f7927e73a441d5de704528ff158e4c7b37be214f7337ff6a8da7d3"
+    },
+    "native_faults": {
+      "path": ".runtime/c2-c1-native-faults/adversarial.json",
+      "sha256": "a820cdd7f8becbefd42f94b0106d8d8c8dae0f5f79d93f9168c8363029e94c71"
+    },
+    "counts": {
+      "T1": {
+        "proposals": 29,
+        "native_attempts": 4,
+        "qualified_candidates": 3
+      },
+      "T2": {
+        "proposals": 30,
+        "native_attempts": 6,
+        "qualified_candidates": 5
+      },
+      "T3": {
+        "proposals": 30,
+        "native_attempts": 6,
+        "qualified_candidates": 2
+      }
+    }
+  },
+  "a4": {
+    "exit_code": 0,
+    "case_count": 43,
+    "report": {
+      "path": ".runtime/c2-qual-build/a4-adversarial.json",
+      "sha256": "266e245b8096b6c8b53812ef613293907a9d01f5b79afae46d61483254fff427"
+    }
+  },
+  "not_run": [
+    "Réception physique et mutation du cartographe",
+    "Suite CLI historique L5 hors du CTest ciblé de cette branche"
+  ],
+  "limits": [
+    "Temps C.2 borné pour l’admission. Une construction atomique engagée peut se terminer sans être admise après l’échéance.",
+    "Les pilotes C.2 précèdent le gel et ne servent pas de preuve d’aveuglement T2."
+  ]
+}

@@ -329,6 +329,26 @@ consomme la même base intégrée, dans les périmètres définis pour C.2 et A.
 [Contrat de passage](../verification/v3/int1/next_stage_contract.md) ·
 [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-int1)
 
+#### Convergence multi-faisceaux V3-C.2 — Implémenté
+
+Le domaine `v3.parametric_domain/2` décrit les câbles par occurrence,
+leurs ports natifs, leur identité électrique, les bornes de route et le
+catalogue des appuis. Le problème `v3.problem_spec/2` fixe les objectifs,
+leurs tolérances et les budgets. Le plan `v3.mutation_plan/3` développe
+une pose, un parcours par câble et un appui dans une transaction
+atomique. L'autorité scellée lie la fermeture XLink au périmètre
+`SYNTHETIC_BENCH`.
+
+Le criblage distingue `SCREEN_PASS`, `SCREEN_REJECT` et
+`NEEDS_NATIVE_CHECK`. Une réserve de criblage requiert une mesure native
+avant le classement. B.2 rouvre toute la candidate, contrôle les liaisons
+électriques et mesure les dégagements, l'appui, le service et les rayons.
+La classification conserve les contacts attendus et les engagements
+mesurés. Une interférence interdite bloque la candidate complète. Le
+front de Pareto compare les mesures arrondies au quantum de chaque
+objectif. C.1 conserve ses domaines `/1` et ses plans `/2`.
+[Qualification et rejeu](../VALIDATION_QUALIFICATION.md#cartographe-v3-c2)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1297,6 +1317,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **25 novembre 2026** — V3-C.2 ajoute les plans multi-faisceaux atomiques, la sélection d’appui et la classification indépendante des contacts sur banc (§2.6).
 - **25 novembre 2026** — V3-INT.1 réunit l'orchestration C.1 et l'import A.4 dans le même build, avec leurs gardes d'admission et régressions (§2.6).
 - **24 novembre 2026** — V3-C.1 ajoute le mode à repères natifs, un support dépendant de la pose et un classement issu des mesures B.2 (§2.6).
 - **24 novembre 2026** — Ajout de l'import de relevés V3-A.4 en lecture seule et de la vérification de leur provenance.

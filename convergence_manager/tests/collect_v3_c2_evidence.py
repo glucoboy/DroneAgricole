@@ -13,7 +13,7 @@ from replay_v3_c2 import BENCHES, authority
 
 
 def checked(reference):
-    path = ROOT / reference["path"]
+    path = (ROOT / reference["path"]).resolve(strict=True)
     if not path.is_relative_to(ROOT) or digest(path) != reference["sha256"]:
         raise ValueError(f"Empreinte de preuve divergente : {path}")
     return load(path)
@@ -47,6 +47,8 @@ def check_candidate(directory, entry, domain, profile, t0):
     reference = load(cross / "baseline-observation.json")
     assert counter["final_verdict"] == transaction["status"] == build["status"] == "PASS"
     assert not counter["blocking_issues"] and not counter["independent_disagreements"]
+    assert checked(counter["native_receipt"]) == transaction
+    assert counter["proposal_sha256"] == digest(trial / "proposal.json")
     for row in counter["validator_by_domain"].values():
         assert row["status"] == "PASS"
         checked(row["receipt"])
@@ -86,7 +88,8 @@ def check_candidate(directory, entry, domain, profile, t0):
                         "clearance_mm": entry["metrics"][prefix + "clearance_mm"],
                         "maximum_tangent_error_deg": entry["metrics"][prefix + "maximum_tangent_error_deg"]}
     assert support["bearing_area_mm2"] > 0 and support["carrier_face"]["bearing_area_mm2"] > 0 and support["fasteners"]
-    assert support["retains"] and set(support["retains"]) == set(cables)
+    assert set(support["retains"]) == {row["occurrence_path"] for row in domain["harnesses"].values()}
+    assert set(support["retention_gaps_mm"]) == set(cables)
     classification = measured["interference_classification"]
     assert classification["status"] == "PASS" and classification["cross_harness"]["status"] == "PASS"
     verify = subprocess.run([str(t0), "validate", str(native), str(ROOT)], cwd=ROOT, capture_output=True,
@@ -134,6 +137,11 @@ def main():
         case = campaign / phase.lower()
         directory = case / phase
         summary = load(case / "summary.json")
+        assert checked(summary["freeze"]) == freeze
+        assert checked(summary["campaign"])["qualified_candidates"] == summary["qualified_candidates"]
+        assert checked(summary["problem"])["phase"] == phase
+        if summary["external_perturbation"]:
+            checked(summary["external_perturbation"])
         domain_path, domain, profile_path, profile = authority(phase)
         assert summary["scope"] == "SYNTHETIC_BENCH" and checked(summary["t0"])["exit_code"] == 0
         assert summary["proposals"] <= freeze["budget"]["max_proposals"]
