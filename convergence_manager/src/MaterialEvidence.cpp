@@ -1,3 +1,4 @@
+#include "MaterialEvidence.hpp"
 #include "Files.hpp"
 
 #include <QCommandLineParser>
@@ -139,7 +140,8 @@ QJsonObject measure(const QJsonObject &observation, const QJsonObject &check)
         {"low", low}, {"high", high}, {"limit", limit}, {"comparison", comparison}};
 }
 
-QJsonObject validateRecord(const QDir &root, const QJsonObject &record, const QJsonObject &policy)
+QJsonObject validateRecord(const QDir &root, const QJsonObject &record, const QJsonObject &policy,
+                           const QString &evidenceClass)
 {
     auto result = QJsonObject{{"record_id", record.value("record_id")}, {"issue", record.value("issue")},
         {"subject", record.value("subject")}, {"authority", "DENY"}};
@@ -148,7 +150,7 @@ QJsonObject validateRecord(const QDir &root, const QJsonObject &record, const QJ
         fields(record, {"record_id", "evidence_class", "issue", "subject", "check_id", "identity",
             "sources", "capture", "frame", "measurement", "facts", "review"});
         identifier(record.value("record_id"));
-        require(record.value("evidence_class") == "PHYSICAL_MEASURED", "INVALID_EVIDENCE_CLASS");
+        require(record.value("evidence_class") == evidenceClass, "INVALID_EVIDENCE_CLASS");
         const auto subject = text(record, "subject");
         const auto issue = text(record, "issue");
         require(policy.value("issues").toArray().contains(issue), "UNKNOWN_ISSUE");
@@ -211,7 +213,12 @@ QJsonObject validateRecord(const QDir &root, const QJsonObject &record, const QJ
     return result;
 }
 
-QJsonObject validate(const QDir &root, const QJsonObject &packet, const QJsonObject &policy)
+} // namespace
+
+namespace convergence {
+
+QJsonObject validateMaterialPacket(const QDir &root, const QJsonObject &packet, const QJsonObject &policy,
+                                   const QString &evidenceClass)
 {
     fields(packet, {"schema", "configuration", "records"});
     require(packet.value("schema") == "v3.a4.measurement_packet/1" &&
@@ -228,7 +235,7 @@ QJsonObject validate(const QDir &root, const QJsonObject &packet, const QJsonObj
         const auto id = identifier(record.value("record_id"));
         require(!ids.contains(id), "DUPLICATE_RECORD_ID");
         ids.insert(id);
-        const auto result = validateRecord(root, record, policy);
+        const auto result = validateRecord(root, record, policy, evidenceClass);
         rejected += result.value("status") == "REJECTED" ? 1 : 0;
         results.append(result);
     }
@@ -237,8 +244,9 @@ QJsonObject validate(const QDir &root, const QJsonObject &packet, const QJsonObj
         {"validated_physical_approvals", 0}, {"records", results}};
 }
 
-} // namespace
+} // namespace convergence
 
+#ifdef V3_A4_IMPORT_EXECUTABLE
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
@@ -265,7 +273,8 @@ int main(int argc, char **argv)
         require(digest(policyBytes) == options.value(sha), "POLICY_SHA256_MISMATCH");
         const auto packetPath = options.value(packet);
         const auto packetBytes = read(packetPath);
-        auto output = validate(root, parseUniqueObject(packetBytes, packetPath), parseUniqueObject(policyBytes, policyPath));
+        auto output = validateMaterialPacket(root, parseUniqueObject(packetBytes, packetPath),
+                                             parseUniqueObject(policyBytes, policyPath));
         output.insert("packet_sha256", digest(packetBytes));
         output.insert("policy_sha256", digest(policyBytes));
         const auto bytes = QJsonDocument(output).toJson();
@@ -277,3 +286,4 @@ int main(int argc, char **argv)
         return 2;
     }
 }
+#endif

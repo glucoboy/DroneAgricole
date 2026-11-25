@@ -1,4 +1,5 @@
 #include "Admission.hpp"
+#include "AuthorityReview.hpp"
 #include "Campaign.hpp"
 #include "Files.hpp"
 #include "ProcessBackend.hpp"
@@ -208,6 +209,15 @@ int runV3(const QCommandLineParser &options, bool mutation)
     QLockFile lock(output.filePath(".publication.lock"));
     lock.setStaleLockTime(0);
     require(lock.tryLock(), "Admission V3 déjà en cours");
+    if (request.value("schema") == a5AdmissionSchema) {
+        require(output.entryList(QDir::AllEntries | QDir::System | QDir::Hidden | QDir::NoDotAndDotDot) ==
+                QStringList{".publication.lock"}, "Un dossier de sortie neuf est requis pour chaque admission A.5");
+        const auto report = verifyAuthorityReview(root, QDir(sandboxPath), request, digest(bytes),
+            options.value("a5-trust"), options.value("a5-trust-sha256"), mutation);
+        write(output.filePath("admission.json"), report);
+        return report.value("admission").toObject().value("decision") == "ALLOW" ? 0 : 2;
+    }
+    require(!options.isSet("a5-trust") && !options.isSet("a5-trust-sha256"), "Contrat d'admission A.5 requis");
     if (mutation) {
         const auto result = ProcessBackend::buildV3(root, QDir(sandboxPath), output, bytes, request,
             options.value("freecad-python"), options.value("t0-validator"));
@@ -270,7 +280,7 @@ int main(int argc, char **argv)
         {"receipt", "Reçu indépendant de réception V2.1", "path"},
         {"root", "Racine du dépôt", "path", "."},
         {"config", "Configuration de campagne", "path", "convergence_manager/fixtures/campaign.json"},
-        {"request", "Demande v3.admission_scope/1 ou plan v3.mutation_plan/1", "path"},
+        {"request", "Demande d'admission ou plan de mutation V3", "path"},
         {"observation", "Observation de référence FreeCAD pour v3-converge", "path"},
         {"base-problem", "Problème T1 scellé pour un rejeu T2", "path"},
         {"sandbox", "Copie de référence XLink pour la demande V3", "path"},
@@ -281,11 +291,16 @@ int main(int argc, char **argv)
         {"python", "Interpréteur de l'adaptateur FreeCAD", "path", "python"},
         {"freecad-python", "Interpréteur embarqué de FreeCAD", "path"},
         {"t0-validator", "Validateur indépendant de preuve T0 pour v3-build", "path"},
+        {"a5-trust", "Configuration de confiance A.5 indépendante des relevés", "path"},
+        {"a5-trust-sha256", "Empreinte de confiance A.5 réservée au banc TEST_ONLY", "sha256"},
         {"steps", "Nombre maximal de transitions avant pause, -1 pour terminer", "count", "-1"}
     });
     options.process(app);
     try {
         const auto command = options.positionalArguments();
+        require((!options.isSet("a5-trust") && !options.isSet("a5-trust-sha256")) ||
+                command == QStringList{"v3-admission"} || command == QStringList{"v3-build"},
+                "Les options de confiance requièrent v3-admission ou v3-build");
         if (command == QStringList{"v3-converge"}) {
             return convergeV3(options);
         }
