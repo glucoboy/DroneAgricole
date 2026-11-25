@@ -304,6 +304,16 @@ les dégagements BRep. Le déplacement est borné dans le plan du corridor
 avec une orientation fixe. La rotation variable est `UNSUPPORTED`.
 [Preuves et portée](../VALIDATION_QUALIFICATION.md#cartographe-v3-c1)
 
+#### Import préliminaire de relevés V3-A.4 — Implémenté
+
+`cartographe_material_evidence` lit un paquet de mesures et vérifie ses
+sources brutes, sa cohérence d'identité, les repères dans les deux sens et
+les intervalles d'incertitude. La politique de revue et son empreinte
+proviennent du responsable, hors du dossier de collecte. Un calcul
+compatible reste `PENDING_AUTHORIZED_REVIEW` tant que l'approbation
+authentifiée manque. Le résultat d'import n'ouvre aucune transaction L5 ni
+aucun droit pour une autre occurrence ou opération. [Contrat et rejeu](../verification/v3/a4/REPORT.md)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1273,6 +1283,8 @@ rend `FINAL_NO_GO`.
 ## Journal de modifications
 
 - **24 novembre 2026** — V3-C.1 ajoute le mode à repères natifs, un support dépendant de la pose et un classement issu des mesures B.2 (§2.6).
+- **24 novembre 2026** — Ajout de l'import de relevés V3-A.4 en lecture seule et de la vérification de leur provenance.
+
 - **19 novembre 2026** — Ajout du problème L3, de l’admission paramétrique par domaine et du rejeu L5 avec contre-validation (§2.6).
 - **19 novembre 2026** — V3 B.2 vérifie l’agrégat natif, compare les mesures après une réouverture indépendante et versionne le reçu candidat (§2.6).
 - **18 novembre 2026** — Contrat, import et analyse d’impact du graphe V3-A, avec reprise ciblée des gardes V2.1 (§2.6).

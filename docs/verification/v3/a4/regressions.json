@@ -1,0 +1,436 @@
+{
+  "schema": "v3.a4.regressions/1",
+  "date": "2026-11-24",
+  "base_commit": "551db0d9c9cda8a7717aa4aa99b407b2861417b8",
+  "base_parents": [
+    "f37c026f12cb4b32768378e986c1903c29fb2ce0"
+  ],
+  "merge_parents": [
+    "086a6eff4e542966236bd1da890c74e44e9ab2d5",
+    "1d9dc32a7f72bd23ad1809031d4f9583cff1d82d"
+  ],
+  "environment": {
+    "os": "Windows amd64",
+    "cxx": "GCC 16.2.0, C++17",
+    "qt": "6.11.2",
+    "cmake": "4.4.2",
+    "ninja": "1.13.2",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "env": {
+      "QT_QPA_PLATFORM": "offscreen",
+      "PYTHONPATH": "racine du checkout"
+    }
+  },
+  "executed_dates_utc": [
+    "2026-11-19",
+    "2026-11-24"
+  ],
+  "language_build": {
+    "status": "PASS",
+    "command": [
+      "cmake",
+      "--build",
+      ".runtime/v3-a4/build",
+      "--parallel",
+      "4"
+    ],
+    "exit_code": 0,
+    "configure": [
+      "cmake",
+      "-S",
+      "convergence_manager",
+      "-B",
+      ".runtime/v3-a4/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/c++.exe",
+      "-DQt6_DIR=C:/msys64/ucrt64/lib/cmake/Qt6",
+      "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+      "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "-DL5_L1_EXECUTABLE=<checkout_V3D>/.runtime/v3-a-regressions/build-l1-l3/research/technical_research_core.exe",
+      "-DL5_L3_EXECUTABLE=<checkout_V3D>/.runtime/v3-a-regressions/build-l1-l3/architecture_decision_core.exe",
+      "-DL5_L4_EXECUTABLE=<checkout_V3D>/.runtime/v3-a1/regressions/build-l4/validation_core.exe",
+      "-DL5_T0_VALIDATOR=<checkout_V3D>/.runtime/v3-a-regressions/build-t0/cartographe-evidence.exe"
+    ],
+    "proof": {
+      "path": ".runtime/v3-a4/build.log",
+      "sha256": "7d46a10f16d3971f33382499af6d4190e876f5725108ce4eda6773a1f186f011",
+      "bytes": 3806,
+      "filesystem_completed_at_utc": "2026-11-24T20:46:14.772506+00:00"
+    },
+    "validator": {
+      "path": ".runtime/v3-a4/build/cartographe_material_evidence.exe",
+      "sha256": "3226ce0f87780912d0308f6e345d8edc4405ef5530214a4c3d177d16c8232fc9",
+      "bytes": 373892,
+      "filesystem_completed_at_utc": "2026-11-24T20:46:14.760506+00:00"
+    },
+    "core": {
+      "path": ".runtime/v3-a4/build/convergence_core.exe",
+      "sha256": "6414a1fb28a51721b3e502fe581e3b0b7ef109b0b29b084ee2230eb7a2be25c8",
+      "bytes": 1507667,
+      "filesystem_completed_at_utc": "2026-11-19T19:30:43.402128+00:00"
+    }
+  },
+  "required_replays": {
+    "A1_L2_L5": {
+      "tests": {
+        "l5_Campaign": "PASS",
+        "l5_Selection": "PASS",
+        "l5_v3_admission_entry": "PASS",
+        "l5_v3_admission_policy": "PASS",
+        "l5_cli": "PASS",
+        "v3_graph_contract": "PASS",
+        "l2_interconnection": "PASS"
+      },
+      "testcase_seconds": {
+        "l5_Campaign": 54.195,
+        "l5_Selection": 0.0382082,
+        "l5_v3_admission_entry": 1.8868,
+        "l5_v3_admission_policy": 0.564414,
+        "l5_cli": 287.028,
+        "v3_graph_contract": 0.0385868,
+        "l2_interconnection": 1.32084
+      },
+      "proof": {
+        "path": ".runtime/v3-a4/l5-regression.xml",
+        "sha256": "6c4cf3d7f97745fab695072bd8514d96eda8901801ad3bd4c43e78b47606b9c1",
+        "bytes": 4125,
+        "filesystem_completed_at_utc": "2026-11-19T19:38:28.092174+00:00"
+      },
+      "exit_code": 0,
+      "status": "PASS",
+      "cwd": "checkout_A4",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a4/build",
+        "-R",
+        "l5_(Campaign|Selection|v3_admission.*|cli)|v3_graph_contract|^l2_interconnection$",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-a4/l5-regression.xml"
+      ]
+    },
+    "A2_integrity": {
+      "status": "PASS",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/verify_v3_a2_evidence.py",
+        "--core",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/build/convergence_core.exe",
+        "--out",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/a2-integrity"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/a2-integrity/integrity.json",
+        "sha256": "218375500bd2990f8516f766e34a241c09e73d85c09d51bec8f6f26f42c4c477",
+        "bytes": 2712,
+        "filesystem_completed_at_utc": "2026-11-19T19:33:31.825614+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "checked_reference_files": 142,
+      "passed_closures": {
+        "reference": 142,
+        "H03-A": 139,
+        "H03-B": 139,
+        "consolidee": 138
+      }
+    },
+    "A3_admission": {
+      "status": "PASS",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_a3_authorities.py",
+        "--core",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/build/convergence_core.exe",
+        "--source",
+        "hardware/mecanique/cartographe",
+        "--out",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/admission"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/admission/scope_checks.json",
+        "sha256": "8399fca7e19d0147bfa8f1f5660547b61df34c48b5ba9db31ae069f1fb9c61e4",
+        "bytes": 53823,
+        "filesystem_completed_at_utc": "2026-11-19T19:32:59.713037+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "refusals": 14,
+      "adversarial_refusals": 19,
+      "read_only": 3,
+      "sources": 142
+    },
+    "A2_A3_D_native": {
+      "status": "PASS",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "-m",
+        "electromechanical_engine.v3_a2_native",
+        "--freecad-python",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--work",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/native"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/native/measurements.json",
+        "sha256": "6d4be2ea4d756d15b1333d2e899a931d0ac68595b90e67d1c549b3bf0468eed9",
+        "bytes": 324174,
+        "filesystem_completed_at_utc": "2026-11-19T19:33:50.680944+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "closures": {
+        "reference": {
+          "documents": 137,
+          "files": 142,
+          "source_unchanged": true,
+          "copy_unchanged": true,
+          "measurement_status": "MEASURED",
+          "save_performed": false
+        },
+        "H03-A": {
+          "documents": 139,
+          "files": 139,
+          "source_unchanged": true,
+          "copy_unchanged": true,
+          "measurement_status": "MEASURED",
+          "save_performed": false
+        },
+        "H03-B": {
+          "documents": 139,
+          "files": 139,
+          "source_unchanged": true,
+          "copy_unchanged": true,
+          "measurement_status": "MEASURED",
+          "save_performed": false
+        },
+        "consolidee": {
+          "documents": 138,
+          "files": 138,
+          "source_unchanged": true,
+          "copy_unchanged": true,
+          "measurement_status": "MEASURED",
+          "save_performed": false
+        }
+      }
+    },
+    "A3_D_screen": {
+      "status": "PASS",
+      "argv": [
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "-B",
+        "hardware/mecanique/cartographe/verification/go3b/interfaces_screen.py",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/screen-copy",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/screen.json",
+        "--routes"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/screen.json",
+        "sha256": "469ed8b791dc716787b01cb4d0dc13d00087136218d0ff481e2f0f0a69e28929",
+        "bytes": 1441429,
+        "filesystem_completed_at_utc": "2026-11-19T19:36:00.629638+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "geometry_disposition": "INCONCLUSIVE",
+      "probe_count": 24,
+      "route_count": 12,
+      "exact_comparison_fields": [
+        "probes",
+        "routes",
+        "copy_and_source_integrity"
+      ]
+    },
+    "D_legacy_pairs": {
+      "status": "PASS",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/recheck_v3_d_legacy.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/legacy"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/legacy/legacy_pair_comparison.json",
+        "sha256": "034264c2080ed9e259657bf353bf79036be69b4f117accf91cd4de7389fde5db",
+        "bytes": 14155,
+        "filesystem_completed_at_utc": "2026-11-19T19:29:22.733376+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "agreements": 7,
+      "measured": 7,
+      "candidate_count": 0
+    },
+    "A4_import": {
+      "tests": {
+        "l5_v3_a4_material_evidence": "PASS"
+      },
+      "testcase_seconds": {
+        "l5_v3_a4_material_evidence": 0.371109
+      },
+      "proof": {
+        "path": ".runtime/v3-a4/a4-tests.xml",
+        "sha256": "89aad95e7ce95ee20654cabbbe4d2546ea595c1f2e67e4bb2b4b65c50f6e6f4f",
+        "bytes": 479,
+        "filesystem_completed_at_utc": "2026-11-24T20:46:16.183506+00:00"
+      },
+      "exit_code": 0,
+      "status": "PASS",
+      "cwd": "checkout_A4",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        ".runtime/v3-a4/build",
+        "-R",
+        "^l5_v3_a4_material_evidence$",
+        "--output-on-failure",
+        "--output-junit",
+        ".runtime/v3-a4/a4-tests.xml"
+      ]
+    },
+    "A2_Q2": {
+      "status": "PASS",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "interconnection_engine/tests/replay_fix_a_q2.py",
+        "--original",
+        ".runtime/v3-a1/regressions/q2-history",
+        "--binary",
+        ".runtime/v3-a1/regressions/build-l4/interconnection/interconnection_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        ".runtime/v3-a4-worktree/.runtime/v3-a4/q2"
+      ],
+      "exit_code": 0,
+      "proof": {
+        "path": ".runtime/v3-a4/q2/evidence.json",
+        "sha256": "7c4f33a5fedb25930bb9db8e9dc5bba57dc3392d4924064c415bf9d2eaddb9ee",
+        "bytes": 31163,
+        "filesystem_completed_at_utc": "2026-11-24T20:48:37.549550+00:00"
+      },
+      "cwd": "checkout_V3D",
+      "cases": 12,
+      "oracle_sha256": "d209c8e11e3f428571f689e4b385d11a881f67c57fc3e42307a6aff62b1f6d80"
+    }
+  },
+  "protected_historical_proofs": {
+    "a3": {
+      "acceptance": {
+        "path": "docs/verification/v3/a3/acceptance.json",
+        "sha256": "8d50b23e04d84a780faa72bbec8f9409bfc0030dbf376515785f935ef417a68d",
+        "role": "reçu de référence",
+        "scope": "V3-a3"
+      },
+      "proof_count": 9,
+      "proofs": [
+        {
+          "path": "docs/verification/v3/a3/evidence_register.json",
+          "sha256": "08cc729e394f01df4fca8c9734be7d702e0a4c19c888707a3785268438e6315c"
+        },
+        {
+          "path": "docs/verification/v3/a3/operation_admission.json",
+          "sha256": "c18858731db34658a67a34c519c55cfcd27c8fac83e0faa240d2026ce7cbeb85"
+        },
+        {
+          "path": "docs/verification/v3/a3/native_observations.json",
+          "sha256": "742785eb544d1e53b0ed336f8de0230ece7c3b9468e2ea57bb5f0862ca32152b"
+        },
+        {
+          "path": "docs/verification/v3/a3/adversarial.json",
+          "sha256": "57c8a2ffbf569d7772f5bbada73542a0d0f038f9b4820319723c391d3a1b17c5"
+        },
+        {
+          "path": "docs/verification/v3/a3/regressions.json",
+          "sha256": "4625e0e4bfa4a410bbde33664a2c011bcc6829e5e3357b7959c744c0017ac9bf"
+        },
+        {
+          "path": "docs/verification/v3/a3/source_manifest.json",
+          "sha256": "ab242425ca2a5c35ce03dff9be425978254380dcbe76964479ee1e82e500e56f"
+        },
+        {
+          "path": "docs/verification/v3/a3/measurements_required.md",
+          "sha256": "9f98b0cabbd273e9637776c4ef20255a3cbf90933f0d55e64b7829963becd0f7"
+        },
+        {
+          "path": "docs/verification/v3/a3/measurement_form.json",
+          "sha256": "57552dc5f5cf4194280bce6941101c24746e05240492a3f9fe8018c8c14ca5e1"
+        },
+        {
+          "path": "docs/verification/v3/a3/measurement_form.csv",
+          "sha256": "352d2fc9d857caf9f10916a661d0ba906c7905dbfb97844311f445305ef1bb03"
+        }
+      ],
+      "status": "PASS"
+    },
+    "d": {
+      "acceptance": {
+        "path": "docs/verification/v3/d/acceptance.json",
+        "sha256": "4da2f34353e2376534cc413e0feb4791ac9a20cf56ed9aef3b26a6c8d52ddd3a",
+        "role": "reçu de référence",
+        "scope": "V3-d"
+      },
+      "proof_count": 8,
+      "proofs": [
+        {
+          "path": "docs/verification/v3/d/admission.json",
+          "sha256": "8e1d41f1daba60d684b6c70367e87ea8d7c08f0195fcb750dc066805314d735d"
+        },
+        {
+          "path": "docs/verification/v3/d/cad_source_manifest.json",
+          "sha256": "279c9f61f5e7d9d86a0ad080ce28cbd3be4bc714d9ee668a2bb2d498086a388b"
+        },
+        {
+          "path": "docs/verification/v3/d/native_closures.json",
+          "sha256": "981de9438f8ffb7e6509779cf9dc835796dc04617d0ca2a8bf2546cf148c2a02"
+        },
+        {
+          "path": "docs/verification/v3/d/independent_validation.json",
+          "sha256": "9b9f36a6c7a949ef356d2fc59842a8c9b17b4e8733e345224bd9301ec423101e"
+        },
+        {
+          "path": "docs/verification/v3/d/legacy_pair_comparison.json",
+          "sha256": "d4225d070c3359e230f2aa6e3ef3ca4887bc3d6e2a4c4a725c15db22a5d4f561"
+        },
+        {
+          "path": "docs/verification/v3/d/problem_spec.json",
+          "sha256": "4b6498a79666f11e6dfae164f9dc74ab081cc04e21d169eebbf1dc5b18673555"
+        },
+        {
+          "path": "docs/verification/v3/d/regressions.json",
+          "sha256": "2971b24e14654c9ed66fbb55441d6e87ebfab96d6a60cc3c468dcdc38a531a1e"
+        },
+        {
+          "path": "docs/verification/v3/d/measurement_actions.md",
+          "sha256": "5b0a81ba47e8f68286cd94acf8321b7148f53d8958677efe1ea86049297ed1df"
+        }
+      ],
+      "status": "PASS"
+    }
+  },
+  "not_run": [
+    {
+      "test": "Inspection matérielle, réception GO4 et mesures sous énergie",
+      "cause": "Aucun relevé authentique ni pièce du lot accessible; procédure physique distincte."
+    },
+    {
+      "test": "Construction d’un candidat cartographe et validation de son T0",
+      "cause": "Autorité absente; lancement refusé avant construction."
+    },
+    {
+      "test": "Soixante paires GO3B hors des sept paires ciblées V3-D",
+      "cause": "Périmètre du contrôle héritée V3-D."
+    }
+  ]
+}
