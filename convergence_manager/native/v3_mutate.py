@@ -483,7 +483,7 @@ def subject(action):
     return action['parameters']['support'] if action['operation'] == 'CREATE_SUPPORT' else action['occurrence']
 
 
-def mutate(root, job, report):
+def mutate(root, job, report, simulate_torn_save=False):
     entry, dependencies = job['entry'], job['dependencies']
     model, actions = job['model'], job['actions']
     require(0 < len(actions) <= 32, 'Nombre d’opérations hors domaine.')
@@ -530,6 +530,17 @@ def mutate(root, job, report):
         document.commitTransaction()
         committed = True
         report['memory_transaction'] = 'COMMITTED'
+        if simulate_torn_save:
+            # Model a save interrupted after it has changed the private entry.
+            # Stop without closing the documents or publishing a build receipt.
+            require(job.get('authorized_effect') and len(actions) == 1 and
+                    actions[0]['operation'] == 'CREATE_SUPPORT', 'Injection réservée au rejeu A.6.')
+            with canonical_file(root, entry).open('r+b') as candidate:
+                candidate.truncate(os.fstat(candidate.fileno()).st_size // 2)
+                candidate.flush()
+                os.fsync(candidate.fileno())
+            print('V3_A6_SIMULATED_TORN_SAVE', file=sys.stderr, flush=True)
+            os._exit(86)
         document.save()
         after = verify_closure(root, entry, dependencies)
         require(before[entry] != after[entry] and all(after[key] == sha for key, sha in before.items() if key != entry),
@@ -569,6 +580,7 @@ def main():
     parser.add_argument('--root', required=True, type=Path)
     parser.add_argument('--job', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--simulate-torn-save', action='store_true', help=argparse.SUPPRESS)
     args = parser.parse_args()
     root, job_path, output = map(private_path, (args.root, args.job, args.output))
     require(root.is_dir() and job_path.is_file() and job_path.stat().st_nlink == 1
@@ -585,7 +597,7 @@ def main():
     try:
         job = decode(job_path.name, source)
         report['plan_id'] = job['plan_id']
-        mutate(root, job, report)
+        mutate(root, job, report, args.simulate_torn_save)
         require(guard.sha256(job_path) == digest, 'Le job natif a changé pendant la mutation.')
         report.update(finalized=True, status='PASS')
         code = 0

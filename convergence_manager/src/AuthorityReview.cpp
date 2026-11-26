@@ -58,12 +58,15 @@ QString relativeName(const QJsonValue &value)
     return path;
 }
 
-QString checkedFile(const QDir &root, const QJsonValue &value)
+QString checkedFile(const QDir &root, const QJsonValue &value, bool unshared = false)
 {
     const auto name = relativeName(value);
     require(!hasRedirectedComponent(root, root.absoluteFilePath(name)), "REDIRECTED_FILE");
     const auto path = fileInside(root, name);
     require(relative(root, path) == name, "FILE_PATH_MISMATCH");
+    if (unshared) {
+        require(std::filesystem::hard_link_count(QFileInfo(path).filesystemFilePath()) == 1, "SHARED_FILE");
+    }
     return path;
 }
 
@@ -165,9 +168,9 @@ void checkBounds(const QJsonObject &effect, const QJsonObject &signedBounds, con
 }
 
 void checkNativeInputs(const QDir &root, const QDir &source, const QDir &sandbox, const QJsonObject &trust,
-                       const QJsonObject &bindings, bool testOnly)
+                       const QJsonObject &bindings, bool testOnly, bool unshared)
 {
-    const auto profile = checkedFile(root, trust.value("profile"));
+    const auto profile = checkedFile(root, trust.value("profile"), unshared);
     const auto profileBytes = read(profile);
     require(digest(profileBytes) == requiredSha(bindings.value("profile_sha256")), "NATIVE_PROFILE_SHA256_MISMATCH");
     const auto closure = bindings.value("xlink_dependencies").toObject();
@@ -187,8 +190,8 @@ void checkNativeInputs(const QDir &root, const QDir &source, const QDir &sandbox
                 "CARTOGRAPHER_PROFILE_MISMATCH");
     }
     for (auto row = closure.begin(); row != closure.end(); ++row) {
-        const auto sourcePath = checkedFile(source, row.key());
-        const auto sandboxPath = checkedFile(sandbox, row.key());
+        const auto sourcePath = checkedFile(source, row.key(), unshared);
+        const auto sandboxPath = checkedFile(sandbox, row.key(), unshared);
         const auto expected = requiredSha(row.value());
         require(!std::filesystem::equivalent(QFileInfo(sourcePath).filesystemAbsoluteFilePath(),
                 QFileInfo(sandboxPath).filesystemAbsoluteFilePath()), "XLINK_SOURCE_NOT_INDEPENDENT_COPY");
@@ -198,7 +201,8 @@ void checkNativeInputs(const QDir &root, const QDir &source, const QDir &sandbox
 }
 
 void checkTechnical(const QDir &raw, const QJsonObject &packet, const QJsonObject &policy, const QJsonObject &trust,
-                    const QJsonObject &bindings, const QString &evidenceClass, QJsonObject &report)
+                    const QJsonObject &bindings, const QString &evidenceClass, QJsonObject &report,
+                    const QString &authorizedCarrier = {})
 {
     auto technical = validateMaterialPacket(raw, packet, policy, evidenceClass);
     const auto records = technical.value("records").toArray();
@@ -223,13 +227,20 @@ void checkTechnical(const QDir &raw, const QJsonObject &packet, const QJsonObjec
         expected.insert(identifier(value));
     }
     require(!expected.isEmpty() && expected.size() == required.size(), "INVALID_TECHNICAL_COVERAGE_POLICY");
+    bool mountCovered = false;
     for (const auto &entry : packet.value("records").toArray()) {
         const auto row = entry.toObject();
         require(expected.remove(requiredText(row, "check_id")) && row.value("review").isNull(),
                 "TECHNICAL_COVERAGE_OR_EMBEDDED_REVIEW_MISMATCH");
         require(row.value("capture").toObject().value("author") != trust.value("reviewer_id"), "REVIEWER_IS_SUBMITTER");
+        if (!authorizedCarrier.isEmpty() && row.value("issue") == "UART-MOUNT-001") {
+            require(row.value("facts").toObject().value("carrier") == authorizedCarrier &&
+                    row.value("subject") == bindings.value("occurrence"), "CARRIER_EVIDENCE_MISMATCH");
+            mountCovered = true;
+        }
     }
     require(expected.isEmpty(), "MISSING_REQUIRED_TECHNICAL_CHECKS");
+    require(authorizedCarrier.isEmpty() || mountCovered, "MISSING_CARRIER_EVIDENCE");
     if (evidenceClass == "PHYSICAL_MEASURED") {
         require(issues.contains(QSet<QString>{"UART-ISO-001", "UART-MOUNT-001", "UART-ACCESS-001", "UART-GUIDES-001"}),
                 "MISSING_PHYSICAL_EVIDENCE");
@@ -237,24 +248,28 @@ void checkTechnical(const QDir &raw, const QJsonObject &packet, const QJsonObjec
 }
 
 QJsonObject checkRegistry(const QDir &trusted, const QJsonObject &trust, const QJsonObject &review,
-                         const QString &reviewSha, const QString &requestSha, bool mutation, QJsonObject &report)
+                         const QString &reviewSha, const QString &requestSha, bool mutation, QJsonObject &report,
+                         AuthorizedReview authorized, const AuthorityRegistryHook &hook, bool finalizing)
 {
     const auto statePath = trusted.filePath("a5-consumption.json");
     require(!hasRedirectedComponent(trusted, statePath) &&
             !hasRedirectedComponent(trusted, trusted.filePath("a5-consumption.lock")), "REDIRECTED_REPLAY_STATE");
     QLockFile lock(trusted.filePath("a5-consumption.lock"));
     lock.setStaleLockTime(0);
-    require(lock.tryLock(), "AUTHORITY_STATE_BUSY");
+    require(lock.tryLock(finalizing ? 3000 : 0), "AUTHORITY_STATE_BUSY");
     const auto now = QDateTime::currentDateTimeUtc();
     require(utc(review.value("expires_at_utc")) > now && utc(review.value("issued_at_utc")) <= now,
             "REVIEW_EXPIRED_OR_IN_FUTURE");
-    const auto registryBytes = read(checkedFile(trusted, trust.value("registry")));
+    const auto registryBytes = read(checkedFile(trusted, trust.value("registry"), bool(hook)));
     const auto registry = authenticate(registryBytes, "v3.a5.signed_registry/1",
                                       requiredSha(trust.value("registry_public_key_hex")));
     requireFields(registry, {"schema", "evidence_class", "events"});
     require(registry.value("schema") == "v3.a5.registry/1" && registry.value("evidence_class") == trust.value("evidence_class") &&
             registry.value("events").isArray(), "REGISTRY_SCOPE_MISMATCH");
     require(QFileInfo(statePath).isFile(), "REPLAY_STATE_NOT_PROVISIONED");
+    if (hook) {
+        checkedFile(trusted, "a5-consumption.json", true);
+    }
     const auto state = parseUniqueObject(read(statePath), statePath);
     requireFields(state, {"schema", "registry_events", "registry_prefix_sha256", "last_seen_utc", "consumed"});
     require(state.value("schema") == "v3.a5.consumption/1" && state.value("consumed").isObject(), "INVALID_REPLAY_STATE");
@@ -293,42 +308,69 @@ QJsonObject checkRegistry(const QDir &trusted, const QJsonObject &trust, const Q
     require(eventDigest(prefix) == previousDigest, "REGISTRY_HISTORY_CHANGED");
     const auto id = identifier(review.value("id"));
     const auto issue = issued.value(id).toObject();
-    const auto reason = issue.value("review_sha256") != reviewSha ? "DECISION_NOT_REGISTERED" :
-        revoked.contains(id) ? "DECISION_REVOKED" : used.contains(id) ? "DECISION_ALREADY_USED" : "";
-    if (QString(reason).isEmpty()) {
+    const auto prior = used.value(id).toObject();
+    const bool isExactReservation = prior.value("review_sha256") == reviewSha && prior.value("request_sha256") == requestSha;
+    const QString reason = issue.value("review_sha256") != reviewSha ? "DECISION_NOT_REGISTERED" :
+        revoked.contains(id) ? "DECISION_REVOKED" :
+        finalizing && !isExactReservation ? "AUTHORITY_RESERVATION_MISMATCH" :
+        !finalizing && used.contains(id) ? "DECISION_ALREADY_USED" : "";
+    if (reason.isEmpty()) {
         require(utc(issue.value("at_utc")) >= utc(review.value("issued_at_utc")), "DECISION_REGISTERED_BEFORE_REVIEW");
-        if (!mutation) {
+        if (finalizing) {
+            require(utc(prior.value("consumed_at_utc")) <= now, "CLOCK_ROLLBACK");
+        } else if (!mutation || hook) {
             used.insert(id, QJsonObject{{"review_sha256", reviewSha}, {"request_sha256", requestSha},
                 {"consumed_at_utc", now.toString(Qt::ISODate)}});
         }
     }
-    // Reserve the admission before publishing any ALLOW. Losing the receipt then
-    // requires a new review ID; it cannot make an already used decision reusable.
-    write(statePath, {{"schema", "v3.a5.consumption/1"}, {"registry_events", events.size()},
-        {"registry_prefix_sha256", eventDigest(events)}, {"last_seen_utc", now.toString(Qt::ISODate)}, {"consumed", used}});
-    report.insert("registry_sha256", digest(registryBytes));
-    require(QString(reason).isEmpty(), reason);
-    return {{"decision_id", id}, {"consumed", !mutation}};
+    authorized.registrySha256 = digest(registryBytes);
+    report.insert("registry_sha256", authorized.registrySha256);
+    const QJsonObject nextState{{"schema", "v3.a5.consumption/1"}, {"registry_events", events.size()},
+        {"registry_prefix_sha256", eventDigest(events)}, {"last_seen_utc", now.toString(Qt::ISODate)}, {"consumed", used}};
+    if (finalizing) {
+        // The last durable transaction transition runs under this lock. Refresh
+        // the registry watermark first, before the hook can commit a receipt.
+        write(statePath, nextState);
+    }
+    if (hook) {
+        hook(authorized, events, now, reason);
+    }
+    if (!finalizing) {
+        // The journal reservation precedes both this compatibility state and
+        // native execution. Losing either a state write or a receipt cannot free it.
+        write(statePath, nextState);
+    }
+    require(reason.isEmpty(), reason);
+    return {{"decision_id", id}, {"consumed", !mutation || bool(hook)}};
 }
 
 } // namespace
 
 QJsonObject verifyAuthorityReview(const QDir &root, const QDir &sandbox, const QJsonObject &request,
-                                 const QString &requestSha, const QString &trustPath, const QString &testTrustSha256, bool mutation)
+                                 const QString &requestSha, const QString &trustPath, const QString &testTrustSha256,
+                                 bool mutation, const AuthorityRegistryHook &hook, bool finalizing)
 {
-    QJsonObject report{{"schema", "v3.a5.admission_result/1"}, {"finalized", true}, {"authority", "DENY"},
+    const bool nativeReview = request.value("schema") == a6AdmissionSchema;
+    QJsonObject report{{"schema", nativeReview ? "v3.a6.admission_result/1" : "v3.a5.admission_result/1"},
+        {"finalized", true}, {"authority", "DENY"},
         {"technical", QJsonObject{{"status", "NOT_RUN"}}}, {"review", QJsonObject{{"status", "NOT_RUN"}}},
         {"admission", QJsonObject{{"decision", "DENY"}, {"execution_scope", "READ_ONLY_IMPACT"}}},
         {"candidate_transactions", 0}, {"construction_result", "NOT_RUN"}, {"physical_reception", "NOT_RUN"},
         {"cartographer_mutation", "DENY"}, {"request_sha256", requestSha}};
     try {
         requireFields(request, {"schema", "evidence_class", "domain", "bindings", "effect", "submission"});
-        require(request.value("schema") == a5AdmissionSchema, "CONTRACT_VERSION_UNSUPPORTED");
+        require(nativeReview || request.value("schema") == a5AdmissionSchema, "CONTRACT_VERSION_UNSUPPORTED");
         const auto evidenceClass = requiredText(request, "evidence_class");
         const bool testOnly = evidenceClass == "TEST_ONLY";
         const auto domain = requiredText(request, "domain");
         require((testOnly && domain == "SYNTHETIC_BENCH") || (!testOnly && evidenceClass == "PHYSICAL_MEASURED" &&
                 domain == "CARTOGRAPHER_PRIVATE_CAD"), "EVIDENCE_CLASS_OR_DOMAIN_DENIED");
+        if (nativeReview) {
+            require(testOnly, "PHYSICAL_ADMISSION_NOT_CONFIGURED");
+            require(mutation && hook, "NATIVE_TRANSACTION_REQUIRED");
+        } else {
+            require(!hook && !finalizing, "NATIVE_REVIEW_REQUIRED");
+        }
         require(relative(root, sandbox.absolutePath()).startsWith(".runtime/"), "ACTIVE_REFERENCE_OR_NONPRIVATE_SANDBOX");
         const auto pin = testOnly ? testTrustSha256 : QStringLiteral(V3_A5_PHYSICAL_TRUST_SHA256);
         require(!pin.isEmpty() && !trustPath.isEmpty(), "REVIEW_NOT_CONFIGURED");
@@ -347,13 +389,23 @@ QJsonObject verifyAuthorityReview(const QDir &root, const QDir &sandbox, const Q
         require(info.isFile() && canonical == trustedPath && !info.isSymLink() && !info.isJunction() &&
                 !within(raw, trusted.absolutePath()) && !within(trusted, raw.absolutePath()) &&
                 !within(sandbox, trusted.absolutePath()) && !within(trusted, sandbox.absolutePath()), "TRUST_INSIDE_SUBMISSION_OR_REDIRECTED");
+        if (nativeReview) {
+            const auto name = relative(root, canonical);
+            require(name.startsWith(".runtime/"), "TEST_TRUST_NOT_PRIVATE");
+            checkedFile(root, name, true);
+        }
         const auto trustBytes = read(canonical);
         require(digest(trustBytes) == requiredSha(pin), "TRUST_SHA256_MISMATCH");
         const auto trust = parseUniqueObject(trustBytes, canonical);
-        requireFields(trust, {"schema", "trusted_root", "evidence_class", "domain", "bindings", "bounds", "material_policy",
+        QSet<QString> trustFields{"schema", "trusted_root", "evidence_class", "domain", "bindings", "bounds", "material_policy",
             "material_policy_sha256", "profile", "source_root", "reviewer_id", "reviewer_public_key_hex", "registry",
-            "registry_public_key_hex", "required_record_checks"});
-        require(trust.value("schema") == "v3.a5.trust/1" && trust.value("evidence_class") == evidenceClass &&
+            "registry_public_key_hex", "required_record_checks"};
+        if (nativeReview) {
+            trustFields.insert("journal_key_sha256");
+        }
+        requireFields(trust, trustFields);
+        require(trust.value("schema") == (nativeReview ? "v3.a6.trust/1" : "v3.a5.trust/1") &&
+                trust.value("evidence_class") == evidenceClass &&
                 trust.value("domain") == domain && trust.value("trusted_root") == trusted.canonicalPath(), "TRUST_SCOPE_MISMATCH");
         const auto reviewer = identifier(trust.value("reviewer_id"));
         const auto reviewerKey = requiredSha(trust.value("reviewer_public_key_hex"));
@@ -375,30 +427,46 @@ QJsonObject verifyAuthorityReview(const QDir &root, const QDir &sandbox, const Q
         } else {
             require(relative(root, source.absolutePath()).startsWith("docs/electromechanical_v3/bench_"), "TEST_SOURCE_NOT_SYNTHETIC");
         }
-        checkNativeInputs(root, source, sandbox, trust, bindings, testOnly);
-        const auto policyPath = checkedFile(trusted, trust.value("material_policy"));
+        const auto effect = request.value("effect").toObject();
+        auto pose = effect;
+        QString journalKeySha;
+        if (nativeReview) {
+            require(bindings.value("occurrence") == "anchor:iso-carrier", "AUTHORITY_OPERATION_UNSUPPORTED");
+            require(QStringList{"P64", "P66"}.contains(effect.value("carrier").toString()), "CARRIER_NOT_APPROVED");
+            const auto dimensions = vector(pose.take("size_mm"), 3);
+            for (const auto &dimension : dimensions) {
+                require(dimension.toDouble() > 0.0, "INVALID_SUPPORT_SIZE");
+            }
+            journalKeySha = requiredSha(trust.value("journal_key_sha256"));
+        }
+        checkNativeInputs(root, source, sandbox, trust, bindings, testOnly, nativeReview);
+        const auto policyPath = checkedFile(trusted, trust.value("material_policy"), nativeReview);
         const auto policyBytes = read(policyPath);
         const auto policySha = digest(policyBytes);
         require(policySha == requiredSha(trust.value("material_policy_sha256")), "MATERIAL_POLICY_SHA256_MISMATCH");
-        const auto packetPath = checkedFile(raw, submission.value("packet"));
+        const auto packetPath = checkedFile(raw, submission.value("packet"), nativeReview);
         const auto packetBytes = read(packetPath);
         const auto packetSha = digest(packetBytes);
         checkTechnical(raw, parseUniqueObject(packetBytes, packetPath), parseUniqueObject(policyBytes, policyPath), trust,
-                       bindings, evidenceClass, report);
+                       bindings, evidenceClass, report, nativeReview ? effect.value("carrier").toString() : QString{});
 
         report.insert("trust_sha256", pin);
         report.insert("packet_sha256", packetSha);
         report.insert("material_policy_sha256", policySha);
         require(!submission.value("review").isNull(), "SIGNED_REVIEW_REQUIRED");
         report.insert("review", QJsonObject{{"status", "REJECTED"}});
-        const auto reviewBytes = read(checkedFile(raw, submission.value("review")));
+        const auto reviewBytes = read(checkedFile(raw, submission.value("review"), nativeReview));
         const auto reviewSha = digest(reviewBytes);
         const auto review = authenticate(reviewBytes, "v3.a5.signed_review/1", reviewerKey);
         report.insert("review", QJsonObject{{"status", "SIGNATURE_VERIFIED"}, {"reviewer_id", reviewer}, {"sha256", reviewSha},
             {"signature_algorithm", "Ed25519"}});
-        requireFields(review, {"schema", "id", "reviewer_id", "evidence_class", "domain", "bindings", "packet_sha256", "policy_sha256",
-            "issued_at_utc", "expires_at_utc", "disposition", "bounds"});
-        require(review.value("schema") == "v3.a5.review/1" && review.value("reviewer_id") == reviewer &&
+        QSet<QString> reviewFields{"schema", "id", "reviewer_id", "evidence_class", "domain", "bindings", "packet_sha256", "policy_sha256",
+            "issued_at_utc", "expires_at_utc", "disposition", "bounds"};
+        if (nativeReview) {
+            reviewFields.unite({"authorized_effect", "evidence_package", "trust_sha256"});
+        }
+        requireFields(review, reviewFields);
+        require(review.value("schema") == (nativeReview ? "v3.a6.review/1" : "v3.a5.review/1") && review.value("reviewer_id") == reviewer &&
                 review.value("disposition") == "APPROVE_BOUNDED_EXPERIMENT", "REVIEWER_OR_DISPOSITION_NOT_APPROVED");
         require(review.value("domain") == domain && review.value("evidence_class") == evidenceClass &&
                 review.value("bindings") == bindings && review.value("packet_sha256") == packetSha &&
@@ -407,14 +475,25 @@ QJsonObject verifyAuthorityReview(const QDir &root, const QDir &sandbox, const Q
         const auto issuedAt = utc(review.value("issued_at_utc"));
         const auto expiry = utc(review.value("expires_at_utc"));
         require(issuedAt <= now && expiry > now && expiry > issuedAt, "REVIEW_EXPIRED_OR_IN_FUTURE");
-        checkBounds(request.value("effect").toObject(), review.value("bounds").toObject(), trust.value("bounds").toObject());
-        auto decision = checkRegistry(trusted, trust, review, reviewSha, requestSha, mutation, report);
-        require(!mutation, testOnly ? "TEST_ONLY_ADMISSION_NO_CONSTRUCTION" : "AUTHORITY_NATIVE_CONSTRUCTION_NOT_CONFIGURED");
+        if (nativeReview) {
+            require(review.value("authorized_effect") == effect && review.value("trust_sha256") == pin &&
+                    review.value("evidence_package") == a6EvidencePackage, "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH");
+        }
+        checkBounds(pose, review.value("bounds").toObject(), trust.value("bounds").toObject());
+        const auto authorizedEffect = nativeReview ? review.value("authorized_effect").toObject() : effect;
+        const AuthorizedReview authorized{trusted, journalKeySha, identifier(review.value("id")), reviewSha, requestSha,
+            trust.value("profile").toString(), pin, bindings, authorizedEffect, expiry, {}};
+        auto decision = checkRegistry(trusted, trust, review, reviewSha, requestSha, mutation, report, authorized, hook, finalizing);
+        require(!mutation || nativeReview, testOnly ? "TEST_ONLY_ADMISSION_NO_CONSTRUCTION" : "AUTHORITY_NATIVE_CONSTRUCTION_NOT_CONFIGURED");
         const auto scope = testOnly ? "TEST_ONLY" : "BOUNDED_CAD_EXPERIMENT";
         decision.insert("decision", "ALLOW");
         decision.insert("execution_scope", scope);
         decision.insert("bindings", bindings);
-        decision.insert("effect", request.value("effect"));
+        decision.insert("effect", effect);
+        if (nativeReview) {
+            decision.insert("authorized_effect", authorizedEffect);
+            decision.insert("evidence_package", a6EvidencePackage);
+        }
         report.insert("admission", decision);
         report.insert("authority", scope);
     } catch (const std::exception &error) {

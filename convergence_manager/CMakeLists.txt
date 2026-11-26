@@ -15,7 +15,7 @@ target_include_directories(convergence PUBLIC src)
 target_link_libraries(convergence PUBLIC Qt6::Core)
 
 add_executable(convergence_core src/Main.cpp src/Admission.cpp src/ProcessBackend.cpp src/V3Transaction.cpp src/V3Campaign.cpp
-    src/AuthorityReview.cpp src/MaterialEvidence.cpp
+    src/AuthorityReview.cpp src/MaterialEvidence.cpp src/A6Transaction.cpp src/A6Journal.cpp
     ../architecture_decision_engine/src/ResearchAdapter.cpp ../architecture_decision_engine/src/Evidence.cpp)
 target_include_directories(convergence_core PRIVATE ../architecture_decision_engine/src)
 target_link_libraries(convergence_core PRIVATE convergence electromechanical_graph)
@@ -27,6 +27,21 @@ if(L5_A5_PHYSICAL_TRUST_SHA256)
     endif()
 endif()
 target_compile_definitions(convergence_core PRIVATE V3_A5_PHYSICAL_TRUST_SHA256="${L5_A5_PHYSICAL_TRUST_SHA256}")
+# Les outils A.6 viennent du déploiement du binaire de banc, sans option de requête.
+set(L5_FREECAD_PYTHON "" CACHE FILEPATH "Interpréteur FreeCAD pour la réception native")
+set(L5_T0_VALIDATOR "" CACHE FILEPATH "Validateur indépendant des preuves T0")
+file(REAL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/.." a6_checkout)
+target_compile_definitions(convergence_core PRIVATE
+    V3_A6_CHECKOUT="${a6_checkout}" V3_A6_FREECAD="${L5_FREECAD_PYTHON}" V3_A6_T0="${L5_T0_VALIDATOR}")
+option(L5_A6_FAULT_INJECTION "Activer les interruptions bornées du banc A.6" OFF)
+mark_as_advanced(L5_A6_FAULT_INJECTION)
+if(L5_A6_FAULT_INJECTION)
+    if(NOT BUILD_TESTING OR L5_A5_PHYSICAL_TRUST_SHA256)
+        message(FATAL_ERROR "Les interruptions A.6 exigent un build de test sans racine physique")
+    endif()
+    target_compile_definitions(convergence_core PRIVATE V3_A6_FAULT_INJECTION)
+endif()
+
 if(TARGET OpenSSL::Crypto)
     target_compile_definitions(convergence_core PRIVATE V3_A5_CRYPTO)
     target_link_libraries(convergence_core PRIVATE OpenSSL::Crypto)
@@ -78,8 +93,6 @@ if(BUILD_TESTING)
     set(L5_L1_EXECUTABLE "" CACHE FILEPATH "Binaire de recherche L1")
     set(L5_L3_EXECUTABLE "" CACHE FILEPATH "Binaire d'exploration L3")
     set(L5_L4_EXECUTABLE "" CACHE FILEPATH "Binaire de validation L4")
-    set(L5_FREECAD_PYTHON "" CACHE FILEPATH "Interpréteur FreeCAD pour la réception native")
-    set(L5_T0_VALIDATOR "" CACHE FILEPATH "Validateur indépendant des preuves T0")
     if(L5_FREECAD_PYTHON)
         foreach(worker mutate verify)
             add_test(NAME l5_v3_native_${worker} COMMAND "${Python3_EXECUTABLE}" -B
