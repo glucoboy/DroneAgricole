@@ -31,6 +31,7 @@ if(BUILD_TESTING)
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_interconnection.py"
         "$<TARGET_FILE:interconnection_core>")
     add_test(NAME l2_reconcile COMMAND "${Python3_EXECUTABLE}" -B
-        "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_reconcile.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../tools/replay_sealed_test.py"
+        l2 "${CMAKE_CURRENT_SOURCE_DIR}/.."
         "$<TARGET_FILE:interconnection_core>")
 endif()

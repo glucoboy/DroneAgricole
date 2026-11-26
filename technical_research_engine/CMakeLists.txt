@@ -19,9 +19,9 @@ include(CTest)
 if(BUILD_TESTING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
     add_test(NAME technical_research_engine
-        COMMAND ${CMAKE_COMMAND} -E env
-            "TECHNICAL_RESEARCH_CORE=$<TARGET_FILE:technical_research_core>"
-            "${Python3_EXECUTABLE}" -B -m unittest discover -s technical_research_engine/tests -v
+        COMMAND "${Python3_EXECUTABLE}" -B
+            "${CMAKE_CURRENT_SOURCE_DIR}/../tools/replay_sealed_test.py"
+            l1 "${CMAKE_CURRENT_SOURCE_DIR}/.." "$<TARGET_FILE:technical_research_core>"
     )
     set_tests_properties(technical_research_engine PROPERTIES
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.."
