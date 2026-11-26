@@ -1,5 +1,37 @@
 # Preuves V3-C.3 sur banc synthétique
 
+Le deuxième gel conclut `V3_C3_3D_GENERALIZATION_GO` sur
+`5bf6b11eec6dc5b323daa1d67edc0957ffeb7c20`. Les deux gels ont les mêmes
+modèles de banc, critères et budgets. Le premier résultat conditionnel
+est conservé ci-dessous et dans le commit de preuves `64eb295`.
+[Acceptation](acceptance.json)
+
+| Phase du deuxième gel | Propositions | Constructions | Contre-validations | Admissibles | Résultat |
+|---|---:|---:|---:|---:|---|
+| T1 | 64 | 12 | 12 | 12 | Excursion de 5,94 mm pour `cordon` |
+| T2 | 64 | 12 | 12 | 12 | Excursion de 9,24 mm, pose et appui identiques à T1 |
+| T3 | 64 | 12 | 9 | 9 | Deux chemins de datums différents, excursion de 9,24 mm pour `cordon-b` |
+| T4 | 0 | 0 | 0 | 0 | `INCONCLUSIVE`, aucune admission avec le budget réduit |
+
+Le second obstacle intersecte `cordon` sur 17,306 mm³ en T1. La réouverture
+de T2 mesure zéro intersection pour les deux câbles et 1,14 mm de garde
+pour `cordon`. Le sommet intérieur mesuré est à 4,962 mm du plus proche
+sommet de T1. Les trois fronts mesurés contiennent respectivement
+huit, trois et deux comparaisons avec variation de compromis entre routes
+distinctes. Les suites L3, L5, L4 et T0 passent à 5/5, 12/12, 7/7 et 2/2.
+Le premier rejeu T0 concurrent a atteint la limite SITL de 30 s. Le rejeu
+isolé a passé à la même limite avec 26,98 s pour le test SITL.
+[Campagnes](iteration2/generalization.json) ·
+[Mesures](iteration2/native_delta.json) ·
+[Obstacle](iteration2/external_perturbation_receipt.json) ·
+[Fronts](iteration2/pareto.json) · [Régressions](iteration2/regressions.json)
+
+Pour rejouer le deuxième gel, suivre la recette ci-dessous avec
+`.runtime/engine2/l5/convergence_core.exe` et un dossier de campagne neuf.
+T2 attend un nouvel obstacle lié au gel de ce rejeu.
+
+## Premier gel
+
 `V3_C3_CONDITIONAL` sur le commit source
 `4600062ba7c277352c5c5914bce99782aead2f63`. T1, T2 et T4
 satisfont leurs critères. T3 a épuisé son budget sans candidate admissible.

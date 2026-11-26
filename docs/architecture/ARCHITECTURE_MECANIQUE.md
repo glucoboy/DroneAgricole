@@ -894,7 +894,7 @@ revenir dans la bande d’appui nominale.
 Les platines sont des options de banc scellées. Une retenue est
 admissible avec mesure de l’aire d’appui sur la face porteuse, de sa
 normale, de la zone d’ancrage et du contact avec les gaines prévues.
-Ces choix sont **Implémentés** pour les bancs.
+Ces choix ont le statut **Qualifié** pour les deux bancs synthétiques éprouvés.
 [Contrôles et portée](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
 
 ### 2.3 Dérivation Gazebo du prototype — Implémenté partiellement, 24 octobre 2026
@@ -2841,7 +2841,7 @@ présentée comme référence.
 
 ## Journal de modifications
 
-- **26 novembre 2026** — Deux bancs V3-C.3 introduisent des couloirs volumiques et une seconde hiérarchie XLink de ports ([bancs de cheminement](#bancs-spatiaux-c3)).
+- **26 novembre 2026** — Deux bancs V3-C.3 éprouvent les couloirs volumiques, les appuis et une seconde hiérarchie XLink de ports ([bancs de cheminement](#bancs-spatiaux-c3)).
 
 - **18 novembre 2026** — Fermeture et transfert XLink V3-A, traçabilité des appuis, ancrages et réservations F40/F41.
 

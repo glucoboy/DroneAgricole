@@ -401,7 +401,7 @@ fiche fabricant hors Git est signalée en cas d’absence. L’inconnue
 du rayon de flexion du câble monté reste explicite.
 [Validation et limites](../VALIDATION_QUALIFICATION.md#cartographe-v3-int21)
 
-#### Recherche volumique V3-C.3 — Implémenté sur banc
+#### Recherche volumique V3-C.3 — Qualifié sur banc
 
 Les schémas `v3.parametric_domain/3`, `v3.problem_spec/3` et
 `v3.mutation_plan/4` décrivent deux câbles, leurs longueurs, rayons et
@@ -415,9 +415,11 @@ repère racine à partir de mesures de la fermeture XLink.
 Le générateur propose des parcours longitudinaux à tangentes signées,
 avec décalages transversaux et verticaux échantillonnés à partir des
 volumes du domaine et des obstacles observés. Il combine les variantes
-des deux câbles et change de stratégie sous budget. Le criblage par
-boîtes donne des estimations. L’axe arrondi et les solides sont vérifiés
-après sauvegarde, en processus FreeCAD distincts. Ces vérifications
+des deux câbles et change de stratégie sous budget. Le criblage vérifie
+l’appartenance des segments et des arcs à l’union des boîtes. Il avance le
+retour tangent si l’arc dépasse la transition vers la bande nominale et
+priorise les parcours sans alerte d’obstacle. L’axe arrondi et les solides
+sont vérifiés après sauvegarde dans des processus FreeCAD distincts. Ces vérifications
 incluent la longueur d’axe hors corridor, les appuis, les distances
 entre câbles, les interférences et le service. Le classement utilise
 les mesures natives et les tolérances des objectifs.
@@ -425,9 +427,9 @@ les mesures natives et les tolérances des objectifs.
 Une boîte externe peut être ajoutée à une copie de banc T2 après
 invalidation BRep du candidat T1 au rejeu. Les familles de support
 restent celles du profil scellé. Les contrats C.1 et C.2 et la
-préadmission A.5 gardent leurs points d’entrée. La recherche spatiale
-reste **À valider** pour la généralisation à une autre hiérarchie
-d’assemblage. [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
+préadmission A.5 gardent leurs points d’entrée. Les deux hiérarchies
+éprouvées relèvent des bancs synthétiques Windows amd64.
+[Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
 
 ## 3. Contexte et déploiement
 
@@ -1397,7 +1399,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
-- **26 novembre 2026** — V3-C.3 ajoute une recherche volumique bornée pour deux faisceaux sur banc et sa contre-validation native (§2.6).
+- **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).
 
 - **26 novembre 2026** — V3-INT.2.1 prépare les entrées scellées des suites L1/L2 dans des racines de test temporaires (§2.6).
 - **25 novembre 2026** — V3-INT.2 réunit le solveur C.2 et la préadmission A.5 dans le même build (§2.6).

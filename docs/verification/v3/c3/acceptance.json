@@ -1,24 +1,95 @@
 {
   "schema": "v3.c3.acceptance/1",
-  "tested_commit": "4600062ba7c277352c5c5914bce99782aead2f63",
+  "iteration": 2,
+  "tested_commit": "5bf6b11eec6dc5b323daa1d67edc0957ffeb7c20",
   "go_base": "27144abf9841ba6502d29f2f76b15ff33092d186",
   "scope": "SYNTHETIC_BENCH",
-  "verdict": "V3_C3_CONDITIONAL",
-  "blocking_checks": [
-    "T3_NO_FEASIBLE_CANDIDATE_FOUND_WITHIN_BUDGET"
-  ],
+  "environment": "Windows amd64, MSYS2 UCRT64, Qt 6, C++17, FreeCAD 1.1.3, OCCT 7.8.1, Cables 0.3.7",
+  "verdict": "V3_C3_3D_GENERALIZATION_GO",
+  "blocking_checks": [],
+  "prior_iteration": {
+    "verdict": "V3_C3_CONDITIONAL",
+    "proof_commit": "64eb295f9ecd8ff06bb89a916d40c1a01d56f6ef",
+    "acceptance_sha256": "a61ffeddaa69538292e5fad919471a40e104184767af39a5ff220307900d30a9",
+    "failed_phase": "T3",
+    "reason": "NO_FEASIBLE_CANDIDATE_FOUND_WITHIN_BUDGET"
+  },
   "checks": {
     "T1": "PASS",
     "T2": "PASS",
-    "T3": "FAIL",
+    "T3": "PASS",
     "T4": "PASS",
     "independent_native_measurement_and_T0": "PASS",
+    "external_input_and_frozen_artifacts": "PASS",
+    "model_budget_and_criteria_conserved": "PASS",
     "measured_pareto_tradeoff": "PASS",
     "adversarial": "PASS",
     "regressions": "PASS",
-    "external_input_and_frozen_artifacts": "PASS",
+    "independent_code_review": "PASS",
     "versioned_contracts": "PASS"
   },
+  "qualified_candidates": {
+    "T1": 12,
+    "T2": 12,
+    "T3": 9,
+    "T4": 0
+  },
+  "measured_pareto_tradeoffs": {
+    "T1": 8,
+    "T2": 3,
+    "T3": 2
+  },
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "flight": "NOT_RUN",
+  "evidence": [
+    {
+      "path": "iteration2/adversarial.json",
+      "bytes": 22061,
+      "sha256": "2f2d4adee5ca4a1a042b9a52a4adb4c5ec2019be2ac0f12c8753e60406f85ba2"
+    },
+    {
+      "path": "iteration2/external_perturbation_receipt.json",
+      "bytes": 1843,
+      "sha256": "f69c4a0ed9ece9d801ff207833485b81c755f7eddf850aac52d426d66166161f"
+    },
+    {
+      "path": "iteration2/frozen_inputs.json",
+      "bytes": 10250,
+      "sha256": "87651b54ac454992d1e490e94ad4cc345a1bdb6cec61243bcc0fa6889fbc4f6f"
+    },
+    {
+      "path": "iteration2/generalization.json",
+      "bytes": 20364,
+      "sha256": "6e5cda846b7987cab9c59d7c68603eebd96ee466082fa5cccbc0662d05698dff"
+    },
+    {
+      "path": "iteration2/independent_review.json",
+      "bytes": 8271,
+      "sha256": "09fee2210dbb971bc6cdc1bbb3c722d57f76fd93568b5cb43cbe6a814f026599"
+    },
+    {
+      "path": "iteration2/native_delta.json",
+      "bytes": 29786,
+      "sha256": "772e273e19368ccf746fe80b6bacfe99cb78e1008b539d9002a4daf99d884f8f"
+    },
+    {
+      "path": "iteration2/pareto.json",
+      "bytes": 57514,
+      "sha256": "d5e58342e63a73bd9a9879333e83a1da687c0a3a7b5d03c5a5e68f5ae29a2571"
+    },
+    {
+      "path": "iteration2/regressions.json",
+      "bytes": 57942,
+      "sha256": "39bb8b8c9df4363741abdb54a70d83ea389015800f736e6421481d845650128e"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 7018,
+      "sha256": "4bf8e9090c459702e47358e8596b06598ce908c1d162e4f0fbed61e5d9a53b5e"
+    }
+  ],
   "schema_validation": [
     {
       "instance": "docs/electromechanical_v3/domains/c3_spatial.json",
@@ -31,71 +102,39 @@
       "status": "PASS"
     },
     {
-      "instance": ".runtime/qual-c3/t1/T1-problem.json",
+      "instance": ".runtime/qual-c3b/t1/T1-problem.json",
       "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
       "status": "PASS"
     },
     {
-      "instance": ".runtime/qual-c3/t2/T2-problem.json",
-      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
-      "status": "PASS"
-    },
-    {
-      "instance": ".runtime/qual-c3/t3/T3-problem.json",
-      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
-      "status": "PASS"
-    },
-    {
-      "instance": ".runtime/qual-c3/t4/T4-problem.json",
-      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
-      "status": "PASS"
-    },
-    {
-      "instance": ".runtime/qual-c3/t2/T2/candidates/v3-c-004/proposal.json",
+      "instance": ".runtime/qual-c3b/t1/T1/candidates/v3-c-004/proposal.json",
       "schema": "docs/electromechanical_v3/mutation_plan_v4.schema.json",
       "status": "PASS"
-    }
-  ],
-  "cartographer_mutation": "DENY",
-  "cartographer_candidate_count": 0,
-  "physical_reception": "NOT_RUN",
-  "flight": "NOT_RUN",
-  "evidence": [
-    {
-      "path": "adversarial.json",
-      "sha256": "9c963f0dba25d3858444db389de7accf71716e53898fcd11f950843677fbe2e7"
     },
     {
-      "path": "external_perturbation_receipt.json",
-      "sha256": "816c55720f27ef0c23aa20c4e6a21add3c620fd097e745fc06d281ce8b1fdd48"
+      "instance": ".runtime/qual-c3b/t2/T2-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
     },
     {
-      "path": "frozen_inputs.json",
-      "sha256": "e56808922fad88563029e257a908a386d0ea1cef319970bd91b74e9d7ca5f451"
+      "instance": ".runtime/qual-c3b/t2/T2/candidates/v3-c-004/proposal.json",
+      "schema": "docs/electromechanical_v3/mutation_plan_v4.schema.json",
+      "status": "PASS"
     },
     {
-      "path": "generalization.json",
-      "sha256": "0dfa66e99718d2514be5182e36118ebaa66d49add241d12445ad297ab83f21bc"
+      "instance": ".runtime/qual-c3b/t3/T3-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
     },
     {
-      "path": "independent_review.json",
-      "sha256": "b0dbb7e613157c48c90b7b23b028c14c9d273191ae50345b381e50b9b66e5096"
+      "instance": ".runtime/qual-c3b/t3/T3/candidates/v3-c-003/proposal.json",
+      "schema": "docs/electromechanical_v3/mutation_plan_v4.schema.json",
+      "status": "PASS"
     },
     {
-      "path": "native_delta.json",
-      "sha256": "76e8ca5fd06768658aaddd48055268c5a8f0d299bd10cd714a635b3dddaf68f2"
-    },
-    {
-      "path": "pareto.json",
-      "sha256": "62c381cb213a07997f03a6565d55e5914b309f8d0494bf2f345c087d94ac1fb6"
-    },
-    {
-      "path": "regressions.json",
-      "sha256": "5b51b8020c38d832e94ecee914c99d8b02fd3bee2bbf534aea5f3aacac78aba2"
-    },
-    {
-      "path": "REPORT.md",
-      "sha256": "19edf8727d68dde6d4e62a7709ab3085251804e3e9e94c2eed0609b5498ae5d6"
+      "instance": ".runtime/qual-c3b/t4/T4-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
     }
   ]
 }
