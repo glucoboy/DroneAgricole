@@ -590,7 +590,9 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     for (const auto &property : {"ports", "service", "occurrences", "routes", "supports", "pairs", "parent_matrices"})
         require(baseline.value(property) == observed.value(property), QString("Observation L3 divergente : ") + property);
     if (spatial)
-        require(baseline.value("service_volumes") == observed.value("service_volumes"), "Volume de service L3 divergent");
+        require(baseline.value("service_volumes") == observed.value("service_volumes") &&
+                baseline.value("interference_classification") == observed.value("interference_classification"),
+                "Volume de service ou contact d'interface L3 divergent");
     add(output.filePath(baselineName));
 
     const auto freecadSha = fileDigest(freecad), pythonSha = fileDigest(python), t0Sha = fileDigest(t0);

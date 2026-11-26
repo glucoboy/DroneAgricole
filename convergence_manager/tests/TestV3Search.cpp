@@ -1,5 +1,6 @@
 #include "V3Search.hpp"
 #include "V3Domain.hpp"
+#include "V3SpatialGeometry.hpp"
 
 #include <QFile>
 #include <QJsonArray>
@@ -219,11 +220,31 @@ void multiharness(const QJsonObject &domain, const QJsonObject &baseline, const 
     }
 }
 
+void spatialCorridor()
+{
+    using namespace convergence;
+    const V3Point center{1, 0, 1}, radial{-1, 0, 0}, tangent{0, 0, -1};
+    const double quarterTurn = std::acos(0);
+    std::vector<V3Box> corridor{{{-0.5, -1, 0}, {0.75, 1, 2}}, {{0.6, -1, 0}, {2, 1, 0}}};
+    const V3Point start{0, 0, 1}, corner{0, 0, 0}, end{1, 0, 0};
+    check(v3SegmentInBoxes(start, corner, corridor) && v3SegmentInBoxes(corner, end, corridor),
+          "La ligne brisée de référence doit tenir dans le corridor");
+    check(!v3ArcInBoxes(center, radial, tangent, quarterTurn, corridor),
+          "Le fillet ne tient pas dans un corridor qui passe au plan trop tôt");
+    const V3Point earlierCenter{0.65, 0, 1};
+    check(v3ArcInBoxes(earlierCenter, radial, tangent, quarterTurn, corridor),
+          "Un arc revenu dans le plan avant la transition doit être admis");
+    const std::vector<V3Box> joined{{{-0.1, -1, 0}, {0.55, 1, 2}}, {{0.5, -1, 0}, {2, 1, 2}}};
+    check(v3ArcInBoxes(center, radial, tangent, quarterTurn, joined),
+          "Un arc peut traverser une jonction couverte par l'union des volumes");
+}
+
 } // namespace
 
 int main(int argc, char **argv)
 {
     try {
+        spatialCorridor();
         if (argc == 5 && QString::fromLocal8Bit(argv[1]) == "--multiharness") {
             multiharness(object(QString::fromLocal8Bit(argv[2])), object(QString::fromLocal8Bit(argv[3])),
                          object(QString::fromLocal8Bit(argv[4])));

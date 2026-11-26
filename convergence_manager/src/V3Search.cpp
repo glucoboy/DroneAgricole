@@ -240,6 +240,7 @@ struct Scene {
     std::vector<Bounds> polycorridors;
     double minLength;
     double maxLength;
+    QSet<QString> terminalContacts;
 };
 
 Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem)
@@ -349,11 +350,21 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
         const auto box = value.toObject();
         volumes.push_back({numbers<3>(box.value("min_mm")), numbers<3>(box.value("max_mm"))});
     }
+    QSet<QString> terminalContacts;
+    if (!volumes.empty()) {
+        const auto classification = baseline.value("interference_classification").toObject();
+        for (const auto &entry : classification.value("surface_contacts").toArray()) {
+            const auto contact = entry.toObject();
+            const auto pair = contact.value("pair").toArray();
+            if (contact.value("role") == "NATIVE_WIRE_EXIT" && pair.size() == 2 && pair.contains(cable))
+                terminalContacts.insert((pair.first() == cable ? pair.last() : pair.first()).toString());
+        }
+    }
     return {frame, end, reference, matrix, rotation,
             readBounds(deviceRow.value("bounds_mm")), translation, corridor, localCorridor,
             obstacles, anchors, device, mode == "FOLLOW_TRANSLATION", coupled, supportLimit, cableRadius, bendRadius,
             route.value("min_points").toInt(), route.value("max_points").toInt(), volumes,
-            route.value("minimum_length_mm").toDouble(), route.value("maximum_length_mm").toDouble()};
+            route.value("minimum_length_mm").toDouble(), route.value("maximum_length_mm").toDouble(), terminalContacts};
 }
 
 struct PoseSample {
@@ -657,6 +668,7 @@ struct SpatialRoute {
     double gap;
     double externalGap;
     double excursion;
+    qsizetype nonTerminalHints;
 };
 
 std::optional<RouteSample> filletSpatial(const Scene &scene, const std::vector<Vector> &knots)
@@ -665,24 +677,39 @@ std::optional<RouteSample> filletSpatial(const Scene &scene, const std::vector<V
         knots.size() > static_cast<std::size_t>(scene.maxPoints))
         return {};
     RouteSample result;
-    std::vector<double> trims(knots.size());
-    for (std::size_t index = 1; index < knots.size(); ++index)
-        if (knots[index][0] <= knots[index - 1][0] + epsilon)
-            return {};
-    for (std::size_t index = 1; index + 1 < knots.size(); ++index) {
-        const auto in = unit(subtract(knots[index], knots[index - 1]));
-        const auto out = unit(subtract(knots[index + 1], knots[index]));
-        const auto half = 0.5 * std::acos(std::clamp(dot(in, out), -1.0, 1.0));
-        trims[index] = scene.bendRadius * std::tan(half);
-        result.rounding = std::max(result.rounding, scene.bendRadius * (1 - std::cos(half)));
-        result.length += 2 * (scene.bendRadius * half - trims[index]);
-    }
     for (const auto &knot : knots)
         result.points.push_back(scene.frame.world(knot));
     for (std::size_t index = 1; index < knots.size(); ++index) {
-        const auto length = norm(subtract(knots[index], knots[index - 1]));
-        if (length <= trims[index - 1] + trims[index] + epsilon ||
+        if (knots[index][0] <= knots[index - 1][0] + epsilon ||
             !v3SegmentInBoxes(result.points[index - 1], result.points[index], scene.polycorridors))
+            return {};
+    }
+    std::vector<double> trims(knots.size());
+    for (std::size_t index = 1; index + 1 < knots.size(); ++index) {
+        const auto corner = result.points[index];
+        const auto in = unit(subtract(corner, result.points[index - 1]));
+        const auto out = unit(subtract(result.points[index + 1], corner));
+        const auto cosine = std::clamp(dot(in, out), -1.0, 1.0);
+        const auto sweep = std::acos(cosine);
+        const auto half = sweep / 2;
+        const auto turnNormal = subtract(out, scale(in, cosine));
+        if (norm(turnNormal) <= epsilon) {
+            if (cosine < 0)
+                return {};
+            continue;
+        }
+        trims[index] = scene.bendRadius * std::tan(half);
+        const auto radial = scale(unit(turnNormal), -scene.bendRadius);
+        const auto start = subtract(corner, scale(in, trims[index]));
+        if (!v3ArcInBoxes(subtract(start, radial), radial, scale(in, scene.bendRadius),
+                         sweep, scene.polycorridors))
+            return {};
+        result.rounding = std::max(result.rounding, scene.bendRadius * (1 - std::cos(half)));
+        result.length += 2 * (scene.bendRadius * half - trims[index]);
+    }
+    for (std::size_t index = 1; index < knots.size(); ++index) {
+        const auto length = norm(subtract(knots[index], knots[index - 1]));
+        if (length <= trims[index - 1] + trims[index] + epsilon)
             return {};
         result.length += length;
     }
@@ -727,8 +754,21 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
 
     std::vector<SpatialRoute> samples;
     QSet<QString> unique;
-    const auto consider = [&](const std::vector<Vector> &knots, double excursion) {
+    const auto consider = [&](std::vector<Vector> knots, double excursion) {
         auto route = filletSpatial(scene, knots);
+        if (!route && knots.size() > 4) {
+            // Preserve the signed exit tangent while advancing the final bend.
+            // Each step is proportional to the radius and checked against the
+            // actual corridor planes, including any planar landing strip.
+            auto &lastTurn = knots[knots.size() - 2];
+            const double step = scene.bendRadius / 16;
+            for (int advance = 0; advance < 16 && !route; ++advance) {
+                lastTurn[0] -= step;
+                if (lastTurn[0] <= knots[knots.size() - 3][0] + epsilon)
+                    break;
+                route = filletSpatial(scene, knots);
+            }
+        }
         if (!route)
             return;
         QJsonArray points;
@@ -750,7 +790,10 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
             if (externalGap < 0 && !issues.contains("route/external-obstacle"))
                 issues.append("route/external-obstacle");
         }
-        samples.push_back({std::move(*route), points, issues, gap, externalGap, excursion});
+        const auto hints = std::count_if(issues.begin(), issues.end(), [&](const auto &issue) {
+            return !scene.terminalContacts.contains(issue.mid(6));
+        });
+        samples.push_back({std::move(*route), points, issues, gap, externalGap, excursion, hints});
     };
 
     for (const double approach : {1.0, 1.5, 2.0}) {
@@ -786,7 +829,7 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
         const auto key = [&strategy](const auto &route) {
             const auto preference = strategy == "SPATIAL_CLEARANCE" ? -route.gap :
                 strategy == "SPATIAL_EXCURSION" ? -route.excursion : route.route.length;
-            return std::tuple{route.externalGap < 0, route.issues.size(), preference, route.route.length};
+            return std::tuple{route.externalGap < 0, route.nonTerminalHints, route.issues.size(), preference, route.route.length};
         };
         return key(a) < key(b);
     });
@@ -827,6 +870,7 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
             double length;
             double gap;
             int priority;
+            qsizetype nonTerminalHints;
         };
         std::vector<Combination> choices;
         for (std::size_t first = 0; first < routes[0].size(); ++first) {
@@ -840,17 +884,19 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
                     issues.append(scenes[1].id + '/' + issue);
                 const auto separation = routeGap(a.points, b.points, scenes[0].scene.cableRadius +
                     scenes[1].scene.cableRadius + a.route.rounding + b.route.rounding);
-                if (separation + epsilon < requiredGap)
+                const bool tight = separation + epsilon < requiredGap;
+                if (tight)
                     issues.append("inter-harness/" + scenes[0].id + '/' + scenes[1].id);
                 const QJsonObject values{
                     {scenes[0].id, QJsonObject{{"route_points_mm", a.points}, {"bend_radius_mm", scenes[0].scene.bendRadius}}},
                     {scenes[1].id, QJsonObject{{"route_points_mm", b.points}, {"bend_radius_mm", scenes[1].scene.bendRadius}}}};
                 choices.push_back({values, issues, a.route.length + b.route.length, separation,
-                                   static_cast<int>(first + second)});
+                                   static_cast<int>(first + second), a.nonTerminalHints + b.nonTerminalHints + tight});
             }
         }
         std::stable_sort(choices.begin(), choices.end(), [](const auto &left, const auto &right) {
-            return std::pair{left.issues.size(), left.priority} < std::pair{right.issues.size(), right.priority};
+            return std::tuple{left.nonTerminalHints, left.issues.size(), left.priority} <
+                   std::tuple{right.nonTerminalHints, right.issues.size(), right.priority};
         });
         int perPose = 0;
         for (const auto &choice : choices) {
@@ -868,23 +914,31 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
             ranked.append(QJsonObject{{"family", strategy}, {"values", values}, {"signature", identity},
                 {"screen", QJsonObject{{"status", choice.issues.isEmpty() ? "SCREEN_PASS" : "NEEDS_NATIVE_CHECK"},
                     {"blocking_issues", QJsonArray::fromStringList(choice.issues)},
-                    {"estimated_route_length_mm", choice.length}, {"polyline_inter_harness_gap_mm", choice.gap}}}});
+                    {"non_terminal_hints", choice.nonTerminalHints}, {"estimated_route_length_mm", choice.length}, {"polyline_inter_harness_gap_mm", choice.gap}}}});
         }
         rankedByPose.push_back(ranked);
     }
-    for (qsizetype index = 0; index < std::max<qsizetype>(3, supportIds.size()) && proposals.size() < budget; ++index) {
-        for (const auto &ranked : rankedByPose) {
-            if (proposals.size() >= budget)
-                break;
-            if (index >= ranked.size())
-                continue;
-            const auto row = ranked.at(index);
-            proposals.append(row);
-            eligible += row.toObject().contains("values");
-        }
+    std::vector<QJsonObject> rankedProposals;
+    for (qsizetype index = 0; index < std::max<qsizetype>(3, supportIds.size()); ++index)
+        for (const auto &ranked : rankedByPose)
+            if (index < ranked.size())
+                rankedProposals.push_back(ranked.at(index).toObject());
+    // Keep the pose interleaving for equal risk. Spend the native budget
+    // first on alternatives with no non-terminal obstacle or separation hint.
+    const auto hints = [](const QJsonObject &row) {
+        return row.value("screen").toObject().value("non_terminal_hints").toInt(std::numeric_limits<int>::max());
+    };
+    std::stable_sort(rankedProposals.begin(), rankedProposals.end(), [&hints](const auto &left, const auto &right) {
+        return hints(left) < hints(right);
+    });
+    for (const auto &row : rankedProposals) {
+        if (proposals.size() >= budget)
+            break;
+        proposals.append(row);
+        eligible += row.contains("values");
     }
     return {{"status", eligible ? "GENERATED" : "NO_FEASIBLE_CANDIDATE_FOUND"}, {"proposals", proposals},
-            {"coverage", QJsonObject{{"route_screen", "SPATIAL_POLYCORRIDOR_AND_AABB_HINTS"},
+            {"coverage", QJsonObject{{"route_screen", "SPATIAL_LINE_ARC_POLYCORRIDOR_AND_AABB_HINTS"},
                 {"route_trials_within_domain", routeTrials}, {"eligible", eligible},
                 {"sampled_poses", static_cast<int>(poseLimit)}, {"possible_pose_count", static_cast<int>(poses.size())},
                 {"budget_limited", proposals.size() == budget}, {"determination", "SCREEN_ONLY"}}},
