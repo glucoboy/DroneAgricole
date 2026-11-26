@@ -10,13 +10,22 @@ namespace convergence {
 
 inline constexpr auto v3ParametricPlanSchema = "v3.mutation_plan/2";
 inline constexpr auto v3MultiHarnessPlanSchema = "v3.mutation_plan/3";
+inline constexpr auto v3SpatialPlanSchema = "v3.mutation_plan/4";
+inline constexpr auto v3SpatialDomainSchema = "v3.parametric_domain/3";
 inline constexpr auto v3MultiHarnessDomainSchema = "v3.parametric_domain/2";
 inline constexpr auto v3NativePortMode = "NATIVE_PORT";
 
 inline bool isV3ParametricPlan(const QJsonValue &schema)
 {
-    return schema == v3ParametricPlanSchema || schema == v3MultiHarnessPlanSchema;
+    return schema == v3ParametricPlanSchema || schema == v3MultiHarnessPlanSchema || schema == v3SpatialPlanSchema;
 }
+
+inline bool isV3MultiHarnessDomain(const QJsonValue &schema)
+{
+    return schema == v3MultiHarnessDomainSchema || schema == v3SpatialDomainSchema;
+}
+
+void validateV3ExternalObstacle(const QJsonObject &obstacle);
 
 // The coupled route solver supports translation with a locked orientation.
 struct V3UnsupportedPose : std::runtime_error {
@@ -26,7 +35,8 @@ struct V3UnsupportedPose : std::runtime_error {
 QString v3DomainPath(const QString &sha);
 QString v3BaseProfilePath(const QJsonObject &domain);
 QJsonObject loadV3Domain(const QDir &root, const QString &sha);
-QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values);
+QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values,
+                       bool spatial = false, const QJsonObject &externalObstacle = {});
 QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile, const QString &domainSha,
                           const QJsonObject &plan);
 

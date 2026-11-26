@@ -3145,6 +3145,53 @@ testé. Le périmètre de jonction est **Qualifié** sur banc numérique. Le con
 Gazebo. La réception physique et le vol restent `NOT_RUN`.
 [Acceptation](verification/v3/int21/acceptance.json)
 
+<a id="cartographe-v3-c3"></a>
+#### Recherche spatiale et obstacle indépendant V3-C.3 — 26 novembre 2026
+
+Le deuxième gel, sur `5bf6b11eec6dc5b323daa1d67edc0957ffeb7c20`, conclut
+`V3_C3_3D_GENERALIZATION_GO` sur banc synthétique Windows amd64. Les modèles,
+seuils et budgets du premier gel sont repris. Le moteur crible l’arc du
+raccord en plus des segments et avance le retour tangent lorsque l’arc
+dépasse la transition vers la bande nominale. Il donne la priorité aux
+candidates sans alerte d’obstacle et conserve le contrôle natif.
+
+T1 et T2 retiennent chacun douze candidates. L’obstacle du deuxième gel,
+fourni après T1, provoque une intersection de 17,306 mm³ sur `cordon`.
+Le moteur gelé reconstruit son trajet avec une excursion de 9,24 mm
+contre 5,94 mm. La réouverture indépendante mesure une intersection
+nulle pour les deux câbles et 1,14 mm de garde pour `cordon`. T3 retient
+neuf candidates sur le second banc, avec des chemins natifs différents
+pour les datums `port-b` et `port-d` et une excursion de 9,24 mm pour
+`cordon-b`. T4 finalise `INCONCLUSIVE` et zéro admission avec le budget
+réduit. Les suites L3/L5, L4, T0, A.5, C.2 et les contrôles XLink passent.
+La capacité atteint le statut **Qualifié** sur ces bancs. Le cartographe reste `DENY`
+et la réception physique ainsi que le vol restent `NOT_RUN`.
+[Acceptation](verification/v3/c3/acceptance.json) ·
+[Campagnes](verification/v3/c3/iteration2/generalization.json) ·
+[Régressions](verification/v3/c3/iteration2/regressions.json)
+
+**Premier gel historique, `4600062ba7c277352c5c5914bce99782aead2f63`.**
+
+Sur Windows amd64, le moteur C++17 construit et rouvre huit candidates
+admissibles en T1, avec deux câbles indépendants. Le rejeu T2 réutilise
+les binaires et les règles gelés. L’évaluateur et le rejeu mesurent une
+intersection de 16,573 mm³ sur `cordon` en T1. T2 porte son excursion
+verticale à 9,24 mm contre 5,94 mm en T1, avec 1,49 mm de garde au
+nouvel obstacle et zéro intersection des deux câbles. La pose et l’appui
+sélectionnés sont identiques. Neuf candidates passent les contrôles T2.
+[Collision et provenance](verification/v3/c3/external_perturbation_receipt.json) ·
+[Mesures natives](verification/v3/c3/native_delta.json)
+
+T3 change la hiérarchie des ports et l’obstacle. Aucune des douze
+constructions n’est admissible. Neuf échouent sur l’obstacle. Dans les
+trois autres, OCCT mesure 2,330 à 2,939 mm du dernier arc de
+`cordon-b` hors corridor après passage à la bande nominale.
+T4 finalise `INCONCLUSIVE` et zéro candidate à expiration de son
+budget d’admission. [Campagnes et diagnostic](verification/v3/c3/generalization.json)
+
+Le verdict historique `V3_C3_CONDITIONAL` s’applique à ce seul gel.
+[Régressions historiques](verification/v3/c3/regressions.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4357,6 +4404,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Transaction à deux câbles, appui scellé, classification des contacts et mesure après réouverture | T-CARTO-V3-C2 | [Résultat](#cartographe-v3-c2), [revue](verification/v3/c2/independent_review.json) | `V3_C2_MULTIHARNESS_ENGINE_GO` sur banc synthétique. Applicabilité au cartographe **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, METH-001 | Import A.4, registre et revue authentifiés, préadmission L5 | T-CARTO-V3-A5-AUTHORITY | [Résultat](#cartographe-v3-a5), [refus](verification/v3/a5/adversarial.json) | `V3_A5_AUTHORITY_PIPELINE_GO` en `TEST_ONLY`. Autorité réelle **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Coexistence du solveur C.2, de la préadmission A.5 et des gardes du cartographe | T-CARTO-V3-INT2 | [Résultat](#cartographe-v3-int2), [acceptation](verification/v3/int2/acceptance.json) | `V3_INT2_CONDITIONAL` sur Windows amd64. Suites complètes et passage C.3/A.6 **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Recherche par polycorridors, construction XLink et contre-mesure OCCT de deux câbles | T-CARTO-V3-C3 T1 à T4 | [Acceptation](verification/v3/c3/acceptance.json) et [mesures](verification/v3/c3/iteration2/native_delta.json) | **Qualifié** sur les deux bancs synthétiques Windows amd64. Cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Rejeu L1/L2 aux empreintes historiques, suites L3/L5 et protections C.2/A.5 | T-CARTO-V3-INT21 | [Résultat](#cartographe-v3-int21), [acceptation](verification/v3/int21/acceptance.json) | `V3_INT21_GO` sur Windows amd64 C++17, banc numérique **Qualifié**. Mutation du cartographe `DENY`. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
@@ -4537,6 +4585,8 @@ la collecte du lot réel avant une décision d'ancrage sur P64 ou P66.
 checkout et vérifie la porte de consolidation. Les mesures et la
 revue du lot réel restent nécessaires pour décider de l'appui de
 l'isolateur.
+[V3-C.3](#cartographe-v3-c3) éprouve l’adaptation volumique sur copies
+synthétiques avec un obstacle indépendant et une deuxième hiérarchie native.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5196,6 +5246,9 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 
 ## 16. Journal de modifications
+
+- **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)
+- **26 novembre 2026** — V3-C.3 vérifie l’adaptation à un obstacle externe sur banc et relève une sortie de corridor en T3. [Résultat](#cartographe-v3-c3)
 
 - **26 novembre 2026** — V3-INT.2.1 rétablit les suites larges sur deux checkouts, rejoue C.2 et A.5 et vérifie les scellés. [Résultat](#cartographe-v3-int21)
 - **25 novembre 2026** — V3-INT.2 rejoue C.2 et A.5 sur la fusion C++17. [Résultat et suites](#cartographe-v3-int2)

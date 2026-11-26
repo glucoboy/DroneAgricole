@@ -1,0 +1,150 @@
+{
+  "schema": "v3.c3.independent_review/1",
+  "tested_commit": "4600062ba7c277352c5c5914bce99782aead2f63",
+  "native_processes": {
+    "T1": {
+      "builder": {
+        "pid": 25388,
+        "report": {
+          "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/construction/transaction/build.json",
+          "sha256": "8725efba8f8176728f63a73f2b54602c992d086346152ca3f0ed784252a5589e"
+        }
+      },
+      "reference_verifier_pid": 20464,
+      "candidate_verifier": {
+        "pid": 9716,
+        "coverage": {
+          "REOPEN_XLINK": "PASS",
+          "L2_TOPOLOGY": "PASS",
+          "L4_GEOMETRY": "PASS",
+          "L4_SERVICE": "PASS",
+          "L4_SUPPORT_ANCHOR": "PASS",
+          "L4_DYNAMIC_BEND_RADIUS": "PASS",
+          "L4_SPATIAL_CONTRACT": "PASS"
+        },
+        "spatial_non_applicable": [
+          "external_obstacle"
+        ],
+        "report": {
+          "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/construction/transaction/candidate-validation.json",
+          "sha256": "e230fc6c7326a37c895b59d9c3d79735680955a109a9f3c239c8e2c307e0ffb5"
+        }
+      },
+      "independent": {
+        "pid": 14004,
+        "result": {
+          "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/cross/v3-c-004/candidate-result.json",
+          "sha256": "4005400c31c14b7be00b6cef86d090fd99f67dfea0294d6fc6405a4ac2914e74"
+        },
+        "sources_unchanged": true,
+        "copy_unchanged": true,
+        "documents_closed": true,
+        "checks": {
+          "PASS": 500,
+          "NOT_APPLICABLE": 3
+        },
+        "comparisons": {
+          "PASS": 680
+        },
+        "non_applicable": [
+          "service/anchor/cordon",
+          "service/anchor/cordon-b",
+          "service/anchor/shared-obstacle"
+        ]
+      },
+      "profile_tolerances": {
+        "position_mm": 1e-06,
+        "direction_deg": 0.0001,
+        "volume_mm3": 1e-06,
+        "distance_mm": 1e-06
+      },
+      "candidate_state": "CANDIDATE"
+    },
+    "T2": {
+      "builder": {
+        "pid": 10192,
+        "report": {
+          "path": ".runtime/qual-c3/t2/T2/candidates/v3-c-004/construction/transaction/build.json",
+          "sha256": "935f4b4e22cf3ef748417f85e17869b7e6ad96c0bcd178eb785a73c81cacb9ff"
+        }
+      },
+      "reference_verifier_pid": 9092,
+      "candidate_verifier": {
+        "pid": 26748,
+        "coverage": {
+          "REOPEN_XLINK": "PASS",
+          "L2_TOPOLOGY": "PASS",
+          "L4_GEOMETRY": "PASS",
+          "L4_SERVICE": "PASS",
+          "L4_SUPPORT_ANCHOR": "PASS",
+          "L4_DYNAMIC_BEND_RADIUS": "PASS",
+          "L4_SPATIAL_CONTRACT": "PASS"
+        },
+        "spatial_non_applicable": [],
+        "report": {
+          "path": ".runtime/qual-c3/t2/T2/candidates/v3-c-004/construction/transaction/candidate-validation.json",
+          "sha256": "d35a74e5735d11bd53dd0c82dd9cea89a5110f475d5663ab94f7d40090d56ec1"
+        }
+      },
+      "independent": {
+        "pid": 24048,
+        "result": {
+          "path": ".runtime/qual-c3/t2/T2/candidates/v3-c-004/cross/v3-c-004/candidate-result.json",
+          "sha256": "880b338a37316ac2ec0e25c71985da9c45ba34bf0a36925942e75d3788c0ef77"
+        },
+        "sources_unchanged": true,
+        "copy_unchanged": true,
+        "documents_closed": true,
+        "checks": {
+          "PASS": 543,
+          "NOT_APPLICABLE": 4
+        },
+        "comparisons": {
+          "PASS": 744
+        },
+        "non_applicable": [
+          "service/anchor/cordon",
+          "service/anchor/cordon-b",
+          "service/anchor/shared-obstacle",
+          "service/C3ExternalObstacle/anchor"
+        ]
+      },
+      "profile_tolerances": {
+        "position_mm": 1e-06,
+        "direction_deg": 0.0001,
+        "volume_mm3": 1e-06,
+        "distance_mm": 1e-06
+      },
+      "candidate_state": "CANDIDATE"
+    }
+  },
+  "code_review": {
+    "reviewer": "Agent des régressions, hors implémentation C++ et orchestrateur",
+    "observations": [
+      {
+        "subject": "V3Search",
+        "finding": "L'ordre initial pouvait ignorer les variantes du second câble et consommer le budget sur la même pose.",
+        "resolution": "Produit cartésien 5×5 et alternance des poses."
+      },
+      {
+        "subject": "V3Search",
+        "finding": "Certaines réservations de service sont liées au corps mobile.",
+        "resolution": "Projection des volumes avec le rattachement mesuré."
+      },
+      {
+        "subject": "replay_v3_c3",
+        "finding": "Les helpers chargés devaient être couverts par le gel et le delta devait porter sur une géométrie mesurée.",
+        "resolution": "Empreintes des helpers et déplacement d'un sommet intérieur OCCT au-delà de la tolérance."
+      },
+      {
+        "subject": "V3Campaign",
+        "finding": "La finalisation atomique peut dépasser la durée d'admission.",
+        "resolution": "Vérification du budget avant et après contre-validation. Toute admission tardive est bloquée."
+      }
+    ]
+  },
+  "not_run": [
+    "Réception réelle TTL/USB",
+    "Essais physiques de tenue, assemblage et vol"
+  ]
+}

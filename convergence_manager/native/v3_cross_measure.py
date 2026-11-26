@@ -20,6 +20,10 @@ import Part
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from electromechanical_engine.freecad import PROJECT, guard
+from electromechanical_engine.contracts import decode
+from convergence_manager.native.v3_spatial_contract import (
+    C3_PROFILES, OBSTACLE_OBJECT, box_limits, corridor_limits, nominal_axis, obstacle_spec,
+)
 
 
 SCHEMA = "v3.cross_measurement/1"
@@ -32,6 +36,8 @@ PROFILES = {
     PROJECT / "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_b2_variations.json",
 }
+SPATIAL_PROFILES = {PROJECT / path for path in C3_PROFILES}
+PROFILES.update(SPATIAL_PROFILES)
 GROUPS = {"App::Part", "App::DocumentObjectGroup"}
 ERRORS = (AttributeError, BadZipFile, IndexError, KeyError, OSError, ParseError, RuntimeError, TypeError, ValueError)
 
@@ -132,11 +138,16 @@ def relation(a, b):
 
 
 class Observation:
-    def __init__(self, root, doc, model):
+    def __init__(self, root, doc, model, *, spatial_profile=False, contract=None, external=None):
         self.root = root
         self.doc = doc
         self.identities = model["occurrences"]
         self.rules = model["validation"]
+        self.spatial_profile = spatial_profile
+        self.contract, self.external = contract, external
+        self.moving = {self.identities.get(identifier, identifier)
+                       for device, companions in model.get("moving_with", {}).items()
+                       for identifier in (device, *companions)}
         self.paths = {member.Name: group.Name for group in doc.Objects if group.TypeId in GROUPS
                       for member in group.Group}
 
@@ -326,7 +337,13 @@ class Observation:
         return records
 
     def route(self, identifier, cable):
-        path = Part.getShape(cable.Base)
+        if self.spatial_profile:
+            top, child = self.selector(identifier)
+            _, world_matrix, _ = Part.getShape(top, child, retType=2)
+            local = cable.Placement.inverse().toMatrix()
+            path = cable.Base.Shape.copy().transformShape(world_matrix.multiply(local), True, True)
+        else:
+            path = Part.getShape(cable.Base)
         require(path.isValid() and len(path.Wires) == 1 and not path.Wires[0].isClosed(),
                 f"Parcours ouvert unique requis : {identifier}")
         wire = path.Wires[0]
@@ -353,7 +370,7 @@ class Observation:
         saved = self.shape(identifier)
         require(solid(swept) and solid(saved), f"Balayage ou gaine BRep invalide : {identifier}")
         common = overlap(swept, saved)
-        return {
+        record = {
             "length_mm": wire.Length, "edges": edges, "endpoints_mm": [point(start), point(end)],
             "minimum_radius_mm": min(radii) if analytic and radii else None,
             "radius_evidence": "ANALYTIC" if analytic else "UNBOUNDED",
@@ -362,9 +379,29 @@ class Observation:
             "sweep_difference_mm3": abs(saved.Volume + swept.Volume - 2 * common),
             "native_endpoint_refs": [self.ref(getattr(cable.Base, key)[0]) for key in ("Vrtx_start", "Vrtx_end")],
         }
+        if self.spatial_profile:
+            record.update(axis_bounds_mm=bounds(wire), axis_sha256=shape_hash(wire))
+        if self.contract is not None:
+            rule = self.contract["routes"][identifier]
+            axis, coordinate = nominal_axis(rule["nominal_plane"])
+            corridors = rule["corridors_mm"]
+            require(set(rule) == {"corridors_mm", "nominal_plane"} and 0 < len(corridors) <= 32,
+                    "Corridor spatial hors contrat")
+            tolerance = self.rules["tolerances"]["position_mm"]
+            boxes = [root_box(*corridor_limits(limits, tolerance)) for limits in corridors]
+            union = boxes[0] if len(boxes) == 1 else boxes[0].fuse(boxes[1:])
+            require(solid(union), "Union de corridors non mesurable")
+            covered = wire.common(union)
+            require(covered.isNull() or covered.isValid(), "Intersection corridor/axe non finalisée")
+            covered_mm = sum(edge.Length for edge in covered.Edges)
+            require(math.isfinite(covered_mm) and covered_mm <= wire.Length + self.rules["tolerances"]["position_mm"],
+                    "Longueur d'axe couverte non mesurable")
+            record.update(outside_corridor_mm=max(0, wire.Length - covered_mm), nominal_plane=rule["nominal_plane"],
+                          vertex_departure_mm=max(abs(vertex.Point[axis] - coordinate) for vertex in wire.Vertexes))
+        return record
 
     def service(self, ports):
-        records = []
+        records, volumes = [], []
         for spec in self.rules["service"]:
             name = spec.get("anchor") or spec.get("port") or spec["object"]
             if "anchor" in spec:
@@ -380,11 +417,56 @@ class Observation:
                 zone = Part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, axis)
             else:
                 zone = self.shape(name)
-            for obstacle in spec["obstacles"]:
+            if self.spatial_profile:
+                owner = self.rules["ports"][name]["equipment"] if "port" in spec else name
+                owner = self.identities.get(owner, owner)
+                volumes.append({"id": name, "bounds_mm": bounds(zone), "obstacles": spec["obstacles"],
+                                "clearance_mm": spec["clearance_mm"], "required_action": spec.get("required_action"),
+                                "follows_device": any(owner == path or owner.startswith(path + "/") for path in self.moving)})
+            obstacles = list(spec["obstacles"])
+            if self.external is not None and self.doc.getObject(OBSTACLE_OBJECT) is not None:
+                obstacles.append(OBSTACLE_OBJECT)
+            for obstacle in obstacles:
                 records.append({"pair": [name, obstacle], "required_action": spec.get("required_action"),
                                 "clearance_mm": spec["clearance_mm"],
                                 **relation(zone, self.shape(obstacle))})
-        return records
+        return records, volumes
+
+    def external_obstacle(self, spec, require_absent):
+        identifier, low, high = obstacle_spec(spec)
+        reference = root_box(low, high)
+        obj = self.doc.getObject(OBSTACLE_OBJECT)
+        if require_absent:
+            require(obj is None, "La candidate T1 contient déjà l’obstacle externe")
+            obstacle, presence, difference = reference, "HYPOTHETICAL", None
+        else:
+            require(obj is not None and obj.TypeId == "Part::Feature" and obj.Visibility and
+                    obj in self.doc.RootObjects and getattr(obj, "C3ExternalId", None) == identifier,
+                    "Occurrence native de l’obstacle absente ou divergente")
+            obstacle, presence = self.shape(OBSTACLE_OBJECT), "SAVED_NATIVE"
+            require(solid(obstacle) and len(obstacle.Solids) == 1, "Obstacle sauvegardé sans solide unique valide")
+            intersection = overlap(reference, obstacle)
+            difference = abs(reference.Volume + obstacle.Volume - 2 * intersection)
+            tolerances = self.rules["tolerances"]
+            require(difference <= tolerances["volume_mm3"] and all(
+                abs(actual - expected) <= tolerances["position_mm"]
+                for corner, expected_corner in zip(bounds(obstacle), (low, high), strict=True)
+                for actual, expected in zip(corner, expected_corner, strict=True)),
+                "Obstacle sauvegardé différent du volume gelé")
+        return {"id": identifier, "presence": presence, "bounds_mm": bounds(obstacle),
+                "symmetric_difference_mm3": difference,
+                "harnesses": {route: relation(self.shape(route), obstacle) for route in self.rules["routes"]}}
+
+    def support_zone(self):
+        selected = self.contract["support"]
+        require(set(selected) == {"id", "occurrence", "anchor_zone"}, "Contrat d’ancrage mal formé")
+        spec = self.rules["supports"][selected["occurrence"]]
+        low, high = box_limits(selected["anchor_zone"], allow_surface=True)
+        anchor = point(self.pose(spec["anchor"]).Base)
+        tolerance = self.rules["tolerances"]["position_mm"]
+        inside = all(left - tolerance <= value <= right + tolerance for left, value, right in zip(low, anchor, high))
+        return {"id": selected["id"], "occurrence": selected["occurrence"], "anchor_mm": anchor,
+                "bounds_mm": [low, high], "status": "PASS" if inside else "FAIL"}
 
     def supports(self):
         records = {}
@@ -438,6 +520,11 @@ class Observation:
                 "Paire de faisceaux indépendante absente")
         interactions = indexed[cable_pair]
         clearance = cross["minimum_clearance_mm"]
+        if self.contract is not None:
+            spatial_clearance = self.contract["minimum_clearance_mm"]
+            require(type(spatial_clearance) in (int, float) and math.isfinite(spatial_clearance) and spatial_clearance > 0,
+                    "Garde inter-faisceaux spatiale non mesurable")
+            clearance = max(clearance, spatial_clearance)
         require(math.isfinite(clearance) and clearance > 0, "Seuil de garde inter-faisceaux absent")
         cross_pass = interactions["gap_mm"] >= clearance - distance and interactions["intersection_mm3"] <= epsilon
         allowed, declared, engagement = set(), set(), []
@@ -513,13 +600,24 @@ class Observation:
             conductors.update(observed)
         ports = self.ports()
         supports = self.supports()
+        service, volumes = self.service(ports)
         classification = {"interference_classification": self.interference_classification(pairs, supports)} if "cross_harness" in self.rules else {}
+        if self.spatial_profile:
+            classification["service_volumes"] = volumes
+        if self.contract is not None:
+            classification["spatial_support_zone"] = self.support_zone()
         return dict(occurrences=occurrences, parent_matrices=parents, pairs=pairs, contacts=self.contacts(),
                     conductors=conductors, ports=ports, routes=routes,
-                    service=self.service(ports), supports=supports, **classification)
+                    service=service, supports=supports, **classification)
 
 
-def run(root, profile_path, result):
+def root_box(low, high):
+    origin = App.Vector(*low)
+    extent = App.Vector(*high) - origin
+    return Part.makeBox(extent.x, extent.y, extent.z, origin)
+
+
+def run(root, profile_path, result, *, contract=None, external=None, expected_entry=None, require_absent=False):
     profile_bytes = profile_path.read_bytes()
     profile = json.loads(profile_bytes)
     entry, expected = profile["entry"], profile["dependencies"]
@@ -529,6 +627,12 @@ def run(root, profile_path, result):
     require(source_before == expected and before.keys() == expected.keys() and
             all(before[name] == expected[name] for name in expected if name != entry),
             "Fermeture ou dépendance hors profil de banc")
+    require(expected_entry is None or expected_entry == before[entry], "SHA de racine native différent du candidat évalué")
+    spatial_profile = profile_path in SPATIAL_PROFILES
+    if contract is not None:
+        require(spatial_profile and set(contract) == {"routes", "minimum_clearance_mm", "support"} and
+                set(contract["routes"]) == set(profile["model"]["validation"]["routes"]),
+                "Contrat spatial hors profil autorisé")
     result.update(entry=entry, model_id=profile["model_id"],
                   profile_sha256=hashlib.sha256(profile_bytes).hexdigest(),
                   inputs_sha256=before, source_sha256=source_before, environment=setup_cables())
@@ -536,7 +640,13 @@ def run(root, profile_path, result):
         doc, documents, invalid = reopen(root, entry, before)
         result.update(documents=documents, invalid_objects=invalid)
         require(not invalid, "Objets natifs invalides")
-        result.update(Observation(root, doc, profile["model"]).measure())
+        observation = Observation(root, doc, profile["model"], spatial_profile=spatial_profile,
+                                  contract=contract, external=external)
+        if external is not None:
+            result["external_obstacle"] = observation.external_obstacle(external, require_absent)
+        elif spatial_profile:
+            require(doc.getObject(OBSTACLE_OBJECT) is None, "Obstacle natif sans contrat externe")
+        result.update(observation.measure())
     finally:
         for name in reversed(list(App.listDocuments())):
             App.closeDocument(name)
@@ -551,6 +661,10 @@ def main():
     parser.add_argument("--root", required=True, type=Path)
     parser.add_argument("--profile", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--spatial-contract", type=Path)
+    parser.add_argument("--external-obstacle", type=Path)
+    parser.add_argument("--expected-entry-sha256")
+    parser.add_argument("--require-absent", action="store_true")
     args = parser.parse_args()
     try:
         root, output = private(args.root), private(args.output)
@@ -558,12 +672,28 @@ def main():
         require(profile in PROFILES and profile.resolve() == profile, "Profil de banc scellé requis")
         require(root.is_dir() and output.parent.is_dir() and not output.exists() and not output.is_relative_to(root),
                 "Entrée privée existante et sortie neuve hors fermeture requises")
+        require(not args.require_absent or args.external_obstacle is not None, "Contrat d’obstacle hypothétique absent")
+        require(not (args.spatial_contract or args.external_obstacle) or (profile in SPATIAL_PROFILES and
+                re.fullmatch(r"[0-9a-f]{64}", args.expected_entry_sha256 or "")),
+                "Mesure C.3 avec contrat exigeant un profil scellé et la SHA de racine")
+        paths = {"contract": args.spatial_contract, "external": args.external_obstacle}
+        sealed = {}
+        for name, path in paths.items():
+            if path is not None:
+                path = private(path)
+                require(path.is_file() and path.stat().st_nlink == 1 and not path.is_relative_to(root),
+                        "Entrée C.3 en fermeture ou partagée")
+                sealed[name] = path, path.read_bytes()
     except ERRORS as error:
         parser.exit(1, f"{error}\n")
     result = {"schema": SCHEMA, "pid": os.getpid(), "worker_id": uuid4().hex,
               "worker_sha256": guard.sha256(__file__), "status": "INCONCLUSIVE"}
     try:
-        run(root, profile, result)
+        inputs = {name: decode(path.name, data) for name, (path, data) in sealed.items()}
+        run(root, profile, result, **inputs, expected_entry=args.expected_entry_sha256, require_absent=args.require_absent)
+        for name, (path, data) in sealed.items():
+            require(path.read_bytes() == data, "Entrée C.3 modifiée durant la mesure")
+            result[f"{name}_sha256"] = hashlib.sha256(data).hexdigest()
         result["status"] = "MEASURED"
     except ERRORS as error:
         result["error"] = str(error)

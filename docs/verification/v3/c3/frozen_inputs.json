@@ -1,0 +1,123 @@
+{
+  "schema": "v3.c3.freeze/1",
+  "frozen_at_utc": "2026-11-26T11:52:32.967339+00:00",
+  "inputs": {
+    "scope": "SYNTHETIC_BENCH",
+    "source_commit": "4600062ba7c277352c5c5914bce99782aead2f63",
+    "tools": {
+      "core": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\engine\\l5\\convergence_core.exe",
+      "l3": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\engine\\l3\\architecture_decision_core.exe",
+      "t0": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\r3\\t0\\cartographe-evidence.exe",
+      "freecad": "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+      "python": "C:\\msys64\\ucrt64\\bin\\python.exe"
+    },
+    "seed": 2026,
+    "budget": {
+      "max_proposals": 64,
+      "max_native": 12,
+      "max_seconds": 540,
+      "max_counterchecks": 12
+    },
+    "t4_budget": {
+      "max_proposals": 1,
+      "max_native": 1,
+      "max_seconds": 1,
+      "max_counterchecks": 1
+    },
+    "objectives": [
+      {
+        "metric": "route_length_mm",
+        "direction": "MIN",
+        "tolerance": 0.01
+      },
+      {
+        "metric": "route_clearance_mm",
+        "direction": "MAX",
+        "tolerance": 0.01
+      },
+      {
+        "metric": "minimum_inter_harness_gap_mm",
+        "direction": "MAX",
+        "tolerance": 0.01
+      }
+    ],
+    "criteria": {
+      "T1": "Deux candidats contre-validés et au moins un câble hors du plan nominal",
+      "T2": "Collision BRep T1 et nouvelle géométrie 3D du câble touché, les deux câbles conformes",
+      "T3": "Autre hiérarchie native de port et câble hors du plan nominal",
+      "T4": "Aucune admission au dépassement du budget"
+    },
+    "files_sha256": {
+      "C:\\msys64\\ucrt64\\bin\\python.exe": "5fb7fcf466f9fe8a923883b1b170afe0e0552c86d352c96cf71d7ad475fd11ab",
+      "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe": "3b2eaf311193e32938526426a451d60a0f1d1b52aa42a343e33da04dacb53d39",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.agents\\skills\\electromechanical-integration\\scripts\\freecad_geometry.py": "a92ff8ebc0845b2cc23f803c30d63829b4363d0a999d0a162ba77e1f3c243d39",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.agents\\skills\\electromechanical-integration\\scripts\\workspace_guard.py": "359cccba6684ec5c6ddfec75359844a7051ed00c177a2ba7f21410aa2c6578aa",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\engine\\l3\\architecture_decision_core.exe": "b6c196db3376416e50e7c9afb4231d8c353d9632f5683ac6fac06b64db337f32",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\engine\\l5\\convergence_core.exe": "b0abd9e29129ae8d6eecc5f90aee214df548fb4630b69baa4fa302555ffb9952",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\.runtime\\r3\\t0\\cartographe-evidence.exe": "17800243681215821b38c4b2b0229844c3412fd551bcfc21bd6632e4f04f10fb",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\native\\v3_cross_measure.py": "b77f7b41023809af1c5930c56b11949997e1c38ddfebde99890bd6d5e0e94697",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\native\\v3_mutate.py": "b33d95ac7e4e041b9694e10a6e9b382c722bc94686e34a1159988fb4b6cf34e1",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\native\\v3_spatial_contract.py": "7875211e415c93cacc8b1474e53e040de20d834fa6ce9851323fc9aa3270832c",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\native\\v3_verify.py": "334c4d1b02595509abfdcd3e669aa9d7c9bfcbf3ac63dad0f5a554483123b4f5",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\tests\\replay_v3_b1.py": "29f0ef14a27a6db541a9e8a6b9d134af1dd902b1acc07e5d67f66701eef7df95",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\tests\\replay_v3_b2.py": "4d176312a655c8b8ca9785c2a1585ad7b0f94a06b0c9b14e0d30f64d818b44a3",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\tests\\replay_v3_c.py": "e3fa3f805b261e484fdbadde747e750e67ec60ff29b883389417825c8d83e344",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\convergence_manager\\tests\\replay_v3_c3.py": "e9212d4109bf35be22bf129d46c5a7066f3cf0822ebe82decc6741a8de1c7fc3",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial\\graph.json": "8df8bb25bb867db0c3b7571c26bd51c1522a1230d5c3e87970395880bb020c19",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial\\model\\Banc_Interconnexion.FCStd": "dcdcf538b3686434626e64ae1a4931e11f2321f410b62df12bebc853c73e7884",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial\\model\\parts\\CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial\\model\\parts\\Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial\\profile.json": "c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial_secondary\\graph.json": "e961e522429cd4abc4c99157f392db5bca7b56521f6b0041182dd0f7ffc86e02",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial_secondary\\model\\Banc_Interconnexion.FCStd": "d9634619e19d4e7f5feacd9faa80cfc188910ef520d5b2f5e38b22b242044b7e",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial_secondary\\model\\parts\\CoupledAssets.FCStd": "e39e6f41d807938451e93a939aa768f49699331302c3b36b4915f58cf70870c4",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial_secondary\\model\\parts\\Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\bench_c3_spatial_secondary\\profile.json": "9e0644c02ada74d56780d3fea94ba31a61de2f63ad2b2898cbc4ebd77273ad86",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\candidate_result.schema.json": "003972393870531605d4ef514348d782627f2067d93ee8eab3bc0e3e512c7832",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\domains\\c3_spatial.json": "a31813c70710aaa160039962d6b08a9cf7f42f3c4385db0e6417528e7a855ed2",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\domains\\c3_spatial_secondary.json": "5bd3631f19838936bb877186055ac262893d6a13d4b7b4091a001919d2bdab14",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\mutation_plan_v4.schema.json": "b29b22fa38eb11532965deb72b0f9f38fcd75370a4c11960d0a021893b8afb6c",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\parametric_domain_v3.schema.json": "6766f5602ad2daf8d6bcf469f9be07bfadfd842fb47c8ea2efe90f34a99a0a9f",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\docs\\electromechanical_v3\\problem_spec_v3.schema.json": "2465a59604962895086ded304417c2baf16f7b8e1ef8c4c813b5b8c23307e667",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\contracts.py": "7cc47e82145489acf95c113e99136047a82da1e944b375cbbad7a3d581d6c4bc",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\freecad.py": "197b4a89f23f20a241914c3edb3dae58ae1dedcc865b660097efbe83acf94c00",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\freecad_worker.py": "883fdec99d9bc1e6773e008a2cbac1a75a8fb16f73da57ba0292560d5283d8ff",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\native_motion.py": "b93d750ab4b885af589766935a914028889a14764797bec4f63afddc785c9a0c",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\native_retention.py": "f03494714560ac29dea49b4e63959f35444c717ca288ebe62a1ad61bd9cba9b5",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\v3_native.py": "10a73ff7933d2fe3205178ac76009b5ab50b067111f146ccf7e0d9c34e10b61f",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\electromechanical_engine\\xlink_native.py": "d60ad9e3db1ef48f7b3cdec1f8904290eca65662e3cd382a7dec4c98ee90e8ab",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\hardware\\mecanique\\cartographe\\verification\\cable_workbench_prototype.py": "101b24891edfd20396dd9c664cf8dbfc6b460ebc9aece423ccdf9b83c32b0a0b",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c3\\interconnection_engine\\src\\Reconcile.cpp": "698a5532ddd584df25f89595e40fa7cbaf321663822df568350496d7f5c60cad"
+    }
+  },
+  "t1": {
+    "candidate": {
+      "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/construction/transaction/cad/Banc_Interconnexion.FCStd",
+      "sha256": "a32e3e2f1fc981f379ce6cac104dc076963ec80eaca784c335e76156e07d1048"
+    },
+    "routes": {
+      "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/cross/v3-c-004/candidate-observation.json",
+      "sha256": "3747a14bb959aa1646d5c5403e18b5d33c9589e613d2a8af5e19e671d8b4014a"
+    },
+    "problem": {
+      "path": ".runtime/qual-c3/t1/T1-problem.json",
+      "sha256": "acc44e17def73aa78574b167911c5b596245b22fee4412512ea97ffb5beec50e"
+    },
+    "observation": {
+      "path": ".runtime/qual-c3/t1/reference-observation.json",
+      "sha256": "b79af626c8db08106b02f65e63dea6740c873ea75188b69d6c8148b303c989ea"
+    },
+    "campaign": {
+      "path": ".runtime/qual-c3/t1/T1/campaign.json",
+      "sha256": "ca8bfe8189c985644f442800cfc3c0b2456216783f8eae99dcaf80620601f333"
+    },
+    "countercheck": {
+      "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/cross/v3-c-004/candidate-result.json",
+      "sha256": "4005400c31c14b7be00b6cef86d090fd99f67dfea0294d6fc6405a4ac2914e74"
+    },
+    "summary": {
+      "path": ".runtime/qual-c3/t1/summary.json",
+      "sha256": "9d17456be3ae51a0af25afc8eb5c3bf9a824f87d0bacd5bc45a7464e83e19b9c"
+    }
+  }
+}

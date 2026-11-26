@@ -17,6 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from electromechanical_engine.freecad import PROJECT, guard
 from electromechanical_engine.v3_native import serialized_dependencies, target_placement
 from electromechanical_engine.xlink_native import collect, measurement_identity, publish, route_measurement
+from convergence_manager.native.v3_spatial_contract import (
+    OBSTACLE_OBJECT, box_limits, corridor_limits, nominal_axis, obstacle_spec, spatial_profile,
+)
 
 
 NATIVE_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
@@ -69,6 +72,8 @@ class Measurement:
         self.stage = job["stage"]
         self.actions = job["actions"]
         self.baseline = job.get("baseline", {})
+        self.spatial = job.get("spatial_contract")
+        self.external = job.get("external_obstacle")
         tolerances = self.rules.get("tolerances", {})
         self.position = finite(tolerances.get("position_mm", 1e-5), 1e-10)
         self.angle = finite(tolerances.get("direction_deg", 0.01), 1e-9)
@@ -350,6 +355,8 @@ class Measurement:
             cable_pair = tuple(sorted(self.key(name) for name in cross_harness["harnesses"]))
             require(len(cable_pair) == 2 and len(set(cable_pair)) == 2, "Deux faisceaux distincts requis")
             clearance = finite(cross_harness["minimum_clearance_mm"], self.distance)
+            if self.spatial is not None:
+                clearance = max(clearance, finite(self.spatial["minimum_clearance_mm"], self.distance))
         actions = {action["id"]: action for action in self.actions} if self.stage == "candidate" else {}
         for rule in self.rules.get("allowed_interferences", []):
             pair = tuple(sorted(self.key(identifier) for identifier in rule["parts"]))
@@ -445,7 +452,99 @@ class Measurement:
                 measurements.append(self.native.geometry.inspect_pair(
                     zone, self.shape(name), label, name, finite(spec["clearance_mm"]),
                     volume_tolerance_mm3=self.volume, distance_tolerance_mm=self.distance))
+            if self.stage == "candidate" and self.external is not None and self.key(OBSTACLE_OBJECT) in self.shapes:
+                measurements.append(self.native.geometry.inspect_pair(
+                    zone, self.shapes[self.key(OBSTACLE_OBJECT)], label, OBSTACLE_OBJECT, finite(spec["clearance_mm"]),
+                    volume_tolerance_mm3=self.volume, distance_tolerance_mm=self.distance))
         return measurements
+
+    def obstacle_check(self):
+        feature = self.doc.getObject(OBSTACLE_OBJECT)
+        if self.stage == "baseline" or self.external is None:
+            return proof("external_obstacle", "NOT_APPLICABLE" if feature is None else "FAIL", None)
+        identifier, low, high = obstacle_spec(self.external)
+        shape = self.shapes.get(self.key(OBSTACLE_OBJECT))
+        if (feature is None or feature.TypeId != "Part::Feature" or feature not in self.doc.RootObjects or
+                not feature.Visibility or getattr(feature, "C3ExternalId", None) != identifier or shape is None or
+                shape.isNull() or not shape.isValid() or len(shape.Solids) != 1):
+            return proof("external_obstacle", "FAIL", {"id": identifier, "reason": "MISSING_OR_CHANGED_OCCURRENCE"})
+        origin = self.native.vector(low)
+        span = self.native.vector(high) - origin
+        expected = self.part.makeBox(span.x, span.y, span.z, origin)
+        missing, extra = expected.cut(shape), shape.cut(expected)
+        require(all(part.isNull() or part.isValid() for part in (missing, extra)),
+                "Comparaison BRep de l’obstacle non finalisée")
+        difference = finite(missing.Volume + extra.Volume)
+        bounds = self.native.bounds(shape)
+        trace = {"id": identifier, "bounds_mm": bounds, "symmetric_difference_mm3": difference}
+        same_bounds = all(abs(observed - coordinate) <= self.position
+                          for corner, reference in zip(bounds, (low, high), strict=True)
+                          for observed, coordinate in zip(corner, reference, strict=True))
+        return proof("external_obstacle", "PASS" if same_bounds and difference <= self.volume else "FAIL", trace)
+
+    def corridor_check(self, identifier, contract):
+        require(set(contract) == {"corridors_mm", "nominal_plane"}, "Contrat de corridor inconnu")
+        boxes = contract["corridors_mm"]
+        require(isinstance(boxes, list) and 0 < len(boxes) <= 32, "Nombre de boîtes de corridor non pris en charge")
+        axis, nominal = nominal_axis(contract["nominal_plane"])
+        cable = self.occurrence(identifier)
+        wire = self.native.builder.effective_wire(cable)
+        local = cable.Placement.inverse().toMatrix()
+        world = wire.transformShape(self.transform(identifier).toMatrix().multiply(local), True, True)
+        require(not world.isNull() and world.isValid() and len(world.Wires) == 1,
+                "Route native non mesurable dans son corridor")
+        uncovered = world
+        for limits in boxes:
+            low, high = corridor_limits(limits, self.position)
+            origin = self.native.vector(low)
+            span = self.native.vector(high) - origin
+            if not uncovered.isNull() and uncovered.Edges:
+                uncovered = uncovered.cut(self.part.makeBox(span.x, span.y, span.z, origin))
+                require(uncovered.isNull() or uncovered.isValid(), "Découpe route/corridor non finalisée")
+        outside_mm = sum(finite(edge.Length) for edge in uncovered.Edges) if not uncovered.isNull() else 0.0
+        limits = self.native.bounds(world)
+        departure = max(abs(vertex.Point[axis] - nominal) for vertex in world.Vertexes)
+        return proof(identifier, "PASS" if outside_mm <= self.position else "FAIL",
+                     {"outside_corridor_mm": outside_mm, "axis_bounds_mm": limits,
+                      "nominal_plane": contract["nominal_plane"], "vertex_departure_mm": departure})
+
+    def spatial_checks(self, ports):
+        require(isinstance(self.spatial, dict) and set(self.spatial) in (
+            {"routes", "minimum_clearance_mm"}, {"routes", "minimum_clearance_mm", "support"}),
+            "Contrat de mesure spatiale mal formé")
+        routes = self.spatial["routes"]
+        require(len(routes) == 2 and routes.keys() == self.rules["routes"].keys(),
+                "Contrat spatial sans exactement deux routes reconnues")
+        checks = [self.obstacle_check()]
+        if self.stage == "baseline":
+            checks.extend(proof(name, "NOT_APPLICABLE", "Référence de la recherche") for name in (
+                "independent_port_datums", "polycorridors", "support_zone"))
+        else:
+            checks.extend(self.corridor_check(identifier, contract) for identifier, contract in routes.items())
+            port_ids = [port for rule in self.rules["routes"].values() for port in rule["ports"]]
+            datums = [ports[port].get("datum") for port in port_ids]
+            frames = [self.rules["ports"][port]["frame"] for port in port_ids]
+            distinct = len(port_ids) == len(set(port_ids)) == len(set(datums)) == len(set(frames)) == 4
+            origins = [tuple(ports[port]["origin_mm"]) for port in port_ids]
+            separated = all(math.dist(left, right) > self.position for left, right in itertools.combinations(origins, 2))
+            checks.append(proof("independent_port_datums", "PASS" if distinct and None not in datums and separated else "FAIL",
+                                {"ports": port_ids, "datums": datums, "attachment_frames": frames}))
+            selected = self.spatial["support"]
+            require(set(selected) == {"id", "occurrence", "anchor_zone"}, "Zone d’appui spatiale mal formée")
+            identifier = selected["occurrence"]
+            low, high = box_limits(selected["anchor_zone"], allow_surface=True)
+            require(identifier in self.rules["supports"] and any(
+                action["operation"] in {"RELOCATE_SUPPORT", "CREATE_SUPPORT"} and
+                action["parameters"].get("support", action["occurrence"]) == identifier for action in self.actions),
+                "Aucun support spatial autorisé dans les opérations")
+            support = self.rules["supports"][identifier]
+            anchor = tuple(self.transform(support["anchor"]).Base)
+            inside = all(left - self.position <= coordinate <= right + self.position
+                         for left, coordinate, right in zip(low, anchor, high, strict=True))
+            checks.append(proof("support_zone", "PASS" if inside else "FAIL",
+                                {"support": selected["id"], "anchor_mm": anchor, "bounds_mm": [low, high]}))
+        status = summarize(*(row["status"] for row in checks if row["status"] != "NOT_APPLICABLE"))
+        return proof("L4_SPATIAL_CONTRACT", status, checks)
 
     def bearing_area(self, support, carrier, surface=None):
         overlap = 0.0
@@ -586,6 +685,7 @@ class Measurement:
         topology = self.conductor_checks()
         poses, pairs = self.pose_checks(), self.pairs()
         service, supports = self.service_checks(ports), self.supports()
+        spatial_checks = [self.spatial_checks(ports)] if self.spatial is not None else []
         # Rebuild last so every other check used the saved, re-opened assembly.
         routes = self.routes(ports)
         topology_status = summarize(topology["status"], "FAIL" if extra_contacts else "PASS",
@@ -596,13 +696,16 @@ class Measurement:
         service_status = summarize(*(native_status(row["status"]) for row in service)) if service else "NOT_RUN"
         support_status = summarize(*(row["status"] for row in supports.values())) if supports else "NOT_RUN"
         route_status = summarize(*(row["status"] for row in routes.values())) if routes else "NOT_RUN"
+        geometry = {"pairs": pairs, "poses": poses, "cache": "UNUSED_MEASURED_FRESH"}
+        if self.spatial is not None:
+            geometry["maximum_forbidden_interference_mm3"] = max((row.get("intersection_volume_mm3", 0) for row in pairs
+                if "sealed_overlap_permission" not in row), default=0)
         return [proof("L2_TOPOLOGY", topology_status, {"ports": ports, "contacts": contacts,
                        "extra_native_contacts": extra_contacts, **topology, "status": topology_status}),
-                proof("L4_GEOMETRY", summarize(pair_status, pose_status), {"pairs": pairs, "poses": poses,
-                            "cache": "UNUSED_MEASURED_FRESH"}),
+                proof("L4_GEOMETRY", summarize(pair_status, pose_status), geometry),
                 proof("L4_SERVICE", service_status, service),
                 proof("L4_SUPPORT_ANCHOR", support_status, supports),
-                proof("L4_DYNAMIC_BEND_RADIUS", route_status, routes)]
+                proof("L4_DYNAMIC_BEND_RADIUS", route_status, routes), *spatial_checks]
 
 
 def native_status(value):
@@ -611,6 +714,12 @@ def native_status(value):
 
 def measure(root, job, report):
     before = file_hashes(root, job["entry"], job["dependencies"])
+    if "spatial_contract" in job:
+        require(isinstance(job["spatial_contract"], dict), "Contrat spatial invalide")
+        spatial_profile(PROJECT, job, saved_candidate=job["stage"] == "candidate")
+    if "external_obstacle" in job:
+        require("spatial_contract" in job, "Obstacle externe hors contrat spatial")
+        obstacle_spec(job["external_obstacle"])
     _, _, broken, order, _ = serialized_dependencies(root, before)
     require(not broken, "La fermeture contient des liens natifs rompus")
     from electromechanical_engine import freecad_worker as native
@@ -683,6 +792,8 @@ def main():
             report["checks"].append(proof("NATIVE_MEASUREMENT", "INCONCLUSIVE", str(error)))
         mandatory = {"REOPEN_XLINK", "L2_TOPOLOGY", "L4_GEOMETRY", "L4_SERVICE",
                      "L4_DYNAMIC_BEND_RADIUS", *job.get("mandatory_checks", [])}
+        if "spatial_contract" in job:
+            mandatory.add("L4_SPATIAL_CONTRACT")
         if job["stage"] == "candidate" and any(action["operation"] in {"CREATE_SUPPORT", "RELOCATE_SUPPORT"}
                                                for action in job["actions"]):
             mandatory.add("L4_SUPPORT_ANCHOR")

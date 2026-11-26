@@ -39,6 +39,8 @@ const QMap<QString, QString> mutationProfiles{
     {"a6bcd031d44682299eb22a539386417bd0be201e2b6c01c4079276b13cb51a80", "docs/electromechanical_v3/bench_b2_variations.json"},
     {"0d7b7cf49d0d684281f5cb7891adb52d7ad3060b88b5855cdab536cb5b9925d0", "docs/electromechanical_v3/bench_c1_coupled/profile.json"},
     {"23dd28c51743d35df076844dfde82d21f01b619207baac6967f6b594027e0bb2", "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json"},
+    {"c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e", "docs/electromechanical_v3/bench_c3_spatial/profile.json"},
+    {"9e0644c02ada74d56780d3fea94ba31a61de2f63ad2b2898cbc4ebd77273ad86", "docs/electromechanical_v3/bench_c3_spatial_secondary/profile.json"},
     {"250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604", "docs/electromechanical_v3/bench_c2_multiharness/profile.json"},
     {"4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4", "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json"},
 };
@@ -499,7 +501,7 @@ V3ParametricAdmission admitV3Plan(const QDir &root, const QDir &sandbox, const Q
     const auto profileSha = domain.value("profile_sha256").toString();
     const auto profile = loadMutationProfile(root, profileSha);
     const bool multi = profile.value("model").toObject().value("validation").toObject().value("routes").toObject().size() > 1;
-    require(multi == (domain.value("schema") == v3MultiHarnessDomainSchema), "Contrat d'autorité incompatible avec les faisceaux");
+    require(multi == isV3MultiHarnessDomain(domain.value("schema")), "Contrat d'autorité incompatible avec les faisceaux");
     const auto expanded = validateV3Plan(domain, profile, domainSha, plan);
     QJsonArray decisions;
     for (const auto &value : expanded.value("actions").toArray()) {

@@ -19,6 +19,7 @@ from electromechanical_engine.contracts import decode
 from electromechanical_engine.freecad import PROJECT, guard
 from electromechanical_engine.v3_native import serialized_dependencies, target_placement
 from electromechanical_engine.xlink_native import publish
+from convergence_manager.native.v3_spatial_contract import OBSTACLE_OBJECT, obstacle_spec, spatial_profile
 
 
 App, Part = native.App, native.Part
@@ -483,6 +484,21 @@ def subject(action):
     return action['parameters']['support'] if action['operation'] == 'CREATE_SUPPORT' else action['occurrence']
 
 
+def install_obstacle(document, spec):
+    identifier, minimum, maximum = obstacle_spec(spec)
+    origin = App.Vector(*minimum)
+    extent = App.Vector(*maximum) - origin
+    feature = document.addObject('Part::Feature', OBSTACLE_OBJECT)
+    require(feature.Name == OBSTACLE_OBJECT, 'Identité FreeCAD de l’obstacle ambiguë.')
+    feature.Label = identifier
+    feature.addProperty('App::PropertyString', 'C3ExternalId', 'V3 C.3')
+    feature.C3ExternalId = identifier
+    feature.Shape = Part.makeBox(extent.x, extent.y, extent.z, origin)
+    require(feature.Shape.isValid() and len(feature.Shape.Solids) == 1 and feature.Shape.Volume > 0,
+            'Obstacle externe impossible à construire en solide BRep.')
+    feature.Visibility = True
+
+
 def mutate(root, job, report):
     entry, dependencies = job['entry'], job['dependencies']
     model, actions = job['model'], job['actions']
@@ -490,6 +506,12 @@ def mutate(root, job, report):
     require(all(action['operation'] in OPERATORS for action in actions), 'Opérateur natif non pris en charge.')
     before = verify_closure(root, entry, dependencies)
     require(before == dependencies, 'Fichiers natifs préparés différents des SHA admis.')
+    spatial = 'spatial_contract' in job
+    external = job.get('external_obstacle')
+    require('external_obstacle' not in job or (spatial and external is not None),
+            'Obstacle externe hors contrat de mutation spatiale.')
+    if spatial:
+        spatial_profile(PROJECT, job)
     report.update(entry=entry, before_sha256=before)
     report['environment'] = {'FreeCAD': '.'.join(App.Version()[:3]), 'OCCT': Part.OCC_VERSION,
                              'Python': sys.version, 'Cables': native.cables_environment(gui=True)}
@@ -507,6 +529,8 @@ def mutate(root, job, report):
         require(not item.Partial and not any({'Invalid', 'Error'} & set(obj.State) for obj in item.Objects),
                 f'Document de référence partiel ou invalide : {item.Name}.')
     assembly = Assembly(document, model['occurrences'])
+    if spatial:
+        require(document.getObject(OBSTACLE_OBJECT) is None, 'Obstacle externe déjà présent dans la référence.')
     rows = report['operations']
     for action in actions:
         ident = subject(action)
@@ -515,6 +539,9 @@ def mutate(root, job, report):
     document.openTransaction('V3 B.1')
     committed = False
     try:
+        if external is not None:
+            install_obstacle(document, external)
+            report['external_obstacle'] = external
         for row, action in zip(rows, actions, strict=True):
             row['status'] = 'STARTED'
             row['effect'] = OPERATORS[action['operation']](assembly, action, model)
@@ -523,8 +550,10 @@ def mutate(root, job, report):
         for row, action in zip(rows, actions, strict=True):
             row['after'] = assembly.snapshot(subject(action), action['expected_after'])
             previous, current = row['before'], row['after']
-            require(any(previous.get(key) != current.get(key) for key in ('matrix', 'shape_sha256')),
-                    f'Aucun placement ni BRep modifié : {row["occurrence"]}.')
+            if not any(previous.get(key) != current.get(key) for key in ('matrix', 'shape_sha256')):
+                require(spatial and action['operation'] in ('REPOSITION_DEVICE', 'REROUTE_HARNESS'),
+                        f'Aucun placement ni BRep modifié : {row["occurrence"]}.')
+                row['revalidated_unchanged_geometry'] = True
         require(verify_closure(root, entry, dependencies) == before,
                 'Une copie d’entrée a changé avant la sauvegarde.')
         document.commitTransaction()

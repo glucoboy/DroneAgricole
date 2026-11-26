@@ -18,7 +18,9 @@ PROFILE_FILES = [PROFILES / path for path in ('bench_b1_c4/profile.json', 'bench
                                              'bench_b2_variations.json', 'bench_c1_coupled/profile.json',
                                              'bench_c1_coupled_secondary/profile.json',
                                              'bench_c2_multiharness/profile.json',
-                                             'bench_c2_multiharness_secondary/profile.json')]
+                                             'bench_c2_multiharness_secondary/profile.json',
+                                             'bench_c3_spatial/profile.json',
+                                             'bench_c3_spatial_secondary/profile.json')]
 # Les tolérances de distance, angle et volume viennent du profil scellé.
 # L'égalité des aires calculées par deux opérations OCC admet 1e-6 mm².
 AREA_TOLERANCE_MM2 = 1e-6
@@ -43,7 +45,7 @@ def closure(root, expected):
         raise ValueError(f'Fermeture XLink divergente : {root}')
 
 
-def measurement(freecad, case, stage, source, dependencies, profile_path):
+def measurement(freecad, case, stage, source, dependencies, profile_path, spatial=None, external=None):
     closure(source, dependencies)
     copy = case / f'{stage}-copy'
     for name in dependencies:
@@ -52,8 +54,19 @@ def measurement(freecad, case, stage, source, dependencies, profile_path):
         shutil.copyfile(source / name, target)
         target.chmod(stat.S_IREAD)
     path = case / f'{stage}-observation.json'
-    result = invoke(case, stage, [str(freecad), '-B', str(MEASURER), '--root', str(copy),
-                                  '--profile', str(profile_path), '--output', str(path)])
+    command = [str(freecad), '-B', str(MEASURER), '--root', str(copy), '--profile', str(profile_path), '--output', str(path)]
+    profile = load(profile_path)
+    inputs = {}
+    if spatial is not None:
+        command += ['--expected-entry-sha256', dependencies[profile['entry']]]
+        for name, flag, value in [('contract', '--spatial-contract', spatial),
+                                  ('external', '--external-obstacle', external)]:
+            if value is not None:
+                target = case / f'{name}.json'
+                write(target, value)
+                command += [flag, str(target)]
+                inputs[f'{name}_sha256'] = digest(target)
+    result = invoke(case, stage, command)
     closure(source, dependencies)
     closure(copy, dependencies)
     if result.returncode or not path.is_file():
@@ -61,7 +74,8 @@ def measurement(freecad, case, stage, source, dependencies, profile_path):
     report = load(path)
     if (report['schema'] != 'v3.cross_measurement/1' or report['profile_sha256'] != digest(profile_path) or
             report['worker_sha256'] != digest(MEASURER) or report['inputs_sha256'] != dependencies or
-            report['source_sha256'] != load(profile_path)['dependencies']):
+            report['source_sha256'] != profile['dependencies'] or
+            any(report.get(name) != value for name, value in inputs.items())):
         raise ValueError(f'Provenance de contre-mesure incohérente : {path}')
     return report, path
 
@@ -106,7 +120,7 @@ def pair_id(pair):
 
 
 class Assessment:
-    def __init__(self, profile):
+    def __init__(self, profile, spatial=None):
         model = profile['model']
         self.companions = model.get('moving_with', {})
         self.rules = model['validation']
@@ -116,6 +130,7 @@ class Assessment:
         self.angle = limits['direction_deg']
         self.volume = limits['volume_mm3']
         self.distance = limits['distance_mm']
+        self.spatial = spatial
         self.rows = []
 
     def add(self, identifier, status, observed, criterion):
@@ -211,12 +226,12 @@ class Assessment:
         for name, rule in self.rules['routes'].items():
             route = observed['routes'][name]
             straight = (route['radius_evidence'] == 'ANALYTIC' and route['minimum_radius_mm'] is None and
-                        all(edge['type'] == 'Line' for edge in route['edges']))
-            if straight and name not in requested:
+                        all(edge['type'] in {'Line', 'LineSegment'} for edge in route['edges']))
+            if straight and (name not in requested or self.spatial is not None):
                 self.add(f'route/{name}/minimum-radius', 'PASS', 'RECTILIGNE', {'minimum_mm': rule['minimum_radius_mm']})
             else:
                 self.limit(f'route/{name}/minimum-radius', route['minimum_radius_mm'], lower=rule['minimum_radius_mm']-self.distance, unit='mm')
-            if name in requested:
+            if name in requested and (not straight or self.spatial is None):
                 radius = route['minimum_radius_mm']
                 self.limit(f'route/{name}/radius-change', None if radius is None else abs(radius-requested[name]['bend_radius_mm']),
                            upper=self.distance, unit='mm')
@@ -225,6 +240,8 @@ class Assessment:
                 self.limit(f'route/{name}/length', route['length_mm'], lower=rule['minimum_length_mm'],
                            upper=rule['maximum_length_mm'], unit='mm')
             self.limit(f'route/{name}/saved-sweep', route['sweep_difference_mm3'], upper=self.volume, unit='mm³')
+            if self.spatial is not None:
+                self.limit(f'route/{name}/outside-corridor', route.get('outside_corridor_mm'), upper=self.position, unit='mm')
             sections = rule.get('conductor_sections_mm2', baseline['routes'][name]['conductor_sections_mm2'])
             if not sections and name in requested:
                 params = requested[name]
@@ -272,8 +289,11 @@ class Assessment:
                 self.limit('harnesses/clearance', cross['gap_mm'],
                            lower=self.rules['cross_harness']['minimum_clearance_mm']-self.distance, unit='mm')
                 self.limit('harnesses/intersection', cross['intersection_mm3'], upper=self.volume, unit='mm³')
-        limits = {pair_id([rule.get('anchor') or rule['object'], obstacle]): rule['clearance_mm']
+        limits = {pair_id([rule.get('anchor') or rule.get('port') or rule['object'], obstacle]): rule['clearance_mm']
                   for rule in self.rules['service'] for obstacle in rule['obstacles']}
+        if self.spatial is not None and observed.get('external_obstacle', {}).get('presence') == 'SAVED_NATIVE':
+            limits.update({pair_id([rule.get('anchor') or rule.get('port') or rule['object'], 'C3ExternalObstacle']):
+                           rule['clearance_mm'] for rule in self.rules['service']})
         for row in observed['service']:
             pair = pair_id(row['pair'])
             required = row['required_action']
@@ -320,8 +340,8 @@ class Assessment:
             self.limit(f'support/{name}/fasteners', len(engaged), lower=rule['min_fasteners'], unit='1')
 
 
-def assessment(profile, baseline, observed, actions):
-    checks = Assessment(profile)
+def assessment(profile, baseline, observed, actions, spatial=None, external=None):
+    checks = Assessment(profile, spatial)
     closed = all(row['status'] == 'MEASURED' and row['documents_closed'] and row['sources_unchanged'] and
                  row['copy_unchanged'] and not row['invalid_objects'] and set(row['documents']) == set(profile['dependencies'])
                  for row in [baseline, observed])
@@ -332,6 +352,21 @@ def assessment(profile, baseline, observed, actions):
         checks.routes(baseline, observed, actions)
         checks.geometry(baseline, observed, actions)
         checks.supports(observed, actions)
+        if spatial is not None:
+            evidence = observed.get('spatial_support_zone', {})
+            checks.boolean('support/authorized-zone', evidence.get('status') == 'PASS', evidence,
+                           spatial['support']['anchor_zone'])
+            datums = [row.get('datum') for row in observed['ports'].values()]
+            checks.boolean('ports/distinct-native-datums', len(datums) == len(set(datums)) == 4 and None not in datums,
+                           datums, 'Quatre repères natifs distincts')
+            if external is not None:
+                obstacle = observed.get('external_obstacle', {})
+                checks.boolean('external-obstacle/native', obstacle.get('presence') == 'SAVED_NATIVE' and
+                               obstacle.get('id') == external['id'], obstacle, external)
+                checks.limit('external-obstacle/brep', obstacle.get('symmetric_difference_mm3'), upper=checks.volume, unit='mm³')
+                for name in spatial['routes']:
+                    intersection = obstacle.get('harnesses', {}).get(name, {}).get('intersection_mm3')
+                    checks.limit(f'external-obstacle/{name}/intersection', intersection, upper=checks.volume, unit='mm³')
     return checks.rows
 
 
@@ -350,6 +385,11 @@ def compare(first, third, profile):
         original = checks['L4_DYNAMIC_BEND_RADIUS'][subject]
         for field in ['length_mm', 'minimum_radius_mm']:
             difference(f'{subject}/{field}', original[field], route[field], tolerance['distance_mm'], 'mm')
+    if 'L4_SPATIAL_CONTRACT' in checks:
+        spatial = {row['id']: row for row in checks['L4_SPATIAL_CONTRACT']}
+        for subject, route in third['routes'].items():
+            for field in ('outside_corridor_mm', 'vertex_departure_mm'):
+                difference(f'{subject}/{field}', spatial[subject]['details'][field], route[field], tolerance['position_mm'], 'mm')
     for subject, support in third['supports'].items():
         if profile['model']['validation']['supports'].get(subject, {}).get('selected_only') and subject not in checks['L4_SUPPORT_ANCHOR']:
             continue
@@ -396,7 +436,7 @@ def case_result(args, area, replay, profiles):
     transaction = receipt.parent
     native, plan = load(receipt), load(transaction / 'mutation-plan.json')
     proposal = native['plan_sha256']
-    if plan['schema'] in {'v3.mutation_plan/2', 'v3.mutation_plan/3'}:
+    if plan['schema'] in {'v3.mutation_plan/2', 'v3.mutation_plan/3', 'v3.mutation_plan/4'}:
         expanded_path = transaction / 'expanded-plan.json'
         if digest(expanded_path) != native['expanded_plan_sha256'] or plan['domain_sha256'] != native['domain_sha256']:
             raise ValueError(f'Expansion d’admission divergente : {receipt}')
@@ -414,13 +454,15 @@ def case_result(args, area, replay, profiles):
     assessments, divergences, blocking = [], [], []
     third_status = 'NOT_RUN'
     if native['construction_result'] == 'PASS':
+        spatial, external = plan.get('spatial_contract'), plan.get('external_obstacle')
         baseline, _ = measurement(args.freecad, case, 'baseline', origin, dependencies, profile_path)
-        observed, observed_path = measurement(args.freecad, case, 'candidate', transaction / 'cad', native['native_sha256'], profile_path)
+        observed, observed_path = measurement(args.freecad, case, 'candidate', transaction / 'cad',
+                                              native['native_sha256'], profile_path, spatial, external)
         first = load(transaction / 'candidate-validation.json')
         built = load(transaction / 'build.json')
         assert len({observed['pid'], baseline['pid'], first['pid'], built['pid']}) == 4
         assert observed['inputs_sha256'] == first['inputs_sha256'] == built['after_sha256']
-        assessments = assessment(profile, baseline, observed, plan['actions'])
+        assessments = assessment(profile, baseline, observed, plan['actions'], spatial, external)
         comparisons = compare(first, observed, profile) if observed['status'] == 'MEASURED' else []
         write(case / 'comparisons.json', comparisons)
         divergences = sorted({row['id'] for row in comparisons if row['status'] != 'PASS'})
