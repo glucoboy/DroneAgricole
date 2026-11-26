@@ -1,0 +1,233 @@
+{
+  "schema": "v3.parametric_domain/3",
+  "domain": "SYNTHETIC_BENCH",
+  "model_id": "xlink-c3-spatial",
+  "profile_sha256": "c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e",
+  "move_action": "c3-move",
+  "scene": {
+    "device_occurrence": "FixtureRig/Payload",
+    "moving_with": [
+      "ElectricalDevice001",
+      "ServiceReservations/Extraction2",
+      "ServiceReservations/ToolAccess2",
+      "ElectricalDevice003",
+      "Extraction4"
+    ]
+  },
+  "placement": {
+    "frame": "ROOT",
+    "translation_min_mm": [
+      100,
+      3,
+      0
+    ],
+    "translation_max_mm": [
+      106,
+      7,
+      0
+    ],
+    "rotation_xyzw": [
+      0,
+      -0.7071067811865476,
+      0,
+      0.7071067811865476
+    ]
+  },
+  "harnesses": {
+    "cordon": {
+      "action": "c3-route-a",
+      "occurrence_path": "HarnessInventory/Cable",
+      "ports": [
+        "port-a",
+        "port-b"
+      ],
+      "route": {
+        "corridor_min_mm": [
+          12,
+          -8,
+          -0.1
+        ],
+        "corridor_max_mm": [
+          97,
+          8,
+          22
+        ],
+        "start_mm": [
+          14,
+          0,
+          0
+        ],
+        "end_reference_mm": [
+          86,
+          0,
+          0
+        ],
+        "terminal_mode": "NATIVE_PORT",
+        "device_reference_mm": [
+          100,
+          0,
+          0
+        ],
+        "radius_min_mm": 5,
+        "radius_max_mm": 6.5,
+        "min_points": 2,
+        "max_points": 16,
+        "nominal_plane": {
+          "axis": "Z",
+          "coordinate_mm": 0
+        },
+        "polycorridors": [
+          {
+            "min_mm": [
+              12,
+              -8,
+              -0.1
+            ],
+            "max_mm": [
+              64,
+              8,
+              22
+            ]
+          },
+          {
+            "min_mm": [
+              54,
+              -8,
+              0
+            ],
+            "max_mm": [
+              97,
+              8,
+              0
+            ]
+          }
+        ]
+      },
+      "diameter_mm": 4,
+      "electrical_id": "F1",
+      "minimum_length_mm": 60,
+      "maximum_length_mm": 115,
+      "evidence_scope": "SYNTHETIC_BENCH"
+    },
+    "cordon-b": {
+      "action": "c3-route-b",
+      "occurrence_path": "HarnessInventory/Cable001",
+      "ports": [
+        "port-c",
+        "port-d"
+      ],
+      "route": {
+        "corridor_min_mm": [
+          12,
+          10,
+          -0.6
+        ],
+        "corridor_max_mm": [
+          97,
+          35,
+          21.5
+        ],
+        "start_mm": [
+          13.522961568046956,
+          19.6234666314353,
+          -0.5000000000000053
+        ],
+        "end_reference_mm": [
+          86.47703843195305,
+          12.376533368564706,
+          -0.5000000000000018
+        ],
+        "terminal_mode": "NATIVE_PORT",
+        "device_reference_mm": [
+          100,
+          0,
+          0
+        ],
+        "radius_min_mm": 7,
+        "radius_max_mm": 9,
+        "min_points": 2,
+        "max_points": 16,
+        "nominal_plane": {
+          "axis": "Z",
+          "coordinate_mm": -0.5
+        },
+        "polycorridors": [
+          {
+            "min_mm": [
+              12,
+              10,
+              -0.6
+            ],
+            "max_mm": [
+              68,
+              35,
+              21.5
+            ]
+          },
+          {
+            "min_mm": [
+              58,
+              10,
+              -0.5
+            ],
+            "max_mm": [
+              97,
+              35,
+              -0.5
+            ]
+          }
+        ]
+      },
+      "diameter_mm": 3,
+      "electrical_id": "F2",
+      "minimum_length_mm": 65,
+      "maximum_length_mm": 145,
+      "evidence_scope": "SYNTHETIC_BENCH"
+    }
+  },
+  "support_options": {
+    "plate": {
+      "action": "c3-support-a",
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate",
+      "anchor": "anchor",
+      "anchor_path": "Workholding/Anchor",
+      "support_path": "Workholding/Plate",
+      "carrier_path": "Workholding/Carrier",
+      "anchor_zone": {
+        "min_mm": [
+          62,
+          -5,
+          -5
+        ],
+        "max_mm": [
+          62,
+          -5,
+          -5
+        ]
+      }
+    },
+    "plate-b": {
+      "action": "c3-support-b",
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate-b",
+      "anchor": "anchor-b",
+      "anchor_path": "Workholding/AnchorB",
+      "support_path": "Workholding/PlateB",
+      "carrier_path": "Workholding/Carrier",
+      "anchor_zone": {
+        "min_mm": [
+          75,
+          -5,
+          -5
+        ],
+        "max_mm": [
+          75,
+          -5,
+          -5
+        ]
+      }
+    }
+  },
+  "minimum_clearance_mm": 0.8
+}

@@ -1,4 +1,7 @@
 #include "V3Domain.hpp"
+#include "V3SpatialGeometry.hpp"
+
+#include <QRegularExpression>
 
 #include "Files.hpp"
 
@@ -19,6 +22,8 @@ const QMap<QString, QString> domainPins{
     {"12997df87840fd5fb929a54da42945d009b1c10ec4f1cd81e70c7310b5889b76", "docs/electromechanical_v3/domains/c1_coupled.json"},
     {"2de090aa20940fad9651d3d3b185857721aeec19ed535f1cc76faf316e7914d1", "docs/electromechanical_v3/domains/c1_coupled_secondary.json"},
     {"7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5", "docs/electromechanical_v3/domains/c2_multiharness.json"},
+    {"a31813c70710aaa160039962d6b08a9cf7f42f3c4385db0e6417528e7a855ed2", "docs/electromechanical_v3/domains/c3_spatial.json"},
+    {"5bd3631f19838936bb877186055ac262893d6a13d4b7b4091a001919d2bdab14", "docs/electromechanical_v3/domains/c3_spatial_secondary.json"},
     {"2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be", "docs/electromechanical_v3/domains/c2_multiharness_secondary.json"},
 };
 constexpr auto domainSchema = "v3.parametric_domain/1";
@@ -175,6 +180,43 @@ void verifyScene(const QJsonObject &domain, const QJsonObject &profile, const QJ
     }
 }
 
+V3Box domainBox(const QJsonObject &value)
+{
+    require(value.keys() == QStringList{"max_mm", "min_mm"}, "Boîte spatiale mal définie");
+    const V3Box box{point(value.value("min_mm")), point(value.value("max_mm"))};
+    for (int axis = 0; axis < 3; ++axis)
+        require(box.max[axis] >= box.min[axis],
+                "Bornes spatiales incompatibles");
+    return box;
+}
+
+void validateSpatialRoute(const QJsonObject &rule, const QJsonArray &route)
+{
+    const auto volumes = rule.value("polycorridors").toArray();
+    require(!volumes.isEmpty() && volumes.size() <= 16, "Polycorridor spatial absent ou hors borne");
+    const auto lower = point(rule.value("corridor_min_mm"));
+    const auto upper = point(rule.value("corridor_max_mm"));
+    std::vector<V3Box> boxes;
+    bool hasVolume = false;
+    for (const auto &volume : volumes) {
+        const auto box = domainBox(volume.toObject());
+        hasVolume |= box.min[0] < box.max[0] && box.min[1] < box.max[1] && box.min[2] < box.max[2];
+        require(bounded(box.min, lower, upper) && bounded(box.max, lower, upper),
+                "Volume hors enveloppe de corridor scellée");
+        boxes.push_back(box);
+    }
+    require(hasVolume, "Un passage volumique est obligatoire pour chaque câble");
+    const auto nominal = rule.value("nominal_plane").toObject();
+    require(nominal.keys() == QStringList{"axis", "coordinate_mm"}, "Plan nominal mal défini");
+    const auto axis = QStringList{"X", "Y", "Z"}.indexOf(nominal.value("axis").toString());
+    const auto coordinate = number(nominal.value("coordinate_mm"));
+    require(axis >= 0 && coordinate >= lower[axis] && coordinate <= upper[axis],
+            "Plan nominal hors domaine du câble");
+    for (qsizetype index = 1; index < route.size(); ++index)
+        require(v3SegmentInBoxes(point(route.at(index - 1)), point(route.at(index)), boxes),
+                "Segment proposé hors union du polycorridor");
+}
+
 void validateRoute(const QJsonObject &rules, const QJsonObject &parameters, const QJsonObject &placement,
                    const QJsonObject &attachedPort, const QJsonArray &points, double radius)
 {
@@ -224,12 +266,26 @@ void validateRoute(const QJsonObject &rules, const QJsonObject &parameters, cons
                 "Parcours hors corridor ou abscisse non croissante");
         previous = current;
     }
+    if (rules.contains("polycorridors"))
+        validateSpatialRoute(rules, points);
     require(aligned(start, point(points.at(1)), startAxis) &&
             aligned(end, point(points.at(points.size()-2)), endAxis),
             "Tangentes signées différentes du profil scellé");
 }
 
 } // namespace
+
+void validateV3ExternalObstacle(const QJsonObject &obstacle)
+{
+    static const QRegularExpression pattern(QStringLiteral("\\A[A-Za-z][A-Za-z0-9_]{0,63}\\z"));
+    require(obstacle.keys() == QStringList{"id", "max_mm", "min_mm"} &&
+            pattern.match(obstacle.value("id").toString()).hasMatch(), "Obstacle externe mal défini");
+    const auto low = point(obstacle.value("min_mm"));
+    const auto high = point(obstacle.value("max_mm"));
+    for (int axis = 0; axis < 3; ++axis)
+        require(low[axis] >= -10000 && high[axis] <= 10000 && high[axis] - low[axis] >= 0.01,
+                "Obstacle externe hors périmètre géométrique");
+}
 
 QString v3DomainPath(const QString &sha)
 {
@@ -249,17 +305,25 @@ QJsonObject loadV3Domain(const QDir &root, const QString &sha)
     const auto bytes = read(canonical);
     require(digest(bytes) == sha, "Empreinte de l'autorité paramétrique divergente");
     const auto domain = parseUniqueObject(bytes, canonical);
-    require((domain.value("schema") == domainSchema || domain.value("schema") == v3MultiHarnessDomainSchema) &&
+    require((domain.value("schema") == domainSchema || isV3MultiHarnessDomain(domain.value("schema"))) &&
             domain.value("domain") == bench,
             "Contrat de domaine V3 incompatible");
     return domain;
 }
 
-QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values)
+QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values,
+                       bool spatial, const QJsonObject &externalObstacle)
 {
-    const auto schema = values.contains("harnesses") ? v3MultiHarnessPlanSchema : v3ParametricPlanSchema;
-    return {{"schema", schema}, {"domain", bench}, {"plan_id", identifier(planId)},
-            {"authority_sha256", domainSha}, {"domain_sha256", domainSha}, {"values", values}};
+    const auto schema = spatial ? v3SpatialPlanSchema :
+                        values.contains("harnesses") ? v3MultiHarnessPlanSchema : v3ParametricPlanSchema;
+    QJsonObject plan{{"schema", schema}, {"domain", bench}, {"plan_id", identifier(planId)},
+                     {"authority_sha256", domainSha}, {"domain_sha256", domainSha}, {"values", values}};
+    if (!externalObstacle.isEmpty()) {
+        require(spatial, "Obstacle externe réservé au banc spatial");
+        validateV3ExternalObstacle(externalObstacle);
+        plan.insert("external_obstacle", externalObstacle);
+    }
+    return plan;
 }
 
 static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJsonObject &profile,
@@ -269,7 +333,9 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     const auto values = plan.value("values").toObject();
     if (values.contains("rotation_xyzw") || domain.value("placement").toObject().contains("rotation_bounds"))
         throw V3UnsupportedPose();
-    require(plan == makeV3Plan(id, domainSha, values) &&
+    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const auto obstacle = plan.value("external_obstacle").toObject();
+    require(plan == makeV3Plan(id, domainSha, values, spatial, obstacle) &&
             values.keys() == QStringList{"harnesses", "support_option", "translation_mm"},
             "Plan multi-faisceaux divergent du contrat v3");
     require(domain.value("domain") == bench && domain.value("model_id") == profile.value("model_id"),
@@ -277,8 +343,8 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     const auto harnesses = domain.value("harnesses").toObject();
     const auto routes = values.value("harnesses").toObject();
     const auto options = domain.value("support_options").toObject();
-    require(harnesses.size() >= 2 && harnesses.size() <= 6 && routes.keys() == harnesses.keys() &&
-            options.size() >= 2 && options.size() <= 8, "Composition atomique multi-faisceaux incomplète");
+    require(harnesses.size() >= 2 && harnesses.size() <= (spatial ? 2 : 6) && routes.keys() == harnesses.keys() &&
+            options.size() >= (spatial ? 1 : 2) && options.size() <= 8, "Composition atomique multi-faisceaux incomplète");
     const auto choice = identifier(values.value("support_option"));
     require(options.contains(choice), "Supportage hors de l'autorité paramétrique");
     const auto support = options.value(choice).toObject();
@@ -294,6 +360,7 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     QJsonArray composition{moveId};
     QJsonObject move, supportAction;
     QJsonArray expandedRoutes;
+    QJsonObject spatialRoutes;
     for (auto it = harnesses.begin(); it != harnesses.end(); ++it) {
         const auto harness = it.value().toObject();
         const auto occurrence = identifier(it.key());
@@ -329,6 +396,11 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
         const auto routeValues = routes.value(occurrence).toObject();
         require(routeValues.keys() == QStringList{"bend_radius_mm", "route_points_mm"},
                 "Valeurs de parcours absentes ou non reconnues");
+        if (spatial) {
+            require(rule.contains("polycorridors"), "Polycorridor spatial obligatoire");
+            spatialRoutes.insert(occurrence, QJsonObject{{"corridors_mm", rule.value("polycorridors")},
+                {"nominal_plane", rule.value("nominal_plane")}});
+        }
         auto scene = domain.value("scene").toObject();
         scene.insert("cable_occurrence", path);
         scene.insert("ports", portIds);
@@ -356,16 +428,28 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     for (const auto &route : expandedRoutes)
         actions.append(route);
     actions.append(supportAction);
-    return {{"schema", "v3.expanded_mutation_plan/1"}, {"domain", bench}, {"plan_id", id},
-            {"authority_sha256", domainSha}, {"domain_sha256", domainSha},
-            {"profile_sha256", domain.value("profile_sha256")}, {"support_option", choice}, {"actions", actions},
-            {"context_sha256", digest(QJsonDocument(plan).toJson(QJsonDocument::Compact))}};
+    QJsonObject expanded{{"schema", "v3.expanded_mutation_plan/1"}, {"domain", bench}, {"plan_id", id},
+        {"authority_sha256", domainSha}, {"domain_sha256", domainSha},
+        {"profile_sha256", domain.value("profile_sha256")}, {"support_option", choice}, {"actions", actions},
+        {"context_sha256", digest(QJsonDocument(plan).toJson(QJsonDocument::Compact))}};
+    if (spatial) {
+        const auto clearance = number(domain.value("minimum_clearance_mm"));
+        require(clearance > 0 && clearance <= 1000, "Jeu inter-faisceaux spatial invalide");
+        const auto zone = support.value("anchor_zone").toObject();
+        domainBox(zone);
+        expanded.insert("spatial_contract", QJsonObject{{"minimum_clearance_mm", clearance},
+            {"routes", spatialRoutes}, {"support", QJsonObject{{"id", choice},
+                {"occurrence", support.value("occurrence")}, {"anchor_zone", zone}}}});
+        if (!obstacle.isEmpty())
+            expanded.insert("external_obstacle", obstacle);
+    }
+    return expanded;
 }
 
 QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile, const QString &domainSha,
                           const QJsonObject &plan)
 {
-    if (domain.value("schema") == v3MultiHarnessDomainSchema)
+    if (isV3MultiHarnessDomain(domain.value("schema")))
         return validateMultiHarnessPlan(domain, profile, domainSha, plan);
     const auto id = identifier(plan.value("plan_id"));
     const auto values = plan.value("values").toObject();

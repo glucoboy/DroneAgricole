@@ -1,5 +1,6 @@
 #include "V3Search.hpp"
 #include "V3Domain.hpp"
+#include "V3SpatialGeometry.hpp"
 
 #include <QByteArray>
 #include <QCryptographicHash>
@@ -14,6 +15,7 @@
 #include <optional>
 #include <random>
 #include <stdexcept>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -93,10 +95,7 @@ Vector origin(const Matrix &matrix)
     return {matrix[3], matrix[7], matrix[11]};
 }
 
-struct Bounds {
-    Vector min;
-    Vector max;
-};
+using Bounds = V3Box;
 
 Bounds readBounds(const QJsonValue &value)
 {
@@ -238,6 +237,9 @@ struct Scene {
     double bendRadius;
     int minPoints;
     int maxPoints;
+    std::vector<Bounds> polycorridors;
+    double minLength;
+    double maxLength;
 };
 
 Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem)
@@ -342,10 +344,16 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
             "Rayon ou diamètre non caractérisé");
     const auto reference = numbers<3>(route.value("device_reference_mm"));
     require(norm(subtract(origin(matrix), reference)) <= epsilon, "Pose nominale du corps divergente du domaine");
+    std::vector<Bounds> volumes;
+    for (const auto &value : route.value("polycorridors").toArray()) {
+        const auto box = value.toObject();
+        volumes.push_back({numbers<3>(box.value("min_mm")), numbers<3>(box.value("max_mm"))});
+    }
     return {frame, end, reference, matrix, rotation,
             readBounds(deviceRow.value("bounds_mm")), translation, corridor, localCorridor,
             obstacles, anchors, device, mode == "FOLLOW_TRANSLATION", coupled, supportLimit, cableRadius, bendRadius,
-            route.value("min_points").toInt(), route.value("max_points").toInt()};
+            route.value("min_points").toInt(), route.value("max_points").toInt(), volumes,
+            route.value("minimum_length_mm").toDouble(), route.value("maximum_length_mm").toDouble()};
 }
 
 struct PoseSample {
@@ -640,15 +648,259 @@ struct HarnessScene {
     Scene scene;
 };
 
+// The window and transverse offsets are derived from the sealed corridors and measured scene.
+// The search remains restricted to forward, two-transition paths with tangent leads.
+struct SpatialRoute {
+    RouteSample route;
+    QJsonArray points;
+    QStringList issues;
+    double gap;
+    double externalGap;
+    double excursion;
+};
+
+std::optional<RouteSample> filletSpatial(const Scene &scene, const std::vector<Vector> &knots)
+{
+    if (knots.size() < static_cast<std::size_t>(scene.minPoints) ||
+        knots.size() > static_cast<std::size_t>(scene.maxPoints))
+        return {};
+    RouteSample result;
+    std::vector<double> trims(knots.size());
+    for (std::size_t index = 1; index < knots.size(); ++index)
+        if (knots[index][0] <= knots[index - 1][0] + epsilon)
+            return {};
+    for (std::size_t index = 1; index + 1 < knots.size(); ++index) {
+        const auto in = unit(subtract(knots[index], knots[index - 1]));
+        const auto out = unit(subtract(knots[index + 1], knots[index]));
+        const auto half = 0.5 * std::acos(std::clamp(dot(in, out), -1.0, 1.0));
+        trims[index] = scene.bendRadius * std::tan(half);
+        result.rounding = std::max(result.rounding, scene.bendRadius * (1 - std::cos(half)));
+        result.length += 2 * (scene.bendRadius * half - trims[index]);
+    }
+    for (const auto &knot : knots)
+        result.points.push_back(scene.frame.world(knot));
+    for (std::size_t index = 1; index < knots.size(); ++index) {
+        const auto length = norm(subtract(knots[index], knots[index - 1]));
+        if (length <= trims[index - 1] + trims[index] + epsilon ||
+            !v3SegmentInBoxes(result.points[index - 1], result.points[index], scene.polycorridors))
+            return {};
+        result.length += length;
+    }
+    if (result.length + epsilon < scene.minLength || result.length - epsilon > scene.maxLength)
+        return {};
+    return result;
+}
+
+std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString &strategy)
+{
+    const auto move = [&scene, pose](Vector point) {
+        return movedPoint(point, scene.deviceMatrix, pose, scene.rotation);
+    };
+    const auto end = scene.frame.local(move(scene.endReference));
+    for (auto &obstacle : scene.obstacles)
+        if (obstacle.followsDevice)
+            obstacle.box = transformBounds(obstacle.box, move);
+    // The polycorridor bounds the return to the landing plane. The OCCT
+    // checks decide actual retention on the selected support surface.
+    const double landing = end[0] - 2 * scene.bendRadius;
+    const auto lead = scene.bendRadius + scene.cableRadius;
+    if (landing <= 3 * lead)
+        return {};
+
+    std::vector<std::pair<double, double>> windows;
+    for (const auto fraction : {0.30, 0.45, 0.58})
+        windows.emplace_back(fraction * landing, std::min(fraction * landing + 2 * lead, 0.78 * landing));
+    double firstBlock = landing, lastBlock = 0;
+    for (const auto &obstacle : scene.obstacles) {
+        const auto local = transformBounds(obstacle.box, [&scene](Vector point) { return scene.frame.local(point); });
+        if (local.min[0] < 1.5 * lead || local.max[0] >= landing - lead)
+            continue;
+        const auto nominal = scale(end, ((local.min[0] + local.max[0]) / 2) / end[0]);
+        if (nominal[1] + lead < local.min[1] || nominal[1] - lead > local.max[1])
+            continue;
+        firstBlock = std::min(firstBlock, local.min[0]);
+        lastBlock = std::max(lastBlock, local.max[0]);
+        windows.emplace_back(local.min[0] - scene.cableRadius, local.max[0] + scene.cableRadius);
+    }
+    if (firstBlock < lastBlock)
+        windows.emplace_back(firstBlock - scene.cableRadius, lastBlock + scene.cableRadius);
+
+    std::vector<SpatialRoute> samples;
+    QSet<QString> unique;
+    const auto consider = [&](const std::vector<Vector> &knots, double excursion) {
+        auto route = filletSpatial(scene, knots);
+        if (!route)
+            return;
+        QJsonArray points;
+        for (const auto &point : route->points)
+            points.append(json(point));
+        const auto encoded = QString::fromLatin1(QJsonDocument(points).toJson(QJsonDocument::Compact));
+        if (unique.contains(encoded))
+            return;
+        unique.insert(encoded);
+        double gap = std::numeric_limits<double>::infinity();
+        auto issues = routeIssues(scene, *route, end, gap);
+        auto externalGap = std::numeric_limits<double>::infinity();
+        for (const auto &obstacle : scene.obstacles) {
+            if (obstacle.name != "external-obstacle")
+                continue;
+            for (std::size_t index = 1; index < route->points.size(); ++index)
+                externalGap = std::min(externalGap, segmentGap(route->points[index - 1], route->points[index], obstacle.box));
+            externalGap -= scene.cableRadius + route->rounding;
+            if (externalGap < 0 && !issues.contains("route/external-obstacle"))
+                issues.append("route/external-obstacle");
+        }
+        samples.push_back({std::move(*route), points, issues, gap, externalGap, excursion});
+    };
+
+    for (const double approach : {1.0, 1.5, 2.0}) {
+        const auto leave = approach * lead;
+        for (const double finish : {0.98, 0.94, 0.84, 0.72, 0.62}) {
+            const auto arrive = finish * landing;
+            const Vector approachPoint{leave, 0, 0};
+            const Vector arrivalPoint{arrive, end[1], end[2]};
+            consider({{0, 0, 0}, approachPoint, arrivalPoint, end}, std::abs(end[2]));
+            for (const auto &[near, far] : windows) {
+                if (near <= leave || far >= arrive || near >= far)
+                    continue;
+                for (const double side : {-0.5, 0.0, 0.5}) {
+                    const auto nominalSide = 0.5 * end[1];
+                    const auto width = side < 0 ? nominalSide - scene.localCorridor.min[1] :
+                                                  scene.localCorridor.max[1] - nominalSide;
+                    const auto y = nominalSide + side * width;
+                    for (const double lift : {-0.50, 0.0, 0.27, 0.42, 0.62, 0.82}) {
+                        const auto nominalHeight = 0.5 * end[2];
+                        const auto height = lift < 0 ? nominalHeight - scene.localCorridor.min[2] :
+                                                       scene.localCorridor.max[2] - nominalHeight;
+                        const auto z = nominalHeight + lift * height;
+                        if (std::abs(y - nominalSide) < epsilon && std::abs(z - nominalHeight) < epsilon)
+                            continue;
+                        consider({{0, 0, 0}, approachPoint, {near, y, z}, {far, y, z}, arrivalPoint, end},
+                                 std::max(std::abs(z), std::abs(end[2])));
+                    }
+                }
+            }
+        }
+    }
+    std::stable_sort(samples.begin(), samples.end(), [&strategy](const auto &a, const auto &b) {
+        const auto key = [&strategy](const auto &route) {
+            const auto preference = strategy == "SPATIAL_CLEARANCE" ? -route.gap :
+                strategy == "SPATIAL_EXCURSION" ? -route.excursion : route.route.length;
+            return std::tuple{route.externalGap < 0, route.issues.size(), preference, route.route.length};
+        };
+        return key(a) < key(b);
+    });
+    return samples;
+}
+
+QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std::vector<PoseSample> &poses,
+                             const QJsonObject &problem, const QStringList &supportIds,
+                             const QString &strategy, double requiredGap)
+{
+    require(v3SpatialStrategies().contains(strategy), "Stratégie spatiale inconnue");
+    const auto budget = problem.value("budget").toObject().value("max_proposals").toInt();
+    QSet<QString> signatures;
+    QJsonArray proposals;
+    int eligible = 0, routeTrials = 0;
+    std::vector<QJsonArray> rankedByPose;
+    const auto poseLimit = std::min(poses.size(), static_cast<std::size_t>(budget));
+    for (std::size_t poseIndex = 0; poseIndex < poseLimit; ++poseIndex) {
+        const auto &pose = poses[poseIndex];
+        QJsonArray ranked;
+        std::vector<std::vector<SpatialRoute>> routes;
+        for (const auto &harness : scenes) {
+            auto choices = spatialRoutes(harness.scene, pose.point, strategy);
+            routeTrials += static_cast<int>(choices.size());
+            if (choices.size() > 5)
+                choices.resize(5);
+            routes.push_back(std::move(choices));
+        }
+        if (std::any_of(routes.begin(), routes.end(), [](const auto &entries) { return entries.empty(); })) {
+            ranked.append(blockedPose(pose.point, strategy, "NO_GENERATED_ROUTE_IN_SEALED_POLYCORRIDOR"));
+            rankedByPose.push_back(ranked);
+            continue;
+        }
+
+        struct Combination {
+            QJsonObject routes;
+            QStringList issues;
+            double length;
+            double gap;
+            int priority;
+        };
+        std::vector<Combination> choices;
+        for (std::size_t first = 0; first < routes[0].size(); ++first) {
+            for (std::size_t second = 0; second < routes[1].size(); ++second) {
+                const auto &a = routes[0][first];
+                const auto &b = routes[1][second];
+                QStringList issues;
+                for (const auto &issue : a.issues)
+                    issues.append(scenes[0].id + '/' + issue);
+                for (const auto &issue : b.issues)
+                    issues.append(scenes[1].id + '/' + issue);
+                const auto separation = routeGap(a.points, b.points, scenes[0].scene.cableRadius +
+                    scenes[1].scene.cableRadius + a.route.rounding + b.route.rounding);
+                if (separation + epsilon < requiredGap)
+                    issues.append("inter-harness/" + scenes[0].id + '/' + scenes[1].id);
+                const QJsonObject values{
+                    {scenes[0].id, QJsonObject{{"route_points_mm", a.points}, {"bend_radius_mm", scenes[0].scene.bendRadius}}},
+                    {scenes[1].id, QJsonObject{{"route_points_mm", b.points}, {"bend_radius_mm", scenes[1].scene.bendRadius}}}};
+                choices.push_back({values, issues, a.route.length + b.route.length, separation,
+                                   static_cast<int>(first + second)});
+            }
+        }
+        std::stable_sort(choices.begin(), choices.end(), [](const auto &left, const auto &right) {
+            return std::pair{left.issues.size(), left.priority} < std::pair{right.issues.size(), right.priority};
+        });
+        int perPose = 0;
+        for (const auto &choice : choices) {
+            if (perPose >= std::max<qsizetype>(3, supportIds.size()))
+                break;
+            const auto pos = v3SpatialStrategies().indexOf(strategy) + perPose + poseIndex;
+            const auto support = supportIds.at(pos % supportIds.size());
+            const QJsonObject values{{"translation_mm", json(pose.point)}, {"harnesses", choice.routes},
+                                     {"support_option", support}};
+            const auto identity = signature(values);
+            if (signatures.contains(identity))
+                continue;
+            signatures.insert(identity);
+            ++perPose;
+            ranked.append(QJsonObject{{"family", strategy}, {"values", values}, {"signature", identity},
+                {"screen", QJsonObject{{"status", choice.issues.isEmpty() ? "SCREEN_PASS" : "NEEDS_NATIVE_CHECK"},
+                    {"blocking_issues", QJsonArray::fromStringList(choice.issues)},
+                    {"estimated_route_length_mm", choice.length}, {"polyline_inter_harness_gap_mm", choice.gap}}}});
+        }
+        rankedByPose.push_back(ranked);
+    }
+    for (qsizetype index = 0; index < std::max<qsizetype>(3, supportIds.size()) && proposals.size() < budget; ++index) {
+        for (const auto &ranked : rankedByPose) {
+            if (proposals.size() >= budget)
+                break;
+            if (index >= ranked.size())
+                continue;
+            const auto row = ranked.at(index);
+            proposals.append(row);
+            eligible += row.toObject().contains("values");
+        }
+    }
+    return {{"status", eligible ? "GENERATED" : "NO_FEASIBLE_CANDIDATE_FOUND"}, {"proposals", proposals},
+            {"coverage", QJsonObject{{"route_screen", "SPATIAL_POLYCORRIDOR_AND_AABB_HINTS"},
+                {"route_trials_within_domain", routeTrials}, {"eligible", eligible},
+                {"sampled_poses", static_cast<int>(poseLimit)}, {"possible_pose_count", static_cast<int>(poses.size())},
+                {"budget_limited", proposals.size() == budget}, {"determination", "SCREEN_ONLY"}}},
+            {"unknowns", QJsonArray{"SERVICE_SWEEPS", "CONTACT_ENGAGEMENT", "BRep_INTERFERENCE"}}};
+}
+
 QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem,
                          int seed, const QString &family, int routeAlternative)
 {
-    const QStringList families{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
+    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const auto families = spatial ? v3SpatialStrategies() : QStringList{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
     require(family.isEmpty() || families.contains(family), "Famille multi-faisceaux inconnue");
     require(routeAlternative >= 0 && routeAlternative <= 1, "Raffinement multi-faisceaux hors budget");
     const auto harnesses = domain.value("harnesses").toObject();
     const auto options = domain.value("support_options").toObject();
-    require(harnesses.size() >= 2 && harnesses.size() <= 6 && options.size() >= 2 && options.size() <= 8,
+    require(harnesses.size() >= 2 && harnesses.size() <= (spatial ? 2 : 6) && options.size() >= (spatial ? 1 : 2) && options.size() <= 8,
             "Domaine multi-faisceaux incomplet");
     const auto restricted = problem.value("narrowing").toObject().value("support_zones").toArray();
     QStringList supportIds;
@@ -671,7 +923,12 @@ QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline,
         auto projection = domain;
         projection.insert("scene", scene);
         projection.insert("supports", supports);
-        projection.insert("route", cable.value("route"));
+        auto bounds = cable.value("route").toObject();
+        if (spatial) {
+            bounds.insert("minimum_length_mm", cable.value("minimum_length_mm"));
+            bounds.insert("maximum_length_mm", cable.value("maximum_length_mm"));
+        }
+        projection.insert("route", bounds);
         auto measured = baseline;
         const auto route = observations.value(it.key());
         require(route.toObject().value("diameter_mm") == cable.value("diameter_mm"),
@@ -685,12 +942,32 @@ QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline,
         require(routeScene.coupled, "Port mobile indépendant requis pour chaque faisceau");
         // A plate can retain a curved segment. Only the independent native
         // contact check is authoritative for the selected multi-harness support.
-        routeScene.anchors.clear();
+        if (!spatial) {
+            routeScene.anchors.clear();
+        } else {
+            require(!routeScene.polycorridors.empty() && routeScene.minLength > 0 && routeScene.maxLength >= routeScene.minLength,
+                    "Contrat de parcours spatial incomplet");
+            const auto obstacle = problem.value("external_obstacle").toObject();
+            if (!obstacle.isEmpty()) {
+                validateV3ExternalObstacle(obstacle);
+                routeScene.obstacles.push_back({"external-obstacle",
+                    {numbers<3>(obstacle.value("min_mm")), numbers<3>(obstacle.value("max_mm"))}, false});
+            }
+            for (const auto &value : baseline.value("service_volumes").toArray()) {
+                const auto volume = value.toObject();
+                if (volume.value("obstacles").toArray().contains(it.key()))
+                    routeScene.obstacles.push_back({"service/" + volume.value("id").toString(),
+                        readBounds(volume.value("bounds_mm")), volume.value("follows_device").toBool()});
+            }
+        }
         scenes.push_back({it.key(), std::move(routeScene)});
     }
     const auto poses = samplePoses(scenes.front().scene.translation, seed);
     const auto budget = problem.value("budget").toObject().value("max_proposals").toInt();
     require(budget > 0 && budget <= 512, "Budget de propositions multi-faisceaux invalide");
+    if (spatial)
+        return spatialProposals(scenes, poses, problem, supportIds, family.isEmpty() ? families.first() : family,
+                                domain.value("minimum_clearance_mm").toDouble());
     const auto activeFamilies = family.isEmpty() ? families : QStringList{family};
     QSet<QString> signatures;
     QJsonArray proposals;
@@ -790,11 +1067,16 @@ QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline,
 
 } // namespace
 
+QStringList v3SpatialStrategies()
+{
+    return {"SPATIAL_SHORTEST", "SPATIAL_CLEARANCE", "SPATIAL_EXCURSION"};
+}
+
 QJsonObject generateV3Proposals(const QJsonObject &domain, const QJsonObject &baseline,
                                const QJsonObject &problem, int seed, const QString &family, int routeAlternative)
 {
     try {
-        if (domain.value("schema") == v3MultiHarnessDomainSchema)
+        if (isV3MultiHarnessDomain(domain.value("schema")))
             return multiharness(domain, baseline, problem, seed, family, routeAlternative);
         const QStringList families{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
         require(family.isEmpty() || families.contains(family), "Famille de recherche inconnue");

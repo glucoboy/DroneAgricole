@@ -98,6 +98,28 @@ QSet<QString> supportZones(const QJsonObject &narrowing, const QSet<QString> &au
     return result;
 }
 
+bool spatialDomain(const QJsonObject &domain)
+{
+    return domain.value("schema") == "v3.parametric_domain/3";
+}
+
+bool multiDomain(const QJsonObject &domain)
+{
+    return domain.value("schema") == "v3.parametric_domain/2" || spatialDomain(domain);
+}
+
+void validateObstacle(const QJsonValue &value)
+{
+    const auto obstacle = value.toObject();
+    fields(obstacle, {"id", "min_mm", "max_mm"}, {}, "Obstacle externe");
+    static const QRegularExpression pattern(QStringLiteral("\\A[A-Za-z][A-Za-z0-9_]{0,63}\\z"));
+    require(pattern.match(obstacle.value("id").toString()).hasMatch(), "Identifiant d'obstacle externe invalide");
+    const auto bounds = box(obstacle.value("min_mm"), obstacle.value("max_mm"), "Obstacle externe");
+    for (std::size_t axis = 0; axis < bounds.low.size(); ++axis)
+        require(bounds.low[axis] >= -10000 && bounds.high[axis] <= 10000 &&
+                bounds.high[axis] - bounds.low[axis] >= 0.01, "Obstacle externe hors périmètre géométrique");
+}
+
 struct ProblemGeometry {
     Box translation;
     QSet<QString> supportZones;
@@ -115,8 +137,8 @@ ProblemGeometry problemGeometry(const QJsonObject &request, const QJsonObject &d
     require(inside(restricted, bounds), "Restriction hors domaine de translation scellé");
     QSet<QString> authorizedZones;
     const auto options = domain.value("support_options").toObject();
-    if (domain.value("schema") == "v3.parametric_domain/2") {
-        require(options.size() >= 2, "Catalogue d'appuis multi-faisceaux incomplet");
+    if (multiDomain(domain)) {
+        require(options.size() >= (spatialDomain(domain) ? 1 : 2), "Catalogue d'appuis multi-faisceaux incomplet");
         for (auto it = options.begin(); it != options.end(); ++it)
             authorizedZones.insert(it.key());
     }
@@ -134,7 +156,7 @@ void validateObjectives(const QJsonArray &objectives, const QJsonObject &domain)
         {"support_count", "MIN"}};
     if (domain.value("route").toObject().value("terminal_mode") == "NATIVE_PORT")
         directions.insert("route_clearance_mm", "MAX");
-    const bool multi = domain.value("schema") == "v3.parametric_domain/2";
+    const bool multi = multiDomain(domain);
     if (multi) {
         directions.insert("route_clearance_mm", "MAX");
         directions.insert("minimum_inter_harness_gap_mm", "MAX");
@@ -167,12 +189,18 @@ void validateObjectives(const QJsonArray &objectives, const QJsonObject &domain)
 ProblemGeometry validate(const QJsonObject &request, const ProblemSources &sources)
 {
     fields(request, {"schema", "phase", "domain_sha256", "model_sha256", "observation_sha256",
-                     "seed", "budget", "narrowing", "objectives"}, {"base_problem_sha256"}, "Problème V3");
-    const bool multi = sources.domain.value("schema") == "v3.parametric_domain/2";
-    require(request.value("schema") == (multi ? "v3.problem_spec/2" : "v3.problem_spec/1"),
+                     "seed", "budget", "narrowing", "objectives"}, {"base_problem_sha256", "external_obstacle"}, "Problème V3");
+    const bool spatial = spatialDomain(sources.domain);
+    const bool multi = multiDomain(sources.domain);
+    require(request.value("schema") == (spatial ? "v3.problem_spec/3" : multi ? "v3.problem_spec/2" : "v3.problem_spec/1"),
             "Version du problème V3 incompatible avec son domaine");
     const auto phase = request.value("phase").toString();
-    require(QStringList{"T0", "T1", "T2", "T3"}.contains(phase), "Phase de généralisation inconnue");
+    require(QStringList{"T0", "T1", "T2", "T3"}.contains(phase) || (spatial && phase == "T4"),
+            "Phase de généralisation inconnue");
+    require(request.contains("external_obstacle") == (spatial && phase == "T2"),
+            "Obstacle externe exigé uniquement pour la phase T2 spatiale");
+    if (request.contains("external_obstacle"))
+        validateObstacle(request.value("external_obstacle"));
     require((phase == "T2") == request.contains("base_problem_sha256"), "Référence T1 requise seulement pour T2");
     require(phase != "T2" || digest(request.value("base_problem_sha256")), "Empreinte de référence T1 invalide");
     require(digest(request.value("domain_sha256")) && request.value("domain_sha256") == sources.domainSha256,
@@ -186,7 +214,7 @@ ProblemGeometry validate(const QJsonObject &request, const ProblemSources &sourc
     const auto required = multi ? QStringList{"max_proposals", "max_native", "max_seconds", "max_counterchecks"} :
                                   QStringList{"max_proposals", "max_native"};
     fields(budget, required, {}, "Budget");
-    const auto proposals = integer(budget.value("max_proposals"), 3, 512, "max_proposals");
+    const auto proposals = integer(budget.value("max_proposals"), spatial ? 1 : 3, 512, "max_proposals");
     const auto nativeBuilds = integer(budget.value("max_native"), 1, 16, "max_native");
     require(nativeBuilds <= proposals, "Budget max_native supérieur à max_proposals");
     if (multi) {
@@ -236,7 +264,7 @@ QJsonObject validateProblemSpec(const QJsonObject &request, const ProblemSources
                                 const std::optional<BaseProblem> &base)
 {
     require((sources.domain.value("schema") == "v3.parametric_domain/1" ||
-             sources.domain.value("schema") == "v3.parametric_domain/2") &&
+             multiDomain(sources.domain)) &&
             sources.domain.value("domain") == "SYNTHETIC_BENCH", "Domaine paramétrique de banc requis");
     const auto geometry = validate(request, sources);
     require((request.value("phase") == "T2") == base.has_value(), "Fichier de référence T1 requis seulement pour T2");
@@ -248,6 +276,11 @@ QJsonObject validateProblemSpec(const QJsonObject &request, const ProblemSources
     const auto baseline = validate(base->spec, sources);
     for (const auto &field : {"seed", "budget", "objectives"}) {
         require(request.value(field) == base->spec.value(field), "Politique de recherche modifiée en T2 : " + QString(field));
+    }
+    if (spatialDomain(sources.domain)) {
+        require(request.value("narrowing") == base->spec.value("narrowing"),
+                "T2 spatial doit conserver la pose et les appuis autorisés en T1");
+        return request;
     }
     require(inside(geometry.translation, baseline.translation) && baseline.supportZones.contains(geometry.supportZones),
             "Restriction T2 hors périmètre T1");

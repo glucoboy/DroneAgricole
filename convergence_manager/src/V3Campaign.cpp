@@ -115,10 +115,15 @@ QJsonObject verifyProblem(const QDir &root, const QJsonObject &problem, const QJ
                           const QString &baseProblemPath, const QString &obsSha, const QJsonObject &profile)
 {
     const auto phase = problem.value("phase").toString();
-    const bool multi = domain.value("schema") == v3MultiHarnessDomainSchema;
-    require(problem.value("schema") == (multi ? "v3.problem_spec/2" : "v3.problem_spec/1") &&
-            QStringList{"T1", "T2", "T3"}.contains(phase),
+    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool multi = isV3MultiHarnessDomain(domain.value("schema"));
+    require(problem.value("schema") == (spatial ? "v3.problem_spec/3" : multi ? "v3.problem_spec/2" : "v3.problem_spec/1") &&
+            (QStringList{"T1", "T2", "T3"}.contains(phase) || (spatial && phase == "T4")),
             "Problème de convergence V3 incompatible");
+    require(problem.contains("external_obstacle") == (spatial && phase == "T2"),
+            "Obstacle externe réservé à la phase T2 spatiale");
+    if (problem.contains("external_obstacle"))
+        validateV3ExternalObstacle(problem.value("external_obstacle").toObject());
     const auto dependencies = profile.value("dependencies").toObject();
     require(problem.value("observation_sha256") == obsSha &&
             problem.value("model_sha256") == dependencies.value(profile.value("entry").toString()),
@@ -154,8 +159,15 @@ QJsonObject verifyProblem(const QDir &root, const QJsonObject &problem, const QJ
         const auto parentNarrowing = previous.value("narrowing").toObject();
         const auto parentSupports = supportRestriction(parentNarrowing);
         require(parentSupports.contains(supports), "Appui T2 absent du problème de départ");
-        requireSubset(used, parentNarrowing.value("translation_mm").toObject(), "restriction T2", supports == parentSupports);
+        if (spatial) {
+            require(narrowing == parentNarrowing && !previous.contains("external_obstacle"),
+                    "T2 spatial doit conserver la pose et les appuis autorisés en T1");
+        } else {
+            requireSubset(used, parentNarrowing.value("translation_mm").toObject(), "restriction T2", supports == parentSupports);
+        }
         auto current = problem;
+        if (spatial)
+            current.remove("external_obstacle");
         for (const auto &field : {"phase", "narrowing", "base_problem_sha256"}) {
             previous.remove(field);
             current.remove(field);
@@ -330,7 +342,7 @@ QJsonObject metrics(const QJsonObject &measurement, const QJsonObject &assessmen
     const auto supports = measurement.value("supports").toObject();
     QJsonObject result{{"route_length_mm", length}, {"service_clearance_mm", minimumGap},
                        {"support_count", supports.size()}};
-    if (domain.value("schema") == v3MultiHarnessDomainSchema)
+    if (isV3MultiHarnessDomain(domain.value("schema")))
         return multiharnessMeasures(measurement, assessment, domain, profile, result);
     if (domain.value("route").toObject().value("terminal_mode") != v3NativePortMode)
         return result;
@@ -434,7 +446,7 @@ QString chooseFamily(const QStringList &pending, const QJsonArray &diagnoses, co
 {
     if (!pending.contains("DETOUR_POSITIVE") || !pending.contains("DETOUR_NEGATIVE"))
         return pending.first();
-    const bool multi = domain.value("schema") == v3MultiHarnessDomainSchema;
+    const bool multi = isV3MultiHarnessDomain(domain.value("schema"));
     const auto harnesses = domain.value("harnesses").toObject();
     const auto firstCable = multi && !harnesses.isEmpty() ? harnesses.begin().key() : QString{};
     const auto harness = harnesses.value(firstCable).toObject();
@@ -489,13 +501,14 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     const auto problem = parseUniqueObject(problemBytes, problemFile);
     const auto domainSha = problem.value("domain_sha256").toString();
     const auto domain = loadV3Domain(root, domainSha);
-    const bool multi = domain.value("schema") == v3MultiHarnessDomainSchema;
+    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool multi = isV3MultiHarnessDomain(domain.value("schema"));
     const bool coupled = multi || domain.value("route").toObject().value("terminal_mode") == v3NativePortMode;
     const auto profileSha = domain.value("profile_sha256").toString();
     const auto profile = loadMutationProfile(root, profileSha);
     const auto narrowed = verifyProblem(root, problem, domain, baseProblemPath, obsHash, profile);
     const auto budget = problem.value("budget").toObject();
-    const auto proposalsBudget = integer(budget.value("max_proposals"), 3, 512, "max_proposals");
+    const auto proposalsBudget = integer(budget.value("max_proposals"), spatial ? 1 : 3, 512, "max_proposals");
     const auto nativeBudget = integer(budget.value("max_native"), 1, 16, "max_native");
     require(nativeBudget <= proposalsBudget, "Budget natif supérieur au budget de propositions");
     const auto counterBudget = multi ? integer(budget.value("max_counterchecks"), 1, nativeBudget, "max_counterchecks") : nativeBudget;
@@ -576,6 +589,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             "Réouverture de référence V3 incohérente");
     for (const auto &property : {"ports", "service", "occurrences", "routes", "supports", "pairs", "parent_matrices"})
         require(baseline.value(property) == observed.value(property), QString("Observation L3 divergente : ") + property);
+    if (spatial)
+        require(baseline.value("service_volumes") == observed.value("service_volumes"), "Volume de service L3 divergent");
     add(output.filePath(baselineName));
 
     const auto freecadSha = fileDigest(freecad), pythonSha = fileDigest(python), t0Sha = fileDigest(t0);
@@ -603,7 +618,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     QString refinementFamily;
     int refinementCeiling = 0;
     QJsonArray refinementEvidence;
-    QStringList pendingFamilies{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
+    QStringList pendingFamilies = spatial ? v3SpatialStrategies() :
+        QStringList{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
     while ((!pendingFamilies.isEmpty() || !refinementFamily.isEmpty()) && proposals < proposalsBudget &&
            campaignTimer.elapsed() < durationBudget) {
         const bool refining = !refinementFamily.isEmpty();
@@ -611,7 +627,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
         const qsizetype remainingFamilies = pendingFamilies.size() + (refining ? 1 : 0);
         const int proposalsPerFamily = (proposalsBudget - proposals + remainingFamilies - 1) / remainingFamilies;
         const int nativePerFamily = (nativeBudget - builds + remainingFamilies - 1) / remainingFamilies;
-        const bool mayRefine = coupled && !refining && proposalsPerFamily >= 2 && nativePerFamily >= 2;
+        const bool mayRefine = coupled && !spatial && !refining && proposalsPerFamily >= 2 && nativePerFamily >= 2;
         const auto buildCeiling = refining ? refinementCeiling : builds + nativePerFamily - (mayRefine ? 1 : 0);
         auto restricted = problem;
         auto familyBudget = budget;
@@ -689,7 +705,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             }
             const QDir trial(output.filePath("candidates/" + id));
             const QDir sandbox(trial.filePath("input")), transaction(trial.filePath("construction"));
-            const auto plan = makeV3Plan(id, domainSha, values);
+            const auto plan = makeV3Plan(id, domainSha, values, spatial, problem.value("external_obstacle").toObject());
             copyNative(root, profile, sandbox);
             require(transaction.mkpath("."), "Dossier de transaction V3 inaccessible");
             const auto planBytes = QJsonDocument(plan).toJson(QJsonDocument::Compact);
@@ -770,6 +786,9 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
             const auto measurement = load(path);
             const auto expanded = load(QFileInfo(receipt).absolutePath() + "/expanded-plan.json");
             const auto measured = metrics(measurement, applicableServices(measurement, expanded), domain, profile);
+            if (spatial)
+                require(measured.value("minimum_inter_harness_gap_mm").toDouble() + 1e-7 >=
+                        domain.value("minimum_clearance_mm").toDouble(), "Jeu natif inter-faisceaux inférieur au domaine");
             for (const auto &name : metricNames)
                 require(measured.contains(name), "Objectif sans couverture de mesure native : " + name);
             if (multi && campaignTimer.elapsed() >= durationBudget) {
@@ -843,10 +862,12 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
         elapsedBudgetReached || counterchecks >= counterBudget ?
         (coupled ? "NOT_FOUND_WITHIN_BUDGET" : "SEARCH_BUDGET_EXHAUSTED") :
         proposals == 0 ? "CONSTRAINT_UNKNOWN" : "NO_FEASIBLE_CANDIDATE_FOUND" : "RANKED_FEASIBLE_CANDIDATES";
+    const auto reason = !spatial || !retained.isEmpty() ? stopped :
+        elapsedBudgetReached && proposals == 0 ? "INCONCLUSIVE" : "NO_FEASIBLE_CANDIDATE_FOUND_WITHIN_BUDGET";
     QJsonObject campaign{{"schema", "v3.convergence_campaign/1"}, {"finalized", true}, {"scope", "SYNTHETIC_BENCH"},
         {"phase", problem.value("phase")}, {"domain_sha256", domainSha}, {"seed", seed}, {"budget", budget},
         {"proposals", proposals}, {"native_attempts", builds}, {"qualified_candidates", candidates.size()}, {"coverage", coverage},
-        {"reason", stopped}, {"verdict", retained.isEmpty() ? "V3_C_CONDITIONAL" : "V3_C_PASS"}, {"retained", retained}};
+        {"reason", reason}, {"verdict", retained.isEmpty() ? "V3_C_CONDITIONAL" : "V3_C_PASS"}, {"retained", retained}};
     if (multi) {
         campaign.insert("counterchecks", counterchecks);
         campaign.insert("elapsed_ms", campaignTimer.elapsed());

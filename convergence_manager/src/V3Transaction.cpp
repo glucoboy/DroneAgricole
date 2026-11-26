@@ -273,7 +273,8 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     require(published.mkpath("."), "Préparation de la publication impossible");
     QJsonObject job{{"plan_id", planId}, {"entry", entry}, {"dependencies", dependencies},
                     {"model", profile.value("model")}, {"actions", actions}};
-    const bool multiharness = report.value("plan_schema") == v3MultiHarnessPlanSchema;
+    const bool spatial = report.value("plan_schema") == v3SpatialPlanSchema;
+    const bool multiharness = spatial || report.value("plan_schema") == v3MultiHarnessPlanSchema;
     if (multiharness) {
         job.insert("support_option", plan.value("support_option"));
         report.insert("support_option", plan.value("support_option"));
@@ -282,6 +283,12 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     for (const auto &value : report.value("admissions").toArray()) {
         for (const auto &check : value.toObject().value("mandatory_checks").toArray())
             mandatory.insert(check.toString());
+    }
+    if (spatial) {
+        job.insert("spatial_contract", plan.value("spatial_contract"));
+        if (plan.contains("external_obstacle"))
+            job.insert("external_obstacle", plan.value("external_obstacle"));
+        mandatory.insert("L4_SPATIAL_CONTRACT");
     }
     auto checks = mandatory.values();
     checks.sort();
