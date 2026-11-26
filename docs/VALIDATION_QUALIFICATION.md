@@ -3168,6 +3168,11 @@ Une révocation avant finalisation ferme l’admission. Les 137 natifs
 XLink de référence restent intacts. [Résilience](verification/v3/a6/fault_injection.json) ·
 [Régressions](verification/v3/a6/regressions.json)
 
+Le rejeu indépendant du pilote confirme les deux tests T0 enregistrés
+avec leur plafond de 30 s. Le test SITL passe en 26,24 s et le total
+est de 28,99 s. Les dépassements précédents et le rejeu à 120 s
+restent consignés. [Journaux et empreintes](verification/v3/a6/regressions.json)
+
 Le contrôle de banc soutient ORCH-CAO-MASSE-1 en préparant la vérification
 reproductible de l’appui de l’isolateur dès que les relevés existent. La
 voie cartographe reste `READ_ONLY_IMPACT`, `CREATE_SUPPORT` est `DENY`

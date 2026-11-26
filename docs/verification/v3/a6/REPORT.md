@@ -84,6 +84,11 @@ $l5SansCrypto = "$run/l5-no-crypto/convergence_core.exe"
    autre répertoire privé, puis y appliquer
    `set_tests_properties(cartographe_sitl_t0_contracts PROPERTIES TIMEOUT 120)`.
    Garder le répertoire de travail du build T0 pour les deux tests.
+
+   Le rejeu isolé du pilote sur les deux tests enregistrés a passé avec
+   leur plafond d’origine. T0 SITL a duré 26,24 s et le total 28,99 s.
+   Les dépassements initiaux et le contrôle au plafond local de 120 s
+   restent dans les [preuves de régression](regressions.json).
 3. Avant et après, comparer l’inventaire du checkout, l’archive historique A
    et une copie privée à la [fermeture scellée](../a/native_receipt.json).
    Les trois différences LF/CRLF historiques ne concernent que des preuves
