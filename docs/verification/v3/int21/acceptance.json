@@ -1,0 +1,73 @@
+{
+  "schema": "v3.int21.acceptance/1",
+  "branch": "codex/v3-int21-regression-recovery",
+  "baseline_commit": "07a65330360f58104d8cf3ffc1161017eac908b8",
+  "tested_commit": "f8c5922c0fe2a4c5975d792edafd4d8221ad1ce4",
+  "scope": "Windows amd64 UCRT64 C++17, bancs synthétiques",
+  "historical_integrated_acceptance": "../int2/acceptance.json",
+  "verdict": "V3_INT21_GO",
+  "integrated_gate": "V3_INT2_GO",
+  "decision_rule": "NO_GO si un contrôle critique manque ou échoue. CONDITIONAL si les contrôles critiques passent et qu'une suite obligatoire conserve un écart résiduel. GO si tous les contrôles critiques et les suites obligatoires passent.",
+  "critical_checks": {
+    "initial_failures_reproduced_on_clean_checkout_in_CXX17": "PASS",
+    "correction_CXX17_rebuilt_and_reproduced_on_second_clean_checkout": "PASS",
+    "sealed_L2_L1_and_original_integrity_tests": "PASS",
+    "C2_T1_T2_T3_independent_review_and_adversarial": "PASS",
+    "A5_test_only_and_fail_closed": "PASS",
+    "cartographer_denial_and_zero_candidates": "PASS",
+    "protected_XLink_and_historical_references": "PASS",
+    "T0_SITL_fixtures": "PASS",
+    "independent_code_review": "PASS"
+  },
+  "broad_checkout_checks": {
+    "L3_checkout_a": "PASS",
+    "L3_checkout_b": "PASS",
+    "L5_checkout_a": "PASS",
+    "L5_checkout_b": "PASS",
+    "T0_registered_contracts": "PASS"
+  },
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "future_missions": {
+    "V3-C.3": "NOT_STARTED",
+    "V3-A.6": "NOT_STARTED",
+    "V3-D.1": "NOT_STARTED"
+  },
+  "outside_acceptance": {
+    "cartographe_model_generation": "FAIL_REPRODUCED_ON_BASE",
+    "flight": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "diagnostic.json",
+      "bytes": 4816,
+      "sha256": "73f765a30ef73d98b4755475ada46ec3a6b3b0ed595d9ee3fd2908d283bdf254"
+    },
+    {
+      "path": "regressions.json",
+      "bytes": 48648,
+      "sha256": "22a05da294fa7fc84b1adc154ba6d7e0175d153e336c8bd450086fdc879546a8"
+    },
+    {
+      "path": "integrity.json",
+      "bytes": 3027,
+      "sha256": "d069e370f9120b2966b7c499cea031fd217bae1d244a7e30db979a1ee2df4bde"
+    },
+    {
+      "path": "protections.json",
+      "bytes": 4135,
+      "sha256": "f10d372ff66bb8d47d018f7aa3a461d79223e433da242f7ef854c4003518c491"
+    },
+    {
+      "path": "sealed-replays.json",
+      "bytes": 3762,
+      "sha256": "26bb3520dc19579f8088f55fd91ea1dc6fe8fa2ebc443d51ebf6323b14e6782d"
+    },
+    {
+      "path": "l1-experiment.json",
+      "bytes": 7651,
+      "sha256": "539cf0a4867a502b73510a933f646eba08fab9a2be5d3293fb8f4e1e2947ea81"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "xlink_loss_after_build": {
+    "argv": [
+      "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+      "-B",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\convergence_manager\\native\\v3_verify.py",
+      "--root",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\cad",
+      "--job",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\candidate-job.json",
+      "--output",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\validation.json"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log": ".runtime/run/bridge-boundaries/xlink-loss.log",
+    "diagnostic": "",
+    "status": "PASS",
+    "result": "NOT_ADMITTED",
+    "failure": {
+      "id": "NATIVE_MEASUREMENT",
+      "status": "INCONCLUSIVE",
+      "details": "D\u00e9pendance absente : D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\cad\\parts\\Obstacle.FCStd"
+    },
+    "xlink_reopen": "NOT_RUN",
+    "missing_dependency": "parts/Obstacle.FCStd",
+    "immutable_original": {
+      "Banc_Interconnexion.FCStd": "7c653c864751452900cbe1e0d234fe340aab7ff58fe4305ab70726bc576ff1b3",
+      "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+      "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+    },
+    "receipt_sha256": "1d7c0f727dee30255f9a2cf498d7d46b902ec3ebef58c5554d7ed6b202d9cb45"
+  },
+  "foreign_trust_flag": {
+    "argv": [
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\l5\\convergence_core.exe",
+      "v3-converge",
+      "--a5-trust-sha256",
+      "0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "exit_code": 1,
+    "log_sha256": "37d5c4267c68504fde6040f0b920626f6c00256e9e56d85c955e9627f2a21796",
+    "log": ".runtime/run/bridge-boundaries/trust-flag-outside-admission.log",
+    "diagnostic": "Les options de confiance requi\u00e8rent v3-admission ou v3-build\r\n",
+    "status": "PASS",
+    "result": "REJECTED_BEFORE_CAMPAIGN"
+  },
+  "diameter_override": {
+    "fault": "Diam\u00e8tre substitu\u00e9 dans le plan",
+    "exit_code": 2,
+    "status": "FAIL",
+    "reason": "Valeurs de parcours absentes ou non reconnues",
+    "construction_result": "NOT_RUN",
+    "candidate_transactions": 0,
+    "receipt": {
+      "path": ".runtime/run/bridge-boundaries/int2-diameter-override/output/refusal.json",
+      "sha256": "e54fbb4feebdb5d5c915c0b490fd78e661d98aa5771eef63a370c6273e7a85d1"
+    },
+    "invocation": {
+      "path": ".runtime/run/bridge-boundaries/int2-diameter-override/build-invocation.json",
+      "sha256": "50ddcdd31c40d0620e84d92645a8ca6d7b706b2e6480d2a8f70165feaf2b9413"
+    }
+  },
+  "trust_options_on_bench_plan": {
+    "argv": [
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\l5\\convergence_core.exe",
+      "v3-build",
+      "--root",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "--request",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\trust-on-bench-plan\\plan.json",
+      "--sandbox",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\trust-on-bench-plan\\input",
+      "--output",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\bridge-boundaries\\trust-on-bench-plan\\output",
+      "--freecad-python",
+      "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+      "--t0-validator",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\t0\\cartographe-evidence.exe",
+      "--a5-trust-sha256",
+      "0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "exit_code": 1,
+    "log_sha256": "7f6ad74c61fde390a266ee74476061053137f392026d297f6cb2d3fd9a45ed50",
+    "log": ".runtime/run/bridge-boundaries/trust-on-bench-plan.log",
+    "diagnostic": "Contrat d'admission A.5 requis\r\n",
+    "status": "PASS",
+    "result": "REJECTED_BEFORE_CONSTRUCTION",
+    "candidate_transactions": 0
+  }
+}

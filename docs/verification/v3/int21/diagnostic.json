@@ -1,0 +1,92 @@
+{
+  "schema": "v3.int21.diagnostic/1",
+  "reference_git": "07a65330360f58104d8cf3ffc1161017eac908b8",
+  "initial_reproduction": {
+    "journal": "logs/baseline-l3.txt",
+    "ctest_exit_code": 8,
+    "configuration": "Windows amd64 MSYS2 UCRT64 Release, C++17, core.autocrlf=true, répertoires de build neufs",
+    "failed": [
+      "l2_reconcile",
+      "technical_research_engine"
+    ]
+  },
+  "l2": {
+    "premier_refus": "Empreinte SHA-256 divergente : docs/verification/cartographe_action3_interconnexions.json",
+    "contrat": "La CLI lit les octets et vérifie les empreintes historiques. Les assertions et la comparaison structurée du reçu par la suite ont été conservées. Les sorties des deux commandes ont aussi été comparées octet par octet entre la fixture et le cache scellé.",
+    "provenance": "BASELINE_MANIFEST (T-EM-ENGINE-L0-BASELINE, 12 novembre 2026) épingle les octets du workspace de capture. Les blobs Git LF des deux registres sont déjà observés à leur introduction. La règle *.json text eol=lf précède INT.2.",
+    "registres": [
+      {
+        "path": "docs/verification/cartographe_action3_interconnexions.json",
+        "introduced": "610915d",
+        "git_blob": "1344d670",
+        "checkout": {
+          "bytes": 113576,
+          "sha256": "356fa28aeebeae7710fa111e41b893fe396d59fded17426d3a910c3961a4ab90"
+        },
+        "sealed": {
+          "bytes": 117007,
+          "sha256": "b0ebeba11094b383a8263e03182489a4f87ce4a4cb87c22f80b32179297a081d",
+          "crlf": 3431
+        }
+      },
+      {
+        "path": "hardware/mecanique/cartographe/verification/routes_prototype.json",
+        "introduced": "73e1d1d",
+        "git_blob": "730759a01fb0e37888174f0605d6523cd095dda4",
+        "checkout": {
+          "bytes": 253927,
+          "sha256": "ae6701abafb935bcc9856c8ce627320208322a7254594c360e7de9a0b7307d1e"
+        },
+        "sealed": {
+          "bytes": 264221,
+          "sha256": "20227cdd9a875d0573e8b85346f3268cc18ad6e243da21efa046d482d52e11ae",
+          "crlf": 10294
+        }
+      }
+    ],
+    "source_sha256": {
+      "entries": 108,
+      "checkout_exact": 77,
+      "checkout_lf_to_sealed_crlf": 29,
+      "checkout_crlf_to_sealed_lf": 2
+    },
+    "inspect_et_recu": {
+      "total_staged": 115,
+      "checkout_exact": 80,
+      "checkout_lf_to_sealed_crlf": 30,
+      "checkout_crlf_to_sealed_lf": 5
+    },
+    "ancrages": [
+      "docs/verification/v3/a/freeze.json#input_sha256",
+      "docs/verification/go3b/GO3B_ADMISSION.json#controles_admission/reconciliation_l2/sha256",
+      "docs/electromechanical_v2/L2_RECONCILIATION.json#source_sha256"
+    ],
+    "correction": "CTest réutilise la suite L2 non modifiée et son binaire depuis une copie privée. Une transformation de fins de ligne n’est retenue que si le SHA-256 publié est retrouvé. Les natifs binaires doivent concorder octet pour octet."
+  },
+  "l1": {
+    "echec": "test_real_f16_catalog_distinguishes_cad_and_installed_cable",
+    "initial": "F16-AXIS-ACTIVE rend UNKNOWN avec SOURCE_HASH_MISMATCH, les 23 autres cas réussissent.",
+    "dependances": "CTest sélectionne le core fraîchement construit via TECHNICAL_RESEARCH_CORE. Python UCRT64 et Qt sont disponibles. L’API et la CLI Python fonctionnent. La fixture historique déduit sa racine à partir de __file__. Changer le répertoire courant seul ne change pas le diagnostic.",
+    "experience": "Avec les mêmes binaire, catalogue, répertoire de travail et caches neufs, seule la copie du registre F16 change de LF vers CRLF. Le cas AXIS-ACTIVE passe de UNKNOWN à RESOLVED, à 425.17384217864503 mm. Le rayon monté reste UNKNOWN et le réseau désactivé.",
+    "sources_locales_l1": {
+      "pinned": 6,
+      "checkout_exact": 2,
+      "checkout_lf_to_sealed_crlf": 3,
+      "manufacturer_outside_git": 1
+    },
+    "ancrages": [
+      "docs/verification/technical_research_l1.json#input_sha256",
+      "docs/electromechanical_v2/L1_CARTOGRAPHE.json#sources",
+      "docs/electromechanical_v2/BASELINE_MANIFEST.json"
+    ],
+    "correction": "Le catalogue authentifié et les sources locales épinglées sont reproduits dans la copie de test. La découverte entière des tests et leurs sous-processus utilisent le paquet Python du checkout via PYTHONPATH. L’absence de la fiche fabricant hors Git est journalisée et le rayon monté reste indéterminé."
+  },
+  "hors_perimetre": {
+    "cartographe_model_generation": {
+      "status": "FAIL_REPRODUCED_ON_BASE",
+      "message": "stale CAD manifest",
+      "journal": "logs/t0-model-on-base.txt",
+      "portee": "Contrôle étendu de génération du modèle Gazebo, au-delà des deux contrats T0 historiques de V3-INT.2 et des suites obligatoires L3/L5. Les références CAO et le modèle Gazebo ont été laissés intacts."
+    }
+  }
+}

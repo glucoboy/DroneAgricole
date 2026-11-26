@@ -1,0 +1,1269 @@
+{
+  "schema": "v3.int21.regressions/1",
+  "baseline_commit": "07a65330360f58104d8cf3ffc1161017eac908b8",
+  "tested_commit": "f8c5922c0fe2a4c5975d792edafd4d8221ad1ce4",
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "generator": "Ninja",
+    "toolchain": "MSYS2 UCRT64",
+    "type": "Release",
+    "cmake": "cmake version 4.4.2",
+    "ninja": "1.13.2",
+    "gcc": "g++.exe (Rev3, Built by MSYS2 project) 16.2.0",
+    "qt": "6.11.2",
+    "openssl": "OpenSSL 3.6.4 25 Aug 2026 (Library: OpenSSL 3.6.4 25 Aug 2026)",
+    "python": "3.14.7",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "freecad_python": "3.11.14",
+    "qt_qpa_platform": "offscreen",
+    "git_core_autocrlf": true
+  },
+  "baseline": {
+    "clean_checkout": true,
+    "configure": {
+      "finished_utc": "2026-11-26T06:25:58.7325989Z",
+      "started_utc": "2026-11-26T06:25:55.5850087Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "-S",
+        "architecture_decision_engine",
+        "-B",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_STANDARD=17",
+        "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+        "-DCMAKE_CXX_EXTENSIONS=OFF",
+        "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+        "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "exit_code": 0
+    },
+    "build": {
+      "finished_utc": "2026-11-26T06:26:09.7207973Z",
+      "started_utc": "2026-11-26T06:25:58.7360017Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "argv": [
+        "C:/msys64/ucrt64/bin/cmake.exe",
+        "--build",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3",
+        "--parallel",
+        "5"
+      ],
+      "exit_code": 0
+    },
+    "build_compiler_flags": {
+      "compile_commands": {
+        "path": ".runtime/i21a/.runtime/base/l3/compile_commands.json",
+        "bytes": 14283,
+        "sha256": "dcc7dd207f5516af0475cb0750d3262935126dc5db83a2f91415ec8b0efd6dc1",
+        "entries": 15
+      },
+      "effective_flag": "-std=c++17",
+      "build_log": {
+        "path": ".runtime/i21a/.runtime/base/logs/build-l3.log",
+        "bytes": 1742,
+        "sha256": "cff1b06dce0cb73075b031371e3adc2cb2a432db61db2abf9b74e278c74ec4ce"
+      }
+    },
+    "ctest": {
+      "finished_utc": "2026-11-26T06:26:15.9005761Z",
+      "started_utc": "2026-11-26T06:26:09.7273762Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3",
+        "--no-tests=error",
+        "--output-on-failure",
+        "-V",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/logs/baseline-l3.xml",
+        "-R",
+        "^(l2_reconcile|technical_research_engine)$"
+      ],
+      "exit_code": 8,
+      "tests": {
+        "l2_reconcile": "FAIL",
+        "technical_research_engine": "FAIL"
+      }
+    }
+  },
+  "checkout_a": {
+    "clean_checkout_at_code_revision": true,
+    "ctest": {
+      "L3": {
+        "argv": [
+          "C:/msys64/ucrt64/bin/ctest.exe",
+          "--test-dir",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3",
+          "--no-tests=error",
+          "--output-on-failure",
+          "-V",
+          "--output-junit",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/logs/l3-full.xml"
+        ],
+        "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+        "started_utc": "2026-11-26T06:31:33.0641550Z",
+        "exit_code": 0,
+        "finished_utc": "2026-11-26T06:32:20.8793392Z",
+        "tests": {
+          "l3_architecture_decision": "PASS",
+          "l3_v3_problem_spec": "PASS",
+          "l2_interconnection": "PASS",
+          "l2_reconcile": "PASS",
+          "technical_research_engine": "PASS"
+        }
+      },
+      "L5": {
+        "finished_utc": "2026-11-26T06:35:34.4279522Z",
+        "argv": [
+          "C:/msys64/ucrt64/bin/ctest.exe",
+          "--test-dir",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5",
+          "--no-tests=error",
+          "--output-on-failure",
+          "-V",
+          "--output-junit",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/logs/l5-full.xml"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-11-26T06:28:54.3636708Z",
+        "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+        "tests": {
+          "l5_v3_a4_material_evidence": "PASS",
+          "l5_v3_a5_authority": "PASS",
+          "l5_Campaign": "PASS",
+          "l5_Selection": "PASS",
+          "l5_v3_admission_entry": "PASS",
+          "l5_v3_admission_policy": "PASS",
+          "l5_v3_native_mutate": "PASS",
+          "l5_v3_native_verify": "PASS",
+          "l5_cli": "PASS",
+          "v3_graph_contract": "PASS",
+          "l2_interconnection": "PASS",
+          "l2_reconcile": "PASS"
+        }
+      }
+    },
+    "builds": {
+      "l3": {
+        "compile_commands": {
+          "path": ".runtime/i21a/.runtime/run/l3/compile_commands.json",
+          "bytes": 14248,
+          "sha256": "d5de0833a089b024fd82cf316665ef02f028305bb6aa3461c6b7a78ed4874f75",
+          "entries": 15
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21a/.runtime/run/logs/build-l3.log",
+          "bytes": 23,
+          "sha256": "71aa391ec7d7e291b419a7f40fba91919e14ac2394ab4e8b66ed126e267d70f6"
+        },
+        "configure": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "architecture_decision_engine",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+          "started_utc": "2026-11-26T06:31:31.4004574Z",
+          "exit_code": 0,
+          "finished_utc": "2026-11-26T06:31:32.9613354Z"
+        },
+        "build": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3",
+            "--parallel",
+            "4"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+          "started_utc": "2026-11-26T06:31:32.9780657Z",
+          "exit_code": 0,
+          "finished_utc": "2026-11-26T06:31:33.0595430Z"
+        }
+      },
+      "l4": {
+        "compile_commands": {
+          "path": ".runtime/i21a/.runtime/run/l4/compile_commands.json",
+          "bytes": 15772,
+          "sha256": "e8b752f6a89aad36ae4e9722e797d6edb397e565d3b867d8ac01364b332b5c68",
+          "entries": 16
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21a/.runtime/run/logs/build-l4.log",
+          "bytes": 1948,
+          "sha256": "b96bf4bc6551ad787a0b73dd9762c96bcfd77573278975514f9965331d3c2a05"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:25:55.4485992Z",
+          "finished_utc": "2026-11-26T06:25:58.3344355Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "validation_engine",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l4",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:25:58.3505132Z",
+          "finished_utc": "2026-11-26T06:26:12.7948759Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l4",
+            "--parallel",
+            "4"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        }
+      },
+      "t0": {
+        "compile_commands": {
+          "path": ".runtime/i21a/.runtime/run/t0/compile_commands.json",
+          "bytes": 5930,
+          "sha256": "b6babd35cbfb8b5102697d8ee620d21d6594bf363c2f10215c4b1eeaa015f258",
+          "entries": 8
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21a/.runtime/run/logs/build-t0.log",
+          "bytes": 1175,
+          "sha256": "865a070d10b4e7e809db3964a5bf4cd27ae9a441fd046e799d5b10d2db775dba"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:26:12.7989772Z",
+          "finished_utc": "2026-11-26T06:26:14.5494538Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "simulation",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:26:14.5511446Z",
+          "finished_utc": "2026-11-26T06:26:20.1780909Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0",
+            "--parallel",
+            "4"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        }
+      },
+      "l5": {
+        "compile_commands": {
+          "path": ".runtime/i21a/.runtime/run/l5/compile_commands.json",
+          "bytes": 31149,
+          "sha256": "5dbcce285561cbf40afef1d4ff553360c0ab3b7b714c1647b8ada09b4d5537cd",
+          "entries": 31
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21a/.runtime/run/logs/build-l5.log",
+          "bytes": 3777,
+          "sha256": "6759e608d1298f4b973ee2825bee28f3ec3cc0371079c3b09164d72d9312e199"
+        },
+        "configure": {
+          "finished_utc": "2026-11-26T06:28:36.5814827Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "-DL5_L1_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3/research/technical_research_core.exe",
+            "-DL5_L3_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3/architecture_decision_core.exe",
+            "-DL5_L4_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l4/validation_core.exe",
+            "-DL5_T0_VALIDATOR=D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+            "-DL5_A5_OPENSSL_EXECUTABLE=C:/msys64/ucrt64/bin/openssl.exe",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256="
+          ],
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:28:33.5323632Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        },
+        "build": {
+          "finished_utc": "2026-11-26T06:28:54.3582109Z",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5",
+            "--parallel",
+            "5"
+          ],
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:28:36.5952575Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+        }
+      },
+      "l5-no-crypto": {
+        "compile_commands": {
+          "path": ".runtime/i21a/.runtime/run/l5-no-crypto/compile_commands.json",
+          "bytes": 25991,
+          "sha256": "d44688152c695d3431acae45e4f1e8bc5108d772a528260ca1750f2b20175d6a",
+          "entries": 25
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21a/.runtime/run/logs/build-l5-no-crypto.log",
+          "bytes": 1648,
+          "sha256": "2186890dea3551a409bb53dd4f74317754cd956762270c6e6701500d65994a11"
+        },
+        "configure": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5-no-crypto",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE",
+            "-DBUILD_TESTING=OFF",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256="
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+          "started_utc": "2026-11-26T06:25:55.4469290Z",
+          "exit_code": 0,
+          "finished_utc": "2026-11-26T06:25:57.7001816Z"
+        },
+        "build": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5-no-crypto",
+            "--parallel",
+            "4",
+            "--target",
+            "convergence_core"
+          ],
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+          "started_utc": "2026-11-26T06:25:57.7132265Z",
+          "exit_code": 0,
+          "finished_utc": "2026-11-26T06:26:13.0359417Z"
+        }
+      }
+    }
+  },
+  "checkout_b": {
+    "clean_checkout_at_code_revision": true,
+    "ctest": {
+      "L3": {
+        "exit_code": 0,
+        "started_utc": "2026-11-26T06:31:45.5671378Z",
+        "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+        "argv": [
+          "C:/msys64/ucrt64/bin/ctest.exe",
+          "--test-dir",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l3",
+          "--no-tests=error",
+          "--output-on-failure",
+          "-V",
+          "--output-junit",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/logs/l3-full.xml"
+        ],
+        "finished_utc": "2026-11-26T06:32:29.7146264Z",
+        "tests": {
+          "l3_architecture_decision": "PASS",
+          "l3_v3_problem_spec": "PASS",
+          "l2_interconnection": "PASS",
+          "l2_reconcile": "PASS",
+          "technical_research_engine": "PASS"
+        }
+      },
+      "L5": {
+        "exit_code": 0,
+        "started_utc": "2026-11-26T06:33:06.6610717Z",
+        "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+        "argv": [
+          "C:/msys64/ucrt64/bin/ctest.exe",
+          "--test-dir",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l5",
+          "--no-tests=error",
+          "--output-on-failure",
+          "-V",
+          "--output-junit",
+          "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/logs/l5-full.xml"
+        ],
+        "finished_utc": "2026-11-26T06:39:09.1935774Z",
+        "tests": {
+          "l5_v3_a4_material_evidence": "PASS",
+          "l5_v3_a5_authority": "PASS",
+          "l5_Campaign": "PASS",
+          "l5_Selection": "PASS",
+          "l5_v3_admission_entry": "PASS",
+          "l5_v3_admission_policy": "PASS",
+          "l5_v3_native_mutate": "PASS",
+          "l5_v3_native_verify": "PASS",
+          "l5_cli": "PASS",
+          "v3_graph_contract": "PASS",
+          "l2_interconnection": "PASS",
+          "l2_reconcile": "PASS"
+        }
+      }
+    },
+    "builds": {
+      "l3": {
+        "compile_commands": {
+          "path": ".runtime/i21b/.runtime/run/l3/compile_commands.json",
+          "bytes": 14248,
+          "sha256": "019588fdf7959be14d3ab694e4276675878b18920972198a5c217206524ba355",
+          "entries": 15
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21b/.runtime/run/logs/build-l3.log",
+          "bytes": 1742,
+          "sha256": "7bd0c9e424b8ba6d948efa724080e3c3b678b69663ab427582211db6ef8b2ece"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:31:31.5562740Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "architecture_decision_engine",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l3",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "finished_utc": "2026-11-26T06:31:36.1243177Z"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:31:36.1275144Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l3",
+            "--parallel",
+            "6"
+          ],
+          "finished_utc": "2026-11-26T06:31:45.5621563Z"
+        }
+      },
+      "l4": {
+        "compile_commands": {
+          "path": ".runtime/i21b/.runtime/run/l4/compile_commands.json",
+          "bytes": 15772,
+          "sha256": "fa9eaabd8026272bd8cc52191350028e14439f7e24e00b2e7a5e7c12ac726ce0",
+          "entries": 16
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21b/.runtime/run/logs/build-l4.log",
+          "bytes": 1948,
+          "sha256": "87c2e9fe22935358c80990fa024f3f1b510d08766afc1bab20dc619e2fbb6dbd"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:29.7171350Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "validation_engine",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l4",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "finished_utc": "2026-11-26T06:32:32.1699198Z"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:32.1716360Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l4",
+            "--parallel",
+            "6"
+          ],
+          "finished_utc": "2026-11-26T06:32:41.5212318Z"
+        }
+      },
+      "t0": {
+        "compile_commands": {
+          "path": ".runtime/i21b/.runtime/run/t0/compile_commands.json",
+          "bytes": 5930,
+          "sha256": "9a107cb67753771095073c33cc8955c229466948f42ad7eb55bd4df58bce72cd",
+          "entries": 8
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21b/.runtime/run/logs/build-t0.log",
+          "bytes": 1175,
+          "sha256": "c2941d7d51ed3c46b011547a953c7d706648f73b1e71bfc95421e6e2e9587a5c"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:41.5228011Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "simulation",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/t0",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "finished_utc": "2026-11-26T06:32:43.3145170Z"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:43.3158695Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/t0",
+            "--parallel",
+            "6"
+          ],
+          "finished_utc": "2026-11-26T06:32:48.6280280Z"
+        }
+      },
+      "l5": {
+        "compile_commands": {
+          "path": ".runtime/i21b/.runtime/run/l5/compile_commands.json",
+          "bytes": 31149,
+          "sha256": "0be61603a52f14e3439ba6f64abf91608e2829d0976890928f910e61dcd8e1f1",
+          "entries": 31
+        },
+        "effective_flag": "-std=c++17",
+        "build_log": {
+          "path": ".runtime/i21b/.runtime/run/logs/build-l5.log",
+          "bytes": 3777,
+          "sha256": "92605efaea4cb463576064ee80e2e4f220b33088243a2a39c7d21064d29c426c"
+        },
+        "configure": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:48.6304298Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l5",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_PREFIX_PATH=C:/msys64/ucrt64",
+            "-DPython3_EXECUTABLE=C:/msys64/ucrt64/bin/python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DL5_FREECAD_PYTHON=C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "-DL5_L1_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l3/research/technical_research_core.exe",
+            "-DL5_L3_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l3/architecture_decision_core.exe",
+            "-DL5_L4_EXECUTABLE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l4/validation_core.exe",
+            "-DL5_T0_VALIDATOR=D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/t0/cartographe-evidence.exe",
+            "-DL5_A5_OPENSSL_EXECUTABLE=C:/msys64/ucrt64/bin/openssl.exe",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256="
+          ],
+          "finished_utc": "2026-11-26T06:32:51.1912871Z"
+        },
+        "build": {
+          "exit_code": 0,
+          "started_utc": "2026-11-26T06:32:51.1930150Z",
+          "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21b",
+          "argv": [
+            "C:/msys64/ucrt64/bin/cmake.exe",
+            "--build",
+            "D:/ProjetGuillaume/DroneAgricole/.runtime/i21b/.runtime/run/l5",
+            "--parallel",
+            "6"
+          ],
+          "finished_utc": "2026-11-26T06:33:06.6589396Z"
+        }
+      }
+    }
+  },
+  "binaries": {
+    "baseline": [
+      {
+        "path": ".runtime/i21a/.runtime/base/l3/architecture_decision_core.exe",
+        "bytes": 1163332,
+        "sha256": "562104d8b4210f54ab4195f2782291964746a74c1401e44f0ac1cd6b02bef074"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/base/l3/research/technical_research_core.exe",
+        "bytes": 372042,
+        "sha256": "7cf467d536c5f7d16598b5ce7dfc58aca32db815e10cba21872335b612195642"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/base/l3/interconnection/interconnection_core.exe",
+        "bytes": 917703,
+        "sha256": "87635cef5cb17636169dd4c476e6a29469216fe21ccb864c1384266870d2a4f0"
+      }
+    ],
+    "checkout_a": [
+      {
+        "path": ".runtime/i21a/.runtime/run/l3/architecture_decision_core.exe",
+        "bytes": 1163332,
+        "sha256": "e40e1d080b0d5ecd906e16b419e1cbb282d265b667ca29fa15a787e0f992a3b4"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l3/research/technical_research_core.exe",
+        "bytes": 372042,
+        "sha256": "8941876d73ac98ba1e1a950a482f545135b96c10ede04a3ce7fee7e372469207"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l3/interconnection/interconnection_core.exe",
+        "bytes": 917703,
+        "sha256": "308b6931bb7ab58304284490b1879cac31ea397dd136d3a39ccff83aab372715"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l4/validation_core.exe",
+        "bytes": 1493427,
+        "sha256": "dce0b5638d814badbe90f010fbd2f9c82d39715145e9432f41d87097b350b0aa"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "bytes": 469611,
+        "sha256": "85c3591f283ab0d39b548d22f7cec772c0cac06d3b0904aa98b6dbd7201f3741"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l5/convergence_core.exe",
+        "bytes": 1880861,
+        "sha256": "218594da3dc4fe9d1a3f2013e9b4adab2da6661cc675051979dbc5fd52b8b187"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l5/graph/interconnection/interconnection_core.exe",
+        "bytes": 917703,
+        "sha256": "5edf483f8f133a04456454e684e5267c443846d1fa5b970e198082c21a6b69a4"
+      },
+      {
+        "path": ".runtime/i21a/.runtime/run/l5-no-crypto/convergence_core.exe",
+        "bytes": 1878444,
+        "sha256": "77a356f391da9bdbef8fe9994e1d0e472dc1a2d37057b92043124dda76c144e4"
+      }
+    ],
+    "checkout_b": [
+      {
+        "path": ".runtime/i21b/.runtime/run/l3/architecture_decision_core.exe",
+        "bytes": 1163332,
+        "sha256": "4eb601857cc808b18416609bfe6ba2da7b3e3f4edd733c396f8130cdf2d4e1ec"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/l3/research/technical_research_core.exe",
+        "bytes": 372042,
+        "sha256": "8bdc0caac473d17b1e55ffbb743839b2853db0dcbd4fa3cd18152470162a76b2"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/l3/interconnection/interconnection_core.exe",
+        "bytes": 917703,
+        "sha256": "2d5e0a6d572a190f1c8a2fb406d87196faa0321831213c95dff96f33ab0ac812"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/l4/validation_core.exe",
+        "bytes": 1493427,
+        "sha256": "70a6fa9fcea41dcf8f8886ba0a50e0dc9e6f0e3c7e53636fe7e612ab8dc32894"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/t0/cartographe-evidence.exe",
+        "bytes": 469611,
+        "sha256": "7f982dd8b3e50c65b5c0549891752a4eefc5906c3d59325bddad8cfacc7f5ed5"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/l5/convergence_core.exe",
+        "bytes": 1880861,
+        "sha256": "0688420ab18576dec21da23f5f046604d1124f0a043105d78a61a54635992aeb"
+      },
+      {
+        "path": ".runtime/i21b/.runtime/run/l5/graph/interconnection/interconnection_core.exe",
+        "bytes": 917703,
+        "sha256": "85ee9a974a371c4ddac68a3ebf50a85bfebd5fed344b58b3f96e15e4b01846d4"
+      }
+    ]
+  },
+  "steps": {
+    "c2-T2": {
+      "finished_utc": "2026-11-26T06:36:15.5670145Z",
+      "exit_code": 0,
+      "started_utc": "2026-11-26T06:34:09.5248264Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2",
+        "--phase",
+        "T2",
+        "--perturbation",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\c2-t2-perturbation.json",
+        "--perturbation-sha256",
+        "9e8dc4defe1b8acdd3caa2b7743ee74ef74fd58c8d385bad01d407f8f882343e"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+    },
+    "c2-T3": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "--python",
+        "C:/msys64/ucrt64/bin/python.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2",
+        "--phase",
+        "T3"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-26T06:34:09.5042157Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "finished_utc": "2026-11-26T06:36:13.7617320Z"
+    },
+    "c2-boundaries": {
+      "finished_utc": "2026-11-26T06:34:11.6317832Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_c2_boundaries.py",
+        "--core",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5/convergence_core.exe",
+        "--l3",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l3/architecture_decision_core.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "--t1",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2/t1",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2-boundaries"
+      ],
+      "exit_code": 0,
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "started_utc": "2026-11-26T06:34:09.5042829Z"
+    },
+    "c2-native-faults": {
+      "finished_utc": "2026-11-26T06:35:09.4543305Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_c2_native_faults.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--profile",
+        "docs/electromechanical_v3/bench_c2_multiharness/profile.json",
+        "--transaction",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2/t1/T1/candidates/v3-c-044/construction/transaction",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2-native-faults"
+      ],
+      "exit_code": 0,
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "started_utc": "2026-11-26T06:34:11.6574868Z"
+    },
+    "integration-boundaries": {
+      "finished_utc": "2026-11-26T06:35:10.3278620Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree\\.runtime\\int2-cxx17/integration_boundaries.py",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/l5/convergence_core.exe"
+      ],
+      "exit_code": 0,
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "started_utc": "2026-11-26T06:35:09.4581384Z"
+    },
+    "c2-review": {
+      "exit_code": 0,
+      "started_utc": "2026-11-26T06:36:44.5357979Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/collect_v3_c2_evidence.py",
+        "--campaign",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2",
+        "--t0",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "--output",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/c2-review"
+      ],
+      "finished_utc": "2026-11-26T06:36:45.2266888Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+    },
+    "t0-cartographe": {
+      "exit_code": 8,
+      "finished_utc": "2026-11-26T06:29:07.2701952Z",
+      "started_utc": "2026-11-26T06:28:33.5312272Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0",
+        "--no-tests=error",
+        "--output-on-failure",
+        "-V",
+        "--output-junit",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/logs/t0-cartographe.xml",
+        "-R",
+        "^cartographe_"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a"
+    },
+    "t0-contracts": {
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0",
+        "--no-tests=error",
+        "-R",
+        "^cartographe_(sitl_)?t0_contracts$",
+        "--output-on-failure"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "started_utc": "2026-11-26T06:38:01.7196114Z",
+      "exit_code": 0,
+      "finished_utc": "2026-11-26T06:38:29.8237674Z"
+    },
+    "t0-sitl-direct": {
+      "argv": [
+        "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/cartographe-evidence.exe",
+        "self-test-sitl"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "started_utc": "2026-11-26T06:37:36.0913730Z",
+      "exit_code": 0,
+      "finished_utc": "2026-11-26T06:38:01.6989526Z"
+    },
+    "c2-T1": {
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "convergence_manager/tests/replay_v3_c2.py",
+        "--core",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\l5\\convergence_core.exe",
+        "--l3",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\l3\\architecture_decision_core.exe",
+        "--t0",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\t0\\cartographe-evidence.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--python",
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\c2",
+        "--phase",
+        "T1"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "exit_code": 0
+    },
+    "A.5": {
+      "recipe": "recipes/guards.ps1 -Phase A5",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a",
+      "exit_code": 0,
+      "successful_logs": [
+        "logs/a5-adversarial.txt",
+        "logs/a5-no-crypto.txt"
+      ]
+    },
+    "V3-D": {
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\python.exe",
+        "-B",
+        "convergence_manager/tests/recheck_v3_d_legacy.py",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--output",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\d-historical"
+      ],
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "exit_code": 0
+    },
+    "t0-model-on-base": {
+      "argv": [
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\i21a\\.runtime\\run\\t0\\cartographe-model.exe",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\v3-int2-worktree"
+      ],
+      "exit_code": 1,
+      "observed": "stale CAD manifest",
+      "scope": "EXTENDED_OUTSIDE_INT21"
+    },
+    "reference_comparisons": {
+      "recipe": "recipes/check_proofs.py before|sealed|after",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "exit_code": 0
+    },
+    "l1_control": {
+      "recipe": "recipes/check_l1_input.py",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole",
+      "exit_code": 0
+    }
+  },
+  "published_logs": {
+    "baseline-configure-l3": {
+      "path": "logs/baseline-configure-l3.txt",
+      "bytes": 757,
+      "sha256": "19c9e4839423b77dd92fcc53e9a8d98d5481eda1c23e4200d3af0bcdee134bd1",
+      "raw_sha256": "814d56dd700c1f463dc2196ccbb77eba0acc14070e3cd4173b4e7ef34ba449c5"
+    },
+    "baseline-build-l3": {
+      "path": "logs/baseline-build-l3.txt",
+      "bytes": 1723,
+      "sha256": "b0b27e74d3e480f4674a86b8672d0df1cac970aebfdc870034a6fae3692f9870",
+      "raw_sha256": "cff1b06dce0cb73075b031371e3adc2cb2a432db61db2abf9b74e278c74ec4ce"
+    },
+    "baseline-l3": {
+      "path": "logs/baseline-l3.txt",
+      "bytes": 12970,
+      "sha256": "7a6852c9d23533475cd271f760c157abaab1e4da6f53d4c77e5e6314c35f24f2",
+      "raw_sha256": "f5b76ef558bb05b54500d9c10e52ca75f64403634ef91e44518f753ca229048b"
+    },
+    "a-l3": {
+      "path": "logs/a-l3.txt",
+      "bytes": 24646,
+      "sha256": "bd9522761b72733fe71b193fa3c59a95da489b2b5fc09d87d4fdc35c8ff32463",
+      "raw_sha256": "526e52b4148514b64e6ead8b6d75de644647fce9f3673c2ebeb9e6afc07cbf2e"
+    },
+    "a-l5": {
+      "path": "logs/a-l5.txt",
+      "bytes": 25194,
+      "sha256": "b99ca8dfd9a0313d3166778b8c8a2833fd6208fd60d44fbed126768da1936c30",
+      "raw_sha256": "599122812008b2ebe8311578a199d173048276f18af5b6794561795813c9e3ad"
+    },
+    "b-l3": {
+      "path": "logs/b-l3.txt",
+      "bytes": 24646,
+      "sha256": "7e0ebc7fe3b4ff24b0ebec6f5ba2739fe6320e87f018fe76d53306a4a1acc0bb",
+      "raw_sha256": "c6efa5cb1a8a0ef4e203f5f95ee1b0b943b3d1f6ee0fc0154a1ed435b09105a0"
+    },
+    "b-l5": {
+      "path": "logs/b-l5.txt",
+      "bytes": 25194,
+      "sha256": "395e2f8eb737ab928f54107b47613fc070f0a27113ff5ff6cad05cbf17040dc3",
+      "raw_sha256": "65ba76c45d2fc7a8c6bde4828faa1abef86cd6acddd7c461681765a3a439143e"
+    },
+    "b-build-l3": {
+      "path": "logs/b-build-l3.txt",
+      "bytes": 1723,
+      "sha256": "31ac3998ac831ccb4649993aa97172b1f11526335a1b97287470f24ad62a49a7",
+      "raw_sha256": "7bd0c9e424b8ba6d948efa724080e3c3b678b69663ab427582211db6ef8b2ece"
+    },
+    "b-build-l5": {
+      "path": "logs/b-build-l5.txt",
+      "bytes": 3733,
+      "sha256": "27986dacf1bbf6eb1dc3537dc42e706d2c387af8578dae0e7e4aea6330834f88",
+      "raw_sha256": "92605efaea4cb463576064ee80e2e4f220b33088243a2a39c7d21064d29c426c"
+    },
+    "sealed-l2-a": {
+      "path": "logs/sealed-l2-a.txt",
+      "bytes": 977,
+      "sha256": "b58220e2f3fd604085b58efe7b34ff32a54af13fb0f12223734e8213123f9c21",
+      "raw_sha256": "c0c44da0763425fd35e1e32a9bb4b0318164242b7569dcd429e3fc667a3655ce"
+    },
+    "sealed-l1-a": {
+      "path": "logs/sealed-l1-a.txt",
+      "bytes": 4121,
+      "sha256": "64c002720c3d6e0f023e5e39f744b7b7838f8313e576fa244d7fb8f4ce4cd261",
+      "raw_sha256": "325fe1cf80ec837b88fc24d3162e0cca90622c8515efcbbfcdee2d2f74f4e0f7"
+    },
+    "sealed-l2-b": {
+      "path": "logs/sealed-l2-b.txt",
+      "bytes": 977,
+      "sha256": "81db9611dfce5b8f79f7a3af448a38238b75cc9a8104d2f66d2675594e945680",
+      "raw_sha256": "85c3403578ea5f8e1660ace4a182478fd22ae48dcd255c3a426a0e98aa772915"
+    },
+    "sealed-l1-b": {
+      "path": "logs/sealed-l1-b.txt",
+      "bytes": 4121,
+      "sha256": "a807fa339172cfb03cf3fa06c3b7b936284764c75f05d02bf2e96cd1b54ccff0",
+      "raw_sha256": "4d27fd857048ceecf22a9f72b45f4a57ffed53755f001366739fc0cbe2bb017a"
+    },
+    "sealed-proof": {
+      "path": "logs/sealed-proof.txt",
+      "bytes": 17376,
+      "sha256": "fddbcc02007a3f9ecf46c6a95575f408cee512ea6858d3425d0c76c4cb9a775c",
+      "raw_sha256": "e701d66e0d37716ab353fd43f709d36fbc675d314c58123e56c77e84806aa0f7"
+    },
+    "c2-t1": {
+      "path": "logs/c2-t1.txt",
+      "bytes": 20,
+      "sha256": "0eb9fa0d496dba93fcc234b7816ef370da70083b7a879f8a5c1ca55af65c98fd",
+      "raw_sha256": "fa56025437f9fe732e5755982aec9b28a5826259fd23cfcfea11b8fa5a4a0cac"
+    },
+    "c2-t2": {
+      "path": "logs/c2-t2.txt",
+      "bytes": 20,
+      "sha256": "5c1ed8bc61881d732776b5e9a03f866bced37efc74940d9c60a68f0c9f53ce9d",
+      "raw_sha256": "849e44df41d335805d71399c57f8eadde42b274810c804e0c69371897dac90b4"
+    },
+    "c2-t3": {
+      "path": "logs/c2-t3.txt",
+      "bytes": 20,
+      "sha256": "89e3808821b68286ef6da44168dae9a1a5cc20b3d747106976162a4293de5850",
+      "raw_sha256": "8ad3cefe93052c1a35cfaa0c3264b875ac6dca145610decd4763c3b0fd9768a4"
+    },
+    "c2-refus": {
+      "path": "logs/c2-refus.txt",
+      "bytes": 24,
+      "sha256": "1e162824a7cd5dc175db7491b93ae541e371a4f2e28bb2271610a2b4a40d22e9",
+      "raw_sha256": "efea2c4a467ffddb32283aa39d5f67307e7fc314934310b3c1f57c12f3b8ea8c"
+    },
+    "c2-review": {
+      "path": "logs/c2-review.txt",
+      "bytes": 134,
+      "sha256": "d9081a6419d2d2475b5776fc978c0999d1d13335dfe51f42977fa53f0b97f8a8",
+      "raw_sha256": "5b654462ba2664e686801843e26d1c19a3955064990828aa5700aef9de398b49"
+    },
+    "integration-boundaries": {
+      "path": "logs/integration-boundaries.txt",
+      "bytes": 89,
+      "sha256": "4926cf43caf6f7faded9e9caae4bd45a736211dcd28dc7accfc260dc7e371150",
+      "raw_sha256": "198db7fa7e14afa973a523b4f0e210a03fa17c2059f8ebd195cea4db1d7c9704"
+    },
+    "a5-adversarial": {
+      "path": "logs/a5-adversarial.txt",
+      "bytes": 50,
+      "sha256": "31cddc3a224b4b81b146668c41aaace9c76f65ade57d65d1db5ee3c446e343cc",
+      "raw_sha256": "99de25b5cae835ae56d76b63e78ad036998477f7b1cc93deeae4b2c85762f40a"
+    },
+    "a5-no-crypto": {
+      "path": "logs/a5-no-crypto.txt",
+      "bytes": 82,
+      "sha256": "9c5bf7195470eefd9140c746e7d04d284a5c9ad96da094a1a743cb9536e5f09a",
+      "raw_sha256": "28ff0722ffe9bd4bd44a2656fbcb3959191dc7b1e4f8e328a6bb432236f51906"
+    },
+    "d-historical": {
+      "path": "logs/d-historical.txt",
+      "bytes": 53,
+      "sha256": "deed73723c09ac352170f070fe5c04a75df4340fd1258483a56b6b22c03cbac1",
+      "raw_sha256": "da88881b0782f9e994a62cec85005ecd4597033a0b4eb5a7c7ed30420db34444"
+    },
+    "t0-first-attempt": {
+      "path": "logs/t0-first-attempt.txt",
+      "bytes": 7905,
+      "sha256": "983cd45fc71ca0b8e78bf6b006af3a960defffae19ae55c46af405b90f68da28",
+      "raw_sha256": "ca5c249c181d790d051313ba20e3f65e389772161d938b185df40284783c13d6"
+    },
+    "t0-model-on-base": {
+      "path": "logs/t0-model-on-base.txt",
+      "bytes": 19,
+      "sha256": "9a85d2da87d442bc60ff47472203165cab529a34cd7be494d2a7a80cb4eed79e",
+      "raw_sha256": "545450031b2353c7acca9098a0f55aadd66a5a7ac6b2de66412d42571c6eed17"
+    },
+    "t0-contracts": {
+      "path": "logs/t0-contracts.txt",
+      "bytes": 360,
+      "sha256": "266c0c0fdb2cc4c714ca9deeac94526190bcc19a2b49acf0698c3869d40fdf16",
+      "raw_sha256": "f54379fbbc3cfc97995481fb4f207fff14912c1f198e7e28eaa4e0ed815cbb78"
+    },
+    "t0-sitl-direct": {
+      "path": "logs/t0-sitl-direct.txt",
+      "bytes": 103,
+      "sha256": "4424557cdab8e41fa1d98e9fa2d349d365dcb5717235529aff9dd3317a7850b0",
+      "raw_sha256": "29b2cec630b97876cefb52894111b8705ea697e2fbc218bb29440b4f186e49a5"
+    }
+  },
+  "receipts": {
+    "integrity.json": {
+      "path": "integrity.json",
+      "bytes": 3027,
+      "sha256": "d069e370f9120b2966b7c499cea031fd217bae1d244a7e30db979a1ee2df4bde"
+    },
+    "sealed-replays.json": {
+      "path": "sealed-replays.json",
+      "bytes": 3762,
+      "sha256": "26bb3520dc19579f8088f55fd91ea1dc6fe8fa2ebc443d51ebf6323b14e6782d"
+    },
+    "l1-experiment.json": {
+      "path": "l1-experiment.json",
+      "bytes": 7651,
+      "sha256": "539cf0a4867a502b73510a933f646eba08fab9a2be5d3293fb8f4e1e2947ea81"
+    },
+    "c2-t2-perturbation.json": {
+      "path": "c2-t2-perturbation.json",
+      "bytes": 593,
+      "sha256": "9e8dc4defe1b8acdd3caa2b7743ee74ef74fd58c8d385bad01d407f8f882343e"
+    },
+    "c2-freeze.json": {
+      "path": "c2-freeze.json",
+      "bytes": 7140,
+      "sha256": "b6b126b426833520a365b32c6af167c76dde413595964f1b3081df104fb76c5e"
+    },
+    "v3-d-lecture-seule.json": {
+      "path": "v3-d-lecture-seule.json",
+      "bytes": 14113,
+      "sha256": "44a315350f7a29e0d83be807d3e11bcb9bb2c9e7bec17449937cad8c81caefbd"
+    },
+    "c2-independent-review.json": {
+      "path": "c2-independent-review.json",
+      "bytes": 501,
+      "sha256": "f40366b7e3268b6b3ff8c6b94b969dab012827dc3381b7ae82a8452bdba1fe83"
+    },
+    "c2-generalization.json": {
+      "path": "c2-generalization.json",
+      "bytes": 13825,
+      "sha256": "45c28f6a6f031478f47e7599679d7726639a9af425fb1b8fbaa6ce009e65a865"
+    },
+    "c2-cross-harness-checks.json": {
+      "path": "c2-cross-harness-checks.json",
+      "bytes": 2152,
+      "sha256": "ea9c5147dcf9636d18657f27f758469831bf8126572c8e2d24b303ee4e95e8a6"
+    },
+    "c2-support-decisions.json": {
+      "path": "c2-support-decisions.json",
+      "bytes": 8459,
+      "sha256": "107cf1cfc3ee8032a75747cdcba3b0a8c89c9f8e2bd5355e41f379be3d2e947c"
+    },
+    "c2-adversarial.json": {
+      "path": "c2-adversarial.json",
+      "bytes": 5836,
+      "sha256": "d1de99e33399eedfcb8ef0f1558585cff9ddc1bfdc609d98e68f2bb28c5de29d"
+    },
+    "c2-native-faults.json": {
+      "path": "c2-native-faults.json",
+      "bytes": 12030,
+      "sha256": "897b030efac3de40505605013e4cf0c132ad858e8397a8b854188a4de5ec772b"
+    },
+    "integration-boundaries.json": {
+      "path": "integration-boundaries.json",
+      "bytes": 4201,
+      "sha256": "50d7e5ae2b975e6eab03ce700392e6c2257fc6676e3110c6dc0b1573ef501ae9"
+    },
+    "a5-adversarial.json": {
+      "path": "a5-adversarial.json",
+      "bytes": 58845,
+      "sha256": "695e7be9bda53311144aa517bce36081f0f82c2620c5e579b5bfc57d9e01900b"
+    },
+    "a5-no-crypto.json": {
+      "path": "a5-no-crypto.json",
+      "bytes": 3177,
+      "sha256": "7544a8190bb470effa270e64211553c10a7d531f9b31b251ea251e9d2fddd5f5"
+    }
+  },
+  "optional_registered_at_Historical_INT2": {
+    "L5_V21_GO3A_TEST": false
+  },
+  "outside_acceptance": {
+    "t0_extended_first_attempt": {
+      "pass": 6,
+      "timeout": "cartographe_sitl_t0_contracts",
+      "failed": "cartographe_model_generation",
+      "diagnostic": "stale CAD manifest",
+      "model_error_reproduced_on_baseline": true,
+      "registered_t0_contracts_passed_on_retry_without_timeout_change": true
+    },
+    "linux_arm64": "NOT_RUN",
+    "physical_reception": "NOT_RUN",
+    "flight": "NOT_RUN"
+  }
+}

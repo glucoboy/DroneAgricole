@@ -1,0 +1,213 @@
+UpdateCTestConfiguration  from :D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/DartConfiguration.tcl
+Parse Config file:D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0/DartConfiguration.tcl
+Test project D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: cartographe_t0_contracts
+
+1: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\cartographe-evidence.exe "self-test"
+1: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+1: Test timeout computed to be: 30
+1: T0: valid fixtures accepted, 34 negative cases rejected; hashes, IDs, terminal state and dates checked
+1/8 Test #1: cartographe_t0_contracts ................   Passed    3.11 sec
+test 2
+    Start 2: cartographe_sitl_t0_contracts
+
+2: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\cartographe-evidence.exe "self-test-sitl"
+2: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+2: Test timeout computed to be: 30
+2/8 Test #2: cartographe_sitl_t0_contracts ...........***Timeout  30.04 sec
+
+test 3
+    Start 3: cartographe_offboard_safety
+
+3: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\test_offboard_safety.exe
+3: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+3: Test timeout computed to be: 10
+3: Offboard safety: authorization, deadlines, freshness, parameters and finalization checks passed
+3/8 Test #3: cartographe_offboard_safety .............   Passed    0.03 sec
+test 4
+    Start 4: cartographe_model_generation
+
+4: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\cartographe-model.exe "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/simulation/.."
+4: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+4: Test timeout computed to be: 30
+4: stale CAD manifest
+4/8 Test #4: cartographe_model_generation ............***Failed    0.05 sec
+stale CAD manifest
+
+test 5
+    Start 5: cartographe_model_reject_unknown_mass
+
+5: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\cartographe-model.exe "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/simulation/.." "--physical"
+5: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+5: Test timeout computed to be: 30
+5: physical mode unavailable: mass/CG/inertias and exact propulsion are not identified
+5/8 Test #5: cartographe_model_reject_unknown_mass ...   Passed    0.02 sec
+test 6
+    Start 6: cartographe_mass_properties
+
+6: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\test_mass_properties.exe
+6: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+6: Test timeout computed to be: 10
+6: Mass properties: transport, rotation, inclusion, unknowns and negative cases passed
+6/8 Test #6: cartographe_mass_properties .............   Passed    0.02 sec
+test 7
+    Start 7: cartographe_bom_mass_contract
+
+7: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\cartographe-bom-mass.exe "--self-test"
+7: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+7: Test timeout computed to be: 10
+7: {
+7:     "applicable_documented_items": 1,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 2,
+7:     "mass_complete_g": 2,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 1,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 2,
+7:     "mass_complete_g": 2,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 1,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 1,
+7:     "known_subtotal_g": 2,
+7:     "mass_complete_g": 2,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 1,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 2,
+7:     "mass_complete_g": null,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 1,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 2,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 3,
+7:     "mass_complete_g": null,
+7:     "partially_calculated_items": 1,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 1
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 2,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 5.5,
+7:     "mass_complete_g": null,
+7:     "partially_calculated_items": 1,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 1
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 2,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 3,
+7:     "mass_complete_g": 3,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 2,
+7:     "included_items": 1,
+7:     "known_subtotal_g": 3,
+7:     "mass_complete_g": 3,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 2,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 3,
+7:     "mass_complete_g": null,
+7:     "partially_calculated_items": 1,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 1
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 6,
+7:     "mass_complete_g": null,
+7:     "partially_calculated_items": 1,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 1
+7: }
+7: {
+7:     "applicable_documented_items": 0,
+7:     "calculated_occurrences": 0,
+7:     "included_items": 0,
+7:     "known_subtotal_g": 2,
+7:     "mass_complete_g": 2,
+7:     "partially_calculated_items": 0,
+7:     "published": true,
+7:     "unallocated_physical_occurrences": 0,
+7:     "unknown_items": 0
+7: }
+7: Conversions, bornes, applicabilité, inconnues et inclusion : conformes
+7/8 Test #7: cartographe_bom_mass_contract ...........   Passed    0.32 sec
+test 8
+    Start 8: cartographe_energy_model
+
+8: Test command: D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\.runtime\run\t0\test_cartographe_energy.exe
+8: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/run/t0
+8: Test timeout computed to be: 30
+8: PASS 34 energy model checks
+8/8 Test #8: cartographe_energy_model ................   Passed    0.03 sec
+
+The following tests passed:
+	cartographe_t0_contracts
+	cartographe_offboard_safety
+	cartographe_model_reject_unknown_mass
+	cartographe_mass_properties
+	cartographe_bom_mass_contract
+	cartographe_energy_model
+
+75% tests passed, 2 tests failed out of 8
+
+Total Test time (real) =  33.65 sec
+
+The following tests FAILED:
+	  2 - cartographe_sitl_t0_contracts (Timeout)
+	  4 - cartographe_model_generation (Failed)
+Errors while running CTest

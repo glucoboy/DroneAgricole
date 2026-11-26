@@ -1,0 +1,144 @@
+UpdateCTestConfiguration  from :D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3/DartConfiguration.tcl
+Parse Config file:D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3/DartConfiguration.tcl
+Test project D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 4
+    Start 4: l2_reconcile
+
+4: Test command: C:\msys64\ucrt64\bin\python.exe "-B" "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/interconnection_engine/tests/test_reconcile.py" "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3/interconnection/interconnection_core.exe"
+4: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3/interconnection
+4: Test timeout computed to be: 1500
+4: E
+4: ======================================================================
+4: ERROR: setUpClass (__main__.ReconciliationTest)
+4: ----------------------------------------------------------------------
+4: Traceback (most recent call last):
+4:   File "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/interconnection_engine/tests/test_reconcile.py", line 30, in setUpClass
+4:     raise RuntimeError(f"Échec de reconciliation : {result.stdout} {result.stderr}")
+4: RuntimeError: Échec de reconciliation :  Empreinte SHA-256 divergente : docs/verification/cartographe_action3_interconnexions.json
+4: 
+4: 
+4: ----------------------------------------------------------------------
+4: Ran 0 tests in 0.090s
+4: 
+4: FAILED (errors=1)
+1/2 Test #4: l2_reconcile .....................***Failed    0.27 sec
+E
+======================================================================
+ERROR: setUpClass (__main__.ReconciliationTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/interconnection_engine/tests/test_reconcile.py", line 30, in setUpClass
+    raise RuntimeError(f"Échec de reconciliation : {result.stdout} {result.stderr}")
+RuntimeError: Échec de reconciliation :  Empreinte SHA-256 divergente : docs/verification/cartographe_action3_interconnexions.json
+
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.090s
+
+FAILED (errors=1)
+
+test 5
+    Start 5: technical_research_engine
+
+5: Test command: C:\msys64\ucrt64\bin\cmake.exe "-E" "env" "TECHNICAL_RESEARCH_CORE=D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/.runtime/base/l3/research/technical_research_core.exe" "C:/msys64/ucrt64/bin/python.exe" "-B" "-m" "unittest" "discover" "-s" "technical_research_engine/tests" "-v"
+5: Working Directory: D:/ProjetGuillaume/DroneAgricole/.runtime/i21a/technical_research_engine/..
+5: Test timeout computed to be: 120
+5: test_catalog_claim_cannot_override_the_identifier_in_the_artifact (test_research_engine.NativeResearchTests.test_catalog_claim_cannot_override_the_identifier_in_the_artifact) ... ok
+5: test_changed_cache_cannot_be_read_as_an_authentic_report (test_research_engine.NativeResearchTests.test_changed_cache_cannot_be_read_as_an_authentic_report) ... ok
+5: test_component_revision_change_invalidates_cached_conclusion (test_research_engine.NativeResearchTests.test_component_revision_change_invalidates_cached_conclusion) ... ok
+5: test_conditional_derivation_has_bounds_and_recalculates (test_research_engine.NativeResearchTests.test_conditional_derivation_has_bounds_and_recalculates) ... ok
+5: test_conflicting_documents_preserve_both_values_and_revisions (test_research_engine.NativeResearchTests.test_conflicting_documents_preserve_both_values_and_revisions) ... ok
+5: test_hypothetical_source_cannot_resolve_the_issue (test_research_engine.NativeResearchTests.test_hypothetical_source_cannot_resolve_the_issue) ... ok
+5: test_identifier_in_another_json_record_cannot_attest_a_value (test_research_engine.NativeResearchTests.test_identifier_in_another_json_record_cannot_attest_a_value) ... ok
+5: test_identifier_on_another_text_row_cannot_attest_a_value (test_research_engine.NativeResearchTests.test_identifier_on_another_text_row_cannot_attest_a_value) ... ok
+5: test_invalid_collection_date_cannot_produce_documentary_proof (test_research_engine.NativeResearchTests.test_invalid_collection_date_cannot_produce_documentary_proof) ... ok
+5: test_local_path_cannot_escape_the_source_root (test_research_engine.NativeResearchTests.test_local_path_cannot_escape_the_source_root) ... ok
+5: test_local_value_preserves_file_page_and_document_revision (test_research_engine.NativeResearchTests.test_local_value_preserves_file_page_and_document_revision) ... ok
+5: test_manufacturer_unavailable_offline_with_secondary_source (test_research_engine.NativeResearchTests.test_manufacturer_unavailable_offline_with_secondary_source) ... ok
+5: test_nearby_references_and_qualifiers_never_supply_the_answer (test_research_engine.NativeResearchTests.test_nearby_references_and_qualifiers_never_supply_the_answer) ... ok
+5: test_numeric_value_with_a_different_unit_cannot_resolve_the_issue (test_research_engine.NativeResearchTests.test_numeric_value_with_a_different_unit_cannot_resolve_the_issue) ... ok
+5: test_online_permission_still_prefers_a_conclusive_local_source (test_research_engine.NativeResearchTests.test_online_permission_still_prefers_a_conclusive_local_source) ... ok
+5: test_pinned_artifact_mismatch_never_yields_a_sourced_value (test_research_engine.NativeResearchTests.test_pinned_artifact_mismatch_never_yields_a_sourced_value) ... ok
+5: test_python_api_submits_lists_and_recalls_by_issue_id (test_research_engine.NativeResearchTests.test_python_api_submits_lists_and_recalls_by_issue_id) ... ok
+5: test_python_cli_exports_finalized_json_and_reopens_it_by_issue_id (test_research_engine.NativeResearchTests.test_python_cli_exports_finalized_json_and_reopens_it_by_issue_id) ... ok
+5: test_real_f16_catalog_distinguishes_cad_and_installed_cable (test_research_engine.NativeResearchTests.test_real_f16_catalog_distinguishes_cad_and_installed_cable) ... FAIL
+5: test_repeat_uses_cache_and_changed_source_requires_reinvestigation (test_research_engine.NativeResearchTests.test_repeat_uses_cache_and_changed_source_requires_reinvestigation) ... ok
+5: test_static_radius_does_not_answer_a_dynamic_question (test_research_engine.NativeResearchTests.test_static_radius_does_not_answer_a_dynamic_question) ... ok
+5: test_unknown_issue_does_not_block_a_separate_issue (test_research_engine.NativeResearchTests.test_unknown_issue_does_not_block_a_separate_issue) ... ok
+5: test_missing_issue_propagates_the_structured_native_error (test_research_engine.PythonClientTests.test_missing_issue_propagates_the_structured_native_error) ... ok
+5: test_submission_forwards_options_and_preserves_unknown (test_research_engine.PythonClientTests.test_submission_forwards_options_and_preserves_unknown) ... ok
+5: 
+5: ======================================================================
+5: FAIL: test_real_f16_catalog_distinguishes_cad_and_installed_cable (test_research_engine.NativeResearchTests.test_real_f16_catalog_distinguishes_cad_and_installed_cable)
+5: ----------------------------------------------------------------------
+5: Traceback (most recent call last):
+5:   File "D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\technical_research_engine\tests\test_research_engine.py", line 564, in test_real_f16_catalog_distinguishes_cad_and_installed_cable
+5:     self.assertEqual(route["outcome"], "RESOLVED")
+5:     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5: AssertionError: 'UNKNOWN' != 'RESOLVED'
+5: - UNKNOWN
+5: + RESOLVED
+5: 
+5: 
+5: ----------------------------------------------------------------------
+5: Ran 24 tests in 5.476s
+5: 
+5: FAILED (failures=1)
+2/2 Test #5: technical_research_engine ........***Failed    5.81 sec
+test_catalog_claim_cannot_override_the_identifier_in_the_artifact (test_research_engine.NativeResearchTests.test_catalog_claim_cannot_override_the_identifier_in_the_artifact) ... ok
+test_changed_cache_cannot_be_read_as_an_authentic_report (test_research_engine.NativeResearchTests.test_changed_cache_cannot_be_read_as_an_authentic_report) ... ok
+test_component_revision_change_invalidates_cached_conclusion (test_research_engine.NativeResearchTests.test_component_revision_change_invalidates_cached_conclusion) ... ok
+test_conditional_derivation_has_bounds_and_recalculates (test_research_engine.NativeResearchTests.test_conditional_derivation_has_bounds_and_recalculates) ... ok
+test_conflicting_documents_preserve_both_values_and_revisions (test_research_engine.NativeResearchTests.test_conflicting_documents_preserve_both_values_and_revisions) ... ok
+test_hypothetical_source_cannot_resolve_the_issue (test_research_engine.NativeResearchTests.test_hypothetical_source_cannot_resolve_the_issue) ... ok
+test_identifier_in_another_json_record_cannot_attest_a_value (test_research_engine.NativeResearchTests.test_identifier_in_another_json_record_cannot_attest_a_value) ... ok
+test_identifier_on_another_text_row_cannot_attest_a_value (test_research_engine.NativeResearchTests.test_identifier_on_another_text_row_cannot_attest_a_value) ... ok
+test_invalid_collection_date_cannot_produce_documentary_proof (test_research_engine.NativeResearchTests.test_invalid_collection_date_cannot_produce_documentary_proof) ... ok
+test_local_path_cannot_escape_the_source_root (test_research_engine.NativeResearchTests.test_local_path_cannot_escape_the_source_root) ... ok
+test_local_value_preserves_file_page_and_document_revision (test_research_engine.NativeResearchTests.test_local_value_preserves_file_page_and_document_revision) ... ok
+test_manufacturer_unavailable_offline_with_secondary_source (test_research_engine.NativeResearchTests.test_manufacturer_unavailable_offline_with_secondary_source) ... ok
+test_nearby_references_and_qualifiers_never_supply_the_answer (test_research_engine.NativeResearchTests.test_nearby_references_and_qualifiers_never_supply_the_answer) ... ok
+test_numeric_value_with_a_different_unit_cannot_resolve_the_issue (test_research_engine.NativeResearchTests.test_numeric_value_with_a_different_unit_cannot_resolve_the_issue) ... ok
+test_online_permission_still_prefers_a_conclusive_local_source (test_research_engine.NativeResearchTests.test_online_permission_still_prefers_a_conclusive_local_source) ... ok
+test_pinned_artifact_mismatch_never_yields_a_sourced_value (test_research_engine.NativeResearchTests.test_pinned_artifact_mismatch_never_yields_a_sourced_value) ... ok
+test_python_api_submits_lists_and_recalls_by_issue_id (test_research_engine.NativeResearchTests.test_python_api_submits_lists_and_recalls_by_issue_id) ... ok
+test_python_cli_exports_finalized_json_and_reopens_it_by_issue_id (test_research_engine.NativeResearchTests.test_python_cli_exports_finalized_json_and_reopens_it_by_issue_id) ... ok
+test_real_f16_catalog_distinguishes_cad_and_installed_cable (test_research_engine.NativeResearchTests.test_real_f16_catalog_distinguishes_cad_and_installed_cable) ... FAIL
+test_repeat_uses_cache_and_changed_source_requires_reinvestigation (test_research_engine.NativeResearchTests.test_repeat_uses_cache_and_changed_source_requires_reinvestigation) ... ok
+test_static_radius_does_not_answer_a_dynamic_question (test_research_engine.NativeResearchTests.test_static_radius_does_not_answer_a_dynamic_question) ... ok
+test_unknown_issue_does_not_block_a_separate_issue (test_research_engine.NativeResearchTests.test_unknown_issue_does_not_block_a_separate_issue) ... ok
+test_missing_issue_propagates_the_structured_native_error (test_research_engine.PythonClientTests.test_missing_issue_propagates_the_structured_native_error) ... ok
+test_submission_forwards_options_and_preserves_unknown (test_research_engine.PythonClientTests.test_submission_forwards_options_and_preserves_unknown) ... ok
+
+======================================================================
+FAIL: test_real_f16_catalog_distinguishes_cad_and_installed_cable (test_research_engine.NativeResearchTests.test_real_f16_catalog_distinguishes_cad_and_installed_cable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\ProjetGuillaume\DroneAgricole\.runtime\i21a\technical_research_engine\tests\test_research_engine.py", line 564, in test_real_f16_catalog_distinguishes_cad_and_installed_cable
+    self.assertEqual(route["outcome"], "RESOLVED")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UNKNOWN' != 'RESOLVED'
+- UNKNOWN
++ RESOLVED
+
+
+----------------------------------------------------------------------
+Ran 24 tests in 5.476s
+
+FAILED (failures=1)
+
+
+0% tests passed, 2 tests failed out of 2
+
+Total Test time (real) =   6.10 sec
+
+The following tests FAILED:
+	  4 - l2_reconcile (Failed)
+	  5 - technical_research_engine (Failed)
+Errors while running CTest

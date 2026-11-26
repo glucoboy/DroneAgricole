@@ -1,0 +1,145 @@
+{
+  "schema": "v3.c2.admission_boundaries/1",
+  "status": "PASS",
+  "cases": {
+    "cartographer-injection": {
+      "fault": "Domaine cartographe fourni avec un sceau synthétique",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "MUTATION_DOMAIN_DENIED",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/cartographer-injection/output/refusal.json",
+        "sha256": "8b7f5c8c7aa3af7bb174aa40fc12b63989f43c9202684b15d188f64e81099516"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/cartographer-injection/build-invocation.json",
+        "sha256": "da1d6e24c0998750061481061949d4c7c8a20da43ab75baa6b1b105346bed577"
+      }
+    },
+    "foreign-lot": {
+      "fault": "Lot fourni dans un plan de banc",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Plan multi-faisceaux divergent du contrat v3",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/foreign-lot/output/refusal.json",
+        "sha256": "7711b1f7dc110c19f492cf6e678087a868500dd15308aee18f1303d890f18586"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/foreign-lot/build-invocation.json",
+        "sha256": "1096f6c10e6b4f8d50577e4be6ade3b4815557d04f0cf02f829c1793779e5263"
+      }
+    },
+    "foreign-authority": {
+      "fault": "Sceau d’un autre domaine",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Plan multi-faisceaux divergent du contrat v3",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/foreign-authority/output/refusal.json",
+        "sha256": "6630607865e1c89f27ef8a2bc93dacc30bc30af83897d8eb279ee5677a4a3a88"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/foreign-authority/build-invocation.json",
+        "sha256": "f0f8a6b8d9fef09bed09f4e4bcf3acbda3a187b6f271794989653d98a87e5d90"
+      }
+    },
+    "missing-harness": {
+      "fault": "Second câble absent",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Composition atomique multi-faisceaux incomplète",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/missing-harness/output/refusal.json",
+        "sha256": "8b027b3a025403d88f61e93d9037c862997623d43254bfe1d378190f9e7eb3a8"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/missing-harness/build-invocation.json",
+        "sha256": "c2c6fc5a7a2e2a6fa76058461b1a0e764007aab049307587b76fd9dde4eec747"
+      }
+    },
+    "support-outside-catalog": {
+      "fault": "Ancrage hors du domaine scellé",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Supportage hors de l'autorité paramétrique",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/support-outside-catalog/output/refusal.json",
+        "sha256": "360bf80138ccc8df9e42c8108dd3095b54c88112723f9cb8fa3e629ca0ad9f36"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/support-outside-catalog/build-invocation.json",
+        "sha256": "a08a6c552825257e50f311093815016197f094679f5e74b04f4e2a0943e7ed93"
+      }
+    },
+    "radius-below-limit": {
+      "fault": "Rayon du second câble inférieur à la limite",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Rayon de proposition hors des limites scellées",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/radius-below-limit/output/refusal.json",
+        "sha256": "a7deeb82ea439fde7b834a84d1acc4637c7a3fece433f75578bd4f2616847c55"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/radius-below-limit/build-invocation.json",
+        "sha256": "dc49a73810a0d8592577423009f932b46b90132325d5703258e6ab73277f116c"
+      }
+    },
+    "broken-xlink": {
+      "fault": "XLink manquant",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/broken-xlink/output/refusal.json",
+        "sha256": "4e419ae90cb04ba537a20d9e1b2285ba4f5efd10ddf02952243acc7ee1b94e89"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/broken-xlink/build-invocation.json",
+        "sha256": "c467fa7989db76bb84f5882aff8dc369d99a4044b8629f712d0e9c60b8509f29"
+      }
+    },
+    "corrupted-xlink": {
+      "fault": "XLink corrompu",
+      "exit_code": 2,
+      "status": "FAIL",
+      "reason": "Admission A.1 : XLINK_DEPENDENCY_MISMATCH",
+      "construction_result": "NOT_RUN",
+      "candidate_transactions": 0,
+      "receipt": {
+        "path": ".runtime/run/c2-boundaries/corrupted-xlink/output/refusal.json",
+        "sha256": "cffd340f18a4c2f8d666e8241b4fe7fb3760fb84d09d032baab875e1d1bf8fdf"
+      },
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/corrupted-xlink/build-invocation.json",
+        "sha256": "d50a3a4aa01b39f469acb1b8ae8bd6ebb71de7bbe2b00cbe3ae36a2b99e0cfdb"
+      }
+    },
+    "countercheck-budget": {
+      "fault": "max_counterchecks supérieur à max_native",
+      "exit_code": 1,
+      "stderr": "Entier hors limites : max_counterchecks\n",
+      "candidate_transactions": 0,
+      "construction_result": "NOT_RUN",
+      "invocation": {
+        "path": ".runtime/run/c2-boundaries/countercheck-budget/budget-invocation.json",
+        "sha256": "7c1fbe26a55952d9d3ddce78a8674b4005a2b90afb07c75e0a432eafa3121faa"
+      }
+    }
+  }
+}

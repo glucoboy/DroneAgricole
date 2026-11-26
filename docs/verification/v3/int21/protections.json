@@ -1,0 +1,155 @@
+{
+  "schema": "v3.int21.protections/1",
+  "tested_commit": "f8c5922c0fe2a4c5975d792edafd4d8221ad1ce4",
+  "status": "PASS",
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "C.2": {
+    "scope": "SYNTHETIC_BENCH",
+    "phases": {
+      "T1": {
+        "verdict": "V3_C_PASS",
+        "qualified_candidates": 3,
+        "proposals": 79,
+        "native_attempts": 7,
+        "counterchecks": 3,
+        "options": [
+          "plate",
+          "plate-b"
+        ],
+        "winner": "v3-c-044",
+        "support": "plate-b"
+      },
+      "T2": {
+        "verdict": "V3_C_PASS",
+        "qualified_candidates": 3,
+        "proposals": 79,
+        "native_attempts": 7,
+        "counterchecks": 3,
+        "options": [
+          "plate"
+        ],
+        "winner": "v3-c-044",
+        "support": "plate"
+      },
+      "T3": {
+        "verdict": "V3_C_PASS",
+        "qualified_candidates": 2,
+        "proposals": 79,
+        "native_attempts": 7,
+        "counterchecks": 2,
+        "options": [
+          "plate",
+          "plate-b"
+        ],
+        "winner": "v3-c-046",
+        "support": "plate-b"
+      }
+    },
+    "independent_review": {
+      "T1_two_variants": true,
+      "two_support_options": true,
+      "T2_new_native": true,
+      "T3_other_bench": true,
+      "measured_tradeoff": true
+    },
+    "revalidated_fingerprints": 37,
+    "refusals": 9,
+    "native_faults": 11
+  },
+  "A.5": {
+    "scope": "TEST_ONLY",
+    "refusals": 48,
+    "signed_pre_admissions": 2,
+    "without_crypto": "REVIEW_NOT_CONFIGURED",
+    "physical_trust_pin": "EMPTY",
+    "candidate_transactions": 0
+  },
+  "integration": {
+    "xlink_loss_after_build": {
+      "status_observed": "PASS",
+      "reason": null
+    },
+    "foreign_trust_flag": {
+      "status_observed": "PASS",
+      "reason": null
+    },
+    "diameter_override": {
+      "status_observed": "FAIL",
+      "reason": "Valeurs de parcours absentes ou non reconnues"
+    },
+    "trust_options_on_bench_plan": {
+      "status_observed": "PASS",
+      "reason": null
+    }
+  },
+  "legacy_V3_D": {
+    "scope": "READ_ONLY_IMPACT",
+    "agreements": 7,
+    "measured_pairs": 7,
+    "candidate_count": 0
+  },
+  "artifacts": [
+    {
+      "path": "c2-t2-perturbation.json",
+      "bytes": 593,
+      "sha256": "9e8dc4defe1b8acdd3caa2b7743ee74ef74fd58c8d385bad01d407f8f882343e"
+    },
+    {
+      "path": "c2-freeze.json",
+      "bytes": 7140,
+      "sha256": "b6b126b426833520a365b32c6af167c76dde413595964f1b3081df104fb76c5e"
+    },
+    {
+      "path": "v3-d-lecture-seule.json",
+      "bytes": 14113,
+      "sha256": "44a315350f7a29e0d83be807d3e11bcb9bb2c9e7bec17449937cad8c81caefbd"
+    },
+    {
+      "path": "c2-independent-review.json",
+      "bytes": 501,
+      "sha256": "f40366b7e3268b6b3ff8c6b94b969dab012827dc3381b7ae82a8452bdba1fe83"
+    },
+    {
+      "path": "c2-generalization.json",
+      "bytes": 13825,
+      "sha256": "45c28f6a6f031478f47e7599679d7726639a9af425fb1b8fbaa6ce009e65a865"
+    },
+    {
+      "path": "c2-cross-harness-checks.json",
+      "bytes": 2152,
+      "sha256": "ea9c5147dcf9636d18657f27f758469831bf8126572c8e2d24b303ee4e95e8a6"
+    },
+    {
+      "path": "c2-support-decisions.json",
+      "bytes": 8459,
+      "sha256": "107cf1cfc3ee8032a75747cdcba3b0a8c89c9f8e2bd5355e41f379be3d2e947c"
+    },
+    {
+      "path": "c2-adversarial.json",
+      "bytes": 5836,
+      "sha256": "d1de99e33399eedfcb8ef0f1558585cff9ddc1bfdc609d98e68f2bb28c5de29d"
+    },
+    {
+      "path": "c2-native-faults.json",
+      "bytes": 12030,
+      "sha256": "897b030efac3de40505605013e4cf0c132ad858e8397a8b854188a4de5ec772b"
+    },
+    {
+      "path": "integration-boundaries.json",
+      "bytes": 4201,
+      "sha256": "50d7e5ae2b975e6eab03ce700392e6c2257fc6676e3110c6dc0b1573ef501ae9"
+    },
+    {
+      "path": "a5-adversarial.json",
+      "bytes": 58845,
+      "sha256": "695e7be9bda53311144aa517bce36081f0f82c2620c5e579b5bfc57d9e01900b"
+    },
+    {
+      "path": "a5-no-crypto.json",
+      "bytes": 3177,
+      "sha256": "7544a8190bb470effa270e64211553c10a7d531f9b31b251ea251e9d2fddd5f5"
+    }
+  ]
+}

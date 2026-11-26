@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 25 novembre 2026 |
+| Dernière mise à jour | 26 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -378,9 +378,28 @@ même commit. Sans OpenSSL, la demande signée de test est refusée.
 Le pin matériel reste vide et le point d’entrée de construction
 refuse la mutation du cartographe.
 
-La suite large garde les écarts d’empreinte des références historiques.
-L’enchaînement C.3 et A.6 attend un GO INT.2.
+Au commit de fusion, la suite large révèle des écarts d’empreinte des
+références historiques sur checkout.
 [Qualification et limites](../VALIDATION_QUALIFICATION.md#cartographe-v3-int2)
+
+#### Rejeu des entrées historiques V3-INT.2.1 — Implémenté
+
+CTest lance les suites L1 et L2 depuis des racines temporaires. Pour L2,
+le gel V3-A rattache les sources d’inspection et d’admission au reçu
+L2, qui identifie les entrées de réconciliation. Pour L1, la preuve
+L1 épingle le catalogue qui porte les empreintes des sources locales.
+Le dépôt distribue certaines entrées texte en LF alors que la capture
+historique est en CRLF. Le préparateur de tests accepte une autre
+représentation des fins de ligne uniquement si les octets obtenus
+reproduisent exactement le SHA-256 publié. Il refuse tout autre écart.
+Les exécutables L1 et L2 appliquent leurs contrôles d’origine. Les
+assertions historiques et les références actives gardent leurs octets.
+
+Le test L1 utilise le paquet du checkout via `PYTHONPATH` et garde
+la découverte complète de la suite dans la racine temporaire. La
+fiche fabricant hors Git est signalée en cas d’absence. L’inconnue
+du rayon de flexion du câble monté reste explicite.
+[Validation et limites](../VALIDATION_QUALIFICATION.md#cartographe-v3-int21)
 
 ## 3. Contexte et déploiement
 
@@ -1350,6 +1369,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **26 novembre 2026** — V3-INT.2.1 prépare les entrées scellées des suites L1/L2 dans des racines de test temporaires (§2.6).
 - **25 novembre 2026** — V3-INT.2 réunit le solveur C.2 et la préadmission A.5 dans le même build (§2.6).
 
 - **25 novembre 2026** — V3-C.2 ajoute les plans multi-faisceaux atomiques, la sélection d’appui et la classification indépendante des contacts sur banc (§2.6).
