@@ -71,6 +71,7 @@ class Measurement:
         self.rules = self.model.get("validation", {})
         self.stage = job["stage"]
         self.actions = job["actions"]
+        self.authorized_effect = job.get("authorized_effect")
         self.baseline = job.get("baseline", {})
         self.spatial = job.get("spatial_contract")
         self.external = job.get("external_obstacle")
@@ -586,6 +587,11 @@ class Measurement:
                     contract["anchor_pose"] = parameters["placement"]
                     if action["operation"] == "CREATE_SUPPORT":
                         contract["min_fasteners"] = max(1, contract.get("min_fasteners", 0))
+                        if self.authorized_effect is not None:
+                            require(parameters["size_mm"] == self.authorized_effect["size_mm"],
+                                    "Dimensions du job différentes de l'effet signé")
+                            contract["size_mm"] = self.authorized_effect["size_mm"]
+                            contract["fasteners"] = [fastener["id"] for fastener in parameters["fasteners"]]
                     contracts[identifier] = contract
                     changed.add(identifier)
         observed = {}
@@ -626,9 +632,19 @@ class Measurement:
             if "anchor_pose" in spec:
                 expected = self.transform(spec["anchor"]).multiply(self.pose(spec["anchor_pose"]))
                 anchor_pose = self.pose_error(expected, self.transform(identifier))
+            dimensions = None
+            if "size_mm" in spec:
+                bounds = solid.BoundBox
+                size = [bounds.XLength, bounds.YLength, bounds.ZLength]
+                # The authorized B.1 fixture uses an axis-aligned bearing face.
+                dimensions = {"observed_mm": size, "authorized_mm": spec["size_mm"],
+                              "status": "PASS" if len(solid.Solids) == 1 and support.TypeId == "Part::Cut"
+                              and all(abs(actual - wanted) <= self.position
+                                      for actual, wanted in zip(size, spec["size_mm"], strict=True)) else "FAIL"}
             status = "PASS" if (links and retained and fastened and gap <= self.position
                                 and area >= spec.get("min_contact_area_mm2", self.position)
                                 and (anchor_pose is None or anchor_pose["status"] == "PASS")
+                                and (dimensions is None or dimensions["status"] == "PASS")
                                 and (surface_check is None or surface_check["status"] == "PASS")
                                 and all(distance <= max_gap for distance in engagement.values())) else "FAIL"
             observed[identifier] = {"status": status, "bearing_area_mm2": area, "gap_mm": gap,
@@ -637,6 +653,8 @@ class Measurement:
                                     "anchor_pose": anchor_pose}
             if surface_check is not None:
                 observed[identifier]["carrier_face"] = surface_check
+            if dimensions is not None:
+                observed[identifier]["authorized_dimensions"] = dimensions
         return observed
 
     def pose_checks(self):

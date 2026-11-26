@@ -431,6 +431,27 @@ préadmission A.5 gardent leurs points d’entrée. Les deux hiérarchies
 éprouvées relèvent des bancs synthétiques Windows amd64.
 [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
 
+#### Transaction privée autorisée V3-A.6 — Implémenté
+
+L’entrée L5 `v3-build` reconnaît le contrat A.6. La revue lie les octets de
+l’effet, la confiance, le lot, le profil, la fermeture XLink et les preuves
+attendues. `checkRegistry()` réserve la décision dans un journal durable
+authentifié avant lancement. Une décision réservée reste consommée après
+interruption, révocation ou perte du reçu. La compatibilité A.5 est conservée.
+
+Le constructeur B.1 reçoit un effet calculé par L5 à partir du profil scellé
+Workholding et de la pose signée. Il construit sur un clone privé. La
+réouverture indépendante contrôle la géométrie native et la topologie.
+Après validation T0, L5 recontrôle sous verrou le registre, l’expiration et
+les empreintes avant `COMMITTED_PRIVATE`. Le reçu A.6 porte l’état publié.
+Le contrat de recherche C.2 conserve son entrée propre.
+
+La portée livrée est `TEST_ONLY / SYNTHETIC_BENCH` sur P64 de banc. La racine
+de production reste vide. Le raccordement matériel reste **À valider**
+avec confiance provisionnée, stockage et preuve de reprise qualifiés, lot
+observé et domaine P64 ou P66 authentifié. [Protocole](../verification/v3/a6/protocol.md) ·
+[Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-a6)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1401,6 +1422,7 @@ rend `FINAL_NO_GO`.
 
 - **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).
 
+- **26 novembre 2026** — V3-A.6 relie la revue signée à une construction privée sur banc avec réservation persistante, contre-validation et reçu audité (§2.6).
 - **26 novembre 2026** — V3-INT.2.1 prépare les entrées scellées des suites L1/L2 dans des racines de test temporaires (§2.6).
 - **25 novembre 2026** — V3-INT.2 réunit le solveur C.2 et la préadmission A.5 dans le même build (§2.6).
 

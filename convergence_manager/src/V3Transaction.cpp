@@ -1,6 +1,7 @@
 #include "V3Transaction.hpp"
 
 #include "AdmissionScope.hpp"
+#include "AuthorityReview.hpp"
 #include "Evidence.hpp"
 #include "Files.hpp"
 #include "Graph.hpp"
@@ -23,6 +24,12 @@ const QString planSchema = "v3.mutation_plan/1";
 const QString worker = "convergence_manager/native/v3_mutate.py";
 const QString verifier = "convergence_manager/native/v3_verify.py";
 const QSet<QString> implemented{"REPOSITION_DEVICE", "REROUTE_HARNESS", "RELOCATE_SUPPORT", "CREATE_SUPPORT"};
+const QString a6ProfileSha = "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4";
+
+struct AuthorizedNativeRuntime {
+    const AuthorizedNativeStage &advance;
+    bool simulateInterruptedSave;
+};
 
 QString exactFile(const QDir &root, const QString &name)
 {
@@ -70,14 +77,23 @@ QString appendJournal(const QDir &stage, QJsonObject &journal, const QString &ev
 }
 
 QJsonObject call(const QDir &root, const QDir &stage, QJsonObject &journal, const QString &name,
-                 const QString &program, const QStringList &arguments, int timeout)
+                 const QString &program, const QStringList &arguments, int timeout, bool isolated = false)
 {
     QJsonObject record{{"program", program}, {"program_sha256", fileDigest(program)},
                        {"argv", QJsonArray::fromStringList(arguments)}, {"stage", name}};
     appendJournal(stage, journal, "PROCESS_START", record);
     QProcess process;
-    process.setWorkingDirectory(root.absolutePath());
+    process.setWorkingDirectory(isolated ? stage.absolutePath() : root.absolutePath());
     auto environment = QProcessEnvironment::systemEnvironment();
+    if (isolated) {
+        for (const auto &key : environment.keys()) {
+            const auto name = key.toUpper();
+            if (name.startsWith("PYTHON") || name.startsWith("QT_") || name.startsWith("FREECAD") ||
+                    name.startsWith("LD_") || name.startsWith("DYLD_")) {
+                environment.remove(key);
+            }
+        }
+    }
     environment.insert("QT_QPA_PLATFORM", "offscreen");
     environment.insert("PYTHONUTF8", "1");
     process.setProcessEnvironment(environment);
@@ -97,6 +113,11 @@ QJsonObject call(const QDir &root, const QDir &stage, QJsonObject &journal, cons
     appendJournal(stage, journal, "PROCESS_END", record);
     require(record.value("status") == "EXITED", name + " : " + record.value("status").toString());
     return record;
+}
+
+QStringList pythonArguments(bool isolated, const QString &script)
+{
+    return isolated ? QStringList{"-I", "-B", "-X", "utf8", script} : QStringList{"-B", script};
 }
 
 QJsonArray stringKeys(const QJsonObject &object)
@@ -138,14 +159,16 @@ bool consistentNativeChecks(const QJsonObject &job, const QJsonObject &observati
 }
 
 QJsonObject inspect(const QDir &repo, const QDir &published, const QDir &working, const QDir &stage,
-                    QJsonObject &journal, const QString &python, const QString &phase, QJsonObject job)
+                    QJsonObject &journal, const QString &python, const QString &phase, QJsonObject job,
+                    bool isolated = false)
 {
     job.insert("stage", phase);
     const auto jobPath = published.filePath(phase + "-job.json");
     const auto jobSha = write(jobPath, job);
     const auto report = published.filePath(phase + "-validation.json");
-    const auto command = call(repo, stage, journal, phase, python,
-        {"-B", exactFile(repo, verifier), "--root", working.absolutePath(), "--job", jobPath, "--output", report}, 120000);
+    auto arguments = pythonArguments(isolated, exactFile(repo, verifier));
+    arguments << "--root" << working.absolutePath() << "--job" << jobPath << "--output" << report;
+    const auto command = call(repo, stage, journal, phase, python, arguments, 120000, isolated);
     require(command.value("exit_code") == 0, "Réouverture indépendante non finalisée : " + phase);
     const auto observation = load(exactFile(published, phase + "-validation.json"));
     const auto dependencies = job.value("dependencies").toObject();
@@ -255,7 +278,7 @@ QJsonArray calculateImpact(const QDir &root, const QJsonObject &profile, const Q
 
 QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, const QByteArray &planBytes,
                     const QJsonObject &plan, const QJsonObject &profile, const QString &freecad, const QString &t0,
-                    QJsonObject report, const QJsonArray &abandoned)
+                    QJsonObject report, const QJsonArray &abandoned, const AuthorizedNativeRuntime *authorized = nullptr)
 {
     const auto source = QDir(root.filePath(profile.value("source").toString()));
     const auto dependencies = profile.value("dependencies").toObject();
@@ -265,6 +288,10 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     QTemporaryDir scratch(output.filePath(".attempt-XXXXXX"));
     require(scratch.isValid(), "Transaction XLink inaccessible");
     const QDir stage(scratch.path());
+    if (authorized) {
+        scratch.setAutoRemove(false);
+        report.insert("private_attempt", relative(output, stage.absolutePath()));
+    }
     QJsonObject journal{{"schema", "v3.b1.journal/1"}, {"plan_id", planId}, {"plan_sha256", report.value("plan_sha256")}};
     appendJournal(stage, journal, "PREPARED", {{"abandoned_attempts", abandoned}});
     const QDir published(stage.filePath("publication"));
@@ -273,6 +300,8 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     require(published.mkpath("."), "Préparation de la publication impossible");
     QJsonObject job{{"plan_id", planId}, {"entry", entry}, {"dependencies", dependencies},
                     {"model", profile.value("model")}, {"actions", actions}};
+    if (authorized)
+        job.insert("authorized_effect", plan.value("authorized_effect"));
     const bool spatial = report.value("plan_schema") == v3SpatialPlanSchema;
     const bool multiharness = spatial || report.value("plan_schema") == v3MultiHarnessPlanSchema;
     if (multiharness) {
@@ -311,6 +340,10 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
     artifacts.insert("mutation-plan.json", write(published.filePath("mutation-plan.json"), planBytes));
     QJsonObject evidenceParameters{{"plan_id", planId}, {"plan_sha256", report.value("plan_sha256")},
                                    {"profile_sha256", plan.value("profile_sha256")}};
+    if (authorized) {
+        evidenceParameters.insert("authorized_effect", plan.value("authorized_effect"));
+        evidenceParameters.insert("review_sha256", plan.value("review_sha256"));
+    }
     if (isV3ParametricPlan(report.value("plan_schema"))) {
         const auto domainSha = plan.value("domain_sha256").toString();
         const auto domainPath = v3DomainPath(domainSha);
@@ -329,11 +362,15 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
                 "Transaction native V3 B.1 finalisée"});
     QString status = "INCONCLUSIVE";
     QJsonObject resultingFiles;
-    try {
+    const auto requireUnchangedSources = [&](const QString &message = "Source XLink altérée après l'admission") {
         require(hashes(source, dependencies) == dependencies && hashes(sandbox, dependencies) == dependencies,
-                "Source XLink altérée après l'admission");
+                message);
+    };
+    try {
+        requireUnchangedSources();
         copyClosure(sandbox, mutation, dependencies);
-        const auto baseline = inspect(root, published, mutation, stage, journal, freecad, "baseline", job);
+        const auto baseline = inspect(root, published, mutation, stage, journal, freecad, "baseline", job,
+                                      authorized != nullptr);
         bool reopened = false;
         for (const auto &row : baseline.value("checks").toArray()) {
             const auto check = row.toObject();
@@ -342,10 +379,21 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
         require(reopened, "Réouverture native de référence incomplète");
         const auto jobPath = published.filePath("build-job.json");
         const auto jobSha = write(jobPath, job);
+        auto arguments = pythonArguments(authorized != nullptr, workerPath);
+        arguments << "--root" << mutation.absolutePath() << "--job" << jobPath
+                  << "--output" << published.filePath("build.json");
+        if (authorized) {
+            requireUnchangedSources();
+            authorized->advance("BUILDING_PRIVATE", {{"job_sha256", jobSha}});
+            if (authorized->simulateInterruptedSave)
+                arguments << "--simulate-torn-save";
+        }
         report.insert("candidate_transactions", 1);
-        const auto built = call(root, stage, journal, "build", freecad,
-            {"-B", workerPath, "--root", mutation.absolutePath(), "--job", jobPath,
-             "--output", published.filePath("build.json")}, 120000);
+        const auto built = call(root, stage, journal, "build", freecad, arguments, 120000, authorized != nullptr);
+        if (authorized) {
+            const auto code = built.value("exit_code").toInt(-1);
+            require(code == 0 || code == 2, "A6_CONSTRUCTOR_INTERRUPTED: code " + QString::number(code));
+        }
         const auto build = load(exactFile(published, "build.json"));
         require(build.value("schema") == "v3.b1.native_build/1" && build.value("finalized") == true &&
                 build.value("plan_id") == planId && build.value("job_sha256") == jobSha &&
@@ -365,17 +413,23 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
             require(after.value(entry) != dependencies.value(entry) && build.value("after_sha256") == after &&
                     unchanged == dependencies, "Installation du natif divergente");
             report.insert("construction_result", "PASS");
+            if (authorized) {
+                requireUnchangedSources();
+                authorized->advance("BUILT", {{"build_sha256", fileDigest(exactFile(published, "build.json"))},
+                    {"native_sha256", after}});
+            }
             copyClosure(mutation, transfer, after);
             job.insert("dependencies", after);
             job.insert("baseline", baseline);
-            const auto candidate = inspect(root, published, transfer, stage, journal, freecad, "candidate", job);
+            const auto candidate = inspect(root, published, transfer, stage, journal, freecad, "candidate", job,
+                                           authorized != nullptr);
             require(baseline.value("worker_id") != candidate.value("worker_id") &&
                     build.value("worker_id") != candidate.value("worker_id") &&
                     candidate.value("pid") != build.value("pid"), "Validation sans processus indépendant");
             status = candidate.value("status").toString();
             report.insert("reason", "INDEPENDENT_NATIVE_VALIDATION");
             report.insert("validation_status", status);
-            if (!multiharness || status == "PASS")
+            if ((!multiharness && !authorized) || status == "PASS")
                 resultingFiles = after;
         }
     } catch (const std::exception &error) {
@@ -397,6 +451,8 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
         resultingFiles = {};
         report.insert("reason", "SOURCE_INTEGRITY_FAILURE");
     }
+    if (authorized && (status != "PASS" || resultingFiles.isEmpty()))
+        return refusal(output, report, status, report.value("reason").toString());
     if (resultingFiles.isEmpty() && transfer.exists()) {
         require(transfer.canonicalPath() == transfer.absolutePath() &&
                 !hasRedirectedComponent(published, transfer.absolutePath()), "Copie de transfert redirigée");
@@ -422,12 +478,25 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
         evidence.finalize(report, artifacts);
         verifyEvidence(published, "V3_B1");
         const auto crosscheck = call(root, stage, journal, "t0", t0,
-            {"validate", published.absolutePath(), root.absolutePath()}, 30000);
+            {"validate", published.absolutePath(), root.absolutePath()}, 30000, authorized != nullptr);
         require(crosscheck.value("exit_code") == 0, "Validateur T0 indépendant en échec");
-        write(published.filePath("t0-crosscheck.json"), crosscheck);
-        require(hashes(source, dependencies) == dependencies && hashes(sandbox, dependencies) == dependencies,
-                "Sources altérées à la publication");
+        const auto t0Sha = write(published.filePath("t0-crosscheck.json"), crosscheck);
+        requireUnchangedSources("Sources altérées à la publication");
+        if (authorized)
+            require(hashes(transfer, resultingFiles) == resultingFiles, "Fermeture candidate altérée après contrôle T0");
         require(QDir().rename(published.absolutePath(), output.filePath("transaction")), "Publication atomique impossible");
+        if (authorized) {
+            const QDir installed(output.filePath("transaction"));
+            require(hashes(QDir(installed.filePath("cad")), resultingFiles) == resultingFiles,
+                    "Fermeture candidate altérée à la publication privée");
+            const QJsonObject proof{{"campaign_sha256", artifacts.value("campaign.json")},
+                {"native_validation_sha256", artifacts.value("candidate-validation.json")},
+                {"t0_manifest_sha256", fileDigest(exactFile(installed, "t0_run_manifest.json"))},
+                {"t0_crosscheck_sha256", t0Sha}};
+            authorized->advance("INDEPENDENTLY_VALIDATED", proof);
+            report.insert("private_evidence", proof);
+            scratch.setAutoRemove(true);
+        }
     } catch (const std::exception &error) {
         report.insert("candidate_state", "ROLLED_BACK");
         report.remove("native_sha256");
@@ -509,6 +578,91 @@ QJsonObject runV3Mutation(const QDir &root, const QDir &sandbox, const QDir &out
         return refusal(output, report, "FAIL", QString::fromUtf8(error.what()));
     }
     return execute(root, sandbox, output, planBytes, executablePlan, profile, freecadPython, t0Validator, report, abandoned);
+}
+
+QJsonObject runV3AuthorizedNative(const QDir &root, const QDir &sandbox, const QDir &output,
+                                 const AuthorizedReview &authorization, const QString &freecadPython,
+                                 const QString &t0Validator, const AuthorizedNativeStage &stage,
+                                 bool simulateInterruptedSave)
+{
+#ifndef V3_A6_FAULT_INJECTION
+    require(!simulateInterruptedSave, "A6_FAULT_INJECTION_UNAVAILABLE");
+#endif
+    require(stage && output.canonicalPath() == output.absolutePath() &&
+            relative(root, output.absolutePath()).startsWith(".runtime/") &&
+            !hasRedirectedComponent(root, output.absolutePath()) &&
+            output.entryList(QDir::AllEntries | QDir::System | QDir::Hidden | QDir::NoDotAndDotDot).isEmpty(),
+            "Sortie native privée neuve requise");
+    const auto &bindings = authorization.bindings;
+    const auto &effect = authorization.effect;
+    require(bindings.value("operation") == "CREATE_SUPPORT" && bindings.value("occurrence") == "anchor:iso-carrier" &&
+            bindings.value("profile_sha256") == a6ProfileSha && effect.value("carrier") == "P64",
+            "AUTHORIZED_NATIVE_FIXTURE_UNSUPPORTED");
+    require(fileDigest(exactFile(root, authorization.profilePath)) == a6ProfileSha, "AUTHORIZED_NATIVE_PROFILE_CHANGED");
+    auto profile = loadMutationProfile(root, a6ProfileSha);
+    require(profile.value("dependencies") == bindings.value("xlink_dependencies"), "AUTHORIZED_NATIVE_XLINK_MISMATCH");
+    const auto translation = effect.value("translation_mm").toArray();
+    const auto size = effect.value("size_mm").toArray();
+    const auto rotation = effect.value("rotation_xyzw").toArray();
+    // The workholding fixture has one bearing face, one transverse access
+    // cylinder and a contact cable already at the reference height.
+    require(translation.size() == 3 && translation.at(0).isDouble() &&
+            translation.at(0).toDouble() >= -1 && translation.at(0).toDouble() <= 0 &&
+            translation.at(1) == 0 && translation.at(2) == 0 && rotation == QJsonArray{0, 0, 0, 1} &&
+            size.size() == 3 && size.at(0).isDouble() && size.at(0).toDouble() >= 7.9 &&
+            size.at(0).toDouble() <= 8 && size.at(1) == 8 && size.at(2) == 3,
+            "AUTHORIZED_NATIVE_EFFECT_OUTSIDE_FIXTURE");
+    QJsonObject action;
+    for (const auto &row : profile.value("actions").toArray()) {
+        if (row.toObject().value("id") == "create")
+            action = row.toObject();
+    }
+    auto parameters = action.value("parameters").toObject();
+    require(action.value("operation") == "CREATE_SUPPORT" && action.value("occurrence") == "anchor-new" &&
+            parameters.value("anchor") == "anchor-new" && parameters.value("carrier") == "carrier",
+            "AUTHORIZED_NATIVE_FIXTURE_MAPPING_MISMATCH");
+    parameters.insert("placement", QJsonObject{{"translation_mm", translation}, {"rotation_xyzw", rotation}});
+    parameters.insert("size_mm", size);
+    action.insert("parameters", parameters);
+    // FreeCAD derives the world pose from the saved anchor. Independent
+    // reopening verifies that transform and checks the dimensions.
+    action.insert("expected_after", QJsonObject{{"exists", true}});
+    auto model = profile.value("model").toObject();
+    auto validation = model.value("validation").toObject();
+    auto service = validation.value("service").toArray();
+    bool accessBound = false;
+    for (qsizetype index = 0; index < service.size(); ++index) {
+        auto check = service.at(index).toObject();
+        if (check.value("required_action") != "create")
+            continue;
+        auto offset = check.value("offset_local_mm").toArray();
+        require(!accessBound && check.value("anchor") == "anchor-new" && offset.size() == 3 &&
+                offset.at(0).isDouble(), "AUTHORIZED_NATIVE_SERVICE_MAPPING_MISMATCH");
+        offset[0] = offset.at(0).toDouble() + translation.at(0).toDouble();
+        check.insert("offset_local_mm", offset);
+        service[index] = check;
+        accessBound = true;
+    }
+    require(accessBound, "AUTHORIZED_NATIVE_SERVICE_MAPPING_MISMATCH");
+    validation.insert("service", service);
+    model.insert("validation", validation);
+    profile.insert("model", model);
+    const auto planId = identifier(authorization.decisionId);
+    const QJsonArray actions{action};
+    const QJsonObject plan{{"schema", "v3.a6.native_effect/1"}, {"plan_id", planId},
+        {"domain", "SYNTHETIC_BENCH"}, {"profile_sha256", a6ProfileSha}, {"actions", actions}, {"authorized_effect", effect},
+        {"bindings", bindings}, {"trust_sha256", authorization.trustSha256},
+        {"review_sha256", authorization.reviewSha256}, {"request_sha256", authorization.requestSha256}};
+    const auto planBytes = QJsonDocument(plan).toJson(QJsonDocument::Indented);
+    QJsonObject report{{"schema", "v3.b1.transaction/1"}, {"plan_id", planId},
+        {"plan_sha256", digest(planBytes)}, {"construction_result", "NOT_RUN"}, {"validation_status", "NOT_RUN"},
+        {"candidate_transactions", 0}, {"execution_scope", "BENCH_TEST_ONLY"},
+        {"authority_schema", "v3.a6.native_effect/1"}, {"authorized_effect", effect},
+        {"review_sha256", authorization.reviewSha256}, {"request_sha256", authorization.requestSha256},
+        {"admissions", QJsonArray{QJsonObject{{"mandatory_checks", bindings.value("required_checks")}}}},
+        {"operations", QJsonArray{"CREATE_SUPPORT"}}, {"impact", calculateImpact(root, profile, actions)}};
+    const AuthorizedNativeRuntime runtime{stage, simulateInterruptedSave};
+    return execute(root, sandbox, output, planBytes, plan, profile, freecadPython, t0Validator, report, {}, &runtime);
 }
 
 } // namespace convergence

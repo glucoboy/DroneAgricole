@@ -1,3 +1,4 @@
+#include "A6Transaction.hpp"
 #include "Admission.hpp"
 #include "AuthorityReview.hpp"
 #include "Campaign.hpp"
@@ -184,14 +185,68 @@ int run(const QCommandLineParser &options)
     return code;
 }
 
+QString directA6Path(const QDir &root, const QString &name)
+{
+    const auto path = QDir::fromNativeSeparators(name);
+    require(!path.isEmpty() && QDir::cleanPath(path) == path, "A6_PATH_NOT_CANONICAL");
+    const auto absolute = root.absoluteFilePath(path);
+    if (absolute != root.absolutePath()) {
+#ifdef Q_OS_WIN
+        require(absolute.size() > 3 && absolute.mid(1, 2) == ":/", "A6_PATH_VOLUME_DENIED");
+        const QDir volume(absolute.first(3));
+#else
+        const QDir volume(QStringLiteral("/"));
+#endif
+        require(!hasRedirectedComponent(volume, absolute), "A6_PATH_REDIRECTED");
+    }
+    return absolute;
+}
+
+bool overlaps(const QString &left, const QString &right)
+{
+#ifdef Q_OS_WIN
+    constexpr auto caseSensitivity = Qt::CaseInsensitive;
+#else
+    constexpr auto caseSensitivity = Qt::CaseSensitive;
+#endif
+    return left.compare(right, caseSensitivity) == 0 || left.startsWith(right + '/', caseSensitivity) ||
+           right.startsWith(left + '/', caseSensitivity);
+}
+
+int runA6(const QCommandLineParser &options, bool mutation, const QDir &root, const QDir &sandbox,
+          const QByteArray &bytes, const QJsonObject &request)
+{
+    require(mutation, "A6_REQUIRES_V3_BUILD");
+    require(!options.isSet("freecad-python") && !options.isSet("t0-validator"), "A6_TOOL_OVERRIDE_DENIED");
+    require(directA6Path(QDir::current(), options.value("root")) == root.absolutePath(), "A6_ROOT_REDIRECTED");
+    const auto input = directA6Path(root, options.value("request"));
+    require(fileInside(root, input) == input &&
+            std::filesystem::hard_link_count(QFileInfo(input).filesystemFilePath()) == 1, "A6_REQUEST_PATH_DENIED");
+    require(directA6Path(root, options.value("sandbox")) == sandbox.absolutePath() &&
+            relative(root, sandbox.absolutePath()).startsWith(".runtime/"), "A6_SANDBOX_NOT_PRIVATE");
+    const auto requestedOutput = directA6Path(root, options.value("output"));
+    const auto raw = request.value("submission").toObject().value("raw_root").toString();
+    const auto trust = options.value("a5-trust");
+    require(relative(root, requestedOutput).startsWith(".runtime/") &&
+            !overlaps(requestedOutput, input) && !overlaps(requestedOutput, sandbox.absolutePath()) &&
+            (raw.isEmpty() || !overlaps(requestedOutput, directA6Path(root, raw))) &&
+            (trust.isEmpty() || !overlaps(requestedOutput, QFileInfo(directA6Path(QDir::current(), trust)).absolutePath())),
+            "A6_OUTPUT_NOT_PRIVATE_OR_OVERLAPPING");
+    const auto output = outputDirectory(root, requestedOutput, sandbox.absolutePath());
+    QLockFile lock(output.filePath(".publication.lock"));
+    require(!hasRedirectedComponent(output, output.filePath(".publication.lock")) && lock.tryLock(),
+            "A6_OUTPUT_BUSY");
+    require(output.entryList(QDir::AllEntries | QDir::System | QDir::Hidden | QDir::NoDotAndDotDot) ==
+            QStringList{".publication.lock"}, "A6_OUTPUT_NOT_EMPTY");
+    return runAuthorizedTransaction(root, sandbox, output, input, bytes, request, trust, options.value("a5-trust-sha256"));
+}
+
 int runV3(const QCommandLineParser &options, bool mutation)
 {
     for (const auto &legacy : {"mode", "receipt", "plan", "source-release", "config", "steps",
                               "l1", "l3", "l4", "python"}) {
         require(!options.isSet(legacy), "Option incompatible avec V3 : " + QString(legacy));
     }
-    require(mutation == options.isSet("freecad-python") && mutation == options.isSet("t0-validator"),
-            "v3-build requiert FreeCAD Python et le validateur T0 indépendant");
     require(options.isSet("request") && options.isSet("sandbox"), "Demande et sandbox XLink requis");
     const auto rootPath = QDir(options.value("root")).canonicalPath();
     require(!rootPath.isEmpty(), "Racine de travail absente");
@@ -205,6 +260,10 @@ int runV3(const QCommandLineParser &options, bool mutation)
     require(!hasRedirectedComponent(root, root.absoluteFilePath(options.value("request"))), "Demande V3 redirigée");
     const auto bytes = read(requestPath);
     const auto request = parseUniqueObject(bytes, requestPath);
+    if (request.value("schema") == a6AdmissionSchema)
+        return runA6(options, mutation, root, QDir(sandboxPath), bytes, request);
+    require(mutation == options.isSet("freecad-python") && mutation == options.isSet("t0-validator"),
+            "v3-build requiert FreeCAD Python et le validateur T0 indépendant");
     const auto output = outputDirectory(root, options.value("output"), sandboxPath);
     QLockFile lock(output.filePath(".publication.lock"));
     lock.setStaleLockTime(0);

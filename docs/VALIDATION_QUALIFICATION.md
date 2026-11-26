@@ -3192,6 +3192,42 @@ budget d’admission. [Campagnes et diagnostic](verification/v3/c3/generalizatio
 Le verdict historique `V3_C3_CONDITIONAL` s’applique à ce seul gel.
 [Régressions historiques](verification/v3/c3/regressions.json)
 
+<a id="cartographe-v3-a6"></a>
+#### Transaction native privée après revue signée V3-A.6 — 26 novembre 2026
+
+La campagne part de la porte `V3_INT21_GO` et vérifie le code `da8908e`
+sous Windows amd64, MSYS2 UCRT64, C++17, Qt 6 et FreeCAD 1.1.3. Deux
+effets signés de `CREATE_SUPPORT(anchor:iso-carrier)`, P64 de banc, ont
+produit deux supports privés de tailles et poses distinctes. Chaque natif
+est rouvert dans un processus indépendant. Les contrôles d’appui et de
+fixation, d’interférence, de service, de cintrage, de topologie L2 et T0
+ont passé. Le reçu valide la construction privée dans la seule portée
+`TEST_ONLY`. [Acceptation](verification/v3/a6/acceptance.json) ·
+[Rejeu](verification/v3/a6/REPORT.md)
+
+Les refus de signature, de lot, de domaine, de chemin, d’expiration, de
+rejeu, de révocation et d’intégrité ont été exercés. Deux demandes
+concurrentes donnent une seule finalisation. Une interruption avant
+lancement, pendant une sauvegarde privée simulée ou après sauvegarde
+ne permet aucune réutilisation. Une interruption pendant la copie du
+reçu conserve la finalisation authentifiée et l’interdiction de rejouer.
+Une révocation avant finalisation ferme l’admission. Les 137 natifs
+XLink de référence restent intacts. [Résilience](verification/v3/a6/fault_injection.json) ·
+[Régressions](verification/v3/a6/regressions.json)
+
+Le rejeu indépendant du pilote confirme les deux tests T0 enregistrés
+avec leur plafond de 30 s. Le test SITL passe en 26,24 s et le total
+est de 28,99 s. Les dépassements précédents et le rejeu à 120 s
+restent consignés. [Journaux et empreintes](verification/v3/a6/regressions.json)
+
+Le contrôle de banc soutient ORCH-CAO-MASSE-1 en préparant la vérification
+reproductible de l’appui de l’isolateur dès que les relevés existent. La
+voie cartographe reste `READ_ONLY_IMPACT`, `CREATE_SUPPORT` est `DENY`
+pour P64 et P66 et le nombre de candidats physiques reste nul. La
+construction du cartographe, la réception matérielle et le vol sont
+`NOT_RUN`. Une coupure électrique et la restauration de toute la racine
+de confiance restent **À valider**. [Relevés et conditions](verification/v3/a6/physical_readiness.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4406,6 +4442,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Coexistence du solveur C.2, de la préadmission A.5 et des gardes du cartographe | T-CARTO-V3-INT2 | [Résultat](#cartographe-v3-int2), [acceptation](verification/v3/int2/acceptance.json) | `V3_INT2_CONDITIONAL` sur Windows amd64. Suites complètes et passage C.3/A.6 **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Recherche par polycorridors, construction XLink et contre-mesure OCCT de deux câbles | T-CARTO-V3-C3 T1 à T4 | [Acceptation](verification/v3/c3/acceptance.json) et [mesures](verification/v3/c3/iteration2/native_delta.json) | **Qualifié** sur les deux bancs synthétiques Windows amd64. Cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Rejeu L1/L2 aux empreintes historiques, suites L3/L5 et protections C.2/A.5 | T-CARTO-V3-INT21 | [Résultat](#cartographe-v3-int21), [acceptation](verification/v3/int21/acceptance.json) | `V3_INT21_GO` sur Windows amd64 C++17, banc numérique **Qualifié**. Mutation du cartographe `DENY`. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Revue Ed25519, réservation journalisée L5, constructeur B.1 et réouverture/T0 | T-CARTO-V3-A6-TRANSACTION | [Résultat](#cartographe-v3-a6), [acceptation](verification/v3/a6/acceptance.json) | Transaction **Qualifié** sur banc numérique Windows amd64. Matériel et production **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4587,6 +4624,11 @@ revue du lot réel restent nécessaires pour décider de l'appui de
 l'isolateur.
 [V3-C.3](#cartographe-v3-c3) éprouve l’adaptation volumique sur copies
 synthétiques avec un obstacle indépendant et une deuxième hiérarchie native.
+
+[V3-A.6](#cartographe-v3-a6) raccorde la revue à la construction et à la
+réception privée du seul banc synthétique. Le premier geste physique
+reste la collecte A.5 hors tension, puis la revue du lot et du domaine.
+[Prérequis](verification/v3/a6/physical_readiness.json)
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5250,6 +5292,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 - **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)
 - **26 novembre 2026** — V3-C.3 vérifie l’adaptation à un obstacle externe sur banc et relève une sortie de corridor en T3. [Résultat](#cartographe-v3-c3)
 
+- **26 novembre 2026** — V3-A.6 vérifie deux constructions synthétiques privées après revue signée et la non-réutilisation après interruption. [Résultat](#cartographe-v3-a6)
 - **26 novembre 2026** — V3-INT.2.1 rétablit les suites larges sur deux checkouts, rejoue C.2 et A.5 et vérifie les scellés. [Résultat](#cartographe-v3-int21)
 - **25 novembre 2026** — V3-INT.2 rejoue C.2 et A.5 sur la fusion C++17. [Résultat et suites](#cartographe-v3-int2)
 
