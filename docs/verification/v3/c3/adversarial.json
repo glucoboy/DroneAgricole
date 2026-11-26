@@ -1,0 +1,695 @@
+{
+  "schema": "v3.c3.adversarial/1",
+  "status": "PASS",
+  "scope": "SYNTHETIC_BENCH",
+  "profile": {
+    "path": "docs/electromechanical_v3/bench_c3_spatial/profile.json",
+    "sha256": "c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e"
+  },
+  "candidate_validation": {
+    "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/construction/transaction/candidate-validation.json",
+    "sha256": "e230fc6c7326a37c895b59d9c3d79735680955a109a9f3c239c8e2c307e0ffb5"
+  },
+  "transaction": {
+    "path": ".runtime/qual-c3/t1/T1/candidates/v3-c-004/construction/transaction/campaign.json",
+    "sha256": "6682b7de387a8735ced858f7236615f89e9433ee652f6c923742d9e8147482ab"
+  },
+  "candidate_sha256": {
+    "Banc_Interconnexion.FCStd": "a32e3e2f1fc981f379ce6cac104dc076963ec80eaca784c335e76156e07d1048",
+    "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+    "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+  },
+  "tester": {
+    "path": "convergence_manager/tests/test_v3_c3_adversarial.py",
+    "sha256": "cef15c85dfb2d5a23fad616e3f00e3e6a24f02b7750b6ce3089122e436ad3b93"
+  },
+  "validated_problem": {
+    "path": ".runtime/qual-c3/t1/T1-problem.json",
+    "sha256": "acc44e17def73aa78574b167911c5b596245b22fee4412512ea97ffb5beec50e"
+  },
+  "reference_observation": {
+    "path": ".runtime/qual-c3/t1/reference-observation.json",
+    "sha256": "b79af626c8db08106b02f65e63dea6740c873ea75188b69d6c8148b303c989ea"
+  },
+  "external_perturbation_t2": "NON_APPLICABLE",
+  "cases": {
+    "harnesses-collide": {
+      "status": "DETECTED",
+      "check": "L4_GEOMETRY",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/harnesses-collide/injection.json",
+        "sha256": "a136b3a34143ebb052f3d40a02ee870ea3406a9242ad7e5a1616fc95dd9e2b46"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/harnesses-collide/verification.json",
+        "sha256": "8fb403bf2bd746f8d4726d684977d8730f72cca026d3531a7a8b01cdae32608e"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS",
+        "L4_SPATIAL_CONTRACT": "FAIL"
+      },
+      "measurements": {
+        "pair": [
+          "HarnessInventory/Cable",
+          "HarnessInventory/Cable001"
+        ],
+        "intersection_volume_mm3": 32.11526380245685
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/harnesses-collide/inject-invocation.json",
+          "sha256": "33fab7c4b7e15163b472aa0cad0c71eb1f5810d059c1b3267781f60c20aca5d9"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/harnesses-collide/verify-invocation.json",
+          "sha256": "97d63809ec140b487c0e96abf662562df0b3a4137e549ff184779412b6cfcd39"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/harnesses-collide/cross-invocation.json",
+          "sha256": "362696a20d471b969f8009b615d0d88a6e648720fad64f3a363c0888deb73e90"
+        }
+      ],
+      "independent_brep": {
+        "path": ".runtime/qual-c3-adversarial/harnesses-collide/cross.json",
+        "sha256": "3d3ed8a8271df7b6b1b65f733bc4db46c7ef7fbb12af209ca3452524aa457f29"
+      }
+    },
+    "false-datum-across-plane": {
+      "status": "DETECTED",
+      "check": "L2_TOPOLOGY",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/false-datum-across-plane/injection.json",
+        "sha256": "384babc1cd1a1963a9bdd71cee6c1de2198698f0260df08d15dc58448fcb6f86"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/false-datum-across-plane/verification.json",
+        "sha256": "7cef30b028b10c1128e5e50c36054d5daa50c172cf9905cc682135a53cb89cac"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "FAIL",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "FAIL",
+        "L4_DYNAMIC_BEND_RADIUS": "FAIL",
+        "L4_SPATIAL_CONTRACT": "FAIL"
+      },
+      "measurements": {
+        "status": "FAIL",
+        "origin_mm": [
+          87.5,
+          5.000000000000005,
+          1.5543122344752192e-15
+        ],
+        "outward": [
+          -1.0,
+          0.0,
+          2.220446049250313e-16
+        ],
+        "measurements": [
+          {
+            "status": "PASS",
+            "native_datum": "FixtureRig/Payload/PortB"
+          },
+          {
+            "status": "PASS",
+            "position_error_mm": 1.5543122344752192e-15,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              87.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              1.5543122344752192e-15,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              87.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.1086244689504383e-15,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 2.9999999999999987,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              87.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              87.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              1.5543122344752192e-15,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 3.0,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              101.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              101.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 2.999999999999999,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              8.881784197001252e-16,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 2.999999999999999,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.5,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000005,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              8.881784197001252e-16,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "PASS",
+            "position_error_mm": 0.0,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              2.220446049250313e-16,
+              -0.0,
+              -1.0,
+              97.49999999999999,
+              0.0,
+              1.0,
+              -0.0,
+              5.000000000000007,
+              1.0,
+              0.0,
+              2.220446049250313e-16,
+              3.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "matrix": [
+          2.220446049250313e-16,
+          -0.0,
+          -1.0,
+          87.5,
+          0.0,
+          1.0,
+          -0.0,
+          5.000000000000005,
+          1.0,
+          0.0,
+          2.220446049250313e-16,
+          1.5543122344752192e-15,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "datum": "FixtureRig/Payload/PortB",
+        "normal": [
+          -1.0,
+          0.0,
+          2.220446049250313e-16
+        ]
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/false-datum-across-plane/inject-invocation.json",
+          "sha256": "fa7c2f27174fbcef8e3d4f26abf38d423097726c6fc7a60c38971fae69e3dfce"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/false-datum-across-plane/verify-invocation.json",
+          "sha256": "fcee898737ca0c18fa184719180d41c38c23006acf46f28aa6e8bcab610908ad"
+        }
+      ]
+    },
+    "reversed-port-tangent": {
+      "status": "DETECTED",
+      "check": "L4_DYNAMIC_BEND_RADIUS",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/reversed-port-tangent/injection.json",
+        "sha256": "c9524b74435f246327055b4a014862bc9f7870d8b0331e24cc8bbcaac0495f89"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/reversed-port-tangent/verification.json",
+        "sha256": "56fe8b4c8a22efd3b4a2da3d9b2036018dec785ab90b32da9992a63cfc6aa5e9"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "FAIL",
+        "L4_SPATIAL_CONTRACT": "FAIL"
+      },
+      "measurements": {
+        "start_axis_error_deg": 180.0
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/reversed-port-tangent/inject-invocation.json",
+          "sha256": "26c9b805c1a90a545683550534bb347f7c9f6e0ac62a23ef86b9e9537af203e8"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/reversed-port-tangent/verify-invocation.json",
+          "sha256": "bfe80d28581a6d18faafa87fcef35992e9f27d07064d89884d5f2812f99f81cf"
+        }
+      ]
+    },
+    "radius-under-limit-b": {
+      "status": "DETECTED",
+      "check": "L4_DYNAMIC_BEND_RADIUS",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/radius-under-limit-b/injection.json",
+        "sha256": "4deb9db1561bdf6161767c64ca5c919caccd0525cb9a0850552e919a9e027745"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/radius-under-limit-b/verification.json",
+        "sha256": "2eecc82f4117dd12445280eff7f1eabdf04e8ecfa911806da2ed86c868d56b51"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "PASS",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "FAIL",
+        "L4_SPATIAL_CONTRACT": "PASS"
+      },
+      "measurements": {
+        "minimum_radius_mm": 6.499999999999982
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/radius-under-limit-b/inject-invocation.json",
+          "sha256": "d185d75b9cf4daf79bcde53ff98e8e7690cb3e58d86e523f2e84cc69bc0de094"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/radius-under-limit-b/verify-invocation.json",
+          "sha256": "3410daf5ed759241bb3c77213f84a994341e86c005854e7e18d879bda7af03aa"
+        }
+      ]
+    },
+    "floating-support": {
+      "status": "DETECTED",
+      "check": "L4_SUPPORT_ANCHOR",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/floating-support/injection.json",
+        "sha256": "d8f16a99996f9368bbd38fa1aa1afbd252e55d38006a463663b19f443f50d4ba"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/floating-support/verification.json",
+        "sha256": "8f7bf7e55570ccb0d97cb27f4d9c64ae967b2b54737d32fd08c40555b7d64cb6"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "FAIL",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS",
+        "L4_SPATIAL_CONTRACT": "PASS"
+      },
+      "measurements": {
+        "plate-b": {
+          "status": "FAIL",
+          "bearing_area_mm2": 0.0,
+          "gap_mm": 0.40000000000000036,
+          "native_anchor_carrier_links": true,
+          "native_retention_links": true,
+          "retention_gaps_mm": {
+            "cordon": 0.0,
+            "cordon-b": 0.0
+          },
+          "fasteners": [
+            {
+              "name": "StudB",
+              "engagement_mm3": 1.327322896141687,
+              "support_gap_mm": 0.40000000000000036,
+              "status": "FAIL"
+            }
+          ],
+          "anchor_pose": {
+            "status": "FAIL",
+            "position_error_mm": 0.40000000000000036,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              1.0,
+              0.0,
+              0.0,
+              75.0,
+              0.0,
+              1.0,
+              0.0,
+              -5.0,
+              0.0,
+              0.0,
+              1.0,
+              -4.6,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              1.0,
+              0.0,
+              0.0,
+              75.0,
+              0.0,
+              1.0,
+              0.0,
+              -5.0,
+              0.0,
+              0.0,
+              1.0,
+              -5.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "carrier_face": {
+            "face": "Face6",
+            "gap_mm": 0.0,
+            "normal_error_deg": 0.0,
+            "status": "PASS"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/floating-support/inject-invocation.json",
+          "sha256": "fac3613ad03b9fc088e735cb88751a95d75b39ad0cd98c023766185ef14562b0"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/floating-support/verify-invocation.json",
+          "sha256": "57adf0d4abd734df4b6ef0ce6d9d9e9c78b48566af6eedacc473c17a281dba85"
+        }
+      ]
+    },
+    "external-obstacle-collision": {
+      "status": "DETECTED",
+      "check": "L4_GEOMETRY",
+      "injection": {
+        "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/injection.json",
+        "sha256": "89c7f8a2b76584faecdb1a3a976b1dc1ef84df6f8e2a74e1c1cd44ab330ddb2a"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/verification.json",
+        "sha256": "0379c916abe78fb848301498823fdd7380f8e1b4c7134825558e415bd2d46a38"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS",
+        "L4_SPATIAL_CONTRACT": "PASS"
+      },
+      "measurements": {
+        "pair": [
+          "C3ExternalObstacle",
+          "HarnessInventory/Cable"
+        ],
+        "intersection_volume_mm3": 8.0
+      },
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/inject-invocation.json",
+          "sha256": "3b15ef07f03dc664a96a8f2947499a3c5c24767b108d1584120f6efb1a2cee82"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/verify-invocation.json",
+          "sha256": "f663b17f11310b317c8095e3a1ac5a63946d2faa7180ebbd2810c1a0a9e5beb8"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/cross-invocation.json",
+          "sha256": "a15c5fd8a4dc38064096e91c2fe0bd7d65e49fb26c092123ed20bb8826459f53"
+        }
+      ],
+      "independent_brep": {
+        "path": ".runtime/qual-c3-adversarial/external-obstacle-collision/cross.json",
+        "sha256": "49bee145db3e910a9428c4702540c0093959600e5f8317d861e8f5ff81b312da"
+      }
+    },
+    "pseudo-manufacturer-contact": {
+      "status": "REJECTED",
+      "reason": "Contrat spatial hors profils synthétiques C.3",
+      "invocation": {
+        "path": ".runtime/qual-c3-adversarial/pseudo-manufacturer-contact/verify-invocation.json",
+        "sha256": "1a6be7f189ac4bbd482c773c0164854da710b952f89cb5dfc13a4e0a7de9e9d6"
+      },
+      "verification": {
+        "path": ".runtime/qual-c3-adversarial/pseudo-manufacturer-contact/verification.json",
+        "sha256": "47d346516f7a5d884270b3b6bddca0e7581fedced954173f47fa96ac9db21b7a"
+      }
+    },
+    "forged-measurement-cache": {
+      "status": "REJECTED",
+      "reason": "L3 et la référence XLink divergent",
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/forged-measurement-cache/l5-invocation.json",
+          "sha256": "d7b63f1c48d9241f5604ee5b684f690c922bc68f266e5e5670c95818ce1cb65c"
+        }
+      ],
+      "forged_observation": {
+        "path": ".runtime/qual-c3-adversarial/forged-measurement-cache/observation.json",
+        "sha256": "f6e9ffe1596d3fa022e376d18a407846e9e962f4e94e223d335a3e2c714d7b5b"
+      },
+      "accepted_sha256_by_l3": null,
+      "candidate_transactions": 0
+    },
+    "rehash-cache": {
+      "status": "REJECTED",
+      "reason": "Observation L3 divergente : routes",
+      "invocations": [
+        {
+          "path": ".runtime/qual-c3-adversarial/rehash-cache/l3-invocation.json",
+          "sha256": "b52e86409d87ef782264e0e4951838e58ab9457cd033778203867bd0ee9650e2"
+        },
+        {
+          "path": ".runtime/qual-c3-adversarial/rehash-cache/l5-invocation.json",
+          "sha256": "77590438612ca87f58a92256f76afca9da947ea64018cf4fbb60a71efd0b0014"
+        }
+      ],
+      "forged_observation": {
+        "path": ".runtime/qual-c3-adversarial/rehash-cache/observation.json",
+        "sha256": "f6e9ffe1596d3fa022e376d18a407846e9e962f4e94e223d335a3e2c714d7b5b"
+      },
+      "accepted_sha256_by_l3": {
+        "path": ".runtime/qual-c3-adversarial/rehash-cache/problem.json",
+        "sha256": "e8d0b9d0056d489810fa1216ca64670a3ad7567f337c111d7fb3d211aa159f3a"
+      },
+      "candidate_transactions": 0
+    },
+    "cartographer-ttl-without-physical-evidence": {
+      "status": "DENY",
+      "reason": "MUTATION_DOMAIN_DENIED",
+      "receipt": {
+        "path": ".runtime/qual-c3-adversarial/cartographer-ttl-without-physical-evidence/output/refusal.json",
+        "sha256": "eb67c81cccc63a86aa0bdf3fb9bae7c7eb6a0da6d12aea59f3014fa7503302f8"
+      },
+      "construction": "NOT_RUN",
+      "candidate_transactions": 0,
+      "invocation": {
+        "path": ".runtime/qual-c3-adversarial/cartographer-ttl-without-physical-evidence/l5-invocation.json",
+        "sha256": "0d3dd19723358fc53749200e30a9152834bb9db21be0f4acc0e2766c3ecbfcde"
+      }
+    },
+    "cartographer-usb-without-physical-evidence": {
+      "status": "DENY",
+      "reason": "MUTATION_DOMAIN_DENIED",
+      "receipt": {
+        "path": ".runtime/qual-c3-adversarial/cartographer-usb-without-physical-evidence/output/refusal.json",
+        "sha256": "f3a097b241d2f18129ec8d0cae1859ddfb71316855a3d13518cd90f3d5633663"
+      },
+      "construction": "NOT_RUN",
+      "candidate_transactions": 0,
+      "invocation": {
+        "path": ".runtime/qual-c3-adversarial/cartographer-usb-without-physical-evidence/l5-invocation.json",
+        "sha256": "37b66be71c549b13710cadb8a17e770f5cb0d323ea1ab109931228dcf2520566"
+      }
+    }
+  }
+}

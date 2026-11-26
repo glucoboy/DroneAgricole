@@ -1,0 +1,101 @@
+{
+  "schema": "v3.c3.acceptance/1",
+  "tested_commit": "4600062ba7c277352c5c5914bce99782aead2f63",
+  "go_base": "27144abf9841ba6502d29f2f76b15ff33092d186",
+  "scope": "SYNTHETIC_BENCH",
+  "verdict": "V3_C3_CONDITIONAL",
+  "blocking_checks": [
+    "T3_NO_FEASIBLE_CANDIDATE_FOUND_WITHIN_BUDGET"
+  ],
+  "checks": {
+    "T1": "PASS",
+    "T2": "PASS",
+    "T3": "FAIL",
+    "T4": "PASS",
+    "independent_native_measurement_and_T0": "PASS",
+    "measured_pareto_tradeoff": "PASS",
+    "adversarial": "PASS",
+    "regressions": "PASS",
+    "external_input_and_frozen_artifacts": "PASS",
+    "versioned_contracts": "PASS"
+  },
+  "schema_validation": [
+    {
+      "instance": "docs/electromechanical_v3/domains/c3_spatial.json",
+      "schema": "docs/electromechanical_v3/parametric_domain_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": "docs/electromechanical_v3/domains/c3_spatial_secondary.json",
+      "schema": "docs/electromechanical_v3/parametric_domain_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": ".runtime/qual-c3/t1/T1-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": ".runtime/qual-c3/t2/T2-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": ".runtime/qual-c3/t3/T3-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": ".runtime/qual-c3/t4/T4-problem.json",
+      "schema": "docs/electromechanical_v3/problem_spec_v3.schema.json",
+      "status": "PASS"
+    },
+    {
+      "instance": ".runtime/qual-c3/t2/T2/candidates/v3-c-004/proposal.json",
+      "schema": "docs/electromechanical_v3/mutation_plan_v4.schema.json",
+      "status": "PASS"
+    }
+  ],
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "flight": "NOT_RUN",
+  "evidence": [
+    {
+      "path": "adversarial.json",
+      "sha256": "9c963f0dba25d3858444db389de7accf71716e53898fcd11f950843677fbe2e7"
+    },
+    {
+      "path": "external_perturbation_receipt.json",
+      "sha256": "816c55720f27ef0c23aa20c4e6a21add3c620fd097e745fc06d281ce8b1fdd48"
+    },
+    {
+      "path": "frozen_inputs.json",
+      "sha256": "e56808922fad88563029e257a908a386d0ea1cef319970bd91b74e9d7ca5f451"
+    },
+    {
+      "path": "generalization.json",
+      "sha256": "0dfa66e99718d2514be5182e36118ebaa66d49add241d12445ad297ab83f21bc"
+    },
+    {
+      "path": "independent_review.json",
+      "sha256": "b0dbb7e613157c48c90b7b23b028c14c9d273191ae50345b381e50b9b66e5096"
+    },
+    {
+      "path": "native_delta.json",
+      "sha256": "76e8ca5fd06768658aaddd48055268c5a8f0d299bd10cd714a635b3dddaf68f2"
+    },
+    {
+      "path": "pareto.json",
+      "sha256": "62c381cb213a07997f03a6565d55e5914b309f8d0494bf2f345c087d94ac1fb6"
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "5b51b8020c38d832e94ecee914c99d8b02fd3bee2bbf534aea5f3aacac78aba2"
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "19edf8727d68dde6d4e62a7709ab3085251804e3e9e94c2eed0609b5498ae5d6"
+    }
+  ]
+}

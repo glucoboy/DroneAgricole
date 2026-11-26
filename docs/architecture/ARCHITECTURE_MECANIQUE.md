@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 18 novembre 2026 |
+| Dernière mise à jour | 26 novembre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -879,6 +879,24 @@ conditionnent la phase D ; aucune qualification physique, fabrication ou
 modification des originaux ne découle de ce résultat partiel.
 
 <a id="modele-gazebo-prototype"></a>
+<a id="bancs-spatiaux-c3"></a>
+#### Bancs synthétiques de recherche de cheminement
+
+Les deux bancs V3-C.3 relient une racine FreeCAD à des références
+externes conservées en chemins relatifs. L’équipement mobile porte deux
+datums de sortie indépendants. Le second banc ajoute un niveau
+d’assemblage autour de l’équipement et place l’obstacle sur le trajet du
+second câble. Chaque câble garde ses extrémités électriques, sa réserve
+de service et sa propre géométrie de gaine. La pose étant à altitude
+fixe, le corridor volumique permet de contourner un obstacle et de
+revenir dans la bande d’appui nominale.
+
+Les platines sont des options de banc scellées. Une retenue est
+admissible avec mesure de l’aire d’appui sur la face porteuse, de sa
+normale, de la zone d’ancrage et du contact avec les gaines prévues.
+Ces choix sont **Implémentés** pour les bancs.
+[Contrôles et portée](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
+
 ### 2.3 Dérivation Gazebo du prototype — Implémenté partiellement, 24 octobre 2026
 
 Le responsable choisit de réemployer la CAO active du §2.2, en priorité pour
@@ -2822,6 +2840,8 @@ présentée comme référence.
   et fichiers machine-lisibles de `verification/`.
 
 ## Journal de modifications
+
+- **26 novembre 2026** — Deux bancs V3-C.3 introduisent des couloirs volumiques et une seconde hiérarchie XLink de ports ([bancs de cheminement](#bancs-spatiaux-c3)).
 
 - **18 novembre 2026** — Fermeture et transfert XLink V3-A, traçabilité des appuis, ancrages et réservations F40/F41.
 
