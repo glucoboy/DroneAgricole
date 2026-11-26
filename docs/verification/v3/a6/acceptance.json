@@ -1,0 +1,107 @@
+{
+  "schema": "v3.a6.acceptance/1",
+  "branch": "codex/v3-a6-authorized-native-transaction",
+  "base_branch": "origin/codex/v3-int21-regression-recovery",
+  "base_commit": "27144abf9841ba6502d29f2f76b15ff33092d186",
+  "base_tested_commit": "f8c5922c0fe2a4c5975d792edafd4d8221ad1ce4",
+  "base_verdict": "V3_INT21_GO",
+  "tested_commit": "da8908e7120a896122b655d2e3f241776cc7c64b",
+  "code_scope": "Windows amd64 UCRT64 C++17, Workholding XLink, TEST_ONLY",
+  "software_verdict": "V3_A6_SOFTWARE_TRANSACTION_GO",
+  "physical_verdict": "V3_A6_PHYSICAL_EVIDENCE_CONDITIONAL",
+  "cartographer_scope": "READ_ONLY_IMPACT",
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_construction": "NOT_RUN",
+  "physical_reception": "NOT_RUN",
+  "production_trust_pin": "EMPTY",
+  "checks": {
+    "signed_native_transactions": 2,
+    "independent_native_and_t0": "PASS",
+    "defensive_refusals": 32,
+    "fault_and_concurrency_cases": 7,
+    "sealed_regressions": "PASS",
+    "reference_integrity": "PASS",
+    "versioned_schema": {
+      "status": "PASS",
+      "validated_execution_objects": 25
+    }
+  },
+  "independent_code_review": {
+    "status": "PASS_WITH_DEPLOYMENT_LIMITS",
+    "verified": [
+      "global journal exclusivity and bounded register recheck under lock",
+      "reservation precedes construction and release is terminal",
+      "expiry recheck at commit and interrupted transaction quarantined",
+      "tool and checkout protection is a launcher responsibility",
+      "native builder and verifier isolated, applicable guards and independent T0 required",
+      "physical build gate disabled"
+    ],
+    "limits": [
+      "complete local trust-store rollback requires an external monotonic anchor",
+      "journal corruption blocks admission and triggers administrative quarantine",
+      "native validation uses distinct placements in one XLink closure"
+    ]
+  },
+  "executed_recipes": [
+    {
+      "path": "convergence_manager/tests/test_v3_a6_transactions.py",
+      "bytes": 15959,
+      "sha256": "c9ce78c5a9b830d3554968319e3e358ff357b04fb7682091e865bbf9616aceac",
+      "scope": "harnais complété dans le commit de preuves"
+    },
+    {
+      "path": "convergence_manager/tests/test_v3_a6_adversarial.py",
+      "bytes": 9320,
+      "sha256": "d38314921b5d464c5c8bd5327dc7bfe1cd98ed81f30cc8cb7fc6f6e91bbace41",
+      "scope": "harnais complété dans le commit de preuves"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "protocol.md",
+      "bytes": 7659,
+      "sha256": "0d67b5cec1c5e7473d0742392a620586bd59166842a1b9a0bad88ba10f27f7f7"
+    },
+    {
+      "path": "admission_contract.schema.json",
+      "bytes": 16849,
+      "sha256": "085fea49b614b4b19b8a31004315fc99b8b953246064a43cf6d28f235fdb91e8"
+    },
+    {
+      "path": "test_only_transactions.json",
+      "bytes": 1525,
+      "sha256": "14bb7bab059dd74a68fedda60c375fd4a171a631bee4b58c3e7bee565f9e088f"
+    },
+    {
+      "path": "native_validation.json",
+      "bytes": 5098,
+      "sha256": "e8b6b24ee4e88b0ca84b3e3c882e06629ea02e0f7294665e01d3a3c2e8d20ba3"
+    },
+    {
+      "path": "adversarial.json",
+      "bytes": 9461,
+      "sha256": "0042172392a7611af5768112b800ad8ab7e05231fdf463378d858e2fc4074476"
+    },
+    {
+      "path": "fault_injection.json",
+      "bytes": 2193,
+      "sha256": "4511a384649dcefc177e95e86d2777f29fd43a281526742e4b50ee1e21313011"
+    },
+    {
+      "path": "physical_readiness.json",
+      "bytes": 2775,
+      "sha256": "119c3f7baacddfff6325d8039af6d4e5c5f4c16a71d6e5f6183c3f8d40761cd5"
+    },
+    {
+      "path": "regressions.json",
+      "bytes": 8856,
+      "sha256": "c433281304265ac5d48587f8947e2f68b1491f51ccae2dd91a5a95ff9d03efe9"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 6269,
+      "sha256": "ad4bcaffe51434b8a8fbe9824ec7f2a6551f5d83d823bbf44e8ca3c5c51b3b78"
+    }
+  ]
+}

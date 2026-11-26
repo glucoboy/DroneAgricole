@@ -3,7 +3,6 @@
 import argparse
 from base64 import b64decode, b64encode
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
 from hashlib import sha256
 import hmac
 import json
@@ -188,8 +187,15 @@ def fault_cases(factory):
         assert result["code"] == code, result
         assert fixture.journal_states() == expected, (checkpoint, fixture.journal_states(), result)
         receipt_missing = result["report"] is None
+        if checkpoint == "during-publication":
+            commit = fixture.journal_events()[-1]["detail"]
+            recovered = commit["receipt"]
+            assert recovered["transaction_state"] == "COMMITTED_PRIVATE" and len(commit["receipt_sha256"]) == 64
+            publication = recovered["publication"]
+            directory = result["output"] / publication["directory"]
+            assert all(sha((directory / name).read_bytes()) == value for name, value in publication["sha256"].items())
         if checkpoint == "during-native-save":
-            assert "CRASH" in result["report"].get("native_reason", "") or "code 87" in str(result["report"]), result
+            assert result["report"].get("native_reason") == "A6_CONSTRUCTOR_INTERRUPTED: code 86", result
         else:
             assert receipt_missing, result
         # A lost receipt and an older A.5 consumption copy cannot remove the A.6 fence.
@@ -216,6 +222,36 @@ def fault_cases(factory):
     assert fixture.snapshot() == before
     cases["concurrency"] = {"status": "PASS", "commits": 1, "second_reason": denied["reason"],
                             "reference_integrity": "PASS"}
+
+    fixture = factory("revoked-after-reservation")
+    before = fixture.snapshot()
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        result = executor.submit(fixture.invoke, "first", fault="hold-after-reserve")
+        until = time.monotonic() + 15
+        lock = fixture.trusted / "a5-consumption.lock"
+        while time.monotonic() < until and not result.done():
+            if fixture.issue["id"] in read(fixture.state)["consumed"] and not lock.exists():
+                break
+            time.sleep(0.05)
+        else:
+            raise AssertionError("Réservation initiale absente")
+        fixture.set_events([fixture.issue, {**fixture.issue, "kind": "REVOKED", "at_utc": stamp()}])
+        denied = assert_denied(result.result(), "A6_FINAL_AUTHORITY_DENIED/DECISION_REVOKED")
+    assert fixture.journal_states() == STATES[:-1] + ["QUARANTINED"] and fixture.snapshot() == before
+    assert_denied(fixture.invoke("replay"), "DECISION_REVOKED")
+    cases["revocation-before-finalization"] = {"status": "PASS", "terminal": denied["transaction_state"],
+        "reason": denied["reason"], "reference_integrity": "PASS"}
+
+    fixture = factory("torn-journal")
+    before = fixture.snapshot()
+    original = fixture.journal.read_bytes()
+    with fixture.journal.open("ab") as journal:
+        journal.write(b"{")
+    deny = assert_denied(fixture.invoke("first"), "A6_JOURNAL_EMPTY_OR_TORN")
+    assert deny["construction_result"] == "NOT_RUN" and fixture.snapshot() == before
+    assert fixture.journal.read_bytes() == original + b"{"
+    cases["torn-journal"] = {"status": "PASS", "reason": deny["reason"],
+                            "operator_disposition": "QUARANTINED", "reference_integrity": "PASS"}
     return cases
 
 

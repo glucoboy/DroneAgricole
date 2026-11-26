@@ -53,6 +53,10 @@ def exercise(factory, no_crypto):
     fixture.prepare()
     reject(fixture, "missing-signed-review", "SIGNED_REVIEW_REQUIRED",
            {**fixture.request, "submission": {**fixture.request["submission"], "review": None}})
+    policy_content = fixture.policy.read_bytes()
+    fixture.policy.unlink()
+    reject(fixture, "missing-review-procedure", "Fichier absent : policy.json")
+    fixture.policy.write_bytes(policy_content)
     reject(fixture, "changed-signed-pose", "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
            {**fixture.request, "effect": {**fixture.request["effect"], "translation_mm": [-0.5, 0, 0]}})
     reject(fixture, "changed-signed-size", "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
@@ -84,6 +88,22 @@ def exercise(factory, no_crypto):
     assert fixture.journal_states() == ["REQUESTED", "AUTHORIZED_RESERVED", "QUARANTINED"]
     reject(fixture, "quarantined-decision-replay", "DECISION_ALREADY_USED", reserved=True)
     assert fixture.journal_states()[-1] == "QUARANTINED"
+
+    fixture = factory("p66-native-mapping")
+    effect = {**fixture.request["effect"], "carrier": "P66"}
+    fixture.bounds["carrier"] = "P66"
+    fixture.record["facts"]["carrier"] = "P66"
+    procedure = read(fixture.policy)
+    procedure["checks"][fixture.record["check_id"]]["facts"]["carrier"] = "P66"
+    fixture.policy_sha = save(fixture.policy, procedure)
+    fixture.trust["material_policy_sha256"] = fixture.policy_sha
+    fixture.trust_sha = save(fixture.trust_path, fixture.trust)
+    fixture.request["effect"] = effect
+    fixture.review_fields.update(authorized_effect=effect, policy_sha256=fixture.policy_sha,
+                                 trust_sha256=fixture.trust_sha)
+    fixture.prepare()
+    reject(fixture, "p66-no-native-mapping", "AUTHORIZED_NATIVE_FIXTURE_UNSUPPORTED", reserved=True)
+    assert fixture.journal_states() == ["REQUESTED", "AUTHORIZED_RESERVED", "QUARANTINED"]
 
     fixture = factory("registry")
     registry = read(fixture.registry)

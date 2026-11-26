@@ -1,0 +1,56 @@
+{
+  "schema": "v3.a6.physical_readiness/1",
+  "baseline": "../a5/create_support_iso_readiness.json",
+  "verdict": "V3_A6_PHYSICAL_EVIDENCE_CONDITIONAL",
+  "evidence_class": "PHYSICAL_MEASURED",
+  "scope": "READ_ONLY_IMPACT",
+  "operation": "CREATE_SUPPORT",
+  "occurrence": "anchor:iso-carrier",
+  "decision": "DENY",
+  "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+  "construction": "NOT_RUN",
+  "physical_reception": "NOT_RUN",
+  "cartographer_mutation": "DENY",
+  "candidate_count": 0,
+  "inspected_lots": 0,
+  "candidate_carriers": [
+    "P64",
+    "P66"
+  ],
+  "qualified_carriers": [],
+  "production_trust_pin": "EMPTY",
+  "physical_review": "NOT_RUN",
+  "operator_packet": "../a5/measurement_packet.md",
+  "collection_contract": "../a5/measurement_form.schema.json",
+  "missing": [
+    {
+      "id": "UART-ISO-001",
+      "expected": "Identifier fabricant, référence exacte, variante, révision et lot ou série de l’isolateur. Fournir des photos des marquages, des embases et des surfaces d’appui avec échelle et orientation."
+    },
+    {
+      "id": "UART-MOUNT-001",
+      "expected": "Choisir le porteur réellement accessible P64 ou P66. Relever deux datums, faces, percements, matière, épaisseur, vis ou inserts, engagement utile, accès outil et trajet des efforts."
+    },
+    {
+      "id": "UART-ACCESS-001",
+      "expected": "Relever les volumes balayés du geste TTL et du raccord USB, les états embase et fiche engagée, les axes et sorties et les gardes devant PDB, CAN1 et P72/P73 lorsque concernés."
+    },
+    {
+      "id": "UART-GUIDES-001",
+      "expected": "Relever sur gabarit batterie inerte les états limitants de retrait, les réservations et longueurs libres des cordons, les courbures et les marges avec incertitudes et limites sourcées."
+    },
+    {
+      "id": "AUTHORIZED_REVIEW",
+      "expected": "Le responsable habilité vérifie les originaux, la cohérence lot et révision, les cotes et incertitudes, la pose et le domaine exacts. Il signe le paquet applicable et fait inscrire la décision au registre."
+    },
+    {
+      "id": "PRODUCTION_TRUST",
+      "expected": "Provisionner hors requête par canal habilité la racine et son stockage durable. Qualifier la reprise et la chaîne native physique privée avant toute admission."
+    }
+  ],
+  "operator_conditions": [
+    "Travailler hors tension avec cordons détachés et gabarit inerte.",
+    "Pour chaque relevé consigner date UTC, instrument, étalonnage ou résolution, auteur, unités, méthode, incertitude, tolérance sourcée et transformations datum-parent aller et retour.",
+    "Conserver les originaux, photographies et données signées sous accès privé. Partager seulement les métadonnées de traçabilité et empreintes autorisées."
+  ]
+}
