@@ -1,0 +1,105 @@
+{
+  "schema": "v3.int3.c2_external_evaluator/1",
+  "status": "PASS",
+  "evaluator": "git_integrity",
+  "source_commit": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "frozen_at_utc": "2026-11-27T06:03:48.483159+00:00",
+  "t1_completed_at_utc": "2026-11-27T06:05:57.248770+00:00",
+  "scope": "SYNTHETIC_BENCH",
+  "domain_sha256": "7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5",
+  "t1_summary_sha256": "d58f62e2c0f875ae0e8d5c421dfe04cdb20ec5241e3d38bba510935b26a18131",
+  "checked_frozen_inputs": 41,
+  "input_path": ".runtime/c2-evaluator/perturbation.json",
+  "input_sha256": "28faadba86c393b814e3f45f84368b26d3892854c9682703173e6e8b2c681436",
+  "request": {
+    "schema": "v3.c2.external_perturbation/1",
+    "freeze_sha256": "bbffec230ef6b25588f0cdbdf16920f5288ff84ebc3d504a0613f05a72431439",
+    "base_problem_sha256": "768815665d8b58678a81293efa690570b66b86a749689f6b3169b390ea034862",
+    "evaluated_candidate_sha256": "da2de655533dcc2dbc30a63ad2f89c0babe99568124eb4bb39cc7a016cfac0a4",
+    "issued_at_utc": "2026-11-27T06:08:45.980957+00:00",
+    "narrowing": {
+      "translation_mm": {
+        "min": [
+          99,
+          2,
+          0
+        ],
+        "max": [
+          105,
+          9,
+          0
+        ]
+      },
+      "support_zones": [
+        "plate"
+      ]
+    }
+  },
+  "t1_narrowing": {
+    "support_zones": [
+      "plate",
+      "plate-b"
+    ],
+    "translation_mm": {
+      "max": [
+        106,
+        9,
+        0
+      ],
+      "min": [
+        98,
+        2,
+        0
+      ]
+    }
+  },
+  "candidates_observed": [
+    {
+      "candidate_id": "v3-c-043",
+      "support": "plate",
+      "translation_mm": [
+        102,
+        5.5,
+        0
+      ],
+      "candidate_result_sha256": "c6fff9bb808d1071fa6de62890932b16711eb3867610ce2d7e5961f1b3db38aa",
+      "proposal_sha256": "15b6eaaabd8a8d72f930b609d9f2bf6aaf8e931b2a3ff9dc97ba3482ef645d07",
+      "external_measurement_sha256": "b15e57305cd7c13b978d615c72f7f8e7b37ab73d580e7f5658da7436239dd077",
+      "still_in_domain": true
+    },
+    {
+      "candidate_id": "v3-c-044",
+      "support": "plate-b",
+      "translation_mm": [
+        102,
+        5.5,
+        0
+      ],
+      "candidate_result_sha256": "da2de655533dcc2dbc30a63ad2f89c0babe99568124eb4bb39cc7a016cfac0a4",
+      "proposal_sha256": "0e929e3d5ddb0f9652101bea1287a6b393a8f37cd11568e951e57f5c1ce09b49",
+      "external_measurement_sha256": "6a9e04d521e2ae1df2523d47b4668783f95348ad89382e2ab9de3396652f8965",
+      "still_in_domain": false
+    },
+    {
+      "candidate_id": "v3-c-061",
+      "support": "plate-b",
+      "translation_mm": [
+        102,
+        5.5,
+        0
+      ],
+      "candidate_result_sha256": "ff30e8f03516d9be8016135bdf9b89317b6e0a0f31e81f942d102366ae6d7c3b",
+      "proposal_sha256": "b76057860ae4d44d28840a8c20f39dada7c8e9dc2b8499e4b2096d93f6615fc7",
+      "external_measurement_sha256": "fc93e827f97edbbccabe65724dfa5087054969b365c82687096e155250425be1",
+      "still_in_domain": false
+    }
+  ],
+  "basis": "Le choix de l’appui plate exclut le gagnant T1 sur plate-b à translation identique. Le retrait symétrique d’un millimètre des deux extrémités X du domaine maintient une marge de trois millimètres autour de la translation du témoin plate déjà mesuré.",
+  "clauses": {
+    "protected_domain_subset": true,
+    "strict_subset_of_t1": true,
+    "same_seed_budget_objectives": true,
+    "winner_excluded_by_support": true,
+    "measured_alternative_in_restricted_domain": true
+  }
+}

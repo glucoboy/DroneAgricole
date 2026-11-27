@@ -1,0 +1,1384 @@
+{
+  "binaries": {
+    "faults_sha256": "dc05f422c9f3d2f0dadb8c1bcd6846169c035c878c04a11873221087026d81e5",
+    "nominal_sha256": "95057e81c45345b4200a4292dee968924edd21774d0b9e152bd003333a574226"
+  },
+  "cartographer_candidate_count": 0,
+  "cases": {
+    "meme-identifiant-concurrent": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5-faults\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\primary.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\result-primary",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "207f4728b18ec1a4bd5332f7481ff39aa042e11546342597d5a3d94543f0840a"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 0,
+        "fault": "hold-after-reserve",
+        "finished_utc": "2026-11-27T06:15:03.403379+00:00",
+        "started_utc": "2026-11-27T06:14:50.497652+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/concurrent-primary.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/concurrent-primary.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "consumption_count": 1,
+      "denied_command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5-faults\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\primary.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\result-challenger",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\concurrent\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "207f4728b18ec1a4bd5332f7481ff39aa042e11546342597d5a3d94543f0840a"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:51.027239+00:00",
+        "started_utc": "2026-11-27T06:14:50.882609+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/concurrent-challenger.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/concurrent-challenger.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "denied_reason": "AUTHORITY_STATE_BUSY",
+      "denied_receipt_sha256": "881d0232c70d1c691c3985d27b6f80895e528f9a8c24e608a772a871ebd81b9a",
+      "inputs_at_start": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "515845bdb351fba8e53a0b14da97908ad77b9574b65966a66ec7b5722ab2b5cc",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b90a05fce30370b59cd6e2072824361416b3e1da5886e2ad3aed2cffb94b56b1",
+        "request": "b9491bd4900cc760d5438945f27d648ee2d58cded78c3c8cd4e7f8ad6f6f3ce7",
+        "review": "5140809de335d247e08b6271a328756c725ec8b037781aee74b9b0189765d4ee",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "5140809de335d247e08b6271a328756c725ec8b037781aee74b9b0189765d4ee",
+        "trust": "207f4728b18ec1a4bd5332f7481ff39aa042e11546342597d5a3d94543f0840a"
+      },
+      "journal_sha256_at_reservation": "a0188282e126d04c56837e795c29ac5a745e9301d9e059b679f32225d1092a72",
+      "journal_sha256_final": "250a99cf8fcdb6d63dca13c845a965b50e48ee52d5e45ff3c1511fb9250c0624",
+      "journal_states": [
+        "REQUESTED",
+        "AUTHORIZED_RESERVED",
+        "BUILDING_PRIVATE",
+        "BUILT",
+        "INDEPENDENTLY_VALIDATED",
+        "COMMITTED_PRIVATE"
+      ],
+      "new_authorized_native_execution_for_challenger": false,
+      "receipt_sha256": "3267dd328b83522357399e89fc8e0e7eb3007272f9fa6cdbe3ba24a217595b7d",
+      "status": "PASS",
+      "transaction": {
+        "effect": {
+          "carrier": "P64",
+          "rotation_xyzw": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "size_mm": [
+            8,
+            8,
+            3
+          ],
+          "translation_mm": [
+            0,
+            0,
+            0
+          ]
+        },
+        "journal_authenticated": true,
+        "receipt_sha256": "3267dd328b83522357399e89fc8e0e7eb3007272f9fa6cdbe3ba24a217595b7d",
+        "states": [
+          "REQUESTED",
+          "AUTHORIZED_RESERVED",
+          "BUILDING_PRIVATE",
+          "BUILT",
+          "INDEPENDENTLY_VALIDATED",
+          "COMMITTED_PRIVATE"
+        ],
+        "status": "PASS"
+      }
+    },
+    "physique-avec-confiance-test": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\physique-avec-confiance-test.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-physique-avec-confiance-test",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.262129+00:00",
+        "started_utc": "2026-11-27T06:14:50.149513+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/physique-avec-confiance-test.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/physique-avec-confiance-test.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "1dbc2995bee24ba48fb672b4a375ef6cf326429202be2b787d8c6dbeb7aac7ea",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+      "receipt_sha256": "3d397be4bdbca45c514f65d096ea943ea8b73f75490193b999d2a626ad231ed4",
+      "status": "PASS"
+    },
+    "plan-v4-avec-confiance-a6": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\c3-review\\t1\\T1\\candidates\\v3-c-004\\proposal.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-baseline",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-plan-v4-avec-confiance-a6",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47",
+          "--freecad-python",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+          "--t0-validator",
+          ".runtime\\b\\t0\\cartographe-evidence.exe"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:49.490221+00:00",
+        "started_utc": "2026-11-27T06:14:49.413228+00:00",
+        "stderr": {
+          "bytes": 32,
+          "path": ".runtime/r/boundary-independent-r3/logs/plan-v4-avec-confiance-a6.stderr.log",
+          "sha256": "7f6ad74c61fde390a266ee74476061053137f392026d297f6cb2d3fd9a45ed50"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/plan-v4-avec-confiance-a6.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "dcdcf538b3686434626e64ae1a4931e11f2321f410b62df12bebc853c73e7884",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "Contrat d'admission A.5 requis",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "plan-v4-option-heritee": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\c3-review\\t1\\T1\\candidates\\v3-c-004\\proposal.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-baseline",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-plan-v4-option-heritee",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47",
+          "--freecad-python",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+          "--t0-validator",
+          ".runtime\\b\\t0\\cartographe-evidence.exe",
+          "--receipt",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\c3-review\\t1\\T1\\candidates\\v3-c-004\\construction\\transaction\\campaign.json"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:49.510760+00:00",
+        "started_utc": "2026-11-27T06:14:49.492757+00:00",
+        "stderr": {
+          "bytes": 39,
+          "path": ".runtime/r/boundary-independent-r3/logs/plan-v4-option-heritee.stderr.log",
+          "sha256": "f8e8752f785838e51c5b10d1c718e9cfa8761c3ae70019a01102eec0d33226cb"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/plan-v4-option-heritee.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "dcdcf538b3686434626e64ae1a4931e11f2321f410b62df12bebc853c73e7884",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "Option incompatible avec V3 : receipt",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "porteur-p66-hors-workholding": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\porteur-p66-hors-workholding.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-porteur-p66-hors-workholding",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.381369+00:00",
+        "started_utc": "2026-11-27T06:14:50.270988+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/porteur-p66-hors-workholding.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/porteur-p66-hors-workholding.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "f6bb813d8e392d5c5e0c8b68c446a855a56805e7940d79286f1055df2c9242d3",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "CARRIER_EVIDENCE_MISMATCH",
+      "receipt_sha256": "e99374245e42be928a6e19295706606c50f8dfc0670f3fd62293f40187fc67a8",
+      "status": "PASS"
+    },
+    "pose-modifiee-apres-signature": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\pose-modifiee-apres-signature.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-pose-modifiee-apres-signature",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.056219+00:00",
+        "started_utc": "2026-11-27T06:14:49.936043+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/pose-modifiee-apres-signature.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/pose-modifiee-apres-signature.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "2f6598aa5c984ccee2e98fd7978df40d2104dc2430f9296f6cedc130e6cf5a7d",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+      "receipt_sha256": "ab833e75e518b95bc772a7d91f7367f2fafa424cd89d1bfe2bea9c2bd8f91b3a",
+      "status": "PASS"
+    },
+    "recu-committe-a-la-place-de-la-revue": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\recu-committe-a-la-place-de-la-revue.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-recu-committe-a-la-place-de-la-revue",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:15:16.646480+00:00",
+        "started_utc": "2026-11-27T06:15:16.555231+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/recu-committe-a-la-place-de-la-revue.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/recu-committe-a-la-place-de-la-revue.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "116aebd52e4ff8e0646970509f9b3f8b0c8e1d3b8948e73ed14f07668826fc21",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "3267dd328b83522357399e89fc8e0e7eb3007272f9fa6cdbe3ba24a217595b7d",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "CONTRACT_FIELDS_MISMATCH",
+      "receipt_sha256": "597a00c4844853c84bf0c51761cdc1505eb28028ec3baada80721e5b536ddb0d",
+      "status": "PASS"
+    },
+    "recu-committe-utilise-comme-requete-c3": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\raw\\receipt-workholding.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-candidate",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-recu-committe-utilise-comme-requete-c3",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47",
+          "--freecad-python",
+          "C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+          "--t0-validator",
+          ".runtime\\b\\t0\\cartographe-evidence.exe"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:15:16.548923+00:00",
+        "started_utc": "2026-11-27T06:15:16.478263+00:00",
+        "stderr": {
+          "bytes": 32,
+          "path": ".runtime/r/boundary-independent-r3/logs/recu-committe-utilise-comme-requete-c3.stderr.log",
+          "sha256": "7f6ad74c61fde390a266ee74476061053137f392026d297f6cb2d3fd9a45ed50"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/recu-committe-utilise-comme-requete-c3.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "3267dd328b83522357399e89fc8e0e7eb3007272f9fa6cdbe3ba24a217595b7d",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d784f6888dc43a1c9bb15628c168414935525a0a0af1cd2f8fa5d688f274f771",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "Contrat d'admission A.5 requis",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "revoque-avant-commit": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5-faults\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\revocation\\primary.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\revocation\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\revocation\\result-primary",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\revocation\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "f3556fa78018af4df51b8f35a83664f340bf8a7fa3498ae39b3f8b774d661692"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": "hold-after-reserve",
+        "finished_utc": "2026-11-27T06:15:16.469655+00:00",
+        "started_utc": "2026-11-27T06:15:03.526442+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/revoked-primary.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/revoked-primary.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "committed": 0,
+      "consumption_count": 1,
+      "inputs_at_start": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "58dcd1859037ed09e8574fb95839b5d0d444d9f0b2c9b62258ea215a452a78db",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "97fae75e94b089783b7154c889515f11635f889d774409d3e59e792b39405782",
+        "request": "fb2c59ba1bff9dd6579b7d7cb707f6747bbe333aaf749b885b8f9d9f2ef78f67",
+        "review": "6a57c4379ec8ba2172071262952c7d06959247c162bd0fc52b18fba90ff8c26b",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "6a57c4379ec8ba2172071262952c7d06959247c162bd0fc52b18fba90ff8c26b",
+        "trust": "f3556fa78018af4df51b8f35a83664f340bf8a7fa3498ae39b3f8b774d661692"
+      },
+      "journal_sha256_at_reservation": "d694c2f131b172f41cbe641f230015cebdd17d4abb66d755c6d46b0fdf7a4b75",
+      "journal_sha256_final": "b6c4618af673355c143bdd8d89c210ec4bf9a5205d90bdb3669af1ca40933e64",
+      "journal_states": [
+        "REQUESTED",
+        "AUTHORIZED_RESERVED",
+        "BUILDING_PRIVATE",
+        "BUILT",
+        "INDEPENDENTLY_VALIDATED",
+        "QUARANTINED"
+      ],
+      "native_execution": "AUTORISÉ AVANT RÉVOCATION, PREUVES EN QUARANTAINE",
+      "reason": "A6_FINAL_AUTHORITY_DENIED/DECISION_REVOKED",
+      "receipt_sha256": "303d5dc629ca3b3c5366f34cd54d608eb077e0ad7298f7e2d5c96e2ab914f735",
+      "registry_sha256_final": "f54f38395c01eca3777c98950586271ad70eebfae5edce38ae123baaafe503b2",
+      "status": "PASS"
+    },
+    "revue-workholding-avec-fermeture-c3": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\revue-workholding-avec-fermeture-c3.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-baseline",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\result-revue-workholding-avec-fermeture-c3",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\spatial-trust.json",
+          "--a5-trust-sha256",
+          "9ca9826d6a7e3c4b458d2fa6b8f0a4ea444b35a342212543152e44c5a4ad7266"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:49.640078+00:00",
+        "started_utc": "2026-11-27T06:14:49.522900+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/revue-workholding-avec-fermeture-c3.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/revue-workholding-avec-fermeture-c3.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "bb3d40e0059a6424fe2b405c0513ccd379c04e12eb05169c041ec6bb48f71fea",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "dcdcf538b3686434626e64ae1a4931e11f2321f410b62df12bebc853c73e7884",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "9ca9826d6a7e3c4b458d2fa6b8f0a4ea444b35a342212543152e44c5a4ad7266"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+      "receipt_sha256": "a4a2a633f8c4488f695fe02a10c074af23f3e18cb0859619282281b45ad85005",
+      "status": "PASS"
+    },
+    "sortie-dans-fermeture-c3-jetable": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\sortie-dans-fermeture-c3-jetable.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-candidate",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\spatial-candidate\\publication",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.081291+00:00",
+        "started_utc": "2026-11-27T06:14:50.063220+00:00",
+        "stderr": {
+          "bytes": 38,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-dans-fermeture-c3-jetable.stderr.log",
+          "sha256": "b9e690045614806bd33b5f09f8b021aec867321edaa96108516cbb890cd18df0"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-dans-fermeture-c3-jetable.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "a3e047add1a4e1faa22cdb200fac1b92116427d123455758648f62517417a061",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d784f6888dc43a1c9bb15628c168414935525a0a0af1cd2f8fa5d688f274f771",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "A6_OUTPUT_NOT_PRIVATE_OR_OVERLAPPING",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "sortie-jonction-fermeture-c3": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\sortie-jonction-fermeture-c3.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\sortie-redirigee\\publication",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.142362+00:00",
+        "started_utc": "2026-11-27T06:14:50.126105+00:00",
+        "stderr": {
+          "bytes": 20,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-jonction-fermeture-c3.stderr.log",
+          "sha256": "cd51b2546e3a062c26f419e00afe00b1029a9d059048ee79d95054bbe617a204"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-jonction-fermeture-c3.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "a3e047add1a4e1faa22cdb200fac1b92116427d123455758648f62517417a061",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "A6_PATH_REDIRECTED",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "sortie-parent-de-soumission": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\sortie-parent-de-soumission.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\signed\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 1,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:50.106131+00:00",
+        "started_utc": "2026-11-27T06:14:50.089520+00:00",
+        "stderr": {
+          "bytes": 38,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-parent-de-soumission.stderr.log",
+          "sha256": "b9e690045614806bd33b5f09f8b021aec867321edaa96108516cbb890cd18df0"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/sortie-parent-de-soumission.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "e8a8bd67bc0cb9871072ac47a6f036916cfe63edd9c3522753b9fe8806430358",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "b7d05b0264e7bd60a8d7718a2482bbb04a56dbafd778358d0640247a3133c102",
+        "request": "a3e047add1a4e1faa22cdb200fac1b92116427d123455758648f62517417a061",
+        "review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "d1e6c0637f5efabf9864e4187e5e15a1464cae165ad2b7bdc232bf32ee0621d2",
+        "trust": "ba945d73726440211ff9c7e8a183a856f48a9550fe7133978cf657f8e063ef47"
+      },
+      "journal_states_before_and_after": [],
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "reason": "A6_OUTPUT_NOT_PRIVATE_OR_OVERLAPPING",
+      "receipt_sha256": null,
+      "status": "PASS"
+    },
+    "support-modifie-apres-signature": {
+      "command": {
+        "argv": [
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\b\\l5\\convergence_core.exe",
+          "v3-build",
+          "--root",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+          "--request",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\archive-alteree\\support-modifie-apres-signature.json",
+          "--sandbox",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\archive-alteree\\copy",
+          "--output",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\archive-alteree\\result-support-modifie-apres-signature",
+          "--a5-trust",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r\\.runtime\\r\\boundary-independent-r3\\archive-alteree\\trusted\\trust.json",
+          "--a5-trust-sha256",
+          "ac1c6cabc6a5a3670964cb5592a7db7a5d10cd8f38acc2d416f1bf242d23a3d1"
+        ],
+        "cwd": "D:/ProjetGuillaume/DroneAgricole/.runtime/int3-r",
+        "exit_code": 2,
+        "fault": null,
+        "finished_utc": "2026-11-27T06:14:49.924593+00:00",
+        "started_utc": "2026-11-27T06:14:49.796056+00:00",
+        "stderr": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/support-modifie-apres-signature.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": ".runtime/r/boundary-independent-r3/logs/support-modifie-apres-signature.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "datum_change": {
+        "datum": "AnchorNew",
+        "x_after_mm": 78.125,
+        "x_before_mm": 78.0
+      },
+      "inputs_unchanged": {
+        "consumption": "ac07b0cf81444f5e4b778e3c987c770c99922a754042e1ded017d47ce7b04fb3",
+        "journal": "4100a04f690e25b28b0340f58ddc4b6884064a72cbda706c7da920f7bc1832dd",
+        "packet": "e987ff917c117ac4bd942fbc39652554a76aa85a2c3f63e09016d3e7c8982506",
+        "registry": "ce943c3deea6375e72d37f91362c6cd8a8924540a5d531a64d33ac97fb2061fd",
+        "request": "ab88c4484af81e6e87e12fcb850d38ad7966df314f4586b1a270eb4dbedecaba",
+        "review": "170436a25d5c1bae6dc9d7c62a0e6adfebbf38fea8ff9333666b1ff5fb5ac862",
+        "sandbox": {
+          "Banc_Interconnexion.FCStd": "bb0a2e24bf4475e45d557550a06c3d7d1f37920bb48f1951d1a008ff8a1d8fab",
+          "parts/CoupledAssets.FCStd": "4b8c20d575e9ea659a5f8f3e2062b73e89f77fd8e5f4f9ee9689475e0ebf8434",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "source": {
+          "Banc_Interconnexion.FCStd": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+          "parts/FixtureAssets.FCStd": "6677c23bbd0d4b99270d113a3e32fe398f5b6c58435e0ce02fc2bc7832448aa5",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "submitted_review": "170436a25d5c1bae6dc9d7c62a0e6adfebbf38fea8ff9333666b1ff5fb5ac862",
+        "trust": "ac1c6cabc6a5a3670964cb5592a7db7a5d10cd8f38acc2d416f1bf242d23a3d1"
+      },
+      "journal_states_before_and_after": [],
+      "modified_file": "Banc_Interconnexion.FCStd",
+      "new_authorized_native_execution": false,
+      "new_private_native_files": 0,
+      "original_sha256": "d9efc6ea6ea4460f562c9766f89e7b12f7a12d65de8dc4e84ffbf033d743262d",
+      "reason": "XLINK_DEPENDENCY_SHA256_MISMATCH",
+      "receipt_sha256": "7f038501f0e6a11b52ff9bab972c5ef43c21d00a9649f50c317e5fa272964c2f",
+      "status": "PASS"
+    }
+  },
+  "checkout_commit": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "native_execution_observation": "Sortie, état authentifié du journal et absence de réservation/stockage privé, rapprochés du point d'appel A6Transaction.cpp; aucune trace ETW.",
+  "observed_utc": "2026-11-27T06:15:16.650491+00:00",
+  "ordinary_c3": {
+    "native_sha256_before_and_after": {
+      "Banc_Interconnexion.FCStd": "d784f6888dc43a1c9bb15628c168414935525a0a0af1cd2f8fa5d688f274f771",
+      "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+      "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+    },
+    "reopened_and_closed": true,
+    "scope": "BENCH_TEST_ONLY",
+    "witness_sha256_before_and_after": {
+      "campaign.json": "59a3ab3cfd905c965092d79315346609b8b5f70218a8fe12aae4cc7206855d6c",
+      "candidate-job.json": "3c72d6a2053d68f81178fcc76a223b67c947e1aec59e3397272d167af8857a93",
+      "candidate-validation.json": "7323e4374636efc7df380a882a70d4841b0246d03079e80ec242740b1a235be7",
+      "proposal.json": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+      "t0-crosscheck.json": "3579fae74b861a76ec78e7668343325ccc61aaf01485854268a384f708f0beb1"
+    }
+  },
+  "schema": "v3.int3.independent.boundaries/1",
+  "status": "PASS",
+  "tested_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "independent_run": {
+    "command": {
+      "finished_utc": "2026-11-27T06:15:16.6950606Z",
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+      "started_utc": "2026-11-27T06:14:49.0429478Z",
+      "exit_code": 0,
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        ".runtime/r/recheck_boundaries.py",
+        "--core",
+        ".runtime/b/l5/convergence_core.exe",
+        "--fault-core",
+        ".runtime/b/l5-faults/convergence_core.exe",
+        "--openssl",
+        "C:/msys64/ucrt64/bin/openssl.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        ".runtime/b/t0/cartographe-evidence.exe",
+        "--c3-plan",
+        ".runtime/c3-review/t1/T1/candidates/v3-c-004/proposal.json",
+        "--c3-transaction",
+        ".runtime/c3-review/t1/T1/candidates/v3-c-004/construction/transaction",
+        "--output",
+        ".runtime/r/boundary-independent-r3",
+        "--tested-commit",
+        "558b40fce8a33cb97b28d98418fb258585836873"
+      ]
+    },
+    "command_record": {
+      "path": ".runtime/r/logs/boundary-independent-r3.command.json",
+      "sha256": "90e3259e6a0da7ed595c38060669eecc49324fa2dedf3b352d061432de0d4643",
+      "bytes": 940
+    },
+    "log": {
+      "path": ".runtime/r/logs/boundary-independent-r3.log",
+      "sha256": "bf48cf09d128ce50711a16ca43221779b3b4efe9205a242cbeefad96b710f4b4",
+      "bytes": 46
+    },
+    "local_receipt": {
+      "path": ".runtime/r/boundary-independent-r3/report.json",
+      "sha256": "694d490561d4802d1daf0ebfc72ec5c1fc3c60c73d2f130480d84d65cb211fe9",
+      "bytes": 45529
+    },
+    "recipe": {
+      "path": "recipes/recheck_boundaries.py",
+      "sha256": "a0798e94b63e9f1bbba8746b38a2cfad31fa8e1dcebea37e8321635887a188df",
+      "bytes": 16879
+    }
+  },
+  "published_recipe_run": {
+    "command": {
+      "started_utc": "2026-11-27T06:10:54.7547408Z",
+      "exit_code": 0,
+      "cwd": "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-r",
+      "finished_utc": "2026-11-27T06:10:57.3791807Z",
+      "argv": [
+        "C:/msys64/ucrt64/bin/python.exe",
+        "-B",
+        "convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+        "--core",
+        ".runtime/b/l5/convergence_core.exe",
+        "--openssl",
+        "C:/msys64/ucrt64/bin/openssl.exe",
+        "--freecad",
+        "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+        "--t0",
+        ".runtime/b/t0/cartographe-evidence.exe",
+        "--c3-plan",
+        ".runtime/c3-review/t1/T1/candidates/v3-c-004/proposal.json",
+        "--c3-transaction",
+        ".runtime/c3-review/t1/T1/candidates/v3-c-004/construction/transaction",
+        "--output",
+        ".runtime/r/published-boundaries",
+        "--tested-commit",
+        "60790ca713bd3e243b1a2581014927b5e7169ac4"
+      ]
+    },
+    "command_record": {
+      "path": ".runtime/r/logs/published-boundaries.command.json",
+      "sha256": "ff48e43b80dd3bb48bfada34154e8a332f67bc0d73003b67b5c9edc4a8da4022",
+      "bytes": 889
+    },
+    "log": {
+      "path": ".runtime/r/logs/published-boundaries.log",
+      "sha256": "365d2187ef2f5b54e910a53e86c74bfff19bf1191f0d08ada752a87d73f5c835",
+      "bytes": 35
+    },
+    "receipt": {
+      "path": ".runtime/r/published-boundaries/boundaries.json",
+      "sha256": "9addb7c964c2dbea479546f9efb97f27457144c4620673ac013ff6958fa7fc94",
+      "bytes": 9322
+    },
+    "checkout_identity_for_receipt": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+    "code_identity": "558b40fce8a33cb97b28d98418fb258585836873",
+    "recipe": {
+      "path": "convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+      "sha256": "9cbdca1d7707a2c186e952b0513476bdd6f8b8e7b52b51dd49df15530d49eccb",
+      "bytes": 10991
+    },
+    "result": {
+      "binary_sha256": "95057e81c45345b4200a4292dee968924edd21774d0b9e152bd003333a574226",
+      "c3_build_using_a6_authority": {
+        "reason": "UNSUPPORTED",
+        "status": "NOT_RUN"
+      },
+      "c3_native_transaction_without_a6": {
+        "campaign_sha256": "59a3ab3cfd905c965092d79315346609b8b5f70218a8fe12aae4cc7206855d6c",
+        "candidate_job_sha256": "3c72d6a2053d68f81178fcc76a223b67c947e1aec59e3397272d167af8857a93",
+        "candidate_validation_sha256": "7323e4374636efc7df380a882a70d4841b0246d03079e80ec242740b1a235be7",
+        "execution_scope": "BENCH_TEST_ONLY",
+        "native_sha256": {
+          "Banc_Interconnexion.FCStd": "d784f6888dc43a1c9bb15628c168414935525a0a0af1cd2f8fa5d688f274f771",
+          "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+          "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+        },
+        "status": "PASS",
+        "t0_crosscheck_sha256": "3579fae74b861a76ec78e7668343325ccc61aaf01485854268a384f708f0beb1"
+      },
+      "c3_plan_sha256": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+      "c3_source_xlink_sha256": {
+        "Banc_Interconnexion.FCStd": "dcdcf538b3686434626e64ae1a4931e11f2321f410b62df12bebc853c73e7884",
+        "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+        "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+      },
+      "cases": {
+        "a6-override-freecad-python": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "REJECTED_BY_CLI",
+          "exit_code": 1,
+          "journal_unchanged": true,
+          "reason": "A6_TOOL_OVERRIDE_DENIED",
+          "registry_unchanged": true,
+          "request_sha256": "57881cd90d97ed918541f9eb7fec1b20405d6d54c848b122dcea27891e1cc263",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "a6-override-t0-validator": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "REJECTED_BY_CLI",
+          "exit_code": 1,
+          "journal_unchanged": true,
+          "reason": "A6_TOOL_OVERRIDE_DENIED",
+          "registry_unchanged": true,
+          "request_sha256": "57881cd90d97ed918541f9eb7fec1b20405d6d54c848b122dcea27891e1cc263",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "c3-plan-on-a6-entry": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "REJECTED_BY_CLI",
+          "exit_code": 1,
+          "journal_unchanged": true,
+          "reason": "v3-build requiert FreeCAD Python et le validateur T0 indépendant",
+          "registry_unchanged": true,
+          "request_sha256": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "c3-plan-with-a6-trust-and-native-options": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "REJECTED_BY_CLI",
+          "exit_code": 1,
+          "journal_unchanged": true,
+          "reason": "Contrat d'admission A.5 requis",
+          "registry_unchanged": true,
+          "request_sha256": "3f639e1c499ed6ea0fa61b6143a7d2df9bf5a5950f18c7206af91b985eeb7665",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "c3-profile-with-workholding-review": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+          "receipt_sha256": "7c4b2385ae62be1acd87b6ad32cf146914c79e877fff168490fb193054979d15",
+          "registry_unchanged": true,
+          "request_sha256": "7447d103301abe9f55a351baa2b5a8edb8638278845f9950db78231746348a84",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "c3-profile-with-workholding-trust": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "TRUST_BINDING_MISMATCH",
+          "receipt_sha256": "8b9a63c9f61d905c1225ea4a5a304941ed75fb06c21798579566ff9eba811e60",
+          "registry_unchanged": true,
+          "request_sha256": "7447d103301abe9f55a351baa2b5a8edb8638278845f9950db78231746348a84",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-effect-carrier": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "CARRIER_EVIDENCE_MISMATCH",
+          "receipt_sha256": "fd3a921b1c2d4157f3cbeecfd076b9e3a0611e06acb1acb4679e6b5df539cb8d",
+          "registry_unchanged": true,
+          "request_sha256": "cda998d834b4e3f1db5500e1c837d63fbb9d0f07a57b5e4ac89ab87e5620a4e2",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-effect-harnesses": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+          "receipt_sha256": "147dda4b34dd6d34cac79b4adda9d05e7242a400f0b1ed428c73fca1f4ffcc8b",
+          "registry_unchanged": true,
+          "request_sha256": "1db4d9bc68cc0cc00340655a7924f34353377186c54843bb3ef06cbcea56636d",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-effect-size-mm": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+          "receipt_sha256": "753b02af03923639621da1e14be10ed6a35484a6e7f4ef0606f2c5d29a24abf8",
+          "registry_unchanged": true,
+          "request_sha256": "8f5cb77140f3ae62fcad0818588a88bd2a0cecef5a355bc4d8c6750f54501c6e",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-lot-sha256": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "TRUST_BINDING_MISMATCH",
+          "receipt_sha256": "ba61ba4d3a76c5e53eadb7b53a3b1180043da94cca108c86b0bbf63f9f0372ec",
+          "registry_unchanged": true,
+          "request_sha256": "234e0eddb86821997d78db118cb367d34b34f61da1371ffef44876d9f645214c",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-model-version": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "TRUST_BINDING_MISMATCH",
+          "receipt_sha256": "115a0d3227945ed6b0ad9fcfd590ac2ff9684194fb5a2845ebd3bc2d543aa4fa",
+          "registry_unchanged": true,
+          "request_sha256": "f718d0a7fc49d58773426d6400d09b57f2f0e46c0e15b125b73ad188c2142953",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "changed-occurrence": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "TRUST_BINDING_MISMATCH",
+          "receipt_sha256": "8411a327567fb5db5992c3fdb85b76cc60b9578ca3eec562937f78a2d7b63212",
+          "registry_unchanged": true,
+          "request_sha256": "596cc31fc33dbdd49d765ba01f675b566b3fa8ffb6b2d9191aacbaa5a2465dbb",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "physical-request-with-test-trust": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+          "receipt_sha256": "94cc340177b09a513042c63f1efc40bbce88dccec987c1fcb071596ae9cdd757",
+          "registry_unchanged": true,
+          "request_sha256": "991917e3ad839770d87bde51b89bd6ed4060d989a5c22821c4de15e1df846d71",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        },
+        "replaced-trusted-bounds": {
+          "candidate_transactions": 0,
+          "construction": "NOT_RUN",
+          "consumption_unchanged": true,
+          "decision": "DENY",
+          "exit_code": 2,
+          "journal_unchanged": true,
+          "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+          "receipt_sha256": "27419f46e97dd5e019bad8166ee102a4352eb70c5960d51fb2481b1ea1b922a9",
+          "registry_unchanged": true,
+          "request_sha256": "57881cd90d97ed918541f9eb7fec1b20405d6d54c848b122dcea27891e1cc263",
+          "signed_workholding_review_sha256": "d2d2965bd2b17a3c9983649197c83a0a241fb64ffe4dc455a5415794dc4ea0b4",
+          "status": "PASS",
+          "transaction_state": "NOT_RESERVED",
+          "xlink_unchanged": true
+        }
+      },
+      "executed_at_utc": "2026-11-27T06:10:57.364878+00:00",
+      "schema": "v3.int3.a6_boundaries/1",
+      "status": "PASS",
+      "tested_commit": "60790ca713bd3e243b1a2581014927b5e7169ac4"
+    }
+  },
+  "earlier_attempts": [
+    {
+      "status": "FAIL_DANS_LA_RECETTE",
+      "exit_code": 1,
+      "reason": "mklink /j n’a pas créé le témoin jetable pendant la première exécution.",
+      "log": {
+        "path": ".runtime/r/logs/boundary-independent.log",
+        "sha256": "f454b42d6800a04ff184b85a8fb8e916311588fd28b4babf664fce28411968d9",
+        "bytes": 1160
+      },
+      "partial_results": {
+        "path": ".runtime/r/boundary-independent/cases.json",
+        "sha256": "71d408020d0a19ab1488afefc1955fb23a385c4e000418a9b41649aabd99582a",
+        "bytes": 20246
+      }
+    },
+    {
+      "status": "PASS",
+      "exit_code": 0,
+      "reason": "Nouveau dossier privé avec droit de création de jonction. Le troisième rejeu vérifie aussi les attestations finalisées et la fermeture du témoin C.3.",
+      "log": {
+        "path": ".runtime/r/logs/boundary-independent-r2.log",
+        "sha256": "bf48cf09d128ce50711a16ca43221779b3b4efe9205a242cbeefad96b710f4b4",
+        "bytes": 46
+      },
+      "receipt": {
+        "path": ".runtime/r/boundary-independent-r2/report.json",
+        "sha256": "af9f8d158efb03846d813c90dfdc24721da241eedf139da4b0d751c1bdf0f3d1",
+        "bytes": 44249
+      }
+    }
+  ]
+}

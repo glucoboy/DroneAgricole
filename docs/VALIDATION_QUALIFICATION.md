@@ -3255,6 +3255,26 @@ SITL s’exécutent au plafond enregistré de 30 s. La réception physique,
 Gazebo/PX4 complet, arm64, coupure réelle et vol restent **À valider**.
 [Acceptation et empreintes](verification/v3/int3/integration/acceptance.json)
 
+<a id="cartographe-v3-int3-revue"></a>
+##### Revue indépendante de V3-INT.3 — 27 novembre 2026
+
+La revue sur worktree neuf conclut `V3_INT3_INDEPENDENT_PASS` pour le
+merge `558b40fce8a33cb97b28d98418fb258585836873` et les bancs synthétiques
+Windows amd64. Les révisions de remise et de compilation, les empreintes
+et l’ancienne référence de recette écartée sont identifiées dans le reçu.
+La recette finale de refus et les 14 cas indépendants ont été rejoués
+séparément. La finalisation de l’intégration relève de l’étape 3.
+
+C.3 valide T1, T2 et T3 après 33 contre-mesures FreeCAD. Le nouveau solide
+T2 intersecte T1, puis les deux faisceaux de T2 évitent le solide sauvegardé.
+T4 s’arrête `INCONCLUSIVE` avec zéro candidat. A.6 vérifie deux effets
+Workholding P64 signés séparément, 35 refus et sept scénarios de panne ou
+de concurrence. L1/L2 scellés, les régressions C.2/A.5 et les suites
+L3/L4/L5/T0 passent. Les empreintes des 142 entrées protégées sont stables.
+La génération du modèle cartographe reproduit l’écart `stale CAD manifest`
+du lot Gazebo. La réception physique et l’ancrage monotone externe restent
+**À valider**. [Verdict et preuves](verification/v3/int3/independent/independent_review.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4470,7 +4490,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Recherche par polycorridors, construction XLink et contre-mesure OCCT de deux câbles | T-CARTO-V3-C3 T1 à T4 | [Acceptation](verification/v3/c3/acceptance.json) et [mesures](verification/v3/c3/iteration2/native_delta.json) | **Qualifié** sur les deux bancs synthétiques Windows amd64. Cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Rejeu L1/L2 aux empreintes historiques, suites L3/L5 et protections C.2/A.5 | T-CARTO-V3-INT21 | [Résultat](#cartographe-v3-int21), [acceptation](verification/v3/int21/acceptance.json) | `V3_INT21_GO` sur Windows amd64 C++17, banc numérique **Qualifié**. Mutation du cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Revue Ed25519, réservation journalisée L5, constructeur B.1 et réouverture/T0 | T-CARTO-V3-A6-TRANSACTION | [Résultat](#cartographe-v3-a6), [acceptation](verification/v3/a6/acceptance.json) | Transaction **Qualifié** sur banc numérique Windows amd64. Matériel et production **À valider**. |
-| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Fusion C.3/A.6, contrats L3/L5 et validation indépendante XLink/L4/T0, journal et protections INT.2.1 | T-CARTO-V3-INT3 T1–T4, deux transactions signées, refus croisés et rejeux scellés | [Résultat](#cartographe-v3-int3), [preuves](verification/v3/int3/integration/acceptance.json) | **Implémenté** sur banc synthétique Windows amd64. Qualification intégrée et réception physique **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Fusion C.3/A.6, contrats L3/L5 et validation indépendante XLink/L4/T0, journal et protections INT.2.1 | T-CARTO-V3-INT3 T1–T4, deux transactions signées, refus croisés et rejeux scellés | [Remise](#cartographe-v3-int3), [revue indépendante](#cartographe-v3-int3-revue) | **Implémenté** sur banc synthétique Windows amd64, `V3_INT3_INDEPENDENT_PASS`. Finalisation intégrée et réception physique **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -5322,6 +5342,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 ## 16. Journal de modifications
 
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)
+- **27 novembre 2026** — Revue indépendante V3-INT.3 sur bancs synthétiques, avec deux nouvelles perturbations après gel et contrôle de la jonction d’autorité. [Résultat](#cartographe-v3-int3-revue)
 - **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)
 - **26 novembre 2026** — V3-C.3 vérifie l’adaptation à un obstacle externe sur banc et relève une sortie de corridor en T3. [Résultat](#cartographe-v3-c3)
 
