@@ -13,6 +13,7 @@ from pathlib import Path
 
 import FreeCAD as App
 import Part
+from cad_export_cartographe import sealed_reader
 
 ROOT = Path(__file__).resolve().parents[3]
 CAD = ROOT / 'hardware/mecanique/cartographe'
@@ -40,11 +41,14 @@ def main():
     geometry = json.loads(GEOMETRY.read_text(encoding='utf-8-sig'))
     if not geometry['finalized'] or not geometry['checks']['sources_unchanged']:
         raise ValueError('Export géométrique non finalisé')
+    sources = geometry['sources']
+    if sha(CAD / 'manifest.json') != sources['cad_manifest_sha256']:
+        raise ValueError('stale CAD manifest')
     canonical = json.loads((CAD / 'manifest.json').read_text(encoding='utf-8-sig'))['prototype_cartographe']
     spec = importlib.util.spec_from_file_location('reader', CAD / 'verification/read_brep_prototype.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    reader = module.Reader(CAD)
+    reader = sealed_reader(module.Reader, CAD, sources['dependencies_relative_to_cad_directory'])
     # Eight rubber contact pads, two legs, four arm/motor assemblies and centre.
     selected = [f'OEM_Part__Feature{i:03d}' for i in (10,11,12,13,26,27,28,29,1,17)]
     selected += ['OEM_X650_ZHEDIE_JIBI_2024_ASM'+suffix for suffix in ('','001','002','003')]

@@ -26,6 +26,19 @@ def bounds(box):
     return [box.XMin, box.YMin, box.ZMin, box.XMax, box.YMax, box.ZMax]
 
 
+def sealed_reader(reader_type, base, declared):
+    """Reject an unexpected XLink before reading its document from disk."""
+    class SealedReader(reader_type):
+        def xml(self, relative):
+            path = (self.base / relative).resolve(strict=True)
+            name = path.relative_to(self.base).as_posix()
+            if name not in declared:
+                raise ValueError('Dépendance BRep hors gel : ' + name)
+            return super().xml(relative)
+
+    return SealedReader(base)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace', type=Path, default=Path(__file__).resolve().parents[3])
@@ -52,7 +65,6 @@ def main():
     spec = importlib.util.spec_from_file_location('saved_brep_reader', reader_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    reader = module.Reader(base)
     final = canonical['assemblage']
     parent_rows = [r for r in canonical['occurrences'] if r['parent'] == final]
     identity = [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]
@@ -68,6 +80,7 @@ def main():
         if sha(base / relative) != expected:
             raise ValueError('Empreinte CAO différente du manifeste : ' + relative)
     before = {relative: sha(base / relative) for relative in declared}
+    reader = sealed_reader(module.Reader, base, before)
     body = Mesh.Mesh()
     rotor_meshes = []
     occurrences = []
@@ -75,6 +88,7 @@ def main():
     invalid = []
     union_native = App.BoundBox()
     sub_boxes = {}
+    published_method_boxes = {}
     for index, row in enumerate(leaves):
         print(f'[{index + 1}/{len(leaves)}] {row["occurrence"]}', flush=True) if index % 25 == 0 else None
         shape = reader.occurrence(row)
@@ -83,6 +97,9 @@ def main():
         valid = shape.isValid()
         if not valid:
             invalid.append({'parent': row['parent'], 'occurrence': row['occurrence'], 'source': row['source']})
+        # The assembly manifest uses Shape.BoundBox. Reproduce that method
+        # before tessellation, which may populate the shape's mesh cache.
+        published_method_boxes.setdefault(row['parent'], App.BoundBox()).add(shape.BoundBox)
         mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=args.linear_deflection_mm,
                                       AngularDeflection=0.35, Relative=False)
         if mesh.CountFacets == 0:
@@ -114,6 +131,18 @@ def main():
         raise ValueError('Écart géométrique de maillage hors seuil : ' + json.dumps(errors))
     if len(rotor_meshes) != 4:
         raise ValueError('Quatre rotors distincts requis')
+    published_method_boxes[final] = App.BoundBox()
+    for parent in parent_rows:
+        published_method_boxes[final].add(published_method_boxes[parent['source']])
+    published_comparisons = {}
+    for assembly in canonical['assemblages']:
+        name = assembly['fichier']
+        measured = bounds(published_method_boxes[name])
+        published = assembly['bbox_mm']
+        difference = max(abs(a-b) for a, b in zip(measured, published))
+        if difference > 1.0:
+            raise ValueError(f'Enveloppe BoundBox différente du manifeste de plus de 1 mm : {name} ({difference} mm)')
+        published_comparisons[name] = {'observed_mm': measured, 'published_mm': published, 'max_error_mm': difference}
     scale = App.Matrix()
     scale.scale(0.001, 0.001, 0.001)
     body.transform(scale)
@@ -139,10 +168,9 @@ def main():
     dependencies = set(declared)
     dependencies.update(path.relative_to(base).as_posix() for path in reader.documents)
     dependency_hashes = {relative: sha(base / relative) for relative in sorted(dependencies)}
-    final_box = next(r['bbox_mm'] for r in canonical['assemblages'] if r['fichier'] == final)
-    bbox_difference = max(abs(a-b) for a, b in zip(bounds(union_native), final_box))
-    if bbox_difference > 1.0:
-        raise ValueError('Enveloppe finale différente du manifeste de plus de 1 mm')
+    final_box = published_comparisons[final]['published_mm']
+    bbox_difference = published_comparisons[final]['max_error_mm']
+    exact_vs_published = max(abs(a-b) for a, b in zip(bounds(union_native), final_box))
     result = {
         'schema_version': 1, 'test_id': 'T-CARTO-GZ-01', 'status': 'Implémenté',
         'physical_fidelity': 'À valider', 'finalized': True,
@@ -163,6 +191,9 @@ def main():
                    'body_leaf_occurrences': len(leaves)-4, 'rotors': 4, 'source_dependencies': len(dependencies)},
         'geometry': {'native_bbox_mm': bounds(union_native), 'published_bbox_mm': final_box,
                      'published_bbox_max_error_mm': bbox_difference,
+                     'exact_vs_published_bbox_max_difference_mm': exact_vs_published,
+                     'published_bbox_method': 'Shape.BoundBox avant tessellation',
+                     'assemblies_published_bbox_checks': published_comparisons,
                      'linear_deflection_mm': args.linear_deflection_mm, 'angular_deflection_rad': .35,
                      'body_mesh': {'path': body_path.relative_to(out).as_posix(), 'sha256': sha(body_path),
                                    'facets': body.CountFacets, 'bbox_m': bounds(body.BoundBox)},
