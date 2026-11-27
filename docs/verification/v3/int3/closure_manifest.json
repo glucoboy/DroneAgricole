@@ -1,0 +1,1576 @@
+{
+  "schema": "v3.int3.closure_manifest/1",
+  "verdict": "V3_INT3_GO",
+  "observed_at_utc": "2026-11-27T12:23:10.600588+00:00",
+  "history": {
+    "C.3_merge": {
+      "sha": "6e5fd7176ddbb26f5a1df0dd368032af2a803079",
+      "parents": [
+        "27144abf9841ba6502d29f2f76b15ff33092d186",
+        "08ec9c4baba84d9486e7d1df3a356c0d35583646"
+      ]
+    },
+    "A.6_merge_and_integrated_code": {
+      "sha": "558b40fce8a33cb97b28d98418fb258585836873",
+      "parents": [
+        "6e5fd7176ddbb26f5a1df0dd368032af2a803079",
+        "6461198f341af9e1f79aef061cb65d6fa531b283"
+      ]
+    },
+    "integration_handoff": {
+      "sha": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+      "parents": [
+        "558b40fce8a33cb97b28d98418fb258585836873"
+      ]
+    },
+    "independent_review": {
+      "sha": "2d0087412491695364308971d1057d89e93f1bed",
+      "parents": [
+        "60790ca713bd3e243b1a2581014927b5e7169ac4"
+      ],
+      "reviewed_code": "558b40fce8a33cb97b28d98418fb258585836873"
+    },
+    "review_merge_replayed": {
+      "sha": "f6dd9df52ef9d90a507284696cc6cf6d588a1c69",
+      "parents": [
+        "60790ca713bd3e243b1a2581014927b5e7169ac4",
+        "2d0087412491695364308971d1057d89e93f1bed"
+      ]
+    },
+    "final_proof": {
+      "resolve": "Commit courant sur la branche de clôture portant ce fichier.",
+      "parents": [
+        "f6dd9df52ef9d90a507284696cc6cf6d588a1c69"
+      ]
+    }
+  },
+  "source_heads": {
+    "V3-INT.2.1": "27144abf9841ba6502d29f2f76b15ff33092d186",
+    "V3-C.3": "08ec9c4baba84d9486e7d1df3a356c0d35583646",
+    "V3-A.6": "6461198f341af9e1f79aef061cb65d6fa531b283",
+    "V3-INT.3_INTEGRATION": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+    "V3-INT.3_INDEPENDENT_REVIEW": "2d0087412491695364308971d1057d89e93f1bed"
+  },
+  "merge_base": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "test_environment": {
+    "os": "Windows amd64",
+    "toolchain": "MSYS2 UCRT64",
+    "cxx": "C++17 sans extensions",
+    "gcc": "16.2.0",
+    "cmake_ctest": "4.4.2",
+    "ninja": "1.13.2",
+    "qt": "6.11.2 offscreen",
+    "python": "3.14.7",
+    "openssl": "3.6.4",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "production_trust_pin": "EMPTY",
+    "native_environment_scope": "bancs synthétiques"
+  },
+  "proof_stages": {
+    "integration": {
+      "receipt": {
+        "path": "integration/acceptance.json",
+        "bytes": 6923,
+        "sha256": "be7150f7db25ddb860f3619dd4108e297010cdf998348d9e7ec051506bcd3d83"
+      },
+      "verdict": "V3_INT3_INTEGRATION_READY_FOR_REVIEW",
+      "verified_supports": 17
+    },
+    "independent": {
+      "receipt": {
+        "path": "independent/independent_review.json",
+        "bytes": 6622,
+        "sha256": "0fca7d36f314ea9245755b3483360c0cda32d5d0cc77fe67b2c06fcc9646c6ca"
+      },
+      "verdict": "V3_INT3_INDEPENDENT_PASS",
+      "verified_supports": 21
+    }
+  },
+  "published_merge_audit": {
+    "proof": {
+      "path": "independent/merge_integrity.json",
+      "bytes": 20004,
+      "sha256": "a08bfaaf67f0b3a1344bc81ccfcea4d4a4c287edf49664a8804e1ab90f38e1d1"
+    },
+    "verified_git_blobs": 76,
+    "verified_source_receipts": 3
+  },
+  "git_identity": {
+    "review_merge_status_before_replay": {
+      "path": "../../../../.runtime/close-b/logs/checkout.log",
+      "bytes": 74,
+      "sha256": "e2a2c7ba8eb7c19dc752744cf1825936b4fec7eb2b4c6e5ea56a3a9993b94aa8"
+    },
+    "clean_checkout_before_replay": true,
+    "root_trees": {
+      "558b40fce8a33cb97b28d98418fb258585836873": "30a1d5bf9c42309464e0bdb4e30ce88beb971d93",
+      "60790ca713bd3e243b1a2581014927b5e7169ac4": "8232f36c393d8c9b9127f55e4fd8c6bb54242ef7",
+      "2d0087412491695364308971d1057d89e93f1bed": "8ed40d6f38a3d516845e4ee5e6df423060ac9126",
+      "f6dd9df52ef9d90a507284696cc6cf6d588a1c69": "8ed40d6f38a3d516845e4ee5e6df423060ac9126"
+    },
+    "identical_subtrees": {
+      "architecture_decision_engine": "7ce0bce8c7469f75b05ca1feee3d6d17b51c5416",
+      "validation_engine": "0b721a92faf3c3419cc938e2337f155791437506",
+      "convergence_manager/src": "7691f33fa703b08c09fa348acea46f7cb5f87311",
+      "convergence_manager/native": "a20f24e9e03c903a8b54b7b394df8857c0c701f0",
+      "simulation": "622a27af5d9953f9e44aee6944e5055cb0d68262",
+      "electromechanical_engine": "12c48363750a38fbf91074f27ebf76fb8e08c6ab",
+      "technical_research_engine": "2478e31e94837f6d2cda29ae1f0d69fd91272439",
+      "interconnection_engine": "230851fecab9cd507f68313370789f00d6fab771",
+      "configs/visualization/schemas": "4ef950216f465bdf1ade7a8d0c009a04ab8c38c9",
+      "docs/electromechanical_v3": "d3608fb77e81954f046fb9a02b4ff898b009d5c4",
+      "docs/verification/v3/a6": "11e26372458e8bb2dbd70291ff5bcb11e8cbfcf3",
+      "hardware/mecanique/cartographe": "02d62e8b47473d773e84aea931a9f8e8105f0bd3"
+    },
+    "convergence_manager_tests_trees": {
+      "558b40fce8a33cb97b28d98418fb258585836873": "f31746662918ff417da434cc9c42cbdcfc88c16d",
+      "60790ca713bd3e243b1a2581014927b5e7169ac4": "68667371fc18ed4b3c7b476e310544b8f13bd36c",
+      "2d0087412491695364308971d1057d89e93f1bed": "68667371fc18ed4b3c7b476e310544b8f13bd36c",
+      "f6dd9df52ef9d90a507284696cc6cf6d588a1c69": "68667371fc18ed4b3c7b476e310544b8f13bd36c"
+    },
+    "code_to_handoff_changes": [
+      ".gitattributes",
+      "convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+      "docs/VALIDATION_QUALIFICATION.md",
+      "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+      "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+      "docs/verification/v3/int3/integration/REPORT.md",
+      "docs/verification/v3/int3/integration/acceptance.json",
+      "docs/verification/v3/int3/integration/adversarial.json",
+      "docs/verification/v3/int3/integration/boundary_matrix.json",
+      "docs/verification/v3/int3/integration/builds.json",
+      "docs/verification/v3/int3/integration/conflict_resolutions.md",
+      "docs/verification/v3/int3/integration/inputs/c2-t2-perturbation.json",
+      "docs/verification/v3/int3/integration/inputs/c3-t2-perturbation.json",
+      "docs/verification/v3/int3/integration/merge_manifest.json",
+      "docs/verification/v3/int3/integration/native_a6.json",
+      "docs/verification/v3/int3/integration/native_c3.json",
+      "docs/verification/v3/int3/integration/recipes/guards.ps1",
+      "docs/verification/v3/int3/integration/recipes/replay_builds.py",
+      "docs/verification/v3/int3/integration/recipes/replay_regressions.py",
+      "docs/verification/v3/int3/integration/recipes/review_c3.py",
+      "docs/verification/v3/int3/integration/reference_integrity.json",
+      "docs/verification/v3/int3/integration/regressions.json"
+    ],
+    "handoff_to_review_merge_changes": [
+      "docs/VALIDATION_QUALIFICATION.md",
+      "docs/verification/v3/int3/independent/.gitattributes",
+      "docs/verification/v3/int3/independent/REPORT.md",
+      "docs/verification/v3/int3/independent/a6_signed_recheck.json",
+      "docs/verification/v3/int3/independent/c3_native_recheck.json",
+      "docs/verification/v3/int3/independent/cross_boundary_adversarial.json",
+      "docs/verification/v3/int3/independent/git_history_review.json",
+      "docs/verification/v3/int3/independent/independent_rebuild.json",
+      "docs/verification/v3/int3/independent/independent_review.json",
+      "docs/verification/v3/int3/independent/inputs/c2-t2-evaluation.json",
+      "docs/verification/v3/int3/independent/inputs/c2-t2-perturbation.json",
+      "docs/verification/v3/int3/independent/inputs/c3-t2-evaluation.json",
+      "docs/verification/v3/int3/independent/inputs/c3-t2-perturbation.json",
+      "docs/verification/v3/int3/independent/merge_integrity.json",
+      "docs/verification/v3/int3/independent/recipes/a6_review_runner.py",
+      "docs/verification/v3/int3/independent/recipes/assemble_replay_evidence.py",
+      "docs/verification/v3/int3/independent/recipes/audit_merge.py",
+      "docs/verification/v3/int3/independent/recipes/c3-recheck.py",
+      "docs/verification/v3/int3/independent/recipes/c3_evaluator_t2.py",
+      "docs/verification/v3/int3/independent/recipes/collect-c3-receipt.py",
+      "docs/verification/v3/int3/independent/recipes/recheck_boundaries.py",
+      "docs/verification/v3/int3/independent/reference_integrity.json",
+      "docs/verification/v3/int3/independent/regressions.json"
+    ],
+    "review_merge_to_final_proof": [
+      "docs/VALIDATION_QUALIFICATION.md",
+      "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+      "docs/architecture/ARCHITECTURE_MECANIQUE.md",
+      "docs/verification/v3/int3/REPORT.md",
+      "docs/verification/v3/int3/acceptance.json",
+      "docs/verification/v3/int3/closure_manifest.json",
+      "docs/verification/v3/int3/capability_matrix.json"
+    ],
+    "protected_cartographer_tree": "02d62e8b47473d773e84aea931a9f8e8105f0bd3",
+    "protected_cartographer_native_files": 791,
+    "secret_and_private_output_observation": "Contrôle de portée et de marqueurs sur les différences INT.2.1 → fusion de revue. Aucun chemin privé ni marqueur de secret échantillonné."
+  },
+  "contracts": [
+    {
+      "path": "../../../electromechanical_v3/mutation_plan_v4.schema.json",
+      "bytes": 3002,
+      "sha256": "b29b22fa38eb11532965deb72b0f9f38fcd75370a4c11960d0a021893b8afb6c"
+    },
+    {
+      "path": "../../../electromechanical_v3/admission_scope.schema.json",
+      "bytes": 10006,
+      "sha256": "aff014c8c1e3d67973bc62d5255b4c13ca6ee634157366cbb3b893a926fd1efe"
+    },
+    {
+      "path": "../a6/admission_contract.schema.json",
+      "bytes": 16849,
+      "sha256": "085fea49b614b4b19b8a31004315fc99b8b953246064a43cf6d28f235fdb91e8"
+    }
+  ],
+  "closure_replay": {
+    "compiled_checkout": "f6dd9df52ef9d90a507284696cc6cf6d588a1c69",
+    "binary_source_identity": "558b40fce8a33cb97b28d98418fb258585836873",
+    "test_checkout": "f6dd9df52ef9d90a507284696cc6cf6d588a1c69",
+    "build_driver_versioned": {
+      "path": "integration/recipes/replay_builds.py",
+      "bytes": 4686,
+      "sha256": "d2f0208e89d0a79ab440a8bf2a0ec91e8a6a65fa3f09e6dd1e6374f3b22fdd8c"
+    },
+    "build_driver_replayed": {
+      "path": "../../../../.runtime/close-b/replay_builds.py",
+      "bytes": 4694,
+      "sha256": "ca279e35c727a237b4b2d01ce1888103d840aa7c8dd3bd3710e16154607c32bc"
+    },
+    "build_driver_delta": "Chemin de sortie .runtime/b → .runtime/close-b et saut de ligne final de Set-Content.",
+    "builds": {
+      "l3": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "architecture_decision_engine",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "started_utc": "2026-11-27T12:13:33.209738+00:00",
+          "finished_utc": "2026-11-27T12:13:36.746963+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-l3.command.json",
+            "bytes": 852,
+            "sha256": "0c45b5fabe1c386f768e76cbbe23664601d93528159644629a70e1ca1f85c342"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-l3.log",
+            "bytes": 762,
+            "sha256": "376a079a44d7f468678b8a3af606be0d9ecbcfdba3f3c56604bdf20a99c243ff"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3",
+            "--parallel",
+            "3"
+          ],
+          "started_utc": "2026-11-27T12:13:36.747512+00:00",
+          "finished_utc": "2026-11-27T12:13:58.542737+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-l3.command.json",
+            "bytes": 389,
+            "sha256": "892300d0ce7f34ad2780bf5c94e7188110b14771f41ed25276a6ad58f6f8e7f2"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-l3.log",
+            "bytes": 1742,
+            "sha256": "26cb39b5f20eeaad9fe22edd8dd57c51d8bf8459346c82458d995faffce11fc1"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/l3/CMakeCache.txt",
+          "bytes": 45350,
+          "sha256": "ca0a0f86c052d55cefd33e2e0e65541fce2e240862d277d94037b328683781ae"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/l3/compile_commands.json",
+          "bytes": 14530,
+          "sha256": "6022f62d2d5f9f2ed1024254a97c404dc3a213c002ff8bdd076e19d9b63f30bd"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/l3/architecture_decision_core.exe",
+            "bytes": 1165298,
+            "sha256": "2648137dd3d72795cee27ee3a390ce581824dbf7f3e0d914e4a604512dfae659"
+          },
+          {
+            "path": "../../../../.runtime/close-b/l3/research/technical_research_core.exe",
+            "bytes": 372042,
+            "sha256": "ed8abb936fe262ab6f41df9704022bfe1b7ba3f7f426074ba3b4481a6d441521"
+          },
+          {
+            "path": "../../../../.runtime/close-b/l3/interconnection/interconnection_core.exe",
+            "bytes": 917703,
+            "sha256": "278b0acef0f5edc93d6a91c016df0c678362c8659c031393c63ad7afba916bef"
+          }
+        ]
+      },
+      "l4": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "validation_engine",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "started_utc": "2026-11-27T12:13:33.209962+00:00",
+          "finished_utc": "2026-11-27T12:13:36.144864+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-l4.command.json",
+            "bytes": 841,
+            "sha256": "d1475d40ffaf03ec8fe055c51f527ccebd96bfe5a6694d196454c1f014b3ed09"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-l4.log",
+            "bytes": 762,
+            "sha256": "0e08667edec44e37f2e133c3918df0764bfd57956bc3b7bb9dd74e97e9c0bbf1"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4",
+            "--parallel",
+            "3"
+          ],
+          "started_utc": "2026-11-27T12:13:36.145179+00:00",
+          "finished_utc": "2026-11-27T12:14:00.212616+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-l4.command.json",
+            "bytes": 389,
+            "sha256": "436e719c4b147d962c34df6ad98da2c0eb3effc326c05b6a8e8aa0478d8ec8ad"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-l4.log",
+            "bytes": 1950,
+            "sha256": "641d23a4ad4fc6f4c1cf4bbf9e75013c942f9cc5da87a4b290ec0441bd964e19"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/l4/CMakeCache.txt",
+          "bytes": 42605,
+          "sha256": "ce7e9a137d75e90879ab5ddd9e14bfec0d9c8bd8a1bee264619b065251a9449a"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/l4/compile_commands.json",
+          "bytes": 16098,
+          "sha256": "e296e64f9422869a9ed1d1f75d3a3fb917ce08a29f4884da0605b73c768dab67"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/l4/validation_core.exe",
+            "bytes": 1493427,
+            "sha256": "beeb70fea574ec72143bc4af15d7f0a550506170e16b2d5b4f5cf99d41f51e15"
+          },
+          {
+            "path": "../../../../.runtime/close-b/l4/interconnection/interconnection_core.exe",
+            "bytes": 917703,
+            "sha256": "11bdf08e690400e91d5dbeae28a10859d3dd3c132dfb0a640335a037ccf0097f"
+          }
+        ]
+      },
+      "l5": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DL5_FREECAD_PYTHON=C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+            "-DL5_T0_VALIDATOR=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0\\cartographe-evidence.exe",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256=",
+            "-DL5_L1_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\research\\technical_research_core.exe",
+            "-DL5_L3_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\architecture_decision_core.exe",
+            "-DL5_L4_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4\\validation_core.exe",
+            "-DL5_A5_OPENSSL_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\openssl.exe",
+            "-DOPENSSL_ROOT_DIR=C:\\msys64\\ucrt64",
+            "-DL5_A6_FAULT_INJECTION=OFF"
+          ],
+          "started_utc": "2026-11-27T12:13:33.210296+00:00",
+          "finished_utc": "2026-11-27T12:13:36.223534+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5.command.json",
+            "bytes": 1641,
+            "sha256": "a9afeb2b1a1e5380d583b0b7d707ffcf4b5a04b8f012a4caaba01dcc7f5a18ce"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5.log",
+            "bytes": 762,
+            "sha256": "edae71826712afe9670384d1b2335fcf9da81e79dd94dbd268d438d31cfe6c44"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5",
+            "--parallel",
+            "4"
+          ],
+          "started_utc": "2026-11-27T12:13:36.223846+00:00",
+          "finished_utc": "2026-11-27T12:14:08.453436+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-l5.command.json",
+            "bytes": 389,
+            "sha256": "02e72483f9618b73a6d82dd9f7775ad7bb7e4907ed503e6f2186fd0a798582e7"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-l5.log",
+            "bytes": 3951,
+            "sha256": "cde404495671699a1aa035f5c46ff84527805f14b91cb8b25f09d52c59806b48"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/l5/CMakeCache.txt",
+          "bytes": 44814,
+          "sha256": "6c3dc6dbaad6c25fcaa42ee18d81a6f7576189f606e8a9ceaf02e75aee213fd2"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/l5/compile_commands.json",
+          "bytes": 36940,
+          "sha256": "db79718bf3e528ed76fdd64d55e20af755af846f9c0aa32ccf0673decbfe23d6"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/l5/convergence_core.exe",
+            "bytes": 2151625,
+            "sha256": "872a4366419b13b42ae15bd49cff8e4c1463d89096efab3182f5775d1c0a1e8e"
+          }
+        ]
+      },
+      "l5-no-crypto": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5-no-crypto",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DL5_FREECAD_PYTHON=C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+            "-DL5_T0_VALIDATOR=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0\\cartographe-evidence.exe",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256=",
+            "-DL5_L1_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\research\\technical_research_core.exe",
+            "-DL5_L3_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\architecture_decision_core.exe",
+            "-DL5_L4_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4\\validation_core.exe",
+            "-DL5_A5_OPENSSL_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\openssl.exe",
+            "-DOPENSSL_ROOT_DIR=C:\\msys64\\ucrt64",
+            "-DL5_A6_FAULT_INJECTION=OFF",
+            "-DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE"
+          ],
+          "started_utc": "2026-11-27T12:13:33.210942+00:00",
+          "finished_utc": "2026-11-27T12:13:36.394052+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5-no-crypto.command.json",
+            "bytes": 1701,
+            "sha256": "7703a2da91d0516a498830dd7249481ffb48c2ea9f65e8703f8ff16bccd0a2f9"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5-no-crypto.log",
+            "bytes": 914,
+            "sha256": "0989b0c0ec42ccf19533d54093111c54f9710919f2f4677196c517695a86f9a5"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5-no-crypto",
+            "--parallel",
+            "3",
+            "--target",
+            "convergence_core"
+          ],
+          "started_utc": "2026-11-27T12:13:36.394542+00:00",
+          "finished_utc": "2026-11-27T12:14:03.957853+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-l5-no-crypto.command.json",
+            "bytes": 441,
+            "sha256": "c6706f63d1ad03862754e66e113e4e88da8eaa9867bcf173ca79456a801f6cee"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-l5-no-crypto.log",
+            "bytes": 1822,
+            "sha256": "fcb51ffbbb26661da3b720c6408cd7799ae5f4a49cdef27b52105fb081776b6e"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/l5-no-crypto/CMakeCache.txt",
+          "bytes": 44656,
+          "sha256": "944b1640d4aa8dcee97b4e14a982b1346af683e54574ec197920d9cbef6f7c11"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/l5-no-crypto/compile_commands.json",
+          "bytes": 37485,
+          "sha256": "7402fd987cbce85021b8d1cc5dc3ad04550c46381b499faab96de810434e3264"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/l5-no-crypto/convergence_core.exe",
+            "bytes": 2149208,
+            "sha256": "49b398184b2cd699ba3011414b2fccbb9662523aa483dd2fbf8cf698b38012d3"
+          }
+        ]
+      },
+      "l5-faults": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "convergence_manager",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5-faults",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "-DL5_FREECAD_PYTHON=C:\\Program Files\\FreeCAD 1.1\\bin\\python.exe",
+            "-DL5_T0_VALIDATOR=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0\\cartographe-evidence.exe",
+            "-DL5_A5_PHYSICAL_TRUST_SHA256=",
+            "-DL5_L1_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\research\\technical_research_core.exe",
+            "-DL5_L3_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3\\architecture_decision_core.exe",
+            "-DL5_L4_EXECUTABLE=D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4\\validation_core.exe",
+            "-DL5_A5_OPENSSL_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\openssl.exe",
+            "-DOPENSSL_ROOT_DIR=C:\\msys64\\ucrt64",
+            "-DL5_A6_FAULT_INJECTION=ON",
+            "-DBUILD_TESTING=ON"
+          ],
+          "started_utc": "2026-11-27T12:13:33.210485+00:00",
+          "finished_utc": "2026-11-27T12:13:36.374867+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5-faults.command.json",
+            "bytes": 1674,
+            "sha256": "20832efd8e99d1155c1afe90ba59e1480d35fb1d681e105c83827ddbab483b70"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-l5-faults.log",
+            "bytes": 769,
+            "sha256": "4efc64385bb8566fdf91fe7f083c216378a7c0b6a2e7dc87d5361bd8d4026c15"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5-faults",
+            "--parallel",
+            "3",
+            "--target",
+            "convergence_core"
+          ],
+          "started_utc": "2026-11-27T12:13:36.375442+00:00",
+          "finished_utc": "2026-11-27T12:14:03.888946+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-l5-faults.command.json",
+            "bytes": 438,
+            "sha256": "22cc85ad8de17dbf2c57f9e9db53759205702127162f5718ae8cd5077956063b"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-l5-faults.log",
+            "bytes": 1822,
+            "sha256": "fcb51ffbbb26661da3b720c6408cd7799ae5f4a49cdef27b52105fb081776b6e"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/l5-faults/CMakeCache.txt",
+          "bytes": 44855,
+          "sha256": "0a0e72409a35b197ca6f32ab06efea0139d9e0e67e8eb6825428c531bee4329b"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/l5-faults/compile_commands.json",
+          "bytes": 37701,
+          "sha256": "d2f90ed1a8ff3f816b879265caaabd968953107dc81ada9556b1a617f24a3121"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/l5-faults/convergence_core.exe",
+            "bytes": 2153080,
+            "sha256": "c9fbde27ad6d03335281a28db0088df9e76ab322e228687bd776df64c2d2b9f3"
+          }
+        ]
+      },
+      "t0": {
+        "configure": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "-S",
+            "simulation",
+            "-B",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0",
+            "-G",
+            "Ninja",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCMAKE_CXX_STANDARD_REQUIRED=ON",
+            "-DCMAKE_CXX_EXTENSIONS=OFF",
+            "-DCMAKE_CXX_COMPILER=C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\ucrt64\\bin\\ninja.exe",
+            "-DCMAKE_PREFIX_PATH=C:\\msys64\\ucrt64",
+            "-DPython3_EXECUTABLE=C:\\msys64\\ucrt64\\bin\\python.exe",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+          ],
+          "started_utc": "2026-11-27T12:12:57.874329+00:00",
+          "finished_utc": "2026-11-27T12:13:01.020176+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/configure-t0.command.json",
+            "bytes": 834,
+            "sha256": "bb9d769b4e7fae030720bdbcc58a612742693c6e31efcfa937b0c95e8b7cecdf"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/configure-t0.log",
+            "bytes": 772,
+            "sha256": "bcbc027ce5c5497501bbdbf98b804d65abb25f13896357865156c064478c45ac"
+          }
+        },
+        "build": {
+          "argv": [
+            "C:\\msys64\\ucrt64\\bin\\cmake.exe",
+            "--build",
+            "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0",
+            "--parallel",
+            "4"
+          ],
+          "started_utc": "2026-11-27T12:13:01.020802+00:00",
+          "finished_utc": "2026-11-27T12:13:06.778841+00:00",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-b/logs/build-t0.command.json",
+            "bytes": 389,
+            "sha256": "66c2368aa3aa42ee37496432930c03abcb450939379c301ae50e1594cb15bbaa"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-b/logs/build-t0.log",
+            "bytes": 1175,
+            "sha256": "736d23523e43438fd6411ec664d77f8f597af7dd7767ebe8706bba8c64720f54"
+          }
+        },
+        "cache": {
+          "path": "../../../../.runtime/close-b/t0/CMakeCache.txt",
+          "bytes": 41032,
+          "sha256": "3fb2c03b0a93c9f8d9761b3bd35c6a2e89e1002b1de590075c38e3e55c576d64"
+        },
+        "compile_commands": {
+          "path": "../../../../.runtime/close-b/t0/compile_commands.json",
+          "bytes": 6068,
+          "sha256": "110071b9fa24ba3ba93870d0eeda513c8a88eaed324f57edb9ca5fc4b6c25cf3"
+        },
+        "binaries": [
+          {
+            "path": "../../../../.runtime/close-b/t0/cartographe-evidence.exe",
+            "bytes": 469611,
+            "sha256": "d5274214081c992c3a7bb4c42561b5a5962af5b4f08694ee2557027806880ba0"
+          }
+        ]
+      }
+    },
+    "ctest": {
+      "l3": {
+        "argv": [
+          "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l3",
+          "--no-tests=error",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\logs\\ctest-l3.xml",
+          "-V"
+        ],
+        "started_utc": "2026-11-27T12:14:08.454132+00:00",
+        "finished_utc": "2026-11-27T12:14:57.191224+00:00",
+        "exit_code": 0,
+        "command_record": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l3.command.json",
+          "bytes": 550,
+          "sha256": "68a74c21ceb577048744daa974cfcfebf343a5a78202dd94f0e69f18fd2ee97a"
+        },
+        "log": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l3.log",
+          "bytes": 24744,
+          "sha256": "e16c7e6c5ac29b53357696a6f1a3ded15d2547d84ca28131d81593adcf80d6ab"
+        },
+        "status": "PASS",
+        "passed": 5,
+        "skipped": 0,
+        "junit": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l3.xml",
+          "bytes": 5641,
+          "sha256": "f19ba11c46f67f3f5e6237c134952e081f50dac253dbfc99c6b2bfff3b45005b"
+        },
+        "cases": [
+          {
+            "name": "l3_architecture_decision",
+            "seconds": 38.3066
+          },
+          {
+            "name": "l3_v3_problem_spec",
+            "seconds": 3.51637
+          },
+          {
+            "name": "l2_interconnection",
+            "seconds": 1.50333
+          },
+          {
+            "name": "l2_reconcile",
+            "seconds": 2.58632
+          },
+          {
+            "name": "technical_research_engine",
+            "seconds": 2.73698
+          }
+        ]
+      },
+      "l4": {
+        "argv": [
+          "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l4",
+          "--no-tests=error",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\logs\\ctest-l4.xml",
+          "-V"
+        ],
+        "started_utc": "2026-11-27T12:14:08.454078+00:00",
+        "finished_utc": "2026-11-27T12:16:19.295156+00:00",
+        "exit_code": 0,
+        "command_record": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l4.command.json",
+          "bytes": 550,
+          "sha256": "59bdb71a4b8584e2123fa46ed6d1969c6d0c04895e35abea397b3ce769fddf2b"
+        },
+        "log": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l4.log",
+          "bytes": 19243,
+          "sha256": "631cc50f3829d4120cf0a610e9f3ca2dac1d08ff4d8d21e710cfe46390ca6d02"
+        },
+        "status": "PASS",
+        "passed": 7,
+        "skipped": 0,
+        "junit": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l4.xml",
+          "bytes": 4888,
+          "sha256": "830c076807e0f7facf379ecd75ece1dcb04a20d2c4e0c460d6b6915c73c629eb"
+        },
+        "cases": [
+          {
+            "name": "l4_mechanical_rules",
+            "seconds": 0.0352852
+          },
+          {
+            "name": "v21_xlink_electrical",
+            "seconds": 0.035367
+          },
+          {
+            "name": "v21_xlink_native",
+            "seconds": 6.79102
+          },
+          {
+            "name": "v21_xlink_cli",
+            "seconds": 114.732
+          },
+          {
+            "name": "l4_contract",
+            "seconds": 5.29689
+          },
+          {
+            "name": "l2_interconnection",
+            "seconds": 1.39712
+          },
+          {
+            "name": "l2_reconcile",
+            "seconds": 2.48637
+          }
+        ],
+        "freecad_enabled": true
+      },
+      "l5": {
+        "argv": [
+          "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\l5",
+          "--no-tests=error",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\logs\\ctest-l5.xml",
+          "-V"
+        ],
+        "started_utc": "2026-11-27T12:14:08.454029+00:00",
+        "finished_utc": "2026-11-27T12:20:11.268049+00:00",
+        "exit_code": 0,
+        "command_record": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l5.command.json",
+          "bytes": 550,
+          "sha256": "15e926a69d7a2affa5ad89d551b36fe55f192d888698a7522c496cebe442a74b"
+        },
+        "log": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l5.log",
+          "bytes": 25388,
+          "sha256": "ead32d51f0a18c40233467099cd00bb3d8311e69ef2b3e3980f6f907204d3d0a"
+        },
+        "status": "PASS",
+        "passed": 12,
+        "skipped": 0,
+        "junit": {
+          "path": "../../../../.runtime/close-b/logs/ctest-l5.xml",
+          "bytes": 7339,
+          "sha256": "be37ac37f64ca4bb8a474e852a3b7ad8b7f2675b32e8bc6677de0c3ba7fbaccf"
+        },
+        "cases": [
+          {
+            "name": "l5_v3_a4_material_evidence",
+            "seconds": 0.408062
+          },
+          {
+            "name": "l5_v3_a5_authority",
+            "seconds": 8.85078
+          },
+          {
+            "name": "l5_Campaign",
+            "seconds": 45.298
+          },
+          {
+            "name": "l5_Selection",
+            "seconds": 0.03695
+          },
+          {
+            "name": "l5_v3_admission_entry",
+            "seconds": 2.60929
+          },
+          {
+            "name": "l5_v3_admission_policy",
+            "seconds": 0.712955
+          },
+          {
+            "name": "l5_v3_native_mutate",
+            "seconds": 13.7443
+          },
+          {
+            "name": "l5_v3_native_verify",
+            "seconds": 7.15347
+          },
+          {
+            "name": "l5_cli",
+            "seconds": 280.127
+          },
+          {
+            "name": "v3_graph_contract",
+            "seconds": 0.0375295
+          },
+          {
+            "name": "l2_interconnection",
+            "seconds": 1.35037
+          },
+          {
+            "name": "l2_reconcile",
+            "seconds": 2.38996
+          }
+        ]
+      },
+      "t0": {
+        "argv": [
+          "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0",
+          "--no-tests=error",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\logs\\ctest-t0.xml",
+          "-V",
+          "-R",
+          "^cartographe_(sitl_)?t0_contracts$"
+        ],
+        "started_utc": "2026-11-27T12:13:06.779369+00:00",
+        "finished_utc": "2026-11-27T12:13:33.204104+00:00",
+        "exit_code": 0,
+        "command_record": {
+          "path": "../../../../.runtime/close-b/logs/ctest-t0.command.json",
+          "bytes": 604,
+          "sha256": "f9ee3c4276cb99bae3d2f642fb77b59eb58fea4e056f0e97e506cfafa59b28c7"
+        },
+        "log": {
+          "path": "../../../../.runtime/close-b/logs/ctest-t0.log",
+          "bytes": 1622,
+          "sha256": "b02cd0213f1ea35a559d85731d24d84b87b88612f6041b765c1401d4edc2d049"
+        },
+        "status": "PASS",
+        "passed": 2,
+        "skipped": 0,
+        "junit": {
+          "path": "../../../../.runtime/close-b/logs/ctest-t0.xml",
+          "bytes": 768,
+          "sha256": "039f80d4d0ce2dd6c469ad6efee3312fb2df707be2ab79565883ad670489db75"
+        },
+        "cases": [
+          {
+            "name": "cartographe_t0_contracts",
+            "seconds": 2.26068
+          },
+          {
+            "name": "cartographe_sitl_t0_contracts",
+            "seconds": 24.1154
+          }
+        ],
+        "timeout_per_test_s": 30,
+        "isolated": true
+      }
+    },
+    "historical_model": {
+      "argv": [
+        "C:\\msys64\\ucrt64\\bin\\ctest.exe",
+        "--test-dir",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\t0",
+        "--no-tests=error",
+        "--output-on-failure",
+        "--output-junit",
+        "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\int3-i\\.runtime\\close-b\\logs\\ctest-historical-model.xml",
+        "-V",
+        "-R",
+        "^cartographe_model_generation$"
+      ],
+      "started_utc": "2026-11-27T12:20:11.268742+00:00",
+      "finished_utc": "2026-11-27T12:20:11.356394+00:00",
+      "exit_code": 8,
+      "command_record": {
+        "path": "../../../../.runtime/close-b/logs/ctest-historical-model.command.json",
+        "bytes": 614,
+        "sha256": "39cd1e86ffabc21e1b3826a69d0403b2307fac65d8ef2d4b984c9eecf5adba4b"
+      },
+      "log": {
+        "path": "../../../../.runtime/close-b/logs/ctest-historical-model.log",
+        "bytes": 1161,
+        "sha256": "624369a8502fbba8aea18eaf1002730132a3a0367474c08801baba1d45ce0e25"
+      },
+      "status": "FAIL",
+      "critical": false,
+      "reason": "stale CAD manifest",
+      "junit": {
+        "path": "../../../../.runtime/close-b/logs/ctest-historical-model.xml",
+        "bytes": 441,
+        "sha256": "6d3c605a483b74709693611f84769f9703bc4cccf5e53a3cdaad78bef2c5c42c"
+      }
+    },
+    "boundaries": {
+      "published": {
+        "status": "PASS",
+        "count": 14,
+        "invocation": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/python.exe",
+            "-B",
+            "convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+            "--core",
+            ".runtime/close-b/l5/convergence_core.exe",
+            "--openssl",
+            "C:/msys64/ucrt64/bin/openssl.exe",
+            "--freecad",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "--t0",
+            ".runtime/close-b/t0/cartographe-evidence.exe",
+            "--c3-plan",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/proposal.json",
+            "--c3-transaction",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/construction/transaction",
+            "--output",
+            ".runtime/close-g/published",
+            "--tested-commit",
+            "f6dd9df52ef9d90a507284696cc6cf6d588a1c69"
+          ],
+          "started_utc": "2026-11-27T12:15:02.4966320Z",
+          "finished_utc": "2026-11-27T12:15:04.9897972Z",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-g/published.command.json",
+            "bytes": 892,
+            "sha256": "706ebddcbcca84704e3a605c91a8d6ff6a9763b9789e3604160bbc27e2a3df36"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-g/published.log",
+            "bytes": 35,
+            "sha256": "365d2187ef2f5b54e910a53e86c74bfff19bf1191f0d08ada752a87d73f5c835"
+          }
+        },
+        "receipt": {
+          "path": "../../../../.runtime/close-g/published/boundaries.json",
+          "bytes": 9322,
+          "sha256": "06612a6fbed2a29779e3918785cc55a161a48660983defa24341da0ba2e4079d"
+        },
+        "cases": {
+          "a6-override-freecad-python": {
+            "status": "PASS",
+            "reason": "A6_TOOL_OVERRIDE_DENIED",
+            "decision": "REJECTED_BY_CLI",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true
+          },
+          "a6-override-t0-validator": {
+            "status": "PASS",
+            "reason": "A6_TOOL_OVERRIDE_DENIED",
+            "decision": "REJECTED_BY_CLI",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true
+          },
+          "c3-plan-on-a6-entry": {
+            "status": "PASS",
+            "reason": "v3-build requiert FreeCAD Python et le validateur T0 indépendant",
+            "decision": "REJECTED_BY_CLI",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true
+          },
+          "c3-plan-with-a6-trust-and-native-options": {
+            "status": "PASS",
+            "reason": "Contrat d'admission A.5 requis",
+            "decision": "REJECTED_BY_CLI",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true
+          },
+          "c3-profile-with-workholding-review": {
+            "status": "PASS",
+            "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "dd31cca6011183d209729ddad5e03deb9d1d23953803a9833ed77b00688bbc03"
+          },
+          "c3-profile-with-workholding-trust": {
+            "status": "PASS",
+            "reason": "TRUST_BINDING_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "b4c172a932f38ec7d5eabc9cd2f3aaf4b1d8245a2443f8370ecb47a189a62770"
+          },
+          "changed-effect-carrier": {
+            "status": "PASS",
+            "reason": "CARRIER_EVIDENCE_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "00e873a15582aad199b00c665e996819852648a0ce3c01b4ffa35961128669bc"
+          },
+          "changed-effect-harnesses": {
+            "status": "PASS",
+            "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "d6f399d048aaf8c9cfbd92b22360f7478aba185d2df341729a0fdacc8a955cc1"
+          },
+          "changed-effect-size-mm": {
+            "status": "PASS",
+            "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "0e65e70d2b9ea9561bc98fc87521a95b08a0604d4a7b2e73a99e55e2b2f24a3a"
+          },
+          "changed-lot-sha256": {
+            "status": "PASS",
+            "reason": "TRUST_BINDING_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "9c215285e7e9271eceac464bdc2d51b6d518b67bd3fe3c9eabf5101a252750e8"
+          },
+          "changed-model-version": {
+            "status": "PASS",
+            "reason": "TRUST_BINDING_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "e6e05f6e74bb7c213a4e4d0fef9f2ef8c2842931a5df401b367e01e3579a35f2"
+          },
+          "changed-occurrence": {
+            "status": "PASS",
+            "reason": "TRUST_BINDING_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "de6184a1db3dd03aa25e973a27c831f53b07165e8e20d548c31dd88cd514a110"
+          },
+          "physical-request-with-test-trust": {
+            "status": "PASS",
+            "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "62ae6aedd68ff1ccf6f71501b033d9beb25af7344e2022ab4b6f52a4b4ae4b4f"
+          },
+          "replaced-trusted-bounds": {
+            "status": "PASS",
+            "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+            "decision": "DENY",
+            "transaction_state": "NOT_RESERVED",
+            "construction": "NOT_RUN",
+            "candidate_transactions": 0,
+            "journal_unchanged": true,
+            "registry_unchanged": true,
+            "xlink_unchanged": true,
+            "receipt_sha256": "d01a2ba4cd4bd095c60c81b8abbc7d76af5be2a4ce67778e5a35be71f0caf5d5"
+          }
+        },
+        "recipe": {
+          "path": "../../../../convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+          "bytes": 10991,
+          "sha256": "9cbdca1d7707a2c186e952b0513476bdd6f8b8e7b52b51dd49df15530d49eccb"
+        },
+        "c3_native_witness": {
+          "campaign_sha256": "65f2866c82c54fb4fd7ee9cb288436ed1d3515e7d764601fc0c0fd752d4182eb",
+          "candidate_job_sha256": "99bdefd3ea888eaaa3aad7dfe8ceae25d6205b9564946f0b8a928da165614997",
+          "candidate_validation_sha256": "03e8d49ebf7c4d309824449e246b552ac3b5b553522f44caf845c7f2ef01c79a",
+          "execution_scope": "BENCH_TEST_ONLY",
+          "native_sha256": {
+            "Banc_Interconnexion.FCStd": "7ac77290ef693208d6216c96d73e5765732eb31ec633b37d150d6061f9dc5c60",
+            "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+            "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+          },
+          "status": "PASS",
+          "t0_crosscheck_sha256": "a51380c14725dbbba04676952924168ba0cef4064428d16759666c554214ce85"
+        },
+        "c3_plan_sha256": "15e6cba1342915aae1a6fceecd725950f3e6d9198eddb984346bcf48b978fedb"
+      },
+      "independent": {
+        "status": "PASS",
+        "count": 14,
+        "invocation": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/python.exe",
+            "-B",
+            "docs/verification/v3/int3/independent/recipes/recheck_boundaries.py",
+            "--core",
+            ".runtime/close-b/l5/convergence_core.exe",
+            "--openssl",
+            "C:/msys64/ucrt64/bin/openssl.exe",
+            "--freecad",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "--t0",
+            ".runtime/close-b/t0/cartographe-evidence.exe",
+            "--c3-plan",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/proposal.json",
+            "--c3-transaction",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/construction/transaction",
+            "--fault-core",
+            ".runtime/close-b/l5-faults/convergence_core.exe",
+            "--output",
+            ".runtime/close-g/independent-r2",
+            "--tested-commit",
+            "558b40fce8a33cb97b28d98418fb258585836873"
+          ],
+          "started_utc": "2026-11-27T12:15:24.3627679Z",
+          "finished_utc": "2026-11-27T12:15:52.6334595Z",
+          "exit_code": 0,
+          "command_record": {
+            "path": "../../../../.runtime/close-g/independent-r2.command.json",
+            "bytes": 986,
+            "sha256": "8f5194dc7f2d7c8e0b201427eaaf298c91bc3e2b643a597a1db0deaf150c84b9"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-g/independent-r2.log",
+            "bytes": 46,
+            "sha256": "bf48cf09d128ce50711a16ca43221779b3b4efe9205a242cbeefad96b710f4b4"
+          }
+        },
+        "receipt": {
+          "path": "../../../../.runtime/close-g/independent-r2/report.json",
+          "bytes": 45367,
+          "sha256": "178f61ab55f945019f1789d67f53fa4617a379e286f112ff4272c93345e94be3"
+        },
+        "cases": {
+          "meme-identifiant-concurrent": {
+            "status": "PASS",
+            "denied_reason": "AUTHORITY_STATE_BUSY",
+            "consumption_count": 1,
+            "transaction": {
+              "effect": {
+                "carrier": "P64",
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "size_mm": [
+                  8,
+                  8,
+                  3
+                ],
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "journal_authenticated": true,
+              "receipt_sha256": "e5f3e38af620fdade30558598ff4f48cd59844a218884331efcee1a7fe0ed374",
+              "states": [
+                "REQUESTED",
+                "AUTHORIZED_RESERVED",
+                "BUILDING_PRIVATE",
+                "BUILT",
+                "INDEPENDENTLY_VALIDATED",
+                "COMMITTED_PRIVATE"
+              ],
+              "status": "PASS"
+            },
+            "journal_states": [
+              "REQUESTED",
+              "AUTHORIZED_RESERVED",
+              "BUILDING_PRIVATE",
+              "BUILT",
+              "INDEPENDENTLY_VALIDATED",
+              "COMMITTED_PRIVATE"
+            ],
+            "receipt_sha256": "e5f3e38af620fdade30558598ff4f48cd59844a218884331efcee1a7fe0ed374"
+          },
+          "physique-avec-confiance-test": {
+            "status": "PASS",
+            "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+            "receipt_sha256": "1db37390e4a5dcfb0d7ad782e0467892311e8e9f2041c48fbef2e65ac2936f9d",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "plan-v4-avec-confiance-a6": {
+            "status": "PASS",
+            "reason": "Contrat d'admission A.5 requis",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "plan-v4-option-heritee": {
+            "status": "PASS",
+            "reason": "Option incompatible avec V3 : receipt",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "porteur-p66-hors-workholding": {
+            "status": "PASS",
+            "reason": "CARRIER_EVIDENCE_MISMATCH",
+            "receipt_sha256": "545a218ce466a98190194602612eb1e7afc974788460139a97a457be4ad6b8a2",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "pose-modifiee-apres-signature": {
+            "status": "PASS",
+            "reason": "SIGNED_NATIVE_EFFECT_OR_PACKAGE_MISMATCH",
+            "receipt_sha256": "ac889ea63a4af97d29725510f69cfebf8fa24aedcf73db43276f4ba854e0fe78",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "recu-committe-a-la-place-de-la-revue": {
+            "status": "PASS",
+            "reason": "CONTRACT_FIELDS_MISMATCH",
+            "receipt_sha256": "91af774cef20d34d5cd9c5ec83101224cd185fb46792bb17601e2111f229d00d",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "recu-committe-utilise-comme-requete-c3": {
+            "status": "PASS",
+            "reason": "Contrat d'admission A.5 requis",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "revoque-avant-commit": {
+            "status": "PASS",
+            "reason": "A6_FINAL_AUTHORITY_DENIED/DECISION_REVOKED",
+            "consumption_count": 1,
+            "committed": 0,
+            "journal_states": [
+              "REQUESTED",
+              "AUTHORIZED_RESERVED",
+              "BUILDING_PRIVATE",
+              "BUILT",
+              "INDEPENDENTLY_VALIDATED",
+              "QUARANTINED"
+            ],
+            "receipt_sha256": "83c8cfc26d9b56346074d58c6ef0f666f5ea077b6d8e44d5e89311fbd2640928"
+          },
+          "revue-workholding-avec-fermeture-c3": {
+            "status": "PASS",
+            "reason": "SIGNED_REVIEW_BINDING_MISMATCH",
+            "receipt_sha256": "568fe9c1fb8182b9272999fb6345be49b2c8b1f4051380ed704374ab79ece974",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "sortie-dans-fermeture-c3-jetable": {
+            "status": "PASS",
+            "reason": "A6_OUTPUT_NOT_PRIVATE_OR_OVERLAPPING",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "sortie-jonction-fermeture-c3": {
+            "status": "PASS",
+            "reason": "A6_PATH_REDIRECTED",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "sortie-parent-de-soumission": {
+            "status": "PASS",
+            "reason": "A6_OUTPUT_NOT_PRIVATE_OR_OVERLAPPING",
+            "receipt_sha256": null,
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          },
+          "support-modifie-apres-signature": {
+            "status": "PASS",
+            "reason": "XLINK_DEPENDENCY_SHA256_MISMATCH",
+            "receipt_sha256": "b177407482649ff374a553771070391b81ebb4ccd3c0203953394887c77e2cac",
+            "new_authorized_native_execution": false,
+            "new_private_native_files": 0
+          }
+        },
+        "recipe": {
+          "path": "independent/recipes/recheck_boundaries.py",
+          "bytes": 16879,
+          "sha256": "a0798e94b63e9f1bbba8746b38a2cfad31fa8e1dcebea37e8321635887a188df"
+        },
+        "initial_unfinalized_attempt": {
+          "argv": [
+            "C:/msys64/ucrt64/bin/python.exe",
+            "-B",
+            "docs/verification/v3/int3/independent/recipes/recheck_boundaries.py",
+            "--core",
+            ".runtime/close-b/l5/convergence_core.exe",
+            "--openssl",
+            "C:/msys64/ucrt64/bin/openssl.exe",
+            "--freecad",
+            "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+            "--t0",
+            ".runtime/close-b/t0/cartographe-evidence.exe",
+            "--c3-plan",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/proposal.json",
+            "--c3-transaction",
+            ".runtime/int3-c3/t1/T1/candidates/v3-c-001/construction/transaction",
+            "--fault-core",
+            ".runtime/close-b/l5-faults/convergence_core.exe",
+            "--output",
+            ".runtime/close-g/independent",
+            "--tested-commit",
+            "558b40fce8a33cb97b28d98418fb258585836873"
+          ],
+          "started_utc": "2026-11-27T12:15:05.0068273Z",
+          "finished_utc": "2026-11-27T12:15:06.4510599Z",
+          "exit_code": 1,
+          "command_record": {
+            "path": "../../../../.runtime/close-g/independent.command.json",
+            "bytes": 983,
+            "sha256": "cc99832909579476a5ac095f492ec1764b85ba5c7aa3dab9d72bd29ffed27480"
+          },
+          "log": {
+            "path": "../../../../.runtime/close-g/independent.log",
+            "bytes": 1224,
+            "sha256": "ff806a1f05fb7f4ea7a974bdf525c3d942f736beab694fb4b2013728c9b15f28"
+          },
+          "reason": "Création de la jonction NTFS refusée (mklink /j, code 1)."
+        }
+      }
+    },
+    "sealed": {
+      "receipt": {
+        "path": "../../../../.runtime/close-r/sealed-replays.json",
+        "bytes": 10225,
+        "sha256": "54f56a08752fd8bc281b3b1d668f97b3383f27ca6c97129d5274b7756fafa0f9"
+      },
+      "l1_tests": 24,
+      "l2_tests": 7,
+      "matching_l2_files": 115,
+      "l2_matrices": {
+        "reconcile": {
+          "sha256": "8c48c1e353acbebc322b868d4e31b0ea29d7bc53d0e74ec72d613ec8e0c05ec6",
+          "bytes": 165443
+        },
+        "inspect-cartographe": {
+          "sha256": "6410957eb3ae74605b3e256d591a7c37e2d33dda8aa3d57f90e928a3a12fc66d",
+          "bytes": 273701
+        }
+      },
+      "modified_fixture": "REJECTED_SHA256_BEFORE_TEST"
+    },
+    "references": {
+      "before_after": {
+        "path": "../../../../.runtime/close-r/reference_integrity.json",
+        "bytes": 20540,
+        "sha256": "07a6e9162f5862f112a0a369130cdf2f355142ba3df36e167b3c950cdd6e07c8"
+      },
+      "same_before_and_after": true,
+      "protected_entries": 142,
+      "native_xlink": 137,
+      "checkout_metadata_eol_differences": 3,
+      "bench_profiles_checked": 5,
+      "bench_documents_checked": 15,
+      "bench_profiles": {
+        "bench_b1_workholding": {
+          "profile_sha256": "0740a6c150d3bbace21e63edb13e64c066e660896bb61169c768efbd50e56df4",
+          "graph_sha256": "275863b088b54ff0d3ba9a12453ca4be34187aaa524b13801db05ab2ff83e198",
+          "documents": 3
+        },
+        "bench_c2_multiharness": {
+          "profile_sha256": "250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604",
+          "graph_sha256": "2c93e61b4e3e28bf9199e7d6afd2657afcc4d3d6f00dfa3feb95333a1a0e9034",
+          "documents": 3
+        },
+        "bench_c2_multiharness_secondary": {
+          "profile_sha256": "4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4",
+          "graph_sha256": "b6e5934b25e0c3ae1a902cc062831ca18d6dd18e0ab508d50df26aecd72521ed",
+          "documents": 3
+        },
+        "bench_c3_spatial": {
+          "profile_sha256": "c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e",
+          "graph_sha256": "8df8bb25bb867db0c3b7571c26bd51c1522a1230d5c3e87970395880bb020c19",
+          "documents": 3
+        },
+        "bench_c3_spatial_secondary": {
+          "profile_sha256": "9e0644c02ada74d56780d3fea94ba31a61de2f63ad2b2898cbc4ebd77273ad86",
+          "graph_sha256": "e961e522429cd4abc4c99157f392db5bca7b56521f6b0041182dd0f7ffc86e02",
+          "documents": 3
+        }
+      },
+      "l2_historical_receipt_sha256": "b29c7245ee159072adea3ed9db351dab1735c3120765894f57b935599cce02bb",
+      "l1_catalogue_sha256": "0ca149643497f91bec717e68463fdbff9669eaf65290db8607e130b92783ae8b",
+      "audit_receipt": {
+        "path": "../../../../../int3-close-integrity/reference-check.json",
+        "bytes": 10395,
+        "sha256": "2e871cd20a92d2c5e7bf800ab6da75af8605b49a8fcdde86e1a20e8040b87b67"
+      }
+    },
+    "journal": {
+      "status": "PASS",
+      "audit_receipt": {
+        "path": "../../../../../int3-close-integrity/journal-check.json",
+        "bytes": 1599,
+        "sha256": "6e10b1878049fbc05d8062a036ee39905f065e30e478efb013f015b78e2c7a3e"
+      },
+      "recovered_artifacts_verified": 18,
+      "hmac_authority": "Revue indépendante publiée"
+    }
+  },
+  "physical_readiness": {
+    "authority": {
+      "path": "../a6/physical_readiness.json",
+      "bytes": 2775,
+      "sha256": "119c3f7baacddfff6325d8039af6d4e5c5f4c16a71d6e5f6183c3f8d40761cd5"
+    },
+    "confirmed": {
+      "inspected_lots": 0,
+      "candidate_count": 0,
+      "decision": "DENY",
+      "cartographer_mutation": "DENY",
+      "construction": "NOT_RUN",
+      "physical_reception": "NOT_RUN",
+      "physical_review": "NOT_RUN",
+      "production_trust_pin": "EMPTY",
+      "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED"
+    },
+    "flight": "NOT_RUN",
+    "cartographer_model_built": false
+  }
+}

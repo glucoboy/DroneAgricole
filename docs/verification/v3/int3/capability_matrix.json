@@ -1,0 +1,71 @@
+{
+  "schema": "v3.int3.capability_matrix/1",
+  "verdict": "V3_INT3_GO",
+  "integrated_code_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "capabilities": {
+    "software": {
+      "maturity": "Qualifié",
+      "scope": "Windows amd64, contrats et bancs synthétiques V3-INT.3",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/ctest",
+        "closure_manifest.json#/closure_replay/boundaries"
+      ]
+    },
+    "private_synthetic_cad": {
+      "maturity": "Qualifié",
+      "scope": "C.3 BENCH_TEST_ONLY et A.6 TEST_ONLY/SYNTHETIC_BENCH P64",
+      "evidence": [
+        "independent/c3_native_recheck.json",
+        "independent/a6_signed_recheck.json"
+      ]
+    },
+    "physical_evidence": {
+      "maturity": "À valider",
+      "inspected_lots": 0,
+      "admission": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+      "cartographer_mutation": "DENY",
+      "cartographer_candidate_count": 0,
+      "production_trust_pin": "EMPTY",
+      "evidence": [
+        "../a6/physical_readiness.json"
+      ]
+    },
+    "physical_reception": {
+      "maturity": "À valider",
+      "status": "NOT_RUN",
+      "evidence": [
+        "../a6/physical_readiness.json"
+      ]
+    },
+    "flight_readiness": {
+      "maturity": "À valider",
+      "cartographer_model_built": false,
+      "gazebo_px4_full": "NOT_RUN",
+      "flight": "NOT_RUN",
+      "observed": "Contrats T0 et états terminaux SITL sur fixtures locales.",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/ctest/t0"
+      ]
+    }
+  },
+  "next_stages": {
+    "D.1": {
+      "status": "CONDITIONED",
+      "started": false,
+      "requires": [
+        "Relevés réels hors tension et dossier d’appui du lot P64 ou P66.",
+        "Revue habilitée des originaux et de l’appui, confiance de production provisionnée.",
+        "Autorisation distincte et qualification de la chaîne physique privée."
+      ],
+      "authority": "../a6/physical_readiness.json"
+    },
+    "C.4": {
+      "status": "NEW_PLANNING_DECISION_REQUIRED",
+      "started": false
+    },
+    "A.7": {
+      "status": "NEW_PLANNING_DECISION_REQUIRED",
+      "started": false
+    }
+  }
+}

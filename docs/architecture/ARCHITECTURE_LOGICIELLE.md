@@ -464,10 +464,13 @@ d’outils proviennent du déploiement et son contrat d’effet demeure interne.
 
 Le vérificateur relit la fermeture et les géométries enregistrées. A.6
 lie le reçu et les empreintes du natif au journal après le second contrôle
-d’autorité. A.5 conserve sa préadmission. La demande du cartographe
-physique reste DENY et la qualification intégrée **À valider**.
+d’autorité. A.5 conserve sa préadmission. L’état de la jonction est
+**Qualifié** sur bancs synthétiques Windows amd64 (`V3_INT3_GO`).
+Le rejeu de clôture exerce les gardes des deux portées et le refus de la
+demande physique. Le cartographe reste en `DENY` avec une racine de
+confiance de production vide.
 [Matrice de frontières](../verification/v3/int3/integration/boundary_matrix.json) ·
-[Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)
+[Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture)
 
 ## 3. Contexte et déploiement
 
@@ -1437,6 +1440,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **27 novembre 2026** — Clôture V3-INT.3 sur bancs synthétiques Windows amd64 après rejeu des frontières et contrats sur le merge de revue (§2.6).
 - **27 novembre 2026** — V3-INT.3 réunit les interfaces C.3 et A.6 avec séparation vérifiée des portées et rejeu des protections (§2.6).
 - **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).
 

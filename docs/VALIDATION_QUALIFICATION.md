@@ -3275,6 +3275,33 @@ La génération du modèle cartographe reproduit l’écart `stale CAD manifest`
 du lot Gazebo. La réception physique et l’ancrage monotone externe restent
 **À valider**. [Verdict et preuves](verification/v3/int3/independent/independent_review.json)
 
+<a id="cartographe-v3-int3-cloture"></a>
+##### Clôture V3-INT.3 — 27 novembre 2026
+
+**V3_INT3_GO**. Statut **Qualifié** pour la jonction C.3/A.6 sur les trois
+bancs synthétiques sous Windows amd64. Les deux reçus désignent le merge de code
+`558b40fce8a33cb97b28d98418fb258585836873`. Le merge de revue conserve
+les arbres exécutables et les bancs. Sur ce merge, le rejeu passe en
+L3 5/5, L4 natif 7/7, L5 12/12 et T0 2/2 au plafond de 30 s par test.
+Les références scellées passent en L1 24/24 et L2 7/7. La recette finale
+rejoue ses 14 refus et le pilote indépendant finalise ses 14 cas de jonction.
+[Reçu de clôture](verification/v3/int3/acceptance.json) ·
+[Reproduction](verification/v3/int3/REPORT.md)
+
+Le premier gel conditionnel de C.3 reste dans l’historique. La référence
+de recette intermédiaire à l’empreinte divergente reste hors du verdict.
+La génération historique du modèle cartographe échoue sur
+`stale CAD manifest` dans le lot Gazebo. Les essais Gazebo/PX4 complets,
+`arm64`, le vol, la coupure réelle et la restauration complète du
+magasin de confiance restent **À valider**.
+
+Le registre de réception indique zéro lot inspecté, zéro candidat,
+`cartographer_mutation=DENY`, `physical_reception=NOT_RUN` et
+`production_trust_pin=EMPTY`. D.1 dépend des relevés réels et d’une
+autorisation distincte. C.4 et A.7 attendent une décision de planning.
+[Périmètre des capacités](verification/v3/int3/capability_matrix.json) ·
+[Registre physique](verification/v3/a6/physical_readiness.json)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4490,7 +4517,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-B1-01 | Recherche par polycorridors, construction XLink et contre-mesure OCCT de deux câbles | T-CARTO-V3-C3 T1 à T4 | [Acceptation](verification/v3/c3/acceptance.json) et [mesures](verification/v3/c3/iteration2/native_delta.json) | **Qualifié** sur les deux bancs synthétiques Windows amd64. Cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Rejeu L1/L2 aux empreintes historiques, suites L3/L5 et protections C.2/A.5 | T-CARTO-V3-INT21 | [Résultat](#cartographe-v3-int21), [acceptation](verification/v3/int21/acceptance.json) | `V3_INT21_GO` sur Windows amd64 C++17, banc numérique **Qualifié**. Mutation du cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Revue Ed25519, réservation journalisée L5, constructeur B.1 et réouverture/T0 | T-CARTO-V3-A6-TRANSACTION | [Résultat](#cartographe-v3-a6), [acceptation](verification/v3/a6/acceptance.json) | Transaction **Qualifié** sur banc numérique Windows amd64. Matériel et production **À valider**. |
-| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Fusion C.3/A.6, contrats L3/L5 et validation indépendante XLink/L4/T0, journal et protections INT.2.1 | T-CARTO-V3-INT3 T1–T4, deux transactions signées, refus croisés et rejeux scellés | [Remise](#cartographe-v3-int3), [revue indépendante](#cartographe-v3-int3-revue) | **Implémenté** sur banc synthétique Windows amd64, `V3_INT3_INDEPENDENT_PASS`. Finalisation intégrée et réception physique **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Fusion C.3/A.6, contrats L3/L5 et validation indépendante XLink/L4/T0, journal et protections INT.2.1 | T-CARTO-V3-INT3 T1–T4, deux transactions signées, refus croisés et rejeux scellés | [Clôture](#cartographe-v3-int3-cloture), [acceptation](verification/v3/int3/acceptance.json) | **Qualifié** sur bancs synthétiques Windows amd64, `V3_INT3_GO`. Réception physique **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4678,9 +4705,10 @@ réception privée du seul banc synthétique. Le premier geste physique
 reste la collecte A.5 hors tension, puis la revue du lot et du domaine.
 [Prérequis](verification/v3/a6/physical_readiness.json)
 
-[V3-INT.3](#cartographe-v3-int3) réunit les deux capacités sur bancs
+[V3-INT.3](#cartographe-v3-int3-cloture) qualifie la jonction sur bancs
 synthétiques, avec contrôle du cloisonnement et des références scellées.
-La collecte du lot réel et les contrôles d’appui du cartographe restent ouverts.
+Pour ORCH-CAO-MASSE-1, la collecte du lot réel et les contrôles d’appui du
+cartographe restent les preuves à obtenir avant une décision distincte.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5341,6 +5369,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 ## 16. Journal de modifications
 
+- **27 novembre 2026** — Clôture `V3_INT3_GO` sur bancs synthétiques Windows amd64, avec rejeux sur le merge de revue et maintien du refus physique. [Résultat](#cartographe-v3-int3-cloture)
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)
 - **27 novembre 2026** — Revue indépendante V3-INT.3 sur bancs synthétiques, avec deux nouvelles perturbations après gel et contrôle de la jonction d’autorité. [Résultat](#cartographe-v3-int3-revue)
 - **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)

@@ -1,0 +1,391 @@
+{
+  "schema": "v3.int3.acceptance/1",
+  "verdict": "V3_INT3_GO",
+  "integrated_code_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "reviewed_code_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "final_proof_commit": null,
+  "final_proof_commit_resolution": "Commit portant ce reçu sur la branche de clôture. Résoudre avec git log -1 --format=%H -- docs/verification/v3/int3/acceptance.json.",
+  "parents": [
+    "f6dd9df52ef9d90a507284696cc6cf6d588a1c69"
+  ],
+  "review_merge_parents": [
+    "60790ca713bd3e243b1a2581014927b5e7169ac4",
+    "2d0087412491695364308971d1057d89e93f1bed"
+  ],
+  "merge_base": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "source_heads": {
+    "V3-INT.2.1": "27144abf9841ba6502d29f2f76b15ff33092d186",
+    "V3-C.3": "08ec9c4baba84d9486e7d1df3a356c0d35583646",
+    "V3-A.6": "6461198f341af9e1f79aef061cb65d6fa531b283",
+    "V3-INT.3_INTEGRATION": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+    "V3-INT.3_INDEPENDENT_REVIEW": "2d0087412491695364308971d1057d89e93f1bed"
+  },
+  "test_environment": {
+    "os": "Windows amd64",
+    "toolchain": "MSYS2 UCRT64",
+    "cxx": "C++17 sans extensions",
+    "gcc": "16.2.0",
+    "cmake_ctest": "4.4.2",
+    "ninja": "1.13.2",
+    "qt": "6.11.2 offscreen",
+    "python": "3.14.7",
+    "openssl": "3.6.4",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "production_trust_pin": "EMPTY",
+    "native_environment_scope": "bancs synthétiques"
+  },
+  "limits": [
+    {
+      "id": "historical_intermediate_recipe_reference",
+      "critical": false,
+      "status": "REFUSED_HASH_MISMATCH",
+      "locator": "integration/adversarial.json#/recipes/3",
+      "decision": "Exclue du calcul du verdict. Recette finale authentifiée dans le reçu d’intégration et rejouée indépendamment puis à la clôture.",
+      "proof": "independent/merge_integrity.json#/published_reference_review"
+    },
+    {
+      "id": "historical_cartographer_model_generation",
+      "critical": false,
+      "status": "FAIL",
+      "reason": "stale CAD manifest",
+      "scope": "Lot Gazebo hors critères V3-INT.3.",
+      "proof": "closure_manifest.json#/closure_replay/historical_model"
+    },
+    {
+      "id": "cartographer_physical_reception_and_flight",
+      "status": "NOT_RUN",
+      "scope": "Réception physique, génération aboutie du modèle cartographe, campagnes Gazebo/PX4 complètes et vol.",
+      "proof": "../a6/physical_readiness.json"
+    },
+    {
+      "id": "other_targets",
+      "status": "NOT_RUN",
+      "scope": "arm64 et autres environnements."
+    },
+    {
+      "id": "power_loss_trust_restore_and_external_monotonic_anchor",
+      "status": "NOT_RUN",
+      "scope": "Coupure réelle, restauration complète de la confiance et ancrage monotone externe.",
+      "observed": "Reprise du seul reçu externe, avec journal et confiance conservés.",
+      "proof": "independent/a6_signed_recheck.json#/interrupted_publication_recovery"
+    },
+    {
+      "id": "native_execution_observation",
+      "status": "OBSERVED_BY_EFFECTS",
+      "scope": "Refus avant appel natif déduit de la réservation, du journal, des artefacts et du point d’appel gardé. Capture ETW hors protocole.",
+      "proof": "independent/cross_boundary_adversarial.json#/native_execution_observation"
+    }
+  ],
+  "critical_checks": [
+    {
+      "id": "complete_integration",
+      "status": "PASS",
+      "critical": true,
+      "observation": "C.3 et A.6 complètement inclus depuis INT.2.1. Les étapes 1 et 2 désignent le même code. Les arbres de production et des bancs concordent sur le merge de revue.",
+      "evidence": [
+        "integration/merge_manifest.json",
+        "independent/git_history_review.json",
+        "closure_manifest.json#/git_identity"
+      ]
+    },
+    {
+      "id": "c3_T1_T2_T3_T4",
+      "status": "PASS",
+      "critical": true,
+      "observation": "12, 12 et 9 candidats admis. 33 fermetures rouvertes et fronts Pareto 5, 5 et 3. T4 atteint son échéance avec INCONCLUSIVE et zéro candidat.",
+      "evidence": [
+        "integration/native_c3.json#/phases",
+        "independent/c3_native_recheck.json#/phases",
+        "../c3/acceptance.json#/prior_iteration"
+      ]
+    },
+    {
+      "id": "c3_new_post_freeze_perturbation",
+      "status": "PASS",
+      "critical": true,
+      "observation": "Le solide indépendant intersecte initialement cordon de 1,45152 mm³. En T2 sauvegardé et rouvert, le tracé et la racine changent et les deux intersections sont nulles.",
+      "evidence": [
+        "independent/c3_native_recheck.json#/phases/T2/refutation",
+        "independent/inputs/c3-t2-perturbation.json"
+      ]
+    },
+    {
+      "id": "a6_two_signed_native_effects",
+      "status": "PASS",
+      "critical": true,
+      "observation": "Deux COMMITTED_PRIVATE Workholding P64, deux demandes distinctes et contrôles L2/L4/T0. La modification signée porte sur −0,375 mm en X et −0,07 mm de largeur.",
+      "evidence": [
+        "integration/native_a6.json",
+        "independent/a6_signed_recheck.json#/fresh_transactions"
+      ]
+    },
+    {
+      "id": "a6_refusals_faults_concurrency",
+      "status": "PASS",
+      "critical": true,
+      "observation": "32/32 refus et 3/3 refus complémentaires. 7/7 défauts ou cas de concurrence. Reçu interrompu restitué octet pour octet et 18 artefacts vérifiés.",
+      "evidence": [
+        "integration/adversarial.json",
+        "independent/a6_signed_recheck.json#/representative_refusals",
+        "independent/a6_signed_recheck.json#/independently_chosen_refusals",
+        "independent/a6_signed_recheck.json#/faults_and_concurrency",
+        "closure_manifest.json#/closure_replay/journal"
+      ]
+    },
+    {
+      "id": "c3_a6_boundaries",
+      "status": "PASS",
+      "critical": true,
+      "observation": "14/14 refus de la recette finale et 14/14 cas du pilote contradictoire sur le merge de revue, avec jonction, concurrence, révocation et refus physique.",
+      "evidence": [
+        "integration/boundary_matrix.json",
+        "independent/cross_boundary_adversarial.json",
+        "closure_manifest.json#/closure_replay/boundaries"
+      ]
+    },
+    {
+      "id": "ctest_L3_L4_L5_T0",
+      "status": "PASS",
+      "critical": true,
+      "observation": "L3 5/5, L4 natif 7/7, L5 12/12 et T0 isolé 2/2 au plafond individuel de 30 s. Zéro cas sauté.",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/ctest",
+        "independent/regressions.json#/registered_criteria"
+      ]
+    },
+    {
+      "id": "sealed_L1_L2",
+      "status": "PASS",
+      "critical": true,
+      "observation": "L1 24/24, L2 7/7, 115 entrées reconstruites et deux matrices identiques octet pour octet. La source altérée est refusée.",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/sealed",
+        "independent/regressions.json#/sealed"
+      ]
+    },
+    {
+      "id": "xlink_and_fingerprints",
+      "status": "PASS",
+      "critical": true,
+      "observation": "142 entrées stables, 137 XLink scellés, 3 écarts de fins de ligne documentés, 5 profils/graphes et 15 FCStd de banc conformes. 791 natifs cartographe suivis.",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/references",
+        "independent/reference_integrity.json",
+        "independent/merge_integrity.json#/synthetic_bench_seals"
+      ]
+    },
+    {
+      "id": "independent_review",
+      "status": "PASS",
+      "critical": true,
+      "observation": "V3_INT3_INDEPENDENT_PASS à la révision de code intégrée, 17 et 21 supports recalculés pour les deux reçus.",
+      "evidence": [
+        "integration/acceptance.json",
+        "independent/independent_review.json",
+        "closure_manifest.json#/proof_stages"
+      ]
+    },
+    {
+      "id": "zero_physical_authorizations",
+      "status": "PASS",
+      "critical": true,
+      "observation": "Zéro lot inspecté, construction et réception physiques NOT_RUN, aucun modèle cartographe construit. La demande physique reste refusée et la confiance de production vide.",
+      "evidence": [
+        "../a6/physical_readiness.json",
+        "closure_manifest.json#/physical_readiness",
+        "closure_manifest.json#/closure_replay/boundaries"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "../../../../convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+      "bytes": 10991,
+      "sha256": "9cbdca1d7707a2c186e952b0513476bdd6f8b8e7b52b51dd49df15530d49eccb"
+    },
+    {
+      "path": "../a6/physical_readiness.json",
+      "bytes": 2775,
+      "sha256": "119c3f7baacddfff6325d8039af6d4e5c5f4c16a71d6e5f6183c3f8d40761cd5"
+    },
+    {
+      "path": "../c3/acceptance.json",
+      "bytes": 4521,
+      "sha256": "32ea2f4058a30649bea005560f4ef510f7bfdae721fe111bf0ddc57dc72fe253"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 11916,
+      "sha256": "e8b0dec9cceb1ade1a78ea0c1fc9e9539ccea92384f7334bdca191d09719f68f"
+    },
+    {
+      "path": "capability_matrix.json",
+      "bytes": 2160,
+      "sha256": "2c7472e5e1b3ce67ec831f2696e04e0e966d17357ef5a944f6e1ebc042d89e25"
+    },
+    {
+      "path": "closure_manifest.json",
+      "bytes": 64694,
+      "sha256": "19c7ca63ece6b9a9c2e4db7a44378602ebae1b1f0fae2fccdeb7603eff540864"
+    },
+    {
+      "path": "independent/a6_signed_recheck.json",
+      "bytes": 69866,
+      "sha256": "d92ef42451ee11df689c6e1fb2c57a69fdc1b9fa3629f76bf180a5ff043092a3"
+    },
+    {
+      "path": "independent/c3_native_recheck.json",
+      "bytes": 74522,
+      "sha256": "f56291d8db8647c53f25696eefb929133aebdaa54e6c9e9f116968af428a5ca0"
+    },
+    {
+      "path": "independent/cross_boundary_adversarial.json",
+      "bytes": 72613,
+      "sha256": "2d4c16a63c4afdd5a6aa1b9fe2712149225d1190e42dda88dbf820d1a587123a"
+    },
+    {
+      "path": "independent/git_history_review.json",
+      "bytes": 18015,
+      "sha256": "87c669ab98759f51034f3b36ce405603a4346bb38f994e26da089c902ab7ec3a"
+    },
+    {
+      "path": "independent/independent_rebuild.json",
+      "bytes": 26078,
+      "sha256": "66fb243f8a8157ab9ad13a94a50f01eecb39d2963db8ff83366c8952f22807a4"
+    },
+    {
+      "path": "independent/independent_review.json",
+      "bytes": 6622,
+      "sha256": "0fca7d36f314ea9245755b3483360c0cda32d5d0cc77fe67b2c06fcc9646c6ca"
+    },
+    {
+      "path": "independent/inputs/c3-t2-perturbation.json",
+      "bytes": 659,
+      "sha256": "d0b38f98b3fe1638473f806e2ef7c8a8eb5d3012989ca05491084cc9665fc5fe"
+    },
+    {
+      "path": "independent/merge_integrity.json",
+      "bytes": 20004,
+      "sha256": "a08bfaaf67f0b3a1344bc81ccfcea4d4a4c287edf49664a8804e1ab90f38e1d1"
+    },
+    {
+      "path": "independent/reference_integrity.json",
+      "bytes": 21775,
+      "sha256": "7a46b5daa3ddcd72d41630564ee8f466ee5b0656571e532a1edeefc564a8f0a9"
+    },
+    {
+      "path": "independent/regressions.json",
+      "bytes": 77133,
+      "sha256": "aae512cc50a68d65935e563fb759a5b5dd7140208ff9b031ae02d027748f3ade"
+    },
+    {
+      "path": "integration/acceptance.json",
+      "bytes": 6923,
+      "sha256": "be7150f7db25ddb860f3619dd4108e297010cdf998348d9e7ec051506bcd3d83"
+    },
+    {
+      "path": "integration/adversarial.json",
+      "bytes": 33128,
+      "sha256": "4f0661499862e60ef97ae3420ffe672db214484aa7921fd8b014b38a059696cb"
+    },
+    {
+      "path": "integration/boundary_matrix.json",
+      "bytes": 8453,
+      "sha256": "ea986dc3d1e74bf8017f56a97dc30e86d1448cb6c325414dc2d9bb564c822f80"
+    },
+    {
+      "path": "integration/builds.json",
+      "bytes": 26570,
+      "sha256": "2ea094d0520d8f34c1f870a6cf9b8ae1341bdfebf3826ad2bb7b7f5ff0996fea"
+    },
+    {
+      "path": "integration/merge_manifest.json",
+      "bytes": 49658,
+      "sha256": "3891b8b3664b78c3882062f7ba16c95e382aebf9568400dcc9fd734dc3199e6e"
+    },
+    {
+      "path": "integration/native_a6.json",
+      "bytes": 22500,
+      "sha256": "18a512e0860b4cc277afc7c2e3cc638daa7f5288a46c9eccd59c3a32fbb6608e"
+    },
+    {
+      "path": "integration/native_c3.json",
+      "bytes": 79620,
+      "sha256": "7b3ac7170c31ce59d99f26f0d8d8d84588779f3756171705b6356eacf8f69721"
+    }
+  ],
+  "capability_matrix": {
+    "software": {
+      "maturity": "Qualifié",
+      "scope": "Windows amd64, contrats et bancs synthétiques V3-INT.3",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/ctest",
+        "closure_manifest.json#/closure_replay/boundaries"
+      ]
+    },
+    "private_synthetic_cad": {
+      "maturity": "Qualifié",
+      "scope": "C.3 BENCH_TEST_ONLY et A.6 TEST_ONLY/SYNTHETIC_BENCH P64",
+      "evidence": [
+        "independent/c3_native_recheck.json",
+        "independent/a6_signed_recheck.json"
+      ]
+    },
+    "physical_evidence": {
+      "maturity": "À valider",
+      "inspected_lots": 0,
+      "admission": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+      "cartographer_mutation": "DENY",
+      "cartographer_candidate_count": 0,
+      "production_trust_pin": "EMPTY",
+      "evidence": [
+        "../a6/physical_readiness.json"
+      ]
+    },
+    "physical_reception": {
+      "maturity": "À valider",
+      "status": "NOT_RUN",
+      "evidence": [
+        "../a6/physical_readiness.json"
+      ]
+    },
+    "flight_readiness": {
+      "maturity": "À valider",
+      "cartographer_model_built": false,
+      "gazebo_px4_full": "NOT_RUN",
+      "flight": "NOT_RUN",
+      "observed": "Contrats T0 et états terminaux SITL sur fixtures locales.",
+      "evidence": [
+        "closure_manifest.json#/closure_replay/ctest/t0"
+      ]
+    }
+  },
+  "capability_matrix_artifact": "capability_matrix.json",
+  "next_stages": {
+    "D.1": {
+      "status": "CONDITIONED",
+      "started": false,
+      "requires": [
+        "Relevés réels hors tension et dossier d’appui du lot P64 ou P66.",
+        "Revue habilitée des originaux et de l’appui, confiance de production provisionnée.",
+        "Autorisation distincte et qualification de la chaîne physique privée."
+      ],
+      "authority": "../a6/physical_readiness.json"
+    },
+    "C.4": {
+      "status": "NEW_PLANNING_DECISION_REQUIRED",
+      "started": false
+    },
+    "A.7": {
+      "status": "NEW_PLANNING_DECISION_REQUIRED",
+      "started": false
+    }
+  },
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "physical_reception": "NOT_RUN",
+  "production_trust_pin": "EMPTY",
+  "flight": "NOT_RUN"
+}

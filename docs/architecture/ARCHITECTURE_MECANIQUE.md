@@ -885,9 +885,11 @@ modification des originaux ne découle de ce résultat partiel.
 V3-INT.3 utilise deux fermetures C.3 et un banc Workholding P64 distinct.
 La contre-mesure spatiale vérifie les arcs, les volumes et les engagements
 après réouverture. Les deux supports Workholding ont des poses et des
-cotes signées propres. Ces mesures portent sur les copies privées de
-banc. Les cotes d’appui et la réception du cartographe réel restent
-**À valider**. [Qualification intégrée](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)
+cotes signées propres. Le statut **Qualifié** porte sur les copies privées
+de ces bancs sous Windows amd64. Les cotes d’appui, le choix du porteur
+P64 ou P66 et la réception du cartographe réel restent **À valider**.
+[Qualification intégrée](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture) ·
+[Relevés nécessaires](../verification/v3/a6/physical_readiness.json)
 
 Les deux bancs V3-C.3 relient une racine FreeCAD à des références
 externes conservées en chemins relatifs. L’équipement mobile porte deux
@@ -2848,6 +2850,7 @@ présentée comme référence.
 
 ## Journal de modifications
 
+- **27 novembre 2026** — Clôture des preuves synthétiques V3-INT.3, avec conservation des conditions d’appui et de réception du cartographe. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture)
 - **27 novembre 2026** — V3-INT.3 rejoue la mesure des fermetures des deux bancs C.3 et du Workholding P64 synthétique. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)
 - **26 novembre 2026** — Deux bancs V3-C.3 éprouvent les couloirs volumiques, les appuis et une seconde hiérarchie XLink de ports ([bancs de cheminement](#bancs-spatiaux-c3)).
 
