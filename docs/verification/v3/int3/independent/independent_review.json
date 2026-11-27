@@ -1,0 +1,206 @@
+{
+  "schema": "v3.int3.independent_review/1",
+  "tested_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "published_integration_commit": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "checkout_commit": "60790ca713bd3e243b1a2581014927b5e7169ac4",
+  "observed_at_utc": "2026-11-27T12:06:12.650794+00:00",
+  "verdict": "V3_INT3_INDEPENDENT_PASS",
+  "scope": "Windows amd64, C++17, MSYS2 UCRT64, FreeCAD 1.1.3 / OCCT 7.8.1 / Cables 0.3.7, bancs synthétiques",
+  "physical_reception": "NOT_RUN",
+  "production_trust_pin": "EMPTY",
+  "cartographer_candidate_count": 0,
+  "binaries_sha256": {
+    "t0": "16408e07eac820e0ac33856d154a5efa0089caa5a302c0fff189d44bd8255073",
+    "l3": "dbf32cd8718add9acdc0f40afb5d03ad69c0c5b4c103e2248ca82456e38f4e88",
+    "l4": "04a6529831fa3ea248243c09ebbe10a8d8f0b1d047e91e9ab3698e7fe504dfa3",
+    "l5": "95057e81c45345b4200a4292dee968924edd21774d0b9e152bd003333a574226",
+    "l5-no-crypto": "53984b416094db5a42fb1cf14211393f79bfc3a9ffc41b3fbf0eaf7855a95ec3",
+    "l5-faults": "dc05f422c9f3d2f0dadb8c1bcd6846169c035c878c04a11873221087026d81e5"
+  },
+  "gates": [
+    {
+      "check": "git_history",
+      "status": "PASS",
+      "critical": true,
+      "proof": "git_history_review.json"
+    },
+    {
+      "check": "merge_identity_and_replayed_published_recipe",
+      "status": "PASS",
+      "critical": true,
+      "proof": "merge_integrity.json"
+    },
+    {
+      "check": "independent_build",
+      "status": "PASS",
+      "critical": true,
+      "proof": "independent_rebuild.json"
+    },
+    {
+      "check": "c3_geometry_t1_t4",
+      "status": "PASS",
+      "critical": true,
+      "proof": "c3_native_recheck.json"
+    },
+    {
+      "check": "a6_signed_native_refusals_and_faults",
+      "status": "PASS",
+      "critical": true,
+      "proof": "a6_signed_recheck.json"
+    },
+    {
+      "check": "cross_boundary",
+      "status": "PASS",
+      "critical": true,
+      "proof": "cross_boundary_adversarial.json"
+    },
+    {
+      "check": "strict_and_sealed_regressions",
+      "status": "PASS",
+      "critical": true,
+      "proof": "regressions.json"
+    },
+    {
+      "check": "protected_references",
+      "status": "PASS",
+      "critical": true,
+      "proof": "reference_integrity.json"
+    }
+  ],
+  "exceptions": [
+    {
+      "check": "historical_intermediate_recipe_reference",
+      "status": "REFUSED_HASH_MISMATCH",
+      "critical": false,
+      "proof": "merge_integrity.json",
+      "locator": "integration/adversarial.json#/recipes/3",
+      "decision": "Référence de l’essai intermédiaire écartée. Identité et rejeu de la recette finale observés séparément."
+    },
+    {
+      "check": "cartographe_model_generation",
+      "status": "FAIL",
+      "critical": false,
+      "proof": "regressions.json",
+      "reason": "stale CAD manifest, périmètre Gazebo hors critères INT.3."
+    },
+    {
+      "check": "real_power_loss_and_trust_store_restore",
+      "status": "NOT_RUN",
+      "critical": false,
+      "reason": "Ancrage monotone externe non qualifié."
+    },
+    {
+      "check": "physical_reception_gazebo_px4_arm64_flight",
+      "status": "NOT_RUN",
+      "critical": false,
+      "reason": "Périmètre numérique des bancs Windows amd64."
+    }
+  ],
+  "artifacts": [
+    {
+      "path": ".gitattributes",
+      "sha256": "c64994a6a87e5bcfd691a3903e7f5430f5fbb64595f3f5c45aeb25fb39dbc7ea",
+      "bytes": 281
+    },
+    {
+      "path": "a6_signed_recheck.json",
+      "sha256": "d92ef42451ee11df689c6e1fb2c57a69fdc1b9fa3629f76bf180a5ff043092a3",
+      "bytes": 69866
+    },
+    {
+      "path": "c3_native_recheck.json",
+      "sha256": "f56291d8db8647c53f25696eefb929133aebdaa54e6c9e9f116968af428a5ca0",
+      "bytes": 74522
+    },
+    {
+      "path": "cross_boundary_adversarial.json",
+      "sha256": "2d4c16a63c4afdd5a6aa1b9fe2712149225d1190e42dda88dbf820d1a587123a",
+      "bytes": 72613
+    },
+    {
+      "path": "git_history_review.json",
+      "sha256": "87c669ab98759f51034f3b36ce405603a4346bb38f994e26da089c902ab7ec3a",
+      "bytes": 18015
+    },
+    {
+      "path": "independent_rebuild.json",
+      "sha256": "66fb243f8a8157ab9ad13a94a50f01eecb39d2963db8ff83366c8952f22807a4",
+      "bytes": 26078
+    },
+    {
+      "path": "inputs/c2-t2-evaluation.json",
+      "sha256": "cfa925ae69a5e3e23b794f4b0f6681bf4c3225822f8057dae1691b6cebdb7d51",
+      "bytes": 3507
+    },
+    {
+      "path": "inputs/c2-t2-perturbation.json",
+      "sha256": "28faadba86c393b814e3f45f84368b26d3892854c9682703173e6e8b2c681436",
+      "bytes": 593
+    },
+    {
+      "path": "inputs/c3-t2-evaluation.json",
+      "sha256": "3bace0deb47538d27fdf6feaa97fe629f767a19ebe32d5d48effee9c800561a5",
+      "bytes": 3556
+    },
+    {
+      "path": "inputs/c3-t2-perturbation.json",
+      "sha256": "d0b38f98b3fe1638473f806e2ef7c8a8eb5d3012989ca05491084cc9665fc5fe",
+      "bytes": 659
+    },
+    {
+      "path": "merge_integrity.json",
+      "sha256": "a08bfaaf67f0b3a1344bc81ccfcea4d4a4c287edf49664a8804e1ab90f38e1d1",
+      "bytes": 20004
+    },
+    {
+      "path": "recipes/a6_review_runner.py",
+      "sha256": "a2e63e2dc77a583cf4671ca6eeca7e7d3de2d808836ec50abf93d4838ff6bc56",
+      "bytes": 23292
+    },
+    {
+      "path": "recipes/assemble_replay_evidence.py",
+      "sha256": "f31091b3dd93b2669c6db7a78aee0852afd9c4451308340d8452410b1d105d3b",
+      "bytes": 12090
+    },
+    {
+      "path": "recipes/audit_merge.py",
+      "sha256": "45380070cdd536504f0e3d61b0b427e6483ccdfdafcb733e7a9bdc80dcff4fc5",
+      "bytes": 22459
+    },
+    {
+      "path": "recipes/c3-recheck.py",
+      "sha256": "f6b5ad43ca5aafc6b461f3ed4c8329f99228665be7b1aabdd21217eb468244f1",
+      "bytes": 22042
+    },
+    {
+      "path": "recipes/c3_evaluator_t2.py",
+      "sha256": "1e559b4c4765022a32c2999000a9a2ec24c271a2dfe5e3ed6655058f8f63b3e9",
+      "bytes": 5961
+    },
+    {
+      "path": "recipes/collect-c3-receipt.py",
+      "sha256": "c1975cb6dee3fe7bef31052815034c705974a53f8c1603ba37e5601b14bb9e1c",
+      "bytes": 10900
+    },
+    {
+      "path": "recipes/recheck_boundaries.py",
+      "sha256": "a0798e94b63e9f1bbba8746b38a2cfad31fa8e1dcebea37e8321635887a188df",
+      "bytes": 16879
+    },
+    {
+      "path": "reference_integrity.json",
+      "sha256": "7a46b5daa3ddcd72d41630564ee8f466ee5b0656571e532a1edeefc564a8f0a9",
+      "bytes": 21775
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "aae512cc50a68d65935e563fb759a5b5dd7140208ff9b031ae02d027748f3ade",
+      "bytes": 77133
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "f4c7399e11ac9c92c4ce67dbe56ce380270774c32e5ce809533e926aa5385254",
+      "bytes": 12546
+    }
+  ]
+}
