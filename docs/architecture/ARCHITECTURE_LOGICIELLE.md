@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 26 novembre 2026 |
+| Dernière mise à jour | 27 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -451,6 +451,23 @@ de production reste vide. Le raccordement matériel reste **À valider**
 avec confiance provisionnée, stockage et preuve de reprise qualifiés, lot
 observé et domaine P64 ou P66 authentifié. [Protocole](../verification/v3/a6/protocol.md) ·
 [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-a6)
+
+#### Coexistence C.3 et A.6 dans V3-INT.3
+
+L5 dirige les plans v3.mutation_plan/4 de C.3 vers la portée
+BENCH_TEST_ONLY des deux profils spatiaux scellés. Le contrat volumique
+et l’obstacle indépendant alimentent le job de construction et la mesure
+des deux câbles. La voie v3.a6.admission_request/1 réserve d’abord la revue
+TEST_ONLY, puis transmet au même constructeur un effet signé unique
+CREATE_SUPPORT(anchor:iso-carrier) sur le Workholding P64. Ses chemins
+d’outils proviennent du déploiement et son contrat d’effet demeure interne.
+
+Le vérificateur relit la fermeture et les géométries enregistrées. A.6
+lie le reçu et les empreintes du natif au journal après le second contrôle
+d’autorité. A.5 conserve sa préadmission. La demande du cartographe
+physique reste DENY et la qualification intégrée **À valider**.
+[Matrice de frontières](../verification/v3/int3/integration/boundary_matrix.json) ·
+[Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)
 
 ## 3. Contexte et déploiement
 
@@ -1420,6 +1437,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **27 novembre 2026** — V3-INT.3 réunit les interfaces C.3 et A.6 avec séparation vérifiée des portées et rejeu des protections (§2.6).
 - **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).
 
 - **26 novembre 2026** — V3-A.6 relie la revue signée à une construction privée sur banc avec réservation persistante, contre-validation et reçu audité (§2.6).

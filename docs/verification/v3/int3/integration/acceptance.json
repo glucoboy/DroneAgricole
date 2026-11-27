@@ -1,0 +1,223 @@
+{
+  "schema": "v3.int3.integration/1",
+  "tested_commit": "558b40fce8a33cb97b28d98418fb258585836873",
+  "merge_parents": [
+    "6e5fd7176ddbb26f5a1df0dd368032af2a803079",
+    "6461198f341af9e1f79aef061cb65d6fa531b283"
+  ],
+  "observed_at_utc": "2026-11-27T05:55:14.127366+00:00",
+  "verdict": "V3_INT3_INTEGRATION_READY_FOR_REVIEW",
+  "independent_stage_2": "NOT_RUN",
+  "software_scope": {
+    "os": "Windows amd64",
+    "toolchain": "MSYS2 UCRT64, C++17 sans extensions, Qt 6",
+    "native_environment": "FreeCAD 1.1.3 / OCCT 7.8.1 / Cables 0.3.7",
+    "c3": "SYNTHETIC_BENCH, profils spatiaux scellés, candidats T1/T2/T3 et arrêt T4",
+    "a6": "TEST_ONLY / SYNTHETIC_BENCH, CREATE_SUPPORT(anchor:iso-carrier) sur P64 Workholding",
+    "a5": "Préadmission historique, sans transaction native",
+    "protected_fixtures": "L1/L2 scellés, deux matrices L2, références cartographe lecture seule"
+  },
+  "physical_scope": {
+    "request": "PHYSICAL_MEASURED / CARTOGRAPHER_PRIVATE_CAD",
+    "decision": "DENY",
+    "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+    "construction": "NOT_RUN",
+    "physical_reception": "NOT_RUN",
+    "production_trust_pin": "EMPTY",
+    "cartographer_mutation": "DENY",
+    "cartographer_candidate_count": 0
+  },
+  "physical_reception": "NOT_RUN",
+  "production_trust_pin": "EMPTY",
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "gates": [
+    {
+      "check": "ancestry_and_sources",
+      "status": "PASS",
+      "proof": "merge_manifest.json",
+      "critical": true
+    },
+    {
+      "check": "build_cxx17_and_trust",
+      "status": "PASS",
+      "proof": "builds.json",
+      "critical": true
+    },
+    {
+      "check": "registered_and_sealed_regressions",
+      "status": "PASS",
+      "proof": "regressions.json",
+      "critical": true
+    },
+    {
+      "check": "c2_and_a5",
+      "status": "PASS",
+      "proof": "regressions.json",
+      "critical": true
+    },
+    {
+      "check": "c3_fresh_campaign",
+      "status": "PASS",
+      "proof": "native_c3.json",
+      "critical": true
+    },
+    {
+      "check": "c3_independent_obstacle",
+      "status": "PASS",
+      "proof": "native_c3.json",
+      "critical": true
+    },
+    {
+      "check": "a6_fresh_signed_native_transactions",
+      "status": "PASS",
+      "proof": "native_a6.json",
+      "critical": true
+    },
+    {
+      "check": "a6_refusals_faults_boundaries_no_crypto",
+      "status": "PASS",
+      "proof": "adversarial.json",
+      "critical": true
+    },
+    {
+      "check": "cartographer_fail_closed",
+      "status": "PASS",
+      "proof": "adversarial.json",
+      "critical": true
+    },
+    {
+      "check": "protected_reference_bytes",
+      "status": "PASS",
+      "proof": "reference_integrity.json",
+      "critical": true
+    }
+  ],
+  "outside_acceptance": [
+    {
+      "check": "cartographe_model_generation",
+      "status": "FAIL",
+      "critical": false,
+      "proof": "regressions.json",
+      "reason": "stale CAD manifest, défaut historique reproduit dans le lot Gazebo hors acceptation."
+    },
+    {
+      "check": "c3_build_under_a6_signature",
+      "status": "NOT_RUN",
+      "reason": "UNSUPPORTED par les deux contrats."
+    },
+    {
+      "check": "physical_reception",
+      "status": "NOT_RUN",
+      "reason": "Portée numérique TEST_ONLY et porte physique fermée."
+    },
+    {
+      "check": "full_gazebo_px4_arm64_flight",
+      "status": "NOT_RUN",
+      "reason": "Exécution Windows amd64 limitée aux bancs et fixtures de contrat."
+    },
+    {
+      "check": "real_power_loss_and_trust_root_restore",
+      "status": "NOT_RUN",
+      "reason": "Pannes injectées en variante de test."
+    }
+  ],
+  "summary": {
+    "PASS": 10,
+    "FAIL": 1,
+    "NOT_RUN": 4
+  },
+  "limits": [
+    "Les deux suites T0 enregistrées portent sur des fixtures de contrat.",
+    "L’opération A.6 est limitée à un effet synthétique et à un stockage privé.",
+    "La reprise de publication lit le reçu journalisé. La restitution d’admission.json octet pour octet et les pannes réelles restent à éprouver.",
+    "Les natifs générés, journaux bruts et commandes de compilation détaillées sont archivés localement."
+  ],
+  "artifacts": [
+    {
+      "path": "merge_manifest.json",
+      "sha256": "3891b8b3664b78c3882062f7ba16c95e382aebf9568400dcc9fd734dc3199e6e",
+      "bytes": 49658
+    },
+    {
+      "path": "conflict_resolutions.md",
+      "sha256": "370eb3aa5e20f298dcb9aeb65af95a499155a590aab77d6edb5fd358382cfb94",
+      "bytes": 2608
+    },
+    {
+      "path": "builds.json",
+      "sha256": "2ea094d0520d8f34c1f870a6cf9b8ae1341bdfebf3826ad2bb7b7f5ff0996fea",
+      "bytes": 26570
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "189f80a6315aa7c553ee42276276782292057863b812ecb24391c1f2340b1062",
+      "bytes": 85754
+    },
+    {
+      "path": "adversarial.json",
+      "sha256": "4f0661499862e60ef97ae3420ffe672db214484aa7921fd8b014b38a059696cb",
+      "bytes": 33128
+    },
+    {
+      "path": "boundary_matrix.json",
+      "sha256": "ea986dc3d1e74bf8017f56a97dc30e86d1448cb6c325414dc2d9bb564c822f80",
+      "bytes": 8453
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "974ac14a3b6f3cde92740b59a95af0fd49c9d6ad0211672b5afccc84e45f0fca",
+      "bytes": 8955
+    },
+    {
+      "path": "native_a6.json",
+      "sha256": "18a512e0860b4cc277afc7c2e3cc638daa7f5288a46c9eccd59c3a32fbb6608e",
+      "bytes": 22500
+    },
+    {
+      "path": "native_c3.json",
+      "sha256": "7b3ac7170c31ce59d99f26f0d8d8d84588779f3756171705b6356eacf8f69721",
+      "bytes": 79620
+    },
+    {
+      "path": "reference_integrity.json",
+      "sha256": "209cffe70895fdcab81a8e3cc794a2e4b78b52ca6370ea1a243c60a4129811e6",
+      "bytes": 20540
+    },
+    {
+      "path": "recipes/replay_builds.py",
+      "sha256": "d2f0208e89d0a79ab440a8bf2a0ec91e8a6a65fa3f09e6dd1e6374f3b22fdd8c",
+      "bytes": 4686
+    },
+    {
+      "path": "recipes/replay_regressions.py",
+      "sha256": "ea300dfb920d6b4a1983bc62c1b00ffa4edf4a0c1669e4c2b97de5f74dbddd35",
+      "bytes": 15749
+    },
+    {
+      "path": "recipes/guards.ps1",
+      "sha256": "4a6dba05fa9b0d6c2248dea50bfe4977e391b9cb52e94a0299af0b864353132f",
+      "bytes": 4459
+    },
+    {
+      "path": "recipes/review_c3.py",
+      "sha256": "0586f878fb89c798ab2fb2ef2e8acbf3c2b0079e8ed9b8c2d7fb8d7ce3799a22",
+      "bytes": 6803
+    },
+    {
+      "path": "inputs/c2-t2-perturbation.json",
+      "sha256": "1926e782b3f944970b124a9a7f82cd9d3d5057b928d0f24d124a26770221e85d",
+      "bytes": 593
+    },
+    {
+      "path": "inputs/c3-t2-perturbation.json",
+      "sha256": "6e5ec5e02598b3546c930909654ea5f766631d318f2bc0a429194996731a56df",
+      "bytes": 602
+    },
+    {
+      "path": "../../../../../convergence_manager/tests/test_v3_int3_a6_boundaries.py",
+      "sha256": "9cbdca1d7707a2c186e952b0513476bdd6f8b8e7b52b51dd49df15530d49eccb",
+      "bytes": 10991
+    }
+  ]
+}
