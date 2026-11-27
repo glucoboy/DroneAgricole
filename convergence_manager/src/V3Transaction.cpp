@@ -302,7 +302,8 @@ QJsonObject execute(const QDir &root, const QDir &sandbox, const QDir &output, c
                     {"model", profile.value("model")}, {"actions", actions}};
     if (authorized)
         job.insert("authorized_effect", plan.value("authorized_effect"));
-    const bool spatial = report.value("plan_schema") == v3SpatialPlanSchema;
+    const bool spatial = report.value("plan_schema") == v3SpatialPlanSchema ||
+                         report.value("plan_schema") == v3SixDofPlanSchema;
     const bool multiharness = spatial || report.value("plan_schema") == v3MultiHarnessPlanSchema;
     if (multiharness) {
         job.insert("support_option", plan.value("support_option"));

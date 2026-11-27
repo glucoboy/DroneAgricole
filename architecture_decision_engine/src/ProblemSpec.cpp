@@ -100,7 +100,8 @@ QSet<QString> supportZones(const QJsonObject &narrowing, const QSet<QString> &au
 
 bool spatialDomain(const QJsonObject &domain)
 {
-    return domain.value("schema") == "v3.parametric_domain/3";
+    return domain.value("schema") == "v3.parametric_domain/3" ||
+           domain.value("schema") == "v3.parametric_domain/4";
 }
 
 bool multiDomain(const QJsonObject &domain)

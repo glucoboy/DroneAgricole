@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from electromechanical_engine.freecad import PROJECT, guard
 from electromechanical_engine.contracts import decode
 from convergence_manager.native.v3_spatial_contract import (
-    C3_PROFILES, OBSTACLE_OBJECT, box_limits, corridor_limits, nominal_axis, obstacle_spec,
+    C3_PROFILES, C4_PROFILES, OBSTACLE_OBJECT, box_limits, corridor_limits, nominal_axis, obstacle_spec,
 )
 
 
@@ -36,7 +36,7 @@ PROFILES = {
     PROJECT / "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json",
     PROJECT / "docs/electromechanical_v3/bench_b2_variations.json",
 }
-SPATIAL_PROFILES = {PROJECT / path for path in C3_PROFILES}
+SPATIAL_PROFILES = {PROJECT / path for path in C3_PROFILES + C4_PROFILES}
 PROFILES.update(SPATIAL_PROFILES)
 GROUPS = {"App::Part", "App::DocumentObjectGroup"}
 ERRORS = (AttributeError, BadZipFile, IndexError, KeyError, OSError, ParseError, RuntimeError, TypeError, ValueError)
@@ -405,7 +405,7 @@ class Observation:
         for spec in self.rules["service"]:
             name = spec.get("anchor") or spec.get("port") or spec["object"]
             if "anchor" in spec:
-                frame = self.pose(name)
+                frame = self.pose(spec.get("follow_support", name))
                 origin = frame.multVec(App.Vector(*spec["offset_local_mm"]))
                 axis = frame.Rotation.multVec(App.Vector(0, 0, 1))
                 zone = Part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, axis)
@@ -459,14 +459,36 @@ class Observation:
 
     def support_zone(self):
         selected = self.contract["support"]
-        require(set(selected) == {"id", "occurrence", "anchor_zone"}, "Contrat d’ancrage mal formé")
+        patch = selected.get("offset_patch_mm")
+        require(set(selected) == ({"id", "occurrence", "anchor_zone", "offset_patch_mm", "min_carrier_thickness_mm"} if patch is not None
+                                  else {"id", "occurrence", "anchor_zone"}), "Contrat d’ancrage mal formé")
         spec = self.rules["supports"][selected["occurrence"]]
         low, high = box_limits(selected["anchor_zone"], allow_surface=True)
-        anchor = point(self.pose(spec["anchor"]).Base)
+        anchor_pose = self.pose(spec["anchor"])
+        anchor = point(anchor_pose.Base)
         tolerance = self.rules["tolerances"]["position_mm"]
         inside = all(left - tolerance <= value <= right + tolerance for left, value, right in zip(low, anchor, high))
+        measured_patch = {}
+        if patch is not None:
+            patch_low, patch_high = box_limits(patch, allow_surface=True)
+            support_position = self.pose(selected["occurrence"]).Base
+            offset = point(anchor_pose.inverse().multVec(support_position))
+            inside = inside and all(left - tolerance <= value <= right + tolerance
+                                    for left, value, right in zip(patch_low, offset, patch_high, strict=True))
+            carrier = self.shape(spec["carrier"])
+            normal = anchor_pose.Rotation.multVec(App.Vector(0, 0, 1))
+            ray = Part.makeLine(support_position - normal * carrier.BoundBox.DiagonalLength, support_position + normal)
+            intersection = ray.common(carrier)
+            thickness = sum(edge.Length for edge in intersection.Edges)
+            minimum = selected["min_carrier_thickness_mm"]
+            require(type(minimum) in (int, float) and math.isfinite(minimum) and minimum > 0,
+                    "Épaisseur du porteur hors contrat")
+            inside = inside and thickness + tolerance >= minimum
+            measured_patch = {"offset_patch_mm": patch, "observed_offset_mm": offset,
+                              "observed_support_root_mm": point(support_position),
+                              "carrier_thickness_mm": thickness, "min_carrier_thickness_mm": minimum}
         return {"id": selected["id"], "occurrence": selected["occurrence"], "anchor_mm": anchor,
-                "bounds_mm": [low, high], "status": "PASS" if inside else "FAIL"}
+                "bounds_mm": [low, high], "status": "PASS" if inside else "FAIL", **measured_patch}
 
     def supports(self):
         records = {}
@@ -631,7 +653,9 @@ def run(root, profile_path, result, *, contract=None, external=None, expected_en
     spatial_profile = profile_path in SPATIAL_PROFILES
     if contract is not None:
         require(spatial_profile and set(contract) == {"routes", "minimum_clearance_mm", "support"} and
-                set(contract["routes"]) == set(profile["model"]["validation"]["routes"]),
+                set(contract["routes"]) == set(profile["model"]["validation"]["routes"]) and
+                ("offset_patch_mm" in contract["support"]) ==
+                (profile_path.relative_to(PROJECT).as_posix() in C4_PROFILES),
                 "Contrat spatial hors profil autorisé")
     result.update(entry=entry, model_id=profile["model_id"],
                   profile_sha256=hashlib.sha256(profile_bytes).hexdigest(),

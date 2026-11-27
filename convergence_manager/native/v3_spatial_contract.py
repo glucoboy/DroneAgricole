@@ -10,6 +10,10 @@ C3_PROFILES = (
     "docs/electromechanical_v3/bench_c3_spatial/profile.json",
     "docs/electromechanical_v3/bench_c3_spatial_secondary/profile.json",
 )
+C4_PROFILES = (
+    "docs/electromechanical_v3/bench_c4_sixdof/profile.json",
+    "docs/electromechanical_v3/bench_c4_sixdof_secondary/profile.json",
+)
 
 
 def box_limits(value, *, allow_surface=False):
@@ -46,8 +50,9 @@ def corridor_limits(value, tolerance):
 
 
 def spatial_profile(project, job, *, saved_candidate=False):
-    """Refuse spatial worker jobs outside the two sealed synthetic fixtures."""
-    for relative in C3_PROFILES:
+    """Refuse spatial worker jobs outside the sealed synthetic fixtures."""
+    patch = "offset_patch_mm" in job["spatial_contract"].get("support", {})
+    for relative in C4_PROFILES if patch else C3_PROFILES:
         path = project / relative
         if not path.is_file():
             continue
@@ -59,7 +64,7 @@ def spatial_profile(project, job, *, saved_candidate=False):
                 actual[name] == value for name, value in expected.items()
                 if not saved_candidate or name != job["entry"]):
             return profile
-    raise ValueError("Contrat spatial hors profils synthétiques C.3")
+    raise ValueError("Contrat spatial hors profils synthétiques C.3/C.4")
 
 
 def nominal_axis(value):

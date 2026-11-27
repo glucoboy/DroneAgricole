@@ -11,18 +11,26 @@ namespace convergence {
 inline constexpr auto v3ParametricPlanSchema = "v3.mutation_plan/2";
 inline constexpr auto v3MultiHarnessPlanSchema = "v3.mutation_plan/3";
 inline constexpr auto v3SpatialPlanSchema = "v3.mutation_plan/4";
+inline constexpr auto v3SixDofPlanSchema = "v3.mutation_plan/5";
 inline constexpr auto v3SpatialDomainSchema = "v3.parametric_domain/3";
+inline constexpr auto v3SixDofDomainSchema = "v3.parametric_domain/4";
 inline constexpr auto v3MultiHarnessDomainSchema = "v3.parametric_domain/2";
 inline constexpr auto v3NativePortMode = "NATIVE_PORT";
 
 inline bool isV3ParametricPlan(const QJsonValue &schema)
 {
-    return schema == v3ParametricPlanSchema || schema == v3MultiHarnessPlanSchema || schema == v3SpatialPlanSchema;
+    return schema == v3ParametricPlanSchema || schema == v3MultiHarnessPlanSchema ||
+           schema == v3SpatialPlanSchema || schema == v3SixDofPlanSchema;
+}
+
+inline bool isV3SpatialDomain(const QJsonValue &schema)
+{
+    return schema == v3SpatialDomainSchema || schema == v3SixDofDomainSchema;
 }
 
 inline bool isV3MultiHarnessDomain(const QJsonValue &schema)
 {
-    return schema == v3MultiHarnessDomainSchema || schema == v3SpatialDomainSchema;
+    return schema == v3MultiHarnessDomainSchema || isV3SpatialDomain(schema);
 }
 
 void validateV3ExternalObstacle(const QJsonObject &obstacle);

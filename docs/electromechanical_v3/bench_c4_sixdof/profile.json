@@ -1,0 +1,1412 @@
+{
+  "schema": "v3.b1.bench_profile/1",
+  "model_id": "xlink-c4-sixdof",
+  "model_version": "1",
+  "source": "docs/electromechanical_v3/bench_c4_sixdof/model",
+  "entry": "Banc_Interconnexion.FCStd",
+  "dependencies": {
+    "Banc_Interconnexion.FCStd": "cf3748cb52de689d2458bb76c38dcb17f0790534efdbe18af275c24bc538b246",
+    "parts/CoupledAssets.FCStd": "8b6b8c896ece337b1285a15c403896c059fde3e2682589e88ce80ee156e8b4b3",
+    "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
+  },
+  "graph": "docs/electromechanical_v3/bench_c4_sixdof/graph.json",
+  "graph_sha256": "31f78bc0cc5970766e421ff35cc265849c9c6b11d33bf86c62922cb54b4f952c",
+  "constraints": {
+    "BMS_USB_STRUCTURE_ISOLATION": {
+      "applicable": false,
+      "scope": "Banc synthétique C4 sans BMS ou USB."
+    },
+    "NC": {
+      "expected_contacts": [],
+      "scope": "Quatre voies raccordées seulement."
+    },
+    "TX_RX": {
+      "conserve_synthetic_pairs": true,
+      "scope": "Continuité des quatre voies de la référence indépendante."
+    },
+    "PROTECTIONS": {
+      "preserve": "Cordon_L2",
+      "diameter_mm": 4
+    },
+    "PINOUT": {
+      "authority": "interface_authority.json",
+      "mated_pairs": 8,
+      "conductors": 4
+    },
+    "INDEPENDENT_FRAMES": {
+      "authority": "interface_authority.json",
+      "position_tolerance_mm": 1e-06,
+      "direction_tolerance_deg": 0.0001
+    },
+    "GEOMETRY": {
+      "interference_tolerance_mm3": 1e-06
+    },
+    "SUPPORT_ANCHOR": {
+      "applicable": true,
+      "evidence": "model.validation.supports"
+    },
+    "SERVICE": {
+      "minimum_clearance_mm": 2,
+      "scope": "Réservations Cables et accès à l'ancrage sur banc numérique."
+    },
+    "IMMUTABLE_SOURCES": {
+      "source_write": "DENY"
+    },
+    "DYNAMIC_BEND_RADIUS": {
+      "minimum_mm": 5,
+      "scope": "Courbure nominale du C4 hors tension."
+    }
+  },
+  "model": {
+    "occurrences": {
+      "device-a": "ElectricalDevice",
+      "device-b": "ElectricalDevice001",
+      "cordon": "HarnessInventory/Cable",
+      "receptacle-a": "CableConnector",
+      "mate-a": "CableConnector001",
+      "receptacle-b": "CableConnector002",
+      "mate-b": "CableConnector003",
+      "local-obstacle": "Obstacle",
+      "service-obstacle": "ServiceObstacle",
+      "remote-obstacle": "RemoteObstacle",
+      "service-extraction-a": "ServiceReservations/Extraction1",
+      "service-extraction-b": "ServiceReservations/Extraction2",
+      "service-tool-a": "ServiceReservations/ToolAccess1",
+      "service-tool-b": "ServiceReservations/ToolAccess2",
+      "payload": "FixtureRig/Payload",
+      "sibling": "FixtureRig/Sibling",
+      "carrier": "Workholding/Carrier",
+      "anchor": "Workholding/Anchor",
+      "plate": "Workholding/Plate",
+      "stud": "Workholding/Stud",
+      "service-guard": "ServiceGuard",
+      "device-c": "ElectricalDevice002",
+      "receptacle-c": "CableConnector004",
+      "mate-c": "CableConnector005",
+      "service-extraction-c": "Extraction3",
+      "device-d": "ElectricalDevice003",
+      "receptacle-d": "CableConnector006",
+      "mate-d": "CableConnector007",
+      "service-extraction-d": "Extraction4",
+      "cordon-b": "HarnessInventory/Cable001",
+      "shared-obstacle": "SharedObstacle",
+      "payload-body": "FixtureRig/Payload/Body",
+      "anchor-b": "Workholding/AnchorB",
+      "plate-b": "Workholding/PlateB",
+      "stud-b": "Workholding/StudB",
+      "c2-net-1": "Line005",
+      "c2-net-2": "Line006"
+    },
+    "moving_with": {
+      "payload": [
+        "device-b",
+        "service-extraction-b",
+        "service-tool-b",
+        "device-d",
+        "service-extraction-d"
+      ]
+    },
+    "validation": {
+      "tolerances": {
+        "position_mm": 1e-06,
+        "direction_deg": 0.0001,
+        "volume_mm3": 1e-06,
+        "distance_mm": 1e-06
+      },
+      "ports": {
+        "port-a": {
+          "equipment": "device-a",
+          "frame": "WireExit1",
+          "local_pose": {
+            "translation_mm": [
+              0,
+              0,
+              14
+            ],
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Clé-A",
+          "domain": "cordon",
+          "mating_pair": [
+            "ReceptacleMating1",
+            "MateMating1"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "MateMating1",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            }
+          ],
+          "datum": "PortA"
+        },
+        "port-b": {
+          "equipment": "payload",
+          "frame": "WireExit2",
+          "local_pose": {
+            "translation_mm": [
+              0,
+              0,
+              14
+            ],
+            "rotation_xyzw": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Clé-A",
+          "domain": "cordon",
+          "mating_pair": [
+            "ReceptacleMating2",
+            "MateMating2"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "path": "MateMating2",
+              "local_pose": {
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ],
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              }
+            }
+          ],
+          "attachment_equipment": "device-b",
+          "datum": "PortB"
+        },
+        "port-c": {
+          "equipment": "device-c",
+          "attachment_equipment": "device-c",
+          "frame": "WireExit3",
+          "local_pose": {
+            "translation_mm": [
+              0,
+              0,
+              14
+            ],
+            "rotation_xyzw": [
+              0,
+              0,
+              0.0,
+              1.0
+            ]
+          },
+          "datum": "PortC",
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Cle-B",
+          "domain": "cordon-b",
+          "mating_pair": [
+            "ReceptacleMating3",
+            "MateMating3"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount3",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0.0,
+                  1.0
+                ],
+                "translation_mm": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating3",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0.0,
+                  1.0
+                ],
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ]
+              }
+            },
+            {
+              "path": "MateMating3",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0,
+                  0,
+                  0.0,
+                  1.0
+                ],
+                "translation_mm": [
+                  0,
+                  0,
+                  4
+                ]
+              }
+            }
+          ]
+        },
+        "port-d": {
+          "equipment": "payload",
+          "attachment_equipment": "device-d",
+          "frame": "WireExit4",
+          "local_pose": {
+            "translation_mm": [
+              -0.5000000000000019,
+              12.37653336856471,
+              13.522961568046966
+            ],
+            "rotation_xyzw": [
+              0.1305261922200516,
+              0.0,
+              0.0,
+              0.9914448613738105
+            ]
+          },
+          "datum": "PortD",
+          "outward_local": [
+            0,
+            0,
+            1
+          ],
+          "connector_key": "Cle-B",
+          "domain": "cordon-b",
+          "mating_pair": [
+            "ReceptacleMating4",
+            "MateMating4"
+          ],
+          "mating_frames": [
+            {
+              "path": "Mount4",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0.1305261922200516,
+                  0.0,
+                  0.0,
+                  0.9914448613738105
+                ],
+                "translation_mm": [
+                  -0.5000000000000019,
+                  16.0,
+                  1.0658141036401503e-14
+                ]
+              }
+            },
+            {
+              "path": "ReceptacleMating4",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0.1305261922200516,
+                  0.0,
+                  0.0,
+                  0.9914448613738105
+                ],
+                "translation_mm": [
+                  -0.5000000000000019,
+                  14.964723819589917,
+                  3.8637033051562835
+                ]
+              }
+            },
+            {
+              "path": "MateMating4",
+              "local_pose": {
+                "rotation_xyzw": [
+                  0.1305261922200516,
+                  0.0,
+                  0.0,
+                  0.9914448613738105
+                ],
+                "translation_mm": [
+                  -0.5000000000000019,
+                  14.964723819589917,
+                  3.8637033051562835
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "routes": {
+        "cordon": {
+          "ports": [
+            "port-a",
+            "port-b"
+          ],
+          "diameter_mm": 4,
+          "minimum_radius_mm": 5,
+          "conductor_sections_mm2": [
+            0.2,
+            0.2,
+            0.2,
+            0.2
+          ],
+          "minimum_length_mm": 60,
+          "maximum_length_mm": 115,
+          "clearance_obstacles": [
+            "local-obstacle",
+            "service-obstacle",
+            "remote-obstacle",
+            "shared-obstacle"
+          ],
+          "electrical_id": "F1"
+        },
+        "cordon-b": {
+          "ports": [
+            "port-c",
+            "port-d"
+          ],
+          "diameter_mm": 3,
+          "minimum_radius_mm": 7,
+          "conductor_sections_mm2": [
+            0.12,
+            0.12
+          ],
+          "minimum_length_mm": 65,
+          "maximum_length_mm": 145,
+          "clearance_obstacles": [
+            "shared-obstacle",
+            "local-obstacle",
+            "service-obstacle",
+            "remote-obstacle"
+          ],
+          "electrical_id": "F2"
+        }
+      },
+      "contacts": {
+        "ma1": {
+          "receptacle": "ra1",
+          "pin": "pa1",
+          "port": "port-a"
+        },
+        "ma2": {
+          "receptacle": "ra2",
+          "pin": "pa2",
+          "port": "port-a"
+        },
+        "ma3": {
+          "receptacle": "ra3",
+          "pin": "pa3",
+          "port": "port-a"
+        },
+        "ma4": {
+          "receptacle": "ra4",
+          "pin": "pa4",
+          "port": "port-a"
+        },
+        "mb1": {
+          "receptacle": "rb1",
+          "pin": "pb1",
+          "port": "port-b"
+        },
+        "mb2": {
+          "receptacle": "rb2",
+          "pin": "pb2",
+          "port": "port-b"
+        },
+        "mb3": {
+          "receptacle": "rb3",
+          "pin": "pb3",
+          "port": "port-b"
+        },
+        "mb4": {
+          "receptacle": "rb4",
+          "pin": "pb4",
+          "port": "port-b"
+        },
+        "mc1": {
+          "receptacle": "rc1",
+          "pin": "pc1",
+          "port": "port-c"
+        },
+        "mc2": {
+          "receptacle": "rc2",
+          "pin": "pc2",
+          "port": "port-c"
+        },
+        "md1": {
+          "receptacle": "rd1",
+          "pin": "pd1",
+          "port": "port-d"
+        },
+        "md2": {
+          "receptacle": "rd2",
+          "pin": "pd2",
+          "port": "port-d"
+        }
+      },
+      "nets": {
+        "c1": {
+          "route": "cordon",
+          "contacts": [
+            "ma1",
+            "mb1"
+          ]
+        },
+        "c2": {
+          "route": "cordon",
+          "contacts": [
+            "ma2",
+            "mb2"
+          ]
+        },
+        "c3": {
+          "route": "cordon",
+          "contacts": [
+            "ma3",
+            "mb3"
+          ]
+        },
+        "c4": {
+          "route": "cordon",
+          "contacts": [
+            "ma4",
+            "mb4"
+          ]
+        },
+        "c2-net-1": {
+          "route": "cordon-b",
+          "contacts": [
+            "mc1",
+            "md1"
+          ]
+        },
+        "c2-net-2": {
+          "route": "cordon-b",
+          "contacts": [
+            "mc2",
+            "md2"
+          ]
+        }
+      },
+      "nc": [],
+      "isolated_domains": [
+        [
+          "cordon",
+          "cordon-b"
+        ]
+      ],
+      "service": [
+        {
+          "object": "ServiceReservations/Extraction1",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/Extraction2",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle",
+            "service-guard"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/ToolAccess1",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "ServiceReservations/ToolAccess2",
+          "obstacles": [
+            "service-obstacle",
+            "remote-obstacle",
+            "local-obstacle",
+            "service-guard"
+          ],
+          "clearance_mm": 2
+        },
+        {
+          "object": "Extraction3",
+          "obstacles": [
+            "cordon",
+            "cordon-b",
+            "shared-obstacle"
+          ],
+          "clearance_mm": 1.0
+        },
+        {
+          "object": "Extraction4",
+          "obstacles": [
+            "cordon",
+            "cordon-b",
+            "shared-obstacle"
+          ],
+          "clearance_mm": 1.0
+        },
+        {
+          "anchor": "anchor",
+          "offset_local_mm": [
+            3.0,
+            1,
+            3
+          ],
+          "radius_mm": 0.35,
+          "stroke_mm": 6,
+          "obstacles": [
+            "cordon",
+            "cordon-b",
+            "shared-obstacle"
+          ],
+          "clearance_mm": 0.2,
+          "required_action": "c3-support-a",
+          "follow_support": "plate"
+        },
+        {
+          "anchor": "anchor-b",
+          "offset_local_mm": [
+            4.0,
+            1,
+            3
+          ],
+          "radius_mm": 0.35,
+          "stroke_mm": 6,
+          "obstacles": [
+            "cordon",
+            "cordon-b",
+            "shared-obstacle"
+          ],
+          "clearance_mm": 0.2,
+          "required_action": "c3-support-b"
+        }
+      ],
+      "non_physical": [
+        "ServiceReservations/Extraction1",
+        "ServiceReservations/Extraction2",
+        "ServiceReservations/ToolAccess1",
+        "ServiceReservations/ToolAccess2",
+        "ElectricalDevice001",
+        "Extraction3",
+        "Extraction4"
+      ],
+      "allowed_interferences": [
+        {
+          "parts": [
+            "carrier",
+            "stud"
+          ],
+          "min_volume_mm3": 1.2,
+          "max_volume_mm3": 1.36,
+          "role": "FASTENER_CARRIER_ENGAGEMENT",
+          "support": "plate",
+          "required_action": "c3-support-a",
+          "reason": "Engagement contrôlé du goujon dans la face porteuse du banc."
+        },
+        {
+          "parts": [
+            "carrier",
+            "stud-b"
+          ],
+          "min_volume_mm3": 1.2,
+          "max_volume_mm3": 1.36,
+          "role": "FASTENER_CARRIER_ENGAGEMENT",
+          "support": "plate-b",
+          "required_action": "c3-support-b",
+          "reason": "Engagement contrôlé du goujon dans la face porteuse du banc."
+        }
+      ],
+      "supports": {
+        "plate": {
+          "anchor": "anchor",
+          "carrier": "carrier",
+          "carrier_face": "Face6",
+          "min_contact_area_mm2": 197.9,
+          "min_fasteners": 1,
+          "fasteners": [
+            "stud"
+          ],
+          "retains": [
+            "cordon",
+            "cordon-b"
+          ],
+          "retention_max_gap_mm": 0.001,
+          "selected_only": true
+        },
+        "plate-b": {
+          "anchor": "anchor-b",
+          "carrier": "carrier",
+          "carrier_face": "Face6",
+          "min_contact_area_mm2": 271.9,
+          "min_fasteners": 1,
+          "fasteners": [
+            "stud-b"
+          ],
+          "retains": [
+            "cordon",
+            "cordon-b"
+          ],
+          "retention_max_gap_mm": 0.001,
+          "selected_only": true
+        }
+      },
+      "cross_harness": {
+        "harnesses": [
+          "cordon",
+          "cordon-b"
+        ],
+        "minimum_clearance_mm": 0.8
+      },
+      "allowed_surface_contacts": [
+        {
+          "parts": [
+            "device-a",
+            "receptacle-a"
+          ],
+          "role": "CONNECTOR_MOUNT",
+          "reason": "Appui de l’embase sur le corps équipement."
+        },
+        {
+          "parts": [
+            "receptacle-a",
+            "mate-a"
+          ],
+          "role": "CONNECTOR_MATE",
+          "reason": "Faces d’accouplement de la paire de connecteurs."
+        },
+        {
+          "parts": [
+            "mate-a",
+            "cordon"
+          ],
+          "role": "NATIVE_WIRE_EXIT",
+          "reason": "Gaine tangente au repère de sortie du connecteur."
+        },
+        {
+          "parts": [
+            "payload-body",
+            "receptacle-b"
+          ],
+          "role": "CONNECTOR_MOUNT",
+          "reason": "Appui de l’embase sur le corps équipement."
+        },
+        {
+          "parts": [
+            "receptacle-b",
+            "mate-b"
+          ],
+          "role": "CONNECTOR_MATE",
+          "reason": "Faces d’accouplement de la paire de connecteurs."
+        },
+        {
+          "parts": [
+            "mate-b",
+            "cordon"
+          ],
+          "role": "NATIVE_WIRE_EXIT",
+          "reason": "Gaine tangente au repère de sortie du connecteur."
+        },
+        {
+          "parts": [
+            "device-c",
+            "receptacle-c"
+          ],
+          "role": "CONNECTOR_MOUNT",
+          "reason": "Appui de l’embase sur le corps équipement."
+        },
+        {
+          "parts": [
+            "receptacle-c",
+            "mate-c"
+          ],
+          "role": "CONNECTOR_MATE",
+          "reason": "Faces d’accouplement de la paire de connecteurs."
+        },
+        {
+          "parts": [
+            "mate-c",
+            "cordon-b"
+          ],
+          "role": "NATIVE_WIRE_EXIT",
+          "reason": "Gaine tangente au repère de sortie du connecteur."
+        },
+        {
+          "parts": [
+            "device-d",
+            "receptacle-d"
+          ],
+          "role": "CONNECTOR_MOUNT",
+          "reason": "Appui de l’embase sur le corps équipement."
+        },
+        {
+          "parts": [
+            "receptacle-d",
+            "mate-d"
+          ],
+          "role": "CONNECTOR_MATE",
+          "reason": "Faces d’accouplement de la paire de connecteurs."
+        },
+        {
+          "parts": [
+            "mate-d",
+            "cordon-b"
+          ],
+          "role": "NATIVE_WIRE_EXIT",
+          "reason": "Gaine tangente au repère de sortie du connecteur."
+        },
+        {
+          "parts": [
+            "plate",
+            "stud"
+          ],
+          "role": "FASTENER_BEARING",
+          "reason": "Face du goujon en appui sur la platine solidaire."
+        },
+        {
+          "parts": [
+            "carrier",
+            "plate"
+          ],
+          "role": "PLATE_BEARING",
+          "required_action": "c3-support-a",
+          "reason": "Appui sur la face porteuse scellée."
+        },
+        {
+          "parts": [
+            "plate",
+            "cordon"
+          ],
+          "role": "HARNESS_RETENTION",
+          "required_action": "c3-support-a",
+          "reason": "Rétention des deux gaines par la platine sélectionnée."
+        },
+        {
+          "parts": [
+            "plate",
+            "cordon-b"
+          ],
+          "role": "HARNESS_RETENTION",
+          "required_action": "c3-support-a",
+          "reason": "Rétention des deux gaines par la platine sélectionnée."
+        },
+        {
+          "parts": [
+            "plate-b",
+            "stud-b"
+          ],
+          "role": "FASTENER_BEARING",
+          "reason": "Face du goujon en appui sur la platine solidaire."
+        },
+        {
+          "parts": [
+            "carrier",
+            "plate-b"
+          ],
+          "role": "PLATE_BEARING",
+          "required_action": "c3-support-b",
+          "reason": "Appui sur la face porteuse scellée."
+        },
+        {
+          "parts": [
+            "plate-b",
+            "cordon"
+          ],
+          "role": "HARNESS_RETENTION",
+          "required_action": "c3-support-b",
+          "reason": "Rétention des deux gaines par la platine sélectionnée."
+        },
+        {
+          "parts": [
+            "plate-b",
+            "cordon-b"
+          ],
+          "role": "HARNESS_RETENTION",
+          "required_action": "c3-support-b",
+          "reason": "Rétention des deux gaines par la platine sélectionnée."
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "c3-move",
+      "operation": "REPOSITION_DEVICE",
+      "occurrence": "payload",
+      "effect": {
+        "fixture_case": "c1-move"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "placement": {
+          "translation_mm": [
+            100,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            -0.7071067811865476,
+            0,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            100,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            -0.7071067811865476,
+            0,
+            0.7071067811865476
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            100,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            -0.7071067811865476,
+            0,
+            0.7071067811865476
+          ]
+        }
+      },
+      "affected": [
+        "payload",
+        "sibling",
+        "port-b",
+        "port-d",
+        "cordon",
+        "cordon-b",
+        "device-b",
+        "service-extraction-b",
+        "service-tool-b",
+        "device-d",
+        "service-extraction-d",
+        "plate",
+        "plate-b",
+        "stud",
+        "stud-b"
+      ],
+      "domain_limits": {
+        "pose_autorisee": {
+          "translation_mm": [
+            100,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            -0.7071067811865476,
+            0,
+            0.7071067811865476
+          ]
+        },
+        "frame": "ROOT"
+      },
+      "graph_operation": "MOVE",
+      "graph_target": "payload"
+    },
+    {
+      "id": "c3-route-a",
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "cordon",
+      "effect": {
+        "fixture_case": "c1-route"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            31,
+            0,
+            0
+          ],
+          [
+            40,
+            12,
+            0
+          ],
+          [
+            86,
+            12,
+            0
+          ]
+        ],
+        "diameter_mm": 4,
+        "bend_radius_mm": 5,
+        "minimum_radius_mm": 5,
+        "conductor_sections_mm2": [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "start_axis": [
+          1,
+          0,
+          0
+        ],
+        "end_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "expected_before": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            86,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected_after": {
+        "points_mm": [
+          [
+            14,
+            0,
+            0
+          ],
+          [
+            31,
+            0,
+            0
+          ],
+          [
+            40,
+            12,
+            0
+          ],
+          [
+            86,
+            12,
+            0
+          ]
+        ]
+      },
+      "affected": [
+        "cordon",
+        "route-axis",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "domain_limits": {
+        "frame": "ROOT",
+        "diameter_mm": 4,
+        "minimum_radius_mm": 5,
+        "end_ports": [
+          "port-a",
+          "port-b"
+        ]
+      },
+      "graph_operation": "FRAME",
+      "graph_target": "port-b"
+    },
+    {
+      "id": "c3-route-b",
+      "operation": "REROUTE_HARNESS",
+      "occurrence": "cordon-b",
+      "effect": {
+        "fixture_case": "c3-route-b"
+      },
+      "parameters": {
+        "frame": "ROOT",
+        "points_mm": [
+          [
+            13.522961568046956,
+            19.6234666314353,
+            -0.5000000000000053
+          ],
+          [
+            28.01184896238298,
+            23.50575230797311,
+            -0.5000000000000098
+          ],
+          [
+            71.98815103761703,
+            8.494247692026894,
+            -0.5000000000000021
+          ],
+          [
+            86.47703843195305,
+            12.376533368564706,
+            -0.5000000000000018
+          ]
+        ],
+        "diameter_mm": 3,
+        "bend_radius_mm": 7,
+        "minimum_radius_mm": 7,
+        "conductor_sections_mm2": [
+          0.12,
+          0.12
+        ],
+        "start_axis": [
+          0.9659258262890683,
+          0.2588190451025208,
+          -2.983724378680108e-16
+        ],
+        "end_axis": [
+          -0.9659258262890683,
+          -0.2588190451025208,
+          -2.0816681711721685e-17
+        ]
+      },
+      "expected_before": {
+        "points_mm": [
+          [
+            13.522961568046956,
+            19.6234666314353,
+            -0.5000000000000053
+          ],
+          [
+            28.01184896238298,
+            23.50575230797311,
+            -0.5000000000000098
+          ],
+          [
+            71.98815103761703,
+            8.494247692026894,
+            -0.5000000000000021
+          ],
+          [
+            86.47703843195305,
+            12.376533368564706,
+            -0.5000000000000018
+          ]
+        ]
+      },
+      "expected_after": {
+        "points_mm": [
+          [
+            13.522961568046956,
+            19.6234666314353,
+            -0.5000000000000053
+          ],
+          [
+            28.01184896238298,
+            23.50575230797311,
+            -0.5000000000000098
+          ],
+          [
+            71.98815103761703,
+            8.494247692026894,
+            -0.5000000000000021
+          ],
+          [
+            86.47703843195305,
+            12.376533368564706,
+            -0.5000000000000018
+          ]
+        ]
+      },
+      "affected": [
+        "cordon-b",
+        "c2-net-1",
+        "c2-net-2"
+      ],
+      "domain_limits": {
+        "minimum_radius_mm": 7,
+        "diameter_mm": 3
+      },
+      "graph_operation": "FRAME",
+      "graph_target": "port-d"
+    },
+    {
+      "id": "c3-support-a",
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate",
+      "effect": {
+        "fixture_case": "c3-support-a"
+      },
+      "parameters": {
+        "anchor": "anchor",
+        "carrier": "carrier",
+        "retains": [
+          "cordon",
+          "cordon-b"
+        ],
+        "fasteners": [
+          "stud"
+        ],
+        "placement": {
+          "translation_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            62,
+            70,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            62,
+            -5,
+            -5
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "affected": [
+        "plate",
+        "stud",
+        "anchor",
+        "carrier",
+        "cordon",
+        "cordon-b"
+      ],
+      "domain_limits": {
+        "anchors": [
+          "anchor"
+        ]
+      },
+      "graph_operation": "RETENTION",
+      "graph_target": "plate"
+    },
+    {
+      "id": "c3-support-b",
+      "operation": "RELOCATE_SUPPORT",
+      "occurrence": "plate-b",
+      "effect": {
+        "fixture_case": "c3-support-b"
+      },
+      "parameters": {
+        "anchor": "anchor-b",
+        "carrier": "carrier",
+        "retains": [
+          "cordon",
+          "cordon-b"
+        ],
+        "fasteners": [
+          "stud-b"
+        ],
+        "placement": {
+          "translation_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_before": {
+        "placement": {
+          "translation_mm": [
+            75,
+            70,
+            0
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "expected_after": {
+        "placement": {
+          "translation_mm": [
+            75,
+            -5,
+            -5
+          ],
+          "rotation_xyzw": [
+            0,
+            0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "affected": [
+        "plate-b",
+        "stud-b",
+        "anchor-b",
+        "carrier",
+        "cordon",
+        "cordon-b"
+      ],
+      "domain_limits": {
+        "anchors": [
+          "anchor-b"
+        ]
+      },
+      "graph_operation": "RETENTION",
+      "graph_target": "plate-b"
+    }
+  ],
+  "compositions": [
+    [
+      "c3-move",
+      "c3-route-a",
+      "c3-route-b",
+      "c3-support-a"
+    ],
+    [
+      "c3-move",
+      "c3-route-a",
+      "c3-route-b",
+      "c3-support-b"
+    ]
+  ]
+}

@@ -41,6 +41,8 @@ const QMap<QString, QString> mutationProfiles{
     {"23dd28c51743d35df076844dfde82d21f01b619207baac6967f6b594027e0bb2", "docs/electromechanical_v3/bench_c1_coupled_secondary/profile.json"},
     {"c81bb52033e0399412f0e07f10ce85d4a7f4bd60af64c3c1a8558a1d6ee36d3e", "docs/electromechanical_v3/bench_c3_spatial/profile.json"},
     {"9e0644c02ada74d56780d3fea94ba31a61de2f63ad2b2898cbc4ebd77273ad86", "docs/electromechanical_v3/bench_c3_spatial_secondary/profile.json"},
+    {"76dba33243b85de85311e94cd811a03f7f70b4f98cfa8ef0b4838b360587c8c1", "docs/electromechanical_v3/bench_c4_sixdof/profile.json"},
+    {"dd8156e8d05fb9f8a970f97ede9bc0bb6f351ada50268c33f41183f37fec927d", "docs/electromechanical_v3/bench_c4_sixdof_secondary/profile.json"},
     {"250ec986f967e778329803c99e34840b2310de41760488948b20b41be15d6604", "docs/electromechanical_v3/bench_c2_multiharness/profile.json"},
     {"4d87be1304af56ca8b8e938462860edb2543920e2464af33cc0a7395efa513e4", "docs/electromechanical_v3/bench_c2_multiharness_secondary/profile.json"},
 };

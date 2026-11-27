@@ -115,7 +115,7 @@ QJsonObject verifyProblem(const QDir &root, const QJsonObject &problem, const QJ
                           const QString &baseProblemPath, const QString &obsSha, const QJsonObject &profile)
 {
     const auto phase = problem.value("phase").toString();
-    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool spatial = isV3SpatialDomain(domain.value("schema"));
     const bool multi = isV3MultiHarnessDomain(domain.value("schema"));
     require(problem.value("schema") == (spatial ? "v3.problem_spec/3" : multi ? "v3.problem_spec/2" : "v3.problem_spec/1") &&
             (QStringList{"T1", "T2", "T3"}.contains(phase) || (spatial && phase == "T4")),
@@ -501,7 +501,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
     const auto problem = parseUniqueObject(problemBytes, problemFile);
     const auto domainSha = problem.value("domain_sha256").toString();
     const auto domain = loadV3Domain(root, domainSha);
-    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool spatial = isV3SpatialDomain(domain.value("schema"));
     const bool multi = isV3MultiHarnessDomain(domain.value("schema"));
     const bool coupled = multi || domain.value("route").toObject().value("terminal_mode") == v3NativePortMode;
     const auto profileSha = domain.value("profile_sha256").toString();
@@ -684,7 +684,8 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
                 observations.append(hint);
                 diagnoses.append(hint);
             }
-            if (screen.value("status") != "SCREEN_PASS" && screen.value("status") != "NEEDS_NATIVE_CHECK") {
+            if (screen.value("status") != "SCREEN_PASS" && screen.value("status") != "NEEDS_NATIVE_CHECK" &&
+                !(domain.value("schema") == v3SixDofDomainSchema && screen.value("status") == "ELIGIBLE")) {
                 const QJsonObject failure{{"candidate", id}, {"reason", screen.value("status")},
                                           {"blocking_issues", screen.value("blocking_issues")}};
                 diagnoses.append(failure);
