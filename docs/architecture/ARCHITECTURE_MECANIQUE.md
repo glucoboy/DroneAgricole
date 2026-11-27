@@ -891,6 +891,13 @@ P64 ou P66 et la réception du cartographe réel restent **À valider**.
 [Qualification intégrée](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture) ·
 [Relevés nécessaires](../verification/v3/a6/physical_readiness.json)
 
+La collecte V3-A.7 prépare deux dossiers distincts pour P64 et P66. Elle
+demande les témoins d’appui et de fixation, les états TTL/USB, leurs volumes
+balayés et la course complète sur gabarit de batterie inerte. Les
+références XLink distinguent le porteur d’énergie du porteur d’avionique.
+L’appui applicable et toutes les valeurs physiques restent **À valider**
+sur le lot observé. [Guide de collecte](../verification/v3/a7/operator_guide.md)
+
 Les deux bancs V3-C.3 relient une racine FreeCAD à des références
 externes conservées en chemins relatifs. L’équipement mobile porte deux
 datums de sortie indépendants. Le second banc ajoute un niveau
@@ -2850,6 +2857,7 @@ présentée comme référence.
 
 ## Journal de modifications
 
+- **27 novembre 2026** — Dossiers de collecte d’appui V3-A.7 pour P64 et P66. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-a7)
 - **27 novembre 2026** — Clôture des preuves synthétiques V3-INT.3, avec conservation des conditions d’appui et de réception du cartographe. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture)
 - **27 novembre 2026** — V3-INT.3 rejoue la mesure des fermetures des deux bancs C.3 et du Workholding P64 synthétique. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)
 - **26 novembre 2026** — Deux bancs V3-C.3 éprouvent les couloirs volumiques, les appuis et une seconde hiérarchie XLink de ports ([bancs de cheminement](#bancs-spatiaux-c3)).

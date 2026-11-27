@@ -472,6 +472,19 @@ confiance de production vide.
 [Matrice de frontières](../verification/v3/int3/integration/boundary_matrix.json) ·
 [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture)
 
+#### Réception documentaire V3-A.7 — Implémenté
+
+`cartographe_reception` réutilise le lecteur métrologique A.4 et les
+formulaires A.5. Sa matrice empreintée au build définit les relevés du
+couple `CREATE_SUPPORT / anchor:iso-carrier` pour P64 et P66. Il vérifie
+le dépôt courant contre une empreinte transmise séparément et la politique
+d’import contre son empreinte. Les pièces privées, les repères et les
+intervalles conservateurs donnent une complétude par occurrence.
+La sortie documentaire est en lecture seule, avec décision `DENY`.
+La revue habilitée et l’admission continuent sur les autorités A.5/A.6.
+[Guide opérateur](../verification/v3/a7/operator_guide.md) ·
+[Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-a7)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1440,6 +1453,7 @@ rend `FINAL_NO_GO`.
 
 ## Journal de modifications
 
+- **27 novembre 2026** — Réception documentaire V3-A.7 par porteur et réemploi du validateur A.4 (§2.6).
 - **27 novembre 2026** — Clôture V3-INT.3 sur bancs synthétiques Windows amd64 après rejeu des frontières et contrats sur le merge de revue (§2.6).
 - **27 novembre 2026** — V3-INT.3 réunit les interfaces C.3 et A.6 avec séparation vérifiée des portées et rejeu des protections (§2.6).
 - **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).

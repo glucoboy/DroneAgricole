@@ -3302,6 +3302,27 @@ autorisation distincte. C.4 et A.7 attendent une décision de planning.
 [Périmètre des capacités](verification/v3/int3/capability_matrix.json) ·
 [Registre physique](verification/v3/a6/physical_readiness.json)
 
+<a id="cartographe-v3-a7"></a>
+#### Collecte documentaire V3-A.7 — 27 novembre 2026
+
+La préparation des relevés UART répond à la priorité de faisabilité
+physique du §14. Le dépôt A.7 rattache les mesures aux originaux
+empreintés et au parent XLink du porteur. Un paquet par porteur permet
+de vérifier séparément les besoins d’appui, les études de service et la
+course sur gabarit inerte. Les seuils et l’identité du lot relèvent de la
+politique A.4 fournie par le responsable matériel.
+
+`cartographe_reception` est **Implémenté**. Il présente les lacunes pour
+`CREATE_SUPPORT(anchor:iso-carrier)` sur P64 et P66. Le critère de
+qualification couvre l’import hors matériel, le refus de soumissions
+incohérentes, le recalcul indépendant des marges et datums, les
+régressions de référence et la conservation des scellés. Le budget est
+borné aux deux porteurs, aux témoins et injections ciblés et à un rejeu
+des suites de référence. Les reçus restent en lecture seule. Le dossier
+physique et la revue habilitée restent **À valider**.
+[Matrice des exigences](verification/v3/a7/evidence_matrix.json) ·
+[Préparation et contrôle](verification/v3/a7/operator_guide.md)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -5370,6 +5391,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 ## 16. Journal de modifications
 
 - **27 novembre 2026** — Clôture `V3_INT3_GO` sur bancs synthétiques Windows amd64, avec rejeux sur le merge de revue et maintien du refus physique. [Résultat](#cartographe-v3-int3-cloture)
+- **27 novembre 2026** — V3-A.7 prépare la réception documentaire UART et les lacunes propres à P64/P66. [Résultat](#cartographe-v3-a7)
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)
 - **27 novembre 2026** — Revue indépendante V3-INT.3 sur bancs synthétiques, avec deux nouvelles perturbations après gel et contrôle de la jonction d’autorité. [Résultat](#cartographe-v3-int3-revue)
 - **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)
