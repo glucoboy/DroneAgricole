@@ -51,8 +51,19 @@ add_executable(cartographe_material_evidence src/MaterialEvidence.cpp)
 target_compile_definitions(cartographe_material_evidence PRIVATE V3_A4_IMPORT_EXECUTABLE)
 target_link_libraries(cartographe_material_evidence PRIVATE convergence)
 
+set(a7_matrix "${CMAKE_CURRENT_SOURCE_DIR}/../docs/verification/v3/a7/evidence_matrix.json")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${a7_matrix}")
+file(SHA256 "${a7_matrix}" a7_matrix_sha256)
+add_executable(cartographe_reception src/A7Reception.cpp src/MaterialEvidence.cpp)
+set_target_properties(cartographe_reception PROPERTIES CXX_EXTENSIONS OFF)
+target_compile_definitions(cartographe_reception PRIVATE V3_A7_MATRIX_SHA256="${a7_matrix_sha256}")
+target_link_libraries(cartographe_reception PRIVATE convergence)
+
 if(BUILD_TESTING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    add_test(NAME l5_v3_a7_reception COMMAND "${Python3_EXECUTABLE}" -B
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_a7_reception.py"
+        --tool "$<TARGET_FILE:cartographe_reception>")
     add_test(NAME l5_v3_a4_material_evidence COMMAND "${Python3_EXECUTABLE}" -B
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v3_a4_evidence.py"
         --validator "$<TARGET_FILE:cartographe_material_evidence>")

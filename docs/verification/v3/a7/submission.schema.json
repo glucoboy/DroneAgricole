@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "V3-A.7 dépôt opérateur et datums complémentaires",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "classification",
+    "assembly_id",
+    "carrier",
+    "packet",
+    "details"
+  ],
+  "properties": {
+    "schema": {
+      "const": "v3.a7.submission/1"
+    },
+    "classification": {
+      "enum": [
+        "OPERATOR_SUBMISSION_UNREVIEWED",
+        "EXAMPLE_NOT_AUTHORITY"
+      ]
+    },
+    "assembly_id": {
+      "$ref": "#/$defs/id"
+    },
+    "carrier": {
+      "enum": [
+        "P64",
+        "P66"
+      ]
+    },
+    "packet": {
+      "$ref": "#/$defs/source"
+    },
+    "details": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/id"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/details"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "xyz": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number"
+      }
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "origin_mm",
+        "x_direction",
+        "y_direction",
+        "observed_normal",
+        "normal_sign",
+        "calibration",
+        "artifacts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "origin_mm": {
+          "$ref": "#/$defs/xyz"
+        },
+        "x_direction": {
+          "$ref": "#/$defs/xyz"
+        },
+        "y_direction": {
+          "$ref": "#/$defs/xyz"
+        },
+        "observed_normal": {
+          "$ref": "#/$defs/xyz"
+        },
+        "normal_sign": {
+          "enum": [
+            -1,
+            1
+          ]
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/source"
+            }
+          ]
+        },
+        "artifacts": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/source"
+          }
+        }
+      }
+    },
+    "physicalMeasurementPacket": {
+      "$ref": "../a5/measurement_form.schema.json"
+    }
+  }
+}

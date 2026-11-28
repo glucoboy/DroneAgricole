@@ -1,0 +1,393 @@
+{
+  "schema": "v3.a7.evidence_matrix/1",
+  "configuration": "prototype_cartographe_sans_dock",
+  "operation": "CREATE_SUPPORT",
+  "occurrence": "anchor:iso-carrier",
+  "carrier_authority": "../../../electromechanical_v3/cartographe.json#/bindings",
+  "carriers": {
+    "P64": "sous_assemblages/SA03_Prototype_Energie.FCStd#Isolation",
+    "P66": "sous_assemblages/SA05_Prototype_Avionique.FCStd#Interface"
+  },
+  "requirements": [
+    {
+      "id": "UART-ISO-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/2",
+      "checks": [
+        {
+          "id": "isolator-outline",
+          "subject": "iso",
+          "kind": "DIMENSION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "FACE_FRONT",
+            "FACE_BACK",
+            "CONNECTORS",
+            "SUPPORT_SURFACES"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UART-MOUNT-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/4",
+      "checks": [
+        {
+          "id": "mount-datum-1",
+          "subject": "carrier",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "DATUM_WITNESS"
+          ]
+        },
+        {
+          "id": "mount-datum-2",
+          "subject": "carrier",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "DATUM_WITNESS"
+          ]
+        },
+        {
+          "id": "carrier-thickness",
+          "subject": "carrier",
+          "kind": "THICKNESS",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "MATERIAL_SPEC"
+          ]
+        },
+        {
+          "id": "hole-pattern",
+          "subject": "carrier",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "HOLES_FASTENERS"
+          ]
+        },
+        {
+          "id": "thread-engagement",
+          "subject": "carrier",
+          "kind": "ENGAGEMENT",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "THREAD_WITNESS"
+          ]
+        },
+        {
+          "id": "tool-service",
+          "subject": "carrier",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "TOOL_ENVELOPE"
+          ]
+        },
+        {
+          "id": "load-case",
+          "subject": "carrier",
+          "kind": "LOAD_CAPACITY",
+          "unit": "N",
+          "comparison": "GE",
+          "artifacts": [
+            "LOAD_CASE_AND_PATH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UART-ACCESS-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/5",
+      "checks": [
+        {
+          "id": "ttl-engaged",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "TTL_ENGAGED"
+          ]
+        },
+        {
+          "id": "ttl-detached",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "TTL_DETACHED"
+          ]
+        },
+        {
+          "id": "ttl-swept",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "TTL_SWEEP",
+            "PDB_CAN1_F31_F35_P72_P73_CLEARANCES"
+          ]
+        },
+        {
+          "id": "usb-engaged",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "USB_ENGAGED"
+          ]
+        },
+        {
+          "id": "usb-detached",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "USB_DETACHED"
+          ]
+        },
+        {
+          "id": "usb-swept",
+          "subject": "iso",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "USB_SWEEP",
+            "PDB_CAN1_F31_F35_P72_P73_CLEARANCES"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UART-GUIDES-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/7",
+      "checks": [
+        {
+          "id": "battery-gauge-stroke",
+          "subject": "carrier",
+          "kind": "CLEARANCE",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "INERT_FULL_STROKE",
+            "EXTREMES_AND_LIMITING_STATES",
+            "GUIDE_ATTACHMENTS"
+          ]
+        },
+        {
+          "id": "f40-free-length",
+          "subject": "f40",
+          "kind": "LENGTH",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F40_FREE_LENGTH_AND_STATE"
+          ]
+        },
+        {
+          "id": "f40-static-radius",
+          "subject": "f40",
+          "kind": "BEND_RADIUS",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F40_STATIC_STATE"
+          ]
+        },
+        {
+          "id": "f40-dynamic-radius",
+          "subject": "f40",
+          "kind": "BEND_RADIUS",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F40_DYNAMIC_STATES"
+          ]
+        },
+        {
+          "id": "f41-free-length",
+          "subject": "f41",
+          "kind": "LENGTH",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F41_FREE_LENGTH_AND_STATE"
+          ]
+        },
+        {
+          "id": "f41-static-radius",
+          "subject": "f41",
+          "kind": "BEND_RADIUS",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F41_STATIC_STATE"
+          ]
+        },
+        {
+          "id": "f41-dynamic-radius",
+          "subject": "f41",
+          "kind": "BEND_RADIUS",
+          "unit": "mm",
+          "comparison": "GE",
+          "artifacts": [
+            "F41_DYNAMIC_STATES"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UART-TOP-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/0",
+      "checks": [
+        {
+          "id": "f40-wiring",
+          "subject": "f40",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "CAVITY_MAP",
+            "TE_OR_MANUAL_SEPARATION",
+            "NC_AND_ISOLATION"
+          ],
+          "facts": {
+            "nc_confirmed": [
+              true
+            ],
+            "can1_5v": [
+              "NC"
+            ],
+            "b_minus_equals_p_minus": [
+              false
+            ],
+            "w40_joint": [
+              "TE_5_WAY",
+              "MANUAL"
+            ]
+          }
+        },
+        {
+          "id": "f41-wiring",
+          "subject": "f41",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "USB_B_TO_USB_A_PORTS",
+            "STRAIN_RELIEF"
+          ],
+          "facts": {
+            "isolator_usb_port": [
+              "USB_B"
+            ],
+            "host_usb_port": [
+              "USB_A"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "UART-JBD-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/1",
+      "checks": [
+        {
+          "id": "jbd-header",
+          "subject": "bms",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "PCB_LABEL",
+            "JBD_CAVITIES"
+          ],
+          "facts": {
+            "bms_chemistry": [
+              "LI_ION"
+            ],
+            "bms_header": [
+              "J2",
+              "J3"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "UART-AXIS-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/3",
+      "checks": [
+        {
+          "id": "ttl-datum",
+          "subject": "iso",
+          "kind": "ANGLE",
+          "unit": "deg",
+          "comparison": "LE",
+          "artifacts": [
+            "TTL_PORT_AND_EXIT_AXIS"
+          ]
+        },
+        {
+          "id": "usb-datum",
+          "subject": "iso",
+          "kind": "ANGLE",
+          "unit": "deg",
+          "comparison": "LE",
+          "artifacts": [
+            "USB_PORT_AND_EXIT_AXIS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UART-HOST-001",
+      "source": "../a5/lot_and_measurement_matrix.json#/issues/6",
+      "checks": [
+        {
+          "id": "host-port",
+          "subject": "holybro",
+          "kind": "POSITION",
+          "unit": "mm",
+          "comparison": "LE",
+          "artifacts": [
+            "HOLYBRO_IDENTITY_AND_MARKING",
+            "USB_A_AND_CAN1_CONTEXT"
+          ],
+          "facts": {
+            "host_usb_port": [
+              "USB_A"
+            ],
+            "can1_5v": [
+              "NC"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "AUTHORIZED_REVIEW",
+      "source": "../a6/physical_readiness.json#/missing/4",
+      "checks": []
+    },
+    {
+      "id": "PRODUCTION_TRUST",
+      "source": "../a6/physical_readiness.json#/missing/5",
+      "checks": []
+    }
+  ]
+}
