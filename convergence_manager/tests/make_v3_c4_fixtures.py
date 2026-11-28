@@ -33,18 +33,27 @@ def make_fixture(work, secondary):
     copy = work / new
     shutil.copytree(source / "model", copy)
     doc = App.openDocument(str(copy / profile["entry"]))
+    battery_low = [48, 27, -1] if secondary else [48, 29, -1]
+    battery_high = [76, 33, 2] if secondary else [76, 35, 2]
     try:
         native.complete_dependencies(doc, copy)
         gate = doc.SharedObstacle
         gate.Label = "Porte volumique C.4"
         gate.Length = gate.Length.Value + (0.25 if secondary else 0.5)
+        anchor = doc.Anchor
         if secondary:
-            anchor = doc.Anchor
             destination = anchor.Placement
             destination.Base = destination.Base + App.Vector(-1.0, 0, 0)
             anchor.Placement = destination
+        service = doc.addObject("Part::Box", "BatteryExtractionGauge")
+        doc.ServiceReservations.addObject(service)
+        service.Label = "Volume balayé du gabarit inerte synthétique"
+        service.Length, service.Width, service.Height = [high - low for low, high in zip(battery_low, battery_high, strict=True)]
+        service.Placement = App.Placement(App.Vector(*battery_low), App.Rotation())
+        service.Visibility = False
         l2.recompute(doc)
         require_valid(doc)
+        anchor_origin = list(anchor.getGlobalPlacement().Base)
         doc.save()
     finally:
         for name in reversed(list(App.listDocuments())):
@@ -73,15 +82,17 @@ def make_fixture(work, secondary):
     support = domain["support_options"]["plate"]
     support["offset_patch_mm"] = box([0.35, -0.5, 0], [1.3, 0.65, 0])
     support["min_carrier_thickness_mm"] = 1.95
-    if secondary:
-        anchor_origin = [61, -5, -5]
-        for action in profile["actions"]:
-            if action["id"] == support["action"]:
-                action["expected_after"]["placement"]["translation_mm"] = anchor_origin
-        support["anchor_zone"] = box(anchor_origin, anchor_origin)
+    for action in profile["actions"]:
+        if action["id"] == support["action"]:
+            action["expected_after"]["placement"]["translation_mm"] = anchor_origin
+    support["anchor_zone"] = box(anchor_origin, anchor_origin)
     for spec in model["validation"]["service"]:
         if spec.get("required_action") == support["action"]:
             spec["follow_support"] = support["occurrence"]
+    model["validation"]["service"].append({
+        "object": "ServiceReservations/BatteryExtractionGauge", "obstacles": ["cordon", "cordon-b"],
+        "clearance_mm": 0.3, "required_box_mm": [battery_low, battery_high],
+    })
     write(target / "profile.json", profile)
 
     domain.update(schema="v3.parametric_domain/4", model_id=model_id,

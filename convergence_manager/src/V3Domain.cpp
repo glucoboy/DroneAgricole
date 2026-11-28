@@ -25,8 +25,8 @@ const QMap<QString, QString> domainPins{
     {"7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5", "docs/electromechanical_v3/domains/c2_multiharness.json"},
     {"a31813c70710aaa160039962d6b08a9cf7f42f3c4385db0e6417528e7a855ed2", "docs/electromechanical_v3/domains/c3_spatial.json"},
     {"5bd3631f19838936bb877186055ac262893d6a13d4b7b4091a001919d2bdab14", "docs/electromechanical_v3/domains/c3_spatial_secondary.json"},
-    {"27371e03cd6d07dc0ae12a6e2e9efe28f8f8572a7402043643998f89106a3a5e", "docs/electromechanical_v3/domains/c4_sixdof.json"},
-    {"fdf4410108386bc1850815acba8a6ac5a74d20dbfbd010cffeb77c8a66b4811b", "docs/electromechanical_v3/domains/c4_sixdof_secondary.json"},
+    {"eb79d87a9224f3b5f3bf472e2e0aa5ce1141934faad208807f1cf9cd5e0bce47", "docs/electromechanical_v3/domains/c4_sixdof.json"},
+    {"c7e8be04c897c56e34d68b3aa3f638a4a40287269f0f0b6a6360113398093ac1", "docs/electromechanical_v3/domains/c4_sixdof_secondary.json"},
     {"2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be", "docs/electromechanical_v3/domains/c2_multiharness_secondary.json"},
 };
 constexpr auto domainSchema = "v3.parametric_domain/1";

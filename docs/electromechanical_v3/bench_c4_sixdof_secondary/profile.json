@@ -5,12 +5,12 @@
   "source": "docs/electromechanical_v3/bench_c4_sixdof_secondary/model",
   "entry": "Banc_Interconnexion.FCStd",
   "dependencies": {
-    "Banc_Interconnexion.FCStd": "2a55043fb13ae8bed8ead21940b3771b7f937c3caf1e1baf0d92f59915fdd036",
+    "Banc_Interconnexion.FCStd": "06856146e94a59ced691fdc7c0bd90396e0237068defbd6a6cc9a9792deea8d0",
     "parts/CoupledAssets.FCStd": "e39e6f41d807938451e93a939aa768f49699331302c3b36b4915f58cf70870c4",
     "parts/Obstacle.FCStd": "a8bbecfdb09399f30891030285d02f6c36150eb919f48f099ab6c5f8eb4b3400"
   },
   "graph": "docs/electromechanical_v3/bench_c4_sixdof_secondary/graph.json",
-  "graph_sha256": "2580c787f0642ba1c7e58bdbef9f6b94c7d98e3d0d3aa070ef4c1408e8a023fb",
+  "graph_sha256": "a1a4a2928ac241147beb302d9f1cc179fec9ca87c5f04561d1d6d1f2712729d2",
   "constraints": {
     "BMS_USB_STRUCTURE_ISOLATION": {
       "applicable": false,
@@ -686,6 +686,26 @@
           ],
           "clearance_mm": 0.2,
           "required_action": "c3-support-b"
+        },
+        {
+          "object": "ServiceReservations/BatteryExtractionGauge",
+          "obstacles": [
+            "cordon",
+            "cordon-b"
+          ],
+          "clearance_mm": 0.3,
+          "required_box_mm": [
+            [
+              48,
+              27,
+              -1
+            ],
+            [
+              76,
+              33,
+              2
+            ]
+          ]
         }
       ],
       "non_physical": [
@@ -1291,9 +1311,9 @@
       "expected_after": {
         "placement": {
           "translation_mm": [
-            61,
-            -5,
-            -5
+            63.0,
+            -5.0,
+            -5.0
           ],
           "rotation_xyzw": [
             0,

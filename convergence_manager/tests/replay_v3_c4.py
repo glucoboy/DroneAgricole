@@ -13,7 +13,7 @@ from replay_v3_c3 import OBJECTIVES, frozen_artifact, require, unique_object, ut
 
 
 V3 = ROOT / "docs/electromechanical_v3"
-BUDGET = {"max_proposals": 64, "max_native": 12, "max_seconds": 540, "max_counterchecks": 12}
+BUDGET = {"max_proposals": 48, "max_native": 9, "max_seconds": 540, "max_counterchecks": 9}
 SHORT = {"max_proposals": 1, "max_native": 1, "max_seconds": 1, "max_counterchecks": 1}
 SEED = 2026
 CRITERIA = {
@@ -177,14 +177,15 @@ def run_phase(args, area, freeze_path):
             old_pose = old["occurrences"][device]["matrix"]
             distance, angle = pose_errors(after, old_pose)
             new_solid = observed["external_obstacle"]
-            mapping = {name: [old["routes"][name]["axis_sha256"], observed["routes"][name]["axis_sha256"]]
+            fields = ("axis_sha256", "saved_shape_sha256")
+            mapping = {name: {key: [old["routes"][name][key], observed["routes"][name][key]] for key in fields}
                        for name in external["invalidated_harnesses"]}
-            summary["perturbation"] = {"receipt": external, "after": new_solid, "axes_before_after": mapping,
+            summary["perturbation"] = {"receipt": external, "after": new_solid, "route_sha256_before_after": mapping,
                                        "pose_change_mm_deg": [distance, angle]}
             ok = (ok and (distance > tolerance["position_mm"] or angle > tolerance["direction_deg"])
                   and new_solid["presence"] == "SAVED_NATIVE"
                   and all(row["intersection_mm3"] <= tolerance["volume_mm3"] for row in new_solid["harnesses"].values())
-                  and all(first != second for first, second in mapping.values()))
+                  and all(first != second for row in mapping.values() for first, second in row.values()))
             frozen(args, freeze_path)
             frozen_artifact(external["input"])
         elif phase == "T3" and freeze_path.is_file():
