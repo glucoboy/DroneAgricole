@@ -1,0 +1,118 @@
+{
+  "schema": "v3.c4.independent_review/1",
+  "status": "PASS_ON_REVIEWED_CHECKS",
+  "base_commit": "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+  "tested_commit": "0733b15d40a134053247539a399095a94bf74230",
+  "reviewed_at_utc": "2026-11-28T07:35:54.903754+00:00",
+  "scope": "Bancs synthétiques C.4, Windows amd64 et FreeCAD 1.1.3",
+  "freeze": {
+    "path": ".runtime/c4-r3/freeze.json",
+    "sha256": "1d5a0927f3c1262da8b0f21026a3f62b24ea5bbf4e45b6a1196ac99854545e60",
+    "bytes": 9318
+  },
+  "phase_summaries": {
+    "T1": {
+      "path": ".runtime/c4-r3/t1/summary.json",
+      "sha256": "a6f06b03b0214163b7319fe398c7a3aa807bfd92298afcc6168fc858c925e586",
+      "bytes": 8165
+    },
+    "T2": {
+      "path": ".runtime/c4-r3/t2/summary.json",
+      "sha256": "ff1a62fd59929e09be708ab4327b1de7c5343eb3a4874193f27f62fc5bedf6e2",
+      "bytes": 10713
+    },
+    "T3": {
+      "path": ".runtime/c4-r3/t3/summary.json",
+      "sha256": "a13e0ecff7c563f695d672fae44ba0a59c7cb19b1d257b8da17097dc08cffdf0",
+      "bytes": 8217
+    },
+    "T4": {
+      "path": ".runtime/c4-r3/t4/summary.json",
+      "sha256": "d8ed06e148fe95352e579a43785690410b58f4d18664f29289eba9c5da5db946",
+      "bytes": 1430
+    }
+  },
+  "native_candidates": [
+    9,
+    9,
+    9,
+    0
+  ],
+  "native_z_delta_mm": 0.2625000000000002,
+  "native_rotation_delta_deg": 0.7415630499975733,
+  "native_support_offset_mm": [
+    1.0783333333333331,
+    0.25900000000000034,
+    0.0
+  ],
+  "independent_t2": {
+    "evaluation": {
+      "path": ".runtime/c4-evaluator-r3/external_perturbation_receipt.json",
+      "sha256": "b798401d41c66c73982859aa075088d242e433eb9a7566642b5f675a2c151909",
+      "bytes": 2830
+    },
+    "before_mm3": {
+      "cordon": 0.7055999999999993,
+      "cordon-b": 0.0
+    },
+    "after_mm3": {
+      "cordon": 0.0,
+      "cordon-b": 0.0
+    },
+    "native_reopened": {
+      "path": ".runtime/c4-audit/t2_reopened.json",
+      "sha256": "40779d411def3d28d07546d53759c27f29dc20129e367048ec1a5469e07c548e",
+      "bytes": 186833
+    },
+    "saved_obstacle_equal": true,
+    "changed_route_sha256": {
+      "cordon": {
+        "axis_sha256": [
+          "386a16a98ac7c3273c4f752c6f16e508abf087f618ae3e30bf5ab2d25cd3700d",
+          "8510a6bc572d1acdb552298c92044819de4e596291eb6ecf8bf40cf347f8b139"
+        ],
+        "saved_shape_sha256": [
+          "a7eb3e8a9f465f0fb5cdbbb64a4b967f6e50798700dea151681a5e828f7bbce1",
+          "4c217d261cb3fc36dec5c3f2831eba2264c096490617906d943c57b25befa685"
+        ]
+      }
+    },
+    "translation_and_rotation_change_mm_deg": [
+      0.11249999999999982,
+      0.5097820818184118
+    ],
+    "reopen_command": [
+      "C:/Program Files/FreeCAD 1.1/bin/python.exe",
+      "-I",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c4q\\convergence_manager\\native\\v3_cross_measure.py",
+      "--root",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c4q\\.runtime\\c4-audit\\cad",
+      "--profile",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c4q\\docs\\electromechanical_v3\\bench_c4_sixdof\\profile.json",
+      "--output",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c4q\\.runtime\\c4-audit\\t2_reopened.json",
+      "--external-obstacle",
+      "D:\\ProjetGuillaume\\DroneAgricole\\.runtime\\c4q\\.runtime\\c4-audit\\obstacle.json",
+      "--expected-entry-sha256",
+      "4cf75af8700cc8c38e6442b72cb068c493b7d2d69c2ede73de94060e7028cf0c"
+    ]
+  },
+  "t3_second_hierarchy": true,
+  "t4_no_admission": true,
+  "gauge_coverage_recalculated": true,
+  "t0_native_phase_checks": "PASS",
+  "service_change_review": "Le volume manquant obtenu par coupe OCCT du gabarit attendu est comparé séparément des lignes de garde par paire. La mesure de la copie T2 rouverte vaut 0 mm³.",
+  "unchanged_authority_paths": [
+    "convergence_manager/src/AuthorityReview.cpp",
+    "convergence_manager/native/v3_mutate.py",
+    "hardware/mecanique/cartographe",
+    "docs/electromechanical_v2",
+    "docs/electromechanical_v3/bench_c3_spatial",
+    "docs/electromechanical_v3/bench_c3_spatial_secondary"
+  ],
+  "cartographer_mutation": "DENY",
+  "remaining_scope": "Vérification des suites unitaires/adversariales globales et des fichiers de publication."
+}

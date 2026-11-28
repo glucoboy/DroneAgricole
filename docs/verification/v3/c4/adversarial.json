@@ -1,0 +1,584 @@
+{
+  "schema": "v3.c4.adversarial/1",
+  "status": "PASS",
+  "scope": "SYNTHETIC_BENCH",
+  "tester": {
+    "path": "convergence_manager/tests/test_v3_c4_adversarial.py",
+    "sha256": "90acf5c81c12b869ee1c29c29c4ecbc5517819a457e695378be24ef441a31132"
+  },
+  "cases": {
+    "zero-quaternion": {
+      "status": "PASS",
+      "reason": "Quaternion non unitaire",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/zero-quaternion/output/refusal.json",
+        "sha256": "a7038608b8e19315fe30e10fc8c6a4102c9a6eb72ed7e0a67c2af72acd9f5ac2"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/zero-quaternion/l5-invocation.json",
+        "sha256": "aad7268d9290843dc7a2956fdc0179c7c159365be76f1ee6a444ee3f5c776049"
+      }
+    },
+    "non-unit-quaternion": {
+      "status": "PASS",
+      "reason": "Quaternion non unitaire",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/non-unit-quaternion/output/refusal.json",
+        "sha256": "457823ea388ba7f56ff7c0d8ea53244f76d672d8847cd06347231fdd3efe4c71"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/non-unit-quaternion/l5-invocation.json",
+        "sha256": "8967c2100f5e1b968f84fefdf9a31328e032b22285a85fc04fc6e39b3ea1809a"
+      }
+    },
+    "outside-rotation": {
+      "status": "PASS",
+      "reason": "Orientation hors domaine ROOT_XYZ scellé",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/outside-rotation/output/refusal.json",
+        "sha256": "67e5273dca9c4cfc15510c32e88330ffc5b57c85d882b6d86dbd6dcd6fcf25e1"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/outside-rotation/l5-invocation.json",
+        "sha256": "a3e36e9148aa466a47a17eb62eba99f815b2264ba72e0300ef2b1c473b59425b"
+      }
+    },
+    "outside-support-patch": {
+      "status": "PASS",
+      "reason": "Appui hors patch plan scellé",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/outside-support-patch/output/refusal.json",
+        "sha256": "d90256130f255b020a254ac81f5a93e5e9db3ef9e6408f3faa4d3a43417ce3f6"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/outside-support-patch/l5-invocation.json",
+        "sha256": "d855205cc541faa726147170d15b8b54a2da35defb46b420ae9c3c9a0049e493"
+      }
+    },
+    "terminal-outside-tolerance": {
+      "status": "PASS",
+      "reason": "Extrémité de parcours incompatible avec le port scellé",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/terminal-outside-tolerance/output/refusal.json",
+        "sha256": "0c2ab043399c0b2252670be08c03530e96d28967eb67f4064aa191c38133b1dd"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/terminal-outside-tolerance/l5-invocation.json",
+        "sha256": "626ae764008551eead6b896bddc7078226d2ed7c191ea1c88a08ea5c3f05eecf"
+      }
+    },
+    "physical-domain": {
+      "status": "PASS",
+      "reason": "MUTATION_DOMAIN_DENIED",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/physical-domain/output/refusal.json",
+        "sha256": "fe4d41897ddacef8b05c2b8ba7342f01f7220ca28895a74d7312fbd08fc17f0d"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/physical-domain/l5-invocation.json",
+        "sha256": "9f745299c1ab06e74a5a14339633a7fffd7a9d08da04a09a2d8243afd375ffad"
+      }
+    },
+    "opposite-quaternion-sign": {
+      "status": "PASS",
+      "reason": "INDEPENDENT_NATIVE_VALIDATION",
+      "receipt": {
+        "path": ".runtime/c4-adversarial/opposite-quaternion-sign/output/transaction/campaign.json",
+        "sha256": "87fed5474fe4d5f044a9dab8e5f052c9acc5b38287541a4900dc25a4903e9365"
+      },
+      "invocation": {
+        "path": ".runtime/c4-adversarial/opposite-quaternion-sign/l5-invocation.json",
+        "sha256": "2b778c4f42049cf579e2ded7d6c7a707ff225091f0a06f4f39a4a3192f6cad3b"
+      },
+      "identical_expanded_actions": true
+    },
+    "tampered-t2": {
+      "status": "PASS",
+      "reason": "Entrée évaluateur, emplacement indépendant ou SHA incorrect",
+      "candidate_transactions": 0
+    },
+    "t2-before-freeze": {
+      "status": "PASS",
+      "reason": "Le reçu indépendant doit être émis en UTC après le gel",
+      "candidate_transactions": 0
+    },
+    "c4-on-a6-entry": {
+      "status": "PASS",
+      "exit_code": 1,
+      "reason": "Contrat d'admission A.5 requis",
+      "request_sha256": "5eccbd75b4659b9f28868bdb5a4c35c1cfa98036fdfcd8c57bf9f23fca38c3ad",
+      "signed_workholding_review_sha256": "40d1a4ecefcbadf576d59e1b0a2bb63d0223db2740d2f0228121398d92a3bbb2",
+      "registry_unchanged": true,
+      "journal_unchanged": true,
+      "consumption_unchanged": true,
+      "xlink_unchanged": true,
+      "construction": "NOT_RUN",
+      "candidate_transactions": 0,
+      "decision": "REJECTED_BY_CLI",
+      "transaction_state": "NOT_RESERVED"
+    },
+    "test-authority-on-cartographer": {
+      "status": "PASS",
+      "exit_code": 2,
+      "reason": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+      "request_sha256": "d2913dd5450a38cc6721064618429172db52ca65eed6b57871ddc6f6b6c3fa45",
+      "signed_workholding_review_sha256": "40d1a4ecefcbadf576d59e1b0a2bb63d0223db2740d2f0228121398d92a3bbb2",
+      "registry_unchanged": true,
+      "journal_unchanged": true,
+      "consumption_unchanged": true,
+      "xlink_unchanged": true,
+      "construction": "NOT_RUN",
+      "candidate_transactions": 0,
+      "decision": "DENY",
+      "transaction_state": "NOT_RESERVED",
+      "receipt_sha256": "04843fb50fa6cb49622a6464739745525ab69fda1501f668b74eb7d553b46742"
+    },
+    "harnesses-collide": {
+      "status": "DETECTED",
+      "check": "L4_GEOMETRY",
+      "injection": {
+        "path": ".runtime/c4-adversarial/harnesses-collide/injection.json",
+        "sha256": "5fd7072293b5e3dbfb8107e6dcb76e28c8b2fdb40b9c055cbc5d53eed27050cc"
+      },
+      "verification": {
+        "path": ".runtime/c4-adversarial/harnesses-collide/verification.json",
+        "sha256": "32fc5ff53b7fa34dbb6ffc5b604051fde2f29f0b6860ada2abba3aa2f29cba85"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "PASS",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "FAIL",
+        "L4_DYNAMIC_BEND_RADIUS": "PASS",
+        "L4_SPATIAL_CONTRACT": "FAIL"
+      },
+      "measurements": {
+        "pair": [
+          "HarnessInventory/Cable",
+          "HarnessInventory/Cable001"
+        ],
+        "intersection_volume_mm3": 33.17504817477084
+      },
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/harnesses-collide/inject-invocation.json",
+          "sha256": "9a2316ecf1beb7852c4689e6065034d750f3040350ec050072e2632139b071df"
+        },
+        {
+          "path": ".runtime/c4-adversarial/harnesses-collide/verify-invocation.json",
+          "sha256": "f05f011b4d6964bf308d89ce505e50eca8166e4b782523553e93b265874462b8"
+        },
+        {
+          "path": ".runtime/c4-adversarial/harnesses-collide/cross-invocation.json",
+          "sha256": "40a919f0deb114f0d0643cfbcebf160d452dbeb2e2064fa9b2307d47681ee760"
+        }
+      ],
+      "independent_brep": {
+        "path": ".runtime/c4-adversarial/harnesses-collide/cross.json",
+        "sha256": "3bdbb0058a334b9a844db71110e21d66e7bc85d0492b4756c663e36d4926b067"
+      }
+    },
+    "false-datum-across-plane": {
+      "status": "DETECTED",
+      "check": "L2_TOPOLOGY",
+      "injection": {
+        "path": ".runtime/c4-adversarial/false-datum-across-plane/injection.json",
+        "sha256": "64d138092fa45f8c1e70b4a0f1c6e6f0754413c19ff22211bf0a16d12f919fc7"
+      },
+      "verification": {
+        "path": ".runtime/c4-adversarial/false-datum-across-plane/verification.json",
+        "sha256": "65588ae9358055e876f92a60ef0fb3cad8d589b5ba8618e2a72ce30f972485fc"
+      },
+      "checks": {
+        "REOPEN_XLINK": "PASS",
+        "L2_TOPOLOGY": "FAIL",
+        "L4_GEOMETRY": "FAIL",
+        "L4_SERVICE": "PASS",
+        "L4_SUPPORT_ANCHOR": "PASS",
+        "L4_DYNAMIC_BEND_RADIUS": "FAIL",
+        "L4_SPATIAL_CONTRACT": "PASS"
+      },
+      "measurements": {
+        "status": "FAIL",
+        "origin_mm": [
+          89.500841834415,
+          5.054974848155849,
+          0.40584720438549926
+        ],
+        "outward": [
+          -0.9999398689703569,
+          0.003926774868274786,
+          0.010239086027535618
+        ],
+        "measurements": [
+          {
+            "status": "PASS",
+            "native_datum": "FixtureRig/Payload/PortB"
+          },
+          {
+            "status": "PASS",
+            "position_error_mm": 1.831026719408895e-15,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              89.500841834415,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.054974848155849,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.40584720438549926,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              89.500841834415,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.054974848155851,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.4058472043854988,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 3.00000000000001,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.010265836348541613,
+              0.003856299730359066,
+              -0.9999398689703571,
+              89.500841834415,
+              0.0068537350405939515,
+              0.9999688028909338,
+              0.003926774868274795,
+              5.054974848155857,
+              0.9999238165580708,
+              -0.006893634546624335,
+              0.010239086027536315,
+              3.4058472043855095,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              89.500841834415,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.054974848155849,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.40584720438549926,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 3.0000000000000018,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.010265836348541613,
+              0.0038562997303590667,
+              -0.9999398689703571,
+              103.5,
+              0.006853735040593953,
+              0.9999688028909338,
+              0.003926774868274795,
+              5.000000000000007,
+              0.9999238165580708,
+              -0.006893634546624337,
+              0.010239086027536315,
+              3.262500000000001,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              103.5,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.0000000000000036,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.2625000000000002,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 3.0000000000000027,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.01026583634854128,
+              0.0038562997303590685,
+              -0.9999398689703571,
+              99.50024052411857,
+              0.0068537350405939515,
+              0.9999688028909338,
+              0.003926774868274795,
+              5.015707099473108,
+              0.9999238165580708,
+              -0.006893634546624335,
+              0.010239086027535982,
+              3.3034563441101454,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              99.50024052411857,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.015707099473103,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.30345634411014266,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "FAIL",
+            "position_error_mm": 3.0000000000000044,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.010265836348541613,
+              0.003856299730359067,
+              -0.9999398689703571,
+              99.50024052411857,
+              0.00685373504059395,
+              0.9999688028909338,
+              0.003926774868274797,
+              5.01570709947311,
+              0.9999238165580708,
+              -0.0068936345466243335,
+              0.010239086027536315,
+              3.3034563441101468,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.010265836348540613,
+              0.003856299730359063,
+              -0.9999398689703572,
+              99.50024052411857,
+              0.006853735040593996,
+              0.9999688028909338,
+              0.003926774868274786,
+              5.015707099473103,
+              0.9999238165580709,
+              -0.006893634546624375,
+              0.010239086027535316,
+              0.30345634411014266,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "status": "PASS",
+            "position_error_mm": 2.5121479338940403e-15,
+            "direction_error_deg": 0.0,
+            "observed_matrix": [
+              0.010265836348541613,
+              0.003856299730359067,
+              -0.9999398689703571,
+              99.50024052411857,
+              0.00685373504059395,
+              0.9999688028909338,
+              0.003926774868274797,
+              5.01570709947311,
+              0.9999238165580708,
+              -0.0068936345466243335,
+              0.010239086027536315,
+              3.3034563441101468,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "expected_matrix": [
+              0.01026583634854128,
+              0.0038562997303590685,
+              -0.9999398689703571,
+              99.50024052411857,
+              0.0068537350405939515,
+              0.9999688028909338,
+              0.003926774868274795,
+              5.015707099473108,
+              0.9999238165580708,
+              -0.006893634546624335,
+              0.010239086027535982,
+              3.3034563441101454,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "matrix": [
+          0.010265836348540613,
+          0.003856299730359063,
+          -0.9999398689703572,
+          89.500841834415,
+          0.006853735040593996,
+          0.9999688028909338,
+          0.003926774868274786,
+          5.054974848155849,
+          0.9999238165580709,
+          -0.006893634546624375,
+          0.010239086027535316,
+          0.40584720438549926,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "datum": "FixtureRig/Payload/PortB",
+        "normal": [
+          -0.9999398689703569,
+          0.003926774868274786,
+          0.010239086027535618
+        ]
+      },
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/false-datum-across-plane/inject-invocation.json",
+          "sha256": "9cebe5e1970dc0cff05b9dee45fc8d857f86cb71f55b8634b029b0114a67d115"
+        },
+        {
+          "path": ".runtime/c4-adversarial/false-datum-across-plane/verify-invocation.json",
+          "sha256": "3e87db7fd80a593712a6c3114b2e87936f79dc32633774e25394801044344fd8"
+        }
+      ]
+    },
+    "outside-corridor": {
+      "status": "PASS",
+      "check": "L4_SPATIAL_CONTRACT",
+      "verified": {
+        "path": ".runtime/c4-adversarial/outside-corridor/verification.json",
+        "sha256": "293c37fff6317ec0a1fe1c4ff66c04ca50124aebc0088176433ed08da76b42ea"
+      },
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/outside-corridor/inject-invocation.json",
+          "sha256": "0b01b8d2648462178ecb00fa294790452bdba280218e8074d65e359a78c8a44d"
+        },
+        {
+          "path": ".runtime/c4-adversarial/outside-corridor/verify-invocation.json",
+          "sha256": "d6b0b2a1d753cb4fd6d1e3991e80baee9f1f62d07f950cdf33240bd016d4f360"
+        }
+      ]
+    },
+    "blocked-tool": {
+      "status": "PASS",
+      "check": "L4_SERVICE",
+      "verified": {
+        "path": ".runtime/c4-adversarial/blocked-tool/verification.json",
+        "sha256": "b8d4926c7d80b6ac7cbc22002d7285a3f97231e901a0f2d3178cec69de998440"
+      },
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/blocked-tool/inject-invocation.json",
+          "sha256": "8bd97fd668f584cc0db7586ae5ba9dbdffa8cce79917a36f26b58c066873fb0b"
+        },
+        {
+          "path": ".runtime/c4-adversarial/blocked-tool/verify-invocation.json",
+          "sha256": "e82a66078f403b89ff676eba3db32acae2732b3e8b83365aa2e593ba6ed7aaf1"
+        }
+      ]
+    },
+    "false-bearing-face": {
+      "status": "PASS",
+      "check": "L4_SUPPORT_ANCHOR",
+      "verified": {
+        "path": ".runtime/c4-adversarial/false-bearing-face/verification.json",
+        "sha256": "502aa2347186152e2ba68f2a0527a793f752639e7d2ec1c5a088ac20223a0048"
+      },
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/false-bearing-face/inject-invocation.json",
+          "sha256": "4c3c758cc0af1b5addfd44e05567d68689e8aae25366d30be4d208712ce47d05"
+        },
+        {
+          "path": ".runtime/c4-adversarial/false-bearing-face/verify-invocation.json",
+          "sha256": "e021486b977ec6874974c3a45d5ff19906b105eb0c92c54d8f3954a7540e3cfb"
+        }
+      ]
+    },
+    "battery-sweep-shrunk": {
+      "status": "PASS",
+      "check": "L4_SERVICE",
+      "verified": {
+        "path": ".runtime/c4-adversarial/battery-sweep-shrunk/verification.json",
+        "sha256": "e7df48f783e8610f95a8a7884a8cc70364b263c3fdb81cad8d265f00708546d2"
+      },
+      "independent": {
+        "path": ".runtime/c4-adversarial/battery-sweep-shrunk/coverage-independent.json",
+        "sha256": "cd087256f72d39bb768f2ff1e83c97398b80d971798408353b739c2fcd1a68a7"
+      },
+      "coverage_missing_mm3": 36.0,
+      "invocations": [
+        {
+          "path": ".runtime/c4-adversarial/battery-sweep-shrunk/inject-invocation.json",
+          "sha256": "466b76f512d954c4e94548d2411033308fcf117d299d8db52fb2df5f2bffddfe"
+        },
+        {
+          "path": ".runtime/c4-adversarial/battery-sweep-shrunk/verify-invocation.json",
+          "sha256": "96e1c4ab33c5f94bfa20498314ebc8da0c966674ecf938e212db998ea9cc107c"
+        },
+        {
+          "path": ".runtime/c4-adversarial/battery-sweep-shrunk/independent-invocation.json",
+          "sha256": "0d1ebab7879b6b9ab833232f9bbccdad0ef8feb20322111214d29e55791cf6b6"
+        }
+      ]
+    }
+  }
+}
