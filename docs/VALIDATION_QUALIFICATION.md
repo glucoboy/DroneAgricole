@@ -815,6 +815,51 @@ Le profil reste celui du prototype actif ; aperçu simplifié, physiques
 provisoires, absence d'autonomie couplée, Linux/arm64 et import arbitraire
 restent À valider ou hors périmètre. Aucun nouveau vol n'est revendiqué ici.
 
+<a id="cartographe-v3-sim1"></a>
+#### 10.2.1 Récupération CAO → SDF sur copie privée — V3-SIM.1
+
+Le test historique de V3-INT.3 s'arrête sur `stale CAD manifest`.
+Les octets du manifeste actif ont une empreinte différente de celle attendue
+par la géométrie ORCH-GZ-1 dans les deux conventions de fin de ligne. Sur les
+145 anciennes dépendances, 77 correspondent, 65 sont divergentes et trois
+originaux fabricant sont absents du worktree. Les trois originaux retrouvés
+ont l'empreinte attendue dans le manifeste actif. Le lien distinct entre
+collisions et géométrie historique diverge par ses fins de ligne CRLF → LF.
+Les cinq STL historiques sont absents du worktree et hors Git. Les contrôles
+d'admission portent toujours sur les octets bruts.
+[Diagnostic par lien](verification/v3/sim1/diagnostic.json)
+
+`T-CARTO-GZ-01` → export BRep sauvegardé → compilation SDF/airframe : une
+copie privée fournit les sources scellées et les dérivés sont publiés ensemble
+après une nouvelle comparaison des empreintes. FreeCAD 1.1.3 et OCCT 7.8.1
+ont produit 361 occurrences visuelles, cinq STL, 21 boîtes et quatre disques.
+Le premier export a révélé un écart de 2,596 mm entre la boîte optimale et
+la boîte enveloppante du manifeste. Le contrôle refait les huit agrégats
+avec `Shape.BoundBox` avant tessellation, selon la méthode du manifeste.
+L'écart maximal de même méthode est inférieur à 10⁻¹² mm, avec le seuil de
+1 mm conservé. Les comparaisons de maillage et les collisions utilisent
+toujours les boîtes optimales issues des mêmes BRep.
+[Instantané](verification/v3/sim1/snapshot_manifest.json) ·
+[Reçu de génération](verification/v3/sim1/rebuild_receipt.json)
+
+`UI-GZ-001` → backend partagé → tests station et CTest autonomes : la copie
+cohérente passe la vérification SDF/airframe. Les essais refusent l'ancien
+jeu, une dépendance ou un maillage altéré, une collision périmée, les conflits
+de chemins et la modification d'une source avant publication. La demande
+physique est refusée avec le motif d'absence de masse, de centrage et
+d'inerties, y compris sur le jeu cohérent. Gazebo et PX4 SITL sont `NOT_RUN`.
+La génération hors ligne du scénario synthétique de 6 kg est **Qualifié**
+sur Windows amd64, MSYS2 UCRT64 et Qt 6.11.2. Fidélité physique, chargement
+du paquet dans Gazebo et utilisation en vol restent **À valider**.
+Les suites scellées L1/L2 et les 28 cas de frontière INT.3 passent. Le
+rejeu T0 isolé du 28 novembre passe les deux tests au plafond de 30 s,
+dont le contrat SITL en 26,23 s. Le reçu conserve les dépassements
+antérieurs et les conditions de lancement.
+[Acceptation](verification/v3/sim1/acceptance.json) ·
+[Refus](verification/v3/sim1/negative_tests.json) ·
+[Régressions](verification/v3/sim1/regressions.json) ·
+[Intégrité](verification/v3/sim1/reference_integrity.json)
+
 ## 11. Résultats de cartographie
 
 ### 11.1 Régression EscaYard B7
@@ -5461,6 +5506,9 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 - **28 novembre 2026** — V3-C.4 rejoue la pose 6DoF et l’appui plan sur deux hiérarchies, l’obstacle post-gel et l’arrêt sous budget. [Résultats](#cartographe-v3-c4)
 
+- **28 novembre 2026** — V3-SIM.1 rétablit la génération hors ligne du SDF
+  synthétique sur copie scellée et reproduit les refus du jeu historique.
+  [Résultat](#cartographe-v3-sim1)
 - **27 novembre 2026** — Clôture `V3_INT3_GO` sur bancs synthétiques Windows amd64, avec rejeux sur le merge de revue et maintien du refus physique. [Résultat](#cartographe-v3-int3-cloture)
 - **28 novembre 2026** — V3-A.7 qualifie la réception documentaire UART sur témoins P64/P66. [Résultat](#cartographe-v3-a7)
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)

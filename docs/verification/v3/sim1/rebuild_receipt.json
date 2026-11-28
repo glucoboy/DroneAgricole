@@ -1,0 +1,329 @@
+{
+  "schema": "v3.sim1.rebuild_receipt/1",
+  "status": "PASS",
+  "observed_utc": "2026-11-27T18:38:31.158Z",
+  "tested_commit": "c3f35a77f0741f8933ed616d7968d060f5781847",
+  "base_commit": "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+  "execution": "SYNTHETIC_PREVIEW",
+  "environment": {
+    "host": "Windows-11-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "toolchain": "Windows amd64, MSYS2 UCRT64, GCC 16.2.0, C++17, CMake/CTest 4.4.2, Ninja 1.13.2",
+    "qt": "6.11.2",
+    "freecad": {
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "occt": "7.8.1",
+      "python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+    }
+  },
+  "binary": {
+    "path": ".runtime/sim1-model/cartographe-model.exe",
+    "sha256": "d6306f197cb1dc0d914b1e405c6519ddbb4ca91b33183d9df8e8fac0491a5ac6",
+    "bytes": 406651
+  },
+  "ctest_driver": {
+    "path": "simulation/tests/test_cartographe_model.py",
+    "sha256": "a629981b9e6db6b986d1c4d94210da2c32f9fee428ccc1e1c6475a7f3897c22b",
+    "bytes": 12380
+  },
+  "private_workspace": ".runtime/sim1/final-private",
+  "private_output": ".runtime/sim1/final-private/.runtime/sim1-tests/0ef06419372d439593ab197ba9a1cf7c/cartographe",
+  "native_ctest": {
+    "status": "PASS",
+    "elapsed_s": 151.673,
+    "junit": {
+      "path": ".runtime/sim1/nonsnapshot-final.xml",
+      "sha256": "44eff7dc3f19623729598965a1590ae12fe276f3f1fcfc9dfeec7866cb589b5a",
+      "bytes": 3993
+    },
+    "timeout_s": 920,
+    "backend_export_budget_s": 900,
+    "command": [
+      "ctest",
+      "--test-dir",
+      ".runtime/sim1-model",
+      "--no-tests=error",
+      "--output-on-failure",
+      "--output-junit",
+      ".runtime/sim1/nonsnapshot-final.xml",
+      "-E",
+      "^cartographe_model_reject_snapshot_publication$",
+      "-V"
+    ]
+  },
+  "snapshot": {
+    "path": ".runtime/sim1/final-private/.runtime/sim1-tests/0ef06419372d439593ab197ba9a1cf7c/cartographe/snapshot_manifest.json",
+    "sha256": "ddca87178d79ca8eefafc6aa61719b68e82ae6027ede4b2f47966a6d7dbb5463",
+    "bytes": 24912
+  },
+  "export_manifest": {
+    "path": ".runtime/sim1/final-private/.runtime/sim1-tests/0ef06419372d439593ab197ba9a1cf7c/cartographe/export_manifest.json",
+    "sha256": "f9adcf9ee69f5026f655c6b9d0bf2a7d6b8d02d10f96381a50ee273c5a26340d",
+    "bytes": 26509
+  },
+  "sealed_source_count": 156,
+  "outputs": {
+    "40000_gz_cartographe": {
+      "path": "40000_gz_cartographe",
+      "sha256": "17f087e5d2203cfd0166dbdb90899e4253c836e17d38eeb3a3ff096bb6315592",
+      "bytes": 2120
+    },
+    "cartographe_flat.sdf": {
+      "path": "cartographe_flat.sdf",
+      "sha256": "67a13a61c03a619ba70d903a341bc6ee73a8fe8b5ed86795ff53934ea8128208",
+      "bytes": 1692
+    },
+    "dynamics_preview.json": {
+      "path": "dynamics_preview.json",
+      "sha256": "0308aae4a485434443ab3706c6bcce389092df2747891cc1385be948ae658104",
+      "bytes": 1428
+    },
+    "geometry/collision_model.json": {
+      "path": "geometry/collision_model.json",
+      "sha256": "eba44696cfd416e68b17f16d68eeb490bd2e03cfb8b9e4cb409e3bec65733519",
+      "bytes": 17018
+    },
+    "geometry/geometry_manifest.json": {
+      "path": "geometry/geometry_manifest.json",
+      "sha256": "7341b0c785543dc11d8a60c581d3ad3ad9abb6c9f0927bce8e0e14ccdab929f3",
+      "bytes": 395030
+    },
+    "geometry/mass_ledger.json": {
+      "path": "geometry/mass_ledger.json",
+      "sha256": "20d00be03ee88c5d66f79815b74120124135f440840a09f88f79e4ba663518e3",
+      "bytes": 1838237
+    },
+    "meshes/cartographe_body.stl": {
+      "path": "meshes/cartographe_body.stl",
+      "sha256": "b9598c2026667f944407f3ca0f9143b704b23364ceade8d1b855d36e443973a1",
+      "bytes": 95402184
+    },
+    "meshes/rotor_1.stl": {
+      "path": "meshes/rotor_1.stl",
+      "sha256": "a5b065dea9d4056081710acdfeb7c383c53cdba6e2c2e46cf0762ebd2f8a6fe0",
+      "bytes": 458484
+    },
+    "meshes/rotor_2.stl": {
+      "path": "meshes/rotor_2.stl",
+      "sha256": "36b79ffe813853692978a832a4ff8a28c428f64971ed6a9fb396052ad20f0be9",
+      "bytes": 458484
+    },
+    "meshes/rotor_3.stl": {
+      "path": "meshes/rotor_3.stl",
+      "sha256": "c60e271c554012677ae011a09cd49812a3dcbcc6496f10ea76451580dc97c3fb",
+      "bytes": 730184
+    },
+    "meshes/rotor_4.stl": {
+      "path": "meshes/rotor_4.stl",
+      "sha256": "bc2bc38b593dee7a4a20636b19cc144980d11e663a2f55c165e36a2ffa70097d",
+      "bytes": 729884
+    },
+    "model.config": {
+      "path": "model.config",
+      "sha256": "f055fd563b1334e27b1ef0415daa999f8cb736f2fa2f41fae889f500ca81a376",
+      "bytes": 287
+    },
+    "model.sdf": {
+      "path": "model.sdf",
+      "sha256": "f0da8c448dc7043c377451e2b6140754bc96c5daab816bdad4c49f597d61ec2a",
+      "bytes": 11514
+    },
+    "model_checks.json": {
+      "path": "model_checks.json",
+      "sha256": "1b46a3f19936fc25063d26a945c06b13e76514c1f564dd89b20a5f94f68b5c5d",
+      "bytes": 3396
+    },
+    "preview.json": {
+      "path": "preview.json",
+      "sha256": "b5a916394445540718ae95137941c0e55c8b5e0054e4cb4da69218610ef7a9e9",
+      "bytes": 11481932
+    },
+    "preview_world.sdf": {
+      "path": "preview_world.sdf",
+      "sha256": "c613ed91a1de4f6f005826b59dc3256662de00f044059a85a0d2c5b09d2b7770",
+      "bytes": 1741
+    },
+    "snapshot_manifest.json": {
+      "path": "snapshot_manifest.json",
+      "sha256": "ddca87178d79ca8eefafc6aa61719b68e82ae6027ede4b2f47966a6d7dbb5463",
+      "bytes": 24912
+    }
+  },
+  "geometry": {
+    "counts": {
+      "native_references": 132,
+      "native_occurrences": 368,
+      "assembly_links_excluded_from_leaf_count": 7,
+      "leaf_occurrences": 361,
+      "body_leaf_occurrences": 357,
+      "rotors": 4,
+      "source_dependencies": 145
+    },
+    "frame": {
+      "source": "CAO mm",
+      "target": "Gazebo FLU m",
+      "scale": 0.001,
+      "rotation_row_major": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "origin": "Origine CAO conservée, distincte du centre de masse",
+      "front": "+X CAO conventionnel pour SITL ; cap physique À valider",
+      "px4_frd_from_flu": [
+        1,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        -1
+      ]
+    },
+    "body_facets": 1908042,
+    "rotor_allocations": [
+      {
+        "axis_frd": [
+          0,
+          0,
+          -1
+        ],
+        "cad_occurrence": "Helice_4",
+        "function": 101,
+        "km": 0.02,
+        "position_flu_m": [
+          0.229906638,
+          -0.229906638,
+          0.0655
+        ],
+        "position_frd_m": [
+          0.229906638,
+          0.229906638,
+          -0.0655
+        ],
+        "px4_motor_index": 0,
+        "rotation": "ccw"
+      },
+      {
+        "axis_frd": [
+          0,
+          0,
+          -1
+        ],
+        "cad_occurrence": "Helice_3",
+        "function": 102,
+        "km": 0.02,
+        "position_flu_m": [
+          -0.229906638,
+          0.229906638,
+          0.0655
+        ],
+        "position_frd_m": [
+          -0.229906638,
+          -0.229906638,
+          -0.0655
+        ],
+        "px4_motor_index": 1,
+        "rotation": "ccw"
+      },
+      {
+        "axis_frd": [
+          0,
+          0,
+          -1
+        ],
+        "cad_occurrence": "Helice_2",
+        "function": 103,
+        "km": -0.02,
+        "position_flu_m": [
+          0.229906638,
+          0.229906638,
+          0.0655
+        ],
+        "position_frd_m": [
+          0.229906638,
+          -0.229906638,
+          -0.0655
+        ],
+        "px4_motor_index": 2,
+        "rotation": "cw"
+      },
+      {
+        "axis_frd": [
+          0,
+          0,
+          -1
+        ],
+        "cad_occurrence": "Helice_1",
+        "function": 104,
+        "km": -0.02,
+        "position_flu_m": [
+          -0.229906638,
+          -0.229906638,
+          0.0655
+        ],
+        "position_frd_m": [
+          -0.229906638,
+          0.229906638,
+          -0.0655
+        ],
+        "px4_motor_index": 3,
+        "rotation": "cw"
+      }
+    ],
+    "collision_boxes": 21,
+    "rotor_disks": 4,
+    "collision_checks": {
+      "ground_contact_pad_count": 8,
+      "lowest_collision_z_m": -0.31250595853470015,
+      "lowest_native_z_m": -0.31250595853470015,
+      "ground_contact_height_error_m": 0.0,
+      "selected_box_native_bbox_errors_m": 0.0,
+      "all_box_sizes_positive": true
+    },
+    "published_bbox_max_error_mm": 8.526512829121202e-14,
+    "exact_vs_published_bbox_max_difference_mm": 2.595889327303155,
+    "visual_only_invalid_shapes": []
+  },
+  "mass_scenario_kg": 6,
+  "actual_mass_complete_kg": null,
+  "gazebo_loaded": "NOT_RUN",
+  "px4_sitl": "NOT_RUN",
+  "physical_fidelity": "NOT_VALIDATED",
+  "independent_review_native": {
+    "status": "PASS",
+    "snapshot": "ddca87178d79ca8eefafc6aa61719b68e82ae6027ede4b2f47966a6d7dbb5463",
+    "output_manifest": "f9adcf9ee69f5026f655c6b9d0bf2a7d6b8d02d10f96381a50ee273c5a26340d",
+    "sources": 156,
+    "files": 17,
+    "stl_binary": {
+      "meshes/cartographe_body.stl": 1908042,
+      "meshes/rotor_1.stl": 9168,
+      "meshes/rotor_2.stl": 9168,
+      "meshes/rotor_3.stl": 14602,
+      "meshes/rotor_4.stl": 14596
+    },
+    "occurrences": 361,
+    "collision_boxes": 21,
+    "rotor_disks": 4,
+    "physical_mode": "DENY",
+    "stale_history": "DENY"
+  }
+}

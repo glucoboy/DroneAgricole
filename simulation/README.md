@@ -124,6 +124,12 @@ cmake --build build/cartographe -j 2
 ctest --test-dir build/cartographe --output-on-failure
 ```
 
+Pour reconstruire les dérivés sur une copie privée scellée avec V3-SIM.1,
+suivre la [recette de reproduction](../docs/verification/v3/sim1/README.md).
+La commande `cartographe-model diagnose` inspecte les liens d'empreinte
+du modèle historique. `cartographe-model rebuild` utilise le même backend
+que la station et laisse le paquet régénéré dans la destination demandée.
+
 Les deux adaptateurs utilisent FreeCAD/Part/MeshPart, lisent les BREP
 sauvegardés et ne sauvegardent pas les natifs. Adapter uniquement le chemin
 de l'installation FreeCAD et de Qt à l'hôte. Les exports font environ 100 Mo.

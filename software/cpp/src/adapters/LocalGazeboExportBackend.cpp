@@ -1,5 +1,6 @@
 #include "drone_agricole/adapters/LocalGazeboExportBackend.hpp"
 #include "ModelBuilder.hpp"
+#include "SnapshotPaths.hpp"
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QDir>
@@ -34,17 +35,7 @@ void write(const QString& path,const QJsonObject& object) {
   require(f.open(QIODevice::WriteOnly)&&f.write(bytes)==bytes.size()&&f.commit(),QStringLiteral("Écriture impossible : %1").arg(path));
 }
 QString confined(const QString& root,const QString& path) {
-  auto absolute=QDir::cleanPath(QFileInfo(path).isAbsolute()?path:QDir(root).filePath(path));
-  QString existing=absolute;
-  while(!QFileInfo::exists(existing)) { auto parent=QFileInfo(existing).absolutePath(); require(parent!=existing,QStringLiteral("Chemin sans parent")); existing=parent; }
-  const auto canonical=QFileInfo(existing).canonicalFilePath();
-#ifdef Q_OS_WIN
-  constexpr auto sensitivity=Qt::CaseInsensitive;
-#else
-  constexpr auto sensitivity=Qt::CaseSensitive;
-#endif
-  const auto inside=[&](const QString& p){return p.compare(root,sensitivity)==0||p.startsWith(root+QLatin1Char('/'),sensitivity);};
-  require(inside(absolute)&&inside(canonical),QStringLiteral("Le chemin doit rester dans le projet : %1").arg(path)); return absolute;
+  return cartographe::gazebo::snapshotPath(root, path);
 }
 QString findPython() {
   const auto configured=qEnvironmentVariable("DRONE_AGRICOLE_FREECAD_PYTHON"); if(!configured.isEmpty())return configured;
@@ -127,9 +118,12 @@ QJsonObject LocalGazeboExportBackend::execute(const application::GazeboExportReq
   require(!workspace_.isEmpty(),QStringLiteral("Projet absent"));QElapsedTimer timer;timer.start();
   auto checkpoint=[&] {require(!cancelled.load(),QStringLiteral("Export annulé"));require(timer.elapsed()<900000,QStringLiteral("Budget total de 15 minutes dépassé"));};
   auto sha=[&](const QString& path) {QFile f(path);require(f.open(QIODevice::ReadOnly),QStringLiteral("Source absente : %1").arg(path));QCryptographicHash h(QCryptographicHash::Sha256);while(!f.atEnd()){checkpoint();auto b=f.read(1024*1024);require(!b.isEmpty()||f.atEnd(),QStringLiteral("Lecture impossible"));h.addData(b);}return QString::fromLatin1(h.result().toHex());};
-  auto copy=[&](const QString& from,const QString& to) {QFile input(from);require(input.open(QIODevice::ReadOnly),QStringLiteral("Source absente : %1").arg(from));QDir().mkpath(QFileInfo(to).absolutePath());QSaveFile output(to);require(output.open(QIODevice::WriteOnly),QStringLiteral("Sortie inaccessible"));while(!input.atEnd()){checkpoint();auto b=input.read(1024*1024);require(!b.isEmpty()||input.atEnd(),QStringLiteral("Lecture impossible"));require(output.write(b)==b.size(),QStringLiteral("Copie impossible"));}require(output.commit(),QStringLiteral("Copie non finalisée"));};
+  auto copy=[&](const QString& from,const QString& to) {QFile input(confined(workspace_,from));require(input.open(QIODevice::ReadOnly),QStringLiteral("Source absente : %1").arg(from));QDir().mkpath(QFileInfo(to).absolutePath());QSaveFile output(to);require(output.open(QIODevice::WriteOnly),QStringLiteral("Sortie inaccessible"));while(!input.atEnd()){checkpoint();auto b=input.read(1024*1024);require(!b.isEmpty()||input.atEnd(),QStringLiteral("Lecture impossible"));require(output.write(b)==b.size(),QStringLiteral("Copie impossible"));}require(output.commit(),QStringLiteral("Copie non finalisée"));};
   const auto destination=confined(workspace_,request.outputDirectory.isEmpty()?QStringLiteral("results/simulation/model_exports/%1/cartographe").arg(QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd_HHmmss_"))+QUuid::createUuid().toString(QUuid::Id128).left(8)):request.outputDirectory);
   require(QFileInfo(destination).fileName()==QStringLiteral("cartographe"),QStringLiteral("Le dossier du modèle doit se nommer cartographe"));
+  const auto relativeDestination = QDir(workspace_).relativeFilePath(destination);
+  require(relativeDestination.startsWith(QStringLiteral("results/")) || relativeDestination.startsWith(QStringLiteral(".runtime/")),
+          QStringLiteral("OUTPUT_OVERLAPS_SOURCE: la destination doit être dans results/ ou .runtime/"));
   require(!QFileInfo::exists(destination),QStringLiteral("Le dossier existe déjà ; choisissez une nouvelle destination"));
   const auto exports=confined(workspace_,QStringLiteral("results/simulation/model_exports"));require(QDir().mkpath(exports),QStringLiteral("Dossier des exports inaccessible"));
   QLockFile lock(exports+QStringLiteral("/.export.lock"));lock.setStaleLockTime(0);
@@ -138,48 +132,113 @@ QJsonObject LocalGazeboExportBackend::execute(const application::GazeboExportReq
   const auto model=staging.path()+QStringLiteral("/cartographe");QDir().mkpath(model);
   progress(2,QStringLiteral("Vérification des sources CAO"));
   const auto cad=workspace_+QStringLiteral("/hardware/mecanique/cartographe/");
-  auto canonical=read(cad+QStringLiteral("manifest.json")).value(QStringLiteral("prototype_cartographe")).toObject();
   QJsonObject sources;const auto remember=[&](const QString& relative){auto path=confined(workspace_,relative);auto hash=sha(path);sources.insert(relative,hash);return hash;};
-  remember(QStringLiteral("hardware/mecanique/cartographe/manifest.json"));remember(QStringLiteral("hardware/mecanique/cartographe/nomenclature_prototype.json"));
+  const auto cadManifest = QStringLiteral("hardware/mecanique/cartographe/manifest.json");
+  remember(cadManifest);
+  auto canonical=read(cad+QStringLiteral("manifest.json")).value(QStringLiteral("prototype_cartographe")).toObject();
+  require(sha(confined(workspace_, cadManifest)) == sources.value(cadManifest),
+          QStringLiteral("STALE_SOURCE_DURING_EXPORT: %1").arg(cadManifest));
+  require(!canonical.isEmpty(), QStringLiteral("Configuration prototype_cartographe absente"));
+  remember(QStringLiteral("hardware/mecanique/cartographe/nomenclature_prototype.json"));
   for(const auto& key:{QStringLiteral("references"),QStringLiteral("assemblages")})for(const auto& value:canonical.value(key).toArray()) {
     auto row=value.toObject();auto relative=QStringLiteral("hardware/mecanique/cartographe/")+row.value(QStringLiteral("fichier")).toString();
     require(remember(relative)==row.value(QStringLiteral("sha256")).toString(),QStringLiteral("CAO modifiée sans mise à jour du manifeste : %1").arg(relative));
   }
   auto originals=canonical.value(QStringLiteral("sources_preservees")).toObject();for(auto i=originals.begin();i!=originals.end();++i)require(remember(QStringLiteral("hardware/mecanique/cartographe/")+i.key())==i.value().toString(),QStringLiteral("Source fabricant divergente"));
   const auto base=workspace_+QStringLiteral("/simulation/gazebo/models/cartographe");
-  for(const auto& name:{QStringLiteral("dynamics_preview.json"),QStringLiteral("geometry/mass_ledger.json"),QStringLiteral("model.config")}){remember(QStringLiteral("simulation/gazebo/models/cartographe/")+name);copy(base+QLatin1Char('/')+name,model+QLatin1Char('/')+name);}
+  const auto sourceModel = QStringLiteral("simulation/gazebo/models/cartographe/");
+  const auto sourceWorld = QStringLiteral("simulation/gazebo/worlds/cartographe_flat.sdf");
+  remember(sourceWorld);
+  const auto copySealed = [&](const QString& relative, const QString& target) {
+    copy(workspace_ + QLatin1Char('/') + relative, target);
+    require(sha(target) == sources.value(relative), QStringLiteral("STALE_SOURCE_DURING_EXPORT: %1").arg(relative));
+  };
+  for(const auto& name:{QStringLiteral("dynamics_preview.json"),QStringLiteral("geometry/mass_ledger.json"),QStringLiteral("model.config")}){
+    const auto relative = sourceModel + name;
+    remember(relative);
+    copySealed(relative, model + QLatin1Char('/') + name);
+  }
   for(const auto& script:{QStringLiteral("cad_export_cartographe.py"),QStringLiteral("cad_export_collisions.py")})remember(QStringLiteral("simulation/gazebo/tools/")+script);
   remember(QStringLiteral("hardware/mecanique/cartographe/verification/read_brep_prototype.py"));
   remember(QStringLiteral("simulation/gazebo/ModelBuilder.cpp"));remember(QStringLiteral("simulation/gazebo/ModelBuilder.hpp"));
+  const auto verifyFrozen = [&] {
+    for (auto source = sources.begin(); source != sources.end(); ++source) {
+      const auto unchanged = [&] {
+        try {
+          return sha(confined(workspace_, source.key())) == source.value();
+        } catch (const std::exception&) {
+          checkpoint();
+          return false;
+        }
+      };
+      require(unchanged(), QStringLiteral("STALE_SOURCE_DURING_EXPORT: %1").arg(source.key()));
+    }
+  };
+  const auto seal = model + QStringLiteral("/snapshot_manifest.json");
+  QString sealHash;
   if(request.regenerateMeshes) {
     const auto python=request.pythonProgram.isEmpty()?findPython():request.pythonProgram;
     require(!python.isEmpty()&&QFileInfo::exists(python),QStringLiteral("Python de FreeCAD introuvable ; indiquez son exécutable"));
-    for(const auto& script:{QStringLiteral("cad_export_cartographe.py"),QStringLiteral("cad_export_collisions.py")}) {
-      progress(script.startsWith(QStringLiteral("cad_export_cartographe"))?10:65,script.startsWith(QStringLiteral("cad_export_cartographe"))?QStringLiteral("Conversion de la CAO en maillages…"):QStringLiteral("Préparation des collisions…"));
+    const auto freeCad = [&](const QStringList& args) {
       QProcess process;process.setWorkingDirectory(workspace_);process.setProcessChannelMode(QProcess::MergedChannels);
-      process.start(python,{workspace_+QStringLiteral("/simulation/gazebo/tools/")+script,QStringLiteral("--workspace"),workspace_,QStringLiteral("--output-dir"),model});
+      process.start(python, args);
       require(process.waitForStarted(5000),QStringLiteral("FreeCAD ne démarre pas : %1").arg(process.errorString()));QByteArray output;
       while(!process.waitForFinished(100)) {
         output+=process.readAll();output=output.right(64000);
         if(cancelled||timer.elapsed()>=900000){process.kill();process.waitForFinished(3000);checkpoint();}
       }
-      output+=process.readAll();require(process.exitStatus()==QProcess::NormalExit&&process.exitCode()==0,QStringLiteral("Échec FreeCAD : %1").arg(QString::fromUtf8(output.right(8000))));
+      output+=process.readAll();
+      if (process.exitStatus()!=QProcess::NormalExit || process.exitCode()!=0) {
+        verifyFrozen();
+        require(false,QStringLiteral("Échec FreeCAD : %1").arg(QString::fromUtf8(output.right(8000))));
+      }
+      return output;
+    };
+    const auto versionProbe = freeCad({QStringLiteral("-B"),QStringLiteral("-c"),
+      QStringLiteral("import FreeCAD as App, Part, json, sys; print(json.dumps(dict(freecad=App.Version(), occt=Part.OCC_VERSION, python=sys.version)))")});
+    const auto nativeVersions = QJsonDocument::fromJson(versionProbe.trimmed()).object();
+    require(!nativeVersions.isEmpty(), QStringLiteral("Version FreeCAD/OCCT absente"));
+    const auto closureHash = QString::fromLatin1(QCryptographicHash::hash(
+      QJsonDocument(sources).toJson(QJsonDocument::Compact), QCryptographicHash::Sha256).toHex());
+    write(seal, {{QStringLiteral("schema"),QStringLiteral("drone_agricole.gazebo_snapshot.v1")},
+      {QStringLiteral("mode"),QStringLiteral("SYNTHETIC_PREVIEW")},
+      {QStringLiteral("source_closure_sha256"),closureHash},
+      {QStringLiteral("sources_sha256"),sources},
+      {QStringLiteral("freecad_environment"),nativeVersions},
+      {QStringLiteral("qt_generator"),QString::fromLatin1(qVersion())},
+      {QStringLiteral("linear_deflection_mm"),0.5},{QStringLiteral("angular_deflection_rad"),0.35},
+      {QStringLiteral("length_scale_mm_to_m"),0.001},{QStringLiteral("frame"),QStringLiteral("FLU, origine CAO")},
+      {QStringLiteral("mesh_format"),QStringLiteral("STL binaire")}} );
+    sealHash = sha(seal);
+    verifyFrozen();
+    for(const auto& script:{QStringLiteral("cad_export_cartographe.py"),QStringLiteral("cad_export_collisions.py")}) {
+      progress(script.startsWith(QStringLiteral("cad_export_cartographe"))?10:65,script.startsWith(QStringLiteral("cad_export_cartographe"))?QStringLiteral("Conversion de la CAO en maillages…"):QStringLiteral("Préparation des collisions…"));
+      freeCad({QStringLiteral("-B"),workspace_+QStringLiteral("/simulation/gazebo/tools/")+script,
+               QStringLiteral("--workspace"),workspace_,QStringLiteral("--output-dir"),model});
+    }
+    const auto geometry = read(model + QStringLiteral("/geometry/geometry_manifest.json"));
+    require(geometry.value(QStringLiteral("versions")).toObject() == nativeVersions,
+            QStringLiteral("L’environnement FreeCAD a changé après le gel"));
+    const auto nativeFiles = geometry.value(QStringLiteral("sources")).toObject()
+      .value(QStringLiteral("dependencies_relative_to_cad_directory")).toObject();
+    require(!nativeFiles.isEmpty(), QStringLiteral("Fermeture BRep manquante"));
+    for (auto source = nativeFiles.begin(); source != nativeFiles.end(); ++source) {
+      require(sources.value(QStringLiteral("hardware/mecanique/cartographe/") + source.key()) == source.value(),
+              QStringLiteral("Dépendance BRep hors gel : %1").arg(source.key()));
     }
   } else {
     progress(15,QStringLiteral("Réutilisation des maillages vérifiés"));
     const auto g=read(base+QStringLiteral("/geometry/geometry_manifest.json"));
     const auto dep=g.value(QStringLiteral("sources")).toObject().value(QStringLiteral("dependencies_relative_to_cad_directory")).toObject();
     for(auto i=dep.begin();i!=dep.end();++i)require(sha(confined(workspace_,cad+i.key()))==i.value().toString(),QStringLiteral("Maillages périmés ; relancez depuis la CAO"));
-    for(const auto& name:{QStringLiteral("geometry/geometry_manifest.json"),QStringLiteral("geometry/collision_model.json")}){remember(QStringLiteral("simulation/gazebo/models/cartographe/")+name);copy(base+QLatin1Char('/')+name,model+QLatin1Char('/')+name);}
+    for(const auto& name:{QStringLiteral("geometry/geometry_manifest.json"),QStringLiteral("geometry/collision_model.json")}){remember(sourceModel+name);copySealed(sourceModel+name,model+QLatin1Char('/')+name);}
     auto geometry=g.value(QStringLiteral("geometry")).toObject();QStringList meshes{geometry.value(QStringLiteral("body_mesh")).toObject().value(QStringLiteral("path")).toString()};
     for(const auto& rotor:geometry.value(QStringLiteral("rotors")).toArray())meshes.append(rotor.toObject().value(QStringLiteral("mesh")).toString());
-    for(const auto& name:meshes){require(name.startsWith(QStringLiteral("meshes/"))&&!name.contains(QStringLiteral("..")),QStringLiteral("Maillage hors profil"));remember(QStringLiteral("simulation/gazebo/models/cartographe/")+name);copy(base+QLatin1Char('/')+name,model+QLatin1Char('/')+name);}
+    for(const auto& name:meshes){require(name.startsWith(QStringLiteral("meshes/"))&&!name.contains(QStringLiteral("..")),QStringLiteral("Maillage hors profil"));remember(sourceModel+name);copySealed(sourceModel+name,model+QLatin1Char('/')+name);}
   }
   checkpoint();progress(80,QStringLiteral("Construction du véhicule SDF et de son airframe"));
   cartographe::gazebo::generateModel(workspace_,model,model+QStringLiteral("/40000_gz_cartographe"));
-  const auto worldHash=remember(QStringLiteral("simulation/gazebo/worlds/cartographe_flat.sdf"));
-  copy(workspace_+QStringLiteral("/simulation/gazebo/worlds/cartographe_flat.sdf"),model+QStringLiteral("/cartographe_flat.sdf"));
-  require(sha(model+QStringLiteral("/cartographe_flat.sdf"))==worldHash,QStringLiteral("Monde modifié pendant sa copie"));
+  copySealed(sourceWorld,model+QStringLiteral("/cartographe_flat.sdf"));
   QFile worldFile(model+QStringLiteral("/cartographe_flat.sdf"));require(worldFile.open(QIODevice::ReadOnly),QStringLiteral("Monde absent"));
   QByteArray previewWorld;QXmlStreamReader xml(worldFile.readAll());QXmlStreamWriter xmlOut(&previewWorld);int worlds=0;
   worldFile.close(); // Windows forbids renaming a directory with an open child.
@@ -196,15 +255,24 @@ QJsonObject LocalGazeboExportBackend::execute(const application::GazeboExportReq
   progress(88,QStringLiteral("Création de l’aperçu 3D"));write(model+QStringLiteral("/preview.json"),preview(model));
   QJsonObject files;QDir dir(model);QStringList names{QStringLiteral("model.sdf"),QStringLiteral("model.config"),QStringLiteral("model_checks.json"),QStringLiteral("dynamics_preview.json"),QStringLiteral("40000_gz_cartographe"),QStringLiteral("cartographe_flat.sdf"),QStringLiteral("preview_world.sdf"),QStringLiteral("preview.json"),QStringLiteral("geometry/geometry_manifest.json"),QStringLiteral("geometry/collision_model.json"),QStringLiteral("geometry/mass_ledger.json")};
   for(const auto& mesh:QDir(model+QStringLiteral("/meshes")).entryList(QDir::Files))names.append(QStringLiteral("meshes/")+mesh);
+  if (!sealHash.isEmpty()) {
+    require(sha(seal) == sealHash, QStringLiteral("Le manifeste d’instantané a changé pendant l’export"));
+    names.append(QStringLiteral("snapshot_manifest.json"));
+  }
   for(const auto& name:names)files.insert(name,sha(dir.filePath(name)));
-  progress(95,QStringLiteral("Contrôle final et publication du dossier"));
-  for(auto i=sources.begin();i!=sources.end();++i)require(sha(confined(workspace_,i.key()))==i.value().toString(),QStringLiteral("Source modifiée pendant la préparation : %1").arg(i.key()));
   QJsonObject manifest{{QStringLiteral("schema"),QStringLiteral("drone_agricole.gazebo_export.v1")},{QStringLiteral("finalized"),true},{QStringLiteral("model"),QStringLiteral("cartographe")},
     {QStringLiteral("created_at_utc"),QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs)},{QStringLiteral("regenerated_from_cad"),request.regenerateMeshes},
     {QStringLiteral("physical_fidelity"),QStringLiteral("À valider")},{QStringLiteral("mass_scenario_kg"),read(model+QStringLiteral("/dynamics_preview.json")).value(QStringLiteral("total_mass_kg"))},{QStringLiteral("units"),QStringLiteral("m, kg, kg m² ; FLU ; CAO mm × 0.001")},
     {QStringLiteral("sources_sha256"),sources},{QStringLiteral("files_sha256"),files},{QStringLiteral("airframe"),QStringLiteral("40000_gz_cartographe")},
     {QStringLiteral("limits"),QJsonArray{QStringLiteral("Profil du prototype actif uniquement, quatre rotors séparés"),QStringLiteral("Scénario synthétique, aucune masse réelle identifiée ni autonomie calculée"),QStringLiteral("Collisions conservatrices pour sol plat ; capteurs synthétiques non calibrés"),QStringLiteral("Préparation uniquement : aucun lancement Docker, PX4 ou armement")}}};
-  write(model+QStringLiteral("/export_manifest.json"),manifest);checkpoint();
+  write(model+QStringLiteral("/export_manifest.json"),manifest);
+  progress(95,QStringLiteral("Contrôle final et publication du dossier"));
+  verifyFrozen();
+  if (!sealHash.isEmpty()) {
+    require(sha(seal) == sealHash, QStringLiteral("Le manifeste d’instantané a changé pendant l’export"));
+  }
+  checkpoint();
+  require(!QFileInfo::exists(confined(workspace_, destination)), QStringLiteral("Destination apparue pendant l’export"));
   require(QDir().mkpath(QFileInfo(destination).absolutePath()),QStringLiteral("Destination inaccessible"));
   require(QDir().rename(model,destination),QStringLiteral("Publication impossible ; aucune sortie finalisée"));
   manifest.insert(QStringLiteral("directory"),destination);manifest.insert(QStringLiteral("preview"),read(destination+QStringLiteral("/preview.json")));return manifest;

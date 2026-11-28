@@ -870,6 +870,17 @@ fabriqué, aucun Docker/PX4 n'est démarré. Import arbitraire STEP/FCStd, édit
 des paramètres physiques et pilotage de Gazebo depuis cette page restent hors
 de ce profil. Tests et limites : DOC-VAL §10.2, `UI-GZ-001` et `T-CARTO-GZ-01`.
 
+V3-SIM.1 expose aussi la vérification en lecture seule et la régénération
+privée via `cartographe-model verify` et `cartographe-model rebuild`.
+Le backend de régénération est commun à la station et à l'exécutable
+autonome. Avant l'export natif, il fige les empreintes et l'environnement
+FreeCAD, puis compare de nouveau les sources avant la publication. Les
+destinations `results/` et `.runtime/` doivent être neuves et sans alias
+de chemin. La CAO sauvegardée et ses documents fabricant restent des entrées.
+Le paquet régénéré contient également `snapshot_manifest.json`
+(`drone_agricole.gazebo_snapshot.v1`), couvert par le manifeste d'export.
+[Périmètre qualifié et preuves](../VALIDATION_QUALIFICATION.md#cartographe-v3-sim1)
+
 ### 5.3 Réconciliation CAO et masses — ORCH-CAO-MASSE-1, 25 octobre 2026
 
 La nouvelle priorité suspend les extensions et campagnes Gazebo/PX4. Les
@@ -1477,6 +1488,8 @@ rend `FINAL_NO_GO`.
 - **28 novembre 2026** — V3-C.4 remesure les poses XYZ et leurs rotations, les deux câbles, l’appui décalé et la couverture d’un gabarit inerte sur deux bancs.
 
 - **27 novembre 2026** — Réception documentaire V3-A.7 par porteur et réemploi du validateur A.4 (§2.6).
+- **28 novembre 2026** — V3-SIM.1 réutilise le backend d'export sur instantané
+  privé et ajoute la vérification en lecture seule du modèle Gazebo (§5.2).
 - **27 novembre 2026** — Clôture V3-INT.3 sur bancs synthétiques Windows amd64 après rejeu des frontières et contrats sur le merge de revue (§2.6).
 - **27 novembre 2026** — V3-INT.3 réunit les interfaces C.3 et A.6 avec séparation vérifiée des portées et rejeu des protections (§2.6).
 - **26 novembre 2026** — V3-C.3 qualifie la recherche volumique bornée sur deux bancs après criblage des arcs et correction du retour tangent (§2.6).

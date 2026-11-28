@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 #include <QCryptographicHash>
 #include <QDir>
 #include <QFile>
@@ -9,10 +8,10 @@
 #include <QXmlStreamReader>
 #include <array>
 #include <cmath>
-#include <iostream>
 #include <stdexcept>
 #include "../mass/MassProperties.hpp"
 #include "ModelBuilder.hpp"
+#include "SnapshotPaths.hpp"
 
 namespace {
 void need(bool b,const QString &m){if(!b)throw std::runtime_error(m.toStdString());}
@@ -25,20 +24,23 @@ QString vec(QJsonArray a){need(a.size()==3,"vector length");return n(a[0].toDoub
 QString inertia(double x,double y,double z){need(x>0&&y>0&&z>0&&x+y>=z-1e-12&&x+z>=y-1e-12&&y+z>=x-1e-12,"inadmissible inertia");return "<inertia><ixx>"+n(x)+"</ixx><iyy>"+n(y)+"</iyy><izz>"+n(z)+"</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>";}
 QString visual(QString name,QString path){return "<visual name='"+name+"'><geometry><mesh><uri>model://cartographe/"+path+"</uri><scale>1 1 1</scale></mesh></geometry></visual>";}
 void generate(const QString&root,bool physical,const QString&dir,const QString&airframe){
-  auto g=json(dir+"/geometry/geometry_manifest.json"),c=json(dir+"/dynamics_preview.json");
-  auto ledger=json(dir+"/geometry/mass_ledger.json");
+  const auto input = [&dir](const QString& relative) { return cartographe::gazebo::snapshotPath(dir, relative); };
+  const auto geometryPath = input("geometry/geometry_manifest.json");
+  auto g=json(geometryPath),c=json(input("dynamics_preview.json"));
+  auto ledger=json(input("geometry/mass_ledger.json"));
   need(!physical,"physical mode unavailable: mass/CG/inertias and exact propulsion are not identified");
   // The preview remains an explicit synthetic fixture. A reconciled BOM may
   // acquire a complete mass without silently changing these dynamics.
   need(ledger.contains("mass_complete_g"),"mass ledger contract missing");
   need(g["finalized"].toBool()&&g["frame"].toObject()["scale"].toDouble()==.001,"unfinalized geometry/units");
-  auto sources=g["sources"].toObject();need(hash(root+"/hardware/mecanique/cartographe/manifest.json")==sources["cad_manifest_sha256"],"stale CAD manifest");
-  auto deps=sources["dependencies_relative_to_cad_directory"].toObject();for(auto it=deps.begin();it!=deps.end();++it)need(hash(root+"/hardware/mecanique/cartographe/"+it.key())==it.value(),"stale dependency "+it.key());
-  auto geometry=g["geometry"].toObject();auto body=geometry["body_mesh"].toObject();need(hash(dir+"/"+body["path"].toString())==body["sha256"],"stale body mesh");
+  const auto cad = cartographe::gazebo::snapshotPath(root, QStringLiteral("hardware/mecanique/cartographe"));
+  auto sources=g["sources"].toObject();need(hash(cartographe::gazebo::snapshotPath(cad,"manifest.json"))==sources["cad_manifest_sha256"],"stale CAD manifest");
+  auto deps=sources["dependencies_relative_to_cad_directory"].toObject();for(auto it=deps.begin();it!=deps.end();++it)need(hash(cartographe::gazebo::snapshotPath(cad,it.key()))==it.value(),"stale dependency "+it.key());
+  auto geometry=g["geometry"].toObject();auto body=geometry["body_mesh"].toObject();need(hash(input(body["path"].toString()))==body["sha256"],"stale body mesh");
   double total=c["total_mass_kg"].toDouble(),rm=c["rotor_mass_kg"].toDouble(),r=c["rotor_nominal_radius_m"].toDouble();double bm=total-4*rm;
   need(bm>0&&rm>0&&r>0,"invalid masses");auto box=c["body_equivalent_box_m"].toArray();need(box.size()==3,"box size");double x=box[0].toDouble(),y=box[1].toDouble(),z=box[2].toDouble();need(x>0&&y>0&&z>0,"box dimensions");
   QString xml="<?xml version='1.0'?><sdf version='1.9'><model name='cartographe'><pose>0 0 0.32 0 0 0</pose><self_collide>false</self_collide><static>false</static><link name='base_link'><inertial><pose>"+vec(c["body_centre_m"].toArray())+" 0 0 0</pose><mass>"+n(bm)+"</mass>"+inertia(bm*(y*y+z*z)/12,bm*(x*x+z*z)/12,bm*(x*x+y*y)/12)+"</inertial>"+visual("cad_body",body["path"].toString());
-  auto collisionModel=json(dir+"/geometry/collision_model.json");need(collisionModel["geometry_manifest_sha256"]==hash(dir+"/geometry/geometry_manifest.json"),"stale collisions");
+  auto collisionModel=json(input("geometry/collision_model.json"));need(collisionModel["geometry_manifest_sha256"]==hash(geometryPath),"stale collisions");
   auto collisions=collisionModel["boxes"].toArray();need(!collisions.isEmpty(),"collision proxies missing");
   for(auto v:collisions){auto a=v.toObject();xml+="<collision name='"+a["name"].toString()+"'><pose>"+vec(a["centre_m"].toArray())+" 0 0 0</pose><geometry><box><size>"+vec(a["size_m"].toArray())+"</size></box></geometry></collision>";}
   // Synthetic integration fixture, NOT calibrated sensor performance. Perfectly
@@ -56,7 +58,7 @@ void generate(const QString&root,bool physical,const QString&dir,const QString&a
   using namespace cartographe::mass;
   Tensor bi{{{bm*(y*y+z*z)/12,0,0},{0,bm*(x*x+z*z)/12,0},{0,0,bm*(x*x+y*y)/12}}};
   auto bc=c["body_centre_m"].toArray();std::vector<Component> masses{{"body","",bm,Vector{bc[0].toDouble(),bc[1].toDouble(),bc[2].toDouble()},bi}};
-  for(int i=0;i<4;++i){int ci=order[i].toInt()-1;need(ci>=0&&ci<4&&!used[ci],"invalid rotor order");used[ci]=true;auto a=rotors[ci].toObject();need(hash(dir+"/"+a["mesh"].toString())==a["sha256"],"stale rotor mesh");auto p=a["position_m"].toArray();auto axis=a["axis_flu"].toArray();need(axis==QJsonArray{0,0,1},"unexpected rotor axis");QString direction=a["cad_label_rotation"].toString().toLower();need(direction=="cw"||direction=="ccw","rotor direction");double moment=direction=="ccw"?km:-km; sx+=p[0].toDouble();sy+=p[1].toDouble();skm+=moment;
+  for(int i=0;i<4;++i){int ci=order[i].toInt()-1;need(ci>=0&&ci<4&&!used[ci],"invalid rotor order");used[ci]=true;auto a=rotors[ci].toObject();need(hash(input(a["mesh"].toString()))==a["sha256"],"stale rotor mesh");auto p=a["position_m"].toArray();auto axis=a["axis_flu"].toArray();need(axis==QJsonArray{0,0,1},"unexpected rotor axis");QString direction=a["cad_label_rotation"].toString().toLower();need(direction=="cw"||direction=="ccw","rotor direction");double moment=direction=="ccw"?km:-km; sx+=p[0].toDouble();sy+=p[1].toDouble();skm+=moment;
     QString index=QString::number(i),name="rotor_"+index,joint=name+"_joint";
     Tensor ri{{{rm*r*r/4,0,0},{0,rm*r*r/4,0},{0,0,rm*r*r/2}}};masses.push_back({name.toStdString(),"",rm,Vector{p[0].toDouble(),p[1].toDouble(),p[2].toDouble()},ri});
     xml+="<link name='"+name+"'><pose>"+vec(p)+" 0 0 0</pose><inertial><mass>"+n(rm)+"</mass>"+inertia(rm*r*r/4,rm*r*r/4,rm*r*r/2)+"</inertial>"+visual(name+"_visual",a["mesh"].toString())+"<collision name='rotor_swept_preview'><geometry><cylinder><radius>0.19685</radius><length>0.012</length></cylinder></geometry></collision></link><joint name='"+joint+"' type='revolute'><parent>base_link</parent><child>"+name+"</child><axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>";
@@ -70,19 +72,17 @@ void generate(const QString&root,bool physical,const QString&dir,const QString&a
   xml+="</model></sdf>";QXmlStreamReader reader(xml);while(!reader.atEnd())reader.readNext();need(!reader.hasError(),"generated XML invalid");
   double hover=std::sqrt(total*9.80665/(4*c["max_thrust_per_rotor_n"].toDouble()));need(hover>=.1&&hover<=.9,"preview outside MPC hover parameter domain; revise declared scenario");
   air+="# Linear normalized motor speed, quadratic thrust. No identified nonlinear compensation.\nparam set-default THR_MDL_FAC 0\nparam set-default MPC_THR_HOVER "+n(hover)+"\n# Six-cell metadata for this prototype scenario; forfait battery is not an endurance model.\nparam set-default BAT1_N_CELLS 6\n";
+  if (airframe.isEmpty()) return;
   save(dir+"/model.sdf",xml.toUtf8());save(airframe,air.toUtf8());
   QJsonObject proof{{"test_id","T-CARTO-GZ-01"},{"status","préliminaire"},{"sdf_xml_valid",true},{"gazebo_loaded",false},{"mass_scenario_kg",total},{"body_mass_kg",bm},{"rotor_mass_kg",rm},{"physical_mass_identified",false},{"body_inertia_kg_m2",QJsonArray{bm*(y*y+z*z)/12,bm*(x*x+z*z)/12,bm*(x*x+y*y)/12}},{"motor_constant_n_s2_rad2",k},{"rotor_allocation",allocation},{"zero_collective_moment",true},{"geometry_manifest_sha256",hash(dir+"/geometry/geometry_manifest.json")},{"dynamics_sha256",hash(dir+"/dynamics_preview.json")},{"sdf_sha256",hash(dir+"/model.sdf")},{"airframe_sha256",hash(airframe)}};
   proof["scenario_aggregate_centre_m"]=QJsonArray{(*aggregateMass.centre)[0],(*aggregateMass.centre)[1],(*aggregateMass.centre)[2]};
   QJsonArray tensor;for(auto row:*aggregateMass.inertia)tensor.append(QJsonArray{row[0],row[1],row[2]});proof["scenario_aggregate_inertia_kg_m2"]=tensor;
   save(dir+"/model_checks.json",QJsonDocument(proof).toJson());
-#ifndef DRONE_AGRICOLE_MODEL_LIBRARY
-  std::cout<<"Generated SDF preview, 4 motors, source hashes and inertia constraints checked. Physical fidelity unvalidated.\n";
-#endif
 }
 }
 void cartographe::gazebo::generateModel(const QString& root,const QString& directory,const QString& airframe) {
   generate(QDir(root).absolutePath(),false,directory,airframe);
 }
-#ifndef DRONE_AGRICOLE_MODEL_LIBRARY
-int main(int argc,char**argv){QCoreApplication app(argc,argv);try{auto a=app.arguments();need(a.size()>1,"usage: cartographe-model WORKSPACE [--physical]");auto root=QDir(a[1]).absolutePath();generate(root,a.contains("--physical"),root+"/simulation/gazebo/models/cartographe",root+"/simulation/px4_sitl/airframes/40000_gz_cartographe");return 0;}catch(const std::exception&e){std::cerr<<e.what()<<'\n';return 1;}}
-#endif
+void cartographe::gazebo::verifyModel(const QString& root,const QString& directory,bool physical) {
+  generate(QDir(root).absolutePath(),physical,directory,{});
+}
