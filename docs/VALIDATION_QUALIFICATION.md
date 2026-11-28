@@ -3434,6 +3434,29 @@ de la transaction physique privée avec reprise et ancrage monotone
 externe restent **À valider** pour D.1.
 [Verdict et preuves](verification/v3/a7/acceptance.json)
 
+<a id="cartographe-v3-int4"></a>
+#### Intégration C.4, A.7 et SIM.1 V3-INT.4 — 28 novembre 2026
+
+`V3_INT4_GO`. État **Qualifié** pour l’intégration logicielle sous Windows amd64,
+GCC 16.2 en C++17 strict, Qt 6.11.2, FreeCAD 1.1.3, OCCT 7.8.1 et
+Cables 0.3.7. Les trois fusions et le code testé
+`48245a446b949e92995e2aeb6a9dd2fdf7b55017` sont identifiés dans le
+[reçu d’acceptation](verification/v3/int4/acceptance.json).
+
+| Exigence | Composant et essai | Résultat |
+|---|---|---|
+| `MEC-INT-001`, `CAB-CARTO-001` | Construction privée et réouverture FreeCAD C.4 T1 à T4 | Les deux câbles, leurs ports et arcs, l’appui et les services ont été remesurés. Le nouvel obstacle T2 choisi après gel recoupe le deuxième câble T1 de 0,303056 mm³. T4 clôture avec zéro admission. [Rejeux](verification/v3/int4/native_replays.json) |
+| `UART-ISO-001`, `UART-MOUNT-001`, `AUTHORIZED_REVIEW`, `PRODUCTION_TRUST` | A.7, A.5, A.6 et essais de jonction | 27 contrôles par porteur P64/P66 et deux reçus recalculés, A.7 25/25, A.5 50/50, deux effets A.6 signés en Workholding P64 synthétique, deux suites INT.3 de 14/14 et 13 refus croisés avant lancement natif. [Frontières](verification/v3/int4/boundary_checks.json) |
+| Provenance CAO et contrats de simulation | SIM.1 sur copie privée neuve, vérification du paquet, défauts d’entrée | 5/5 et reconstruction SDF/airframe. Les sources absentes ou altérées, le modèle historique périmé et le mode physique sont refusés. [Instantané et produits](verification/v3/int4/sim1_snapshot_checks.json) |
+| Contrats et références scellées | CTest L3/L4/L5/T0, L1/L2, fermeture XLink | 5/5, 7/7, 13/13 et 2/2, puis L1 24/24 et L2 7/7. 115 entrées L2 identiques, 137 XLinks scellés et 791 natifs cartographe suivis vérifiés. [Régressions](verification/v3/int4/regressions.json) · [Intégrité](verification/v3/int4/reference_integrity.json) |
+
+La réception physique reste **À valider**. Zéro lot inspecté, confiance de
+production `EMPTY`, mutation cartographe `DENY` et refus de
+`CREATE_SUPPORT(iso)` réel. Les essais de chargement Gazebo, PX4, vol et arm64
+restent **À valider** dans leurs périmètres respectifs. Les prochaines mesures
+de lot et d’appui suivent la priorité ORCH-CAO-MASSE-1 et le
+[registre physique A.6](verification/v3/a6/physical_readiness.json).
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4845,6 +4868,11 @@ cartographe restent les preuves à obtenir avant une décision distincte.
 [V3-C.4](#cartographe-v3-c4) éprouve le couplage de la pose et des passages
 avec appui plan sur bancs, en soutien de l’analyse future du cartographe.
 
+[V3-INT.4](#cartographe-v3-int4) vérifie la coexistence des bancs C.4,
+de la collecte A.7 et de l’export privé SIM.1. Les preuves qui conditionnent
+la reprise physique demeurent l’identité du lot, le dossier d’appui et la
+revue habilitée.
+
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
 préflight du gestionnaire de convergence a rejoué `NO_GO_MOTIVE` à 0
@@ -5503,6 +5531,8 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 
 ## 16. Journal de modifications
+
+- **28 novembre 2026** — V3-INT.4 réunit C.4, A.7 et SIM.1, rejoue les frontières et vérifie la fermeture scellée. [Résultat](#cartographe-v3-int4)
 
 - **28 novembre 2026** — V3-C.4 rejoue la pose 6DoF et l’appui plan sur deux hiérarchies, l’obstacle post-gel et l’arrêt sous budget. [Résultats](#cartographe-v3-c4)
 

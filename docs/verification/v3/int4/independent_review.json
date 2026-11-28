@@ -1,0 +1,140 @@
+{
+  "schema": "v3.int4.independent_review/1",
+  "status": "PASS",
+  "reviewed_commit": "48245a446b949e92995e2aeb6a9dd2fdf7b55017",
+  "git_and_sim1_review": {
+    "schema": "v3.int4.sim1_independent_git_and_effect_review/1",
+    "status": "PASS",
+    "reviewer": "sim1",
+    "reviewed_commit": "48245a446b949e92995e2aeb6a9dd2fdf7b55017",
+    "scope": "Revue indépendante du code intégré, sans participation aux résolutions de fusion.",
+    "git_checks": {
+      "status": "PASS",
+      "tested_tree": "5e9db4e734e18bd938454a9e95e69d5d5061e758",
+      "base": "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+      "merges": [
+        {
+          "campaign": "C.4",
+          "merge": "a50e486f18745fa722d22e392f928eb0e93083f4",
+          "parents": [
+            "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+            "8b31f8813b402360aca408b574443028b475b7df"
+          ],
+          "source_tested_commit": "0733b15d40a134053247539a399095a94bf74230",
+          "declared_source_scope_paths": 48,
+          "exact_entries_retained": 44,
+          "consolidated_conflict_paths": [
+            ".gitattributes",
+            "docs/VALIDATION_QUALIFICATION.md",
+            "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+            "docs/architecture/ARCHITECTURE_MECANIQUE.md"
+          ],
+          "historical_acceptance_blob": "242319bfba61184f08461bf6a3305395b843ee97"
+        },
+        {
+          "campaign": "A.7",
+          "merge": "2111304ce2cc7ecff6a599e6d654f79584e5e9fd",
+          "parents": [
+            "a50e486f18745fa722d22e392f928eb0e93083f4",
+            "b341e97c4e8107d65f82f09868d36ab3a376a7e4"
+          ],
+          "source_tested_commit": "e3a7f8581ada071134f89670ab25b96cbd5f1c2c",
+          "declared_source_scope_paths": 17,
+          "exact_entries_retained": 13,
+          "consolidated_conflict_paths": [
+            ".gitattributes",
+            "docs/VALIDATION_QUALIFICATION.md",
+            "docs/architecture/ARCHITECTURE_LOGICIELLE.md",
+            "docs/architecture/ARCHITECTURE_MECANIQUE.md"
+          ],
+          "historical_acceptance_blob": "a8a12227f6cd676257ecffb3135f36732d99058c"
+        },
+        {
+          "campaign": "SIM.1",
+          "merge": "48245a446b949e92995e2aeb6a9dd2fdf7b55017",
+          "parents": [
+            "2111304ce2cc7ecff6a599e6d654f79584e5e9fd",
+            "8d7f29c6db45d72225e85c30bcaceb9eddc127f9"
+          ],
+          "source_tested_commit": "c3f35a77f0741f8933ed616d7968d060f5781847",
+          "declared_source_scope_paths": 22,
+          "exact_entries_retained": 20,
+          "consolidated_conflict_paths": [
+            "docs/VALIDATION_QUALIFICATION.md",
+            "docs/architecture/ARCHITECTURE_LOGICIELLE.md"
+          ],
+          "historical_acceptance_blob": "afb5295b2b78b24da05b7574ec826a2c09d20344"
+        }
+      ],
+      "merged_source_scope_paths": 81,
+      "protected_trees_or_blobs": {
+        "hardware/mecanique/cartographe": "02d62e8b47473d773e84aea931a9f8e8105f0bd3",
+        "docs/electromechanical_v2": "521036aaa0f477035f13c48c156a80de3cb53617",
+        "docs/electromechanical_v2_1": "d98bf310667199a6114109591d458cab03ca6a19",
+        "simulation/gazebo/models/cartographe": "85557fe91445835ae11989491102d959cce38941",
+        "simulation/gazebo/worlds/cartographe_flat.sdf": "5e9459afaf781e3d5eb6f67a4beebfe01e4a5652",
+        "simulation/px4_sitl/airframes/40000_gz_cartographe": "2021126b8a0c694fb0287f0349ae141197c1bc77"
+      },
+      "preexisting_freecad_files_unchanged": 1737,
+      "preexisting_xlink_paths_unchanged": 18,
+      "sim1_producer_blobs_identical_to_source_head": {
+        "simulation/CMakeLists.txt": "a4354eb60e8157317892308d34094ba9f4f43fa1",
+        "simulation/gazebo/CartographeModelCli.cpp": "f09683a21e93f9865e81d87cfe4fcd0397f7a62b",
+        "simulation/gazebo/ModelBuilder.cpp": "f337d37fe1ec27b3dd9deb55f5436b348dae9434",
+        "simulation/gazebo/ModelBuilder.hpp": "cd30fe83dd8746f88449a0e57862a04970dbd51b",
+        "simulation/gazebo/SnapshotPaths.hpp": "83653b342cc869e6b92134fd5fe3a3ffcb680cbd",
+        "simulation/gazebo/tools/cad_export_cartographe.py": "9a35bb5bad6e2d62ca893507c144b7ff6fc3df38",
+        "simulation/gazebo/tools/cad_export_collisions.py": "848c3928ef45072065ce8372a0beb76735ed6d1c",
+        "simulation/gazebo/tools/stage_sim1_snapshot.py": "84866a428fe5d2a06c9c45d73bc135594f99f36b",
+        "software/cpp/src/adapters/LocalGazeboExportBackend.cpp": "13cd1bcda5ea5c37d6f978482b47a520cd2a968c"
+      },
+      "source_eol_additions_preserved": true,
+      "all_three_source_result_anchors_present": true
+    },
+    "sim1_effect": {
+      "status": "PASS",
+      "method": "Lecture directe des cinq corps du SDF retenu et somme indépendante de leurs masses et moments statiques, suivies de deux processus de vérification sur l'archive privée.",
+      "sdf": ".runtime/int4/sim/final-snapshot/.runtime/sim1-tests/2deaa8771e384105ae6d5a4d92e29c61/cartographe/model.sdf",
+      "sdf_sha256": "f0da8c448dc7043c377451e2b6140754bc96c5daab816bdad4c49f597d61ec2a",
+      "airframe_sha256": "17f087e5d2203cfd0166dbdb90899e4253c836e17d38eeb3a3ff096bb6315592",
+      "synthetic_mass_kg": 6.0,
+      "synthetic_centroid_flu_m": [
+        0.0,
+        0.0,
+        0.0009606666666666666
+      ],
+      "verify_private_archive_exit_code": 0,
+      "physical_exit_code": 1,
+      "physical_refusal": "physical mode unavailable: mass/CG/inertias and exact propulsion are not identified"
+    }
+  },
+  "review_artifacts": [
+    {
+      "path": ".runtime/int4/sim/independent_git_and_effect_review.json",
+      "bytes": 5202,
+      "sha256": "5e0a5b026191f021ef94a11cc141056cad7b6ccfc6b51d71d152468ed715d555"
+    },
+    {
+      "path": ".runtime/int4/sim/review_git_and_effect.py",
+      "bytes": 8558,
+      "sha256": "c35d146066ef98fe392add2b6446473e5f132aae6b9039c3e39d16dc0ac7897b"
+    }
+  ],
+  "native_freecad": {
+    "evidence": "native_replays.json",
+    "method": "Copies neuves de natifs sauvegardés, réouvertes dans des processus distincts pour remesurer les routes, ports, arcs, volumes d’appui, de collision et de service.",
+    "T2_evaluator": "Agent distinct ayant reçu le seul dossier T1 gelé avant de choisir puis de remesurer le nouvel obstacle sur copie."
+  },
+  "admission_and_reception": {
+    "evidence": "boundary_checks.json",
+    "method": "Le lecteur A.7 distinct recalcule les repères et marges des deux reçus. Le pilote indépendant INT.3 et les cas croisés contrôlent les refus et l’absence d’effet natif amont.",
+    "frozen_code_path": "Main.cpp sépare A.5 et A.6. A6Transaction.cpp retourne 2 avant runV3AuthorizedNative si la décision est DENY et exige AUTHORIZED_RESERVED avant l’appel. V3Transaction.cpp réserve le constructeur au périmètre autorisé BENCH_TEST_ONLY.",
+    "process_trace": "NOT_RUN. Contrôle du flot de contrôle gelé et des effets observables."
+  },
+  "protected_reference_replay": {
+    "evidence": "reference_integrity.json",
+    "method": "Cartes SHA-256 avant/après et fermeture XLink scellée, avec vérification distincte du graphe et des anciens natifs dans la revue Git."
+  },
+  "production_trust_pin": "EMPTY",
+  "cartographer_mutation": "DENY"
+}

@@ -1,0 +1,459 @@
+{
+  "schema": "v3.int4.sim1_snapshot_checks/1",
+  "status": "PASS",
+  "tested_commit": "48245a446b949e92995e2aeb6a9dd2fdf7b55017",
+  "scope": "Reconstruction SDF et airframe synthétiques hors ligne sur copie privée Windows amd64.",
+  "environment": {
+    "architecture": "AMD64",
+    "toolchain": "MSYS2 UCRT64 GCC 16.2.0",
+    "cmake_ctest": "4.4.2",
+    "ninja": "1.13.2",
+    "python_msys2": "3.14.7",
+    "freecad": {
+      "freecad": [
+        "1",
+        "1",
+        "3",
+        "20260725 (Git shallow)",
+        "Unknown",
+        "2026/07/25 04:52:02",
+        "grafted,grafted",
+        "145529fe741292ff0b3977a01195bf0247425794"
+      ],
+      "occt": "7.8.1",
+      "python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]"
+    },
+    "qt": "6.11.2"
+  },
+  "strict_cxx17": {
+    "status": "PASS",
+    "extensions": false,
+    "option": "-std=c++17",
+    "compiler_default": "202002L",
+    "compiler_strict": "201703L avec __STRICT_ANSI__",
+    "translation_units_checked": [
+      "CartographeModelCli.cpp",
+      "LocalGazeboExportBackend.cpp",
+      "ModelBuilder.cpp",
+      "TestSnapshotPublication.cpp"
+    ],
+    "compile_commands": {
+      "path": ".runtime/int4/sim/build/compile_commands.json",
+      "sha256": "b40fa940ca8af946a2e805ddd0ebf2bcb0936e712e6e141e022ccffa8702ccc0",
+      "bytes": 9251
+    },
+    "fresh_generator": {
+      "path": ".runtime/int4/sim/build/cartographe-model.exe",
+      "sha256": "d7252a426a8a9139f4a222054c5742e4a1c4e8badae421d4e9a5d80ecdc6c89e",
+      "bytes": 406651
+    }
+  },
+  "snapshot": {
+    "status": "PASS",
+    "mode": "SYNTHETIC_PREVIEW",
+    "staged_files": 157,
+    "protected_manufacturer_sources_match": 13,
+    "sealed_sources": 156,
+    "closure_sha256": "b5ea233e76ce5f81d2f56d332f32f276226cd84472a50d2e48e9edfdeb4bc628",
+    "private_root_at_execution": ".runtime/i4/.runtime/sim1/int4-private-final",
+    "private_root_retained": ".runtime/int4/sim/final-snapshot",
+    "files_verified_against_authorities": {
+      "path": ".runtime/int4/sim/independent-effects.json",
+      "sha256": "1dd333075263885d322022cae8a459988d49910d6acfda964b507f204771ddf9",
+      "bytes": 42179
+    },
+    "working_tree_end_of_line": [
+      "i/lf    w/lf    attr/text eol=lf      \thardware/mecanique/cartographe/manifest.json",
+      "i/lf    w/lf    attr/text eol=lf      \thardware/mecanique/cartographe/nomenclature_prototype.json",
+      "i/lf    w/crlf  attr/text=auto        \thardware/mecanique/cartographe/verification/read_brep_prototype.py",
+      "i/lf    w/lf    attr/text eol=lf      \tsimulation/gazebo/models/cartographe/geometry/geometry_manifest.json",
+      "i/lf    w/lf    attr/text eol=lf      \tsimulation/gazebo/models/cartographe/model_manifest.json"
+    ]
+  },
+  "reconstruction": {
+    "status": "PASS",
+    "retained_package": ".runtime/int4/sim/final-snapshot/.runtime/sim1-tests/2deaa8771e384105ae6d5a4d92e29c61/cartographe",
+    "leaf_occurrences": 361,
+    "collision_boxes": 21,
+    "rotors": 4,
+    "binary_stl_count": 5,
+    "synthetic_mass_kg": 6.0,
+    "physical_mass_cg_inertia": null,
+    "products_hashes": {
+      "40000_gz_cartographe": {
+        "sha256": "17f087e5d2203cfd0166dbdb90899e4253c836e17d38eeb3a3ff096bb6315592",
+        "bytes": 2120
+      },
+      "cartographe_flat.sdf": {
+        "sha256": "67a13a61c03a619ba70d903a341bc6ee73a8fe8b5ed86795ff53934ea8128208",
+        "bytes": 1692
+      },
+      "dynamics_preview.json": {
+        "sha256": "0308aae4a485434443ab3706c6bcce389092df2747891cc1385be948ae658104",
+        "bytes": 1428
+      },
+      "geometry/collision_model.json": {
+        "sha256": "79ea9b9a08680eba9b0d8dda83765e1e55e8ddfacd0db7cd7a05ec0e5a81d52b",
+        "bytes": 17018
+      },
+      "geometry/geometry_manifest.json": {
+        "sha256": "1404235cb735e81a0736b2bd9ca81029f96796e93993b912d709fcfef3ffe689",
+        "bytes": 395030
+      },
+      "geometry/mass_ledger.json": {
+        "sha256": "20d00be03ee88c5d66f79815b74120124135f440840a09f88f79e4ba663518e3",
+        "bytes": 1838237
+      },
+      "meshes/cartographe_body.stl": {
+        "sha256": "b9598c2026667f944407f3ca0f9143b704b23364ceade8d1b855d36e443973a1",
+        "bytes": 95402184
+      },
+      "meshes/rotor_1.stl": {
+        "sha256": "a5b065dea9d4056081710acdfeb7c383c53cdba6e2c2e46cf0762ebd2f8a6fe0",
+        "bytes": 458484
+      },
+      "meshes/rotor_2.stl": {
+        "sha256": "36b79ffe813853692978a832a4ff8a28c428f64971ed6a9fb396052ad20f0be9",
+        "bytes": 458484
+      },
+      "meshes/rotor_3.stl": {
+        "sha256": "c60e271c554012677ae011a09cd49812a3dcbcc6496f10ea76451580dc97c3fb",
+        "bytes": 730184
+      },
+      "meshes/rotor_4.stl": {
+        "sha256": "bc2bc38b593dee7a4a20636b19cc144980d11e663a2f55c165e36a2ffa70097d",
+        "bytes": 729884
+      },
+      "model.config": {
+        "sha256": "f055fd563b1334e27b1ef0415daa999f8cb736f2fa2f41fae889f500ca81a376",
+        "bytes": 287
+      },
+      "model.sdf": {
+        "sha256": "f0da8c448dc7043c377451e2b6140754bc96c5daab816bdad4c49f597d61ec2a",
+        "bytes": 11514
+      },
+      "model_checks.json": {
+        "sha256": "02b2735f37858ee4448633be4efa73159e6f351e7d71eca7a6a1614bd5520696",
+        "bytes": 3396
+      },
+      "preview.json": {
+        "sha256": "b5a916394445540718ae95137941c0e55c8b5e0054e4cb4da69218610ef7a9e9",
+        "bytes": 11481932
+      },
+      "preview_world.sdf": {
+        "sha256": "c613ed91a1de4f6f005826b59dc3256662de00f044059a85a0d2c5b09d2b7770",
+        "bytes": 1741
+      },
+      "snapshot_manifest.json": {
+        "sha256": "ddca87178d79ca8eefafc6aa61719b68e82ae6027ede4b2f47966a6d7dbb5463",
+        "bytes": 24912
+      },
+      "export_manifest.json": {
+        "sha256": "b622cc7992a8560ed07d1daa3a5410202d794b82b2863845d8f2382d57bb795e",
+        "bytes": 26509
+      }
+    }
+  },
+  "negative_checks": {
+    "historical": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "stale CAD manifest",
+      "published_output_absent": true
+    },
+    "stage_missing_original": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "FileNotFoundError",
+      "published_output_absent": true
+    },
+    "stage_changed_original": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "Empreinte diff",
+      "published_output_absent": true
+    },
+    "rebuild_missing_native": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "Source absente",
+      "published_output_absent": true
+    },
+    "rebuild_changed_native": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "CAO modifi",
+      "published_output_absent": true
+    },
+    "physical": {
+      "status": "REFUSED",
+      "exit_code": 1,
+      "expected_message": "physical mode unavailable: mass/CG/inertias",
+      "published_output_absent": true
+    }
+  },
+  "historical_diagnostic": {
+    "cad_manifest_status": "STALE",
+    "dependency_status_counts": {
+      "MATCH": 77,
+      "MISSING": 3,
+      "STALE": 65
+    },
+    "read_only_samples_rechecked": [
+      {
+        "path": "hardware/mecanique/cartographe/manifest.json",
+        "sha256": "4f8f071106d862a34292214dc17d6f9d078f9067b8149288103fd8e1ebca90e6"
+      },
+      {
+        "path": "simulation/gazebo/models/cartographe/geometry/geometry_manifest.json",
+        "sha256": "ecada0ca836202a574099dacc3363cd56e34ca24c7a4f21398cba64c13195375"
+      },
+      {
+        "path": "simulation/gazebo/models/cartographe/model_manifest.json",
+        "sha256": "8cdcdf0b22c45845aa0d86c5e29e69175df8b0fb4dd4470c4294c19eb3af61f7"
+      },
+      {
+        "path": "simulation/gazebo/models/cartographe/model.sdf",
+        "sha256": "dd3ef99c970f3e1527dd668b82b10b717f1a226dc6e29f678b93294a76c02c2e"
+      }
+    ]
+  },
+  "publication_boundary": {
+    "status": "PASS",
+    "ctest": "cartographe_model_reject_snapshot_publication",
+    "assertions": [
+      "existing destination",
+      "noncanonical path",
+      "source overlap",
+      "junction destination",
+      "hardlinked dependency",
+      "STALE_SOURCE_DURING_EXPORT"
+    ],
+    "initial_attempt": {
+      "status": "FAIL",
+      "reason": "Accès refusé lors de la création du témoin de jonction NTFS.",
+      "cases": {
+        "cartographe_model_reject_snapshot_publication": {
+          "status": "FAIL",
+          "elapsed_s": 0.26101
+        }
+      },
+      "retry": "Droits adaptés au témoin privé, sans changement de code ou timeout."
+    }
+  },
+  "ctest": {
+    "counts": {
+      "passed": 5,
+      "failed": 0,
+      "not_run": 0
+    },
+    "test_cases": {
+      "cartographe_model_generation": {
+        "status": "PASS",
+        "elapsed_s": 0.255352
+      },
+      "cartographe_model_reject_unknown_mass": {
+        "status": "PASS",
+        "elapsed_s": 0.187605
+      },
+      "cartographe_model_reject_stale_inputs": {
+        "status": "PASS",
+        "elapsed_s": 0.341911
+      },
+      "cartographe_model_generation_native": {
+        "status": "PASS",
+        "elapsed_s": 123.261
+      },
+      "cartographe_model_reject_snapshot_publication": {
+        "status": "PASS",
+        "elapsed_s": 1.10392
+      }
+    },
+    "timeout_native_s": 920,
+    "timeout_others_s": 30,
+    "initial_attempt": {
+      "status": "INTERRUPTED",
+      "passed": 3,
+      "native_status": "INTERRUPTED",
+      "reason": "Interruption volontaire au début de l'export pour libérer le créneau T0 isolé.",
+      "native_snapshot_archived_separately": true
+    }
+  },
+  "independent_effects": {
+    "status": "PASS",
+    "process": "Script distinct du générateur et des assertions CTest.",
+    "method": "SHA-256 des fichiers de copie contre leurs sources autorisées, recomposition de la fermeture, lecture STL binaire, SDF et airframe, comparaison des boîtes et repères.",
+    "mesh_metrics": {
+      "meshes/cartographe_body.stl": {
+        "triangles": 1908042,
+        "bbox_m": [
+          -0.25288888812065125,
+          -0.25288888812065125,
+          -0.31250596046447754,
+          0.25288888812065125,
+          0.25288888812065125,
+          0.17381370067596436
+        ]
+      },
+      "meshes/rotor_1.stl": {
+        "triangles": 9168,
+        "bbox_m": [
+          -0.1968500167131424,
+          -0.01626766473054886,
+          -0.0023152236826717854,
+          0.1968500018119812,
+          0.01626766100525856,
+          0.008325043134391308
+        ]
+      },
+      "meshes/rotor_2.stl": {
+        "triangles": 9168,
+        "bbox_m": [
+          -0.1968500018119812,
+          -0.01626766100525856,
+          -0.0023152236826717854,
+          0.1968500167131424,
+          0.01626766473054886,
+          0.008325043134391308
+        ]
+      },
+      "meshes/rotor_3.stl": {
+        "triangles": 14602,
+        "bbox_m": [
+          -0.1968500167131424,
+          -0.016267629340291023,
+          -0.00232357787899673,
+          0.1968500018119812,
+          0.01626763306558132,
+          0.008318901062011719
+        ]
+      },
+      "meshes/rotor_4.stl": {
+        "triangles": 14596,
+        "bbox_m": [
+          -0.1968500018119812,
+          -0.01626763306558132,
+          -0.00232357787899673,
+          0.1968500167131424,
+          0.016267629340291023,
+          0.008318901062011719
+        ]
+      }
+    },
+    "paired_airframe_and_sdf": true,
+    "source_and_product_detail": {
+      "path": ".runtime/int4/sim/independent-effects.json",
+      "sha256": "1dd333075263885d322022cae8a459988d49910d6acfda964b507f204771ddf9",
+      "bytes": 42179
+    }
+  },
+  "reproduction": {
+    "working_directory": ".runtime/i4",
+    "environment": "Préfixer PATH avec C:/msys64/ucrt64/bin, définir QT_QPA_PLATFORM=offscreen et TEMP/TMP vers un dossier privé neuf.",
+    "steps": [
+      "Utiliser simulation/gazebo/tools/stage_sim1_snapshot.py --destination .runtime/sim1/int4-private-final --manufacturer-root <racine des 13 originaux scellés>.",
+      "Configurer cmake -S simulation -B ../int4/sim/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64 -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_CXX_FLAGS=-std=c++17 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DPython3_EXECUTABLE=<Python MSYS2> -DCARTOGRAPHE_SIM1_PRIVATE_ROOT=<chemin absolu de la copie privée> -DCARTOGRAPHE_SIM1_FREECAD_PYTHON=<Python livré avec FreeCAD>.",
+      "Compiler cmake --build ../int4/sim/build --parallel 2 --verbose --target cartographe-model test_cartographe_snapshot_publication.",
+      "Exécuter ctest --test-dir ../int4/sim/build --no-tests=error --output-on-failure -V -R '^cartographe_model_'. Sous Windows, ce test de publication exige les droits nécessaires pour les jonctions et liens physiques NTFS privés.",
+      "Le paquet se trouve sous .runtime/sim1/int4-private-final/.runtime/sim1-tests/<id>/cartographe. Vérifier via cartographe-model verify <copie> <paquet> puis répéter avec --physical.",
+      "Pour contre-vérifier avec Python 3.14.7, appeler verify_effects.py <worktree> <racine fabricant> <copie> <paquet> et check_refusals.py <worktree> <copie> <paquet> <générateur> <répertoire privé de preuves neuf> <Python FreeCAD>."
+    ]
+  },
+  "gazebo_loaded": "NOT_RUN",
+  "px4_sitl": "NOT_RUN",
+  "physical_reception": "NOT_RUN",
+  "physical_fidelity": "NOT_VALIDATED",
+  "cartographer_mutation": "DENY",
+  "artifacts": [
+    {
+      "path": ".runtime/int4/sim/stage.log",
+      "sha256": "a17b243a0ec1ad864c0d31eed27b68ce60d59703fadda7bd2aa3b2aa2bd5fc4b",
+      "bytes": 52
+    },
+    {
+      "path": ".runtime/int4/sim/stage-final.log",
+      "sha256": "64f6a93fc033176740faf900305808c3b4b9508331b7ef20a1b4d0d38fb7ca13",
+      "bytes": 58
+    },
+    {
+      "path": ".runtime/int4/sim/configure.log",
+      "sha256": "5007ac0a9f6b9f36214a0e6992086339b26ddd25cf0a7de46fa376101ce77b02",
+      "bytes": 766
+    },
+    {
+      "path": ".runtime/int4/sim/configure-final.log",
+      "sha256": "6a1e8d33fc2f83f4d15a79a7d0a94c021d67dccfe3a15a6bce25c1a77274a7da",
+      "bytes": 150
+    },
+    {
+      "path": ".runtime/int4/sim/build.log",
+      "sha256": "594f0cac30ce0c2e7739f2240754b65d3931f7568763e7fc5284042610f4ebe1",
+      "bytes": 5123
+    },
+    {
+      "path": ".runtime/int4/sim/cxx_probe.json",
+      "sha256": "7239c1d5821e8f03a185840c3a8057736315c526e5dabdf5ccb7ae7678103a73",
+      "bytes": 152
+    },
+    {
+      "path": ".runtime/int4/sim/simulation-ctest-interrupted.log",
+      "sha256": "d73c1ae477bc11546af9f7b2c4c44315ce0b42926ea75b4ee27978caea9cb38d",
+      "bytes": 4015
+    },
+    {
+      "path": ".runtime/int4/sim/simulation-ctest.log",
+      "sha256": "781c961cfd56479549786301995ace2a2f9887e41ba99e5f3a556b377f3b95e2",
+      "bytes": 4601
+    },
+    {
+      "path": ".runtime/int4/sim/simulation-ctest.xml",
+      "sha256": "4c52e79af940cefc0ed0c276772b6523433eeda46a31cdcc665fd5a94941a21b",
+      "bytes": 1432
+    },
+    {
+      "path": ".runtime/int4/sim/publication-ctest.log",
+      "sha256": "8258ed8ac7ee5d3d5d60d0b5d24c3c5e074ffa8360fd777a84c7357137c73791",
+      "bytes": 1751
+    },
+    {
+      "path": ".runtime/int4/sim/publication-ctest.xml",
+      "sha256": "896995ea5978a20a59925fbac49a66dabd5423b75fa8d9dc6d669e69ff00a9d0",
+      "bytes": 639
+    },
+    {
+      "path": ".runtime/int4/sim/diagnostic.json",
+      "sha256": "ebf2e7e232206b10ec0b88d2b9db481d23664cfd7ba9eb077b7eee501c19bf88",
+      "bytes": 102160
+    },
+    {
+      "path": ".runtime/int4/sim/verify_effects.py",
+      "sha256": "4a6cc0685a32f34d9c70ac29e6b861f56789e46a01221689539bd58badcc0bbe",
+      "bytes": 8783
+    },
+    {
+      "path": ".runtime/int4/sim/independent-effects.json",
+      "sha256": "1dd333075263885d322022cae8a459988d49910d6acfda964b507f204771ddf9",
+      "bytes": 42179
+    },
+    {
+      "path": ".runtime/int4/sim/check_refusals.py",
+      "sha256": "e860b16718cd81060007c219a3b6dfa947bc498986259d0c4d599f9f92566ce6",
+      "bytes": 5638
+    },
+    {
+      "path": ".runtime/int4/sim/explicit-refusals.json",
+      "sha256": "d5e7cde3d446f501659938cc3620a569b98d60d8ca80ffbd322518579275cf04",
+      "bytes": 4932
+    },
+    {
+      "path": ".runtime/int4/sim/publication-ctest-initial.log",
+      "sha256": "e4b08c548507d2757e80dfa9138547faa95d2b6f01494bb37706a065d6967c2e",
+      "bytes": 3232
+    },
+    {
+      "path": ".runtime/int4/sim/publication-ctest-initial.xml",
+      "sha256": "9519066fa33866bbe3bf347936e2a48a791cd6e89f2ca9c06847417d96e0ad23",
+      "bytes": 1267
+    }
+  ]
+}

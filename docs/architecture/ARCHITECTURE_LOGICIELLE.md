@@ -506,6 +506,16 @@ La revue habilitée et l’admission continuent sur les autorités A.5/A.6.
 [Guide opérateur](../verification/v3/a7/operator_guide.md) ·
 [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-a7)
 
+L’intégration V3-INT.4 vérifie ces voies dans un checkout commun sous
+Windows amd64. C.4 produit des plans de banc 6DoF et construit uniquement
+sur copies privées synthétiques. A.7 vérifie les dossiers documentaires
+par porteur. La chaîne signée A.6 admet le seul Workholding P64
+synthétique et refuse les plans C.4 ainsi que les dossiers A.7 présentés
+comme autorité de construction. SIM.1 dérive un aperçu SDF et un airframe
+sur un instantané privé. La confiance de production reste vide et
+`CREATE_SUPPORT(iso)` réel est refusé.
+[Rejeux et périmètre](../VALIDATION_QUALIFICATION.md#cartographe-v3-int4)
+
 ## 3. Contexte et déploiement
 
 ```text
@@ -1484,6 +1494,8 @@ pose. La réception du banc reste conditionnelle et le contrôle de H-01
 rend `FINAL_NO_GO`.
 
 ## Journal de modifications
+
+- **28 novembre 2026** — V3-INT.4 vérifie les voies C.4, A.7, A.6 et SIM.1 dans le même checkout et leur cloisonnement (`2.6).
 
 - **28 novembre 2026** — V3-C.4 remesure les poses XYZ et leurs rotations, les deux câbles, l’appui décalé et la couverture d’un gabarit inerte sur deux bancs.
 

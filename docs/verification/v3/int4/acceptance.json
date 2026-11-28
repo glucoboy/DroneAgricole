@@ -1,0 +1,109 @@
+{
+  "schema": "v3.int4.acceptance/1",
+  "verdict": "V3_INT4_GO",
+  "branch": "codex/v3-int4-integration",
+  "base_commit": "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+  "tested_commit": "48245a446b949e92995e2aeb6a9dd2fdf7b55017",
+  "tested_tree": "5e9db4e734e18bd938454a9e95e69d5d5061e758",
+  "proof_commit_resolution": "git log -1 --format=%H -- docs/verification/v3/int4/acceptance.json",
+  "scope": "Intégration logicielle Windows amd64 sur bancs synthétiques, réception documentaire en lecture seule et export hors ligne sur copie privée.",
+  "checks": {
+    "three_two_parent_merges": "PASS",
+    "fresh_strict_cpp17": "PASS",
+    "ctest": {
+      "L3": "5/5",
+      "L4": "7/7",
+      "L5": "13/13",
+      "T0": "2/2"
+    },
+    "sealed_L1": "24/24",
+    "sealed_L2": "7/7",
+    "C.4": {
+      "T1": "PASS",
+      "T2": "PASS",
+      "T3": "PASS",
+      "T4": "PASS",
+      "adversarial": "17/17"
+    },
+    "A.7": {
+      "controls_per_carrier": 27,
+      "carriers": [
+        "P64",
+        "P66"
+      ],
+      "independent_receipts": 2,
+      "adversarial": "25/25"
+    },
+    "A.5": "50/50",
+    "A.6": {
+      "signed_synthetic_P64": 2,
+      "faults_and_concurrency": "7/7"
+    },
+    "INT.3": [
+      "14/14",
+      "14/14"
+    ],
+    "INT.4_cross_boundary": "13/13",
+    "SIM.1": "5/5",
+    "protected_references": "PASS",
+    "independent_review": "PASS"
+  },
+  "inspected_lots": 0,
+  "production_trust_pin": "EMPTY",
+  "cartographer_mutation": "DENY",
+  "cartographer_candidate_count": 0,
+  "cartographer_create_support_iso": "PHYSICAL_ADMISSION_NOT_CONFIGURED",
+  "authority": "TEST_ONLY / SYNTHETIC_BENCH pour A.6 Workholding P64. Le PASS technique A.7 reste une vérification documentaire du relevé.",
+  "not_run": {
+    "physical_reception": "NOT_RUN",
+    "physical_cartographer_build": "NOT_RUN",
+    "physical_simulation_fidelity": "NOT_VALIDATED",
+    "gazebo_load": "NOT_RUN",
+    "px4_sitl": "NOT_RUN",
+    "flight": "NOT_RUN",
+    "arm64": "NOT_RUN",
+    "C.4_three_harnesses_T5": "NOT_RUN"
+  },
+  "artifacts": [
+    {
+      "path": "REPORT.md",
+      "sha256": "5759d6785faecd567c76d8db3ab55da35e4de1f087d1f40cb8cf53cc3001bbaa",
+      "bytes": 7244
+    },
+    {
+      "path": "merge_manifest.json",
+      "sha256": "59aeda6f40b5d4020eeeca643f32124b54de8d6275d4896df7fa37b988ceac21",
+      "bytes": 14149
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "918fbf33c1fa0657271d5fe89f81428693f3ef6c8b14a888c4d7395e8a19ffce",
+      "bytes": 49654
+    },
+    {
+      "path": "native_replays.json",
+      "sha256": "266a7311fb1b0a028019149f2d5e4dfc0df5783a1e9c3db6def5fbdd80eb0531",
+      "bytes": 62997
+    },
+    {
+      "path": "boundary_checks.json",
+      "sha256": "96c273937c9da410749e26d5c18ef2b3bf769ffa7ac4863e08921b9fd70431f5",
+      "bytes": 37270
+    },
+    {
+      "path": "sim1_snapshot_checks.json",
+      "sha256": "55bc20c59f52145f55904ab8ecb54262bc177e87b444e5b5b89c4386159e1a30",
+      "bytes": 16511
+    },
+    {
+      "path": "reference_integrity.json",
+      "sha256": "0b69a30c7bec708215b6b16b592cc624f1ffdf596cbdd2d0f54915e36d570edf",
+      "bytes": 30669
+    },
+    {
+      "path": "independent_review.json",
+      "sha256": "c187d45f5de298615176ca9db9bf971cade6028ffdde6d8c5f3c2e79553e3de2",
+      "bytes": 7195
+    }
+  ]
+}
