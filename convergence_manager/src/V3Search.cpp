@@ -1,5 +1,6 @@
 #include "V3Search.hpp"
 #include "V3Domain.hpp"
+#include "V3Pose.hpp"
 #include "V3SpatialGeometry.hpp"
 
 #include <QByteArray>
@@ -215,6 +216,7 @@ struct Obstacle {
 struct SupportAnchor {
     Vector reference;
     bool followsDevice;
+    std::optional<std::pair<double, double>> landingSpan;
 };
 
 struct Scene {
@@ -241,6 +243,8 @@ struct Scene {
     double minLength;
     double maxLength;
     QSet<QString> terminalContacts;
+    Vector endOutward;
+    bool variableRotation;
 };
 
 Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem)
@@ -261,6 +265,7 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
     const auto endPort = ports.value(portIds.at(1).toString()).toObject();
     const auto measuredStart = origin(numbers<16>(startPort.value("matrix")));
     const auto measuredEnd = origin(numbers<16>(endPort.value("matrix")));
+    const bool variableRotation = domain.value("schema") == v3SixDofDomainSchema;
     const auto authorizedStart = numbers<3>(route.value("start_mm"));
     const auto authorizedEnd = numbers<3>(route.value("end_reference_mm"));
     require(norm(subtract(measuredStart, authorizedStart)) <= epsilon &&
@@ -268,7 +273,8 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
             "Repères d’interface mesurés divergents du domaine");
     const auto start = coupled ? measuredStart : authorizedStart;
     const auto end = coupled ? measuredEnd : authorizedEnd;
-    const auto frame = routeFrame(start, numbers<3>(startPort.value("outward")), numbers<3>(endPort.value("outward")));
+    const auto endOutward = numbers<3>(endPort.value("outward"));
+    const auto frame = routeFrame(start, numbers<3>(startPort.value("outward")), endOutward);
     const auto device = scene.value("device_occurrence").toString();
     const auto cable = scene.value("cable_occurrence").toString();
     const auto deviceRow = observations.value(device).toObject();
@@ -288,7 +294,7 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
             if (norm(subtract(probe, movedPoint(probe, matrix, origin(matrix), rotation))) > epsilon)
                 throw V3UnsupportedPose();
         }
-        if (placement.contains("rotation_bounds"))
+        if (!variableRotation && placement.contains("rotation_bounds"))
             throw V3UnsupportedPose();
     }
     Bounds translation{numbers<3>(placement.value("translation_min_mm")),
@@ -318,7 +324,19 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
         require(carrier.value("volume_mm3").toDouble() > 0, "Porteur d’ancrage non mesuré");
         const auto anchorPosition = origin(numbers<16>(anchor.value("matrix")));
         supportLimit = std::min(supportLimit, frame.local(anchorPosition)[0]);
-        anchors.push_back({anchorPosition, companions.contains(anchorPath)});
+        std::optional<std::pair<double, double>> landingSpan;
+        if (variableRotation) {
+            const auto supportRow = observations.value(support.value("support_path").toString()).toObject();
+            const auto observedBounds = readBounds(supportRow.value("bounds_mm"));
+            const auto original = origin(numbers<16>(supportRow.value("matrix")));
+            const auto patch = support.value("offset_patch_mm").toObject();
+            const auto patchLow = numbers<3>(patch.value("min_mm"));
+            const auto patchHigh = numbers<3>(patch.value("max_mm"));
+            const auto routeBend = route.value("radius_min_mm").toDouble();
+            landingSpan = {anchorPosition[0] + patchLow[0] + observedBounds.min[0] - original[0] - routeBend / 2,
+                           anchorPosition[0] + patchHigh[0] + observedBounds.max[0] - original[0] + routeBend / 2};
+        }
+        anchors.push_back({anchorPosition, companions.contains(anchorPath), landingSpan});
         alternateSupports.insert(support.value("support_path").toString());
     }
     std::vector<Obstacle> obstacles;
@@ -364,7 +382,8 @@ Scene readScene(const QJsonObject &domain, const QJsonObject &baseline, const QJ
             readBounds(deviceRow.value("bounds_mm")), translation, corridor, localCorridor,
             obstacles, anchors, device, mode == "FOLLOW_TRANSLATION", coupled, supportLimit, cableRadius, bendRadius,
             route.value("min_points").toInt(), route.value("max_points").toInt(), volumes,
-            route.value("minimum_length_mm").toDouble(), route.value("maximum_length_mm").toDouble(), terminalContacts};
+            route.value("minimum_length_mm").toDouble(), route.value("maximum_length_mm").toDouble(),
+            terminalContacts, endOutward, variableRotation};
 }
 
 struct PoseSample {
@@ -718,12 +737,17 @@ std::optional<RouteSample> filletSpatial(const Scene &scene, const std::vector<V
     return result;
 }
 
-std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString &strategy)
+std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const Quaternion &rotation, const QString &strategy)
 {
-    const auto move = [&scene, pose](Vector point) {
-        return movedPoint(point, scene.deviceMatrix, pose, scene.rotation);
+    const auto move = [&scene, pose, &rotation](Vector point) {
+        return movedPoint(point, scene.deviceMatrix, pose, rotation);
     };
     const auto end = scene.frame.local(move(scene.endReference));
+    const auto approachDirection = scene.variableRotation
+        ? unit(subtract(scene.frame.local(move(add(scene.endReference, scene.endOutward))), end))
+        : Vector{-1, 0, 0};
+    if (approachDirection[0] >= -0.5)
+        return {};
     for (auto &obstacle : scene.obstacles)
         if (obstacle.followsDevice)
             obstacle.box = transformBounds(obstacle.box, move);
@@ -763,7 +787,7 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
             auto &lastTurn = knots[knots.size() - 2];
             const double step = scene.bendRadius / 16;
             for (int advance = 0; advance < 16 && !route; ++advance) {
-                lastTurn[0] -= step;
+                lastTurn = add(lastTurn, scale(approachDirection, step / -approachDirection[0]));
                 if (lastTurn[0] <= knots[knots.size() - 3][0] + epsilon)
                     break;
                 route = filletSpatial(scene, knots);
@@ -799,10 +823,25 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
     for (const double approach : {1.0, 1.5, 2.0}) {
         const auto leave = approach * lead;
         for (const double finish : {0.98, 0.94, 0.84, 0.72, 0.62}) {
-            const auto arrive = finish * landing;
+            const Vector arrivalPoint = scene.variableRotation
+                ? add(end, scale(approachDirection, (end[0] - finish * landing) / -approachDirection[0]))
+                : Vector{finish * landing, end[1], end[2]};
+            const auto arrive = arrivalPoint[0];
             const Vector approachPoint{leave, 0, 0};
-            const Vector arrivalPoint{arrive, end[1], end[2]};
-            consider({{0, 0, 0}, approachPoint, arrivalPoint, end}, std::abs(end[2]));
+            const auto submit = [&](std::vector<Vector> knots, double excursion) {
+                if (scene.variableRotation) {
+                    // Keep a level segment over the support, then join the
+                    // rotated terminal along its measured signed tangent.
+                    const auto [first, last] = *scene.anchors.front().landingSpan;
+                    const auto y = scene.frame.world(arrivalPoint)[1];
+                    knots.push_back(scene.frame.local({first, y, scene.frame.start[2]}));
+                    knots.push_back(scene.frame.local({last, y, scene.frame.start[2]}));
+                }
+                knots.push_back(arrivalPoint);
+                knots.push_back(end);
+                consider(std::move(knots), excursion);
+            };
+            submit({{0, 0, 0}, approachPoint}, std::abs(end[2]));
             for (const auto &[near, far] : windows) {
                 if (near <= leave || far >= arrive || near >= far)
                     continue;
@@ -818,8 +857,8 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
                         const auto z = nominalHeight + lift * height;
                         if (std::abs(y - nominalSide) < epsilon && std::abs(z - nominalHeight) < epsilon)
                             continue;
-                        consider({{0, 0, 0}, approachPoint, {near, y, z}, {far, y, z}, arrivalPoint, end},
-                                 std::max(std::abs(z), std::abs(end[2])));
+                        submit({{0, 0, 0}, approachPoint, {near, y, z}, {far, y, z}},
+                               std::max(std::abs(z), std::abs(end[2])));
                     }
                 }
             }
@@ -838,7 +877,7 @@ std::vector<SpatialRoute> spatialRoutes(Scene scene, Vector pose, const QString 
 
 QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std::vector<PoseSample> &poses,
                              const QJsonObject &problem, const QStringList &supportIds,
-                             const QString &strategy, double requiredGap)
+                             const QString &strategy, double requiredGap, const QJsonObject &domain)
 {
     require(v3SpatialStrategies().contains(strategy), "Stratégie spatiale inconnue");
     const auto budget = problem.value("budget").toObject().value("max_proposals").toInt();
@@ -847,19 +886,39 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
     int eligible = 0, routeTrials = 0;
     std::vector<QJsonArray> rankedByPose;
     const auto poseLimit = std::min(poses.size(), static_cast<std::size_t>(budget));
+    const bool variableRotation = domain.value("schema") == v3SixDofDomainSchema;
+    const auto nominal = scenes.front().scene.rotation;
+    std::optional<V3RotationBounds> orientation;
+    if (variableRotation)
+        orientation = V3RotationBounds::read(domain.value("placement").toObject().value("rotation_bounds").toObject());
+    const auto fraction = [](std::size_t index, std::size_t stride, std::size_t modulus) {
+        return 0.1 + 0.8 * static_cast<double>((index * stride) % modulus) / static_cast<double>(modulus - 1);
+    };
+    const auto options = domain.value("support_options").toObject();
+    require(!variableRotation || options.size() == 1, "Le banc C.4 exige un patch d'appui unique");
     for (std::size_t poseIndex = 0; poseIndex < poseLimit; ++poseIndex) {
         const auto &pose = poses[poseIndex];
+        const auto index = poseIndex + v3SpatialStrategies().indexOf(strategy);
+        const auto rotation = orientation
+            ? orientation->sample(nominal, index == 0 ? V3Angles{0.5, 0.5, 0.5} :
+                V3Angles{fraction(index, 2, 5), fraction(index, 3, 7), fraction(index, 5, 11)}) : nominal;
         QJsonArray ranked;
         std::vector<std::vector<SpatialRoute>> routes;
         for (const auto &harness : scenes) {
-            auto choices = spatialRoutes(harness.scene, pose.point, strategy);
+            auto choices = spatialRoutes(harness.scene, pose.point, rotation, strategy);
             routeTrials += static_cast<int>(choices.size());
             if (choices.size() > 5)
                 choices.resize(5);
             routes.push_back(std::move(choices));
         }
         if (std::any_of(routes.begin(), routes.end(), [](const auto &entries) { return entries.empty(); })) {
-            ranked.append(blockedPose(pose.point, strategy, "NO_GENERATED_ROUTE_IN_SEALED_POLYCORRIDOR"));
+            auto rejected = blockedPose(pose.point, strategy, "NO_GENERATED_ROUTE_IN_SEALED_POLYCORRIDOR");
+            if (variableRotation) {
+                auto screen = rejected.value("screen").toObject();
+                screen.insert("status", "BLOCKED");
+                rejected.insert("screen", screen);
+            }
+            ranked.append(rejected);
             rankedByPose.push_back(ranked);
             continue;
         }
@@ -904,15 +963,24 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
                 break;
             const auto pos = v3SpatialStrategies().indexOf(strategy) + perPose + poseIndex;
             const auto support = supportIds.at(pos % supportIds.size());
-            const QJsonObject values{{"translation_mm", json(pose.point)}, {"harnesses", choice.routes},
-                                     {"support_option", support}};
+            QJsonObject values{{"translation_mm", json(pose.point)}, {"harnesses", choice.routes},
+                               {"support_option", support}};
+            if (variableRotation) {
+                const auto patch = options.value(support).toObject().value("offset_patch_mm").toObject();
+                const auto low = numbers<3>(patch.value("min_mm")), high = numbers<3>(patch.value("max_mm"));
+                Vector offset{low[0] + fraction(pos + 1, 2, 7) * (high[0] - low[0]),
+                              low[1] + fraction(pos + 1, 3, 11) * (high[1] - low[1]), 0};
+                values.insert("rotation_xyzw", v3RotationJson(rotation));
+                values.insert("support_offset_mm", json(offset));
+            }
             const auto identity = signature(values);
             if (signatures.contains(identity))
                 continue;
             signatures.insert(identity);
             ++perPose;
             ranked.append(QJsonObject{{"family", strategy}, {"values", values}, {"signature", identity},
-                {"screen", QJsonObject{{"status", choice.issues.isEmpty() ? "SCREEN_PASS" : "NEEDS_NATIVE_CHECK"},
+                {"screen", QJsonObject{{"status", choice.issues.isEmpty() ? (variableRotation ? "ELIGIBLE" : "SCREEN_PASS") :
+                                                                         "NEEDS_NATIVE_CHECK"},
                     {"blocking_issues", QJsonArray::fromStringList(choice.issues)},
                     {"non_terminal_hints", choice.nonTerminalHints}, {"estimated_route_length_mm", choice.length}, {"polyline_inter_harness_gap_mm", choice.gap}}}});
         }
@@ -948,7 +1016,7 @@ QJsonObject spatialProposals(const std::vector<HarnessScene> &scenes, const std:
 QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline, const QJsonObject &problem,
                          int seed, const QString &family, int routeAlternative)
 {
-    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool spatial = isV3SpatialDomain(domain.value("schema"));
     const auto families = spatial ? v3SpatialStrategies() : QStringList{"DIRECT", "DETOUR_POSITIVE", "DETOUR_NEGATIVE"};
     require(family.isEmpty() || families.contains(family), "Famille multi-faisceaux inconnue");
     require(routeAlternative >= 0 && routeAlternative <= 1, "Raffinement multi-faisceaux hors budget");
@@ -1021,7 +1089,7 @@ QJsonObject multiharness(const QJsonObject &domain, const QJsonObject &baseline,
     require(budget > 0 && budget <= 512, "Budget de propositions multi-faisceaux invalide");
     if (spatial)
         return spatialProposals(scenes, poses, problem, supportIds, family.isEmpty() ? families.first() : family,
-                                domain.value("minimum_clearance_mm").toDouble());
+                                domain.value("minimum_clearance_mm").toDouble(), domain);
     const auto activeFamilies = family.isEmpty() ? families : QStringList{family};
     QSet<QString> signatures;
     QJsonArray proposals;

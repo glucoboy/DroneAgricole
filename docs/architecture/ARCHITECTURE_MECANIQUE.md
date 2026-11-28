@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-MEC` |
 | Nature | document vivant |
-| Dernière mise à jour | 27 novembre 2026 |
+| Dernière mise à jour | 28 novembre 2026 |
 | Statut | architecture et CAO du cartographe implémentées partiellement ; qualification physique **À valider** |
 
 ## 1. Objet
@@ -905,6 +905,23 @@ admissible avec mesure de l’aire d’appui sur la face porteuse, de sa
 normale, de la zone d’ancrage et du contact avec les gaines prévues.
 Ces choix ont le statut **Qualifié** pour les deux bancs synthétiques éprouvés.
 [Contrôles et portée](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
+
+##### Appui plan et pose variable sur les bancs V3-C.4
+
+Le [profil XLink principal](../electromechanical_v3/bench_c4_sixdof/profile.json)
+et le [profil secondaire](../electromechanical_v3/bench_c4_sixdof_secondary/profile.json)
+définissent les datums d’équipement, les deux câbles, leurs zones de
+service et une face porteuse déjà modélisée. L’appui est repositionné
+dans un patch XY borné de sa face. Le porteur, la visserie et les gaines
+sont remesurés après ouverture de la fermeture sauvegardée. La validation
+compare le contact des deux gaines, l’aire portante, l’épaisseur à l’axe
+contrôlé, l’engagement autorisé et l’accès d’outil à l’appui déplacé.
+
+Un volume balayé représente l’accès d’un gabarit inerte de banc. Ce
+contrôle mesure l’inclusion du volume exigé et ses distances aux deux
+gaines. La fiche de chaque profil fixe les cotes du banc. L’appui réel
+P64 ou P66 et le service du prototype restent **À valider**.
+[Mesures C.4](../verification/v3/c4/native_measurements.json)
 
 ### 2.3 Dérivation Gazebo du prototype — Implémenté partiellement, 24 octobre 2026
 
@@ -2849,6 +2866,8 @@ présentée comme référence.
   et fichiers machine-lisibles de `verification/`.
 
 ## Journal de modifications
+
+- **28 novembre 2026** — Bancs V3-C.4 à pose variable, patch d’appui plan, seconde hiérarchie et gabarit d’accès inerte.
 
 - **27 novembre 2026** — Clôture des preuves synthétiques V3-INT.3, avec conservation des conditions d’appui et de réception du cartographe. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3-cloture)
 - **27 novembre 2026** — V3-INT.3 rejoue la mesure des fermetures des deux bancs C.3 et du Workholding P64 synthétique. [Validation](../VALIDATION_QUALIFICATION.md#cartographe-v3-int3)

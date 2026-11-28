@@ -428,7 +428,7 @@ class Measurement:
                 continue
             if "anchor" in spec:
                 label = spec["anchor"]
-                transform = self.transform(label)
+                transform = self.transform(spec.get("follow_support", label))
                 origin = transform.multVec(self.native.vector(spec["offset_local_mm"]))
                 direction = transform.multVec(self.native.vector([0, 0, 1])) - transform.Base
                 zone = self.part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, direction)
@@ -531,7 +531,9 @@ class Measurement:
             checks.append(proof("independent_port_datums", "PASS" if distinct and None not in datums and separated else "FAIL",
                                 {"ports": port_ids, "datums": datums, "attachment_frames": frames}))
             selected = self.spatial["support"]
-            require(set(selected) == {"id", "occurrence", "anchor_zone"}, "Zone d’appui spatiale mal formée")
+            patch = selected.get("offset_patch_mm")
+            require(set(selected) == ({"id", "occurrence", "anchor_zone", "offset_patch_mm", "min_carrier_thickness_mm"} if patch is not None
+                                      else {"id", "occurrence", "anchor_zone"}), "Zone d’appui spatiale mal formée")
             identifier = selected["occurrence"]
             low, high = box_limits(selected["anchor_zone"], allow_surface=True)
             require(identifier in self.rules["supports"] and any(
@@ -539,11 +541,29 @@ class Measurement:
                 action["parameters"].get("support", action["occurrence"]) == identifier for action in self.actions),
                 "Aucun support spatial autorisé dans les opérations")
             support = self.rules["supports"][identifier]
-            anchor = tuple(self.transform(support["anchor"]).Base)
+            anchor_pose = self.transform(support["anchor"])
+            anchor = tuple(anchor_pose.Base)
             inside = all(left - self.position <= coordinate <= right + self.position
                          for left, coordinate, right in zip(low, anchor, high, strict=True))
+            measured_patch = {}
+            if patch is not None:
+                own = self.transform(identifier)
+                offset = tuple(anchor_pose.inverse().multVec(own.Base))
+                patch_low, patch_high = box_limits(patch, allow_surface=True)
+                inside = inside and all(left - self.position <= coordinate <= right + self.position
+                                        for left, coordinate, right in zip(patch_low, offset, patch_high, strict=True))
+                carrier = self.shape(support["carrier"])
+                normal = anchor_pose.Rotation.multVec(self.app.Vector(0, 0, 1))
+                depth = carrier.BoundBox.DiagonalLength
+                ray = self.part.makeLine(own.Base + normal, own.Base - normal * depth)
+                thickness = finite(carrier.common(ray).Length)
+                minimum = finite(selected["min_carrier_thickness_mm"], self.position)
+                inside = inside and thickness + self.position >= minimum
+                measured_patch = {"observed_offset_mm": offset, "offset_patch_mm": patch,
+                                  "carrier_thickness_mm": thickness, "min_carrier_thickness_mm": minimum}
             checks.append(proof("support_zone", "PASS" if inside else "FAIL",
-                                {"support": selected["id"], "anchor_mm": anchor, "bounds_mm": [low, high]}))
+                                {"support": selected["id"], "anchor_mm": anchor,
+                                 "bounds_mm": [low, high], **measured_patch}))
         status = summarize(*(row["status"] for row in checks if row["status"] != "NOT_APPLICABLE"))
         return proof("L4_SPATIAL_CONTRACT", status, checks)
 

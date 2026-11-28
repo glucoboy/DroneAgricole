@@ -20,7 +20,9 @@ PROFILE_FILES = [PROFILES / path for path in ('bench_b1_c4/profile.json', 'bench
                                              'bench_c2_multiharness/profile.json',
                                              'bench_c2_multiharness_secondary/profile.json',
                                              'bench_c3_spatial/profile.json',
-                                             'bench_c3_spatial_secondary/profile.json')]
+                                             'bench_c3_spatial_secondary/profile.json',
+                                             'bench_c4_sixdof/profile.json',
+                                             'bench_c4_sixdof_secondary/profile.json')]
 # Les tolérances de distance, angle et volume viennent du profil scellé.
 # L'égalité des aires calculées par deux opérations OCC admet 1e-6 mm².
 AREA_TOLERANCE_MM2 = 1e-6
@@ -306,6 +308,12 @@ class Assessment:
                 self.add(f'service/{pair[0]}/{pair[1]}/clearance', 'INCONCLUSIVE', row, 'Seuil applicable manquant')
             else:
                 self.limit(f'service/{pair[0]}/{pair[1]}/clearance', row['gap_mm'], lower=minimum-self.distance, unit='mm')
+        for rule in self.rules['service']:
+            if not rule.get('required_box_mm') or (rule.get('required_action') and rule['required_action'] not in action_ids):
+                continue
+            name = rule.get('anchor') or rule.get('port') or rule['object']
+            observed_volume = observed.get('service_coverage_missing_mm3', {}).get(name)
+            self.limit(f'service/{name}/coverage', observed_volume, upper=self.volume, unit='mm³')
 
     def supports(self, observed, actions):
         selected = {action['parameters'].get('support', action['occurrence']): action['parameters'] for action in actions
@@ -390,6 +398,12 @@ def compare(first, third, profile):
         for subject, route in third['routes'].items():
             for field in ('outside_corridor_mm', 'vertex_departure_mm'):
                 difference(f'{subject}/{field}', spatial[subject]['details'][field], route[field], tolerance['position_mm'], 'mm')
+        patch = spatial['support_zone']['details'].get('observed_offset_mm')
+        if patch is not None:
+            actual = third['spatial_support_zone']['observed_offset_mm']
+            difference('support/patch_position', 0, math.dist(patch, actual), tolerance['position_mm'], 'mm')
+            difference('support/carrier_thickness', spatial['support_zone']['details']['carrier_thickness_mm'],
+                       third['spatial_support_zone']['carrier_thickness_mm'], tolerance['position_mm'], 'mm')
     for subject, support in third['supports'].items():
         if profile['model']['validation']['supports'].get(subject, {}).get('selected_only') and subject not in checks['L4_SUPPORT_ANCHOR']:
             continue
@@ -400,6 +414,12 @@ def compare(first, third, profile):
                                   ('service', checks['L4_SERVICE'], third['service'])]:
         indexed = {pair_id(row['pair']): row for row in later}
         for old in earlier:
+            if domain == 'service' and 'sweep_missing_volume_mm3' in old:
+                name = old['subject']
+                coverage = third.get('service_coverage_missing_mm3', {})
+                difference(f'service/{name}/coverage', old['sweep_missing_volume_mm3'], coverage.get(name),
+                           tolerance['volume_mm3'], 'mm³')
+                continue
             pair = pair_id(old['pair'])
             subject = f'{domain}/{pair[0]}/{pair[1]}'
             if pair not in indexed:
@@ -436,7 +456,7 @@ def case_result(args, area, replay, profiles):
     transaction = receipt.parent
     native, plan = load(receipt), load(transaction / 'mutation-plan.json')
     proposal = native['plan_sha256']
-    if plan['schema'] in {'v3.mutation_plan/2', 'v3.mutation_plan/3', 'v3.mutation_plan/4'}:
+    if plan['schema'] in {'v3.mutation_plan/2', 'v3.mutation_plan/3', 'v3.mutation_plan/4', 'v3.mutation_plan/5'}:
         expanded_path = transaction / 'expanded-plan.json'
         if digest(expanded_path) != native['expanded_plan_sha256'] or plan['domain_sha256'] != native['domain_sha256']:
             raise ValueError(f'Expansion d’admission divergente : {receipt}')

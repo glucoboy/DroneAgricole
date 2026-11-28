@@ -1,4 +1,5 @@
 #include "V3Domain.hpp"
+#include "V3Pose.hpp"
 #include "V3SpatialGeometry.hpp"
 
 #include <QRegularExpression>
@@ -24,6 +25,8 @@ const QMap<QString, QString> domainPins{
     {"7512021f15d826617be628a64b4b4399446dd18ea9732218a3b0f3b56658c9b5", "docs/electromechanical_v3/domains/c2_multiharness.json"},
     {"a31813c70710aaa160039962d6b08a9cf7f42f3c4385db0e6417528e7a855ed2", "docs/electromechanical_v3/domains/c3_spatial.json"},
     {"5bd3631f19838936bb877186055ac262893d6a13d4b7b4091a001919d2bdab14", "docs/electromechanical_v3/domains/c3_spatial_secondary.json"},
+    {"eb79d87a9224f3b5f3bf472e2e0aa5ce1141934faad208807f1cf9cd5e0bce47", "docs/electromechanical_v3/domains/c4_sixdof.json"},
+    {"c7e8be04c897c56e34d68b3aa3f638a4a40287269f0f0b6a6360113398093ac1", "docs/electromechanical_v3/domains/c4_sixdof_secondary.json"},
     {"2e427ea4fa42d267c42501acd72f41196de703280972c9acd757fd70fffcb4be", "docs/electromechanical_v3/domains/c2_multiharness_secondary.json"},
 };
 constexpr auto domainSchema = "v3.parametric_domain/1";
@@ -218,7 +221,8 @@ void validateSpatialRoute(const QJsonObject &rule, const QJsonArray &route)
 }
 
 void validateRoute(const QJsonObject &rules, const QJsonObject &parameters, const QJsonObject &placement,
-                   const QJsonObject &attachedPort, const QJsonArray &points, double radius)
+                   const QJsonObject &attachedPort, const QJsonArray &points, double radius,
+                   const QJsonValue &nominalRotation, QJsonObject &expandedParameters)
 {
     const auto minimum = number(rules.value("radius_min_mm"));
     require(minimum >= number(parameters.value("minimum_radius_mm")) &&
@@ -242,16 +246,21 @@ void validateRoute(const QJsonObject &rules, const QJsonObject &parameters, cons
         const auto local = attachedPort.value("local_pose").toObject();
         const auto rotation = quaternion(placement.value("rotation_xyzw"));
         const auto offset = rotate(rotation, point(local.value("translation_mm")));
+        const auto nominal = quaternion(nominalRotation);
         const auto reference = point(rules.value("device_reference_mm"));
-        require(coincident(end, add(reference, offset)), "Origine du port native incompatible avec le repère nominal scellé");
+        require(coincident(end, add(reference, rotate(nominal, point(local.value("translation_mm"))))),
+                "Origine du port native incompatible avec le repère nominal scellé");
         end = add(pose, offset);
         const auto tangent = attachedPort.contains("tangent_local") ? attachedPort.value("tangent_local") :
                                                                     attachedPort.value("outward_local");
         const auto localAxis = rotate(quaternion(local.value("rotation_xyzw")), point(tangent));
         endAxis = rotate(rotation, localAxis);
-        require(coincident(endAxis, point(parameters.value("end_axis"))) &&
-                coincident(add(startAxis, endAxis), {0, 0, 0}),
+        require(coincident(rotate(nominal, localAxis), point(parameters.value("end_axis"))) &&
+                coincident(add(startAxis, rotate(nominal, localAxis)), {0, 0, 0}) &&
+                dot(startAxis, endAxis) < -0.5,
                 "Tangentes natives et profil de route incompatibles");
+        if (placement.value("rotation_xyzw") != nominalRotation)
+            expandedParameters.insert("end_axis", QJsonArray{endAxis[0], endAxis[1], endAxis[2]});
     } else {
         require(terminal == "FIXED", "Liaison d'extrémité non définie");
     }
@@ -314,7 +323,7 @@ QJsonObject loadV3Domain(const QDir &root, const QString &sha)
 QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJsonObject &values,
                        bool spatial, const QJsonObject &externalObstacle)
 {
-    const auto schema = spatial ? v3SpatialPlanSchema :
+    const auto schema = spatial ? (values.contains("rotation_xyzw") ? v3SixDofPlanSchema : v3SpatialPlanSchema) :
                         values.contains("harnesses") ? v3MultiHarnessPlanSchema : v3ParametricPlanSchema;
     QJsonObject plan{{"schema", schema}, {"domain", bench}, {"plan_id", identifier(planId)},
                      {"authority_sha256", domainSha}, {"domain_sha256", domainSha}, {"values", values}};
@@ -326,17 +335,25 @@ QJsonObject makeV3Plan(const QString &planId, const QString &domainSha, const QJ
     return plan;
 }
 
+static QJsonObject validateSingleHarnessPlan(const QJsonObject &domain, const QJsonObject &profile,
+                                             const QString &domainSha, const QJsonObject &plan,
+                                             const QJsonValue &variableRotation);
+
 static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJsonObject &profile,
                                            const QString &domainSha, const QJsonObject &plan)
 {
     const auto id = identifier(plan.value("plan_id"));
     const auto values = plan.value("values").toObject();
-    if (values.contains("rotation_xyzw") || domain.value("placement").toObject().contains("rotation_bounds"))
+    const bool sixDof = domain.value("schema") == v3SixDofDomainSchema;
+    if (!sixDof && (values.contains("rotation_xyzw") || domain.value("placement").toObject().contains("rotation_bounds")))
         throw V3UnsupportedPose();
-    const bool spatial = domain.value("schema") == v3SpatialDomainSchema;
+    const bool spatial = isV3SpatialDomain(domain.value("schema"));
     const auto obstacle = plan.value("external_obstacle").toObject();
+    const QStringList expectedValues = sixDof
+        ? QStringList{"harnesses", "rotation_xyzw", "support_offset_mm", "support_option", "translation_mm"}
+        : QStringList{"harnesses", "support_option", "translation_mm"};
     require(plan == makeV3Plan(id, domainSha, values, spatial, obstacle) &&
-            values.keys() == QStringList{"harnesses", "support_option", "translation_mm"},
+            values.keys() == expectedValues,
             "Plan multi-faisceaux divergent du contrat v3");
     require(domain.value("domain") == bench && domain.value("model_id") == profile.value("model_id"),
             "Modèle multi-faisceaux hors de l'autorité paramétrique");
@@ -344,11 +361,18 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     const auto routes = values.value("harnesses").toObject();
     const auto options = domain.value("support_options").toObject();
     require(harnesses.size() >= 2 && harnesses.size() <= (spatial ? 2 : 6) && routes.keys() == harnesses.keys() &&
-            options.size() >= (spatial ? 1 : 2) && options.size() <= 8, "Composition atomique multi-faisceaux incomplète");
+            options.size() >= (spatial ? 1 : 2) && options.size() <= (sixDof ? 1 : 8),
+            "Composition atomique multi-faisceaux incomplète");
     const auto choice = identifier(values.value("support_option"));
     require(options.contains(choice), "Supportage hors de l'autorité paramétrique");
     const auto support = options.value(choice).toObject();
     require(support.value("occurrence") == choice, "Identité de l'option d'appui divergente");
+    QJsonValue variableRotation(QJsonValue::Undefined);
+    if (sixDof) {
+        const auto placement = domain.value("placement").toObject();
+        variableRotation = v3RotationJson(V3RotationBounds::read(placement.value("rotation_bounds").toObject())
+            .admit(quaternion(placement.value("rotation_xyzw")), quaternion(values.value("rotation_xyzw"))));
+    }
     const auto moveId = identifier(domain.value("move_action"));
     const auto supportId = identifier(support.value("action"));
     const auto model = profile.value("model").toObject();
@@ -413,8 +437,8 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
             {"composition", singleComposition}, {"supports", QJsonArray{support}}};
         auto singleValues = routeValues;
         singleValues.insert("translation_mm", values.value("translation_mm"));
-        const auto single = validateV3Plan(projection, projectionProfile, domainSha,
-            makeV3Plan(id, domainSha, singleValues)).value("actions").toArray();
+        const auto single = validateSingleHarnessPlan(projection, projectionProfile, domainSha,
+            makeV3Plan(id, domainSha, singleValues), variableRotation).value("actions").toArray();
         const auto route = single.at(1).toObject();
         require(route.value("occurrence") == occurrence, "Action de câblage hors occurrence scellée");
         move = single.first().toObject();
@@ -424,6 +448,37 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
     }
     composition.append(supportId);
     require(profile.value("compositions").toArray().contains(composition), "Composition multi-faisceaux non scellée");
+    QJsonObject contractSupport{{"id", choice}, {"occurrence", support.value("occurrence")},
+                                {"anchor_zone", support.value("anchor_zone")}};
+    if (sixDof) {
+        const auto patch = support.value("offset_patch_mm").toObject();
+        const auto box = domainBox(patch);
+        const auto offset = point(values.value("support_offset_mm"));
+        const auto minThickness = number(support.value("min_carrier_thickness_mm"));
+        require(box.min[2] == 0 && box.max[2] == 0 && box.min[0] < box.max[0] &&
+                box.min[1] < box.max[1] && bounded(offset, box.min, box.max),
+                "Appui hors patch plan scellé");
+        require(minThickness > 0 && minThickness <= 1000, "Épaisseur minimale du porteur invalide");
+        auto parameters = supportAction.value("parameters").toObject();
+        auto relative = parameters.value("placement").toObject();
+        auto expected = supportAction.value("expected_after").toObject();
+        auto world = expected.value("placement").toObject();
+        require(supportAction.value("operation") == "RELOCATE_SUPPORT" &&
+                coincident(point(relative.value("translation_mm")), {0, 0, 0}) &&
+                quaternion(relative.value("rotation_xyzw")) == Quaternion{0, 0, 0, 1} &&
+                quaternion(world.value("rotation_xyzw")) == Quaternion{0, 0, 0, 1},
+                "Seul l'appui translaté dans le plan XY de la face porteuse est admis");
+        const auto target = add(point(world.value("translation_mm")), offset);
+        relative.insert("translation_mm", values.value("support_offset_mm"));
+        world.insert("translation_mm", QJsonArray{target[0], target[1], target[2]});
+        parameters.insert("placement", relative);
+        expected.insert("placement", world);
+        supportAction.insert("parameters", parameters);
+        supportAction.insert("expected_after", expected);
+        supportAction.insert("effect", QJsonObject{{"placement", relative}});
+        contractSupport.insert("offset_patch_mm", patch);
+        contractSupport.insert("min_carrier_thickness_mm", minThickness);
+    }
     QJsonArray actions{move};
     for (const auto &route : expandedRoutes)
         actions.append(route);
@@ -438,8 +493,7 @@ static QJsonObject validateMultiHarnessPlan(const QJsonObject &domain, const QJs
         const auto zone = support.value("anchor_zone").toObject();
         domainBox(zone);
         expanded.insert("spatial_contract", QJsonObject{{"minimum_clearance_mm", clearance},
-            {"routes", spatialRoutes}, {"support", QJsonObject{{"id", choice},
-                {"occurrence", support.value("occurrence")}, {"anchor_zone", zone}}}});
+            {"routes", spatialRoutes}, {"support", contractSupport}});
         if (!obstacle.isEmpty())
             expanded.insert("external_obstacle", obstacle);
     }
@@ -451,6 +505,13 @@ QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile
 {
     if (isV3MultiHarnessDomain(domain.value("schema")))
         return validateMultiHarnessPlan(domain, profile, domainSha, plan);
+    return validateSingleHarnessPlan(domain, profile, domainSha, plan, QJsonValue(QJsonValue::Undefined));
+}
+
+static QJsonObject validateSingleHarnessPlan(const QJsonObject &domain, const QJsonObject &profile,
+                                             const QString &domainSha, const QJsonObject &plan,
+                                             const QJsonValue &variableRotation)
+{
     const auto id = identifier(plan.value("plan_id"));
     const auto values = plan.value("values").toObject();
     const auto routeRules = domain.value("route").toObject();
@@ -473,13 +534,16 @@ QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile
     auto moveParameters = move.value("parameters").toObject();
     auto placement = moveParameters.value("placement").toObject();
     const auto nominal = move.value("expected_before").toObject().value("placement").toObject();
+    const auto nominalRotation = positionRules.value("rotation_xyzw");
     require(positionRules.value("frame") == "ROOT" && moveParameters.value("frame") == "ROOT" &&
-            placement.value("rotation_xyzw") == positionRules.value("rotation_xyzw"),
+            placement.value("rotation_xyzw") == nominalRotation,
             "Repère ou orientation variables hors de l'autorité");
     if (coupled && (nominal.value("rotation_xyzw") != placement.value("rotation_xyzw") ||
-                   positionRules.contains("rotation_bounds")))
+                   (variableRotation.isUndefined() && positionRules.contains("rotation_bounds"))))
         throw V3UnsupportedPose();
     placement.insert("translation_mm", values.value("translation_mm"));
+    if (!variableRotation.isUndefined())
+        placement.insert("rotation_xyzw", variableRotation);
     moveParameters.insert("placement", placement);
     move.insert("parameters", moveParameters);
     move.insert("effect", QJsonObject{{"placement", placement}});
@@ -494,7 +558,9 @@ QJsonObject validateV3Plan(const QJsonObject &domain, const QJsonObject &profile
     const auto model = profile.value("model").toObject();
     const auto portIds = domain.value("scene").toObject().value("ports").toArray();
     const auto attachedPort = model.value("validation").toObject().value("ports").toObject().value(portIds.last().toString()).toObject();
-    validateRoute(routeRules, routeParameters, placement, attachedPort, points, radius);
+    const auto nominalRouteParameters = routeParameters;
+    validateRoute(routeRules, nominalRouteParameters, placement, attachedPort, points, radius,
+                  nominalRotation, routeParameters);
     routeParameters.insert("points_mm", points);
     routeParameters.insert("bend_radius_mm", radius);
     route.insert("parameters", routeParameters);

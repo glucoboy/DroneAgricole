@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 27 novembre 2026 |
+| Dernière mise à jour | 28 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -3302,6 +3302,49 @@ autorisation distincte. C.4 et A.7 attendent une décision de planning.
 [Périmètre des capacités](verification/v3/int3/capability_matrix.json) ·
 [Registre physique](verification/v3/a6/physical_readiness.json)
 
+<a id="cartographe-v3-c4"></a>
+##### Pose 6DoF et appui plan V3-C.4 — 28 novembre 2026
+
+Le lot soutient ORCH-CAO-MASSE-1 par l’essai des passages et appuis
+sur deux fermetures synthétiques. Le gel
+`0733b15d40a134053247539a399095a94bf74230` lie les entrées, les deux
+profils, les budgets et la graine. Le lot est **Qualifié** sur Windows amd64, C++17
+sans extensions, Qt 6 UCRT64, FreeCAD 1.1.3, OCCT 7.8.1 et Cables 0.3.7.
+Les mesures B.2 et T0 vérifient les copies sauvegardées. Le verdict
+de lot et les conditions d’intégration sont dans le
+[reçu d’acceptation](verification/v3/c4/acceptance.json).
+
+| Exigence et test | Résultat de la campagne gelée |
+|---|---|
+| `MEC-INT-001`, `CAB-CARTO-001` → L3/L5 → T1 | 9 candidats admis et contre-mesurés. Le candidat retenu change de +0,2625 mm en Z et sa rotation vaut 0,741563° par rapport à la racine initiale. Les deux datums mobiles ont changé de position et d’orientation. |
+| `CAB-CARTO-001` → obstacle post-gel, construction, revue → T2 | 9 candidats admis. L’évaluateur mesure 0,7056 mm³ d’intersection avec le premier câble T1. Le modèle T2 montre zéro intersection, des empreintes d’axe et BRep nouvelles, une pose distante de 0,1125 mm et 0,509782°. |
+| `MEC-INT-001`, `CAB-CARTO-001` → deuxième hiérarchie → T3 | 9 candidats admis. Les datums et parents distincts sont vérifiés. Le candidat retenu change de +0,2625 mm en Z et de 0,741563° en rotation. |
+| `METH-001` → budget T4 et validation T0 | `INCONCLUSIVE`, zéro admission au budget de 1 s. La campagne mesure 3,689 s au moment de préparer le reçu T0. |
+
+Les trois candidats retenus présentent un appui décalé dans son patch,
+une épaisseur du porteur de 2 mm au point contrôlé et un volume balayé
+manquant nul. Le lot retient trois objectifs de classement parmi les
+métriques natives. Les fronts comportent 6, 4 et 6 variantes en T1, T2 et
+T3. Les deux reprises conservent leurs traces. Le premier gel échoue sur
+un écart entre le datum du banc secondaire à 63 mm et l’attendu à 61 mm.
+La reprise du profil a exposé un cas de couverture de service traité
+erronément comme une distance par paire en B.2. La mesure indépendante
+de la couverture corrige ce second échec.
+[Campagnes et arrêts](verification/v3/c4/generalization.json) ·
+[Mesures](verification/v3/c4/native_measurements.json) ·
+[Pareto](verification/v3/c4/pareto.json)
+
+Les refus couvrent les frontières C.4/A.6, le retard relatif au gel,
+les quaternions, le dégagement, les collisions, l’appui et le balayage.
+La portée est `BENCH_TEST_ONLY`. Les trois liaisons, la réception
+physique et le vol restent **À valider**. L’admission du cartographe
+indique `DENY`, avec zéro candidat. Les exigences de D.1 restent au
+[registre physique](verification/v3/a6/physical_readiness.json).
+[Refus et tests](verification/v3/c4/adversarial.json) ·
+[Régressions](verification/v3/c4/regressions.json) ·
+[Scellés](verification/v3/c4/integrity.json) ·
+[Recette](verification/v3/c4/README.md)
+
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
 Résultat historique V0.1 ; la révision courante est décrite au §12.3.
@@ -4518,6 +4561,7 @@ dans une preuve de banc identifiée. Arrêter sur niveau hors enveloppe,
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Rejeu L1/L2 aux empreintes historiques, suites L3/L5 et protections C.2/A.5 | T-CARTO-V3-INT21 | [Résultat](#cartographe-v3-int21), [acceptation](verification/v3/int21/acceptance.json) | `V3_INT21_GO` sur Windows amd64 C++17, banc numérique **Qualifié**. Mutation du cartographe `DENY`. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Revue Ed25519, réservation journalisée L5, constructeur B.1 et réouverture/T0 | T-CARTO-V3-A6-TRANSACTION | [Résultat](#cartographe-v3-a6), [acceptation](verification/v3/a6/acceptance.json) | Transaction **Qualifié** sur banc numérique Windows amd64. Matériel et production **À valider**. |
 | CAB-CARTO-001, MEC-INT-001, V3-A1-01, V3-B1-01 | Fusion C.3/A.6, contrats L3/L5 et validation indépendante XLink/L4/T0, journal et protections INT.2.1 | T-CARTO-V3-INT3 T1–T4, deux transactions signées, refus croisés et rejeux scellés | [Clôture](#cartographe-v3-int3-cloture), [acceptation](verification/v3/int3/acceptance.json) | **Qualifié** sur bancs synthétiques Windows amd64, `V3_INT3_GO`. Réception physique **À valider**. |
+| CAB-CARTO-001, MEC-INT-001, METH-001 | L3/L5, domaine 6DoF, deux faisceaux, patch d’appui plan et mesure indépendante L4/B.2/T0 | T-CARTO-V3-C4 T1–T4, gabarit inerte et refus d’admission | [Acceptation](verification/v3/c4/acceptance.json) et [mesures](verification/v3/c4/native_measurements.json) | **Qualifié** sur bancs synthétiques Windows amd64, 9/9/9/0 admissions. Réception physique **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001, METH-001 · G3A-01 à G3A-08 | Portefeuille GO3A V2.1, sources XLink/L2, recherche L1, comparaison L3 et préflight C | T-CARTO-V21-GO3A-PORTFOLIO | [Résultat](#cartographe-go3a-revise), [contrats et preuves](verification/v21_go3a_candidates.json) | Préflight **Implémenté** sur trois demandes. Construction, mesures des candidats et réception **À valider**. |
 | CAB-CARTO-001, MEC-INT-001 · G3A-01 à G3A-08 | Inventaire et catalogue L1, plan cavité/broche L2, rapprochement GO3A/GO3B et observation FreeCAD des occurrences | T-CARTO-V21-CONNECTORS | [Résultat](#preuve-connectique-v21), [preuve](verification/v21_connector_tests.json) | `V21_CONNECTORS_CONDITIONAL` sur Windows `amd64`. Réception réelle **À valider**. |
 | CAB-CARTO-001, MEC-ARC-001, MEC-INT-001 · G3A-01 et G3A-08 | Résolution d’occurrences, fermeture isolée, calcul BRep par lots et validation L4 | T-CARTO-V21-XLINK | [Résultat](#preuve-xlink-v21), [preuve](verification/v21_xlink_coverage.json) | `V21_XLINK_CONDITIONAL` sur Windows `amd64`. Réception du montage **À valider**. |
@@ -4709,6 +4753,8 @@ reste la collecte A.5 hors tension, puis la revue du lot et du domaine.
 synthétiques, avec contrôle du cloisonnement et des références scellées.
 Pour ORCH-CAO-MASSE-1, la collecte du lot réel et les contrôles d’appui du
 cartographe restent les preuves à obtenir avant une décision distincte.
+[V3-C.4](#cartographe-v3-c4) éprouve le couplage de la pose et des passages
+avec appui plan sur bancs, en soutien de l’analyse future du cartographe.
 
 <a id="preuve-porte-v21"></a>
 **T-CARTO-V21-GATE · G3A-01 à G3A-08.** Dans la preuve initiale, le
@@ -5368,6 +5414,8 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 
 
 ## 16. Journal de modifications
+
+- **28 novembre 2026** — V3-C.4 rejoue la pose 6DoF et l’appui plan sur deux hiérarchies, l’obstacle post-gel et l’arrêt sous budget. [Résultats](#cartographe-v3-c4)
 
 - **27 novembre 2026** — Clôture `V3_INT3_GO` sur bancs synthétiques Windows amd64, avec rejeux sur le merge de revue et maintien du refus physique. [Résultat](#cartographe-v3-int3-cloture)
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)

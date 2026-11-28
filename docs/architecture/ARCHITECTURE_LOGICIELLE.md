@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-SW` |
 | Nature | document vivant |
-| Dernière mise à jour | 27 novembre 2026 |
+| Dernière mise à jour | 28 novembre 2026 |
 | Statut | station C++17/Qt 6 implémentée partiellement ; logiciel embarqué cible **À valider** |
 
 ## 1. Objet
@@ -430,6 +430,27 @@ restent celles du profil scellé. Les contrats C.1 et C.2 et la
 préadmission A.5 gardent leurs points d’entrée. Les deux hiérarchies
 éprouvées relèvent des bancs synthétiques Windows amd64.
 [Qualification](../VALIDATION_QUALIFICATION.md#cartographe-v3-c3)
+
+#### Pose et appui paramétriques V3-C.4
+
+Le [domaine version 4](../electromechanical_v3/parametric_domain_v4.schema.json)
+et le [plan version 5](../electromechanical_v3/mutation_plan_v5.schema.json)
+décrivent une translation XYZ, un quaternion absolu XYZW et un décalage
+XY d’appui en repère d’ancrage. Le problème L3 conserve la version 3.
+Le domaine d’orientation définit trois incréments extrinsèques dans ROOT.
+L5 compose les quaternions et normalise leur signe à l’admission. Le
+chercheur échantillonne les poses et le patch selon la graine et les
+bornes scellées. Il recalcule les extrémités et les tangentes signées
+depuis les datums, puis propose les deux axes avec une portion d’appui
+plane et des rayons propres à chaque câble.
+
+Le criblage produit `ELIGIBLE`, `NEEDS_NATIVE_CHECK` ou `BLOCKED`. Seules
+la réouverture FreeCAD, la mesure indépendante et la finalisation T0
+ouvrent le classement de campagne. Les mesures de couverture d’un volume
+balayé et les distances par paire sont rapprochées séparément. Le projet
+scelle deux profils de test, chacun avec un appui plan unique. L’admission
+reste `BENCH_TEST_ONLY`, au sein de la construction privée ordinaire.
+[Validation C.4](../VALIDATION_QUALIFICATION.md#cartographe-v3-c4)
 
 #### Transaction privée autorisée V3-A.6 — Implémenté
 
@@ -1439,6 +1460,8 @@ pose. La réception du banc reste conditionnelle et le contrôle de H-01
 rend `FINAL_NO_GO`.
 
 ## Journal de modifications
+
+- **28 novembre 2026** — V3-C.4 remesure les poses XYZ et leurs rotations, les deux câbles, l’appui décalé et la couverture d’un gabarit inerte sur deux bancs.
 
 - **27 novembre 2026** — Clôture V3-INT.3 sur bancs synthétiques Windows amd64 après rejeu des frontières et contrats sur le merge de revue (§2.6).
 - **27 novembre 2026** — V3-INT.3 réunit les interfaces C.3 et A.6 avec séparation vérifiée des portées et rejeu des protections (§2.6).
