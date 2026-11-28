@@ -21,7 +21,7 @@ from test_v3_a6_transactions import A6Fixture, SigningFixtures
 
 
 FAULTS = {"outside-corridor": "L4_SPATIAL_CONTRACT", "blocked-tool": "L4_SERVICE",
-          "false-bearing-face": "L4_SUPPORT_ANCHOR"}
+          "false-bearing-face": "L4_SUPPORT_ANCHOR", "battery-sweep-shrunk": "L4_SERVICE"}
 
 
 def build(args, case, profile, plan, expected=None):
@@ -127,6 +127,9 @@ def inject(args):
             pose = app.Placement(assembly.world(name))
             pose.Base += app.Vector(0, 0, -1)
             assembly.set_world(name, pose.toMatrix())
+        elif args.inject == "battery-sweep-shrunk":
+            gauge = doc.getObject("BatteryExtractionGauge")
+            gauge.Length = gauge.Length.Value - 2
         else:
             action = job["actions"][1]
             params = action["parameters"]
@@ -168,6 +171,18 @@ def detect(args, area, candidate, job, fault):
     if fault == "outside-corridor":
         measured = next(row for row in check["details"] if row["id"] == job["actions"][1]["occurrence"])
         require(measured["details"]["outside_corridor_mm"] > 0, "Axe natif hors corridor non mesuré")
+    if fault == "battery-sweep-shrunk":
+        cross = case / "coverage-independent.json"
+        parameters = {"root": cad, "profile": args.profile, "output": cross}
+        a_coverage = freecad_invoke(args, case, "independent", WORKERS / "v3_cross_measure.py", {0}, **parameters)
+        independent = load(cross)
+        name = "ServiceReservations/BatteryExtractionGauge"
+        prior = next(row["sweep_missing_volume_mm3"] for row in check["details"] if row.get("subject") == name)
+        current = independent["service_coverage_missing_mm3"][name]
+        require(independent["pid"] not in {witness["pid"], result["pid"]} and current > 1e-6 and abs(prior-current) <= 1e-6,
+                "Le balayage manquant doit être reproduit par la contre-mesure")
+        return {"status": "PASS", "check": check["id"], "verified": artifact(output), "independent": artifact(cross),
+                "coverage_missing_mm3": current, "invocations": [a, b, a_coverage]}
     return {"status": "PASS", "check": check["id"], "verified": artifact(output), "invocations": [a, b]}
 
 

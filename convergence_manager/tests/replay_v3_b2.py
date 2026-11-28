@@ -308,6 +308,12 @@ class Assessment:
                 self.add(f'service/{pair[0]}/{pair[1]}/clearance', 'INCONCLUSIVE', row, 'Seuil applicable manquant')
             else:
                 self.limit(f'service/{pair[0]}/{pair[1]}/clearance', row['gap_mm'], lower=minimum-self.distance, unit='mm')
+        for rule in self.rules['service']:
+            if not rule.get('required_box_mm') or (rule.get('required_action') and rule['required_action'] not in action_ids):
+                continue
+            name = rule.get('anchor') or rule.get('port') or rule['object']
+            observed_volume = observed.get('service_coverage_missing_mm3', {}).get(name)
+            self.limit(f'service/{name}/coverage', observed_volume, upper=self.volume, unit='mm³')
 
     def supports(self, observed, actions):
         selected = {action['parameters'].get('support', action['occurrence']): action['parameters'] for action in actions
@@ -408,6 +414,12 @@ def compare(first, third, profile):
                                   ('service', checks['L4_SERVICE'], third['service'])]:
         indexed = {pair_id(row['pair']): row for row in later}
         for old in earlier:
+            if domain == 'service' and 'sweep_missing_volume_mm3' in old:
+                name = old['subject']
+                coverage = third.get('service_coverage_missing_mm3', {})
+                difference(f'service/{name}/coverage', old['sweep_missing_volume_mm3'], coverage.get(name),
+                           tolerance['volume_mm3'], 'mm³')
+                continue
             pair = pair_id(old['pair'])
             subject = f'{domain}/{pair[0]}/{pair[1]}'
             if pair not in indexed:

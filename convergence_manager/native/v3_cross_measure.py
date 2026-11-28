@@ -401,7 +401,7 @@ class Observation:
         return record
 
     def service(self, ports):
-        records, volumes = [], []
+        records, volumes, coverage = [], [], {}
         for spec in self.rules["service"]:
             name = spec.get("anchor") or spec.get("port") or spec["object"]
             if "anchor" in spec:
@@ -417,6 +417,11 @@ class Observation:
                 zone = Part.makeCylinder(spec["radius_mm"], spec["stroke_mm"], origin, axis)
             else:
                 zone = self.shape(name)
+            if expected := spec.get("required_box_mm"):
+                require(name not in coverage, f"Balayage de service dupliqué : {name}")
+                remainder = root_box(*expected).cut(zone)
+                require(remainder.isNull() or remainder.isValid(), f"Couverture de service non mesurable : {name}")
+                coverage[name] = remainder.Volume
             if self.spatial_profile:
                 owner = self.rules["ports"][name]["equipment"] if "port" in spec else name
                 owner = self.identities.get(owner, owner)
@@ -430,7 +435,7 @@ class Observation:
                 records.append({"pair": [name, obstacle], "required_action": spec.get("required_action"),
                                 "clearance_mm": spec["clearance_mm"],
                                 **relation(zone, self.shape(obstacle))})
-        return records, volumes
+        return records, volumes, coverage
 
     def external_obstacle(self, spec, require_absent):
         identifier, low, high = obstacle_spec(spec)
@@ -622,10 +627,12 @@ class Observation:
             conductors.update(observed)
         ports = self.ports()
         supports = self.supports()
-        service, volumes = self.service(ports)
+        service, volumes, coverage = self.service(ports)
         classification = {"interference_classification": self.interference_classification(pairs, supports)} if "cross_harness" in self.rules else {}
         if self.spatial_profile:
             classification["service_volumes"] = volumes
+        if coverage:
+            classification["service_coverage_missing_mm3"] = coverage
         if self.contract is not None:
             classification["spatial_support_zone"] = self.support_zone()
         return dict(occurrences=occurrences, parent_matrices=parents, pairs=pairs, contacts=self.contacts(),

@@ -591,6 +591,7 @@ QJsonObject Campaign::runV3(const QDir &root, const QDir &output, const QString 
         require(baseline.value(property) == observed.value(property), QString("Observation L3 divergente : ") + property);
     if (spatial)
         require(baseline.value("service_volumes") == observed.value("service_volumes") &&
+                baseline.value("service_coverage_missing_mm3") == observed.value("service_coverage_missing_mm3") &&
                 baseline.value("interference_classification") == observed.value("interference_classification"),
                 "Volume de service ou contact d'interface L3 divergent");
     add(output.filePath(baselineName));
