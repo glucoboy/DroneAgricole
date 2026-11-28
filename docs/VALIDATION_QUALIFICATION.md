@@ -4,7 +4,7 @@
 |---|---|
 | Référence | `DOC-VAL` |
 | Nature | document vivant transversal |
-| Dernière mise à jour | 27 novembre 2026 |
+| Dernière mise à jour | 28 novembre 2026 |
 | Statut | stratégie active ; qualification du système complet **À valider** |
 | Politique documentaire | [Index documentaire](INDEX.md) |
 
@@ -3298,12 +3298,13 @@ magasin de confiance restent **À valider**.
 Le registre de réception indique zéro lot inspecté, zéro candidat,
 `cartographer_mutation=DENY`, `physical_reception=NOT_RUN` et
 `production_trust_pin=EMPTY`. D.1 dépend des relevés réels et d’une
-autorisation distincte. C.4 et A.7 attendent une décision de planning.
+autorisation distincte. À la clôture d’INT.3, C.4 et A.7 attendaient
+une décision de planning.
 [Périmètre des capacités](verification/v3/int3/capability_matrix.json) ·
 [Registre physique](verification/v3/a6/physical_readiness.json)
 
 <a id="cartographe-v3-a7"></a>
-#### Collecte documentaire V3-A.7 — 27 novembre 2026
+#### Collecte documentaire V3-A.7 — 27–28 novembre 2026
 
 La préparation des relevés UART répond à la priorité de faisabilité
 physique du §14. Le dépôt A.7 rattache les mesures aux originaux
@@ -3312,16 +3313,38 @@ de vérifier séparément les besoins d’appui, les études de service et la
 course sur gabarit inerte. Les seuils et l’identité du lot relèvent de la
 politique A.4 fournie par le responsable matériel.
 
-`cartographe_reception` est **Implémenté**. Il présente les lacunes pour
-`CREATE_SUPPORT(anchor:iso-carrier)` sur P64 et P66. Le critère de
-qualification couvre l’import hors matériel, le refus de soumissions
-incohérentes, le recalcul indépendant des marges et datums, les
-régressions de référence et la conservation des scellés. Le budget est
-borné aux deux porteurs, aux témoins et injections ciblés et à un rejeu
-des suites de référence. Les reçus restent en lecture seule. Le dossier
-physique et la revue habilitée restent **À valider**.
-[Matrice des exigences](verification/v3/a7/evidence_matrix.json) ·
-[Préparation et contrôle](verification/v3/a7/operator_guide.md)
+**V3_A7_RECEPTION_PIPELINE_GO**, **Qualifié** en lecture seule sur
+Windows amd64 UCRT64 avec C++17, Qt 6.11.2 et FreeCAD 1.1.3 pour les
+rejeux concernés. Le budget couvre P64 et P66, les témoins et injections
+ciblés et les régressions de référence sur le commit `e3a7f8581ada`.
+
+| Exigence | Composant et contrôle | Résultat |
+|---|---|---|
+| `UART-ISO-001`, `UART-MOUNT-001`, `UART-ACCESS-001`, `UART-GUIDES-001` | `cartographe_reception` et import A.4 pour `CREATE_SUPPORT(anchor:iso-carrier)` | 27 contrôles par porteur sur deux paquets synthétiques. Le lecteur indépendant recalcule les repères et les marges des deux reçus. [Matrice](verification/v3/a7/evidence_matrix.json) · [Guide opérateur](verification/v3/a7/operator_guide.md) |
+| `UART-TOP-001`, `UART-JBD-001`, `UART-AXIS-001`, `UART-HOST-001` | Témoins hors tension et campagne contradictoire A.7 | 25 refus, dont incohérence de lot ou de chimie, ambiguïté NC, erreur datum–parent, empreinte périmée et demande d’escalade. [Injections](verification/v3/a7/adversarial.json) |
+| `AUTHORIZED_REVIEW`, `PRODUCTION_TRUST` | Suites A.4/A.5/A.6, frontières C.3 ↔ A.6 | 43 cas A.4, 50 cas A.5, deux transactions A.6 de banc, 32 refus et sept défauts A.6. Deux batteries INT.3 de 14 cas. L’analyse du lot réel garde `DENY`. [Régressions](verification/v3/a7/regressions.json) |
+
+CTest passe en L3 5/5, L4 natif 7/7, L5 13/13 dont A.7, et T0
+isolé 2/2 à 30 s. L5 utilise 120 s par défaut avec les plafonds CMake
+conservés. `l5_Campaign` expire à 30 s seul et passe en 51,34 s avec
+ce plafond. `l5_cli` expire au premier passage et passe en 348,52 s
+sur les 360 s prévues. Le rejeu historique donne L1 24/24 et L2 7/7,
+avec 115 entrées et matrices reproduites octet pour octet. Les phases
+C.2 et C.3 finalisent sur les entrées T2 émises après leurs gels. Le
+rejeu C.3 T4 rend `INCONCLUSIVE` avec zéro admission. Les 142 entrées
+protégées, dont 137 XLink, conservent leurs empreintes avant/après et
+le cartographe conserve ses 791 natifs suivis.
+[Régressions et plafonds](verification/v3/a7/regressions.json) ·
+[Intégrité](verification/v3/a7/integrity.json)
+
+**V3_A7_PHYSICAL_EVIDENCE_PENDING**. Zéro lot inspecté, zéro candidat
+cartographe, réception `NOT_RUN`, confiance de production `EMPTY`
+et mutation `DENY`. La [matrice des lacunes](verification/v3/a7/missing_evidence_by_operation.json)
+établit les relevés manquants. Le porteur applicable, les relevés du lot,
+la revue habilitée, le provisionnement de production et la qualification
+de la transaction physique privée avec reprise et ancrage monotone
+externe restent **À valider** pour D.1.
+[Verdict et preuves](verification/v3/a7/acceptance.json)
 
 ### 12.2 Carte avionique CA01 — ébauche schématique, 20 septembre 2026
 
@@ -5391,7 +5414,7 @@ code exécutable ni modèle physique n'est modifié par cette intégration.
 ## 16. Journal de modifications
 
 - **27 novembre 2026** — Clôture `V3_INT3_GO` sur bancs synthétiques Windows amd64, avec rejeux sur le merge de revue et maintien du refus physique. [Résultat](#cartographe-v3-int3-cloture)
-- **27 novembre 2026** — V3-A.7 prépare la réception documentaire UART et les lacunes propres à P64/P66. [Résultat](#cartographe-v3-a7)
+- **28 novembre 2026** — V3-A.7 qualifie la réception documentaire UART sur témoins P64/P66. [Résultat](#cartographe-v3-a7)
 - **27 novembre 2026** — V3-INT.3 vérifie la fusion des voies C.3/A.6, les frontières d’admission et les scellés. [Résultat](#cartographe-v3-int3)
 - **27 novembre 2026** — Revue indépendante V3-INT.3 sur bancs synthétiques, avec deux nouvelles perturbations après gel et contrôle de la jonction d’autorité. [Résultat](#cartographe-v3-int3-revue)
 - **26 novembre 2026** — V3-C.3 qualifie le deuxième gel sur les deux bancs synthétiques après correction du retour tangent. [Résultat](#cartographe-v3-c3)

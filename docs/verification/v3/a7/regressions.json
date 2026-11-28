@@ -1,0 +1,621 @@
+{
+  "schema": "v3.a7.regressions/1",
+  "status": "PASS",
+  "tested_commit": "e3a7f8581ada071134f89670ab25b96cbd5f1c2c",
+  "environment": {
+    "system": "Windows amd64",
+    "toolchain": "MSYS2 UCRT64",
+    "gcc": "16.2.0",
+    "dialect": "C++17 sans extensions",
+    "cmake_ctest": "4.4.2",
+    "ninja": "1.13.2",
+    "qt": "6.11.2",
+    "python": "3.14.7",
+    "openssl": "3.6.4",
+    "freecad": "1.1.3",
+    "occt": "7.8.1",
+    "cables": "0.3.7",
+    "qt_qpa_platform": "offscreen",
+    "physical_trust_pin": "EMPTY"
+  },
+  "binaries": {
+    "A7": {
+      "path": ".runtime/b/l5/cartographe_reception.exe",
+      "bytes": 465355,
+      "sha256": "d77161ffe87a98873baf583d378112301e9be148552c605b0753f4f6e646314e"
+    },
+    "A4": {
+      "path": ".runtime/b/l5/cartographe_material_evidence.exe",
+      "bytes": 374949,
+      "sha256": "ac33761acbed1bc07b85c92c622f5aed881db7cbde4975b5a8206f30ceb3071a"
+    },
+    "L5": {
+      "path": ".runtime/b/l5/convergence_core.exe",
+      "bytes": 2151625,
+      "sha256": "f893f2ec8a01415d25939e5b0dafc3cd4cefcac2ff43ebdf7c67e134ecc36ba5"
+    },
+    "L5_faults": {
+      "path": ".runtime/b/l5-faults/convergence_core.exe",
+      "bytes": 2153080,
+      "sha256": "cb7b9645047b485c6ce3ba0117018bce0c7e72c2d62a4c4241a51d8064f5acb2"
+    },
+    "L5_no_crypto": {
+      "path": ".runtime/b/l5-no-crypto/convergence_core.exe",
+      "bytes": 2149208,
+      "sha256": "db1e3d9bdc10d6b66ea1b6a52cfce39469af02c16ef3f0167994791ee28fea2f"
+    },
+    "L3": {
+      "path": ".runtime/b/l3/architecture_decision_core.exe",
+      "bytes": 1165298,
+      "sha256": "4119ff125bebce4703536b61d2c6a74820567eef93258849e2ef1bbc02bd2f88"
+    },
+    "L4": {
+      "path": ".runtime/b/l4/validation_core.exe",
+      "bytes": 1493427,
+      "sha256": "ae47b097067ac7778055ccd3d4fb32bbe9a7832799f6b032cba1d4189e26cbbe"
+    },
+    "T0": {
+      "path": ".runtime/b/t0/cartographe-evidence.exe",
+      "bytes": 469611,
+      "sha256": "8048d464a6ed71479492d1f0c30ff9530c0d18feedbf332e909ca9550213bce3"
+    }
+  },
+  "ctest": {
+    "l3": {
+      "status": "PASS",
+      "passed": 5,
+      "total": 5,
+      "timeout_argument_s": 30,
+      "effective_test_timeout_s": {
+        "l3_architecture_decision": 120,
+        "l3_v3_problem_spec": 120,
+        "l2_interconnection": 30,
+        "l2_reconcile": 30,
+        "technical_research_engine": 120
+      },
+      "tests": [
+        "l3_architecture_decision",
+        "l3_v3_problem_spec",
+        "l2_interconnection",
+        "l2_reconcile",
+        "technical_research_engine"
+      ],
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "./.runtime/b/l3",
+        "--no-tests=error",
+        "--output-on-failure",
+        "--output-junit",
+        "./.runtime/b/logs/ctest-l3.xml",
+        "-V",
+        "--timeout",
+        "30"
+      ],
+      "proof": {
+        "path": ".runtime/b/logs/ctest-l3.xml",
+        "bytes": 5641,
+        "sha256": "bd09f0403d800d87feb8c9a834151c6539de7f68130f36c81d4c0b3fe5d42741"
+      },
+      "log": {
+        "path": ".runtime/b/logs/ctest-l3.log",
+        "bytes": 24593,
+        "sha256": "596ff26e82c2db7fc477618b6a26daa63fa5607c2bd4a293f177b3778063a231"
+      }
+    },
+    "l4": {
+      "status": "PASS",
+      "passed": 7,
+      "total": 7,
+      "timeout_argument_s": 30,
+      "effective_test_timeout_s": {
+        "l4_mechanical_rules": 30,
+        "v21_xlink_electrical": 30,
+        "v21_xlink_native": 30,
+        "v21_xlink_cli": 180,
+        "l4_contract": 90,
+        "l2_interconnection": 30,
+        "l2_reconcile": 30
+      },
+      "tests": [
+        "l4_mechanical_rules",
+        "v21_xlink_electrical",
+        "v21_xlink_native",
+        "v21_xlink_cli",
+        "l4_contract",
+        "l2_interconnection",
+        "l2_reconcile"
+      ],
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "./.runtime/b/l4",
+        "--no-tests=error",
+        "--output-on-failure",
+        "--output-junit",
+        "./.runtime/b/logs/ctest-l4.xml",
+        "-V",
+        "--timeout",
+        "30"
+      ],
+      "proof": {
+        "path": ".runtime/b/logs/ctest-l4.xml",
+        "bytes": 4888,
+        "sha256": "5753e096fc0a2a89f348db0a1572c4aac29fe1ec8b39f7ae6a78f2c6702514b3"
+      },
+      "log": {
+        "path": ".runtime/b/logs/ctest-l4.log",
+        "bytes": 19083,
+        "sha256": "27770e3e1fd4a1c2759309db52c2413130446dea57f64d6ea7fbb4a9605b6bc9"
+      }
+    },
+    "l5": {
+      "status": "PASS",
+      "passed": 13,
+      "total": 13,
+      "timeout_argument_s": 120,
+      "effective_test_timeout_s": {
+        "l5_v3_a7_reception": 120,
+        "l5_v3_a4_material_evidence": 120,
+        "l5_v3_a5_authority": 120,
+        "l5_Campaign": 120,
+        "l5_Selection": 120,
+        "l5_v3_admission_entry": 90,
+        "l5_v3_admission_policy": 90,
+        "l5_v3_native_mutate": 180,
+        "l5_v3_native_verify": 180,
+        "l5_cli": 360,
+        "v3_graph_contract": 120,
+        "l2_interconnection": 120,
+        "l2_reconcile": 120
+      },
+      "tests": [
+        "l5_v3_a7_reception",
+        "l5_v3_a4_material_evidence",
+        "l5_v3_a5_authority",
+        "l5_Campaign",
+        "l5_Selection",
+        "l5_v3_admission_entry",
+        "l5_v3_admission_policy",
+        "l5_v3_native_mutate",
+        "l5_v3_native_verify",
+        "l5_cli",
+        "v3_graph_contract",
+        "l2_interconnection",
+        "l2_reconcile"
+      ],
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "./.runtime/b/l5",
+        "--no-tests=error",
+        "--output-on-failure",
+        "--output-junit",
+        "./.runtime/b/logs/ctest-l5.xml",
+        "-V",
+        "--timeout",
+        "120"
+      ],
+      "proof": {
+        "path": ".runtime/b/logs/ctest-l5.xml",
+        "bytes": 7569,
+        "sha256": "36810720f37c6acb718726864edb0ea4a27f1838f904f679523b4522365d257c"
+      },
+      "log": {
+        "path": ".runtime/b/logs/ctest-l5.log",
+        "bytes": 25672,
+        "sha256": "112f301887b35c6065c1ca569f32a9b002fb19b2eedd6596dcb80f69cf19ec76"
+      }
+    },
+    "t0": {
+      "status": "PASS",
+      "passed": 2,
+      "total": 2,
+      "timeout_argument_s": 30,
+      "effective_test_timeout_s": {
+        "cartographe_t0_contracts": 30,
+        "cartographe_sitl_t0_contracts": 30
+      },
+      "tests": [
+        "cartographe_t0_contracts",
+        "cartographe_sitl_t0_contracts"
+      ],
+      "argv": [
+        "C:/msys64/ucrt64/bin/ctest.exe",
+        "--test-dir",
+        "./.runtime/b/t0",
+        "--no-tests=error",
+        "--output-on-failure",
+        "--output-junit",
+        "./.runtime/b/logs/ctest-t0.xml",
+        "-V",
+        "--timeout",
+        "30",
+        "-R",
+        "^cartographe_(sitl_)?t0_contracts$"
+      ],
+      "proof": {
+        "path": ".runtime/b/logs/ctest-t0.xml",
+        "bytes": 768,
+        "sha256": "60461f4dc2e1a7a3935fe21bf8281a74230a6cc6d593fe18a20179b70351fdb2"
+      },
+      "log": {
+        "path": ".runtime/b/logs/ctest-t0.log",
+        "bytes": 1559,
+        "sha256": "fe68fd218606812c7be17cf289f8a3fcf1deed4bdef01534d05626ca512c9652"
+      }
+    }
+  },
+  "historical_sealed": {
+    "status": "PASS",
+    "L1": "24/24",
+    "L2": "7/7",
+    "identical_entries": 115,
+    "matrices": {
+      "reconcile": {
+        "sha256": "8c48c1e353acbebc322b868d4e31b0ea29d7bc53d0e74ec72d613ec8e0c05ec6",
+        "bytes": 165443
+      },
+      "inspect-cartographe": {
+        "sha256": "6410957eb3ae74605b3e256d591a7c37e2d33dda8aa3d57f90e928a3a12fc66d",
+        "bytes": 273701
+      }
+    },
+    "proof": {
+      "path": ".runtime/r/sealed-replays.json",
+      "bytes": 10024,
+      "sha256": "9dc5aeda1cea251bc0630285755b236a5b3cfb8b2398caa02957a8d269e3b6fd"
+    }
+  },
+  "historical_admission_and_frontiers": {
+    "A4": {
+      "status": "PASS",
+      "passed": 43,
+      "total": 43,
+      "proof": {
+        "path": ".runtime/r/a4-adversarial.json",
+        "bytes": 6416,
+        "sha256": "28f242a05f19071b83cc002bac8ed0b729ed5810d74a95ce3e24d7ab58e8d820"
+      }
+    },
+    "A5": {
+      "status": "PASS",
+      "passed": 50,
+      "total": 50,
+      "proof": {
+        "path": ".runtime/r/a5-adversarial.json",
+        "bytes": 58845,
+        "sha256": "82879dfacc419c2fd0a6c6de177dfd60c10d472cd85182afcfb68f42a9d18162"
+      },
+      "without_openSSL": {
+        "path": ".runtime/r/a5-no-crypto.json",
+        "bytes": 3177,
+        "sha256": "296c1ce7009afd6481ce4de494a8ea852e47116628355648257da48bbf61e2a9"
+      }
+    },
+    "A6_positive": {
+      "status": "PASS",
+      "passed": 2,
+      "total": 2,
+      "proof": {
+        "path": ".runtime/a7-a6-p/test_only_transactions.json",
+        "bytes": 853,
+        "sha256": "09fc88401a8c138e312263b1a757404b63e6c06036cd0ba8a83496681601137b"
+      },
+      "native_validation": {
+        "path": ".runtime/a7-a6-p/native_validation.json",
+        "bytes": 2118,
+        "sha256": "3852eb9288cc28bd9a3dae01d078ac606bc1c33e5b178620b02ea8df702100ac"
+      }
+    },
+    "A6_refusals": {
+      "status": "PASS",
+      "passed": 32,
+      "total": 32,
+      "proof": {
+        "path": ".runtime/a7-a6-a-r/adversarial.json",
+        "bytes": 7509,
+        "sha256": "aceb1ef1fbb34a49083907f743ad857d4aa3c0a1ae970690b5b96d3213370032"
+      }
+    },
+    "A6_faults": {
+      "status": "PASS",
+      "passed": 7,
+      "total": 7,
+      "proof": {
+        "path": ".runtime/a7-a6-f/fault_injection.json",
+        "bytes": 1544,
+        "sha256": "94f981f62faca0fe9bd70909943112547b76ad0a1386ef0be16050031fc55023"
+      }
+    },
+    "INT3_published": {
+      "status": "PASS",
+      "passed": 14,
+      "total": 14,
+      "proof": {
+        "path": ".runtime/a7-bd1/boundaries.json",
+        "bytes": 9322,
+        "sha256": "c4ef359a8475d3945fc948edd969dab6bc30eef8848160dc2498950d5fac6106"
+      }
+    },
+    "INT3_independent": {
+      "status": "PASS",
+      "passed": 14,
+      "total": 14,
+      "proof": {
+        "path": ".runtime/a7-bd2-r/report.json",
+        "bytes": 43723,
+        "sha256": "662664579c1b11aaee8535a32c25414c6c9df6d418d1efcd970450ddd96bc437"
+      }
+    }
+  },
+  "C2": {
+    "T1": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 3,
+      "proof": {
+        "path": ".runtime/r/c2/t1/summary.json",
+        "bytes": 5635,
+        "sha256": "eec5904223e5e85275aa05a48b6a2927123b7ee7200fb88a180b32be7715713e"
+      }
+    },
+    "T2": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 3,
+      "proof": {
+        "path": ".runtime/r/c2/t2/summary.json",
+        "bytes": 5768,
+        "sha256": "1b0378a5be0ac78f1ca7643ce81f6af40572dea0aaf2b20b32e8a47b86f3d13c"
+      },
+      "post_freeze_input": {
+        "path": ".runtime/a7-eval-c2/perturbation.json",
+        "bytes": 593,
+        "sha256": "56b3620d45ff7d1cd477843d4c6548563028d183608d688996553229b7ccb4fe"
+      },
+      "evaluated_separately": true
+    },
+    "T3": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 79,
+      "native_attempts": 7,
+      "qualified_candidates": 2,
+      "proof": {
+        "path": ".runtime/r/c2/t3/summary.json",
+        "bytes": 5641,
+        "sha256": "6f5b1bacfac514be153ba5aecf63bf5857ba2d3e35a41904290ac6d6e65b7ab1"
+      }
+    },
+    "additional_proofs": [
+      {
+        "path": ".runtime/r/c2-review/independent_review.json",
+        "bytes": 499,
+        "sha256": "68b33a9e9db427069f81fc7246d3243b97ce8b883623e9c282be97a0f4a8b63a"
+      },
+      {
+        "path": ".runtime/r/logs/c2-boundaries.command.json",
+        "bytes": 1050,
+        "sha256": "df50e8a485252e27874162e5f736772ab7a3eb788c8f4503a2c3c0624fced3f8"
+      },
+      {
+        "path": ".runtime/r/logs/c2-native-faults.command.json",
+        "bytes": 863,
+        "sha256": "e47935bcb0b1481f3dd292b2d9be469f171bbb840de82baf44a8a3111a212053"
+      },
+      {
+        "path": ".runtime/r/logs/integration-boundaries.command.json",
+        "bytes": 740,
+        "sha256": "858a6946cc76bd9cc406c4726b53460e425211b36dba2a404fb593a030f924ea"
+      }
+    ]
+  },
+  "C3": {
+    "T1": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 64,
+      "native_attempts": 12,
+      "qualified_candidates": 12,
+      "proof": {
+        "path": ".runtime/a7-c3/t1/summary.json",
+        "bytes": 6410,
+        "sha256": "4a3fac6d45cd4fd78fcfd5c0ff1ccff66a582373516a65eb55866ed08cc02ced"
+      }
+    },
+    "T2": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 64,
+      "native_attempts": 12,
+      "qualified_candidates": 12,
+      "proof": {
+        "path": ".runtime/a7-c3/t2/summary.json",
+        "bytes": 33420,
+        "sha256": "41a2464a2459a92243c904e3c425edbad095df8b8f24f4656ab2056323eea4a8"
+      },
+      "post_freeze_input": {
+        "path": ".runtime/a7-eval-c3/measurement/perturbation.json",
+        "bytes": 661,
+        "sha256": "273b29701fcc8634223f67480407b6c474b58d6154e6824ce6922df3c50735e2"
+      },
+      "evaluated_separately": true,
+      "independent_readback": {
+        "path": ".runtime/a7-eval-c3/measurement/evaluator-receipt.json",
+        "bytes": 3614,
+        "sha256": "fd517deb78ffb77910d6b9db9a0f1b5a8efc10167c7c48d7e169b747b8d74435"
+      },
+      "intersection_before_mm3": {
+        "cordon": 1.451519999999996,
+        "cordon-b": 0.0
+      },
+      "adapted_harnesses": [
+        "cordon"
+      ],
+      "intersection_after_mm3": {
+        "cordon": 0.0,
+        "cordon-b": 0.0
+      }
+    },
+    "T3": {
+      "status": "PASS",
+      "verdict": "V3_C_PASS",
+      "reason": "RANKED_FEASIBLE_CANDIDATES",
+      "proposals": 64,
+      "native_attempts": 12,
+      "qualified_candidates": 9,
+      "proof": {
+        "path": ".runtime/a7-c3/t3/summary.json",
+        "bytes": 6493,
+        "sha256": "dd9a64e579a37a6ef01e6ff4f9a91e5727bbc5bd3fb1d244db49567404bd540c"
+      }
+    },
+    "T4": {
+      "status": "PASS",
+      "verdict": "V3_C_CONDITIONAL",
+      "reason": "INCONCLUSIVE",
+      "proposals": 0,
+      "native_attempts": 0,
+      "qualified_candidates": 0,
+      "proof": {
+        "path": ".runtime/a7-c3/t4/summary.json",
+        "bytes": 1527,
+        "sha256": "afd490544d8f6ee6d9825a5f66249ca3305554475d3f27de26762d216838be4e"
+      }
+    }
+  },
+  "reproduction": {
+    "recipes": [
+      "convergence_manager/tests/test_v3_a7_reception.py",
+      "docs/verification/v3/int3/REPORT.md",
+      "docs/verification/v3/int3/integration/recipes/guards.ps1",
+      "docs/verification/v3/int3/independent/REPORT.md"
+    ],
+    "workspace": "Checkout du SHA testé, sorties privées .runtime, nom court de worktree.",
+    "link_fault_retries": "A.6 et frontière indépendante rejoués en dossiers neufs avec droit NTFS local pour créer les témoins.",
+    "clean_checkout_retries": "Les tentatives T1 avant commit ont été refusées. Le rejeu exécute le SHA source propre.",
+    "initial_L5_timeout": {
+      "status": "FAIL",
+      "test_l5_Campaign_s": 30,
+      "test_l5_cli_s": 360,
+      "parallel_native_campaigns": true,
+      "log": {
+        "path": ".runtime/b/logs/ctest-l5-first-attempt.log",
+        "bytes": 24888,
+        "sha256": "b1e9ecc49a92da0cba8f8c9839964b7a72779ffac9964f8b3211bf69c7099e21"
+      },
+      "junit": {
+        "path": ".runtime/b/logs/ctest-l5-first-attempt.xml",
+        "bytes": 7304,
+        "sha256": "bf6b5ce48119a0ceac516261bccafe7e37f2fced4d4810fda5b4048b73723f50"
+      }
+    },
+    "isolated_L5_Campaign_30s": {
+      "path": ".runtime/b/logs/ctest-l5-campaign-30.command.json",
+      "bytes": 603,
+      "sha256": "bba07aeba5e28f0a6fe9709a060c18a43c8d6a4a2f6c5bcca066c84fbfdfd7e2"
+    },
+    "saved_commands": [
+      {
+        "path": ".runtime/b/logs/build-l3.command.json",
+        "bytes": 377,
+        "sha256": "ce5ac71520bde6d0f2befe6997a6372781686466eaf5e4282f6ffa4821d52f35"
+      },
+      {
+        "path": ".runtime/b/logs/build-l4.command.json",
+        "bytes": 377,
+        "sha256": "54dcfb9ab4048c947a4ca6534d2d83ccdca6ec89e6a89bec37495b7523d9f505"
+      },
+      {
+        "path": ".runtime/b/logs/build-l5-faults.command.json",
+        "bytes": 426,
+        "sha256": "141a9c32d4ae2ed6e0ec53537a69596eda812fe3c7b8acfabd632c5f93ac7c39"
+      },
+      {
+        "path": ".runtime/b/logs/build-l5-no-crypto.command.json",
+        "bytes": 429,
+        "sha256": "8ba253f9ae4dbfd0f9ae7991eb8f22aa5507d4c0c3b80997ad623ab2e8a33f23"
+      },
+      {
+        "path": ".runtime/b/logs/build-l5.command.json",
+        "bytes": 377,
+        "sha256": "f7faff4a1f71857f2fb1595b576aeeae498fa339ead6988cd00b0089a62ab6e7"
+      },
+      {
+        "path": ".runtime/b/logs/build-t0.command.json",
+        "bytes": 377,
+        "sha256": "976797617cb1ae72bc3682b01686120b3996c583225e77649c299b52ae397042"
+      },
+      {
+        "path": ".runtime/b/logs/configure-l3.command.json",
+        "bytes": 840,
+        "sha256": "114cb1850faf1cdff386ecee064696b116654e8934276d4b1007ba96101366f0"
+      },
+      {
+        "path": ".runtime/b/logs/configure-l4.command.json",
+        "bytes": 829,
+        "sha256": "f35110c8a6b51fc5bd628b23057c1f42f20b946221320f1714e306ecc8f41d9a"
+      },
+      {
+        "path": ".runtime/b/logs/configure-l5-faults.command.json",
+        "bytes": 1599,
+        "sha256": "b84c6455b2253d9a18096229dd5312ef368376e3434a1d2991c82db3fead19e6"
+      },
+      {
+        "path": ".runtime/b/logs/configure-l5-no-crypto.command.json",
+        "bytes": 1617,
+        "sha256": "c23689a52d25344275a56b9c4c9eb91e1e522647302bf8de2c0bd8a25b80dbf3"
+      },
+      {
+        "path": ".runtime/b/logs/configure-l5.command.json",
+        "bytes": 1593,
+        "sha256": "03045920b3d5c201a49654040fb7568bfaebd855565a265964c7f9ce3ca91c59"
+      },
+      {
+        "path": ".runtime/b/logs/configure-t0.command.json",
+        "bytes": 822,
+        "sha256": "21a09c8cdbd2abd660f82bee2240d14e0538f0dfa9ac4e7a4d5d7c1d72468fe4"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-l3.command.json",
+        "bytes": 558,
+        "sha256": "abcafa97a23dc3520ed7d27ef5ce5dd970346095d2f1ae95f819d125f2aafff7"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-l4.command.json",
+        "bytes": 558,
+        "sha256": "028ce85a597d4f145c6c91260dbf2d3dc79d99d9c2761db376011dd0e014c972"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-l5-campaign-30.command.json",
+        "bytes": 603,
+        "sha256": "bba07aeba5e28f0a6fe9709a060c18a43c8d6a4a2f6c5bcca066c84fbfdfd7e2"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-l5-first-attempt.command.json",
+        "bytes": 558,
+        "sha256": "e92cc77e8b3cf4400c0a1d3683eee47af8f4349da9acab4e834160a9d3ac290e"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-l5.command.json",
+        "bytes": 559,
+        "sha256": "c41a94b828c3b9b3a54e3ef9c8c145bc48f6687ac0f37ac513b99fbaabdb8548"
+      },
+      {
+        "path": ".runtime/b/logs/ctest-t0.command.json",
+        "bytes": 612,
+        "sha256": "ecc1ccc506db631a024ab6bb126df7ba1c8d8825c31dab88b5fb4e79108faf19"
+      }
+    ]
+  }
+}
