@@ -1,0 +1,94 @@
+{
+  "schema": "v3.sim1.negative_tests/1",
+  "status": "PASS",
+  "tested_commit": "c3f35a77f0741f8933ed616d7968d060f5781847",
+  "cases": {
+    "historical_cad_manifest": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale CAD manifest",
+      "status": "REFUSED"
+    },
+    "changed_manifest": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale CAD manifest",
+      "status": "REFUSED"
+    },
+    "changed_dependency": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale dependency fixture.fcstd",
+      "status": "REFUSED"
+    },
+    "changed_body_mesh": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale body mesh",
+      "status": "REFUSED"
+    },
+    "changed_rotor_mesh": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale rotor mesh",
+      "status": "REFUSED"
+    },
+    "stale_collisions": {
+      "ctest": "cartographe_model_reject_stale_inputs",
+      "observed_reason": "stale collisions",
+      "status": "REFUSED"
+    },
+    "existing_destination": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "Le dossier existe",
+      "status": "REFUSED"
+    },
+    "noncanonical_destination": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "NON_CANONICAL_PATH",
+      "status": "REFUSED"
+    },
+    "source_overlap": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "OUTPUT_OVERLAPS_SOURCE",
+      "status": "REFUSED"
+    },
+    "junction_destination": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "NON_CANONICAL_PATH",
+      "status": "REFUSED"
+    },
+    "hardlinked_dependency": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "NON_CANONICAL_PATH",
+      "status": "REFUSED"
+    },
+    "source_change_before_final_publication": {
+      "ctest": "cartographe_model_reject_snapshot_publication",
+      "observed_reason": "STALE_SOURCE_DURING_EXPORT",
+      "status": "REFUSED"
+    },
+    "unknown_mass_coherent_fixture": {
+      "ctest": "cartographe_model_reject_unknown_mass",
+      "observed_reason": "physical mode unavailable: mass/CG/inertias",
+      "status": "REFUSED"
+    },
+    "unknown_mass_coherent_native_snapshot": {
+      "ctest": "cartographe_model_generation_native",
+      "observed_reason": "physical mode unavailable: mass/CG/inertias",
+      "status": "REFUSED"
+    }
+  },
+  "junit": [
+    {
+      "path": ".runtime/sim1/nonsnapshot-final.xml",
+      "sha256": "44eff7dc3f19623729598965a1590ae12fe276f3f1fcfc9dfeec7866cb589b5a",
+      "bytes": 3993
+    },
+    {
+      "path": ".runtime/sim1/publication-final.xml",
+      "sha256": "e1eee1488712c83e34a635a25db68c34d5cd9ceee15c7ee842bdd43f398910af",
+      "bytes": 639
+    }
+  ],
+  "preliminary_publication_test": {
+    "status": "FAIL",
+    "cause": "Création de jonction NTFS refusée par le bac à sable. Rejeu avec le droit nécessaire."
+  },
+  "historical_source_modified": false
+}

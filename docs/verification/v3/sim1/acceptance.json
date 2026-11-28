@@ -1,0 +1,63 @@
+{
+  "schema": "v3.sim1.acceptance/1",
+  "base_commit": "9cfce8d39ca404054e27190cf1c0b1319e08d90a",
+  "tested_commit": "c3f35a77f0741f8933ed616d7968d060f5781847",
+  "proof_commit": null,
+  "proof_commit_resolution": "git log -1 --format=%H -- docs/verification/v3/sim1/acceptance.json",
+  "verdict": "V3_SIM1_CAD_GAZEBO_GO",
+  "scope": "Génération SDF et airframe synthétiques hors ligne sur copie privée, Windows amd64.",
+  "checks": {
+    "diagnostic": "PASS",
+    "native_saved_brep_export": "PASS",
+    "private_publication": "PASS",
+    "sdf_airframe_offline_verification": "PASS",
+    "historical_stale_guard": "PASS",
+    "unknown_mass_guard": "PASS",
+    "negative_cases": "PASS",
+    "protected_references": "PASS",
+    "regressions": "PASS"
+  },
+  "gazebo_loaded": "NOT_RUN",
+  "px4_sitl": "NOT_RUN",
+  "physical_fidelity": "NOT_VALIDATED",
+  "cartographer_mutation": "DENY",
+  "physical_reception": "NOT_RUN",
+  "limitations": [
+    "Prévisualisation uniquement. Les propriétés complètes du cartographe sont inconnues.",
+    "Les originaux fabricant scellés et les STL restent hors Git.",
+    "Les horodatages et l'encodage des manifestes rendent les SHA des sorties propres à leur exécution.",
+    "Le chargement Gazebo, les commandes PX4, le vol et la cible arm64 ne sont pas exécutés."
+  ],
+  "evidence": [
+    {
+      "path": "diagnostic.json",
+      "sha256": "b57f46245e1bb363279ee76bade707d578868c270cd68bc1ae6e0a7c26e1a328",
+      "bytes": 94415
+    },
+    {
+      "path": "snapshot_manifest.json",
+      "sha256": "ddca87178d79ca8eefafc6aa61719b68e82ae6027ede4b2f47966a6d7dbb5463",
+      "bytes": 24912
+    },
+    {
+      "path": "rebuild_receipt.json",
+      "sha256": "be5275ffd9ac190e468602d2045f415bf5fc369a8d0191c73cc2e0e100bfff35",
+      "bytes": 9500
+    },
+    {
+      "path": "negative_tests.json",
+      "sha256": "c3f1c3459edb85611aef6ec57925fe529e72cf2b110f3bac3df157452adec11b",
+      "bytes": 3173
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "410f8f3f75c5c077c4f0b907750f55408beebed1b5975b56feb5aa1600e915ef",
+      "bytes": 18452
+    },
+    {
+      "path": "reference_integrity.json",
+      "sha256": "abfa6648a22a1bbc6538887a95c6cbb7d845e59cf0b310696c6555e153f406cd",
+      "bytes": 20939
+    }
+  ]
+}
